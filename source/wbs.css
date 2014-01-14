@@ -1,0 +1,18 @@
+/*span.username.txt-mute {
+	color:#CCC;
+	font-weight:bold;
+	font-size:16px;
+}
+
+span.username span.at {
+	display: none;
+}
+
+div.nbfc b.fullname {
+	display: none;
+}*/
+
+.btd-circle-avatars img.tweet-avatar {
+	-webkit-border-radius:50%;
+	border-radius:50%;
+}
