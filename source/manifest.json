@@ -12,5 +12,7 @@
 	"icons": { "16": "icon16.png",
 	           "48": "icon48.png",
 	          "128": "icon128.png" },
-	"permissions": ["<all_urls>"]
+	"permissions": ["<all_urls>", "storage"],
+	"options_page": "fancy-settings/source/index.html",
+	"background" : { "page": "background.html" }
 }
