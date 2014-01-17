@@ -16,3 +16,8 @@ div.nbfc b.fullname {
 	-webkit-border-radius:50%;
 	border-radius:50%;
 }
+
+/* Hiding droplr previews because of Twitter Cards */
+.tweet-detail .btd-preview.droplr {
+	display: none;
+}
