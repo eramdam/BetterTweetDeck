@@ -1,6 +1,6 @@
 // SAMPLE
 this.manifest = {
-    "name": "My Extension",
+    "name": "BetterTweetDeck",
     "icon": "icon.png",
     "settings": [
         {
