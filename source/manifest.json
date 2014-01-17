@@ -1,6 +1,6 @@
 {
 	"name": "Better TweetDeck",
-	"version": "0.0.4",
+	"version": "0.0.4.2",
 	"manifest_version": 2,
 	"description": "Improves the experience on web version of TweetDeck",
 	"content_scripts": [{
