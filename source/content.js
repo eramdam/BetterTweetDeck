@@ -6,7 +6,7 @@
 	function setAllTheSettings(response) {
 		options = response;
 		document.body.addEventListener("DOMNodeInserted", eventDispatcher);
-		if(options.circled_avatars == true) {
+		if(options.circled_avatars == "true") {
 			document.body.classList.add("btd-circle-avatars");
 		}
 	}
@@ -20,7 +20,10 @@
 				timeIsNotRelative(event.target.querySelector("time > *"), options.timestamp);
 
 			nameDisplay(event.target.querySelectorAll("a[rel='user']"), options.name_display);
-			if(options.url_redirection == true) useFullUrl(event.target);
+			if(options.url_redirection == "true"){
+				useFullUrl(event.target);
+			}
+			
 		}
 	}
 
