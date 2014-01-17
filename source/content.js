@@ -47,6 +47,8 @@
 
 			if(thumbnailUrl.indexOf("http://imgur.com") != -1) {
 				thumbnailUrl.replace("http://imgur.com","https://i.imgur.com");
+			} else {
+				thumbnailUrl.replace("http","https");
 			}
 		} else if(provider == "droplr") {
 			if(thumbSize == "small") {
@@ -62,7 +64,7 @@
 		previewLink.style.backgroundImage = "url("+thumbnailUrl+")";
 		previewDivChild.appendChild(previewLink);
 		previewDiv.appendChild(previewDivChild);
-		pElement = event.target.querySelector("p.js-tweet-text");
+		pElement = element.parentNode.parentNode.querySelector("p.js-tweet-text");
 		if(pElement.nextElementSibling) {
 			pElement.parentNode.insertBefore(previewDiv, pElement.nextElementSibling);
 		}
@@ -83,12 +85,14 @@
 			if(options.url_redirection == "true"){
 				useFullUrl(event.target);
 			}
-
 			if(options.img_preview != "false"){
-				if(event.target.querySelector("a:first-of-type[data-full-url*='imgur.com']")){
-					createPreviewDiv(event.target.querySelector("a:first-of-type[data-full-url*='imgur.com']"),"imgur");
-				} else if(event.target.querySelector("a:first-of-type[data-full-url*='http://d.pr']")) {
-					createPreviewDiv(event.target.querySelector("a:first-of-type[data-full-url*='http://d.pr/i']"),"droplr");
+				links = event.target.querySelectorAll("p > a[data-full-url]");
+				if(links.length > 0) {
+					if(links[0].getAttribute("data-full-url").indexOf("imgur.com") != -1){
+						createPreviewDiv(links[0],"imgur");
+					} else if(links[0].getAttribute("data-full-url").indexOf("d.pr") != -1) {
+						createPreviewDiv(links[0],"droplr")
+					}
 				}
 			}
 		}
