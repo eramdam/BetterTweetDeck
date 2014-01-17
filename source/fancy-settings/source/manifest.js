@@ -86,6 +86,33 @@ this.manifest = {
                     }
                 ],
             },
+        },
+        {
+            "tab": "General",
+            "group": "Behaviour",
+            "name": "img_preview",
+            "type": "popupButton",
+            "label": "Display non-Twitter preview images (Imgur only at the moment):",
+            "options": {
+                "values": [
+                    {
+                        "value": false,
+                        "text": "No"
+                    },
+                    {
+                        "value": "small",
+                        "text": "Small"
+                    },
+                    {
+                        "value": "medium",
+                        "text": "Medium"
+                    },
+                    {
+                        "value": "large",
+                        "text": "Large"
+                    }
+                ],
+            },
         }
     ]
 };
