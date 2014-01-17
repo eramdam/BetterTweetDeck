@@ -12,14 +12,17 @@
 	}
 
 	function eventDispatcher() {
-		if(event.relatedNode.className.indexOf("txt-mute") != -1) {
-			if(options.timestamp != "relative")
-				timeIsNotRelative(event.relatedNode, options.timestamp);
-		}else if(event.target.className.indexOf("stream-item") != -1) {
-			if(options.timestamp != "relative") 
-				timeIsNotRelative(event.target.querySelector("time > *"), options.timestamp);
+		if(event.relatedNode.className.indexOf("txt-mute") != -1 && options.timestamp != "relative") {
+			timeIsNotRelative(event.relatedNode, options.timestamp);
+		} else if(event.target.className && event.target.className.indexOf("stream-item") != -1) {
+			if(options.timestamp != "relative") {
+				if(event.target.querySelector("time")){
+					timeIsNotRelative(event.target.querySelector("time > *"), options.timestamp);
+				}
+			}
 
-			nameDisplay(event.target.querySelectorAll("a[rel='user']"), options.name_display);
+			nameDisplay(event.target.querySelectorAll("a[rel='user']:not(.item-img)"), options.name_display);
+			
 			if(options.url_redirection == "true"){
 				useFullUrl(event.target);
 			}
