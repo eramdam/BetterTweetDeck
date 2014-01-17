@@ -11,6 +11,63 @@
 		}
 	}
 
+	function createPreviewDiv(element, provider) {
+		linkURL = element.getAttribute("data-full-url");
+		thumbSize = options.img_preview;
+
+		// Creating the elements
+		previewDiv = document.createElement("div");
+		previewDiv.className = "js-media media-preview position-rel btd-preview "+provider;
+		previewDivChild = document.createElement("div");
+		previewDivChild.className = "js-media-preview-container position-rel margin-vm";
+		previewLink = document.createElement("a");
+		previewLink.className = "js-media-image-link block med-link media-item media-size-"+thumbSize+"";
+		previewLink.setAttribute("rel","url");
+		previewLink.href = linkURL;
+		previewLink.setAttribute("target","_blank");
+
+		if(provider == "imgur") {
+			// Imgur supported extensions (from http://imgur.com/faq#types)
+			extensions = ["jpg","jpeg","gif","png","apng"];
+
+			if(thumbSize == "small") suffix = "t";
+			if(thumbSize == "medium") suffix = "m";
+			if(thumbSize == "large") suffix = "l";
+
+			var regex = new RegExp(extensions.join('|'));
+			var thumbnailUrl;
+
+			if (regex.test(previewLink.href)) {
+				for (var i = extensions.length - 1; i >= 0; i--) {
+					thumbnailUrl = linkURL.replace("."+extensions[i],suffix+".jpg");
+				};
+			} else {
+				thumbnailUrl = linkURL+suffix+".jpg";
+			}
+
+			if(thumbnailUrl.indexOf("http://imgur.com") != -1) {
+				thumbnailUrl.replace("http://imgur.com","https://i.imgur.com");
+			}
+		} else if(provider == "droplr") {
+			if(thumbSize == "small") {
+				suffix = thumbSize;
+			} else {
+				suffix = "medium";
+			}
+
+			thumbnailUrl = linkURL.replace(/\/$/,"");
+			thumbnailUrl = thumbnailUrl+"/"+suffix;
+		}
+
+		previewLink.style.backgroundImage = "url("+thumbnailUrl+")";
+		previewDivChild.appendChild(previewLink);
+		previewDiv.appendChild(previewDivChild);
+		pElement = event.target.querySelector("p.js-tweet-text");
+		if(pElement.nextElementSibling) {
+			pElement.parentNode.insertBefore(previewDiv, pElement.nextElementSibling);
+		}
+	}
+
 	function eventDispatcher() {
 		if(event.relatedNode.className.indexOf("txt-mute") != -1 && options.timestamp != "relative") {
 			timeIsNotRelative(event.relatedNode, options.timestamp);
@@ -28,51 +85,10 @@
 			}
 
 			if(options.img_preview != "false"){
-				if(event.target.querySelector("a[data-full-url*='imgur.com']:first-child")) {
-					imgurLink = event.target.querySelector("a[data-full-url*='imgur.com']:first-child");
-					imgurLinkURL = imgurLink.getAttribute("data-full-url");
-
-					// Imgur supported extensions (from http://imgur.com/faq#types)
-					extensions = ["jpg","jpeg","gif","png","apng"];
-					if(new RegExp("."+extensions.join("|")).test(imgurLinkURL) ){
-						thumbSize = options.img_preview;
-						if(thumbSize == "small") suffix = "t";
-						if(thumbSize == "medium") suffix = "m";
-						if(thumbSize == "large") suffix = "l";
-
-						// Create the HTML elements for to replicate an image preview
-						previewDiv = document.createElement("div");
-						previewDiv.className = "js-media media-preview  position-rel";
-						previewDivChild = document.createElement("div");
-						previewDivChild.className = "js-media-preview-container position-rel margin-vm";
-						previewLink = document.createElement("a");
-						previewLink.className = "js-media-image-link block med-link media-item media-size-"+thumbSize+"";
-						previewLink.setAttribute("rel","url");
-						previewLink.href = imgurLink.getAttribute("data-full-url");
-						previewLink.setAttribute("target","_blank");
-
-						var regex = new RegExp(extensions.join('|'));
-
-						if (regex.test(previewLink.href)) {
-							for (var i = extensions.length - 1; i >= 0; i--) {
-								thumbnailUrl = previewLink.href.replace("."+extensions[i],suffix+".jpg");
-							};
-						}
-
-						if(thumbnailUrl.indexOf("http://imgur.com") != -1) {
-							thumbnailUrl.replace("http://imgur.com","http://i.imgur.com");
-						}
-
-						console.log(thumbnailUrl);
-
-						previewLink.style.backgroundImage = "url("+thumbnailUrl+")";
-						previewDivChild.appendChild(previewLink);
-						previewDiv.appendChild(previewDivChild);
-						pElement = event.target.querySelector("p.js-tweet-text");
-						if(pElement.nextElementSibling) {
-							pElement.parentNode.insertBefore(previewDiv, pElement.nextElementSibling);
-						}
-					}
+				if(event.target.querySelector("a:first-of-type[data-full-url*='imgur.com']")){
+					createPreviewDiv(event.target.querySelector("a:first-of-type[data-full-url*='imgur.com']"),"imgur");
+				} else if(event.target.querySelector("a:first-of-type[data-full-url*='http://d.pr']")) {
+					createPreviewDiv(event.target.querySelector("a:first-of-type[data-full-url*='http://d.pr/i']"),"droplr");
 				}
 			}
 		}
