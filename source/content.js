@@ -46,9 +46,13 @@
 			}
 
 			if(thumbnailUrl.indexOf("http://imgur.com") != -1) {
-				thumbnailUrl.replace("http://imgur.com","https://i.imgur.com");
+				thumbnailUrl = thumbnailUrl.replace("http://imgur.com","https://i.imgur.com");
 			} else {
-				thumbnailUrl.replace("http","https");
+				thumbnailUrl = thumbnailUrl.replace("http","https");
+			}
+
+			if(thumbnailUrl.indexOf("gallery") != -1) {
+				thumbnailUrl = thumbnailUrl.replace("/gallery","");
 			}
 		} else if(provider == "droplr") {
 			if(thumbSize == "small") {
