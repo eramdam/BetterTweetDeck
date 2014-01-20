@@ -6,7 +6,7 @@ Adds some nice options on TweetDeck to provide a better experience on the webapp
 Features
 ===============
 
-As 0.0.5
+As 0.0.6
 
 + Thumbnails for Imgur and Droplr images links
 + Allow to change the time formatting (Relative or Absolute)
