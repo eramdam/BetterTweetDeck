@@ -70,6 +70,63 @@ this.manifest = {
         },
         {
             "tab": "General",
+            "group": "Appearance",
+            "name": "fading_pictures",
+            "type": "popupButton",
+            "label": "Fading profile pictures when not hovered (less distraction) :",
+            "options": {
+                "values": [
+                    {
+                        "value": false,
+                        "text": "No"
+                    },
+                    {
+                        "value": true,
+                        "text": "Yes"
+                    }
+                ],
+            },
+        },
+        {
+            "tab": "General",
+            "group": "Appearance",
+            "name": "reduced_padding",
+            "type": "popupButton",
+            "label": "Columns take less space :",
+            "options": {
+                "values": [
+                    {
+                        "value": false,
+                        "text": "No"
+                    },
+                    {
+                        "value": true,
+                        "text": "Yes"
+                    }
+                ],
+            },
+        },
+        {
+            "tab": "General",
+            "group": "Appearance",
+            "name": "no_columns_icons",
+            "type": "popupButton",
+            "label": "Display icons in column headers :",
+            "options": {
+                "values": [
+                    {
+                        "value": true,
+                        "text": "No"
+                    },
+                    {
+                        "value": false,
+                        "text": "Yes"
+                    }
+                ],
+            },
+        },
+        {
+            "tab": "General",
             "group": "Behaviour",
             "name": "url_redirection",
             "type": "popupButton",

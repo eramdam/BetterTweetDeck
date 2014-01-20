@@ -5,9 +5,19 @@ chrome.extension.sendRequest({}, function(response) {
 
 function setAllTheSettings(response) {
 	options = response;
+	bodyClasses = document.body.classList;
 	document.body.addEventListener("DOMNodeInserted", eventDispatcher);
 	if(options.circled_avatars == "true") {
-		document.body.classList.add("btd-circle-avatars");
+		bodyClasses.add("btd-circle-avatars");
+	}
+	if(options.fading_pictures == "true") {
+		bodyClasses.add("btd-profile-pictures-fading");
+	}
+	if(options.reduced_padding == "true") {
+		bodyClasses.add("btd-reduced-padding");
+	}
+	if(options.no_columns_icons == "true") {
+		bodyClasses.add("btd-no-columns-icons");
 	}
 }
 

@@ -1,17 +1,3 @@
-/*span.username.txt-mute {
-	color:#CCC;
-	font-weight:bold;
-	font-size:16px;
-}
-
-span.username span.at {
-	display: none;
-}
-
-div.nbfc b.fullname {
-	display: none;
-}*/
-
 .btd-circle-avatars img.tweet-avatar {
 	-webkit-border-radius:50%;
 	border-radius:50%;
@@ -20,4 +6,29 @@ div.nbfc b.fullname {
 /* Hiding droplr previews because of Twitter Cards */
 .tweet-detail .btd-preview.droplr {
 	display: none;
+}
+
+/* Nice opacity fading animation on tweet hover */
+.btd-profile-pictures-fading .tweet-avatar {
+	opacity:.6;
+	-webkit-transition: opacity .4s ease;
+	transition: opacity .4s ease;
+}
+
+.btd-profile-pictures-fading article.stream-item:hover .tweet-avatar {
+	opacity:1;
+}
+ 
+/* Reduced the paddings/margins of columns */
+.btd-reduced-padding .js-column.column {
+	margin-right: 3px;
+}
+
+/* No icons in columns header */
+.btd-no-columns-icons header > i.column-type-icon.icon {
+	display:none;
+}
+
+.btd-no-columns-icons header > h1.column-title {
+	padding-left: 10px;
 }

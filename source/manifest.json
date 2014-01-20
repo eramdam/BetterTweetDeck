@@ -1,6 +1,6 @@
 {
 	"name": "Better TweetDeck",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"manifest_version": 2,
 	"description": "Improves the experience on web version of TweetDeck",
 	"content_scripts": [{
@@ -11,7 +11,7 @@
 	"icons": { "16": "icon16.png",
 	           "48": "icon48.png",
 	          "128": "icon128.png" },
-	"permissions": ["<all_urls>", "storage"],
+	"permissions": ["storage"],
 	"options_page": "fancy-settings/source/index.html",
 	"background" : { "page": "background.html" }
 }
