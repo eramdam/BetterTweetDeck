@@ -11,6 +11,36 @@
 		}
 	}
 
+	function eventDispatcher() {
+		if(event.relatedNode.className.indexOf("txt-mute") != -1 && options.timestamp != "relative") {
+			timeIsNotRelative(event.relatedNode, options.timestamp);
+		} else if(event.target.className && event.target.className.indexOf("stream-item") != -1) {
+			if(options.timestamp != "relative") {
+				if(event.target.querySelector("time")){
+					timeIsNotRelative(event.target.querySelector("time > *"), options.timestamp);
+				}
+			}
+
+			nameDisplay(event.target.querySelectorAll("a[rel='user']:not(.item-img)"), options.name_display);
+			
+			if(options.url_redirection == "true"){
+				useFullUrl(event.target);
+			}
+
+			if(options.img_preview != "false"){
+				links = event.target.querySelectorAll("p > a[data-full-url]");
+				if(links.length > 0) {
+				linkUrl = links[0].getAttribute("data-full-url");
+					if(linkUrl.indexOf("imgur.com") != -1 && linkUrl.indexOf("/a/") == -1){
+						createPreviewDiv(links[0],"imgur");
+					} else if(linkUrl.indexOf("d.pr/i") != -1) {
+						createPreviewDiv(links[0],"droplr");
+					}
+				}
+			}
+		}
+	}
+
 	function createPreviewDiv(element, provider) {
 		linkURL = element.getAttribute("data-full-url");
 		thumbSize = options.img_preview;
@@ -74,34 +104,6 @@
 		}
 	}
 
-	function eventDispatcher() {
-		if(event.relatedNode.className.indexOf("txt-mute") != -1 && options.timestamp != "relative") {
-			timeIsNotRelative(event.relatedNode, options.timestamp);
-		} else if(event.target.className && event.target.className.indexOf("stream-item") != -1) {
-			if(options.timestamp != "relative") {
-				if(event.target.querySelector("time")){
-					timeIsNotRelative(event.target.querySelector("time > *"), options.timestamp);
-				}
-			}
-
-			nameDisplay(event.target.querySelectorAll("a[rel='user']:not(.item-img)"), options.name_display);
-			
-			if(options.url_redirection == "true"){
-				useFullUrl(event.target);
-			}
-			if(options.img_preview != "false"){
-				links = event.target.querySelectorAll("p > a[data-full-url]");
-				if(links.length > 0) {
-					if(links[0].getAttribute("data-full-url").indexOf("imgur.com") != -1){
-						createPreviewDiv(links[0],"imgur");
-					} else if(links[0].getAttribute("data-full-url").indexOf("d.pr") != -1) {
-						createPreviewDiv(links[0],"droplr")
-					}
-				}
-			}
-		}
-	}
-
 	function timeIsNotRelative(element, mode) {
 		d = element.parentNode.getAttribute("data-time");
 		td = new Date(parseInt(d));
@@ -157,5 +159,4 @@
 		};
 	}
 
-	// The thumbnail list will be updated on scroll
 	
