@@ -163,6 +163,8 @@ function nameDisplay(elements, mode) {
 				// Placing the username in b.fullname if found or in span.username
 				if(elements[i].querySelector("b.fullname")){
 					elements[i].querySelector("b.fullname").innerHTML = username;
+				} else {
+					elements[i].innerHTML = username;
 				}
 				if(elements[i].querySelector("span.username")){
 					elements[i].querySelector("span.username").remove();
