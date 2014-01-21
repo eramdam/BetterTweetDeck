@@ -56,6 +56,18 @@ function eventDispatcher() {
 				}
 			}
 		}
+	} else if(event.relatedNode.classList.contains("typeahead")) {
+		console.log("mention helper !");
+		if(options.name_display == "username") {
+			for (var i = event.relatedNode.querySelectorAll("strong.fullname").length - 1; i >= 0; i--) {
+				event.relatedNode.querySelectorAll("strong.fullname")[i].remove();
+			};
+			for (var i = event.relatedNode.querySelectorAll("span.username").length - 1; i >= 0; i--) {
+				event.relatedNode.querySelectorAll("span.username")[i].style.fontWeight= "bold";
+				event.relatedNode.querySelectorAll("span.username")[i].classList.add("fullname");
+				event.relatedNode.querySelectorAll("span.username")[i].classList.remove("username");
+			};
+		}
 	}
 }
 
