@@ -78,25 +78,6 @@ this.manifest = {
         {
             "tab": "General",
             "group": "Appearance",
-            "name": "fading_pictures",
-            "type": "popupButton",
-            "label": "Fading profile pictures when not hovered (less distraction) :",
-            "options": {
-                "values": [
-                    {
-                        "value": false,
-                        "text": "No"
-                    },
-                    {
-                        "value": true,
-                        "text": "Yes"
-                    }
-                ],
-            },
-        },
-        {
-            "tab": "General",
-            "group": "Appearance",
             "name": "reduced_padding",
             "type": "popupButton",
             "label": "Columns take less space :",

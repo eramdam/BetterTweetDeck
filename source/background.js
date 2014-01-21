@@ -5,7 +5,6 @@ if(!settings) {
 	"url_redirection": "true",
 	"circled_avatars": "true",
 	"img_preview": "small",
-	"fading_pictures": "true",
 	"reduced_padding": "true",
 	"no_columns_icons": "true"
 	});
