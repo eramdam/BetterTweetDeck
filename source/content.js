@@ -49,7 +49,7 @@ function eventDispatcher() {
 			links = event.target.querySelectorAll("p > a[data-full-url]");
 			if(links.length > 0) {
 			linkUrl = links[0].getAttribute("data-full-url");
-				if(linkUrl.indexOf("imgur.com") != -1 && linkUrl.indexOf("/a/") == -1){
+				if(linkUrl.indexOf("imgur.com") != -1 && linkUrl.indexOf("/a/") == -1 && linkUrl.indexOf("/gallery/") == -1){
 					createPreviewDiv(links[0],"imgur");
 				} else if(linkUrl.indexOf("d.pr/i") != -1) {
 					createPreviewDiv(links[0],"droplr");
@@ -111,11 +111,6 @@ function createPreviewDiv(element, provider) {
 
 		// Replacing imgur.com by i.imgur.com and http by https
 		thumbnailUrl = thumbnailUrl.replace("/imgur.com","/i.imgur.com").replace("http","https");
-
-		// Removing the "gallery" in URLs to allow a nice preview
-		if(thumbnailUrl.indexOf("gallery") != -1) {
-			thumbnailUrl = thumbnailUrl.replace("/gallery","");
-		}
 
 	} else if(provider == "droplr") {
 
