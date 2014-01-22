@@ -32,3 +32,7 @@
 .btd-no-columns-icons header > h1.column-title {
 	padding-left: 10px;
 }
+
+div.video-overlay.icon-with-bg-round {
+	display: none;
+}
