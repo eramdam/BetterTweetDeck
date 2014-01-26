@@ -179,7 +179,7 @@ function nameDisplay(elements, mode) {
 
 				// Placing the username in b.fullname if found or in span.username
 				if(elements[i].querySelector("b.fullname")){
-					elements[i].querySelector("b.fullname").innerHTML = username;
+					elements[i].querySelector("b.fullname").innerHTML = "<span class=\"at\">@</span>" + username;
 				} else {
 					elements[i].innerHTML = username;
 				}
@@ -193,6 +193,25 @@ function nameDisplay(elements, mode) {
 		for (var i = document.querySelectorAll(".username").length - 1; i >= 0; i--) {
 		// Ignoring the elements argument because I'm lazy and it works so, hey ?
 		document.querySelectorAll(".username")[i].remove();
+		};
+	} else if(mode == "both-inverted") {
+		// If we want the @username AND the full name, we'll have to swap them
+		for (var i = elements.length - 1; i >= 0; i--) {
+			// If the username is NOT in a tweet (typically in a <p> element), do the thing
+			if(elements[i].parentNode.tagName != "P") {
+				// Removing "http://twitter.com" and the last "/" in the link to get the @username
+				var username = elements[i].getAttribute("href").replace(/http(|s):\/\/twitter.com\//,"").replace(/\//g,"");
+				var fullname = elements[i].querySelector("b.fullname").innerHTML;
+
+				// Placing the username in b.fullname if found or in span.username
+				if(elements[i].querySelector("b.fullname")){
+					elements[i].querySelector("b.fullname").innerHTML = "<span class=\"at\">@</span>" + username;
+				} 
+
+				if(elements[i].querySelector("span.username")){
+					elements[i].querySelector("span.username").innerHTML = fullname;
+				}
+			}
 		};
 	}
 }
