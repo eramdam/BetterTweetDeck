@@ -46,8 +46,8 @@ this.manifest = {
                         "text": "Full Name @username"
                     },
                     {
-                        "value": "both-inverted",
-                        "text": "@username Full Name"
+                        "value": "inverted",
+                        "text": "@Username Full Name"
                     },
                     {
                         "value": "username",
