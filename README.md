@@ -6,11 +6,11 @@ Adds some nice options on TweetDeck to provide a better experience on the webapp
 Features
 ===============
 
-As 0.0.6
+As 0.0.7
 
 + Thumbnails for Imgur and Droplr images links
 + Allow to change the time formatting (Relative or Absolute)
-+ Allow to change the username/fullname formatting (Username only, Fullname only or both)
++ Allow to change the username/fullname formatting (Username only, Fullname only, both or inverted (Username Fullname))
 + Display fancy circled avatars (they're hipsters, but they're cute too!)
 + Remove that god-damn useless t.co redirection on links
 
