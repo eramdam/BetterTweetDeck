@@ -17,8 +17,8 @@ As 0.0.7
 Screenshots
 ===============
 
-![](source/bettertweetdeck-overview.png)
-![](source/bettertweetdeck-options.png)
+![](bettertweetdeck-overview.png)
+![](bettertweetdeck-options.png)
 
 Installation
 ===============
