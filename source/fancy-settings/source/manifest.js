@@ -82,6 +82,25 @@ this.manifest = {
         {
             "tab": "General",
             "group": "Appearance",
+            "name": "typeahead_display_username_only",
+            "type": "popupButton",
+            "label": "In the <a href='http://f.cl.ly/items/0Q0I1t2k441639363V35/BehaYurCUAATDU8.png'>mention helper</a> display the username only:",
+            "options": {
+                "values": [
+                    {
+                        "value": true,
+                        "text": "Yes"
+                    },
+                    {
+                        "value": false,
+                        "text": "No"
+                    }
+                ],
+            },
+        },
+        {
+            "tab": "General",
+            "group": "Appearance",
             "name": "circled_avatars",
             "type": "popupButton",
             "label": "Display rounded avatars (it's fancy!):",

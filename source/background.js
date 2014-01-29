@@ -7,7 +7,8 @@ if(!settings) {
 	"img_preview": "small",
 	"reduced_padding": "true",
 	"no_columns_icons": "true",
-	"full_after_24h": "true"
+	"full_after_24h": "true",
+	"typeahead_display_username_only": "true"
 	});
 }
 
