@@ -57,7 +57,6 @@ function eventDispatcher() {
 			}
 		}
 	} else if(event.relatedNode.classList.contains("typeahead")) {
-		console.log("mention helper !");
 		if(options.name_display == "username") {
 			for (var i = event.relatedNode.querySelectorAll("strong.fullname").length - 1; i >= 0; i--) {
 				event.relatedNode.querySelectorAll("strong.fullname")[i].remove();
