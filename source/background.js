@@ -6,7 +6,8 @@ if(!settings) {
 	"circled_avatars": "true",
 	"img_preview": "small",
 	"reduced_padding": "true",
-	"no_columns_icons": "true"
+	"no_columns_icons": "true",
+	"full_after_24h": "true"
 	});
 }
 

@@ -34,6 +34,25 @@ this.manifest = {
             },
         },
         {
+            "tab":"General",
+            "group":"Appearance",
+            "name":"full_after_24h",
+            "type":"popupButton",
+            "label":"Display full-time (dd/mm/yy hh:mm) only after 24h:",
+            "options": {
+                "values": [
+                    {
+                        "value": true,
+                        "text": "Yes"
+                    },
+                    {
+                        "value": false,
+                        "text": "No"
+                    }
+                ]
+            }
+        },
+        {
             "tab": "General",
             "group": "Appearance",
             "name": "name_display",

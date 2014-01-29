@@ -143,6 +143,15 @@ function timeIsNotRelative(element, mode) {
 	d = element.parentNode.getAttribute("data-time");
 	// Creating a Date object with it
 	td = new Date(parseInt(d));
+	if(options.full_after_24h == "true") {
+		now = new Date();
+		difference = now - td;
+	    var msPerMinute = 60 * 1000;
+	    var msPerHour = msPerMinute * 60;
+	    var msPerDay = msPerHour * 24;
+	}
+
+
 
 	// Creating year/day/month/minutes/hours variables and applying the lead zeros if necessary
 	year = td.getFullYear();
@@ -157,10 +166,14 @@ function timeIsNotRelative(element, mode) {
 	if(day < 10) day = "0"+day;
 
 	// Handling "US" date format
-	if(mode == "absolute_us"){
-		dateString =  month+"/"+day+"/"+year+" "+hours+":"+minutes;
+	if(options.full_after_24h == "true" && difference < msPerDay) {
+		dateString = hours+":"+minutes;
 	} else {
-		dateString =  day+"/"+month+"/"+year+" "+hours+":"+minutes;
+		if(mode == "absolute_us"){
+			dateString =  month+"/"+day+"/"+year+" "+hours+":"+minutes;
+		} else {
+			dateString =  day+"/"+month+"/"+year+" "+hours+":"+minutes;
+		}
 	}
 	// Changing the content of the "time > a" element with the absolute time
 	element.innerHTML = dateString;
