@@ -1,4 +1,4 @@
-BetterTweetDeck
+Better TweetDeck
 ===============
 
 Adds some nice options on TweetDeck to provide a better experience on the webapp when used on Chrome.
@@ -14,15 +14,20 @@ As 0.0.7
 + Display fancy circled avatars (they're hipsters, but they're cute too!)
 + Remove that god-damn useless t.co redirection on links
 
+Screenshots
+===============
+
+![](source/bettertweetdeck-overview.png)
+![](source/bettertweetdeck-options.png)
+
+Installation
+===============
+
++ [Better TweetDeck on the Chrome Web Store](https://chrome.google.com/webstore/detail/better-tweetdeck/micblkellenpbfapmcpcfhcoeohhnpob)
++ Clone this repo and drag'n'drop the `source` folder in your Extensions window.
 
 TODO
 ===============
 
 + Fix the UI icons that suck since the last update
 + Feel free to fill an issue/pull request for any cool features !
-
-
-Installation
-===============
-
-At the time being, the extension isn't on the Chrome Web Store, as soon as I get something good enough for that, I will publish it on Chrome Web Store.

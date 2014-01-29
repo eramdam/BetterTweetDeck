@@ -3,7 +3,7 @@
 	"short_name": "BetterTDeck",
 	"version": "0.0.7",
 	"manifest_version": 2,
-	"description": "Improves the experience on web version of TweetDeck",
+	"description": "Improves the user experience of TweetDeck on the web (http://tweetdeck.twitter.com)",
 	"content_scripts": [{
 		"matches": ["https://tweetdeck.twitter.com/*","http://tweetdeck.twitter.com/*"],
 		"js": ["content.js"],
