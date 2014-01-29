@@ -6,7 +6,7 @@
 	"content_scripts": [{
 		"matches": ["https://tweetdeck.twitter.com/*","http://tweetdeck.twitter.com/*"],
 		"js": ["content.js"],
-		"css": ["wbs.css"]
+		"css": ["content.css"]
 		}],
 	"icons": { "16": "icon16.png",
 	           "48": "icon48.png",
