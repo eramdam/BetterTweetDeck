@@ -12,7 +12,7 @@ this.manifest = {
         },
         {
             "tab": "General",
-            "group": "Appearance",
+            "group": "Time formatting",
             "name": "timestamp",
             "type": "popupButton",
             "label": "Time should be:",
@@ -35,7 +35,7 @@ this.manifest = {
         },
         {
             "tab":"General",
-            "group":"Appearance",
+            "group":"Time formatting",
             "name":"full_after_24h",
             "type":"popupButton",
             "label":"Display full-time (dd/mm/yy hh:mm) only after 24h:",
@@ -54,7 +54,7 @@ this.manifest = {
         },
         {
             "tab": "General",
-            "group": "Appearance",
+            "group": "Users",
             "name": "name_display",
             "type": "popupButton",
             "label": "Display name/username as:",
@@ -81,7 +81,7 @@ this.manifest = {
         },
         {
             "tab": "General",
-            "group": "Appearance",
+            "group": "Users",
             "name": "typeahead_display_username_only",
             "type": "popupButton",
             "label": "In the <a href='http://f.cl.ly/items/0Q0I1t2k441639363V35/BehaYurCUAATDU8.png'>mention helper</a> display the username only:",
@@ -100,7 +100,7 @@ this.manifest = {
         },
         {
             "tab": "General",
-            "group": "Appearance",
+            "group": "Users",
             "name": "circled_avatars",
             "type": "popupButton",
             "label": "Display rounded avatars (it's fancy!):",
@@ -157,7 +157,7 @@ this.manifest = {
         },
         {
             "tab": "General",
-            "group": "Behaviour",
+            "group": "Content",
             "name": "url_redirection",
             "type": "popupButton",
             "label": "Remove t.co redirection:",
@@ -176,7 +176,7 @@ this.manifest = {
         },
         {
             "tab": "General",
-            "group": "Behaviour",
+            "group": "Content",
             "name": "img_preview",
             "type": "popupButton",
             "label": "Display non-Twitter preview images (Supports <b>Imgur</b> and <b>Droplr</b>):",
