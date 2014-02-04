@@ -10,9 +10,6 @@ function setAllTheSettings(response) {
 	if(options.circled_avatars == "true") {
 		bodyClasses.add("btd-circle-avatars");
 	}
-	if(options.fading_pictures == "true") {
-		bodyClasses.add("btd-profile-pictures-fading");
-	}
 	if(options.reduced_padding == "true") {
 		bodyClasses.add("btd-reduced-padding");
 	}
