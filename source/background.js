@@ -1,13 +1,13 @@
 if(!settings) {
 	var settings = new Store("settings", {
-	"timestamp": "absolute",
-	"name_display": "username",
+	"timestamp": "relative",
+	"name_display": "both",
 	"url_redirection": "true",
-	"circled_avatars": "true",
+	"circled_avatars": "false",
 	"img_preview": "small",
 	"reduced_padding": "true",
-	"no_columns_icons": "true",
-	"full_after_24h": "true",
+	"no_columns_icons": "false",
+	"full_after_24h": "false",
 	"typeahead_display_username_only": "true"
 	});
 }
