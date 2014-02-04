@@ -1,4 +1,10 @@
+/* Styling for circled avatars */
 .btd-circle-avatars img.tweet-avatar {
+	-webkit-border-radius:50%;
+	border-radius:50%;
+}
+
+.btd-circle-avatars a.js-account-item.js-show-tip.compose-account, .btd-circle-avatars a.js-account-item.js-show-tip.compose-account img {
 	-webkit-border-radius:50%;
 	border-radius:50%;
 }
