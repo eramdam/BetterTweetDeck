@@ -16,6 +16,9 @@ function setAllTheSettings(response) {
 	if(options.no_columns_icons == "true") {
 		bodyClasses.add("btd-no-columns-icons");
 	}
+	if(options.grayscale_notification_icons == "true") {
+		bodyClasses.add("btd-grayscale-notification-icons");
+	}
 }
 
 function eventDispatcher() {

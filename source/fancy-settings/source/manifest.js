@@ -157,6 +157,25 @@ this.manifest = {
         },
         {
             "tab": "General",
+            "group": "Appearance",
+            "name": "grayscale_notification_icons",
+            "type": "popupButton",
+            "label": "Icons in Notification column should be in grayscales:",
+            "options": {
+                "values": [
+                    {
+                        "value": true,
+                        "text": "Yes"
+                    },
+                    {
+                        "value": false,
+                        "text": "No"
+                    }
+                ],
+            },
+        },
+        {
+            "tab": "General",
             "group": "Content",
             "name": "url_redirection",
             "type": "popupButton",
