@@ -53,6 +53,8 @@ function eventDispatcher() {
 					createPreviewDiv(links[0],"imgur");
 				} else if(linkUrl.indexOf("d.pr/i") != -1) {
 					createPreviewDiv(links[0],"droplr");
+				} else if(linkUrl.indexOf("cl.ly") != -1) {
+					createPreviewDiv(links[0],"cloudApp");
 				}
 			}
 		}
@@ -122,19 +124,40 @@ function createPreviewDiv(element, provider) {
 		// Removing the last "/" if present and adding one+suffix
 		thumbnailUrl = linkURL.replace(/\/$/,"");
 		thumbnailUrl = thumbnailUrl+"/"+suffix;
+	} else if(provider == "cloudApp") {
+		$.ajax({
+			url: linkURL,
+			type: 'GET',
+			dataType: 'json',
+			data: {param1: 'value1'},
+			headers: {"Accept": "application/json"}
+		})
+		.done(function(data) {
+
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function(data) {
+			thumbnailUrl = data.thumbnail_url;
+			if(thumbnailUrl != "")
+				continueCreatingThePreview(thumbnailUrl);
+		});
 	}
 
-	// Applying our thumbnail as a background-image of the preview div
-	previewLink.style.backgroundImage = "url("+thumbnailUrl+")";
+	function continueCreatingThePreview(thumbnailUrl) {
+		// Applying our thumbnail as a background-image of the preview div
+		previewLink.style.backgroundImage = "url("+thumbnailUrl+")";
 
-	// Constructing our final div
-	previewDivChild.appendChild(previewLink);
-	previewDiv.appendChild(previewDivChild);
+		// Constructing our final div
+		previewDivChild.appendChild(previewLink);
+		previewDiv.appendChild(previewDivChild);
 
-	// Adding it next to the <p> element, just before <footer> in a tweet
-	pElement = element.parentNode.parentNode.querySelector("p.js-tweet-text");
-	if(pElement.nextElementSibling) {
-		pElement.parentNode.insertBefore(previewDiv, pElement.nextElementSibling);
+		// Adding it next to the <p> element, just before <footer> in a tweet
+		pElement = element.parentNode.parentNode.querySelector("p.js-tweet-text");
+		if(pElement.nextElementSibling) {
+			pElement.parentNode.insertBefore(previewDiv, pElement.nextElementSibling);
+		}
 	}
 }
 

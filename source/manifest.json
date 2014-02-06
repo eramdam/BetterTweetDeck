@@ -6,7 +6,7 @@
 	"description": "Improves the user experience of TweetDeck on the web (http://tweetdeck.twitter.com)",
 	"content_scripts": [{
 		"matches": ["https://tweetdeck.twitter.com/*","http://tweetdeck.twitter.com/*"],
-		"js": ["content.js"],
+		"js": ["jquery.ajax.min.js","content.js"],
 		"css": ["content.css"]
 		}],
 	"icons": { "16": "icon16.png",
@@ -14,5 +14,6 @@
 	          "128": "icon128.png" },
 	"permissions": ["storage"],
 	"options_page": "fancy-settings/source/index.html",
-	"background" : { "page": "background.html" }
+	"background" : { "page": "background.html" },
+	"permissions": ["<all_urls>"]
 }
