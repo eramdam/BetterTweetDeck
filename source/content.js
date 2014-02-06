@@ -112,7 +112,7 @@ function createPreviewDiv(element, provider) {
 
 		// Replacing imgur.com by i.imgur.com and http by https
 		thumbnailUrl = thumbnailUrl.replace("/imgur.com","/i.imgur.com").replace("http","https");
-
+		continueCreatingThePreview(thumbnailUrl);
 	} else if(provider == "droplr") {
 
 		// Depending of the thumbSize option we're getting d.pr/i/1234/small or d.pr/i/1234/medium (it seems like Droplr hasn't a "large" option)
@@ -124,6 +124,7 @@ function createPreviewDiv(element, provider) {
 		// Removing the last "/" if present and adding one+suffix
 		thumbnailUrl = linkURL.replace(/\/$/,"");
 		thumbnailUrl = thumbnailUrl+"/"+suffix;
+		continueCreatingThePreview(thumbnailUrl);
 	} else if(provider == "cloudApp") {
 		$.ajax({
 			url: linkURL,
