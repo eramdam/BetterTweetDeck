@@ -25,7 +25,10 @@ Installation
 ===============
 
 + [Better TweetDeck on the Chrome Web Store](https://chrome.google.com/webstore/detail/better-tweetdeck/micblkellenpbfapmcpcfhcoeohhnpob)
-+ Clone this repo and drag'n'drop the `source` folder in your Extensions window.
+
+**OR (if you're curious/adventurous/crazy)**
+
++ Clone this repo and drag'n'drop the `source` folder in your Extensions window. **But keep in mind you gonna get an unstable version of the extension**
 
 Changelog
 ===============
