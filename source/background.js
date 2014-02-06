@@ -9,7 +9,8 @@ if(!settings) {
 	"no_columns_icons": "false",
 	"full_after_24h": "false",
 	"typeahead_display_username_only": "false",
-	"grayscale_notification_icons": "false"
+	"grayscale_notification_icons": "false",
+	"yt_rm_button": "true"
 	});
 }
 

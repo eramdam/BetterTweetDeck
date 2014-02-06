@@ -39,10 +39,6 @@
 	padding-left: 10px;
 }
 
-div.video-overlay.icon-with-bg-round {
-	display: none;
-}
-
 /* Style for grayscale icons */
 .btd-grayscale-notification-icons i.icon.activity-indicator {
 	color: #737373;
