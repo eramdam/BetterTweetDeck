@@ -49,7 +49,7 @@ function eventDispatcher() {
 			links = event.target.querySelectorAll("p > a[data-full-url]");
 			if(links.length > 0) {
 			linkUrl = links[0].getAttribute("data-full-url");
-				if(linkUrl.indexOf("imgur.com") != -1 && linkUrl.indexOf("/a/") == -1 && linkUrl.indexOf("/gallery/") == -1){
+				if(linkUrl.indexOf("imgur.com") != -1){
 					createPreviewDiv(links[0],"imgur");
 				} else if(linkUrl.indexOf("d.pr/i") != -1) {
 					createPreviewDiv(links[0],"droplr");
@@ -90,29 +90,48 @@ function createPreviewDiv(element, provider) {
 	previewLink.setAttribute("target","_blank");
 
 	if(provider == "imgur") {
-		// Imgur supported extensions (from http://imgur.com/faq#types)
-		extensions = ["jpg","jpeg","gif","png","apng"];
-
+		// Setting the right suffix depending of the user's option
 		if(thumbSize == "small") suffix = "t";
 		if(thumbSize == "medium") suffix = "m";
 		if(thumbSize == "large") suffix = "l";
 
-		var regex = new RegExp(extensions.join('|'));
-		var thumbnailUrl;
-
-		// If link has an extension, replacing it by .jpg (png would be possible, but we don't want to have big previews)
-		if (regex.test(previewLink.href)) {
-			for (var i = extensions.length - 1; i >= 0; i--) {
-				thumbnailUrl = linkURL.replace("."+extensions[i],suffix+".jpg");
-			};
+		// If it's an album or a gallery take this route !
+		if(linkURL.indexOf("/a/") != -1 || linkURL.indexOf("/gallery/") != -1) {
+			// Using jQuery's AJAX library to do the magic
+			$.ajax({
+				// Sidenote, even if Imgur got different models for album and gallery, they share the same API url so, why bother ?
+				url: "https://api.imgur.com/3/album/"+linkURL.replace(/http(|s):\/\/imgur.com\/(a|gallery)\//,""),
+				type: 'GET',
+				dataType: 'json',
+				// Plz don't steal this data, anyone can create an Imgur app so be fair !
+				headers: {"Authorization": "Client-ID c189a7be5a7a313"}
+			})
+			.done(function(data) {
+				// Make the thumbnail URL with suffix and the ID of the first images in the album/gallery
+				thumbnailUrl = "https://i.imgur.com/"+data.data.images[0].id+suffix+".jpg";
+				continueCreatingThePreview(thumbnailUrl)
+			});
 		} else {
-			// Even if it doesn't have any extension, putting it one at the end so we can get something
-			thumbnailUrl = linkURL+suffix+".jpg";
-		}
+			// Imgur supported extensions (from http://imgur.com/faq#types)
+			extensions = ["jpg","jpeg","gif","png","apng"];
 
-		// Replacing imgur.com by i.imgur.com and http by https
-		thumbnailUrl = thumbnailUrl.replace("/imgur.com","/i.imgur.com").replace("http","https");
-		continueCreatingThePreview(thumbnailUrl);
+			var regex = new RegExp(extensions.join('|'));
+			var thumbnailUrl;
+
+			// If link has an extension, replacing it by .jpg (png would be possible, but we don't want to have big previews)
+			if (regex.test(previewLink.href)) {
+				for (var i = extensions.length - 1; i >= 0; i--) {
+					thumbnailUrl = linkURL.replace("."+extensions[i],suffix+".jpg");
+				};
+			} else {
+				// Even if it doesn't have any extension, putting it one at the end so we can get something
+				thumbnailUrl = linkURL+suffix+".jpg";
+			}
+
+			// Replacing imgur.com by i.imgur.com and http by https
+			thumbnailUrl = thumbnailUrl.replace("/imgur.com","/i.imgur.com").replace("http","https");
+			continueCreatingThePreview(thumbnailUrl);
+		}
 	} else if(provider == "droplr") {
 
 		// Depending of the thumbSize option we're getting d.pr/i/1234/small or d.pr/i/1234/medium (it seems like Droplr hasn't a "large" option)
@@ -130,16 +149,9 @@ function createPreviewDiv(element, provider) {
 			url: linkURL,
 			type: 'GET',
 			dataType: 'json',
-			data: {param1: 'value1'},
 			headers: {"Accept": "application/json"}
 		})
 		.done(function(data) {
-
-		})
-		.fail(function() {
-			console.log("error");
-		})
-		.always(function(data) {
 			thumbnailUrl = data.thumbnail_url;
 			if(thumbnailUrl != "")
 				continueCreatingThePreview(thumbnailUrl);
