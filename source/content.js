@@ -49,17 +49,17 @@ function eventDispatcher() {
 			links = event.target.querySelectorAll("p > a[data-full-url]");
 			if(links.length > 0) {
 			linkUrl = links[0].getAttribute("data-full-url");
-				if(linkUrl.indexOf("imgur.com") != -1){
+				if(linkUrl.indexOf("imgur.com") != -1 && options.img_preview_imgur == "true"){
 					createPreviewDiv(links[0],"imgur");
-				} else if(linkUrl.indexOf("d.pr/i") != -1) {
+				} else if(linkUrl.indexOf("d.pr/i") != -1 && options.img_preview_droplr == "true") {
 					createPreviewDiv(links[0],"droplr");
-				} else if(linkUrl.indexOf("cl.ly") != -1) {
+				} else if(linkUrl.indexOf("cl.ly") != -1 && options.img_preview_cloud == "true") {
 					createPreviewDiv(links[0],"cloudApp");
-				} else if(linkUrl.indexOf("http://instagram.com") != -1) {
+				} else if(linkUrl.indexOf("http://instagram.com") != -1 && options.img_preview_instagram == "true") {
 					createPreviewDiv(links[0],"instagram");
-				} else if(linkUrl.indexOf("http://flic.kr") != -1 || linkUrl.indexOf("http://flickr.com") != -1){
+				} else if((linkUrl.indexOf("http://flic.kr") != -1 || linkUrl.indexOf("http://flickr.com") != -1) && options.img_preview_flickr == "true"){
 					createPreviewDiv(links[0],"flickr")
-				} else if(linkUrl.indexOf("http://500px.com") != -1) {
+				} else if(linkUrl.indexOf("http://500px.com") != -1 && options.img_preview_500px == "true") {
 					createPreviewDiv(links[0],"500px");
 				}
 			}

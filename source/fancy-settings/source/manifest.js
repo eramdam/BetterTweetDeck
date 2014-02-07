@@ -198,7 +198,7 @@ this.manifest = {
             "group": "Content",
             "name": "img_preview",
             "type": "popupButton",
-            "label": "Display non-Twitter preview images (Supports <b>Imgur</b> and <b>Droplr</b>):",
+            "label": "Size of non-Twitter thumbnails displayed:",
             "options": {
                 "values": [
                     {
@@ -216,6 +216,120 @@ this.manifest = {
                     {
                         "value": "large",
                         "text": "Large"
+                    }
+                ],
+            },
+        },
+        {
+            "tab": "General",
+            "group": "Content",
+            "name": "img_preview_imgur",
+            "type": "popupButton",
+            "label": "Display previews from <b>Imgur</b>:",
+            "options": {
+                "values": [
+                    {
+                        "value": false,
+                        "text": "No"
+                    },
+                    {
+                        "value": true,
+                        "text": "Yes"
+                    }
+                ],
+            },
+        },
+        {
+            "tab": "General",
+            "group": "Content",
+            "name": "img_preview_droplr",
+            "type": "popupButton",
+            "label": "Display previews from <b>Droplr</b>:",
+            "options": {
+                "values": [
+                    {
+                        "value": false,
+                        "text": "No"
+                    },
+                    {
+                        "value": true,
+                        "text": "Yes"
+                    }
+                ],
+            },
+        },
+        {
+            "tab": "General",
+            "group": "Content",
+            "name": "img_preview_instagram",
+            "type": "popupButton",
+            "label": "Display previews from <b>Instagram</b>:",
+            "options": {
+                "values": [
+                    {
+                        "value": false,
+                        "text": "No"
+                    },
+                    {
+                        "value": true,
+                        "text": "Yes"
+                    }
+                ],
+            },
+        },
+        {
+            "tab": "General",
+            "group": "Content",
+            "name": "img_preview_flickr",
+            "type": "popupButton",
+            "label": "Display previews from <b>Flickr</b>:",
+            "options": {
+                "values": [
+                    {
+                        "value": false,
+                        "text": "No"
+                    },
+                    {
+                        "value": true,
+                        "text": "Yes"
+                    }
+                ],
+            },
+        },
+        {
+            "tab": "General",
+            "group": "Content",
+            "name": "img_preview_500px",
+            "type": "popupButton",
+            "label": "Display previews from <b>500px</b>:",
+            "options": {
+                "values": [
+                    {
+                        "value": false,
+                        "text": "No"
+                    },
+                    {
+                        "value": true,
+                        "text": "Yes"
+                    }
+                ],
+            },
+        },
+        {
+            "tab": "General",
+            "group": "Content",
+            "name": "img_preview_cloud",
+            "type": "popupButton",
+            "label": "Display previews from <b>CloudApp</b>:",
+            "options": {
+                "values": [
+                    {
+                        "value": false,
+                        "text": "No"
+                    },
+                    {
+                        "value": true,
+                        "text": "Yes"
                     }
                 ],
             },
