@@ -5,18 +5,26 @@ chrome.extension.sendRequest({}, function(response) {
 
 function setAllTheSettings(response) {
 	options = response;
+	// Handling the old true/false strings in options
+	for(var key in options) {
+		if(options.hasOwnProperty(key)) {
+			console.log(key);
+			if(options[key] == "true") options[key] = true;
+			if(options[key] == "false") options[key] = false;
+		}
+	}
 	bodyClasses = document.body.classList;
 	document.body.addEventListener("DOMNodeInserted", eventDispatcher);
-	if(options.circled_avatars == "true") {
+	if(options.circled_avatars == true) {
 		bodyClasses.add("btd-circle-avatars");
 	}
-	if(options.reduced_padding == "true") {
+	if(options.reduced_padding == true) {
 		bodyClasses.add("btd-reduced-padding");
 	}
-	if(options.no_columns_icons == "true") {
+	if(options.no_columns_icons == true) {
 		bodyClasses.add("btd-no-columns-icons");
 	}
-	if(options.grayscale_notification_icons == "true") {
+	if(options.grayscale_notification_icons == true) {
 		bodyClasses.add("btd-grayscale-notification-icons");
 	}
 }
@@ -40,32 +48,32 @@ function eventDispatcher() {
 		nameDisplay(event.target.querySelectorAll("a[rel='user']:not(.item-img)"), options.name_display);
 		
 		// If asked, removing t.co links
-		if(options.url_redirection == "true"){
+		if(options.url_redirection == true){
 			useFullUrl(event.target);
 		}
 
 		// If asked, creating the non-pic.twitter image previews
-		if(options.img_preview != "false"){
+		if(options.img_preview != false){
 			links = event.target.querySelectorAll("p > a[data-full-url]");
 			if(links.length > 0) {
 			linkUrl = links[0].getAttribute("data-full-url");
-				if(linkUrl.indexOf("imgur.com") != -1 && options.img_preview_imgur == "true"){
+				if(linkUrl.indexOf("imgur.com") != -1 && options.img_preview_imgur == true){
 					createPreviewDiv(links[0],"imgur");
-				} else if(linkUrl.indexOf("d.pr/i") != -1 && options.img_preview_droplr == "true") {
+				} else if(linkUrl.indexOf("d.pr/i") != -1 && options.img_preview_droplr == true) {
 					createPreviewDiv(links[0],"droplr");
-				} else if(linkUrl.indexOf("cl.ly") != -1 && options.img_preview_cloud == "true") {
+				} else if(linkUrl.indexOf("cl.ly") != -1 && options.img_preview_cloud == true) {
 					createPreviewDiv(links[0],"cloudApp");
-				} else if(linkUrl.indexOf("http://instagram.com") != -1 && options.img_preview_instagram == "true") {
+				} else if(linkUrl.indexOf("http://instagram.com") != -1 && options.img_preview_instagram == true) {
 					createPreviewDiv(links[0],"instagram");
-				} else if((linkUrl.indexOf("http://flic.kr") != -1 || linkUrl.indexOf("http://flickr.com") != -1) && options.img_preview_flickr == "true"){
+				} else if((linkUrl.indexOf("http://flic.kr") != -1 || linkUrl.indexOf("http://flickr.com") != -1) && options.img_preview_flickr == true){
 					createPreviewDiv(links[0],"flickr")
-				} else if(linkUrl.indexOf("http://500px.com") != -1 && options.img_preview_500px == "true") {
+				} else if(linkUrl.indexOf("http://500px.com") != -1 && options.img_preview_500px == true) {
 					createPreviewDiv(links[0],"500px");
 				}
 			}
 		}
 
-		if(options.yt_rm_button == "true") {
+		if(options.yt_rm_button == true) {
 			var preview = event.target.querySelector("div.video-overlay.icon-with-bg-round");
 
 			if(preview != null) {
@@ -73,7 +81,7 @@ function eventDispatcher() {
 			}
 		}
 	} else if(event.relatedNode.classList.contains("typeahead")) {
-		if(options.typeahead_display_username_only == "true") {
+		if(options.typeahead_display_username_only == true) {
 			for (var i = event.relatedNode.querySelectorAll("strong.fullname").length - 1; i >= 0; i--) {
 				event.relatedNode.querySelectorAll("strong.fullname")[i].remove();
 			};
@@ -240,7 +248,7 @@ function timeIsNotRelative(element, mode) {
 	d = element.parentNode.getAttribute("data-time");
 	// Creating a Date object with it
 	td = new Date(parseInt(d));
-	if(options.full_after_24h == "true") {
+	if(options.full_after_24h == true) {
 		now = new Date();
 		difference = now - td;
 	    var msPerMinute = 60 * 1000;
@@ -263,7 +271,7 @@ function timeIsNotRelative(element, mode) {
 	if(day < 10) day = "0"+day;
 
 	// Handling "US" date format
-	if(options.full_after_24h == "true" && difference < msPerDay) {
+	if(options.full_after_24h == true && difference < msPerDay) {
 		dateString = hours+":"+minutes;
 	} else {
 		if(mode == "absolute_us"){

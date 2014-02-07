@@ -37,20 +37,8 @@ this.manifest = {
             "tab":"General",
             "group":"Time formatting",
             "name":"full_after_24h",
-            "type":"popupButton",
-            "label":"Display full-time (dd/mm/yy hh:mm) only after 24h:",
-            "options": {
-                "values": [
-                    {
-                        "value": true,
-                        "text": "Yes"
-                    },
-                    {
-                        "value": false,
-                        "text": "No"
-                    }
-                ]
-            }
+            "type":"checkbox",
+            "label":"Display full-time (dd/mm/yy hh:mm) only after 24h"
         },
         {
             "tab": "General",
@@ -83,122 +71,50 @@ this.manifest = {
             "tab": "General",
             "group": "Users",
             "name": "typeahead_display_username_only",
-            "type": "popupButton",
-            "label": "In the <a href='http://f.cl.ly/items/0Q0I1t2k441639363V35/BehaYurCUAATDU8.png'>mention helper</a> display the username only:",
-            "options": {
-                "values": [
-                    {
-                        "value": true,
-                        "text": "Yes"
-                    },
-                    {
-                        "value": false,
-                        "text": "No"
-                    }
-                ],
-            },
+            "type": "checkbox",
+            "label": "In the <a href='http://f.cl.ly/items/0Q0I1t2k441639363V35/BehaYurCUAATDU8.png'>mention helper</a> display the username only"
         },
         {
             "tab": "General",
             "group": "Users",
             "name": "circled_avatars",
-            "type": "popupButton",
-            "label": "Display rounded avatars (it's fancy!):",
-            "options": {
-                "values": [
-                    {
-                        "value": false,
-                        "text": "No"
-                    },
-                    {
-                        "value": true,
-                        "text": "Yes"
-                    }
-                ],
-            },
+            "type": "checkbox",
+            "label": "Display rounded avatars (it's fancy!)"
         },
         {
             "tab": "General",
             "group": "Appearance",
             "name": "reduced_padding",
-            "type": "popupButton",
-            "label": "Columns take less space :",
-            "options": {
-                "values": [
-                    {
-                        "value": false,
-                        "text": "No"
-                    },
-                    {
-                        "value": true,
-                        "text": "Yes"
-                    }
-                ],
-            },
+            "type": "checkbox",
+            "label": "Columns take less space"
         },
         {
             "tab": "General",
             "group": "Appearance",
             "name": "no_columns_icons",
-            "type": "popupButton",
-            "label": "Display icons in column headers :",
-            "options": {
-                "values": [
-                    {
-                        "value": true,
-                        "text": "No"
-                    },
-                    {
-                        "value": false,
-                        "text": "Yes"
-                    }
-                ],
-            },
+            "type": "checkbox",
+            "label": "Display icons in column headers",
         },
         {
             "tab": "General",
             "group": "Appearance",
             "name": "grayscale_notification_icons",
-            "type": "popupButton",
-            "label": "Icons in Notification column should be in grayscales:",
-            "options": {
-                "values": [
-                    {
-                        "value": true,
-                        "text": "Yes"
-                    },
-                    {
-                        "value": false,
-                        "text": "No"
-                    }
-                ],
-            },
+            "type": "checkbox",
+            "label": "Icons in Notification column should be in grayscales"
         },
         {
             "tab": "General",
             "group": "Content",
             "name": "url_redirection",
-            "type": "popupButton",
-            "label": "Remove t.co redirection:",
-            "options": {
-                "values": [
-                    {
-                        "value": false,
-                        "text": "No"
-                    },
-                    {
-                        "value": true,
-                        "text": "Yes"
-                    }
-                ],
-            },
+            "type": "checkbox",
+            "label": "Remove t.co redirection"
         },
         {
             "tab": "General",
             "group": "Content",
             "name": "img_preview",
             "type": "popupButton",
-            "label": "Size of non-Twitter thumbnails displayed:",
+            "label": "<span class=new></span> Size of non-Twitter thumbnails displayed",
             "options": {
                 "values": [
                     {
@@ -224,134 +140,50 @@ this.manifest = {
             "tab": "General",
             "group": "Content",
             "name": "img_preview_imgur",
-            "type": "popupButton",
-            "label": "Display previews from <b>Imgur</b>:",
-            "options": {
-                "values": [
-                    {
-                        "value": false,
-                        "text": "No"
-                    },
-                    {
-                        "value": true,
-                        "text": "Yes"
-                    }
-                ],
-            },
+            "type": "checkbox",
+            "label": "<span class=new></span> Display previews from <b>Imgur</b>"
         },
         {
             "tab": "General",
             "group": "Content",
             "name": "img_preview_droplr",
-            "type": "popupButton",
-            "label": "Display previews from <b>Droplr</b>:",
-            "options": {
-                "values": [
-                    {
-                        "value": false,
-                        "text": "No"
-                    },
-                    {
-                        "value": true,
-                        "text": "Yes"
-                    }
-                ],
-            },
+            "type": "checkbox",
+            "label": "<span class=new></span> Display previews from <b>Droplr</b>"
         },
         {
             "tab": "General",
             "group": "Content",
             "name": "img_preview_instagram",
-            "type": "popupButton",
-            "label": "Display previews from <b>Instagram</b>:",
-            "options": {
-                "values": [
-                    {
-                        "value": false,
-                        "text": "No"
-                    },
-                    {
-                        "value": true,
-                        "text": "Yes"
-                    }
-                ],
-            },
+            "type": "checkbox",
+            "label": "<span class=new></span> Display previews from <b>Instagram</b>"
         },
         {
             "tab": "General",
             "group": "Content",
             "name": "img_preview_flickr",
-            "type": "popupButton",
-            "label": "Display previews from <b>Flickr</b>:",
-            "options": {
-                "values": [
-                    {
-                        "value": false,
-                        "text": "No"
-                    },
-                    {
-                        "value": true,
-                        "text": "Yes"
-                    }
-                ],
-            },
+            "type": "checkbox",
+            "label": "<span class=new></span> Display previews from <b>Flickr</b>"
         },
         {
             "tab": "General",
             "group": "Content",
             "name": "img_preview_500px",
-            "type": "popupButton",
-            "label": "Display previews from <b>500px</b>:",
-            "options": {
-                "values": [
-                    {
-                        "value": false,
-                        "text": "No"
-                    },
-                    {
-                        "value": true,
-                        "text": "Yes"
-                    }
-                ],
-            },
+            "type": "checkbox",
+            "label": "<span class=new></span> Display previews from <b>500px</b>"
         },
         {
             "tab": "General",
             "group": "Content",
             "name": "img_preview_cloud",
-            "type": "popupButton",
-            "label": "Display previews from <b>CloudApp</b>:",
-            "options": {
-                "values": [
-                    {
-                        "value": false,
-                        "text": "No"
-                    },
-                    {
-                        "value": true,
-                        "text": "Yes"
-                    }
-                ],
-            },
+            "type": "checkbox",
+            "label": "<span class=new></span> Display previews from <b>CloudApp</b>"
         },
         {
             "tab": "General",
             "group": "Content",
             "name": "yt_rm_button",
-            "type": "popupButton",
-            "label": "Hide play button on YouTube previews:",
-            "options": {
-                "values": [
-                    {
-                        "value": false,
-                        "text": "No"
-                    },
-                    {
-                        "value": true,
-                        "text": "Yes"
-                    }
-                ]
-            },
+            "type": "checkbox",
+            "label": "<span class=new></span> Hide play button on YouTube previews"
         },
         {
             "tab": "About",
