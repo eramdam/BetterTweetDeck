@@ -62,6 +62,14 @@ function eventDispatcher() {
 				}
 			}
 		}
+
+		if(options.yt_rm_button == "true") {
+			var preview = event.target.querySelector("div.video-overlay.icon-with-bg-round");
+
+			if(preview != null) {
+				preview.style.display = "none";
+			}
+		}
 	} else if(event.relatedNode.classList.contains("typeahead")) {
 		if(options.typeahead_display_username_only == "true") {
 			for (var i = event.relatedNode.querySelectorAll("strong.fullname").length - 1; i >= 0; i--) {

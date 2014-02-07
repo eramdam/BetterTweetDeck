@@ -221,6 +221,25 @@ this.manifest = {
             },
         },
         {
+            "tab": "General",
+            "group": "Content",
+            "name": "yt_rm_button",
+            "type": "popupButton",
+            "label": "Hide play button on YouTube previews:",
+            "options": {
+                "values": [
+                    {
+                        "value": false,
+                        "text": "No"
+                    },
+                    {
+                        "value": true,
+                        "text": "Yes"
+                    }
+                ]
+            },
+        },
+        {
             "tab": "About",
             "group": "About",
             "name": "about",
