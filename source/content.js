@@ -165,16 +165,15 @@ function createPreviewDiv(element, provider) {
 			dataType: 'json'
 		})
 		.done(function(data) {
-			console.log(data.media_id);
 			$.ajax({
 				url: 'https://api.instagram.com/v1/media/'+data.media_id+'?access_token=2111903.f59def8.8a390dd979164dc3b22900172cd7378f',
 				type: 'GET',
 				dataType: 'json'
 			})
 			.done(function(dataIn) {
-				if(thumbSize == "large") continueCreatingThePreview(dataIn.data.images.standard_resolution.url);
-				if(thumbSize == "medium") continueCreatingThePreview(dataIn.data.images.low_resolution.url);
-				if(thumbSize == "small") continueCreatingThePreview(dataIn.data.images.thumbnail.url);
+				if(thumbSize == "large") continueCreatingThePreview(dataIn.data.images.standard_resolution.url.replace("http","https"));
+				if(thumbSize == "medium") continueCreatingThePreview(dataIn.data.images.low_resolution.url.replace("http","https"));
+				if(thumbSize == "small") continueCreatingThePreview(dataIn.data.images.thumbnail.url.replace("http","https"));
 			});
 			
 		});
