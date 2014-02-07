@@ -59,6 +59,8 @@ function eventDispatcher() {
 					createPreviewDiv(links[0],"instagram");
 				} else if(linkUrl.indexOf("http://flic.kr") != -1 || linkUrl.indexOf("http://flickr.com") != -1){
 					createPreviewDiv(links[0],"flickr")
+				} else if(linkUrl.indexOf("http://500px.com") != -1) {
+					createPreviewDiv(links[0],"500px");
 				}
 			}
 		}
@@ -200,6 +202,20 @@ function createPreviewDiv(element, provider) {
 		})
 		.done(function(data) {
 			continueCreatingThePreview(data.url);
+		});
+	} else if(provider == "500px") {
+		if(thumbSize == "large") suffix = 4;
+		if(thumbSize == "medium") suffix = 3;
+		if(thumbSize == "small") suffix = 2;
+		photoID = linkURL.replace(/http(|s):\/\/500px.com\/photo\//,"");
+		$.ajax({
+			// Don't steal my consumer key, please !
+			url: "https://api.500px.com/v1/photos/"+photoID+"?consumer_key=8EUWGvy6gL8yFLPbuF6A8SvbOIxSlVJzQCdWSGnm",
+			type: 'GET',
+			dataType: "json"
+		})
+		.done(function(data) {
+			continueCreatingThePreview(data.photo.image_url.replace(/[0-9].jpg$/,suffix+".jpg"));
 		});
 	}
 
