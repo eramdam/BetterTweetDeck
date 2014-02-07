@@ -14,6 +14,10 @@
 	display: none;
 }
 
+.tweet-detail .btd-preview.flickr {
+	display:none;
+}
+
 /* Nice opacity fading animation on tweet hover */
 .btd-profile-pictures-fading .tweet-avatar {
 	opacity:.6;

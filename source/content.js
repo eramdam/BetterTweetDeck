@@ -57,6 +57,8 @@ function eventDispatcher() {
 					createPreviewDiv(links[0],"cloudApp");
 				} else if(linkUrl.indexOf("http://instagram.com") != -1) {
 					createPreviewDiv(links[0],"instagram");
+				} else if(linkUrl.indexOf("http://flic.kr") != -1 || linkUrl.indexOf("http://flickr.com") != -1){
+					createPreviewDiv(links[0],"flickr")
 				}
 			}
 		}
@@ -178,6 +180,19 @@ function createPreviewDiv(element, provider) {
 			
 		});
 		
+	} else if(provider == "flickr") {
+		if(thumbSize == "large") maxWidth = 800;
+		if(thumbSize == "medium") maxWidth = 500;
+		if(thumbSize == "small") maxWidth = 300;
+		flickUrl = linkURL.replace(":","%3A");
+		$.ajax({
+			url: 'https://www.flickr.com/services/oembed/?url='+flickUrl+'&format=json&maxwidth='+maxWidth,
+			type: 'GET',
+			dataType: "json"
+		})
+		.done(function(data) {
+			continueCreatingThePreview(data.url);
+		});
 	}
 
 	function continueCreatingThePreview(thumbnailUrl) {
