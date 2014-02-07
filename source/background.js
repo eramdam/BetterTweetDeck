@@ -25,3 +25,29 @@ chrome.extension.onRequest.addListener(
 		sendResponse(settings.toObject());
 	}
 );
+function onInstall() {
+chrome.tabs.create({url: "fancy-settings/source/index.html"});
+}
+
+function onUpdate() {
+// chrome.tabs.create({url: "update.html"});
+chrome.tabs.create({url: "fancy-settings/source/index.html?update"});
+}
+
+function getVersion() {
+var details = chrome.app.getDetails();
+return details.version;
+}
+
+// Check if the version has changed.
+var currVersion = getVersion();
+var prevVersion = localStorage['version']
+if (currVersion != prevVersion) {
+// Check if we just installed this extension.
+if (typeof prevVersion == 'undefined') {
+  //onInstall();
+} else {
+  onUpdate();
+}
+localStorage['version'] = currVersion;
+}

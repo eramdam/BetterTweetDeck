@@ -8,7 +8,7 @@ this.manifest = {
             "group": "Info",
             "name": "informations",
             "type": "description",
-            "text": "<strong>Don't forget to reload any TweetDeck tab after applying your settings</strong>"
+            "text": "<div class=notification></div><div class=alert>Don't forget to reload any TweetDeck tab after applying your settings</div>"
         },
         {
             "tab": "General",

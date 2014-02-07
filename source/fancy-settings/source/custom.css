@@ -2,3 +2,50 @@
 // Add your own style rules here, not in css/main.css
 // or css/setting.css for easy updating reasons.
 */
+
+span.new:before {
+	content: 'New !';
+	margin-left: -4.8em;
+	margin-right: 1.5em;
+	color: hsl(200, 48.9583%, 37.6471%);
+	font-weight: bold;
+}
+
+.popup-button .new:before {
+	margin-left: -2.8em;
+	margin-right: 0em;
+}
+
+.once, .hidden-changelog {
+	display: none;
+}
+
+div.notification {
+	background: hsl(200, 65.2174%, 90.9804%);
+	border-color: hsl(190, 65.4321%, 84.1176%);
+	border: 1px solid hsl(190, 65%, 74%);
+	border-radius: 4px;
+	padding: 15px;
+	box-sizing: border-box;
+	color: hsl(200, 48.9583%, 37.6471%);
+	margin: 20px 0;
+}
+
+div.alert {
+	background:#f2dede;
+	border: 1px solid hsl(350, 43.6620%, 80%);
+	border-radius: 4px;
+	padding: 15px;
+	box-sizing: border-box;
+	color: #a94442;
+	font-weight:bold;
+	margin: 20px 0;
+}
+
+.notification ul {
+	margin:0;
+}
+
+.notification p:first-of-type {
+	/*margin-bottom: 0;*/
+}
