@@ -3,9 +3,18 @@ window.addEvent("domready", function () {
     new FancySettings.initWithManifest(function (settings) {
     });
 
+    if(window.top.location.search == "?update") {
+        document.querySelector(".notification").innerHTML = document.querySelector(".hidden-changelog").innerHTML;
+    } else if(window.top.location.search == "?welcome") {
+        document.querySelector(".notification").innerHTML = document.querySelector(".hidden-welcome").innerHTML;
+        document.querySelector(".notification").classList.add("welcome");
+    } else {
+        document.querySelector(".notification").classList.add('once');
+    }
+
     if(window.top.location.search != "?update") {
-        for (var i = document.querySelectorAll("span.new, div.notification").length - 1; i >= 0; i--) {
-            document.querySelectorAll("span.new, div.notification")[i].classList.add("once");
+        for (var i = document.querySelectorAll("span.new").length - 1; i >= 0; i--) {
+            document.querySelectorAll("span.new")[i].classList.add("once");
         };
     }
 });

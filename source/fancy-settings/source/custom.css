@@ -16,7 +16,7 @@ span.new:before {
 	margin-right: 0em;
 }
 
-.once, .hidden-changelog {
+.once, .hidden-changelog, .hidden-welcome {
 	display: none;
 }
 
@@ -38,6 +38,17 @@ div.alert {
 	padding: 15px;
 	box-sizing: border-box;
 	color: #a94442;
+	font-weight:bold;
+	margin: 20px 0;
+}
+
+div.welcome {
+	background:#dff0d8;
+	border: 1px solid hsl(93, 44%, 80%);
+	border-radius: 4px;
+	padding: 15px;
+	box-sizing: border-box;
+	color: #3c763d;
 	font-weight:bold;
 	margin: 20px 0;
 }

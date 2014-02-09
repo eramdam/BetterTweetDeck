@@ -105,6 +105,13 @@ this.manifest = {
         {
             "tab": "General",
             "group": "Content",
+            "name": "yt_rm_button",
+            "type": "checkbox",
+            "label": "<span class=new></span>Hide play button on YouTube previews"
+        },
+        {
+            "tab": "General",
+            "group": "Content",
             "name": "url_redirection",
             "type": "checkbox",
             "label": "Remove t.co redirection"
@@ -184,13 +191,6 @@ this.manifest = {
             "name": "img_preview_cloud",
             "type": "checkbox",
             "label": "<span class=new></span> Display previews from <b>CloudApp</b>"
-        },
-        {
-            "tab": "General",
-            "group": "Content",
-            "name": "yt_rm_button",
-            "type": "checkbox",
-            "label": "<span class=new></span> Hide play button on YouTube previews"
         },
         {
             "tab": "About",
