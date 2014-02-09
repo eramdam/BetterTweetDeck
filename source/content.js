@@ -55,20 +55,21 @@ function eventDispatcher() {
 		if(options.img_preview != false){
 			links = event.target.querySelectorAll("p > a[data-full-url]");
 			if(links.length > 0) {
+			isDetail = links[0].parentNode.parentNode.querySelectorAll(".js-cards-container").length != 0;
 			linkUrl = links[0].getAttribute("data-full-url");
-				if(linkUrl.indexOf("imgur.com") != -1 && options.img_preview_imgur == true){
+				if(linkUrl.indexOf("imgur.com/") != -1 && options.img_preview_imgur == true){
 					createPreviewDiv(links[0],"imgur");
 				} else if(linkUrl.indexOf("d.pr/i") != -1 && options.img_preview_droplr == true) {
-					createPreviewDiv(links[0],"droplr");
-				} else if(linkUrl.indexOf("cl.ly") != -1 && options.img_preview_cloud == true) {
-					createPreviewDiv(links[0],"cloudApp");
-				} else if(linkUrl.indexOf("http://instagram.com") != -1 && options.img_preview_instagram == true) {
+					if(isDetail == false) createPreviewDiv(links[0],"droplr");
+				} else if(linkUrl.indexOf("cl.ly/") != -1 && options.img_preview_cloud == true) {
+					if(isDetail == false) createPreviewDiv(links[0],"cloudApp");
+				} else if(linkUrl.indexOf("instagram.com/") != -1 && options.img_preview_instagram == true) {
 					createPreviewDiv(links[0],"instagram");
-				} else if((linkUrl.indexOf("http://flic.kr") != -1 || linkUrl.indexOf("http://flickr.com") != -1) && options.img_preview_flickr == true){
-					createPreviewDiv(links[0],"flickr")
-				} else if(linkUrl.indexOf("http://500px.com") != -1 && options.img_preview_500px == true) {
-					createPreviewDiv(links[0],"500px");
-				} else if(linkUrl.indexOf("media.tumblr.com") != -1 && options.img_preview_tumblr == true) {
+				} else if((linkUrl.indexOf("flic.kr/") != -1 || linkUrl.indexOf("flickr.com/") != -1) && options.img_preview_flickr == true){
+					if(isDetail == false) createPreviewDiv(links[0],"flickr")
+				} else if(linkUrl.indexOf("500px.com/") != -1 && options.img_preview_500px == true) {
+					if(isDetail == false) createPreviewDiv(links[0],"fivehundredpx");
+				} else if(linkUrl.indexOf("media.tumblr.com/") != -1 && options.img_preview_tumblr == true) {
 					createPreviewDiv(links[0],"tumblr");
 				}
 			}
@@ -204,7 +205,7 @@ function createPreviewDiv(element, provider) {
 		.done(function(data) {
 			continueCreatingThePreview(data.url);
 		});
-	} else if(provider == "500px") {
+	} else if(provider == "fivehundredpx") {
 		if(thumbSize == "large") suffix = 4;
 		if(thumbSize == "medium") suffix = 3;
 		if(thumbSize == "small") suffix = 2;

@@ -9,15 +9,6 @@
 	border-radius:50%;
 }
 
-/* Hiding droplr previews because of Twitter Cards */
-.tweet-detail .btd-preview.droplr {
-	display: none;
-}
-
-.tweet-detail .btd-preview.flickr {
-	display:none;
-}
-
 /* Nice opacity fading animation on tweet hover */
 .btd-profile-pictures-fading .tweet-avatar {
 	opacity:.6;
