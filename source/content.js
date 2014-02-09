@@ -56,20 +56,20 @@ function eventDispatcher() {
 			links = event.target.querySelectorAll("p > a[data-full-url]");
 			if(links.length > 0) {
 			isDetail = links[0].parentNode.parentNode.querySelectorAll(".js-cards-container").length != 0;
-			linkUrl = links[0].getAttribute("data-full-url");
-				if(linkUrl.indexOf("imgur.com/") != -1 && options.img_preview_imgur == true){
+			imgURL = links[0].getAttribute("data-full-url");
+				if((imgURL.indexOf("imgur.com/") != -1 && imgURL.indexOf("/?q") == -1) && options.img_preview_imgur == true){
 					createPreviewDiv(links[0],"imgur");
-				} else if(linkUrl.indexOf("d.pr/i") != -1 && options.img_preview_droplr == true) {
+				} else if(imgURL.indexOf("d.pr/i") != -1 && options.img_preview_droplr == true) {
 					if(isDetail == false) createPreviewDiv(links[0],"droplr");
-				} else if(linkUrl.indexOf("cl.ly/") != -1 && options.img_preview_cloud == true) {
+				} else if(imgURL.indexOf("cl.ly/") != -1 && options.img_preview_cloud == true) {
 					if(isDetail == false) createPreviewDiv(links[0],"cloudApp");
-				} else if(linkUrl.indexOf("instagram.com/") != -1 && options.img_preview_instagram == true) {
+				} else if(imgURL.indexOf("instagram.com/") != -1 && options.img_preview_instagram == true) {
 					createPreviewDiv(links[0],"instagram");
-				} else if((linkUrl.indexOf("flic.kr/") != -1 || linkUrl.indexOf("flickr.com/") != -1) && options.img_preview_flickr == true){
+				} else if((imgURL.indexOf("flic.kr/") != -1 || imgURL.indexOf("flickr.com/") != -1) && options.img_preview_flickr == true){
 					if(isDetail == false) createPreviewDiv(links[0],"flickr")
-				} else if(linkUrl.indexOf("500px.com/") != -1 && options.img_preview_500px == true) {
+				} else if(imgURL.indexOf("500px.com/") != -1 && options.img_preview_500px == true) {
 					if(isDetail == false) createPreviewDiv(links[0],"fivehundredpx");
-				} else if(linkUrl.indexOf("media.tumblr.com/") != -1 && options.img_preview_tumblr == true) {
+				} else if(imgURL.indexOf("media.tumblr.com/") != -1 && options.img_preview_tumblr == true) {
 					createPreviewDiv(links[0],"tumblr");
 				}
 			}
@@ -101,46 +101,66 @@ function createPreviewDiv(element, provider) {
 	linkURL = element.getAttribute("data-full-url");
 	thumbSize = options.img_preview;
 	if(provider == "imgur") {
+		// Settings up some client-ID to "bypass" the request rate limite (12,500 req/day/client)
+		imgurClientIDs = ["c189a7be5a7a313","180ce538ef0dc41"];
+		function getClientID() {
+			return imgurClientIDs[Math.floor(Math.random() * imgurClientIDs.length)];
+		}
 		// Setting the right suffix depending of the user's option
 		if(thumbSize == "small") suffixImgur = "t";
 		if(thumbSize == "medium") suffixImgur = "m";
 		if(thumbSize == "large") suffixImgur = "l";
-
+		imgurID = linkURL.split("/").pop().split(".").pop();
 		// If it's an album or a gallery take this route !
-		if(linkURL.indexOf("/a/") != -1 || linkURL.indexOf("/gallery/") != -1) {
+		if(linkURL.indexOf("/a/") != -1) {
 			// Using jQuery's AJAX library to do the magic
 			$.ajax({
 				// Sidenote, even if Imgur got different models for album and gallery, they share the same API url so, why bother ?
-				url: "https://api.imgur.com/3/album/"+linkURL.replace(/http(|s):\/\/imgur.com\/(a|gallery)\//,""),
+				url: "https://api.imgur.com/3/album/"+imgurID,
 				type: 'GET',
 				dataType: 'json',
 				// Plz don't steal this data, anyone can create an Imgur app so be fair !
-				headers: {"Authorization": "Client-ID c189a7be5a7a313"}
+				headers: {"Authorization": "Client-ID "+getClientID()}
 			})
 			.done(function(data) {
 				// Make the thumbnail URL with suffix and the ID of the first images in the album/gallery
-				thumbnailUrl = "https://i.imgur.com/"+data.data.images[0].id+suffixImgur+".jpg";
+				thumbnailUrl = "https://i.imgur.com/"+data.data.cover+suffixImgur+".jpg";
 				continueCreatingThePreview(thumbnailUrl)
+			});
+		} else if(linkURL.indexOf("/gallery/") != -1) {
+			// Using jQuery's AJAX library to do the magic
+			$.ajax({
+				// Sidenote, even if Imgur got different models for album and gallery, they share the same API url so, why bother ?
+				url: "https://api.imgur.com/3/gallery/image/"+imgurID,
+				type: 'GET',
+				dataType: 'json',
+				// Plz don't steal this data, anyone can create an Imgur app so be fair !
+				headers: {"Authorization": "Client-ID "+getClientID()}
+			})
+			.done(function(data) {
+				// If the request succeeds, it's a single image with a /gallery/ link
+				if(data.success == true) {
+					thumbnailUrl = "https://i.imgur.com/"+data.data.id+suffixImgur+".jpg";
+					continueCreatingThePreview(thumbnailUrl)
+				} else {
+					// If the request fails, then it's a gallery album, therefore we have to do another request
+					$.ajax({
+						url: "https://api.imgur.com/3/gallery/album/"+imgurID,
+						type: 'GET',
+						dataType: 'json',
+						// Plz don't steal this data, anyone can create an Imgur app so be fair !
+						headers: {"Authorization": "Client-ID "+getClientID()}
+					})
+					.done(function() {
+						thumbnailUrl = "https://i.imgur.com/"+data.data.id+suffixImgur+".jpg";
+						continueCreatingThePreview(thumbnailUrl);
+					});
+					
+				}
 			});
 		} else {
 			// Imgur supported extensions (from http://imgur.com/faq#types)
-			extensions = ["jpg","jpeg","gif","png","apng"];
-
-			var thumbnailUrl;
-
-			// If link has an extension, replacing it by .jpg (png would be possible, but we don't want to have big previews)
-			if (extensions.indexOf(linkURL.split(".").pop()) != -1) {
-				for (var i = extensions.length - 1; i >= 0; i--) {
-					thumbnailUrl = linkURL.replace("."+extensions[i],suffixImgur+".jpg");
-				};
-			} else {
-				// Even if it doesn't have any extension, putting it one at the end so we can get something
-				thumbnailUrl = linkURL+suffixImgur+".jpg";
-			}
-
-			// Replacing imgur.com by i.imgur.com and http by https
-			thumbnailUrl = thumbnailUrl.replace("/imgur.com","/i.imgur.com").replace("http","https");
-			continueCreatingThePreview(thumbnailUrl);
+			continueCreatingThePreview("https://i.imgur.com/"+imgurID+suffixImgur+".jpg");
 		}
 	} else if(provider == "droplr") {
 
@@ -203,7 +223,6 @@ function createPreviewDiv(element, provider) {
 			dataType: "json"
 		})
 		.done(function(data) {
-			console.log(data.photo.image_url);
 			picURL = data.photo.image_url.replace(/[0-9].jpg$/,suffixFiveHundred+".jpg");
 			continueCreatingThePreview(picURL);
 		});
@@ -215,7 +234,7 @@ function createPreviewDiv(element, provider) {
 		// Getting the file extension of the URL for later
 		fileExtension = linkURL.split(".").pop();
 		// splitting by the "_" characted to remove the suffix
-		splittedURL = linkUrl.split("_");
+		splittedURL = linkURL.split("_");
 		// Building the new URL
 		thumbnailUrl = splittedURL[0]+"_"+splittedURL[1]+"_"+suffixTumblr+"."+fileExtension;
 		continueCreatingThePreview(thumbnailUrl);
