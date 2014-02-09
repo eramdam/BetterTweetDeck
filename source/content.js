@@ -100,19 +100,6 @@ function createPreviewDiv(element, provider) {
 	// Getting the full URL for later
 	linkURL = element.getAttribute("data-full-url");
 	thumbSize = options.img_preview;
-
-	// Creating the elements, replicating the same layout as TweetDeck's one
-	previewDiv = document.createElement("div");
-	previewDiv.className = "js-media media-preview position-rel btd-preview "+provider;
-	previewDivChild = document.createElement("div");
-	previewDivChild.className = "js-media-preview-container position-rel margin-vm";
-	previewLink = document.createElement("a");
-	previewLink.className = "js-media-image-link block med-link media-item media-size-"+thumbSize+"";
-	// Little difference, using rel=url otherwhise TweetDeck will treat it as a "real" media preview, therefore "blocking" the click on it 
-	previewLink.setAttribute("rel","url");
-	previewLink.href = linkURL;
-	previewLink.setAttribute("target","_blank");
-
 	if(provider == "imgur") {
 		// Setting the right suffix depending of the user's option
 		if(thumbSize == "small") suffix = "t";
@@ -234,6 +221,26 @@ function createPreviewDiv(element, provider) {
 	}
 
 	function continueCreatingThePreview(thumbnailUrl) {
+		fullBleed = "";
+		if(thumbSize == "large") {
+			marginSuffix = "tm";
+			fullBleed = "item-box-full-bleed";
+		} else {
+			marginSuffix = "vm";
+		}
+
+		// Creating the elements, replicating the same layout as TweetDeck's one
+		previewDiv = document.createElement("div");
+		previewDiv.className = "js-media media-preview position-rel btd-preview "+provider+" "+fullBleed;
+		previewDivChild = document.createElement("div");
+		previewDivChild.className = "js-media-preview-container position-rel margin-"+marginSuffix;
+		previewLink = document.createElement("a");
+		previewLink.className = "js-media-image-link block med-link media-item media-size-"+thumbSize+"";
+		// Little difference, using rel=url otherwhise TweetDeck will treat it as a "real" media preview, therefore "blocking" the click on it 
+		previewLink.setAttribute("rel","url");
+		previewLink.href = linkURL;
+		previewLink.setAttribute("target","_blank");
+		console.log("creating preview w/ "+provider+" and "+thumbnailUrl);
 		// Applying our thumbnail as a background-image of the preview div
 		previewLink.style.backgroundImage = "url("+thumbnailUrl+")";
 
@@ -242,9 +249,15 @@ function createPreviewDiv(element, provider) {
 		previewDiv.appendChild(previewDivChild);
 
 		// Adding it next to the <p> element, just before <footer> in a tweet
-		pElement = element.parentNode.parentNode.querySelector("p.js-tweet-text");
-		if(pElement.nextElementSibling) {
-			pElement.parentNode.insertBefore(previewDiv, pElement.nextElementSibling);
+		// console.log(previewDiv);
+		if(thumbSize == "large") {
+			pElement = element.parentNode.parentNode.parentNode.parentNode.querySelector("div.js-tweet.tweet");
+		} else {
+			pElement = element.parentNode.parentNode.querySelector("p.js-tweet-text");
+		}
+		
+		if(pElement) {
+			pElement.insertAdjacentElement("afterEnd", previewDiv);
 		}
 	}
 }
