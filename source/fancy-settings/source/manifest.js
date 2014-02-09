@@ -119,29 +119,6 @@ this.manifest = {
         {
             "tab": "General",
             "group": "Content",
-            "name": "img_preview",
-            "type": "popupButton",
-            "label": "<span class=new></span> Size of non-Twitter thumbnails displayed",
-            "options": {
-                "values": [
-                    {
-                        "value": "small",
-                        "text": "Small"
-                    },
-                    {
-                        "value": "medium",
-                        "text": "Medium"
-                    },
-                    {
-                        "value": "large",
-                        "text": "Large"
-                    }
-                ],
-            },
-        },
-        {
-            "tab": "General",
-            "group": "Content",
             "name": "img_preview_imgur",
             "type": "checkbox",
             "label": "<span class=new></span> Display previews from <b>Imgur</b>"

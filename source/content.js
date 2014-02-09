@@ -13,6 +13,7 @@ function setAllTheSettings(response) {
 		}
 	}
 	bodyClasses = document.body.classList;
+	doneTheStuff = false;
 	document.body.addEventListener("DOMNodeInserted", eventDispatcher);
 	if(options.circled_avatars == true) {
 		bodyClasses.add("btd-circle-avatars");
@@ -28,14 +29,46 @@ function setAllTheSettings(response) {
 	}
 }
 
+// console.log(window.TD.storage.columnController.get("c1391979750742s76").getMediaPreviewSize());
+
 function eventDispatcher() {
+	function mediaPreviewSize() {
+		for (var i = document.querySelectorAll(".js-column[data-column]").length - 1; i >= 0; i--) {
+			var col = document.querySelectorAll(".js-column[data-column]")[i];
+			var columnSize = TD.storage.columnController.get(col.getAttribute("data-column")).getMediaPreviewSize();
+			col.setAttribute("data-media-preview-size",columnSize);
+		};
+	}
+
+	function findColumn(childObj) {
+	    var testObj = childObj.parentNode;
+	    var count = 1;
+	    while(!testObj.classList.contains("js-column")) {
+	        testObj = testObj.parentNode;
+	        count++;
+	    }
+	    // now you have the object you are looking for - do something with it
+	    return testObj;
+	}
+
+	for (var i = 0; i < document.querySelectorAll(".column a[data-value]:not(.is-selected)").length; i++) {
+		document.querySelectorAll(".column a[data-value]:not(.is-selected)")[i].addEventListener("click", function() {
+			findColumn(event.target).setAttribute("data-media-preview-size",event.target.parentNode.getAttribute("data-value"));
+		});
+	};
+
 	// If the event.target is the text (TweetDeck updates timestamp at regular intervals) then we can get the .txt-mute element and tweak it in real-time
 	if(event.relatedNode.className.indexOf("txt-mute") != -1 && options.timestamp != "relative") {
 		timeIsNotRelative(event.relatedNode, options.timestamp);
 	} 
 	// If it's not a .txt-mute element, it must be a tweet or something similar, let's check it !
 	else if(event.target.className && event.target.className.indexOf("stream-item") != -1) {
-
+		if(document.querySelectorAll(".js-column-loading-placeholder").length == 0) {
+			if(!doneTheStuff) {
+				doneTheStuff = true;
+				injectScript(mediaPreviewSize);
+			}
+		}
 		// Applying the timestamp
 		if(options.timestamp != "relative") {
 			if(event.target.querySelector("time")){
@@ -52,26 +85,24 @@ function eventDispatcher() {
 		}
 
 		// If asked, creating the non-pic.twitter image previews
-		if(options.img_preview != false){
-			links = event.target.querySelectorAll("p > a[data-full-url]");
-			if(links.length > 0) {
-			isDetail = links[0].parentNode.parentNode.querySelectorAll(".js-cards-container").length != 0;
-			imgURL = links[0].getAttribute("data-full-url");
-				if((imgURL.indexOf("imgur.com/") != -1 && imgURL.indexOf("/?q") == -1) && options.img_preview_imgur == true){
-					createPreviewDiv(links[0],"imgur");
-				} else if(imgURL.indexOf("d.pr/i") != -1 && options.img_preview_droplr == true) {
-					if(isDetail == false) createPreviewDiv(links[0],"droplr");
-				} else if(imgURL.indexOf("cl.ly/") != -1 && options.img_preview_cloud == true) {
-					if(isDetail == false) createPreviewDiv(links[0],"cloudApp");
-				} else if(imgURL.indexOf("instagram.com/") != -1 && options.img_preview_instagram == true) {
-					createPreviewDiv(links[0],"instagram");
-				} else if((imgURL.indexOf("flic.kr/") != -1 || imgURL.indexOf("flickr.com/") != -1) && options.img_preview_flickr == true){
-					if(isDetail == false) createPreviewDiv(links[0],"flickr")
-				} else if(imgURL.indexOf("500px.com/") != -1 && options.img_preview_500px == true) {
-					if(isDetail == false) createPreviewDiv(links[0],"fivehundredpx");
-				} else if(imgURL.indexOf("media.tumblr.com/") != -1 && options.img_preview_tumblr == true) {
-					createPreviewDiv(links[0],"tumblr");
-				}
+		links = event.target.querySelectorAll("p > a[data-full-url]");
+		if(links.length > 0) {
+		isDetail = links[0].parentNode.parentNode.querySelectorAll(".js-cards-container").length != 0;
+		imgURL = links[0].getAttribute("data-full-url");
+			if((imgURL.indexOf("imgur.com/") != -1 && imgURL.indexOf("/?q") == -1) && options.img_preview_imgur == true){
+				createPreviewDiv(links[0],"imgur");
+			} else if(imgURL.indexOf("d.pr/i") != -1 && options.img_preview_droplr == true) {
+				if(isDetail == false) createPreviewDiv(links[0],"droplr");
+			} else if(imgURL.indexOf("cl.ly/") != -1 && options.img_preview_cloud == true) {
+				if(isDetail == false) createPreviewDiv(links[0],"cloudApp");
+			} else if(imgURL.indexOf("instagram.com/") != -1 && options.img_preview_instagram == true) {
+				createPreviewDiv(links[0],"instagram");
+			} else if((imgURL.indexOf("flic.kr/") != -1 || imgURL.indexOf("flickr.com/") != -1) && options.img_preview_flickr == true){
+				if(isDetail == false) createPreviewDiv(links[0],"flickr")
+			} else if(imgURL.indexOf("500px.com/") != -1 && options.img_preview_500px == true) {
+				if(isDetail == false) createPreviewDiv(links[0],"fivehundredpx");
+			} else if(imgURL.indexOf("media.tumblr.com/") != -1 && options.img_preview_tumblr == true) {
+				createPreviewDiv(links[0],"tumblr");
 			}
 		}
 
@@ -97,9 +128,19 @@ function eventDispatcher() {
 }
 
 function createPreviewDiv(element, provider) {
+	function findColumn(childObj) {
+	    var testObj = childObj.parentNode;
+	    var count = 1;
+	    while(!testObj.classList.contains("js-column")) {
+	        testObj = testObj.parentNode;
+	        count++;
+	    }
+	    // now you have the object you are looking for - do something with it
+	    return testObj;
+	}
 	// Getting the full URL for later
 	linkURL = element.getAttribute("data-full-url");
-	thumbSize = options.img_preview;
+	thumbSize = findColumn(element).getAttribute("data-media-preview-size");
 	if(provider == "imgur") {
 		// Settings up some client-ID to "bypass" the request rate limite (12,500 req/day/client)
 		imgurClientIDs = ["c189a7be5a7a313","180ce538ef0dc41"];
