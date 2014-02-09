@@ -20,7 +20,8 @@ As 1.0.2
 Screenshots
 ===============
 
-![](bettertweetdeck-overview.png)
+![](bettertweetdeck-avatars-timestamp-username.png)
+![](bettertweetdeck-thumbnails.png)
 ![](bettertweetdeck-options.png)
 
 Installation
