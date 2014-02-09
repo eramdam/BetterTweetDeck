@@ -36,7 +36,13 @@ Installation
 Changelog
 ===============
 
-1.0.0
+1.0.4
++ Fixed a bug where suffixes were mixed between providers, resulting in failed thumbnails
+
+1.0.3
++ Fixed a bug where URL could get "lost" between AJAX calls, resulting in failed links
+
+1.0.2
 + Large previews now fit perfectly with the Twitter ones
 + Added a "Welcome" screen
 + Re-ordered options

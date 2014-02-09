@@ -102,9 +102,9 @@ function createPreviewDiv(element, provider) {
 	thumbSize = options.img_preview;
 	if(provider == "imgur") {
 		// Setting the right suffix depending of the user's option
-		if(thumbSize == "small") suffix = "t";
-		if(thumbSize == "medium") suffix = "m";
-		if(thumbSize == "large") suffix = "l";
+		if(thumbSize == "small") suffixImgur = "t";
+		if(thumbSize == "medium") suffixImgur = "m";
+		if(thumbSize == "large") suffixImgur = "l";
 
 		// If it's an album or a gallery take this route !
 		if(linkURL.indexOf("/a/") != -1 || linkURL.indexOf("/gallery/") != -1) {
@@ -119,7 +119,7 @@ function createPreviewDiv(element, provider) {
 			})
 			.done(function(data) {
 				// Make the thumbnail URL with suffix and the ID of the first images in the album/gallery
-				thumbnailUrl = "https://i.imgur.com/"+data.data.images[0].id+suffix+".jpg";
+				thumbnailUrl = "https://i.imgur.com/"+data.data.images[0].id+suffixImgur+".jpg";
 				continueCreatingThePreview(thumbnailUrl)
 			});
 		} else {
@@ -131,11 +131,11 @@ function createPreviewDiv(element, provider) {
 			// If link has an extension, replacing it by .jpg (png would be possible, but we don't want to have big previews)
 			if (extensions.indexOf(linkURL.split(".").pop()) != -1) {
 				for (var i = extensions.length - 1; i >= 0; i--) {
-					thumbnailUrl = linkURL.replace("."+extensions[i],suffix+".jpg");
+					thumbnailUrl = linkURL.replace("."+extensions[i],suffixImgur+".jpg");
 				};
 			} else {
 				// Even if it doesn't have any extension, putting it one at the end so we can get something
-				thumbnailUrl = linkURL+suffix+".jpg";
+				thumbnailUrl = linkURL+suffixImgur+".jpg";
 			}
 
 			// Replacing imgur.com by i.imgur.com and http by https
@@ -146,13 +146,13 @@ function createPreviewDiv(element, provider) {
 
 		// Depending of the thumbSize option we're getting d.pr/i/1234/small or d.pr/i/1234/medium (it seems like Droplr hasn't a "large" option)
 		if(thumbSize == "small") {
-			suffix = thumbSize;
+			suffixDroplr = thumbSize;
 		} else {
-			suffix = "medium";
+			suffixDroplr = "medium";
 		}
 		// Removing the last "/" if present and adding one+suffix
 		thumbnailUrl = linkURL.replace(/\/$/,"");
-		thumbnailUrl = thumbnailUrl+"/"+suffix;
+		thumbnailUrl = thumbnailUrl+"/"+suffixDroplr;
 		continueCreatingThePreview(thumbnailUrl);
 	} else if(provider == "cloudApp") {
 		$.ajax({
@@ -192,10 +192,10 @@ function createPreviewDiv(element, provider) {
 			continueCreatingThePreview(data.url);
 		});
 	} else if(provider == "fivehundredpx") {
-		if(thumbSize == "large") suffix = 4;
-		if(thumbSize == "medium") suffix = 3;
-		if(thumbSize == "small") suffix = 2;
 		photoID = linkURL.replace(/http(|s):\/\/500px.com\/photo\//,"");
+		if(thumbSize == "large") suffixFiveHundred = "4";
+		if(thumbSize == "medium") suffixFiveHundred = "3";
+		if(thumbSize == "small") suffixFiveHundred = "2";
 		$.ajax({
 			// Don't steal my consumer key, please !
 			url: "https://api.500px.com/v1/photos/"+photoID+"?consumer_key=8EUWGvy6gL8yFLPbuF6A8SvbOIxSlVJzQCdWSGnm",
@@ -203,19 +203,21 @@ function createPreviewDiv(element, provider) {
 			dataType: "json"
 		})
 		.done(function(data) {
-			continueCreatingThePreview(data.photo.image_url.replace(/[0-9].jpg$/,suffix+".jpg"));
+			console.log(data.photo.image_url);
+			picURL = data.photo.image_url.replace(/[0-9].jpg$/,suffixFiveHundred+".jpg");
+			continueCreatingThePreview(picURL);
 		});
 	} else if(provider == "tumblr") {
 		// Using the appropriate suffix depending of the settings
-		if(thumbSize == "large") suffix = "500";
-		if(thumbSize == "medium") suffix = "400";
-		if(thumbSize == "small") suffix = "250";
+		if(thumbSize == "large") suffixTumblr = "500";
+		if(thumbSize == "medium") suffixTumblr = "400";
+		if(thumbSize == "small") suffixTumblr = "250";
 		// Getting the file extension of the URL for later
 		fileExtension = linkURL.split(".").pop();
 		// splitting by the "_" characted to remove the suffix
 		splittedURL = linkUrl.split("_");
 		// Building the new URL
-		thumbnailUrl = splittedURL[0]+"_"+splittedURL[1]+"_"+suffix+"."+fileExtension;
+		thumbnailUrl = splittedURL[0]+"_"+splittedURL[1]+"_"+suffixTumblr+"."+fileExtension;
 		continueCreatingThePreview(thumbnailUrl);
 	}
 
