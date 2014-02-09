@@ -33,6 +33,19 @@ Installation
 Changelog
 ===============
 
+1.0.0
++ Added a "Welcome" screen
++ Re-ordered options
++ Improved options page, now displaying it at each update with a changelog
++ Added Tumblr support for previews
++ Added CloudApp support for previews
++ Added 500px support for previews
++ Added Flickr support for previews
++ Added Instagram support for previews
++ Added full Imgur support for previews
++ Added the possibility of choosing the services to display or not
++ Added possibility not to hide the play button on YouTube thumbnails
+
 0.0.8
 
 + Added an option to display the full-time only after 24h
