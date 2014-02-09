@@ -355,7 +355,7 @@ function nameDisplay(elements, mode) {
 			// If the username is NOT in a tweet (typically in a <p> element), do the thing
 			if(elements[i].parentNode.tagName != "P") {
 				// Removing "http://twitter.com" and the last "/" in the link to get the @username
-				username = elements[i].getAttribute("href").replace(/http(|s):\/\/twitter.com\//,"").replace(/\//g,"");
+				username = elements[i].getAttribute("href").split("/").pop();
 				if(elements[i].querySelector("b.fullname")) {
 					fullname = elements[i].querySelector("b.fullname").innerHTML;
 				}
@@ -368,8 +368,10 @@ function nameDisplay(elements, mode) {
 				}
 
 				if(elements[i].querySelector("span.username")) {
-					elements[i].querySelector("span.username span.at").remove();
-					elements[i].querySelector("span.username").innerHTML = fullname;
+					elements[i].querySelector("span.username span.at").remove(function() {
+						elements[i].querySelector("span.username").innerHTML = fullname;
+					});
+					
 				}
 
 
