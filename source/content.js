@@ -369,6 +369,8 @@ function nameDisplay(elements, mode) {
 
 				if(elements[i].querySelector("span.username")) {
 					elements[i].querySelector("span.username span.at").remove();
+					// Must set TWICE the innerHTML for some tricky reasons…
+					elements[i].querySelector("span.username").innerHTML = fullname;
 					elements[i].querySelector("span.username").innerHTML = fullname;
 				}
 

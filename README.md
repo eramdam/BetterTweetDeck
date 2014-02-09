@@ -36,6 +36,9 @@ Installation
 Changelog
 ===============
 
+1.0.6
++ Fixed a weird bug with the "inverted" name display mode
+
 1.0.5
 + Fixed a bug where imgur.com/gallery/ links where mistakenly considered as album
 
