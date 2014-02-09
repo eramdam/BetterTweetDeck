@@ -3,6 +3,13 @@ window.addEvent("domready", function () {
     new FancySettings.initWithManifest(function (settings) {
     });
 
+    function getVersion() {
+    var details = chrome.app.getDetails();
+    return details.version;
+    }
+
+    document.querySelector(".hidden-changelog b").innerHTML = getVersion();
+
     if(window.top.location.search == "?update") {
         document.querySelector(".notification").innerHTML = document.querySelector(".hidden-changelog").innerHTML;
     } else if(window.top.location.search == "?welcome") {
@@ -17,4 +24,5 @@ window.addEvent("domready", function () {
             document.querySelectorAll("span.new")[i].classList.add("once");
         };
     }
+
 });
