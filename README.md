@@ -6,9 +6,11 @@ Adds some nice options on TweetDeck to provide a better experience on the webapp
 Features
 ===============
 
-As 0.0.8
+As 1.0.2
 
-+ Thumbnails for Imgur and Droplr images links
++ Thumbnails for Imgur, Droplr, CloudApp, Flickr, Instagram and 500px
++ Allow to hide or not the "play icon" on YouTube previews
++ Allow to display grayscale icons in Notifications columns
 + Allow to change the time formatting (Relative or Absolute)
 + Allow to change the username/fullname formatting (Username only, Fullname only, both or inverted (Username Fullname))
 + Display fancy circled avatars (they're hipsters, but they're cute too!)
