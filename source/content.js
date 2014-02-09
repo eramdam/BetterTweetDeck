@@ -68,6 +68,8 @@ function eventDispatcher() {
 					createPreviewDiv(links[0],"flickr")
 				} else if(linkUrl.indexOf("http://500px.com") != -1 && options.img_preview_500px == true) {
 					createPreviewDiv(links[0],"500px");
+				} else if(linkUrl.indexOf("media.tumblr.com") != -1 && options.img_preview_tumblr == true) {
+					createPreviewDiv(links[0],"tumblr");
 				}
 			}
 		}
@@ -216,6 +218,18 @@ function createPreviewDiv(element, provider) {
 		.done(function(data) {
 			continueCreatingThePreview(data.photo.image_url.replace(/[0-9].jpg$/,suffix+".jpg"));
 		});
+	} else if(provider == "tumblr") {
+		// Using the appropriate suffix depending of the settings
+		if(thumbSize == "large") suffix = "500";
+		if(thumbSize == "medium") suffix = "400";
+		if(thumbSize == "small") suffix = "250";
+		// Getting the file extension of the URL for later
+		fileExtension = linkURL.split(".").pop();
+		// splitting by the "_" characted to remove the suffix
+		splittedURL = linkUrl.split("_");
+		// Building the new URL
+		thumbnailUrl = splittedURL[0]+"_"+splittedURL[1]+"_"+suffix+"."+fileExtension;
+		continueCreatingThePreview(thumbnailUrl);
 	}
 
 	function continueCreatingThePreview(thumbnailUrl) {

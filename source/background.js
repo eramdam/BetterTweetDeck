@@ -6,6 +6,7 @@ if(!settings) {
 	"circled_avatars": false,
 	"img_preview": "small",
 	"img_preview_imgur": true,
+	"img_preview_tumblr": true,
 	"img_preview_droplr": true,
 	"img_preview_instagram": true,
 	"img_preview_flickr": true,

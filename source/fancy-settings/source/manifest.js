@@ -146,6 +146,13 @@ this.manifest = {
         {
             "tab": "General",
             "group": "Content",
+            "name": "img_preview_tumblr",
+            "type": "checkbox",
+            "label": "<span class=new></span> Display previews from <b>Tumblr</b>"
+        },
+        {
+            "tab": "General",
+            "group": "Content",
             "name": "img_preview_droplr",
             "type": "checkbox",
             "label": "<span class=new></span> Display previews from <b>Droplr</b>"
