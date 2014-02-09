@@ -34,6 +34,7 @@ Changelog
 ===============
 
 1.0.0
++ Large previews now fit perfectly with the Twitter ones
 + Added a "Welcome" screen
 + Re-ordered options
 + Improved options page, now displaying it at each update with a changelog
