@@ -20,6 +20,10 @@ span.new:before {
 	display: none;
 }
 
+.welcome span {
+	color:red;
+}
+
 div.notification {
 	background: hsl(200, 65.2174%, 90.9804%);
 	border-color: hsl(190, 65.4321%, 84.1176%);
