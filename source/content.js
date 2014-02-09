@@ -371,7 +371,6 @@ function nameDisplay(elements, mode) {
 					elements[i].querySelector("span.username span.at").remove(function() {
 						elements[i].querySelector("span.username").innerHTML = fullname;
 					});
-					
 				}
 
 
