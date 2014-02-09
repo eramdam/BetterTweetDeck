@@ -1,7 +1,7 @@
 {
 	"name": "Better TweetDeck",
 	"short_name": "BetterTDeck",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"manifest_version": 2,
 	"description": "Improves the user experience of TweetDeck on the web (http://tweetdeck.twitter.com)",
 	"content_scripts": [{
