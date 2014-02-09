@@ -36,6 +36,9 @@ Installation
 Changelog
 ===============
 
+1.0.5
++ Fixed a bug where imgur.com/gallery/ links where mistakenly considered as album
+
 1.0.4
 + Fixed a bug where suffixes were mixed between providers, resulting in failed thumbnails
 
