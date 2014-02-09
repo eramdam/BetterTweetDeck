@@ -126,11 +126,10 @@ function createPreviewDiv(element, provider) {
 			// Imgur supported extensions (from http://imgur.com/faq#types)
 			extensions = ["jpg","jpeg","gif","png","apng"];
 
-			var regex = new RegExp(extensions.join('|'));
 			var thumbnailUrl;
 
 			// If link has an extension, replacing it by .jpg (png would be possible, but we don't want to have big previews)
-			if (regex.test(previewLink.href)) {
+			if (extensions.indexOf(linkURL.split(".").pop()) != -1) {
 				for (var i = extensions.length - 1; i >= 0; i--) {
 					thumbnailUrl = linkURL.replace("."+extensions[i],suffix+".jpg");
 				};
@@ -240,7 +239,6 @@ function createPreviewDiv(element, provider) {
 		previewLink.setAttribute("rel","url");
 		previewLink.href = linkURL;
 		previewLink.setAttribute("target","_blank");
-		console.log("creating preview w/ "+provider+" and "+thumbnailUrl);
 		// Applying our thumbnail as a background-image of the preview div
 		previewLink.style.backgroundImage = "url("+thumbnailUrl+")";
 
