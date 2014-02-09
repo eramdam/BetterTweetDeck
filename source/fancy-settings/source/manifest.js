@@ -72,7 +72,7 @@ this.manifest = {
             "group": "Users",
             "name": "typeahead_display_username_only",
             "type": "checkbox",
-            "label": "In the <a href='http://f.cl.ly/items/0Q0I1t2k441639363V35/BehaYurCUAATDU8.png'>mention helper</a> display the username only"
+            "label": "Only display the username in the <a href='http://f.cl.ly/items/0Q0I1t2k441639363V35/BehaYurCUAATDU8.png'>mention helper</a>"
         },
         {
             "tab": "General",
@@ -93,7 +93,7 @@ this.manifest = {
             "group": "Appearance",
             "name": "no_columns_icons",
             "type": "checkbox",
-            "label": "Display icons in column headers",
+            "label": "No icons in column headers",
         },
         {
             "tab": "General",
@@ -124,10 +124,6 @@ this.manifest = {
             "label": "<span class=new></span> Size of non-Twitter thumbnails displayed",
             "options": {
                 "values": [
-                    {
-                        "value": false,
-                        "text": "No"
-                    },
                     {
                         "value": "small",
                         "text": "Small"
