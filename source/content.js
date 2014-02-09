@@ -110,7 +110,7 @@ function createPreviewDiv(element, provider) {
 		if(thumbSize == "small") suffixImgur = "t";
 		if(thumbSize == "medium") suffixImgur = "m";
 		if(thumbSize == "large") suffixImgur = "l";
-		imgurID = linkURL.split("/").pop().split(".").pop();
+		imgurID = linkURL.split("/").pop().split(".")[0].split("#")[0];
 		// If it's an album or a gallery take this route !
 		if(linkURL.indexOf("/a/") != -1) {
 			// Using jQuery's AJAX library to do the magic
