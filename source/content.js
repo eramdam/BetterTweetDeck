@@ -227,7 +227,7 @@ function createPreviewDiv(element, provider) {
 		} else {
 			marginSuffix = "vm";
 		}
-
+		linkURL = element.getAttribute("data-full-url");
 		// Creating the elements, replicating the same layout as TweetDeck's one
 		previewDiv = document.createElement("div");
 		previewDiv.className = "js-media media-preview position-rel btd-preview "+provider+" "+fullBleed;
