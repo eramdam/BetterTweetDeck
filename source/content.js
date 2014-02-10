@@ -417,15 +417,15 @@ function nameDisplay(elements, mode) {
 						elements[i].querySelector("b.fullname").innerHTML = username;
 					} else {
 						elements[i].innerHTML = username;
+
 					}
 				} else {
 					elements[i].innerHTML = username;
+					if(elements[i].classList.contains('account-link')) {
+						elements[i].style.fontWeight = "bold";
+					}
 				}
 				
-
-
-
-
 			}
 		};
 	}

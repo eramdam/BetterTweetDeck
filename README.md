@@ -36,6 +36,9 @@ Installation
 Changelog
 ===============
 
+1.1.1
++ Fixed the font-weight of usernames when using the "inverted" naming display (in Notifications columns)
+
 1.1.0
 + Thumbnail size now can be controlled within columns' settings!
 + Image services are in alphabetical order in settings. 
