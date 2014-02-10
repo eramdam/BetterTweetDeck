@@ -36,6 +36,13 @@ Installation
 Changelog
 ===============
 
+1.1.0
++ Thumbnail size now can be controlled within columns' settings!
++ Image services are in alphabetical order in settings. 
++ Large previews got a triangle like the Twitter's ones! #Illuminati
++ Fixed a bug with Imgur IDs that were wrongly parsed
++ Fixed **for real** the issue with "inverted" name displaying. Phew.
+
 1.0.6
 + Fixed a weird bug with the "inverted" name display mode
 

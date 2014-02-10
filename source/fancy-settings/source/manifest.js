@@ -107,7 +107,7 @@ this.manifest = {
             "group": "Content",
             "name": "yt_rm_button",
             "type": "checkbox",
-            "label": "<span class=new></span>Hide play button on YouTube previews"
+            "label": "Hide play button on YouTube previews"
         },
         {
             "tab": "General",
@@ -121,49 +121,49 @@ this.manifest = {
             "group": "Content",
             "name": "img_preview_500px",
             "type": "checkbox",
-            "label": "<span class=new></span> Display previews from <b>500px</b>"
+            "label": "Display previews from <b>500px</b>"
         },
         {
             "tab": "General",
             "group": "Content",
             "name": "img_preview_cloud",
             "type": "checkbox",
-            "label": "<span class=new></span> Display previews from <b>CloudApp</b>"
+            "label": "Display previews from <b>CloudApp</b>"
         },
         {
             "tab": "General",
             "group": "Content",
             "name": "img_preview_droplr",
             "type": "checkbox",
-            "label": "<span class=new></span> Display previews from <b>Droplr</b>"
+            "label": "Display previews from <b>Droplr</b>"
         },
         {
             "tab": "General",
             "group": "Content",
             "name": "img_preview_flickr",
             "type": "checkbox",
-            "label": "<span class=new></span> Display previews from <b>Flickr</b>"
+            "label": "Display previews from <b>Flickr</b>"
         },
         {
             "tab": "General",
             "group": "Content",
             "name": "img_preview_imgur",
             "type": "checkbox",
-            "label": "<span class=new></span> Display previews from <b>Imgur</b>"
+            "label": "Display previews from <b>Imgur</b>"
         },
         {
             "tab": "General",
             "group": "Content",
             "name": "img_preview_instagram",
             "type": "checkbox",
-            "label": "<span class=new></span> Display previews from <b>Instagram</b>"
+            "label": "Display previews from <b>Instagram</b>"
         },
         {
             "tab": "General",
             "group": "Content",
             "name": "img_preview_tumblr",
             "type": "checkbox",
-            "label": "<span class=new></span> Display previews from <b>Tumblr</b>"
+            "label": "Display previews from <b>Tumblr</b>"
         },
         {
             "tab": "About",
