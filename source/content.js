@@ -295,6 +295,7 @@ function createPreviewDiv(element, provider) {
 		// Creating the elements, replicating the same layout as TweetDeck's one
 		previewDiv = document.createElement("div");
 		previewDiv.className = "js-media media-preview position-rel btd-preview "+provider+" "+fullBleed;
+
 		previewDivChild = document.createElement("div");
 		previewDivChild.className = "js-media-preview-container position-rel margin-"+marginSuffix;
 		previewLink = document.createElement("a");
@@ -320,6 +321,11 @@ function createPreviewDiv(element, provider) {
 		
 		if(pElement) {
 			pElement.insertAdjacentElement("afterEnd", previewDiv);
+			if(thumbSize == "large") {
+				triangle = document.createElement("span");
+				triangle.className = "triangle";
+				previewDiv.insertAdjacentElement("beforeEnd",triangle);
+			}
 		}
 	}
 }
