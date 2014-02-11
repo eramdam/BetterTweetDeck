@@ -110,10 +110,12 @@ function eventDispatcher() {
 		}
 
 		if(options.yt_rm_button == true) {
-			var preview = event.target.querySelector("div.video-overlay.icon-with-bg-round");
+			var preview = event.target.querySelectorAll("div.video-overlay.icon-with-bg-round");
 
 			if(preview != null) {
-				preview.style.display = "none";
+				for (var i = preview.length - 1; i >= 0; i--) {
+					preview[i].remove();
+				};
 			}
 		}
 	} else if(event.relatedNode.classList.contains("typeahead")) {
