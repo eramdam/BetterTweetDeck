@@ -105,6 +105,13 @@ this.manifest = {
         {
             "tab": "General",
             "group": "Content",
+            "name": "url_redirection",
+            "type": "checkbox",
+            "label": "Remove t.co redirection"
+        },
+        {
+            "tab": "General",
+            "group": "Content",
             "name": "yt_rm_button",
             "type": "checkbox",
             "label": "Hide play button on YouTube previews"
@@ -112,9 +119,9 @@ this.manifest = {
         {
             "tab": "General",
             "group": "Content",
-            "name": "url_redirection",
+            "name": "only_one_thumbnails",
             "type": "checkbox",
-            "label": "Remove t.co redirection"
+            "label": "Display only one thumbnail per tweet"
         },
         {
             "tab": "General",

@@ -16,7 +16,8 @@ if(!settings) {
 	"img_preview_instagram": true,
 	"img_preview_flickr": true,
 	"img_preview_500px": true,
-	"img_preview_cloud": true
+	"img_preview_cloud": true,
+	"only_one_thumbnails": true
 	});
 }
 

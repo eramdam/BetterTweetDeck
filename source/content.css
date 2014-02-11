@@ -38,3 +38,8 @@
 .btd-grayscale-notification-icons i.icon.activity-indicator {
 	color: #737373;
 }
+
+/* Don't display thumbnails that aren't the first thumbnails of the tweet (because TweetDeck display duplicates thumbnails sometimes, and that's annoying) */
+.btd-one-thumbnail .js-media-preview-container:not(:first-of-type) {
+	display: none;
+}

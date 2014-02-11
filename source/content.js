@@ -27,6 +27,9 @@ function setAllTheSettings(response) {
 	if(options.grayscale_notification_icons == true) {
 		bodyClasses.add("btd-grayscale-notification-icons");
 	}
+	if(options.only_one_thumbnails == true) {
+		bodyClasses.add("btd-one-thumbnail");
+	}
 }
 
 // console.log(window.TD.storage.columnController.get("c1391979750742s76").getMediaPreviewSize());
