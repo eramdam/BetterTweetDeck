@@ -129,6 +129,9 @@ function eventDispatcher() {
 				event.relatedNode.querySelectorAll("span.username")[i].classList.remove("username");
 			};
 		}
+	} else if(event.relatedNode.id == "actions-modal") {
+		event.target.classList.remove("s-fluid");
+		event.target.style.height = "auto";
 	}
 }
 
