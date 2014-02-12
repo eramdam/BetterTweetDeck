@@ -54,6 +54,7 @@ function eventDispatcher() {
 	    return testObj;
 	}
 
+	// Change data-media-preview-size when small/medium/large are clicked
 	for (var i = 0; i < document.querySelectorAll(".column a[data-value]:not(.is-selected)").length; i++) {
 		document.querySelectorAll(".column a[data-value]:not(.is-selected)")[i].addEventListener("click", function() {
 			findColumn(event.target).setAttribute("data-media-preview-size",event.target.parentNode.getAttribute("data-value"));
@@ -66,7 +67,7 @@ function eventDispatcher() {
 	} 
 	// If it's not a .txt-mute element, it must be a tweet or something similar, let's check it !
 	else if(event.target.className && event.target.className.indexOf("stream-item") != -1) {
-		if(document.querySelectorAll(".js-column-loading-placeholder").length == 0) {
+		if(document.querySelectorAll(".js-column").length > 0) {
 			if(!doneTheStuff) {
 				doneTheStuff = true;
 				injectScript(mediaPreviewSize);
