@@ -36,6 +36,12 @@ Installation
 Changelog
 ===============
 
+1.1.4
++ Fixed a "bug" where RT-boxes from TweetDeck are too wide
+
+1.1.3
++ Now you can display only one thumbnail per tweet 
+
 1.1.1
 + Fixed the font-weight of usernames when using the "inverted" naming display (in Notifications columns)
 
