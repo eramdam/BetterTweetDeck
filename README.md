@@ -36,6 +36,9 @@ Installation
 Changelog
 ===============
 
+1.1.5
++ The extension fetches the user-size for thumbnails sooner, resulting in better working thumbnails
+
 1.1.4
 + Fixed a "bug" where RT-boxes from TweetDeck are too wide
 
