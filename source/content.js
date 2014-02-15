@@ -107,6 +107,8 @@ function eventDispatcher() {
 				if(isDetail == false) createPreviewDiv(links[0],"fivehundredpx");
 			} else if(imgURL.indexOf("media.tumblr.com/") != -1 && options.img_preview_tumblr == true) {
 				createPreviewDiv(links[0],"tumblr");
+			} else if(new RegExp("vimeo.com\/[0-9]*$").test(imgURL)) {
+				createPreviewDiv(links[0],"vimeo");
 			}
 		}
 
@@ -271,6 +273,21 @@ function createPreviewDiv(element, provider) {
 			// Building the new URL
 			thumbnailUrl = splittedURL[0]+"_"+splittedURL[1]+"_"+suffixTumblr+"."+fileExtension;
 			continueCreatingThePreview(thumbnailUrl);
+		} else if(provider == "vimeo") {
+			var suffixVimeo;
+			if(thumbSize == "large") suffixVimeo = "640";
+			if(thumbSize == "medium") suffixVimeo = "200";
+			if(thumbSize == "small") suffixVimeo = "100";
+			var vimeoID = linkURL.split("/").pop();
+			$.ajax({
+				url: 'http://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/'+vimeoID,
+				type: 'GET',
+				dataType: 'json'
+			})
+			.done(function(data) {
+				continueCreatingThePreview(data.thumbnail_url.replace(/_[0-9]*.jpg$/,"_")+suffixVimeo+".jpg");
+			});
+			
 		}
 	}
 
