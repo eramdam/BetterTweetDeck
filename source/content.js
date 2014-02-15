@@ -162,24 +162,9 @@ function createPreviewDiv(element, provider) {
 			if(thumbSize == "medium") suffixImgur = "m";
 			if(thumbSize == "large") suffixImgur = "l";
 			imgurID = linkURL.split("/").pop().split(".")[0].split("#")[0];
-			// If it's an album or a gallery take this route !
-			if(linkURL.indexOf("/a/") != -1) {
-				// Using jQuery's AJAX library to do the magic
-				$.ajax({
-					// Sidenote, even if Imgur got different models for album and gallery, they share the same API url so, why bother ?
-					url: "https://api.imgur.com/3/album/"+imgurID,
-					type: 'GET',
-					dataType: 'json',
-					// Plz don't steal this data, anyone can create an Imgur app so be fair !
-					headers: {"Authorization": "Client-ID "+getClientID()}
-				})
-				.done(function(data) {
-					// Make the thumbnail URL with suffix and the ID of the first images in the album/gallery
-					thumbnailUrl = "https://i.imgur.com/"+data.data.cover+suffixImgur+".jpg";
-					continueCreatingThePreview(thumbnailUrl)
-				});
-			} else if(linkURL.indexOf("/gallery/") != -1) {
-				// Using jQuery's AJAX library to do the magic
+			if(linkURL.indexOf("imgur.com/a/") != -1) {
+				previewFromAnAlbum(imgurID);
+			} else if(linkURL.indexOf("imgur.com/gallery/") != -1) {
 				$.ajax({
 					// Sidenote, even if Imgur got different models for album and gallery, they share the same API url so, why bother ?
 					url: "https://api.imgur.com/3/gallery/image/"+imgurID,
@@ -189,29 +174,31 @@ function createPreviewDiv(element, provider) {
 					headers: {"Authorization": "Client-ID "+getClientID()}
 				})
 				.done(function(data) {
-					// If the request succeeds, it's a single image with a /gallery/ link
-					if(data.success == true) {
-						thumbnailUrl = "https://i.imgur.com/"+data.data.id+suffixImgur+".jpg";
-						continueCreatingThePreview(thumbnailUrl)
-					} else {
-						// If the request fails, then it's a gallery album, therefore we have to do another request
-						$.ajax({
-							url: "https://api.imgur.com/3/gallery/album/"+imgurID,
-							type: 'GET',
-							dataType: 'json',
-							// Plz don't steal this data, anyone can create an Imgur app so be fair !
-							headers: {"Authorization": "Client-ID "+getClientID()}
-						})
-						.done(function() {
-							thumbnailUrl = "https://i.imgur.com/"+data.data.id+suffixImgur+".jpg";
-							continueCreatingThePreview(thumbnailUrl);
-						});
-						
-					}
+					thumbnailUrl = "https://i.imgur.com/"+data.data.id+suffixImgur+".jpg";
+					continueCreatingThePreview(thumbnailUrl);
+				})
+				.fail(function() {
+					console.log("Better TweetDeck: Gallery isn't a image!");
+					previewFromAnAlbum(imgurID);
 				});
 			} else {
-				// Imgur supported extensions (from http://imgur.com/faq#types)
 				continueCreatingThePreview("https://i.imgur.com/"+imgurID+suffixImgur+".jpg");
+			}
+
+			function previewFromAnAlbum(albumID) {
+				$.ajax({
+					// Sidenote, even if Imgur got different models for album and gallery, they share the same API url so, why bother ?
+					url: "https://api.imgur.com/3/album/"+albumID,
+					type: 'GET',
+					dataType: 'json',
+					// Plz don't steal this data, anyone can create an Imgur app so be fair !
+					headers: {"Authorization": "Client-ID "+getClientID()}
+				})
+				.done(function(data) {
+					// Make the thumbnail URL with suffix and the ID of the first images in the album/gallery
+					thumbnailUrl = "https://i.imgur.com/"+data.data.cover+suffixImgur+".jpg";
+					continueCreatingThePreview(thumbnailUrl);
+				});
 			}
 		} else if(provider == "droplr") {
 
@@ -238,16 +225,11 @@ function createPreviewDiv(element, provider) {
 					continueCreatingThePreview(thumbnailUrl);
 			});
 		} else if(provider == "instagram") {
-			$.ajax({
-				url: 'https://api.instagram.com/oembed?url='+linkURL,
-				type: 'GET',
-				dataType: 'json'
-			})
-			.done(function(data) {
-				if(thumbSize == "large") continueCreatingThePreview(data.url.replace(/[0-9].jpg$/,"8.jpg"));
-				if(thumbSize == "medium") continueCreatingThePreview(data.url.replace(/[0-9].jpg$/,"6.jpg"));
-				if(thumbSize == "small") continueCreatingThePreview(data.url.replace(/[0-9].jpg$/,"5.jpg"));
-			});
+			instagramID = linkURL.replace(/\/$/,"").split("/").pop();
+			if(thumbSize == "large") suffixInstagram = "l";
+			if(thumbSize == "medium") suffixInstagram = "m";
+			if(thumbSize == "small") suffixInstagram = "t";
+			continueCreatingThePreview("http://instagr.am/p/"+instagramID+"/media/?size="+suffixInstagram);
 			
 		} else if(provider == "flickr") {
 			if(thumbSize == "large") maxWidth = 800;
