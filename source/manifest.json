@@ -1,7 +1,7 @@
 {
-	"name": "Better TweetDeck",
-	"short_name": "BetterTDeck",
-	"version": "1.1.5",
+	"name": "Better TweetDeckBeta",
+	"short_name": "BetterTDeckBeta",
+	"version": "1.2.0",
 	"manifest_version": 2,
 	"description": "Improves the user experience of TweetDeck on the web (http://tweetdeck.twitter.com)",
 	"content_scripts": [{
@@ -9,9 +9,9 @@
 		"js": ["jquery.ajax.min.js","injectScript.js","content.js"],
 		"css": ["content.css"]
 		}],
-	"icons": { "16": "icon16.png",
-	           "48": "icon48.png",
-	          "128": "icon128.png" },
+	"icons": { "16": "icon16-beta.png",
+	           "48": "icon48-beta.png",
+	          "128": "icon128-beta.png" },
 	"permissions": ["storage"],
 	"options_page": "fancy-settings/source/index.html",
 	"background" : { "page": "background.html" },
