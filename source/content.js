@@ -89,10 +89,10 @@ function eventDispatcher() {
 		}
 
 		// If asked, creating the non-pic.twitter image previews
-		links = event.target.querySelectorAll("p > a[data-full-url]");
+		var links = event.target.querySelectorAll("p > a[data-full-url]");
 		if(links.length > 0) {
-		isDetail = links[0].parentNode.parentNode.querySelectorAll(".js-cards-container").length != 0;
-		imgURL = links[0].getAttribute("data-full-url");
+		var isDetail = links[0].parentNode.parentNode.querySelectorAll(".js-cards-container").length != 0;
+		var imgURL = links[0].getAttribute("data-full-url");
 			if((imgURL.indexOf("imgur.com/") != -1 && imgURL.indexOf("/?q") == -1) && options.img_preview_imgur == true){
 				createPreviewDiv(links[0],"imgur");
 			} else if(imgURL.indexOf("d.pr/i") != -1 && options.img_preview_droplr == true) {
@@ -152,12 +152,12 @@ function createPreviewDiv(element, provider) {
 	    return testObj;
 	}
 	// Getting the full URL for later
-	linkURL = element.getAttribute("data-full-url");
-	thumbSize = findColumn(element).getAttribute("data-media-preview-size");
+	var linkURL = element.getAttribute("data-full-url");
+	var thumbSize = findColumn(element).getAttribute("data-media-preview-size");
 	if(thumbSize == "large" || thumbSize == "medium" || thumbSize == "small") {
 			if(provider == "imgur") {
 			// Settings up some client-ID to "bypass" the request rate limite (12,500 req/day/client)
-			imgurClientIDs = ["c189a7be5a7a313","180ce538ef0dc41"];
+			var imgurClientIDs = ["c189a7be5a7a313","180ce538ef0dc41"];
 			function getClientID() {
 				return imgurClientIDs[Math.floor(Math.random() * imgurClientIDs.length)];
 			}
@@ -165,7 +165,7 @@ function createPreviewDiv(element, provider) {
 			if(thumbSize == "small") suffixImgur = "t";
 			if(thumbSize == "medium") suffixImgur = "m";
 			if(thumbSize == "large") suffixImgur = "l";
-			imgurID = linkURL.split("/").pop().split(".")[0].split("#")[0];
+			var imgurID = linkURL.split("#")[0].split("/")[4];
 			if(linkURL.indexOf("imgur.com/a/") != -1) {
 				previewFromAnAlbum(imgurID);
 			} else if(linkURL.indexOf("imgur.com/gallery/") != -1) {
@@ -178,7 +178,7 @@ function createPreviewDiv(element, provider) {
 					headers: {"Authorization": "Client-ID "+getClientID()}
 				})
 				.done(function(data) {
-					thumbnailUrl = "https://i.imgur.com/"+data.data.id+suffixImgur+".jpg";
+					var thumbnailUrl = "https://i.imgur.com/"+data.data.id+suffixImgur+".jpg";
 					continueCreatingThePreview(thumbnailUrl);
 				})
 				.fail(function() {
@@ -186,6 +186,7 @@ function createPreviewDiv(element, provider) {
 					previewFromAnAlbum(imgurID);
 				});
 			} else {
+				var imgurID = linkURL.split("#")[0].split("/")[3].split(".")[0];
 				continueCreatingThePreview("https://i.imgur.com/"+imgurID+suffixImgur+".jpg");
 			}
 
@@ -200,7 +201,7 @@ function createPreviewDiv(element, provider) {
 				})
 				.done(function(data) {
 					// Make the thumbnail URL with suffix and the ID of the first images in the album/gallery
-					thumbnailUrl = "https://i.imgur.com/"+data.data.cover+suffixImgur+".jpg";
+					var thumbnailUrl = "https://i.imgur.com/"+data.data.cover+suffixImgur+".jpg";
 					continueCreatingThePreview(thumbnailUrl);
 				});
 			}
@@ -208,13 +209,13 @@ function createPreviewDiv(element, provider) {
 
 			// Depending of the thumbSize option we're getting d.pr/i/1234/small or d.pr/i/1234/medium (it seems like Droplr hasn't a "large" option)
 			if(thumbSize == "small") {
-				suffixDroplr = thumbSize;
+				var suffixDroplr = thumbSize;
 			} else {
-				suffixDroplr = "medium";
+				var suffixDroplr = "medium";
 			}
 			// Removing the last "/" if present and adding one+suffix
-			thumbnailUrl = linkURL.replace(/\/$/,"");
-			thumbnailUrl = thumbnailUrl+"/"+suffixDroplr;
+			var thumbnailUrl = linkURL.replace(/\/$/,"");
+			var thumbnailUrl = thumbnailUrl+"/"+suffixDroplr;
 			continueCreatingThePreview(thumbnailUrl);
 		} else if(provider == "cloudApp") {
 			$.ajax({
@@ -224,12 +225,12 @@ function createPreviewDiv(element, provider) {
 				headers: {"Accept": "application/json"}
 			})
 			.done(function(data) {
-				thumbnailUrl = data.thumbnail_url;
+				var thumbnailUrl = data.thumbnail_url;
 				if(thumbnailUrl != "")
 					continueCreatingThePreview(thumbnailUrl);
 			});
 		} else if(provider == "instagram") {
-			instagramID = linkURL.replace(/\/$/,"").split("/").pop();
+			var instagramID = linkURL.replace(/\/$/,"").split("/").pop();
 			if(thumbSize == "large") suffixInstagram = "l";
 			if(thumbSize == "medium") suffixInstagram = "m";
 			if(thumbSize == "small") suffixInstagram = "t";
@@ -239,7 +240,7 @@ function createPreviewDiv(element, provider) {
 			if(thumbSize == "large") maxWidth = 800;
 			if(thumbSize == "medium") maxWidth = 500;
 			if(thumbSize == "small") maxWidth = 300;
-			flickUrl = linkURL.replace(":","%3A");
+			var flickUrl = linkURL.replace(":","%3A");
 			$.ajax({
 				url: 'https://www.flickr.com/services/oembed/?url='+flickUrl+'&format=json&maxwidth='+maxWidth,
 				type: 'GET',
@@ -249,7 +250,7 @@ function createPreviewDiv(element, provider) {
 				continueCreatingThePreview(data.url);
 			});
 		} else if(provider == "fivehundredpx") {
-			photoID = linkURL.replace(/http(|s):\/\/500px.com\/photo\//,"");
+			var photoID = linkURL.replace(/http(|s):\/\/500px.com\/photo\//,"");
 			if(thumbSize == "large") suffixFiveHundred = "4";
 			if(thumbSize == "medium") suffixFiveHundred = "3";
 			if(thumbSize == "small") suffixFiveHundred = "2";
@@ -260,7 +261,7 @@ function createPreviewDiv(element, provider) {
 				dataType: "json"
 			})
 			.done(function(data) {
-				picURL = data.photo.image_url.replace(/[0-9].jpg$/,suffixFiveHundred+".jpg");
+				var picURL = data.photo.image_url.replace(/[0-9].jpg$/,suffixFiveHundred+".jpg");
 				continueCreatingThePreview(picURL);
 			});
 		} else if(provider == "tumblr") {
@@ -269,11 +270,11 @@ function createPreviewDiv(element, provider) {
 			if(thumbSize == "medium") suffixTumblr = "400";
 			if(thumbSize == "small") suffixTumblr = "250";
 			// Getting the file extension of the URL for later
-			fileExtension = linkURL.split(".").pop();
+			var fileExtension = linkURL.split(".").pop();
 			// splitting by the "_" characted to remove the suffix
-			splittedURL = linkURL.split("_");
+			var splittedURL = linkURL.split("_");
 			// Building the new URL
-			thumbnailUrl = splittedURL[0]+"_"+splittedURL[1]+"_"+suffixTumblr+"."+fileExtension;
+			var thumbnailUrl = splittedURL[0]+"_"+splittedURL[1]+"_"+suffixTumblr+"."+fileExtension;
 			continueCreatingThePreview(thumbnailUrl);
 		} else if(provider == "vimeo") {
 			var suffixVimeo;
@@ -328,21 +329,21 @@ function createPreviewDiv(element, provider) {
 	}
 
 	function continueCreatingThePreview(thumbnailUrl) {
-		fullBleed = "";
+		var fullBleed = "";
 		if(thumbSize == "large") {
 			marginSuffix = "tm";
 			fullBleed = "item-box-full-bleed";
 		} else {
 			marginSuffix = "vm";
 		}
-		linkURL = element.getAttribute("data-full-url");
+		var linkURL = element.getAttribute("data-full-url");
 		// Creating the elements, replicating the same layout as TweetDeck's one
-		previewDiv = document.createElement("div");
+		var previewDiv = document.createElement("div");
 		previewDiv.className = "js-media media-preview position-rel btd-preview "+provider+" "+fullBleed;
 
-		previewDivChild = document.createElement("div");
+		var previewDivChild = document.createElement("div");
 		previewDivChild.className = "js-media-preview-container position-rel margin-"+marginSuffix;
-		previewLink = document.createElement("a");
+		var previewLink = document.createElement("a");
 		previewLink.className = "js-media-image-link block med-link media-item media-size-"+thumbSize+"";
 		// Little difference, using rel=url otherwhise TweetDeck will treat it as a "real" media preview, therefore "blocking" the click on it 
 		previewLink.setAttribute("rel","url");
@@ -358,15 +359,15 @@ function createPreviewDiv(element, provider) {
 		// Adding it next to the <p> element, just before <footer> in a tweet
 		// console.log(previewDiv);
 		if(thumbSize == "large") {
-			pElement = element.parentNode.parentNode.parentNode.parentNode.querySelector("div.js-tweet.tweet");
+			var pElement = element.parentNode.parentNode.parentNode.parentNode.querySelector("div.js-tweet.tweet");
 		} else {
-			pElement = element.parentNode.parentNode.querySelector("p.js-tweet-text");
+			var pElement = element.parentNode.parentNode.querySelector("p.js-tweet-text");
 		}
 		
 		if(pElement) {
 			pElement.insertAdjacentElement("afterEnd", previewDiv);
 			if(thumbSize == "large") {
-				triangle = document.createElement("span");
+				var triangle = document.createElement("span");
 				triangle.className = "triangle";
 				previewDiv.insertAdjacentElement("beforeEnd",triangle);
 			}
@@ -390,17 +391,18 @@ function timeIsNotRelative(element, mode) {
 
 
 	// Creating year/day/month/minutes/hours variables and applying the lead zeros if necessary
-	year = td.getFullYear();
+	var year = td.getFullYear();
 	if(year < 10) year = "0"+year;
-	month = td.getMonth()+1;
+	var month = td.getMonth()+1;
 	if(month < 10) month = "0"+month;
-	minutes = td.getMinutes();
+	var minutes = td.getMinutes();
 	if(minutes < 10) minutes = "0"+minutes;
-	hours = td.getHours();
+	var hours = td.getHours();
 	if(hours < 10) hours = "0"+hours;
-	day = td.getDate();
+	var day = td.getDate();
 	if(day < 10) day = "0"+day;
 
+	var dateString;
 	// Handling "US" date format
 	if(options.full_after_24h == true && difference < msPerDay) {
 		dateString = hours+":"+minutes;
@@ -423,7 +425,7 @@ function nameDisplay(elements, mode) {
 			// If the username is NOT in a tweet (typically in a <p> element), do the thing
 			if(elements[i].parentNode.tagName != "P") {
 				// Removing "http://twitter.com" and the last "/" in the link to get the @username
-				username = elements[i].getAttribute("href").replace(/http(|s):\/\/twitter.com\//,"").replace(/\//g,"");
+				var username = elements[i].getAttribute("href").replace(/http(|s):\/\/twitter.com\//,"").replace(/\//g,"");
 
 				// Placing the username in b.fullname if found or in span.username
 				if(elements[i].querySelector("b.fullname")){
@@ -448,9 +450,9 @@ function nameDisplay(elements, mode) {
 			// If the username is NOT in a tweet (typically in a <p> element), do the thing
 			if(elements[i].parentNode.tagName != "P") {
 				// Removing "http://twitter.com" and the last "/" in the link to get the @username
-				username = elements[i].getAttribute("href").split("/").pop();
+				var username = elements[i].getAttribute("href").split("/").pop();
 				if(elements[i].querySelector("b.fullname")) {
-					fullname = elements[i].querySelector("b.fullname").innerHTML;
+					var fullname = elements[i].querySelector("b.fullname").innerHTML;
 				}
 				if(elements[i].querySelector("span.username")) {
 					elements[i].querySelector("span.username span.at").remove();
@@ -477,7 +479,7 @@ function nameDisplay(elements, mode) {
 
 function useFullUrl(element) {
 	// Pretty easy, getting the data-full-url content and applying it as href in the links. Bye bye t.co !
-	links = element.querySelectorAll("a[data-full-url]");
+	var links = element.querySelectorAll("a[data-full-url]");
 	for (var i = links.length - 1; i >= 0; i--) {
 		fullLink = links[i].getAttribute("data-full-url");
 		links[i].href = fullLink;
