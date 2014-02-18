@@ -109,6 +109,8 @@ function eventDispatcher() {
 				createPreviewDiv(links[0],"tumblr");
 			} else if(new RegExp("vimeo.com\/[0-9]*$").test(imgURL)) {
 				createPreviewDiv(links[0],"vimeo");
+			} else if(imgURL.indexOf("dailymotion.com/video/") != -1) {
+				createPreviewDiv(links[0],"dailymotion");
 			}
 		}
 
@@ -287,7 +289,41 @@ function createPreviewDiv(element, provider) {
 			.done(function(data) {
 				continueCreatingThePreview(data.thumbnail_url.replace(/_[0-9]*.jpg$/,"_")+suffixVimeo+".jpg");
 			});
-			
+		} else if(provider == "dailymotion") {
+			var dailymotionID = linkURL.replace(/\/$/,"").split("/").pop();
+			if(thumbSize == "large") {
+				$.ajax({
+					url: 'https://api.dailymotion.com/video/'+dailymotionID+"?fields=thumbnail_480_url",
+					type: 'GET',
+					dataType: 'json'
+				})
+				.done(function(data) {
+					continueCreatingThePreview(data.thumbnail_480_url);
+				});
+				
+			}
+			if(thumbSize == "medium") {
+				$.ajax({
+					url: 'https://api.dailymotion.com/video/'+dailymotionID+"?fields=thumbnail_240_url",
+					type: 'GET',
+					dataType: 'json'
+				})
+				.done(function(data) {
+					continueCreatingThePreview(data.thumbnail_240_url);
+				});
+				
+			}
+			if(thumbSize == "small") {
+				$.ajax({
+					url: 'https://api.dailymotion.com/video/'+dailymotionID+"?fields=thumbnail_180_url",
+					type: 'GET',
+					dataType: 'json'
+				})
+				.done(function(data) {
+					continueCreatingThePreview(data.thumbnail_180_url);
+				});
+				
+			}
 		}
 	}
 
