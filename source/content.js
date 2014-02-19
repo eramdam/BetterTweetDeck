@@ -144,7 +144,7 @@ function createPreviewDiv(element, provider) {
 	function findColumn(childObj) {
 	    var testObj = childObj.parentNode;
 	    var count = 1;
-	    while(!testObj.classList.contains("js-column")) {
+	    while(testObj.classList && !testObj.classList.contains("js-column")) {
 	        testObj = testObj.parentNode;
 	        count++;
 	    }
@@ -153,7 +153,9 @@ function createPreviewDiv(element, provider) {
 	}
 	// Getting the full URL for later
 	var linkURL = element.getAttribute("data-full-url");
-	var thumbSize = findColumn(element).getAttribute("data-media-preview-size");
+	if(typeof findColumn(element).getAttribute === "function") {
+		var thumbSize = findColumn(element).getAttribute("data-media-preview-size");
+	}
 	if(thumbSize == "large" || thumbSize == "medium" || thumbSize == "small") {
 			if(provider == "imgur") {
 			// Settings up some client-ID to "bypass" the request rate limite (12,500 req/day/client)
@@ -206,7 +208,6 @@ function createPreviewDiv(element, provider) {
 				});
 			}
 		} else if(provider == "droplr") {
-
 			// Depending of the thumbSize option we're getting d.pr/i/1234/small or d.pr/i/1234/medium (it seems like Droplr hasn't a "large" option)
 			if(thumbSize == "small") {
 				var suffixDroplr = thumbSize;
@@ -216,7 +217,7 @@ function createPreviewDiv(element, provider) {
 			// Removing the last "/" if present and adding one+suffix
 			var thumbnailUrl = linkURL.replace(/\/$/,"");
 			var thumbnailUrl = thumbnailUrl+"/"+suffixDroplr;
-			continueCreatingThePreview(thumbnailUrl);
+			continueCreatingThePreview(thumbnailUrl, linkURL+"+");
 		} else if(provider == "cloudApp") {
 			$.ajax({
 				url: linkURL,
@@ -225,9 +226,11 @@ function createPreviewDiv(element, provider) {
 				headers: {"Accept": "application/json"}
 			})
 			.done(function(data) {
-				var thumbnailUrl = data.thumbnail_url;
-				if(thumbnailUrl != "")
-					continueCreatingThePreview(thumbnailUrl);
+				
+				if(data.item_type == "image"){
+					var thumbnailUrl = data.thumbnail_url;
+					continueCreatingThePreview(thumbnailUrl, data.content_url);
+				}
 			});
 		} else if(provider == "instagram") {
 			var instagramID = linkURL.replace(/\/$/,"").split("/").pop();
@@ -262,7 +265,8 @@ function createPreviewDiv(element, provider) {
 			})
 			.done(function(data) {
 				var picURL = data.photo.image_url.replace(/[0-9].jpg$/,suffixFiveHundred+".jpg");
-				continueCreatingThePreview(picURL);
+				var fullPicURL = data.photo.image_url;
+				continueCreatingThePreview(picURL,fullPicURL);
 			});
 		} else if(provider == "tumblr") {
 			// Using the appropriate suffix depending of the settings
@@ -275,7 +279,8 @@ function createPreviewDiv(element, provider) {
 			var splittedURL = linkURL.split("_");
 			// Building the new URL
 			var thumbnailUrl = splittedURL[0]+"_"+splittedURL[1]+"_"+suffixTumblr+"."+fileExtension;
-			continueCreatingThePreview(thumbnailUrl);
+			var fullImgUrl = splittedURL[0]+"_"+splittedURL[1]+"_640."+fileExtension;
+			continueCreatingThePreview(thumbnailUrl, fullImgUrl);
 		} else if(provider == "vimeo") {
 			var suffixVimeo;
 			if(thumbSize == "large") suffixVimeo = "640";
@@ -288,47 +293,47 @@ function createPreviewDiv(element, provider) {
 				dataType: 'json'
 			})
 			.done(function(data) {
-				continueCreatingThePreview(data.thumbnail_url.replace(/_[0-9]*.jpg$/,"_")+suffixVimeo+".jpg");
+				continueCreatingThePreview(data.thumbnail_url.replace(/_[0-9]*.jpg$/,"_")+suffixVimeo+".jpg",data.html,true);
 			});
 		} else if(provider == "dailymotion") {
 			var dailymotionID = linkURL.replace(/\/$/,"").split("/").pop();
 			if(thumbSize == "large") {
 				$.ajax({
-					url: 'https://api.dailymotion.com/video/'+dailymotionID+"?fields=thumbnail_480_url",
+					url: 'https://api.dailymotion.com/video/'+dailymotionID+"?fields=thumbnail_480_url,embed_html",
 					type: 'GET',
 					dataType: 'json'
 				})
 				.done(function(data) {
-					continueCreatingThePreview(data.thumbnail_480_url);
+					continueCreatingThePreview(data.thumbnail_480_url,data.embed_html,true);
 				});
 				
 			}
 			if(thumbSize == "medium") {
 				$.ajax({
-					url: 'https://api.dailymotion.com/video/'+dailymotionID+"?fields=thumbnail_240_url",
+					url: 'https://api.dailymotion.com/video/'+dailymotionID+"?fields=thumbnail_240_url,embed_html",
 					type: 'GET',
 					dataType: 'json'
 				})
 				.done(function(data) {
-					continueCreatingThePreview(data.thumbnail_240_url);
+					continueCreatingThePreview(data.thumbnail_240_url,data.embed_html,true);
 				});
 				
 			}
 			if(thumbSize == "small") {
 				$.ajax({
-					url: 'https://api.dailymotion.com/video/'+dailymotionID+"?fields=thumbnail_180_url",
+					url: 'https://api.dailymotion.com/video/'+dailymotionID+"?fields=thumbnail_180_url,embed_html",
 					type: 'GET',
 					dataType: 'json'
 				})
 				.done(function(data) {
-					continueCreatingThePreview(data.thumbnail_180_url);
+					continueCreatingThePreview(data.thumbnail_180_url,data.embed_html,true);
 				});
 				
 			}
 		}
 	}
 
-	function continueCreatingThePreview(thumbnailUrl) {
+	function continueCreatingThePreview(thumbnailUrl, embed, isAnIframe) {
 		var fullBleed = "";
 		if(thumbSize == "large") {
 			marginSuffix = "tm";
@@ -346,11 +351,21 @@ function createPreviewDiv(element, provider) {
 		var previewLink = document.createElement("a");
 		previewLink.className = "js-media-image-link block med-link media-item media-size-"+thumbSize+"";
 		// Little difference, using rel=url otherwhise TweetDeck will treat it as a "real" media preview, therefore "blocking" the click on it 
-		previewLink.setAttribute("rel","url");
+		// previewLink.setAttribute("rel","url");
 		previewLink.href = linkURL;
 		previewLink.setAttribute("target","_blank");
+		previewLink.setAttribute("data-tweetkey",element.parentNode.parentNode.parentNode.parentNode.parentNode.getAttribute("data-key"));
 		// Applying our thumbnail as a background-image of the preview div
 		previewLink.style.backgroundImage = "url("+thumbnailUrl+")";
+		previewLink.setAttribute("data-provider",provider);
+
+		if(embed){
+			previewLink.setAttribute("data-embed",embed);
+		}
+
+		if(isAnIframe) {
+			previewLink.setAttribute("data-isembed","true");
+		}
 
 		// Constructing our final div
 		previewDivChild.appendChild(previewLink);
@@ -363,7 +378,7 @@ function createPreviewDiv(element, provider) {
 		} else {
 			var pElement = element.parentNode.parentNode.querySelector("p.js-tweet-text");
 		}
-		
+
 		if(pElement) {
 			pElement.insertAdjacentElement("afterEnd", previewDiv);
 			if(thumbSize == "large") {
@@ -372,6 +387,85 @@ function createPreviewDiv(element, provider) {
 				previewDiv.insertAdjacentElement("beforeEnd",triangle);
 			}
 		}
+		createLightboxes();
+	}
+}
+
+function createLightboxes() {
+	var noLightboxYet = document.querySelectorAll(".btd-preview a:not(.lightbox-enabled)");
+	for (var i = noLightboxYet.length - 1; i >= 0; i--) {
+		noLightboxYet[i].addEventListener("click", lightboxFromTweet);
+		noLightboxYet[i].classList.add("lightbox-enabled");
+	};
+}
+
+function lightboxFromTweet() {
+	var linkLightbox = event.target;
+	var dataEmbed = linkLightbox.getAttribute("data-embed");
+	var dataIsEmbed = linkLightbox.getAttribute("data-isembed");
+	var dataProvider = linkLightbox.getAttribute("data-provider");
+	var dataTweetKey = linkLightbox.getAttribute("data-tweetkey");
+	openModal = document.getElementById("open-modal");
+	openModal.innerHTML = '<div class="js-mediatable ovl-block is-inverted-light"><div class="s-padded"><div class="js-modal-panel mdl s-full med-fullpanel"><a href="#" class="mdl-dismiss js-dismiss mdl-dismiss-media" rel="dismiss"><i class="icon icon-close"></i></a><div class="js-embeditem med-embeditem"><div class="l-table"><div class="l-cell"><div class="med-tray js-mediaembed"></div></div></div></div><div id="media-gallery-tray"></div><div class="js-media-tweet med-tweet"></div></div></div>';
+	// If we already got the embed URL/code
+	if(dataEmbed != null) {
+		// If we code an embed code
+		if(dataIsEmbed != null) {
+			openModal.querySelector(".js-mediaembed").innerHTML = dataEmbed+'<a class="med-origlink" href='+linkLightbox.href+' rel="url" target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
+			finishTheLightbox(dataTweetKey);
+		} else {
+			openModal.querySelector(".js-mediaembed").innerHTML = '<div class="js-media-preview-container position-rel margin-vm"> <a class="js-media-image-link block med-link media-item" rel="mediaPreview" target="_blank"> <img class="media-img" src='+dataEmbed+' alt="Media preview" style="max-width: 708px;"></a></div><a class="med-origlink" rel="url" src='+linkLightbox.href+' target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
+			finishTheLightbox(dataTweetKey);
+		}
+	} else {
+		// If we didn't get the embed stuff go get it !
+		if(dataProvider == "instagram") {
+			$.ajax({
+				url: 'http://api.instagram.com/oembed?url='+linkLightbox.href,
+				type: 'GET',
+				dataType: 'json'
+			})
+			.done(function(data) {
+				if(data.url.indexOf(".mp4") != -1) {
+					var instaVideo = '<video width="640" height="640" controls><source src='+data.url+' type="video/mp4"></video>';
+					openModal.querySelector(".js-mediaembed").innerHTML = instaVideo+'<a class="med-origlink" href='+linkLightbox.href+' rel="url" target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
+					finishTheLightbox(dataTweetKey);
+				} else {
+					openModal.querySelector(".js-mediaembed").innerHTML = '<div class="js-media-preview-container position-rel margin-vm"> <a class="js-media-image-link block med-link media-item" rel="mediaPreview" target="_blank"> <img class="media-img" src='+data.url+' alt="Media preview" style="max-width: 708px;"></a></div><a class="med-origlink" rel="url" src='+linkLightbox.href+' target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
+					finishTheLightbox(dataTweetKey);
+				}
+			});
+			
+		}
+
+	}
+	function finishTheLightbox(dataTweetKey) {
+		if(openModal.querySelector(".js-mediaembed :-webkit-any(img, iframe, audio)") != null) {
+			openModal.querySelector(".js-mediaembed :-webkit-any(img, iframe, audio)").onload = function() {
+				openModal.querySelector(".med-tray.js-mediaembed").style.opacity = 1;
+				openModal.querySelector(".med-embeditem").classList.add("is-loaded");
+			}
+		} else {
+			openModal.querySelector(".med-tray.js-mediaembed").style.opacity = 1;
+			openModal.querySelector(".med-embeditem").classList.add("is-loaded");
+		}
+		openModal.querySelector(".js-media-tweet").innerHTML = document.querySelector("[data-key='"+dataTweetKey+"']").innerHTML;
+		if(openModal.querySelector(".js-media-tweet .activity-header") != null) {
+			openModal.querySelector(".js-media-tweet .activity-header").remove();
+		}
+		if(openModal.querySelector(".js-media-tweet .feature-customtimelines") != null) {
+			openModal.querySelector(".js-media-tweet .feature-customtimelines").remove();
+		}
+		if(openModal.querySelector(".js-media") != null) {
+			openModal.querySelector(".js-media").remove();
+		}
+		if(openModal.querySelector(".js-tweet-actions.tweet-actions") != null) {
+			openModal.querySelector(".js-tweet-actions.tweet-actions").classList.add("is-visible");
+		}
+		openModal.querySelector("a[rel=dismiss]").addEventListener("click", function() {
+			openModal.style.display = "none";
+			openModal.innerHTML = "";
+		});
 	}
 }
 
