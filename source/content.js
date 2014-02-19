@@ -107,9 +107,9 @@ function eventDispatcher() {
 				if(isDetail == false) createPreviewDiv(links[0],"fivehundredpx");
 			} else if(imgURL.indexOf("media.tumblr.com/") != -1 && options.img_preview_tumblr == true) {
 				createPreviewDiv(links[0],"tumblr");
-			} else if(new RegExp("vimeo.com\/[0-9]*$").test(imgURL)) {
+			} else if(new RegExp("vimeo.com\/[0-9]*$").test(imgURL) && options.img_preview_vimeo == true) {
 				createPreviewDiv(links[0],"vimeo");
-			} else if(imgURL.indexOf("dailymotion.com/video/") != -1) {
+			} else if(imgURL.indexOf("dailymotion.com/video/") != -1 && options.img_preview_dailymotion == true) {
 				createPreviewDiv(links[0],"dailymotion");
 			}
 		}
@@ -300,7 +300,7 @@ function createPreviewDiv(element, provider) {
 				continueCreatingThePreview(data.thumbnail_url.replace(/_[0-9]*.jpg$/,"_")+suffixVimeo+".jpg",data.html,true);
 			});
 		} else if(provider == "dailymotion") {
-			var dailymotionID = linkURL.replace(/\/$/,"").split("/").pop();
+			var dailymotionID = linkURL.replace(/\/$/,"").split("/")[4]
 			if(thumbSize == "large") {
 				$.ajax({
 					url: 'https://api.dailymotion.com/video/'+dailymotionID+"?fields=thumbnail_480_url,embed_html",
@@ -308,7 +308,7 @@ function createPreviewDiv(element, provider) {
 					dataType: 'json'
 				})
 				.done(function(data) {
-					continueCreatingThePreview(data.thumbnail_480_url,data.embed_html,true);
+					continueCreatingThePreview(data.thumbnail_480_url,data.embed_html.replace("http://","https://"),true);
 				});
 				
 			}
@@ -444,15 +444,14 @@ function lightboxFromTweet() {
 	function finishTheLightbox(dataTweetKey) {
 		if(openModal.querySelector(".js-mediaembed :-webkit-any(img, iframe, audio)") != null) {
 			openModal.querySelector(".js-mediaembed :-webkit-any(img, iframe, audio)").onload = function() {
-				openModal.querySelector(".med-tray.js-mediaembed").style.opacity = 1;
 				openModal.querySelector(".med-embeditem").classList.add("is-loaded");
+				openModal.querySelector(".med-tray.js-mediaembed").style.opacity = 1;
 			}
 		} else {
 			openModal.querySelector(".med-tray.js-mediaembed").style.opacity = 1;
 			openModal.querySelector(".med-embeditem").classList.add("is-loaded");
 		}
-		openModal.querySelector(".med-tray.js-mediaembed").style.opacity = 1;
-			openModal.querySelector(".med-embeditem").classList.add("is-loaded");
+		
 		openModal.querySelector(".js-media-tweet").innerHTML = document.querySelector("[data-key='"+dataTweetKey+"']").innerHTML;
 		if(openModal.querySelector(".js-media-tweet .activity-header") != null) {
 			openModal.querySelector(".js-media-tweet .activity-header").remove();
