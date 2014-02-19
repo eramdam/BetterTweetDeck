@@ -193,7 +193,7 @@ function createPreviewDiv(element, provider) {
 			} else {
 				// Single image
 				var imgurID = linkURL.split("#")[0].split("/")[3].split(".")[0];
-				continueCreatingThePreview("https://i.imgur.com/"+imgurID+suffixImgur+".jpg",true);
+				continueCreatingThePreview("https://i.imgur.com/"+imgurID+suffixImgur+".jpg","https://i.imgur.com/"+imgurID+".jpg");
 			}
 
 			function previewFromAnAlbum(albumID) {
