@@ -43,3 +43,11 @@
 .btd-one-thumbnail .js-media-preview-container:not(:first-of-type) {
 	display: none;
 }
+
+#btd-modal-dismiss {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	display: block;
+	top:0;
+}
