@@ -32,6 +32,23 @@ function setAllTheSettings(response) {
 	}
 }
 
+
+function modalWorker() {
+	if(options.timestamp != "relative") {
+		if(typeof event.target.querySelector === "function") {
+			timeIsNotRelative(event.target.querySelector("time > *"), options.timestamp);
+		}
+	}
+
+	if(options.url_redirection == true){
+		useFullUrl(event.target);
+	}
+
+	if(typeof event.target.querySelectorAll === "function") {
+		nameDisplay(event.target.querySelectorAll("a[rel='user']:not(.item-img)"), options.name_display);
+	}
+}
+
 // console.log(window.TD.storage.columnController.get("c1391979750742s76").getMediaPreviewSize());
 
 function eventDispatcher() {
@@ -71,6 +88,7 @@ function eventDispatcher() {
 			if(!doneTheStuff) {
 				doneTheStuff = true;
 				injectScript(mediaPreviewSize);
+				document.getElementById("open-modal").addEventListener("DOMNodeInserted", modalWorker);
 			}
 		}
 		// Applying the timestamp
@@ -476,46 +494,48 @@ function lightboxFromTweet() {
 }
 
 function timeIsNotRelative(element, mode) {
-	// Getting the timestamp of an item
-	d = element.parentNode.getAttribute("data-time");
-	// Creating a Date object with it
-	td = new Date(parseInt(d));
-	if(options.full_after_24h == true) {
-		now = new Date();
-		difference = now - td;
-	    var msPerMinute = 60 * 1000;
-	    var msPerHour = msPerMinute * 60;
-	    var msPerDay = msPerHour * 24;
-	}
-
-
-
-	// Creating year/day/month/minutes/hours variables and applying the lead zeros if necessary
-	var year = td.getFullYear();
-	if(year < 10) year = "0"+year;
-	var month = td.getMonth()+1;
-	if(month < 10) month = "0"+month;
-	var minutes = td.getMinutes();
-	if(minutes < 10) minutes = "0"+minutes;
-	var hours = td.getHours();
-	if(hours < 10) hours = "0"+hours;
-	var day = td.getDate();
-	if(day < 10) day = "0"+day;
-
-	var dateString;
-	// Handling "US" date format
-	if(options.full_after_24h == true && difference < msPerDay) {
-		dateString = hours+":"+minutes;
-	} else {
-		if(mode == "absolute_us"){
-			dateString =  month+"/"+day+"/"+year+" "+hours+":"+minutes;
-		} else {
-			dateString =  day+"/"+month+"/"+year+" "+hours+":"+minutes;
+	if(element != null) {
+		// Getting the timestamp of an item
+		d = element.parentNode.getAttribute("data-time");
+		// Creating a Date object with it
+		td = new Date(parseInt(d));
+		if(options.full_after_24h == true) {
+			now = new Date();
+			difference = now - td;
+		    var msPerMinute = 60 * 1000;
+		    var msPerHour = msPerMinute * 60;
+		    var msPerDay = msPerHour * 24;
 		}
+
+
+
+		// Creating year/day/month/minutes/hours variables and applying the lead zeros if necessary
+		var year = td.getFullYear();
+		if(year < 10) year = "0"+year;
+		var month = td.getMonth()+1;
+		if(month < 10) month = "0"+month;
+		var minutes = td.getMinutes();
+		if(minutes < 10) minutes = "0"+minutes;
+		var hours = td.getHours();
+		if(hours < 10) hours = "0"+hours;
+		var day = td.getDate();
+		if(day < 10) day = "0"+day;
+
+		var dateString;
+		// Handling "US" date format
+		if(options.full_after_24h == true && difference < msPerDay) {
+			dateString = hours+":"+minutes;
+		} else {
+			if(mode == "absolute_us"){
+				dateString =  month+"/"+day+"/"+year+" "+hours+":"+minutes;
+			} else {
+				dateString =  day+"/"+month+"/"+year+" "+hours+":"+minutes;
+			}
+		}
+		// Changing the content of the "time > a" element with the absolute time
+		element.innerHTML = dateString;
+		element.classList.add("txt-mute");
 	}
-	// Changing the content of the "time > a" element with the absolute time
-	element.innerHTML = dateString;
-	element.classList.add("txt-mute");
 }
 
 function nameDisplay(elements, mode) {
@@ -578,10 +598,12 @@ function nameDisplay(elements, mode) {
 }
 
 function useFullUrl(element) {
-	// Pretty easy, getting the data-full-url content and applying it as href in the links. Bye bye t.co !
-	var links = element.querySelectorAll("a[data-full-url]");
-	for (var i = links.length - 1; i >= 0; i--) {
-		fullLink = links[i].getAttribute("data-full-url");
-		links[i].href = fullLink;
-	};
+	if(typeof element.querySelector === "function") {
+		// Pretty easy, getting the data-full-url content and applying it as href in the links. Bye bye t.co !
+		var links = element.querySelectorAll("a[data-full-url]");
+		for (var i = links.length - 1; i >= 0; i--) {
+			fullLink = links[i].getAttribute("data-full-url");
+			links[i].href = fullLink;
+		};
+	}
 }
