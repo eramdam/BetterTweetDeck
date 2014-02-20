@@ -123,7 +123,7 @@ function eventDispatcher() {
 				if(isDetail == false) createPreviewDiv(links[0],"flickr")
 			} else if(imgURL.indexOf("500px.com/") != -1 && options.img_preview_500px == true) {
 				if(isDetail == false) createPreviewDiv(links[0],"fivehundredpx");
-			} else if(imgURL.indexOf("media.tumblr.com/") != -1 && options.img_preview_tumblr == true) {
+			} else if((imgURL.indexOf("media.tumblr.com/") != -1 && imgURL.indexOf("tumblr_inline") == -1) && options.img_preview_tumblr == true) {
 				createPreviewDiv(links[0],"tumblr");
 			} else if(new RegExp("vimeo.com\/[0-9]*$").test(imgURL) && options.img_preview_vimeo == true) {
 				createPreviewDiv(links[0],"vimeo");
