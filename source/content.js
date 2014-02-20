@@ -438,36 +438,50 @@ function lightboxFromTweet() {
 		})
 		.done(function(data) {
 			if(data.url.indexOf(".mp4") != -1) {
-				var instaVideo = '<video width="640" height="640" controls><source src='+data.url+' type="video/mp4"></video>';
+				var instaVideo = '<video class="instagram-video" width="640" height="640" controls><source src='+data.url+' type="video/mp4"></video>';
 				openModal.querySelector(".js-mediaembed").innerHTML = instaVideo+'<a class="med-origlink" href='+linkLightbox.href+' rel="url" target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
+				finishTheLightbox(dataTweetKey);
 			} else {
-				openModal.querySelector(".js-mediaembed").innerHTML = '<div class="js-media-preview-container position-rel margin-vm"> <a class="js-media-image-link block med-link media-item" rel="mediaPreview" target="_blank"> <img class="media-img" src='+data.url+' alt="Media preview" style="max-width: 708px;"></a></div><a class="med-origlink" rel="url" href='+linkLightbox.href+' target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
+				openModal.querySelector(".js-mediaembed").innerHTML = '<div class="js-media-preview-container position-rel margin-vm"> <a class="js-media-image-link block med-link media-item" rel="mediaPreview" target="_blank"> <img class="media-img" src='+data.url+' alt="Media preview"></a></div><a class="med-origlink" rel="url" href='+linkLightbox.href+' target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
+				finishTheLightbox(dataTweetKey);
 			}
 		});
 		
 	} else if(dataProvider == "imgur" && dataIsEmbed != null) {
 		openModal.querySelector(".js-mediaembed").innerHTML = '<iframe class="imgur-album" width="708" height="550" frameborder="0" src='+dataEmbed+'></iframe><a class="med-origlink" href='+linkLightbox.href+' rel="url" target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
+		finishTheLightbox(dataTweetKey);
 	} else {
 		// If we already got the embed URL/code
 		if(dataEmbed != null) {
 			// If we code an embed code
 			if(dataIsEmbed != null) {
 				openModal.querySelector(".js-mediaembed").innerHTML = dataEmbed+'<a class="med-origlink" href='+linkLightbox.href+' rel="url" target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
+				finishTheLightbox(dataTweetKey);
 			} else {
-				openModal.querySelector(".js-mediaembed").innerHTML = '<div class="js-media-preview-container position-rel margin-vm"> <a class="js-media-image-link block med-link media-item" rel="mediaPreview" target="_blank"> <img class="media-img" src='+dataEmbed+' alt="Media preview" style="max-width: 708px;"></a></div><a class="med-origlink" rel="url" href='+linkLightbox.href+' target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
+				openModal.querySelector(".js-mediaembed").innerHTML = '<div class="js-media-preview-container position-rel margin-vm"> <a class="js-media-image-link block med-link media-item" rel="mediaPreview" target="_blank"> <img class="media-img" src='+dataEmbed+' alt="Media preview"></a></div><a class="med-origlink" rel="url" href='+linkLightbox.href+' target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
+				finishTheLightbox(dataTweetKey);
 			}
 		}
 	}
-	finishTheLightbox(dataTweetKey);
+	
 	function finishTheLightbox(dataTweetKey) {
 		if(openModal.querySelector(".js-mediaembed :-webkit-any(img, iframe, audio)") != null) {
 			openModal.querySelector(".js-mediaembed :-webkit-any(img, iframe, audio)").onload = function() {
+				openModal.querySelector(".js-mediaembed :-webkit-any(img, iframe, audio)").style.maxHeight = document.querySelector(".js-embeditem.med-embeditem").offsetHeight-(document.querySelector("a.med-origlink").offsetHeight)-20+"px";
+				window.onresize = function() {
+					openModal.querySelector(".js-mediaembed :-webkit-any(img, iframe, audio)").style.maxHeight = document.querySelector(".js-embeditem.med-embeditem").offsetHeight-(document.querySelector("a.med-origlink").offsetHeight)-20+"px";
+				};
 				openModal.querySelector(".med-embeditem").classList.add("is-loaded");
 				openModal.querySelector(".med-tray.js-mediaembed").style.opacity = 1;
 			}
 		} else {
 			openModal.querySelector(".med-tray.js-mediaembed").style.opacity = 1;
 			openModal.querySelector(".med-embeditem").classList.add("is-loaded");
+		}
+
+		if(openModal.querySelector(".instagram-video") != null) {
+			openModal.querySelector(".instagram-video").style.height = document.querySelector(".js-embeditem.med-embeditem").offsetHeight-(document.querySelector("a.med-origlink").offsetHeight)-20+"px";
+			openModal.querySelector(".instagram-video").style.width = document.querySelector(".js-embeditem.med-embeditem").offsetHeight-(document.querySelector("a.med-origlink").offsetHeight)-20+"px";
 		}
 		
 		openModal.querySelector(".js-media-tweet").innerHTML = document.querySelector("[data-key='"+dataTweetKey+"']").innerHTML;
