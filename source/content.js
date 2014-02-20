@@ -422,11 +422,12 @@ function createLightboxes() {
 }
 
 function lightboxFromTweet() {
-	var linkLightbox = event.target;
-	var dataEmbed = linkLightbox.getAttribute("data-embed");
-	var dataIsEmbed = linkLightbox.getAttribute("data-isembed");
-	var dataProvider = linkLightbox.getAttribute("data-provider");
-	var dataTweetKey = linkLightbox.getAttribute("data-tweetkey");
+	var linkLightbox = event.target, 
+	dataEmbed = linkLightbox.getAttribute("data-embed"),
+	dataIsEmbed = linkLightbox.getAttribute("data-isembed"),
+	dataProvider = linkLightbox.getAttribute("data-provider"),
+	dataTweetKey = linkLightbox.getAttribute("data-tweetkey");
+
 	openModal = document.getElementById("open-modal");
 	openModal.innerHTML = '<div id="btd-modal-dismiss"></div><div class="js-mediatable ovl-block is-inverted-light"><div class="s-padded"><div class="js-modal-panel mdl s-full med-fullpanel"><a href="#" class="mdl-dismiss js-dismiss mdl-dismiss-media" rel="dismiss"><i class="icon icon-close"></i></a><div class="js-embeditem med-embeditem"><div class="l-table"><div class="l-cell"><div class="med-tray js-mediaembed"></div></div></div></div><div id="media-gallery-tray"></div><div class="js-media-tweet med-tweet"></div></div></div>';
 	// If we didn't get the embed stuff go get it !
@@ -450,6 +451,17 @@ function lightboxFromTweet() {
 	} else if(dataProvider == "imgur" && dataIsEmbed != null) {
 		openModal.querySelector(".js-mediaembed").innerHTML = '<iframe class="imgur-album" width="708" height="550" frameborder="0" src='+dataEmbed+'></iframe><a class="med-origlink" href='+linkLightbox.href+' rel="url" target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
 		finishTheLightbox(dataTweetKey);
+	} else if(dataProvider == "flickr") {
+		
+		$.ajax({
+			url: 'https://www.flickr.com/services/oembed/?url='+linkLightbox.href+'&format=json&maxwidth=1024',
+			type: 'GET',
+			dataType: "json"
+		})
+		.done(function(data) {
+			openModal.querySelector(".js-mediaembed").innerHTML = '<div class="js-media-preview-container position-rel margin-vm"> <a class="js-media-image-link block med-link media-item" rel="mediaPreview" target="_blank"> <img class="media-img" src='+data.url+' alt="Media preview"></a></div><a class="med-origlink" rel="url" href='+linkLightbox.href+' target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
+				finishTheLightbox(dataTweetKey);
+		});
 	} else {
 		// If we already got the embed URL/code
 		if(dataEmbed != null) {
