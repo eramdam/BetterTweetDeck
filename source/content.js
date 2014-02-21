@@ -131,8 +131,8 @@ function eventDispatcher() {
 			};
 		}
 	} else if(event.relatedNode.id == "actions-modal") {
-		event.target.classList.remove("s-fluid");
 		event.target.style.height = "auto";
+		event.target.style.width = "550px";
 	}
 }
 
