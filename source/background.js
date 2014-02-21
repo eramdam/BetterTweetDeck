@@ -47,7 +47,9 @@ if (currVersion != prevVersion) {
 if (typeof prevVersion == 'undefined') {
   onInstall();
 } else {
-  onUpdate();
+  if(!(prevVersion.split(".")[0] == currVersion.split(".")[0] && prevVersion.split(".")[1] == currVersion.split(".")[1])) {
+  	onUpdate();
+  }
 }
 localStorage['version'] = currVersion;
 }
