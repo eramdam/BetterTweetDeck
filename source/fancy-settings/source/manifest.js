@@ -8,7 +8,7 @@ this.manifest = {
             "group": "Info",
             "name": "informations",
             "type": "description",
-            "text": "<div class=notification></div><div class=alert>Don't forget to reload any TweetDeck tab after applying your settings <br /> <span>This extension <u>only</u> works with <a href='http://tweetdeck.twitter.com'>http://tweetdeck.twitter.com</a> not with the \"TweetDeck\" Chrome application !</span></div><div class=alert>Thanks for using Better TweetDeck in beta!</div>"
+            "text": "<div class=notification></div><div class=alert>Don't forget to reload any TweetDeck tab after applying your settings <br /> <span>This extension <u>only</u> works with <a href='http://tweetdeck.twitter.com'>http://tweetdeck.twitter.com</a> not with the \"TweetDeck\" Chrome application !</span></div>"
         },
         {
             "tab": "General",

@@ -1,9 +1,9 @@
 {
 	"name": "Better TweetDeck",
 	"short_name": "BetterTDeck",
-	"version": "1.2.2",
+	"version": "1.2.3",
 	"manifest_version": 2,
-	"description": "Improves the user experience of TweetDeck on the web (http://tweetdeck.twitter.com)",
+	"description": "Improves the user experience of tweetdeck.twitter.com",
 	"content_scripts": [{
 		"matches": ["https://tweetdeck.twitter.com/*","http://tweetdeck.twitter.com/*"],
 		"js": ["jquery.ajax.min.js","injectScript.js","content.js"],
