@@ -8,7 +8,7 @@ this.manifest = {
             "group": "Info",
             "name": "informations",
             "type": "description",
-            "text": "<div class=notification></div><div class=alert>Don't forget to reload any TweetDeck tab after applying your settings <br /> <span>This extension <u>only</u> works with <a href='http://tweetdeck.twitter.com'>http://tweetdeck.twitter.com</a> not with the \"TweetDeck\" Chrome application !</span></div>"
+            "text": "<div class=notification></div><div class=alert>Don't forget to reload any TweetDeck tab after applying your settings <br /> <span>This extension <u>only</u> works with <a href='http://tweetdeck.twitter.com'>http://tweetdeck.twitter.com</a> not with the \"TweetDeck\" Chrome application !</span></div><div class=alert>Thanks for using Better TweetDeck in beta!</div>"
         },
         {
             "tab": "General",
@@ -147,6 +147,13 @@ this.manifest = {
         {
             "tab": "General",
             "group": "Content",
+            "name": "img_preview_dailymotion",
+            "type": "checkbox",
+            "label": "Display previews from <b>Dailymotion</b>"
+        },
+        {
+            "tab": "General",
+            "group": "Content",
             "name": "img_preview_flickr",
             "type": "checkbox",
             "label": "Display previews from <b>Flickr</b>"
@@ -171,6 +178,13 @@ this.manifest = {
             "name": "img_preview_tumblr",
             "type": "checkbox",
             "label": "Display previews from <b>Tumblr</b>"
+        },
+        {
+            "tab": "General",
+            "group": "Content",
+            "name": "img_preview_vimeo",
+            "type": "checkbox",
+            "label": "Display previews from <b>Vimeo</b>"
         },
         {
             "tab": "About",

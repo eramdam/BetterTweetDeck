@@ -32,6 +32,23 @@ function setAllTheSettings(response) {
 	}
 }
 
+
+function modalWorker() {
+	if(options.timestamp != "relative") {
+		if(typeof event.target.querySelector === "function") {
+			timeIsNotRelative(event.target.querySelector("time > *"), options.timestamp);
+		}
+	}
+
+	if(options.url_redirection == true){
+		useFullUrl(event.target);
+	}
+
+	if(typeof event.target.querySelectorAll === "function") {
+		nameDisplay(event.target.querySelectorAll("a[rel='user']:not(.item-img)"), options.name_display);
+	}
+}
+
 // console.log(window.TD.storage.columnController.get("c1391979750742s76").getMediaPreviewSize());
 
 function eventDispatcher() {
@@ -50,7 +67,6 @@ function eventDispatcher() {
 	        testObj = testObj.parentNode;
 	        count++;
 	    }
-	    // now you have the object you are looking for - do something with it
 	    return testObj;
 	}
 
@@ -71,6 +87,7 @@ function eventDispatcher() {
 			if(!doneTheStuff) {
 				doneTheStuff = true;
 				injectScript(mediaPreviewSize);
+				document.getElementById("open-modal").addEventListener("DOMNodeInserted", modalWorker);
 			}
 		}
 		// Applying the timestamp
@@ -89,24 +106,29 @@ function eventDispatcher() {
 		}
 
 		// If asked, creating the non-pic.twitter image previews
-		links = event.target.querySelectorAll("p > a[data-full-url]");
+		var links = event.target.querySelectorAll("p > a[data-full-url]");
 		if(links.length > 0) {
-		isDetail = links[0].parentNode.parentNode.querySelectorAll(".js-cards-container").length != 0;
-		imgURL = links[0].getAttribute("data-full-url");
+		var linkToHandle = links[links.length-1];
+		var isDetail = linkToHandle.parentNode.parentNode.querySelectorAll(".js-cards-container").length != 0;
+		var imgURL = linkToHandle.getAttribute("data-full-url");
 			if((imgURL.indexOf("imgur.com/") != -1 && imgURL.indexOf("/?q") == -1) && options.img_preview_imgur == true){
-				createPreviewDiv(links[0],"imgur");
+				createPreviewDiv(linkToHandle,"imgur");
 			} else if(imgURL.indexOf("d.pr/i") != -1 && options.img_preview_droplr == true) {
-				if(isDetail == false) createPreviewDiv(links[0],"droplr");
+				if(isDetail == false) createPreviewDiv(linkToHandle,"droplr");
 			} else if(imgURL.indexOf("cl.ly/") != -1 && options.img_preview_cloud == true) {
-				if(isDetail == false) createPreviewDiv(links[0],"cloudApp");
+				if(isDetail == false) createPreviewDiv(linkToHandle,"cloudApp");
 			} else if(imgURL.indexOf("instagram.com/") != -1 && options.img_preview_instagram == true) {
-				createPreviewDiv(links[0],"instagram");
+				createPreviewDiv(linkToHandle,"instagram");
 			} else if((imgURL.indexOf("flic.kr/") != -1 || imgURL.indexOf("flickr.com/") != -1) && options.img_preview_flickr == true){
-				if(isDetail == false) createPreviewDiv(links[0],"flickr")
+				if(isDetail == false) createPreviewDiv(linkToHandle,"flickr")
 			} else if(imgURL.indexOf("500px.com/") != -1 && options.img_preview_500px == true) {
-				if(isDetail == false) createPreviewDiv(links[0],"fivehundredpx");
-			} else if(imgURL.indexOf("media.tumblr.com/") != -1 && options.img_preview_tumblr == true) {
-				createPreviewDiv(links[0],"tumblr");
+				if(isDetail == false) createPreviewDiv(linkToHandle,"fivehundredpx");
+			} else if((imgURL.indexOf("media.tumblr.com/") != -1 && imgURL.indexOf("tumblr_inline") == -1) && options.img_preview_tumblr == true) {
+				createPreviewDiv(linkToHandle,"tumblr");
+			} else if(new RegExp("vimeo.com\/[0-9]*$").test(imgURL) && options.img_preview_vimeo == true) {
+				createPreviewDiv(linkToHandle,"vimeo");
+			} else if(imgURL.indexOf("dailymotion.com/video/") != -1 && options.img_preview_dailymotion == true) {
+				createPreviewDiv(linkToHandle,"dailymotion");
 			}
 		}
 
@@ -140,7 +162,7 @@ function createPreviewDiv(element, provider) {
 	function findColumn(childObj) {
 	    var testObj = childObj.parentNode;
 	    var count = 1;
-	    while(!testObj.classList.contains("js-column")) {
+	    while(testObj.classList && !testObj.classList.contains("js-column")) {
 	        testObj = testObj.parentNode;
 	        count++;
 	    }
@@ -148,12 +170,14 @@ function createPreviewDiv(element, provider) {
 	    return testObj;
 	}
 	// Getting the full URL for later
-	linkURL = element.getAttribute("data-full-url");
-	thumbSize = findColumn(element).getAttribute("data-media-preview-size");
+	var linkURL = element.getAttribute("data-full-url");
+	if(typeof findColumn(element).getAttribute === "function") {
+		var thumbSize = findColumn(element).getAttribute("data-media-preview-size");
+	}
 	if(thumbSize == "large" || thumbSize == "medium" || thumbSize == "small") {
 			if(provider == "imgur") {
 			// Settings up some client-ID to "bypass" the request rate limite (12,500 req/day/client)
-			imgurClientIDs = ["c189a7be5a7a313","180ce538ef0dc41"];
+			var imgurClientIDs = ["c189a7be5a7a313","180ce538ef0dc41"];
 			function getClientID() {
 				return imgurClientIDs[Math.floor(Math.random() * imgurClientIDs.length)];
 			}
@@ -161,25 +185,11 @@ function createPreviewDiv(element, provider) {
 			if(thumbSize == "small") suffixImgur = "t";
 			if(thumbSize == "medium") suffixImgur = "m";
 			if(thumbSize == "large") suffixImgur = "l";
-			imgurID = linkURL.split("/").pop().split(".")[0].split("#")[0];
-			// If it's an album or a gallery take this route !
-			if(linkURL.indexOf("/a/") != -1) {
-				// Using jQuery's AJAX library to do the magic
-				$.ajax({
-					// Sidenote, even if Imgur got different models for album and gallery, they share the same API url so, why bother ?
-					url: "https://api.imgur.com/3/album/"+imgurID,
-					type: 'GET',
-					dataType: 'json',
-					// Plz don't steal this data, anyone can create an Imgur app so be fair !
-					headers: {"Authorization": "Client-ID "+getClientID()}
-				})
-				.done(function(data) {
-					// Make the thumbnail URL with suffix and the ID of the first images in the album/gallery
-					thumbnailUrl = "https://i.imgur.com/"+data.data.cover+suffixImgur+".jpg";
-					continueCreatingThePreview(thumbnailUrl)
-				});
-			} else if(linkURL.indexOf("/gallery/") != -1) {
-				// Using jQuery's AJAX library to do the magic
+			var imgurID = linkURL.split("#")[0].split("/")[4];
+			// Album
+			if(linkURL.indexOf("imgur.com/a/") != -1) {
+				previewFromAnAlbum(imgurID);
+			} else if(linkURL.indexOf("imgur.com/gallery/") != -1) {
 				$.ajax({
 					// Sidenote, even if Imgur got different models for album and gallery, they share the same API url so, why bother ?
 					url: "https://api.imgur.com/3/gallery/image/"+imgurID,
@@ -189,42 +199,47 @@ function createPreviewDiv(element, provider) {
 					headers: {"Authorization": "Client-ID "+getClientID()}
 				})
 				.done(function(data) {
-					// If the request succeeds, it's a single image with a /gallery/ link
-					if(data.success == true) {
-						thumbnailUrl = "https://i.imgur.com/"+data.data.id+suffixImgur+".jpg";
-						continueCreatingThePreview(thumbnailUrl)
-					} else {
-						// If the request fails, then it's a gallery album, therefore we have to do another request
-						$.ajax({
-							url: "https://api.imgur.com/3/gallery/album/"+imgurID,
-							type: 'GET',
-							dataType: 'json',
-							// Plz don't steal this data, anyone can create an Imgur app so be fair !
-							headers: {"Authorization": "Client-ID "+getClientID()}
-						})
-						.done(function() {
-							thumbnailUrl = "https://i.imgur.com/"+data.data.id+suffixImgur+".jpg";
-							continueCreatingThePreview(thumbnailUrl);
-						});
-						
-					}
+					// Gallery/image
+					var thumbnailUrl = "https://i.imgur.com/"+data.data.id+suffixImgur+".jpg";
+					continueCreatingThePreview(thumbnailUrl,thumbnailUrl.replace(/[a-z].jpg/,".jpg"));
+				})
+				.fail(function() {
+					// Gallery/Album
+					console.log("Better TweetDeck: Gallery isn't a image!");
+					previewFromAnAlbum(imgurID,"https://imgur.com/a/"+imgurID+"/embed");
 				});
 			} else {
-				// Imgur supported extensions (from http://imgur.com/faq#types)
-				continueCreatingThePreview("https://i.imgur.com/"+imgurID+suffixImgur+".jpg");
+				// Single image
+				var imgurID = linkURL.split("#")[0].split("/")[3].split(".")[0];
+				continueCreatingThePreview("https://i.imgur.com/"+imgurID+suffixImgur+".jpg","https://i.imgur.com/"+imgurID+".jpg");
+			}
+
+			function previewFromAnAlbum(albumID) {
+				$.ajax({
+					// Sidenote, even if Imgur got different models for album and gallery, they share the same API url so, why bother ?
+					url: "https://api.imgur.com/3/album/"+albumID,
+					type: 'GET',
+					dataType: 'json',
+					// Plz don't steal this data, anyone can create an Imgur app so be fair !
+					headers: {"Authorization": "Client-ID "+getClientID()}
+				})
+				.done(function(data) {
+					// Make the thumbnail URL with suffix and the ID of the first images in the album/gallery
+					var thumbnailUrl = "https://i.imgur.com/"+data.data.cover+suffixImgur+".jpg";
+					continueCreatingThePreview(thumbnailUrl,"https://imgur.com/a/"+albumID+"/embed",true);
+				});
 			}
 		} else if(provider == "droplr") {
-
 			// Depending of the thumbSize option we're getting d.pr/i/1234/small or d.pr/i/1234/medium (it seems like Droplr hasn't a "large" option)
 			if(thumbSize == "small") {
-				suffixDroplr = thumbSize;
+				var suffixDroplr = thumbSize;
 			} else {
-				suffixDroplr = "medium";
+				var suffixDroplr = "medium";
 			}
 			// Removing the last "/" if present and adding one+suffix
-			thumbnailUrl = linkURL.replace(/\/$/,"");
-			thumbnailUrl = thumbnailUrl+"/"+suffixDroplr;
-			continueCreatingThePreview(thumbnailUrl);
+			var thumbnailUrl = linkURL.replace(/\/$/,"");
+			var thumbnailUrl = thumbnailUrl+"/"+suffixDroplr;
+			continueCreatingThePreview(thumbnailUrl, linkURL+"+");
 		} else if(provider == "cloudApp") {
 			$.ajax({
 				url: linkURL,
@@ -233,27 +248,24 @@ function createPreviewDiv(element, provider) {
 				headers: {"Accept": "application/json"}
 			})
 			.done(function(data) {
-				thumbnailUrl = data.thumbnail_url;
-				if(thumbnailUrl != "")
-					continueCreatingThePreview(thumbnailUrl);
+				
+				if(data.item_type == "image"){
+					var thumbnailUrl = data.thumbnail_url;
+					continueCreatingThePreview(thumbnailUrl, data.content_url);
+				}
 			});
 		} else if(provider == "instagram") {
-			$.ajax({
-				url: 'https://api.instagram.com/oembed?url='+linkURL,
-				type: 'GET',
-				dataType: 'json'
-			})
-			.done(function(data) {
-				if(thumbSize == "large") continueCreatingThePreview(data.url.replace(/[0-9].jpg$/,"8.jpg"));
-				if(thumbSize == "medium") continueCreatingThePreview(data.url.replace(/[0-9].jpg$/,"6.jpg"));
-				if(thumbSize == "small") continueCreatingThePreview(data.url.replace(/[0-9].jpg$/,"5.jpg"));
-			});
+			var instagramID = linkURL.replace(/\/$/,"").split("/").pop();
+			if(thumbSize == "large") suffixInstagram = "l";
+			if(thumbSize == "medium") suffixInstagram = "m";
+			if(thumbSize == "small") suffixInstagram = "t";
+			continueCreatingThePreview("http://instagr.am/p/"+instagramID+"/media/?size="+suffixInstagram);
 			
 		} else if(provider == "flickr") {
 			if(thumbSize == "large") maxWidth = 800;
 			if(thumbSize == "medium") maxWidth = 500;
 			if(thumbSize == "small") maxWidth = 300;
-			flickUrl = linkURL.replace(":","%3A");
+			var flickUrl = linkURL.replace(":","%3A");
 			$.ajax({
 				url: 'https://www.flickr.com/services/oembed/?url='+flickUrl+'&format=json&maxwidth='+maxWidth,
 				type: 'GET',
@@ -263,7 +275,7 @@ function createPreviewDiv(element, provider) {
 				continueCreatingThePreview(data.url);
 			});
 		} else if(provider == "fivehundredpx") {
-			photoID = linkURL.replace(/http(|s):\/\/500px.com\/photo\//,"");
+			var photoID = linkURL.replace(/http(|s):\/\/500px.com\/photo\//,"");
 			if(thumbSize == "large") suffixFiveHundred = "4";
 			if(thumbSize == "medium") suffixFiveHundred = "3";
 			if(thumbSize == "small") suffixFiveHundred = "2";
@@ -274,8 +286,9 @@ function createPreviewDiv(element, provider) {
 				dataType: "json"
 			})
 			.done(function(data) {
-				picURL = data.photo.image_url.replace(/[0-9].jpg$/,suffixFiveHundred+".jpg");
-				continueCreatingThePreview(picURL);
+				var picURL = data.photo.image_url.replace(/[0-9].jpg$/,suffixFiveHundred+".jpg");
+				var fullPicURL = data.photo.image_url;
+				continueCreatingThePreview(picURL,fullPicURL);
 			});
 		} else if(provider == "tumblr") {
 			// Using the appropriate suffix depending of the settings
@@ -283,102 +296,281 @@ function createPreviewDiv(element, provider) {
 			if(thumbSize == "medium") suffixTumblr = "400";
 			if(thumbSize == "small") suffixTumblr = "250";
 			// Getting the file extension of the URL for later
-			fileExtension = linkURL.split(".").pop();
+			var fileExtension = linkURL.split(".").pop();
 			// splitting by the "_" characted to remove the suffix
-			splittedURL = linkURL.split("_");
+			var splittedURL = linkURL.split("_");
 			// Building the new URL
-			thumbnailUrl = splittedURL[0]+"_"+splittedURL[1]+"_"+suffixTumblr+"."+fileExtension;
-			continueCreatingThePreview(thumbnailUrl);
+			var thumbnailUrl = splittedURL[0]+"_"+splittedURL[1]+"_"+suffixTumblr+"."+fileExtension;
+			var fullImgUrl = splittedURL[0]+"_"+splittedURL[1]+"_640."+fileExtension;
+			continueCreatingThePreview(thumbnailUrl, fullImgUrl);
+		} else if(provider == "vimeo") {
+			var suffixVimeo;
+			if(thumbSize == "large") suffixVimeo = "640";
+			if(thumbSize == "medium") suffixVimeo = "200";
+			if(thumbSize == "small") suffixVimeo = "100";
+			var vimeoID = linkURL.split("/").pop();
+			$.ajax({
+				url: 'http://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/'+vimeoID,
+				type: 'GET',
+				dataType: 'json'
+			})
+			.done(function(data) {
+				continueCreatingThePreview(data.thumbnail_url.replace(/_[0-9]*.jpg$/,"_")+suffixVimeo+".jpg",data.html,true);
+			});
+		} else if(provider == "dailymotion") {
+			var dailymotionID = linkURL.replace(/\/$/,"").split("/")[4]
+			if(thumbSize == "large") {
+				$.ajax({
+					url: 'https://api.dailymotion.com/video/'+dailymotionID+"?fields=thumbnail_480_url,embed_html",
+					type: 'GET',
+					dataType: 'json'
+				})
+				.done(function(data) {
+					continueCreatingThePreview(data.thumbnail_480_url,data.embed_html.replace("http://","https://"),true);
+				});
+				
+			}
+			if(thumbSize == "medium") {
+				$.ajax({
+					url: 'https://api.dailymotion.com/video/'+dailymotionID+"?fields=thumbnail_240_url,embed_html",
+					type: 'GET',
+					dataType: 'json'
+				})
+				.done(function(data) {
+					continueCreatingThePreview(data.thumbnail_240_url,data.embed_html,true);
+				});
+				
+			}
+			if(thumbSize == "small") {
+				$.ajax({
+					url: 'https://api.dailymotion.com/video/'+dailymotionID+"?fields=thumbnail_180_url,embed_html",
+					type: 'GET',
+					dataType: 'json'
+				})
+				.done(function(data) {
+					continueCreatingThePreview(data.thumbnail_180_url,data.embed_html,true);
+				});
+				
+			}
 		}
 	}
 
-	function continueCreatingThePreview(thumbnailUrl) {
-		fullBleed = "";
+	function continueCreatingThePreview(thumbnailUrl, embed, isAnIframe) {
+		var fullBleed = "";
 		if(thumbSize == "large") {
 			marginSuffix = "tm";
 			fullBleed = "item-box-full-bleed";
 		} else {
 			marginSuffix = "vm";
 		}
-		linkURL = element.getAttribute("data-full-url");
+		var linkURL = element.getAttribute("data-full-url");
 		// Creating the elements, replicating the same layout as TweetDeck's one
-		previewDiv = document.createElement("div");
+		var previewDiv = document.createElement("div");
 		previewDiv.className = "js-media media-preview position-rel btd-preview "+provider+" "+fullBleed;
 
-		previewDivChild = document.createElement("div");
+		var previewDivChild = document.createElement("div");
 		previewDivChild.className = "js-media-preview-container position-rel margin-"+marginSuffix;
-		previewLink = document.createElement("a");
+		var previewLink = document.createElement("a");
 		previewLink.className = "js-media-image-link block med-link media-item media-size-"+thumbSize+"";
 		// Little difference, using rel=url otherwhise TweetDeck will treat it as a "real" media preview, therefore "blocking" the click on it 
-		previewLink.setAttribute("rel","url");
+		// previewLink.setAttribute("rel","url");
 		previewLink.href = linkURL;
 		previewLink.setAttribute("target","_blank");
+		previewLink.setAttribute("data-tweetkey",element.parentNode.parentNode.parentNode.parentNode.parentNode.getAttribute("data-key"));
 		// Applying our thumbnail as a background-image of the preview div
 		previewLink.style.backgroundImage = "url("+thumbnailUrl+")";
+		previewLink.setAttribute("data-provider",provider);
+
+		if(embed){
+			previewLink.setAttribute("data-embed",embed);
+		}
+
+		if(isAnIframe) {
+			previewLink.setAttribute("data-isembed","true");
+		}
 
 		// Constructing our final div
 		previewDivChild.appendChild(previewLink);
 		previewDiv.appendChild(previewDivChild);
 
 		// Adding it next to the <p> element, just before <footer> in a tweet
-		// console.log(previewDiv);
 		if(thumbSize == "large") {
-			pElement = element.parentNode.parentNode.parentNode.parentNode.querySelector("div.js-tweet.tweet");
+			var pElement = element.parentNode.parentNode.parentNode.parentNode.querySelector("div.js-tweet.tweet");
 		} else {
-			pElement = element.parentNode.parentNode.querySelector("p.js-tweet-text");
+			var pElement = element.parentNode.parentNode.querySelector("p.js-tweet-text");
 		}
-		
+
 		if(pElement) {
 			pElement.insertAdjacentElement("afterEnd", previewDiv);
 			if(thumbSize == "large") {
-				triangle = document.createElement("span");
+				var triangle = document.createElement("span");
 				triangle.className = "triangle";
 				previewDiv.insertAdjacentElement("beforeEnd",triangle);
 			}
 		}
+
+		createLightboxes();
+	}
+}
+
+function createLightboxes() {
+	var noLightboxYet = document.querySelectorAll(".btd-preview a:not(.lightbox-enabled)");
+	for (var i = noLightboxYet.length - 1; i >= 0; i--) {
+		noLightboxYet[i].addEventListener("click", lightboxFromTweet);
+		noLightboxYet[i].classList.add("lightbox-enabled");
+	};
+}
+
+// Okay it's probably ugly because it's not very "flexible" but it's the only way I found to replicate the lightboxes efficiently
+function lightboxFromTweet() {
+	var linkLightbox = event.target, 
+	dataEmbed = linkLightbox.getAttribute("data-embed"),
+	dataIsEmbed = linkLightbox.getAttribute("data-isembed"),
+	dataProvider = linkLightbox.getAttribute("data-provider"),
+	dataTweetKey = linkLightbox.getAttribute("data-tweetkey");
+
+	openModal = document.getElementById("open-modal");
+	openModal.innerHTML = '<div id="btd-modal-dismiss"></div><div class="js-mediatable ovl-block is-inverted-light"><div class="s-padded"><div class="js-modal-panel mdl s-full med-fullpanel"><a href="#" class="mdl-dismiss js-dismiss mdl-dismiss-media" rel="dismiss"><i class="icon icon-close"></i></a><div class="js-embeditem med-embeditem"><div class="l-table"><div class="l-cell"><div class="med-tray js-mediaembed"></div></div></div></div><div id="media-gallery-tray"></div><div class="js-media-tweet med-tweet"></div></div></div>';
+	// Looking at the thumbnail provider
+	if(dataProvider == "instagram") {
+		$.ajax({
+			url: 'http://api.instagram.com/oembed?url='+linkLightbox.href,
+			type: 'GET',
+			dataType: 'json'
+		})
+		.done(function(data) {
+			// Thank you Instagram for not giving an accurate "type" value depending of the actual type of the object.
+			if(data.url.indexOf(".mp4") != -1) {
+				var instaVideo = '<video class="instagram-video" width="640" height="640" controls><source src='+data.url+' type="video/mp4"></video>';
+				openModal.querySelector(".js-mediaembed").innerHTML = instaVideo+'<a class="med-origlink" href='+linkLightbox.href+' rel="url" target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
+				finishTheLightbox(dataTweetKey);
+			} else {
+				openModal.querySelector(".js-mediaembed").innerHTML = '<div class="js-media-preview-container position-rel margin-vm"> <a class="js-media-image-link block med-link media-item" rel="mediaPreview" target="_blank"> <img class="media-img" src='+data.url+' alt="Media preview"></a></div><a class="med-origlink" rel="url" href='+linkLightbox.href+' target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
+				finishTheLightbox(dataTweetKey);
+			}
+		});
+		
+	} else if(dataProvider == "imgur" && dataIsEmbed != null) {
+		openModal.querySelector(".js-mediaembed").innerHTML = '<iframe class="imgur-album" width="708" height="550" frameborder="0" src='+dataEmbed+'></iframe><a class="med-origlink" href='+linkLightbox.href+' rel="url" target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
+		finishTheLightbox(dataTweetKey);
+	} else if(dataProvider == "flickr") {
+		// For now I'm only supporting Flickr photos, I still got to add the video support. But does anyone actually use that ?
+		$.ajax({
+			url: 'https://www.flickr.com/services/oembed/?url='+linkLightbox.href+'&format=json&maxwidth=1024',
+			type: 'GET',
+			dataType: "json"
+		})
+		.done(function(data) {
+			openModal.querySelector(".js-mediaembed").innerHTML = '<div class="js-media-preview-container position-rel margin-vm"> <a class="js-media-image-link block med-link media-item" rel="mediaPreview" target="_blank"> <img class="media-img" src='+data.url+' alt="Media preview"></a></div><a class="med-origlink" rel="url" href='+linkLightbox.href+' target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
+			finishTheLightbox(dataTweetKey);
+		});
+	} else {
+		// If we already got the embed URL/code
+		if(dataEmbed != null) {
+			// If we got an embed code
+			if(dataIsEmbed != null) {
+				openModal.querySelector(".js-mediaembed").innerHTML = dataEmbed+'<a class="med-origlink" href='+linkLightbox.href+' rel="url" target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
+				finishTheLightbox(dataTweetKey);
+			} else {
+				openModal.querySelector(".js-mediaembed").innerHTML = '<div class="js-media-preview-container position-rel margin-vm"> <a class="js-media-image-link block med-link media-item" rel="mediaPreview" target="_blank"> <img class="media-img" src='+dataEmbed+' alt="Media preview"></a></div><a class="med-origlink" rel="url" href='+linkLightbox.href+' target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
+				finishTheLightbox(dataTweetKey);
+			}
+		}
+	}
+	
+	function finishTheLightbox(dataTweetKey) {
+		// Embed/Picture creating
+		if(openModal.querySelector(".js-mediaembed :-webkit-any(img, iframe, audio)") != null) {
+			openModal.querySelector(".js-mediaembed :-webkit-any(img, iframe, audio)").onload = function() {
+				openModal.querySelector(".js-mediaembed :-webkit-any(img, iframe, audio)").style.maxHeight = document.querySelector(".js-embeditem.med-embeditem").offsetHeight-(document.querySelector("a.med-origlink").offsetHeight)-20+"px";
+				window.onresize = function() {
+					openModal.querySelector(".js-mediaembed :-webkit-any(img, iframe, audio)").style.maxHeight = document.querySelector(".js-embeditem.med-embeditem").offsetHeight-(document.querySelector("a.med-origlink").offsetHeight)-20+"px";
+				};
+				openModal.querySelector(".med-embeditem").classList.add("is-loaded");
+				openModal.querySelector(".med-tray.js-mediaembed").style.opacity = 1;
+			}
+		} else {
+			openModal.querySelector(".med-tray.js-mediaembed").style.opacity = 1;
+			openModal.querySelector(".med-embeditem").classList.add("is-loaded");
+		}
+
+		// Content tweaking
+		if(openModal.querySelector(".instagram-video") != null) {
+			openModal.querySelector(".instagram-video").style.height = document.querySelector(".js-embeditem.med-embeditem").offsetHeight-(document.querySelector("a.med-origlink").offsetHeight)-20+"px";
+			openModal.querySelector(".instagram-video").style.width = document.querySelector(".js-embeditem.med-embeditem").offsetHeight-(document.querySelector("a.med-origlink").offsetHeight)-20+"px";
+		}
+
+		if(document.querySelector("iframe[src*='dailymotion.com']") != null) {
+			document.querySelector("iframe[src*='dailymotion.com']").height = document.querySelector("iframe[src*='dailymotion.com']").height*2;
+			document.querySelector("iframe[src*='dailymotion.com']").width = document.querySelector("iframe[src*='dailymotion.com']").width*2;
+		}
+		
+		// Tweet "copying"
+		openModal.querySelector(".js-media-tweet").innerHTML = document.querySelector("[data-key='"+dataTweetKey+"']").innerHTML;
+
+		if(openModal.querySelector(".js-media-tweet .activity-header") != null) {
+			openModal.querySelector(".js-media-tweet .activity-header").remove();
+		}
+		if(openModal.querySelector(".js-media-tweet .feature-customtimelines") != null) {
+			openModal.querySelector(".js-media-tweet .feature-customtimelines").remove();
+		}
+		if(openModal.querySelector(".js-media") != null) {
+			openModal.querySelector(".js-media").remove();
+		}
+		if(openModal.querySelector(".js-tweet-actions.tweet-actions") != null) {
+			openModal.querySelector(".js-tweet-actions.tweet-actions").classList.add("is-visible");
+		}
+		openModal.style.display = "block";
+		for (var i = openModal.querySelectorAll("a[rel=dismiss], #btd-modal-dismiss").length - 1; i >= 0; i--) {
+			openModal.querySelectorAll("a[rel=dismiss], #btd-modal-dismiss")[i].addEventListener("click", function() {
+				openModal.style.display = "none";
+				openModal.innerHTML = "";
+			});
+		};
 	}
 }
 
 function timeIsNotRelative(element, mode) {
-	// Getting the timestamp of an item
-	d = element.parentNode.getAttribute("data-time");
-	// Creating a Date object with it
-	td = new Date(parseInt(d));
-	if(options.full_after_24h == true) {
-		now = new Date();
-		difference = now - td;
-	    var msPerMinute = 60 * 1000;
-	    var msPerHour = msPerMinute * 60;
-	    var msPerDay = msPerHour * 24;
-	}
-
-
-
-	// Creating year/day/month/minutes/hours variables and applying the lead zeros if necessary
-	year = td.getFullYear();
-	if(year < 10) year = "0"+year;
-	month = td.getMonth()+1;
-	if(month < 10) month = "0"+month;
-	minutes = td.getMinutes();
-	if(minutes < 10) minutes = "0"+minutes;
-	hours = td.getHours();
-	if(hours < 10) hours = "0"+hours;
-	day = td.getDate();
-	if(day < 10) day = "0"+day;
-
-	// Handling "US" date format
-	if(options.full_after_24h == true && difference < msPerDay) {
-		dateString = hours+":"+minutes;
-	} else {
-		if(mode == "absolute_us"){
-			dateString =  month+"/"+day+"/"+year+" "+hours+":"+minutes;
-		} else {
-			dateString =  day+"/"+month+"/"+year+" "+hours+":"+minutes;
+	if(element != null) {
+		// Getting the timestamp of an item
+		d = element.parentNode.getAttribute("data-time");
+		// Creating a Date object with it
+		td = new Date(parseInt(d));
+		if(options.full_after_24h == true) {
+			now = new Date();
+			difference = now - td;
+		    var msPerMinute = 60 * 1000;
+		    var msPerHour = msPerMinute * 60;
+		    var msPerDay = msPerHour * 24;
 		}
+
+		// Creating year/day/month/minutes/hours variables and applying the lead zeros if necessary
+		var year = td.getFullYear();
+		if(year < 10) year = "0"+year;
+		var month = td.getMonth()+1;
+		if(month < 10) month = "0"+month;
+		var minutes = td.getMinutes();
+		if(minutes < 10) minutes = "0"+minutes;
+		var hours = td.getHours();
+		if(hours < 10) hours = "0"+hours;
+		var day = td.getDate();
+		if(day < 10) day = "0"+day;
+
+		var dateString;
+		// Handling "US" date format
+		if(options.full_after_24h == true && difference < msPerDay) {
+			dateString = hours+":"+minutes;
+		} else {
+			if(mode == "absolute_us"){
+				dateString =  month+"/"+day+"/"+year+" "+hours+":"+minutes;
+			} else {
+				dateString =  day+"/"+month+"/"+year+" "+hours+":"+minutes;
+			}
+		}
+		// Changing the content of the "time > a" element with the absolute time
+		element.innerHTML = dateString;
+		element.classList.add("txt-mute");
 	}
-	// Changing the content of the "time > a" element with the absolute time
-	element.innerHTML = dateString;
-	element.classList.add("txt-mute");
 }
 
 function nameDisplay(elements, mode) {
@@ -388,7 +580,7 @@ function nameDisplay(elements, mode) {
 			// If the username is NOT in a tweet (typically in a <p> element), do the thing
 			if(elements[i].parentNode.tagName != "P") {
 				// Removing "http://twitter.com" and the last "/" in the link to get the @username
-				username = elements[i].getAttribute("href").replace(/http(|s):\/\/twitter.com\//,"").replace(/\//g,"");
+				var username = elements[i].getAttribute("href").replace(/http(|s):\/\/twitter.com\//,"").replace(/\//g,"");
 
 				// Placing the username in b.fullname if found or in span.username
 				if(elements[i].querySelector("b.fullname")){
@@ -413,9 +605,9 @@ function nameDisplay(elements, mode) {
 			// If the username is NOT in a tweet (typically in a <p> element), do the thing
 			if(elements[i].parentNode.tagName != "P") {
 				// Removing "http://twitter.com" and the last "/" in the link to get the @username
-				username = elements[i].getAttribute("href").split("/").pop();
+				var username = elements[i].getAttribute("href").split("/").pop();
 				if(elements[i].querySelector("b.fullname")) {
-					fullname = elements[i].querySelector("b.fullname").innerHTML;
+					var fullname = elements[i].querySelector("b.fullname").innerHTML;
 				}
 				if(elements[i].querySelector("span.username")) {
 					elements[i].querySelector("span.username span.at").remove();
@@ -441,10 +633,12 @@ function nameDisplay(elements, mode) {
 }
 
 function useFullUrl(element) {
-	// Pretty easy, getting the data-full-url content and applying it as href in the links. Bye bye t.co !
-	links = element.querySelectorAll("a[data-full-url]");
-	for (var i = links.length - 1; i >= 0; i--) {
-		fullLink = links[i].getAttribute("data-full-url");
-		links[i].href = fullLink;
-	};
+	if(typeof element.querySelector === "function") {
+		// Pretty easy, getting the data-full-url content and applying it as href in the links. Bye bye t.co !
+		var links = element.querySelectorAll("a[data-full-url]");
+		for (var i = links.length - 1; i >= 0; i--) {
+			fullLink = links[i].getAttribute("data-full-url");
+			links[i].href = fullLink;
+		};
+	}
 }
