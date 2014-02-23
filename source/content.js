@@ -109,26 +109,27 @@ function eventDispatcher() {
 		// If asked, creating the non-pic.twitter image previews
 		var links = event.target.querySelectorAll("p > a[data-full-url]");
 		if(links.length > 0) {
-		var isDetail = links[0].parentNode.parentNode.querySelectorAll(".js-cards-container").length != 0;
-		var imgURL = links[0].getAttribute("data-full-url");
+		var linkToHandle = links[links.length-1];
+		var isDetail = linkToHandle.parentNode.parentNode.querySelectorAll(".js-cards-container").length != 0;
+		var imgURL = linkToHandle.getAttribute("data-full-url");
 			if((imgURL.indexOf("imgur.com/") != -1 && imgURL.indexOf("/?q") == -1) && options.img_preview_imgur == true){
-				createPreviewDiv(links[0],"imgur");
+				createPreviewDiv(linkToHandle,"imgur");
 			} else if(imgURL.indexOf("d.pr/i") != -1 && options.img_preview_droplr == true) {
-				if(isDetail == false) createPreviewDiv(links[0],"droplr");
+				if(isDetail == false) createPreviewDiv(linkToHandle,"droplr");
 			} else if(imgURL.indexOf("cl.ly/") != -1 && options.img_preview_cloud == true) {
-				if(isDetail == false) createPreviewDiv(links[0],"cloudApp");
+				if(isDetail == false) createPreviewDiv(linkToHandle,"cloudApp");
 			} else if(imgURL.indexOf("instagram.com/") != -1 && options.img_preview_instagram == true) {
-				createPreviewDiv(links[0],"instagram");
+				createPreviewDiv(linkToHandle,"instagram");
 			} else if((imgURL.indexOf("flic.kr/") != -1 || imgURL.indexOf("flickr.com/") != -1) && options.img_preview_flickr == true){
-				if(isDetail == false) createPreviewDiv(links[0],"flickr")
+				if(isDetail == false) createPreviewDiv(linkToHandle,"flickr")
 			} else if(imgURL.indexOf("500px.com/") != -1 && options.img_preview_500px == true) {
-				if(isDetail == false) createPreviewDiv(links[0],"fivehundredpx");
+				if(isDetail == false) createPreviewDiv(linkToHandle,"fivehundredpx");
 			} else if((imgURL.indexOf("media.tumblr.com/") != -1 && imgURL.indexOf("tumblr_inline") == -1) && options.img_preview_tumblr == true) {
-				createPreviewDiv(links[0],"tumblr");
+				createPreviewDiv(linkToHandle,"tumblr");
 			} else if(new RegExp("vimeo.com\/[0-9]*$").test(imgURL) && options.img_preview_vimeo == true) {
-				createPreviewDiv(links[0],"vimeo");
+				createPreviewDiv(linkToHandle,"vimeo");
 			} else if(imgURL.indexOf("dailymotion.com/video/") != -1 && options.img_preview_dailymotion == true) {
-				createPreviewDiv(links[0],"dailymotion");
+				createPreviewDiv(linkToHandle,"dailymotion");
 			}
 		}
 
