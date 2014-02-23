@@ -67,7 +67,6 @@ function eventDispatcher() {
 	        testObj = testObj.parentNode;
 	        count++;
 	    }
-	    // now you have the object you are looking for - do something with it
 	    return testObj;
 	}
 
@@ -395,7 +394,6 @@ function createPreviewDiv(element, provider) {
 		previewDiv.appendChild(previewDivChild);
 
 		// Adding it next to the <p> element, just before <footer> in a tweet
-		// console.log(previewDiv);
 		if(thumbSize == "large") {
 			var pElement = element.parentNode.parentNode.parentNode.parentNode.querySelector("div.js-tweet.tweet");
 		} else {
@@ -410,6 +408,7 @@ function createPreviewDiv(element, provider) {
 				previewDiv.insertAdjacentElement("beforeEnd",triangle);
 			}
 		}
+
 		createLightboxes();
 	}
 }
@@ -422,6 +421,7 @@ function createLightboxes() {
 	};
 }
 
+// Okay it's probably ugly because it's not very "flexible" but it's the only way I found to replicate the lightboxes efficiently
 function lightboxFromTweet() {
 	var linkLightbox = event.target, 
 	dataEmbed = linkLightbox.getAttribute("data-embed"),
@@ -431,7 +431,7 @@ function lightboxFromTweet() {
 
 	openModal = document.getElementById("open-modal");
 	openModal.innerHTML = '<div id="btd-modal-dismiss"></div><div class="js-mediatable ovl-block is-inverted-light"><div class="s-padded"><div class="js-modal-panel mdl s-full med-fullpanel"><a href="#" class="mdl-dismiss js-dismiss mdl-dismiss-media" rel="dismiss"><i class="icon icon-close"></i></a><div class="js-embeditem med-embeditem"><div class="l-table"><div class="l-cell"><div class="med-tray js-mediaembed"></div></div></div></div><div id="media-gallery-tray"></div><div class="js-media-tweet med-tweet"></div></div></div>';
-	// If we didn't get the embed stuff go get it !
+	// Looking at the thumbnail provider
 	if(dataProvider == "instagram") {
 		$.ajax({
 			url: 'http://api.instagram.com/oembed?url='+linkLightbox.href,
@@ -439,6 +439,7 @@ function lightboxFromTweet() {
 			dataType: 'json'
 		})
 		.done(function(data) {
+			// Thank you Instagram for not giving an accurate "type" value depending of the actual type of the object.
 			if(data.url.indexOf(".mp4") != -1) {
 				var instaVideo = '<video class="instagram-video" width="640" height="640" controls><source src='+data.url+' type="video/mp4"></video>';
 				openModal.querySelector(".js-mediaembed").innerHTML = instaVideo+'<a class="med-origlink" href='+linkLightbox.href+' rel="url" target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
@@ -453,7 +454,7 @@ function lightboxFromTweet() {
 		openModal.querySelector(".js-mediaembed").innerHTML = '<iframe class="imgur-album" width="708" height="550" frameborder="0" src='+dataEmbed+'></iframe><a class="med-origlink" href='+linkLightbox.href+' rel="url" target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
 		finishTheLightbox(dataTweetKey);
 	} else if(dataProvider == "flickr") {
-		
+		// For now I'm only supporting Flickr photos, I still got to add the video support. But does anyone actually use that ?
 		$.ajax({
 			url: 'https://www.flickr.com/services/oembed/?url='+linkLightbox.href+'&format=json&maxwidth=1024',
 			type: 'GET',
@@ -461,12 +462,12 @@ function lightboxFromTweet() {
 		})
 		.done(function(data) {
 			openModal.querySelector(".js-mediaembed").innerHTML = '<div class="js-media-preview-container position-rel margin-vm"> <a class="js-media-image-link block med-link media-item" rel="mediaPreview" target="_blank"> <img class="media-img" src='+data.url+' alt="Media preview"></a></div><a class="med-origlink" rel="url" href='+linkLightbox.href+' target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
-				finishTheLightbox(dataTweetKey);
+			finishTheLightbox(dataTweetKey);
 		});
 	} else {
 		// If we already got the embed URL/code
 		if(dataEmbed != null) {
-			// If we code an embed code
+			// If we got an embed code
 			if(dataIsEmbed != null) {
 				openModal.querySelector(".js-mediaembed").innerHTML = dataEmbed+'<a class="med-origlink" href='+linkLightbox.href+' rel="url" target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
 				finishTheLightbox(dataTweetKey);
@@ -478,6 +479,7 @@ function lightboxFromTweet() {
 	}
 	
 	function finishTheLightbox(dataTweetKey) {
+		// Embed/Picture creating
 		if(openModal.querySelector(".js-mediaembed :-webkit-any(img, iframe, audio)") != null) {
 			openModal.querySelector(".js-mediaembed :-webkit-any(img, iframe, audio)").onload = function() {
 				openModal.querySelector(".js-mediaembed :-webkit-any(img, iframe, audio)").style.maxHeight = document.querySelector(".js-embeditem.med-embeditem").offsetHeight-(document.querySelector("a.med-origlink").offsetHeight)-20+"px";
@@ -492,12 +494,20 @@ function lightboxFromTweet() {
 			openModal.querySelector(".med-embeditem").classList.add("is-loaded");
 		}
 
+		// Content tweaking
 		if(openModal.querySelector(".instagram-video") != null) {
 			openModal.querySelector(".instagram-video").style.height = document.querySelector(".js-embeditem.med-embeditem").offsetHeight-(document.querySelector("a.med-origlink").offsetHeight)-20+"px";
 			openModal.querySelector(".instagram-video").style.width = document.querySelector(".js-embeditem.med-embeditem").offsetHeight-(document.querySelector("a.med-origlink").offsetHeight)-20+"px";
 		}
+
+		if(document.querySelector("iframe[src*='dailymotion.com']") != null) {
+			document.querySelector("iframe[src*='dailymotion.com']").height = document.querySelector("iframe[src*='dailymotion.com']").height*2;
+			document.querySelector("iframe[src*='dailymotion.com']").width = document.querySelector("iframe[src*='dailymotion.com']").width*2;
+		}
 		
+		// Tweet "copying"
 		openModal.querySelector(".js-media-tweet").innerHTML = document.querySelector("[data-key='"+dataTweetKey+"']").innerHTML;
+
 		if(openModal.querySelector(".js-media-tweet .activity-header") != null) {
 			openModal.querySelector(".js-media-tweet .activity-header").remove();
 		}
@@ -533,8 +543,6 @@ function timeIsNotRelative(element, mode) {
 		    var msPerHour = msPerMinute * 60;
 		    var msPerDay = msPerHour * 24;
 		}
-
-
 
 		// Creating year/day/month/minutes/hours variables and applying the lead zeros if necessary
 		var year = td.getFullYear();
