@@ -6,9 +6,10 @@ Adds some nice options on TweetDeck to provide a better experience on the webapp
 Features
 ===============
 
-As 1.0.2
+As 1.2.4
 
-+ Thumbnails for Imgur, Droplr, CloudApp, Flickr, Instagram and 500px
++ "Lightboxes" for 500px, CloudApp, Dailymotion, Droplr, Flickr, Imgur, Instagram, Tumblr, Vimeo.
++ Thumbnails for 500px, CloudApp, Dailymotion, Droplr, Flickr, Imgur, Instagram, Tumblr, Vimeo.
 + Allow to hide or not the "play icon" on YouTube previews
 + Allow to display grayscale icons in Notifications columns
 + Allow to change the time formatting (Relative or Absolute)
@@ -23,6 +24,7 @@ Screenshots
 ![](bettertweetdeck-avatars-timestamp-username.png)
 ![](bettertweetdeck-thumbnails.png)
 ![](bettertweetdeck-options.png)
+![](bettertweetdeck-lightboxes.png)
 
 Installation
 ===============
@@ -35,6 +37,13 @@ Installation
 
 Changelog
 ===============
+
+1.2.x
++ Thumbnails are back in profil modal windows. I might add an option for that.
++ Lightboxes support for all the thumbnails services
++ Vimeo, Dailymotion and full Instagram support added
++ Imgur thumbnails are now 100% accurate
++ The extension display less useless errors in the console.
 
 1.1.5
 + The extension fetches the user-size for thumbnails sooner, resulting in better working thumbnails
