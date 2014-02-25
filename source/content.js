@@ -83,6 +83,7 @@ function eventDispatcher() {
 	} 
 	// If it's not a .txt-mute element, it must be a tweet or something similar, let's check it !
 	else if(event.target.className && event.target.className.indexOf("stream-item") != -1) {
+
 		if(document.querySelectorAll(".js-column").length > 0) {
 			if(!doneTheStuff) {
 				doneTheStuff = true;
@@ -172,7 +173,11 @@ function createPreviewDiv(element, provider) {
 	// Getting the full URL for later
 	var linkURL = element.getAttribute("data-full-url");
 	if(typeof findColumn(element).getAttribute === "function") {
-		var thumbSize = findColumn(element).getAttribute("data-media-preview-size");
+		if(!findColumn(element).classList.contains("column-temp")) {
+			var thumbSize = findColumn(element).getAttribute("data-media-preview-size");
+		} else {
+			var thumbSize = "medium";
+		}
 	}
 	if(thumbSize == "large" || thumbSize == "medium" || thumbSize == "small") {
 			if(provider == "imgur") {
@@ -373,7 +378,7 @@ function createPreviewDiv(element, provider) {
 		var previewLink = document.createElement("a");
 		previewLink.className = "js-media-image-link block med-link media-item media-size-"+thumbSize+"";
 		// Little difference, using rel=url otherwhise TweetDeck will treat it as a "real" media preview, therefore "blocking" the click on it 
-		// previewLink.setAttribute("rel","url");
+		previewLink.setAttribute("rel","url");
 		previewLink.href = linkURL;
 		previewLink.setAttribute("target","_blank");
 		previewLink.setAttribute("data-tweetkey",element.parentNode.parentNode.parentNode.parentNode.parentNode.getAttribute("data-key"));
@@ -414,10 +419,11 @@ function createPreviewDiv(element, provider) {
 }
 
 function createLightboxes() {
-	var noLightboxYet = document.querySelectorAll(".btd-preview a:not(.lightbox-enabled)");
+	var noLightboxYet = document.querySelectorAll("section[class*=column-type] .btd-preview a:not(.lightbox-enabled)");
 	for (var i = noLightboxYet.length - 1; i >= 0; i--) {
 		noLightboxYet[i].addEventListener("click", lightboxFromTweet);
 		noLightboxYet[i].classList.add("lightbox-enabled");
+		noLightboxYet[i].setAttribute("rel","");
 	};
 }
 
