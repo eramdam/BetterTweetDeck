@@ -32,6 +32,10 @@ function setAllTheSettings(response) {
 	}
 }
 
+String.prototype._contains = function(word) {
+	return this.indexOf(word) != -1;
+}
+
 
 function modalWorker() {
 	if(options.timestamp != "relative") {
@@ -78,11 +82,11 @@ function eventDispatcher() {
 	};
 
 	// If the event.target is the text (TweetDeck updates timestamp at regular intervals) then we can get the .txt-mute element and tweak it in real-time
-	if(event.relatedNode.className.indexOf("txt-mute") != -1 && options.timestamp != "relative") {
+	if(event.relatedNode.className._contains("txt-mute") && options.timestamp != "relative") {
 		timeIsNotRelative(event.relatedNode, options.timestamp);
 	} 
 	// If it's not a .txt-mute element, it must be a tweet or something similar, let's check it !
-	else if(event.target.className && event.target.className.indexOf("stream-item") != -1) {
+	else if(event.target.className && event.target.className._contains("stream-item")) {
 
 		if(document.querySelectorAll(".js-column").length > 0) {
 			if(!doneTheStuff) {
@@ -112,23 +116,23 @@ function eventDispatcher() {
 		var linkToHandle = links[links.length-1];
 		var isDetail = linkToHandle.parentNode.parentNode.querySelectorAll(".js-cards-container").length != 0;
 		var imgURL = linkToHandle.getAttribute("data-full-url");
-			if((imgURL.indexOf("imgur.com/") != -1 && imgURL.indexOf("/?q") == -1) && options.img_preview_imgur == true){
+			if((imgURL._contains("imgur.com/") && !imgURL._contains("/?q")) && options.img_preview_imgur == true){
 				createPreviewDiv(linkToHandle,"imgur");
-			} else if(imgURL.indexOf("d.pr/i") != -1 && options.img_preview_droplr == true) {
+			} else if(imgURL._contains("d.pr/i") && options.img_preview_droplr == true) {
 				if(isDetail == false) createPreviewDiv(linkToHandle,"droplr");
-			} else if(imgURL.indexOf("cl.ly/") != -1 && options.img_preview_cloud == true) {
+			} else if(imgURL._contains("cl.ly/") && options.img_preview_cloud == true) {
 				if(isDetail == false) createPreviewDiv(linkToHandle,"cloudApp");
-			} else if(imgURL.indexOf("instagram.com/") != -1 && options.img_preview_instagram == true) {
+			} else if(imgURL._contains("instagram.com/") && options.img_preview_instagram == true) {
 				createPreviewDiv(linkToHandle,"instagram");
-			} else if((imgURL.indexOf("flic.kr/") != -1 || imgURL.indexOf("flickr.com/") != -1) && options.img_preview_flickr == true){
+			} else if((imgURL._contains("flic.kr/") || imgURL._contains("flickr.com/")) && options.img_preview_flickr == true){
 				if(isDetail == false) createPreviewDiv(linkToHandle,"flickr")
-			} else if(imgURL.indexOf("500px.com/") != -1 && options.img_preview_500px == true) {
+			} else if(imgURL._contains("500px.com/") && options.img_preview_500px == true) {
 				if(isDetail == false) createPreviewDiv(linkToHandle,"fivehundredpx");
-			} else if((imgURL.indexOf("media.tumblr.com/") != -1 && imgURL.indexOf("tumblr_inline") == -1) && options.img_preview_tumblr == true) {
+			} else if((imgURL._contains("media.tumblr.com/") && !imgURL._contains("tumblr_inline")) && options.img_preview_tumblr == true) {
 				createPreviewDiv(linkToHandle,"tumblr");
 			} else if(new RegExp("vimeo.com\/[0-9]*$").test(imgURL) && options.img_preview_vimeo == true) {
 				createPreviewDiv(linkToHandle,"vimeo");
-			} else if(imgURL.indexOf("dailymotion.com/video/") != -1 && options.img_preview_dailymotion == true) {
+			} else if(imgURL._contains("dailymotion.com/video/") && options.img_preview_dailymotion == true) {
 				createPreviewDiv(linkToHandle,"dailymotion");
 			}
 		}
@@ -192,9 +196,9 @@ function createPreviewDiv(element, provider) {
 			if(thumbSize == "large") suffixImgur = "l";
 			var imgurID = linkURL.split("#")[0].split("/")[4];
 			// Album
-			if(linkURL.indexOf("imgur.com/a/") != -1) {
+			if(linkURL._contains("imgur.com/a/")) {
 				previewFromAnAlbum(imgurID);
-			} else if(linkURL.indexOf("imgur.com/gallery/") != -1) {
+			} else if(linkURL._contains("imgur.com/gallery/")) {
 				$.ajax({
 					// Sidenote, even if Imgur got different models for album and gallery, they share the same API url so, why bother ?
 					url: "https://api.imgur.com/3/gallery/image/"+imgurID,
@@ -451,7 +455,7 @@ function lightboxFromTweet() {
 		})
 		.done(function(data) {
 			// Thank you Instagram for not giving an accurate "type" value depending of the actual type of the object.
-			if(data.url.indexOf(".mp4") != -1) {
+			if(data.url._contains(".mp4")) {
 				var instaVideo = '<video class="instagram-video" width="400" height="400" controls><source src='+data.url+' type="video/mp4"></video>';
 				openModal.querySelector(".js-mediaembed").innerHTML = instaVideo+'<a class="med-origlink" href='+linkLightbox.href+' rel="url" target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
 				finishTheLightbox(dataTweetKey);
