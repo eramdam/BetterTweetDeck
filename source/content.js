@@ -300,18 +300,7 @@ function createPreviewDiv(element, provider) {
 				continueCreatingThePreview(picURL,fullPicURL);
 			});
 		} else if(provider == "tumblr") {
-			// Using the appropriate suffix depending of the settings
-			if(thumbSize == "large") suffixTumblr = "500";
-			if(thumbSize == "medium") suffixTumblr = "400";
-			if(thumbSize == "small") suffixTumblr = "250";
-			// Getting the file extension of the URL for later
-			var fileExtension = linkURL.split(".").pop();
-			// splitting by the "_" characted to remove the suffix
-			var splittedURL = linkURL.split("_");
-			// Building the new URL
-			var thumbnailUrl = splittedURL[0]+"_"+splittedURL[1]+"_"+suffixTumblr+"."+fileExtension;
-			var fullImgUrl = splittedURL[0]+"_"+splittedURL[1]+"_640."+fileExtension;
-			continueCreatingThePreview(thumbnailUrl, fullImgUrl);
+			continueCreatingThePreview(linkURL, linkURL);
 		} else if(provider == "vimeo") {
 			var suffixVimeo;
 			if(thumbSize == "large") suffixVimeo = "640";
