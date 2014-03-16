@@ -36,6 +36,40 @@ String.prototype._contains = function(word) {
 	return this.indexOf(word) != -1;
 }
 
+// @author James Padolsey
+// @url http://james.padolsey.com/javascript/parsing-urls-with-the-dom/
+// This function creates a new anchor element and uses location
+// properties (inherent) to get the desired URL data. Some String
+// operations are used (to normalize results across browsers).
+ 
+function parseURL(url) {
+    var a =  document.createElement('a');
+    a.href = url;
+    return {
+        source: url,
+        protocol: a.protocol.replace(':',''),
+        host: a.hostname,
+        port: a.port,
+        query: a.search,
+        params: (function(){
+            var ret = {},
+                seg = a.search.replace(/^\?/,'').split('&'),
+                len = seg.length, i = 0, s;
+            for (;i<len;i++) {
+                if (!seg[i]) { continue; }
+                s = seg[i].split('=');
+                ret[s[0]] = s[1];
+            }
+            return ret;
+        })(),
+        file: (a.pathname.match(/\/([^\/?#]+)$/i) || [,''])[1],
+        hash: a.hash.replace('#',''),
+        path: a.pathname.replace(/^([^\/])/,'/$1'),
+        relative: (a.href.match(/tps?:\/\/[^\/]+(.+)/) || [,''])[1],
+        segments: a.pathname.replace(/^\//,'').split('/')
+    };
+}
+
 
 function modalWorker() {
 	if(options.timestamp != "relative") {
@@ -194,7 +228,7 @@ function createPreviewDiv(element, provider) {
 			if(thumbSize == "small") suffixImgur = "t";
 			if(thumbSize == "medium") suffixImgur = "m";
 			if(thumbSize == "large") suffixImgur = "l";
-			var imgurID = linkURL.split("#")[0].split("/")[4];
+			var imgurID = parseURL(linkURL).segments.pop();
 			// Album
 			if(linkURL._contains("imgur.com/a/")) {
 				previewFromAnAlbum(imgurID);
@@ -219,7 +253,7 @@ function createPreviewDiv(element, provider) {
 				});
 			} else {
 				// Single image
-				var imgurID = linkURL.split("#")[0].split("/")[3].split(".")[0];
+				var imgurID = parseURL(linkURL).file.split(".").shift();
 				continueCreatingThePreview("https://i.imgur.com/"+imgurID+suffixImgur+".jpg","https://i.imgur.com/"+imgurID+".jpg");
 			}
 
@@ -257,14 +291,13 @@ function createPreviewDiv(element, provider) {
 				headers: {"Accept": "application/json"}
 			})
 			.done(function(data) {
-				
 				if(data.item_type == "image"){
 					var thumbnailUrl = data.thumbnail_url;
 					continueCreatingThePreview(thumbnailUrl, data.content_url);
 				}
 			});
 		} else if(provider == "instagram") {
-			var instagramID = linkURL.replace(/\/$/,"").split("/").pop();
+			var instagramID = parseURL(linkURL.replace(/\/$/,"")).segments.pop()
 			if(thumbSize == "large") suffixInstagram = "l";
 			if(thumbSize == "medium") suffixInstagram = "m";
 			if(thumbSize == "small") suffixInstagram = "t";
@@ -284,7 +317,7 @@ function createPreviewDiv(element, provider) {
 				continueCreatingThePreview(data.url);
 			});
 		} else if(provider == "fivehundredpx") {
-			var photoID = linkURL.replace(/http(|s):\/\/500px.com\/photo\//,"");
+			var photoID = parseURL(linkURL).segments.pop();
 			if(thumbSize == "large") suffixFiveHundred = "4";
 			if(thumbSize == "medium") suffixFiveHundred = "3";
 			if(thumbSize == "small") suffixFiveHundred = "2";
@@ -316,11 +349,10 @@ function createPreviewDiv(element, provider) {
 				continueCreatingThePreview(linkURL, linkURL);
 			}
 		} else if(provider == "vimeo") {
-			var suffixVimeo;
 			if(thumbSize == "large") suffixVimeo = "640";
 			if(thumbSize == "medium") suffixVimeo = "200";
 			if(thumbSize == "small") suffixVimeo = "100";
-			var vimeoID = linkURL.split("/").pop();
+			var vimeoID = parseURL(linkURL).segments.shift();
 			$.ajax({
 				url: 'http://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/'+vimeoID,
 				type: 'GET',
@@ -330,7 +362,7 @@ function createPreviewDiv(element, provider) {
 				continueCreatingThePreview(data.thumbnail_url.replace(/_[0-9]*.jpg$/,"_")+suffixVimeo+".jpg",data.html,true);
 			});
 		} else if(provider == "dailymotion") {
-			var dailymotionID = linkURL.replace(/\/$/,"").split("/")[4]
+			var dailymotionID = parseURL(linkURL).segments[1];
 			if(thumbSize == "large") {
 				$.ajax({
 					url: 'https://api.dailymotion.com/video/'+dailymotionID+"?fields=thumbnail_480_url,embed_html",
