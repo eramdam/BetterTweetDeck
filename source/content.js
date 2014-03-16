@@ -116,7 +116,7 @@ function eventDispatcher() {
 	};
 
 	// If the event.target is the text (TweetDeck updates timestamp at regular intervals) then we can get the .txt-mute element and tweak it in real-time
-	if(event.relatedNode.className._contains("txt-mute") && options.timestamp != "relative") {
+	if((event.relatedNode.className != undefined && event.relatedNode.className._contains("txt-mute")) && options.timestamp != "relative") {
 		timeIsNotRelative(event.relatedNode, options.timestamp);
 	} 
 	// If it's not a .txt-mute element, it must be a tweet or something similar, let's check it !
@@ -180,7 +180,7 @@ function eventDispatcher() {
 				};
 			}
 		}
-	} else if(event.relatedNode.classList.contains("typeahead")) {
+	} else if(event.relatedNode.classList != undefined && event.relatedNode.classList.contains("typeahead")) {
 		if(options.typeahead_display_username_only == true) {
 			for (var i = event.relatedNode.querySelectorAll("strong.fullname").length - 1; i >= 0; i--) {
 				event.relatedNode.querySelectorAll("strong.fullname")[i].remove();
