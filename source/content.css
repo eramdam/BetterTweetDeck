@@ -51,3 +51,15 @@
 	display: block;
 	top:0;
 }
+
+#open-modal .btd-preview {
+	display: none;
+}
+
+.btd-preview + .js-media.media-preview {
+	display: none;
+}
+
+.btd-preview + .item-box-full-bleed {
+	display: none;
+}

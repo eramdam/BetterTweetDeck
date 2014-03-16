@@ -180,7 +180,7 @@ function createPreviewDiv(element, provider) {
 		}
 	}
 	if(thumbSize == "large" || thumbSize == "medium" || thumbSize == "small") {
-			if(provider == "imgur") {
+		if(provider == "imgur") {
 			// Settings up some client-ID to "bypass" the request rate limite (12,500 req/day/client)
 			var imgurClientIDs = ["c189a7be5a7a313","180ce538ef0dc41"];
 			function getClientID() {
@@ -415,6 +415,11 @@ function createPreviewDiv(element, provider) {
 		}
 
 		createLightboxes();
+		if(document.querySelectorAll(".btd-preview + .js-media.media-preview, .btd-preview + .item-box-full-bleed")) {
+			for (var i = document.querySelectorAll(".btd-preview + .js-media.media-preview, .btd-preview + .item-box-full-bleed").length - 1; i >= 0; i--) {
+				document.querySelectorAll(".btd-preview + .js-media.media-preview, .btd-preview + .item-box-full-bleed")[i].remove();
+			};
+		}
 	}
 }
 
