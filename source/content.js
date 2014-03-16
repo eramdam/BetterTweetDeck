@@ -300,7 +300,21 @@ function createPreviewDiv(element, provider) {
 				continueCreatingThePreview(picURL,fullPicURL);
 			});
 		} else if(provider == "tumblr") {
-			continueCreatingThePreview(linkURL, linkURL);
+			// Using the appropriate suffix depending of the settings
+			if(thumbSize == "large") suffixTumblr = "500";
+			if(thumbSize == "medium") suffixTumblr = "400";
+			if(thumbSize == "small") suffixTumblr = "250";
+			// Getting the file extension of the URL for later
+			var fileExtension = linkURL.split(".").pop();
+			// Getting the original suffix (100,250,400,500)
+			var rxp = new RegExp(/[0-9]*.[a-z]*$/);
+			var tumblrSize = parseInt(rxp.exec(linkURL)[0].split(".")[0]);
+			if(tumblrSize >= suffixTumblr) {
+				var smallerThumb = linkURL.replace(tumblrSize+"."+fileExtension,suffixTumblr+"."+fileExtension);
+				continueCreatingThePreview(smallerThumb, linkURL);
+			} else {
+				continueCreatingThePreview(linkURL, linkURL);
+			}
 		} else if(provider == "vimeo") {
 			var suffixVimeo;
 			if(thumbSize == "large") suffixVimeo = "640";
