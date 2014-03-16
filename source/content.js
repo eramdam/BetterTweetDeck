@@ -452,7 +452,7 @@ function lightboxFromTweet() {
 		.done(function(data) {
 			// Thank you Instagram for not giving an accurate "type" value depending of the actual type of the object.
 			if(data.url.indexOf(".mp4") != -1) {
-				var instaVideo = '<video class="instagram-video" width="640" height="640" controls><source src='+data.url+' type="video/mp4"></video>';
+				var instaVideo = '<video class="instagram-video" width="400" height="400" controls><source src='+data.url+' type="video/mp4"></video>';
 				openModal.querySelector(".js-mediaembed").innerHTML = instaVideo+'<a class="med-origlink" href='+linkLightbox.href+' rel="url" target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
 				finishTheLightbox(dataTweetKey);
 			} else {
