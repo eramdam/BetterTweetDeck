@@ -342,7 +342,7 @@ function createPreviewDiv(element, provider) {
 					dataType: 'json'
 				})
 				.done(function(data) {
-					continueCreatingThePreview(data.thumbnail_240_url,data.embed_html,true);
+					continueCreatingThePreview(data.thumbnail_240_url,data.embed_html.replace("http://","https://"),true);
 				});
 				
 			}
@@ -353,7 +353,7 @@ function createPreviewDiv(element, provider) {
 					dataType: 'json'
 				})
 				.done(function(data) {
-					continueCreatingThePreview(data.thumbnail_180_url,data.embed_html,true);
+					continueCreatingThePreview(data.thumbnail_180_url,data.embed_html.replace("http://","https://"),true);
 				});
 				
 			}
