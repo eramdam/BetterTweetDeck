@@ -87,8 +87,6 @@ function modalWorker() {
 	}
 }
 
-// console.log(window.TD.storage.columnController.get("c1391979750742s76").getMediaPreviewSize());
-
 function eventDispatcher() {
 	function mediaPreviewSize() {
 		for (var i = document.querySelectorAll(".js-column[data-column]").length - 1; i >= 0; i--) {
@@ -150,28 +148,28 @@ function eventDispatcher() {
 		var linkToHandle = links[links.length-1];
 		var isDetail = linkToHandle.parentNode.parentNode.querySelectorAll(".js-cards-container").length != 0;
 		var imgURL = linkToHandle.getAttribute("data-full-url");
-			if((imgURL._contains("imgur.com/") && !imgURL._contains("/?q")) && options.img_preview_imgur == true){
+			if((imgURL._contains("imgur.com/") && !imgURL._contains("/?q")) && options.img_preview_imgur){
 				createPreviewDiv(linkToHandle,"imgur");
-			} else if(imgURL._contains("d.pr/i") && options.img_preview_droplr == true) {
+			} else if(imgURL._contains("d.pr/i") && options.img_preview_droplr) {
 				if(isDetail == false) createPreviewDiv(linkToHandle,"droplr");
-			} else if(imgURL._contains("cl.ly/") && options.img_preview_cloud == true) {
+			} else if(imgURL._contains("cl.ly/") && options.img_preview_cloud) {
 				if(isDetail == false) createPreviewDiv(linkToHandle,"cloudApp");
-			} else if(imgURL._contains("instagram.com/") && options.img_preview_instagram == true) {
+			} else if(imgURL._contains("instagram.com/") && options.img_preview_instagram) {
 				createPreviewDiv(linkToHandle,"instagram");
-			} else if((imgURL._contains("flic.kr/") || imgURL._contains("flickr.com/")) && options.img_preview_flickr == true){
+			} else if((imgURL._contains("flic.kr/") || imgURL._contains("flickr.com/")) && options.img_preview_flickr){
 				if(isDetail == false) createPreviewDiv(linkToHandle,"flickr")
-			} else if(imgURL._contains("500px.com/") && options.img_preview_500px == true) {
+			} else if(imgURL._contains("500px.com/") && options.img_preview_500px) {
 				if(isDetail == false) createPreviewDiv(linkToHandle,"fivehundredpx");
-			} else if((imgURL._contains("media.tumblr.com/") && !imgURL._contains("tumblr_inline")) && options.img_preview_tumblr == true) {
+			} else if((imgURL._contains("media.tumblr.com/") && !imgURL._contains("tumblr_inline")) && options.img_preview_tumblr) {
 				createPreviewDiv(linkToHandle,"tumblr");
-			} else if(new RegExp("vimeo.com\/[0-9]*$").test(imgURL) && options.img_preview_vimeo == true) {
+			} else if(new RegExp("vimeo.com\/[0-9]*$").test(imgURL) && options.img_preview_vimeo) {
 				createPreviewDiv(linkToHandle,"vimeo");
-			} else if(imgURL._contains("dailymotion.com/video/") && options.img_preview_dailymotion == true) {
+			} else if(imgURL._contains("dailymotion.com/video/") && options.img_preview_dailymotion) {
 				createPreviewDiv(linkToHandle,"dailymotion");
 			}
 		}
 
-		if(options.yt_rm_button == true) {
+		if(options.yt_rm_button) {
 			var preview = event.target.querySelectorAll("div.video-overlay.icon-with-bg-round");
 
 			if(preview != null) {
