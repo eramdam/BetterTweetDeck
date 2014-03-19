@@ -148,16 +148,23 @@ this.manifest = {
         {
             "tab": settingsTitle,
             "group": "Content",
-            "name": "img_preview_droplr",
+            "name": "img_preview_dailymotion",
             "type": "checkbox",
-            "label": "<span class='tb'></span>Droplr"
+            "label": "<span class='tb'></span>Dailymotion"
         },
         {
             "tab": settingsTitle,
             "group": "Content",
-            "name": "img_preview_dailymotion",
+            "name": "img_preview_deviantart",
             "type": "checkbox",
-            "label": "<span class='tb'></span>Dailymotion"
+            "label": "<span class='tb'></span>DeviantArt"
+        },
+        {
+            "tab": settingsTitle,
+            "group": "Content",
+            "name": "img_preview_droplr",
+            "type": "checkbox",
+            "label": "<span class='tb'></span>Droplr"
         },
         {
             "tab": settingsTitle,

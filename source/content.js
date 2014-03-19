@@ -165,8 +165,9 @@ function eventDispatcher() {
 			} else if(new RegExp("vimeo.com\/[0-9]*$").test(imgURL) && options.img_preview_vimeo) {
 				if(isDetail == false) createPreviewDiv(linkToHandle,"vimeo");
 			} else if(imgURL._contains("dailymotion.com/video/") && options.img_preview_dailymotion) {
-				if(isDetail == false)createPreviewDiv(linkToHandle,"dailymotion");
-			}
+			} else if(new RegExp("(deviantart.com\/art|fav.me|sta.sh)").test(imgURL) && options.img_preview_deviantart) {
+				if(!isDetail) createPreviewDiv(linkToHandle,"deviantart");
+			} 
 		}
 
 		if(options.yt_rm_button) {
@@ -394,6 +395,19 @@ function createPreviewDiv(element, provider) {
 				});
 				
 			}
+		} else if(provider == "deviantart") {
+			var escapedURL = encodeURIComponent(linkURL);
+			$.ajax({
+				url: 'http://backend.deviantart.com/oembed?url='+escapedURL,
+				type: 'GET',
+				dataType: 'json'
+			})
+			.done(function(data) {
+				if(data.type == "photo") {
+					continueCreatingThePreview(data.thumbnail_url,data.url);
+				}
+			});
+			
 		}
 	}
 

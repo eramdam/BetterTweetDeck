@@ -13,6 +13,7 @@ if(!settings) {
 	"img_preview_imgur": true,
 	"img_preview_tumblr": true,
 	"img_preview_droplr": true,
+	"img_preview_deviantart": true,
 	"img_preview_instagram": true,
 	"img_preview_flickr": true,
 	"img_preview_500px": true,
