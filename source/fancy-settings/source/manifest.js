@@ -1,17 +1,18 @@
 // SAMPLE
+var settingsTitle = "BetterTweetDeck Settings";
 this.manifest = {
     "name": "BetterTweetDeck",
     "icon": "icon.png",
     "settings": [
         {
-            "tab": "General",
+            "tab": settingsTitle,
             "group": "Info",
             "name": "informations",
             "type": "description",
             "text": "<div class=notification></div><div class=alert>Don't forget to reload any TweetDeck tab after applying your settings <br /> <span>This extension <u>only</u> works with <a href='http://tweetdeck.twitter.com'>http://tweetdeck.twitter.com</a> not with the \"TweetDeck\" Chrome application !</span></div>"
         },
         {
-            "tab": "General",
+            "tab": settingsTitle,
             "group": "Time formatting",
             "name": "timestamp",
             "type": "popupButton",
@@ -34,14 +35,14 @@ this.manifest = {
             },
         },
         {
-            "tab":"General",
+            "tab":settingsTitle,
             "group":"Time formatting",
             "name":"full_after_24h",
             "type":"checkbox",
             "label":"Display full-time (dd/mm/yy hh:mm) only after 24h"
         },
         {
-            "tab": "General",
+            "tab": settingsTitle,
             "group": "Users",
             "name": "name_display",
             "type": "popupButton",
@@ -68,126 +69,126 @@ this.manifest = {
             },
         },
         {
-            "tab": "General",
+            "tab": settingsTitle,
             "group": "Users",
             "name": "typeahead_display_username_only",
             "type": "checkbox",
             "label": "The <a href='http://f.cl.ly/items/0Q0I1t2k441639363V35/BehaYurCUAATDU8.png'>mention helper</a> displays only the usernames"
         },
         {
-            "tab": "General",
+            "tab": settingsTitle,
             "group": "Users",
             "name": "circled_avatars",
             "type": "checkbox",
             "label": "Display rounded avatars (it's fancy!)"
         },
         {
-            "tab": "General",
+            "tab": settingsTitle,
             "group": "Appearance",
             "name": "reduced_padding",
             "type": "checkbox",
             "label": "Columns take less space"
         },
         {
-            "tab": "General",
+            "tab": settingsTitle,
             "group": "Appearance",
             "name": "no_columns_icons",
             "type": "checkbox",
             "label": "No icons in column headers",
         },
         {
-            "tab": "General",
+            "tab": settingsTitle,
             "group": "Appearance",
             "name": "grayscale_notification_icons",
             "type": "checkbox",
             "label": "Icons in Notification column should be in grayscales"
         },
         {
-            "tab": "General",
+            "tab": settingsTitle,
             "group": "Content",
             "name": "url_redirection",
             "type": "checkbox",
             "label": "Remove t.co redirection"
         },
         {
-            "tab": "General",
+            "tab": settingsTitle,
             "group": "Appearance",
             "name": "yt_rm_button",
             "type": "checkbox",
             "label": "Hide play button on YouTube previews"
         },
         {
-            "tab": "General",
+            "tab": settingsTitle,
             "group": "Content",
             "name": "only_one_thumbnails",
             "type": "checkbox",
             "label": "Display only one thumbnail per tweet"
         },
         {
-            "tab": "General",
+            "tab": settingsTitle,
             "group": "Content",
             "name": "thumbnails",
             "type": "description",
             "text": "<span class='thumbnails setting label'>Display thumbnails from</span>"
         },
         {
-            "tab": "General",
+            "tab": settingsTitle,
             "group": "Content",
             "name": "img_preview_500px",
             "type": "checkbox",
             "label": "<span class='tb'></span>500px"
         },
         {
-            "tab": "General",
+            "tab": settingsTitle,
             "group": "Content",
             "name": "img_preview_cloud",
             "type": "checkbox",
             "label": "<span class='tb'></span>CloudApp"
         },
         {
-            "tab": "General",
+            "tab": settingsTitle,
             "group": "Content",
             "name": "img_preview_droplr",
             "type": "checkbox",
             "label": "<span class='tb'></span>Droplr"
         },
         {
-            "tab": "General",
+            "tab": settingsTitle,
             "group": "Content",
             "name": "img_preview_dailymotion",
             "type": "checkbox",
             "label": "<span class='tb'></span>Dailymotion"
         },
         {
-            "tab": "General",
+            "tab": settingsTitle,
             "group": "Content",
             "name": "img_preview_flickr",
             "type": "checkbox",
             "label": "<span class='tb'></span>Flickr"
         },
         {
-            "tab": "General",
+            "tab": settingsTitle,
             "group": "Content",
             "name": "img_preview_imgur",
             "type": "checkbox",
             "label": "<span class='tb'></span>Imgur"
         },
         {
-            "tab": "General",
+            "tab": settingsTitle,
             "group": "Content",
             "name": "img_preview_instagram",
             "type": "checkbox",
             "label": "<span class='tb'></span>Instagram"
         },
         {
-            "tab": "General",
+            "tab": settingsTitle,
             "group": "Content",
             "name": "img_preview_tumblr",
             "type": "checkbox",
             "label": "<span class='tb'></span>Tumblr"
         },
         {
-            "tab": "General",
+            "tab": settingsTitle,
             "group": "Content",
             "name": "img_preview_vimeo",
             "type": "checkbox",
