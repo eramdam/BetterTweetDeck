@@ -163,9 +163,9 @@ function eventDispatcher() {
 			} else if((imgURL._contains("media.tumblr.com/") && !imgURL._contains("tumblr_inline")) && options.img_preview_tumblr) {
 				createPreviewDiv(linkToHandle,"tumblr");
 			} else if(new RegExp("vimeo.com\/[0-9]*$").test(imgURL) && options.img_preview_vimeo) {
-				createPreviewDiv(linkToHandle,"vimeo");
+				if(isDetail == false) createPreviewDiv(linkToHandle,"vimeo");
 			} else if(imgURL._contains("dailymotion.com/video/") && options.img_preview_dailymotion) {
-				createPreviewDiv(linkToHandle,"dailymotion");
+				if(isDetail == false)createPreviewDiv(linkToHandle,"dailymotion");
 			}
 		}
 
