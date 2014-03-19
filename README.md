@@ -43,7 +43,7 @@ Changelog
 + Lightboxes support for all the thumbnails services
 + Vimeo, Dailymotion and full Instagram support added
 + Imgur thumbnails are now 100% accurate
-+ The extension display less useless errors in the console.
++ The extension displays less useless errors in the console.
 
 1.1.5
 + The extension fetches the user-size for thumbnails sooner, resulting in better working thumbnails
