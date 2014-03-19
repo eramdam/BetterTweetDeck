@@ -11,6 +11,7 @@ if(!settings) {
 	"grayscale_notification_icons": false,
 	"url_redirection": true,
 	"img_preview_imgur": true,
+	"img_preview_imgly": true,
 	"img_preview_tumblr": true,
 	"img_preview_droplr": true,
 	"img_preview_deviantart": true,

@@ -183,6 +183,13 @@ this.manifest = {
         {
             "tab": settingsTitle,
             "group": "Content",
+            "name": "img_preview_imgly",
+            "type": "checkbox",
+            "label": "<span class='tb'></span>Img.ly"
+        },
+        {
+            "tab": settingsTitle,
+            "group": "Content",
             "name": "img_preview_instagram",
             "type": "checkbox",
             "label": "<span class='tb'></span>Instagram"

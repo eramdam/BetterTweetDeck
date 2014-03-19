@@ -168,7 +168,9 @@ function eventDispatcher() {
 				if(!isDetail) createPreviewDiv(linkToHandle,"dailymotion");
 			} else if(new RegExp("(deviantart.com\/art|fav.me|sta.sh)").test(imgURL) && options.img_preview_deviantart) {
 				if(!isDetail) createPreviewDiv(linkToHandle,"deviantart");
-			} 
+			} else if(imgURL._contains("img.ly") && options.img_preview_imgly) {
+				createPreviewDiv(linkToHandle,"img.ly");
+			}
 		}
 
 		if(options.yt_rm_button) {
@@ -408,7 +410,15 @@ function createPreviewDiv(element, provider) {
 					continueCreatingThePreview(data.thumbnail_url,data.url);
 				}
 			});
-			
+		} else if(provider == "img.ly") {
+			var imglyID = parseURL(linkURL).file;
+			if(thumbSize == "small") {
+				var suffixImgly = "thumb";
+			} else {
+				var suffixImgly = thumbSize;
+			}
+			var finalImglyURL = "http://img.ly/show/"+suffixImgly+"/"+imglyID;
+			continueCreatingThePreview(finalImglyURL,"http://img.ly/show/full/"+imglyID);
 		}
 	}
 
