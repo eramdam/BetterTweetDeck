@@ -71,3 +71,7 @@ div.welcome a {
 #content {
 	left: 0;
 }
+
+.setting.bundle {
+	max-width: 750px;
+}
