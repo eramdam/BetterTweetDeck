@@ -111,7 +111,7 @@ this.manifest = {
         },
         {
             "tab": "General",
-            "group": "Content",
+            "group": "Appearance",
             "name": "yt_rm_button",
             "type": "checkbox",
             "label": "Hide play button on YouTube previews"
@@ -126,64 +126,72 @@ this.manifest = {
         {
             "tab": "General",
             "group": "Content",
+            "name": "thumbnails",
+            "type": "description",
+            "text": "<span class='thumbnails setting label'>Display thumbnails from</span>"
+        },
+        {
+            "tab": "General",
+            "group": "Content",
             "name": "img_preview_500px",
             "type": "checkbox",
-            "label": "Display previews from <b>500px</b>"
+            "label": "<span class='tb'></span>500px"
         },
         {
             "tab": "General",
             "group": "Content",
             "name": "img_preview_cloud",
             "type": "checkbox",
-            "label": "Display previews from <b>CloudApp</b>"
+            "label": "<span class='tb'></span>CloudApp"
         },
         {
             "tab": "General",
             "group": "Content",
             "name": "img_preview_droplr",
             "type": "checkbox",
-            "label": "Display previews from <b>Droplr</b>"
+            "label": "<span class='tb'></span>Droplr"
         },
         {
             "tab": "General",
             "group": "Content",
             "name": "img_preview_dailymotion",
             "type": "checkbox",
-            "label": "Display previews from <b>Dailymotion</b>"
+            "label": "<span class='tb'></span>Dailymotion"
         },
         {
             "tab": "General",
             "group": "Content",
             "name": "img_preview_flickr",
             "type": "checkbox",
-            "label": "Display previews from <b>Flickr</b>"
+            "label": "<span class='tb'></span>Flickr"
         },
         {
             "tab": "General",
             "group": "Content",
             "name": "img_preview_imgur",
             "type": "checkbox",
-            "label": "Display previews from <b>Imgur</b>"
+            "label": "<span class='tb'></span>Imgur"
         },
         {
             "tab": "General",
             "group": "Content",
             "name": "img_preview_instagram",
             "type": "checkbox",
-            "label": "Display previews from <b>Instagram</b>"
+            "label": "<span class='tb'></span>Instagram"
         },
         {
             "tab": "General",
             "group": "Content",
             "name": "img_preview_tumblr",
             "type": "checkbox",
-            "label": "Display previews from <b>Tumblr</b>"
+            "label": "<span class='tb'></span>Tumblr"
         },
         {
             "tab": "General",
             "group": "Content",
             "name": "img_preview_vimeo",
             "type": "checkbox",
+            "label": "<span class='tb'></span>Vimeo"
         }
     ]
 };
