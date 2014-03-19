@@ -12,11 +12,9 @@ window.addEvent("domready", function () {
 
     if(window.top.location.search == "?update") {
         document.querySelector(".notification").innerHTML = document.querySelector(".hidden-changelog").innerHTML;
-    } else if(window.top.location.search == "?welcome") {
+    } else {
         document.querySelector(".notification").innerHTML = document.querySelector(".hidden-welcome").innerHTML;
         document.querySelector(".notification").classList.add("welcome");
-    } else {
-        document.querySelector(".notification").classList.add('once');
     }
 
     if(window.top.location.search != "?update") {

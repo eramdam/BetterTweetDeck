@@ -184,21 +184,6 @@ this.manifest = {
             "group": "Content",
             "name": "img_preview_vimeo",
             "type": "checkbox",
-            "label": "Display previews from <b>Vimeo</b>"
-        },
-        {
-            "tab": "About",
-            "group": "About",
-            "name": "about",
-            "type": "description",
-            "text": "Thanks for using this extension ! This extension is free, but development takes time, so if you found it useful and want to help me you can give a little money or help me developing it !<ul><li><a href='https://github.com/eramdam/BetterTweetDeck'>BetterTweetDeck on Github</a></li><li><a href='http://twitter.com/Eramdam'>Follow me on Twitter !</a></li></ul>"
-        },
-        {
-            "tab": "About",
-            "group": "Donation",
-            "name": "donate",
-            "type": "description",
-            "text": "<form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_top'><input type='hidden' name='cmd' value='_s-xclick'><input type='hidden' name='hosted_button_id' value='RRY2KKZLNBJDG'><input type='image' src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif' border='0' name='submit' alt='PayPal - The safer, easier way to pay online!'><img alt='' border='0' src='https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif' width='1' height='1'></form>"
         }
     ]
 };
