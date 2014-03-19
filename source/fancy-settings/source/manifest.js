@@ -72,7 +72,7 @@ this.manifest = {
             "group": "Users",
             "name": "typeahead_display_username_only",
             "type": "checkbox",
-            "label": "Only display the username in the <a href='http://f.cl.ly/items/0Q0I1t2k441639363V35/BehaYurCUAATDU8.png'>mention helper</a>"
+            "label": "The <a href='http://f.cl.ly/items/0Q0I1t2k441639363V35/BehaYurCUAATDU8.png'>mention helper</a> displays only the usernames"
         },
         {
             "tab": "General",
