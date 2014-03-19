@@ -42,7 +42,6 @@ div.alert {
 	padding: 15px;
 	box-sizing: border-box;
 	color: #a94442;
-	font-weight:bold;
 	margin: 20px 0;
 }
 
@@ -53,8 +52,12 @@ div.welcome {
 	padding: 15px;
 	box-sizing: border-box;
 	color: #3c763d;
-	font-weight:bold;
 	margin: 20px 0;
+}
+
+div.welcome a {
+	font-weight:bold;
+	color:#3c763d;
 }
 
 .notification ul {
