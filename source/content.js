@@ -305,7 +305,7 @@ function createPreviewDiv(element, provider) {
 			if(thumbSize == "large") maxWidth = 800;
 			if(thumbSize == "medium") maxWidth = 500;
 			if(thumbSize == "small") maxWidth = 300;
-			var flickUrl = linkURL.replace(":","%3A");
+			var flickUrl = encodeURIComponent(linkURL);
 			$.ajax({
 				url: 'https://www.flickr.com/services/oembed/?url='+flickUrl+'&format=json&maxwidth='+maxWidth,
 				type: 'GET',
