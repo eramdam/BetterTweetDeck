@@ -61,6 +61,10 @@ div.welcome {
 	margin:0;
 }
 
-.notification p:first-of-type {
-	/*margin-bottom: 0;*/
+#sidebar {
+	display: none;
+}
+
+#content {
+	left: 0;
 }
