@@ -151,20 +151,21 @@ function eventDispatcher() {
 			if((imgURL._contains("imgur.com/") && !imgURL._contains("/?q")) && options.img_preview_imgur){
 				createPreviewDiv(linkToHandle,"imgur");
 			} else if(imgURL._contains("d.pr/i") && options.img_preview_droplr) {
-				if(isDetail == false) createPreviewDiv(linkToHandle,"droplr");
+				if(!isDetail) createPreviewDiv(linkToHandle,"droplr");
 			} else if(imgURL._contains("cl.ly/") && options.img_preview_cloud) {
-				if(isDetail == false) createPreviewDiv(linkToHandle,"cloudApp");
+				if(!isDetail) createPreviewDiv(linkToHandle,"cloudApp");
 			} else if(imgURL._contains("instagram.com/") && options.img_preview_instagram) {
 				createPreviewDiv(linkToHandle,"instagram");
 			} else if((imgURL._contains("flic.kr/") || imgURL._contains("flickr.com/")) && options.img_preview_flickr){
-				if(isDetail == false) createPreviewDiv(linkToHandle,"flickr")
+				if(!isDetail) createPreviewDiv(linkToHandle,"flickr")
 			} else if(imgURL._contains("500px.com/") && options.img_preview_500px) {
-				if(isDetail == false) createPreviewDiv(linkToHandle,"fivehundredpx");
+				if(!isDetail) createPreviewDiv(linkToHandle,"fivehundredpx");
 			} else if((imgURL._contains("media.tumblr.com/") && !imgURL._contains("tumblr_inline")) && options.img_preview_tumblr) {
 				createPreviewDiv(linkToHandle,"tumblr");
 			} else if(new RegExp("vimeo.com\/[0-9]*$").test(imgURL) && options.img_preview_vimeo) {
-				if(isDetail == false) createPreviewDiv(linkToHandle,"vimeo");
+				if(!isDetail) createPreviewDiv(linkToHandle,"vimeo");
 			} else if(imgURL._contains("dailymotion.com/video/") && options.img_preview_dailymotion) {
+				if(!isDetail) createPreviewDiv(linkToHandle,"dailymotion");
 			} else if(new RegExp("(deviantart.com\/art|fav.me|sta.sh)").test(imgURL) && options.img_preview_deviantart) {
 				if(!isDetail) createPreviewDiv(linkToHandle,"deviantart");
 			} 
