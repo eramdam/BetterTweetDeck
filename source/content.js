@@ -170,6 +170,8 @@ function eventDispatcher() {
 				if(!isDetail) createPreviewDiv(linkToHandle,"deviantart");
 			} else if(imgURL._contains("img.ly") && options.img_preview_imgly) {
 				createPreviewDiv(linkToHandle,"img.ly");
+			} else if(new RegExp("(dribbble.com\/shots|drbl.in)").test(imgURL) && options.img_preview_dribbble) {
+				if(!isDetail) createPreviewDiv(linkToHandle,"dribbble");
 			}
 		}
 
@@ -419,6 +421,15 @@ function createPreviewDiv(element, provider) {
 			}
 			var finalImglyURL = "http://img.ly/show/"+suffixImgly+"/"+imglyID;
 			continueCreatingThePreview(finalImglyURL,"http://img.ly/show/full/"+imglyID);
+		} else if(provider == "dribbble") {
+			var dribbbleID = parseURL(linkURL).file.split("-").shift();
+			$.ajax({
+				url: 'http://api.dribbble.com/shots/'+dribbbleID
+			})
+			.done(function(data) {
+				continueCreatingThePreview(data.image_teaser_url,data.image_url);
+			});
+			
 		}
 	}
 

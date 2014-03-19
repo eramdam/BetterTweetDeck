@@ -162,6 +162,13 @@ this.manifest = {
         {
             "tab": settingsTitle,
             "group": "Content",
+            "name": "img_preview_dribbble",
+            "type": "checkbox",
+            "label": "<span class='tb'></span>Dribbble"
+        },
+        {
+            "tab": settingsTitle,
+            "group": "Content",
             "name": "img_preview_droplr",
             "type": "checkbox",
             "label": "<span class='tb'></span>Droplr"
