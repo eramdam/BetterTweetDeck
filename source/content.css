@@ -76,25 +76,14 @@
 } 
 
 .btd-blurred-modals .js-app-content.app-content, .btd-blurred-modals header.js-app-header {
-	transition: all .42s ease;
-	-webkit-filter: blur(0) saturate(100%);
-	-webkit-transform: translateZ(0) scale(1);
-}
-
-.btd-blurred-modals .js-app-content.app-content {
-	-webkit-transform-origin:50% 50%;
+	transition: all 520ms ease;
+	-webkit-filter: saturate(100%) brightness(1);
+	-webkit-transform:translateZ(0);
 }
 
 .btd-blurred-modals.btd-modal-opened .js-app-content.app-content, .btd-blurred-modals.btd-modal-opened header.js-app-header {
-	-webkit-filter: blur(4px) saturate(0);
-}
-
-.btd-blurred-modals.btd-modal-opened .js-app-content.app-content {
-	-webkit-transform: translateZ(0) scale(1.1);
-}
-
-.btd-blurred-modals.btd-modal-opened header.js-app-header {
-	-webkit-transform: translateZ(0) scale(1);
+	-webkit-filter: saturate(0) brightness(0.5);
+	-webkit-transform:translateZ(0);
 }
 
 .btd-blurred-modals.btd-modal-opened input#file-upload-input {
