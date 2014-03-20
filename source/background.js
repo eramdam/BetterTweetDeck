@@ -23,6 +23,7 @@ if(!settings) {
 	"img_preview_tumblr": true,
 	"img_preview_vimeo": true,
 	"img_preview_yfrog": true,
+	"blurred_modals": true,
 	"only_one_thumbnails": true
 	});
 }
