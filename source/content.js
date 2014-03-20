@@ -229,9 +229,17 @@ function createPreviewDiv(element, provider) {
 				return imgurClientIDs[Math.floor(Math.random() * imgurClientIDs.length)];
 			}
 			// Setting the right suffix depending of the user's option
-			if(thumbSize == "small") suffixImgur = "t";
-			if(thumbSize == "medium") suffixImgur = "m";
-			if(thumbSize == "large") suffixImgur = "l";
+			switch(thumbSize) {
+				case "small":
+					suffixImgur = "t"
+					break;
+				case "medium":
+					suffixImgur = "m"
+					break;
+				case "large":
+					suffixImgur = "l"
+					break;
+			}
 			var imgurID = parseURL(linkURL).segments.pop();
 			// Album
 			if(linkURL._contains("imgur.com/a/")) {
@@ -301,12 +309,19 @@ function createPreviewDiv(element, provider) {
 				}
 			});
 		} else if(provider == "instagram") {
-			var instagramID = parseURL(linkURL.replace(/\/$/,"")).segments.pop()
-			if(thumbSize == "large") suffixInstagram = "l";
-			if(thumbSize == "medium") suffixInstagram = "m";
-			if(thumbSize == "small") suffixInstagram = "t";
-			continueCreatingThePreview("http://instagr.am/p/"+instagramID+"/media/?size="+suffixInstagram);
-			
+			var instagramID = parseURL(linkURL.replace(/\/$/,"")).segments.pop();
+			switch(thumbSize) {
+				case "small":
+					suffixInstagram = "t"
+					break;
+				case "medium":
+					suffixInstagram = "m"
+					break;
+				case "large":
+					suffixInstagram = "l"
+					break;
+			}
+			continueCreatingThePreview("http://instagr.am/p/"+instagramID+"/media/?size="+suffixInstagram);	
 		} else if(provider == "flickr") {
 			if(thumbSize == "large") maxWidth = 800;
 			if(thumbSize == "medium") maxWidth = 500;
@@ -322,9 +337,17 @@ function createPreviewDiv(element, provider) {
 			});
 		} else if(provider == "fivehundredpx") {
 			var photoID = parseURL(linkURL).segments.pop();
-			if(thumbSize == "large") suffixFiveHundred = "4";
-			if(thumbSize == "medium") suffixFiveHundred = "3";
-			if(thumbSize == "small") suffixFiveHundred = "2";
+			switch(thumbSize) {
+				case "small":
+					suffixFiveHundred = "2"
+					break;
+				case "medium":
+					suffixFiveHundred = "3"
+					break;
+				case "large":
+					suffixFiveHundred = "4"
+					break;
+			}
 			$.ajax({
 				// Don't steal my consumer key, please !
 				url: "https://api.500px.com/v1/photos/"+photoID+"?consumer_key=8EUWGvy6gL8yFLPbuF6A8SvbOIxSlVJzQCdWSGnm",
@@ -338,9 +361,17 @@ function createPreviewDiv(element, provider) {
 			});
 		} else if(provider == "tumblr") {
 			// Using the appropriate suffix depending of the settings
-			if(thumbSize == "large") suffixTumblr = "500";
-			if(thumbSize == "medium") suffixTumblr = "400";
-			if(thumbSize == "small") suffixTumblr = "250";
+			switch(thumbSize) {
+				case "small":
+					suffixTumblr = "250"
+					break;
+				case "medium":
+					suffixTumblr = "400"
+					break;
+				case "large":
+					suffixTumblr = "500"
+					break;
+			}
 			// Getting the file extension of the URL for later
 			var fileExtension = linkURL.split(".").pop();
 			// Getting the original suffix (100,250,400,500)
@@ -353,9 +384,17 @@ function createPreviewDiv(element, provider) {
 				continueCreatingThePreview(linkURL, linkURL);
 			}
 		} else if(provider == "vimeo") {
-			if(thumbSize == "large") suffixVimeo = "640";
-			if(thumbSize == "medium") suffixVimeo = "200";
-			if(thumbSize == "small") suffixVimeo = "100";
+			switch(thumbSize) {
+				case "small":
+					suffixVimeo = "100"
+					break;
+				case "medium":
+					suffixVimeo = "200"
+					break;
+				case "large":
+					suffixVimeo = "640"
+					break;
+			}
 			var vimeoID = parseURL(linkURL).segments.shift();
 			$.ajax({
 				url: 'http://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/'+vimeoID,
@@ -377,8 +416,7 @@ function createPreviewDiv(element, provider) {
 					continueCreatingThePreview(data.thumbnail_480_url,data.embed_html.replace("http://","https://"),true);
 				});
 				
-			}
-			if(thumbSize == "medium") {
+			} else if(thumbSize == "medium") {
 				$.ajax({
 					url: 'https://api.dailymotion.com/video/'+dailymotionID+"?fields=thumbnail_240_url,embed_html",
 					type: 'GET',
@@ -388,8 +426,7 @@ function createPreviewDiv(element, provider) {
 					continueCreatingThePreview(data.thumbnail_240_url,data.embed_html.replace("http://","https://"),true);
 				});
 				
-			}
-			if(thumbSize == "small") {
+			} else if(thumbSize == "small") {
 				$.ajax({
 					url: 'https://api.dailymotion.com/video/'+dailymotionID+"?fields=thumbnail_180_url,embed_html",
 					type: 'GET',
