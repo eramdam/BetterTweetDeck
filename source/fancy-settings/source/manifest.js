@@ -119,6 +119,13 @@ this.manifest = {
         },
         {
             "tab": settingsTitle,
+            "group": "Appearance",
+            "name": "blurred_modals",
+            "type": "checkbox",
+            "label": 'Display lightboxes without any background'
+        },
+        {
+            "tab": settingsTitle,
             "group": "Content",
             "name": "only_one_thumbnails",
             "type": "checkbox",
