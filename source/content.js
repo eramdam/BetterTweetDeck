@@ -221,7 +221,7 @@ function createPreviewDiv(element, provider) {
 			var thumbSize = "medium";
 		}
 	}
-	if(thumbSize == "large" || thumbSize == "medium" || thumbSize == "small") {
+	if(new RegExp("large|medium|small").test(thumbSize)) {
 		if(provider == "imgur") {
 			// Settings up some client-ID to "bypass" the request rate limite (12,500 req/day/client)
 			var imgurClientIDs = ["c189a7be5a7a313","180ce538ef0dc41"];
