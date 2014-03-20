@@ -30,6 +30,9 @@ function setAllTheSettings(response) {
 	if(options.only_one_thumbnails == true) {
 		bodyClasses.add("btd-one-thumbnail");
 	}
+	if(options.blurred_modals) {
+		bodyClasses.add("btd-blurred-modals");
+	}
 }
 
 String.prototype._contains = function(word) {
@@ -200,6 +203,20 @@ function eventDispatcher() {
 	} else if(event.relatedNode.id == "actions-modal") {
 		event.target.style.height = "auto";
 		event.target.style.width = "550px";
+	} else if(event.relatedNode.id == "open-modal" && options.blurred_modals) {
+		document.querySelector("body").classList.add("btd-modal-opened");
+		var blurredDismiss = document.createElement("div");
+		blurredDismiss.classList.add("btd-blurred-dismiss");
+		document.querySelector(".js-modal-panel a[rel='dismiss']").insertAdjacentElement("beforebegin", blurredDismiss);
+		document.querySelector(".js-embeditem.med-embeditem").insertAdjacentElement("afterbegin",blurredDismiss);
+		var openModal = document.getElementById("open-modal");
+		for (var i = openModal.querySelectorAll("a[rel=dismiss], #btd-modal-dismiss, .btd-blurred-dismiss").length - 1; i >= 0; i--) {
+			openModal.querySelectorAll("a[rel=dismiss], #btd-modal-dismiss, .btd-blurred-dismiss")[i].addEventListener("click", function() {
+				openModal.style.display = "none";
+				openModal.innerHTML = "";
+				document.querySelector("body").classList.remove("btd-modal-opened");
+			});
+		};
 	}
 }
 
