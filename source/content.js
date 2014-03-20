@@ -127,7 +127,18 @@ function eventDispatcher() {
 			if(!doneTheStuff) {
 				doneTheStuff = true;
 				injectScript(mediaPreviewSize);
-				document.getElementById("open-modal").addEventListener("DOMNodeInserted", modalWorker);
+				var openModal = document.getElementById("open-modal");
+				openModal.addEventListener("DOMNodeInserted", modalWorker);
+				document.querySelector(".js-modals-container").addEventListener("DOMNodeInserted", function() {
+					document.querySelector("body").classList.add("btd-modal-opened");
+					if(openModal.children.length > 0) {
+						openModal.innerHTML = "";
+						openModal.style.display = "none";
+					}
+				});
+				document.querySelector(".js-modals-container").addEventListener("DOMNodeRemoved", function() {
+					document.querySelector("body").classList.remove("btd-modal-opened");
+				});
 			}
 		}
 		// Applying the timestamp
@@ -204,19 +215,34 @@ function eventDispatcher() {
 		event.target.style.height = "auto";
 		event.target.style.width = "550px";
 	} else if(event.relatedNode.id == "open-modal" && options.blurred_modals) {
-		document.querySelector("body").classList.add("btd-modal-opened");
-		var blurredDismiss = document.createElement("div");
-		blurredDismiss.classList.add("btd-blurred-dismiss");
-		document.querySelector(".js-modal-panel a[rel='dismiss']").insertAdjacentElement("beforebegin", blurredDismiss);
-		document.querySelector(".js-embeditem.med-embeditem").insertAdjacentElement("afterbegin",blurredDismiss);
 		var openModal = document.getElementById("open-modal");
-		for (var i = openModal.querySelectorAll("a[rel=dismiss], #btd-modal-dismiss, .btd-blurred-dismiss").length - 1; i >= 0; i--) {
-			openModal.querySelectorAll("a[rel=dismiss], #btd-modal-dismiss, .btd-blurred-dismiss")[i].addEventListener("click", function() {
-				openModal.style.display = "none";
-				openModal.innerHTML = "";
-				document.querySelector("body").classList.remove("btd-modal-opened");
-			});
-		};
+
+		if(event.relatedNode.querySelector(".js-mediatable") != undefined) {
+			document.body.classList.add("btd-modal-opened");
+			var blurredDismiss = document.createElement("div");
+			blurredDismiss.classList.add("btd-blurred-dismiss");
+			document.querySelector(".js-modal-panel a[rel='dismiss']").insertAdjacentElement("beforebegin", blurredDismiss);
+			document.querySelector(".js-embeditem.med-embeditem").insertAdjacentElement("afterbegin",blurredDismiss);
+			for (var i = openModal.querySelectorAll("a[rel=dismiss], #btd-modal-dismiss, .btd-blurred-dismiss").length - 1; i >= 0; i--) {
+				openModal.querySelectorAll("a[rel=dismiss], #btd-modal-dismiss, .btd-blurred-dismiss")[i].addEventListener("click", function() {
+					openModal.style.display = "none";
+					openModal.innerHTML = "";
+					document.querySelector("body").classList.remove("btd-modal-opened");
+				});
+			};
+		} else {
+			document.body.classList.add("btd-modal-opened");
+			if(openModal.querySelector("#open-modal .js-modal-panel") != undefined) {
+				openModal.querySelector("#open-modal .js-modal-panel:not(.binded)").addEventListener("DOMNodeRemoved", function() {
+					if(event.relatedNode.id == "open-modal") {
+						document.querySelector("body").classList.remove("btd-modal-opened");
+						console.log(event);
+						openModal.querySelector("#open-modal .js-modal-panel").classList.add("binded");
+					}
+				});
+			}
+		}
+		
 	}
 }
 
