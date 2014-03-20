@@ -216,7 +216,6 @@ function eventDispatcher() {
 		event.target.style.width = "550px";
 	} else if(event.relatedNode.id == "open-modal" && options.blurred_modals) {
 		var openModal = document.getElementById("open-modal");
-
 		if(event.relatedNode.querySelector(".js-mediatable") != undefined) {
 			document.body.classList.add("btd-modal-opened");
 			var blurredDismiss = document.createElement("div");
@@ -230,14 +229,17 @@ function eventDispatcher() {
 					document.querySelector("body").classList.remove("btd-modal-opened");
 				});
 			};
+			openModal.querySelector("#open-modal .js-mediatable").addEventListener("DOMNodeRemoved", function() {
+					if(event.relatedNode.id == "open-modal") {
+						document.querySelector("body").classList.remove("btd-modal-opened");
+					}
+				});
 		} else {
 			document.body.classList.add("btd-modal-opened");
 			if(openModal.querySelector("#open-modal .js-modal-panel") != undefined) {
 				openModal.querySelector("#open-modal .js-modal-panel:not(.binded)").addEventListener("DOMNodeRemoved", function() {
 					if(event.relatedNode.id == "open-modal") {
 						document.querySelector("body").classList.remove("btd-modal-opened");
-						console.log(event);
-						openModal.querySelector("#open-modal .js-modal-panel").classList.add("binded");
 					}
 				});
 			}
