@@ -172,6 +172,8 @@ function eventDispatcher() {
 				createPreviewDiv(linkToHandle,"img.ly");
 			} else if(new RegExp("(dribbble.com\/shots|drbl.in)").test(imgURL) && options.img_preview_dribbble) {
 				if(!isDetail) createPreviewDiv(linkToHandle,"dribbble");
+			} else if(imgURL._contains("yfrog.com") && options.img_preview_yfrog) {
+				createPreviewDiv(linkToHandle,"yfrog")
 			}
 		}
 
@@ -466,7 +468,20 @@ function createPreviewDiv(element, provider) {
 			.done(function(data) {
 				continueCreatingThePreview(data.image_teaser_url,data.image_url);
 			});
-			
+		} else if(provider == "yfrog") {
+			var hashYfrog = parseURL(linkURL).file;
+			switch(thumbSize) {
+				case "small":
+					suffixYfrog = "small";
+					break;
+				case "medium":
+					suffixYfrog = "iphone";
+					break;
+				case "large":
+					suffixYfrog = "medium";
+					break;
+			}
+			continueCreatingThePreview("http://yfrog.com/"+hashYfrog+":"+suffixYfrog,"http://yfrog.com/"+hashYfrog+":medium");
 		}
 	}
 

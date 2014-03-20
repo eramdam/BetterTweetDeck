@@ -22,6 +22,7 @@ if(!settings) {
 	"img_preview_instagram": true,
 	"img_preview_tumblr": true,
 	"img_preview_vimeo": true,
+	"img_preview_yfrog": true,
 	"only_one_thumbnails": true
 	});
 }

@@ -214,6 +214,13 @@ this.manifest = {
             "name": "img_preview_vimeo",
             "type": "checkbox",
             "label": "<span class='tb'></span>Vimeo"
+        },
+        {
+            "tab": settingsTitle,
+            "group": "Content",
+            "name": "img_preview_yfrog",
+            "type": "checkbox",
+            "label": "<span class='tb'></span>yFrog"
         }
     ]
 };
