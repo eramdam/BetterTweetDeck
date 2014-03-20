@@ -63,3 +63,37 @@
 .btd-preview + .item-box-full-bleed {
 	display: none;
 }
+
+/* Blurred modals */
+.btd-blurred-modals #open-modal[style*="block"] .med-fullpanel {
+	background-color:transparent;
+}
+
+.btd-blurred-modals .btd-blurred-dismiss {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+} 
+
+.btd-blurred-modals .js-app-content.app-content, .btd-blurred-modals header.js-app-header {
+	transition: all .5s ease;
+	-webkit-filter: none;
+}
+
+.btd-blurred-modals.btd-modal-opened .js-app-content.app-content, .btd-blurred-modals.btd-modal-opened header.js-app-header {
+	-webkit-filter: blur(20px);
+}
+
+.btd-blurred-modals.btd-modal-opened input#file-upload-input {
+	display: none;
+}
+
+.btd-blurred-modals.btd-modal-opened .mdl {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+
+.btd-modal-opened .js-modal-panel > div:not(.btd-blurred-dismiss) {
+	z-index:1;
+}
