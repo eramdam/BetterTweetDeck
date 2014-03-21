@@ -188,6 +188,8 @@ function eventDispatcher() {
 				if(!isDetail) createPreviewDiv(linkToHandle,"dribbble");
 			} else if(imgURL._contains("yfrog.com") && options.img_preview_yfrog) {
 				createPreviewDiv(linkToHandle,"yfrog")
+			} else if(imgURL._contains("moby.to/")) {
+				createPreviewDiv(linkToHandle,"mobyto");
 			}
 		}
 
@@ -527,6 +529,20 @@ function createPreviewDiv(element, provider) {
 					break;
 			}
 			continueCreatingThePreview("http://yfrog.com/"+hashYfrog+":"+suffixYfrog,"http://yfrog.com/"+hashYfrog+":medium");
+		} else if(provider == "mobyto") {
+			var mobyID = parseURL(linkURL).file;
+			switch(thumbSize) {
+				case "small":
+					sizeMobyto = "thumbnail"
+					break;
+				case "medium":
+					sizeMobyto = "medium"
+					break;
+				case "large":
+					sizeMobyto = "medium"
+					break;
+			}
+			continueCreatingThePreview("http://moby.to/"+mobyID+":"+sizeMobyto,"http://moby.to/"+mobyID+":full");
 		}
 	}
 
