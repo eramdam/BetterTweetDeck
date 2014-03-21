@@ -188,7 +188,7 @@ function eventDispatcher() {
 				if(!isDetail) createPreviewDiv(linkToHandle,"dribbble");
 			} else if(imgURL._contains("yfrog.com") && options.img_preview_yfrog) {
 				createPreviewDiv(linkToHandle,"yfrog")
-			} else if(imgURL._contains("moby.to/")) {
+			} else if(imgURL._contains("moby.to/") && options.img_preview_mobyto) {
 				createPreviewDiv(linkToHandle,"mobyto");
 			}
 		}

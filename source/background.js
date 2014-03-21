@@ -20,6 +20,7 @@ if(!settings) {
 	"img_preview_imgly": true,
 	"img_preview_imgur": true,
 	"img_preview_instagram": true,
+	"img_preview_mobyto": true,
 	"img_preview_tumblr": true,
 	"img_preview_vimeo": true,
 	"img_preview_yfrog": true,

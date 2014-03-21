@@ -211,6 +211,13 @@ this.manifest = {
         {
             "tab": settingsTitle,
             "group": "Content",
+            "name": "img_preview_mobyto",
+            "type": "checkbox",
+            "label": "<span class='tb'></span>Moby.to"
+        },
+        {
+            "tab": settingsTitle,
+            "group": "Content",
             "name": "img_preview_tumblr",
             "type": "checkbox",
             "label": "<span class='tb'></span>Tumblr"
