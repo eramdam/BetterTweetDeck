@@ -77,14 +77,14 @@
 
 .btd-blurred-modals .js-app-content.app-content, .btd-blurred-modals header.js-app-header {
 	-webkit-transition-property: -webkit-transform, -webkit-filter;
-	-webkit-transition-duration: 0.2s, 300ms;
+	-webkit-transition-duration: 0.2s, 250ms;
 	-webkit-transition-timing-function:ease,ease;
-	-webkit-filter: blur(0) saturate(100%) brightness(1);
+	-webkit-filter: saturate(100%) brightness(1);
 	-webkit-transform:translateZ(0);
 }
 
 .btd-blurred-modals.btd-modal-opened .js-app-content.app-content, .btd-blurred-modals.btd-modal-opened header.js-app-header {
-	-webkit-filter: blur(4px) saturate(0) brightness(.5);
+	-webkit-filter: saturate(0) brightness(.3);
 	-webkit-transform:translateZ(0);
 }
 
