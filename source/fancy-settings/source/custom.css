@@ -75,3 +75,8 @@ div.welcome a {
 .setting.bundle {
 	max-width: 750px;
 }
+
+.thumb-opt {
+	width: 50%;
+	display: inline-block;
+}

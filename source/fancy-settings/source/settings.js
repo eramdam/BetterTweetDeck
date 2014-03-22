@@ -30,5 +30,8 @@ window.addEvent("domready", function () {
             document.querySelectorAll("span.new")[i].classList.add("once");
         };
     }
+    for (var i = document.querySelectorAll(".tb").length - 1; i >= 0; i--) {
+        document.querySelectorAll(".tb")[i].parentNode.parentNode.parentNode.classList.add("thumb-opt")
+    };
 
 });
