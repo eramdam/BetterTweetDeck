@@ -2,13 +2,16 @@ window.addEvent("domready", function () {
     // Option 1: Use the manifest:
     new FancySettings.initWithManifest(function (settings) {
     });
+    var lang = (navigator.language == "fr") ? "fr" : "en";
 
     function getVersion() {
     var details = chrome.app.getDetails();
     return details.version;
     }
 
-    document.querySelector(".hidden-changelog b").innerHTML = getVersion();
+    for (var i = document.querySelectorAll(".hidden-changelog > p > b").length - 1; i >= 0; i--) {
+        document.querySelectorAll(".hidden-changelog > p > b")[i].innerHTML = getVersion();
+    };
 
     var pThumbLabel = document.querySelector("span.setting.label").parentNode;
     pThumbLabel.style.marginBottom = "0";
@@ -19,9 +22,9 @@ window.addEvent("domready", function () {
     };
 
     if(window.top.location.search == "?update") {
-        document.querySelector(".notification").innerHTML = document.querySelector(".hidden-changelog").innerHTML;
+        document.querySelector(".notification").innerHTML = document.querySelector(".hidden-changelog."+lang).innerHTML;
     } else {
-        document.querySelector(".notification").innerHTML = document.querySelector(".hidden-welcome."+((navigator.language == "fr") ? "fr" : "en")).innerHTML;
+        document.querySelector(".notification").innerHTML = document.querySelector(".hidden-welcome."+lang).innerHTML;
         document.querySelector(".notification").classList.add("welcome");
     }
 
