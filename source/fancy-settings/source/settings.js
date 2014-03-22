@@ -21,7 +21,7 @@ window.addEvent("domready", function () {
     if(window.top.location.search == "?update") {
         document.querySelector(".notification").innerHTML = document.querySelector(".hidden-changelog").innerHTML;
     } else {
-        document.querySelector(".notification").innerHTML = document.querySelector(".hidden-welcome").innerHTML;
+        document.querySelector(".notification").innerHTML = document.querySelector(".hidden-welcome."+((navigator.language == "fr") ? "fr" : "en")).innerHTML;
         document.querySelector(".notification").classList.add("welcome");
     }
 
