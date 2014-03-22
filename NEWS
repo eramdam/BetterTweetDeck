@@ -1,3 +1,18 @@
+1.3.0
+===============
+Features:
++ The Settings page has been restyled
++ The extension is now localized in French in addition to English
++ Added support of Dribbble, Moby.to, yFrog & DeviantArt for thumbnails/lightboxes
++ Lightboxes and modal windows can get a new "full-screen" effect
+
+Bugfixes & Improvements:
++ Fixed an issue with HTTPS and Dailymotion video embeds
++ Fixed a duplicating thumbnails issue when a YouTube link and an Instagram one were in the same tweet
++ Improved the Tumblr mechanism for thumbnails
++ Removed thumbnails on Details view
++ Stability and performance improvements as minor bugfixes as well
+
 1.2.x
 ===============
 + Thumbnails are back in profil modal windows. I might add an option for that.
