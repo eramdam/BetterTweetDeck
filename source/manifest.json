@@ -1,9 +1,10 @@
 {
 	"name": "Better TweetDeck",
 	"short_name": "BetterTDeck",
+	"default_locale":"en",
 	"version": "1.2.6",
 	"manifest_version": 2,
-	"description": "Improves the user experience of tweetdeck.twitter.com",
+	"description": "__MSG_appDesc__",
 	"content_scripts": [{
 		"matches": ["https://tweetdeck.twitter.com/*","http://tweetdeck.twitter.com/*"],
 		"js": ["jquery.ajax.min.js","injectScript.js","content.js"],
