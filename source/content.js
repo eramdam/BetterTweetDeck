@@ -129,16 +129,19 @@ function eventDispatcher() {
 				injectScript(mediaPreviewSize);
 				var openModal = document.getElementById("open-modal");
 				openModal.addEventListener("DOMNodeInserted", modalWorker);
-				document.querySelector(".js-modals-container").addEventListener("DOMNodeInserted", function() {
-					document.querySelector("body").classList.add("btd-modal-opened");
+				var modals = document.querySelectorAll(".js-modals-container, #actions-modal");
+				for (var i = modals.length - 1; i >= 0; i--) {
+				modals[i].addEventListener("DOMNodeInserted", function() {
+					document.body.classList.add("btd-modal-opened");
 					if(openModal.children.length > 0) {
 						openModal.innerHTML = "";
 						openModal.style.display = "none";
 					}
 				});
-				document.querySelector(".js-modals-container").addEventListener("DOMNodeRemoved", function() {
-					document.querySelector("body").classList.remove("btd-modal-opened");
+				modals[i].addEventListener("DOMNodeRemoved", function() {
+					document.body.classList.remove("btd-modal-opened");
 				});
+				};
 			}
 		}
 		// Applying the timestamp
