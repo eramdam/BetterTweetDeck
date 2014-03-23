@@ -77,7 +77,7 @@ this.i18n = {
         "en": "The auto-completion displays only usernames"
     },
     "circleAvatars": {
-        "fr": "Avatars en rond",
+        "fr": "Avatars arrondis",
         "en": "Rounded avatars"
     },
     "noColumnsIcons": {
