@@ -45,3 +45,13 @@ Installation
 **OR (if you're curious/adventurous/crazy)**
 
 + Clone this repo and drag'n'drop the `source` folder in your Extensions window. **But keep in mind you gonna get an unstable version of the extension**
+
+Contributing & Helping
+===============
+
+If you want to suggest something or address an issue, use the GitHub Issues and Pull Request feature.
+
+However, if you feel generous and want to donate, you can do it by many ways:
+
++ [Donate on PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RRY2KKZLNBJDG)
++ **BTC**: 16aWencNCFBtAqnKHj966uSqzQ66RYA87r
