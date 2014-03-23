@@ -33,6 +33,11 @@ function setAllTheSettings(response) {
 	if(options.blurred_modals) {
 		bodyClasses.add("btd-blurred-modals");
 	}
+
+	if(options.small_icons_compose) {
+		bodyClasses.add("btd-small-icons-compose");
+	}
+
 }
 
 String.prototype._contains = function(word) {

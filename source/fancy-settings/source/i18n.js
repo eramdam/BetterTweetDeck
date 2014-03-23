@@ -84,6 +84,10 @@ this.i18n = {
         "fr": "Pas d'icônes en haut des colonnes",
         "en": "No icons in columns headers"
     },
+    "smallIconsCompose": {
+        "fr": "Les icônes sont plus petits dans le panneau de composition",
+        "en": "Icons are smaller in the Compose panel"
+    },
     "grayscaleIcons": {
         "fr": "Les icônes de notifications sont en niveaux de gris",
         "en": "Notifications icons are in grayscale"

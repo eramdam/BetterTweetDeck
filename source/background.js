@@ -8,6 +8,7 @@ if(!settings) {
 	"reduced_padding": true,
 	"no_columns_icons": false,
 	"yt_rm_button": true,
+	"small_icons_compose": true,
 	"grayscale_notification_icons": false,
 	"url_redirection": true,
 	"img_preview_500px": true,

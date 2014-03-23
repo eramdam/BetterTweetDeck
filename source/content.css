@@ -101,3 +101,16 @@
 .btd-modal-opened .js-modal-panel > div:not(.btd-blurred-dismiss) {
 	z-index:1;
 }
+
+/* Small buttons in compose view */
+.btd-small-icons-compose div.js-new-compose.compose button > span {
+	display: none;
+}
+
+.btd-small-icons-compose div.js-new-compose.compose button {
+	width: auto;
+}
+
+.btd-small-icons-compose .js-schedule-datepicker-holder > div > div.caret {
+	left: 27%;
+}

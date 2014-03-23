@@ -100,6 +100,13 @@ this.manifest = {
         {
             "tab": settingsTitle,
             "group": locale("groupAppearance"),
+            "name": "small_icons_compose",
+            "type": "checkbox",
+            "label": locale("smallIconsCompose")
+        },
+        {
+            "tab": settingsTitle,
+            "group": locale("groupAppearance"),
             "name": "grayscale_notification_icons",
             "type": "checkbox",
             "label": locale("grayscaleIcons")
