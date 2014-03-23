@@ -5,6 +5,7 @@ Features:
 + The extension is now localized in French in addition to English
 + Added support of Dribbble, Moby.to, yFrog & DeviantArt for thumbnails/lightboxes
 + Lightboxes and modal windows can get a new "full-screen" effect
++ Icons in compose panel can be smaller now
 
 Bugfixes & Improvements:
 + Fixed an issue with HTTPS and Dailymotion video embeds
