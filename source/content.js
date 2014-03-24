@@ -44,6 +44,14 @@ String.prototype._contains = function(word) {
 	return this.indexOf(word) != -1;
 }
 
+window.document.onkeydown = function(e) {
+	var openModal = document.getElementById("open-modal");
+	if(openModal.children.length > 0 && e.keyCode == 27) {
+		openModal.innerHTML = "";
+		openModal.style.display = "none";
+	}
+}
+
 // @author James Padolsey
 // @url http://james.padolsey.com/javascript/parsing-urls-with-the-dom/
 // This function creates a new anchor element and uses location
