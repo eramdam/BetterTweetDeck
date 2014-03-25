@@ -388,7 +388,13 @@ function createPreviewDiv(element, provider) {
 					suffixInstagram = "l"
 					break;
 			}
-			continueCreatingThePreview("http://instagr.am/p/"+instagramID+"/media/?size="+suffixInstagram);	
+			$.ajax({
+				url: "http://api.instagram.com/oembed?url="+linkURL
+			})
+			.done(function() {
+				continueCreatingThePreview("http://instagr.am/p/"+instagramID+"/media/?size="+suffixInstagram);
+			});
+			
 		} else if(provider == "flickr") {
 			if(thumbSize == "large") maxWidth = 800;
 			if(thumbSize == "medium") maxWidth = 500;
