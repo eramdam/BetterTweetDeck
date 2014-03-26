@@ -700,6 +700,7 @@ function lightboxFromTweet() {
 	}
 	
 	function finishTheLightbox(dataTweetKey) {
+		var originalTweet = document.querySelector("[data-key='"+dataTweetKey+"']");
 		// Embed/Picture creating
 		if(openModal.querySelector(".js-mediaembed :-webkit-any(img, iframe, audio)") != null) {
 			openModal.querySelector(".js-mediaembed :-webkit-any(img, iframe, audio)").onload = function() {
@@ -727,7 +728,7 @@ function lightboxFromTweet() {
 		}
 		
 		// Tweet "copying"
-		openModal.querySelector(".js-media-tweet").innerHTML = document.querySelector("[data-key='"+dataTweetKey+"']").innerHTML;
+		openModal.querySelector(".js-media-tweet").innerHTML = originalTweet.innerHTML;
 
 		if(openModal.querySelector(".js-media-tweet .activity-header") != null) {
 			openModal.querySelector(".js-media-tweet .activity-header").remove();
