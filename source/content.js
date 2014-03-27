@@ -700,6 +700,7 @@ function lightboxFromTweet() {
 	}
 	
 	function finishTheLightbox(dataTweetKey) {
+		var originalTweet = document.querySelector("[data-key='"+dataTweetKey+"']");
 		// Embed/Picture creating
 		if(openModal.querySelector(".js-mediaembed :-webkit-any(img, iframe, audio)") != null) {
 			openModal.querySelector(".js-mediaembed :-webkit-any(img, iframe, audio)").onload = function() {
@@ -727,7 +728,7 @@ function lightboxFromTweet() {
 		}
 		
 		// Tweet "copying"
-		openModal.querySelector(".js-media-tweet").innerHTML = document.querySelector("[data-key='"+dataTweetKey+"']").innerHTML;
+		openModal.querySelector(".js-media-tweet").innerHTML = originalTweet.innerHTML;
 
 		if(openModal.querySelector(".js-media-tweet .activity-header") != null) {
 			openModal.querySelector(".js-media-tweet .activity-header").remove();
@@ -748,6 +749,60 @@ function lightboxFromTweet() {
 				openModal.innerHTML = "";
 			});
 		};
+
+		// Handling the buttons in tweet footer as intended
+
+		// Favorite button
+		openModal.querySelector("a[rel='favorite']").addEventListener("click", function() {
+			// Faking the current tweet being favorited
+			openModal.querySelector(".js-tweet.tweet").classList.toggle("is-favorite");
+			event.target.classList.toggle("anim");
+			event.target.classList.toggle("anim-slower");
+			event.target.classList.toggle("anim-bounce-in");
+			// Triggering click action on the "real" fav button so the tweet gets favorited.
+			originalTweet.querySelector("a[rel='favorite']").click();
+		});
+
+		// Retweet button
+		openModal.querySelector("a[rel='retweet']").addEventListener("click", function() {
+			// Faking the current tweet being retweeted by triggering the click action on the original button. So tricky, very magic.
+			originalTweet.querySelector("a[rel='retweet']").click();
+		});
+
+		// Favorite button
+		openModal.querySelector("a[rel='reply']").addEventListener("click", function() {
+			// Click on the RT button
+			originalTweet.querySelector("a[rel='reply']").click();
+			// Then click on the "pop-out" button in the inline-reply panel.
+			setTimeout(function() {
+				originalTweet.querySelector("button.js-inline-compose-pop").click();
+				// And click on the dismiss div to close the lightboxe. And BAM ! You're replying to the tweet.
+				document.getElementById("btd-modal-dismiss").click();
+				originalTweet.querySelector("a[rel='reply']").classList.remove("is-selected");
+			}, 0);
+		});
+
+		// Menu button
+		openModal.querySelector("a[rel='actionsMenu']").addEventListener("click", function() {
+			// Faking the current tweet being retweeted by triggering the click action on the original button. So tricky, very magic.
+			setTimeout(function() {
+				originalTweet.querySelector("a[rel='actionsMenu']").click();
+			}, 0);
+			// console.log(originalTweet.querySelector("a[rel='actionsMenu']"));
+			setTimeout(function() {
+				var originalMenu = originalTweet.querySelector(".dropdown-menu");
+				originalMenu.classList.add("pos-t");
+				openModal.querySelector("a[rel='actionsMenu']").insertAdjacentElement("afterEnd", originalMenu);
+			}, 0);
+			setTimeout(function() {
+				for (var i = openModal.querySelectorAll("a[data-action='message'],a[data-action='mention']").length - 1; i >= 0; i--) {
+					openModal.querySelectorAll("a[data-action='message'],a[data-action='mention']")[i].addEventListener("click", function() {
+						openModal.style.display = "none";
+						openModal.innerHTML = "";
+					})
+				};
+			}, 0);
+		});
 	}
 }
 
