@@ -207,6 +207,8 @@ function eventDispatcher() {
 				createPreviewDiv(linkToHandle,"yfrog")
 			} else if(imgURL._contains("moby.to/") && options.img_preview_mobyto) {
 				createPreviewDiv(linkToHandle,"mobyto");
+			} else if(imgURL._contains("soundcloud.com") && options.img_preview_soundcloud) {
+				createPreviewDiv(linkToHandle,"soundcloud");
 			}
 		}
 		}
@@ -567,6 +569,15 @@ function createPreviewDiv(element, provider) {
 					break;
 			}
 			continueCreatingThePreview("http://moby.to/"+mobyID+":"+sizeMobyto,"http://moby.to/"+mobyID+":full");
+		} else if(provider == "soundcloud") {
+			$.ajax({
+				url: 'http://soundcloud.com/oembed?url='+linkURL,
+				dataType: 'json'
+			})
+			.done(function(data) {
+				continueCreatingThePreview(data.thumbnail_url, data.html.replace('width="100%"','width="600"'), true);
+			});
+			
 		}
 	}
 
