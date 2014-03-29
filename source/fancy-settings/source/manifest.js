@@ -226,6 +226,13 @@ this.manifest = {
         {
             "tab": settingsTitle,
             "group": locale("groupContent"),
+            "name": "img_preview_soundcloud",
+            "type": "checkbox",
+            "label": "<span class='tb'></span>SoundCloud"
+        },
+        {
+            "tab": settingsTitle,
+            "group": locale("groupContent"),
             "name": "img_preview_tumblr",
             "type": "checkbox",
             "label": "<span class='tb'></span>Tumblr"
