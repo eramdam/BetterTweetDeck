@@ -114,3 +114,8 @@
 .btd-small-icons-compose .js-schedule-datepicker-holder > div > div.caret {
 	left: 27%;
 }
+
+/* Hiding thumbnails in Messages columns as they're bugged for the YouTube ones */
+.column-type-message .js-media-preview-container {
+	display: none;
+}
