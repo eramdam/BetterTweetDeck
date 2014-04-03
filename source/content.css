@@ -119,3 +119,10 @@
 .column-type-message .js-media-preview-container {
 	display: none;
 }
+
+.twitter-emoji {
+	height: 1em;
+	width: 1em;
+	padding: 0 .05em 0 .1em;
+	vertical-align: -0.1em;
+}

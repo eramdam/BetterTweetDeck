@@ -37,7 +37,6 @@ function setAllTheSettings(response) {
 	if(options.small_icons_compose) {
 		bodyClasses.add("btd-small-icons-compose");
 	}
-
 }
 
 String.prototype._contains = function(word) {
@@ -222,6 +221,8 @@ function eventDispatcher() {
 				};
 			}
 		}
+
+		event.target.querySelector("p.js-tweet-text").innerHTML = emoji.imageReplace(event.target.querySelector("p.js-tweet-text").innerHTML);
 	} else if(event.relatedNode.classList != undefined && event.relatedNode.classList.contains("typeahead")) {
 		if(options.typeahead_display_username_only == true) {
 			for (var i = event.relatedNode.querySelectorAll("strong.fullname").length - 1; i >= 0; i--) {
