@@ -102,6 +102,12 @@ function modalWorker() {
 	}
 }
 
+// Emojitify an element thanks to emojiToImage.js
+function emojiInElement(el) {
+	el.innerHTML = emoji.imageReplace(el.innerHTML);
+	el.classList.add("emoji");
+}
+
 function eventDispatcher() {
 	function mediaPreviewSize() {
 		for (var i = document.querySelectorAll(".js-column[data-column]").length - 1; i >= 0; i--) {
@@ -177,39 +183,43 @@ function eventDispatcher() {
 		var linkToHandle = links[links.length-1];
 		var isDetail = linkToHandle.parentNode.parentNode.querySelectorAll(".js-cards-container").length != 0;
 		var imgURL = linkToHandle.getAttribute("data-full-url");
-		if(!isDetail) {
-			if((imgURL._contains("imgur.com/") && !imgURL._contains("/?q")) && options.img_preview_imgur){
-				createPreviewDiv(linkToHandle,"imgur");
-			} else if(imgURL._contains("d.pr/i") && options.img_preview_droplr) {
-				createPreviewDiv(linkToHandle,"droplr");
-			} else if(imgURL._contains("cl.ly/") && options.img_preview_cloud) {
-				createPreviewDiv(linkToHandle,"cloudApp");
-			} else if(imgURL._contains("instagram.com/") && options.img_preview_instagram) {
-				createPreviewDiv(linkToHandle,"instagram");
-			} else if((imgURL._contains("flic.kr/") || imgURL._contains("flickr.com/")) && options.img_preview_flickr){
-				createPreviewDiv(linkToHandle,"flickr")
-			} else if(imgURL._contains("500px.com/") && options.img_preview_500px) {
-				createPreviewDiv(linkToHandle,"fivehundredpx");
-			} else if((imgURL._contains("media.tumblr.com/") && !imgURL._contains("tumblr_inline")) && options.img_preview_tumblr) {
-				createPreviewDiv(linkToHandle,"tumblr");
-			} else if(new RegExp("vimeo.com\/[0-9]*$").test(imgURL) && options.img_preview_vimeo) {
-				createPreviewDiv(linkToHandle,"vimeo");
-			} else if(imgURL._contains("dailymotion.com/video/") && options.img_preview_dailymotion) {
-				createPreviewDiv(linkToHandle,"dailymotion");
-			} else if(new RegExp("(deviantart.com\/art|fav.me|sta.sh)").test(imgURL) && options.img_preview_deviantart) {
-				createPreviewDiv(linkToHandle,"deviantart");
-			} else if(imgURL._contains("img.ly") && options.img_preview_imgly) {
-				createPreviewDiv(linkToHandle,"img.ly");
-			} else if(new RegExp("(dribbble.com\/shots|drbl.in)").test(imgURL) && options.img_preview_dribbble) {
-				createPreviewDiv(linkToHandle,"dribbble");
-			} else if(imgURL._contains("yfrog.com") && options.img_preview_yfrog) {
-				createPreviewDiv(linkToHandle,"yfrog")
-			} else if(imgURL._contains("moby.to/") && options.img_preview_mobyto) {
-				createPreviewDiv(linkToHandle,"mobyto");
-			} else if(imgURL._contains("soundcloud.com") && options.img_preview_soundcloud) {
-				createPreviewDiv(linkToHandle,"soundcloud");
+			if(!isDetail) {
+				if((imgURL._contains("imgur.com/") && !imgURL._contains("/?q")) && options.img_preview_imgur){
+					createPreviewDiv(linkToHandle,"imgur");
+				} else if(imgURL._contains("d.pr/i") && options.img_preview_droplr) {
+					createPreviewDiv(linkToHandle,"droplr");
+				} else if(imgURL._contains("cl.ly/") && options.img_preview_cloud) {
+					createPreviewDiv(linkToHandle,"cloudApp");
+				} else if(imgURL._contains("instagram.com/") && options.img_preview_instagram) {
+					createPreviewDiv(linkToHandle,"instagram");
+				} else if((imgURL._contains("flic.kr/") || imgURL._contains("flickr.com/")) && options.img_preview_flickr){
+					createPreviewDiv(linkToHandle,"flickr")
+				} else if(imgURL._contains("500px.com/") && options.img_preview_500px) {
+					createPreviewDiv(linkToHandle,"fivehundredpx");
+				} else if((imgURL._contains("media.tumblr.com/") && !imgURL._contains("tumblr_inline")) && options.img_preview_tumblr) {
+					createPreviewDiv(linkToHandle,"tumblr");
+				} else if(new RegExp("vimeo.com\/[0-9]*$").test(imgURL) && options.img_preview_vimeo) {
+					createPreviewDiv(linkToHandle,"vimeo");
+				} else if(imgURL._contains("dailymotion.com/video/") && options.img_preview_dailymotion) {
+					createPreviewDiv(linkToHandle,"dailymotion");
+				} else if(new RegExp("(deviantart.com\/art|fav.me|sta.sh)").test(imgURL) && options.img_preview_deviantart) {
+					createPreviewDiv(linkToHandle,"deviantart");
+				} else if(imgURL._contains("img.ly") && options.img_preview_imgly) {
+					createPreviewDiv(linkToHandle,"img.ly");
+				} else if(new RegExp("(dribbble.com\/shots|drbl.in)").test(imgURL) && options.img_preview_dribbble) {
+					createPreviewDiv(linkToHandle,"dribbble");
+				} else if(imgURL._contains("yfrog.com") && options.img_preview_yfrog) {
+					createPreviewDiv(linkToHandle,"yfrog")
+				} else if(imgURL._contains("moby.to/") && options.img_preview_mobyto) {
+					createPreviewDiv(linkToHandle,"mobyto");
+				} else if(imgURL._contains("soundcloud.com/") && options.img_preview_soundcloud) {
+					createPreviewDiv(linkToHandle,"soundcloud");
+				} else {
+					emojiInElement(event.target.querySelector("p.js-tweet-text"));
+				}
 			}
-		}
+		} else {
+			emojiInElement(event.target.querySelector("p.js-tweet-text"));
 		}
 
 		if(options.yt_rm_button) {
@@ -222,7 +232,6 @@ function eventDispatcher() {
 			}
 		}
 
-		event.target.querySelector("p.js-tweet-text").innerHTML = emoji.imageReplace(event.target.querySelector("p.js-tweet-text").innerHTML);
 	} else if(event.relatedNode.classList != undefined && event.relatedNode.classList.contains("typeahead")) {
 		if(options.typeahead_display_username_only == true) {
 			for (var i = event.relatedNode.querySelectorAll("strong.fullname").length - 1; i >= 0; i--) {
@@ -578,7 +587,7 @@ function createPreviewDiv(element, provider) {
 			.done(function(data) {
 				continueCreatingThePreview(data.thumbnail_url, data.html.replace('width="100%"','width="600"'), true);
 			});
-			
+
 		}
 	}
 
@@ -642,7 +651,9 @@ function createPreviewDiv(element, provider) {
 				document.querySelectorAll(".btd-preview + .js-media.media-preview, .btd-preview + .item-box-full-bleed")[i].remove();
 			};
 		}
+		emojiInElement(element.parentNode);
 	}
+
 }
 
 function createLightboxes() {
