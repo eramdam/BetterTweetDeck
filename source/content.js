@@ -37,6 +37,10 @@ function setAllTheSettings(response) {
 	if(options.small_icons_compose) {
 		bodyClasses.add("btd-small-icons-compose");
 	}
+
+	if(options.hide_emojis) {
+		bodyClasses.add("btd-no-emoji");
+	}
 }
 
 String.prototype._contains = function(word) {
