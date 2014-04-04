@@ -218,7 +218,7 @@ function eventDispatcher() {
 					createPreviewDiv(linkToHandle,"mobyto");
 				} else if(imgURL._contains("soundcloud.com/") && options.img_preview_soundcloud) {
 					createPreviewDiv(linkToHandle,"soundcloud");
-				} else if(imgURL._contains("bandcamp.com/")) {
+				} else if(imgURL._contains("bandcamp.com/") && options.img_preview_bandcamp) {
 					createPreviewDiv(linkToHandle,"bandcamp");
 				} else {
 					emojiInElement(event.target.querySelector("p.js-tweet-text"));

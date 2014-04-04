@@ -163,6 +163,13 @@ this.manifest = {
         {
             "tab": settingsTitle,
             "group": locale("groupContent"),
+            "name": "img_preview_bandcamp",
+            "type": "checkbox",
+            "label": "<span class='tb'></span>Bandcamp"
+        },
+        {
+            "tab": settingsTitle,
+            "group": locale("groupContent"),
             "name": "img_preview_cloud",
             "type": "checkbox",
             "label": "<span class='tb'></span>CloudApp"

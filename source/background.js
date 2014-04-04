@@ -12,6 +12,7 @@ if(!settings) {
 	"grayscale_notification_icons": false,
 	"url_redirection": true,
 	"img_preview_500px": true,
+	"img_preview_bandcamp": true,
 	"img_preview_cloud": true,
 	"img_preview_dailymotion": true,
 	"img_preview_deviantart": true,
