@@ -218,6 +218,8 @@ function eventDispatcher() {
 					createPreviewDiv(linkToHandle,"mobyto");
 				} else if(imgURL._contains("soundcloud.com/") && options.img_preview_soundcloud) {
 					createPreviewDiv(linkToHandle,"soundcloud");
+				} else if(imgURL._contains("bandcamp.com/")) {
+					createPreviewDiv(linkToHandle,"bandcamp");
 				} else {
 					emojiInElement(event.target.querySelector("p.js-tweet-text"));
 				}
@@ -593,7 +595,41 @@ function createPreviewDiv(element, provider) {
 			.done(function(data) {
 				continueCreatingThePreview(data.thumbnail_url, data.html.replace('width="100%"','width="600"'), true);
 			});
-
+		} else if(provider == "bandcamp") {
+			bandcampURL = encodeURIComponent(linkURL);
+			$.ajax({
+				url: 'http://api.bandcamp.com/api/url/1/info?key=vatnajokull&url='+bandcampURL,
+				type: 'GET',
+				dataType: 'json'
+			})
+			.done(function(data) {
+				if(data.track_id != null) {
+					$.ajax({
+						url: 'http://api.bandcamp.com/api/track/3/info?key=vatnajokull&track_id='+data.track_id,
+						type: 'GET',
+						dataType: 'json'
+					})
+					.done(function(data) {
+						if(data.large_art_url) {
+							var embed = '<iframe style="border: 0; width: 350px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/track='+data.track_id+'/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless></iframe>';
+							continueCreatingThePreview(data.large_art_url, embed, true);
+						}
+					});	
+				} else {
+					$.ajax({
+						url: 'http://api.bandcamp.com/api/album/2/info?key=vatnajokull&album_id='+data.album_id,
+						type: 'GET',
+						dataType: 'json'
+					})
+					.done(function(data) {
+						if(data.large_art_url) {
+							var embed = '<iframe style="border: 0; width: 350px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/album='+data.album_id+'/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless></iframe>';
+							continueCreatingThePreview(data.large_art_url, embed, true);
+						}
+					});	
+				}
+			});
+			
 		}
 	}
 
