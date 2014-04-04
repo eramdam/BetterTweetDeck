@@ -221,7 +221,6 @@ function eventDispatcher() {
 		} else {
 			emojiInElement(event.target.querySelector("p.js-tweet-text"));
 		}
-		}
 
 		if(options.yt_rm_button) {
 			var preview = event.target.querySelectorAll("div.video-overlay.icon-with-bg-round");
@@ -279,12 +278,6 @@ function eventDispatcher() {
 		}
 		
 	}
-		setTimeout(function() {
-		for (var i = document.querySelectorAll("p.js-tweet-text:not(.emoji)").length - 1; i >= 0; i--) {
-			emojiInElement(document.querySelectorAll("p.js-tweet-text:not(.emoji)")[i]);
-			document.querySelectorAll("p.js-tweet-text:not(.emoji)")[i].classList.add("emoji");	
-		};
-		},0);
 }
 
 function createPreviewDiv(element, provider) {
