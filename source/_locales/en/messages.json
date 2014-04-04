@@ -2,5 +2,9 @@
   "appDesc": {
     "message": "Improves TweetDeck by Twitter™ with new features and aesthetic tweaks", 
     "description":"The description of the application, displayed in the web store."
+  },
+  "appName": {
+  	"message": "Better TweetDeck - Thumbnails, Emojis and more for TweetDeck.com!",
+  	"description": "name of the app"
   }
 }
