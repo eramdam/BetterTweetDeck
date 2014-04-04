@@ -219,7 +219,9 @@ function eventDispatcher() {
 				}
 			}
 		} else {
-			emojiInElement(event.target.querySelector("p.js-tweet-text"));
+			if(event.target.querySelector("p.js-tweet-text")) {
+				emojiInElement(event.target.querySelector("p.js-tweet-text"));
+			}
 		}
 
 		if(options.yt_rm_button) {
