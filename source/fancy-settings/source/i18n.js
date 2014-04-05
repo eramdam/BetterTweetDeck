@@ -92,10 +92,6 @@ this.i18n = {
         "fr": "Les icônes de notifications sont en niveaux de gris",
         "en": "Notifications icons are in grayscale"
     },
-    "noEmojis": {
-        "fr": "Ne pas afficher les <a target='_blank' href='https://twitter.com/Support/status/451399393850052610'>Emojis</a>",
-        "en": "Don't display <a target='_blank' href='https://twitter.com/Support/status/451399393850052610'>Emojis</a>"
-    },
     "tcoRemoval": {
         "fr": "Supprimer la redirection des liens en http://t.co",
         "en": "Remove the http://t.co links"

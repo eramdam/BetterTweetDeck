@@ -114,13 +114,6 @@ this.manifest = {
         {
             "tab": settingsTitle,
             "group": locale("groupContent"),
-            "name": "hide_emojis",
-            "type": "checkbox",
-            "label": locale("noEmojis")
-        },
-        {
-            "tab": settingsTitle,
-            "group": locale("groupContent"),
             "name": "url_redirection",
             "type": "checkbox",
             "label": locale("tcoRemoval")
