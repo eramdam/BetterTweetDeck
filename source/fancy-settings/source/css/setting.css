@@ -79,3 +79,10 @@
     font-weight: lighter;
     color: #999999;
 }
+
+.twitter-emoji {
+    height: 1.9em;
+    width: 1.9em;
+    padding: 0 .05em 0 .1em;
+    vertical-align: -0.1em;
+}
