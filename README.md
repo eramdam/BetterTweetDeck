@@ -6,6 +6,7 @@ Adds some nice options on [TweetDeck](http://tweetdeck.twitter.com) to provide a
 Features
 ===============
 
++ **Emojis !**
 + Lighboxes & thumbnails for :
     + 500px
     + CloudApp
@@ -32,6 +33,7 @@ Features
 Screenshots
 ===============
 
+![](emojis.jpg)
 ![](bettertweetdeck-avatars-timestamp-username.png)
 ![](bettertweetdeck-thumbnails.png)
 ![](bettertweetdeck-options.png)
