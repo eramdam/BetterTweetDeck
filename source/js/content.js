@@ -39,50 +39,12 @@ function setAllTheSettings(response) {
 	}
 }
 
-String.prototype._contains = function(word) {
-	return this.indexOf(word) != -1;
-}
-
 window.document.onkeydown = function(e) {
 	var openModal = document.getElementById("open-modal");
 	if(openModal.children.length > 0 && e.keyCode == 27) {
 		openModal.innerHTML = "";
 		openModal.style.display = "none";
 	}
-}
-
-// @author James Padolsey
-// @url http://james.padolsey.com/javascript/parsing-urls-with-the-dom/
-// This function creates a new anchor element and uses location
-// properties (inherent) to get the desired URL data. Some String
-// operations are used (to normalize results across browsers).
- 
-function parseURL(url) {
-    var a =  document.createElement('a');
-    a.href = url;
-    return {
-        source: url,
-        protocol: a.protocol.replace(':',''),
-        host: a.hostname,
-        port: a.port,
-        query: a.search,
-        params: (function(){
-            var ret = {},
-                seg = a.search.replace(/^\?/,'').split('&'),
-                len = seg.length, i = 0, s;
-            for (;i<len;i++) {
-                if (!seg[i]) { continue; }
-                s = seg[i].split('=');
-                ret[s[0]] = s[1];
-            }
-            return ret;
-        })(),
-        file: (a.pathname.match(/\/([^\/?#]+)$/i) || [,''])[1],
-        hash: a.hash.replace('#',''),
-        path: a.pathname.replace(/^([^\/])/,'/$1'),
-        relative: (a.href.match(/tps?:\/\/[^\/]+(.+)/) || [,''])[1],
-        segments: a.pathname.replace(/^\//,'').split('/')
-    };
 }
 
 
@@ -100,12 +62,6 @@ function modalWorker() {
 	if(typeof event.target.querySelectorAll === "function") {
 		nameDisplay(event.target.querySelectorAll("a[rel='user']:not(.item-img)"), options.name_display);
 	}
-}
-
-// Emojitify an element thanks to emojiToImage.js
-function emojiInElement(el) {
-	el.innerHTML = emoji.imageReplace(el.innerHTML);
-	el.classList.add("emoji");
 }
 
 function eventDispatcher() {
@@ -159,6 +115,7 @@ function eventDispatcher() {
 				modals[i].addEventListener("DOMNodeRemoved", function() {
 					document.body.classList.remove("btd-modal-opened");
 				});
+				buildingEmojiComposer();
 				};
 			}
 		}
