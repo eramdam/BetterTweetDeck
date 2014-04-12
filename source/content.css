@@ -126,3 +126,147 @@
 	padding: 0 .05em 0 .1em;
 	vertical-align: -0.1em;
 }
+
+
+/***********************
+EMOJI COMPOSER
+************************/
+@font-face {
+  font-family: 'btd-emojis-icons';
+  src: url('chrome-extension://__MSG_@@extension_id__/font/btd-emojis-icons.eot?4386651');
+  src: url('chrome-extension://__MSG_@@extension_id__/font/btd-emojis-icons.eot?4386651#iefix') format('embedded-opentype'),
+       url('chrome-extension://__MSG_@@extension_id__/font/btd-emojis-icons.woff?4386651') format('woff'),
+       url('chrome-extension://__MSG_@@extension_id__/font/btd-emojis-icons.ttf?4386651') format('truetype'),
+       url('chrome-extension://__MSG_@@extension_id__/font/btd-emojis-icons.svg?4386651#btd-emojis-icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'btd-emojis-icons';
+    src: url('chrome-extension://__MSG_@@extension_id__/font/btd-emojis-icons.svg?4386651#btd-emojis-icons') format('svg');
+  }
+}
+*/
+ 
+ [class^="btd-icon-"]:before, [class*=" btd-icon-"]:before {
+  font-family: "btd-emojis-icons" !important;
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+ 
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+ 
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+     
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+ 
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+ 
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+ 
+.btd-icon-emoji-humanimage:before { content: '\e801'; } /* '' */
+.btd-icon-smile:before { content: '\e800'; } /* '' */
+.btd-icon-smile {
+	margin-left: -.2em;
+}
+
+.btd-icon-smile + span {
+	padding-left: 10px !important;
+}
+
+.emoji-popover .twitter-emoji {
+	width:20px;
+	height:20px;
+	margin: 3px 7px;
+	display: inline-block;
+}
+
+.emoji-popover .emojis-compose-panel {
+	height: 300px;
+}
+
+.emoji-popover .emojis-compose-panel .emoji-container {
+	width: 200px;
+	height:270px;
+	padding-left: 6px;
+	padding-top: 2px;
+	overflow: scroll;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.emoji-popover .emoji-container > div {
+	position: absolute;
+	height: 270px;
+	overflow: scroll;
+	display: none;
+}
+
+.emoji-popover .emoji-container > div.active {
+	display: block;
+}
+
+.emoji-popover .emojis-compose-panel .emoji-container:before   {
+	content:'';
+	display: block;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 1.00)), to(rgba(255, 255, 255, 0.00)));
+	background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 1.00), rgba(255, 255, 255, 0.00));
+	background-image: linear-gradient(top, rgba(255, 255, 255, 1.00), rgba(255, 255, 255, 0.00));
+	height: 11px;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	border-radius:3px 3px 0 0;
+	z-index: 999;
+}
+
+.emoji-popover .category-chooser {
+	position: absolute;
+	background: #fff;
+	height: 30px;
+	width: 100%;
+	left: 0;
+	bottom: 0;
+	-webkit-border-radius: 0 0 3px 3px;
+	-moz-border-radius: 0 0 3px 3px;
+	border-radius: 0 0 3px 3px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding-left: 7px;
+	padding-top: 2px;
+	box-shadow: 0 -1px 0 rgba(0,0,0,.3);
+}
+
+.emoji-popover .category-chooser > a {
+	width:20px;
+	height: 20px;
+	margin:3px 7px;
+	cursor:pointer;
+	opacity: .6;
+}
+
+.emoji-popover .category-chooser > a:hover,.emoji-popover .category-chooser > a.active {
+	opacity:1;
+}
