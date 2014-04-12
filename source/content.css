@@ -112,7 +112,7 @@
 }
 
 .btd-small-icons-compose .js-schedule-datepicker-holder > div > div.caret {
-	left: 27%;
+	left: 49.5%;
 }
 
 /* Hiding thumbnails in Messages columns as they're bugged for the YouTube ones */
@@ -191,6 +191,22 @@ EMOJI COMPOSER
 
 .btd-icon-smile + span {
 	padding-left: 10px !important;
+}
+
+.btd-small-icons-compose .btd-icon-smile {
+	margin-left: 0;
+}
+
+.btd-small-icons-compose .js-add-emojis {
+	margin-right: 4px;
+}
+
+.btd-small-icons-compose .btd-icon-smile:before {
+	margin-left: 0;
+}
+
+.btd-small-icons-compose .emoji-popover .caret {
+	left:5.5%;
 }
 
 .emoji-popover .twitter-emoji {
