@@ -115,11 +115,10 @@ function eventDispatcher() {
 				modals[i].addEventListener("DOMNodeRemoved", function() {
 					document.body.classList.remove("btd-modal-opened");
 				});
-				var emojiURL = chrome.extension.getURL("js/emoji.json");
+				var emojiURL = chrome.extension.getURL("emoji-popover.html");
 				$.ajax({
 					url: emojiURL,
-					type: 'GET',
-					dataType: 'json'
+					type: 'GET'
 				})
 				.done(function(data) {
 					buildingEmojiComposer(data);

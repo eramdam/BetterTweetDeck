@@ -104,24 +104,10 @@ function emojiInElement(el) {
 	el.classList.add("emoji");
 }
 
-var populateEmojis = function(source, elName) {
-    var emojis = source.split(",");
-    var emojisToAdd = "";
-    for (var i = 0; i < emojis.length; i++) {
-        var codesPoints = emojis[i].toCodePoints();
-        if(codesPoints.indexOf("fe0f") != -1) {
-            codesPoints.remove("fe0f");
-        }
-        var tuple = codesPoints.join("-");
-        emojisToAdd += '<a href="#" data-string="'+emojis[i]+'" class="emoji-pop twitter-emoji emojis-t-'+tuple+'"></a>';
-    };
-    document.querySelector(".emoji-popover .emojis-compose-panel .emoji-container ."+elName).innerHTML += emojisToAdd;
-}
 
 function buildingEmojiComposer(emojiSource) {
 	if(!bodyClasses.contains('emoji-composer-added')) {
-		var emojis = emojiSource;
-		var emojiComposerHTML = '<div class="popover popover-position-t margin-ll emoji-popover" id="" style="display:none;"><div class="caret"><span class="caret-outer"></span><span class="caret-inner"></span></div><div class="emojis-compose-panel"><div class="emoji-container"><div class="Emoji-HumanImage active"></div><div class="Emoji-NatureImage"></div><div class="Emoji-ObjectsImage"></div><div class="Emoji-PlacesImage"></div><div class="Emoji-SymbolImage"></div></div><div class="category-chooser"><a data-cat="Emoji-HumanImage" href="#" class="twitter-emoji emoji-pop emojis-t-1f60d active"></a><a data-cat="Emoji-NatureImage" href="#" class="twitter-emoji emoji-pop emojis-t-1f340"></a><a data-cat="Emoji-ObjectsImage" href="#" class="twitter-emoji emoji-pop emojis-t-1f514"></a><a data-cat="Emoji-PlacesImage" href="#" class="twitter-emoji emoji-pop emojis-t-1f5ff"></a><a data-cat="Emoji-SymbolImage" href="#" class="twitter-emoji emoji-pop emojis-t-23-20e3"></a></div></div></div>';
+		var emojiComposerHTML = emojiSource;
         var emojiComposerButton = '<button class="js-add-emojis js-show-tip needsclick btn btn-on-blue full-width txt-left margin-bl padding-vm" tabindex="0" data-original-title="" id="emojiButton" title=""> <i class="icon btd-icon-smile"></i> <span class="label padding-ls">Emojis</span> </button>';
         document.querySelector(".js-add-image-button").insertAdjacentHTML("beforebegin", emojiComposerButton);
         var emojiHolder = document.createElement("span");
@@ -138,11 +124,6 @@ function buildingEmojiComposer(emojiSource) {
                 document.querySelector(".emoji-popover").setAttribute("id","");
             }
         });
-
-        var datas = emojis.EmojiDataArray;
-        for (var i = 0; i < datas.length; i++) {
-            populateEmojis(datas[i].CVCategoryData.Data, datas[i].CVCategoryImage);
-        };
         
         var catButtons = document.querySelectorAll(".category-chooser > a");
         for (var i = catButtons.length - 1; i >= 0; i--) {
