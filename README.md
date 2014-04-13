@@ -37,6 +37,7 @@ Screenshots
 ===============
 
 ![](emojis.jpg)
+![](emojis-panel.jpg)
 ![](bettertweetdeck-avatars-timestamp-username.png)
 ![](bettertweetdeck-thumbnails.png)
 ![](bettertweetdeck-options.png)
