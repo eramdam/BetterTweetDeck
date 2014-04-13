@@ -184,7 +184,9 @@ function eventDispatcher() {
 				} else if(new RegExp(".(jpg|gif|png|jpeg)$").test(imgURL)) {
 					createPreviewDiv(linkToHandle,"toResize");
 				}else {
-					emojiInElement(event.target.querySelector("p.js-tweet-text"));
+					if(event.target.querySelector("p.js-tweet-text")) {
+						emojiInElement(event.target.querySelector("p.js-tweet-text"));
+					}
 				}
 			}
 		} else {
