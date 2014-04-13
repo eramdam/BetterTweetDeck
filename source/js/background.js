@@ -18,6 +18,7 @@ if(!settings) {
 	"img_preview_deviantart": true,
 	"img_preview_dribbble": true,
 	"img_preview_droplr": true,
+	"img_preview_dropbox": true,
 	"img_preview_flickr": true,
 	"img_preview_imgly": true,
 	"img_preview_imgur": true,

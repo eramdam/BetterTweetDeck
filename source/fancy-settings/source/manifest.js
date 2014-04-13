@@ -191,6 +191,13 @@ this.manifest = {
         {
             "tab": settingsTitle,
             "group": locale("groupContent"),
+            "name": "img_preview_dropbox",
+            "type": "checkbox",
+            "label": "<span class='tb'></span>Dropbox"
+        },
+        {
+            "tab": settingsTitle,
+            "group": locale("groupContent"),
             "name": "img_preview_droplr",
             "type": "checkbox",
             "label": "<span class='tb'></span>Droplr"

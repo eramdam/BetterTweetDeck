@@ -181,6 +181,8 @@ function eventDispatcher() {
 					createPreviewDiv(linkToHandle,"soundcloud");
 				} else if(imgURL._contains("bandcamp.com/") && options.img_preview_bandcamp) {
 					createPreviewDiv(linkToHandle,"bandcamp");
+				} else if(new RegExp("((https?://db\\.tt/[a-zA-Z0-9]+)|(https?://www\\.(dropbox\\.com/s/.+\\.(?:jpg|png|gif))))").test(imgURL) && options.img_preview_dropbox) {
+					createPreviewDiv(linkToHandle,"dropbox");
 				} else if(new RegExp(".(jpg|gif|png|jpeg)$").test(imgURL)) {
 					createPreviewDiv(linkToHandle,"toResize");
 				}else {
@@ -290,6 +292,28 @@ function createPreviewDiv(element, provider) {
 			var randomNumber = Math.floor(Math.random()*(10-1)+1);
 			var resizedURL = 'https://images'+randomNumber+'-focus-opensocial.googleusercontent.com/gadgets/proxy?url='+encodeURIComponent(linkURL)+'&container=focus&resize_w='+suffixResize+'&refresh=86400';
 			continueCreatingThePreview(resizedURL,linkURL);
+		} else if(provider == "dropbox") {
+			var suffixDropbox;
+			switch(thumbSize) {
+				case "small":
+					suffixDropbox = 150
+					break;
+				case "medium":
+					suffixDropbox = 280;
+					break;
+				case "large":
+					suffixDropbox = 360;
+					break;
+			}
+			$.ajax({
+				url: 'https://noembed.com/embed?url='+encodeURIComponent(linkURL)+'&maxwidth='+suffixDropbox,
+				type: 'GET',
+				dataType: 'json'
+			})
+			.done(function(data) {
+				continueCreatingThePreview(data.media_url,data.media_url.replace("https://noembed.com/i/"+suffixDropbox+"/0/",""));
+			});
+			
 		} else if(provider == "imgur") {
 			// Settings up some client-ID to "bypass" the request rate limite (12,500 req/day/client)
 			var imgurClientIDs = ["c189a7be5a7a313","180ce538ef0dc41"];
