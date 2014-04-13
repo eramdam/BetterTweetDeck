@@ -6,7 +6,8 @@ Adds some nice options on [TweetDeck](http://tweetdeck.twitter.com) to provide a
 Features
 ===============
 
-+ **Emojis !**
++ **Emojis!**
++ You can now add emojis in tweets with the **Emoji panel!**
 + Lighboxes & thumbnails for :
     + 500px
     + CloudApp
@@ -22,6 +23,7 @@ Features
     + Tumblr
     + Vimeo
     + yFrog
+    + **Anything** that ends in .jpg/png/gif.
 + Allow to hide or not the "play icon" on YouTube previews
 + Allow to display grayscale icons in Notifications columns
 + Allow to change the time formatting (Relative or Absolute)
