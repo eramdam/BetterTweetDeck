@@ -115,7 +115,15 @@ function eventDispatcher() {
 				modals[i].addEventListener("DOMNodeRemoved", function() {
 					document.body.classList.remove("btd-modal-opened");
 				});
-				buildingEmojiComposer();
+				var emojiURL = chrome.extension.getURL("js/emoji.json");
+				$.ajax({
+					url: emojiURL,
+					type: 'GET',
+					dataType: 'json'
+				})
+				.done(function(data) {
+					buildingEmojiComposer(data);
+				});
 				};
 			}
 		}
