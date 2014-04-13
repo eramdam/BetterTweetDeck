@@ -2,7 +2,8 @@
 ===============
 + You can now add emojis easily in your tweets thank to the "Emojis" button in the Compose panel!
 + Thumbnails should be lighter to load.
-+ Thumbnails for every images are now supported!
++ Thumbnails for any images are now supported!
++ Thumbnails from Dropbox are now supported!
 + Emojis are now all supported (almost?) perfectly and should be faster to load
 + Minors improvements and bugfixes
 

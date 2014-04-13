@@ -14,6 +14,7 @@ Features
     + Dailymotion
     + DeviantArt
     + Dribbble
+    + Dropbox
     + Droplr
     + Flickr
     + Imgur
