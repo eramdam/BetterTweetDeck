@@ -377,9 +377,9 @@ function createPreviewDiv(element, provider) {
 			});
 			
 		} else if(provider == "flickr") {
-			if(thumbSize == "large") maxWidth = 800;
-			if(thumbSize == "medium") maxWidth = 500;
-			if(thumbSize == "small") maxWidth = 300;
+			if(thumbSize == "large") maxWidth = 350;
+			if(thumbSize == "medium") maxWidth = 280;
+			if(thumbSize == "small") maxWidth = 150;
 			var flickUrl = encodeURIComponent(linkURL);
 			$.ajax({
 				url: 'https://www.flickr.com/services/oembed/?url='+flickUrl+'&format=json&maxwidth='+maxWidth,
@@ -399,7 +399,7 @@ function createPreviewDiv(element, provider) {
 					suffixFiveHundred = "3"
 					break;
 				case "large":
-					suffixFiveHundred = "4"
+					suffixFiveHundred = "3"
 					break;
 			}
 			$.ajax({
@@ -420,10 +420,10 @@ function createPreviewDiv(element, provider) {
 					suffixTumblr = "250"
 					break;
 				case "medium":
-					suffixTumblr = "400"
+					suffixTumblr = "250"
 					break;
 				case "large":
-					suffixTumblr = "500"
+					suffixTumblr = "400"
 					break;
 			}
 			// Getting the file extension of the URL for later
@@ -440,34 +440,34 @@ function createPreviewDiv(element, provider) {
 		} else if(provider == "vimeo") {
 			switch(thumbSize) {
 				case "small":
-					suffixVimeo = "100"
+					suffixVimeo = "150"
 					break;
 				case "medium":
-					suffixVimeo = "200"
+					suffixVimeo = "280"
 					break;
 				case "large":
-					suffixVimeo = "640"
+					suffixVimeo = "360"
 					break;
 			}
 			var vimeoID = parseURL(linkURL).segments.shift();
 			$.ajax({
-				url: 'http://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/'+vimeoID,
+				url: 'http://vimeo.com/api/oembed.json?maxwidth='+suffixVimeo+'url=http%3A//vimeo.com/'+vimeoID,
 				type: 'GET',
 				dataType: 'json'
 			})
 			.done(function(data) {
-				continueCreatingThePreview(data.thumbnail_url.replace(/_[0-9]*.jpg$/,"_")+suffixVimeo+".jpg",data.html,true);
+				continueCreatingThePreview(data.thumbnail_url,data.html,true);
 			});
 		} else if(provider == "dailymotion") {
 			var dailymotionID = parseURL(linkURL).segments[1];
 			if(thumbSize == "large") {
 				$.ajax({
-					url: 'https://api.dailymotion.com/video/'+dailymotionID+"?fields=thumbnail_480_url,embed_html",
+					url: 'https://api.dailymotion.com/video/'+dailymotionID+"?fields=thumbnail_360_url,embed_html",
 					type: 'GET',
 					dataType: 'json'
 				})
 				.done(function(data) {
-					continueCreatingThePreview(data.thumbnail_480_url,data.embed_html.replace("http://","https://"),true);
+					continueCreatingThePreview(data.thumbnail_360_url,data.embed_html.replace("http://","https://"),true);
 				});
 				
 			} else if(thumbSize == "medium") {
