@@ -181,7 +181,9 @@ function eventDispatcher() {
 					createPreviewDiv(linkToHandle,"soundcloud");
 				} else if(imgURL._contains("bandcamp.com/") && options.img_preview_bandcamp) {
 					createPreviewDiv(linkToHandle,"bandcamp");
-				} else {
+				} else if(new RegExp(".(jpg|gif|png|jpeg)$").test(imgURL)) {
+					createPreviewDiv(linkToHandle,"toResize");
+				}else {
 					emojiInElement(event.target.querySelector("p.js-tweet-text"));
 				}
 			}
@@ -270,7 +272,23 @@ function createPreviewDiv(element, provider) {
 		}
 	}
 	if(new RegExp("large|medium|small").test(thumbSize)) {
-		if(provider == "imgur") {
+		if(provider == "toResize") {
+			var suffixResize;
+			switch(thumbSize) {
+				case "small":
+					suffixResize = 150
+					break;
+				case "medium":
+					suffixResize = 280;
+					break;
+				case "large":
+					suffixResize = 360;
+					break;
+			}
+			var randomNumber = Math.floor(Math.random()*(10-1)+1);
+			var resizedURL = 'https://images'+randomNumber+'-focus-opensocial.googleusercontent.com/gadgets/proxy?url='+encodeURIComponent(linkURL)+'&container=focus&resize_w='+suffixResize+'&refresh=86400';
+			continueCreatingThePreview(resizedURL,linkURL);
+		} else if(provider == "imgur") {
 			// Settings up some client-ID to "bypass" the request rate limite (12,500 req/day/client)
 			var imgurClientIDs = ["c189a7be5a7a313","180ce538ef0dc41"];
 			function getClientID() {
