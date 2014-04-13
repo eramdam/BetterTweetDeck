@@ -471,7 +471,7 @@ function createPreviewDiv(element, provider) {
 			}
 			var vimeoID = parseURL(linkURL).segments.shift();
 			$.ajax({
-				url: 'http://vimeo.com/api/oembed.json?maxwidth='+suffixVimeo+'url=http%3A//vimeo.com/'+vimeoID,
+				url: 'http://vimeo.com/api/oembed.json?maxwidth='+suffixVimeo+'&url=http%3A//vimeo.com/'+vimeoID,
 				type: 'GET',
 				dataType: 'json'
 			})
