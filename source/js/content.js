@@ -39,6 +39,9 @@ function setAllTheSettings(response) {
 	if(options.name_display == "fullname" || options.name_display == "username") {
 		bodyClasses.add("btd-no-username");
 	}
+	if(options.yt_rm_button) {
+		bodyClasses.add("btd-no-video-icon");
+	}
 }
 
 window.document.onkeydown = function(e) {

@@ -132,6 +132,11 @@
 	display: none;
 }
 
+/*Hiding YouTube icon*/
+.btd-no-video-icon div.video-overlay.icon-with-bg-round {
+	display: none;
+}
+
 /***********************
 EMOJI COMPOSER
 ************************/
