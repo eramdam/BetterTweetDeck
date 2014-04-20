@@ -1,3 +1,36 @@
+var _ajax = function(url, method, dataType, headers, onSuccess, onFailure) {
+    var req = new XMLHttpRequest();
+    req.open(method, url, true);
+    req.onload = function() {
+        if (req.readyState === 4) {
+            if (req.status === 200) {
+                if(dataType == "json") {
+                    onSuccess(JSON.parse(req.responseText));
+                } else if(dataType == "xml") {
+                    var parser = new DOMParser();
+                    var xml = parser.parseFromString(req.responseText,"application/xml");
+                    onSuccess(xml);
+                } else {
+                    onSuccess(req.responseText);
+                }
+            } else {
+                if(onFailure) {
+                    onFailure(req.statusText);
+                }
+            }
+        }
+    }
+    if (headers) {
+        for (var key in headers) {
+            if (headers.hasOwnProperty(key)) {
+                req.setRequestHeader(key, headers[key]);
+            }
+        }
+    }
+    req.send(null);
+}
+
+
 String.prototype._contains = function(word) {
 	return this.indexOf(word) != -1;
 }

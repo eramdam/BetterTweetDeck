@@ -116,12 +116,8 @@ function eventDispatcher() {
 					document.body.classList.remove("btd-modal-opened");
 				});
 				var emojiURL = chrome.extension.getURL("emoji-popover.html");
-				$.ajax({
-					url: emojiURL,
-					type: 'GET'
-				})
-				.done(function(data) {
-					buildingEmojiComposer(data);
+				_ajax(emojiURL,"GET",null,null, function(data) {
+					buildingEmojiComposer(data)
 				});
 				};
 			}
@@ -304,12 +300,9 @@ function createPreviewDiv(element, provider) {
 					suffixDropbox = 360;
 					break;
 			}
-			$.ajax({
-				url: 'https://noembed.com/embed?url='+encodeURIComponent(linkURL)+'&maxwidth='+suffixDropbox,
-				type: 'GET',
-				dataType: 'json'
-			})
-			.done(function(data) {
+			var dropboxURL = 'https://noembed.com/embed?url='+encodeURIComponent(linkURL)+'&maxwidth='+suffixDropbox;
+
+			_ajax(dropboxURL, "GET", "json", null, function(data) {
 				continueCreatingThePreview(data.media_url,data.media_url.replace("https://noembed.com/i/"+suffixDropbox+"/0/",""));
 			});
 			
@@ -319,6 +312,7 @@ function createPreviewDiv(element, provider) {
 			function getClientID() {
 				return imgurClientIDs[Math.floor(Math.random() * imgurClientIDs.length)];
 			}
+			var headers = {"Authorization": "Client-ID "+getClientID()};
 			// Setting the right suffix depending of the user's option
 			switch(thumbSize) {
 				case "small":
@@ -336,24 +330,18 @@ function createPreviewDiv(element, provider) {
 			if(linkURL._contains("imgur.com/a/")) {
 				previewFromAnAlbum(imgurID);
 			} else if(linkURL._contains("imgur.com/gallery/")) {
-				$.ajax({
-					// Sidenote, even if Imgur got different models for album and gallery, they share the same API url so, why bother ?
-					url: "https://api.imgur.com/3/gallery/image/"+imgurID,
-					type: 'GET',
-					dataType: 'json',
-					// Plz don't steal this data, anyone can create an Imgur app so be fair !
-					headers: {"Authorization": "Client-ID "+getClientID()}
-				})
-				.done(function(data) {
-					// Gallery/image
+				var galleryURL = "https://api.imgur.com/3/gallery/image/"+imgurID;
+
+				function onFailure(data) {
+					previewFromAnAlbum(imgurID,"https://imgur.com/a/"+imgurID+"/embed");
+				}
+
+				function onSuccess(data) {
 					var thumbnailUrl = "https://i.imgur.com/"+data.data.id+suffixImgur+".jpg";
 					continueCreatingThePreview(thumbnailUrl,thumbnailUrl.replace(/[a-z].jpg/,".jpg"));
-				})
-				.fail(function() {
-					// Gallery/Album
-					console.log("Better TweetDeck: Gallery isn't a image!");
-					previewFromAnAlbum(imgurID,"https://imgur.com/a/"+imgurID+"/embed");
-				});
+				}
+
+				_ajax(galleryURL, "GET", "json", headers, onSuccess, onFailure);
 			} else {
 				// Single image
 				var imgurID = parseURL(linkURL).file.split(".").shift();
@@ -361,16 +349,8 @@ function createPreviewDiv(element, provider) {
 			}
 
 			function previewFromAnAlbum(albumID) {
-				$.ajax({
-					// Sidenote, even if Imgur got different models for album and gallery, they share the same API url so, why bother ?
-					url: "https://api.imgur.com/3/album/"+albumID,
-					type: 'GET',
-					dataType: 'json',
-					// Plz don't steal this data, anyone can create an Imgur app so be fair !
-					headers: {"Authorization": "Client-ID "+getClientID()}
-				})
-				.done(function(data) {
-					// Make the thumbnail URL with suffix and the ID of the first images in the album/gallery
+				var albumURL = "https://api.imgur.com/3/album/"+albumID;
+				_ajax(albumURL, "GET", "json", headers, function(data) {
 					var thumbnailUrl = "https://i.imgur.com/"+data.data.cover+suffixImgur+".jpg";
 					continueCreatingThePreview(thumbnailUrl,"https://imgur.com/a/"+albumID+"/embed",true);
 				});
@@ -387,13 +367,8 @@ function createPreviewDiv(element, provider) {
 			var thumbnailUrl = thumbnailUrl+"/"+suffixDroplr;
 			continueCreatingThePreview(thumbnailUrl, linkURL+"+");
 		} else if(provider == "cloudApp") {
-			$.ajax({
-				url: linkURL,
-				type: 'GET',
-				dataType: 'json',
-				headers: {"Accept": "application/json"}
-			})
-			.done(function(data) {
+			var headers = {"Accept": "application/json"};
+			_ajax(linkURL, "GET", "json", headers, function(data) {
 				if(data.item_type == "image"){
 					var thumbnailUrl = data.thumbnail_url;
 					continueCreatingThePreview(thumbnailUrl, data.content_url);
@@ -412,10 +387,9 @@ function createPreviewDiv(element, provider) {
 					suffixInstagram = "l"
 					break;
 			}
-			$.ajax({
-				url: "http://api.instagram.com/oembed?url="+linkURL
-			})
-			.done(function() {
+			var instagramURL = "http://api.instagram.com/oembed?url="+linkURL;
+
+			_ajax(instagramURL, "GET", "json", null, function(data) {
 				continueCreatingThePreview("http://instagr.am/p/"+instagramID+"/media/?size="+suffixInstagram);
 			});
 			
@@ -423,13 +397,10 @@ function createPreviewDiv(element, provider) {
 			if(thumbSize == "large") maxWidth = 350;
 			if(thumbSize == "medium") maxWidth = 280;
 			if(thumbSize == "small") maxWidth = 150;
-			var flickUrl = encodeURIComponent(linkURL);
-			$.ajax({
-				url: 'https://www.flickr.com/services/oembed/?url='+flickUrl+'&format=json&maxwidth='+maxWidth,
-				type: 'GET',
-				dataType: "json"
-			})
-			.done(function(data) {
+			var flickURL = encodeURIComponent(linkURL);
+			flickURL = 'https://www.flickr.com/services/oembed/?url='+flickURL+'&format=json&maxwidth='+maxWidth;
+
+			_ajax(flickURL, "GET", "json", null, function(data) {
 				continueCreatingThePreview(data.url);
 			});
 		} else if(provider == "fivehundredpx") {
@@ -445,13 +416,9 @@ function createPreviewDiv(element, provider) {
 					suffixFiveHundred = "3"
 					break;
 			}
-			$.ajax({
-				// Don't steal my consumer key, please !
-				url: "https://api.500px.com/v1/photos/"+photoID+"?consumer_key=8EUWGvy6gL8yFLPbuF6A8SvbOIxSlVJzQCdWSGnm",
-				type: 'GET',
-				dataType: "json"
-			})
-			.done(function(data) {
+			var fivehundredURL = "https://api.500px.com/v1/photos/"+photoID+"?consumer_key=8EUWGvy6gL8yFLPbuF6A8SvbOIxSlVJzQCdWSGnm";
+
+			_ajax(fivehundredURL, "GET", "json", null, function(data) {
 				var picURL = data.photo.image_url.replace(/[0-9].jpg$/,suffixFiveHundred+".jpg");
 				var fullPicURL = data.photo.image_url;
 				continueCreatingThePreview(picURL,fullPicURL);
@@ -493,55 +460,32 @@ function createPreviewDiv(element, provider) {
 					break;
 			}
 			var vimeoID = parseURL(linkURL).segments.shift();
-			$.ajax({
-				url: 'http://vimeo.com/api/oembed.json?maxwidth='+suffixVimeo+'&url=http%3A//vimeo.com/'+vimeoID,
-				type: 'GET',
-				dataType: 'json'
-			})
-			.done(function(data) {
+			var vimeoURL = 'http://vimeo.com/api/oembed.json?maxwidth='+suffixVimeo+'&url=http%3A//vimeo.com/'+vimeoID;
+
+			_ajax(vimeoURL, "GET", "json", null, function(data) {
 				continueCreatingThePreview(data.thumbnail_url,data.html,true);
 			});
 		} else if(provider == "dailymotion") {
 			var dailymotionID = parseURL(linkURL).segments[1];
+			var dailymotionURL = 'https://api.dailymotion.com/video/'+dailymotionID+'?fields=thumbnail_240_url,thumbnail_360_url,thumbnail_180_url,embed_html';
 			if(thumbSize == "large") {
-				$.ajax({
-					url: 'https://api.dailymotion.com/video/'+dailymotionID+"?fields=thumbnail_360_url,embed_html",
-					type: 'GET',
-					dataType: 'json'
-				})
-				.done(function(data) {
+				_ajax(dailymotionURL, "GET", "json", null, function(data) {
 					continueCreatingThePreview(data.thumbnail_360_url,data.embed_html.replace("http://","https://"),true);
 				});
 				
 			} else if(thumbSize == "medium") {
-				$.ajax({
-					url: 'https://api.dailymotion.com/video/'+dailymotionID+"?fields=thumbnail_240_url,embed_html",
-					type: 'GET',
-					dataType: 'json'
-				})
-				.done(function(data) {
+				_ajax(dailymotionURL, "GET", "json", null, function(data) {
 					continueCreatingThePreview(data.thumbnail_240_url,data.embed_html.replace("http://","https://"),true);
 				});
-				
 			} else if(thumbSize == "small") {
-				$.ajax({
-					url: 'https://api.dailymotion.com/video/'+dailymotionID+"?fields=thumbnail_180_url,embed_html",
-					type: 'GET',
-					dataType: 'json'
-				})
-				.done(function(data) {
+				_ajax(dailymotionURL, "GET", "json", null, function(data) {
 					continueCreatingThePreview(data.thumbnail_180_url,data.embed_html.replace("http://","https://"),true);
 				});
-				
 			}
 		} else if(provider == "deviantart") {
-			var escapedURL = encodeURIComponent(linkURL);
-			$.ajax({
-				url: 'http://backend.deviantart.com/oembed?url='+escapedURL,
-				type: 'GET',
-				dataType: 'json'
-			})
-			.done(function(data) {
+			var deviantURL = 'http://backend.deviantart.com/oembed?url='+encodeURIComponent(linkURL);
+
+			_ajax(deviantURL, "GET", "json", null, function(data) {
 				if(data.type == "photo") {
 					continueCreatingThePreview(data.thumbnail_url,data.url);
 				}
@@ -557,10 +501,9 @@ function createPreviewDiv(element, provider) {
 			continueCreatingThePreview(finalImglyURL,"http://img.ly/show/full/"+imglyID);
 		} else if(provider == "dribbble") {
 			var dribbbleID = parseURL(linkURL).file.split("-").shift();
-			$.ajax({
-				url: 'http://api.dribbble.com/shots/'+dribbbleID
-			})
-			.done(function(data) {
+			var dribbleURL = 'http://api.dribbble.com/shots/'+dribbbleID;
+
+			_ajax(dribbleURL, "GET", "json", null, function(data) {
 				continueCreatingThePreview(data.image_teaser_url,data.image_url);
 			});
 		} else if(provider == "yfrog") {
@@ -592,48 +535,32 @@ function createPreviewDiv(element, provider) {
 			}
 			continueCreatingThePreview("http://moby.to/"+mobyID+":"+sizeMobyto,"http://moby.to/"+mobyID+":full");
 		} else if(provider == "soundcloud") {
-			$.ajax({
-				url: 'http://soundcloud.com/oembed?url='+linkURL,
-				dataType: 'json'
-			})
-			.done(function(data) {
+			var soundcloudURL = 'http://soundcloud.com/oembed?format=json&url='+linkURL;
+
+			_ajax(soundcloudURL, "GET", "json", null, function(data) {
 				continueCreatingThePreview(data.thumbnail_url, data.html.replace('width="100%"','width="600"'), true);
 			});
 		} else if(provider == "bandcamp") {
 			bandcampURL = encodeURIComponent(linkURL);
-			$.ajax({
-				url: 'http://api.bandcamp.com/api/url/1/info?key=vatnajokull&url='+bandcampURL,
-				type: 'GET',
-				dataType: 'json'
-			})
-			.done(function(data) {
-				if(data.track_id != null) {
-					$.ajax({
-						url: 'http://api.bandcamp.com/api/track/3/info?key=vatnajokull&track_id='+data.track_id,
-						type: 'GET',
-						dataType: 'json'
-					})
-					.done(function(data) {
+			bandcampURL = 'http://api.bandcamp.com/api/url/1/info?key=vatnajokull&url='+bandcampURL;
+
+			_ajax(bandcampURL, "GET", "json", null, function(data) {
+				if (data.track_id != null) {
+					_ajax('http://api.bandcamp.com/api/track/3/info?key=vatnajokull&track_id='+data.track_id,"GET","json",null,function(data) {
 						if(data.large_art_url) {
 							var embed = '<iframe style="border: 0; width: 350px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/track='+data.track_id+'/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless></iframe>';
 							continueCreatingThePreview(data.large_art_url, embed, true);
 						}
-					});	
+					});
 				} else {
-					$.ajax({
-						url: 'http://api.bandcamp.com/api/album/2/info?key=vatnajokull&album_id='+data.album_id,
-						type: 'GET',
-						dataType: 'json'
-					})
-					.done(function(data) {
+					_ajax('http://api.bandcamp.com/api/album/2/info?key=vatnajokull&album_id='+data.album_id,"GET","json",null,function(data) {
 						if(data.large_art_url) {
 							var embed = '<iframe style="border: 0; width: 350px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/album='+data.album_id+'/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless></iframe>';
 							continueCreatingThePreview(data.large_art_url, embed, true);
 						}
-					});	
+					});
 				}
-			});
-			
+			});	
 		}
 	}
 
@@ -723,12 +650,9 @@ function lightboxFromTweet() {
 	openModal.innerHTML = '<div id="btd-modal-dismiss"></div><div class="js-mediatable ovl-block is-inverted-light"><div class="s-padded"><div class="js-modal-panel mdl s-full med-fullpanel"><a href="#" class="mdl-dismiss js-dismiss mdl-dismiss-media" rel="dismiss"><i class="icon icon-close"></i></a><div class="js-embeditem med-embeditem"><div class="l-table"><div class="l-cell"><div class="med-tray js-mediaembed"></div></div></div></div><div id="media-gallery-tray"></div><div class="js-media-tweet med-tweet"></div></div></div>';
 	// Looking at the thumbnail provider
 	if(dataProvider == "instagram") {
-		$.ajax({
-			url: 'http://api.instagram.com/oembed?url='+linkLightbox.href,
-			type: 'GET',
-			dataType: 'json'
-		})
-		.done(function(data) {
+		var instagramURL = 'http://api.instagram.com/oembed?url='+linkLightbox.href;
+
+		_ajax(instagramURL, "GET", "json", null, function(data) {
 			// Thank you Instagram for not giving an accurate "type" value depending of the actual type of the object.
 			if(data.url._contains(".mp4")) {
 				var instaVideo = '<video class="instagram-video" width="400" height="400" controls><source src='+data.url+' type="video/mp4"></video>';
@@ -745,15 +669,12 @@ function lightboxFromTweet() {
 		finishTheLightbox(dataTweetKey);
 	} else if(dataProvider == "flickr") {
 		// For now I'm only supporting Flickr photos, I still got to add the video support. But does anyone actually use that ?
-		$.ajax({
-			url: 'https://www.flickr.com/services/oembed/?url='+linkLightbox.href+'&format=json&maxwidth=1024',
-			type: 'GET',
-			dataType: "json"
-		})
-		.done(function(data) {
+		var flickURL = 'https://www.flickr.com/services/oembed/?url='+linkLightbox.href+'&format=json&maxwidth=1024';
+		_ajax(flickrURL, "GET","json", null, function(data) {
 			openModal.querySelector(".js-mediaembed").innerHTML = '<div class="js-media-preview-container position-rel margin-vm"> <a class="js-media-image-link block med-link media-item" rel="mediaPreview" target="_blank"> <img class="media-img" src='+data.url+' alt="Media preview"></a></div><a class="med-origlink" rel="url" href='+linkLightbox.href+' target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
 			finishTheLightbox(dataTweetKey);
 		});
+
 	} else {
 		// If we already got the embed URL/code
 		if(dataEmbed != null) {

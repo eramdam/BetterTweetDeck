@@ -7,7 +7,7 @@
 	"description": "__MSG_appDesc__",
 	"content_scripts": [{
 		"matches": ["https://tweetdeck.twitter.com/*","http://tweetdeck.twitter.com/*"],
-		"js": ["js/jquery.ajax.min.js","js/injectScript.js","js/content.js","js/emojiToImage.js","js/usefulFunctions.js"],
+		"js": ["js/injectScript.js","js/content.js","js/emojiToImage.js","js/usefulFunctions.js"],
 		"css": ["content.css","emojis.css"]
 		}],
 	"icons": { "16": "icon16.png",
