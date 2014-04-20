@@ -352,7 +352,8 @@ function createPreviewDiv(element, provider) {
 				var albumURL = "https://api.imgur.com/3/album/"+albumID;
 				_ajax(albumURL, "GET", "json", headers, function(data) {
 					var thumbnailUrl = "https://i.imgur.com/"+data.data.cover+suffixImgur+".jpg";
-					continueCreatingThePreview(thumbnailUrl,"https://imgur.com/a/"+albumID+"/embed",true);
+					var albumIframe = '<iframe class="imgur-album" width="708" height="550" frameborder="0" src="https://imgur.com/a/"'+albumID+'"/embed"></iframe>';
+					continueCreatingThePreview(thumbnailUrl,albumIframe,true);
 				});
 			}
 		} else if(provider == "droplr") {
@@ -390,7 +391,13 @@ function createPreviewDiv(element, provider) {
 			var instagramURL = "http://api.instagram.com/oembed?url="+linkURL;
 
 			_ajax(instagramURL, "GET", "json", null, function(data) {
-				continueCreatingThePreview("http://instagr.am/p/"+instagramID+"/media/?size="+suffixInstagram);
+				var finalURL = "http://instagr.am/p/"+instagramID+"/media/?size="+suffixInstagram;
+				if(!data.url._contains(".mp4")) {
+					continueCreatingThePreview(finalURL, data.url.replace(/_[0-9].jpg$/g,"_8.jpg"));
+				} else {
+					var instaVideo = '<video class="instagram-video" width="400" height="400" controls><source src='+data.url+' type="video/mp4"></video>';
+					continueCreatingThePreview(finalURL, instaVideo, true);
+				}
 			});
 			
 		} else if(provider == "flickr") {
@@ -401,7 +408,7 @@ function createPreviewDiv(element, provider) {
 			flickURL = 'https://www.flickr.com/services/oembed/?url='+flickURL+'&format=json&maxwidth='+maxWidth;
 
 			_ajax(flickURL, "GET", "json", null, function(data) {
-				continueCreatingThePreview(data.url);
+				continueCreatingThePreview(data.url, data.url.replace(/_[a-z].jpg$/g,"_z.jpg"));
 			});
 		} else if(provider == "fivehundredpx") {
 			var photoID = parseURL(linkURL).segments.pop();
@@ -463,7 +470,10 @@ function createPreviewDiv(element, provider) {
 			var vimeoURL = 'http://vimeo.com/api/oembed.json?maxwidth='+suffixVimeo+'&url=http%3A//vimeo.com/'+vimeoID;
 
 			_ajax(vimeoURL, "GET", "json", null, function(data) {
-				continueCreatingThePreview(data.thumbnail_url,data.html,true);
+				var thumbnailVimeo = data.thumbnail_url;
+				_ajax('http://vimeo.com/api/oembed.json?maxwidth=1024&url=http%3A//vimeo.com/'+vimeoID,"GET","json",null, function(data) {
+					continueCreatingThePreview(thumbnailVimeo,data.html,true);
+				});
 			});
 		} else if(provider == "dailymotion") {
 			var dailymotionID = parseURL(linkURL).segments[1];
@@ -648,62 +658,35 @@ function lightboxFromTweet() {
 
 	openModal = document.getElementById("open-modal");
 	openModal.innerHTML = '<div id="btd-modal-dismiss"></div><div class="js-mediatable ovl-block is-inverted-light"><div class="s-padded"><div class="js-modal-panel mdl s-full med-fullpanel"><a href="#" class="mdl-dismiss js-dismiss mdl-dismiss-media" rel="dismiss"><i class="icon icon-close"></i></a><div class="js-embeditem med-embeditem"><div class="l-table"><div class="l-cell"><div class="med-tray js-mediaembed"></div></div></div></div><div id="media-gallery-tray"></div><div class="js-media-tweet med-tweet"></div></div></div>';
-	// Looking at the thumbnail provider
-	if(dataProvider == "instagram") {
-		var instagramURL = 'http://api.instagram.com/oembed?url='+linkLightbox.href;
-
-		_ajax(instagramURL, "GET", "json", null, function(data) {
-			// Thank you Instagram for not giving an accurate "type" value depending of the actual type of the object.
-			if(data.url._contains(".mp4")) {
-				var instaVideo = '<video class="instagram-video" width="400" height="400" controls><source src='+data.url+' type="video/mp4"></video>';
-				openModal.querySelector(".js-mediaembed").innerHTML = instaVideo+'<a class="med-origlink" href='+linkLightbox.href+' rel="url" target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
-				finishTheLightbox(dataTweetKey);
-			} else {
-				openModal.querySelector(".js-mediaembed").innerHTML = '<div class="js-media-preview-container position-rel margin-vm"> <a class="js-media-image-link block med-link media-item" rel="mediaPreview" target="_blank"> <img class="media-img" src='+data.url+' alt="Media preview"></a></div><a class="med-origlink" rel="url" href='+linkLightbox.href+' target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
-				finishTheLightbox(dataTweetKey);
-			}
-		});
-		
-	} else if(dataProvider == "imgur" && dataIsEmbed != null) {
-		openModal.querySelector(".js-mediaembed").innerHTML = '<iframe class="imgur-album" width="708" height="550" frameborder="0" src='+dataEmbed+'></iframe><a class="med-origlink" href='+linkLightbox.href+' rel="url" target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
-		finishTheLightbox(dataTweetKey);
-	} else if(dataProvider == "flickr") {
-		// For now I'm only supporting Flickr photos, I still got to add the video support. But does anyone actually use that ?
-		var flickURL = 'https://www.flickr.com/services/oembed/?url='+linkLightbox.href+'&format=json&maxwidth=1024';
-		_ajax(flickrURL, "GET","json", null, function(data) {
-			openModal.querySelector(".js-mediaembed").innerHTML = '<div class="js-media-preview-container position-rel margin-vm"> <a class="js-media-image-link block med-link media-item" rel="mediaPreview" target="_blank"> <img class="media-img" src='+data.url+' alt="Media preview"></a></div><a class="med-origlink" rel="url" href='+linkLightbox.href+' target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
+	var jsMediaEmbed = openModal.querySelector(".js-mediaembed");
+	if(dataEmbed != null) {
+		// If we got an embed code
+		if(dataIsEmbed != null) {
+			jsMediaEmbed.innerHTML = dataEmbed+'<a class="med-origlink" href='+linkLightbox.href+' rel="url" target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
 			finishTheLightbox(dataTweetKey);
-		});
-
-	} else {
-		// If we already got the embed URL/code
-		if(dataEmbed != null) {
-			// If we got an embed code
-			if(dataIsEmbed != null) {
-				openModal.querySelector(".js-mediaembed").innerHTML = dataEmbed+'<a class="med-origlink" href='+linkLightbox.href+' rel="url" target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
-				finishTheLightbox(dataTweetKey);
-			} else {
-				openModal.querySelector(".js-mediaembed").innerHTML = '<div class="js-media-preview-container position-rel margin-vm"> <a class="js-media-image-link block med-link media-item" rel="mediaPreview" target="_blank"> <img class="media-img" src='+dataEmbed+' alt="Media preview"></a></div><a class="med-origlink" rel="url" href='+linkLightbox.href+' target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
-				finishTheLightbox(dataTweetKey);
-			}
+		} else {
+			jsMediaEmbed.innerHTML = '<div class="js-media-preview-container position-rel margin-vm"> <a class="js-media-image-link block med-link media-item" rel="mediaPreview" target="_blank"> <img class="media-img" src='+dataEmbed+' alt="Media preview"></a></div><a class="med-origlink" rel="url" href='+linkLightbox.href+' target="_blank">View original</a><a class="js-media-flag-nsfw med-flaglink " href="#">Flag media</a><a class="js-media-flagged-nsfw med-flaglink is-hidden" href="https://support.twitter.com/articles/20069937" rel="url" target="_blank">Flagged (learn more)</a>';
+			finishTheLightbox(dataTweetKey);
 		}
 	}
 	
 	function finishTheLightbox(dataTweetKey) {
 		var originalTweet = document.querySelector("[data-key='"+dataTweetKey+"']");
+		var mediaInModal = openModal.querySelector(".js-mediaembed :-webkit-any(img, iframe, audio)");
 		// Embed/Picture creating
-		if(openModal.querySelector(".js-mediaembed :-webkit-any(img, iframe, audio)") != null) {
-			openModal.querySelector(".js-mediaembed :-webkit-any(img, iframe, audio)").onload = function() {
-				openModal.querySelector(".js-mediaembed :-webkit-any(img, iframe, audio)").style.maxHeight = document.querySelector(".js-embeditem.med-embeditem").offsetHeight-(document.querySelector("a.med-origlink").offsetHeight)-20+"px";
+		if(mediaInModal != null) {
+			var maxHeightForMedia = document.querySelector(".js-embeditem.med-embeditem").offsetHeight-(document.querySelector("a.med-origlink").offsetHeight)-20;
+			mediaInModal.onload = function() {
+				mediaInModal.style.maxHeight = maxHeightForMedia+"px";
 				window.onresize = function() {
-					openModal.querySelector(".js-mediaembed :-webkit-any(img, iframe, audio)").style.maxHeight = document.querySelector(".js-embeditem.med-embeditem").offsetHeight-(document.querySelector("a.med-origlink").offsetHeight)-20+"px";
+					mediaInModal.style.maxHeight = maxHeightForMedia+"px";
 				};
 				openModal.querySelector(".med-embeditem").classList.add("is-loaded");
 				openModal.querySelector(".med-tray.js-mediaembed").style.opacity = 1;
 			}
 		} else {
-			openModal.querySelector(".med-tray.js-mediaembed").style.opacity = 1;
 			openModal.querySelector(".med-embeditem").classList.add("is-loaded");
+			openModal.querySelector(".med-tray.js-mediaembed").style.opacity = 1;
 		}
 
 		// Content tweaking
