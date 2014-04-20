@@ -185,3 +185,15 @@ function buildingEmojiComposer(emojiSource) {
         };
 	}
 }
+
+function findColumn(childObj) {
+    var testObj = childObj.parentNode;
+    var count = 1;
+    while(testObj.classList && !testObj.classList.contains("js-column")) {
+        testObj = testObj.parentNode;
+        count++;
+    }
+    // now you have the object you are looking for - do something with it
+    return testObj;
+}
+

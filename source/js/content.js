@@ -68,29 +68,23 @@ function modalWorker() {
 
 function eventDispatcher() {
 	function mediaPreviewSize() {
-		for (var i = document.querySelectorAll(".js-column[data-column]").length - 1; i >= 0; i--) {
-			var col = document.querySelectorAll(".js-column[data-column]")[i];
+		var jsColumns = document.querySelectorAll(".js-column[data-column]");
+		for (var i = jsColumns.length - 1; i >= 0; i--) {
+			var col = jsColumns[i];
 			var columnSize = TD.storage.columnController.get(col.getAttribute("data-column")).getMediaPreviewSize() || "medium";
 			col.setAttribute("data-media-preview-size",columnSize);
 		};
 	}
 
-	function findColumn(childObj) {
-	    var testObj = childObj.parentNode;
-	    var count = 1;
-	    while(!testObj.classList.contains("js-column")) {
-	        testObj = testObj.parentNode;
-	        count++;
-	    }
-	    return testObj;
-	}
-
 	// Change data-media-preview-size when small/medium/large are clicked
-	for (var i = 0; i < document.querySelectorAll(".column a[data-value]:not(.is-selected)").length; i++) {
-		document.querySelectorAll(".column a[data-value]:not(.is-selected)")[i].addEventListener("click", function() {
+	var sizeChanger = document.querySelectorAll(".column a[data-value]:not(.is-selected):not(.binded)");
+	for (var i = 0; i < sizeChanger.length; i++) {
+		sizeChanger[i].addEventListener("click", function() {
 			findColumn(event.target).setAttribute("data-media-preview-size",event.target.parentNode.getAttribute("data-value"));
 		});
+		sizeChanger[i].classList.add("binded");
 	};
+
 
 	// If the event.target is the text (TweetDeck updates timestamp at regular intervals) then we can get the .txt-mute element and tweak it in real-time
 	if((event.relatedNode.className != undefined && event.relatedNode.className._contains("txt-mute")) && options.timestamp != "relative") {
@@ -253,16 +247,6 @@ function eventDispatcher() {
 }
 
 function createPreviewDiv(element, provider) {
-	function findColumn(childObj) {
-	    var testObj = childObj.parentNode;
-	    var count = 1;
-	    while(testObj.classList && !testObj.classList.contains("js-column")) {
-	        testObj = testObj.parentNode;
-	        count++;
-	    }
-	    // now you have the object you are looking for - do something with it
-	    return testObj;
-	}
 	// Getting the full URL for later
 	var linkURL = element.getAttribute("data-full-url");
 	if(typeof findColumn(element).getAttribute === "function") {
