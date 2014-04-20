@@ -137,6 +137,19 @@
 	display: none;
 }
 
+
+.btd-username-typeahead .typeahead strong.fullname {
+	display: none;
+}
+
+.btd-username-typeahead .typeahead span.username {
+	color:#222;
+}
+
+.btd-username-typeahead .typeahead .s-selected span.username {
+	color:white;
+}
+
 /***********************
 EMOJI COMPOSER
 ************************/
