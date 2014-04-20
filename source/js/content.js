@@ -33,9 +33,11 @@ function setAllTheSettings(response) {
 	if(options.blurred_modals) {
 		bodyClasses.add("btd-blurred-modals");
 	}
-
 	if(options.small_icons_compose) {
 		bodyClasses.add("btd-small-icons-compose");
+	}
+	if(options.name_display == "fullname" || options.name_display == "username") {
+		bodyClasses.add("btd-no-username");
 	}
 }
 
@@ -841,56 +843,46 @@ function nameDisplay(elements, mode) {
 	if(mode == "username"){
 		// If we just want the @username.
 		for (var i = elements.length - 1; i >= 0; i--) {
+			var currEl = elements[i];
 			// If the username is NOT in a tweet (typically in a <p> element), do the thing
-			if(elements[i].parentNode.tagName != "P") {
+			if(currEl.parentNode.tagName != "P") {
 				// Removing "http://twitter.com" and the last "/" in the link to get the @username
-				var username = elements[i].getAttribute("href").replace(/http(|s):\/\/twitter.com\//,"").replace(/\//g,"");
+				var username = currEl.getAttribute("href").split("/")[3];
 
 				// Placing the username in b.fullname if found or in span.username
-				if(elements[i].querySelector("b.fullname")){
-					elements[i].querySelector("b.fullname").innerHTML = username;
+				if(currEl.querySelector("b.fullname")){
+					currEl.querySelector("b.fullname").innerHTML = username;
 				} else {
-					elements[i].innerHTML = username;
-				}
-				if(elements[i].querySelector("span.username")){
-					elements[i].querySelector("span.username").remove();
+					currEl.innerHTML = username;
 				}
 			}
-		};
-	} else if(mode == "fullname") {
-		// If we just want the fullname, basically we exterminate the usernames
-		for (var i = document.querySelectorAll(".username").length - 1; i >= 0; i--) {
-		// Ignoring the elements argument because I'm lazy and it works so, hey ?
-		document.querySelectorAll(".username")[i].remove();
 		};
 	} else if(mode == "inverted") {
 		// If we want the @username AND the full name, we'll have to swap them
 		for (var i = elements.length - 1; i >= 0; i--) {
+			var currEl = elements[i];
 			// If the username is NOT in a tweet (typically in a <p> element), do the thing
-			if(elements[i].parentNode.tagName != "P") {
+			if(currEl.parentNode.tagName != "P") {
 				// Removing "http://twitter.com" and the last "/" in the link to get the @username
-				var username = elements[i].getAttribute("href").split("/").pop();
-				if(elements[i].querySelector("b.fullname")) {
-					var fullname = elements[i].querySelector("b.fullname").innerHTML;
+				var username = currEl.getAttribute("href").split("/")[3];
+				var BFullname = currEl.querySelector("b.fullname");
+				if(BFullname) {
+					var fullname = BFullname.innerHTML;
 				}
-				if(elements[i].querySelector("span.username")) {
-					elements[i].querySelector("span.username span.at").remove();
+				if(currEl.querySelector("span.username")) {
 					// Don't ask me why, I have to apply the fullname twice in order to this to work
-					elements[i].querySelector("span.username").innerHTML = fullname;
-					elements[i].querySelector("span.username").innerHTML = fullname;
-					if(elements[i].querySelector("b.fullname")) {
-						elements[i].querySelector("b.fullname").innerHTML = username;
+					currEl.querySelector("span.username").innerHTML = fullname;
+					if(BFullname) {
+						BFullname.innerHTML = username;
 					} else {
-						elements[i].innerHTML = username;
-
+						currEl.innerHTML = username;
 					}
 				} else {
-					elements[i].innerHTML = username;
-					if(elements[i].classList.contains('account-link')) {
-						elements[i].style.fontWeight = "bold";
+					currEl.innerHTML = username;
+					if(currEl.classList.contains('account-link')) {
+						currEl.style.fontWeight = "bold";
 					}
-				}
-				
+				}	
 			}
 		};
 	}

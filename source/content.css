@@ -127,6 +127,10 @@
 	vertical-align: -0.1em;
 }
 
+/* No usernames */
+.btd-no-username b.fullname + span.username {
+	display: none;
+}
 
 /***********************
 EMOJI COMPOSER
