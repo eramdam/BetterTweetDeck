@@ -42,6 +42,9 @@ function setAllTheSettings(response) {
 	if(options.yt_rm_button) {
 		bodyClasses.add("btd-no-video-icon");
 	}
+	if(options.typeahead_display_username_only) {
+		bodyClasses.add("btd-username-typeahead");
+	}
 }
 
 window.document.onkeydown = function(e) {
@@ -123,8 +126,9 @@ function eventDispatcher() {
 		}
 		// Applying the timestamp
 		if(options.timestamp != "relative") {
-			if(event.target.querySelector("time")){
-				timeIsNotRelative(event.target.querySelector("time > *"), options.timestamp);
+			var time = event.target.querySelector("time");
+			if(time){
+				timeIsNotRelative(time.querySelector("*"), options.timestamp);
 			}
 		}
 
@@ -187,20 +191,6 @@ function eventDispatcher() {
 			emojiAfterNodeInsertion(event);
 		}
 
-	} else if(event.relatedNode.classList != undefined && event.relatedNode.classList.contains("typeahead")) {
-		if(options.typeahead_display_username_only == true) {
-			for (var i = event.relatedNode.querySelectorAll("strong.fullname").length - 1; i >= 0; i--) {
-				event.relatedNode.querySelectorAll("strong.fullname")[i].remove();
-			};
-			for (var i = event.relatedNode.querySelectorAll("span.username").length - 1; i >= 0; i--) {
-				event.relatedNode.querySelectorAll("span.username")[i].style.fontWeight= "bold";
-				event.relatedNode.querySelectorAll("span.username")[i].classList.add("fullname");
-				event.relatedNode.querySelectorAll("span.username")[i].classList.remove("username");
-			};
-		}
-	} else if(event.relatedNode.id == "actions-modal") {
-		event.target.style.height = "auto";
-		event.target.style.width = "550px";
 	} else if(event.relatedNode.id == "open-modal" && options.blurred_modals) {
 		var openModal = document.getElementById("open-modal");
 		if(event.relatedNode.querySelector(".js-mediatable") != undefined) {
