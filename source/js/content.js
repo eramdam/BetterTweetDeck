@@ -177,25 +177,11 @@ function eventDispatcher() {
 				} else if(new RegExp(".(jpg|gif|png|jpeg)$").test(imgURL)) {
 					createPreviewDiv(linkToHandle,"toResize");
 				}else {
-					if(event.target.querySelector("p.js-tweet-text")) {
-						emojiInElement(event.target.querySelector("p.js-tweet-text"));
-					}
+					emojiAfterNodeInsertion(event);
 				}
 			}
 		} else {
-			if(event.target.querySelector("p.js-tweet-text")) {
-				emojiInElement(event.target.querySelector("p.js-tweet-text"));
-			}
-		}
-
-		if(options.yt_rm_button) {
-			var preview = event.target.querySelectorAll("div.video-overlay.icon-with-bg-round");
-
-			if(preview != null) {
-				for (var i = preview.length - 1; i >= 0; i--) {
-					preview[i].remove();
-				};
-			}
+			emojiAfterNodeInsertion(event);
 		}
 
 	} else if(event.relatedNode.classList != undefined && event.relatedNode.classList.contains("typeahead")) {

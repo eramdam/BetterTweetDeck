@@ -137,6 +137,13 @@ function emojiInElement(el) {
 	el.classList.add("emoji");
 }
 
+function emojiAfterNodeInsertion(event) {
+    var tweetText = event.target.querySelector("p.js-tweet-text");
+    if(tweetText) {
+        emojiInElement(tweetText);
+    }
+}
+
 
 function buildingEmojiComposer(emojiSource) {
 	if(!bodyClasses.contains('emoji-composer-added')) {
