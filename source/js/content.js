@@ -68,7 +68,7 @@ function eventDispatcher() {
 	function mediaPreviewSize() {
 		for (var i = document.querySelectorAll(".js-column[data-column]").length - 1; i >= 0; i--) {
 			var col = document.querySelectorAll(".js-column[data-column]")[i];
-			var columnSize = TD.storage.columnController.get(col.getAttribute("data-column")).getMediaPreviewSize();
+			var columnSize = TD.storage.columnController.get(col.getAttribute("data-column")).getMediaPreviewSize() || "medium";
 			col.setAttribute("data-media-preview-size",columnSize);
 		};
 	}
@@ -266,8 +266,6 @@ function createPreviewDiv(element, provider) {
 	if(typeof findColumn(element).getAttribute === "function") {
 		if(!findColumn(element).classList.contains("column-temp")) {
 			var thumbSize = findColumn(element).getAttribute("data-media-preview-size");
-		} else {
-			var thumbSize = "medium";
 		}
 	}
 	if(new RegExp("large|medium|small").test(thumbSize)) {
