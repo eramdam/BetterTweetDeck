@@ -136,8 +136,6 @@
 .btd-no-video-icon div.video-overlay.icon-with-bg-round {
 	display: none;
 }
-
-
 .btd-username-typeahead .typeahead strong.fullname {
 	display: none;
 }
@@ -145,11 +143,12 @@
 .btd-username-typeahead .typeahead span.username {
 	color:#222;
 }
-
 .btd-username-typeahead .typeahead .s-selected span.username {
 	color:white;
 }
 
+=======
+>>>>>>> bd3a4025b2032a960658514cbb7512e863d85a9b
 /***********************
 EMOJI COMPOSER
 ************************/
