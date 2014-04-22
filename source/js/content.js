@@ -315,7 +315,7 @@ function createPreviewDiv(element, provider) {
 				var albumURL = "https://api.imgur.com/3/album/"+albumID;
 				_ajax(albumURL, "GET", "json", headers, function(data) {
 					var thumbnailUrl = "https://i.imgur.com/"+data.data.cover+suffixImgur+".jpg";
-					var albumIframe = '<iframe class="imgur-album" width="708" height="550" frameborder="0" src="https://imgur.com/a/"'+albumID+'"/embed"></iframe>';
+					var albumIframe = '<iframe class="imgur-album" width="708" height="550" frameborder="0" src="https://imgur.com/a/'+albumID+'/embed"></iframe>';
 					continueCreatingThePreview(thumbnailUrl,albumIframe,true);
 				});
 			}
