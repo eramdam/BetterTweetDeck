@@ -1,3 +1,9 @@
+1.4.8
+===============
++ A lot of functions has been rewritten for better performances
++ Rounded avatars work with the smaller size recently introduced in TweetDeck
++ Some aesthetic detzials has been improved
+
 1.4.5
 ===============
 + You can now add emojis easily in your tweets thank to the "Emojis" button in the Compose panel!
