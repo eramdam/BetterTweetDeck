@@ -249,7 +249,8 @@ function createPreviewDiv(element, provider) {
 			}
 			var randomNumber = Math.floor(Math.random()*(10-1)+1);
 			var resizedURL = 'https://images'+randomNumber+'-focus-opensocial.googleusercontent.com/gadgets/proxy?url='+encodeURIComponent(linkURL)+'&container=focus&resize_w='+suffixResize+'&refresh=86400';
-			continueCreatingThePreview(resizedURL,linkURL);
+			var finalURL = 'https://images'+randomNumber+'-focus-opensocial.googleusercontent.com/gadgets/proxy?url='+encodeURIComponent(linkURL)+'&container=focus&resize_h='+(window.innerHeight-260)+'&refresh=86400';
+			continueCreatingThePreview(resizedURL,finalURL);
 		} else if(provider == "dropbox") {
 			var suffixDropbox;
 			switch(thumbSize) {
