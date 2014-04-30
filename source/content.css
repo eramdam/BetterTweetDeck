@@ -13,6 +13,16 @@
 	border-radius: 50%;
 }
 
+.btd-circle-avatars .prf-card-inner .prf-img {
+	-webkit-border-radius: 50%;
+	border-radius: 50%;
+}
+
+.btd-circle-avatars .prf-card-inner .prf-img > img {
+	-webkit-border-radius: 50%;
+	border-radius: 50%;
+}
+
 /* Nice opacity fading animation on tweet hover */
 .btd-profile-pictures-fading .tweet-avatar {
 	opacity:.6;
