@@ -161,6 +161,56 @@
 	color:white;
 }
 
+
+/* Minimal mode (Dark)  */
+
+.dark-theme-activated.btd-minimal-mode .app-columns {
+	padding: 0 6px;
+}
+
+.dark-theme-activated.btd-minimal-mode .js-column.column {
+	margin: 0;
+	border:0;
+	border-right:2px solid #1C1C1C;
+}
+
+.dark-theme-activated.btd-minimal-mode .column .stream-item {
+	border-bottom-color: transparent;
+}
+
+.dark-theme-activated.btd-minimal-mode .column-header {
+	background-color: #222426;
+}
+
+.dark-theme-activated.btd-minimal-mode .js-app-content {
+	background-color: #222426;
+}
+
+/* Minimal mode (Light)  */
+
+.light-theme-activated.btd-minimal-mode .app-columns {
+	padding: 0 6px;
+}
+
+.light-theme-activated.btd-minimal-mode .js-column.column {
+	margin: 0;
+	border:0;
+	border-right:2px solid #cccccc;
+}
+
+.light-theme-activated.btd-minimal-mode .column .stream-item {
+	border-bottom-color: transparent;
+}
+
+.light-theme-activated.btd-minimal-mode .column-header {
+	background-color: #fcfcfc;
+	border-bottom: none;
+}
+
+.light-theme-activated.btd-minimal-mode .js-app-content {
+	background-color: #fcfcfc;
+}
+
 /***********************
 EMOJI COMPOSER
 ************************/

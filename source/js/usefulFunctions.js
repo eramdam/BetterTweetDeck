@@ -204,3 +204,15 @@ function findColumn(childObj) {
     return testObj;
 }
 
+function getTDTheme() {
+    var TDTheme = TD.settings.getTheme();
+
+    if(TDTheme === "dark") {
+
+        document.body.classList.remove("light-theme-activated");
+        document.body.classList.add("dark-theme-activated");
+    } else {
+        document.body.classList.remove("dark-theme-activated");
+        document.body.classList.add("light-theme-activated");
+    }
+}

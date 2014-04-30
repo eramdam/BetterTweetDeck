@@ -45,6 +45,11 @@ function setAllTheSettings(response) {
 	if(options.typeahead_display_username_only) {
 		bodyClasses.add("btd-username-typeahead");
 	}
+
+	if(options.minimal_mode) {
+		bodyClasses.add("btd-minimal-mode");
+	}
+
 }
 
 window.document.onkeydown = function(e) {
@@ -54,7 +59,6 @@ window.document.onkeydown = function(e) {
 		openModal.style.display = "none";
 	}
 }
-
 
 function modalWorker() {
 	if(options.timestamp != "relative") {
@@ -73,6 +77,7 @@ function modalWorker() {
 }
 
 function eventDispatcher() {
+	
 	function mediaPreviewSize() {
 		var jsColumns = document.querySelectorAll(".js-column[data-column]");
 		for (var i = jsColumns.length - 1; i >= 0; i--) {
@@ -103,6 +108,7 @@ function eventDispatcher() {
 			if(!doneTheStuff) {
 				doneTheStuff = true;
 				injectScript(mediaPreviewSize);
+				injectScript(getTDTheme);
 				var openModal = document.getElementById("open-modal");
 				openModal.addEventListener("DOMNodeInserted", modalWorker);
 				var modals = document.querySelectorAll(".js-modals-container, #actions-modal");
@@ -222,6 +228,12 @@ function eventDispatcher() {
 			}
 		}
 		
+	} else if(event.target.id == "general_settings" && options.minimal_mode) {
+		for (var i = event.target.querySelectorAll("input.js-theme-radio").length - 1; i >= 0; i--) {
+			event.target.querySelectorAll("input.js-theme-radio")[i].addEventListener("click", function() {
+				injectScript(getTDTheme);
+			});
+		};
 	}
 }
 
