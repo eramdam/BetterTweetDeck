@@ -249,12 +249,7 @@ function createPreviewDiv(element, provider) {
 			}
 			var randomNumber = Math.floor(Math.random()*(10-1)+1);
 			var resizedURL = 'https://images'+randomNumber+'-focus-opensocial.googleusercontent.com/gadgets/proxy?url='+encodeURIComponent(linkURL)+'&container=focus&resize_w='+suffixResize+'&refresh=86400';
-			if(new RegExp(".gif$").test(linkURL)) {
-				var finalURL = linkURL;
-			} else {
-				var finalURL = 'https://images'+randomNumber+'-focus-opensocial.googleusercontent.com/gadgets/proxy?url='+encodeURIComponent(linkURL)+'&container=focus&resize_h='+(window.innerHeight-300)+'&refresh=86400';
-			}
-			continueCreatingThePreview(resizedURL,finalURL);
+			continueCreatingThePreview(resizedURL,linkURL);
 		} else if(provider == "dropbox") {
 			var suffixDropbox;
 			switch(thumbSize) {
@@ -640,13 +635,15 @@ function lightboxFromTweet() {
 	
 	function finishTheLightbox(dataTweetKey) {
 		var originalTweet = document.querySelector("[data-key='"+dataTweetKey+"']");
-		var mediaInModal = openModal.querySelector(".js-mediaembed :-webkit-any(img, iframe, audio)");
+		var mediaInModal = openModal.querySelector(".js-mediaembed :-webkit-any(img, iframe, video)");
 		// Embed/Picture creating
 		if(mediaInModal != null) {
-			var maxHeightForMedia = document.querySelector(".js-embeditem.med-embeditem").offsetHeight-(document.querySelector("a.med-origlink").offsetHeight)-20;
 			mediaInModal.onload = function() {
+				var maxHeightForMedia = document.querySelector(".js-embeditem.med-embeditem").offsetHeight-(document.querySelector("a.med-origlink").offsetHeight)-20;
+				console.log(maxHeightForMedia);
 				mediaInModal.style.maxHeight = maxHeightForMedia+"px";
 				window.onresize = function() {
+					maxHeightForMedia = document.querySelector(".js-embeditem.med-embeditem").offsetHeight-(document.querySelector("a.med-origlink").offsetHeight)-20
 					mediaInModal.style.maxHeight = maxHeightForMedia+"px";
 				};
 				openModal.querySelector(".med-embeditem").classList.add("is-loaded");
