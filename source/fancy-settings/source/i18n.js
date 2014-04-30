@@ -68,6 +68,10 @@ this.i18n = {
         "fr": "Nom complet",
         "en": "Full name"
     },
+    "minimalMode": {
+        "fr": "Activer le mode \"Minimaliste\"",
+        "en": "Enabled the \"Minimal\" mode"
+    },
     "narrowColumns": {
         "fr": "Les colonnes prennent moins d'espace",
         "en": "Columns take less space"

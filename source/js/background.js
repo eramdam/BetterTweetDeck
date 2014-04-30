@@ -1,17 +1,24 @@
 if(!settings) {
 	var settings = new Store("settings", {
-	"blurred_modals": true,
-	"circled_avatars": false,
+	"timestamp": "absolute",
 	"full_after_24h": false,
+	"name_display": "both",
+	"typeahead_display_username_only": false,
+	"circled_avatars": false,
+	"reduced_padding": true,
+	"no_columns_icons": false,
+	"yt_rm_button": true,
+	"small_icons_compose": true,
 	"grayscale_notification_icons": false,
+	"url_redirection": true,
 	"img_preview_500px": true,
 	"img_preview_bandcamp": true,
 	"img_preview_cloud": true,
 	"img_preview_dailymotion": true,
 	"img_preview_deviantart": true,
 	"img_preview_dribbble": true,
-	"img_preview_dropbox": true,
 	"img_preview_droplr": true,
+	"img_preview_dropbox": true,
 	"img_preview_flickr": true,
 	"img_preview_imgly": true,
 	"img_preview_imgur": true,
@@ -21,16 +28,9 @@ if(!settings) {
 	"img_preview_tumblr": true,
 	"img_preview_vimeo": true,
 	"img_preview_yfrog": true,
-	"minimal_mode": false
-	"name_display": "both",
-	"no_columns_icons": false,
+	"blurred_modals": true,
 	"only_one_thumbnails": true,
-	"reduced_padding": true,
-	"small_icons_compose": true,
-	"timestamp": "absolute",
-	"typeahead_display_username_only": false,
-	"url_redirection": true,
-	"yt_rm_button": true
+	"minimal_mode": false
 	});
 }
 
