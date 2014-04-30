@@ -515,24 +515,12 @@ function createPreviewDiv(element, provider) {
 			});
 		} else if(provider == "bandcamp") {
 			bandcampURL = encodeURIComponent(linkURL);
-			bandcampURL = 'http://api.bandcamp.com/api/url/1/info?key=vatnajokull&url='+bandcampURL;
+			bandcampURL = 'http://api.embed.ly/1/oembed?key=748757a075e44633b197feec69095c90&url='+bandcampURL+'&format=json';
 
 			_ajax(bandcampURL, "GET", "json", null, function(data) {
-				if (data.track_id != null) {
-					_ajax('http://api.bandcamp.com/api/track/3/info?key=vatnajokull&track_id='+data.track_id,"GET","json",null,function(data) {
-						if(data.large_art_url) {
-							var embed = '<iframe style="border: 0; width: 350px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/track='+data.track_id+'/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless></iframe>';
-							continueCreatingThePreview(data.large_art_url, embed, true);
-						}
-					});
-				} else {
-					_ajax('http://api.bandcamp.com/api/album/2/info?key=vatnajokull&album_id='+data.album_id,"GET","json",null,function(data) {
-						if(data.large_art_url) {
-							var embed = '<iframe style="border: 0; width: 350px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/album='+data.album_id+'/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless></iframe>';
-							continueCreatingThePreview(data.large_art_url, embed, true);
-						}
-					});
-				}
+				var embed = data.html;
+				var thumbnailBandcamp = data.thumbnail_url;
+				continueCreatingThePreview(thumbnailBandcamp, embed, true);
 			});	
 		}
 	}
