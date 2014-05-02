@@ -164,6 +164,10 @@
 
 /* Minimal mode (Dark)  */
 
+.btd-minimal-mode span.reply-triangle {
+	display: none;
+}
+
 .dark-theme-activated.btd-minimal-mode .app-columns {
 	padding: 0 6px;
 }
@@ -184,6 +188,34 @@
 
 .dark-theme-activated.btd-minimal-mode .js-app-content {
 	background-color: #222426;
+}
+
+
+.dark-theme-activated.btd-minimal-mode .compose {
+	background-color: #444448;
+}
+
+.dark-theme-activated.btd-minimal-mode .compose .btn-on-blue {
+	border-color: #787878;
+	background-color: #6E6E6E;
+}
+
+.dark-theme-activated.btd-minimal-mode :-webkit-any(.btn-positive-on-blue[disabled], .btn-positive-on-blue[disabled]:hover, .btn-positive-on-blue[disabled]:active, .btn-positive-on-blue.is-disabled, .btn-positive-on-blue.is-disabled:hover, .btn-positive-on-blue.is-disabled:focus, .btn-positive-on-blue.is-disabled:active) {
+	border-color: #787878;
+	background-color: #6E6E6E;
+	opacity: .3;
+}
+
+.dark-theme-activated.btd-minimal-mode .compose-reply-tweet {
+	background-color: #E6E6E6;
+}
+
+.dark-theme-activated.btd-minimal-mode .inline-reply {
+	background-color: #575757;
+}
+
+.dark-theme-activated.btd-minimal-mode .attach-compose-buttons .tweet-button {
+	background-color: #444448;
 }
 
 /* Minimal mode (Light)  */
