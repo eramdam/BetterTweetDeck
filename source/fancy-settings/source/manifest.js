@@ -93,13 +93,6 @@ this.manifest = {
         {
             "tab": settingsTitle,
             "group": locale("groupAppearance"),
-            "name": "reduced_padding",
-            "type": "checkbox",
-            "label": locale("narrowColumns")
-        },
-        {
-            "tab": settingsTitle,
-            "group": locale("groupAppearance"),
             "name": "no_columns_icons",
             "type": "checkbox",
             "label": locale("noColumnsIcons")

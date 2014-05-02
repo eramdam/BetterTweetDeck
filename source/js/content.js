@@ -18,9 +18,6 @@ function setAllTheSettings(response) {
 	if(options.circled_avatars == true) {
 		bodyClasses.add("btd-circle-avatars");
 	}
-	if(options.reduced_padding == true) {
-		bodyClasses.add("btd-reduced-padding");
-	}
 	if(options.no_columns_icons == true) {
 		bodyClasses.add("btd-no-columns-icons");
 	}

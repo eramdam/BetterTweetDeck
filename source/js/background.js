@@ -5,7 +5,6 @@ if(!settings) {
 	"name_display": "both",
 	"typeahead_display_username_only": false,
 	"circled_avatars": false,
-	"reduced_padding": true,
 	"no_columns_icons": false,
 	"yt_rm_button": true,
 	"small_icons_compose": true,
