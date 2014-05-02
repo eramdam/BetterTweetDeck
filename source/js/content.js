@@ -98,7 +98,7 @@ function eventDispatcher() {
 
 
 	// If the event.target is the text (TweetDeck updates timestamp at regular intervals) then we can get the .txt-mute element and tweak it in real-time
-	if((event.relatedNode.className != undefined && event.relatedNode.className._contains("txt-mute")) && options.timestamp != "relative") {
+	if((event.target.nodeName == "#text" && event.relatedNode.className._contains("txt-mute")) && options.timestamp != "relative") {
 		timeIsNotRelative(event.relatedNode, options.timestamp);
 	} 
 	// If it's not a .txt-mute element, it must be a tweet or something similar, let's check it !
