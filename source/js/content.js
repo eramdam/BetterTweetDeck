@@ -639,7 +639,6 @@ function lightboxFromTweet() {
 		if(mediaInModal != null) {
 			mediaInModal.onload = function() {
 				var maxHeightForMedia = document.querySelector(".js-embeditem.med-embeditem").offsetHeight-(document.querySelector("a.med-origlink").offsetHeight)-20;
-				console.log(maxHeightForMedia);
 				mediaInModal.style.maxHeight = maxHeightForMedia+"px";
 				window.onresize = function() {
 					maxHeightForMedia = document.querySelector(".js-embeditem.med-embeditem").offsetHeight-(document.querySelector("a.med-origlink").offsetHeight)-20
@@ -725,7 +724,6 @@ function lightboxFromTweet() {
 			setTimeout(function() {
 				originalTweet.querySelector("a[rel='actionsMenu']").click();
 			}, 0);
-			// console.log(originalTweet.querySelector("a[rel='actionsMenu']"));
 			setTimeout(function() {
 				var originalMenu = originalTweet.querySelector(".dropdown-menu");
 				originalMenu.classList.add("pos-t");
