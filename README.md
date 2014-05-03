@@ -33,15 +33,6 @@ Features
 + Remove that god-damn useless t.co redirection on links
 + Display the full-time only if the tweet is posted with a 24h or more difference with current time
 
-Screenshots
-===============
-
-![](emojis.jpg)
-![](bettertweetdeck-avatars-timestamp-username.png)
-![](bettertweetdeck-thumbnails.png)
-![](bettertweetdeck-options.png)
-![](bettertweetdeck-lightboxes.png)
-
 Installation
 ===============
 
@@ -60,3 +51,11 @@ However, if you feel generous and want to donate, you can do it by many ways:
 
 + [Donate on PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RRY2KKZLNBJDG)
 + **BTC**: 16aWencNCFBtAqnKHj966uSqzQ66RYA87r
+
+Screenshots
+===============
+
+![](emojis.jpg)
+![](btd-customization.jpg)
+![](bettertweetdeck-thumbnails.png)
+![](bettertweetdeck-lightboxes.png)
