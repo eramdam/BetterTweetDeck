@@ -6,7 +6,7 @@
 span.new:before {
 	content: 'New !';
 	margin-left: -4.8em;
-	margin-right: 1.5em;
+	margin-right: 2.2em;
 	color: hsl(200, 48.9583%, 37.6471%);
 	font-weight: bold;
 }
