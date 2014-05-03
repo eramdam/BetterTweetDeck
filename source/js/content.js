@@ -547,6 +547,11 @@ function createPreviewDiv(element, provider) {
 		previewLink.href = linkURL;
 		previewLink.setAttribute("target","_blank");
 		previewLink.setAttribute("data-tweetkey",element.parentNode.parentNode.parentNode.parentNode.parentNode.getAttribute("data-key"));
+		
+		if(element.parentNode.parentNode.parentNode.parentNode.parentNode.getAttribute("data-key") == null) {
+			previewLink.setAttribute("data-tweetkey",element.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.getAttribute("data-key"));
+		}
+		
 		// Applying our thumbnail as a background-image of the preview div
 		previewLink.style.backgroundImage = "url("+thumbnailUrl+")";
 		previewLink.setAttribute("data-provider",provider);
