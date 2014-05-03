@@ -88,7 +88,7 @@ this.manifest = {
             "group": locale("groupAppearance"),
             "name": "minimal_mode",
             "type": "checkbox",
-            "label": locale("minimalMode")
+            "label": "<span class=new></span>"+locale("minimalMode")
         },
         {
             "tab": settingsTitle,
