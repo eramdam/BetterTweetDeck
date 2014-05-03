@@ -231,7 +231,7 @@ function eventDispatcher() {
 				injectScript(getTDTheme);
 			});
 		};
-	} else if(event.relatedNode.classList.contains('js-modal-content')) {
+	} else if((event.relatedNode.classList != null && event.relatedNode.classList.contains('js-modal-content') && !event.relatedNode.firstChild.classList.contains('is-loading')) && options.url_redirection) {
 		event.target.querySelector("a.prf-siteurl").href = "http://"+event.target.querySelector("a.prf-siteurl").innerText;
 	}
 }
