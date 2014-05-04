@@ -232,7 +232,13 @@ function eventDispatcher() {
 			});
 		};
 	} else if((event.relatedNode.classList != null && event.relatedNode.classList.contains('js-modal-content') && !event.relatedNode.firstChild.classList.contains('is-loading')) && options.url_redirection) {
-		event.target.querySelector("a.prf-siteurl").href = "http://"+event.target.querySelector("a.prf-siteurl").innerText;
+		var profileURL = event.target.querySelector("a.prf-siteurl").innerText;
+		if (new RegExp("http(|s)://").test(profileURL)) {
+			event.target.querySelector("a.prf-siteurl").href = event.target.querySelector("a.prf-siteurl").innerText;
+		} else {
+			event.target.querySelector("a.prf-siteurl").href = "http://"+event.target.querySelector("a.prf-siteurl").innerText;
+		}
+		
 	}
 }
 
