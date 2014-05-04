@@ -6,6 +6,7 @@ Adds some nice options on [TweetDeck](http://tweetdeck.twitter.com) to provide a
 Features
 ===============
 
++ A Minimal mode!
 + **Emojis!**
 + You can now add emojis in tweets with the **Emoji panel!**
 + Lighboxes & thumbnails for :
