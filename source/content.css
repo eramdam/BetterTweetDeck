@@ -182,7 +182,7 @@
 	border-bottom-color: transparent;
 }
 
-.dark-theme-activated.btd-minimal-mode .column-header {
+.dark-theme-activated.btd-minimal-mode .js-app-columns-container .column-header {
 	background-color: #222426;
 }
 
@@ -234,7 +234,7 @@
 	border-bottom-color: transparent;
 }
 
-.light-theme-activated.btd-minimal-mode .column-header {
+.light-theme-activated.btd-minimal-mode .js-app-columns-container .column-header {
 	background-color: #fcfcfc;
 	border-bottom: none;
 }
