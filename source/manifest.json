@@ -16,5 +16,6 @@
 	"permissions": ["storage"],
 	"options_page": "fancy-settings/source/index.html",
 	"background" : { "page": "background.html" },
+	"permissions": ["<all_urls>"],
 	"web_accessible_resources": ["font/*","emojis-s8bc023ba47.png","emojis2x-s1940453998.png","emoji-pngs/emojis-inline/*","emoji-popover.html"]
 }
