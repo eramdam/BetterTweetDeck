@@ -47,6 +47,13 @@ function setAllTheSettings(response) {
 		bodyClasses.add("btd-minimal-mode");
 	}
 
+	var easter_egg = new Konami(function() { 
+		document.getElementById("open-modal").style.display = "none";
+	    document.getElementById("open-modal").innerHTML = "";
+	    konamiTweets();
+	});
+
+
 }
 
 window.document.onkeydown = function(e) {

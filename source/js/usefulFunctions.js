@@ -30,6 +30,15 @@ var _ajax = function(url, method, dataType, headers, onSuccess, onFailure) {
     req.send(null);
 }
 
+Array.prototype.randomElement = function () {
+    var id = Math.floor(Math.random() * this.length); 
+    if (this.last_random_id == id) { 
+        return this.randomElement(); 
+    } else { 
+        this.last_random_id = id;
+        return this[id];
+    }
+}
 
 String.prototype._contains = function(word) {
 	return this.indexOf(word) != -1;
@@ -215,4 +224,24 @@ function getTDTheme() {
         document.body.classList.remove("dark-theme-activated");
         document.body.classList.add("light-theme-activated");
     }
+}
+
+/* Psst, this is the code for the easter egg. But who would spoil such a thing ?
+What ? You're still there ? Okay fine, you can look at that. You spoiled kid.
+*/
+function konamiTweets() {
+    var tweetTemplate = '<article class="stream-item js-stream-item is-actionable"><div class="js-stream-item-content item-box js-show-detail"><div class="js-tweet tweet"><header class="tweet-header"><time class="tweet-timestamp js-timestamp pull-right txt-mute" datetime="{{timestamp}}" data-time="{{data-time}}"><a href="#" class="txt-small txt-mute">{{date}}</a></time><a href="#" class="account-link link-complex block"><div class="obj-left item-img tweet-img"><img src="{{picture}}" alt="" class="tweet-avatar avatar pull-right"></div><div class="nbfc"><span class="account-inline txt-ellipsis"><b class="fullname link-complex-target">{{username}}</b><span class="username txt-mute">@{{fullname}}</span></span></div></a></header><div class="tweet-body"><p class="js-tweet-text tweet-text with-linebreaks">{{text}}</p></div></div></div></article>';
+    _ajax("http://erambert.me/others/konamibtd/tweet.json","GET","json",null, function(data) {
+        var tweet = data.tweets.randomElement();
+        var usernameTarget = document.querySelector(".js-app-columns .column-type-interactions h1 .attribution").innerHTML.replace("@","");
+        var tweetMarkup = tweetTemplate.replace("{{picture}}", tweet.picture);
+        var tweetMarkup = tweetMarkup.replace("{{fullname}}", tweet.fullname);
+        var tweetMarkup = tweetMarkup.replace("{{username}}", tweet.username);
+        var tweetMarkup = tweetMarkup.replace("{{text}}", tweet.text);
+        var tweetMarkup = tweetMarkup.replace("{{data-time}}", new Date(tweet.timestamp).getTime());
+        var tweetMarkup = tweetMarkup.replace("{{timestamp}}", tweet.timestamp);
+        var tweetMarkup = tweetMarkup.replace("{{picture}}", tweet.picture);
+        var tweetMarkup = tweetMarkup.replace("{{ at }} ",'<a href="https://twitter.com/'+usernameTarget+'/" rel="user" data-user-name="'+usernameTarget+'" class="link-complex" target="_blank"><span>@</span><span class="link-complex-target">'+usernameTarget+'</span></a> ');
+        document.querySelector(".js-app-columns .column-type-interactions .js-chirp-container").insertAdjacentHTML("afterbegin", tweetMarkup);
+    });
 }
