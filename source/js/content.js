@@ -271,8 +271,7 @@ function createPreviewDiv(element, provider) {
 					suffixResize = 360;
 					break;
 			}
-			var randomNumber = Math.floor(Math.random()*(10-1)+1);
-			var resizedURL = 'https://images'+randomNumber+'-focus-opensocial.googleusercontent.com/gadgets/proxy?url='+encodeURIComponent(linkURL)+'&container=focus&resize_w='+suffixResize+'&refresh=86400';
+			var resizedURL = 'https://images4-focus-opensocial.googleusercontent.com/gadgets/proxy?url='+encodeURIComponent(linkURL)+'&container=focus&resize_w='+suffixResize+'&refresh=86400';
 			continueCreatingThePreview(resizedURL,linkURL);
 		} else if(provider == "dropbox") {
 			var suffixDropbox;
