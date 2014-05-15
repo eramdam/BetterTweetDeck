@@ -2,7 +2,7 @@
 	"name": "__MSG_appName__",
 	"short_name": "BetterTDeck",
 	"default_locale":"en",
-	"version": "1.5.1",
+	"version": "1.5.2",
 	"manifest_version": 2,
 	"description": "__MSG_appDesc__",
 	"content_scripts": [{
@@ -16,6 +16,26 @@
 	"permissions": ["storage"],
 	"options_page": "fancy-settings/source/index.html",
 	"background" : { "page": "background.html" },
-	"permissions": ["<all_urls>"],
+	"permissions": [
+		"https://images4-focus-opensocial.googleusercontent.com/*",
+		"https://noembed.com/*",
+		"http://api.imgur.com/*",
+		"https://cl.ly/*",
+		"http://d.pr/*",
+		"http://api.instagram.com/*",
+		"http://instagr.am/p/*",
+		"https://www.flickr.com/services/oembed/*",
+		"https://api.500px.com/*",
+		"https://*.media.tumblr.com/*",
+		"http://vimeo.com/api/*",
+		"https://api.dailymotion.com/*",
+		"http://backend.deviantart.com/*",
+		"http://img.ly/show/*",
+		"http://yfrog.com/*",
+		"http://moby.to/*",
+		"http://soundcloud.com/*",
+		"http://api.embed.ly/1/*",
+		"http://erambert.me/others/konamibtd/*"
+	],
 	"web_accessible_resources": ["font/*","emojis-s8bc023ba47.png","emojis2x-s1940453998.png","emoji-pngs/emojis-inline/*","emoji-popover.html"]
 }
