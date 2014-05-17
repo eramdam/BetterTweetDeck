@@ -77,18 +77,6 @@ div.welcome a.btn {
 	margin:0;
 }
 
-#sidebar {
-	display: none;
-}
-
-#content {
-	left: 0;
-}
-
-.setting.bundle {
-	max-width: 750px;
-}
-
 .thumb-opt {
 	width: 50%;
 	display: inline-block;
