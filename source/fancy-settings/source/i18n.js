@@ -116,12 +116,8 @@ this.i18n = {
         "fr": "<span class='thumbnails setting label'>Afficher les miniatures de :</span>",
         "en": "<span class='thumbnails setting label'>Display thumbnails from :</span>"
     },
-    "tabDisplay": {
-        "fr": "Affichage",
-        "en": "Display"
-    },
-    "tabGeneral": {
-        "fr": "Général",
-        "en": "General"
+    "previewTweet": {
+        "fr": "Aperçu des tweets",
+        "en": "Tweet preview"
     }
 };
