@@ -119,5 +119,9 @@ this.i18n = {
     "tabDisplay": {
         "fr": "Affichage",
         "en": "Display"
+    },
+    "tabGeneral": {
+        "fr": "Général",
+        "en": "General"
     }
 };
