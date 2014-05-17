@@ -115,5 +115,9 @@ this.i18n = {
     "thumbnailsfrom": {
         "fr": "<span class='thumbnails setting label'>Afficher les miniatures de :</span>",
         "en": "<span class='thumbnails setting label'>Display thumbnails from :</span>"
+    },
+    "tabDisplay": {
+        "fr": "Affichage",
+        "en": "Display"
     }
 };

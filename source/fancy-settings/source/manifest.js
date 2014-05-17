@@ -13,7 +13,13 @@ this.manifest = {
         "type": "description",
         "text": locale("warning")
     }, {
-        "tab": settingsTitle,
+        "tab": locale("tabDisplay"),
+        "group": "Aperçu",
+        "name": "preview",
+        "type": "description",
+        "text": "<div class='tweet-preview'><div class=picture></div> <div class=name></div> <div class=timestamp></div></div>"
+    }, {
+        "tab": locale("tabDisplay"),
         "group": locale("groupTimeFormatting"),
         "name": "timestamp",
         "type": "radioButtons",
@@ -30,13 +36,13 @@ this.manifest = {
         }],
         "default": "relative"
     }, {
-        "tab": settingsTitle,
+        "tab": locale("tabDisplay"),
         "group": locale("groupTimeFormatting"),
         "name": "full_after_24h",
         "type": "checkbox",
         "label": locale("absoluteAfter24h")
     }, {
-        "tab": settingsTitle,
+        "tab": locale("tabDisplay"),
         "group": locale("groupUsers"),
         "name": "name_display",
         "type": "radioButtons",
@@ -54,15 +60,15 @@ this.manifest = {
             "value": "fullname",
             "text": locale("fullnameOnly")
         }],
-        "default":"both"
+        "default": "both"
     }, {
-        "tab": settingsTitle,
+        "tab": locale("tabDisplay"),
         "group": locale("groupUsers"),
         "name": "typeahead_display_username_only",
         "type": "checkbox",
         "label": locale("typeahead")
     }, {
-        "tab": settingsTitle,
+        "tab": locale("tabDisplay"),
         "group": locale("groupUsers"),
         "name": "circled_avatars",
         "type": "checkbox",
