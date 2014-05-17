@@ -37,4 +37,19 @@ window.addEvent("domready", function () {
         document.querySelectorAll(".tb")[i].parentNode.parentNode.parentNode.classList.add("thumb-opt")
     };
 
+    function tweetPreviewClasses() {
+        var timestampVal = document.querySelector(".opt-timestamp input:checked").value;
+        var nameVal = document.querySelector(".opt-name_display input:checked").value;
+        var avatarVal = document.querySelector(".opt-circled_avatars input").checked;
+        document.querySelector(".tweet-preview .name").className = "name "+nameVal;
+        document.querySelector(".tweet-preview .timestamp").className = "timestamp "+timestampVal;
+        document.querySelector(".tweet-preview .picture").className = "picture "+avatarVal;
+    }
+
+    tweetPreviewClasses();
+
+    $$('.opt-name_display input, .opt-timestamp input, .opt-circled_avatars input').addEvent("change", function() {
+        tweetPreviewClasses();
+    });
+
 });

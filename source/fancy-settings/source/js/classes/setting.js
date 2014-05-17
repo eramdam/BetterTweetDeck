@@ -85,7 +85,7 @@
         
         "createDOM": function () {
             this.bundle = new Element("div", {
-                "class": "setting bundle description"
+                "class": "setting bundle description opt-"+this.params.name
             });
             
             this.container = new Element("div", {
@@ -131,7 +131,7 @@
         
         "createDOM": function () {
             this.bundle = new Element("div", {
-                "class": "setting bundle button"
+                "class": "setting bundle button opt-"+this.params.name
             });
             
             this.container = new Element("div", {
@@ -178,7 +178,7 @@
         
         "createDOM": function () {
             this.bundle = new Element("div", {
-                "class": "setting bundle text"
+                "class": "setting bundle text opt-"+this.params.name
             });
             
             this.container = new Element("div", {
@@ -237,7 +237,7 @@
         
         "createDOM": function () {
             this.bundle = new Element("div", {
-                "class": "setting bundle checkbox"
+                "class": "setting bundle checkbox opt-"+this.params.name
             });
             
             this.container = new Element("div", {
@@ -307,7 +307,7 @@
         
         "createDOM": function () {
             this.bundle = new Element("div", {
-                "class": "setting bundle slider"
+                "class": "setting bundle slider opt-"+this.params.name
             });
             
             this.container = new Element("div", {
@@ -402,7 +402,7 @@
         
         "createDOM": function () {
             this.bundle = new Element("div", {
-                "class": "setting bundle popup-button"
+                "class": "setting bundle popup-button opt-"+this.params.name
             });
             
             this.container = new Element("div", {
@@ -499,7 +499,7 @@
         
         "createDOM": function () {
             this.bundle = new Element("div", {
-                "class": "setting bundle list-box"
+                "class": "setting bundle list-box opt-"+this.params.name
             });
             
             this.container = new Element("div", {
@@ -538,7 +538,7 @@
         
         "createDOM": function () {
             this.bundle = new Element("div", {
-                "class": "setting bundle textarea"
+                "class": "setting bundle textarea opt-"+this.params.name
             });
             
             this.container = new Element("div", {
@@ -595,9 +595,9 @@
         
         "createDOM": function () {
             var settingID = String.uniqueID();
-            
+
             this.bundle = new Element("div", {
-                "class": "setting bundle radio-buttons"
+                "class": "setting bundle radio-buttons opt-"+this.params.name
             });
             
             this.label = new Element("label", {
@@ -612,7 +612,6 @@
             this.params.options.each((function (option) {
                 var optionID,
                     container;
-                
                 this.params.searchString += (option.text || option.value) + "•";
                 
                 optionID = String.uniqueID();

@@ -95,6 +95,78 @@ div.welcome a.btn {
 }
 
 
+div.tweet-preview {
+  width: 452px;
+  height: 77px;
+  position: relative;
+  background-image: url("img/bg.jpg");
+  border-radius:5px;
+}
+
+div.tweet-preview div.picture {
+  height: 48px;
+  width: 48px;
+  position: absolute;
+  top: 11px;
+  left: 11px;
+}
+
+div.tweet-preview div.picture.true {
+  background-image: url("img/pp_circl.jpg");
+}
+
+div.tweet-preview div.picture.false {
+  background-image: url("img/pp_def.jpg");
+}
+
+div.tweet-preview div.name {
+  height: 15px;
+  width: 223px;
+  position: absolute;
+  background-repeat: no-repeat;
+  background-position: top left;
+  left: 67px;
+  top: 11px;
+}
+
+div.tweet-preview div.name.both {
+  background-image: url("img/fullname-username.jpg");
+}
+
+div.tweet-preview div.name.inverted {
+  background-image: url("img/username-fullname.jpg");
+}
+
+div.tweet-preview div.name.username {
+  background-image: url("img/username-only.jpg");
+}
+
+div.tweet-preview div.name.fullname {
+  background-image: url("img/fullname-only.jpg");
+}
+
+div.tweet-preview div.timestamp {
+  width: 99px;
+  height: 14px;
+  right: 8px;
+  position: absolute;
+  top: 11px;
+  background-repeat: no-repeat;
+  background-position: top right;
+}
+
+div.tweet-preview div.timestamp.relative {
+  background-image: url(img/time_rel.jpg);
+}
+
+div.tweet-preview div.timestamp.absolute {
+  background-image: url(img/time_absolute.jpg);
+}
+
+div.tweet-preview div.timestamp.absolute_us {
+  background-image: url(img/time_absolute_us.jpg);
+}
+
 
 /******************
 Bootstrap buttons
