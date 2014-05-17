@@ -25,6 +25,7 @@ if(!settings) {
 	"img_preview_mobyto": true,
 	"img_preview_soundcloud": true,
 	"img_preview_tumblr": true,
+	"img_preview_ted": true,
 	"img_preview_vimeo": true,
 	"img_preview_yfrog": true,
 	"blurred_modals": true,

@@ -192,7 +192,7 @@ function eventDispatcher() {
 				createPreviewDiv(linkToHandle, "dropbox");
 			} else if (new RegExp(".(jpg|gif|png|jpeg)$").test(imgURL)) {
 				createPreviewDiv(linkToHandle, "toResize");
-			} else if (imgURL._contains("ted.com/talks")) {
+			} else if (imgURL._contains("ted.com/talks") && options.img_preview_ted) {
 				createPreviewDiv(linkToHandle, "ted");
 			} else {
 				emojiAfterNodeInsertion(event);
