@@ -214,6 +214,12 @@ this.manifest = {
     }, {
         "tab": settingsTitle,
         "group": locale("groupContent"),
+        "name": "img_preview_ted",
+        "type": "checkbox",
+        "label": "<span class='tb'></span>TED"
+    }, {
+        "tab": settingsTitle,
+        "group": locale("groupContent"),
         "name": "img_preview_tumblr",
         "type": "checkbox",
         "label": "<span class='tb'></span>Tumblr"
