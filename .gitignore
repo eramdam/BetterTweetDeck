@@ -1,2 +1,4 @@
 .DS_Store
 source.zip
+.sass-cache
+node_modules/
