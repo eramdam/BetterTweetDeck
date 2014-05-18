@@ -5,8 +5,8 @@ this.i18n = {
         "en": "Better TweetDeck Settings"
     },
     "warning": {
-        "fr": "<div class=notification></div><div class=alert>N'oubliez pas de rafraîchir les onglets TweetDeck après avoir appliqué les réglages <br /> <span>Cette extension ne fonctionne uniquement qu'avec <a href='http://tweetdeck.twitter.com'>http://tweetdeck.twitter.com</a></span></div>",
-        "en": "<div class=notification></div><div class=alert>Don't forget to reload any TweetDeck tab after applying your settings <br /> <span>This extension <u>only</u> works with <a href='http://tweetdeck.twitter.com'>http://tweetdeck.twitter.com</a></span></div>"
+        "fr": "<div class=notification-update></div><div class=notification></div><div class=alert>N'oubliez pas de rafraîchir les onglets TweetDeck après avoir appliqué les réglages <br /> <span>Cette extension ne fonctionne uniquement qu'avec <a href='http://tweetdeck.twitter.com'>http://tweetdeck.twitter.com</a></span></div>",
+        "en": "<div class=notification-update></div><div class=notification></div><div class=alert>Don't forget to reload any TweetDeck tab after applying your settings <br /> <span>This extension <u>only</u> works with <a href='http://tweetdeck.twitter.com'>http://tweetdeck.twitter.com</a></span></div>"
     },
     "groupInfo": {
         "fr": "Informations",

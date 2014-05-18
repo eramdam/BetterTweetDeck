@@ -24,7 +24,7 @@ span.new:before {
 	color:red;
 }
 
-div.notification {
+div.notification, div.notification-update {
 	background: hsl(200, 65.2174%, 90.9804%);
 	border-color: hsl(190, 65.4321%, 84.1176%);
 	border: 1px solid hsl(190, 65%, 74%);
@@ -33,6 +33,10 @@ div.notification {
 	box-sizing: border-box;
 	color: hsl(200, 48.9583%, 37.6471%);
 	margin: 20px 0;
+}
+
+div.notification-update ul {
+  margin-bottom: 0;
 }
 
 div.alert {
@@ -165,6 +169,15 @@ div.tweet-preview div.timestamp.absolute {
 
 div.tweet-preview div.timestamp.absolute_us {
   background-image: url(img/time_absolute_us.jpg);
+}
+
+.paypal img {
+  width: 16px;
+  margin-right: 4px;
+}
+
+.paypal img path {
+  fill:white;
 }
 
 

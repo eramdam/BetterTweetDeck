@@ -22,10 +22,13 @@ window.addEvent("domready", function () {
     };
 
     if(window.top.location.search == "?update") {
-        document.querySelector(".notification").innerHTML = document.querySelector(".hidden-changelog."+lang).innerHTML;
+        document.querySelector(".notification-update").innerHTML = document.querySelector(".hidden-changelog."+lang).innerHTML;
+        document.querySelector(".notification").innerHTML = document.querySelector(".hidden-welcome."+lang).innerHTML;
+        document.querySelector(".notification").classList.add("welcome");
     } else {
         document.querySelector(".notification").innerHTML = document.querySelector(".hidden-welcome."+lang).innerHTML;
         document.querySelector(".notification").classList.add("welcome");
+        document.querySelector(".notification-update").remove();
     }
 
     if(window.top.location.search != "?update") {
