@@ -1,0 +1,23 @@
+{
+  "name": "BetterTweetdeck",
+  "version": "0.0.0",
+  "description": "Better TweetDeck ===============",
+  "main": "minify.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/eramdam/BetterTweetDeck.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eramdam/BetterTweetDeck/issues"
+  },
+  "homepage": "https://github.com/eramdam/BetterTweetDeck",
+  "devDependencies": {
+    "minifier": "^0.6.0",
+    "rimraf": "^2.2.8"
+  }
+}
