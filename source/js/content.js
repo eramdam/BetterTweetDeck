@@ -53,7 +53,6 @@ function setAllTheSettings(response) {
 		konamiTweets();
 	});
 
-
 }
 
 window.document.onkeydown = function(e) {
@@ -132,6 +131,12 @@ function eventDispatcher() {
 						buildingEmojiComposer(data)
 					});
 				};
+				var settingsPage = chrome.extension.getURL("fancy-settings/source/index.html");
+				var settingsButton = '<a class="btd-settings js-header-action link-clean cf app-nav-link padding-hl" data-title="BTD Settings" data-action> <div class="obj-left"> <i class="icon icon-sliders icon-large icon-unread-color"></i> </div> <div class="nbfc padding-ts hide-condensed">BTD Settings</div> </a>';
+				document.querySelector(".js-header-action.link-clean.app-nav-link[data-action=change-sidebar-width]").insertAdjacentHTML("beforebegin", settingsButton);
+				document.querySelector(".btd-settings").addEventListener("click", function() {
+					window.open(chrome.extension.getURL("fancy-settings/source/index.html"));
+				})
 			}
 		}
 		// Applying the timestamp
