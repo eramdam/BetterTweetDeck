@@ -10,6 +10,8 @@ var filesToDelete = [
 	"source/emoji-pngs/emojis",
 	"source/emoji-pngs/emojis2x",
 	"source/emoji-pngs/sass",
+	"source/fancy-settings/*.md",
+	"source/fancy-settings/*.txt"
 ];
 
 filesToDelete.forEach(function(file) {
@@ -22,5 +24,4 @@ minifier.on('error', function(err) {
 	console.error(err);
 })
 
-minifier.minify('./source/js', options);
 minifier.minify('./source/', options);
