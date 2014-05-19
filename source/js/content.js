@@ -37,6 +37,16 @@ function setAllTheSettings(response) {
 	bodyClasses = document.body.classList;
 	doneTheStuff = false;
 	document.body.addEventListener("DOMNodeInserted", eventDispatcher);
+	var readyTD = new MutationObserver(function(mutations) {
+		for (var i = mutations.length - 1; i >= 0; i--) {
+			if(mutations[i].target.tagName === "DIV" && mutations[i].target.style.display === "none") {
+				bodyClasses.add("btd-ready");
+				readyTD.disconnect();
+			}
+		};
+	});
+
+	readyTD.observe(document.querySelector(".js-app-loading"), {attributes: true});
 	if (options.circled_avatars == true) {
 		bodyClasses.add("btd-circle-avatars");
 	}
@@ -103,10 +113,6 @@ function modalWorker() {
 }
 
 function eventDispatcher() {
-	function readyTD() {
-		document.body.classList.add(TD.ready ? 'btd-ready' : '');
-
-	}
 
 	function mediaPreviewSize() {
 		var jsColumns = document.querySelectorAll(".js-column[data-column]");
@@ -164,7 +170,6 @@ function eventDispatcher() {
 				document.querySelector(".btd-settings").addEventListener("click", function() {
 					window.open(chrome.extension.getURL("fancy-settings/source/index.html"));
 				});
-				injectScript(readyTD);
 			}
 		}
 		// Applying the timestamp
