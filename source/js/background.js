@@ -99,10 +99,6 @@ function gatherTabs(urls, itemInfos) {
     });
 }
 
-/**
- * Step 3: Jump to TweetDeck tab or open a new one.
- */
-
 function composeTweet() {
 	jQuery(document).trigger("uiComposeTweet", { text: itemInfos.text + " " + itemInfos.url});
 }
@@ -145,9 +141,9 @@ var clickHandler = function(info, tab) {
 	var url;
 
 	if (info.selectionText) {
-		text = info.selectionText.substr(0,99);
+		text = "\""+info.selectionText.substr(0,110)+"\"";
 	} else {
-		text = tab.title.substr(0,99);
+		text = "\""+tab.title.substr(0,110)+"\"";
 	}
 
 	if (info.linkUrl) {
