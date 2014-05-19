@@ -5,10 +5,10 @@ chrome.extension.sendRequest({}, function(response) {
 
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
 
-	if(!document.body.classList.contains("btd-ready")) {
+	if (!document.body.classList.contains("btd-ready")) {
 		var observer = new MutationObserver(function(mutations) {
 			for (var i = mutations.length - 1; i >= 0; i--) {
-				if(mutations[0].target.tagName === "BODY" && mutations[0].target.classList.contains('btd-ready')) {
+				if (mutations[0].target.tagName === "BODY" && mutations[0].target.classList.contains('btd-ready')) {
 					document.dispatchEvent(new CustomEvent('uiComposeTweet'));
 					document.querySelector('textarea.js-compose-text').value = request.text + ' ' + request.url;
 					document.querySelector('textarea.js-compose-text').dispatchEvent(new Event('change'));
@@ -16,7 +16,9 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
 				}
 			};
 		});
-		observer.observe(document.body, {attributes: true});
+		observer.observe(document.body, {
+			attributes: true
+		});
 	} else {
 		document.dispatchEvent(new CustomEvent('uiComposeTweet'));
 		document.querySelector('textarea.js-compose-text').value = request.text + ' ' + request.url;
@@ -573,7 +575,7 @@ function createPreviewDiv(element, provider) {
 			_ajax(soundcloudURL, "GET", "json", null, function(data) {
 				continueCreatingThePreview(data.thumbnail_url, data.html.replace('width="100%"', 'width="600"'), true);
 			});
-		} else if (provider == "bandcamp" || provider == "ted") {
+		} else if (provider == "bandcamp" ||  provider == "ted") {
 			bandcampURL = encodeURIComponent(linkURL);
 			bandcampURL = 'http://api.embed.ly/1/oembed?key=748757a075e44633b197feec69095c90&url=' + bandcampURL + '&format=json';
 
