@@ -3,6 +3,12 @@ chrome.extension.sendRequest({}, function(response) {
 	setAllTheSettings(response);
 });
 
+chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+	document.dispatchEvent(new CustomEvent('uiComposeTweet'));
+	document.querySelector('textarea.js-compose-text').value = request.text + ' ' + request.url;
+	document.querySelector('textarea.js-compose-text').dispatchEvent(new Event('change'));
+})
+
 function setAllTheSettings(response) {
 	options = response;
 	// Handling the old true/false strings in options
@@ -52,7 +58,6 @@ function setAllTheSettings(response) {
 		document.getElementById("open-modal").innerHTML = "";
 		konamiTweets();
 	});
-
 }
 
 window.document.onkeydown = function(e) {

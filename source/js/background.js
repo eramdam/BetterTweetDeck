@@ -74,11 +74,10 @@ if (currVersion != prevVersion) {
 
 const TWEETDECK_WEB_URL = 'https://tweetdeck.twitter.com';
 
-
 /**
  * Step 2: Collate a list of all the open tabs.
  */
-function gatherTabs(urls) {
+function gatherTabs(urls, itemInfos) {
     var allTheTabs = [];
     var windowsChecked = 0;
 
@@ -92,7 +91,7 @@ function gatherTabs(urls) {
 
                 if (windowsChecked === windows.length) {
                     // We have all the tabs! Search for a TweetDeck...
-                    openApp(urls, allTheTabs);
+                    openApp(urls, allTheTabs, itemInfos);
                 }
             });
 
@@ -103,17 +102,28 @@ function gatherTabs(urls) {
 /**
  * Step 3: Jump to TweetDeck tab or open a new one.
  */
-function openApp(urls, tabs) {
+
+function composeTweet() {
+	jQuery(document).trigger("uiComposeTweet", { text: itemInfos.text + " " + itemInfos.url});
+}
+
+function openApp(urls, tabs, itemInfos) {
     // Search urls in priority order...
     for (var i = 0; i < urls.length; i++) {
         var url = urls[i];
+        
         // Search tabs...
         for (var j = 0; j < tabs.length; j++) {
             var tab = tabs[j];
             if (tab.url.indexOf(url) === 0) {
                 // Found it!
-                chrome.tabs.update(tab.windowId, {selected :  true});
-                chrome.tabs.update(tab.id, {selected :  true});
+                var tabId = tab.id;
+                chrome.windows.update(tab.windowId, {focused :  true});
+                chrome.tabs.update(tabId, {selected :  true, active: true, highlighted: true}, function() {
+                	var text = itemInfos.text;
+                	var url = itemInfos.url;
+                	chrome.tabs.sendRequest(tabId, {text: text, url: url})
+                });
                 return;
             }
         }
@@ -123,12 +133,32 @@ function openApp(urls, tabs) {
     chrome.tabs.create({ url : urls[0] });
 };
 
-var clickHandler = function(e) {
-	gatherTabs([TWEETDECK_WEB_URL]);
+var clickHandler = function(info, tab) {
+	var text;
+	var url;
+
+	if (info.selectionText) {
+		text = info.selectionText.substr(0,99);
+	} else {
+		text = tab.title.substr(0,99);
+	}
+
+	if (info.linkUrl) {
+		url = info.linkUrl
+	} else {
+		url = info.pageUrl;
+	}
+
+	if(info.mediaType === "image") {
+		url = info.srcUrl;
+		text = "";
+	}
+
+	gatherTabs([TWEETDECK_WEB_URL], {"text": text, "url": url});
 };
 
 chrome.contextMenus.create({
-	"title": "Buzz This",
+	"title": "Share on (Better) TweetDeck",
 	"contexts": ["page", "selection", "image", "link"],
 	"onclick": clickHandler
 });
