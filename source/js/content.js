@@ -3,8 +3,7 @@ chrome.extension.sendRequest({}, function(response) {
 	setAllTheSettings(response);
 });
 
-chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
-
+chrome.runtime.onMessage.addListener(function(request) {
 	if (!document.body.classList.contains("btd-ready")) {
 		var observer = new MutationObserver(function(mutations) {
 			for (var i = mutations.length - 1; i >= 0; i--) {

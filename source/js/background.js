@@ -120,7 +120,7 @@ function openApp(urls, tabs, itemInfos) {
 				}, function() {
 					var text = itemInfos.text;
 					var url = itemInfos.url;
-					chrome.tabs.sendRequest(tabId, {
+					chrome.tabs.sendMessage(tabId, {
 						text: text,
 						url: url
 					})
@@ -137,7 +137,7 @@ function openApp(urls, tabs, itemInfos) {
 
 		chrome.tabs.onUpdated.addListener(function(tabId, info) {
 			if (info.status == "complete") {
-				chrome.tabs.sendRequest(tab.id, {
+				chrome.tabs.sendMessage(tabId, {
 					text: itemInfos.text,
 					url: itemInfos.url
 				});
