@@ -143,7 +143,7 @@ var clickHandler = function(info, tab) {
 	if (info.selectionText) {
 		text = "\""+info.selectionText.substr(0,110)+"\"";
 	} else {
-		text = "\""+tab.title.substr(0,110)+"\"";
+		text = tab.title.substr(0,110);
 	}
 
 	if (info.linkUrl) {
