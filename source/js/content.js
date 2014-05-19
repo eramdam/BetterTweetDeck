@@ -4,9 +4,24 @@ chrome.extension.sendRequest({}, function(response) {
 });
 
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
-	document.dispatchEvent(new CustomEvent('uiComposeTweet'));
-	document.querySelector('textarea.js-compose-text').value = request.text + ' ' + request.url;
-	document.querySelector('textarea.js-compose-text').dispatchEvent(new Event('change'));
+
+	if(!document.body.classList.contains("btd-ready")) {
+		var observer = new MutationObserver(function(mutations) {
+			for (var i = mutations.length - 1; i >= 0; i--) {
+				if(mutations[0].target.tagName === "BODY" && mutations[0].target.classList.contains('btd-ready')) {
+					document.dispatchEvent(new CustomEvent('uiComposeTweet'));
+					document.querySelector('textarea.js-compose-text').value = request.text + ' ' + request.url;
+					document.querySelector('textarea.js-compose-text').dispatchEvent(new Event('change'));
+					observer.disconnect();
+				}
+			};
+		});
+		observer.observe(document.body, {attributes: true});
+	} else {
+		document.dispatchEvent(new CustomEvent('uiComposeTweet'));
+		document.querySelector('textarea.js-compose-text').value = request.text + ' ' + request.url;
+		document.querySelector('textarea.js-compose-text').dispatchEvent(new Event('change'));
+	}
 })
 
 function setAllTheSettings(response) {
@@ -58,6 +73,8 @@ function setAllTheSettings(response) {
 		document.getElementById("open-modal").innerHTML = "";
 		konamiTweets();
 	});
+
+
 }
 
 window.document.onkeydown = function(e) {
@@ -85,6 +102,10 @@ function modalWorker() {
 }
 
 function eventDispatcher() {
+	function readyTD() {
+		document.body.classList.add(TD.ready ? 'btd-ready' : '');
+
+	}
 
 	function mediaPreviewSize() {
 		var jsColumns = document.querySelectorAll(".js-column[data-column]");
@@ -141,7 +162,8 @@ function eventDispatcher() {
 				document.querySelector(".js-header-action.link-clean.app-nav-link[data-action=change-sidebar-width]").insertAdjacentHTML("beforebegin", settingsButton);
 				document.querySelector(".btd-settings").addEventListener("click", function() {
 					window.open(chrome.extension.getURL("fancy-settings/source/index.html"));
-				})
+				});
+				injectScript(readyTD);
 			}
 		}
 		// Applying the timestamp

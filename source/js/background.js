@@ -130,7 +130,14 @@ function openApp(urls, tabs, itemInfos) {
     }
 
     // Didn't find it! Open a new one!
-    chrome.tabs.create({ url : urls[0] });
+    chrome.tabs.create({ url : urls[0] }, function(tab) {
+    	
+    	chrome.tabs.onUpdated.addListener(function(tabId, info) {
+    		if(info.status == "complete") {
+    			chrome.tabs.sendRequest(tab.id, {text: itemInfos.text, url: itemInfos.url});
+    		}
+    	})
+    });
 };
 
 var clickHandler = function(info, tab) {
