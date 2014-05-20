@@ -232,13 +232,8 @@ function eventDispatcher() {
 				createPreviewDiv(linkToHandle, "toResize");
 			} else if (imgURL._contains("ted.com/talks") && options.img_preview_ted) {
 				createPreviewDiv(linkToHandle, "ted");
-			} else {
-				emojiAfterNodeInsertion(event);
 			}
-		} else {
-			emojiAfterNodeInsertion(event);
 		}
-
 	} else if (event.relatedNode.id == "open-modal" && options.blurred_modals) {
 		var openModal = document.getElementById("open-modal");
 		if (event.relatedNode.querySelector(".js-mediatable") != undefined) {
