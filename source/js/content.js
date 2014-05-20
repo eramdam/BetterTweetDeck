@@ -23,6 +23,7 @@ chrome.runtime.onMessage.addListener(function(request) {
 		document.querySelector('textarea.js-compose-text').value = request.text + ' ' + request.url;
 		document.querySelector('textarea.js-compose-text').dispatchEvent(new Event('change'));
 	}
+	request = null;
 })
 
 function setAllTheSettings(response) {
