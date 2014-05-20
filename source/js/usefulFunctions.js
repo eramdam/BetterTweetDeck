@@ -143,7 +143,7 @@ function getEventTarget(evt) {
 // Emojitify an element thanks to emojiToImage.js
 function emojiInElement(el) {
 	el.innerHTML = emoji.imageReplace(el.innerHTML);
-	el.classList.add("emoji");
+	el.classList.add("btd-emoji");
 }
 
 function emojiAfterNodeInsertion(event) {
