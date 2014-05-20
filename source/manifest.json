@@ -38,7 +38,8 @@
 		"http://erambert.me/others/konamibtd/*",
 		"https://tweetdeck.twitter.com/*",
 		"tabs",
-		"contextMenus"
+		"contextMenus",
+		"http://api.dribbble.com/*"
 	],
 	"web_accessible_resources": ["font/*","emojis-s8bc023ba47.png","emojis2x-s1940453998.png","emoji-pngs/emojis-inline/*","emoji-popover.html","fancy-settings/source/index.html"]
 }
