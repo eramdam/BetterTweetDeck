@@ -1,8 +1,8 @@
-{
+manifest_version{
 	"name": "__MSG_appName__",
 	"short_name": "BetterTDeck",
 	"default_locale":"en",
-	"version": "1.6.0",
+	"version": "1.6.1",
 	"manifest_version": 2,
 	"description": "__MSG_appDesc__",
 	"content_scripts": [{
