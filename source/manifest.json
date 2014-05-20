@@ -1,4 +1,4 @@
-manifest_version{
+{
 	"name": "__MSG_appName__",
 	"short_name": "BetterTDeck",
 	"default_locale":"en",

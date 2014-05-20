@@ -6,10 +6,7 @@ var options = {
 
 
 var filesToDelete = [
-	"source/emoji-pngs/config.rb",
-	"source/emoji-pngs/emojis",
-	"source/emoji-pngs/emojis2x",
-	"source/emoji-pngs/sass",
+	"source/emoji-pngs/",
 	"source/fancy-settings/*.md",
 	"source/fancy-settings/*.txt"
 ];
