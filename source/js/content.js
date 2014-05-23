@@ -652,7 +652,6 @@ function createPreviewDiv(element, provider) {
 				document.querySelectorAll(".btd-preview + .js-media.media-preview, .btd-preview + .item-box-full-bleed")[i].remove();
 			};
 		}
-		emojiInElement(element.parentNode);
 	}
 
 }
