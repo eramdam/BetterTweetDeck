@@ -610,8 +610,8 @@ function createPreviewDiv(element, provider) {
 		previewLink.setAttribute("target", "_blank");
 		previewLink.setAttribute("data-tweetkey", element.parentNode.parentNode.parentNode.parentNode.parentNode.getAttribute("data-key"));
 
-		if (element.parentNode.parentNode.parentNode.parentNode.parentNode.getAttribute("data-key") == null) {
-			previewLink.setAttribute("data-tweetkey", element.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.getAttribute("data-key"));
+		if (element.parentNode.parentNode.parentNode.parentNode.parentNode.getAttribute("data-key") === null) {
+			previewLink.setAttribute("data-tweetkey", element.parentNode.parentNode.parentNode.parentNode.getAttribute("data-key"));
 		}
 
 		// Applying our thumbnail as a background-image of the preview div
@@ -667,11 +667,11 @@ function createLightboxes() {
 
 // Okay it's probably ugly because it's not very "flexible" but it's the only way I found to replicate the lightboxes efficiently
 function lightboxFromTweet() {
-	var linkLightbox = event.target,
-		dataEmbed = linkLightbox.getAttribute("data-embed"),
-		dataIsEmbed = linkLightbox.getAttribute("data-isembed"),
-		dataProvider = linkLightbox.getAttribute("data-provider"),
-		dataTweetKey = linkLightbox.getAttribute("data-tweetkey");
+	var linkLightbox = event.target;
+	var dataEmbed = linkLightbox.getAttribute("data-embed");
+	var dataIsEmbed = linkLightbox.getAttribute("data-isembed");
+	var dataProvider = linkLightbox.getAttribute("data-provider");
+	var dataTweetKey = linkLightbox.getAttribute("data-tweetkey");
 
 	openModal = document.getElementById("open-modal");
 	openModal.innerHTML = '<div id="btd-modal-dismiss"></div><div class="js-mediatable ovl-block is-inverted-light"><div class="s-padded"><div class="js-modal-panel mdl s-full med-fullpanel"><a href="#" class="mdl-dismiss js-dismiss mdl-dismiss-media" rel="dismiss"><i class="icon icon-close"></i></a><div class="js-embeditem med-embeditem"><div class="l-table"><div class="l-cell"><div class="med-tray js-mediaembed"></div></div></div></div><div id="media-gallery-tray"></div><div class="js-media-tweet med-tweet"></div></div></div>';
