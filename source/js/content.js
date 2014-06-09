@@ -413,7 +413,7 @@ function createPreviewDiv(element, provider) {
 					suffixInstagram = "l"
 					break;
 			}
-			var instagramURL = "http://api.instagram.com/oembed?url=" + linkURL;
+			var instagramURL = "http://api.instagram.com/oembed?url=" + linkURL.replace("i.instagram","instagram");
 
 			_ajax(instagramURL, "GET", "json", null, function(data) {
 				var finalURL = "http://instagr.am/p/" + instagramID + "/media/?size=" + suffixInstagram;
