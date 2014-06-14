@@ -134,7 +134,7 @@
 	display: none;
 }
 
-.twitter-emoji {
+.btd-emoji {
 	height: 1em;
 	width: 1em;
 	padding: 0 .05em 0 .1em;
@@ -324,7 +324,7 @@ EMOJI COMPOSER
 	left:5.5%;
 }
 
-.emoji-popover .twitter-emoji {
+.emoji-popover .btd-emoji {
 	width:20px;
 	height:20px;
 	margin: 3px 7px;

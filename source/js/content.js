@@ -235,6 +235,7 @@ function eventDispatcher() {
 				createPreviewDiv(linkToHandle, "ted");
 			}
 		}
+		emojiAfterNodeInsertion(event);
 	} else if (event.relatedNode.id == "open-modal" && options.blurred_modals) {
 		var openModal = document.getElementById("open-modal");
 		if (event.relatedNode.querySelector(".js-mediatable") != undefined) {

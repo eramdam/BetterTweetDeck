@@ -51,7 +51,7 @@ if (!String.fromCodePoint) {
   }
  
   function imageTagFromTuple (tupleNb) {
-      return '<img src="'+chrome.extension.getURL("emoji-pngs/emojis-inline/")+"t-"+tupleNb+'.png" class="twitter-emoji" />';
+      return '<img src="'+chrome.extension.getURL("emoji-pngs/emojis-inline/")+"t-"+tupleNb+'.png" class="btd-emoji" />';
   }
  
   emoji.imageReplace = function replaceEmojiWithImage (input) {
