@@ -142,17 +142,18 @@ function getEventTarget(evt) {
 
 // Emojitify an element thanks to emojiToImage.js
 function emojiInElement(el) {
-	el.innerHTML = emoji.imageReplace(el.innerHTML);
-	el.classList.add("btd-emoji");
-}
-
-function emojiInElement(el) {
     if (el.querySelector('.emoji, .btd-emoji') == null) {
         el.innerHTML = emoji.imageReplace(el.innerHTML);
         el.classList.add("btd-emoji");
     }
 }
 
+function emojiAfterNodeInsertion(event) {
+    var tweetText = event.target.querySelector("p.js-tweet-text");
+    if (tweetText) {
+        emojiInElement(tweetText);
+    }
+}
 
 function buildingEmojiComposer(emojiSource) {
 	if(!bodyClasses.contains('emoji-composer-added')) {

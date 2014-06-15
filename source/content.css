@@ -134,7 +134,7 @@
 	display: none;
 }
 
-.btd-emoji {
+img.btd-emoji {
 	height: 1em;
 	width: 1em;
 	padding: 0 .05em 0 .1em;
