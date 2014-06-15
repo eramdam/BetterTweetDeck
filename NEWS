@@ -1,3 +1,20 @@
+1.6.5
+===============
+- Re-added emojis as TweetDeck "fixed" their XSS flaws but didn't add emojis back
+
+1.6.2
+===============
+- Removed emojis to let the TweetDeck ones
+
+1.6.0
+===============
+- A share button
+- A button to access the settings
+- A preview of the tweet display settings
+- TED talks support
+- Konami stuff
+
+
 1.5.1
 ===============
 + No more using <all_urls>
