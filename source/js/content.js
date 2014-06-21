@@ -589,6 +589,8 @@ function createPreviewDiv(element, provider) {
 				continueCreatingThePreview(thumbnailBandcamp, embed, true);
 			});
 		}
+	} else {
+		emojiInElement(element.parentNode);
 	}
 
 	function continueCreatingThePreview(thumbnailUrl, embed, isAnIframe) {
