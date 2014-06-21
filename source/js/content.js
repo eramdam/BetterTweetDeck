@@ -651,6 +651,7 @@ function createPreviewDiv(element, provider) {
 		}
 
 		createLightboxes();
+		emojiInElement(element.parentNode);
 		if (document.querySelectorAll(".btd-preview + .js-media.media-preview, .btd-preview + .item-box-full-bleed")) {
 			for (var i = document.querySelectorAll(".btd-preview + .js-media.media-preview, .btd-preview + .item-box-full-bleed").length - 1; i >= 0; i--) {
 				document.querySelectorAll(".btd-preview + .js-media.media-preview, .btd-preview + .item-box-full-bleed")[i].remove();
