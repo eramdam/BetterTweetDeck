@@ -31,7 +31,7 @@ if (!settings) {
 		"blurred_modals": true,
 		"only_one_thumbnails": true,
 		"minimal_mode": false,
-		"flash_tweets": "mentions"
+		"flash_tweets": "false"
 	});
 }
 
