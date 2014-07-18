@@ -20,7 +20,7 @@ this.manifest = {
         "text": "<div class='tweet-preview'><div class=picture></div> <div class=name></div> <div class=timestamp></div></div>"
     }, {
         "tab": settingsTitle,
-        "group": "Affichage des tweets",
+        "group": locale("groupTweetFormat"),
         "name": "timestamp",
         "type": "radioButtons",
         "label": locale("timeShouldBe"),
@@ -37,13 +37,13 @@ this.manifest = {
         "default": "relative"
     }, {
         "tab": settingsTitle,
-        "group": "Affichage des tweets",
+        "group": locale("groupTweetFormat"),
         "name": "full_after_24h",
         "type": "checkbox",
         "label": locale("absoluteAfter24h")
     }, {
         "tab": settingsTitle,
-        "group": "Affichage des tweets",
+        "group": locale("groupTweetFormat"),
         "name": "name_display",
         "type": "radioButtons",
         "label": locale("usernamesFullnames"),
@@ -63,13 +63,13 @@ this.manifest = {
         "default": "both"
     }, {
         "tab": settingsTitle,
-        "group": "Affichage des tweets",
+        "group": locale("groupTweetFormat"),
         "name": "typeahead_display_username_only",
         "type": "checkbox",
         "label": locale("typeahead")
     }, {
         "tab": settingsTitle,
-        "group": "Affichage des tweets",
+        "group": locale("groupTweetFormat"),
         "name": "circled_avatars",
         "type": "checkbox",
         "label": locale("circleAvatars")
@@ -97,6 +97,23 @@ this.manifest = {
         "name": "grayscale_notification_icons",
         "type": "checkbox",
         "label": locale("grayscaleIcons")
+    }, {
+        "tab": settingsTitle,
+        "group": locale("groupContent"),
+        "name": "flash_tweets",
+        "type": "radioButtons",
+        "label": locale("flashTweets"),
+        "options": [{
+            "value": "false",
+            "text": locale("noTweets")
+        }, {
+            "value": "mentions",
+            "text": locale("mentionsOnly")
+        }, {
+            "value": "all",
+            "text": locale("allTweets")
+        }],
+        "default": "mentions"
     }, {
         "tab": settingsTitle,
         "group": locale("groupContent"),

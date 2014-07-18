@@ -76,8 +76,13 @@ function setAllTheSettings(response) {
 		bodyClasses.add("btd-username-typeahead");
 	}
 
-	if (options.minimal_mode) {
+	if (options.minimal_mode !== "false") {
 		bodyClasses.add("btd-minimal-mode");
+		bodyClasses.add("flash");
+	}
+
+	if (options.flash_tweets) {
+		bodyClasses.add(options.flash_tweets);
 	}
 
 	var easter_egg = new Konami(function() {

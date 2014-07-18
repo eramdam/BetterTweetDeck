@@ -28,6 +28,10 @@ this.i18n = {
         "fr": "Affichage du temps",
         "en": "Time formatting"
     },
+    "groupTweetFormat": {
+        "fr": "Affichage des tweets",
+        "en": "Tweet appereance"
+    },
     "timeShouldBe": {
         "fr": "Le temps doit être affiché en :",
         "en": "Time should be:"
@@ -119,5 +123,21 @@ this.i18n = {
     "previewTweet": {
         "fr": "Aperçu des tweets",
         "en": "Tweet preview"
+    },
+    "flashTweets": {
+        "fr": "Faire clignoter les nouveaux tweets :",
+        "en": "Flash new tweets:"
+    },
+    "noTweets": {
+        "fr": "Ne pas faire clignoter les nouveaux tweets",
+        "en": "Don't flash new tweets"
+    },
+    "mentionsOnly": {
+        "fr": "Mentions et interactions uniquement",
+        "en": "Mentions & interactions only"
+    },
+    "allTweets": {
+        "fr": "Tous les nouveaux tweets",
+        "en": "All tweets"
     }
 };

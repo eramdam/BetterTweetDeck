@@ -401,3 +401,20 @@ EMOJI COMPOSER
 .emoji-popover .category-chooser > a:hover,.emoji-popover .category-chooser > a.active {
 	opacity:1;
 }
+
+/*"HelveticaNeue", "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif*/
+
+@-webkit-keyframes tweet-enter { 
+    from { background-color: rgba(54, 82, 122, 1); }
+    to { background-color: rgba(54, 82, 122, 0); }
+ }
+
+.flash.mentions :-webkit-any(.column-type-interactions, .column-type-mention) .js-chirp-container > article:first-of-type { 
+    -webkit-animation-duration: 2s;
+    -webkit-animation-name: tweet-enter;
+}
+
+.flash.all [class*="column-type"] .js-chirp-container > article:first-of-type { 
+   -webkit-animation-duration: 2s;
+   -webkit-animation-name: tweet-enter;
+}

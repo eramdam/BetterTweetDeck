@@ -30,7 +30,8 @@ if (!settings) {
 		"img_preview_yfrog": true,
 		"blurred_modals": true,
 		"only_one_thumbnails": true,
-		"minimal_mode": false
+		"minimal_mode": false,
+		"flash_tweets": "mentions"
 	});
 }
 
