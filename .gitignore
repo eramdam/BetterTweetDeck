@@ -3,3 +3,4 @@ source.zip
 .sass-cache
 node_modules/
 old/
+source/js/BTD.js
