@@ -68,13 +68,17 @@
 	function columnObserver(event) {
 		var target = event.target;
 		if (target.tagName === "ARTICLE") {
-			timeIsNotRelative(target.querySelector('[datetime]'), settings.timestamp);
+			if (settings.timestamp != "relative") {
+				timeIsNotRelative(target.querySelector('[datetime]'), settings.timestamp);
+			}
 
 			if (settings.name_display == "inverted" || settings.name_display == "username") {
 				nameDisplay(target);
 			}
 		} else if (target.nodeName === "#text" && event.relatedNode.className.indexOf("txt-small") != -1) {
-			timeIsNotRelative(event.relatedNode.parentNode, "")
+			if (settings.timestamp != "relative") {
+				timeIsNotRelative(event.relatedNode.parentNode, "")
+			}
 		}
 	}
 
