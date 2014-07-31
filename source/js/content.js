@@ -42,7 +42,8 @@
 			if (mutations[i].target.tagName === "DIV" && mutations[i].target.style.display === "none") {
 				readyTD.disconnect();
 				ClassAdders();
-				document.querySelector('.js-app-columns').addEventListener("DOMNodeInserted", columnObserver);
+				document.querySelector('.js-app-columns').addEventListener("DOMNodeInserted", ColumnsObserver);
+				document.querySelector('#open-modal').addEventListener("DOMNodeInserted", OpenModalObserver);
 			}
 		}
 	});
@@ -66,8 +67,13 @@
 		console.log(document.body.className);
 	}
 
-	function columnObserver(event) {
+	function ColumnsObserver(event) {
 		var target = event.target;
+
+		if (settings.url_redirection) {
+			useFullURL(target);
+		}
+
 		if (target.tagName === "ARTICLE") {
 			if (settings.timestamp != "relative") {
 				timeIsNotRelative(target.querySelector('[datetime]'), settings.timestamp);
@@ -80,6 +86,14 @@
 			if (settings.timestamp != "relative") {
 				timeIsNotRelative(event.relatedNode.parentNode, "")
 			}
+		}
+	}
+
+	function OpenModalObserver(event) {
+		var target = event.target;
+
+		if (settings.url_redirection) {
+			useFullURL(target);
 		}
 	}
 
