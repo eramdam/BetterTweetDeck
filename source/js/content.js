@@ -150,7 +150,7 @@
 			}
 
 			if (settings.timestamp != "relative") {
-				// timeIsNotRelative(target.querySelector('[datetime]'), settings.timestamp);
+				timeIsNotRelative(target.querySelector('[datetime]'), settings.timestamp);
 			}
 
 			if (settings.name_display == "inverted" || settings.name_display == "username") {
