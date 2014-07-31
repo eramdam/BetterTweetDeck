@@ -41,6 +41,7 @@
 		for (var i = mutations.length - 1; i >= 0; i--) {
 			if (mutations[i].target.tagName === "DIV" && mutations[i].target.style.display === "none") {
 				readyTD.disconnect();
+				ClassAdders();
 				document.querySelector('.js-app-columns').addEventListener("DOMNodeInserted", columnObserver);
 			}
 		}
@@ -52,6 +53,17 @@
 
 	//= include timeIsNotRelative.js
 	//= include nameDisplay.js
+	
+	function ClassAdders() {
+		var bodyClasses = document.body.classList;
+		bodyClasses.add("btd-name_display-"+settings.name_display);
+
+		if (settings.circled_avatars) bodyClasses.add('btd-circled_avatars');
+		if (settings.no_columns_icons) bodyClasses.add('btd-no_columns_icons');
+		if (settings.yt_rm_button) bodyClasses.add('btd-yt_rm_button');
+		if (settings.small_icons_compose) bodyClasses.add('btd-small_icons_compose');
+		console.log(document.body.className);
+	}
 
 	function columnObserver(event) {
 		var target = event.target;
