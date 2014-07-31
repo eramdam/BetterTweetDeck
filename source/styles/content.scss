@@ -1,5 +1,35 @@
 .btd-circled_avatars {
-	body {
-		text-align: left;
+	.avatar, .prf-img {
+		border-radius: 200px;
+	}
+
+	a.js-account-item.compose-account {
+		border-radius: 200px;
+	}
+}
+
+.btd-name_display-username, .btd-name_display-fullname {
+	.fullname + .username {
+		display: none;
+	}
+}
+
+.btd-yt_rm_button {
+	.video-overlay.icon-with-bg-round {
+		display: none;
+	}
+}
+
+.btd-small_icons_compose {
+	.compose-content button > span.label {
+		display: none;
+	}
+
+	.compose-content button {
+		width: auto !important;
+	}
+
+	.js-schedule-datepicker-holder > div > div.caret {
+		left: 27%;
 	}
 }
