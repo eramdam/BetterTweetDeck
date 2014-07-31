@@ -53,6 +53,7 @@
 
 	//= include timeIsNotRelative.js
 	//= include nameDisplay.js
+	//= include useFullURL.js
 	
 	function ClassAdders() {
 		var bodyClasses = document.body.classList;
