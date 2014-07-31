@@ -11,6 +11,7 @@
 		"yt_rm_button": true,
 		"small_icons_compose": true,
 		"grayscale_notification_icons": false,
+		"grayscale_notification_icons": true,
 		"url_redirection": true,
 		"img_preview_500px": true,
 		"img_preview_bandcamp": true,
@@ -64,6 +65,7 @@
 		if (settings.no_columns_icons) bodyClasses.add('btd-no_columns_icons');
 		if (settings.yt_rm_button) bodyClasses.add('btd-yt_rm_button');
 		if (settings.small_icons_compose) bodyClasses.add('btd-small_icons_compose');
+		if (settings.grayscale_notification_icons) bodyClasses.add('btd-grayscale_notification_icons');
 		console.log(document.body.className);
 	}
 

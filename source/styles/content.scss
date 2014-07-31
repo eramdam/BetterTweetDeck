@@ -32,6 +32,15 @@
 	.js-schedule-datepicker-holder > div > div.caret {
 		left: 27%;
 	}
+}
+
+
+.btd-only_one-thumbnails {
+	.js-media-preview-container:not(:first-of-type) {
+		display: none;
+	}
+}
+
 .btd-no_columns_icons {
 	header > i.column-type-icon.icon {
 		display:none;
@@ -40,4 +49,8 @@
 	header > h1.column-title {
 		padding-left: 10px;
 	}
+}
+
+.btd-grayscale_notification_icons i.icon.activity-indicator {
+	color: #737373;
 }
