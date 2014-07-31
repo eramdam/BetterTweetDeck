@@ -53,6 +53,22 @@
 
 .btd-grayscale_notification_icons i.icon.activity-indicator {
 	color: #737373;
+}
+
+.btd-typeahead_display_username_only {
+	.typeahead strong.fullname {
+		display: none;
+	}
+
+	.typeahead span.username {
+		color:#222;
+	}
+	.typeahead .s-selected span.username {
+		color:white;
+	}
+} 
+
+
 /* Minimal mode (Dark)  */
 
 .btd-minimal_mode span.reply-triangle {
