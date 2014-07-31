@@ -70,6 +70,7 @@
 	//= include nameDisplay.js
 	//= include useFullURL.js
 	//= include buildingEmojiComposer.js
+	//= include mustacheTemplates.js
 
 	function ThemeDetecter() {
 		var activatedTheme = document.querySelector('link[rel=stylesheet][href*=app]:not([disabled])').title;
