@@ -37,5 +37,6 @@
 		"tabs",
 		"contextMenus",
 		"http://api.dribbble.com/*"
-	]
+	],
+	"web_accessible_resources": ["font/*","emojis/emojis-s8bc023ba47.png","emojis/emojis2x-s1940453998.png","emojis/emoji-popover.html"]
 }

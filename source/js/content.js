@@ -47,6 +47,7 @@
 				document.querySelector('#open-modal').addEventListener("DOMNodeInserted", OpenModalObserver);
 				document.querySelector('.js-modals-container').addEventListener("DOMNodeInserted", OpenModalObserver);
 				document.querySelector('#settings-modal').addEventListener("DOMNodeInserted", SettingsModalObserver);
+				addEmojiPanel();
 			}
 		}
 	});
@@ -58,8 +59,8 @@
 	//= include timeIsNotRelative.js
 	//= include nameDisplay.js
 	//= include useFullURL.js
-	//
-	
+	//= include buildingEmojiComposer.js
+
 	function ThemeDetecter() {
 		console.debug("Detecting theme!");
 		var activatedTheme = document.querySelector('link[rel=stylesheet][href*=app]:not([disabled])').title;
@@ -71,7 +72,14 @@
 		}
 		
 	}
-	
+
+	function addEmojiPanel() {
+		var emojiURL = chrome.extension.getURL("emojis/emoji-popover.html");
+		_ajax(emojiURL, "GET", null, null, function(data) {
+			buildingEmojiComposer(data)
+		});
+	}
+
 	function ClassAdders() {
 		var bodyClasses = document.body.classList;
 		bodyClasses.add("btd-name_display-"+settings.name_display);
