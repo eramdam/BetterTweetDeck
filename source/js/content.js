@@ -44,9 +44,15 @@
 				readyTD.disconnect();
 				ClassAdders();
 				document.querySelector('.js-app-columns').addEventListener("DOMNodeInserted", ColumnsObserver);
-				document.querySelector('#open-modal').addEventListener("DOMNodeInserted", OpenModalObserver);
-				document.querySelector('.js-modals-container').addEventListener("DOMNodeInserted", OpenModalObserver);
+
+				document.querySelector('#open-modal').addEventListener("DOMNodeInserted", InsertOpenModalObserver);
+				document.querySelector('#open-modal').addEventListener('DOMNodeRemoved', RemoveOpenModalObserver);
+
+				document.querySelector('.js-modals-container').addEventListener("DOMNodeInserted", InsertOpenModalObserver);
+				document.querySelector('.js-modals-container').addEventListener("DOMNodeRemoved", RemoveOpenModalObserver);
+
 				document.querySelector('#settings-modal').addEventListener("DOMNodeInserted", SettingsModalObserver);
+
 				addEmojiPanel();
 			}
 		}
@@ -56,6 +62,7 @@
 		attributes: true
 	});
 
+	//= include usefulFunctions.js
 	//= include timeIsNotRelative.js
 	//= include nameDisplay.js
 	//= include useFullURL.js
@@ -66,11 +73,10 @@
 		var activatedTheme = document.querySelector('link[rel=stylesheet][href*=app]:not([disabled])').title;
 		console.debug("Theme detected :", activatedTheme);
 		if (!document.body.classList.contains('btd-dark-theme') && !document.body.classList.contains('btd-light-theme')) {
-			document.body.classList.add('btd-'+activatedTheme+'-theme');
+			document.body.classList.add('btd-' + activatedTheme + '-theme');
 		} else {
-			document.body.className = document.body.className.replace(/btd-(dark|light)-theme/g,'btd-'+activatedTheme+'-theme');
+			document.body.className = document.body.className.replace(/btd-(dark|light)-theme/g, 'btd-' + activatedTheme + '-theme');
 		}
-		
 	}
 
 	function addEmojiPanel() {
@@ -82,7 +88,7 @@
 
 	function ClassAdders() {
 		var bodyClasses = document.body.classList;
-		bodyClasses.add("btd-name_display-"+settings.name_display);
+		bodyClasses.add("btd-name_display-" + settings.name_display);
 
 		if (settings.circled_avatars) bodyClasses.add('btd-circled_avatars');
 		if (settings.no_columns_icons) bodyClasses.add('btd-no_columns_icons');
@@ -91,6 +97,11 @@
 		if (settings.only_one_thumbnails) bodyClasses.add('btd-only_one_thumbnail');
 		if (settings.grayscale_notification_icons) bodyClasses.add('btd-grayscale_notification_icons');
 		if (settings.typeahead_display_username_only) bodyClasses.add('btd-typeahead_display_username_only');
+		if (settings.blurred_modals) bodyClasses.add('btd-blurred_modals');
+		if (settings.flash_tweets != "false") {
+			bodyClasses.add('btd-flash_tweets');
+			bodyClasses.add('flash-' + settings.flash_tweets);
+		}
 		if (settings.minimal_mode) {
 			bodyClasses.add('btd-minimal_mode');
 			ThemeDetecter();
@@ -121,12 +132,35 @@
 		}
 	}
 
-	function OpenModalObserver(event) {
+	function InsertOpenModalObserver(event) {
 		var target = event.target;
+		if (target.nodeName != "#text") {
+			if (settings.url_redirection) {
+				useFullURL(target);
+			}
 
-		if (settings.url_redirection) {
-			useFullURL(target);
+			document.body.classList.add('btd-open-modal-on');
+
+			var openModalBackPanel = document.querySelector('#open-modal .med-fullpanel');
+
+			if (openModalBackPanel) {
+				openModalBackPanel.addEventListener('click', function() {
+					if (document.querySelector('a.mdl-dismiss')) document.querySelector('a.mdl-dismiss').click();
+				});
+			}
+
+			if (settings.timestamp != "relative") {
+				// timeIsNotRelative(target.querySelector('[datetime]'), settings.timestamp);
+			}
+
+			if (settings.name_display == "inverted" || settings.name_display == "username") {
+				nameDisplay(target);
+			}
 		}
+	}
+
+	function RemoveOpenModalObserver(event) {
+		document.body.classList.remove('btd-open-modal-on');
 	}
 
 	function SettingsModalObserver(event) {
