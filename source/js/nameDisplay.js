@@ -8,7 +8,7 @@ function nameDisplay (el) {
 			el.querySelector('b.fullname').innerText = username;
 		}, 0);
 
-	} else if (el.querySelector('.fullname') && el.querySelector('.username')) {
+	} else if ((el.querySelector('.fullname') && el.querySelector('.username')) && (!el.querySelector('.prf-header'))) {
 		var fullname = el.querySelector('.fullname').innerText;
 		var username = el.querySelector('header a[rel=user]').href.split('/').pop();
 
