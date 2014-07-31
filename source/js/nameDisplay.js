@@ -1,4 +1,4 @@
-function nameDisplay (el, mode) {
+function nameDisplay (el) {
 	if (el.querySelector('.tweet-detail')) {
 		setTimeout(function() {
 			var username = el.querySelector('.account-summary a[rel=user]').href.split('/').pop();
