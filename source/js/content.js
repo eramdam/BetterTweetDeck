@@ -72,9 +72,7 @@
 	//= include buildingEmojiComposer.js
 
 	function ThemeDetecter() {
-		console.debug("Detecting theme!");
 		var activatedTheme = document.querySelector('link[rel=stylesheet][href*=app]:not([disabled])').title;
-		console.debug("Theme detected :", activatedTheme);
 		if (!document.body.classList.contains('btd-dark-theme') && !document.body.classList.contains('btd-light-theme')) {
 			document.body.classList.add('btd-' + activatedTheme + '-theme');
 		} else {
@@ -110,7 +108,6 @@
 			ThemeDetecter();
 		}
 
-		console.log(document.body.className);
 	}
 
 	function ColumnsObserver(event) {
