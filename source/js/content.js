@@ -46,6 +46,7 @@
 				document.querySelector('.js-app-columns').addEventListener("DOMNodeInserted", ColumnsObserver);
 				document.querySelector('#open-modal').addEventListener("DOMNodeInserted", OpenModalObserver);
 				document.querySelector('.js-modals-container').addEventListener("DOMNodeInserted", OpenModalObserver);
+				document.querySelector('#settings-modal').addEventListener("DOMNodeInserted", SettingsModalObserver);
 			}
 		}
 	});
@@ -57,6 +58,19 @@
 	//= include timeIsNotRelative.js
 	//= include nameDisplay.js
 	//= include useFullURL.js
+	//
+	
+	function ThemeDetecter() {
+		console.debug("Detecting theme!");
+		var activatedTheme = document.querySelector('link[rel=stylesheet][href*=app]:not([disabled])').title;
+		console.debug("Theme detected :", activatedTheme);
+		if (!document.body.classList.contains('btd-dark-theme') && !document.body.classList.contains('btd-light-theme')) {
+			document.body.classList.add('btd-'+activatedTheme+'-theme');
+		} else {
+			document.body.className = document.body.className.replace(/btd-(dark|light)-theme/g,'btd-'+activatedTheme+'-theme');
+		}
+		
+	}
 	
 	function ClassAdders() {
 		var bodyClasses = document.body.classList;
@@ -68,6 +82,11 @@
 		if (settings.small_icons_compose) bodyClasses.add('btd-small_icons_compose');
 		if (settings.only_one_thumbnails) bodyClasses.add('btd-only_one_thumbnail');
 		if (settings.grayscale_notification_icons) bodyClasses.add('btd-grayscale_notification_icons');
+		if (settings.typeahead_display_username_only) bodyClasses.add('btd-typeahead_display_username_only');
+		if (settings.minimal_mode) {
+			bodyClasses.add('btd-minimal_mode');
+			ThemeDetecter();
+		}
 
 		console.log(document.body.className);
 	}
@@ -99,6 +118,17 @@
 
 		if (settings.url_redirection) {
 			useFullURL(target);
+		}
+	}
+
+	function SettingsModalObserver(event) {
+		// When an event whose relatedNode contains "frm" as class occurs happen, we assume form controls are inserted so we continue
+		if (event.relatedNode.className.indexOf('frm') != -1 && settings.minimal_mode) {
+
+			for (var i = 0; i < document.querySelectorAll('input[name=theme]').length; i++) {
+				document.querySelectorAll('input[name=theme]')[i].addEventListener('click', ThemeDetecter);
+			};
+
 		}
 	}
 
