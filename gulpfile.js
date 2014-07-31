@@ -16,7 +16,9 @@ gulp.task("concat", function() {
 
 gulp.task('sass', function() {
 	gulp.src('source/styles/*.scss')
-		.pipe(sass())
+		.pipe(sass({
+			outputStyle: "compressed"
+		}))
 		.pipe(gulp.dest('source/styles'));
 })
 
