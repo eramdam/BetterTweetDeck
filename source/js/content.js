@@ -45,6 +45,7 @@
 				ClassAdders();
 				document.querySelector('.js-app-columns').addEventListener("DOMNodeInserted", ColumnsObserver);
 				document.querySelector('#open-modal').addEventListener("DOMNodeInserted", OpenModalObserver);
+				document.querySelector('.js-modals-container').addEventListener("DOMNodeInserted", OpenModalObserver);
 			}
 		}
 	});
