@@ -6,7 +6,8 @@
 	"description": "Yolo",
 	"content_scripts": [{
 		"matches": ["https://tweetdeck.twitter.com/*","http://tweetdeck.twitter.com/*"],
-		"js": ["js/BTD.js"]
+		"js": ["js/BTD.js"],
+		"css": ["styles/content.css"]
 		}],
 	"icons": { "16": "icons/icon16.png",
 	           "48": "icons/icon48.png",
