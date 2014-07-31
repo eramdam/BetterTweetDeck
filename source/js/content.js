@@ -51,6 +51,9 @@
 				document.querySelector('.js-modals-container').addEventListener("DOMNodeInserted", InsertOpenModalObserver);
 				document.querySelector('.js-modals-container').addEventListener("DOMNodeRemoved", RemoveOpenModalObserver);
 
+				document.querySelector('#actions-modal').addEventListener("DOMNodeInserted", InsertOpenModalObserver);
+				document.querySelector('#actions-modal').addEventListener("DOMNodeRemoved", RemoveOpenModalObserver);
+
 				document.querySelector('#settings-modal').addEventListener("DOMNodeInserted", SettingsModalObserver);
 
 				addEmojiPanel();
