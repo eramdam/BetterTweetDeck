@@ -66,7 +66,9 @@
 		if (settings.no_columns_icons) bodyClasses.add('btd-no_columns_icons');
 		if (settings.yt_rm_button) bodyClasses.add('btd-yt_rm_button');
 		if (settings.small_icons_compose) bodyClasses.add('btd-small_icons_compose');
+		if (settings.only_one_thumbnails) bodyClasses.add('btd-only_one_thumbnail');
 		if (settings.grayscale_notification_icons) bodyClasses.add('btd-grayscale_notification_icons');
+
 		console.log(document.body.className);
 	}
 
