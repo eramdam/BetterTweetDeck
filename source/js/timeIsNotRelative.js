@@ -1,5 +1,3 @@
-var full_after_24h = true;
-
 function timeIsNotRelative(el, mode) {
 	function setDateString(mode) {
 		if (mode == "absolute_us") {
@@ -30,7 +28,7 @@ function timeIsNotRelative(el, mode) {
 
 		var dateString;
 
-		if (full_after_24h == true) {
+		if (settings.full_after_24h == true) {
 			var now = new Date();
 			var difference = now - ts;
 			var msPerDay = 86400000;
