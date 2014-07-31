@@ -4,3 +4,4 @@ source.zip
 node_modules/
 old/
 source/js/BTD.js
+source/styles/*.css

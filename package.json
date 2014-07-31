@@ -21,6 +21,7 @@
     "gulp-concat": "^2.3.4",
     "gulp-include": "^0.2.3",
     "gulp-minify-css": "^0.3.7",
+    "gulp-sass": "^0.7.2",
     "gulp-uglify": "^0.3.1"
   }
 }
