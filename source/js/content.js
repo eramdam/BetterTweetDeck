@@ -156,11 +156,15 @@
 			if (settings.name_display == "inverted" || settings.name_display == "username") {
 				nameDisplay(target);
 			}
+		} else if (event.relatedNode.classList.contains('txt-small') && settings.timestamp != "relative") {
+			timeIsNotRelative(event.relatedNode.parentNode, settings.timestamp);
 		}
 	}
 
 	function RemoveOpenModalObserver(event) {
-		document.body.classList.remove('btd-open-modal-on');
+		if (event.relatedNode.classList.contains('js-modals-container') || event.relatedNode.id == "open-modal") {
+			document.body.classList.remove('btd-open-modal-on');
+		} 
 	}
 
 	function SettingsModalObserver(event) {
