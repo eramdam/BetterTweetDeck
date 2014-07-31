@@ -4,7 +4,7 @@
 	var settings = {
 		"timestamp": "absolute",
 		"full_after_24h": false,
-		"name_display": "default",
+		"name_display": "username",
 		"typeahead_display_username_only": false,
 		"circled_avatars": true,
 		"no_columns_icons": true,
