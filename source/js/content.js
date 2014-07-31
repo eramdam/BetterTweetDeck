@@ -1,6 +1,42 @@
 "use strict";
 
 (function() {
+	var settings = {
+		"timestamp": "absolute",
+		"full_after_24h": false,
+		"name_display": "default",
+		"typeahead_display_username_only": false,
+		"circled_avatars": true,
+		"no_columns_icons": true,
+		"yt_rm_button": true,
+		"small_icons_compose": true,
+		"grayscale_notification_icons": false,
+		"url_redirection": true,
+		"img_preview_500px": true,
+		"img_preview_bandcamp": true,
+		"img_preview_cloud": true,
+		"img_preview_dailymotion": true,
+		"img_preview_deviantart": true,
+		"img_preview_dribbble": true,
+		"img_preview_droplr": true,
+		"img_preview_dropbox": true,
+		"img_preview_flickr": true,
+		"img_preview_imgly": true,
+		"img_preview_imgur": true,
+		"img_preview_instagram": true,
+		"img_preview_mobyto": true,
+		"img_preview_soundcloud": true,
+		"img_preview_tumblr": true,
+		"img_preview_ted": true,
+		"img_preview_vimeo": true,
+		"img_preview_yfrog": true,
+		"blurred_modals": true,
+		"only_one_thumbnails": true,
+		"minimal_mode": false,
+		"flash_tweets": "false"
+	};
+
+
 	var readyTD = new MutationObserver(function(mutations) {
 		for (var i = mutations.length - 1; i >= 0; i--) {
 			if (mutations[i].target.tagName === "DIV" && mutations[i].target.style.display === "none") {
