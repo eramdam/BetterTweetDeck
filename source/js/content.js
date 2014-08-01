@@ -71,6 +71,7 @@
 	//= include useFullURL.js
 	//= include buildingEmojiComposer.js
 	//= include mustacheTemplates.js
+	//= include Providers.js
 	//= include Thumbnails.js
 
 	function ThemeDetecter() {
