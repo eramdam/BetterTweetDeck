@@ -10,6 +10,7 @@ function nameDisplay (el) {
 
 	} else if (el.querySelector('.fullname') && el.querySelector('.username')) {
 		var fullname = el.querySelector('.fullname').innerText;
+		// @TODO This produces an error when profil modals are opened and sometimes with tweets/RT
 		var username = el.querySelector('header a[rel=user]').href.split('/').pop();
 		el.querySelector('.username').innerText = fullname;
 		el.querySelector('.fullname').innerText = username;
