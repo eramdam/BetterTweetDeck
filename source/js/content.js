@@ -130,7 +130,7 @@
 			}
 
 			if (!target.querySelector('.media-preview') && target.querySelector('p > a:last-of-type')) {
-				var link = target.querySelector('p > a:last-of-type');
+				var link = target.querySelector('p > a:last-of-type:not(.btd-has-thumb)');
 				var thumbSize = findParent(target, filterColumn).getAttribute('data-media-preview-size');
 				for (var providerName in Providers) {
 					if (Providers.hasOwnProperty(providerName)) {
