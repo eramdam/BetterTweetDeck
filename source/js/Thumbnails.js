@@ -69,6 +69,7 @@ function createMediaModal(sourceTweet, contentURL, content, isHTML) {
 
 	thumbLink.addEventListener('click', function(e) {
 		document.getElementById('open-modal').style.display = "block";
+		document.getElementById('open-modal').innerHTML = "";
 		document.getElementById('open-modal').insertAdjacentHTML('afterbegin', html);
 
 		if (document.querySelector('#open-modal .js-media[data-key]')) document.querySelector('#open-modal .js-media[data-key]').remove();
