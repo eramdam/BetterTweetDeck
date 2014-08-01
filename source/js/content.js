@@ -131,15 +131,13 @@
 
 			if (!target.querySelector('.media-preview') && target.querySelector('p > a:last-of-type')) {
 				var link = target.querySelector('p > a:last-of-type');
-
+				var thumbSize = findParent(target, filterColumn).getAttribute('data-media-preview-size');
 				for (var providerName in Providers) {
 					if (Providers.hasOwnProperty(providerName)) {
 						if (Providers[providerName].pattern.regex && new RegExp(Providers[providerName].pattern.string).test(link.href)) {
-							var thumbSize = findParent(target, filterColumn).getAttribute('data-media-preview-size');
 							Providers[providerName].get(target, thumbSize, link.href, AddPreview);
-
 						} else if (link.href.indexOf(Providers[providerName].pattern.string) != -1) {
-
+							Providers[providerName].get(target, thumbSize, link.href, AddPreview);
 						}
 					}
 				}
