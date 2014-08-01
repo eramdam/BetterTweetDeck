@@ -12,6 +12,21 @@ gulp.task("concat", function() {
 		.pipe(include())
 		.pipe(concat('BTD.js'))
 		.pipe(gulp.dest('source/js/'));
+	gulp.src(['source/js/handlebars.js', 'source/js/injectScript.js'])
+		.pipe(concat("libs.js"))
+		.pipe(gulp.dest('source/js'))
+});
+
+gulp.task("uglify", function() {
+	gulp.src(jsFiles)
+		.pipe(include())
+		.pipe(uglify())
+		.pipe(concat("BTD.js"))
+		.pipe(gulp.dest('source/js/'));
+	gulp.src(['source/js/handlebars.js', 'source/js/injectScript.js'])
+		.pipe(uglify())
+		.pipe(concat("libs.js"))
+		.pipe(gulp.dest('source/js'))
 });
 
 gulp.task('sass', function() {
