@@ -299,20 +299,22 @@ var Providers = {
 			"string": ".(jpg|gif|png|jpeg)$"
 		},
 		"get": function(target, size, URL, cb) {
-			var suffixResize;
-			switch (size) {
-				case "small":
-					var suffixResize = 150
-					break;
-				case "medium":
-					var suffixResize = 280;
-					break;
-				case "large":
-					var suffixResize = 360;
-					break;
+			if (URL.indexOf("dropbox.com") == -1) {
+				var suffixResize;
+				switch (size) {
+					case "small":
+						var suffixResize = 150
+						break;
+					case "medium":
+						var suffixResize = 280;
+						break;
+					case "large":
+						var suffixResize = 360;
+						break;
+				}
+				var resizedURL = 'https://images4-focus-opensocial.googleusercontent.com/gadgets/proxy?url=' + encodeURIComponent(URL) + '&container=focus&resize_w=' + suffixResize + '&refresh=86400';
+				cb(target, resizedURL, URL, false, size);
 			}
-			var resizedURL = 'https://images4-focus-opensocial.googleusercontent.com/gadgets/proxy?url=' + encodeURIComponent(URL) + '&container=focus&resize_w=' + suffixResize + '&refresh=86400';
-			cb(target, resizedURL, URL, false, size);
 		}
 	},
 	"vimeo": {
