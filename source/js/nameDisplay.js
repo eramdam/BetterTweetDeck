@@ -8,10 +8,9 @@ function nameDisplay (el) {
 			el.querySelector('b.fullname').innerText = username;
 		}, 0);
 
-	} else if ((el.querySelector('.fullname') && el.querySelector('.username')) && (!el.querySelector('.prf-header'))) {
+	} else if (el.querySelector('.fullname') && el.querySelector('.username')) {
 		var fullname = el.querySelector('.fullname').innerText;
 		var username = el.querySelector('header a[rel=user]').href.split('/').pop();
-
 		el.querySelector('.username').innerText = fullname;
 		el.querySelector('.fullname').innerText = username;
 
@@ -19,6 +18,10 @@ function nameDisplay (el) {
 			var username = el.querySelector('.tweet-context .nbfc a[rel=user]').href.split('/').pop();
 
 			el.querySelector('.tweet-context .nbfc a[rel=user]').innerText = username;
+		} else if (el.querySelector('.nbfc a[rel=user]')) {
+			var username = el.querySelector('.nbfc a[rel=user]').href.split('/').pop();
+
+			el.querySelector('.nbfc a[rel=user]').innerText = username;
 		}
 	} else if (el.querySelector('.nbfc a[rel=user]') && (settings.name_display == "inverted" || settings.name_display == "username")) {
 		var username = el.querySelector('a[rel=user]').href.split('/').pop();
