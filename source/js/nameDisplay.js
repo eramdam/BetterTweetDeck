@@ -20,7 +20,7 @@ function nameDisplay (el) {
 
 			el.querySelector('.tweet-context .nbfc a[rel=user]').innerText = username;
 		}
-	} else if (el.querySelector('.nbfc a[rel=user]') && (mode == "inverted" || mode == "username")) {
+	} else if (el.querySelector('.nbfc a[rel=user]') && (settings.name_display == "inverted" || settings.name_display == "username")) {
 		var username = el.querySelector('a[rel=user]').href.split('/').pop();
 		el.querySelector('.nbfc a[rel=user]').innerText = username;
 	}
