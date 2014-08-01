@@ -1,8 +1,10 @@
 function AddPreview(target, finalURL, content, isHTML, size) {
-	target.querySelector('p > a:last-of-type').classList.add('btd-has-thumb');
+	var links = target.querySelectorAll('p > a[rel=url]');
+	var link = links[links.length-1];
+	link.classList.add('btd-has-thumb');
 	var dataThumbs = {
 		"data_key": target.getAttribute("data-key"),
-		"link_to_media": target.querySelector('p > a:last-of-type').href,
+		"link_to_media": link.href,
 		"image": finalURL,
 		"large_image": content
 	};

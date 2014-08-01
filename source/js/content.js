@@ -129,8 +129,9 @@
 				nameDisplay(target);
 			}
 
-			if (!target.querySelector('.media-preview') && target.querySelector('p > a:last-of-type')) {
-				var link = target.querySelector('p > a:last-of-type:not(.btd-has-thumb)');
+			if (!target.querySelector('.media-preview') && target.querySelectorAll('p > a[rel=url]').length > 0) {
+				var links = target.querySelectorAll('p > a[rel=url]');
+				var link = links[links.length-1];
 				var thumbSize = findParent(target, filterColumn).getAttribute('data-media-preview-size');
 				for (var providerName in Providers) {
 					if (Providers.hasOwnProperty(providerName)) {
