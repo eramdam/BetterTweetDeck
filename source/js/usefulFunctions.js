@@ -104,13 +104,23 @@ function filterColumn(e) {
     return e.attributes && e.attributes['data-media-preview-size'];
 }
 
-function CloseOpenModal(event) {
-    if (event.target.tagName === "DIV" || event.keyCode == 27) {
+function CloseOpenModal(event, override) {
+    if (override) {
+        document.querySelector('#open-modal').style.display = "none";
+        document.querySelector('#open-modal > *').remove();
+    } else if (event.target.tagName === "DIV" || event.keyCode == 27) {
         if (document.querySelector('#open-modal .btd-modal')) {
             document.querySelector('#open-modal').style.display = "none";
             document.querySelector('#open-modal > *').remove();
         } else if (document.querySelector('a.mdl-dismiss')) {
             document.querySelector('a.mdl-dismiss').click();
         }
+    } 
+}
+
+function ResizeMediaInModal() {
+    if (document.querySelector('#open-modal')) {
+        var mediaToResize = document.querySelector('#open-modal :-webkit-any(img, iframe, video)')
+        mediaToResize.style.maxHeight = document.querySelector(".js-embeditem.med-embeditem").offsetHeight - (document.querySelector("a.med-origlink").offsetHeight) - 20+"px";
     }
 }

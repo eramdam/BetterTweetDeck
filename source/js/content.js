@@ -214,4 +214,6 @@
 		}
 	}
 
+	window.onresize = ResizeMediaInModal;
+
 })();
