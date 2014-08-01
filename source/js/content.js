@@ -71,6 +71,7 @@
 	//= include useFullURL.js
 	//= include buildingEmojiComposer.js
 	//= include mustacheTemplates.js
+	//= include Thumbnails.js
 
 	function ThemeDetecter() {
 		var activatedTheme = document.querySelector('link[rel=stylesheet][href*=app]:not([disabled])').title;
@@ -126,10 +127,39 @@
 			if (settings.name_display == "inverted" || settings.name_display == "username") {
 				nameDisplay(target);
 			}
+
+			if (!target.querySelector('.media-preview') && target.querySelector('p > a:last-of-type')) {
+				var link = target.querySelector('p > a:last-of-type');
+
+				for (var providerName in Providers) {
+					if (Providers.hasOwnProperty(providerName)) {
+						if (Providers[providerName].pattern.regex && new RegExp(Providers[providerName].pattern.string).test(link.href)) {
+							var thumbSize = findParent(target, filterColumn).getAttribute('data-media-preview-size');
+							Providers[providerName].get(target,thumbSize,link.href, AddPreview);
+
+						} else if (link.href.indexOf(Providers[providerName].pattern.string) != -1) {
+
+						}
+					}
+				}
+			}
+
 		} else if (target.nodeName === "#text" && event.relatedNode.className.indexOf("txt-small") != -1) {
 			if (settings.timestamp != "relative") {
 				timeIsNotRelative(event.relatedNode.parentNode, "")
 			}
+		} else if (target.nodeName != "#text" && target.className.indexOf('facet-type') != -1) {
+			var sizeChangers = target.querySelectorAll('.column a[data-value]:not(.is-selected):not(.binded)');
+			if (sizeChangers) {
+				for (var i = 0; i < sizeChangers.length; i++) {
+					sizeChangers[i].addEventListener("click", function(event) {
+						findParent(event.target, filterColumn).setAttribute('data-media-preview-size', event.target.parentNode.getAttribute('data-value'));
+					});
+				}
+			}
+
+		} else if (target.tagName === "SECTION") {
+			injectScript(mediaPreviewSize);
 		}
 	}
 

@@ -86,3 +86,20 @@ function getEventTarget(evt) {
     }
     return targ;
 }
+
+String.prototype._contains = function(word) {
+    return this.indexOf(word) != -1;
+}
+
+// http://stackoverflow.com/questions/23779076/how-to-prevent-parentnode-madness
+function findParent(source,filter,root) {
+    root = root || document.documentElement;
+    while(source != root) {
+        if( filter(source)) return source;
+        source = source.parentNode;
+    }
+}
+
+function filterColumn(e) {
+    return e.attributes && e.attributes['data-media-preview-size'];
+}
