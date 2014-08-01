@@ -3,15 +3,14 @@
 (function() {
 	var settings = {
 		"timestamp": "absolute",
-		"full_after_24h": false,
-		"name_display": "username",
-		"typeahead_display_username_only": false,
+		"full_after_24h": true,
+		"name_display": "inverted",
+		"typeahead_display_username_only": true,
 		"circled_avatars": true,
 		"no_columns_icons": true,
 		"yt_rm_button": true,
 		"small_icons_compose": true,
 		"grayscale_notification_icons": false,
-		"grayscale_notification_icons": true,
 		"url_redirection": true,
 		"img_preview_500px": true,
 		"img_preview_bandcamp": true,
@@ -33,8 +32,8 @@
 		"img_preview_yfrog": true,
 		"blurred_modals": true,
 		"only_one_thumbnails": true,
-		"minimal_mode": false,
-		"flash_tweets": "false"
+		"minimal_mode": true,
+		"flash_tweets": "mentions"
 	};
 
 
@@ -136,7 +135,7 @@
 					if (Providers.hasOwnProperty(providerName)) {
 						if (Providers[providerName].pattern.regex && new RegExp(Providers[providerName].pattern.string).test(link.href)) {
 							var thumbSize = findParent(target, filterColumn).getAttribute('data-media-preview-size');
-							Providers[providerName].get(target,thumbSize,link.href, AddPreview);
+							Providers[providerName].get(target, thumbSize, link.href, AddPreview);
 
 						} else if (link.href.indexOf(Providers[providerName].pattern.string) != -1) {
 
@@ -175,10 +174,8 @@
 
 			var openModalBackPanel = document.querySelector('#open-modal .med-fullpanel');
 
-			if (openModalBackPanel) {
-				openModalBackPanel.addEventListener('click', function() {
-					if (document.querySelector('a.mdl-dismiss')) document.querySelector('a.mdl-dismiss').click();
-				});
+			if (openModalBackPanel && settings.blurred_modals) {
+				openModalBackPanel.addEventListener('click', CloseOpenModal);
 			}
 
 			if (settings.timestamp != "relative") {
@@ -194,9 +191,9 @@
 	}
 
 	function RemoveOpenModalObserver(event) {
-		if (event.relatedNode.classList.contains('js-modals-container') || event.relatedNode.id == "open-modal") {
+		if ( (event.relatedNode.classList.contains('js-modals-container') || event.relatedNode.id == "open-modal") && document.querySelector('#open-modal > *, .js-modals-container, #actions-modal > *') == null) {
 			document.body.classList.remove('btd-open-modal-on');
-		} 
+		}
 	}
 
 	function SettingsModalObserver(event) {
@@ -207,6 +204,13 @@
 				document.querySelectorAll('input[name=theme]')[i].addEventListener('click', ThemeDetecter);
 			};
 
+		}
+	}
+
+	window.document.onkeydown = function(e) {
+		var openModal = document.getElementById("open-modal");
+		if (openModal.children.length > 0 && e.keyCode == 27) {
+			CloseOpenModal(e);
 		}
 	}
 

@@ -103,3 +103,14 @@ function findParent(source,filter,root) {
 function filterColumn(e) {
     return e.attributes && e.attributes['data-media-preview-size'];
 }
+
+function CloseOpenModal(event) {
+    if (event.target.tagName === "DIV" || event.keyCode == 27) {
+        if (document.querySelector('#open-modal .btd-modal')) {
+            document.querySelector('#open-modal').style.display = "none";
+            document.querySelector('#open-modal > *').remove();
+        } else if (document.querySelector('a.mdl-dismiss')) {
+            document.querySelector('a.mdl-dismiss').click();
+        }
+    }
+}
