@@ -5,7 +5,7 @@ var Providers = {
 			"string": "500px.com"
 		},
 		"get": function(target, size, URL, cb) {
-			var photoID = parseURL(URL).segments.pop();
+			var photoID = parseURL(URL).segments[1];
 			switch (size) {
 				case "small":
 					var suffixFiveHundred = "2"
