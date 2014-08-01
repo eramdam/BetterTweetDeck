@@ -57,6 +57,7 @@
 				document.querySelector('#settings-modal').addEventListener("DOMNodeInserted", SettingsModalObserver);
 
 				addEmojiPanel();
+				injectScript(mediaPreviewSize);
 			}
 		}
 	});
