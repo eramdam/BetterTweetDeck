@@ -9,7 +9,7 @@
 }
 
 .btd-name_display-username, .btd-name_display-fullname {
-	.fullname + .username {
+	.js-column .fullname + .username {
 		display: none;
 	}
 }
