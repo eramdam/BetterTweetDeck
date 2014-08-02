@@ -1,0 +1,122 @@
+{
+  "appDesc": {
+    "message": "Emojis, miniatures et fonctions avancées pour TweetDeck !", 
+    "description":"The description of the application, displayed in the web store."
+  },
+  "appName": {
+  	"message": "Better TweetDeck",
+  	"description": "name of the app"
+  },
+  "optionsPageTitle": {
+  	"message": "Réglages de Better TweetDeck",
+  	"description": "Titre de la page des options"
+  },
+  "OptsGeneral": {
+    "message": "Général"
+  },
+  "OptsTweets": {
+    "message": "Tweets"
+  },
+  "OptsAppearance": {
+    "message": "Apparence"
+  },
+  "groupInfo": {
+      "message": "Informations"
+  },
+  "groupAppearance": {
+      "message": "Apparence"
+  },
+  "groupUsers": {
+      "message": "Utilisateurs"
+  },
+  "OptsContent": {
+      "message": "Contenu"
+  },
+  "groupTimeFormatting": {
+      "message": "Affichage du temps"
+  },
+  "groupTweetFormat": {
+      "message": "Affichage des tweets"
+  },
+  "timeShouldBe": {
+      "message": "Le temps doit être affiché en :"
+  },
+  "timeRelative": {
+      "message": "Relatif (1m, 2h, 3d...)"
+  },
+  "timeAbsolute": {
+      "message": "Absolu (jj/mm/aa hh:mm)"
+  },
+  "timeAbsoluteUS": {
+      "message": "Absolu au format 'US' (mm/jj/yy hhm:ss)"
+  },
+  "absoluteAfter24h": {
+      "message": "Afficher la date complète après 24h seulement"
+  },
+  "usernamesFullnames": {
+      "message": "Nom affiché :"
+  },
+  "bothNames": {
+      "message": "Nom complet @Nom d'utilisateur"
+  },
+  "invertedNames": {
+      "message": "@Nom d'utilisateur Nom complet"
+  },
+  "usernameOnly": {
+      "message": "@Nom d'utilisateur"
+  },
+  "fullnameOnly": {
+      "message": "Nom complet"
+  },
+  "minimalMode": {
+      "message": "Activer le mode \"Minimaliste\""
+  },
+  "narrowColumns": {
+      "message": "Les colonnes prennent moins d'espace"
+  },
+  "typeahead": {
+      "message": "L'auto-complétion n'affiche que les noms d'utilisateurs"
+  },
+  "circleAvatars": {
+      "message": "Avatars arrondis"
+  },
+  "noColumnsIcons": {
+      "message": "Pas d'icônes en haut des colonnes"
+  },
+  "smallIconsCompose": {
+      "message": "Les icônes sont plus petits dans le panneau de composition"
+  },
+  "grayscaleIcons": {
+      "message": "Les icônes de notifications sont en niveaux de gris"
+  },
+  "tcoRemoval": {
+      "message": "Supprimer la redirection des liens en http://t.co"
+  },
+  "playButtonYT": {
+      "message": "Masquer le bouton 'Lecture' sur les miniatures YouTube"
+  },
+  "noBgModals": {
+      "message": "Les aperçus en plein écran n'ont pas de fond"
+  },
+  "oneThumbPerTweet": {
+      "message": "N'afficher qu'une seule miniature par tweet"
+  },
+  "thumbnailsfrom": {
+      "message": "Afficher les miniatures de :"
+  },
+  "preview": {
+      "message": "Aperçu"
+  },
+  "flashTweets": {
+      "message": "Faire clignoter les nouveaux tweets :"
+  },
+  "noTweets": {
+      "message": "Ne pas faire clignoter les nouveaux tweets"
+  },
+  "mentionsOnly": {
+      "message": "Mentions et interactions uniquement"
+  },
+  "allTweets": {
+      "message": "Tous les nouveaux tweets"
+  }
+}

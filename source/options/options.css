@@ -1,0 +1,33 @@
+.option-label {
+	font-size: 120%;
+}
+
+.option-label + section {
+	margin-top: 20px !important;
+}
+
+input[type="checkbox"] + span, input[type="radio"] + span {
+	font-size: 110%;
+	margin-left: 4px;
+}
+
+.chrome-bootstrap .radio, .chrome-bootstrap .checkbox {
+	margin-top: .8em;
+}
+
+#contenu .checkbox span em {
+	color: #ccc;
+	font-size: 88%;
+	font-style: normal;
+}
+
+label.favicon {
+	background-size: 16px 16px;
+	background-repeat: no-repeat;
+	background-position: 19px 0px;
+	padding-bottom: 1px;
+}
+
+label.favicon input + span {
+	margin-left: 25px;
+}

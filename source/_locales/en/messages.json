@@ -1,0 +1,125 @@
+{
+	"appDesc": {
+		"message": "Emojis, thumbnails and advanced features for TweetDeck !",
+		"description": "The description of the application, displayed in the web store."
+	},
+	"appName": {
+		"message": "BetterTweetDeck",
+		"description": "name of the app"
+	},
+	"optionsPageTitle": {
+		"message": "Better TweetDeck Settings"
+	},
+	"OptsGeneral": {
+		"message": "General"
+	},
+	"OptsTweets": {
+		"message": "Tweets"
+	},
+	"OptsAppearance": {
+		"message": "Appearance"
+	},
+	"OptsContent": {
+		"message": "Content"
+	},
+	"groupInfo": {
+		"message": "Informations"
+	},
+	"groupAppearance": {
+		"message": "Appearance"
+	},
+	"groupUsers": {
+		"message": "Users"
+	},
+	"groupContent": {
+		"message": "Content"
+	},
+	"groupTimeFormatting": {
+		"message": "Time formatting"
+	},
+	"groupTweetFormat": {
+		"message": "Tweet appereance"
+	},
+	"timeShouldBe": {
+		"message": "Time should be:"
+	},
+	"timeRelative": {
+		"message": "Relative (1m, 2h, 3d...)"
+	},
+	"timeAbsolute": {
+		"message": "Absolute (dd/mm/yy hh:mm)"
+	},
+	"timeAbsoluteUS": {
+		"message": "Absolute 'US Style' (mm/dd/yy hh:mm)"
+	},
+	"absoluteAfter24h": {
+		"message": "Display full date after 24h only"
+	},
+	"usernamesFullnames": {
+		"message": "Name displayed:"
+	},
+	"bothNames": {
+		"message": "Full name @Username"
+	},
+	"invertedNames": {
+		"message": "@Username Full name"
+	},
+	"usernameOnly": {
+		"message": "@Username"
+	},
+	"fullnameOnly": {
+		"message": "Full name"
+	},
+	"minimalMode": {
+		"message": "Enabled the \"Minimal\" mode"
+	},
+	"narrowColumns": {
+		"message": "Columns take less space"
+	},
+	"typeahead": {
+		"message": "The auto-completion displays only usernames"
+	},
+	"circleAvatars": {
+		"message": "Rounded avatars"
+	},
+	"noColumnsIcons": {
+		"message": "No icons in columns headers"
+	},
+	"smallIconsCompose": {
+		"message": "Icons are smaller in the Compose panel"
+	},
+	"grayscaleIcons": {
+		"message": "Notifications icons are in grayscale"
+	},
+	"tcoRemoval": {
+		"message": "Remove the http://t.co from links"
+	},
+	"playButtonYT": {
+		"message": "Hide the 'Play' button on YouTube thumbnails"
+	},
+	"noBgModals": {
+		"message": "Fullscreen previews don't have background"
+	},
+	"oneThumbPerTweet": {
+		"message": "Display only one thumbnail per tweet"
+	},
+	"thumbnailsfrom": {
+		"message": "Display thumbnails from :"
+	},
+	"previewTweet": {
+		"message": "Tweet preview"
+	},
+	"flashTweets": {
+		"message": "Flash new tweets:"
+	},
+	"noTweets": {
+		"message": "Don't flash new tweets"
+	},
+	"mentionsOnly": {
+		"message": "Mentions & interactions only"
+	},
+	"allTweets": {
+		"message": "All tweets"
+	}
+
+}

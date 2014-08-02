@@ -1,9 +1,10 @@
 {
-	"name": "Better TweetDeck",
+	"name": "__MSG_appName__",
 	"short_name": "BetterTDeck",
+	"default_locale": "en",
 	"version": "2.0",
 	"manifest_version": 2,
-	"description": "Yolo",
+	"description": "__MSG_appDesc__",
 	"content_scripts": [{
 		"matches": ["https://tweetdeck.twitter.com/*","http://tweetdeck.twitter.com/*"],
 		"js": ["js/libs.js","js/BTD.js"],
@@ -13,6 +14,7 @@
 	           "48": "icons/icon48.png",
 	          "128": "icons/icon128.png" },
     "background" : { "page": "background.html" },
+    "options_page": "options/options.html",
 	"permissions": [
 		"storage",
 		"https://images4-focus-opensocial.googleusercontent.com/*",
