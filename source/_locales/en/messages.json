@@ -10,6 +10,9 @@
 	"optionsPageTitle": {
 		"message": "Better TweetDeck Settings"
 	},
+	"Settings": {
+		"message": "Settings"
+	},
 	"OptsGeneral": {
 		"message": "General"
 	},

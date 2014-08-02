@@ -11,6 +11,9 @@
     "message": "Réglages de Better TweetDeck",
     "description": "Titre de la page des options"
   },
+  "Settings": {
+    "message": "Options"
+  },
   "OptsGeneral": {
     "message": "Général"
   },
