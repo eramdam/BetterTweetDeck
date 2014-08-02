@@ -1,25 +1,24 @@
-Array.prototype.equals = function (array) {
-    // if the other array is a falsy value, return
-    if (!array)
-        return false;
+Array.prototype.equals = function(array) {
+	// if the other array is a falsy value, return
+	if (!array)
+		return false;
 
-    // compare lengths - can save a lot of time 
-    if (this.length != array.length)
-        return false;
+	// compare lengths - can save a lot of time 
+	if (this.length != array.length)
+		return false;
 
-    for (var i = 0, l=this.length; i < l; i++) {
-        // Check if we have nested arrays
-        if (this[i] instanceof Array && array[i] instanceof Array) {
-            // recurse into the nested arrays
-            if (!this[i].equals(array[i]))
-                return false;       
-        }           
-        else if (this[i] != array[i]) { 
-            // Warning - two different object instances will never be equal: {x:20} != {x:20}
-            return false;   
-        }           
-    }       
-    return true;
+	for (var i = 0, l = this.length; i < l; i++) {
+		// Check if we have nested arrays
+		if (this[i] instanceof Array && array[i] instanceof Array) {
+			// recurse into the nested arrays
+			if (!this[i].equals(array[i]))
+				return false;
+		} else if (this[i] != array[i]) {
+			// Warning - two different object instances will never be equal: {x:20} != {x:20}
+			return false;
+		}
+	}
+	return true;
 }
 
 var DefaultSettings = {
@@ -61,6 +60,33 @@ var DefaultSettings = {
 
 var currentOptions;
 
+function onInstall() {
+	chrome.tabs.create({
+		url: "options/options.html"
+	});
+}
+
+function onUpdate() {
+	chrome.tabs.create({
+		url: "options/options.html"
+	});
+}
+
+function getVersion() {
+	var details = chrome.app.getDetails();
+	return details.version;
+}
+
+var currVersion = getVersion();
+
+if (!localStorage['version']) {
+	localStorage['version'] = currVersion;
+}
+
+var prevVersion = localStorage['version'];
+
+
+
 chrome.storage.sync.get("BTDSettings", function(obj) {
 	if (obj.BTDSettings !== undefined) {
 		currentOptions = obj.BTDSettings;
@@ -68,10 +94,17 @@ chrome.storage.sync.get("BTDSettings", function(obj) {
 
 		for (var setting in DefaultSettings) {
 			if (currentOptions[setting] == undefined) {
-				console.debug("Defining",setting,"to default value", DefaultSettings[setting]);
+				console.debug("Defining", setting, "to default value", DefaultSettings[setting]);
 				currentOptions[setting] = DefaultSettings[setting];
 				reApply = true;
 			}
+		}
+
+		if (currVersion != prevVersion) {
+			if (!(prevVersion.split(".")[0] == currVersion.split(".")[0] && prevVersion.split(".")[1] == currVersion.split(".")[1])) {
+				onUpdate();
+			}
+			localStorage['version'] = currVersion;
 		}
 
 		for (var provider in DefaultSettings["providers"]) {
@@ -84,7 +117,7 @@ chrome.storage.sync.get("BTDSettings", function(obj) {
 
 		for (var setting in currentOptions) {
 			if (DefaultSettings[setting] == undefined) {
-				console.log("Deleting",setting);
+				console.log("Deleting", setting);
 				delete currentOptions[setting];
 				reApply = true;
 			}
@@ -98,18 +131,23 @@ chrome.storage.sync.get("BTDSettings", function(obj) {
 		}
 
 		if (reApply === true) {
-			chrome.storage.sync.set({"BTDSettings": currentOptions}, function() {
+			chrome.storage.sync.set({
+				"BTDSettings": currentOptions
+			}, function() {
 				console.log("Options updated!");
 				console.log(currentOptions);
 			});
 		}
 	} else {
-		chrome.storage.sync.set({"BTDSettings": DefaultSettings}, function() {
+		chrome.storage.sync.set({
+			"BTDSettings": DefaultSettings
+		}, function() {
 			console.log("Default options set");
+			onInstall();
 		})
 	}
 
-	
+
 });
 
 const TWEETDECK_WEB_URL = 'https://tweetdeck.twitter.com';
