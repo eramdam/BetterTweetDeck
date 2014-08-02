@@ -54,7 +54,7 @@ $(function() {
 		}
 
 		tweetPreviewClasses();
-		$('#apparence input[type=checkbox]').each(contentPreview);
+		$('#apparence input[type=checkbox], input[name=circled_avatars]').each(contentPreview);
 	});
 
 	// Taken from the Chrome Bootstrap styleguide http://roykolak.github.io/chrome-bootstrap/
@@ -93,7 +93,7 @@ $(function() {
 		tweetPreviewClasses();
 	});
 
-	$('#apparence input[type=checkbox]').on('change', contentPreview);
+	$('#apparence input[type=checkbox], input[name=circled_avatars]').on('change', contentPreview);
 
 
 	function tweetPreviewClasses() {
