@@ -98,6 +98,14 @@
 	}
 }
 
+.js-embeditem .js-mediaembed > a {
+	transition: opacity .2s ease;
+}
+
+.js-embeditem:not(.is-loaded) .js-mediaembed > a {
+	opacity: 0;
+}
+
 @import "minimalMode";
 @import "emojiPanel";
 @import "emojis";
