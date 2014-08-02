@@ -15,10 +15,47 @@ input[type="checkbox"] + span, input[type="radio"] + span {
 	margin-top: .8em;
 }
 
+.chrome-bootstrap .overlay .page {
+  max-width: 600px;
+}
+
+.chrome-bootstrap .overlay .page .content-area > p {
+  line-height: 1.8em;
+}
+
+.chrome-bootstrap ul, .chrome-bootstrap ol {
+  padding-left: 40px;
+}
+
+.chrome-bootstrap li {
+  list-style-type: disc;
+}
+
 #contenu .checkbox span em {
 	color: #ccc;
 	font-size: 88%;
 	font-style: normal;
+}
+
+#changelog section[lang] {
+  display: none;
+}
+
+#changelog section[lang] h3:first-of-type:after {
+  color: #ccc;
+  font-size: 88%;
+}
+
+#changelog section[lang] h3.alert:first-of-type:after {
+  color: #9b9b9b;
+}
+
+#changelog section[lang="fr"] h3:first-of-type:after {
+  content:' Version actuelle';
+}
+
+#changelog section[lang="en"] h3:first-of-type:after {
+  content:' Current version';
 }
 
 label.favicon {

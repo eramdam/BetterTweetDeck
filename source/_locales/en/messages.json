@@ -7,6 +7,15 @@
 		"message": "BetterTweetDeck",
 		"description": "name of the app"
 	},
+	"onInstallH1": {
+		"message": "Thank you for installing Better TweetDeck !"
+	},
+	"onInstallP1": {
+		"message": "The default options has been applied, feel free to customize them to your tastes!"
+	},
+	"onInstallP2": {
+		"message": "If you already installed Better TweetDeck on a computer synchronised with your Google Chrome™ account, your settings may be automatically synced."
+	},
 	"optionsPageTitle": {
 		"message": "Better TweetDeck Settings"
 	},
@@ -30,6 +39,9 @@
 	},
 	"OptsAbout": {
 		"message": "About"
+	},
+	"OptsChangelog": {
+		"message": "Changelog"
 	},
 	"Author": {
 		"message": "Auteur"

@@ -113,4 +113,32 @@ $(function() {
 		}
 	}
 
+	if (window.location.hash === "#installed") {
+		var modal = $('.overlay').clone();
+        $(modal).removeAttr('style');
+        $(modal).find('button, .close-button').click(function() {
+          $(modal).addClass('transparent');
+          setTimeout(function() {
+            $(modal).remove();
+          }, 1000);
+        });
+
+        $(modal).click(function() {
+          $(modal).find('.page').addClass('pulse');
+          $(modal).find('.page').on('webkitAnimationEnd', function() {
+            $(this).removeClass('pulse');
+          });
+        });
+        $(modal).find('.page').click(function(ev) {
+          ev.stopPropagation();
+        });
+        $('body').append(modal);
+	} else if (window.location.hash === "#updated") {
+		$('a[href="#changelog"]').click();
+		$('#changelog section[lang] h3:first-of-type').addClass('alert');
+	}
+
+	var currentLocale = chrome.i18n.getMessage("@@ui_locale");
+
+	$('section[lang="'+currentLocale+'"]').show();
 });

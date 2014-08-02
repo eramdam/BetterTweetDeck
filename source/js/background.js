@@ -62,13 +62,13 @@ var currentOptions;
 
 function onInstall() {
 	chrome.tabs.create({
-		url: "options/options.html"
+		url: "options/options.html#installed"
 	});
 }
 
 function onUpdate() {
 	chrome.tabs.create({
-		url: "options/options.html"
+		url: "options/options.html#updated"
 	});
 }
 
