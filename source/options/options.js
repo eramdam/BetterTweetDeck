@@ -50,6 +50,8 @@ $(function() {
 		for (var provider in Settings["providers"]) {
 			$('[name="provide_'+provider+'"]').prop('checked', Settings["providers"][provider]);
 		}
+
+		tweetPreviewClasses();
 	});
 
 	// Taken from the Chrome Bootstrap styleguide http://roykolak.github.io/chrome-bootstrap/
@@ -83,5 +85,19 @@ $(function() {
 	});
 
 	$('input').on('change', SaveSettings);
+
+	$('input[name="timestamp"], input[name="name_display"], input[name="circled_avatars"]').on('change', function () {
+		tweetPreviewClasses();
+	});
+
+
+    function tweetPreviewClasses() {
+        var timestampVal = document.querySelector("input[name='timestamp']:checked").value;
+        var nameVal = document.querySelector("input[name='name_display']:checked").value;
+        var avatarVal = document.querySelector("input[name='circled_avatars']").checked;
+        document.querySelector(".tweet-preview .name").className = "name "+nameVal;
+        document.querySelector(".tweet-preview .timestamp").className = "timestamp "+timestampVal;
+        document.querySelector(".tweet-preview .picture").className = "picture "+avatarVal;
+    }
 
 });
