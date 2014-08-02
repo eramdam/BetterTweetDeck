@@ -1,24 +1,26 @@
 var Settings;
 
 function SaveSettings() {
-		$('input[type=radio]:checked').each(function (index) {
-			var key = $(this).attr('name');
-			Settings[key] = $(this).attr('value');
-		});
+	$('input[type=radio]:checked').each(function(index) {
+		var key = $(this).attr('name');
+		Settings[key] = $(this).attr('value');
+	});
 
-		$('input[type=checkbox][name]').each(function(i) {
-			var key = $(this).attr('name');
-			if (key.indexOf('provide_') == -1) {
-				Settings[key] = $(this).is(':checked');
-			} else {
-				Settings["providers"][key.replace('provide_','')] = $(this).is(':checked');
-			}
-		});
+	$('input[type=checkbox][name]').each(function(i) {
+		var key = $(this).attr('name');
+		if (key.indexOf('provide_') == -1) {
+			Settings[key] = $(this).is(':checked');
+		} else {
+			Settings["providers"][key.replace('provide_', '')] = $(this).is(':checked');
+		}
+	});
 
-		chrome.storage.sync.set({"BTDSettings": Settings}, function () {
-			console.log('Options saved!');
-		});
-	}
+	chrome.storage.sync.set({
+		"BTDSettings": Settings
+	}, function() {
+		console.log('Options saved!');
+	});
+}
 
 $(function() {
 
@@ -31,24 +33,24 @@ $(function() {
 	$('.version-number').text(chrome.app.getDetails().version);
 	$('.user-agent').text(navigator.userAgent);
 
-	$('.i18n').each(function (index) {
+	$('.i18n').each(function(index) {
 		var message = $(this).attr('data-message');
 		$(this).text(CGetMessage(message));
 	});
 
-	chrome.storage.sync.get("BTDSettings", function (obj) {
+	chrome.storage.sync.get("BTDSettings", function(obj) {
 		Settings = obj.BTDSettings;
 
 		for (var setting in Settings) {
 			if (Settings[setting] === true || Settings[setting] === false) {
-				$('[name="'+setting+'"]').prop('checked', Settings[setting]);
+				$('[name="' + setting + '"]').prop('checked', Settings[setting]);
 			} else {
-				$('[name="'+setting+'"][value="'+Settings[setting]+'"]').prop('checked', true);
+				$('[name="' + setting + '"][value="' + Settings[setting] + '"]').prop('checked', true);
 			}
 		}
 
 		for (var provider in Settings["providers"]) {
-			$('[name="provide_'+provider+'"]').prop('checked', Settings["providers"][provider]);
+			$('[name="provide_' + provider + '"]').prop('checked', Settings["providers"][provider]);
 		}
 
 		tweetPreviewClasses();
@@ -79,36 +81,36 @@ $(function() {
 	});
 	$('.mainview > *:not(.selected)').css('display', 'none');
 
-	$('.checkbox img').each(function (index) {
+	$('.checkbox img').each(function(index) {
 		var linkToImg = $(this).attr('src');
-		$(this).parent().css('background-image','url('+linkToImg+')').addClass('favicon');
+		$(this).parent().css('background-image', 'url(' + linkToImg + ')').addClass('favicon');
 		$(this).remove();
 	});
 
 	$('input').on('change', SaveSettings);
 
-	$('input[name="timestamp"], input[name="name_display"], input[name="circled_avatars"]').on('change', function () {
+	$('input[name="timestamp"], input[name="name_display"], input[name="circled_avatars"]').on('change', function() {
 		tweetPreviewClasses();
 	});
 
 	$('#apparence input[type=checkbox]').on('change', contentPreview);
 
 
-    function tweetPreviewClasses() {
-        var timestampVal = document.querySelector("input[name='timestamp']:checked").value;
-        var nameVal = document.querySelector("input[name='name_display']:checked").value;
-        var avatarVal = document.querySelector("input[name='circled_avatars']").checked;
-        document.querySelector(".tweet-preview .name").className = "name "+nameVal;
-        document.querySelector(".tweet-preview .timestamp").className = "timestamp "+timestampVal;
-        document.querySelector(".tweet-preview .picture").className = "picture "+avatarVal;
-    }
+	function tweetPreviewClasses() {
+		var timestampVal = document.querySelector("input[name='timestamp']:checked").value;
+		var nameVal = document.querySelector("input[name='name_display']:checked").value;
+		var avatarVal = document.querySelector("input[name='circled_avatars']").checked;
+		document.querySelector(".tweet-preview .name").className = "name " + nameVal;
+		document.querySelector(".tweet-preview .timestamp").className = "timestamp " + timestampVal;
+		document.querySelector(".tweet-preview .picture").className = "picture " + avatarVal;
+	}
 
-    function contentPreview() {
+	function contentPreview() {
 		if ($(this).is(':checked')) {
 			$('#content_preview').addClass($(this).attr('name'));
 		} else {
 			$('#content_preview').removeClass($(this).attr('name'));
 		}
-    }
+	}
 
 });
