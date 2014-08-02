@@ -16,6 +16,18 @@
 	"onInstallP2": {
 		"message": "If you already installed Better TweetDeck on a computer synchronised with your Google Chrome™ account, your settings may be automatically synced."
 	},
+	"FlashTweets": {
+		"message": "Make new tweets flash in:"
+	},
+	"FlashTweetsMentions": {
+		"message": "\"Mentions\" & \"Interactions\" columns"
+	},
+	"FlashTweetsAll": {
+		"message": "Every column"
+	},
+	"FlashTweetsFalse": {
+		"message": "Nowhere"
+	},
 	"optionsPageTitle": {
 		"message": "Better TweetDeck Settings"
 	},
