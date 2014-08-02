@@ -61,9 +61,9 @@ var DefaultSettings = {
 
 var currentOptions;
 
-chrome.storage.sync.get("BTD", function(obj) {
-	if (obj.BTD !== undefined) {
-		currentOptions = obj.BTD;
+chrome.storage.sync.get("BTDSettings", function(obj) {
+	if (obj.BTDSettings !== undefined) {
+		currentOptions = obj.BTDSettings;
 		var reApply = false;
 
 		for (var setting in DefaultSettings) {
@@ -98,13 +98,13 @@ chrome.storage.sync.get("BTD", function(obj) {
 		}
 
 		if (reApply === true) {
-			chrome.storage.sync.set({"BTDOptions": currentOptions}, function() {
+			chrome.storage.sync.set({"BTDSettings": currentOptions}, function() {
 				console.log("Options updated!");
 				console.log(currentOptions);
 			});
 		}
 	} else {
-		chrome.storage.sync.set({"BTD": DefaultSettings}, function() {
+		chrome.storage.sync.set({"BTDSettings": DefaultSettings}, function() {
 			console.log("Default options set");
 		})
 	}

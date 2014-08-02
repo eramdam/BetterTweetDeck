@@ -28,9 +28,9 @@
 
 	
 
-	chrome.storage.sync.get("BTD", function(obj) {
-		if (obj.BTD != undefined) {
-			settings = obj.BTD;
+	chrome.storage.sync.get("BTDSettings", function(obj) {
+		if (obj.BTDSettings != undefined) {
+			settings = obj.BTDSettings;
 			console.log(settings);
 			readyTD.observe(document.querySelector(".js-app-loading"), {attributes: true});
 		}
