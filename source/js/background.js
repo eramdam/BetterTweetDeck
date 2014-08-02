@@ -61,46 +61,52 @@ var DefaultSettings = {
 
 var currentOptions;
 
-chrome.storage.sync.get("BTDOptions", function(obj) {
-	currentOptions = obj.BTDOptions;
-	var reApply = false;
+chrome.storage.sync.get("BTD", function(obj) {
+	if (obj.BTD !== undefined) {
+		currentOptions = obj.BTD;
+		var reApply = false;
 
-	for (var setting in DefaultSettings) {
-		if (currentOptions[setting] == undefined) {
-			console.debug("Defining",setting,"to default value", DefaultSettings[setting]);
-			currentOptions[setting] = DefaultSettings[setting];
-			reApply = true;
+		for (var setting in DefaultSettings) {
+			if (currentOptions[setting] == undefined) {
+				console.debug("Defining",setting,"to default value", DefaultSettings[setting]);
+				currentOptions[setting] = DefaultSettings[setting];
+				reApply = true;
+			}
 		}
-	}
 
-	for (var provider in DefaultSettings["providers"]) {
-		if (currentOptions["providers"][provider] == undefined) {
-			console.log("Adding", provider, "as a new provider with value", DefaultSettings["providers"][provider]);
-			currentOptions["providers"][provider] = DefaultSettings["providers"][provider];
-			reApply = true;
+		for (var provider in DefaultSettings["providers"]) {
+			if (currentOptions["providers"][provider] == undefined) {
+				console.log("Adding", provider, "as a new provider with value", DefaultSettings["providers"][provider]);
+				currentOptions["providers"][provider] = DefaultSettings["providers"][provider];
+				reApply = true;
+			}
 		}
-	}
 
-	for (var setting in currentOptions) {
-		if (DefaultSettings[setting] == undefined) {
-			console.log("Deleting",setting);
-			delete currentOptions[setting];
-			reApply = true;
+		for (var setting in currentOptions) {
+			if (DefaultSettings[setting] == undefined) {
+				console.log("Deleting",setting);
+				delete currentOptions[setting];
+				reApply = true;
+			}
 		}
-	}
 
-	for (var setting in currentOptions["providers"]) {
-		if (DefaultSettings["providers"][setting] == undefined) {
-			delete currentOptions["providers"][setting];
-			reApply = true;
+		for (var setting in currentOptions["providers"]) {
+			if (DefaultSettings["providers"][setting] == undefined) {
+				delete currentOptions["providers"][setting];
+				reApply = true;
+			}
 		}
-	}
 
-	if (reApply === true) {
-		chrome.storage.sync.set({"BTDOptions": currentOptions}, function() {
-			console.log("Options updated!");
-			console.log(currentOptions);
-		});
+		if (reApply === true) {
+			chrome.storage.sync.set({"BTDOptions": currentOptions}, function() {
+				console.log("Options updated!");
+				console.log(currentOptions);
+			});
+		}
+	} else {
+		chrome.storage.sync.set({"BTD": DefaultSettings}, function() {
+			console.log("Default options set");
+		})
 	}
 
 	

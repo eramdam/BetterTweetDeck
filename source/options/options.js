@@ -15,7 +15,7 @@ function SaveSettings() {
 			}
 		});
 
-		chrome.storage.sync.set({"BTDOptions": Settings}, function () {
+		chrome.storage.sync.set({"BTD": Settings}, function () {
 			console.log('Options saved!');
 		});
 	}
@@ -36,8 +36,8 @@ $(function() {
 		$(this).text(CGetMessage(message));
 	});
 
-	chrome.storage.sync.get("BTDOptions", function (obj) {
-		Settings = obj.BTDOptions;
+	chrome.storage.sync.get("BTD", function (obj) {
+		Settings = obj.BTD;
 
 		for (var setting in Settings) {
 			if (Settings[setting] === true || Settings[setting] === false) {
