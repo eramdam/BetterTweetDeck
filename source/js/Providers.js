@@ -26,7 +26,7 @@ var Providers = {
 			});
 		}
 	},
-	"cloudApp": {
+	"cloudapp": {
 		"pattern": {
 			"regex": false,
 			"string": "cl.ly/"
@@ -82,7 +82,7 @@ var Providers = {
 			});
 		}
 	},
-	"dribble": {
+	"dribbble": {
 		"pattern": {
 			"regex": true,
 			"string": "(dribbble.com\/shots|drbl.in)"
@@ -131,10 +131,26 @@ var Providers = {
 			});
 		}
 	},
-	"tedBandcamp": {
+	"ted": {
 		"pattern": {
-			"regex": true,
-			"string": "(ted.com\/talks|bandcamp.com\/)"
+			"regex": false,
+			"string": "ted.com/talks"
+		},
+		"get": function(target, thumbSize, linkURL, cb) {
+			var bandcampURL = encodeURIComponent(linkURL);
+			bandcampURL = 'http://api.embed.ly/1/oembed?key=748757a075e44633b197feec69095c90&url=' + bandcampURL + '&format=json';
+
+			_ajax(bandcampURL, "GET", "json", null, function(data) {
+				var embed = data.html;
+				var thumbnailBandcamp = data.thumbnail_url;
+				cb(target, thumbnailBandcamp, embed, true, thumbSize);
+			});
+		}
+	},
+	"bandcamp": {
+		"pattern": {
+			"regex": false,
+			"string": "bandcamp.com"
 		},
 		"get": function(target, thumbSize, linkURL, cb) {
 			var bandcampURL = encodeURIComponent(linkURL);
@@ -242,7 +258,7 @@ var Providers = {
 
 		}
 	},
-	"provider": {
+	"imgLy": {
 	    "pattern": {
 	    		"regex": false,
 	    		"string": "img.ly"
@@ -258,7 +274,7 @@ var Providers = {
 			cb(target, finalImglyURL, "http://img.ly/show/full/" + imglyID, false, thumbSize);
 	    }
 	},
-	"mobyTo": {
+	"mobyto": {
 		"pattern": {
 			"regex": false,
 			"string": "moby.to/"
@@ -293,13 +309,13 @@ var Providers = {
 			});
 		}
 	},
-	"toResize": {
+	"toresize": {
 		"pattern": {
 			"regex": true,
 			"string": ".(jpg|gif|png|jpeg)$"
 		},
 		"get": function(target, size, URL, cb) {
-			if (URL.indexOf("dropbox.com") == -1) {
+			if (URL.indexOf("dropbox.com") == -1 && URL.indexOf("tumblr.com") == -1) {
 				var suffixResize;
 				switch (size) {
 					case "small":
@@ -315,6 +331,28 @@ var Providers = {
 				var resizedURL = 'https://images4-focus-opensocial.googleusercontent.com/gadgets/proxy?url=' + encodeURIComponent(URL) + '&container=focus&resize_w=' + suffixResize + '&refresh=86400';
 				cb(target, resizedURL, URL, false, size);
 			}
+		}
+	},
+	"tumblr": {
+		"pattern": {
+			"regex": true,
+			"string": "tumblr.com\/.+(\.(gif|png|jpg)$)"
+		},
+		"get": function(target, size, URL, cb) {
+				var suffixResize;
+				switch (size) {
+					case "small":
+						var suffixResize = 150
+						break;
+					case "medium":
+						var suffixResize = 280;
+						break;
+					case "large":
+						var suffixResize = 360;
+						break;
+				}
+				var resizedURL = 'https://images4-focus-opensocial.googleusercontent.com/gadgets/proxy?url=' + encodeURIComponent(URL) + '&container=focus&resize_w=' + suffixResize + '&refresh=86400';
+				cb(target, resizedURL, URL, false, size);
 		}
 	},
 	"vimeo": {

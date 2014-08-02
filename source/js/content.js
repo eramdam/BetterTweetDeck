@@ -134,7 +134,7 @@
 				var link = links[links.length-1];
 				var thumbSize = findParent(target, filterColumn).getAttribute('data-media-preview-size');
 				for (var providerName in Providers) {
-					if (Providers.hasOwnProperty(providerName)) {
+					if (Providers.hasOwnProperty(providerName) && settings.providers[providerName]) {
 						if (Providers[providerName].pattern.regex && new RegExp(Providers[providerName].pattern.string).test(link.href)) {
 							Providers[providerName].get(target, thumbSize, link.href, AddPreview);
 						} else if (link.href.indexOf(Providers[providerName].pattern.string) != -1) {
