@@ -7,8 +7,8 @@ task('build', function() {
 		"cp -R source/ build/",
 		"rm build/**/*.scss",
 		"rm build/js/*.js",
-		"cp source/js/{BTD,libs}.js build/js/",
-		"zip -r build.zip build/"
+		"cp source/js/{BTD,libs,background}.js build/js/",
+		"zip -r build-"+new Date().getTime()+".zip build/"
 	];
 
 	jake.exec(cmds, {printStdout: true, printStderr: true, breakOnError: false});
