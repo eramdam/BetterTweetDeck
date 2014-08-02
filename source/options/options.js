@@ -15,7 +15,7 @@ function SaveSettings() {
 			}
 		});
 
-		chrome.storage.sync.set({"BTD": Settings}, function () {
+		chrome.storage.sync.set({"BTDSettings": Settings}, function () {
 			console.log('Options saved!');
 		});
 	}
@@ -36,8 +36,8 @@ $(function() {
 		$(this).text(CGetMessage(message));
 	});
 
-	chrome.storage.sync.get("BTD", function (obj) {
-		Settings = obj.BTD;
+	chrome.storage.sync.get("BTDSettings", function (obj) {
+		Settings = obj.BTDSettings;
 
 		for (var setting in Settings) {
 			if (Settings[setting] === true || Settings[setting] === false) {
@@ -52,6 +52,7 @@ $(function() {
 		}
 
 		tweetPreviewClasses();
+		$('#apparence input[type=checkbox]').each(contentPreview);
 	});
 
 	// Taken from the Chrome Bootstrap styleguide http://roykolak.github.io/chrome-bootstrap/
@@ -90,6 +91,8 @@ $(function() {
 		tweetPreviewClasses();
 	});
 
+	$('#apparence input[type=checkbox]').on('change', contentPreview);
+
 
     function tweetPreviewClasses() {
         var timestampVal = document.querySelector("input[name='timestamp']:checked").value;
@@ -98,6 +101,14 @@ $(function() {
         document.querySelector(".tweet-preview .name").className = "name "+nameVal;
         document.querySelector(".tweet-preview .timestamp").className = "timestamp "+timestampVal;
         document.querySelector(".tweet-preview .picture").className = "picture "+avatarVal;
+    }
+
+    function contentPreview() {
+		if ($(this).is(':checked')) {
+			$('#content_preview').addClass($(this).attr('name'));
+		} else {
+			$('#content_preview').removeClass($(this).attr('name'));
+		}
     }
 
 });

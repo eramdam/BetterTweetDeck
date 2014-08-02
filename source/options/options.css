@@ -36,7 +36,7 @@ div.tweet-preview {
   width: 452px;
   height: 77px;
   position: relative;
-  background-image: url("img/bg.jpg");
+  background-image: url("img/tweets_preview/bg.jpg");
   border-radius:5px;
 }
 
@@ -49,11 +49,11 @@ div.tweet-preview div.picture {
 }
 
 div.tweet-preview div.picture.true {
-  background-image: url("img/pp_circl.jpg");
+  background-image: url("img/tweets_preview/pp_circl.jpg");
 }
 
 div.tweet-preview div.picture.false {
-  background-image: url("img/pp_def.jpg");
+  background-image: url("img/tweets_preview/pp_def.jpg");
 }
 
 div.tweet-preview div.name {
@@ -67,19 +67,19 @@ div.tweet-preview div.name {
 }
 
 div.tweet-preview div.name.both {
-  background-image: url("img/fullname-username.jpg");
+  background-image: url("img/tweets_preview/fullname-username.jpg");
 }
 
 div.tweet-preview div.name.inverted {
-  background-image: url("img/username-fullname.jpg");
+  background-image: url("img/tweets_preview/username-fullname.jpg");
 }
 
 div.tweet-preview div.name.username {
-  background-image: url("img/username-only.jpg");
+  background-image: url("img/tweets_preview/username-only.jpg");
 }
 
 div.tweet-preview div.name.fullname {
-  background-image: url("img/fullname-only.jpg");
+  background-image: url("img/tweets_preview/fullname-only.jpg");
 }
 
 div.tweet-preview div.timestamp {
@@ -93,13 +93,136 @@ div.tweet-preview div.timestamp {
 }
 
 div.tweet-preview div.timestamp.relative {
-  background-image: url(img/time_rel.jpg);
+  background-image: url("img/tweets_preview/time_rel.jpg");
 }
 
 div.tweet-preview div.timestamp.absolute {
-  background-image: url(img/time_absolute.jpg);
+  background-image: url("img/tweets_preview/time_absolute.jpg");
 }
 
 div.tweet-preview div.timestamp.absolute_us {
-  background-image: url(img/time_absolute_us.jpg);
+  background-image: url("img/tweets_preview/time_absolute_us.jpg");
+}
+
+#content_preview * {
+  margin: 0;
+  padding: 0;
+  background-repeat: no-repeat;
+}
+#content_preview {
+  width: 648px;
+  height: 413px;
+  border-radius: 6px;
+}
+
+#content_preview #bg_compose {
+  width: 296px;
+  height: 413px;
+  background-image: url("img/content_preview/bg_compose.png");
+  float: left;
+  border-radius: 4px 0 0 4px;
+}
+
+#content_preview.minimal_mode #bg_compose {
+  background-image: url("img/content_preview/bg_minimal_mode.png");
+  box-shadow: inset -1px 0 0 #191b1c;
+}
+
+#content_preview #bg_column {
+  width: 352px;
+  height: 413px;
+  background-image: url("img/content_preview/normal_mode.png");
+  display: block;
+  float: right;
+  border-radius: 0 4px 4px 0;
+}
+
+#content_preview.minimal_mode #bg_column {
+  background-image: url("img/content_preview/minimal_mode.png");
+}
+
+#content_preview #avatars {
+  height: 250px;
+  width: 49px;
+  background-image: url("img/content_preview/square_avatar.png");
+  margin-top: 61px;
+  margin-left: 11px;
+  display: block;
+  position: absolute;
+}
+
+#content_preview.circled_avatars #avatars {
+  background: none;
+}
+
+#content_preview #notif_icon {
+  background-image: url("img/content_preview/notif_icon.png");
+  width: 16px;
+  height: 10px;
+  display: block;
+  position: absolute;
+  z-index: 9999;
+  margin-top: 294px;
+  margin-left: 13px;
+}
+
+#content_preview.grayscale_notification_icons #notif_icon {
+  -webkit-filter: saturate(0);
+}
+
+#content_preview.no_columns_icons #no_icons_col {
+  background-image: url("img/content_preview/no_icons.png");
+  height: 22px;
+  width: 157px;
+  position: absolute;
+  display: block;
+  margin-top: 13px;
+  margin-left: 17px;
+}
+
+#content_preview.no_columns_icons.minimal_mode #no_icons_col {
+  background-image: url("img/content_preview/no_icons_minimal.png");
+  margin-top: 15px;
+  margin-left: 18px;
+}
+
+#content_preview #yt_button {
+  width: 55px;
+  height: 56px;
+  background-image: url("img/content_preview/yt_button.png");
+  position: absolute;
+  display: block;
+  margin-top: 143px;
+  margin-left: 178px;
+}
+
+#content_preview.yt_rm_button #yt_button {
+  display: none;
+}
+
+#content_preview #compose_icons {
+  background-image: url("img/content_preview/big_icons_compose.png");
+  width: 245px;
+  height: 87px;
+  background-repeat: no-repeat;
+  position: absolute;
+  display: block;
+  margin-top: 329px;
+  margin-left: 55px;
+}
+
+#content_preview.minimal_mode #compose_icons {
+  background-image: url("img/content_preview/big_icons_compose_minimal.png");
+  margin-top: 326px;
+  margin-left: 50px;
+}
+
+#content_preview.small_icons_compose #compose_icons {
+  background-image: url("img/content_preview/small_icons_compose.png");
+  margin-left: 57px;
+}
+
+#content_preview.small_icons_compose.minimal_mode #compose_icons {
+  background-image: url("img/content_preview/small_icons_compose_minimal.png");
+  margin-left: 50px;
 }
