@@ -22,6 +22,36 @@
 	"OptsContent": {
 		"message": "Content"
 	},
+	"OptsCredits": {
+		"message": "Credits"
+	},
+	"OptsAbout": {
+		"message": "About"
+	},
+	"Author": {
+		"message": "Auteur"
+	},
+	"Contributors": {
+		"message": "Contributors / Early testers"
+	},
+	"Links": {
+		"message": "Links"
+	},
+	"Infos": {
+		"message": "Informations"
+	},
+	"BTDWebStore": {
+		"message": "Better TweetDeck on the Chrome Web Store"
+	},
+	"BugsSugs": {
+		"message": "Bugs or suggestions"
+	},
+	"AuthorWeb": {
+		"message": "Author's Website"
+	},
+	"Ressources": {
+		"message": "Used Ressources"
+	},
 	"groupInfo": {
 		"message": "Informations"
 	},

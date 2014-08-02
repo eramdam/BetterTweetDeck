@@ -29,6 +29,7 @@ $(function() {
 	// Localisation and stuff
 	document.title = CGetMessage("optionsPageTitle");
 	$('.version-number').text(chrome.app.getDetails().version);
+	$('.user-agent').text(navigator.userAgent);
 
 	$('.i18n').each(function (index) {
 		var message = $(this).attr('data-message');

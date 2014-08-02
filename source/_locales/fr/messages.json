@@ -1,15 +1,15 @@
 {
   "appDesc": {
-    "message": "Emojis, miniatures et fonctions avancées pour TweetDeck !", 
-    "description":"The description of the application, displayed in the web store."
+    "message": "Emojis, miniatures et fonctions avancées pour TweetDeck !",
+    "description": "The description of the application, displayed in the web store."
   },
   "appName": {
-  	"message": "Better TweetDeck",
-  	"description": "name of the app"
+    "message": "Better TweetDeck",
+    "description": "name of the app"
   },
   "optionsPageTitle": {
-  	"message": "Réglages de Better TweetDeck",
-  	"description": "Titre de la page des options"
+    "message": "Réglages de Better TweetDeck",
+    "description": "Titre de la page des options"
   },
   "OptsGeneral": {
     "message": "Général"
@@ -20,103 +20,134 @@
   "OptsAppearance": {
     "message": "Apparence"
   },
+  "OptsCredits": {
+    "message": "Crédits"
+  },
+  "OptsAbout": {
+    "message": "À Propos"
+  },
+  "Author": {
+    "message": "Auteur"
+  },
+  "AuthorWeb": {
+    "message": "Site web de l'auteur"
+  },
+  "Links": {
+    "message": "Liens"
+  },
+  "Infos": {
+    "message": "Informations"
+  },
+  "Contributors": {
+    "message": "Contributeurs et testeurs"
+  },
+  "BTDWebStore": {
+    "message": "Better TweetDeck sur le Chrome Web Store"
+  },
+  "BugsSugs": {
+    "message": "Bugs et suggestions"
+  },
+
+  "Ressources": {
+    "message": "Ressources"
+  },
   "groupInfo": {
-      "message": "Informations"
+    "message": "Informations"
   },
   "groupAppearance": {
-      "message": "Apparence"
+    "message": "Apparence"
   },
   "groupUsers": {
-      "message": "Utilisateurs"
+    "message": "Utilisateurs"
   },
   "OptsContent": {
-      "message": "Contenu"
+    "message": "Contenu"
   },
   "groupTimeFormatting": {
-      "message": "Affichage du temps"
+    "message": "Affichage du temps"
   },
   "groupTweetFormat": {
-      "message": "Affichage des tweets"
+    "message": "Affichage des tweets"
   },
   "timeShouldBe": {
-      "message": "Le temps doit être affiché en :"
+    "message": "Le temps doit être affiché en :"
   },
   "timeRelative": {
-      "message": "Relatif (1m, 2h, 3d...)"
+    "message": "Relatif (1m, 2h, 3d...)"
   },
   "timeAbsolute": {
-      "message": "Absolu (jj/mm/aa hh:mm)"
+    "message": "Absolu (jj/mm/aa hh:mm)"
   },
   "timeAbsoluteUS": {
-      "message": "Absolu au format 'US' (mm/jj/yy hhm:ss)"
+    "message": "Absolu au format 'US' (mm/jj/yy hhm:ss)"
   },
   "absoluteAfter24h": {
-      "message": "Afficher la date complète après 24h seulement"
+    "message": "Afficher la date complète après 24h seulement"
   },
   "usernamesFullnames": {
-      "message": "Nom affiché :"
+    "message": "Nom affiché :"
   },
   "bothNames": {
-      "message": "Nom complet @Nom d'utilisateur"
+    "message": "Nom complet @Nom d'utilisateur"
   },
   "invertedNames": {
-      "message": "@Nom d'utilisateur Nom complet"
+    "message": "@Nom d'utilisateur Nom complet"
   },
   "usernameOnly": {
-      "message": "@Nom d'utilisateur"
+    "message": "@Nom d'utilisateur"
   },
   "fullnameOnly": {
-      "message": "Nom complet"
+    "message": "Nom complet"
   },
   "minimalMode": {
-      "message": "Activer le mode \"Minimaliste\""
+    "message": "Activer le mode \"Minimaliste\""
   },
   "narrowColumns": {
-      "message": "Les colonnes prennent moins d'espace"
+    "message": "Les colonnes prennent moins d'espace"
   },
   "typeahead": {
-      "message": "L'auto-complétion n'affiche que les noms d'utilisateurs"
+    "message": "L'auto-complétion n'affiche que les noms d'utilisateurs"
   },
   "circleAvatars": {
-      "message": "Avatars arrondis"
+    "message": "Avatars arrondis"
   },
   "noColumnsIcons": {
-      "message": "Pas d'icônes en haut des colonnes"
+    "message": "Pas d'icônes en haut des colonnes"
   },
   "smallIconsCompose": {
-      "message": "Les icônes sont plus petits dans le panneau de composition"
+    "message": "Les icônes sont plus petits dans le panneau de composition"
   },
   "grayscaleIcons": {
-      "message": "Les icônes de notifications sont en niveaux de gris"
+    "message": "Les icônes de notifications sont en niveaux de gris"
   },
   "tcoRemoval": {
-      "message": "Supprimer la redirection des liens en http://t.co"
+    "message": "Supprimer la redirection des liens en http://t.co"
   },
   "playButtonYT": {
-      "message": "Masquer le bouton 'Lecture' sur les miniatures YouTube"
+    "message": "Masquer le bouton 'Lecture' sur les miniatures YouTube"
   },
   "noBgModals": {
-      "message": "Les aperçus en plein écran n'ont pas de fond"
+    "message": "Les aperçus en plein écran n'ont pas de fond"
   },
   "oneThumbPerTweet": {
-      "message": "N'afficher qu'une seule miniature par tweet"
+    "message": "N'afficher qu'une seule miniature par tweet"
   },
   "thumbnailsfrom": {
-      "message": "Afficher les miniatures de :"
+    "message": "Afficher les miniatures de :"
   },
   "preview": {
-      "message": "Aperçu"
+    "message": "Aperçu"
   },
   "flashTweets": {
-      "message": "Faire clignoter les nouveaux tweets :"
+    "message": "Faire clignoter les nouveaux tweets :"
   },
   "noTweets": {
-      "message": "Ne pas faire clignoter les nouveaux tweets"
+    "message": "Ne pas faire clignoter les nouveaux tweets"
   },
   "mentionsOnly": {
-      "message": "Mentions et interactions uniquement"
+    "message": "Mentions et interactions uniquement"
   },
   "allTweets": {
-      "message": "Tous les nouveaux tweets"
+    "message": "Tous les nouveaux tweets"
   }
 }
