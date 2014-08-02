@@ -258,7 +258,7 @@ var Providers = {
 
 		}
 	},
-	"imgLy": {
+	"imgly": {
 	    "pattern": {
 	    		"regex": false,
 	    		"string": "img.ly"
@@ -390,20 +390,27 @@ var Providers = {
 			"string": "yfrog.com"
 		},
 		"get": function(target, thumbSize, linkURL, cb) {
-			var hashYfrog = parseURL(linkURL).file;
+			linkURL = linkURL.replace("twitter.","");
+			console.log(linkURL);
 			var suffixYfrog;
 			switch (thumbSize) {
 				case "small":
-					suffixYfrog = "small";
+					suffixYfrog = 150;
 					break;
 				case "medium":
-					suffixYfrog = "medium";
+					suffixYfrog = 280;
 					break;
 				case "large":
-					suffixYfrog = "medium";
+					suffixYfrog = 360;
 					break;
 			}
-			cb(target, "http://yfrog.com/" + hashYfrog + ":" + suffixYfrog, "http://yfrog.com/" + hashYfrog + ":medium", false, thumbSize);
+
+			var reqURL = "https://noembed.com/embed?maxwidth="+suffixYfrog+"&url="+encodeURIComponent(linkURL);
+
+			_ajax(reqURL, "GET", "json", null, function(data) {
+				var fullImage = data.media_url.replace("https://noembed.com/i/"+suffixYfrog+"/0/","");
+				cb(target, data.media_url, fullImage, false, thumbSize);
+			});			
 		}
 	}
 };

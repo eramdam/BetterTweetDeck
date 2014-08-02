@@ -46,7 +46,7 @@ var DefaultSettings = {
 		"dribbble": true,
 		"droplr": true,
 		"flickr": true,
-		"imgLy": true,
+		"imgly": true,
 		"imgur": true,
 		"instagram": true,
 		"mobyto": true,
