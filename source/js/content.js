@@ -1,5 +1,6 @@
 "use strict";
 
+
 (function() {
 	var settings;
 	var readyTD = new MutationObserver(function(mutations) {
@@ -26,13 +27,32 @@
 		}
 	});
 
-	
+	var readyShareTD = new MutationObserver(function(mutations) {
+		for (var i = mutations.length - 1; i >= 0; i--) {
+			if (mutations[i].target.tagName === "DIV" && mutations[i].target.style.display === "none") {
+				readyShareTD.disconnect();
+				bodyClasses.add('btd-ready');
+			}
+		}
+	});
+
+	chrome.runtime.onMessage.addListener(function(request) {
+		if (!document.body.classList.contains("btd-ready")) {
+			readyShareTD.observe(document.querySelector(".js-app-loading"), {attributes: true});
+		} else {
+			document.dispatchEvent(new CustomEvent('uiComposeTweet'));
+			document.querySelector('textarea.js-compose-text').value = request.text + ' ' + request.url;
+			document.querySelector('textarea.js-compose-text').dispatchEvent(new Event('change'));
+		}
+		request = null;
+	});
 
 	chrome.storage.sync.get("BTDSettings", function(obj) {
 		if (obj.BTDSettings != undefined) {
 			settings = obj.BTDSettings;
-			console.log(settings);
-			readyTD.observe(document.querySelector(".js-app-loading"), {attributes: true});
+			readyTD.observe(document.querySelector(".js-app-loading"), {
+				attributes: true
+			});
 		}
 	})
 
@@ -64,6 +84,7 @@
 	function ClassAdders() {
 		var bodyClasses = document.body.classList;
 		bodyClasses.add("btd-name_display-" + settings.name_display);
+		bodyClasses.add('btd-ready');
 
 		if (settings.circled_avatars) bodyClasses.add('btd-circled_avatars');
 		if (settings.no_columns_icons) bodyClasses.add('btd-no_columns_icons');
@@ -102,7 +123,7 @@
 
 			if (!target.querySelector('.media-preview') && target.querySelectorAll('p > a[rel=url]').length > 0) {
 				var links = target.querySelectorAll('p > a[rel=url]');
-				var link = links[links.length-1];
+				var link = links[links.length - 1];
 				var thumbSize = findParent(target, filterColumn).getAttribute('data-media-preview-size');
 				for (var providerName in Providers) {
 					if (Providers.hasOwnProperty(providerName) && settings.providers[providerName]) {
@@ -162,7 +183,7 @@
 	}
 
 	function RemoveOpenModalObserver(event) {
-		if ( (event.relatedNode.classList.contains('js-modals-container') || event.relatedNode.id == "open-modal") && document.querySelector('#open-modal > *, .js-modals-container, #actions-modal > *') == null) {
+		if ((event.relatedNode.classList.contains('js-modals-container') || event.relatedNode.id == "open-modal") && document.querySelector('#open-modal > *, .js-modals-container, #actions-modal > *') == null) {
 			document.body.classList.remove('btd-open-modal-on');
 		}
 	}

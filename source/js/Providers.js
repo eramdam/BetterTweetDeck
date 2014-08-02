@@ -391,7 +391,6 @@ var Providers = {
 		},
 		"get": function(target, thumbSize, linkURL, cb) {
 			linkURL = linkURL.replace(/[a-z]+\.yfrog.com/g,"yfrog.com");
-			console.log(linkURL);
 			var suffixYfrog;
 			switch (thumbSize) {
 				case "small":

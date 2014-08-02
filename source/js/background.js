@@ -111,3 +111,110 @@ chrome.storage.sync.get("BTDSettings", function(obj) {
 
 	
 });
+
+const TWEETDECK_WEB_URL = 'https://tweetdeck.twitter.com';
+
+/**
+ * Step 2: Collate a list of all the open tabs.
+ */
+function gatherTabs(urls, itemInfos) {
+	var allTheTabs = [];
+	var windowsChecked = 0;
+
+	// First get all the windows...
+	chrome.windows.getAll(function(windows) {
+		for (var i = 0; i < windows.length; i++) {
+			// ... and then all their tabs.
+			chrome.tabs.getAllInWindow(windows[i].id, function(tabs) {
+				windowsChecked++;
+				allTheTabs = allTheTabs.concat(tabs);
+
+				if (windowsChecked === windows.length) {
+					// We have all the tabs! Search for a TweetDeck...
+					openApp(urls, allTheTabs, itemInfos);
+				}
+			});
+
+		}
+	});
+}
+
+function openApp(urls, tabs, itemInfos) {
+	// Search urls in priority order...
+	for (var i = 0; i < urls.length; i++) {
+		var url = urls[i];
+
+		// Search tabs...
+		for (var j = 0; j < tabs.length; j++) {
+			var tab = tabs[j];
+			if (tab.url.indexOf(url) === 0) {
+				// Found it!
+				var tabId = tab.id;
+				chrome.windows.update(tab.windowId, {
+					focused: true
+				});
+				chrome.tabs.update(tabId, {
+					selected: true,
+					active: true,
+					highlighted: true
+				}, function() {
+					var text = itemInfos.text;
+					var url = itemInfos.url;
+					chrome.tabs.sendMessage(tabId, {
+						text: text,
+						url: url
+					})
+				});
+				return;
+			}
+		}
+	}
+
+	// Didn't find it! Open a new one!
+	chrome.tabs.create({
+		url: urls[0]
+	}, function(tab) {
+
+		chrome.tabs.onUpdated.addListener(function(tabId, info) {
+			if (info.status == "complete") {
+				chrome.tabs.sendMessage(tabId, {
+					text: itemInfos.text,
+					url: itemInfos.url
+				});
+			}
+		})
+	});
+};
+
+var clickHandler = function(info, tab) {
+	var text;
+	var url;
+
+	if (info.selectionText) {
+		text = "\"" + info.selectionText.substr(0, 110) + "\"";
+	} else {
+		text = tab.title.substr(0, 110);
+	}
+
+	if (info.linkUrl) {
+		url = info.linkUrl
+	} else {
+		url = info.pageUrl;
+	}
+
+	if (info.mediaType === "image") {
+		url = info.srcUrl;
+		text = "";
+	}
+
+	gatherTabs([TWEETDECK_WEB_URL], {
+		"text": text,
+		"url": url
+	});
+};
+
+chrome.contextMenus.create({
+	"title": "Share on (Better) TweetDeck",
+	"contexts": ["page", "selection", "image", "link"],
+	"onclick": clickHandler
+});
