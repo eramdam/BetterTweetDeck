@@ -97,7 +97,9 @@ HTMLCollection.prototype.forEach = Array.prototype.forEach; // Because of https:
 
 	chrome.runtime.onMessage.addListener(function(request) {
 		if (!document.body.classList.contains("btd-ready")) {
-			readyShareTD.observe(document.querySelector(".js-app-loading"), {attributes: true});
+			readyShareTD.observe(document.querySelector(".js-app-loading"), {
+				attributes: true
+			});
 		} else {
 			document.dispatchEvent(new CustomEvent('uiComposeTweet'));
 			document.querySelector('textarea.js-compose-text').value = request.text + ' ' + request.url;
