@@ -1,4 +1,9 @@
 function AddPreview(target, finalURL, content, isHTML, size) {
+
+	if (target.querySelector('.media-preview')) {
+		return;
+	}
+
 	var links = target.querySelectorAll('p > a[rel=url]');
 	var link = links[links.length-1];
 	link.classList.add('btd-has-thumb');
