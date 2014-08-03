@@ -93,6 +93,14 @@
 		max-width: none;
 	}
 
+	#open-modal .med-tweet {
+		left: 50%;
+		right: 0;
+		max-width: 512px;
+		-webkit-transform: translateX(-50%);
+		transform: translateX(-50%);
+	}
+
 	.ovl, .overlay {
 		background-color: rgba(black,.9);
 	}
