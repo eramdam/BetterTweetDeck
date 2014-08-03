@@ -138,7 +138,12 @@ $(function() {
 		$('#changelog section[lang] h3:first-of-type').addClass('alert');
 	}
 
+	var supportedLocales = ["fr","en"];
 	var currentLocale = chrome.i18n.getMessage("@@ui_locale");
 
-	$('section[lang="'+currentLocale+'"]').show();
+	if (supportedLocales.indexOf(currentLocale) == -1) {
+		$('section[lang="en"]').show();
+	} else {
+		$('section[lang="'+currentLocale+'"]').show();
+	}
 });
