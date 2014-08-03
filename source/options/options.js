@@ -58,7 +58,7 @@ $(function() {
 	});
 
 	// Taken from the Chrome Bootstrap styleguide http://roykolak.github.io/chrome-bootstrap/
-	$('.menu a').click(function(ev) {
+	$('.menu a, #changelog a[href^="#"]').click(function(ev) {
 		ev.preventDefault();
 		var selected = 'selected';
 
