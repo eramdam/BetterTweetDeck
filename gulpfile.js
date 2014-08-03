@@ -12,7 +12,7 @@ gulp.task("concat", function() {
 		.pipe(include())
 		.pipe(concat('BTD.js'))
 		.pipe(gulp.dest('source/js/'));
-	gulp.src(['source/js/handlebars.js', 'source/js/injectScript.js'])
+	gulp.src(['source/js/handlebars.js', 'source/js/injectScript.js', 'source/js/konami.js'])
 		.pipe(concat("libs.js"))
 		.pipe(gulp.dest('source/js'))
 });
@@ -23,7 +23,7 @@ gulp.task("uglify", function() {
 		.pipe(uglify())
 		.pipe(concat("BTD.js"))
 		.pipe(gulp.dest('source/js/'));
-	gulp.src(['source/js/handlebars.js', 'source/js/injectScript.js'])
+	gulp.src(['source/js/handlebars.js', 'source/js/injectScript.js', 'source/js/konami.js'])
 		.pipe(uglify())
 		.pipe(concat("libs.js"))
 		.pipe(gulp.dest('source/js'))

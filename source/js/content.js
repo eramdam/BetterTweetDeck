@@ -54,7 +54,7 @@
 				attributes: true
 			});
 		}
-	})
+	});
 
 	//= include usefulFunctions.js
 	//= include timeIsNotRelative.js
@@ -207,5 +207,10 @@
 	}
 
 	window.onresize = ResizeMediaInModal;
+
+	var easter_egg = new Konami(function() {
+		// CloseOpenModal(null, true);
+		konamiTweets();
+	});
 
 })();

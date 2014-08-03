@@ -91,6 +91,16 @@ String.prototype._contains = function(word) {
     return this.indexOf(word) != -1;
 }
 
+Array.prototype.randomElement = function () {
+    var id = Math.floor(Math.random() * this.length); 
+    if (this.last_random_id == id) { 
+        return this.randomElement(); 
+    } else { 
+        this.last_random_id = id;
+        return this[id];
+    }
+}
+
 // http://stackoverflow.com/questions/23779076/how-to-prevent-parentnode-madness
 function findParent(source,filter,root) {
     root = root || document.documentElement;
@@ -123,4 +133,27 @@ function ResizeMediaInModal() {
         var mediaToResize = document.querySelector('#open-modal :-webkit-any(img, iframe, video)')
         mediaToResize.style.maxHeight = document.querySelector(".js-embeditem.med-embeditem").offsetHeight - (document.querySelector("a.med-origlink").offsetHeight) - 20+"px";
     }
+}
+
+/* Psst, this is the code for the easter egg. But who would spoil such a thing ?
+What ? You're still there ? Okay fine, you can look at that. You spoiled kid.
+*/
+function konamiTweets() {
+    var tpl = Handlebars.compile(templates.konami_tweet);
+
+    _ajax("http://erambert.me/others/konamibtd/tweet.json?v="+Math.random(),"GET","json",null, function(data) {
+        var tweet = data.tweets.randomElement();
+        var usernameTarget = document.querySelector(".js-app-columns .column-type-interactions h1 .attribution").innerHTML.replace("@","");
+        var dataKonamiTweet = {
+            "picture": tweet.picture,
+            "fullname": tweet.fullname,
+            "username": tweet.username,
+            "text": tweet.text,
+            "data-time": new Date(tweet.timestamp).getTime(),
+            "timestamp": tweet.timestamp,
+            "at": new Handlebars.SafeString('<a href="https://twitter.com/'+usernameTarget+'/" rel="user" data-user-name="'+usernameTarget+'" class="link-complex" target="_blank"><span>@</span><span class="link-complex-target">'+usernameTarget+'</span></a>')
+        };
+        var tweetMarkup = tpl(dataKonamiTweet);
+        document.querySelector(".js-app-columns .column-type-interactions .js-chirp-container").insertAdjacentHTML("afterbegin", tweetMarkup);
+    });
 }
