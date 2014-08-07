@@ -104,8 +104,8 @@ HTMLCollection.prototype.forEach = Array.prototype.forEach; // Because of https:
 			document.dispatchEvent(new CustomEvent('uiComposeTweet'));
 			document.querySelector('textarea.js-compose-text').value = request.text + ' ' + request.url;
 			document.querySelector('textarea.js-compose-text').dispatchEvent(new Event('change'));
+			request = null;
 		}
-		request = null;
 	});
 
 	chrome.storage.sync.get("BTDSettings", function(obj) {
