@@ -21,7 +21,10 @@ function AddPreview(target, finalURL, content, isHTML, size) {
 	} else if (size == "large") {
 		var tpl = Handlebars.compile(templates.media_large);
 	}
-	var html = tpl(dataThumbs);
+	
+	if (tpl) {
+		var html = tpl(dataThumbs);
+	}
 
 	if (size == "large") {
 		target.querySelector('.js-tweet').insertAdjacentHTML("afterend", html);
@@ -40,8 +43,10 @@ function createMediaModal(sourceTweet, contentURL, content, isHTML) {
 
 	if (sourceTweet.querySelector('[data-key]')) {
 		var tweetKey = sourceTweet.querySelector('[data-key]').getAttribute('data-key');
-	} else {
+	} else if (sourceTweet.parentNode.querySelector('[data-key]')) {
 		var tweetKey = sourceTweet.parentNode.querySelector('[data-key]').getAttribute('data-key')
+	} else {
+		return;
 	}
 
 	if (!isHTML) {
