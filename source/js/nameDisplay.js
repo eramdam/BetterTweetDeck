@@ -11,7 +11,12 @@ function nameDisplay (el) {
 	} else if ( (el.querySelector('.fullname') && el.querySelector('.username')) && el.querySelectorAll('ul.tweet-actions > *').length != 1) {
 		var fullname = el.querySelector('.fullname').innerHTML;
 		// @TODO This produces an error when profil modals are opened and sometimes with tweets/RT
-		var username = el.querySelector('header a[rel=user]').href.split('/').pop();
+		var username = el.querySelector('header a[rel=user]');
+		if (username) {
+			var username = username.href.split('/').pop();
+		} else {
+			return;
+		}
 		el.querySelector('.username').innerText = fullname;
 		el.querySelector('.fullname').innerText = username;
 
