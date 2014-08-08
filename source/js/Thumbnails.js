@@ -24,6 +24,8 @@ function AddPreview(target, finalURL, content, isHTML, size) {
 	
 	if (tpl) {
 		var html = tpl(dataThumbs);
+	} else {
+		return;
 	}
 
 	if (size == "large") {
