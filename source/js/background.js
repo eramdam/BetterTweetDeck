@@ -36,6 +36,7 @@ var DefaultSettings = {
 	"only_one_thumbnails": true,
 	"minimal_mode": true,
 	"flash_tweets": "mentions",
+	"shorten_text": false,
 	"providers": {
 		"500px": true,
 		"bandcamp": true,
@@ -228,8 +229,10 @@ var clickHandler = function(info, tab) {
 	var text;
 	var url;
 
-	if (info.selectionText) {
+	if (info.selectionText && currentOptions.shorten_text) {
 		text = "\"" + info.selectionText.substr(0, 110) + "\"";
+	} else if (info.selectionText) {
+		text = info.selectionText;
 	} else {
 		text = tab.title.substr(0, 110);
 	}

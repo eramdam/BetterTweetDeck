@@ -150,6 +150,12 @@
   "tcoRemoval": {
     "message": "Supprimer la redirection des liens en http://t.co"
   },
+  "shortText": {
+    "message": "Raccourcir le texte sélectionné lors du partage par menu contextuel"
+  },
+  "RestartChrome": {
+    "message": "Sera appliqué au prochain démarrage de Chrome"
+  },
   "playButtonYT": {
     "message": "Masquer le bouton 'Lecture' sur les miniatures YouTube"
   },

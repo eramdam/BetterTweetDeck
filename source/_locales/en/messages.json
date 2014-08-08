@@ -151,6 +151,12 @@
 	"tcoRemoval": {
 		"message": "Remove the http://t.co from links"
 	},
+	"shortText": {
+		"message": "Shorten the selected text while using the \"Share on Better TweetDeck\" action"
+	},
+	"RestartChrome": {
+		"message": "Will be applied at next Chrome restart"
+	},
 	"playButtonYT": {
 		"message": "Hide the 'Play' button on YouTube thumbnails"
 	},

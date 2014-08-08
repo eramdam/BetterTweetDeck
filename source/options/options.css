@@ -31,7 +31,7 @@ input[type="checkbox"] + span, input[type="radio"] + span {
   list-style-type: disc;
 }
 
-#contenu .checkbox span em {
+#contenu .checkbox span em, span.greyed {
 	color: #ccc;
 	font-size: 88%;
 	font-style: normal;
@@ -262,4 +262,12 @@ div.tweet-preview div.timestamp.absolute_us {
 #content_preview.small_icons_compose.minimal_mode #compose_icons {
   background-image: url("img/content_preview/small_icons_compose_minimal.png");
   margin-left: 50px;
+}
+
+.chrome-bootstrap .frame .view, .chrome-bootstrap .frame .content {
+  width: 100%;
+}
+
+.chrome-bootstrap section {
+  max-width: 100%;
 }
