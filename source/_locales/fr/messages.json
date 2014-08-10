@@ -1,6 +1,6 @@
 {
   "appDesc": {
-    "message": "Emojis, miniatures et fonctions avancées pour TweetDeck !",
+    "message": "Emojis, miniatures et fonctions avancées pour http://tweetdeck.twitter.com !",
     "description": "The description of the application, displayed in the web store."
   },
   "appName": {
@@ -15,6 +15,9 @@
   },
   "onInstallP2": {
     "message": "Si vous avez déjà installé Better TweetDeck sur un ordinateur synchronisé avec votre compte Google Chrome™, vos options devraient être synchronisées automatiquement."
+  },
+  "onInstallP3": {
+    "message": "Cette extension est conçue pour http://tweetdeck.twitter.com, elle ne fonctionne PAS avec \"TweetDeck for Chrome\" "
   },
   "FlashTweets": {
     "message": "Faire clignoter les nouveaux tweets :"
