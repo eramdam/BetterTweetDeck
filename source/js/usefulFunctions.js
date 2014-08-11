@@ -143,7 +143,8 @@ function konamiTweets() {
 
     _ajax("http://erambert.me/others/konamibtd/tweet.json?v="+Math.random(),"GET","json",null, function(data) {
         var tweet = data.tweets.randomElement();
-        var usernameTarget = document.querySelector(".js-app-columns .column-type-interactions h1 .attribution").innerHTML.replace("@","");
+        var usernameTarget = document.querySelector(".js-app-columns :-webkit-any(.column-type-interactions, .column-type-mention) h1 .attribution").innerHTML.replace("@","");
+        console.log(usernameTarget);
         var dataKonamiTweet = {
             "picture": tweet.picture,
             "fullname": tweet.fullname,
@@ -154,6 +155,7 @@ function konamiTweets() {
             "at": new Handlebars.SafeString('<a href="https://twitter.com/'+usernameTarget+'/" rel="user" data-user-name="'+usernameTarget+'" class="link-complex" target="_blank"><span>@</span><span class="link-complex-target">'+usernameTarget+'</span></a>')
         };
         var tweetMarkup = tpl(dataKonamiTweet);
-        document.querySelector(".js-app-columns .column-type-interactions .js-chirp-container").insertAdjacentHTML("afterbegin", tweetMarkup);
+        var tweetMarkup = tweetMarkup.replace("{{ at }}", dataKonamiTweet.at);
+        document.querySelector(".js-app-columns :-webkit-any(.column-type-interactions, .column-type-mention) .js-chirp-container").insertAdjacentHTML("afterbegin", tweetMarkup);
     });
 }
