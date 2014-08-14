@@ -5,7 +5,7 @@ node_modules/
 old/
 source/js/BTD.js
 source/styles/*.css
-build/
+build*
 source/js/libs.js
 
 old.zip
