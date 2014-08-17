@@ -159,6 +159,7 @@ const TWEETDECK_WEB_URL = 'https://tweetdeck.twitter.com';
 function gatherTabs(urls, itemInfos) {
 	var allTheTabs = [];
 	var windowsChecked = 0;
+	console.log("gatherTabs", itemInfos.timestamp);
 
 	// First get all the windows...
 	chrome.windows.getAll(function(windows) {
@@ -179,6 +180,7 @@ function gatherTabs(urls, itemInfos) {
 }
 
 function openApp(urls, tabs, itemInfos) {
+	console.log("openApp", itemInfos.timestamp);
 	// Search urls in priority order...
 	for (var i = 0; i < urls.length; i++) {
 		var url = urls[i];
@@ -197,11 +199,14 @@ function openApp(urls, tabs, itemInfos) {
 					active: true,
 					highlighted: true
 				}, function() {
+					console.log("update", itemInfos.timestamp);
 					var text = itemInfos.text;
 					var url = itemInfos.url;
 					chrome.tabs.sendMessage(tabId, {
 						text: text,
-						url: url
+						url: url,
+						timestamp: itemInfos.timestamp,
+						count: 2
 					})
 				});
 				return;
@@ -213,12 +218,17 @@ function openApp(urls, tabs, itemInfos) {
 	chrome.tabs.create({
 		url: urls[0]
 	}, function(tab) {
-
+		var count = 0;
 		chrome.tabs.onUpdated.addListener(function(tabId, info) {
+			
 			if (info.status == "complete") {
+				count += 1;
+				console.log("onUpdated", itemInfos.timestamp, count);
 				chrome.tabs.sendMessage(tabId, {
 					text: itemInfos.text,
-					url: itemInfos.url
+					url: itemInfos.url,
+					timestamp: itemInfos.timestamp,
+					count: count
 				});
 			}
 		})
@@ -250,7 +260,8 @@ var clickHandler = function(info, tab) {
 
 	gatherTabs([TWEETDECK_WEB_URL], {
 		"text": text,
-		"url": url
+		"url": url,
+		"timestamp": new Date().getTime()
 	});
 };
 

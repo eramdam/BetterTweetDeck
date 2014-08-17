@@ -159,3 +159,16 @@ function konamiTweets() {
         document.querySelector(".js-app-columns :-webkit-any(.column-type-interactions, .column-type-mention) .js-chirp-container").insertAdjacentHTML("afterbegin", tweetMarkup);
     });
 }
+
+function shareBTD(request) {
+    if (!document.body.classList.contains("btd-ready")) {
+        readyShareTD.observe(document.querySelector(".js-app-loading"), {
+            attributes: true
+        });
+    } else {
+        console.debug(request);
+        document.dispatchEvent(new CustomEvent('uiComposeTweet'));
+        document.querySelector('textarea.js-compose-text').value = request.text + ' ' + request.url;
+        document.querySelector('textarea.js-compose-text').dispatchEvent(new Event('change'));
+    }
+}

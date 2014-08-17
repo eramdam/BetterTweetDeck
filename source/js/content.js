@@ -90,21 +90,14 @@ HTMLCollection.prototype.forEach = Array.prototype.forEach; // Because of https:
 		for (var i = mutations.length - 1; i >= 0; i--) {
 			if (mutations[i].target.tagName === "DIV" && mutations[i].target.style.display === "none") {
 				readyShareTD.disconnect();
-				bodyClasses.add('btd-ready');
+				document.body.classList.add('btd-ready');
 			}
 		}
 	});
 
 	chrome.runtime.onMessage.addListener(function(request) {
-		if (!document.body.classList.contains("btd-ready")) {
-			readyShareTD.observe(document.querySelector(".js-app-loading"), {
-				attributes: true
-			});
-		} else {
-			document.dispatchEvent(new CustomEvent('uiComposeTweet'));
-			document.querySelector('textarea.js-compose-text').value = request.text + ' ' + request.url;
-			document.querySelector('textarea.js-compose-text').dispatchEvent(new Event('change'));
-			request = null;
+		if (request.count === 2) {
+			shareBTD(request);
 		}
 	});
 
