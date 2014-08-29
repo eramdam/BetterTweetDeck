@@ -242,7 +242,7 @@ var clickHandler = function(info, tab) {
 	if (info.selectionText && currentOptions.shorten_text) {
 		text = "\"" + info.selectionText.substr(0, 110) + "\"";
 	} else if (info.selectionText) {
-		text = info.selectionText;
+		text = "\"" + info.selectionText + "\"";
 	} else {
 		text = tab.title.substr(0, 110);
 	}
