@@ -59,7 +59,7 @@
 		"message": "Changelog"
 	},
 	"Author": {
-		"message": "Auteur"
+		"message": "Author"
 	},
 	"Contributors": {
 		"message": "Contributors / Early testers"
@@ -131,7 +131,7 @@
 		"message": "Full name"
 	},
 	"minimalMode": {
-		"message": "Enabled the \"Minimal\" mode"
+		"message": "Enable the \"Minimal\" mode"
 	},
 	"narrowColumns": {
 		"message": "Columns take less space"
@@ -170,7 +170,7 @@
 		"message": "Display only one thumbnail per tweet"
 	},
 	"thumbnailsfrom": {
-		"message": "Display thumbnails from :"
+		"message": "Display thumbnails from:"
 	},
 	"previewTweet": {
 		"message": "Tweet preview"
