@@ -37,7 +37,7 @@ Then simply follow this workflow :
 
 # Screenshots
 
-![]("meta/emojis.jpg")
-![]("meta/btd-customization.jpg")
-![]("meta/bettertweetdeck-thumbnails.png")
-![]("meta/bettertweetdeck-lightboxes.png")
+![](meta/emojis.jpg)
+![](meta/btd-customization.jpg)
+![](meta/bettertweetdeck-thumbnails.png)
+![](meta/bettertweetdeck-lightboxes.png)
