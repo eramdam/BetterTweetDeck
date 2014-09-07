@@ -1,15 +1,13 @@
-Better TweetDeck
-===============
+# Better TweetDeck
 
 Adds some nice options on [TweetDeck](http://tweetdeck.twitter.com) to provide a better experience on the webapp when used on Chrome.
 
-Installation
-===============
+# Installation
 
 + [Better TweetDeck on the Chrome Web Store](https://chrome.google.com/webstore/detail/better-tweetdeck/micblkellenpbfapmcpcfhcoeohhnpob)
 
-Contributing & Helping
-===============
+
+# Contributing & Helping
 
 If you want to suggest something or address an issue, use the GitHub Issues and Pull Request feature.
 
@@ -25,8 +23,7 @@ Then simply follow this workflow :
 + Run `gulp watch` before coding
 + Generate a build.zip with `jake build`
 
-Screenshots
-===============
+# Screenshots
 
 ![](meta/emojis.jpg)
 ![](meta/btd-customization.jpg)
