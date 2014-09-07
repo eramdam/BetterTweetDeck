@@ -31,7 +31,7 @@ function buildingEmojiComposer(emojiSource) {
         var emojisImg = document.querySelectorAll(".emoji-container > div > a");
         for (var i = emojisImg.length - 1; i >= 0; i--) {
             emojisImg[i].addEventListener("click", function(e) {
-                document.querySelector("textarea.js-compose-text").value += e.target.getAttribute("data-string");
+                insertAtCaret(document.querySelector("textarea.js-compose-text"),e.target.getAttribute("data-string"));
                 document.querySelector("textarea.js-compose-text").dispatchEvent(new Event("change"));
                 return false;
             });
