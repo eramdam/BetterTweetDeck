@@ -35,6 +35,7 @@ var Providers = {
 			var headers = {
 				"Accept": "application/json"
 			};
+			linkURL = linkURL.replace("http://","https://");
 			_ajax(linkURL, "GET", "json", headers, function(data) {
 				if (data.item_type == "image") {
 					var thumbnailUrl = data.thumbnail_url;
@@ -73,7 +74,7 @@ var Providers = {
 			"string": "(deviantart\.com\\/art|fav\.me|sta\.sh)"
 		},
 		"get": function(target, size, linkURL, cb) {
-			var deviantURL = 'http://backend.deviantart.com/oembed?url=' + encodeURIComponent(linkURL);
+			var deviantURL = 'https://backend.deviantart.com/oembed?url=' + encodeURIComponent(linkURL);
 
 			_ajax(deviantURL, "GET", "json", null, function(data) {
 				if (data.type == "photo") {
@@ -89,7 +90,7 @@ var Providers = {
 		},
 		"get": function(target, thumbSize, linkURL, cb) {
 			var dribbbleID = parseURL(linkURL).file.split("-").shift();
-			var dribbleURL = 'http://api.dribbble.com/shots/' + dribbbleID;
+			var dribbleURL = 'https://api.dribbble.com/shots/' + dribbbleID;
 
 			_ajax(dribbleURL, "GET", "json", null, function(data) {
 				cb(target, data.image_teaser_url, data.image_url, false, thumbSize);
@@ -138,7 +139,7 @@ var Providers = {
 		},
 		"get": function(target, thumbSize, linkURL, cb) {
 			var bandcampURL = encodeURIComponent(linkURL);
-			bandcampURL = 'http://api.embed.ly/1/oembed?key=748757a075e44633b197feec69095c90&url=' + bandcampURL + '&format=json';
+			bandcampURL = 'https://api.embed.ly/1/oembed?key=748757a075e44633b197feec69095c90&url=' + bandcampURL + '&format=json';
 
 			_ajax(bandcampURL, "GET", "json", null, function(data) {
 				var embed = data.html;
@@ -154,7 +155,7 @@ var Providers = {
 		},
 		"get": function(target, thumbSize, linkURL, cb) {
 			var bandcampURL = encodeURIComponent(linkURL);
-			bandcampURL = 'http://api.embed.ly/1/oembed?key=748757a075e44633b197feec69095c90&url=' + bandcampURL + '&format=json';
+			bandcampURL = 'https://api.embed.ly/1/oembed?key=748757a075e44633b197feec69095c90&url=' + bandcampURL + '&format=json';
 
 			_ajax(bandcampURL, "GET", "json", null, function(data) {
 				var embed = data.html;
@@ -243,7 +244,7 @@ var Providers = {
 					var suffixInstagram = "l"
 					break;
 			}
-			var instagramURL = "http://api.instagram.com/oembed?url=" + URL.replace("i.instagram", "instagram");
+			var instagramURL = "https://api.instagram.com/oembed?url=" + URL.replace("i.instagram", "instagram");
 
 			_ajax(instagramURL, "GET", "json", null, function(data) {
 				var finalURL = "http://instagr.am/p/" + instagramID + "/media/?size=" + suffixInstagram;
@@ -302,7 +303,7 @@ var Providers = {
 			"string": "soundcloud.com/"
 		},
 		"get": function(target, thumbSize, linkURL, cb) {
-			var soundcloudURL = 'http://soundcloud.com/oembed?format=json&url=' + linkURL;
+			var soundcloudURL = 'https://soundcloud.com/oembed?format=json&url=' + linkURL;
 
 			_ajax(soundcloudURL, "GET", "json", null, function(data) {
 				cb(target, data.thumbnail_url, data.html.replace('width="100%"', 'width="600"'), true, thumbSize);
@@ -374,11 +375,11 @@ var Providers = {
 					break;
 			}
 			var vimeoID = parseURL(linkURL).segments.shift();
-			var vimeoURL = 'http://vimeo.com/api/oembed.json?maxwidth=' + suffixVimeo + '&url=http%3A//vimeo.com/' + vimeoID;
+			var vimeoURL = 'https://vimeo.com/api/oembed.json?maxwidth=' + suffixVimeo + '&url=http%3A//vimeo.com/' + vimeoID;
 
 			_ajax(vimeoURL, "GET", "json", null, function(data) {
 				var thumbnailVimeo = data.thumbnail_url;
-				_ajax('http://vimeo.com/api/oembed.json?maxwidth=1024&url=http%3A//vimeo.com/' + vimeoID, "GET", "json", null, function(data) {
+				_ajax('https://vimeo.com/api/oembed.json?maxwidth=1024&url=http%3A//vimeo.com/' + vimeoID, "GET", "json", null, function(data) {
 					cb(target, thumbnailVimeo, data.html, true, thumbSize);
 				});
 			});
