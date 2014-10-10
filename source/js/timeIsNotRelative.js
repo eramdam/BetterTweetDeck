@@ -15,16 +15,16 @@ function timeIsNotRelative(el, mode) {
 		var year = ts.getFullYear();
 
 		var month = ts.getMonth()+1;
-		month = (month < 10) ? '0' + month : month;
+		month = pad(month);
 
 		var minutes = ts.getMinutes();
-		minutes = (minutes < 10) ? '0' + minutes : minutes;
+		minutes = pad(minutes);
 
 		var hours = ts.getHours();
-		hours = (hours < 10) ? '0' + hours : hours;
+		hours = pad(hours);
 
 		var day = ts.getDate();
-		day = (day < 10) ? '0' + day : day;
+		day = pad(day);
 
 		var dateString;
 

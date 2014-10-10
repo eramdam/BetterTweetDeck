@@ -30,6 +30,11 @@ var _ajax = function(url, method, dataType, headers, onSuccess, onFailure) {
     req.send(null);
 }
 
+// Shout out to https://github.com/github/time-elements/blob/master/time-elements.js
+function pad(number) {
+    return ('0' + number).slice(-2);
+}
+
 // @author James Padolsey
 // @url http://james.padolsey.com/javascript/parsing-urls-with-the-dom/
 // This function creates a new anchor element and uses location
