@@ -54,16 +54,16 @@ var Providers = {
 			var dailymotionURL = 'https://api.dailymotion.com/video/' + dailymotionID + '?fields=thumbnail_240_url,thumbnail_360_url,thumbnail_180_url,embed_html';
 			if (size == "large") {
 				_ajax(dailymotionURL, "GET", "json", null, function(data) {
-					cb(target, data.thumbnail_360_url, data.embed_html.replace("http://", "https://"), true, size);
+					cb(target, GoogleSafeURL(data.thumbnail_360_url), data.embed_html.replace("http://", "https://"), true, size);
 				});
 
 			} else if (size == "medium") {
 				_ajax(dailymotionURL, "GET", "json", null, function(data) {
-					cb(target, data.thumbnail_240_url, data.embed_html.replace("http://", "https://"), true, size);
+					cb(target, GoogleSafeURL(data.thumbnail_240_url), data.embed_html.replace("http://", "https://"), true, size);
 				});
 			} else if (size == "small") {
 				_ajax(dailymotionURL, "GET", "json", null, function(data) {
-					cb(target, data.thumbnail_180_url, data.embed_html.replace("http://", "https://"), true, size);
+					cb(target, GoogleSafeURL(data.thumbnail_180_url), data.embed_html.replace("http://", "https://"), true, size);
 				});
 			}
 		}
@@ -248,6 +248,7 @@ var Providers = {
 
 			_ajax(instagramURL, "GET", "json", null, function(data) {
 				var finalURL = "http://instagr.am/p/" + instagramID + "/media/?size=" + suffixInstagram;
+				var finalURL = GoogleSafeURL(finalURL);
 				if (data.type == "photo") {
 					var imgURL = data.url;
 					cb(target, finalURL, imgURL, false, size);
@@ -272,7 +273,7 @@ var Providers = {
 				var suffixImgly = thumbSize;
 			}
 			var finalImglyURL = "http://img.ly/show/" + suffixImgly + "/" + imglyID;
-			cb(target, finalImglyURL, "http://img.ly/show/full/" + imglyID, false, thumbSize);
+			cb(target, GoogleSafeURL(finalImglyURL), "http://img.ly/show/full/" + imglyID, false, thumbSize);
 	    }
 	},
 	"mobyto": {
@@ -294,7 +295,7 @@ var Providers = {
 					sizeMobyto = "medium"
 					break;
 			}
-			cb(target, "http://moby.to/" + mobyID + ":" + sizeMobyto, "http://moby.to/" + mobyID + ":full", false, thumbSize);
+			cb(target, GoogleSafeURL("http://moby.to/" + mobyID + ":" + sizeMobyto), GoogleSafeURL("http://moby.to/" + mobyID + ":full"), false, thumbSize);
 		}
 	},
 	"soundcloud": {
@@ -306,7 +307,7 @@ var Providers = {
 			var soundcloudURL = 'https://soundcloud.com/oembed?format=json&url=' + linkURL;
 
 			_ajax(soundcloudURL, "GET", "json", null, function(data) {
-				cb(target, data.thumbnail_url, data.html.replace('width="100%"', 'width="600"'), true, thumbSize);
+				cb(target, GoogleSafeURL(data.thumbnail_url), data.html.replace('width="100%"', 'width="600"'), true, thumbSize);
 			});
 		}
 	},

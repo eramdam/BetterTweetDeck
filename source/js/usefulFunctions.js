@@ -73,6 +73,10 @@ function parseURL(url) {
     };
 }
 
+function GoogleSafeURL(URL) {
+    return 'https://images4-focus-opensocial.googleusercontent.com/gadgets/proxy?url=' + encodeURIComponent(URL) + '&container=focus&refresh=86400';
+}
+
 function clickedOutsideElement(elemId) {
     var theElem = getEventTarget(window.event);
     while (theElem != null) {
