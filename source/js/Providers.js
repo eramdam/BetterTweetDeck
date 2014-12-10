@@ -39,7 +39,7 @@ var Providers = {
 			_ajax(linkURL, "GET", "json", headers, function(data) {
 				if (data.item_type == "image") {
 					var thumbnailUrl = data.thumbnail_url;
-					cb(target, thumbnailUrl, data.content_url, false, size);
+					cb(target, GoogleSafeURL(thumbnailUrl), GoogleSafeURL(data.content_url), false, size);
 				}
 			});
 		}
@@ -111,7 +111,7 @@ var Providers = {
 			// Removing the last "/" if present and adding one+suffix
 			var thumbnailUrl = linkURL.replace(/\/$/, "");
 			var thumbnailUrl = thumbnailUrl + "/" + suffixDroplr;
-			cb(target, thumbnailUrl, linkURL + "+", false, size);
+			cb(target, thumbnailUrl.replace('http://','https://'), linkURL.replace('http://','https://') + "+", false, size);
 		}
 	},
 	"flickr": {
@@ -144,7 +144,7 @@ var Providers = {
 			_ajax(bandcampURL, "GET", "json", null, function(data) {
 				var embed = data.html;
 				var thumbnailBandcamp = data.thumbnail_url;
-				cb(target, thumbnailBandcamp, embed, true, thumbSize);
+				cb(target, GoogleSafeURL(thumbnailBandcamp), embed, true, thumbSize);
 			});
 		}
 	},
@@ -160,7 +160,7 @@ var Providers = {
 			_ajax(bandcampURL, "GET", "json", null, function(data) {
 				var embed = data.html;
 				var thumbnailBandcamp = data.thumbnail_url;
-				cb(target, thumbnailBandcamp, embed, true, thumbSize);
+				cb(target, GoogleSafeURL(thumbnailBandcamp), embed, true, thumbSize);
 			});
 		}
 	},
@@ -171,7 +171,7 @@ var Providers = {
 		},
 		"get": function(target, size, linkURL, cb) {
 			var imgurClientIDs = ["c189a7be5a7a313", "180ce538ef0dc41"];
-			if (!new RegExp(/\.(jpg|png|gif)/g).test(linkURL)) {
+			if (!new RegExp(/\.(jpg|png|gif|gifv)/g).test(linkURL)) {
 				var headers = {
 					"Authorization": "Client-ID " + getClientID()
 				};
@@ -235,26 +235,26 @@ var Providers = {
 			var instagramID = parseURL(URL.replace(/\/$/, "")).segments.pop();
 			switch (size) {
 				case "small":
-					var suffixInstagram = "t"
+					var suffixInstagram = "thumbnail"
 					break;
 				case "medium":
-					var suffixInstagram = "m"
+					var suffixInstagram = "low_resolution"
 					break;
 				case "large":
-					var suffixInstagram = "l"
+					var suffixInstagram = "low_resolution"
 					break;
 			}
-			var instagramURL = "https://api.instagram.com/oembed?url=" + URL.replace("i.instagram", "instagram");
+			var instagramURL = "https://api.instagram.com/v1/media/shortcode/"+instagramID+"?client_id=66bc9005ac964972bc940b690525c2d0";
 
 			_ajax(instagramURL, "GET", "json", null, function(data) {
-				var finalURL = "http://instagr.am/p/" + instagramID + "/media/?size=" + suffixInstagram;
-				var finalURL = GoogleSafeURL(finalURL);
-				if (data.type == "photo") {
-					var imgURL = data.url;
+				var finalURL = data.data.images[suffixInstagram].url.replace('http://','https://');
+				if (data.data.type == "image") {
+					var imgURL = data.data.images["standard_resolution"].url.replace('http://', 'https://');
 					cb(target, finalURL, imgURL, false, size);
-				} else {
-					var content = "http://instagr.am/p/" + instagramID + "/media/?size=l";
-					cb(target, finalURL, content, false, size);
+				} else if (data.data.type == "video") {
+					var content = '<video src="" ></video>';
+					var content = '<video src="'+data.data.videos['standard_resolution'].url.replace('http://','https://')+'" controls autoplay loop></video>';
+					cb(target, finalURL, content, true, size);
 				}
 			})
 
