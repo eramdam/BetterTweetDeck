@@ -62,6 +62,9 @@
   "AuthorWeb": {
     "message": "Site web de l'auteur"
   },
+  "MakeADonation": {
+    "message": "Faire un don"
+  },
   "Links": {
     "message": "Liens"
   },

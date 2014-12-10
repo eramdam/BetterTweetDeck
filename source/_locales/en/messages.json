@@ -79,6 +79,9 @@
 	"AuthorWeb": {
 		"message": "Author's Website"
 	},
+	"MakeADonation": {
+		"message": "Make a donation"	
+	},
 	"Ressources": {
 		"message": "Used Ressources"
 	},

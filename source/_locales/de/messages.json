@@ -79,6 +79,9 @@
 	"AuthorWeb": {
 		"message": "Autoren-Webseite"
 	},
+	"MakeADonation": {
+		"message": "Spenden Sie"
+	},
 	"Ressources": {
 		"message": "Benutzte Ressourcen"
 	},
