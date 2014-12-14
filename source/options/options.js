@@ -35,7 +35,7 @@ $(function() {
 
 	$('.i18n').each(function(index) {
 		var message = $(this).attr('data-message');
-		$(this).text(CGetMessage(message));
+		$(this).html(CGetMessage(message));
 	});
 
 	chrome.storage.sync.get("BTDSettings", function(obj) {
@@ -114,8 +114,8 @@ $(function() {
 	}
 
 	if (window.location.hash === "#installed") {
-		var modal = $('.overlay').clone();
-        $(modal).removeAttr('style');
+		var modal = $('.overlay#installed').clone();
+        $(modal).css('display', '-webkit-box');
         $(modal).find('button, .close-button').click(function() {
           $(modal).addClass('transparent');
           setTimeout(function() {
@@ -134,6 +134,25 @@ $(function() {
         });
         $('body').append(modal);
 	} else if (window.location.hash === "#updated") {
+		var modal = $('.overlay#thanks').clone();
+        $(modal).css('display', '-webkit-box');
+        $(modal).find('button, .close-button').click(function() {
+          $(modal).addClass('transparent');
+          setTimeout(function() {
+            $(modal).remove();
+          }, 1000);
+        });
+
+        $(modal).click(function() {
+          $(modal).find('.page').addClass('pulse');
+          $(modal).find('.page').on('webkitAnimationEnd', function() {
+            $(this).removeClass('pulse');
+          });
+        });
+        $(modal).find('.page').click(function(ev) {
+          ev.stopPropagation();
+        });
+        $('body').append(modal);
 		$('a[href="#changelog"]').click();
 		$('#changelog section[lang] h3:first-of-type').addClass('alert');
 	}

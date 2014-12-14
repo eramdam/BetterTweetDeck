@@ -19,6 +19,18 @@
   "onInstallP3": {
     "message": "Cette extension est conçue pour http://tweetdeck.twitter.com, elle ne fonctionne PAS avec \"TweetDeck for Chrome\" "
   },
+  "onUpdateH1": {
+    "message": "Merci d'utiliser Better TweetDeck"
+  },
+  "onUpdateP1": {
+    "message": "Vous êtes maintenant plus de 4000 à utiliser Better TweetDeck, c'est incroyable!" 
+  },
+  "onUpdateP2": {
+    "message": "Cependant, même si Better TweetDeck est gratuit, il prend du temps à développer, et le temps a une valeur"
+  },
+  "onUpdateP3": {
+    "message": "C'est pourquoi cela serait génial si vous pouviez <a href='https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9TXC4TVXGL6PJ'>faire un don</a> (<strong>seulement</strong > si vous pouvez vous le permettre!). Cela m'aiderait à passer plus de temps à rendre Better TweetDeck encore plus utile !"
+  },
   "FlashTweets": {
     "message": "Faire clignoter les nouveaux tweets :"
   },

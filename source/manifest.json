@@ -2,7 +2,7 @@
 	"name": "__MSG_appName__",
 	"short_name": "BetterTDeck",
 	"default_locale": "en",
-	"version": "2.0.8",
+	"version": "2.1.0",
 	"manifest_version": 2,
 	"description": "__MSG_appDesc__",
 	"content_scripts": [{
@@ -43,5 +43,5 @@
 		"https://api.dribbble.com/*"
 	],
 	"web_accessible_resources": ["font/*","emojis/emojis-s8bc023ba47.png","emojis/emojis2x-s1940453998.png","emojis/emoji-popover.html", "options/options.html"],
-	"content_security_policy": "img-src 'self' *; default-src"
+	"content_security_policy": "img-src 'self' *; default-src; unsafe-inline;"
 }

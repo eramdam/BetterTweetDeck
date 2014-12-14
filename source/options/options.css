@@ -15,6 +15,10 @@ input[type="checkbox"] + span, input[type="radio"] + span {
 	margin-top: .8em;
 }
 
+.chrome-bootstrap .overlay {
+  display: none;
+}
+
 .chrome-bootstrap .overlay .page {
   max-width: 600px;
 }
