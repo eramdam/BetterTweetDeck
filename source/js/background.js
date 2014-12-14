@@ -21,7 +21,10 @@ Array.prototype.equals = function(array) {
 	return true;
 }
 
+var installed_date = new Date().getTime();
+
 var DefaultSettings = {
+	"installed_date": installed_date,
 	"timestamp": "absolute",
 	"full_after_24h": false,
 	"name_display": "both",
