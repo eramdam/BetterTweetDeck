@@ -232,6 +232,7 @@ var Providers = {
 			"string": "https?://(?:i\.|)instagr(?:\.am|am\.com)/p/.+"
 		},
 		"get": function(target, size, URL, cb) {
+			var instagramentClientIDs = ["66bc9005ac964972bc940b690525c2d0", "72359a821b09408ba4b9e329c1acb021", "e6329b1fe3f94230be95ecd81ec00103"];
 			var instagramID = parseURL(URL.replace(/\/$/, "")).segments.pop();
 			switch (size) {
 				case "small":
@@ -244,7 +245,7 @@ var Providers = {
 					var suffixInstagram = "low_resolution"
 					break;
 			}
-			var instagramURL = "https://api.instagram.com/v1/media/shortcode/"+instagramID+"?client_id=66bc9005ac964972bc940b690525c2d0";
+			var instagramURL = "https://api.instagram.com/v1/media/shortcode/"+instagramID+"?client_id="+getClientID();
 
 			_ajax(instagramURL, "GET", "json", null, function(data) {
 				var finalURL = data.data.images[suffixInstagram].url.replace('http://','https://');
@@ -256,7 +257,11 @@ var Providers = {
 					var content = '<video src="'+data.data.videos['standard_resolution'].url.replace('http://','https://')+'" controls autoplay loop></video>';
 					cb(target, finalURL, content, true, size);
 				}
-			})
+			});
+
+			function getClientID() {
+				return instagramentClientIDs[Math.floor(Math.random() * instagramentClientIDs.length)];
+			}
 
 		}
 	},
