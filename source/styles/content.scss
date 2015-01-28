@@ -114,6 +114,39 @@
 	opacity: 0;
 }
 
+.btd-dark-theme {
+  img {
+    &.emoji[alt="®"],
+    &.emoji[alt="©"],
+    &.emoji[alt="™"] {
+      -webkit-filter: #{'invert(100%)'}; // Because Sass is stupid..
+    }
+  }
+}
+
 @import "minimalMode";
 @import "emojiPanel";
 @import "emojis";
+
+.btd-ready {
+	.column-title {
+		padding-left: 0;
+		margin-left: 30px;
+		.column-head-title, .attribution {
+			width: 100%;
+			display: block;
+			height: 20px;
+			line-height: 1;
+			text-align: center;
+		}
+
+		.column-head-title {
+			font-size: 16px;
+			margin-top: 10px;
+		}
+
+		.attribution {
+			font-size: 12px;
+		}
+	}
+}
