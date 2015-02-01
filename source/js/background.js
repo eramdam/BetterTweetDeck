@@ -39,6 +39,7 @@ var DefaultSettings = {
 	"only_one_thumbnails": true,
 	"minimal_mode": true,
 	"flash_tweets": "mentions",
+	"share_button": true,
 	"shorten_text": false,
 	"providers": {
 		"500px": true,
@@ -268,8 +269,10 @@ var clickHandler = function(info, tab) {
 	});
 };
 
-chrome.contextMenus.create({
-	"title": "Share on (Better) TweetDeck",
-	"contexts": ["page", "selection", "image", "link"],
-	"onclick": clickHandler
-});
+if (currentOptions.share_button) {
+	chrome.contextMenus.create({
+		"title": chrome.i18n.getMessage("shareOnBTD"),
+		"contexts": ["page", "selection", "image", "link"],
+		"onclick": clickHandler
+	});
+}
