@@ -150,7 +150,7 @@ What ? You're still there ? Okay fine, you can look at that. You spoiled kid.
 function konamiTweets() {
     var tpl = Handlebars.compile(templates.konami_tweet);
 
-    _ajax("http://erambert.me/others/konamibtd/tweet.json?v="+Math.random(),"GET","json",null, function(data) {
+    _ajax(chrome.extension.getURL("tweet.json"),"GET","json",null, function(data) {
         var tweet = data.tweets.randomElement();
         var usernameTarget = document.querySelector(".js-app-columns :-webkit-any(.column-type-interactions, .column-type-mention) h1 .attribution").innerHTML.replace("@","");
         console.log(usernameTarget);

@@ -36,12 +36,12 @@
 		"http://moby.to/*",
 		"https://soundcloud.com/*",
 		"https://api.embed.ly/1/*",
-		"http://erambert.me/others/konamibtd/*",
+		"http://erambert.me/*",
 		"https://tweetdeck.twitter.com/*",
 		"tabs",
 		"contextMenus",
 		"https://api.dribbble.com/*"
 	],
-	"web_accessible_resources": ["font/*","emojis/emojis-s8bc023ba47.png","emojis/emojis2x-s1940453998.png","emojis/emoji-popover.html", "options/options.html"],
+	"web_accessible_resources": ["font/*","emojis/emojis-s8bc023ba47.png","emojis/emojis2x-s1940453998.png","emojis/emoji-popover.html", "options/options.html", "tweet.json"],
 	"content_security_policy": "img-src 'self' *; default-src; unsafe-inline;"
 }
