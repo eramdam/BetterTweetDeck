@@ -169,6 +169,9 @@
 	"tcoRemoval": {
 		"message": "Remove the http://t.co from links"
 	},
+	"shareButton": {
+		"message": "Add the \"Share on Better TweetDeck\" action on contexctual menu"
+	},
 	"shortText": {
 		"message": "Shorten the selected text while using the \"Share on Better TweetDeck\" action"
 	},
@@ -201,6 +204,8 @@
 	},
 	"allTweets": {
 		"message": "All tweets"
+	},
+	"shareOnBTD": {
+		"message": "Share on (Better) TweetDeck"
 	}
-
 }
