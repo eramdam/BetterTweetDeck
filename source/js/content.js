@@ -189,6 +189,10 @@ HTMLCollection.prototype.forEach = Array.prototype.forEach; // Because of https:
 					}
 				}
 			}
+			
+			if(settings.rtl_text_style) {
+				detectRTLText(target.querySelectorAll(".js-tweet-text"));
+			}
 
 		} else if (target.nodeName === "#text" && event.relatedNode.className.indexOf("txt-small") != -1) {
 			if (settings.timestamp != "relative") {
@@ -275,5 +279,15 @@ HTMLCollection.prototype.forEach = Array.prototype.forEach; // Because of https:
 			window.open(settingsPage);
 		});
 	}
+	function detectRTLText(tweets){
+		for(var i =0;i<tweets.length;i++)
+		{
+			var isUnicode = checkRTLlanguage(tweets[i].innerHTML);
+			tweets[i].style.direction=isUnicode?"rtl":"ltr";
+		}
+	}
+	function checkRTLlanguage(str){
+		return str.match(/[\u0590-\u083F]|[\u08A0-\u08FF]|[\uFB1D-\uFDFF]|[\uFE70-\uFEFF]/mg);
 
+	}
 })();
