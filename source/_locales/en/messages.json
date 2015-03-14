@@ -23,7 +23,7 @@
   	"message": "Thanks for using Better TweetDeck"
 	},
 	"onUpdateP1": {
-		"message": "You're now more than 4000 to use Better TweetDeck, that's awesome!"	
+		"message": "You're now more than 4000 to use Better TweetDeck, that's awesome!"
 	},
 	"onUpdateP2": {
 		"message": "However, even if Better TweetDeck is  free, it takes time to be developed, and time has value."
@@ -92,7 +92,7 @@
 		"message": "Author's Website"
 	},
 	"MakeADonation": {
-		"message": "Make a donation"	
+		"message": "Make a donation"
 	},
 	"Ressources": {
 		"message": "Used Ressources"
@@ -125,7 +125,7 @@
 		"message": "Absolute (dd/mm/yy hh:mm)"
 	},
 	"timeAbsoluteUS": {
-		"message": "Absolute 'US Style' (mm/dd/yy hh:mm)"
+		"message": "Absolute \"US Style\" (mm/dd/yy hh:mm)"
 	},
 	"absoluteAfter24h": {
 		"message": "Display full date after 24h only"
@@ -170,7 +170,7 @@
 		"message": "Remove the http://t.co from links"
 	},
 	"shareButton": {
-		"message": "Add the \"Share on Better TweetDeck\" action on contexctual menu"
+		"message": "Add the \"Share on Better TweetDeck\" action on contextual menu"
 	},
 	"shortText": {
 		"message": "Shorten the selected text while using the \"Share on Better TweetDeck\" action"
@@ -179,7 +179,7 @@
 		"message": "Will be applied at next Chrome restart"
 	},
 	"playButtonYT": {
-		"message": "Hide the 'Play' button on YouTube thumbnails"
+		"message": "Hide the \"Play\" button on YouTube thumbnails"
 	},
 	"noBgModals": {
 		"message": "Fullscreen previews don't have background"
