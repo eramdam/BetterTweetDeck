@@ -23,7 +23,7 @@
   	"message": "Danke, dass du Better TweetDeck verwendest"
 	},
 	"onUpdateP1": {
-		"message": "Ihr seid jetzt über 4000 Leute, die Better TweetDeck verwenden. Das ist fantastisch!"	
+		"message": "Ihr seid jetzt über 4000 Leute, die Better TweetDeck verwenden. Das ist fantastisch!"
 	},
 	"onUpdateP2": {
 		"message": "Obwohl Better TweetDeck gratis ist, braucht es doch Zeit, um entwickelt zu werden, und Zeit ist wertvoll."
@@ -125,7 +125,7 @@
 		"message": "Absolut (TT/MM/JJ hh:mm)"
 	},
 	"timeAbsoluteUS": {
-		"message": "Absolut 'US-Style' (MM/TT/JJ hh:mm)"
+		"message": "Absolut \"US-Style\" (MM/TT/JJ hh:mm)"
 	},
 	"absoluteAfter24h": {
 		"message": "Zeige volles Datum erst nach 24h"
@@ -179,7 +179,7 @@
 		"message": "Wird beim nächsten Neustart von Chrome übernommen"
 	},
 	"playButtonYT": {
-		"message": "Verstecke den 'Play'-Knopf auf YouTube-Thumbnails"
+		"message": "Verstecke den \"Play\"-Knopf auf YouTube-Thumbnails"
 	},
 	"noBgModals": {
 		"message": "Keinen Hintergrund bei Vollbildvorschau anzeigen"
