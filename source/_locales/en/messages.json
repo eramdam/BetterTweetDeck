@@ -166,6 +166,9 @@
 	"grayscaleIcons": {
 		"message": "Notifications icons are in grayscale"
 	},
+	"rtl_detect_style": {
+		"message": "Automatically detect RTL (right to left) text and apply RTL style to them"
+	},
 	"tcoRemoval": {
 		"message": "Remove the http://t.co from links"
 	},
