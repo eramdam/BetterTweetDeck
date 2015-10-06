@@ -8,7 +8,7 @@
 		"description": "name of the app"
 	},
 	"onInstallH1": {
-		"message": "Thank you for installing Better TweetDeck !"
+		"message": "Thank you for installing Better TweetDeck!"
 	},
 	"onInstallP1": {
 		"message": "The default options has been applied, feel free to customize them to your tastes!"
@@ -23,7 +23,7 @@
   	"message": "Thanks for using Better TweetDeck"
 	},
 	"onUpdateP1": {
-		"message": "You're now more than 4000 to use Better TweetDeck, that's awesome!"
+		"message": "More than 4,000 people is using Better TweetDeck, that's awesome!"
 	},
 	"onUpdateP2": {
 		"message": "However, even if Better TweetDeck is  free, it takes time to be developed, and time has value."

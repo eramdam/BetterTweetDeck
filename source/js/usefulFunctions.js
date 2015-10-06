@@ -140,7 +140,8 @@ function CloseOpenModal(event, override) {
 function ResizeMediaInModal() {
     if (document.querySelector('#open-modal')) {
         var mediaToResize = document.querySelector('#open-modal :-webkit-any(img, iframe, video)')
-        mediaToResize.style.maxHeight = document.querySelector(".js-embeditem.med-embeditem").offsetHeight - (document.querySelector("a.med-origlink").offsetHeight) - (document.querySelector("#open-modal .js-med-tweet.med-tweet").offsetHeight) - 20+"px";
+        // Disabled: uncaught TypeError: Cannot read property 'style' of null
+        // mediaToResize.style.maxHeight = document.querySelector(".js-embeditem.med-embeditem").offsetHeight - (document.querySelector("a.med-origlink").offsetHeight) - (document.querySelector("#open-modal .js-med-tweet.med-tweet").offsetHeight) - 20+"px";
     }
 }
 
