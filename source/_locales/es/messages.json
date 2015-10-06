@@ -1,0 +1,214 @@
+{
+	"appDesc": {
+		"message": "Emojis, miniaturas and características avanzadas para http://tweetdeck.twitter.com !",
+		"description": "The description of the application, displayed in the web store."
+	},
+	"appName": {
+		"message": "BetterTweetDeck",
+		"description": "name of the app"
+	},
+	"onInstallH1": {
+		"message": "Gracias por instalar Better TweetDeck!"
+	},
+	"onInstallP1": {
+		"message": "Las opciones por defecto se han aplicado, sientase libre de personalizarlas a su gusto!"
+	},
+	"onInstallP2": {
+		"message": "Si ya instaló Better TweetDeck en una computadora que utiliza la sincronización de Google Chrome™, sus configuraciones se sincronizarán automáticamente."
+	},
+	"onInstallP3": {
+		"message": "Esta extención está diseñada para http://tweetdeck.twitter.com, NO funcionará con la extención de \"TweetDeck para Chrome\"."
+	},
+	"onUpdateH1": {
+		"message": "Gracias por utilizar Better TweetDeck"
+	},
+	"onUpdateP1": {
+		"message": "Más de 4,000 personas está utilizando Better TweetDeck, Impresionante!"
+	},
+	"onUpdateP2": {
+		"message": "De cualquier manera, a pesar de que Better TweetDeck es gratuito, toma tiempo de desarrollo y el tiempo es valioso."
+	},
+	"onUpdateP3": {
+		"message": "Es por ello que sería genial si pudieras hacer <a href='https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9TXC4TVXGL6PJ'>una donación</a> (<strong>sólo</strong> si está en tus posibilidades). Esto me ayudará a tener más tiempo para hacer Better TweetDeck aún más asombroso!"
+	},
+	"FlashTweets": {
+		"message": "Hacer que nuevos tweets parpadeen:"
+	},
+	"FlashTweetsMentions": {
+		"message": "Columna de \"Menciones\" & \"Interacciones\""
+	},
+	"FlashTweetsAll": {
+		"message": "Cada columna"
+	},
+	"FlashTweetsFalse": {
+		"message": "En ningún lugar"
+	},
+	"optionsPageTitle": {
+		"message": "Configuración de Better TweetDeck"
+	},
+	"Settings": {
+		"message": "Configuración"
+	},
+	"OptsGeneral": {
+		"message": "General"
+	},
+	"OptsTweets": {
+		"message": "Tweets"
+	},
+	"OptsAppearance": {
+		"message": "Apariencia"
+	},
+	"OptsContent": {
+		"message": "Contenido"
+	},
+	"OptsCredits": {
+		"message": "Créditos"
+	},
+	"OptsAbout": {
+		"message": "Acerca de"
+	},
+	"OptsChangelog": {
+		"message": "Registro de cambios"
+	},
+	"Author": {
+		"message": "Autor"
+	},
+	"Contributors": {
+		"message": "Colaboradores / Early testers"
+	},
+	"Links": {
+		"message": "Vínculos"
+	},
+	"Infos": {
+		"message": "Información"
+	},
+	"BTDWebStore": {
+		"message": "Better TweetDeck en Chrome Web Store"
+	},
+	"BugsSugs": {
+		"message": "Errores y sugerencias"
+	},
+	"AuthorWeb": {
+		"message": "Sitio web del autor"
+	},
+	"MakeADonation": {
+		"message": "Hacer una donación"
+	},
+	"Ressources": {
+		"message": "Recursos utilizados"
+	},
+	"groupInfo": {
+		"message": "Información"
+	},
+	"groupAppearance": {
+		"message": "Apariencia"
+	},
+	"groupUsers": {
+		"message": "Usuarios"
+	},
+	"groupContent": {
+		"message": "Contenido"
+	},
+	"groupTimeFormatting": {
+		"message": "Formato de tiempo"
+	},
+	"groupTweetFormat": {
+		"message": "Apariencia del Tweet"
+	},
+	"timeShouldBe": {
+		"message": "El tiempo debería ser:"
+	},
+	"timeRelative": {
+		"message": "Relativo (1m, 2h, 3d...)"
+	},
+	"timeAbsolute": {
+		"message": "Absoluto (dd/mm/yy hh:mm)"
+	},
+	"timeAbsoluteUS": {
+		"message": "Absoluto \"Estilo EEUU\" (mm/dd/yy hh:mm)"
+	},
+	"absoluteAfter24h": {
+		"message": "Mostrar fecha completa luego de 24h únicamente"
+	},
+	"usernamesFullnames": {
+		"message": "Mostrar nombre como:"
+	},
+	"bothNames": {
+		"message": "Nombre completo @Usuario"
+	},
+	"invertedNames": {
+		"message": "@Usuario Nombre completo"
+	},
+	"usernameOnly": {
+		"message": "@Usuario"
+	},
+	"fullnameOnly": {
+		"message": "Nombre completo"
+	},
+	"minimalMode": {
+		"message": "Activar el modo \"Minimo\""
+	},
+	"narrowColumns": {
+		"message": "Hacer que las columnas ocupen menos espacio"
+	},
+	"typeahead": {
+		"message": "Hacer que la función de auto-completar muestre sólo nombres de usuario"
+	},
+	"circleAvatars": {
+		"message": "Avatares redondeados"
+	},
+	"noColumnsIcons": {
+		"message": "Sin íconos en los encabezados de las colúmnas"
+	},
+	"smallIconsCompose": {
+		"message": "Íconos pequeños en el panel de edición"
+	},
+	"grayscaleIcons": {
+		"message": "Íconos de notificación en escala de grises"
+	},
+	"rtl_detect_style": {
+		"message": "Automáticamente detectar RTL (texto de derecha a izquierda) y aplicar este estilo a los textos"
+	},
+	"tcoRemoval": {
+		"message": "Removeer http://t.co de los vínculos"
+	},
+	"shareButton": {
+		"message": "Agregar el menú contextual de \"Compartir esto en Better TweetDeck\" al navegador"
+	},
+	"shortText": {
+		"message": "Acortar el texto seleccionado utilizando la acción de \"Compartir esto en Better TweetDeck\""
+	},
+	"RestartChrome": {
+		"message": "Los cambios serán aplicados al reniciar Chrome"
+	},
+	"playButtonYT": {
+		"message": "Esconder el botón de Reproducir en las miniaturas de YouTube"
+	},
+	"noBgModals": {
+		"message": "Hacer que las vistas previas en pantalla completa NO tengan fondo"
+	},
+	"oneThumbPerTweet": {
+		"message": "Mostrar sólo una miniatura por tweet"
+	},
+	"thumbnailsfrom": {
+		"message": "Mostrar miniaturas de:"
+	},
+	"previewTweet": {
+		"message": "Vista previa del Tweet"
+	},
+	"flashTweets": {
+		"message": "Hacer que parpadeen los nuevos tweets:"
+	},
+	"noTweets": {
+		"message": "Hacer que los nuevos tweets NO parpadeen"
+	},
+	"mentionsOnly": {
+		"message": "Menciones e Interacciones únicamente"
+	},
+	"allTweets": {
+		"message": "Todos los tweets"
+	},
+	"shareOnBTD": {
+		"message": "Compartir en (Better) TweetDeck"
+	}
+}
