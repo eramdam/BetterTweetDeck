@@ -68,7 +68,7 @@
 		"message": "Acerca de"
 	},
 	"OptsChangelog": {
-		"message": "Registro de cambios"
+		"message": "Historial"
 	},
 	"Author": {
 		"message": "Autor"
@@ -179,7 +179,7 @@
 		"message": "Acortar el texto seleccionado utilizando la acción de \"Compartir esto en Better TweetDeck\""
 	},
 	"RestartChrome": {
-		"message": "Los cambios serán aplicados al reniciar Chrome"
+		"message": "Los cambios se aplicarán al reinciar el navegador"
 	},
 	"playButtonYT": {
 		"message": "Esconder el botón de Reproducir en las miniaturas de YouTube"
