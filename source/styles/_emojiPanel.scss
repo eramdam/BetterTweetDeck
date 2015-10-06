@@ -83,7 +83,7 @@ EMOJI COMPOSER
 .emoji-popover .btd-emoji {
 	width:20px;
 	height:20px;
-	margin: 3px 7px;
+	margin: 1px;
 	display: inline-block;
 }
 
@@ -92,7 +92,7 @@ EMOJI COMPOSER
 }
 
 .emoji-popover .emojis-compose-panel .emoji-container {
-	width: 200px;
+	width: 225px; /*200px*/
 	height:270px;
 	padding-left: 6px;
 	padding-top: 2px;
@@ -149,7 +149,7 @@ EMOJI COMPOSER
 .emoji-popover .category-chooser > a {
 	width:20px;
 	height: 20px;
-	margin:3px 7px;
+	margin:1px;
 	cursor:pointer;
 	opacity: .6;
 }
