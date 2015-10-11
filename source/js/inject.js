@@ -1,0 +1,1 @@
+console.debug(localStorage.setItem('theme', TD.settings.getTheme()));

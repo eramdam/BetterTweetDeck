@@ -1,11 +1,3 @@
-.DS_Store
-source.zip
-.sass-cache
-node_modules/
-old/
-source/js/BTD.js
-source/styles/*.css
-build*
-source/js/libs.js
-
-old.zip
+node_modules
+.jshintrc
+build
