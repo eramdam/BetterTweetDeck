@@ -7,12 +7,18 @@ import runSequence from 'run-sequence';
 import del from 'del';
 
 
-let sourcePath = 'source/';
 let staticFiles = [
   'manifest.json',
   'icons/*.png',
-  'js/inject.js'
-].map((i) => path.resolve(sourcePath, i));
+].map((i) => path.resolve('source/', i));
+
+let jsFiles = [
+  'content.js',
+].map((i) => path.resolve(`source/js`, i));
+
+let injectedFiles = [
+  'inject.js',
+].map((i) => path.resolve(`source/js`, i));
 
 
 /*
@@ -44,12 +50,23 @@ gulp.task('static', () => {
 */
 gulp.task('js', () => {
     return browserify({
-      entries: './source/js/content.js',
+      entries: jsFiles,
       debug: true
     })
     .transform(babelify)
     .bundle()
     .pipe(source('content.js'))
+    .pipe(gulp.dest('./build/js'));
+});
+
+gulp.task('js-injected', () => {
+    return browserify({
+      entries: injectedFiles,
+      debug: true
+    })
+    .transform(babelify)
+    .bundle()
+    .pipe(source('inject.js'))
     .pipe(gulp.dest('./build/js'));
 });
 
@@ -68,9 +85,8 @@ gulp.task('build', runSequence('clean', ['js', 'static']));
 *
 */
 gulp.task('default', (done) => {
-  runSequence('clean', ['js', 'static'], () => {
-
-    gulp.watch('./source/js/*.js', ['js']);
+  runSequence('clean', ['js', 'static', 'js-injected'], () => {
+    gulp.watch('./source/js/*.js', ['js', 'js-injected']);
     gulp.watch(staticFiles, ['static']);
     done();
   });
