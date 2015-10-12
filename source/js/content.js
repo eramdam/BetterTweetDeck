@@ -81,6 +81,7 @@ HTMLCollection.prototype.forEach = Array.prototype.forEach; // Because of https:
 
 				addEmojiPanel();
 				injectScript(mediaPreviewSize);
+				injectScript(betterEmoji);
 				SettingsButton();
 			}
 		}
@@ -118,6 +119,7 @@ HTMLCollection.prototype.forEach = Array.prototype.forEach; // Because of https:
 	//= include mustacheTemplates.js
 	//= include Providers.js
 	//= include Thumbnails.js
+	//= include better-emoji.js
 
 	function ThemeDetecter() {
 		var activatedTheme = document.querySelector('link[rel=stylesheet][href*=app]:not([disabled])').title;
