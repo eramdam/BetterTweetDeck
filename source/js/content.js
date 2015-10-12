@@ -81,7 +81,10 @@ HTMLCollection.prototype.forEach = Array.prototype.forEach; // Because of https:
 
 				addEmojiPanel();
 				injectScript(mediaPreviewSize);
+
+				injectScript('var apple_emojis = "'+chrome.extension.getURL('apple-emoji/')+'";');
 				injectScript(betterEmoji);
+
 				SettingsButton();
 			}
 		}

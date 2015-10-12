@@ -1,3 +1,4 @@
+var apple_emojis = chrome.extension.getURL('apple-emoji/');
 function betterEmoji(){
 	function ca(r){for(var t="",n=0;n<r.length;n++)t+="\\u"+("000"+r[n].charCodeAt(0).toString(16)).substr(-4);return t}
 	function cp(t){for(var n=[],r=0,o=0,h=0;h<t.length;)r=t.charCodeAt(h++),o?(n.push((65536+(o-55296<<10)+(r-56320)).toString(16)),o=0):r>=55296&&56319>=r?o=r:n.push(r.toString(16));return n.join("-")}
@@ -10,7 +11,7 @@ function betterEmoji(){
 	regx_arr = null;
 	function minEmoji(s){
 		return s.replace(re, function (a, b) {
-			return '<span class="bte bte-'+cp(b.replace(/\ufe0f|\u200d/gm, ''))+'"></span>';
+			return '<img class="emoji" draggable="false" alt="'+b+'" src="'+window.apple_emojis+cp(b.replace(/\ufe0f|\u200d/gm, ''))+'.png">';
 		});
 	}
 	TD.emoji.parse = minEmoji;
