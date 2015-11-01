@@ -22,5 +22,8 @@
     "gulp": "^3.9.0",
     "gulp-babel": "^5.2.1",
     "gulp-sourcemaps": "^1.5.2"
+  },
+  "dependencies": {
+    "fecha": "^1.0.0"
   }
 }

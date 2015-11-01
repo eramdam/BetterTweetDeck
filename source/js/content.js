@@ -26,26 +26,34 @@ const _$ = (sel, parent=null) => {
 const log = (...args) => {
   console.log(...args);
 };
-const TIMESTAMP_INTERVAL = 1e3 * 8;
-
+// const TIMESTAMP_INTERVAL = 1e3 * 8;
+// const _refreshTimestamps = () => {
+//   _$('.js-timestamp').forEach((jsTimstp) => {
+//     let d = new Date(Number(jsTimstp.getAttribute('data-time')));
+//     _$('a, span', jsTimstp).forEach((el) => el.innerHTML = fecha.format(d, 'MM/DD/YY hh:mm a'));
+//   });
+// };
+// import fecha from 'fecha';
+// console.log(fecha.format(new Date(Number(1446349356000)), 'MM/DD/YY hh:mm a'));
 
 let InjectScript = document.createElement('script');
 InjectScript.src = chrome.extension.getURL('js/inject.js');
 document.head.appendChild(InjectScript);
 
 
-// setInterval(() => {
-//   log('refreshing timestamps', new Date());
-//   _$('.js-timestamp').forEach((jsTimstp) => {
-//     _$('a, span', jsTimstp).forEach((el) => el.innerHTML = 'Hello');
-//   });
-// }, TIMESTAMP_INTERVAL);
+// setInterval(_refreshTimestamps, TIMESTAMP_INTERVAL);
 
+// document.addEventListener('BTD_dataColumnFeedUpdated', (event) => {
+//   let detail = event.detail;
 
-// document.addEventListener('BTD_uiVisibleChirps', (event) => {
-//   console.log('BTD_uiVisibleChirps', JSON.parse(event.detail));
+//   console.log('dataColumnFeedUpdated', detail);
 // });
 
-// document.addEventListener('BTD_uiModalShowing', (event) => {
-//   console.log('BTD_uiModalShowing', JSON.parse(event.detail));
+// document.addEventListener('BTD_uiColumnUpdateMediaPreview', (event) => {
+//   console.log('BTD_uiColumnUpdateMediaPreview', JSON.parse(event.detail));
+//   console.log('BTD_uiColumnUpdateMediaPreview', event);
 // });
+
+document.addEventListener('BTD_uiModalShowing', (event) => {
+  console.log('BTD_uiModalShowing', JSON.parse(event.detail));
+});
