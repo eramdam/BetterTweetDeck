@@ -1,0 +1,16 @@
+{
+  "globalstrict": false,
+  "indent": 2,
+  "browser": false,
+  "node": true,
+  "esnext": true,
+  "bitwise": true,
+  "eqeqeq": true,
+  "newcap": true,
+  "nonbsp": true,
+  "nonew": true,
+  "quotmark": "single",
+  "undef": true,
+  "unused": true,
+  "trailing": true
+}
