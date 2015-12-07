@@ -1,3 +1,5 @@
+var embedKey = '8bc612a8bb5f4f90b0fb1144c18e6270';
+
 var Providers = {
 	"500px": {
 		"pattern": {
@@ -139,7 +141,7 @@ var Providers = {
 		},
 		"get": function(target, thumbSize, linkURL, cb) {
 			var bandcampURL = encodeURIComponent(linkURL);
-			bandcampURL = 'https://api.embed.ly/1/oembed?key=748757a075e44633b197feec69095c90&url=' + bandcampURL + '&format=json';
+			bandcampURL = 'https://api.embed.ly/1/oembed?key='+ embedKey +'&url=' + bandcampURL + '&format=json';
 
 			_ajax(bandcampURL, "GET", "json", null, function(data) {
 				var embed = data.html;
@@ -155,7 +157,7 @@ var Providers = {
 		},
 		"get": function(target, thumbSize, linkURL, cb) {
 			var bandcampURL = encodeURIComponent(linkURL);
-			bandcampURL = 'https://api.embed.ly/1/oembed?key=748757a075e44633b197feec69095c90&url=' + bandcampURL + '&format=json';
+			bandcampURL = 'https://api.embed.ly/1/oembed?key='+ embedKey +'&url=' + bandcampURL + '&format=json';
 
 			_ajax(bandcampURL, "GET", "json", null, function(data) {
 				var embed = data.html;
