@@ -32,7 +32,7 @@ var DefaultSettings = {
   "circled_avatars": true,
   "no_columns_icons": true,
   "yt_rm_button": true,
-  "small_icons_compose": false,
+  "small_icons_compose": true,
   "grayscale_notification_icons": false,
   "url_redirection": true,
   "blurred_modals": true,
