@@ -1,6 +1,5 @@
 import path from 'path';
 import gulp from 'gulp';
-import babelify from 'babelify';
 import browserify from 'browserify';
 import source from 'vinyl-source-stream';
 import runSequence from 'run-sequence';
@@ -53,7 +52,7 @@ gulp.task('js', () => {
       entries: jsFiles,
       debug: true
     })
-    .transform(babelify)
+    .transform('babelify', {presets: ['es2015']})
     .bundle()
     .pipe(source('content.js'))
     .pipe(gulp.dest('./build/js'));
@@ -64,7 +63,7 @@ gulp.task('js-injected', () => {
       entries: injectedFiles,
       debug: true
     })
-    .transform(babelify)
+    .transform('babelify', {presets: ['es2015']})
     .bundle()
     .pipe(source('inject.js'))
     .pipe(gulp.dest('./build/js'));
