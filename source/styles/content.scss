@@ -29,8 +29,21 @@
 		width: auto !important;
 	}
 
+	.js-schedule-datepicker-holder > .popover {
+		margin-left: -20px !important;
+	}
+
+	.js-tweet-type-button, .js-scheduler, .js-add-image-button {
+		margin-left: 4px;
+		margin-right: 4px;
+	}
+
+	.js-add-emojis, .js-tweet-type-button, .js-scheduler, .js-add-image-button {
+		float: left;
+	}
+
 	.js-schedule-datepicker-holder > div > div.caret {
-		left: 27%;
+		left: 6%;
 	}
 }
 
