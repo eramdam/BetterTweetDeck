@@ -7,7 +7,8 @@
 	"description": "ᕕ( ᐛ )ᕗ",
 	"content_scripts": [{
 		"matches": ["https://tweetdeck.twitter.com/*","http://tweetdeck.twitter.com/*"],
-		"js": ["js/content.js"]
+		"js": ["js/content.js"],
+		"css": ["css/index.css"]
 		}],
 	"icons": { "16": "icons/icon16.png",
 	           "48": "icons/icon48.png",

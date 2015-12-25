@@ -4,21 +4,45 @@ import browserify from 'browserify';
 import source from 'vinyl-source-stream';
 import runSequence from 'run-sequence';
 import del from 'del';
+import postcss from 'gulp-postcss';
+import cssnext from 'postcss-cssnext';
+import eslint from 'gulp-eslint';
+import plumber from 'gulp-plumber';
+import notify from 'gulp-notify';
 
-
-let staticFiles = [
+const staticFiles = [
   'manifest.json',
-  'icons/*.png',
-].map((i) => path.resolve('source/', i));
+  'icons/*.png'
+].map((i) => path.resolve('src/', i));
 
-let jsFiles = [
-  'content.js',
-].map((i) => path.resolve(`source/js`, i));
+const jsFiles = [
+  'src/js/content.js'
+];
 
-let injectedFiles = [
-  'inject.js',
-].map((i) => path.resolve(`source/js`, i));
+const injectedFiles = [
+  'src/js/inject.js'
+];
 
+const cssFiles = [
+  'src/css/index.css'
+];
+
+const toLintFiles = [
+  'src/js/**/*.js',
+  '*.js'
+];
+
+const postCssPlugins = [cssnext({
+  compress: true,
+  sourcemap: true
+})];
+
+const maybeNotifyErrors = () => {
+  return notify.onError({
+    title: 'Compile Error',
+    message: '<%= error.message %>'
+  });
+};
 
 /*
 *
@@ -26,8 +50,8 @@ let injectedFiles = [
 * Remove the build/ folder (used before build)
 *
 */
-gulp.task('clean', (done) => {
-  del('build/', done);
+gulp.task('clean', () => {
+  return del(['dist/']);
 });
 
 /*
@@ -37,8 +61,8 @@ gulp.task('clean', (done) => {
 *
 */
 gulp.task('static', () => {
-  return gulp.src(staticFiles, { base: './source'})
-  .pipe(gulp.dest('./build'));
+  return gulp.src(staticFiles, { base: './src' })
+  .pipe(gulp.dest('./dist'));
 });
 
 /*
@@ -48,25 +72,49 @@ gulp.task('static', () => {
 *
 */
 gulp.task('js', () => {
-    return browserify({
-      entries: jsFiles,
-      debug: true
-    })
-    .transform('babelify', {presets: ['es2015']})
-    .bundle()
-    .pipe(source('content.js'))
-    .pipe(gulp.dest('./build/js'));
+  return browserify({
+    entries: jsFiles,
+    debug: true
+  })
+  .transform('babelify', { presets: ['es2015'] })
+  .bundle()
+  .on('error', maybeNotifyErrors())
+  .pipe(source('content.js'))
+  .pipe(gulp.dest('./dist/js'));
 });
 
 gulp.task('js-injected', () => {
-    return browserify({
-      entries: injectedFiles,
-      debug: true
-    })
-    .transform('babelify', {presets: ['es2015']})
-    .bundle()
-    .pipe(source('inject.js'))
-    .pipe(gulp.dest('./build/js'));
+  return browserify({
+    entries: injectedFiles,
+    debug: true
+  })
+  .transform('babelify', { presets: ['es2015'] })
+  .bundle()
+  .on('error', maybeNotifyErrors())
+  .pipe(source('inject.js'))
+  .pipe(gulp.dest('./dist/js'));
+});
+
+/**
+ * `gulp css`
+ * Compile the css files using PostCSS + cssnext
+ */
+gulp.task('css', function () {
+  return gulp.src(cssFiles)
+    .pipe(postcss(postCssPlugins))
+    .pipe(plumber())
+    .pipe(gulp.dest('./dist/css'));
+});
+
+/**
+ * `gulp lint`
+ * Lint the JS files (Gulpfile as well)
+ */
+gulp.task('lint', function () {
+  return gulp.src(toLintFiles)
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
 });
 
 /*
@@ -75,7 +123,9 @@ gulp.task('js-injected', () => {
 * Build the project
 *
 */
-gulp.task('build', runSequence('clean', ['js', 'static']));
+gulp.task('build', (done) => {
+  runSequence('clean', ['js', 'js-injected', 'static'], done);
+});
 
 /*
 *
@@ -85,7 +135,8 @@ gulp.task('build', runSequence('clean', ['js', 'static']));
 */
 gulp.task('default', (done) => {
   runSequence('clean', ['js', 'static', 'js-injected'], () => {
-    gulp.watch('./source/js/*.js', ['js', 'js-injected']);
+    gulp.watch('./src/js/**/*.js', ['js', 'js-injected']);
+    gulp.watch('./src/css/**/*.css', ['css']);
     gulp.watch(staticFiles, ['static']);
     done();
   });
