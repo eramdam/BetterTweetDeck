@@ -10,10 +10,14 @@
 		"js": ["js/content.js"],
 		"css": ["css/index.css"]
 		}],
+	"background": {
+		"scripts": ["js/background.js"]
+	},
 	"icons": { "16": "icons/icon16.png",
 	           "48": "icons/icon48.png",
 	          "128": "icons/icon128.png" },
 	"permissions": [
+		"storage"
 	],
 	"web_accessible_resources": ["js/inject.js"],
 	"content_security_policy": "img-src 'self' *; default-src; unsafe-inline;"

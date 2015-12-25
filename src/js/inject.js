@@ -1,4 +1,5 @@
 import events from './events.js';
+import * as logger from './util/logger.js';
 import CJSON from 'circular-json';
 const TD2BTD = {};
 
@@ -6,9 +7,8 @@ Object.keys(events).forEach((event) => {
   TD2BTD[event.eventName] = `BTD_${event.eventName}`;
 });
 const eventsListened = Object.keys(events);
-// This function ill basically shoot a BTD_* event so the content script can intercept it with its data
+// This function will basically shoot a BTD_* event so the content script can intercept it with its data
 const proxyEvent = (ev, data) => {
-  // console.debug(`${ev.type}`, data);
   const event = new CustomEvent(TD2BTD[ev.type], { detail: CJSON.stringify(data) });
   document.dispatchEvent(event);
 };
@@ -36,7 +36,7 @@ $(document).one('dataColumnsLoaded', () => {
   // We delete the callback for the task that refreshes the timestamps so the content script can do it itself
   Object.keys(tasks).forEach((key) => {
     if (tasks[key].period === 30000) {
-      console.log('deleting timestamp interval');
+      logger.debug('deleting timestamp interval');
       tasks[key].callback = () => false;
     }
   });

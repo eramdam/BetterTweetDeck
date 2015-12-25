@@ -20,6 +20,8 @@
     "babelify": ">=7.2.0",
     "browserify": ">=11.0.1",
     "circular-json": ">=0.3.0",
+    "config": "^1.17.1",
+    "config-browserify": "^1.0.5",
     "cssnext": ">=1.8.4",
     "del": ">=1.2.1",
     "eslint": "^1.10.3",
@@ -33,6 +35,8 @@
     "gulp-postcss": ">=6.0.1",
     "postcss-cssnext": ">=2.3.0",
     "run-sequence": ">=1.1.2",
-    "vinyl-source-stream": ">=1.1.0"
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": ">=1.1.0",
+    "vinyl-transform": "^1.0.0"
   }
 }

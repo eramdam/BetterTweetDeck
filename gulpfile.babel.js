@@ -15,14 +15,6 @@ const staticFiles = [
   'icons/*.png'
 ].map((i) => path.resolve('src/', i));
 
-const jsFiles = [
-  'src/js/content.js'
-];
-
-const injectedFiles = [
-  'src/js/inject.js'
-];
-
 const cssFiles = [
   'src/css/index.css'
 ];
@@ -71,12 +63,13 @@ gulp.task('static', () => {
 * Run babeljs + browserify on the js background.js/content.js files
 *
 */
-gulp.task('js', () => {
+gulp.task('js-content', () => {
   return browserify({
-    entries: jsFiles,
+    entries: 'src/js/content.js',
     debug: true
   })
   .transform('babelify', { presets: ['es2015'] })
+  .transform('config-browserify')
   .bundle()
   .on('error', maybeNotifyErrors())
   .pipe(source('content.js'))
@@ -85,15 +78,32 @@ gulp.task('js', () => {
 
 gulp.task('js-injected', () => {
   return browserify({
-    entries: injectedFiles,
+    entries: 'src/js/inject.js',
     debug: true
   })
   .transform('babelify', { presets: ['es2015'] })
+  .transform('config-browserify')
   .bundle()
   .on('error', maybeNotifyErrors())
   .pipe(source('inject.js'))
   .pipe(gulp.dest('./dist/js'));
 });
+
+gulp.task('js-background', () => {
+  return browserify({
+    entries: 'src/js/background.js',
+    debug: true
+  })
+  .transform('babelify', { presets: ['es2015'] })
+  .transform('config-browserify')
+  .bundle()
+  .on('error', maybeNotifyErrors())
+  .pipe(source('background.js'))
+  .pipe(gulp.dest('./dist/js'));
+});
+
+
+gulp.task('js', ['js-content', 'js-injected', 'js-background']);
 
 /**
  * `gulp css`
@@ -134,8 +144,8 @@ gulp.task('build', (done) => {
 *
 */
 gulp.task('default', (done) => {
-  runSequence('clean', ['js', 'static', 'js-injected'], () => {
-    gulp.watch('./src/js/**/*.js', ['js', 'js-injected']);
+  runSequence('clean', ['css', 'js', 'static'], () => {
+    gulp.watch('./src/js/**/*.js', ['js']);
     gulp.watch('./src/css/**/*.css', ['css']);
     gulp.watch(staticFiles, ['static']);
     done();
