@@ -13,6 +13,7 @@ import buffer from 'vinyl-buffer';
 import eslint from 'gulp-eslint';
 import uglify from 'gulp-uglify';
 import sourcemaps from 'gulp-sourcemaps';
+import gutil from 'gulp-util';
 
 // CSS
 import postcss from 'gulp-postcss';
@@ -85,7 +86,7 @@ gulp.task('js-content', () => {
   .pipe(source('content.js'))
   .pipe(buffer())
   .pipe(sourcemaps.init({ loadMaps: true }))
-  .pipe(uglify())
+  .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
   .pipe(sourcemaps.write('./'))
   .pipe(gulp.dest('./dist/js'));
 });
@@ -102,7 +103,7 @@ gulp.task('js-injected', () => {
   .pipe(source('inject.js'))
   .pipe(buffer())
   .pipe(sourcemaps.init({ loadMaps: true }))
-  .pipe(uglify())
+  .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
   .pipe(sourcemaps.write('./'))
   .pipe(gulp.dest('./dist/js'));
 });
@@ -119,7 +120,7 @@ gulp.task('js-background', () => {
   .pipe(source('background.js'))
   .pipe(buffer())
   .pipe(sourcemaps.init({ loadMaps: true }))
-  .pipe(uglify())
+  .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
   .pipe(sourcemaps.write('./'))
   .pipe(gulp.dest('./dist/js'));
 });
@@ -134,8 +135,8 @@ gulp.task('js', ['js-content', 'js-injected', 'js-background']);
 gulp.task('css', function () {
   return gulp.src(cssFiles)
     .pipe(postcss(postCssPlugins))
-    .pipe(plumber())
-    .pipe(nano())
+    .pipe(gutil.env.type === 'production' ? gutil.noop() : plumber())
+    .pipe(gutil.env.type === 'production' ? nano() : gutil.noop())
     .pipe(gulp.dest('./dist/css'));
 });
 
