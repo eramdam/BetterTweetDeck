@@ -1,14 +1,24 @@
+// Gulp & utils
 import path from 'path';
 import gulp from 'gulp';
-import browserify from 'browserify';
-import source from 'vinyl-source-stream';
 import runSequence from 'run-sequence';
 import del from 'del';
-import postcss from 'gulp-postcss';
-import cssnext from 'postcss-cssnext';
-import eslint from 'gulp-eslint';
 import plumber from 'gulp-plumber';
 import notify from 'gulp-notify';
+
+// JS
+import browserify from 'browserify';
+import source from 'vinyl-source-stream';
+import buffer from 'vinyl-buffer';
+import eslint from 'gulp-eslint';
+import uglify from 'gulp-uglify';
+import sourcemaps from 'gulp-sourcemaps';
+
+// CSS
+import postcss from 'gulp-postcss';
+import cssnext from 'postcss-cssnext';
+import nested from 'postcss-nested';
+import nano from 'gulp-cssnano';
 
 const staticFiles = [
   'manifest.json',
@@ -24,10 +34,10 @@ const toLintFiles = [
   '*.js'
 ];
 
-const postCssPlugins = [cssnext({
-  compress: true,
-  sourcemap: true
-})];
+const postCssPlugins = [
+  cssnext,
+  nested
+];
 
 const maybeNotifyErrors = () => {
   return notify.onError({
@@ -73,6 +83,10 @@ gulp.task('js-content', () => {
   .bundle()
   .on('error', maybeNotifyErrors())
   .pipe(source('content.js'))
+  .pipe(buffer())
+  .pipe(sourcemaps.init({ loadMaps: true }))
+  .pipe(uglify())
+  .pipe(sourcemaps.write('./'))
   .pipe(gulp.dest('./dist/js'));
 });
 
@@ -86,6 +100,10 @@ gulp.task('js-injected', () => {
   .bundle()
   .on('error', maybeNotifyErrors())
   .pipe(source('inject.js'))
+  .pipe(buffer())
+  .pipe(sourcemaps.init({ loadMaps: true }))
+  .pipe(uglify())
+  .pipe(sourcemaps.write('./'))
   .pipe(gulp.dest('./dist/js'));
 });
 
@@ -99,6 +117,10 @@ gulp.task('js-background', () => {
   .bundle()
   .on('error', maybeNotifyErrors())
   .pipe(source('background.js'))
+  .pipe(buffer())
+  .pipe(sourcemaps.init({ loadMaps: true }))
+  .pipe(uglify())
+  .pipe(sourcemaps.write('./'))
   .pipe(gulp.dest('./dist/js'));
 });
 
@@ -113,6 +135,7 @@ gulp.task('css', function () {
   return gulp.src(cssFiles)
     .pipe(postcss(postCssPlugins))
     .pipe(plumber())
+    .pipe(nano())
     .pipe(gulp.dest('./dist/css'));
 });
 
