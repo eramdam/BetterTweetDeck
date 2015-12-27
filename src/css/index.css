@@ -1,0 +1,47 @@
+.btd__round_pic :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
+  border-radius: 50%;
+}
+
+.btd__js-hidden {
+  display: none !important;
+}
+
+.btd__no_col_icns .js-column-header {
+  .column-type-icon {
+    display: none;
+  }
+
+  h1.column-title {
+      margin-left: 10px;
+  }
+}
+
+.btd__no_play_btn .video-overlay.icon-with-bg-round {
+  display: none;
+}
+
+.btd__gray_icns_notifs .activity-header .activity-indicator.icon {
+  color: #999;
+}
+
+.btd__usrname_only_typeahed .typeahead-item {
+  .fullname {
+    display: none;
+  }
+
+  .username {
+    color: #444;
+  }
+}
+
+.btd__small_icns_compose {
+  .js-add-image-button, .js-schedule-button, .js-tweet-type-button > button {
+    width: auto !important;
+    float: left !important;
+    margin-right: 4px;
+
+    .label {
+      display: none;
+    }
+  }
+}

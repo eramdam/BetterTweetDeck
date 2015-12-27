@@ -17,13 +17,22 @@ const _refreshTimestamps = () => {
   $('.js-timestamp').forEach((jsTimstp) => {
     const d = new Date(Number(jsTimstp.getAttribute('data-time')));
     $('a, span', jsTimstp).forEach((el) => el.innerHTML = fecha.format(d, 'MM/DD/YY hh:mm a'));
+const _tweakClassesFromVisualSettings = () => {
+  BHelper.settings.getAll((settings) => {
+    const enabledClasses = Object.keys(settings.css).filter((key) => settings.css[key]).map((cl) => `btd__${cl}`);
+    document.body.classList.add(...enabledClasses);
+
+    if (settings.no_hearts)
+      document.body.classList.remove('hearty');
   });
 };
 
 // Prepare to know when TD is ready
 const ready = new MutationObserver(() => {
-  if (document.querySelector('.js-app-loading').style.display === 'none')
+  if (document.querySelector('.js-app-loading').style.display === 'none') {
     ready.disconnect();
+    _tweakClassesFromVisualSettings();
+  }
 });
 ready.observe(document.querySelector('.js-app-loading'), {
   attributes: true
