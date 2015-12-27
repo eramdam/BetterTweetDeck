@@ -44,3 +44,4 @@ For now, there won't be new features. But I have some of them in mind:
 - [ ] Maybe a "I don't want to see this tweet" feature, who knows
 - [ ] Replace different APIs by Embed.ly to simplify the code **a lot**
 - [ ] *Probably too big for one man* Translate the UI of TweetDeck ?
+- [ ] Display a little flag depending on the _supposed_ language of the tweet ?
