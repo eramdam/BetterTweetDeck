@@ -19,6 +19,6 @@
 	"permissions": [
 		"storage"
 	],
-	"web_accessible_resources": ["js/inject.js"],
+	"web_accessible_resources": ["js/inject.js", "js/*.map"],
 	"content_security_policy": "img-src 'self' *; default-src; unsafe-inline;"
 }
