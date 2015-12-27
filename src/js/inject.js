@@ -1,25 +1,23 @@
-import events from './events.js';
 import * as logger from './util/logger.js';
 import CJSON from 'circular-json';
-const TD2BTD = {};
 
-Object.keys(events).forEach((event) => {
-  TD2BTD[event.eventName] = `BTD_${event.eventName}`;
-});
-const eventsListened = Object.keys(events);
 // This function will basically shoot a BTD_* event so the content script can intercept it with its data
 const proxyEvent = (ev, data) => {
-  const event = new CustomEvent(TD2BTD[ev.type], { detail: CJSON.stringify(data) });
+  const event = new CustomEvent(`BTD_${ev.type}`, { detail: CJSON.stringify(data) });
   document.dispatchEvent(event);
 };
 
-// Setting up all the events from the list we got
-eventsListened.forEach((event) => {
-  $(document).on(event, proxyEvent);
+// Will push every tweet/DMs and alikes to the content script with an event
+$(document).on('uiVisibleChirps', (ev, data) => {
+  if (data.chirpsData.length < 1)
+    return;
+
+  proxyEvent(ev, data);
 });
 
 // Will ensure we keep the media preview size value even when the user changes it
 $(document).on('uiColumnUpdateMediaPreview', (ev, data) => {
+  console.log('uiColumnUpdateMediaPreview');
   ev.target.closest('.js-column').setAttribute('data-media-size', data.value);
 });
 

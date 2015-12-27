@@ -1,5 +1,5 @@
-import fecha from 'fecha';
-// import * as BHelper from './util/browserHelper';
+import * as BHelper from './util/browserHelper';
+import timestampOnElement from './util/timestamp';
 // import * as logger from './util/logger';
 
 import { $, TIMESTAMP_INTERVAL } from './util/util';
@@ -15,8 +15,11 @@ const _refreshTimestamps = () => {
     return;
 
   $('.js-timestamp').forEach((jsTimstp) => {
-    const d = new Date(Number(jsTimstp.getAttribute('data-time')));
-    $('a, span', jsTimstp).forEach((el) => el.innerHTML = fecha.format(d, 'MM/DD/YY hh:mm a'));
+    const d = jsTimstp.getAttribute('data-time');
+    $('a, span', jsTimstp).forEach((el) => timestampOnElement(el, d));
+  });
+};
+
 const _tweakClassesFromVisualSettings = () => {
   BHelper.settings.getAll((settings) => {
     const enabledClasses = Object.keys(settings.css).filter((key) => settings.css[key]).map((cl) => `btd__${cl}`);
@@ -44,3 +47,34 @@ injectScript();
 // Refresh timestamps once and then set the interval
 _refreshTimestamps();
 setInterval(_refreshTimestamps, TIMESTAMP_INTERVAL);
+
+// document.addEventListener('BTD_uiVisibleChirps', (ev) => {
+//   console.timeEnd(`BTD_${ev.detail}`);
+// });
+
+document.addEventListener('BTD_uiVisibleChirps', (ev) => {
+  const detail = JSON.parse(ev.detail);
+  const tweets = detail.chirpsData;
+
+  tweets.forEach((tweet) => {
+    const ts = tweet.chirp.created;
+    const node = $(`[data-key="${tweet.id}"]`)[0];
+
+    // Modify timestamp if needed
+    $('.js-timestamp a, .js-timestamp span', node).forEach((el) => timestampOnElement(el, ts));
+  });
+
+  // detail.data.items.forEach((item) => {
+  //   if (!$(`[data-key="${item.id}"]`))
+  //     return;
+
+  //   const itemNode = $(`[data-key="${item.id}"]`)[0];
+  //   itemNode.style.border = '1px solid red';
+
+  //   $('.js-timestamp', itemNode).forEach((jsTimstp) => {
+  //     const d = jsTimstp.getAttribute('data-time');
+  //     $('a, span', jsTimstp).forEach((el) => timestampOnElement(el, d));
+  //   });
+  // });
+
+});
