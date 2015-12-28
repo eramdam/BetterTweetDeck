@@ -2,7 +2,7 @@
 	"name": "__MSG_appName__",
 	"short_name": "BetterTDeck",
 	"default_locale": "en",
-	"version": "2.1.6",
+	"version": "2.2.0",
 	"manifest_version": 2,
 	"description": "__MSG_appDesc__",
 	"content_scripts": [{

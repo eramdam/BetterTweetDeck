@@ -23,13 +23,13 @@
 		"message": "Gracias por utilizar Better TweetDeck"
 	},
 	"onUpdateP1": {
-		"message": "Más de 4,000 personas está utilizando Better TweetDeck, Impresionante!"
+		"message": "Más de 15,000 personas está utilizando Better TweetDeck, Impresionante!"
 	},
 	"onUpdateP2": {
 		"message": "De cualquier manera, a pesar de que Better TweetDeck es gratuito, toma tiempo de desarrollo y el tiempo es valioso."
 	},
 	"onUpdateP3": {
-		"message": "Es por ello que sería genial si pudieras hacer <a href='https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9TXC4TVXGL6PJ'>una donación</a> (<strong>sólo</strong> si está en tus posibilidades). Esto me ayudará a tener más tiempo para hacer Better TweetDeck aún más asombroso!"
+		"message": "Es por ello que sería genial si pudieras hacer <a href='https://www.paypal.me/DErambert'>una donación</a> (<strong>sólo</strong> si está en tus posibilidades). Esto me ayudará a tener más tiempo para hacer Better TweetDeck aún más asombroso!"
 	},
 	"FlashTweets": {
 		"message": "Hacer que nuevos tweets parpadeen:"
