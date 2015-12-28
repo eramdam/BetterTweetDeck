@@ -1,14 +1,12 @@
+const scriptEl = document.createElement('script');
+scriptEl.src = chrome.extension.getURL('js/inject.js');
+document.head.appendChild(scriptEl);
+
+import CJSON from 'circular-json';
 import * as BHelper from './util/browserHelper';
 import timestampOnElement from './util/timestamp';
-// import * as logger from './util/logger';
 
 import { $, TIMESTAMP_INTERVAL } from './util/util';
-
-const injectScript = () => {
-  const scriptEl = document.createElement('script');
-  scriptEl.src = chrome.extension.getURL('js/inject.js');
-  document.head.appendChild(scriptEl);
-};
 
 const _refreshTimestamps = () => {
   if (!$('.js-timestamp'))
@@ -41,19 +39,16 @@ ready.observe(document.querySelector('.js-app-loading'), {
   attributes: true
 });
 
-// Inject script in the TD's page
-injectScript();
-
 // Refresh timestamps once and then set the interval
 _refreshTimestamps();
 setInterval(_refreshTimestamps, TIMESTAMP_INTERVAL);
 
-// document.addEventListener('BTD_uiVisibleChirps', (ev) => {
-//   console.timeEnd(`BTD_${ev.detail}`);
-// });
+document.addEventListener('BTD_uiDetailViewOpening', (ev) => {
+  console.debug(CJSON.parse(ev.detail));
+});
 
 document.addEventListener('BTD_uiVisibleChirps', (ev) => {
-  const detail = JSON.parse(ev.detail);
+  const detail = CJSON.parse(ev.detail);
   const tweets = detail.chirpsData;
 
   tweets.forEach((tweet) => {
@@ -61,20 +56,8 @@ document.addEventListener('BTD_uiVisibleChirps', (ev) => {
     const node = $(`[data-key="${tweet.id}"]`)[0];
 
     // Modify timestamp if needed
-    $('.js-timestamp a, .js-timestamp span', node).forEach((el) => timestampOnElement(el, ts));
+    if ($('.js-timestamp a, .js-timestamp span', node))
+      $('.js-timestamp a, .js-timestamp span', node).forEach((el) => timestampOnElement(el, ts));
   });
-
-  // detail.data.items.forEach((item) => {
-  //   if (!$(`[data-key="${item.id}"]`))
-  //     return;
-
-  //   const itemNode = $(`[data-key="${item.id}"]`)[0];
-  //   itemNode.style.border = '1px solid red';
-
-  //   $('.js-timestamp', itemNode).forEach((jsTimstp) => {
-  //     const d = jsTimstp.getAttribute('data-time');
-  //     $('a, span', jsTimstp).forEach((el) => timestampOnElement(el, d));
-  //   });
-  // });
 
 });
