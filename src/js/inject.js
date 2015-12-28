@@ -1,4 +1,3 @@
-import * as logger from './util/logger.js';
 import CJSON from 'circular-json';
 
 // This function will basically shoot a BTD_* event so the content script can intercept it with its data
@@ -22,9 +21,20 @@ $(document).on('uiVisibleChirps', (ev, data) => {
 
 $(document).on('uiToggleTheme', switchThemeClass);
 
+$(document).on('uiDetailViewOpening', (ev, data) => {
+  setTimeout(() => {
+    proxyEvent(ev, {
+      // On va manger....DES CHIRPS
+      chirps: [
+        ...data.column.detailViewComponent.repliesTo.repliesTo || [],
+        data.column.detailViewComponent.chirp,
+        ...data.column.detailViewComponent.replies.replies || []]
+    });
+  }, 500);
+});
+
 // Will ensure we keep the media preview size value even when the user changes it
 $(document).on('uiColumnUpdateMediaPreview', (ev, data) => {
-  console.log('uiColumnUpdateMediaPreview');
   ev.target.closest('.js-column').setAttribute('data-media-size', data.value);
 });
 
@@ -42,10 +52,8 @@ $(document).one('dataColumnsLoaded', () => {
 
   // We delete the callback for the task that refreshes the timestamps so the content script can do it itself
   Object.keys(tasks).forEach((key) => {
-    if (tasks[key].period === 30000) {
-      logger.debug('deleting timestamp interval');
+    if (tasks[key].period === 30000)
       tasks[key].callback = () => false;
-    }
   });
 });
 
