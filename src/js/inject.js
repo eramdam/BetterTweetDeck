@@ -7,6 +7,11 @@ const proxyEvent = (ev, data) => {
   document.dispatchEvent(event);
 };
 
+const switchThemeClass = () => {
+  document.body.dataset.btdtheme = TD.settings.getTheme();
+};
+
+
 // Will push every tweet/DMs and alikes to the content script with an event
 $(document).on('uiVisibleChirps', (ev, data) => {
   if (data.chirpsData.length < 1)
@@ -14,6 +19,8 @@ $(document).on('uiVisibleChirps', (ev, data) => {
 
   proxyEvent(ev, data);
 });
+
+$(document).on('uiToggleTheme', switchThemeClass);
 
 // Will ensure we keep the media preview size value even when the user changes it
 $(document).on('uiColumnUpdateMediaPreview', (ev, data) => {
@@ -30,6 +37,8 @@ $(document).one('dataColumnsLoaded', () => {
   });
 
   const tasks = TD.controller.scheduler._tasks;
+
+  switchThemeClass();
 
   // We delete the callback for the task that refreshes the timestamps so the content script can do it itself
   Object.keys(tasks).forEach((key) => {

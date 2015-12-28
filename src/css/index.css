@@ -1,3 +1,10 @@
+:root {
+  --compose-btn-bg-dark: #373839;
+  --compose-btn-bg-dark-hover: color(var(--compose-btn-bg-dark) shade(20%));
+  --compose-btn-bg-light: #707375;
+  --compose-btn-bg-light-hover: color(var(--compose-btn-bg-light) shade(20%));
+}
+
 .btd__round_pic :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
   border-radius: 50%;
 }
@@ -43,5 +50,106 @@
     .label {
       display: none;
     }
+  }
+}
+
+.btd__minimal_mode {
+  .app-columns {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    padding-left: 0 !important;
+  }
+
+  .column {
+    margin-right: 0 !important;
+  }
+
+  a[rel="viewDetails"] {
+    opacity: 0 !important;
+  }
+
+  .stream-item {
+    border-bottom: 0 !important;
+  }
+
+  .compose-header {
+    border-bottom: 0 !important;
+  }
+
+  .ovl, .overlay {
+    background-color: rgba(17,17,17,0.95);
+  }
+
+  .column-header, .column-header-temp {
+    background-color: transparent;
+    border-bottom: 0 !important;
+  }
+
+  .drawer .compose .btn-on-blue {
+    background-color: color(white alpha(15%));
+
+    &:hover {
+      background-color: color(white alpha(10%));
+    }
+  }
+}
+
+[data-btdtheme="dark"].btd__minimal_mode {
+  .btn-compose {
+    background-color: var(--compose-btn-bg-dark);
+
+    &:hover {
+      background-color: var(--compose-btn-bg-dark-hover);
+    }
+  }
+
+  .attach-compose-buttons .tweet-button {
+    background-color: var(--compose-btn-bg-dark-hover);
+  }
+
+  .drawer .compose, .inline-reply {
+    background-color: var(--compose-btn-bg-dark-hover)
+  }
+
+  .reply-triangle {
+    border-color: transparent transparent var(--compose-btn-bg-dark-hover) transparent;
+  }
+}
+
+[data-btdtheme="light"].btd__minimal_mode {
+  .btn-compose {
+    background-color: var(--compose-btn-bg-light);
+
+    &:hover {
+      background-color: var(--compose-btn-bg-light-hover);
+    }
+  }
+
+  .compose-text-title {
+    color: #BFBFBF;
+  }
+
+  .compose-account {
+    background-color: #8C8C8C;
+  }
+
+  .attach-compose-buttons .tweet-button {
+    background-color: var(--compose-btn-bg-light-hover);
+  }
+
+  /*.js-send-button {
+    background-color: #9FA1A3;
+
+    &:hover {
+      background-color: #979CA1;
+    }
+  }*/
+
+  .drawer .compose, .inline-reply {
+    background-color: var(--compose-btn-bg-light-hover);
+  }
+
+  .reply-triangle {
+    border-color: transparent transparent var(--compose-btn-bg-light-hover) transparent;
   }
 }
