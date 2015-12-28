@@ -1,5 +1,4 @@
 import * as BHelper from './util/browserHelper';
-import * as logger from './util/logger';
 
 BHelper.settings.setAll({
   'installed_date': 42,
