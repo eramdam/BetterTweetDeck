@@ -158,7 +158,7 @@ gulp.task('lint', function () {
 *
 */
 gulp.task('build', (done) => {
-  runSequence('clean', ['js', 'js-injected', 'static'], done);
+  runSequence('clean', ['js', 'js-injected', 'static', 'css'], done);
 });
 
 /*
