@@ -15,9 +15,7 @@ const getKey = (object, property) => {
 
 const _settingKey = 'BTD3Settings';
 
-export function getVersion() {
-  return chrome.app.getDetails().version;
-}
+export const getVersion = () => chrome.app.getDetails().version;
 
 export const settings = {
   get(property, cb) {
