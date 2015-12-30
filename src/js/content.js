@@ -8,6 +8,12 @@ import timestampOnElement from './util/timestamp';
 
 import { $, TIMESTAMP_INTERVAL } from './util/util';
 
+let settings;
+
+BHelper.settings.getAll((newSettings) => {
+  settings = newSettings;
+});
+
 const _refreshTimestamps = () => {
   if (!$('.js-timestamp'))
     return;
@@ -19,13 +25,11 @@ const _refreshTimestamps = () => {
 };
 
 const _tweakClassesFromVisualSettings = () => {
-  BHelper.settings.getAll((settings) => {
-    const enabledClasses = Object.keys(settings.css).filter((key) => settings.css[key]).map((cl) => `btd__${cl}`);
-    document.body.classList.add(...enabledClasses);
+  const enabledClasses = Object.keys(settings.css).filter((key) => settings.css[key]).map((cl) => `btd__${cl}`);
+  document.body.classList.add(...enabledClasses);
 
-    if (settings.no_hearts)
-      document.body.classList.remove('hearty');
-  });
+  if (settings.no_hearts)
+    document.body.classList.remove('hearty');
 };
 
 // Prepare to know when TD is ready
