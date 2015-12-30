@@ -24,8 +24,9 @@ $(document).on('uiToggleTheme', switchThemeClass);
 $(document).on('uiDetailViewOpening', (ev, data) => {
   setTimeout(() => {
     proxyEvent(ev, {
+      columnKey: data.column.model.privateState.key,
       // On va manger....DES CHIRPS
-      chirps: [
+      chirpsData: [
         ...data.column.detailViewComponent.repliesTo.repliesTo || [],
         data.column.detailViewComponent.chirp,
         ...data.column.detailViewComponent.replies.replies || []]

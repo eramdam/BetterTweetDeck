@@ -47,21 +47,42 @@ ready.observe(document.querySelector('.js-app-loading'), {
 _refreshTimestamps();
 setInterval(_refreshTimestamps, TIMESTAMP_INTERVAL);
 
+const tweetHandler = (tweet) => {
+  const ts = tweet.created;
+  const node = $(`[data-key="${tweet.id}"]`)[0];
+
+  // Modify timestamp if needed
+  if ($('.js-timestamp a, .js-timestamp span', node))
+    $('.js-timestamp a, .js-timestamp span', node).forEach((el) => timestampOnElement(el, ts));
+
+  // If it got entities, it's a tweet
+  if (tweet.entities && tweet.entities.urls) {
+    tweet.entities.urls.forEach((url) => {
+      if (settings.no_tco) {
+        const anchor = $(`a[href="${url.url}"]`, node);
+
+        if (anchor)
+          anchor[0].setAttribute('href', url.expanded_url);
+      }
+
+    });
+  } else {
+    // If not, it's an activity
+  }
+};
+
 document.addEventListener('BTD_uiDetailViewOpening', (ev) => {
-  console.debug(CJSON.parse(ev.detail));
+  const detail = CJSON.parse(ev.detail);
+  const tweets = detail.chirpsData;
+  const columnNode = $(`section[data-column="${detail.columnKey}"]`)[0];
+
+  tweets.forEach((tweet) => tweetHandler(tweet, columnNode));
 });
 
 document.addEventListener('BTD_uiVisibleChirps', (ev) => {
   const detail = CJSON.parse(ev.detail);
-  const tweets = detail.chirpsData;
+  const tweets = detail.chirpsData.map((data) => data.chirp);
+  const columnNode = $(`section[data-column="${detail.columnKey}"]`)[0];
 
-  tweets.forEach((tweet) => {
-    const ts = tweet.chirp.created;
-    const node = $(`[data-key="${tweet.id}"]`)[0];
-
-    // Modify timestamp if needed
-    if ($('.js-timestamp a, .js-timestamp span', node))
-      $('.js-timestamp a, .js-timestamp span', node).forEach((el) => timestampOnElement(el, ts));
-  });
-
+  tweets.forEach((tweet) => tweetHandler(tweet, columnNode));
 });
