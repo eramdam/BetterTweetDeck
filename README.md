@@ -14,7 +14,7 @@ Yep. 2.0 was faster and more efficient than 1.0 but the codebase was messy. And 
 
 # Progress of 3.0
 
-- [ ] Hook on "new stuff in TD" event
+- [x] Hook on "new stuff in TD" event
 - [x] Hook on timestamp event of TD, delete the original and use my own
 - [ ] Create thumbnails with arbitrary content
 - [ ] Create tweets' modal with arbitrary content
@@ -30,7 +30,7 @@ Yep. 2.0 was faster and more efficient than 1.0 but the codebase was messy. And 
 - [x] Smaller icons in the composer
 - [x] Notifications icons in grayscale
 - [ ] Detect RTL and apply RTL style to them
-- [ ] Remove the t.co redirection
+- [x] Remove the t.co redirection
 - [ ] Add the "Share on BTD" contextual item
 - [ ] Do an options page
     - [ ] Restore the i18n support
