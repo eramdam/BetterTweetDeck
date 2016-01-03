@@ -11,7 +11,7 @@ module.exports = {
   },
   'globals': {
     'chrome': false,
-    'TD': false,
+    'TD': false
   },
   'ecmaFeatures': {
     'arrowFunctions': true,
@@ -35,7 +35,7 @@ module.exports = {
      * POSSIBLE ERRORS
      * See http://eslint.org/docs/rules/#possible-errors
      */
-    'comma-dangle': [2, "never"],
+    'comma-dangle': [2, 'never'],
     'no-constant-condition': 2,
     'no-control-regex': 2,
     'no-dupe-args': 2,
@@ -86,8 +86,8 @@ module.exports = {
      */
     'array-bracket-spacing': 2,
     'block-spacing': 2,
-    'brace-style': [2, '1tbs', {'allowSingleLine': true}],
-    'indent': [2, 2, {'VariableDeclarator': 2, 'SwitchCase': 1}],
+    'brace-style': [2, '1tbs', { 'allowSingleLine': true }],
+    'indent': [2, 2, { 'VariableDeclarator': 2, 'SwitchCase': 1 }],
     'new-cap': 2,
     'no-trailing-spaces': 2,
     'no-undef': 2,
@@ -98,7 +98,7 @@ module.exports = {
     'semi-spacing': 2,
     'space-after-keywords': 2,
     'space-before-blocks': 2,
-    'space-before-function-paren': [2, {'anonymous': 'always', 'named': 'never'}],
+    'space-before-function-paren': [2, { 'anonymous': 'always', 'named': 'never' }],
     'space-before-keywords': 2,
     'space-in-parens': 2,
     'space-infix-ops': 2,
