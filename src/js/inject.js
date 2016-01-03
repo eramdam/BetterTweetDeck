@@ -28,7 +28,7 @@ $(document).on('uiDetailViewOpening', (ev, data) => {
       // On va manger....DES CHIRPS
       chirpsData: [
         ...data.column.detailViewComponent.repliesTo.repliesTo || [],
-        data.column.detailViewComponent.chirp,
+        data.column.detailViewComponent.parentChirp,
         ...data.column.detailViewComponent.replies.replies || []]
     });
   }, 500);
@@ -57,4 +57,3 @@ $(document).one('dataColumnsLoaded', () => {
       tasks[key].callback = () => false;
   });
 });
-
