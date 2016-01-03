@@ -79,7 +79,7 @@ gulp.task('js-content', () => {
     entries: 'src/js/content.js',
     debug: true
   })
-  .transform('babelify', { presets: ['es2015'] })
+  .transform('babelify')
   .transform('config-browserify')
   .bundle()
   .on('error', maybeNotifyErrors())
@@ -96,7 +96,7 @@ gulp.task('js-injected', () => {
     entries: 'src/js/inject.js',
     debug: true
   })
-  .transform('babelify', { presets: ['es2015'] })
+  .transform('babelify')
   .transform('config-browserify')
   .bundle()
   .on('error', maybeNotifyErrors())
@@ -113,7 +113,7 @@ gulp.task('js-background', () => {
     entries: 'src/js/background.js',
     debug: true
   })
-  .transform('babelify', { presets: ['es2015'] })
+  .transform('babelify')
   .transform('config-browserify')
   .bundle()
   .on('error', maybeNotifyErrors())
