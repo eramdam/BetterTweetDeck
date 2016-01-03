@@ -61,7 +61,11 @@ const expandURL = (url, node) => {
 
 const tweetHandler = (tweet) => {
   const ts = tweet.created;
-  const nodes = $(`[data-key="${tweet.id}"]`);
+
+  let nodes = $(`[data-key="${tweet.id}"]`);
+
+  if (!nodes && tweet.messageThreadId)
+    nodes = $(`[data-key="${tweet.messageThreadId}"]`);
 
   nodes.forEach((node) => {
     // Modify timestamp if needed
@@ -72,7 +76,8 @@ const tweetHandler = (tweet) => {
     if (tweet.entities) {
       const urlsToChange = [...tweet.entities.urls, ...tweet.entities.media];
       urlsToChange.forEach((url) => expandURL(url, node));
-    } else {
+    } else if (tweet.targetTweet) {
+      // If it got targetTweet it's an activity on a tweet
       const urlsToChange = [...tweet.targetTweet.entities.urls, ...tweet.targetTweet.entities.media];
       urlsToChange.forEach((url) => expandURL(url, node));
     }
@@ -89,8 +94,12 @@ document.addEventListener('BTD_uiDetailViewOpening', (ev) => {
 
 document.addEventListener('BTD_uiVisibleChirps', (ev) => {
   const detail = CJSON.parse(ev.detail);
-  const tweets = detail.chirpsData.map((data) => data.chirp);
+  let tweets = detail.chirpsData.map((data) => data.chirp);
   const columnNode = $(`section[data-column="${detail.columnKey}"]`)[0];
+
+  if (detail.chirpsData.some((data) => data.chirp.messages))
+    tweets = tweets.concat(...detail.chirpsData.map((data) => data.chirp.messages[0]));
+
 
   tweets.forEach((tweet) => tweetHandler(tweet, columnNode));
 });

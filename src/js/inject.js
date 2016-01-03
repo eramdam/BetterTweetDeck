@@ -23,13 +23,20 @@ $(document).on('uiToggleTheme', switchThemeClass);
 
 $(document).on('uiDetailViewOpening', (ev, data) => {
   setTimeout(() => {
+    let chirpsData;
+
+    if (['ONE_TO_ONE', 'GROUP_DM'].includes(data.column.detailViewComponent.chirp.type))
+      chirpsData = [...data.column.detailViewComponent.chirp.messages];
+    else
+      chirpsData = [
+        ...data.column.detailViewComponent.repliesTo.repliesTo || [],
+        data.column.detailViewComponent.parentChirp,
+        ...data.column.detailViewComponent.replies.replies || []];
+
     proxyEvent(ev, {
       columnKey: data.column.model.privateState.key,
       // On va manger....DES CHIRPS
-      chirpsData: [
-        ...data.column.detailViewComponent.repliesTo.repliesTo || [],
-        data.column.detailViewComponent.parentChirp,
-        ...data.column.detailViewComponent.replies.replies || []]
+      chirpsData
     });
   }, 500);
 });
