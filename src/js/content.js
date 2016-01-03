@@ -47,28 +47,36 @@ ready.observe(document.querySelector('.js-app-loading'), {
 _refreshTimestamps();
 setInterval(_refreshTimestamps, TIMESTAMP_INTERVAL);
 
+const expandURL = (url, node) => {
+  if (!settings.no_tco)
+    return;
+
+  const anchors = $(`a[href="${url.url}"]`, node);
+
+  if (!anchors)
+    return;
+
+  anchors.forEach((anchor) => anchor.setAttribute('href', url.expanded_url));
+};
+
 const tweetHandler = (tweet) => {
   const ts = tweet.created;
-  const node = $(`[data-key="${tweet.id}"]`)[0];
+  const nodes = $(`[data-key="${tweet.id}"]`);
 
-  // Modify timestamp if needed
-  if ($('.js-timestamp a, .js-timestamp span', node))
-    $('.js-timestamp a, .js-timestamp span', node).forEach((el) => timestampOnElement(el, ts));
+  nodes.forEach((node) => {
+    // Modify timestamp if needed
+    if ($('.js-timestamp a, .js-timestamp span', node))
+      $('.js-timestamp a, .js-timestamp span', node).forEach((el) => timestampOnElement(el, ts));
 
-  // If it got entities, it's a tweet
-  if (tweet.entities && tweet.entities.urls) {
-    tweet.entities.urls.forEach((url) => {
-      if (settings.no_tco) {
-        const anchor = $(`a[href="${url.url}"]`, node);
-
-        if (anchor)
-          anchor[0].setAttribute('href', url.expanded_url);
-      }
-
-    });
-  } else {
-    // If not, it's an activity
-  }
+    // If it got entities, it's a tweet
+    if (tweet.entities) {
+      const urlsToChange = [...tweet.entities.urls, ...tweet.entities.media];
+      urlsToChange.forEach((url) => expandURL(url, node));
+    } else {
+      const urlsToChange = [...tweet.targetTweet.entities.urls, ...tweet.targetTweet.entities.media];
+      urlsToChange.forEach((url) => expandURL(url, node));
+    }
+  });
 };
 
 document.addEventListener('BTD_uiDetailViewOpening', (ev) => {
