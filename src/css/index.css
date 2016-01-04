@@ -92,6 +92,23 @@
       background-color: color(white alpha(10%));
     }
   }
+  
+  .scroll-styled-v::-webkit-scrollbar-track,
+  .scroll-styled-h::-webkit-scrollbar-track {
+    border-left: 0;
+  }
+  
+  .scroll-styled-v::-webkit-scrollbar {
+    width: 1px;
+  }
+  
+  .scroll-styled-h::-webkit-scrollbar {
+    height: 0;
+  }
+  
+  .needs-scroll-bottom-offset.scroll-styled-h {
+    bottom: 0;
+  }
 }
 
 [data-btdtheme="dark"].btd__minimal_mode {
