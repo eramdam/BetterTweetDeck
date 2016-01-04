@@ -1,7 +1,3 @@
-const scriptEl = document.createElement('script');
-scriptEl.src = chrome.extension.getURL('js/inject.js');
-document.head.appendChild(scriptEl);
-
 import CJSON from 'circular-json';
 import * as BHelper from './util/browserHelper';
 import timestampOnElement from './util/timestamp';
@@ -13,6 +9,10 @@ let settings;
 BHelper.settings.getAll((newSettings) => {
   settings = newSettings;
 });
+
+const scriptEl = document.createElement('script');
+scriptEl.src = chrome.extension.getURL('js/inject.js');
+document.head.appendChild(scriptEl);
 
 const _refreshTimestamps = () => {
   if (!$('.js-timestamp'))
