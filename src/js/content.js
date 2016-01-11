@@ -60,7 +60,12 @@ const expandURL = (url, node) => {
 };
 
 const tweetHandler = (tweet) => {
-  const ts = tweet.created;
+  let ts;
+
+  if (tweet.targetTweet && tweet.targetUser)
+    ts = tweet.targetTweet.created;
+  else
+    ts = tweet.created;
 
   let nodes = $(`[data-key="${tweet.id}"]`);
 
@@ -76,7 +81,7 @@ const tweetHandler = (tweet) => {
     if (tweet.entities) {
       const urlsToChange = [...tweet.entities.urls, ...tweet.entities.media];
       urlsToChange.forEach((url) => expandURL(url, node));
-    } else if (tweet.targetTweet) {
+    } else if (tweet.targetTweet && tweet.targetUser) {
       // If it got targetTweet it's an activity on a tweet
       const urlsToChange = [...tweet.targetTweet.entities.urls, ...tweet.targetTweet.entities.media];
       urlsToChange.forEach((url) => expandURL(url, node));
