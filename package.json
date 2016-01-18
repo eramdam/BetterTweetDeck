@@ -13,6 +13,7 @@
   },
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
   "devDependencies": {
+    "async": "^1.5.2",
     "babel-core": ">=6.2.1",
     "babel-eslint": "^4.1.6",
     "babel-plugin-transform-es2015-modules-commonjs": ">=6.2.0",
@@ -37,7 +38,7 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.5.1",
     "gulp-util": "^3.0.7",
-    "lodash": "^3.10.1",
+    "lodash": "^4.0.0",
     "mustache": "^2.2.1",
     "postcss-cssnext": ">=2.3.0",
     "postcss-nested": "^1.0.0",

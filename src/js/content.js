@@ -1,6 +1,9 @@
 import CJSON from 'circular-json';
+import async from 'async';
 import * as BHelper from './util/browserHelper';
 import timestampOnElement from './util/timestamp';
+import * as Thumbnails from './util/tb';
+import * as Templates from './util/templates';
 
 import { $, TIMESTAMP_INTERVAL } from './util/util';
 
@@ -47,7 +50,7 @@ ready.observe(document.querySelector('.js-app-loading'), {
 _refreshTimestamps();
 setInterval(_refreshTimestamps, TIMESTAMP_INTERVAL);
 
-const expandURL = (url, node) => {
+function expandURL(url, node) {
   if (!settings.no_tco)
     return;
 
@@ -57,7 +60,37 @@ const expandURL = (url, node) => {
     return;
 
   anchors.forEach((anchor) => anchor.setAttribute('href', url.expanded_url));
-};
+}
+
+function thumbnailFor(url, node, done) {
+  const anchors = $(`a[href="${url.expanded_url}"]`, node);
+
+  if (!anchors)
+    return done();
+
+  anchors.forEach((anchor) => {
+    if (anchor.dataset.urlScanned === 'true')
+      return;
+
+    anchor.dataset.urlScanned = true;
+
+    if ($(`.js-media`, node))
+      return;
+
+    Thumbnails.thumbnailFor(url.expanded_url).then((data) => {
+      if (!data)
+        return;
+
+      if (data.type && data.type === 'link')
+        return;
+
+      const html = Templates.previewTemplate(data.thumbnail_url || data.url, url.expanded_url, 'medium');
+
+      $('.tweet-body p', node)[0].insertAdjacentHTML('afterend', html);
+    });
+  });
+  done();
+}
 
 const tweetHandler = (tweet) => {
   let ts;
@@ -80,11 +113,25 @@ const tweetHandler = (tweet) => {
     // If it got entities, it's a tweet
     if (tweet.entities) {
       const urlsToChange = [...tweet.entities.urls, ...tweet.entities.media];
-      urlsToChange.forEach((url) => expandURL(url, node));
+      async.each(urlsToChange, (url, done) => {
+        expandURL(url, node);
+
+        if (url.type || url.sizes || Thumbnails.ignoreUrl(url.expanded_url))
+          return done();
+
+        thumbnailFor(url, node, done);
+      });
     } else if (tweet.targetTweet && tweet.targetUser) {
       // If it got targetTweet it's an activity on a tweet
       const urlsToChange = [...tweet.targetTweet.entities.urls, ...tweet.targetTweet.entities.media];
-      urlsToChange.forEach((url) => expandURL(url, node));
+      async.each(urlsToChange, (url, done) => {
+        expandURL(url, node);
+
+        if (url.type || url.sizes || Thumbnails.ignoreUrl(url.expanded_url))
+          return done();
+
+        thumbnailFor(url, node, done);
+      });
     }
   });
 };
