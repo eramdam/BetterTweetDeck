@@ -36,7 +36,7 @@ const toLintFiles = [
 ]
 
 const postCssPlugins = [
-  cssnext,
+  cssnext({warnForDuplicates: false}),
   nested,
   cssnano
 ]
