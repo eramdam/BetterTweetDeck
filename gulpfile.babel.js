@@ -1,52 +1,52 @@
 // Gulp & utils
-import path from 'path';
-import gulp from 'gulp';
-import runSequence from 'run-sequence';
-import del from 'del';
-import plumber from 'gulp-plumber';
-import notify from 'gulp-notify';
+import path from 'path'
+import gulp from 'gulp'
+import runSequence from 'run-sequence'
+import del from 'del'
+import plumber from 'gulp-plumber'
+import notify from 'gulp-notify'
 
 // JS
-import browserify from 'browserify';
-import source from 'vinyl-source-stream';
-import buffer from 'vinyl-buffer';
-import eslint from 'gulp-eslint';
-import uglify from 'gulp-uglify';
-import sourcemaps from 'gulp-sourcemaps';
-import gutil from 'gulp-util';
+import browserify from 'browserify'
+import source from 'vinyl-source-stream'
+import buffer from 'vinyl-buffer'
+import eslint from 'gulp-eslint'
+import uglify from 'gulp-uglify'
+import sourcemaps from 'gulp-sourcemaps'
+import gutil from 'gulp-util'
 
 // CSS
-import postcss from 'gulp-postcss';
-import cssnext from 'postcss-cssnext';
-import cssnano from 'cssnano';
-import nested from 'postcss-nested';
+import postcss from 'gulp-postcss'
+import cssnext from 'postcss-cssnext'
+import cssnano from 'cssnano'
+import nested from 'postcss-nested'
 
 const staticFiles = [
   'manifest.json',
   'icons/*.png'
-].map((i) => path.resolve('src/', i));
+].map((i) => path.resolve('src/', i))
 
 const cssFiles = [
   'src/css/index.css'
-];
+]
 
 const toLintFiles = [
   'src/js/**/*.js',
   '*.js'
-];
+]
 
 const postCssPlugins = [
   cssnext,
   nested,
   cssnano
-];
+]
 
 const maybeNotifyErrors = () => {
   return notify.onError({
     title: 'Compile Error',
     message: '<%= error.message %>'
-  });
-};
+  })
+}
 
 /*
 *
@@ -55,8 +55,8 @@ const maybeNotifyErrors = () => {
 *
 */
 gulp.task('clean', () => {
-  return del(['dist/']);
-});
+  return del(['dist/'])
+})
 
 /*
 *
@@ -66,8 +66,8 @@ gulp.task('clean', () => {
 */
 gulp.task('static', () => {
   return gulp.src(staticFiles, { base: './src' })
-  .pipe(gulp.dest('./dist'));
-});
+  .pipe(gulp.dest('./dist'))
+})
 
 /*
 *
@@ -89,8 +89,8 @@ gulp.task('js-content', () => {
   .pipe(sourcemaps.init({ loadMaps: true }))
   .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
   .pipe(sourcemaps.write('./'))
-  .pipe(gulp.dest('./dist/js'));
-});
+  .pipe(gulp.dest('./dist/js'))
+})
 
 gulp.task('js-injected', () => {
   return browserify({
@@ -106,8 +106,8 @@ gulp.task('js-injected', () => {
   .pipe(sourcemaps.init({ loadMaps: true }))
   .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
   .pipe(sourcemaps.write('./'))
-  .pipe(gulp.dest('./dist/js'));
-});
+  .pipe(gulp.dest('./dist/js'))
+})
 
 gulp.task('js-background', () => {
   return browserify({
@@ -123,11 +123,10 @@ gulp.task('js-background', () => {
   .pipe(sourcemaps.init({ loadMaps: true }))
   .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
   .pipe(sourcemaps.write('./'))
-  .pipe(gulp.dest('./dist/js'));
-});
+  .pipe(gulp.dest('./dist/js'))
+})
 
-
-gulp.task('js', ['js-content', 'js-injected', 'js-background']);
+gulp.task('js', ['js-content', 'js-injected', 'js-background'])
 
 /**
  * `gulp css`
@@ -137,8 +136,8 @@ gulp.task('css', function () {
   return gulp.src(cssFiles)
     .pipe(postcss(postCssPlugins))
     .pipe(gutil.env.type === 'production' ? gutil.noop() : plumber())
-    .pipe(gulp.dest('./dist/css'));
-});
+    .pipe(gulp.dest('./dist/css'))
+})
 
 /**
  * `gulp lint`
@@ -148,8 +147,8 @@ gulp.task('lint', function () {
   return gulp.src(toLintFiles)
     .pipe(eslint())
     .pipe(eslint.format())
-    .pipe(eslint.failAfterError());
-});
+    .pipe(eslint.failAfterError())
+})
 
 /*
 *
@@ -158,8 +157,8 @@ gulp.task('lint', function () {
 *
 */
 gulp.task('build', (done) => {
-  runSequence('clean', ['js', 'js-injected', 'static', 'css'], done);
-});
+  runSequence('clean', ['js', 'js-injected', 'static', 'css'], done)
+})
 
 /*
 *
@@ -169,9 +168,9 @@ gulp.task('build', (done) => {
 */
 gulp.task('default', (done) => {
   runSequence('clean', ['css', 'js', 'static'], () => {
-    gulp.watch('./src/js/**/*.js', ['js']);
-    gulp.watch('./src/css/**/*.css', ['css']);
-    gulp.watch(staticFiles, ['static']);
-    done();
-  });
-});
+    gulp.watch('./src/js/**/*.js', ['js'])
+    gulp.watch('./src/css/**/*.css', ['css'])
+    gulp.watch(staticFiles, ['static'])
+    done()
+  })
+})
