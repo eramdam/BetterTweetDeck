@@ -1,5 +1,8 @@
 module.exports = {
   'Client': {
-    'debug': true
+    'debug': true,
+    'APIs': {
+      embedly: ''
+    }
   }
 };
