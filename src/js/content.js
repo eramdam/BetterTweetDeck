@@ -1,5 +1,5 @@
 import CJSON from 'circular-json'
-import async from 'async'
+import each from 'promise-each'
 import * as BHelper from './util/browserHelper'
 import timestampOnElement from './util/timestamp'
 import * as Thumbnails from './util/tb'
@@ -48,11 +48,7 @@ ready.observe(document.querySelector('.js-app-loading'), {
   attributes: true
 })
 
-// Refresh timestamps once and then set the interval
-_refreshTimestamps()
-setInterval(_refreshTimestamps, TIMESTAMP_INTERVAL)
-
-function expandURL (url, node) {
+const expandURL = (url, node) => {
   if (!settings.no_tco) {
     return
   }
@@ -66,11 +62,11 @@ function expandURL (url, node) {
   anchors.forEach((anchor) => anchor.setAttribute('href', url.expanded_url))
 }
 
-function thumbnailFor (url, node, done) {
+const thumbnailFromSingleURL = (url, node) => {
   const anchors = $(`a[href="${url.expanded_url}"]`, node)
 
   if (!anchors) {
-    return done()
+    return Promise.resolve()
   }
 
   anchors.forEach((anchor) => {
@@ -89,16 +85,24 @@ function thumbnailFor (url, node, done) {
         return
       }
 
-      if (data.type && data.type === 'link') {
-        return
-      }
-
       const html = Templates.previewTemplate(data.thumbnail_url || data.url, url.expanded_url, 'medium')
 
       $('.tweet-body p', node)[0].insertAdjacentHTML('afterend', html)
     })
   })
-  done()
+  return Promise.resolve()
+}
+
+const thumbnailsFromURLs = (urls, node) => {
+  return Promise.resolve(urls).then(each((url) => {
+    expandURL(url, node)
+
+    if (url.type || url.sizes || Thumbnails.ignoreUrl(url.expanded_url)) {
+      return
+    }
+
+    return thumbnailFromSingleURL(url, node)
+  }))
 }
 
 const tweetHandler = (tweet) => {
@@ -122,33 +126,23 @@ const tweetHandler = (tweet) => {
       $('.js-timestamp a, .js-timestamp span', node).forEach((el) => timestampOnElement(el, ts))
     }
 
+    let urlsToChange = []
+
     // If it got entities, it's a tweet
     if (tweet.entities) {
-      const urlsToChange = [...tweet.entities.urls, ...tweet.entities.media]
-      async.each(urlsToChange, (url, done) => {
-        expandURL(url, node)
-
-        if (url.type || url.sizes || Thumbnails.ignoreUrl(url.expanded_url)) {
-          return done()
-        }
-
-        thumbnailFor(url, node, done)
-      })
+      urlsToChange = [...tweet.entities.urls, ...tweet.entities.media]
     } else if (tweet.targetTweet && tweet.targetUser) {
       // If it got targetTweet it's an activity on a tweet
-      const urlsToChange = [...tweet.targetTweet.entities.urls, ...tweet.targetTweet.entities.media]
-      async.each(urlsToChange, (url, done) => {
-        expandURL(url, node)
-
-        if (url.type || url.sizes || Thumbnails.ignoreUrl(url.expanded_url)) {
-          return done()
-        }
-
-        thumbnailFor(url, node, done)
-      })
+      urlsToChange = [...tweet.targetTweet.entities.urls, ...tweet.targetTweet.entities.media]
     }
+
+    thumbnailsFromURLs(urlsToChange, node)
   })
 }
+
+// Refresh timestamps once and then set the interval
+_refreshTimestamps()
+setInterval(_refreshTimestamps, TIMESTAMP_INTERVAL)
 
 document.addEventListener('BTD_uiDetailViewOpening', (ev) => {
   const detail = CJSON.parse(ev.detail)

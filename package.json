@@ -42,6 +42,7 @@
     "mustache": "^2.2.1",
     "postcss-cssnext": "^2.5.1",
     "postcss-nested": "^1.0.0",
+    "promise-each": "^2.2.0",
     "run-sequence": ">=1.1.2",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": ">=1.1.0",
