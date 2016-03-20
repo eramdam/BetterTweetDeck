@@ -1,4 +1,4 @@
-import Mustache from 'mustache';
+import Mustache from 'mustache'
 
 const _templates = {
   preview: `<div class="js-media media-preview position-rel">
@@ -44,7 +44,7 @@ const _templates = {
       </div>
     </div>
   </div>`
-};
+}
 
 const _data = {
   preview: {
@@ -69,7 +69,7 @@ const _data = {
     isVideo: true,
     videoEmbed: undefined
   }
-};
+}
 
 export const previewTemplate = (mediaPreviewSrc, sourceLink, size, type = 'picture') => {
   return Mustache.render(_templates.preview, Object.assign(_data.preview, {
@@ -80,13 +80,13 @@ export const previewTemplate = (mediaPreviewSrc, sourceLink, size, type = 'pictu
     isMediaPreviewCompact: size === 'medium',
     isMediaPreviewSmall: size === 'small',
     thumbSizeClass: `media-size-${size}`
-  }));
-};
+  }))
+}
 
 export const modalTemplate = (imageUrl, type, videoEmbed = null) => {
   return Mustache.render(_templates.preview, Object.assign(_data.modal, {
     imageUrl,
     videoEmbed,
     isVideo: type === 'video'
-  }));
-};
+  }))
+}

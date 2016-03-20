@@ -1,4 +1,4 @@
-import * as BHelper from './util/browserHelper';
+import * as BHelper from './util/browserHelper'
 
 BHelper.settings.setAll({
   'installed_date': 42,
@@ -22,5 +22,5 @@ BHelper.settings.setAll({
     'short_txt': false
   }
 }, (settings) => {
-  console.debug(`Default settings to`, settings);
-}, true);
+  console.debug('Default settings to', settings)
+}, true)

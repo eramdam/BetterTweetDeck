@@ -1,3 +1,5 @@
+[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
+
 # Better TweetDeck³
 
 This is the 3.0 branch for Better TweetDeck. Like the 2.0 version it's a rewrite-from-scratch.
@@ -45,4 +47,4 @@ For now, there won't be new features. But I have some of them in mind:
 - [ ] Replace different APIs by Embed.ly to simplify the code **a lot**
 - [ ] *Probably too big for one man* Translate the UI of TweetDeck ?
 - [ ] Display a little flag depending on the _supposed_ language of the tweet ?
-- [ ] Display a little avatar next to contacts in the "All accoutns" messages column so you know easily with which account a thread began with 
+- [ ] Display a little avatar next to contacts in the "All accoutns" messages column so you know easily with which account a thread began with

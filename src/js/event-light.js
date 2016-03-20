@@ -311,6 +311,6 @@ const ev = ['TD',
 'dataStreamRate',
 'dataCookieOk',
 'dataCookieMissing',
-'dataCookieMismatch'];
+'dataCookieMismatch']
 
-export default ev;
+export default ev
