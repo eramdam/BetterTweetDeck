@@ -18,8 +18,8 @@ import gutil from 'gulp-util';
 // CSS
 import postcss from 'gulp-postcss';
 import cssnext from 'postcss-cssnext';
+import cssnano from 'cssnano';
 import nested from 'postcss-nested';
-import nano from 'gulp-cssnano';
 
 const staticFiles = [
   'manifest.json',
@@ -37,7 +37,8 @@ const toLintFiles = [
 
 const postCssPlugins = [
   cssnext,
-  nested
+  nested,
+  cssnano
 ];
 
 const maybeNotifyErrors = () => {
@@ -136,7 +137,6 @@ gulp.task('css', function () {
   return gulp.src(cssFiles)
     .pipe(postcss(postCssPlugins))
     .pipe(gutil.env.type === 'production' ? gutil.noop() : plumber())
-    .pipe(gutil.env.type === 'production' ? nano() : gutil.noop())
     .pipe(gulp.dest('./dist/css'));
 });
 
