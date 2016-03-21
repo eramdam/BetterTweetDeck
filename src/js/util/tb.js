@@ -5,10 +5,25 @@ const endpoints = {
   'embedly': 'https://api.embed.ly/1/oembed?'
 }
 
-const schemeBlacklist = [
-  /twitter\.com/,
-  /vine\.co/,
-  /youtube\.com/
+const schemeWhitelist = [
+  /500px.com/,
+  /cl.ly/,
+  /dailymotion.com\/video/,
+  /(?:deviantart.com\/art|fav.me|sta.sh)/,
+  /(?:dribbble.com\/shots|drbl.in)/,
+  /d.pr\/i/,
+  /(?:flic.kr|flickr.com)/,
+  /ted.com\/talks/,
+  /bandcamp.com/,
+  /imgur.com/,
+  /https?:\/\/(?:i.|www.|)instagr(?:.am|am.com)\/p\/.+/,
+  /img.ly/,
+  /moby.to/,
+  /soundcloud.com/,
+  /.(jpg|gif|png|jpeg)$/,
+  /tumblr.com\/.+.(?:gif|png|jpg)$/,
+  /vimeo.com\/[0-9]*$/,
+  /yfrog.com/
 ]
 
 const getEnpointFor = (service) => endpoints[service]
@@ -29,12 +44,12 @@ const json = (res) => {
   return res.json()
 }
 
-export const ignoreUrl = (url) => {
-  return schemeBlacklist.some((scheme) => scheme.test(url))
+const ignoreUrl = (url) => {
+  return schemeWhitelist.every((scheme) => !scheme.test(url))
 }
 
-export const thumbnailFor = (url) => {
-  // console.log(`Fetching ${url}`);
+const thumbnailFor = (url) => {
+  console.debug(`Fetching ${url}`)
   return fetch(`${getEnpointFor('embedly')}${qs.stringify({
     url,
     secure: true,
