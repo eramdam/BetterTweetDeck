@@ -71,7 +71,7 @@ const _data = {
   }
 }
 
-export const previewTemplate = (mediaPreviewSrc, sourceLink, size, type = 'picture') => {
+const previewTemplate = (mediaPreviewSrc, sourceLink, size, type = 'picture') => {
   return Mustache.render(_templates.preview, Object.assign(_data.preview, {
     url: sourceLink,
     mediaPreviewSrc,
@@ -83,10 +83,12 @@ export const previewTemplate = (mediaPreviewSrc, sourceLink, size, type = 'pictu
   }))
 }
 
-export const modalTemplate = (imageUrl, type, videoEmbed = null) => {
+const modalTemplate = (imageUrl, type, videoEmbed = null) => {
   return Mustache.render(_templates.preview, Object.assign(_data.modal, {
     imageUrl,
     videoEmbed,
     isVideo: type === 'video'
   }))
 }
+
+module.exports = { modalTemplate, previewTemplate }

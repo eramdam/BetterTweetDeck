@@ -43,7 +43,7 @@ const getDateObject = (dateString) => {
   return new Date(dateString)
 }
 
-export default function timestampOnElement (element, dateString) {
+const timestampOnElement = (element, dateString) => {
   if (timestampMode === 'relative') {
     return
   }
@@ -52,3 +52,5 @@ export default function timestampOnElement (element, dateString) {
 
   element.innerHTML = fecha.format(d, getFormat(d, timestampMode))
 }
+
+module.exports = timestampOnElement

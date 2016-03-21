@@ -60,3 +60,5 @@ const thumbnailFor = (url) => {
     .catch(() => null)
     .then(json)
 }
+
+module.exports = { ignoreUrl, thumbnailFor }

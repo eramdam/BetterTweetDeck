@@ -1,4 +1,4 @@
-export function $ (sel, parent = document) {
+const $ = (sel, parent = document) => {
   let arr
 
   arr = [].slice.call(parent.querySelectorAll(sel))
@@ -6,4 +6,6 @@ export function $ (sel, parent = document) {
   return arr.length >= 1 ? arr : null
 }
 
-export const TIMESTAMP_INTERVAL = 1e3 * 8
+const TIMESTAMP_INTERVAL = 1e3 * 8
+
+module.exports = { $, TIMESTAMP_INTERVAL }
