@@ -9,6 +9,10 @@
   display: none;
 }
 
+.media-caret {
+  z-index: 0;
+}
+
 .btd__round_pic :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
   border-radius: 50%;
 }
