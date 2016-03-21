@@ -39,7 +39,7 @@ $(document).on('uiDetailViewOpening', (ev, data) => {
       // On va manger....DES CHIRPS
       chirpsData
     })
-  }, 500)
+  }, 1000)
 })
 
 // Will ensure we keep the media preview size value even when the user changes it
