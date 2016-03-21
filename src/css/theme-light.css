@@ -1,0 +1,30 @@
+
+[data-btdtheme="light"].btd__minimal_mode {
+  .btn-compose {
+    background-color: var(--compose-btn-bg-light);
+
+    &:hover {
+      background-color: var(--compose-btn-bg-light-hover);
+    }
+  }
+
+  .compose-text-title {
+    color: #BFBFBF;
+  }
+
+  .compose-account {
+    background-color: #8C8C8C;
+  }
+
+  .attach-compose-buttons .tweet-button {
+    background-color: var(--compose-btn-bg-light-hover);
+  }
+
+  .drawer .compose, .inline-reply {
+    background-color: var(--compose-btn-bg-light-hover);
+  }
+
+  .reply-triangle {
+    border-color: transparent transparent var(--compose-btn-bg-light-hover) transparent;
+  }
+}

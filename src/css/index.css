@@ -1,8 +1,13 @@
 :root {
+  /* Dark*/
   --compose-btn-bg-dark: #373839;
   --compose-btn-bg-dark-hover: color(var(--compose-btn-bg-dark) shade(20%));
+  --main-bg-dark: #1d1e21;
+
+  /* Light */
   --compose-btn-bg-light: #707375;
   --compose-btn-bg-light-hover: color(var(--compose-btn-bg-light) shade(20%));
+  --main-bg-white: #ffffff;
 }
 
 .btd__round_pic :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
@@ -79,24 +84,23 @@
   .mdl-media-prev, .mdl-media-next {
     background: transparent;
     z-index: 10;
+
+    .icon {
+      background: color(#151515 a(60%));
+      border-radius: 50%;
+      box-shadow: 0 0 0 6px color(#151515 a(60%));
+    }
+
+    .icon:before {
+      position: absolute;
+      left: 45%;
+      top: 50%;
+      transform: translate(-50%,-50%);
+    }
   }
 
-  .mdl-dismiss {
-    bottom: 0;
-    left: 0;
-    right: 0;
-    top: 0;
-
-    padding-right: 7px;
-    padding-top: 8px;
-    z-index: 0;
-    cursor: default;
-    position: fixed;
-    text-align: right;
-
-    > .icon {
-      cursor: pointer;
-    }
+  .mdl-btn-media, .is-inverted-light .mdl-btn-media {
+    opacity: 1;
   }
 
   .media-img {
@@ -104,9 +108,9 @@
   }
 
   .med-embeditem {
-    width: auto;
+    min-width: 600px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, 0);
   }
 
   .med-tray {
@@ -124,6 +128,10 @@
     &:hover {
       background-color: color(white alpha(10%));
     }
+  }
+
+  .ovl, .overlay {
+    background: color(black a(80%));
   }
 
   .scroll-styled-v::-webkit-scrollbar-track,
@@ -149,68 +157,17 @@
   }
 }
 
-[data-btdtheme="dark"].btd__minimal_mode {
-  .btn-compose {
-    background-color: var(--compose-btn-bg-dark);
-
-    &:hover {
-      background-color: var(--compose-btn-bg-dark-hover);
-    }
-  }
-
-  .attach-compose-buttons .tweet-button {
-    background-color: var(--compose-btn-bg-dark-hover);
-  }
-
-  .drawer .compose, .inline-reply {
-    background-color: var(--compose-btn-bg-dark-hover)
-  }
-
-  .reply-triangle {
-    border-color: transparent transparent var(--compose-btn-bg-dark-hover) transparent;
-  }
-
-  .media-caret {
-    border-color: #222426 transparent transparent transparent;
-  }
+[data-btdtheme] .med-tweet {
+  display: none;
 }
 
-[data-btdtheme="light"].btd__minimal_mode {
-  .btn-compose {
-    background-color: var(--compose-btn-bg-light);
-
-    &:hover {
-      background-color: var(--compose-btn-bg-light-hover);
-    }
-  }
-
-  .compose-text-title {
-    color: #BFBFBF;
-  }
-
-  .compose-account {
-    background-color: #8C8C8C;
-  }
-
-  .attach-compose-buttons .tweet-button {
-    background-color: var(--compose-btn-bg-light-hover);
-  }
-
-  .drawer .compose, .inline-reply {
-    background-color: var(--compose-btn-bg-light-hover);
-  }
-
-  .reply-triangle {
-    border-color: transparent transparent var(--compose-btn-bg-light-hover) transparent;
-  }
+[data-btdtheme] .dropdown-menu {
+  z-index: 10;
 }
 
-[data-btdtheme] {
-  .med-tweet {
-    display: none;
-  }
-
-  .dropdown-menu {
-    z-index: 10;
-  }
+[data-btdtheme] .js-media-image-link {
+  /* Future loading bg image */
 }
+
+@import 'theme-dark.css';
+@import 'theme-light.css';
