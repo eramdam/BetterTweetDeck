@@ -135,6 +135,10 @@
   .reply-triangle {
     border-color: transparent transparent var(--compose-btn-bg-dark-hover) transparent;
   }
+
+  .media-caret {
+    border-color: #222426 transparent transparent transparent;
+  }
 }
 
 [data-btdtheme="light"].btd__minimal_mode {
