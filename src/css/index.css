@@ -162,14 +162,6 @@
     background-color: var(--compose-btn-bg-light-hover);
   }
 
-  /*.js-send-button {
-    background-color: #9FA1A3;
-
-    &:hover {
-      background-color: #979CA1;
-    }
-  }*/
-
   .drawer .compose, .inline-reply {
     background-color: var(--compose-btn-bg-light-hover);
   }
