@@ -115,6 +115,8 @@ const tweetHandler = (tweet) => {
 
   if (tweet.targetTweet && tweet.targetUser) {
     ts = tweet.targetTweet.created
+  } else if (tweet.retweetedStatus) {
+    ts = tweet.retweetedStatus.created
   } else {
     ts = tweet.created
   }
