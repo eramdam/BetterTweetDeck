@@ -1,15 +1,15 @@
 import fecha from 'fecha'
-import * as BHelper from './browserHelper'
+import sendMessage from './messaging'
 
 let timestampMode
 let fullAfter24
 
-BHelper.settings.get('ts', (val) => {
-  timestampMode = val
+sendMessage({action: 'get', key: 'ts'}, (response) => {
+  timestampMode = response.val
 })
 
-BHelper.settings.get('full_aft_24', (val) => {
-  fullAfter24 = val
+sendMessage({action: 'get', key: 'full_aft_24'}, (response) => {
+  fullAfter24 = response.val
 })
 
 const formatMaps = {

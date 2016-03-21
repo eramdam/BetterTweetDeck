@@ -24,3 +24,15 @@ BHelper.settings.setAll({
 }, (settings) => {
   console.debug('Default settings to', settings)
 }, true)
+
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+  switch (message.action) {
+    case 'get_settings':
+      BHelper.settings.getAll((settings) => sendResponse({settings}))
+      return true
+
+    case 'get':
+      BHelper.settings.get(message.key, (val) => sendResponse({val}))
+      return true
+  }
+})

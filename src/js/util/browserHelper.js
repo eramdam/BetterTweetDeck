@@ -1,3 +1,4 @@
+// This module is used by the background page
 // From https://github.com/lorenwest/node-config/blob/master/lib/config.js#L131-L152
 const getKey = (object, property) => {
   const elems = Array.isArray(property) ? property : property.split('.')
@@ -16,6 +17,7 @@ const getKey = (object, property) => {
 }
 
 const _settingKey = 'BTD3Settings'
+const storage = chrome.storage.sync || chrome.storage.local
 
 export const getVersion = () => chrome.app.getDetails().version
 
@@ -27,7 +29,7 @@ export const settings = {
   },
   set (obj, cb) {
     this.getAll((currSettings) => {
-      chrome.storage.sync.set({
+      storage.set({
         [_settingKey]: Object.assign(currSettings, obj)
       }, () => {
         if (cb) {
@@ -37,12 +39,12 @@ export const settings = {
     })
   },
   getAll (done) {
-    chrome.storage.sync.get(_settingKey, (obj) => {
+    storage.get(_settingKey, (obj) => {
       done(obj[_settingKey])
     })
   },
   setAll (settings, done, getBack = false) {
-    chrome.storage.sync.set({
+    storage.set({
       [_settingKey]: settings
     }, () => {
       if (getBack) {

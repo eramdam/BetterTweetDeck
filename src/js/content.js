@@ -1,7 +1,7 @@
 import CJSON from 'circular-json'
 import each from 'promise-each'
-import * as BHelper from './util/browserHelper'
 import timestampOnElement from './util/timestamp'
+import sendMessage from './util/messaging'
 import * as Thumbnails from './util/tb'
 import * as Templates from './util/templates'
 
@@ -9,8 +9,8 @@ import { $, TIMESTAMP_INTERVAL } from './util/util'
 
 let settings
 
-BHelper.settings.getAll((newSettings) => {
-  settings = newSettings
+sendMessage({action: 'get_settings'}, (response) => {
+  settings = response.settings
 })
 
 const scriptEl = document.createElement('script')
