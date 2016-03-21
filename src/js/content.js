@@ -85,9 +85,14 @@ const thumbnailFromSingleURL = (url, node) => {
         return
       }
 
-      const html = Templates.previewTemplate(data.thumbnail_url || data.url, url.expanded_url, 'medium')
+      const mediaSize = anchor.closest('.js-column').getAttribute('data-media-size') || 'medium'
+      const html = Templates.previewTemplate(data.thumbnail_url || data.url, url.expanded_url, mediaSize)
 
-      $('.tweet-body p', node)[0].insertAdjacentHTML('afterend', html)
+      if (mediaSize === 'large') {
+        $('.tweet.js-tweet', node)[0].insertAdjacentHTML('afterend', html)
+      } else {
+        $('.tweet-body p', node)[0].insertAdjacentHTML('afterend', html)
+      }
     })
   })
   return Promise.resolve()
