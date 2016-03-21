@@ -107,6 +107,10 @@
     }
   }
 
+  .media-img {
+    max-width: 100% !important;
+  }
+
   .med-embeditem {
     width: auto;
     left: 50%;
