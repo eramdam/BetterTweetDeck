@@ -5,6 +5,10 @@
   --compose-btn-bg-light-hover: color(var(--compose-btn-bg-light) shade(20%));
 }
 
+.med-tweet {
+  display: none;
+}
+
 .btd__round_pic :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
   border-radius: 50%;
 }
