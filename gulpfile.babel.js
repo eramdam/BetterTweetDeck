@@ -36,9 +36,9 @@ const toLintFiles = [
 ]
 
 const postCssPlugins = [
-  cssnext({warnForDuplicates: false}),
+  cssnext,
   nested,
-  cssnano
+  cssnano({autoprefixer: false, zindex: false})
 ]
 
 const maybeNotifyErrors = () => {
