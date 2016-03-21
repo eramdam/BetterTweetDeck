@@ -66,3 +66,17 @@ $(document).one('dataColumnsLoaded', () => {
     }
   })
 })
+
+$('body').on('click', '.js-modal-panel', (ev) => {
+  if (!document.body.classList.contains('btd__minimal_mode')) {
+    return
+  }
+
+  if (!ev.target.closest('.med-tray') && !ev.target.closest('.mdl-btn-media')) {
+    ev.preventDefault()
+    ev.stopPropagation()
+
+    $('a[rel="dismiss"]').click()
+    return false
+  }
+})
