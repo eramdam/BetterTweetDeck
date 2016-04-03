@@ -1,52 +1,50 @@
 // Gulp & utils
-import path from 'path'
-import gulp from 'gulp'
-import runSequence from 'run-sequence'
-import del from 'del'
-import plumber from 'gulp-plumber'
-import notify from 'gulp-notify'
+import path from 'path';
+import gulp from 'gulp';
+import runSequence from 'run-sequence';
+import del from 'del';
+import plumber from 'gulp-plumber';
+import notify from 'gulp-notify';
 
 // JS
-import browserify from 'browserify'
-import source from 'vinyl-source-stream'
-import buffer from 'vinyl-buffer'
-import eslint from 'gulp-eslint'
-import uglify from 'gulp-uglify'
-import sourcemaps from 'gulp-sourcemaps'
-import gutil from 'gulp-util'
+import browserify from 'browserify';
+import source from 'vinyl-source-stream';
+import buffer from 'vinyl-buffer';
+import eslint from 'gulp-eslint';
+import uglify from 'gulp-uglify';
+import sourcemaps from 'gulp-sourcemaps';
+import gutil from 'gulp-util';
 
 // CSS
-import postcss from 'gulp-postcss'
-import cssnext from 'postcss-cssnext'
-import cssnano from 'cssnano'
-import nested from 'postcss-nested'
+import postcss from 'gulp-postcss';
+import cssnext from 'postcss-cssnext';
+import cssnano from 'cssnano';
+import nested from 'postcss-nested';
 
 const staticFiles = [
   'manifest.json',
-  'icons/*.png'
-].map((i) => path.resolve('src/', i))
+  'icons/*.png',
+].map((i) => path.resolve('src/', i));
 
 const cssFiles = [
-  'src/css/index.css'
-]
+  'src/css/index.css',
+];
 
 const toLintFiles = [
   'src/js/**/*.js',
-  '*.js'
-]
+  '*.js',
+];
 
 const postCssPlugins = [
   cssnext,
   nested,
-  cssnano({autoprefixer: false, zindex: false})
-]
+  cssnano({ autoprefixer: false, zindex: false }),
+];
 
-const maybeNotifyErrors = () => {
-  return notify.onError({
-    title: 'Compile Error',
-    message: '<%= error.message %>'
-  })
-}
+const maybeNotifyErrors = () => notify.onError({
+  title: 'Compile Error',
+  message: '<%= error.message %>',
+});
 
 /*
 *
@@ -54,9 +52,7 @@ const maybeNotifyErrors = () => {
 * Remove the build/ folder (used before build)
 *
 */
-gulp.task('clean', () => {
-  return del(['dist/'])
-})
+gulp.task('clean', () => del(['dist/']));
 
 /*
 *
@@ -64,10 +60,9 @@ gulp.task('clean', () => {
 * Simply copy files like images/json to the build folder
 *
 */
-gulp.task('static', () => {
-  return gulp.src(staticFiles, { base: './src' })
-  .pipe(gulp.dest('./dist'))
-})
+gulp.task('static', () => (
+  gulp.src(staticFiles, { base: './src' }).pipe(gulp.dest('./dist'))
+));
 
 /*
 *
@@ -75,10 +70,10 @@ gulp.task('static', () => {
 * Run babeljs + browserify on the js background.js/content.js files
 *
 */
-gulp.task('js-content', () => {
-  return browserify({
+gulp.task('js-content', () => (
+  browserify({
     entries: 'src/js/content.js',
-    debug: true
+    debug: true,
   })
   .transform('babelify')
   .transform('config-browserify')
@@ -90,12 +85,12 @@ gulp.task('js-content', () => {
   .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
   .pipe(sourcemaps.write('./'))
   .pipe(gulp.dest('./dist/js'))
-})
+));
 
-gulp.task('js-injected', () => {
-  return browserify({
+gulp.task('js-injected', () => (
+  browserify({
     entries: 'src/js/inject.js',
-    debug: true
+    debug: true,
   })
   .transform('babelify')
   .transform('config-browserify')
@@ -107,12 +102,12 @@ gulp.task('js-injected', () => {
   .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
   .pipe(sourcemaps.write('./'))
   .pipe(gulp.dest('./dist/js'))
-})
+));
 
-gulp.task('js-background', () => {
-  return browserify({
+gulp.task('js-background', () => (
+  browserify({
     entries: 'src/js/background.js',
-    debug: true
+    debug: true,
   })
   .transform('babelify')
   .transform('config-browserify')
@@ -124,31 +119,31 @@ gulp.task('js-background', () => {
   .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
   .pipe(sourcemaps.write('./'))
   .pipe(gulp.dest('./dist/js'))
-})
+));
 
-gulp.task('js', ['js-content', 'js-injected', 'js-background'])
+gulp.task('js', ['js-content', 'js-injected', 'js-background']);
 
 /**
  * `gulp css`
  * Compile the css files using PostCSS + cssnext
  */
-gulp.task('css', function () {
-  return gulp.src(cssFiles)
+gulp.task('css', () => (
+  gulp.src(cssFiles)
     .pipe(postcss(postCssPlugins))
     .pipe(gutil.env.type === 'production' ? gutil.noop() : plumber())
     .pipe(gulp.dest('./dist/css'))
-})
+));
 
 /**
  * `gulp lint`
  * Lint the JS files (Gulpfile as well)
  */
-gulp.task('lint', function () {
-  return gulp.src(toLintFiles)
+gulp.task('lint', () => (
+  gulp.src(toLintFiles)
     .pipe(eslint())
     .pipe(eslint.format())
-    .pipe(eslint.failAfterError())
-})
+    // .pipe(eslint.failAfterError())
+));
 
 /*
 *
@@ -157,8 +152,8 @@ gulp.task('lint', function () {
 *
 */
 gulp.task('build', (done) => {
-  runSequence('clean', ['js', 'js-injected', 'static', 'css'], done)
-})
+  runSequence('clean', ['js', 'js-injected', 'static', 'css'], done);
+});
 
 /*
 *
@@ -168,9 +163,9 @@ gulp.task('build', (done) => {
 */
 gulp.task('default', (done) => {
   runSequence('clean', ['css', 'js', 'static'], () => {
-    gulp.watch('./src/js/**/*.js', ['js'])
-    gulp.watch('./src/css/**/*.css', ['css'])
-    gulp.watch(staticFiles, ['static'])
-    done()
-  })
-})
+    gulp.watch('./src/js/**/*.js', ['js']);
+    gulp.watch('./src/css/**/*.css', ['css']);
+    gulp.watch(staticFiles, ['static']);
+    done();
+  });
+});

@@ -1,5 +1,5 @@
-import Mustache from 'mustache'
-
+import Mustache from 'mustache';
+/* eslint max-len: 0*/
 const _templates = {
   preview: `
   <div class="js-media media-preview position-rel">
@@ -45,8 +45,8 @@ const _templates = {
         <div class="js-med-tweet med-tweet"></div>
       </div>
     </div>
-  </div>`
-}
+  </div>`,
+};
 
 const _data = {
   preview: {
@@ -64,33 +64,29 @@ const _data = {
     mediaPreviewSrc: 'foo',
     needsSecureUrl: false,
     thumbSizeClass: 'HUGE',
-    url: 'apple.com'
+    url: 'apple.com',
   },
   modal: {
     imageUrl: undefined,
     isVideo: true,
-    videoEmbed: undefined
-  }
-}
+    videoEmbed: undefined,
+  },
+};
 
-const previewTemplate = (mediaPreviewSrc, sourceLink, size, type = 'picture') => {
-  return Mustache.render(_templates.preview, Object.assign(_data.preview, {
-    url: sourceLink,
-    mediaPreviewSrc,
-    isVideo: type === 'video',
-    isMediaPreviewLarge: size === 'large',
-    isMediaPreviewCompact: size === 'medium',
-    isMediaPreviewSmall: size === 'small',
-    thumbSizeClass: `media-size-${size}`
-  }))
-}
+const previewTemplate = (mediaPreviewSrc, sourceLink, size, type = 'picture') => Mustache.render(_templates.preview, Object.assign(_data.preview, {
+  url: sourceLink,
+  mediaPreviewSrc,
+  isVideo: type === 'video',
+  isMediaPreviewLarge: size === 'large',
+  isMediaPreviewCompact: size === 'medium',
+  isMediaPreviewSmall: size === 'small',
+  thumbSizeClass: `media-size-${size}`,
+}));
 
-const modalTemplate = (imageUrl, type, videoEmbed = null) => {
-  return Mustache.render(_templates.preview, Object.assign(_data.modal, {
-    imageUrl,
-    videoEmbed,
-    isVideo: type === 'video'
-  }))
-}
+const modalTemplate = (imageUrl, type, videoEmbed = null) => Mustache.render(_templates.preview, Object.assign(_data.modal, {
+  imageUrl,
+  videoEmbed,
+  isVideo: type === 'video',
+}));
 
-module.exports = { modalTemplate, previewTemplate }
+module.exports = { modalTemplate, previewTemplate };

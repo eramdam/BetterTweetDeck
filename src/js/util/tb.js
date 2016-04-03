@@ -1,9 +1,9 @@
-import config from 'config'
-import qs from 'query-string'
+import config from 'config';
+import qs from 'query-string';
 
 const endpoints = {
-  'embedly': 'https://api.embed.ly/1/oembed?'
-}
+  embedly: 'https://api.embed.ly/1/oembed?',
+};
 
 const schemeWhitelist = [
   /500px.com/,
@@ -23,42 +23,40 @@ const schemeWhitelist = [
   /.(jpg|gif|png|jpeg)$/,
   /tumblr.com\/.+.(?:gif|png|jpg)$/,
   /vimeo.com\/[0-9]*$/,
-  /yfrog.com/
-]
+  /yfrog.com/,
+];
 
-const getEnpointFor = (service) => endpoints[service]
+const getEnpointFor = (service) => endpoints[service];
 
 const status = (res) => {
   if (res.status >= 200 && res.status < 300) {
-    return Promise.resolve(res)
+    return Promise.resolve(res);
   }
 
-  return Promise.reject(new Error(res.statusText))
-}
+  return Promise.reject(new Error(res.statusText));
+};
 
 const json = (res) => {
   if (!res) {
-    return null
+    return null;
   }
 
-  return res.json()
-}
+  return res.json();
+};
 
-const ignoreUrl = (url) => {
-  return schemeWhitelist.every((scheme) => !scheme.test(url))
-}
+const ignoreUrl = (url) => schemeWhitelist.every((scheme) => !scheme.test(url));
 
 const thumbnailFor = (url) => {
-  console.debug(`Fetching ${url}`)
+  console.debug(`Fetching ${url}`);
   return fetch(`${getEnpointFor('embedly')}${qs.stringify({
     url,
     secure: true,
     scheme: 'https',
-    key: config.get('Client.APIs.embedly')
+    key: config.get('Client.APIs.embedly'),
   })}`)
     .then(status)
     .catch(() => null)
-    .then(json)
-}
+    .then(json);
+};
 
-module.exports = { ignoreUrl, thumbnailFor }
+module.exports = { ignoreUrl, thumbnailFor };

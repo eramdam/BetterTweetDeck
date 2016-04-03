@@ -1,5 +1,3 @@
-[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
-
 # Better TweetDeck³
 
 This is the 3.0 branch for Better TweetDeck. Like the 2.0 version it's a rewrite-from-scratch.
@@ -52,4 +50,4 @@ For now, there won't be new features. But I have some of them in mind:
 
 # Ports
 
-Edge and Firefox are going to support extensions running through the [WebExtensions API](https://wiki.mozilla.org/WebExtensions) so Better TweetDeck should be able to get to Edge/Firefox in the future with almost no code changes! :tada: 
+Edge and Firefox are going to support extensions running through the [WebExtensions API](https://wiki.mozilla.org/WebExtensions) so Better TweetDeck should be able to get to Edge/Firefox in the future with almost no code changes! :tada:

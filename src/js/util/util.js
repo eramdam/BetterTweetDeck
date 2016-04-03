@@ -1,11 +1,9 @@
 const $ = (sel, parent = document) => {
-  let arr
+  const arr = [].slice.call(parent.querySelectorAll(sel));
 
-  arr = [].slice.call(parent.querySelectorAll(sel))
+  return arr.length >= 1 ? arr : null;
+};
 
-  return arr.length >= 1 ? arr : null
-}
+const TIMESTAMP_INTERVAL = 1e3 * 8;
 
-const TIMESTAMP_INTERVAL = 1e3 * 8
-
-module.exports = { $, TIMESTAMP_INTERVAL }
+module.exports = { $, TIMESTAMP_INTERVAL };
