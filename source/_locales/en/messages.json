@@ -29,7 +29,7 @@
 		"message": "However, even if Better TweetDeck is  free, it takes time to be developed, and time has value."
 	},
 	"onUpdateP3": {
-		"message": "This is why it would be awesome if you could <a href='https://www.paypal.me/DErambert'>do a donation</a> (<strong>only</strong > if you can afford it!). It would help me to spend more time on making Better TweetDeck even more awesome!"
+		"message": "This is why it would be awesome if you could <a href='https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK9SQ6ZDE9UF2&lc=US&item_name=Damien%20Erambert&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'>do a donation</a> (<strong>only</strong > if you can afford it!). It would help me to spend more time on making Better TweetDeck even more awesome!"
 	},
 	"FlashTweets": {
 		"message": "Make new tweets flash in:"
