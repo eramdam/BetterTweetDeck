@@ -3,7 +3,7 @@ Array.prototype.equals = function(array) {
   if (!array)
     return false;
 
-  // compare lengths - can save a lot of time 
+  // compare lengths - can save a lot of time
   if (this.length != array.length)
     return false;
 
@@ -40,6 +40,7 @@ var DefaultSettings = {
   "minimal_mode": true,
   "flash_tweets": "mentions",
   "shorten_text": false,
+  "hide_view_conversation": true,
   "share_button": true,
   "providers": {
     "500px": true,
@@ -160,7 +161,7 @@ function init() {
     }, function(tab) {
       var count = 0;
       chrome.tabs.onUpdated.addListener(function(tabId, info) {
-        
+
         if (info.status == "complete") {
           count += 1;
           console.log("onUpdated", itemInfos.timestamp, count);

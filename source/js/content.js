@@ -56,7 +56,7 @@ Array.prototype.forEach = function(callback, thisArg) {
     // 8. return undefined
 };
 
-NodeList.prototype.forEach = Array.prototype.forEach; 
+NodeList.prototype.forEach = Array.prototype.forEach;
 HTMLCollection.prototype.forEach = Array.prototype.forEach; // Because of https://bugzilla.mozilla.org/show_bug.cgi?id=14869
 
 (function() {
@@ -148,6 +148,7 @@ HTMLCollection.prototype.forEach = Array.prototype.forEach; // Because of https:
 		if (settings.grayscale_notification_icons) bodyClasses.add('btd-grayscale_notification_icons');
 		if (settings.typeahead_display_username_only) bodyClasses.add('btd-typeahead_display_username_only');
 		if (settings.blurred_modals) bodyClasses.add('btd-blurred_modals');
+    if (settings.hide_view_conversation) bodyClasses.add('btd-hide_view_conversation');
 		if (settings.flash_tweets != "false") {
 			bodyClasses.add('btd-flash_tweets');
 			bodyClasses.add('flash-' + settings.flash_tweets);
@@ -189,7 +190,7 @@ HTMLCollection.prototype.forEach = Array.prototype.forEach; // Because of https:
 					}
 				}
 			}
-			
+
 			if(settings.rtl_text_style) {
 				detectRTLText(target.querySelectorAll(".js-tweet-text"));
 			}

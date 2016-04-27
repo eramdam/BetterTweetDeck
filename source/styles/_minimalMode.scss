@@ -1,15 +1,15 @@
 // hide "view conversation"
-.btd-minimal_mode .js-stream-item-content .link-complex[rel="viewDetails"] {
+.btd-hide_view_conversation .js-stream-item-content .link-complex[rel="viewDetails"] {
 	display: none;
 }
 
-.btd-minimal_mode .js-stream-item .js-tweet-actions {
+.btd-hide_view_conversation .js-stream-item .js-tweet-actions {
 	float: right !important;
 	width: auto !important;
 	opacity: 0 !important;
 }
 
-.btd-minimal_mode .js-stream-item:hover .js-tweet-actions {
+.btd-hide_view_conversation .js-stream-item:hover .js-tweet-actions {
 	opacity: 1 !important;
 }
 
