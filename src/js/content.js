@@ -17,6 +17,8 @@ const scriptEl = document.createElement('script');
 scriptEl.src = chrome.extension.getURL('js/inject.js');
 document.head.appendChild(scriptEl);
 
+const COLUMNS_MEDIA_SIZES = new Map();
+
 const _refreshTimestamps = () => {
   if (!$('.js-timestamp')) {
     return;
@@ -65,10 +67,10 @@ const expandURL = (url, node) => {
   anchors.forEach((anchor) => anchor.setAttribute('href', url.expanded_url));
 };
 
-const thumbnailFromSingleURL = (url, node) => {
+const thumbnailFromSingleURL = (url, node, mediaSize) => {
   const anchors = $(`a[href="${url.expanded_url}"]`, node);
 
-  if (!anchors) {
+  if (!anchors || !mediaSize) {
     return Promise.resolve();
   }
 
@@ -77,7 +79,7 @@ const thumbnailFromSingleURL = (url, node) => {
       return;
     }
 
-    anchor.setAttribute('data-url-scanner', 'true');
+    anchor.setAttribute('data-url-scanned', 'true');
 
     if ($('.js-media', node)) {
       return;
@@ -88,53 +90,44 @@ const thumbnailFromSingleURL = (url, node) => {
         return;
       }
 
-      const mediaSize = anchor.closest('.js-column').getAttribute('data-media-size') || 'medium';
       const tbUrl = data.thumbnail_url || data.url;
       const html = Templates.previewTemplate(tbUrl, url.expanded_url, mediaSize);
+      const newNode = $(`[data-key="${node.getAttribute('data-key')}"]`)[0];
 
       if (mediaSize === 'large') {
-        $('.tweet.js-tweet', node)[0].insertAdjacentHTML('afterend', html);
+        $('.tweet.js-tweet', newNode)[0].insertAdjacentHTML('afterend', html);
       } else {
-        $('.tweet-body p', node)[0].insertAdjacentHTML('afterend', html);
+        $('.tweet-body p', newNode)[0].insertAdjacentHTML('afterend', html);
       }
+
+      $('.js-media-image-link', newNode)[0].addEventListener('click', (e) => {
+        e.preventDefault();
+      });
     });
   });
   return Promise.resolve();
 };
 
-const thumbnailsFromURLs = (urls, node) => Promise.resolve(urls).then(each((url) => {
+const thumbnailsFromURLs = (urls, node, mediaSize) => Promise.resolve(urls).then(each((url) => {
   expandURL(url, node);
 
   if (url.type || url.sizes || Thumbnails.ignoreUrl(url.expanded_url)) {
     return false;
   }
 
-  return thumbnailFromSingleURL(url, node);
+  return thumbnailFromSingleURL(url, node, mediaSize);
 }));
 
-const tweetHandler = (tweet) => {
-  let ts;
-
-  if (tweet.targetTweet && tweet.targetUser) {
-    ts = tweet.targetTweet.created;
-  } else if (tweet.retweetedStatus) {
-    ts = tweet.retweetedStatus.created;
-  } else {
-    ts = tweet.created;
-  }
-
+const tweetHandler = (tweet, columnKey) => {
   let nodes = $(`[data-key="${tweet.id}"]`);
 
   if (!nodes && tweet.messageThreadId) {
     nodes = $(`[data-key="${tweet.messageThreadId}"]`);
   }
 
-  nodes.forEach((node) => {
-    // Modify timestamp if needed
-    if ($('.js-timestamp a, .js-timestamp span', node)) {
-      $('.js-timestamp a, .js-timestamp span', node).forEach((el) => timestampOnElement(el, ts));
-    }
+  const mediaSize = COLUMNS_MEDIA_SIZES.get(columnKey);
 
+  nodes.forEach((node) => {
     let urlsToChange = [];
 
     // If it got entities, it's a tweet
@@ -145,7 +138,7 @@ const tweetHandler = (tweet) => {
       urlsToChange = [...tweet.targetTweet.entities.urls, ...tweet.targetTweet.entities.media];
     }
 
-    thumbnailsFromURLs(urlsToChange, node);
+    thumbnailsFromURLs(urlsToChange, node, mediaSize);
   });
 };
 
@@ -156,19 +149,42 @@ setInterval(_refreshTimestamps, TIMESTAMP_INTERVAL);
 document.addEventListener('BTD_uiDetailViewOpening', (ev) => {
   const detail = CJSON.parse(ev.detail);
   const tweets = detail.chirpsData;
-  const columnNode = $(`section[data-column="${detail.columnKey}"]`)[0];
 
-  tweets.forEach((tweet) => tweetHandler(tweet, columnNode));
+  tweets.forEach((tweet) => tweetHandler(tweet, detail.columnKey));
 });
 
-document.addEventListener('BTD_uiVisibleChirps', (ev) => {
-  const detail = CJSON.parse(ev.detail);
-  let tweets = detail.chirpsData.map((data) => data.chirp);
-  const columnNode = $(`section[data-column="${detail.columnKey}"]`)[0];
+// document.addEventListener('BTD_uiVisibleChirps', (ev) => {
+//   const detail = CJSON.parse(ev.detail);
+//   let tweets = detail.chirpsData.map((data) => data.chirp);
+//   const columnNode = $(`section[data-column="${detail.columnKey}"]`)[0];
+//
+//   if (detail.chirpsData.some((data) => data.chirp.messages)) {
+//     tweets = tweets.concat(...detail.chirpsData.map((data) => data.chirp.messages[0]));
+//   }
+//
+//   tweets.forEach((tweet) => tweetHandler(tweet, columnNode));
+// });
 
-  if (detail.chirpsData.some((data) => data.chirp.messages)) {
-    tweets = tweets.concat(...detail.chirpsData.map((data) => data.chirp.messages[0]));
+document.addEventListener('BTD_newColumnContent', (ev) => {
+  const detail = CJSON.parse(ev.detail);
+  const tweets = detail.updateArray;
+
+  tweets.forEach((tweet) => tweetHandler(tweet, detail.model.privateState.key));
+});
+
+document.addEventListener('BTD_columnsChanged', (ev) => {
+  const colsArray = CJSON.parse(ev.detail);
+
+  if (COLUMNS_MEDIA_SIZES.size !== colsArray.length) {
+    COLUMNS_MEDIA_SIZES.clear();
   }
 
-  tweets.forEach((tweet) => tweetHandler(tweet, columnNode));
+  colsArray.forEach(col => {
+    if (!col.model.state.settings.media_preview_size) {
+      return;
+    }
+
+    const id = col.ui.state.columnKey;
+    COLUMNS_MEDIA_SIZES.set(id, col.model.state.settings.media_preview_size);
+  });
 });

@@ -10,7 +10,7 @@ const _templates = {
     {{#isAnimatedGif}}
       {{#animatedGif}} {{> media/animated_gif}} {{/animatedGif}}
     {{/isAnimatedGif}} {{^isAnimatedGif}} <a class="js-media-image-link block med-link media-item {{thumbSizeClass}} {{#isPossiblySensitive}}is-invisible{{/isPossiblySensitive}} {{#needsSecureUrl}}js-needs-secure-url{{/needsSecureUrl}} {{^isGalleryView}}is-zoomable{{/isGalleryView}}"
-     {{#needsSecureUrl}} data-original-url="{{mediaPreviewSrc}}{{imageSrc}}" {{/needsSecureUrl}} href="{{url}}" rel="mediaPreview" target="_blank" {{^needsSecureUrl}} {{^imageSrc}} style="background-image:url({{mediaPreviewSrc}})" {{/imageSrc}} {{/needsSecureUrl}}
+     {{#needsSecureUrl}} data-original-url="{{mediaPreviewSrc}}{{imageSrc}}" {{/needsSecureUrl}} href="{{url}}" target="_blank" {{^needsSecureUrl}} {{^imageSrc}} style="background-image:url({{mediaPreviewSrc}})" {{/imageSrc}} {{/needsSecureUrl}}
     data-media-entity-id="{{mediaId}}"> {{#isVideo}} {{> media/video_overlay}} {{/isVideo}}  {{#imageSrc}} <img class="{{thumbClass}}" src="{{^needsSecureUrl}}{{imageSrc}}{{/needsSecureUrl}}" alt="Media preview"> {{/imageSrc}} </a> {{/isAnimatedGif}}
     {{> status/media_sensitive}}</div></div>
   `,

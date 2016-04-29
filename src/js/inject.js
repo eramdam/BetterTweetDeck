@@ -10,6 +10,17 @@ const switchThemeClass = () => {
   document.body.dataset.btdtheme = TD.settings.getTheme();
 };
 
+
+// the "old" way of discovering new stuff
+// Only triggers when the content is _visible_ to the screen
+// $(document).on('uiVisibleChirps', (ev, data) => {
+//   if (data.chirpsData.length < 1) {
+//     return;
+//   }
+//
+//   proxyEvent(ev, data);
+// });
+
 // Will push every tweet/DMs and alikes to the content script with an event
 $(document).on('uiColumnChirpsChanged', (ev, data) => {
   const column = TD.controller.columnManager.get(data.id);
@@ -17,7 +28,8 @@ $(document).on('uiColumnChirpsChanged', (ev, data) => {
   proxyEvent({ type: 'newColumnContent' }, column);
 });
 
-  proxyEvent(ev, data);
+$(document).on('dataColumns', (ev, data) => {
+  proxyEvent({ type: 'columnsChanged' }, data.columns);
 });
 
 $(document).on('uiToggleTheme', switchThemeClass);
