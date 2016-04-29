@@ -11,10 +11,11 @@ const switchThemeClass = () => {
 };
 
 // Will push every tweet/DMs and alikes to the content script with an event
-$(document).on('uiVisibleChirps', (ev, data) => {
-  if (data.chirpsData.length < 1) {
-    return;
-  }
+$(document).on('uiColumnChirpsChanged', (ev, data) => {
+  const column = TD.controller.columnManager.get(data.id);
+
+  proxyEvent({ type: 'newColumnContent' }, column);
+});
 
   proxyEvent(ev, data);
 });
@@ -63,7 +64,7 @@ $(document).one('dataColumnsLoaded', () => {
 
   switchThemeClass();
 
-// We delete the callback for the timestamp task so the content script can do it itself
+  // We delete the callback for the timestamp task so the content script can do it itself
   Object.keys(tasks).forEach((key) => {
     if (tasks[key].period === 30000) {
       tasks[key].callback = () => false;
