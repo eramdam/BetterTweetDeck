@@ -40,7 +40,9 @@ var DefaultSettings = {
   "minimal_mode": true,
   "flash_tweets": "mentions",
   "shorten_text": false,
-  "hide_view_conversation": true,
+  "hide_view_conversation": false,
+  "actions_on_right": true,
+  "actions_on_hover": false,
   "share_button": true,
   "providers": {
     "500px": true,

@@ -149,6 +149,8 @@ HTMLCollection.prototype.forEach = Array.prototype.forEach; // Because of https:
 		if (settings.typeahead_display_username_only) bodyClasses.add('btd-typeahead_display_username_only');
 		if (settings.blurred_modals) bodyClasses.add('btd-blurred_modals');
     if (settings.hide_view_conversation) bodyClasses.add('btd-hide_view_conversation');
+    if (settings.actions_on_right) bodyClasses.add('btd-actions_on_right');
+    if (settings.actions_on_hover) bodyClasses.add('btd-actions_on_hover');
 		if (settings.flash_tweets != "false") {
 			bodyClasses.add('btd-flash_tweets');
 			bodyClasses.add('flash-' + settings.flash_tweets);

@@ -3,13 +3,17 @@
 	display: none;
 }
 
-.btd-hide_view_conversation .js-stream-item .js-tweet-actions {
+// Tweet actions on the right
+.btd-actions_on_right .js-stream-item .js-tweet-actions {
 	float: right !important;
 	width: auto !important;
+}
+
+.btd-actions_on_hover .js-stream-item .js-tweet-actions {
 	opacity: 0 !important;
 }
 
-.btd-hide_view_conversation .js-stream-item:hover .js-tweet-actions {
+.btd-actions_on_hover .js-stream-item:hover .js-tweet-actions {
 	opacity: 1 !important;
 }
 
