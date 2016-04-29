@@ -11,15 +11,16 @@ const switchThemeClass = () => {
 };
 
 
+// @TODO: plug on DOM inserted node of columns and shoot models
 // the "old" way of discovering new stuff
 // Only triggers when the content is _visible_ to the screen
-// $(document).on('uiVisibleChirps', (ev, data) => {
-//   if (data.chirpsData.length < 1) {
-//     return;
-//   }
-//
-//   proxyEvent(ev, data);
-// });
+$(document).on('uiVisibleChirps', (ev, data) => {
+  if (data.chirpsData.length < 1) {
+    return;
+  }
+
+  proxyEvent(ev, data);
+});
 
 // Will push every tweet/DMs and alikes to the content script with an event
 $(document).on('uiColumnChirpsChanged', (ev, data) => {

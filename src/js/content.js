@@ -153,17 +153,16 @@ document.addEventListener('BTD_uiDetailViewOpening', (ev) => {
   tweets.forEach((tweet) => tweetHandler(tweet, detail.columnKey));
 });
 
-// document.addEventListener('BTD_uiVisibleChirps', (ev) => {
-//   const detail = CJSON.parse(ev.detail);
-//   let tweets = detail.chirpsData.map((data) => data.chirp);
-//   const columnNode = $(`section[data-column="${detail.columnKey}"]`)[0];
-//
-//   if (detail.chirpsData.some((data) => data.chirp.messages)) {
-//     tweets = tweets.concat(...detail.chirpsData.map((data) => data.chirp.messages[0]));
-//   }
-//
-//   tweets.forEach((tweet) => tweetHandler(tweet, columnNode));
-// });
+document.addEventListener('BTD_uiVisibleChirps', (ev) => {
+  const detail = CJSON.parse(ev.detail);
+  let tweets = detail.chirpsData.map((data) => data.chirp);
+
+  if (detail.chirpsData.some((data) => data.chirp.messages)) {
+    tweets = tweets.concat(...detail.chirpsData.map((data) => data.chirp.messages[0]));
+  }
+
+  tweets.forEach((tweet) => tweetHandler(tweet, detail.columnKey));
+});
 
 document.addEventListener('BTD_newColumnContent', (ev) => {
   const detail = CJSON.parse(ev.detail);
