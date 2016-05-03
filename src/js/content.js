@@ -1,13 +1,14 @@
 import CJSON from 'circular-json';
 import each from 'promise-each';
 import timestampOnElement from './util/timestamp';
-import sendMessage from './util/messaging';
+import { send as sendMessage } from './util/messaging';
 import * as Thumbnails from './util/tb';
 import * as Templates from './util/templates';
 
-import { $, TIMESTAMP_INTERVAL } from './util/util';
+import { $, TIMESTAMP_INTERVAL, on, sendEvent } from './util/util';
 
 let settings;
+const COLUMNS_MEDIA_SIZES = new Map();
 
 sendMessage({ action: 'get_settings' }, (response) => {
   settings = response.settings;
@@ -17,9 +18,7 @@ const scriptEl = document.createElement('script');
 scriptEl.src = chrome.extension.getURL('js/inject.js');
 document.head.appendChild(scriptEl);
 
-const COLUMNS_MEDIA_SIZES = new Map();
-
-const _refreshTimestamps = () => {
+function _refreshTimestamps() {
   if (!$('.js-timestamp')) {
     return;
   }
@@ -28,9 +27,9 @@ const _refreshTimestamps = () => {
     const d = jsTimstp.getAttribute('data-time');
     $('a, span', jsTimstp).forEach((el) => timestampOnElement(el, d));
   });
-};
+}
 
-const _tweakClassesFromVisualSettings = () => {
+function _tweakClassesFromVisualSettings() {
   const enabledClasses = Object.keys(settings.css)
                         .filter((key) => settings.css[key])
                         .map((cl) => `btd__${cl}`);
@@ -40,50 +39,33 @@ const _tweakClassesFromVisualSettings = () => {
   if (settings.no_hearts) {
     document.body.classList.remove('hearty');
   }
-};
+}
 
-// Prepare to know when TD is ready
-const ready = new MutationObserver(() => {
-  if (document.querySelector('.js-app-loading').style.display === 'none') {
-    ready.disconnect();
-    _tweakClassesFromVisualSettings();
-  }
-});
-ready.observe(document.querySelector('.js-app-loading'), {
-  attributes: true,
-});
-
-const expandURL = (url, node) => {
-  if (!settings.no_tco) {
-    return;
-  }
-
+function expandURL(url, node) {
   const anchors = $(`a[href="${url.url}"]`, node);
 
-  if (!anchors) {
+  if (!settings.no_tco || !anchors) {
     return;
   }
 
   anchors.forEach((anchor) => anchor.setAttribute('href', url.expanded_url));
-};
+}
 
-const thumbnailFromSingleURL = (url, node, mediaSize) => {
+function thumbnailFromSingleURL(url, node, mediaSize) {
   const anchors = $(`a[href="${url.expanded_url}"]`, node);
 
   if (!anchors || !mediaSize) {
     return Promise.resolve();
   }
 
+  // @TODO
+  // Do we really need to scan multiple nodes here?
   anchors.forEach((anchor) => {
-    if (anchor.dataset.urlScanned === 'true') {
+    if (anchor.dataset.urlScanned === 'true' || $('.js-media', node)) {
       return;
     }
 
     anchor.setAttribute('data-url-scanned', 'true');
-
-    if ($('.js-media', node)) {
-      return;
-    }
 
     Thumbnails.thumbnailFor(url.expanded_url).then((data) => {
       if (!data) {
@@ -106,19 +88,21 @@ const thumbnailFromSingleURL = (url, node, mediaSize) => {
     });
   });
   return Promise.resolve();
-};
+}
 
-const thumbnailsFromURLs = (urls, node, mediaSize) => Promise.resolve(urls).then(each((url) => {
-  expandURL(url, node);
+function thumbnailsFromURLs(urls, node, mediaSize) {
+  return Promise.resolve(urls).then(each((url) => {
+    expandURL(url, node);
 
-  if (url.type || url.sizes || Thumbnails.ignoreUrl(url.expanded_url)) {
-    return false;
-  }
+    if (url.type || url.sizes || Thumbnails.ignoreUrl(url.expanded_url)) {
+      return false;
+    }
 
-  return thumbnailFromSingleURL(url, node, mediaSize);
-}));
+    return thumbnailFromSingleURL(url, node, mediaSize);
+  }));
+}
 
-const tweetHandler = (tweet, columnKey) => {
+function tweetHandler(tweet, columnKey) {
   let nodes = $(`[data-key="${tweet.id}"]`);
 
   if (!nodes && tweet.messageThreadId) {
@@ -140,50 +124,58 @@ const tweetHandler = (tweet, columnKey) => {
 
     thumbnailsFromURLs(urlsToChange, node, mediaSize);
   });
-};
+}
 
-// Refresh timestamps once and then set the interval
-_refreshTimestamps();
-setInterval(_refreshTimestamps, TIMESTAMP_INTERVAL);
+// Prepare to know when TD is ready
+on('BTD_ready', () => {
+  _tweakClassesFromVisualSettings();
+  // Refresh timestamps once and then set the interval
+  _refreshTimestamps();
+  setInterval(_refreshTimestamps, TIMESTAMP_INTERVAL);
 
-document.addEventListener('BTD_uiDetailViewOpening', (ev) => {
+  sendEvent('fromContent', { foo: 'bar' });
+});
+
+on('DOMNodeInserted', (ev) => {
+  if (!ev.target.hasAttribute || !ev.target.hasAttribute('data-key')) {
+    return;
+  }
+
+  const chirpKey = ev.target.getAttribute('data-key');
+  const colKey = ev.target.closest('.js-column').getAttribute('data-column');
+
+  sendEvent('getChirpFromColumn', { chirpKey, colKey });
+});
+
+on('BTD_gotChirpForColumn', (ev) => {
+  const { chirp, colKey } = CJSON.parse(ev.detail);
+
+  tweetHandler(chirp, colKey);
+});
+
+on('BTD_uiDetailViewOpening', (ev) => {
   const detail = CJSON.parse(ev.detail);
   const tweets = detail.chirpsData;
 
   tweets.forEach((tweet) => tweetHandler(tweet, detail.columnKey));
 });
 
-document.addEventListener('BTD_uiVisibleChirps', (ev) => {
-  const detail = CJSON.parse(ev.detail);
-  let tweets = detail.chirpsData.map((data) => data.chirp);
+on('BTD_columnMediaSizeUpdated', (ev) => {
+  const { id, size } = CJSON.parse(ev.detail);
 
-  if (detail.chirpsData.some((data) => data.chirp.messages)) {
-    tweets = tweets.concat(...detail.chirpsData.map((data) => data.chirp.messages[0]));
-  }
-
-  tweets.forEach((tweet) => tweetHandler(tweet, detail.columnKey));
+  COLUMNS_MEDIA_SIZES.set(id, size);
 });
 
-document.addEventListener('BTD_newColumnContent', (ev) => {
-  const detail = CJSON.parse(ev.detail);
-  const tweets = detail.updateArray;
-
-  tweets.forEach((tweet) => tweetHandler(tweet, detail.model.privateState.key));
-});
-
-document.addEventListener('BTD_columnsChanged', (ev) => {
+on('BTD_columnsChanged', (ev) => {
   const colsArray = CJSON.parse(ev.detail);
 
   if (COLUMNS_MEDIA_SIZES.size !== colsArray.length) {
     COLUMNS_MEDIA_SIZES.clear();
   }
 
-  colsArray.forEach(col => {
-    if (!col.model.state.settings.media_preview_size) {
-      return;
-    }
-
-    const id = col.ui.state.columnKey;
-    COLUMNS_MEDIA_SIZES.set(id, col.model.state.settings.media_preview_size);
-  });
+  colsArray.filter(col => col.model.state.settings.media_preview_size)
+           .forEach(col => {
+             const id = col.ui.state.columnKey;
+             COLUMNS_MEDIA_SIZES.set(id, col.model.state.settings.media_preview_size);
+           });
 });

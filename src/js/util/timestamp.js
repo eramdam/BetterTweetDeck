@@ -1,5 +1,5 @@
 import fecha from 'fecha';
-import sendMessage from './messaging';
+import { send as sendMessage } from './messaging';
 
 let timestampMode;
 let fullAfter24;
@@ -23,7 +23,7 @@ const formatMaps = {
   },
 };
 
-const moreThan24 = (d) => new Date().getTime() - d.getTime() <= 60 * 60 * 24000;
+const moreThan24 = (d) => (new Date().getTime() - d.getTime()) <= 60 * 60 * 24000;
 
 const getFormat = (dateObject, mode) => {
   if (fullAfter24 && moreThan24(dateObject)) {

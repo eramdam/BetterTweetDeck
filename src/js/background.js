@@ -1,4 +1,5 @@
 import * as BHelper from './util/browserHelper';
+import * as Messages from './util/messaging';
 
 BHelper.settings.setAll({
   installed_date: 42,
@@ -25,7 +26,7 @@ BHelper.settings.setAll({
   console.debug('Default settings to', settings);
 }, true);
 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+Messages.on((message, sender, sendResponse) => {
   switch (message.action) {
     case 'get_settings':
       BHelper.settings.getAll((settings) => sendResponse({ settings }));

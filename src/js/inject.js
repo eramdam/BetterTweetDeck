@@ -11,29 +11,22 @@ const switchThemeClass = () => {
 };
 
 
-// @TODO: plug on DOM inserted node of columns and shoot models
-// the "old" way of discovering new stuff
-// Only triggers when the content is _visible_ to the screen
-$(document).on('uiVisibleChirps', (ev, data) => {
-  if (data.chirpsData.length < 1) {
+$(document).on('getChirpFromColumn', (ev) => {
+  const { chirpKey, colKey } = ev.originalEvent.detail;
+
+  if (!TD.controller.columnManager.get(colKey)) {
     return;
   }
 
-  proxyEvent(ev, data);
+
+  const chirp = TD.controller.columnManager.get(colKey).updateIndex[chirpKey];
+
+  if (!chirp) {
+    return;
+  }
+
+  proxyEvent({ type: 'gotChirpForColumn' }, { chirp, colKey });
 });
-
-// Will push every tweet/DMs and alikes to the content script with an event
-$(document).on('uiColumnChirpsChanged', (ev, data) => {
-  const column = TD.controller.columnManager.get(data.id);
-
-  proxyEvent({ type: 'newColumnContent' }, column);
-});
-
-$(document).on('dataColumns', (ev, data) => {
-  proxyEvent({ type: 'columnsChanged' }, data.columns);
-});
-
-$(document).on('uiToggleTheme', switchThemeClass);
 
 $(document).on('uiDetailViewOpening', (ev, data) => {
   setTimeout(() => {
@@ -56,13 +49,23 @@ $(document).on('uiDetailViewOpening', (ev, data) => {
   }, 1000);
 });
 
+$(document).on('dataColumns', (ev, data) => {
+  proxyEvent({ type: 'columnsChanged' }, data.columns);
+});
+
+$(document).on('uiToggleTheme', switchThemeClass);
+
 // Will ensure we keep the media preview size value even when the user changes it
 $(document).on('uiColumnUpdateMediaPreview', (ev, data) => {
-  ev.target.closest('.js-column').setAttribute('data-media-size', data.value);
+  const id = ev.target.closest('.js-column').getAttribute('data-column');
+
+  proxyEvent({ type: 'columnMediaSizeUpdated' }, { id, size: data.value });
 });
 
 // We wait for the loading of the columns and we get all the media preview size
 $(document).one('dataColumnsLoaded', () => {
+  proxyEvent({ type: 'ready' });
+
   $('.js-column').each((i, el) => {
     let size = TD.storage.columnController.get($(el).data('column')).getMediaPreviewSize();
 
