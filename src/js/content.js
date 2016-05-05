@@ -90,8 +90,6 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
 
 function thumbnailsFromURLs(urls, node, mediaSize) {
   return Promise.resolve(urls).then(each((url) => {
-    expandURL(url, node);
-
     if (url.type || url.sizes || Thumbnails.ignoreUrl(url.expanded_url)) {
       return false;
     }
@@ -100,11 +98,15 @@ function thumbnailsFromURLs(urls, node, mediaSize) {
   }));
 }
 
-function tweetHandler(tweet, columnKey) {
-  let nodes = $(`[data-key="${tweet.id}"]`);
+function tweetHandler(tweet, columnKey, parent) {
+  if (!parent) {
+    parent = $(`.js-column[data-column="${columnKey}"]`)[0];
+  }
+
+  let nodes = $(`[data-key="${tweet.id}"]`, parent);
 
   if (!nodes && tweet.messageThreadId) {
-    nodes = $(`[data-key="${tweet.messageThreadId}"]`);
+    nodes = $(`[data-key="${tweet.messageThreadId}"]`, parent);
   }
 
   const mediaSize = COLUMNS_MEDIA_SIZES.get(columnKey);
@@ -120,7 +122,19 @@ function tweetHandler(tweet, columnKey) {
       urlsToChange = [...tweet.targetTweet.entities.urls, ...tweet.targetTweet.entities.media];
     }
 
-    thumbnailsFromURLs(urlsToChange, node, mediaSize);
+    if (urlsToChange.length > 0) {
+      // We expand URLs
+      urlsToChange.forEach(url => expandURL(url, node));
+
+      const urlForThumbnail = urlsToChange.filter(url => !url.id).pop();
+
+      if (!urlForThumbnail) {
+        return;
+      }
+      // We pass a single URL even though the code is ready to handle multiples URLs
+      // Maybe we could have a gallery or something when we have different URLs
+      thumbnailsFromURLs([urlForThumbnail], node, mediaSize);
+    }
   });
 }
 
@@ -171,7 +185,7 @@ on('BTD_columnsChanged', (ev) => {
     COLUMNS_MEDIA_SIZES.clear();
   }
 
-  colsArray.filter(col => col.model.state.settings.media_preview_size)
+  colsArray.filter(col => col).filter(col => col.model.state.settings.media_preview_size)
            .forEach(col => {
              const id = col.ui.state.columnKey;
              COLUMNS_MEDIA_SIZES.set(id, col.model.state.settings.media_preview_size);
