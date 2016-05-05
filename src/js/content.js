@@ -58,35 +58,33 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
     return Promise.resolve();
   }
 
-  // @TODO
-  // Do we really need to scan multiple nodes here?
-  anchors.forEach((anchor) => {
-    if (anchor.dataset.urlScanned === 'true' || $('.js-media', node)) {
+  const anchor = anchors[0];
+
+  if (anchor.dataset.urlScanned === 'true' || $('.js-media', node)) {
+    return Promise.resolve();
+  }
+
+  anchor.setAttribute('data-url-scanned', 'true');
+
+  Thumbnails.thumbnailFor(url.expanded_url).then((data) => {
+    if (!data) {
       return;
     }
 
-    anchor.setAttribute('data-url-scanned', 'true');
+    const tbUrl = data.thumbnail_url || data.url;
+    const html = Templates.previewTemplate(tbUrl, url.expanded_url, mediaSize);
 
-    Thumbnails.thumbnailFor(url.expanded_url).then((data) => {
-      if (!data) {
-        return;
-      }
+    if (mediaSize === 'large') {
+      $('.tweet.js-tweet', node)[0].insertAdjacentHTML('afterend', html);
+    } else {
+      $('.tweet-body p', node)[0].insertAdjacentHTML('afterend', html);
+    }
 
-      const tbUrl = data.thumbnail_url || data.url;
-      const html = Templates.previewTemplate(tbUrl, url.expanded_url, mediaSize);
-      const newNode = $(`[data-key="${node.getAttribute('data-key')}"]`)[0];
-
-      if (mediaSize === 'large') {
-        $('.tweet.js-tweet', newNode)[0].insertAdjacentHTML('afterend', html);
-      } else {
-        $('.tweet-body p', newNode)[0].insertAdjacentHTML('afterend', html);
-      }
-
-      $('.js-media-image-link', newNode)[0].addEventListener('click', (e) => {
-        e.preventDefault();
-      });
+    $('.js-media-image-link', node)[0].addEventListener('click', (e) => {
+      e.preventDefault();
     });
   });
+
   return Promise.resolve();
 }
 

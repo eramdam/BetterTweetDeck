@@ -3,3 +3,4 @@ build/
 dist/*
 reverse/
 config/*.js
+events.js
