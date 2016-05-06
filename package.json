@@ -11,6 +11,10 @@
   "bugs": {
     "url": "https://github.com/eramdam/BetterTweetDeck/issues"
   },
+  "scripts": {
+    "start": "export NODE_ENV=dev && gulp",
+    "build": "export NODE_ENV=dev && gulp build"
+  },
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
   "devDependencies": {
     "async": "^1.5.2",
