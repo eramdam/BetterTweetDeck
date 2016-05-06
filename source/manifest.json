@@ -2,7 +2,7 @@
 	"name": "__MSG_appName__",
 	"short_name": "BetterTDeck",
 	"default_locale": "en",
-	"version": "2.2.5",
+	"version": "2.2.6",
 	"manifest_version": 2,
 	"description": "__MSG_appDesc__",
 	"content_scripts": [{
@@ -14,7 +14,11 @@
 	           "48": "icons/icon48.png",
 	          "128": "icons/icon128.png" },
     "background" : { "page": "background.html" },
-    "options_page": "options/options.html",
+    "options_ui": {
+			"page": "options/options.html",
+			"chrome_style": true,
+			"open_in_tab": true
+		},
 	"permissions": [
 		"storage",
 		"https://images4-focus-opensocial.googleusercontent.com/*",

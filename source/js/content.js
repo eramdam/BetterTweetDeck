@@ -275,11 +275,16 @@ HTMLCollection.prototype.forEach = Array.prototype.forEach; // Because of https:
 	});
 
 	function SettingsButton() {
-		var settingsPage = chrome.extension.getURL("options/options.html");
 		var settingsButton = '<a class="btd-settings js-header-action link-clean cf app-nav-link padding-hl" data-title="BTD Settings" data-action href="' + settingsPage + '"> <div class="obj-left"> <i class="icon icon-sliders icon-large icon-unread-color"></i> </div> <div class="nbfc padding-ts hide-condensed">BTD Settings</div> </a>';
 		document.querySelector(".js-header-action.link-clean.app-nav-link[data-action=change-sidebar-width]").insertAdjacentHTML("beforebegin", settingsButton);
 		document.querySelector(".btd-settings").addEventListener("click", function() {
-			window.open(settingsPage);
+      if (chrome.runtime.openOptionsPage) {
+        // New way to open options pages, if supported (Chrome 42+).
+        chrome.runtime.openOptionsPage();
+      } else {
+        // Reasonable fallback.
+        window.open(chrome.extension.getURL("options/options.html"));
+      }
 		});
 	}
 	function detectRTLText(tweets){
