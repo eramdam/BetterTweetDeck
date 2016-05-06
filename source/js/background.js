@@ -31,6 +31,7 @@ var DefaultSettings = {
   "typeahead_display_username_only": true,
   "circled_avatars": true,
   "no_columns_icons": true,
+  "no_hearts": false,
   "yt_rm_button": true,
   "small_icons_compose": true,
   "grayscale_notification_icons": false,

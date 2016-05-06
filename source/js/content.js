@@ -140,6 +140,8 @@ HTMLCollection.prototype.forEach = Array.prototype.forEach; // Because of https:
 		bodyClasses.add("btd-name_display-" + settings.name_display);
 		bodyClasses.add('btd-ready');
 
+    if (settings.no_hearts) bodyClasses.remove('hearty');
+
 		if (settings.circled_avatars) bodyClasses.add('btd-circled_avatars');
 		if (settings.no_columns_icons) bodyClasses.add('btd-no_columns_icons');
 		if (settings.yt_rm_button) bodyClasses.add('btd-yt_rm_button');
