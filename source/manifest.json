@@ -15,9 +15,8 @@
 	          "128": "icons/icon128.png" },
     "background" : { "page": "background.html" },
     "options_ui": {
-			"page": "options/options.html",
-			"chrome_style": true,
-			"open_in_tab": true
+			"page": "options/options_ui.html",
+			"chrome_style": false
 		},
 	"permissions": [
 		"storage",
