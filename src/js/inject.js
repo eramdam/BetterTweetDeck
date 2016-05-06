@@ -89,7 +89,8 @@ $(document).one('dataColumnsLoaded', () => {
 });
 
 $('body').on('click', '.js-modal-panel', (ev) => {
-  if (!document.body.classList.contains('btd__minimal_mode')) {
+  if (!document.body.classList.contains('btd__minimal_mode') ||
+  !document.querySelector('.js-modal-panel .js-media-preview-container')) {
     return;
   }
 
