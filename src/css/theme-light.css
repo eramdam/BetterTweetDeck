@@ -8,6 +8,10 @@
     }
   }
 
+  .app-columns-container {
+    background-color: #cdcdcd;
+  }
+
   .compose-text-title {
     color: #BFBFBF;
   }

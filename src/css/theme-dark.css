@@ -7,6 +7,10 @@
     }
   }
 
+  .app-columns-container {
+    background-color: #151515;
+  }
+
   .attach-compose-buttons .tweet-button {
     background-color: var(--compose-btn-bg-dark-hover);
   }
