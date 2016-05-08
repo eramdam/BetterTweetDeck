@@ -5,7 +5,7 @@ BHelper.settings.setAll({
   installed_date: 42,
   ts: 'absolute_metric',
   full_aft_24: true,
-  nm_disp: 'both',
+  nm_disp: 'inverted',
   no_hearts: false,
   no_tco: true,
   flash_tweets: 'mentions',
@@ -17,6 +17,9 @@ BHelper.settings.setAll({
     minimal_mode: true,
     small_icns_compose: true,
     usrname_only_typeahed: true,
+    hide_view_conversation: true,
+    actions_on_right: true,
+    actions_on_hover: true,
   },
   share_item: {
     enabled: false,

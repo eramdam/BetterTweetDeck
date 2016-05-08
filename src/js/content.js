@@ -4,6 +4,7 @@ import timestampOnElement from './util/timestamp';
 import { send as sendMessage } from './util/messaging';
 import * as Thumbnails from './util/thumbnails';
 import * as Templates from './util/templates';
+import * as Usernames from './util/usernames';
 
 import { $, TIMESTAMP_INTERVAL, on, sendEvent } from './util/util';
 
@@ -124,33 +125,66 @@ function tweetHandler(tweet, columnKey, parent) {
     // If it has `targetTweet` then it's an activity and we need to change both the desc and the tweet if displayed
     if (tweet.targetTweet) {
       if (!tweet.id.startsWith('mention_') && !tweet.id.startsWith('quoted_tweet_')) {
-        $('.activity-header .account-link', node)[0].innerHTML = tweet.sourceUser.screenName;
+        Usernames.format({
+          node,
+          user: tweet.sourceUser,
+          fSel: '.activity-header .account-link',
+        });
       }
 
-      $('.js-tweet > .tweet-header .fullname', node)[0].innerHTML = tweet.targetTweet.user.screenName;
-      $('.js-tweet > .tweet-header .username', node)[0].remove();
+      Usernames.format({
+        node: $('.js-tweet > .tweet-header', node)[0],
+        user: tweet.targetTweet.user,
+        fSel: '.fullname',
+        uSel: '.username',
+      });
     } else if (tweet.quotedTweet) {
-      $('.js-tweet > .tweet-header .fullname', node)[0].innerHTML = tweet.user.screenName;
-      $('.js-tweet > .tweet-header .username', node)[0].remove();
+      Usernames.format({
+        node,
+        user: tweet.user,
+        fSel: '.js-tweet > .tweet-header .fullname',
+        uSel: '.js-tweet > .tweet-header .username',
+      });
 
-      $('.quoted-tweet .tweet-header .fullname', node)[0].innerHTML = tweet.quotedTweet.user.screenName;
-      $('.quoted-tweet .tweet-header .username', node)[0].remove();
+      Usernames.format({
+        node,
+        user: tweet.quotedTweet.user,
+        fSel: '.quoted-tweet .tweet-header .fullname',
+        uSel: '.quoted-tweet .tweet-header .username',
+      });
     } else if (tweet.retweetedStatus) {
-      $('.tweet-context .nbfc > a[rel=user]', node)[0].innerHTML = tweet.user.screenName;
+      Usernames.format({
+        node,
+        user: tweet.user,
+        fSel: '.tweet-context .nbfc > a[rel=user]',
+      });
 
-      $('.tweet-header .fullname', node)[0].innerHTML = tweet.retweetedStatus.user.screenName;
-      $('.tweet-header .username', node)[0].remove();
+      Usernames.format({
+        node,
+        user: tweet.retweetedStatus.user,
+        fSel: '.tweet-header .fullname',
+        uSel: '.tweet-header .username',
+      });
     } else if (tweet.user) {
-      $('.fullname', node)[0].innerHTML = tweet.user.screenName;
-      $('.username', node)[0].remove();
+      Usernames.format({
+        node,
+        user: tweet.user,
+        fSel: '.fullname',
+        uSel: '.username',
+      });
     } else if (tweet.messages && !tweet.name) {
       if (tweet.type === 'ONE_TO_ONE') {
-        $('.tweet-header .link-complex b', node)[0].innerHTML = tweet.participants[0].screenName;
-        $('.tweet-header .username', node)[0].remove();
+        Usernames.format({
+          node,
+          user: tweet.participants[0],
+          fSel: '.link-complex b',
+          uSel: '.username',
+        });
       } else if (tweet.type === 'GROUP_DM') {
-        if (!$('.tweet-header .account-link > b', node)) console.log(tweet);
-        $('.tweet-header .account-link > b', node).forEach((el, i) => {
-          el.innerHTML = tweet.participants[i].screenName;
+        Usernames.formatGroupDM({
+          node,
+          participants: tweet.participants,
+          fSel: '.tweet-header .account-link > b',
         });
       }
     }
