@@ -103,10 +103,10 @@ function tweetHandler(tweet, columnKey, parent) {
     parent = $(`.js-column[data-column="${columnKey}"]`)[0];
   }
 
-  let nodes = $(`[data-key="${tweet.id}"]`, parent);
+  let nodes = $(`.stream-item[data-key="${tweet.id}"]`, parent);
 
   if (!nodes && tweet.messageThreadId) {
-    nodes = $(`[data-key="${tweet.messageThreadId}"]`, parent);
+    nodes = $(`.stream-item[data-key="${tweet.messageThreadId}"]`, parent);
   }
 
   const mediaSize = COLUMNS_MEDIA_SIZES.get(columnKey);
@@ -114,6 +114,49 @@ function tweetHandler(tweet, columnKey, parent) {
   nodes.forEach((node) => {
     let urlsToChange = [];
 
+    // Timestamps:
+    // $('time > *', node).forEach((el) => timestampOnElement(el, tweet.created));
+    if ($('time > *', node)) {
+      $('time > *', node).forEach((el) => timestampOnElement(el, tweet.created));
+    }
+
+    // Usernames:
+    // If it has `targetTweet` then it's an activity and we need to change both the desc and the tweet if displayed
+    if (tweet.targetTweet) {
+      if (!tweet.id.startsWith('mention_') && !tweet.id.startsWith('quoted_tweet_')) {
+        $('.activity-header .account-link', node)[0].innerHTML = tweet.sourceUser.screenName;
+      }
+
+      $('.js-tweet > .tweet-header .fullname', node)[0].innerHTML = tweet.targetTweet.user.screenName;
+      $('.js-tweet > .tweet-header .username', node)[0].remove();
+    } else if (tweet.quotedTweet) {
+      $('.js-tweet > .tweet-header .fullname', node)[0].innerHTML = tweet.user.screenName;
+      $('.js-tweet > .tweet-header .username', node)[0].remove();
+
+      $('.quoted-tweet .tweet-header .fullname', node)[0].innerHTML = tweet.quotedTweet.user.screenName;
+      $('.quoted-tweet .tweet-header .username', node)[0].remove();
+    } else if (tweet.retweetedStatus) {
+      $('.tweet-context .nbfc > a[rel=user]', node)[0].innerHTML = tweet.user.screenName;
+
+      $('.tweet-header .fullname', node)[0].innerHTML = tweet.retweetedStatus.user.screenName;
+      $('.tweet-header .username', node)[0].remove();
+    } else if (tweet.user) {
+      $('.fullname', node)[0].innerHTML = tweet.user.screenName;
+      $('.username', node)[0].remove();
+    } else if (tweet.messages && !tweet.name) {
+      if (tweet.type === 'ONE_TO_ONE') {
+        $('.tweet-header .link-complex b', node)[0].innerHTML = tweet.participants[0].screenName;
+        $('.tweet-header .username', node)[0].remove();
+      } else if (tweet.type === 'GROUP_DM') {
+        if (!$('.tweet-header .account-link > b', node)) console.log(tweet);
+        $('.tweet-header .account-link > b', node).forEach((el, i) => {
+          el.innerHTML = tweet.participants[i].screenName;
+        });
+      }
+    }
+
+
+    // Urls:
     // If it got entities, it's a tweet
     if (tweet.entities) {
       urlsToChange = [...tweet.entities.urls, ...tweet.entities.media];
