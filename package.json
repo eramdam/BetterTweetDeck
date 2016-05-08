@@ -42,6 +42,7 @@
     "lodash": "^4.0.0",
     "mustache": "^2.2.1",
     "postcss-cssnext": "^2.5.1",
+    "postcss-import": "^8.1.2",
     "postcss-nested": "^1.0.0",
     "promise-each": "^2.2.0",
     "reuse-promise": "^1.0.1",

@@ -36,6 +36,7 @@ const toLintFiles = [
 ];
 
 const postCssPlugins = [
+  require('postcss-import'),
   cssnext,
   nested,
   cssnano({ autoprefixer: false, zindex: false }),
