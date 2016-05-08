@@ -1,4 +1,5 @@
 // This module is used by the background page
+
 // From https://github.com/lorenwest/node-config/blob/master/lib/config.js#L131-L152
 const getKey = (object, property) => {
   const elems = Array.isArray(property) ? property : property.split('.');
