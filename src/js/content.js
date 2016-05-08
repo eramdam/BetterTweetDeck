@@ -18,7 +18,7 @@ const scriptEl = document.createElement('script');
 scriptEl.src = chrome.extension.getURL('js/inject.js');
 document.head.appendChild(scriptEl);
 
-function _refreshTimestamps() {
+function refreshTimestamps() {
   if (!$('.js-timestamp')) {
     return;
   }
@@ -29,7 +29,7 @@ function _refreshTimestamps() {
   });
 }
 
-function _tweakClassesFromVisualSettings() {
+function tweakClassesFromVisualSettings() {
   const enabledClasses = Object.keys(settings.css)
                         .filter((key) => settings.css[key])
                         .map((cl) => `btd__${cl}`);
@@ -140,10 +140,10 @@ function tweetHandler(tweet, columnKey, parent) {
 
 // Prepare to know when TD is ready
 on('BTD_ready', () => {
-  _tweakClassesFromVisualSettings();
+  tweakClassesFromVisualSettings();
   // Refresh timestamps once and then set the interval
-  _refreshTimestamps();
-  setInterval(_refreshTimestamps, TIMESTAMP_INTERVAL);
+  refreshTimestamps();
+  setInterval(refreshTimestamps, TIMESTAMP_INTERVAL);
 
   sendEvent('fromContent', { foo: 'bar' });
 });

@@ -11,7 +11,7 @@ module.exports = {
     'chrome': false,
     'TD': false
   },
-  'extends': 'airbnb/base',
+  'extends': 'airbnb-base',
   'rules': {
     'no-param-reassign': 0
   }
