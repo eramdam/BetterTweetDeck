@@ -23,25 +23,27 @@ const formatMaps = {
   },
 };
 
-const moreThan24 = (d) => (new Date().getTime() - d.getTime()) <= 60 * 60 * 24000;
+function moreThan24(d) {
+  return (new Date().getTime() - d.getTime()) <= 60 * 60 * 24000;
+}
 
-const getFormat = (dateObject, mode) => {
+function getFormat(dateObject, mode) {
   if (fullAfter24 && moreThan24(dateObject)) {
     return formatMaps[mode].short;
   }
 
   return formatMaps[mode].full;
-};
+}
 
-const getDateObject = (dateString) => {
+function getDateObject(dateString) {
   if (Number(dateString)) {
     return new Date(Number(dateString));
   }
 
   return new Date(dateString);
-};
+}
 
-const timestampOnElement = (element, dateString) => {
+function timestampOnElement(element, dateString) {
   if (timestampMode === 'relative') {
     return;
   }
@@ -49,6 +51,6 @@ const timestampOnElement = (element, dateString) => {
   const d = getDateObject(dateString);
 
   element.innerHTML = fecha.format(d, getFormat(d, timestampMode));
-};
+}
 
 module.exports = timestampOnElement;
