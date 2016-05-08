@@ -46,6 +46,24 @@ const maybeNotifyErrors = () => notify.onError({
   message: '<%= error.message %>',
 });
 
+const isProduction = () => gutil.env.type === 'production';
+
+const buildWithBrowserify = (entry) => {
+  return browserify({
+    entries: entry,
+    debug: !isProduction(),
+  })
+  .transform('babelify')
+  .transform('config-browserify')
+  .bundle()
+  .on('error', maybeNotifyErrors())
+  .pipe(source(path.basename(entry)))
+  .pipe(buffer())
+  .pipe(isProduction() ? gutil.noop() : sourcemaps.init({ loadMaps: true }))
+  .pipe(isProduction() ? uglify() : gutil.noop())
+  .pipe(isProduction() ? gutil.noop() : sourcemaps.write('./'));
+}
+
 /*
 *
 * `gulp clean`
@@ -70,56 +88,20 @@ gulp.task('static', () => (
 * Run babeljs + browserify on the js background.js/content.js files
 *
 */
-gulp.task('js-content', () => (
-  browserify({
-    entries: 'src/js/content.js',
-    debug: true,
-  })
-  .transform('babelify')
-  .transform('config-browserify')
-  .bundle()
-  .on('error', maybeNotifyErrors())
-  .pipe(source('content.js'))
-  .pipe(buffer())
-  .pipe(sourcemaps.init({ loadMaps: true }))
-  .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
-  .pipe(sourcemaps.write('./'))
+gulp.task('js-content', () => {
+  return buildWithBrowserify('src/js/content.js')
   .pipe(gulp.dest('./dist/js'))
-));
+});
 
-gulp.task('js-injected', () => (
-  browserify({
-    entries: 'src/js/inject.js',
-    debug: true,
-  })
-  .transform('babelify')
-  .transform('config-browserify')
-  .bundle()
-  .on('error', maybeNotifyErrors())
-  .pipe(source('inject.js'))
-  .pipe(buffer())
-  .pipe(sourcemaps.init({ loadMaps: true }))
-  .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
-  .pipe(sourcemaps.write('./'))
-  .pipe(gulp.dest('./dist/js'))
-));
+gulp.task('js-injected', () => {
+  return buildWithBrowserify('src/js/inject.js')
+  .pipe(gulp.dest('./dist/js'));
+});
 
-gulp.task('js-background', () => (
-  browserify({
-    entries: 'src/js/background.js',
-    debug: true,
-  })
-  .transform('babelify')
-  .transform('config-browserify')
-  .bundle()
-  .on('error', maybeNotifyErrors())
-  .pipe(source('background.js'))
-  .pipe(buffer())
-  .pipe(sourcemaps.init({ loadMaps: true }))
-  .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
-  .pipe(sourcemaps.write('./'))
-  .pipe(gulp.dest('./dist/js'))
-));
+gulp.task('js-background', () => {
+  return buildWithBrowserify('src/js/background.js')
+  .pipe(gulp.dest('./dist/js'));
+});
 
 gulp.task('js', ['js-content', 'js-injected', 'js-background']);
 
@@ -130,7 +112,7 @@ gulp.task('js', ['js-content', 'js-injected', 'js-background']);
 gulp.task('css', () => (
   gulp.src(cssFiles)
     .pipe(postcss(postCssPlugins))
-    .pipe(gutil.env.type === 'production' ? gutil.noop() : plumber())
+    .pipe(isProduction() ? gutil.noop() : plumber())
     .pipe(gulp.dest('./dist/css'))
 ));
 
