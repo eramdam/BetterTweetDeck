@@ -2,7 +2,7 @@ import CJSON from 'circular-json';
 import each from 'promise-each';
 import timestampOnElement from './util/timestamp';
 import { send as sendMessage } from './util/messaging';
-import * as Thumbnails from './util/tb';
+import * as Thumbnails from './util/thumbnails';
 import * as Templates from './util/templates';
 
 import { $, TIMESTAMP_INTERVAL, on, sendEvent } from './util/util';
