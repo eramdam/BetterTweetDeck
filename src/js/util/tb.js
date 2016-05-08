@@ -1,5 +1,6 @@
 import config from 'config';
 import qs from 'query-string';
+import reusePromise from 'reuse-promise';
 
 const endpoints = {
   embedly: 'https://api.embed.ly/1/oembed?',
@@ -46,7 +47,7 @@ const json = (res) => {
 
 const ignoreUrl = (url) => schemeWhitelist.every((scheme) => !scheme.test(url));
 
-const thumbnailFor = (url) => {
+function thumbnailForFetch(url) {
   console.debug(`Fetching ${url}`);
   return fetch(`${getEnpointFor('embedly')}${qs.stringify({
     url,
@@ -57,6 +58,8 @@ const thumbnailFor = (url) => {
     .then(status)
     .catch(() => null)
     .then(json);
-};
+}
+
+const thumbnailFor = reusePromise(thumbnailForFetch);
 
 module.exports = { ignoreUrl, thumbnailFor };
