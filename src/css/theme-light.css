@@ -16,6 +16,10 @@
     color: #BFBFBF;
   }
 
+  .dropdown-menu {
+    box-shadow: 0 1px 5px 1px rgba(17,17,17,0.4);
+  }
+
   .compose-account {
     background-color: #8C8C8C;
   }

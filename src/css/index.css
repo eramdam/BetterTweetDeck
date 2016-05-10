@@ -18,10 +18,6 @@
   border-radius: 50%;
 }
 
-.btd__js-hidden {
-  display: none !important;
-}
-
 .btd__no_col_icns .js-column-header {
   .column-type-icon {
     display: none;
@@ -36,7 +32,8 @@
   display: none;
 }
 
-.btd__gray_icns_notifs .activity-header .activity-indicator.icon {
+.btd__gray_icns_notifs .activity-header .activity-indicator.icon,
+.btd__gray_icns_notifs .tweet-context .icon-retweet {
   color: #999;
 }
 
@@ -77,11 +74,6 @@
 
 .btd__actions_on_hover .js-stream-item:hover .js-tweet-actions {
 	opacity: 1 !important;
-}
-
-
-[data-btdtheme] .med-tweet {
-  display: none;
 }
 
 [data-btdtheme] .dropdown-menu {

@@ -11,6 +11,55 @@
     background-color: #151515;
   }
 
+  .dropdown-menu {
+    border: 1px solid #151515;
+
+    .caret-outer {
+      border-bottom: 7px solid rgb(21, 21, 21);
+    }
+
+    .caret-inner {
+      border-bottom: 6px solid #222426;
+    }
+  }
+
+  .dropdown-menu [data-action],
+  .typeahead.lst :matches(.fullname, .username) {
+    color: color(#8899a6 saturation(0%));
+  }
+
+  .typeahead.lst :matches(.fullname, .username) {
+    color: rgb(193, 193, 193);
+  }
+
+  .lst-modal.typeahead {
+    box-shadow: none;
+  }
+
+  .dropdown-menu .drp-h-divider,
+  .typeahead.lst li {
+    border-bottom: 1px solid hsla(210,6%,18%,1);
+  }
+
+  .dropdown-menu .is-selected,
+  .typeahead.lst .s-selected {
+    background-color: #151515;
+  }
+
+  .dropdown-menu,
+  .typeahead {
+    background-color: #222426;
+  }
+
+  .typeahead {
+    border: 0;
+  }
+
+  .txt-mute,
+  .txt-mute a:not(:hover):not(:focus) {
+    color: color(#8899a6 saturation(0%))
+  }
+
   .attach-compose-buttons .tweet-button {
     background-color: var(--compose-btn-bg-dark-hover);
   }
@@ -25,5 +74,13 @@
 
   .media-caret {
     border-color: #222426 transparent transparent transparent;
+  }
+
+  .with-column-divider-bottom {
+    border-bottom-color: color(#292F33 saturation(0%));
+  }
+
+  .column-message {
+    background-color: color(#2E2E2E saturation(0%));
   }
 }
