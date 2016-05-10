@@ -21,8 +21,8 @@ Yep. 2.0 was faster and more efficient than 1.0 but the codebase was messy. And 
 - [ ] Create tweets' modal with arbitrary content
 - [x] Being able to change timestamps
 - [x] Being able to change avatar style
-- [ ] Being able to change username/name display
-    - [ ] In the columns
+- [x] Being able to change username/name display
+    - [x] In the columns
     - [x] In the auto-complete dropdown
 - [x] Revamp the minimal mode
     - [x] Being able to change dynamically the minimal-flavored theme depending on the current theme
@@ -45,6 +45,8 @@ For now, there won't be new features. But I have some of them in mind:
   - [ ] Could use a custom format with import/export of config for easy sharing of mute and stuff
   - [ ] Maybe a "I don't want to see this tweet" feature, who knows
 - [x] Replace different APIs by Embed.ly to simplify the code **a lot**
+- [ ] Be able to pause GIFs automatically
+- [ ] Display the verified badge in the columns
 - [ ] Display a little flag depending on the _supposed_ language of the tweet ?
 - [ ] Display a little avatar next to contacts in the "All accounts" messages column so you know easily with which account a thread began with
 
