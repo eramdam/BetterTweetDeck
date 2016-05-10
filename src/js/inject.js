@@ -89,12 +89,14 @@ $(document).one('dataColumnsLoaded', () => {
 });
 
 $('body').on('click', '.js-modal-panel', (ev) => {
+  const isMediaModal = document.querySelector('.js-modal-panel .js-media-preview-container, .js-modal-panel iframe');
+
   if (!document.body.classList.contains('btd__minimal_mode') ||
-  !document.querySelector('.js-modal-panel .js-media-preview-container')) {
+  !isMediaModal) {
     return;
   }
 
-  if (!ev.target.closest('.med-tray') && !ev.target.closest('.mdl-btn-media')) {
+  if (!ev.target.closest('.med-tray') && !ev.target.closest('.mdl-btn-media') && $('a[rel="dismiss"]')[0]) {
     ev.preventDefault();
     ev.stopPropagation();
 
