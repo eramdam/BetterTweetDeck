@@ -13,13 +13,13 @@
 /**
  * Transparent bg for items in navbar so we can change its bg easily
  */
-.btd__minimal_mode .column-nav-item,
 .btd__minimal_mode .app-navigator,
 .btd__minimal_mode .app-title {
   background-color: transparent;
 }
 
-.btd__minimal_mode .app-header {
+.btd__minimal_mode .app-header,
+.btd__minimal_mode .column-nav-item {
   background-color: color(#292F33 saturation(0%));
 }
 
