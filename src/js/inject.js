@@ -28,6 +28,24 @@ $(document).on('getChirpFromColumn', (ev) => {
   proxyEvent({ type: 'gotChirpForColumn' }, { chirp, colKey });
 });
 
+$(document).on('getOpenModalTweetHTML', (ev) => {
+  const { tweetKey, colKey, modalHtml } = ev.originalEvent.detail;
+
+  if (!TD.controller.columnManager.get(colKey)) {
+    return;
+  }
+
+  const chirp = TD.controller.columnManager.get(colKey).updateIndex[tweetKey];
+
+  if (!chirp) {
+    return;
+  }
+
+  const markup = chirp.renderInMediaGallery();
+
+  proxyEvent({ type: 'gotMediaGalleryChirpHTML' }, { markup, chirp, modalHtml });
+});
+
 $(document).on('uiDetailViewOpening', (ev, data) => {
   setTimeout(() => {
     let chirpsData;
@@ -88,7 +106,8 @@ $(document).one('dataColumnsLoaded', () => {
   });
 });
 
-$('body').on('click', '.js-modal-panel', (ev) => {
+$('body').on('click', '#open-modal', (ev) => {
+  console.log(ev);
   const isMediaModal = document.querySelector('.js-modal-panel .js-media-preview-container, .js-modal-panel iframe');
 
   if (!document.body.classList.contains('btd__minimal_mode') ||
@@ -96,9 +115,17 @@ $('body').on('click', '.js-modal-panel', (ev) => {
     return;
   }
 
-  if (!ev.target.closest('.med-tray') && !ev.target.closest('.mdl-btn-media') && $('a[rel="dismiss"]')[0]) {
+  if (!ev.target.closest('.med-tray')
+   && !ev.target.closest('.mdl-btn-media') && $('a[rel="dismiss"]')[0]
+   && !ev.target.closest('.med-tweet')) {
     ev.preventDefault();
     ev.stopPropagation();
+
+    if ($('#open-modal [btd-custom-modal]').length) {
+      $('#open-modal').css('display', 'none');
+      $('#open-modal').empty();
+      return;
+    }
 
     $('a[rel="dismiss"]').click();
     return;

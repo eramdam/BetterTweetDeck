@@ -14,7 +14,7 @@ const _templates = {
     data-media-entity-id="{{mediaId}}"> {{#isVideo}} {{> media/video_overlay}} {{/isVideo}}  {{#imageSrc}} <img class="{{thumbClass}}" src="{{^needsSecureUrl}}{{imageSrc}}{{/needsSecureUrl}}" alt="Media preview"> {{/imageSrc}} </a> {{/isAnimatedGif}}
     {{> status/media_sensitive}}</div></div>
   `,
-  modal: `<div class="js-mediatable ovl-block is-inverted-light">
+  modal: `<div class="js-mediatable ovl-block is-inverted-light" btd-custom-modal>
     <div class="s-padded">
       <div class="js-modal-panel mdl s-full med-fullpanel"> <a href="#" class="mdl-dismiss js-dismiss mdl-dismiss-media mdl-btn-media" rel="dismiss"><i class="icon txt-size--24 icon-close"></i></a>
         <div class="js-embeditem med-embeditem">
@@ -34,21 +34,19 @@ const _templates = {
                     {{/isVideo}}
                   </a>
                 </div>
-                <a href="https://t.co/Vztmxfe5nn" class="med-origlink" rel="url" target="_blank">View original</a>
+                <a href="{{originalUrl}}" class="med-origlink" rel="url" target="_blank">View original</a>
               </div>
             </div>
           </div>
-          <a href="#" class="js-media-gallery-prev link-no-focus mdl-btn-media mdl-media-prev is-hidden"> <i class="icon txt-size--26 icon-arrow-l"></i> </a>
-          <a href="#" class="js-media-gallery-next link-no-focus mdl-btn-media mdl-media-next is-hidden"> <i class="icon txt-size--26 icon-arrow-r"></i> </a>
         </div>
         <div id="media-gallery-tray"></div>
-        <div class="js-med-tweet med-tweet"></div>
+        <div class="js-med-tweet med-tweet">{{&tweetEmbed}}</div>
       </div>
     </div>
   </div>`,
 };
 
-const _data = {
+const defaultData = {
   preview: {
     animatedGif: null,
     imageSrc: null,
@@ -69,11 +67,12 @@ const _data = {
   modal: {
     imageUrl: undefined,
     isVideo: true,
+    originalUrl: undefined,
     videoEmbed: undefined,
   },
 };
 
-const previewTemplate = (mediaPreviewSrc, sourceLink, size, type = 'picture') => Mustache.render(_templates.preview, Object.assign(_data.preview, {
+const previewTemplate = (mediaPreviewSrc, sourceLink, size, type = 'picture') => Mustache.render(_templates.preview, Object.assign(defaultData.preview, {
   url: sourceLink,
   mediaPreviewSrc,
   isVideo: type === 'video',
@@ -83,10 +82,11 @@ const previewTemplate = (mediaPreviewSrc, sourceLink, size, type = 'picture') =>
   thumbSizeClass: `media-size-${size}`,
 }));
 
-const modalTemplate = (imageUrl, type, videoEmbed = null) => Mustache.render(_templates.preview, Object.assign(_data.modal, {
+const modalTemplate = (imageUrl, originalUrl, type, videoEmbed = null) => Mustache.render(_templates.modal, Object.assign(defaultData.modal, {
   imageUrl,
   videoEmbed,
-  isVideo: type === 'video',
+  originalUrl,
+  isVideo: type === 'video'
 }));
 
 module.exports = { modalTemplate, previewTemplate };

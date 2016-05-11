@@ -74,6 +74,7 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
 
     const tbUrl = data.thumbnail_url || data.url;
     const html = Templates.previewTemplate(tbUrl, url.expanded_url, mediaSize);
+    const modalHtml = Templates.modalTemplate(tbUrl, url.expanded_url, 'image');
 
     if (mediaSize === 'large') {
       $('.tweet.js-tweet', node)[0].insertAdjacentHTML('afterend', html);
@@ -83,6 +84,12 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
 
     $('.js-media-image-link', node)[0].addEventListener('click', (e) => {
       e.preventDefault();
+
+
+      const tweetKey = node.getAttribute('data-key');
+      const colKey = node.closest('[data-column]').getAttribute('data-column');
+
+      sendEvent('getOpenModalTweetHTML', { tweetKey, colKey, modalHtml });
     });
   });
 
@@ -101,6 +108,7 @@ function thumbnailsFromURLs(urls, node, mediaSize) {
 
 function tweetHandler(tweet, columnKey, parent) {
   if (!parent) {
+    if (!$(`.js-column[data-column="${columnKey}"]`)) console.log(tweet, columnKey);
     parent = $(`.js-column[data-column="${columnKey}"]`)[0];
   }
 
@@ -240,6 +248,14 @@ on('BTD_gotChirpForColumn', (ev) => {
   const { chirp, colKey } = CJSON.parse(ev.detail);
 
   tweetHandler(chirp, colKey);
+});
+
+on('BTD_gotMediaGalleryChirpHTML', (ev) => {
+  const { markup, modalHtml } = CJSON.parse(ev.detail);
+
+  const openModal = $('#open-modal')[0];
+  openModal.innerHTML = modalHtml.replace('<div class="js-med-tweet med-tweet"></div>', `<div class="js-med-tweet med-tweet">${markup}</div>`);
+  openModal.style.display = 'block';
 });
 
 on('BTD_uiDetailViewOpening', (ev) => {
