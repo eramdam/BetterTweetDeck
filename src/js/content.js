@@ -1,4 +1,3 @@
-import CJSON from 'circular-json';
 import each from 'promise-each';
 import timestampOnElement from './util/timestamp';
 import { send as sendMessage } from './util/messaging';
@@ -219,7 +218,7 @@ function tweetHandler(tweet, columnKey, parent) {
 }
 
 // Prepare to know when TD is ready
-on('BTD_ready', () => {
+on('BTDC_ready', () => {
   tweakClassesFromVisualSettings();
   // Refresh timestamps once and then set the interval
   refreshTimestamps();
@@ -228,54 +227,42 @@ on('BTD_ready', () => {
   sendEvent('fromContent', { foo: 'bar' });
 });
 
-on('DOMNodeInserted', (ev) => {
-  if (!ev.target.hasAttribute || !ev.target.hasAttribute('data-key')) {
-    return;
-  }
-
-  const chirpKey = ev.target.getAttribute('data-key');
-  const colKey = ev.target.closest('.js-column').getAttribute('data-column');
-
-  sendEvent('getChirpFromColumn', { chirpKey, colKey });
-});
-
-on('BTD_gotChirpForColumn', (ev) => {
-  const { chirp, colKey } = CJSON.parse(ev.detail);
+on('BTDC_gotChirpForColumn', (ev, data) => {
+  const { chirp, colKey } = data;
 
   tweetHandler(chirp, colKey);
 });
 
-on('BTD_gotMediaGalleryChirpHTML', (ev) => {
-  const { markup, modalHtml } = CJSON.parse(ev.detail);
+on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
+  const { markup, modalHtml } = data;
 
   const openModal = $('#open-modal')[0];
   openModal.innerHTML = modalHtml.replace('<div class="js-med-tweet med-tweet"></div>', `<div class="js-med-tweet med-tweet">${markup}</div>`);
   openModal.style.display = 'block';
 });
 
-on('BTD_uiDetailViewOpening', (ev) => {
-  const detail = CJSON.parse(ev.detail);
+on('BTDC_uiDetailViewOpening', (ev, data) => {
+  const detail = data;
   const tweets = detail.chirpsData;
 
   tweets.forEach((tweet) => tweetHandler(tweet, detail.columnKey));
 });
 
-on('BTD_columnMediaSizeUpdated', (ev) => {
-  const { id, size } = CJSON.parse(ev.detail);
+on('BTDC_columnMediaSizeUpdated', (ev, data) => {
+  const { id, size } = data;
 
   COLUMNS_MEDIA_SIZES.set(id, size);
 });
 
-on('BTD_columnsChanged', (ev) => {
-  const colsArray = CJSON.parse(ev.detail);
+on('BTDC_columnsChanged', (ev, data) => {
+  const colsArray = data;
 
   if (COLUMNS_MEDIA_SIZES.size !== colsArray.length) {
     COLUMNS_MEDIA_SIZES.clear();
   }
 
-  colsArray.filter(col => col).filter(col => col.model.state.settings.media_preview_size)
+  colsArray.filter(col => col.id)
            .forEach(col => {
-             const id = col.ui.state.columnKey;
-             COLUMNS_MEDIA_SIZES.set(id, col.model.state.settings.media_preview_size);
+             COLUMNS_MEDIA_SIZES.set(col.id, col.mediaSize);
            });
 });
