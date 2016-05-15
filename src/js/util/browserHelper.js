@@ -17,7 +17,7 @@ const getKey = (object, property) => {
   return getKey(value, elems.slice(1));
 };
 
-const _settingKey = 'BTD3Settings';
+const settingsKey = 'BTD3Settings';
 const storage = chrome.storage.sync || chrome.storage.local;
 
 export const getVersion = () => chrome.app.getDetails().version;
@@ -31,7 +31,7 @@ export const settings = {
   set(obj, cb) {
     this.getAll((currSettings) => {
       storage.set({
-        [_settingKey]: Object.assign(currSettings, obj),
+        [settingsKey]: Object.assign(currSettings, obj),
       }, () => {
         if (cb) {
           return cb();
@@ -42,13 +42,13 @@ export const settings = {
     });
   },
   getAll(done) {
-    storage.get(_settingKey, (obj) => {
-      done(obj[_settingKey]);
+    storage.get(settingsKey, (obj) => {
+      done(obj[settingsKey]);
     });
   },
   setAll(newSettings, done, getBack = false) {
     storage.set({
-      [_settingKey]: newSettings,
+      [settingsKey]: newSettings,
     }, () => {
       if (getBack) {
         return this.getAll(done);
