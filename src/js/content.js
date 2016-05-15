@@ -125,7 +125,8 @@ function tweetHandler(tweet, columnKey, parent) {
     // Timestamps:
     // $('time > *', node).forEach((el) => timestampOnElement(el, tweet.created));
     if ($('time > *', node)) {
-      $('time > *', node).forEach((el) => timestampOnElement(el, tweet.created));
+      const t = tweet.retweetedStatus ? tweet.retweetedStatus.created : tweet.created;
+      $('time > *', node).forEach((el) => timestampOnElement(el, t));
     }
 
     // Usernames:
