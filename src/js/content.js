@@ -146,20 +146,6 @@ function tweetHandler(tweet, columnKey, parent) {
         fSel: '.fullname',
         uSel: '.username',
       });
-    } else if (tweet.quotedTweet) {
-      Usernames.format({
-        node,
-        user: tweet.user,
-        fSel: '.js-tweet > .tweet-header .fullname',
-        uSel: '.js-tweet > .tweet-header .username',
-      });
-
-      Usernames.format({
-        node,
-        user: tweet.quotedTweet.user,
-        fSel: '.quoted-tweet .tweet-header .fullname',
-        uSel: '.quoted-tweet .tweet-header .username',
-      });
     } else if (tweet.retweetedStatus) {
       Usernames.format({
         node,
@@ -173,7 +159,7 @@ function tweetHandler(tweet, columnKey, parent) {
         fSel: '.tweet-header .fullname',
         uSel: '.tweet-header .username',
       });
-    } else if (tweet.user) {
+    } else if (tweet.user && !tweet.retweetedStatus) {
       Usernames.format({
         node,
         user: tweet.user,
@@ -195,6 +181,15 @@ function tweetHandler(tweet, columnKey, parent) {
           fSel: '.tweet-header .account-link > b',
         });
       }
+    }
+
+    if (tweet.quotedTweet) {
+      Usernames.format({
+        node,
+        user: tweet.quotedTweet.user,
+        fSel: '.quoted-tweet .tweet-header .fullname',
+        uSel: '.quoted-tweet .tweet-header .username',
+      });
     }
 
 
