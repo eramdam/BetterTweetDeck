@@ -11,6 +11,6 @@ export function on(...args) {
 }
 
 export function sendEvent(name, detail) {
-  const event = new CustomEvent(name, { detail });
-  document.dispatchEvent(event);
+  name = `BTDC_${name}`;
+  window.postMessage({ name, detail }, 'https://tweetdeck.twitter.com');
 }

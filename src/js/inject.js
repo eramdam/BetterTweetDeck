@@ -1,5 +1,15 @@
 import CJSON from 'circular-json';
 
+function onPostMessage(name, cb) {
+  window.addEventListener('message', (ev) => {
+    if (ev.data.name !== `BTDC_${name}`) {
+      return false;
+    }
+
+    return cb(ev, ev.data.detail);
+  });
+}
+
 // Shoots a BTD_* event so the content script can intercept it with its data
 const proxyEvent = (ev, data) => {
   const event = new CustomEvent(`BTD_${ev.type}`, { detail: CJSON.stringify(data) });
@@ -10,26 +20,9 @@ const switchThemeClass = () => {
   document.body.dataset.btdtheme = TD.settings.getTheme();
 };
 
-
-$(document).on('getChirpFromColumn', (ev) => {
-  const { chirpKey, colKey } = ev.originalEvent.detail;
-
-  if (!TD.controller.columnManager.get(colKey)) {
-    return;
-  }
-
-
-  const chirp = TD.controller.columnManager.get(colKey).updateIndex[chirpKey];
-
-  if (!chirp) {
-    return;
-  }
-
-  proxyEvent({ type: 'gotChirpForColumn' }, { chirp, colKey });
-});
-
-$(document).on('getOpenModalTweetHTML', (ev) => {
-  const { tweetKey, colKey, modalHtml } = ev.originalEvent.detail;
+// Custom events from BTD's content script
+onPostMessage('getOpenModalTweetHTML', (ev, data) => {
+  const { tweetKey, colKey, modalHtml } = data;
 
   if (!TD.controller.columnManager.get(colKey)) {
     return;
@@ -46,6 +39,35 @@ $(document).on('getOpenModalTweetHTML', (ev) => {
   proxyEvent({ type: 'gotMediaGalleryChirpHTML' }, { markup, chirp, modalHtml });
 });
 
+onPostMessage('getChirpFromColumn', (ev, data) => {
+  const { chirpKey, colKey } = data;
+
+  if (!TD.controller.columnManager.get(colKey)) {
+    return;
+  }
+
+  const chirp = TD.controller.columnManager.get(colKey).updateIndex[chirpKey];
+
+  if (!chirp) {
+    return;
+  }
+
+  proxyEvent({ type: 'gotChirpForColumn' }, { chirp, colKey });
+});
+
+// $(document).on('pauseGifForChrip', (ev) => {
+//   const { chirpKey, colKey } = ev.originalEvent.detail;
+//
+//   if (!TD.controller.columnManager.get(colKey)) {
+//     return;
+//   }
+//
+//   // TD.controller.columnManager.getAll()['c1463020636333s120'].chirpsWithPlayingGifs
+//   // TD.controller.columnManager.getAll()['c1463020636333s120'].ui.pauseGif({id: '730595756940378113'})
+// })
+
+
+// TD Events
 $(document).on('uiDetailViewOpening', (ev, data) => {
   setTimeout(() => {
     let chirpsData;
@@ -107,7 +129,6 @@ $(document).one('dataColumnsLoaded', () => {
 });
 
 $('body').on('click', '#open-modal', (ev) => {
-  console.log(ev);
   const isMediaModal = document.querySelector('.js-modal-panel .js-media-preview-container, .js-modal-panel iframe');
 
   if (!document.body.classList.contains('btd__minimal_mode') ||
