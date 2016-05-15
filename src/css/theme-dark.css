@@ -60,6 +60,12 @@
     color: color(#8899a6 saturation(0%))
   }
 
+  .tweet-timestamp > a {
+    background-color: #222426;
+    z-index: 1;
+    box-shadow: -4px 0 3px #222426;
+  }
+
   .attach-compose-buttons .tweet-button {
     background-color: var(--compose-btn-bg-dark-hover);
   }

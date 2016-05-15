@@ -16,6 +16,12 @@
     color: #BFBFBF;
   }
 
+  .tweet-timestamp > a {
+    background-color: #fff;
+    z-index: 1;
+    box-shadow: -4px 0 3px #fff;
+  }
+
   .dropdown-menu {
     box-shadow: 0 1px 5px 1px rgba(17,17,17,0.4);
   }
