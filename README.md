@@ -18,7 +18,9 @@ Yep. 2.0 was faster and more efficient than 1.0 but the codebase was messy. And 
 - [x] Hook on "new stuff in TD" event
 - [x] Hook on timestamp event of TD, delete the original and use my own
 - [x] Create thumbnails with arbitrary content
-- [ ] Create tweets' modal with arbitrary content
+- [x] Create tweets' modal with arbitrary content
+  - [x] with images
+  - [ ] with iframes/embeds
 - [x] Being able to change timestamps
 - [x] Being able to change avatar style
 - [x] Being able to change username/name display
@@ -36,6 +38,8 @@ Yep. 2.0 was faster and more efficient than 1.0 but the codebase was messy. And 
 - [ ] Do an options page
     - [ ] Restore the i18n support
     - [ ] Make it more maintainable than the previous one
+- [ ] Make the extension run on Firefox
+
 
 # Ok that's cool, what about features?
 
@@ -50,6 +54,13 @@ For now, there won't be new features. But I have some of them in mind:
 - [ ] Display a little flag depending on the _supposed_ language of the tweet ?
 - [ ] Display a little avatar next to contacts in the "All accounts" messages column so you know easily with which account a thread began with
 
-# Ports
+# Firefox and Edge ports
 
-Edge and Firefox are going to support extensions running through the [WebExtensions API](https://wiki.mozilla.org/WebExtensions) so Better TweetDeck should be able to get to Edge/Firefox in the future with almost no code changes! :tada:
+## Firefox
+
+Firefox should be supported from Firefox 48, which is planned for [August](https://wiki.mozilla.org/RapidRelease/Calendar). At the time these lines are written, [BTD3 runs fine on Firefox!](https://twitter.com/BetterTDeck/status/731742829836304384)
+
+## Edge
+
+Preview version of Edge has [extensions support](https://blogs.windows.com/msedgedev/2016/03/17/preview-extensions/). Most of the [WebExtensions APIs](https://developer.microsoft.com/en-us/microsoft-edge/platform/documentation/extensions/extension-api-roadmap/) seems **not** to be implemented.     
+Better TweetDeck needs **storage** and optionally **contextMenus** to be supported. As soon as Edge stable gets released with extensions support this summer, I will work on this port.
