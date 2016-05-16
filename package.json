@@ -52,6 +52,8 @@
     "vinyl-transform": "^1.0.0"
   },
   "dependencies": {
-    "gulp-eslint": "^2.0.0"
+    "gulp-eslint": "^2.0.0",
+    "js-emoji": "github:iamcal/js-emoji#e93c4cb77536964639a344d45639cf7f33cadea7",
+    "needle": "^1.0.0"
   }
 }

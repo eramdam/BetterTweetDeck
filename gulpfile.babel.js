@@ -24,6 +24,7 @@ import nested from 'postcss-nested';
 const staticFiles = [
   'manifest.json',
   'icons/*.png',
+  'emojis/sheet_twitter_64.png'
 ].map((i) => path.resolve('src/', i));
 
 const cssFiles = [

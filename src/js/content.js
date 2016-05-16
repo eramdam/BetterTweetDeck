@@ -4,6 +4,7 @@ import { send as sendMessage } from './util/messaging';
 import * as Thumbnails from './util/thumbnails';
 import * as Templates from './util/templates';
 import * as Usernames from './util/usernames';
+import * as Emojis from './util/emojis';
 
 import { $, TIMESTAMP_INTERVAL, on, sendEvent } from './util/util';
 
@@ -252,6 +253,7 @@ on('BTDC_ready', () => {
   // Refresh timestamps once and then set the interval
   refreshTimestamps();
   setInterval(refreshTimestamps, TIMESTAMP_INTERVAL);
+  Emojis.buildEmojiPicker();
 
   sendEvent('fromContent', { foo: 'bar' });
 });

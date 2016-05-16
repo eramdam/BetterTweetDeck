@@ -1,6 +1,7 @@
 @import './minimal.css';
 @import './theme-dark.css';
 @import './theme-light.css';
+@import './emoji-panel.css';
 
 :root {
   /* Dark*/
