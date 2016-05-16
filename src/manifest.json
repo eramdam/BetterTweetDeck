@@ -18,11 +18,6 @@
 	"permissions": [
 		"storage"
 	],
-	"applications": {
-		"gecko": {
-			"id": "bettertweetdeck@damien.erambert.me"
-		}
-	},
 	"web_accessible_resources": ["js/inject.js", "js/content.js.map", "js/inject.js.map", "js/background.js.map"],
 	"content_security_policy": "img-src 'self' *; default-src; unsafe-inline;"
 }

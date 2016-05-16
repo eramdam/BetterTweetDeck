@@ -60,7 +60,7 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
 
   const anchor = anchors[0];
 
-  if (anchor.dataset.urlScanned === 'true' || $('.js-media', node)) {
+  if (anchor.getAttribute('data-url-scanned') === 'true' || $('.js-media', node)) {
     return Promise.resolve();
   }
 
