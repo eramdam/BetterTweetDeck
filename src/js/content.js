@@ -72,8 +72,10 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
     }
 
     const tbUrl = data.thumbnail_url || data.url;
-    const html = Templates.previewTemplate(tbUrl, url.expanded_url, mediaSize);
-    const modalHtml = Templates.modalTemplate(tbUrl, url.expanded_url, 'image');
+    const type = data.html ? 'video' : 'image';
+    const embed = data.html ? data.html : null;
+    const html = Templates.previewTemplate(tbUrl, url.expanded_url, mediaSize, type);
+    const modalHtml = Templates.modalTemplate(tbUrl, url.expanded_url, type, embed);
 
     if (mediaSize === 'large') {
       $('.tweet.js-tweet', node)[0].insertAdjacentHTML('afterend', html);
@@ -118,6 +120,11 @@ function tweetHandler(tweet, columnKey, parent) {
   }
 
   const mediaSize = COLUMNS_MEDIA_SIZES.get(columnKey);
+
+  if (!nodes) {
+    nodes = [];
+    console.debug('failed to get node for',tweet);
+  }
 
   nodes.forEach((node) => {
     let urlsToChange = [];
@@ -218,6 +225,11 @@ function tweetHandler(tweet, columnKey, parent) {
   });
 }
 
+function closeOpenModal() {
+  $('#open-modal')[0].style.display = 'none';
+  $('#open-modal')[0].innerHTML = '';
+}
+
 // Prepare to know when TD is ready
 on('BTDC_ready', () => {
   tweakClassesFromVisualSettings();
@@ -235,11 +247,40 @@ on('BTDC_gotChirpForColumn', (ev, data) => {
 });
 
 on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
-  const { markup, modalHtml } = data;
+  const { markup, modalHtml, chirp, colKey } = data;
 
   const openModal = $('#open-modal')[0];
   openModal.innerHTML = modalHtml.replace('<div class="js-med-tweet med-tweet"></div>', `<div class="js-med-tweet med-tweet">${markup}</div>`);
   openModal.style.display = 'block';
+
+  $('[rel="favorite"]', openModal)[0].addEventListener('click', () => {
+    sendEvent('likeChirp', { chirpKey: chirp.id, colKey });
+  });
+
+  $('[rel="retweet"]', openModal)[0].addEventListener('click', () => {
+    sendEvent('retweetChirp', { chirpKey: chirp.id, colKey });
+  });
+
+  $('[rel="reply"]', openModal)[0].addEventListener('click', () => {
+    setTimeout(() => {
+      $(`[data-column="${colKey}"] [data-key="${chirp.id}"] [rel="reply"]`)[0].click();
+      closeOpenModal();
+    }, 0);
+  });
+
+  $('#open-modal a[rel="dismiss"]')[0].addEventListener('click', closeOpenModal);
+
+  $('[rel="actionsMenu"]', openModal)[0].addEventListener('click', () => {
+    setTimeout(() => {
+      $(`[data-column="${colKey}"] [data-key="${chirp.id}"] [rel="actionsMenu"]`)[0].click();
+    }, 0);
+    setTimeout(() => {
+      const originalMenu = document.querySelector(`[data-column="${colKey}"] [data-key="${chirp.id}"] .dropdown-menu`);
+      originalMenu.classList.add('pos-t');
+      $('[rel="actionsMenu"]', openModal)[0].insertAdjacentElement('afterEnd', originalMenu);
+      $('#open-modal .dropdown-menu').forEach((el) => el.addEventListener('click', closeOpenModal));
+    }, 0);
+  });
 });
 
 on('BTDC_uiDetailViewOpening', (ev, data) => {

@@ -31,7 +31,7 @@ const postMessagesListeners = {
 
     const markup = chirp.renderInMediaGallery();
 
-    proxyEvent('gotMediaGalleryChirpHTML', { markup, chirp, modalHtml });
+    proxyEvent('gotMediaGalleryChirpHTML', { markup, chirp, modalHtml, colKey });
   },
   BTDC_getChirpFromColumn: (ev, data) => {
     const { chirpKey, colKey } = data;
@@ -48,9 +48,43 @@ const postMessagesListeners = {
 
     proxyEvent('gotChirpForColumn', { chirp, colKey });
   },
+  BTDC_likeChirp: (ev, data) => {
+    const { chirpKey, colKey } = data;
+
+    if (!TD.controller.columnManager.get(colKey)) {
+      return;
+    }
+
+    const chirp = TD.controller.columnManager.get(colKey).updateIndex[chirpKey];
+
+    if (!chirp) {
+      return;
+    }
+
+    chirp.favorite();
+  },
+  BTDC_retweetChirp: (ev, data) => {
+    const { chirpKey, colKey } = data;
+
+    if (!TD.controller.columnManager.get(colKey)) {
+      return;
+    }
+
+    const chirp = TD.controller.columnManager.get(colKey).updateIndex[chirpKey];
+
+    if (!chirp) {
+      return;
+    }
+
+    chirp.retweet();
+  }
 };
 
 window.addEventListener('message', (ev) => {
+  if (ev.origin.indexOf('tweetdeck.') === -1) {
+    return false;
+  }
+
   if (!ev.data.name.startsWith('BTDC_') || !postMessagesListeners[ev.data.name]) {
     return false;
   }
