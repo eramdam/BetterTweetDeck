@@ -19,6 +19,10 @@ export function sendEvent(name, detail) {
 
 function initPostMessageListener() {
   window.addEventListener('message', (ev) => {
+    if (ev.origin.indexOf('tweetdeck.') === -1) {
+      return false;
+    }
+
     if (!ev.data.name.startsWith('BTDC_') || !listeners[ev.data.name]) {
       return false;
     }
