@@ -36,6 +36,10 @@ function tweakClassesFromVisualSettings() {
 
   document.body.classList.add(...enabledClasses);
 
+  if (settings.flash_tweets) {
+    document.body.classList.add(`btd__flash-${settings.flash_tweets}`);
+  }
+
   if (settings.no_hearts) {
     document.body.classList.remove('hearty');
   }
@@ -123,7 +127,7 @@ function tweetHandler(tweet, columnKey, parent) {
 
   if (!nodes) {
     nodes = [];
-    console.debug('failed to get node for',tweet);
+    console.debug('failed to get node for', tweet);
   }
 
   nodes.forEach((node) => {
@@ -223,8 +227,16 @@ function tweetHandler(tweet, columnKey, parent) {
       thumbnailsFromURLs([urlForThumbnail], node, mediaSize);
     }
 
-    if (settings.rtl_text_style && tweet.htmlTextFull.match(/[\u0590-\u083F]|[\u08A0-\u08FF]|[\uFB1D-\uFDFF]|[\uFE70-\uFEFF]/mg)) {
-      $('.tweet-text', node)[0].style.direction = 'rtl';
+    if (settings.rtl_text_style) {
+      if (tweet.htmlText) {
+        if (tweet.htmlText.match(/[\u0590-\u083F]|[\u08A0-\u08FF]|[\uFB1D-\uFDFF]|[\uFE70-\uFEFF]/mg)) {
+          $('.tweet-text', node)[0].style.direction = 'rtl';
+        }
+      } else if (tweet.targetTweet) {
+        if (tweet.targetTweet.htmlText.match(/[\u0590-\u083F]|[\u08A0-\u08FF]|[\uFB1D-\uFDFF]|[\uFE70-\uFEFF]/mg)) {
+          $('.tweet-text', node)[0].style.direction = 'rtl';
+        }
+      }
     }
   });
 }

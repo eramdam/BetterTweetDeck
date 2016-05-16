@@ -16,6 +16,7 @@ BHelper.settings.setAll({
     no_play_btn: true,
     gray_icns_notifs: false,
     minimal_mode: true,
+    flash_tweets: 'mentions',
     small_icns_compose: true,
     usrname_only_typeahed: true,
     hide_view_conversation: true,
