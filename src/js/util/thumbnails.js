@@ -23,6 +23,7 @@ const schemeWhitelist = [
   /soundcloud.com/,
   /.(jpg|gif|png|jpeg)$/,
   /tumblr.com\/.+.(?:gif|png|jpg)$/,
+  /youtu.be/,
   /vimeo.com\/[0-9]*$/,
   /yfrog.com/,
 ];
