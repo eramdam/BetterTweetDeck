@@ -222,6 +222,10 @@ function tweetHandler(tweet, columnKey, parent) {
       // Maybe we could have a gallery or something when we have different URLs
       thumbnailsFromURLs([urlForThumbnail], node, mediaSize);
     }
+
+    if (settings.rtl_text_style && tweet.htmlTextFull.match(/[\u0590-\u083F]|[\u08A0-\u08FF]|[\uFB1D-\uFDFF]|[\uFE70-\uFEFF]/mg)) {
+      $('.tweet-text', node)[0].style.direction = 'rtl';
+    }
   });
 }
 

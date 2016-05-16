@@ -9,6 +9,7 @@ BHelper.settings.setAll({
   no_hearts: false,
   no_tco: true,
   flash_tweets: 'mentions',
+  rtl_text_style: true,
   css: {
     round_pic: true,
     no_col_icns: true,
