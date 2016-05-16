@@ -16,7 +16,7 @@
     color: #BFBFBF;
   }
 
-  .tweet-timestamp > a {
+  .js-app-columns-container .js-column .tweet-timestamp > a {
     background-color: #fff;
     z-index: 1;
     box-shadow: -4px 0 3px #fff;
