@@ -59,9 +59,9 @@ function insertAtCursor(myField, myValue) {
 function getUnified(emoji) {
   Emoji.replace_mode = 'unified';
 
-  const converted = Emoji.replace_colons(`:${emoji.short}:`);
+  const converted = Emoji.replace_colons(`:${emoji.s}:`);
 
-  if (converted !== `:${emoji.short}:` && !converted.startsWith('<img')) {
+  if (converted !== `:${emoji.s}:` && !converted.startsWith('<img')) {
     return converted;
   }
 
@@ -73,11 +73,11 @@ function getImage(emoji) {
   Emoji.supports_css = true;
   Emoji.use_sheet = true;
 
-  return Emoji.replace_colons(`:${emoji.short}:`).replace('/emoji-data/sheet_twitter_64.png', chrome.extension.getURL('emojis/sheet_twitter_64.png'));
+  return Emoji.replace_colons(`:${emoji.s}:`).replace('/emoji-data/sheet_twitter_64.png', chrome.extension.getURL('emojis/sheet_twitter_64.png'));
 }
 
 function getEmojiElement(emoji) {
-  return `<a href="#" title="${emoji.name}" data-btd-shortcode="${emoji.short}" class="btd-emoji">${getImage(emoji)}</a>`;
+  return `<a href="#" title="${emoji.n}" data-btd-shortcode="${emoji.s}" class="btd-emoji">${getImage(emoji)}</a>`;
 }
 
 function getEmojiPickerMarkup(emojiContent) {
@@ -92,14 +92,14 @@ function getEmojiPickerMarkup(emojiContent) {
         ${emojiContent}
         </div>
         <div class="category-chooser">
-          <button title="People" data-btd-emoji-cat="People" class="-active">${getImage({ short: 'ok_hand' })}</button>
-          <button title="Nature" data-btd-emoji-cat="Nature" class="-active">${getImage({ short: 'cat' })}</button>
-          <button title="Foods" data-btd-emoji-cat="Foods" class="-active">${getImage({ short: 'pizza' })}</button>
-          <button title="Activity" data-btd-emoji-cat="Activity" class="-active">${getImage({ short: 'soccer' })}</button>
-          <button title="Places" data-btd-emoji-cat="Places" class="-active">${getImage({ short: 'rocket' })}</button>
-          <button title="Objects" data-btd-emoji-cat="Objects" class="-active">${getImage({ short: 'bulb' })}</button>
-          <button title="Symbols" data-btd-emoji-cat="Symbols" class="-active">${getImage({ short: '100' })}</button>
-          <button title="Flags" data-btd-emoji-cat="Flags" class="-active">${getImage({ short: 'fr' })}</button>
+          <button title="People" data-btd-emoji-cat="People" class="-active">${getImage({ s: 'ok_hand' })}</button>
+          <button title="Nature" data-btd-emoji-cat="Nature" class="-active">${getImage({ s: 'cat' })}</button>
+          <button title="Foods" data-btd-emoji-cat="Foods" class="-active">${getImage({ s: 'pizza' })}</button>
+          <button title="Activity" data-btd-emoji-cat="Activity" class="-active">${getImage({ s: 'soccer' })}</button>
+          <button title="Places" data-btd-emoji-cat="Places" class="-active">${getImage({ s: 'rocket' })}</button>
+          <button title="Objects" data-btd-emoji-cat="Objects" class="-active">${getImage({ s: 'bulb' })}</button>
+          <button title="Symbols" data-btd-emoji-cat="Symbols" class="-active">${getImage({ s: '100' })}</button>
+          <button title="Flags" data-btd-emoji-cat="Flags" class="-active">${getImage({ s: 'fr' })}</button>
     		</div>
       </div>
     </div>

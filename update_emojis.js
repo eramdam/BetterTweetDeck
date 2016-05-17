@@ -10,9 +10,9 @@ Emoji.img_set = 'twitter';
 function getUnified(emoji) {
   Emoji.replace_mode = 'unified';
 
-  const converted = Emoji.replace_colons(`:${emoji.short}:`);
+  const converted = Emoji.replace_colons(`:${emoji.s}:`);
 
-  if (converted !== `:${emoji.short}:` && !converted.startsWith('<img'))
+  if (converted !== `:${emoji.s}:` && !converted.startsWith('<img'))
     return converted;
 
   return null;
@@ -23,7 +23,7 @@ function getImage(emoji) {
   Emoji.supports_css = true;
   Emoji.use_sheet = true;
 
-  return Emoji.replace_colons(`:${emoji.short}:`);
+  return Emoji.replace_colons(`:${emoji.s}:`);
 }
 
 function getEmojiElement(emoji) {
@@ -60,11 +60,10 @@ needle.get('https://raw.githubusercontent.com/iamcal/emoji-data/master/emoji.jso
                   .sortBy(emoji => catOrder[emoji.category])
                   .map(emoji => {
                     return {
-                      short: emoji.short_name,
-                      name: emoji.name,
+                      s: emoji.short_name,
+                      n: emoji.name,
                       hs: Boolean(emoji.skin_variations),
-                      cat: emoji.category || getMissingCategory(emoji.short_name),
-                      co: emoji.sort_order
+                      cat: emoji.category || getMissingCategory(emoji.s_name)
                     }
                   })
                   .value();
