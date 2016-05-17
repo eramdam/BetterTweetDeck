@@ -1,6 +1,6 @@
 .emoji-popover .emojis-compose-panel {
   height: 300px;
-  width: 240px;
+  width: 242px;
 
   display: flex;
   flex-direction: column;
@@ -8,13 +8,58 @@
 
 .emoji-popover .emoji-container {
   flex: 1;
-  overflow: scroll;
-  background: cyan;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+      width: 2px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: white;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: color(black a(20%));
+  }
 }
 
 .emoji-popover .category-chooser {
   height: 30px;
-  background: pink;
+
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.emoji-popover .category-chooser:before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(transparent, white);
+  box-shadow: 0 1px 0 color(black a(10%));
+  top: -5px;
+}
+
+.emoji-popover .category-chooser > button {
+  appearance: none;
+  flex: 1;
+  background: transparent;
+  outline: 0;
+  border: 0;
+  font-size: 0;
+}
+
+.emoji-popover .category-chooser .emoji-outer {
+  display: inline-block;
+  font-size: 18px;
+}
+
+.emoji-popover .emoji-category-title {
+  font-size: 14px;
+  padding: 6px;
+  color: #28292b;
 }
 
 .emoji-popover .btd-emoji {
@@ -22,6 +67,7 @@
   display: inline-block;
   width: 1em;
   height: 1em;
+  margin: 5px;
 }
 
 .emoji-popover {

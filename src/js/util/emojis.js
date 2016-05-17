@@ -16,6 +16,46 @@ const catOrder = {
   Flags: -10,
 };
 
+function getEventTarget(evt) {
+  let targ = (evt.target) ? evt.target : evt.srcElement;
+  if (targ != null) {
+    if (targ.nodeType === 3) {
+      targ = targ.parentNode;
+    }
+  }
+  return targ;
+}
+
+function clickedOutsideElement(elSelector) {
+  let theElem = getEventTarget(window.event);
+  while (theElem != null) {
+    if (theElem.matches(elSelector)) {
+      return false;
+    }
+
+    theElem = theElem.offsetParent;
+  }
+  return true;
+}
+
+
+// From http://stackoverflow.com/questions/1064089/inserting-a-text-where-cursor-is-using-javascript-jquery
+function insertAtCursor(myField, myValue) {
+  // IE support
+  if (document.selection) {
+    myField.focus();
+    const sel = document.selection.createRange();
+    sel.text = myValue;
+  // MOZILLA and others
+  } else if (myField.selectionStart || myField.selectionStart === '0') {
+    const startPos = myField.selectionStart;
+    const endPos = myField.selectionEnd;
+    myField.value = myField.value.substring(0, startPos) + myValue + myField.value.substring(endPos, myField.value.length);
+  } else {
+    myField.value += myValue;
+  }
+}
+
 function getUnified(emoji) {
   Emoji.replace_mode = 'unified';
 
@@ -37,12 +77,12 @@ function getImage(emoji) {
 }
 
 function getEmojiElement(emoji) {
-  return `<a href="#" title="${emoji.name}" class="btd-emoji">${getImage(emoji)}</a>`;
+  return `<a href="#" title="${emoji.name}" data-btd-shortcode="${emoji.short}" class="btd-emoji">${getImage(emoji)}</a>`;
 }
 
 function getEmojiPickerMarkup(emojiContent) {
   return `
-    <div class="popover popover-position-t margin-ll emoji-popover" id="" style="display: none;">
+    <div class="popover popover-position-t emoji-popover" style="display: none;">
       <div class="caret">
         <span class="caret-outer"></span>
         <span class="caret-inner"></span>
@@ -52,15 +92,15 @@ function getEmojiPickerMarkup(emojiContent) {
         ${emojiContent}
         </div>
         <div class="category-chooser">
-      			<a title="Smileys &amp; People" data-cat="Smileys_n_People" href="#" class="btd-emoji emojis-t-1f600 active"></a>
-      			<a title="Animals &amp; Nature" data-cat="Animals_n_Nature" href="#" class="btd-emoji emojis-t-1f436"></a>
-      			<a title="Food &amp; Drink" data-cat="Food_n_Drink" href="#" class="btd-emoji emojis-t-1f34f"></a>
-      			<a title="Activity" data-cat="Activity" href="#" class="btd-emoji emojis-t-26bd"></a>
-      			<a title="Travel &amp; Places" data-cat="Travel_n_Places" href="#" class="btd-emoji emojis-t-1f697"></a>
-      			<a title="Objects" data-cat="Objects" href="#" class="btd-emoji emojis-t-231a"></a>
-      			<a title="Symbols" data-cat="Symbols" href="#" class="btd-emoji emojis-t-2764"></a>
-      			<a title="Flags" data-cat="Flags" href="#" class="btd-emoji emojis-t-1f1e6-1f1eb"></a>
-      		</div>
+          <button title="People" data-btd-emoji-cat="People" class="-active">${getImage({ short: 'ok_hand' })}</button>
+          <button title="Nature" data-btd-emoji-cat="Nature" class="-active">${getImage({ short: 'cat' })}</button>
+          <button title="Foods" data-btd-emoji-cat="Foods" class="-active">${getImage({ short: 'pizza' })}</button>
+          <button title="Activity" data-btd-emoji-cat="Activity" class="-active">${getImage({ short: 'soccer' })}</button>
+          <button title="Places" data-btd-emoji-cat="Places" class="-active">${getImage({ short: 'rocket' })}</button>
+          <button title="Objects" data-btd-emoji-cat="Objects" class="-active">${getImage({ short: 'bulb' })}</button>
+          <button title="Symbols" data-btd-emoji-cat="Symbols" class="-active">${getImage({ short: '100' })}</button>
+          <button title="Flags" data-btd-emoji-cat="Flags" class="-active">${getImage({ short: 'fr' })}</button>
+    		</div>
       </div>
     </div>
   `;
@@ -70,7 +110,10 @@ export function buildEmojiPicker(skinVariation = false) {
   let emojiContent = '';
 
   Object.keys(catOrder).forEach((cat) => {
-    emojiContent += `<div class="${cat}">`;
+    emojiContent += `
+    <h3 class="emoji-category-title" data-btd-emoji-cat="${cat}">${cat}</h3>
+    <div class="emoji-category" data-btd-emoji-cat="${cat}">
+    `;
 
     emojis.filter(emoji => emoji.cat === cat).forEach(emoji => {
       emojiContent += getEmojiElement(emoji);
@@ -82,7 +125,7 @@ export function buildEmojiPicker(skinVariation = false) {
   const emojiPickerMarkup = getEmojiPickerMarkup(emojiContent);
 
   const emojiComposerButton = `
-  <button class="js-add-emojis js-show-tip needsclick btn btn-on-blue full-width txt-left margin-b--12 padding-v--9" data-original-title="" tabindex=""> <i class="icon icon-camera"></i> <span class="js-add-image-button-label label padding-ls">Emojis</span> </button>`;
+  <button class="js-add-emojis js-show-tip needsclick btn btn-on-blue full-width txt-left margin-b--12 padding-v--9" data-original-title="" tabindex=""> <i class="icon btd-emoji-icon"></i> <span class="js-add-image-button-label label padding-ls">Emojis</span> </button>`;
 
   $('.js-add-image-button')[0].insertAdjacentHTML('beforebegin', emojiComposerButton);
 
@@ -99,6 +142,50 @@ export function buildEmojiPicker(skinVariation = false) {
       emojiPop.style.display = 'block';
     } else {
       emojiPop.style.display = 'none';
+    }
+  });
+
+  $('.category-chooser button').forEach(catButton => {
+    catButton.addEventListener('click', ev => {
+      let emojiCat;
+
+      if (ev.target.hasAttribute('data-btd-emoji-cat')) {
+        emojiCat = ev.target;
+      } else {
+        emojiCat = ev.target.closest('[data-btd-emoji-cat]');
+      }
+
+      const emojiCatName = emojiCat.getAttribute('data-btd-emoji-cat');
+
+      const emojiCatEl = $(`.emoji-popover h3[data-btd-emoji-cat="${emojiCatName}"]`)[0];
+
+      emojiCatEl.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    });
+  });
+
+  const tweetCompose = $('textarea.js-compose-text')[0];
+  $('.emoji-popover .btd-emoji').forEach(emojiEl => {
+    emojiEl.addEventListener('click', (ev) => {
+      let emoji;
+
+      if (ev.target.hasAttribute('data-btd-shortcode')) {
+        emoji = emoji.target;
+      } else {
+        emoji = ev.target.closest('[data-btd-shortcode]');
+      }
+
+      const unified = getUnified({ short: emoji.getAttribute('data-btd-shortcode') });
+
+      insertAtCursor(tweetCompose, unified);
+      tweetCompose.dispatchEvent(new Event('change'));
+    });
+  });
+
+  const emojiPicker = $('.emoji-popover')[0];
+
+  document.addEventListener('click', () => {
+    if (clickedOutsideElement('.emoji-popover') && clickedOutsideElement('.js-add-emojis') && emojiPicker.style.display === 'block') {
+      emojiPicker.style.display = 'none';
     }
   });
 }

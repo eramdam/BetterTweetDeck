@@ -40,6 +40,10 @@ const postCssPlugins = [
   require('postcss-import'),
   cssnext,
   nested,
+  require('postcss-url')({
+    url: 'inline',
+    from: './src/css/index.css'
+  }),
   cssnano({ autoprefixer: false, zindex: false }),
 ];
 
