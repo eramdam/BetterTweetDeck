@@ -174,7 +174,7 @@ export function buildEmojiPicker(skinVariation = false) {
         emoji = ev.target.closest('[data-btd-shortcode]');
       }
 
-      const unified = getUnified({ short: emoji.getAttribute('data-btd-shortcode') });
+      const unified = getUnified({ s: emoji.getAttribute('data-btd-shortcode') });
 
       insertAtCursor(tweetCompose, unified);
       tweetCompose.dispatchEvent(new Event('change'));

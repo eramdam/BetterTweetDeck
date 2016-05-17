@@ -16,8 +16,18 @@
 	           "48": "icons/icon48.png",
 	          "128": "icons/icon128.png" },
 	"permissions": [
-		"storage"
+		"storage",
+		"https://api.embed.ly/1/*",
+		"http://erambert.me/*",
+		"https://tweetdeck.twitter.com/*",
+		"tabs",
+		"contextMenus"
 	],
+	"applications": {
+		"gecko": {
+			"id": "bettertweetdeck@damien.erambert.me"
+		}
+	},
 	"web_accessible_resources": ["js/inject.js", "js/content.js.map", "js/inject.js.map", "js/background.js.map", "emojis/sheet_twitter_64.png", "emojis/emoji-happy.svg"],
 	"content_security_policy": "img-src 'self' *; default-src; unsafe-inline;"
 }
