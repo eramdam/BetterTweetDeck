@@ -1,8 +1,9 @@
 import * as BHelper from './util/browserHelper';
 import * as Messages from './util/messaging';
+import { defaultsDeep } from 'lodash';
 
-BHelper.settings.setAll({
-  installed_date: 42,
+const defaultSettings = {
+  installed_date: new Date().getTime(),
   ts: 'absolute_metric',
   full_aft_24: true,
   nm_disp: 'inverted',
@@ -27,9 +28,13 @@ BHelper.settings.setAll({
     enabled: false,
     short_txt: false,
   },
-}, (settings) => {
-  console.debug('Default settings to', settings);
-}, true);
+};
+
+BHelper.settings.getAll(settings => {
+  BHelper.settings.setAll(defaultsDeep(settings, defaultSettings), (newSettings) => {
+    console.debug('Default settings to', newSettings);
+  }, true);
+});
 
 Messages.on((message, sender, sendResponse) => {
   switch (message.action) {

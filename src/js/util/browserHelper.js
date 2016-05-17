@@ -17,7 +17,7 @@ const getKey = (object, property) => {
   return getKey(value, elems.slice(1));
 };
 
-const settingsKey = 'BTD3Settings';
+const settingsKey = 'BTD_Settings';
 const storage = chrome.storage.sync || chrome.storage.local;
 
 export const getVersion = () => chrome.app.getDetails().version;
