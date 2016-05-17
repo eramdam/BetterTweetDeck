@@ -20,7 +20,7 @@ Yep. 2.0 was faster and more efficient than 1.0 but the codebase was messy. And 
 - [x] Create thumbnails with arbitrary content
 - [x] Create tweets' modal with arbitrary content
   - [x] with images
-  - [ ] with iframes/embeds
+  - [x] with iframes/embeds
 - [x] Being able to change timestamps
 - [x] Being able to change avatar style
 - [x] Being able to change username/name display
@@ -32,13 +32,14 @@ Yep. 2.0 was faster and more efficient than 1.0 but the codebase was messy. And 
 - [x] Hide icons in columns + restore a little badge next to headers for "new stuff"
 - [x] Smaller icons in the composer
 - [x] Notifications icons in grayscale
-- [ ] Detect RTL and apply RTL style to them
+- [x] Detect RTL and apply RTL style to them
 - [x] Remove the t.co redirection
+- [x] Restore the emoji panel
 - [ ] Add the "Share on BTD" contextual item
 - [ ] Do an options page
     - [ ] Restore the i18n support
     - [ ] Make it more maintainable than the previous one
-- [ ] Make the extension run on Firefox
+- [x] Make the extension run on Firefox
 
 
 # Ok that's cool, what about features?
