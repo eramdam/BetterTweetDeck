@@ -35,7 +35,7 @@ Yep. 2.0 was faster and more efficient than 1.0 but the codebase was messy. And 
 - [x] Detect RTL and apply RTL style to them
 - [x] Remove the t.co redirection
 - [x] Restore the emoji panel
-- [ ] Add the "Share on BTD" contextual item
+- [x] Add the "Share on BTD" contextual item
 - [ ] Do an options page
     - [ ] Restore the i18n support
     - [ ] Make it more maintainable than the previous one

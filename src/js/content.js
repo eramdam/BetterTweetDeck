@@ -1,6 +1,6 @@
 import each from 'promise-each';
 import timestampOnElement from './util/timestamp';
-import { send as sendMessage } from './util/messaging';
+import { send as sendMessage, on as onMessage } from './util/messaging';
 import * as Thumbnails from './util/thumbnails';
 import * as Templates from './util/templates';
 import * as Usernames from './util/usernames';
@@ -255,7 +255,11 @@ on('BTDC_ready', () => {
   setInterval(refreshTimestamps, TIMESTAMP_INTERVAL);
   Emojis.buildEmojiPicker();
 
-  sendEvent('fromContent', { foo: 'bar' });
+  onMessage((details) => {
+    document.dispatchEvent(new CustomEvent('uiComposeTweet'));
+    $('textarea.js-compose-text')[0].value = `${details.text} ${details.url}`;
+    $('textarea.js-compose-text')[0].dispatchEvent(new Event('change'));
+  });
 });
 
 on('BTDC_gotChirpForColumn', (ev, data) => {

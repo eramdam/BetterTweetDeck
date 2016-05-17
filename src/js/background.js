@@ -25,14 +25,53 @@ const defaultSettings = {
     actions_on_hover: true,
   },
   share_item: {
-    enabled: false,
+    enabled: true,
     short_txt: false,
   },
+  firefox: true,
+};
+
+const contextMenuHandler = (info, tab, settings) => {
+  const urlToShare = info.linkUrl || info.srcUrl || info.pageUrl;
+  let textToShare = info.selectionText || tab.title;
+
+  if (settings.share_item.short_txt) {
+    textToShare = textToShare.substr(0, 110);
+  }
+
+  chrome.tabs.query({
+    url: '*://tweetdeck.twitter.com/*',
+  }, (tabs) => {
+    if (tabs.length === 0) {
+      return;
+    }
+
+    const TDTab = tabs[0];
+
+    chrome.windows.update(TDTab.windowId, {
+      focused: true,
+    }, () => {
+      chrome.tabs.update(TDTab.id, {
+        selected: true,
+        active: true,
+        highlighted: true,
+      }, () => {
+        chrome.tabs.sendMessage(TDTab.id, {
+          text: textToShare,
+          url: urlToShare,
+        });
+      });
+    });
+  });
 };
 
 BHelper.settings.getAll(settings => {
   BHelper.settings.setAll(defaultsDeep(settings, defaultSettings), (newSettings) => {
-    console.debug('Default settings to', newSettings);
+    chrome.contextMenus.create({
+      title: 'Share on TweetDeck',
+      contexts: ['page', 'selection', 'image', 'link'],
+      onclick: (info, tab) => contextMenuHandler(info, tab, newSettings),
+    });
   }, true);
 });
 
