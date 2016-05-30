@@ -158,6 +158,10 @@ function tweetHandler(tweet, columnKey, parent) {
         fSel: '.fullname',
         uSel: '.username',
       });
+
+      if (tweet.sourceUser && tweet.sourceUser.isVerified) {
+        node.querySelector('.account-link.link-complex, .has-source-avatar .item-img').classList.add('btd-is-verified');
+      }
     } else if (tweet.retweetedStatus) {
       Usernames.format({
         node,
@@ -171,6 +175,12 @@ function tweetHandler(tweet, columnKey, parent) {
         fSel: '.tweet-header .fullname',
         uSel: '.tweet-header .username',
       });
+
+      node.classList.add('btd-is-retweet');
+
+      if (tweet.retweetedStatus.user.isVerified) {
+        node.querySelector('.account-link.link-complex').classList.add('btd-is-verified');
+      }
     } else if (tweet.user && !tweet.retweetedStatus) {
       Usernames.format({
         node,

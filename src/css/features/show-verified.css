@@ -1,0 +1,21 @@
+.btd__show_verified .js-stream-item .account-link.btd-is-verified .tweet-img,
+.btd__show_verified .js-stream-item .item-img.btd-is-verified {
+  position: relative;
+
+  &::before {
+    content: "\f02a";
+    font-family: "tweetdeckregular";
+    font-weight: normal;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: #55acee;
+    width: 1em;
+    height: 1em;
+    font-size: 20px;
+
+    background-image: radial-gradient(circle 11px, white 50%, color(white a(0)) 51%);
+  }
+}
