@@ -8,6 +8,7 @@
 @import './features/flash-tweets.css';
 @import './features/gray-notif-icns.css';
 @import './features/hide-context.css';
+@import './features/hide-scrollbars.css';
 @import './features/no-col-icns.css';
 @import './features/no-play-btn.css';
 @import './features/round-pic.css';

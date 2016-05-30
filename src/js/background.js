@@ -22,6 +22,7 @@ const defaultSettings = {
     small_icns_compose: true,
     usrname_only_typeahed: true,
     hide_context: true,
+    hide_scrollbars: true,
     show_verified: true,
     actions_on_right: true,
     actions_on_hover: true,
