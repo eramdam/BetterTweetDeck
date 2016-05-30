@@ -23,12 +23,12 @@
     }
   }
 
-  .dropdown-menu [data-action],
-  .typeahead.lst :matches(.fullname, .username) {
+  .dropdown-menu li > *,
+  .typeahead.lst :matches(.fullname, .username, p) {
     color: color(#8899a6 saturation(0%));
   }
 
-  .typeahead.lst :matches(.fullname, .username) {
+  .typeahead.lst :matches(.fullname, .username, p) {
     color: rgb(193, 193, 193);
   }
 
