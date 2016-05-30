@@ -46,14 +46,14 @@ Yep. 2.0 was faster and more efficient than 1.0 but the codebase was messy. And 
 
 For now, there won't be new features. But I have some of them in mind:
 
-- [ ] Advanced muting engine (imagine using regex like on Tweetbot or mute hashtag based on user's and stuff like that)
+- **Not for 3.0 ?** [ ] Advanced muting engine (imagine using regex like on Tweetbot or mute hashtag based on user's and stuff like that)
   - [ ] Could use a custom format with import/export of config for easy sharing of mute and stuff
   - [ ] Maybe a "I don't want to see this tweet" feature, who knows
 - [x] Replace different APIs by Embed.ly to simplify the code **a lot**
-- [ ] Be able to pause GIFs automatically
-- [ ] Display the verified badge in the columns
-- [ ] Display a little flag depending on the _supposed_ language of the tweet ?
-- [ ] Display a little avatar next to contacts in the "All accounts" messages column so you know easily with which account a thread began with
+- [x] Be able to pause GIFs automatically
+- [x] Display the verified badge in the columns
+- [ ] **Maybe** Display a little flag depending on the _supposed_ language of the tweet ?
+- [ ] **Not for 3.0** Display a little avatar next to contacts in the "All accounts" messages column so you know easily with which account a thread began with
 
 # Firefox and Edge ports
 
