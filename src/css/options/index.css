@@ -103,9 +103,7 @@ body {
   padding: 20px;
 
   visibility: hidden;
-  transition-property: transform, opacity;
-  transition-duration: 300ms, 250ms;
-  transition-timing-function: ease;
+  transition: all 300ms ease;
   will-change: transform, opacity;
   opacity: 0;
   transform: translate(10%, 0);

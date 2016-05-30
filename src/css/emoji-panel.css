@@ -32,6 +32,10 @@
   position: relative;
 }
 
+.emoji-popover .emoji-search {
+  padding: 10px;
+}
+
 .emoji-popover .category-chooser:before {
   content: '';
   position: absolute;
@@ -62,12 +66,32 @@
   color: #28292b;
 }
 
-.emoji-popover .btd-emoji {
+.emoji-popover .btd-emoji,
+.emoji-popover .btd-skin-tone {
   font-size: 20px;
   display: inline-block;
   width: 1em;
   height: 1em;
   margin: 5px;
+}
+
+.emoji-popover .btd-skin-tone {
+  border-radius: 10px;
+}
+
+.emoji-popover .btd-emoji .emoji-outer + .emoji-outer {
+  display: none;
+}
+
+.btd__small_icns_compose {
+  .emoji-popover {
+    margin-top: 50px;
+
+    .caret {
+      left: 9%;
+    }
+  }
+
 }
 
 .emoji-popover {

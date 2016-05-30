@@ -56,10 +56,16 @@ function insertAtCursor(myField, myValue) {
   }
 }
 
-function getUnified(emoji) {
+function getUnified(emoji, skinVariation) {
   Emoji.replace_mode = 'unified';
 
-  const converted = Emoji.replace_colons(`:${emoji.s}:`);
+  let str = `:${emoji.s}:`;
+
+  if (emoji.hs) {
+    str += skinVariation;
+  }
+
+  const converted = Emoji.replace_colons(str);
 
   if (converted !== `:${emoji.s}:` && !converted.startsWith('<img')) {
     return converted;
@@ -68,18 +74,18 @@ function getUnified(emoji) {
   return null;
 }
 
-function getImage(emoji) {
+function getImage(emoji, skinVariation = '') {
   Emoji.replace_mode = 'css';
   Emoji.supports_css = true;
   Emoji.use_sheet = true;
 
-  return Emoji.replace_colons(`:${emoji.s}:`).replace('/emoji-data/sheet_twitter_64.png', chrome.extension.getURL('emojis/sheet_twitter_64.png'));
+  return Emoji.replace_colons(`:${emoji.s}:${skinVariation}`).replace('/emoji-data/sheet_twitter_64.png', chrome.extension.getURL('emojis/sheet_twitter_64.png'));
 }
 
-function getEmojiElement(emoji) {
+function getEmojiElement(emoji, skinVariation = '') {
   const title = emoji.n || '';
 
-  return `<a href="#" title="${title.toLowerCase()}" data-btd-shortcode="${emoji.s}" class="btd-emoji">${getImage(emoji)}</a>`;
+  return `<a href="#" title="${title.toLowerCase()}" data-btd-has-variation="${emoji.hs}" data-btd-shortcode="${emoji.s}" class="btd-emoji">${getImage(emoji, skinVariation)}</a>`;
 }
 
 function getEmojiPickerMarkup(emojiContent) {
@@ -91,9 +97,18 @@ function getEmojiPickerMarkup(emojiContent) {
       </div>
       <div class="emojis-compose-panel">
         <div class="emoji-search">
-          <input type="text" />
+          <input type="text" placeholder="Search emojis" autofocus/>
         </div>
         <div class="emoji-container">
+        <h3 class="emoji-category-title">Skin tone</h3>
+        <div class="emoji-category">
+          <a href="#" class="btd-skin-tone" data-btd-skin-tone="1" title style="background-color: #f9cd37;"></a>
+          <a href="#" class="btd-skin-tone" data-btd-skin-tone="2" title style="background-color: #f4dfce;"></a>
+          <a href="#" class="btd-skin-tone" data-btd-skin-tone="3" title style="background-color: #f0d3a0;"></a>
+          <a href="#" class="btd-skin-tone" data-btd-skin-tone="4" title style="background-color: #d1ad86;"></a>
+          <a href="#" class="btd-skin-tone" data-btd-skin-tone="5" title style="background-color: #ab7f52;"></a>
+          <a href="#" class="btd-skin-tone" data-btd-skin-tone="6" title style="background-color: #78523a;"></a>
+        </div>
         ${emojiContent}
         </div>
         <div class="category-chooser">
@@ -111,8 +126,17 @@ function getEmojiPickerMarkup(emojiContent) {
   `;
 }
 
-export function buildEmojiPicker(skinVariation = false) {
+export function buildEmojiPicker(rebuild = false) {
   let emojiContent = '';
+  let skinV;
+
+  const skinVariation = Number(localStorage['btd-skin-variation']) || 1;
+
+  if (skinVariation === 1) {
+    skinV = '';
+  } else {
+    skinV = `:skin-tone-${skinVariation}:`;
+  }
 
   Object.keys(catOrder).forEach((cat) => {
     emojiContent += `
@@ -121,7 +145,7 @@ export function buildEmojiPicker(skinVariation = false) {
     `;
 
     emojis.filter(emoji => emoji.cat === cat).forEach(emoji => {
-      emojiContent += getEmojiElement(emoji);
+      emojiContent += getEmojiElement(emoji, emoji.hs ? skinV : undefined);
     });
 
     emojiContent += '</div>';
@@ -129,30 +153,38 @@ export function buildEmojiPicker(skinVariation = false) {
 
   const emojiPickerMarkup = getEmojiPickerMarkup(emojiContent);
 
-  const emojiComposerButton = `
-  <button class="js-add-emojis js-show-tip needsclick btn btn-on-blue full-width txt-left margin-b--12 padding-v--9" data-original-title="" tabindex=""> <i class="icon btd-emoji-icon"></i> <span class="js-add-image-button-label label padding-ls">Emojis</span> </button>`;
+  if (!rebuild) {
+    const emojiComposerButton = `
+    <button class="js-add-emojis js-show-tip needsclick btn btn-on-blue full-width txt-left margin-b--12 padding-v--9" data-original-title="" tabindex=""> <i class="icon btd-emoji-icon"></i> <span class="js-add-image-button-label label padding-ls">Emojis</span> </button>`;
 
-  $('.js-add-image-button')[0].insertAdjacentHTML('beforebegin', emojiComposerButton);
+    $('.js-add-image-button')[0].insertAdjacentHTML('beforebegin', emojiComposerButton);
+  }
 
-  const emojiHolder = document.createElement('span');
-  emojiHolder.className = 'js-emoji-holder';
+  const emojiHolder = rebuild ? $('.js-emoji-holder')[0] : document.createElement('span');
+
+  if (!rebuild) {
+    emojiHolder.className = 'js-emoji-holder';
+  }
+
   emojiHolder.innerHTML = emojiPickerMarkup;
 
-  $('.js-add-emojis')[0].insertAdjacentHTML('afterend', emojiHolder.outerHTML);
+  if (!rebuild) {
+    $('.js-add-emojis')[0].insertAdjacentHTML('afterend', emojiHolder.outerHTML);
 
-  $('.js-add-emojis')[0].addEventListener('click', () => {
-    const emojiPop = $('.emoji-popover')[0];
+    $('.js-add-emojis')[0].addEventListener('click', () => {
+      const emojiPop = $('.emoji-popover')[0];
 
-    if (emojiPop.style.display === 'none') {
-      emojiPop.style.display = 'block';
-    } else {
-      emojiPop.style.display = 'none';
-    }
-  });
+      if (emojiPop.style.display === 'none') {
+        emojiPop.style.display = 'block';
+      } else {
+        emojiPop.style.display = 'none';
+      }
+    });
+  }
 
   $('.emoji-search input')[0].addEventListener('keyup', (ev) => {
     const val = String(ev.target.value);
-    $('.emoji-container .btd-emoji[title]').forEach(el => {
+    $('.emoji-container [title]').forEach(el => {
       el.style.display = 'inline-block';
     });
 
@@ -196,10 +228,20 @@ export function buildEmojiPicker(skinVariation = false) {
         emoji = ev.target.closest('[data-btd-shortcode]');
       }
 
-      const unified = getUnified({ s: emoji.getAttribute('data-btd-shortcode') });
+      const hasVariation = emoji.getAttribute('data-btd-has-variation') === 'true';
+      const unified = getUnified({ s: emoji.getAttribute('data-btd-shortcode'), hs: hasVariation }, skinV);
 
       insertAtCursor(tweetCompose, unified);
       tweetCompose.dispatchEvent(new Event('change'));
+    });
+  });
+
+  $('.emoji-popover .btd-skin-tone').forEach(skinToneEl => {
+    skinToneEl.addEventListener('click', (ev) => {
+      const skinTone = ev.target.getAttribute('data-btd-skin-tone');
+
+      localStorage['btd-skin-variation'] = skinTone;
+      buildEmojiPicker(true);
     });
   });
 
@@ -208,6 +250,10 @@ export function buildEmojiPicker(skinVariation = false) {
   document.addEventListener('click', () => {
     if (clickedOutsideElement('.emoji-popover') && clickedOutsideElement('.js-add-emojis') && emojiPicker.style.display === 'block') {
       emojiPicker.style.display = 'none';
+      $('.emoji-search input')[0].value = '';
+      $('.emoji-container [title]').forEach(el => {
+        el.style.display = 'inline-block';
+      });
     }
   });
 }
