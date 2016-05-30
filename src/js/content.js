@@ -239,7 +239,7 @@ function tweetHandler(tweet, columnKey, parent) {
     }
 
     if (settings.rtl_text_style) {
-      if (tweet.htmlText) {
+      if (tweet.htmlText && !tweet.targetTweet) {
         if (tweet.htmlText.match(/[\u0590-\u083F]|[\u08A0-\u08FF]|[\uFB1D-\uFDFF]|[\uFE70-\uFEFF]/mg)) {
           $('.tweet-text', node)[0].style.direction = 'rtl';
         }
