@@ -4,7 +4,11 @@ import { defaultsDeep } from 'lodash';
 
 const defaultSettings = {
   installed_date: new Date().getTime(),
-  ts: 'absolute_metric',
+  ts: 'relative',
+  custom_ts: {
+    short: '',
+    full: '',
+  },
   full_aft_24: true,
   nm_disp: 'inverted',
   no_hearts: false,

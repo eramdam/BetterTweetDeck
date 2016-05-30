@@ -2,6 +2,7 @@ import fecha from 'fecha';
 import { send as sendMessage } from './messaging';
 
 let timestampMode;
+let customMode;
 let fullAfter24;
 
 sendMessage({ action: 'get', key: 'ts' }, (response) => {
@@ -10,6 +11,10 @@ sendMessage({ action: 'get', key: 'ts' }, (response) => {
 
 sendMessage({ action: 'get', key: 'full_aft_24' }, (response) => {
   fullAfter24 = response.val;
+});
+
+sendMessage({ action: 'get', key: 'custom_ts' }, (response) => {
+  customMode = response.val;
 });
 
 const formatMaps = {
@@ -28,6 +33,13 @@ function moreThan24(d) {
 }
 
 function getFormat(dateObject, mode) {
+  if (mode === 'custom') {
+    if (fullAfter24 && moreThan24(dateObject)) {
+      return customMode.short;
+    }
+
+    return customMode.full;
+  }
   if (fullAfter24 && moreThan24(dateObject)) {
     return formatMaps[mode].short;
   }
