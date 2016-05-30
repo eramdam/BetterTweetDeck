@@ -1,0 +1,158 @@
+@import "normalize.css";
+
+:root {
+  --bg-sidebar: #2b2b2b;
+  --sidebar-content: #777;
+  --sidebar-highlight: white;
+}
+
+body {
+  font-family: BlinkMacSystemFont, "Segoe UI", 'Helvetica Neue', 'Helvetica';
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+#container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: white;
+  display: flex;
+  flex-direction: row;
+}
+
+.sidebar {
+  width: 170px;
+  flex-shrink: 0;
+  padding-left: 20px;
+  padding-right: 10px;
+  background-color: var(--bg-sidebar);
+  color: var(--sidebar-content);
+}
+
+.sidebar-logo {
+  color: white;
+  padding: 20px 0;
+}
+
+.sidebar-title {
+  color: var(--sidebar-highlight);
+  font-weight: 300;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  margin-left: -20px;
+  margin-right: -10px;
+}
+
+.nav-item {
+  text-decoration: none;
+  line-height: 1.8;
+  color: var(--sidebar-content);
+  transition: color 300ms;
+  padding: 0 20px;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  position: relative;
+}
+
+.nav-item.-selected,
+.nav-item:hover {
+  color: var(--sidebar-highlight);
+}
+
+.nav-item:hover::before,
+.nav-item.-selected::before {
+  transform: scaleX(1);
+}
+
+.nav-item::before {
+  content: '';
+  height: 100%;
+  width: 3px;
+  background: currentColor;
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  transition: transform 300ms ease;
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+
+.content {
+  flex: 1;
+  background: white;
+  position: relative;
+
+  color: #383838;
+}
+
+.content-block {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  padding: 20px;
+
+  visibility: hidden;
+  transition-property: transform, opacity;
+  transition-duration: 300ms, 250ms;
+  transition-timing-function: ease;
+  will-change: transform, opacity;
+  opacity: 0;
+  transform: translate(10%, 0);
+}
+
+.content-block.-selected {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+
+.section-title {
+  margin: 0;
+  font-weight: 400;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.settings-section {
+  margin: 2em 1em;
+}
+
+.settings-section {
+  h5 {
+    margin: 0;
+  }
+
+  ul, ol {
+    list-style: none;
+    padding-left: .7em;
+    font-size: 14px;
+
+    li {
+      line-height: normal;
+      margin: .65em 0;
+    }
+
+    input + label {
+      margin-left: .5em;
+    }
+
+    label small {
+      margin-left: .4em;
+      color: #ccc;
+      font-size: 80%;
+      font-style: normal;
+    }
+  }
+}

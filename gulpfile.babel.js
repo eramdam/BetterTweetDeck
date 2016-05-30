@@ -24,12 +24,10 @@ import nested from 'postcss-nested';
 const staticFiles = [
   'manifest.json',
   'icons/*.png',
-  'emojis/sheet_twitter_64.png'
+  'emojis/sheet_twitter_64.png',
+  'options/**/*.html',
+  'options/ui/*',
 ].map((i) => path.resolve('src/', i));
-
-const cssFiles = [
-  'src/css/index.css',
-];
 
 const toLintFiles = [
   'src/js/**/*.js',
@@ -109,17 +107,29 @@ gulp.task('js-background', () => {
   .pipe(gulp.dest('./dist/js'));
 });
 
-gulp.task('js', ['js-content', 'js-injected', 'js-background']);
+gulp.task('js-options', () => {
+  return buildWithBrowserify('src/options/options.js')
+  .pipe(gulp.dest('./dist/options'));
+});
+
+gulp.task('js', ['js-content', 'js-injected', 'js-background', 'js-options']);
 
 /**
  * `gulp css`
  * Compile the css files using PostCSS + cssnext
  */
 gulp.task('css', () => (
-  gulp.src(cssFiles)
+  gulp.src('src/css/index.css')
     .pipe(postcss(postCssPlugins))
     .pipe(isProduction() ? gutil.noop() : plumber())
     .pipe(gulp.dest('./dist/css'))
+));
+
+gulp.task('css-options', () => (
+  gulp.src('src/css/options/index.css')
+    .pipe(postcss(postCssPlugins))
+    .pipe(isProduction() ? gutil.noop() : plumber())
+    .pipe(gulp.dest('./dist/options/css'))
 ));
 
 /**
@@ -140,7 +150,7 @@ gulp.task('lint', () => (
 *
 */
 gulp.task('build', (done) => {
-  runSequence('clean', ['js', 'js-injected', 'static', 'css'], done);
+  runSequence('clean', ['js', 'static', 'css', 'css-options'], done);
 });
 
 /*
@@ -150,9 +160,9 @@ gulp.task('build', (done) => {
 *
 */
 gulp.task('default', (done) => {
-  runSequence('clean', ['css', 'js', 'static'], () => {
-    gulp.watch('./src/js/**/*.js', ['js']);
-    gulp.watch('./src/css/**/*.css', ['css']);
+  runSequence('clean', ['css', 'css-options', 'js', 'static'], () => {
+    gulp.watch(['./src/js/**/*.js',  './src/options/*.js'], ['js', 'js-options']);
+    gulp.watch(['./src/css/**/*.css'], ['css', 'css-options']);
     gulp.watch(staticFiles, ['static']);
     done();
   });

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Better TweetDeck Options</title>
+  <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<div id="container">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      Better TweetDeck<sup>3</sup>
+    </div>
+    <h3 class="sidebar-title">Settings</h3>
+    <nav class="sidebar-nav">
+      <a href="#tweets" class="nav-item -selected">Tweets</a>
+      <a href="#visual" class="nav-item">Appearance</a>
+      <a href="" class="nav-item">Item 3</a>
+    </nav>
+
+    <h3 class="sidebar-title">Meta</h3>
+    <nav class="sidebar-nav">
+      <a href="" class="nav-item">Item 1</a>
+      <a href="" class="nav-item">Item 2</a>
+      <a href="" class="nav-item">Item 3</a>
+    </nav>
+  </aside>
+
+  <main class="content">
+    <section class="content-block" id="tweets">
+      <h2 class="section-title">Tweets</h2>
+
+      <div class="settings-section">
+        <h5>Time should be:</h5>
+
+        <ul>
+          <li><input type="radio" name="timestamp" id="item1"><label for="item1">Relative (1m, 2h, 3d...)</label></li>
+          <li><input type="radio" name="timestamp" id="item2"><label for="item2">Absolute (dd/mm/yy hh:mm)</label></li>
+          <li><input type="radio" name="timestamp" id="item3"><label for="item3">Absolute "US Style" (mm/dd/yy hh:mm)</label></li>
+
+          <li><input type="checkbox" name="timestamp" id="item1"><label for="item1">Display full date after 24h only</label></li>
+        </ul>
+      </div>
+
+      <div class="settings-section">
+        <h5>Name display style</h5>
+
+        <ul>
+          <li><input type="radio" name="timestamp" id="item1"><label for="item1">Full name @Username</label></li>
+          <li><input type="radio" name="timestamp" id="item2"><label for="item2">@Username Full name</label></li>
+          <li><input type="radio" name="timestamp" id="item3"><label for="item3">@Username</label></li>
+          <li><input type="radio" name="timestamp" id="item3"><label for="item3">Full name</label></li>
+
+          <li><input type="checkbox" name="timestamp" id="item1"><label for="item1">The auto-completion displays only usernames</label></li>
+          <li><input type="checkbox" name="timestamp" id="item1"><label for="item1">Rounded avatars</label></li>
+        </ul>
+      </div>
+    </section>
+    <section class="content-block" id="visual">
+      <h2 class="section-title">Appearance</h2>
+    </section>
+  </main>
+</div>
+<script src="options.js"></script>
+</body>
+</html>
