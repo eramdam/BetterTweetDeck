@@ -278,6 +278,16 @@ on('BTDC_gotChirpForColumn', (ev, data) => {
   tweetHandler(chirp, colKey);
 });
 
+on('BTDC_chirpsWithGifs', (ev, data) => {
+  const { chirps, colKey } = data;
+
+  if (settings.stop_gifs) {
+    chirps.forEach(chirp => {
+      sendEvent('stopGifForChirp', { chirpKey: chirp.id, colKey });
+    });
+  }
+});
+
 on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
   const { markup, modalHtml, chirp, colKey } = data;
 

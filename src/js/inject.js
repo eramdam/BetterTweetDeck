@@ -1,3 +1,4 @@
+/* eslint no-underscore-dangle: 0 */
 const proxyEvent = (name, detail = {}) => {
   name = `BTDC_${name}`;
   let cache = [];
@@ -77,7 +78,17 @@ const postMessagesListeners = {
     }
 
     chirp.retweet();
-  }
+  },
+  BTDC_stopGifForChirp: (ev, data) => {
+    const { chirpKey, colKey } = data;
+
+    if ($(`[data-column="${colKey}"] [data-key="${chirpKey}"] video`).paused)
+      return;
+
+    setTimeout(() => {
+      $(`[data-column="${colKey}"] [data-key="${chirpKey}"] [rel="pause"]`)[0].click();
+    });
+  },
 };
 
 window.addEventListener('message', (ev) => {
@@ -95,17 +106,6 @@ window.addEventListener('message', (ev) => {
 const switchThemeClass = () => {
   document.body.dataset.btdtheme = TD.settings.getTheme();
 };
-
-// $(document).on('pauseGifForChrip', (ev) => {
-//   const { chirpKey, colKey } = ev.originalEvent.detail;
-//
-//   if (!TD.controller.columnManager.get(colKey)) {
-//     return;
-//   }
-//
-//   // TD.controller.columnManager.getAll()['c1463020636333s120'].chirpsWithPlayingGifs
-//   // TD.controller.columnManager.getAll()['c1463020636333s120'].ui.pauseGif({id: '730595756940378113'})
-// })
 
 document.addEventListener('DOMNodeInserted', (ev) => {
   if (!ev.target.hasAttribute || !ev.target.hasAttribute('data-key')) {
@@ -125,7 +125,32 @@ document.addEventListener('DOMNodeInserted', (ev) => {
     return;
   }
 
+  if (chirp._hasAnimatedGif) {
+    const videoEl = $(`[data-key="${chirp.entities.media[0].id}"] video`)[0];
+
+    if (videoEl && videoEl.paused) {
+      return;
+    }
+
+    proxyEvent('chirpsWithGifs', {
+      chirps: [chirp],
+      colKey,
+    });
+  }
+
   proxyEvent('gotChirpForColumn', { chirp, colKey });
+});
+
+$(document).on('uiVisibleChirps', (ev, data) => {
+  const { chirpsData, columnKey } = data;
+  const isThereGifs = chirpsData.filter(chirp => chirp.chirp._hasAnimatedGif && !chirp.$elem[0].querySelector('video').paused).length > 0;
+
+  if (isThereGifs) {
+    proxyEvent('chirpsWithGifs', {
+      chirps: chirpsData.filter(chirp => chirp.chirp._hasAnimatedGif),
+      colKey: columnKey,
+    });
+  }
 });
 
 

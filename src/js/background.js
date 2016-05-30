@@ -11,6 +11,7 @@ const defaultSettings = {
   no_tco: true,
   flash_tweets: 'mentions',
   rtl_text_style: true,
+  stop_gifs: true,
   css: {
     round_pic: true,
     no_col_icns: true,
