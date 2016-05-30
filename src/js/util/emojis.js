@@ -77,7 +77,9 @@ function getImage(emoji) {
 }
 
 function getEmojiElement(emoji) {
-  return `<a href="#" title="${emoji.n}" data-btd-shortcode="${emoji.s}" class="btd-emoji">${getImage(emoji)}</a>`;
+  const title = emoji.n || '';
+
+  return `<a href="#" title="${title.toLowerCase()}" data-btd-shortcode="${emoji.s}" class="btd-emoji">${getImage(emoji)}</a>`;
 }
 
 function getEmojiPickerMarkup(emojiContent) {
@@ -88,6 +90,9 @@ function getEmojiPickerMarkup(emojiContent) {
         <span class="caret-inner"></span>
       </div>
       <div class="emojis-compose-panel">
+        <div class="emoji-search">
+          <input type="text" />
+        </div>
         <div class="emoji-container">
         ${emojiContent}
         </div>
@@ -143,6 +148,23 @@ export function buildEmojiPicker(skinVariation = false) {
     } else {
       emojiPop.style.display = 'none';
     }
+  });
+
+  $('.emoji-search input')[0].addEventListener('keyup', (ev) => {
+    const val = String(ev.target.value);
+    $('.emoji-container .btd-emoji[title]').forEach(el => {
+      el.style.display = 'inline-block';
+    });
+
+    if (val.length < 1 || /^\s$/.test(val)) {
+      return;
+    }
+
+    const emojisToHide = $(`.emoji-container .btd-emoji:not([title*="${val}"])`);
+
+    emojisToHide.forEach(el => {
+      el.style.display = 'none';
+    });
   });
 
   $('.category-chooser button').forEach(catButton => {
