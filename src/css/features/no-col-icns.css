@@ -1,0 +1,9 @@
+.btd__no_col_icns .js-column-header {
+  .column-type-icon {
+    display: none;
+  }
+
+  h1.column-title {
+      margin-left: 10px;
+  }
+}

@@ -1,0 +1,3 @@
+.btd__hide_context:not(.btd__minimal_mode) .js-stream-item-content .tweet-context {
+	display: none;
+}

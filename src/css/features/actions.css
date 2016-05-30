@@ -1,0 +1,12 @@
+.btd__actions_on_right .js-stream-item .js-tweet-actions {
+	float: right !important;
+	width: auto !important;
+}
+
+.btd__actions_on_hover .js-stream-item .js-tweet-actions {
+	opacity: 0 !important;
+}
+
+.btd__actions_on_hover .js-stream-item:hover .js-tweet-actions {
+	opacity: 1 !important;
+}

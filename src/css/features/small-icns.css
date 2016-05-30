@@ -1,0 +1,14 @@
+.btd__small_icns_compose {
+  .js-add-image-button,
+  .js-schedule-button,
+  .js-add-emojis,
+  .js-tweet-type-button > button {
+    width: auto !important;
+    float: left !important;
+    margin-right: 4px;
+
+    .label {
+      display: none;
+    }
+  }
+}

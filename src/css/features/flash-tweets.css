@@ -1,0 +1,17 @@
+@keyframes tweetEnter {
+	from { background-color: rgba(54, 82, 122, 1); }
+	to { background-color: rgba(54, 82, 122, 0); }
+}
+
+.btd__flash_tweets {
+
+	&.btd__flash-mentions :matches(.column-type-interactions, .column-type-mention) .js-chirp-container > article:first-of-type {
+	    animation-duration: 2s;
+	    animation-name: tweetEnter;
+	}
+
+	&.btd__flash-all [class*="column-type"] .js-chirp-container > article:first-of-type {
+	   animation-duration: 2s;
+	   animation-name: tweetEnter;
+	}
+}

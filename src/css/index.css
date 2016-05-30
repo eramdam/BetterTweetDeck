@@ -1,6 +1,21 @@
+/* Minimal themes + variations */
 @import './minimal.css';
 @import './theme-dark.css';
 @import './theme-light.css';
+
+/* Visual Features */
+@import './features/actions.css';
+@import './features/flash-tweets.css';
+@import './features/gray-notif-icns.css';
+@import './features/hide-context.css';
+@import './features/no-col-icns.css';
+@import './features/no-play-btn.css';
+@import './features/round-pic.css';
+@import './features/show-verified.css';
+@import './features/small-icns.css';
+@import './features/username-typeahead.css';
+
+/* Emoji Panel */
 @import './emoji-panel.css';
 
 :root {
@@ -13,71 +28,6 @@
   --compose-btn-bg-light: #707375;
   --compose-btn-bg-light-hover: color(var(--compose-btn-bg-light) shade(20%));
   --main-bg-white: #ffffff;
-}
-
-.btd__round_pic :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
-  border-radius: 50%;
-}
-
-.btd__no_col_icns .js-column-header {
-  .column-type-icon {
-    display: none;
-  }
-
-  h1.column-title {
-      margin-left: 10px;
-  }
-}
-
-.btd__no_play_btn .video-overlay.icon-with-bg-round {
-  display: none;
-}
-
-.btd__gray_icns_notifs .activity-header .activity-indicator.icon,
-.btd__gray_icns_notifs .tweet-context .icon-retweet {
-  color: #999;
-}
-
-.btd__usrname_only_typeahed .typeahead-item {
-  .fullname {
-    display: none;
-  }
-
-  .username {
-    color: #444;
-  }
-}
-
-.btd__small_icns_compose {
-  .js-add-image-button,
-  .js-schedule-button,
-  .js-add-emojis,
-  .js-tweet-type-button > button {
-    width: auto !important;
-    float: left !important;
-    margin-right: 4px;
-
-    .label {
-      display: none;
-    }
-  }
-}
-
-.btd__hide_view_conversation .js-stream-item-content .link-complex[rel="viewDetails"] {
-	display: none;
-}
-
-.btd__actions_on_right .js-stream-item .js-tweet-actions {
-	float: right !important;
-	width: auto !important;
-}
-
-.btd__actions_on_hover .js-stream-item .js-tweet-actions {
-	opacity: 0 !important;
-}
-
-.btd__actions_on_hover .js-stream-item:hover .js-tweet-actions {
-	opacity: 1 !important;
 }
 
 [data-btdtheme] .dropdown-menu {
