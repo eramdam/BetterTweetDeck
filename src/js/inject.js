@@ -177,7 +177,7 @@ $(document).on('uiDetailViewOpening', (ev, data) => {
 });
 
 $(document).on('dataColumns', (ev, data) => {
-  const cols = data.columns.map((col) => ({
+  const cols = data.columns.filter(col => col.model.state.settings).map((col) => ({
     id: col.model.privateState.key,
     mediaSize: col.model.state.settings.media_preview_size,
   }));
