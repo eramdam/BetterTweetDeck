@@ -19,3 +19,12 @@
     background-image: radial-gradient(circle 11px, white 50%, color(white a(0)) 51%);
   }
 }
+
+.btd__show_verified .js-stream-item .has-source-avatar .item-img.btd-is-verified:before {
+  bottom: -5px;
+  right: -3px;
+  transform-origin: bottom right;
+  transform: scale(.8);
+  background-image: radial-gradient(20px, rgb(255, 255, 255) 30%, rgba(255, 255, 255, 0) 31%);
+  background-position: 0px 1px;
+}
