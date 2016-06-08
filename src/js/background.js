@@ -37,7 +37,7 @@ const defaultSettings = {
   },
 };
 
-const contextMenuHandler = (info, tab, settings) => {
+function contextMenuHandler(info, tab, settings) {
   const urlToShare = info.linkUrl || info.srcUrl || info.pageUrl;
   let textToShare = info.selectionText || tab.title;
 
@@ -69,10 +69,14 @@ const contextMenuHandler = (info, tab, settings) => {
       });
     });
   });
-};
+}
 
 BHelper.settings.getAll(settings => {
   BHelper.settings.setAll(defaultsDeep(settings, defaultSettings), (newSettings) => {
+    chrome.tabs.create({
+      url: 'options/options.html?on=install',
+    });
+
     chrome.contextMenus.create({
       title: 'Share on TweetDeck',
       contexts: ['page', 'selection', 'image', 'link'],

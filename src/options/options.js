@@ -1,8 +1,9 @@
 import { send as sendMessage } from '../js/util/messaging';
 import * as BHelper from '../js/util/browserHelper';
-import Prism from 'prismjs';
 
 import $ from 'jquery';
+import Prism from 'prismjs';
+import queryString from 'query-string';
 
 sendMessage({ action: 'get_settings' }, (response) => {
   const settingsStr = JSON.stringify(response, null, 2);
@@ -21,6 +22,15 @@ $('.sidebar-nav a[href^="#"]').on('click', (ev) => {
   $('.sidebar-nav a, .content-block').removeClass('-selected');
   $(`.sidebar-nav a[href="#${href}"], .content-block#${href}`).addClass('-selected');
 });
+
+if (Object.keys(queryString.parse(location.search)).length > 0) {
+  const QS = queryString.parse(location.search);
+
+  if (QS.on === 'install') {
+    $('.sidebar-nav a, .content-block').removeClass('-selected');
+    $('.sidebar-nav a[href="#onInstall"], .content-block#onInstall').addClass('-selected');
+  }
+}
 
 $('.sidebar-version-number').text(`v${BHelper.getVersion()}`);
 $('.settings-version-number').text(BHelper.getVersion());

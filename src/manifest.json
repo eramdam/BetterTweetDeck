@@ -4,6 +4,7 @@
 	"version": "3.0.0",
 	"manifest_version": 2,
 	"description": "ᕕ( ᐛ )ᕗ",
+	"homepage_url": "https://github.com/OctoLinker/browser-extension/",
 	"content_scripts": [{
 		"matches": ["https://tweetdeck.twitter.com/*","http://tweetdeck.twitter.com/*"],
 		"js": ["js/content.js"],
