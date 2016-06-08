@@ -52,6 +52,7 @@
     "postcss-import": "^8.1.2",
     "postcss-nested": "^1.0.0",
     "postcss-url": "^5.1.2",
+    "prismjs": "^1.5.1",
     "promise-each": "^2.2.0",
     "reuse-promise": "^1.0.1",
     "run-sequence": ">=1.1.2",

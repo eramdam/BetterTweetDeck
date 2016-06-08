@@ -1,9 +1,11 @@
 @import "normalize.css";
+@import "../../../node_modules/prismjs/themes/prism.css";
 
 :root {
   --bg-sidebar: #2b2b2b;
   --sidebar-content: #777;
   --sidebar-highlight: white;
+  --link-color: #55acee;
 }
 
 body {
@@ -24,15 +26,42 @@ body {
 .sidebar {
   width: 170px;
   flex-shrink: 0;
-  padding-left: 20px;
+  padding-left: 10px;
   padding-right: 10px;
   background-color: var(--bg-sidebar);
   color: var(--sidebar-content);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar .nav-flex {
+  flex: 1;
+  padding-left: 10px;
 }
 
 .sidebar-logo {
   color: white;
-  padding: 20px 0;
+  padding-top:20px;
+  padding-bottom: 10px;
+
+  font-size: 14px;
+}
+
+.sidebar-icon {
+  width: 32px;
+  vertical-align: middle;
+  margin-right: .5em;
+  display: inline-block;
+}
+
+.sidebar-name {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.sidebar-version-number {
+  color: color(white a(40%))
 }
 
 .sidebar-title {
@@ -91,6 +120,7 @@ body {
   position: relative;
 
   color: #383838;
+  overflow: auto;
 }
 
 .content-block {
@@ -132,25 +162,56 @@ body {
     margin: 0;
   }
 
+  a {
+    text-decoration: none;
+    color: var(--link-color);
+    transition: color 300ms ease;
+  }
+
+  a:visited {
+    color: color(var(--link-color) shade(20%));
+  }
+
+  a:hover, a:active {
+    color: color(var(--link-color) shade(50%));
+  }
+
   ul, ol {
     list-style: none;
     padding-left: .7em;
     font-size: 14px;
 
     li {
-      line-height: normal;
-      margin: .65em 0;
+      line-height: 1.6;
+      margin: .6em 0;
     }
 
     input + label {
       margin-left: .5em;
     }
 
-    label small {
+    label small,
+    li small {
       margin-left: .4em;
       color: #ccc;
       font-size: 80%;
       font-style: normal;
+
+      a {
+        color: color(var(--link-color) saturation(0) shade(20%));
+      }
+
+      a:visited {
+        color: color(var(--link-color) saturation(0) shade(20%));
+      }
+
+      a:hover, a:active {
+        color: color(var(--link-color) saturation(0) shade(50%));
+      }
     }
   }
+}
+
+.settings-pre {
+  max-height: 20em;
 }

@@ -8,22 +8,33 @@
 <body>
 <div id="container">
   <aside class="sidebar">
-    <div class="sidebar-logo">
-      Better TweetDeck<sup>3</sup>
-    </div>
-    <h3 class="sidebar-title">Settings</h3>
-    <nav class="sidebar-nav">
-      <a href="#tweets" class="nav-item -selected">Tweets</a>
-      <a href="#visual" class="nav-item">Appearance</a>
-      <a href="" class="nav-item">Item 3</a>
-    </nav>
+    <div class="nav-flex">
+      <h3 class="sidebar-title">Settings</h3>
+      <nav class="sidebar-nav">
+        <a href="#tweets" class="nav-item -selected">Tweets</a>
+        <a href="#visual" class="nav-item">Appearance</a>
+      </nav>
 
-    <h3 class="sidebar-title">Meta</h3>
-    <nav class="sidebar-nav">
-      <a href="" class="nav-item">Item 1</a>
-      <a href="" class="nav-item">Item 2</a>
-      <a href="" class="nav-item">Item 3</a>
-    </nav>
+      <h3 class="sidebar-title">Meta</h3>
+      <nav class="sidebar-nav">
+        <a href="#credits" class="nav-item">Credits / About</a>
+        <a href="#debug" class="nav-item">Debug Infos</a>
+      </nav>
+
+      <h3 class="sidebar-title">Links</h3>
+      <nav class="sidebar-nav">
+        <a href="https://twitter.com/BetterTDeck" class="nav-item">@BetterTDeck</a>
+        <a href="https://github.com/eramdam/BetterTweetDeck" class="nav-item">GitHub</a>
+        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK9SQ6ZDE9UF2&lc=US&item_name=Damien%20Erambert&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted" class="nav-item">Donate</a>
+      </nav>
+    </div>
+    <div class="sidebar-logo">
+      <img src="img/icon-sidebar.png" alt="" class="sidebar-icon">
+      <span class="sidebar-name">
+        Better TweetDeck <br>
+        <small class="sidebar-version-number">v3.0.0</small>
+      </span>
+    </div>
   </aside>
 
   <main class="content">
@@ -46,7 +57,7 @@
         <h5>Name display style</h5>
 
         <ul>
-          <li><input type="radio" name="timestamp" id="item1"><label for="item1">Full name @Username</label></li>
+          <li><input type="radio" name="timestamp" id="item1"><label for="item1">Full name @Username <small>lorem ipsum</small></label></li>
           <li><input type="radio" name="timestamp" id="item2"><label for="item2">@Username Full name</label></li>
           <li><input type="radio" name="timestamp" id="item3"><label for="item3">@Username</label></li>
           <li><input type="radio" name="timestamp" id="item3"><label for="item3">Full name</label></li>
@@ -56,8 +67,65 @@
         </ul>
       </div>
     </section>
+
     <section class="content-block" id="visual">
       <h2 class="section-title">Appearance</h2>
+    </section>
+
+    <section class="content-block" id="debug">
+      <div class="settings-section">
+        <h5>Informations</h5>
+
+        <ul>
+          <li>Version: <span class="settings-version-number"></span></li>
+          <li>User-Agent: <span class="settings-user-agent"></span></li>
+        </ul>
+      </div>
+
+      <div class="settings-section">
+        <h5>Settings dump</h5>
+
+        <pre class="settings-pre"><code class="settings-dump language-json"></code></pre>
+      </div>
+    </section>
+
+    <section class="content-block" id="credits">
+      <h2 class="section-title">Credits / About</h2>
+
+      <div class="settings-section">
+        <h5>Author</h5>
+
+        <ul>
+          <li>Damien Erambert</li>
+        </ul>
+
+        <h5>Contributors</h5>
+
+        <ul class="settings-contributors"></ul>
+
+        <h5>Ressources used</h5>
+
+        <ul class="settings-deps">
+        </ul>
+
+        <h5>Links</h5>
+
+        <ul>
+          <li><a href="https://chrome.google.com/webstore/detail/bettertweetdeck/micblkellenpbfapmcpcfhcoeohhnpob">Chrome Web Store</a></li>
+          <li>
+            <a href="https://twitter.com/BetterTDeck/">Better TweetDeck on Twitter</a>
+          </li>
+          <li>
+            <a href="https://github.com/eramdam/BetterTweetDeck/issues">Bugs or suggestions</a>
+          </li>
+          <li>
+            <a href="https://github.com/eramdam/BetterTweetDeck">Source code on GitHub</a>
+          </li>
+          <li>
+            <a href="http://erambert.me/">Author's website</a>
+          </li>
+        </ul>
+      </div>
     </section>
   </main>
 </div>

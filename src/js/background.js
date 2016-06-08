@@ -35,7 +35,6 @@ const defaultSettings = {
     enabled: true,
     short_txt: false,
   },
-  firefox: true,
 };
 
 const contextMenuHandler = (info, tab, settings) => {

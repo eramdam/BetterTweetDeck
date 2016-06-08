@@ -27,6 +27,7 @@ const staticFiles = [
   'emojis/sheet_twitter_64.png',
   'options/**/*.html',
   'options/ui/*',
+  'options/img/*',
 ].map((i) => path.resolve('src/', i));
 
 const toLintFiles = [
