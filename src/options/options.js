@@ -1,14 +1,38 @@
 import { send as sendMessage } from '../js/util/messaging';
 import * as BHelper from '../js/util/browserHelper';
+import { schemeWhitelist } from '../js/util/thumbnails';
 
 import $ from 'jquery';
+import _ from 'lodash';
 import Prism from 'prismjs';
 import queryString from 'query-string';
 
 sendMessage({ action: 'get_settings' }, (response) => {
   const settingsStr = JSON.stringify(response, null, 2);
+  const settings = response.settings;
 
   $('.settings-dump').html(Prism.highlight(settingsStr, Prism.languages.js));
+
+  _.forEach(settings, (val, key) => {
+    if (_.isObject(val)) {
+      _.forEach(val, (value, keyname) => {
+        const name = `${key}.${keyname}`;
+        console.log($(`input[name="${name}"]`));
+      });
+    } else {
+      const name = key;
+      console.log($(`input[name="${name}"]`));
+    }
+  });
+
+  schemeWhitelist.forEach(scheme => {
+    $('.settings-thumbnails-providers-list').append(`
+      <li>
+        <input type="checkbox" name="thumbnails.${scheme.setting}" id="${scheme.setting}" ${settings.thumbnails[scheme.setting] ? 'checked' : ''}>
+        <label for="${scheme.setting}">${scheme.name} <small>${scheme.re.toString()}</small></label>
+      </li>
+    `);
+  });
 });
 
 $('.sidebar-nav:first-child a:first-child, .content-block:first-child').addClass('-selected');
@@ -35,7 +59,6 @@ if (Object.keys(queryString.parse(location.search)).length > 0) {
 $('.sidebar-version-number').text(`v${BHelper.getVersion()}`);
 $('.settings-version-number').text(BHelper.getVersion());
 $('.settings-user-agent').text(window.navigator.userAgent);
-
 
 fetch('https://api.github.com/repos/eramdam/BetterTweetDeck/contributors').then(res => {
   res.json().then(json => {

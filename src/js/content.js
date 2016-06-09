@@ -104,7 +104,7 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
 
 function thumbnailsFromURLs(urls, node, mediaSize) {
   return Promise.resolve(urls).then(each((url) => {
-    if (url.type || url.sizes || Thumbnails.ignoreUrl(url.expanded_url)) {
+    if (url.type || url.sizes || !Thumbnails.validateUrl(url.expanded_url)) {
       return false;
     }
 
