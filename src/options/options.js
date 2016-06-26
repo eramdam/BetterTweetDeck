@@ -30,9 +30,11 @@ sendMessage({ action: 'get_settings' }, (response) => {
           $(`input[name="${name}"]`).attr('checked', true);
         }
 
-        if (key === 'custom_ts' && settings.ts === 'custom') {
-          $('input[name="ts"]#custom ~ ul input').removeAttr('disabled');
-          console.log(name, settings.custom_ts[keyname]);
+        if (key === 'custom_ts') {
+          if (settings.ts === 'custom') {
+            $('input[name="ts"]#custom ~ ul input').removeAttr('disabled');
+          }
+
           $(`input[name="${name}"]`).val(settings.custom_ts[keyname]);
         }
       });
