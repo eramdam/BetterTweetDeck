@@ -21,6 +21,7 @@ const settingsKey = 'BTD_Settings';
 const storage = chrome.storage.sync || chrome.storage.local;
 
 export const getVersion = () => chrome.app.getDetails().version;
+export const getUA = () => window.navigator.userAgent;
 
 export const settings = {
   get(property, cb) {

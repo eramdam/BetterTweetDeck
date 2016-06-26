@@ -66,7 +66,7 @@ if (Object.keys(queryString.parse(location.search)).length > 0) {
 
 $('.sidebar-version-number').text(`v${BHelper.getVersion()}`);
 $('.settings-version-number').text(BHelper.getVersion());
-$('.settings-user-agent').text(window.navigator.userAgent);
+$('.settings-user-agent').text(BHelper.getUA());
 
 fetch('https://api.github.com/repos/eramdam/BetterTweetDeck/contributors').then(res => {
   res.json().then(json => {
