@@ -7,12 +7,20 @@ import _ from 'lodash';
 import Prism from 'prismjs';
 import queryString from 'query-string';
 
+/**
+ * When got the settings we initliase the view
+ */
 sendMessage({ action: 'get_settings' }, (response) => {
   const settingsStr = JSON.stringify(response, null, 2);
   const settings = response.settings;
 
+  console.log(settings);
+
   $('.settings-dump').html(Prism.highlight(settingsStr, Prism.languages.js));
 
+  /**
+   * We go through the settings object and check or not the inputs accordingly
+   */
   _.forEach(settings, (val, key) => {
     if (_.isObject(val)) {
       _.forEach(val, (value, keyname) => {
@@ -20,6 +28,12 @@ sendMessage({ action: 'get_settings' }, (response) => {
 
         if (value) {
           $(`input[name="${name}"]`).attr('checked', true);
+        }
+
+        if (key === 'custom_ts' && settings.ts === 'custom') {
+          $('input[name="ts"]#custom ~ ul input').removeAttr('disabled');
+          console.log(name, settings.custom_ts[keyname]);
+          $(`input[name="${name}"]`).val(settings.custom_ts[keyname]);
         }
       });
     } else {
@@ -33,6 +47,9 @@ sendMessage({ action: 'get_settings' }, (response) => {
     }
   });
 
+  /**
+   * Special treatment for thumb providers list who gets created from the source directly
+   */
   schemeWhitelist.forEach(scheme => {
     $('.settings-thumbnails-providers-list').append(`
       <li>
@@ -40,6 +57,63 @@ sendMessage({ action: 'get_settings' }, (response) => {
         <label for="${scheme.setting}">${scheme.name} <small>${scheme.re.toString()}</small></label>
       </li>
     `);
+  });
+
+  /**
+   * Updating the settings when inputs change
+   */
+
+  $('input[name]').on('change', (e) => {
+    $('.save-button').text('Save changes').removeAttr('disabled');
+
+    if (e.target.type === 'radio') {
+      if (e.target.hasAttribute('data-ghost')) {
+        $(e.target).parent()
+                   .find('ul input')
+                   .removeAttr('disabled');
+      } else {
+        $('[data-ghost] ~ ul input').attr('disabled', '');
+      }
+    }
+  });
+
+  $('button.save-button').click(() => {
+    const newSettings = {};
+    $('input[name]').each((i, el) => {
+      const input = el;
+      const type = input.getAttribute('type').toLowerCase();
+      const name = input.getAttribute('name');
+      const nameArr = name.split('.');
+      const isChecked = $(el).is(':checked');
+
+      if (name.includes('.')) {
+        if (!newSettings[nameArr[0]]) {
+          newSettings[nameArr[0]] = {};
+        }
+
+        if (type === 'radio' && isChecked) {
+          newSettings[nameArr[0]][nameArr[1]] = input.getAttribute('id');
+        } else if (type === 'checkbox') {
+          newSettings[nameArr[0]][nameArr[1]] = isChecked;
+        } else if (type === 'text') {
+          console.log(input.value);
+          newSettings[nameArr[0]][nameArr[1]] = input.value;
+        }
+      } else {
+        if (type === 'radio' && isChecked) {
+          newSettings[name] = input.getAttribute('id');
+        } else if (type === 'checkbox') {
+          newSettings[name] = isChecked;
+        } else if (type === 'text') {
+          newSettings[name] = input.value;
+        }
+      }
+    });
+
+    // console.log(settings);
+    console.log(newSettings);
+    BHelper.settings.set(newSettings);
+    $('.save-button').text('No changes').attr('disabled', '');
   });
 });
 

@@ -57,6 +57,17 @@
           <li>
             <input type="radio" name="ts" id="absolute_us"><label for="absolute_us">Absolute US Style<small>mm/dd/yy hh:mm</small></label>
           </li>
+          <li>
+            <input type="radio" name="ts" data-ghost id="custom"><label for="custom">Custom format (<a target="_blank" href="https://github.com/taylorhakes/fecha#formatting-tokens">Formatting help</a>)</label>
+            <ul>
+              <li>
+                <label class="left-label" for="custom_ts.short">Short</label> <input disabled type="text" name="custom_ts.short">
+              </li>
+              <li>
+                <label class="left-label" for="custom_ts.full">Full</label> <input disabled type="text" name="custom_ts.full">
+              </li>
+            </ul>
+          </li>
 
           <li>
             <input type="checkbox" name="full_aft_24" id="full_aft_24"><label for="full_aft_24">Display full date after 24h</label>
@@ -268,6 +279,10 @@
         </ul>
       </div>
     </section>
+
+    <div class="save-bar">
+      <button class="save-button" disabled>No changes</button>
+    </div>
   </main>
 </div>
 <script src="options.js"></script>

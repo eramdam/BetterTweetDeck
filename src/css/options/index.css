@@ -24,10 +24,11 @@ body {
 }
 
 .sidebar {
-  width: 190px;
+  width: 210px;
   flex-shrink: 0;
   padding-left: 10px;
   padding-right: 10px;
+  box-sizing: border-box;
   background-color: var(--bg-sidebar);
   color: var(--sidebar-content);
 
@@ -121,8 +122,6 @@ body {
   position: relative;
 
   color: #383838;
-  overflow: auto;
-  overflow-x: hidden;
 }
 
 .content-block {
@@ -130,8 +129,9 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: 42px;
   background: white;
+  overflow: auto;
   padding: 20px;
 
   visibility: hidden;
@@ -144,6 +144,38 @@ body {
   visibility: visible;
   transform: translate(0, 0);
   opacity: 1;
+}
+
+.save-bar {
+  position: absolute;
+  background: white;
+  border-top: 1px solid color(black a(14%));
+  padding: 10px;
+  box-sizing: border-box;
+  /*width: calc(100% - 210px);*/
+  width: 100%;
+  height: 42px;
+  bottom: 0;
+  z-index: 9;
+
+  color: color(black a(46%));
+}
+
+.save-button {
+  float: right;
+  outline: none;
+  background: white;
+  border: none;
+  font-size: 11px;
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px color(black a(10%)), 0 1px 2px color(black a(20%));
+}
+
+
+.save-button:active {
+  color: white;
+  background-image: linear-gradient(#67b0fa, #3584fe);
+  box-shadow: 0 0 0 1px color(black a(10%)), 0 0 1px 2px #b2d7ff, 0 1px 2px color(black a(20%));
 }
 
 
@@ -183,6 +215,10 @@ body {
     padding-left: .7em;
     font-size: 14px;
 
+    ul, ol {
+      padding-left: 1.4em;
+    }
+
     li {
       line-height: 1.6;
       margin: .6em 0;
@@ -190,6 +226,13 @@ body {
 
     input + label {
       margin-left: .5em;
+    }
+
+    label.left-label {
+      margin-right: .4em;
+      min-width: 50px;
+      text-align: right;
+      display: inline-block;
     }
 
     label small,
