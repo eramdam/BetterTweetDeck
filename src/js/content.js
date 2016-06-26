@@ -59,7 +59,7 @@ function expandURL(url, node) {
 function thumbnailFromSingleURL(url, node, mediaSize) {
   const anchors = $(`a[href="${url.expanded_url}"]`, node);
 
-  if (!anchors || !mediaSize) {
+  if (!anchors || mediaSize === 'off') {
     return Promise.resolve();
   }
 
@@ -347,6 +347,6 @@ on('BTDC_columnsChanged', (ev, data) => {
 
   colsArray.filter(col => col.id)
            .forEach(col => {
-             COLUMNS_MEDIA_SIZES.set(col.id, col.mediaSize);
+             COLUMNS_MEDIA_SIZES.set(col.id, col.mediaSize || 'medium');
            });
 });
