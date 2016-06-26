@@ -36,9 +36,9 @@ Yep. 2.0 was faster and more efficient than 1.0 but the codebase was messy. And 
 - [x] Remove the t.co redirection
 - [x] Restore the emoji panel
 - [x] Add the "Share on BTD" contextual item
-- [ ] Do an options page
+- [x] Do an options page
     - [ ] Restore the i18n support
-    - [ ] Make it more maintainable than the previous one
+    - [x] Make it more maintainable than the previous one
 - [x] Make the extension run on Firefox
 
 
