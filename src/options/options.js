@@ -17,11 +17,19 @@ sendMessage({ action: 'get_settings' }, (response) => {
     if (_.isObject(val)) {
       _.forEach(val, (value, keyname) => {
         const name = `${key}.${keyname}`;
-        console.log($(`input[name="${name}"]`));
+
+        if (value) {
+          $(`input[name="${name}"]`).attr('checked', true);
+        }
       });
     } else {
       const name = key;
-      console.log($(`input[name="${name}"]`));
+
+      if (_.isBoolean(val)) {
+        $(`input[name="${name}"]`).attr('checked', val);
+      } else {
+        $(`input[name="${name}"]#${val}`).attr('checked', true);
+      }
     }
   });
 
