@@ -82,8 +82,9 @@ const postMessagesListeners = {
   BTDC_stopGifForChirp: (ev, data) => {
     const { chirpKey, colKey } = data;
 
-    if ($(`[data-column="${colKey}"] [data-key="${chirpKey}"] video`).paused)
+    if ($(`[data-column="${colKey}"] [data-key="${chirpKey}"] video`).paused) {
       return;
+    }
 
     setTimeout(() => {
       $(`[data-column="${colKey}"] [data-key="${chirpKey}"] [rel="pause"]`)[0].click();
@@ -108,6 +109,15 @@ const switchThemeClass = () => {
 };
 
 document.addEventListener('DOMNodeInserted', (ev) => {
+  if (ev.target.classList && ev.target.classList.contains('js-mediatable')) {
+    const chirpKey = ev.target.querySelector('[data-key]').getAttribute('data-key');
+    const colKey = document.querySelector(`[data-column] [data-key="${chirpKey}"]`).closest('[data-column]').getAttribute('data-column');
+
+    const chirp = TD.controller.columnManager.get(colKey).updateIndex[chirpKey];
+
+    proxyEvent('gotChirpInMediaModal', { chirp });
+  }
+
   if (!ev.target.hasAttribute || !ev.target.hasAttribute('data-key')) {
     return;
   }

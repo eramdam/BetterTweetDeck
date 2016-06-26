@@ -113,12 +113,22 @@ function thumbnailsFromURLs(urls, node, mediaSize) {
 }
 
 function tweetHandler(tweet, columnKey, parent) {
-  if (!parent) {
-    if (!$(`.js-column[data-column="${columnKey}"]`)) console.log(tweet, columnKey);
+  const hasParent = Boolean(parent);
+
+  if (!hasParent) {
+    if (!$(`.js-column[data-column="${columnKey}"]`)) {
+      console.log(tweet, columnKey);
+    }
     parent = $(`.js-column[data-column="${columnKey}"]`)[0];
   }
 
-  let nodes = $(`.stream-item[data-key="${tweet.id}"]`, parent);
+  let nodes;
+
+  if (!hasParent) {
+    nodes = $(`.stream-item[data-key="${tweet.id}"]`, parent);
+  } else {
+    nodes = $(`[data-key="${tweet.id}"]`, parent);
+  }
 
   if (!nodes && tweet.messageThreadId) {
     nodes = $(`.stream-item[data-key="${tweet.messageThreadId}"]`, parent);
@@ -230,7 +240,7 @@ function tweetHandler(tweet, columnKey, parent) {
 
       const urlForThumbnail = urlsToChange.filter(url => !url.id).pop();
 
-      if (!urlForThumbnail) {
+      if (!urlForThumbnail || !node.closest('[data-column]')) {
         return;
       }
       // We pass a single URL even though the code is ready to handle multiples URLs
@@ -276,6 +286,12 @@ on('BTDC_gotChirpForColumn', (ev, data) => {
   const { chirp, colKey } = data;
 
   tweetHandler(chirp, colKey);
+});
+
+on('BTDC_gotChirpInMediaModal', (ev, data) => {
+  const { chirp } = data;
+
+  tweetHandler(chirp, null, $('.js-mediatable')[0]);
 });
 
 on('BTDC_chirpsWithGifs', (ev, data) => {
