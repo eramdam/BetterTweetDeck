@@ -52,6 +52,13 @@ For now, there won't be new features. But I have some of them in mind:
 - [x] Replace different APIs by Embed.ly to simplify the code **a lot**
 - [x] Be able to pause GIFs automatically
 - [x] Display the verified badge in the columns
+- [ ] Display polls state in columns
+- [x] Add more thumbnail providers
+  - [x] Skitch
+  - [x] Gfycat
+  - [x] Giphy
+  - [x] youtu.be
+  - [ ] Streamable
 - [ ] **Maybe** Display a little flag depending on the _supposed_ language of the tweet ?
 - [ ] **Not for 3.0** Display a little avatar next to contacts in the "All accounts" messages column so you know easily with which account a thread began with
 
