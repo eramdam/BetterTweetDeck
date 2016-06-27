@@ -42,3 +42,7 @@
 .js-add-emojis .btd-emoji-icon {
   background-image: url('../emojis/emoji-happy.svg');
 }
+
+.js-media-image-link {
+  cursor: zoom-in;
+}
