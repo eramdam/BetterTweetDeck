@@ -54,11 +54,15 @@ For now, there won't be new features. But I have some of them in mind:
 - [x] Display the verified badge in the columns
 - [ ] Display polls state in columns
 - [x] Add more thumbnail providers
-  - [x] Skitch
   - [x] Gfycat
   - [x] Giphy
+  - [x] Mixcloud
+  - [x] Skitch
+  - [x] Spotify
+  - [x] Streamable
+  - [x] Twitch
+  - [x] Vidme
   - [x] youtu.be
-  - [ ] Streamable
 - [ ] **Maybe** Display a little flag depending on the _supposed_ language of the tweet ?
 - [ ] **Not for 3.0** Display a little avatar next to contacts in the "All accounts" messages column so you know easily with which account a thread began with
 

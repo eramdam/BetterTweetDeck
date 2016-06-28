@@ -10,9 +10,8 @@ import queryString from 'query-string';
 /**
  * When got the settings we initliase the view
  */
-sendMessage({ action: 'get_settings' }, (response) => {
-  const settingsStr = JSON.stringify(response, null, 2);
-  const settings = response.settings;
+BHelper.settings.getAll(settings => {
+  const settingsStr = JSON.stringify(settings, null, 2);
 
   console.log(settings);
 
@@ -49,13 +48,22 @@ sendMessage({ action: 'get_settings' }, (response) => {
     }
   });
 
+  function getFaviconURL(scheme) {
+    if (scheme.setting.includes('_')) {
+      return `https://plus.google.com/_/favicon?domain=${scheme.setting.replace('_', '.')}`;
+    }
+
+    return `https://plus.google.com/_/favicon?domain=${scheme.setting}.com`;
+  }
+
   /**
    * Special treatment for thumb providers list who gets created from the source directly
    */
   schemeWhitelist.forEach(scheme => {
     $('.settings-thumbnails-providers-list').append(`
       <li>
-        <input type="checkbox" name="thumbnails.${scheme.setting}" id="${scheme.setting}" ${settings.thumbnails[scheme.setting] ? 'checked' : ''}>
+        <input type="checkbox" name="thumbnails.${scheme.setting}" id="${scheme.setting}" ${settings.thumbnails[scheme.setting] || scheme.default === true ? 'checked' : ''}>
+        <img src="${getFaviconURL(scheme)}" class="favicon-icon" />
         <label for="${scheme.setting}">${scheme.name} <small>${scheme.re.toString()}</small></label>
       </li>
     `);
@@ -98,7 +106,6 @@ sendMessage({ action: 'get_settings' }, (response) => {
         } else if (type === 'checkbox') {
           newSettings[nameArr[0]][nameArr[1]] = isChecked;
         } else if (type === 'text') {
-          console.log(input.value);
           newSettings[nameArr[0]][nameArr[1]] = input.value;
         }
       } else {
@@ -113,7 +120,6 @@ sendMessage({ action: 'get_settings' }, (response) => {
     });
 
     // console.log(settings);
-    console.log(newSettings);
     BHelper.settings.set(newSettings);
     $('.save-button').text('No changes').attr('disabled', '');
   });

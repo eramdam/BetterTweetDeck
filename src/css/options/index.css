@@ -228,6 +228,10 @@ body {
       margin-left: .5em;
     }
 
+    img.favicon-icon {
+      vertical-align: middle;
+    }
+
     label.left-label {
       margin-right: .4em;
       min-width: 50px;
