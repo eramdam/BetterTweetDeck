@@ -6,14 +6,63 @@ import $ from 'jquery';
 import _ from 'lodash';
 import Prism from 'prismjs';
 import queryString from 'query-string';
+import fecha from 'fecha';
+
+function refreshPreviews(settings) {
+  if (settings.nm_disp) {
+    let html;
+
+    switch (settings.nm_disp) {
+      case 'username':
+        html = 'BetterTDeck';
+        break;
+
+      case 'fullname':
+        html = 'Better TweetDeck';
+        break;
+
+      case 'inverted':
+        html = 'BetterTDeck <em>Better TweetDeck</em>';
+        break;
+
+      default:
+        html = 'Better TweetDeck <em>BetterTDeck</em>';
+        break;
+    }
+
+    $('.tweet-preview.-name-time .username').html(html);
+  }
+
+  if (settings.ts) {
+    let html;
+
+    switch (settings.ts) {
+      case 'absolute_us':
+        html = fecha.format(new Date(), 'MM/DD/YY hh:mm a');
+        break;
+
+      case 'absolute_metric':
+        html = fecha.format(new Date(), 'DD/MM/YY HH:mm');
+        break;
+
+      case 'custom':
+        html = fecha.format(new Date(), $('[name="custom_ts.full"]').val());
+        break;
+
+      default:
+        html = 'now';
+        break;
+    }
+
+    $('.tweet-preview.-name-time .date').html(html);
+  }
+}
 
 /**
  * When got the settings we initliase the view
  */
 BHelper.settings.getAll(settings => {
   const settingsStr = JSON.stringify(settings, null, 2);
-
-  console.log(settings);
 
   $('.settings-dump').html(Prism.highlight(settingsStr, Prism.languages.js));
 
@@ -69,11 +118,13 @@ BHelper.settings.getAll(settings => {
     `);
   });
 
+  refreshPreviews(settings);
+
   /**
    * Updating the settings when inputs change
    */
 
-  $('input[name]').on('change', (e) => {
+  $('input[name]').on('change input', (e) => {
     $('.save-button').text('Save changes').removeAttr('disabled');
 
     if (e.target.type === 'radio') {
@@ -84,6 +135,18 @@ BHelper.settings.getAll(settings => {
       } else {
         $('[data-ghost] ~ ul input').attr('disabled', '');
       }
+    }
+
+    if (e.target.name === 'nm_disp') {
+      refreshPreviews({ nm_disp: e.target.id });
+    }
+
+    if (e.target.name === 'ts') {
+      refreshPreviews({ ts: e.target.id });
+    }
+
+    if (e.target.name.includes('custom_ts.')) {
+      refreshPreviews({ ts: 'custom' });
     }
   });
 
