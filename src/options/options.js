@@ -113,7 +113,7 @@ BHelper.settings.getAll(settings => {
       <li>
         <input type="checkbox" name="thumbnails.${scheme.setting}" id="${scheme.setting}" ${settings.thumbnails[scheme.setting] || scheme.default === true ? 'checked' : ''}>
         <img src="${getFaviconURL(scheme)}" class="favicon-icon" />
-        <label for="${scheme.setting}">${scheme.name} <small>${scheme.re.toString()}</small></label>
+        <label for="${scheme.setting}">${scheme.name}</label>
       </li>
     `);
   });
