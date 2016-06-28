@@ -83,7 +83,8 @@ function getImage(emoji, skinVariation = '') {
 }
 
 function getEmojiElement(emoji, skinVariation = '') {
-  const title = emoji.n || '';
+  let title = emoji.n || emoji.s;
+  title = title.replace(/_-/g, ' ');
 
   return `<a href="#" title="${title.toLowerCase()}" data-btd-has-variation="${emoji.hs}" data-btd-shortcode="${emoji.s}" class="btd-emoji">${getImage(emoji, skinVariation)}</a>`;
 }
