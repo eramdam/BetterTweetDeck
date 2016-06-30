@@ -13,7 +13,10 @@ const defaultSettings = {
   nm_disp: 'inverted',
   no_hearts: false,
   no_tco: true,
-  flash_tweets: 'mentions',
+  flash_tweets: {
+    mode: 'mentions',
+    enabled: true,
+  },
   rtl_text_style: true,
   stop_gifs: true,
   css: {

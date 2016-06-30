@@ -37,8 +37,8 @@ function tweakClassesFromVisualSettings() {
 
   document.body.classList.add(...enabledClasses);
 
-  if (settings.flash_tweets) {
-    document.body.classList.add(`btd__flash-${settings.flash_tweets}`);
+  if (settings.flash_tweets.enabled) {
+    document.body.classList.add(`btd__flash-${settings.flash_tweets.mode}`);
   }
 
   if (settings.no_hearts) {

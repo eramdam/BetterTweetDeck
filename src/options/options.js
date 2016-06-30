@@ -1,4 +1,3 @@
-import { send as sendMessage } from '../js/util/messaging';
 import * as BHelper from '../js/util/browserHelper';
 import { schemeWhitelist } from '../js/util/thumbnails';
 
@@ -124,7 +123,7 @@ BHelper.settings.getAll(settings => {
         const name = `${key}.${keyname}`;
 
         if (value) {
-          $(`input[name="${name}"]`).attr('checked', true);
+          $(`input[name="${name}"]`).prop('checked', true);
         }
 
         if (key === 'custom_ts') {
@@ -134,14 +133,24 @@ BHelper.settings.getAll(settings => {
 
           $(`input[name="${name}"]`).val(settings.custom_ts[keyname]);
         }
+
+        if (key === 'flash_tweets') {
+          if (settings.flash_tweets) {
+            $('input[name="flash_tweets.enabled"]').prop('checked', settings.flash_tweets.enabled);
+            $('input[name="flash_tweets.enabled"] ~ ul input').removeAttr('disabled');
+          }
+
+          $('input[name="flash_tweets.mode"]').removeAttr('checked');
+          $(`input[name="flash_tweets.mode"]#${settings.flash_tweets.mode}`).prop('checked', true);
+        }
       });
     } else {
       const name = key;
 
       if (_.isBoolean(val)) {
-        $(`input[name="${name}"]`).attr('checked', val);
+        $(`input[name="${name}"]`).prop('checked', val);
       } else {
-        $(`input[name="${name}"]#${val}`).attr('checked', true);
+        $(`input[name="${name}"]#${val}`).prop('checked', true);
       }
     }
   });
@@ -176,13 +185,23 @@ BHelper.settings.getAll(settings => {
   $('input[name]').on('change input', (e) => {
     $('.save-button').text('Save changes').removeAttr('disabled');
 
-    if (e.target.type === 'radio') {
+    if (e.target.type === 'radio' && e.target.name === 'ts') {
       if (e.target.hasAttribute('data-ghost')) {
         $(e.target).parent()
                    .find('ul input')
                    .removeAttr('disabled');
       } else {
         $('[data-ghost] ~ ul input').attr('disabled', '');
+      }
+    }
+
+    if (e.target.type === 'checkbox' && e.target.hasAttribute('data-ghost')) {
+      const els = $(`[data-ghost][name="${e.target.name}"] ~ ul input`);
+
+      if (e.target.checked) {
+        els.removeAttr('disabled');
+      } else {
+        els.attr('disabled', '');
       }
     }
 
@@ -241,7 +260,7 @@ BHelper.settings.getAll(settings => {
       }
     });
 
-    // console.log(settings);
+
     BHelper.settings.set(newSettings);
     $('.save-button').text('No changes').attr('disabled', '');
   });

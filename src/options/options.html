@@ -142,6 +142,17 @@
             <input type="checkbox" name="rtl_text_style" id="rtl_text_style">
             <label for="rtl_text_style">Detect and apply RTL style when needed</label>
           </li>
+          <li>
+            <input type="checkbox" name="flash_tweets.enabled" id="flash" data-ghost><label for="flash">Make tweets flash in:</label>
+            <ul>
+              <li>
+                <input disabled type="radio" name="flash_tweets.mode" id="mentions"><label for="mentions">Mentions columns</label>
+              </li>
+              <li>
+                <input disabled type="radio" name="flash_tweets.mode" id="all"><label for="all">In every columns</label>
+              </li>
+            </ul>
+          </li>
         </ul>
       </div>
 
@@ -176,7 +187,11 @@
           </li>
           <li>
             <input type="checkbox" name="no_tco" id="no_tco">
-            <label for="no_tco">Expand t.co links</label>
+            <label for="no_tco">Remove t.co redirection on links</label>
+          </li>
+          <li>
+            <input type="checkbox" name="stop_gifs" id="stop_gifs">
+            <label for="stop_gifs">Don't autoplay GIFs in columns</label>
           </li>
         </ul>
       </div>
