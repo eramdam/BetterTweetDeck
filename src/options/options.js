@@ -30,7 +30,7 @@ function refreshPreviews(settings) {
         break;
     }
 
-    $('.tweet-preview.-name-time .username').html(html);
+    $('.tweet-preview.-name-time:not(.-display) .username').html(html);
   }
 
   if (settings.ts) {
@@ -54,7 +54,56 @@ function refreshPreviews(settings) {
         break;
     }
 
-    $('.tweet-preview.-name-time .date').html(html);
+    $('.tweet-preview.-name-time:not(.-display) .date').html(html);
+  }
+
+  if (_.isBoolean(settings.no_hearts)) {
+    const el = $('.tweet-preview.-display .heart');
+    el.removeClass('-hidden');
+
+    if (settings.no_hearts) {
+      el.addClass('-hidden');
+    }
+  }
+
+  if (!settings.css) {
+    return;
+  }
+
+  if (_.isBoolean(settings.css.round_pic)) {
+    const el = $('.tweet-preview.-display .avatar');
+    el.removeClass('-rounded');
+
+    if (settings.css.round_pic) {
+      el.addClass('-rounded');
+    }
+  }
+
+  if (_.isBoolean(settings.css.show_verified)) {
+    const el = $('.tweet-preview.-display .verified');
+    el.addClass('-hidden');
+
+    if (settings.css.round_pic) {
+      el.removeClass('-hidden');
+    }
+  }
+
+  if (_.isBoolean(settings.css.hide_context)) {
+    const el = $('.tweet-preview.-display .context');
+    el.removeClass('-hidden');
+
+    if (settings.css.hide_context) {
+      el.addClass('-hidden');
+    }
+  }
+
+  if (_.isBoolean(settings.css.actions_on_right)) {
+    const el = $('.tweet-preview.-display .actions');
+    el.removeClass('-right');
+
+    if (settings.css.actions_on_right) {
+      el.addClass('-right');
+    }
   }
 }
 
@@ -137,16 +186,26 @@ BHelper.settings.getAll(settings => {
       }
     }
 
-    if (e.target.name === 'nm_disp') {
-      refreshPreviews({ nm_disp: e.target.id });
+    const name = e.target.name;
+
+    if (['nm_disp', 'ts'].includes(name)) {
+      refreshPreviews({ [name]: e.target.id });
     }
 
-    if (e.target.name === 'ts') {
-      refreshPreviews({ ts: e.target.id });
-    }
-
-    if (e.target.name.includes('custom_ts.')) {
+    if (name.includes('custom_ts.')) {
       refreshPreviews({ ts: 'custom' });
+    }
+
+    if (['no_hearts'].includes(name)) {
+      refreshPreviews({ [name]: e.target.checked });
+    }
+
+    if (name.includes('css.')) {
+      refreshPreviews({
+        css: {
+          [name.split('.')[1]]: e.target.checked,
+        },
+      });
     }
   });
 

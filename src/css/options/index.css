@@ -305,3 +305,89 @@ body {
     right: 10px;
   }
 }
+
+.tweet-preview.-display {
+  width: 352px;
+  overflow: hidden;
+  background-image: url('/options/img/display-bg.png');
+  background-repeat: no-repeat;
+  background-color: #1d1f21;
+
+  &:hover .actions {
+    opacity: 1;
+  }
+
+  .-hidden {
+    opacity: 0;
+  }
+
+  .avatar {
+    display: block;
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    background-image: url('/options/img/name-time-avatar.png');
+
+    top: 32px;
+    left: 11px;
+
+    &.-rounded {
+      border-radius: 50%;
+    }
+  }
+
+  .actions {
+    width: 290px;
+    height: 30px;
+    display: block;
+    position: absolute;
+
+    background-image: url('/options/img/name-time-actions-left.png');
+    bottom: 0;
+    left: 62px;
+
+    &.-right {
+      background-image: url('/options/img/name-time-actions-right.png');
+
+      .heart {
+        left: auto;
+        right: 56px;
+      }
+    }
+
+    &.-on-hover {
+      opacity: 0;
+    }
+  }
+
+  .context {
+    position: absolute;
+    width: 82px;
+    height: 20px;
+    background-color: #1d1f21;
+
+    left: 45px;
+    top: 6px;
+  }
+
+  .heart {
+    display: block;
+    position: absolute;
+    background-image: url('/options/img/heart.png');
+    width: 19px;
+    height: 18px;
+
+    top: 3px;
+    left: 75px;
+  }
+
+  .verified {
+    width: 24px;
+    height: 24px;
+    background-image: url('/options/img/verified.png');
+    position: absolute;
+
+    bottom: 7px;
+    left: 38px;
+  }
+}
