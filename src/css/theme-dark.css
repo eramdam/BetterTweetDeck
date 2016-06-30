@@ -56,7 +56,10 @@
   }
 
   .txt-mute,
-  .txt-mute a:not(:hover):not(:focus) {
+  .txt-mute a:not(:hover):not(:focus),
+  .tweet-action,
+  .tweet-detail-action,
+  .dm-action {
     color: color(#8899a6 saturation(0%))
   }
 
