@@ -1,0 +1,19 @@
+{
+  "appDesc": {
+		"message": "Emojis, thumbnails and advanced features for http://tweetdeck.twitter.com !"
+	},
+	"appName": {
+		"message": "BetterTweetDeck 3"
+	},
+  "settingsTitle": { "message": "Better TweetDeck Settings" },
+  "settings": { "message": "Settings" },
+  "sec_tweetsName": { "message": "Tweets: name & time" },
+  "sec_tweetsDisplay": { "message": "Tweets: display" },
+  "sec_interface": { "message": "Interface" },
+  "sec_content": { "message": "Content2" },
+  "sec_welcome": { "message": "Welcome" },
+  "sec_credits": { "message": "Credits / About" },
+  "sec_debug": { "message": "Debug Infos" },
+  "sec_links": { "message": "Links" },
+  "sec_donate": { "message": "Donate" }
+}

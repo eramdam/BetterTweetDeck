@@ -327,3 +327,12 @@ usedDeps.forEach(dep => {
     </li>
   `);
 });
+
+[...document.querySelectorAll('[data-i18n]')].forEach(el => {
+  const msg = el.getAttribute('data-i18n');
+  el.innerHTML = chrome.i18n.getMessage(msg);
+
+  if (chrome.i18n.getMessage(msg) === '') {
+    throw new Error(`No Message found for ${msg} in locales`);
+  }
+});

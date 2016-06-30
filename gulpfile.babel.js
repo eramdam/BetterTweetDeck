@@ -28,6 +28,7 @@ const staticFiles = [
   'options/**/*.html',
   'options/ui/*',
   'options/img/*',
+  '_locales/**/*'
 ].map((i) => path.resolve('src/', i));
 
 const toLintFiles = [

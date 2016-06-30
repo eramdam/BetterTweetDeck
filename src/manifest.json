@@ -1,9 +1,10 @@
 {
-	"name": "BetterTweetDeck³",
-	"short_name": "BTD³",
+	"name": "__MSG_appName__",
+	"short_name": "BetterTDeck",
+	"default_locale": "en",
 	"version": "3.0.0",
 	"manifest_version": 2,
-	"description": "ᕕ( ᐛ )ᕗ",
+	"description": "__MSG_appDesc__",
 	"homepage_url": "https://github.com/eramdam/BetterTweetDeck/",
 	"content_scripts": [{
 		"matches": ["https://tweetdeck.twitter.com/*","http://tweetdeck.twitter.com/*"],
