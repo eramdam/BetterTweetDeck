@@ -26,7 +26,7 @@ const defaultSettings = {
     gray_icns_notifs: false,
     minimal_mode: true,
     small_icns_compose: true,
-    usrname_only_typeahed: true,
+    usrname_only_typeahead: true,
     hide_context: false,
     hide_scrollbars: true,
     show_verified: true,

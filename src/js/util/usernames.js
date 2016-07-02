@@ -15,7 +15,7 @@ function removeElMatchingSel(sel, node) {
   $(sel, node)[0].remove();
 }
 
-function rewriteElMatchingsel(sel, node, html) {
+export function rewriteElMatchingSel(sel, node, html) {
   if (!$(sel, node) || !sel) {
     return;
   }
@@ -30,17 +30,17 @@ export function format({ node, user, fSel, uSel }) {
 
     case 'fullname':
       removeElMatchingSel(uSel, node);
-      rewriteElMatchingsel(fSel, node, user.name);
+      rewriteElMatchingSel(fSel, node, user.name);
       break;
 
     case 'username':
       removeElMatchingSel(uSel, node);
-      rewriteElMatchingsel(fSel, node, user.screenName);
+      rewriteElMatchingSel(fSel, node, user.screenName);
       break;
 
     case 'inverted':
-      rewriteElMatchingsel(fSel, node, user.screenName);
-      rewriteElMatchingsel(uSel, node, user.name);
+      rewriteElMatchingSel(fSel, node, user.screenName);
+      rewriteElMatchingSel(uSel, node, user.name);
       break;
   }
 }

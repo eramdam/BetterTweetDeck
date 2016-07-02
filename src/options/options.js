@@ -89,10 +89,10 @@ function refreshPreviews(settings) {
 
   if (_.isBoolean(settings.css.hide_context)) {
     const el = $('.tweet-preview.-display .context');
-    el.removeClass('-hidden');
+    el.addClass('-hidden');
 
     if (settings.css.hide_context) {
-      el.addClass('-hidden');
+      el.removeClass('-hidden');
     }
   }
 
@@ -183,7 +183,7 @@ BHelper.settings.getAll(settings => {
    */
 
   $('input[name]').on('change input', (e) => {
-    $('.save-button').text('Save changes').removeAttr('disabled');
+    $('.save-button').text(chrome.i18n.getMessage('save_save')).removeAttr('disabled');
 
     if (e.target.type === 'radio' && e.target.name === 'ts') {
       if (e.target.hasAttribute('data-ghost')) {
@@ -262,7 +262,7 @@ BHelper.settings.getAll(settings => {
 
 
     BHelper.settings.set(newSettings);
-    $('.save-button').text('No changes').attr('disabled', '');
+    $('.save-button').text(chrome.i18n.getMessage('save_no')).attr('disabled', '');
   });
 });
 
@@ -328,8 +328,8 @@ usedDeps.forEach(dep => {
   `);
 });
 
-[...document.querySelectorAll('[data-i18n]')].forEach(el => {
-  const msg = el.getAttribute('data-i18n');
+[...document.querySelectorAll('[data-lang]')].forEach(el => {
+  const msg = el.getAttribute('data-lang');
   el.innerHTML = chrome.i18n.getMessage(msg);
 
   if (chrome.i18n.getMessage(msg) === '') {

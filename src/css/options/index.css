@@ -126,10 +126,10 @@ body {
 
 .content-block {
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
-  bottom: 42px;
+  top: 42px;
   background: white;
   overflow: auto;
   padding: 20px;
@@ -148,17 +148,17 @@ body {
 
 .save-bar {
   position: absolute;
-  background: white;
-  border-top: 1px solid color(black a(14%));
+  background: hsl(0, 0%, 97%);
+  border-bottom: 1px solid color(black a(14%));
   padding: 10px;
   box-sizing: border-box;
-  /*width: calc(100% - 210px);*/
   width: 100%;
   height: 42px;
-  bottom: 0;
+  top: 0;
   z-index: 9;
 
   color: color(black a(46%));
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .save-button {
@@ -382,12 +382,13 @@ body {
   }
 
   .verified {
-    width: 24px;
-    height: 24px;
-    background-image: url('/options/img/verified.png');
+    width: 20px;
+    height: 20px;
+    background-image: url(/options/img/verified.png);
     position: absolute;
-
-    bottom: 7px;
-    left: 38px;
+    bottom: 13px;
+    left: 44px;
+    background-size: contain;
+    background-repeat: no-repeat;
   }
 }

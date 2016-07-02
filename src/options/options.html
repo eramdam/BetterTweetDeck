@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title data-i18n="settingsTitle">Better TweetDeck Options</title>
+  <title data-lang="settingsTitle">Better TweetDeck Options</title>
   <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
@@ -16,89 +16,89 @@
       </span>
     </div>
     <div class="nav-flex">
-      <h3 class="sidebar-title" data-i18n="settings">Settings</h3>
+      <h3 class="sidebar-title" data-lang="settings">Settings</h3>
       <nav class="sidebar-nav">
-        <a href="#tweets" class="nav-item -selected" data-i18n="sec_tweetsName">Tweets: name & time</a>
-        <a href="#tweetsDisplay" class="nav-item" data-i18n="sec_tweetsDisplay">Tweets: display</a>
-        <a href="#visual" class="nav-item" data-i18n="sec_interface">Interface</a>
-        <a href="#btdContent" class="nav-item" data-i18n="sec_content">Content</a>
+        <a href="#tweets" class="nav-item -selected" data-lang="sec_tweetsName">Tweets: name & time</a>
+        <a href="#tweetsDisplay" class="nav-item" data-lang="sec_tweetsDisplay">Tweets: display</a>
+        <a href="#visual" class="nav-item" data-lang="sec_interface">Interface</a>
+        <a href="#btdContent" class="nav-item" data-lang="sec_content">Content</a>
       </nav>
 
       <h3 class="sidebar-title">Meta</h3>
       <nav class="sidebar-nav">
-        <a href="#onInstall" class="nav-item" data-i18n="sec_welcome">Welcome</a>
-        <a href="#credits" class="nav-item" data-i18n="sec_credits">Credits / About</a>
-        <a href="#debug" class="nav-item" data-i18n="sec_debug">Debug Infos</a>
+        <a href="#onInstall" class="nav-item" data-lang="sec_welcome">Welcome</a>
+        <a href="#credits" class="nav-item" data-lang="sec_credits">Credits / About</a>
+        <a href="#debug" class="nav-item" data-lang="sec_debug">Debug Infos</a>
       </nav>
 
-      <h3 class="sidebar-title" data-i18n="sec_links">Links</h3>
+      <h3 class="sidebar-title" data-lang="sec_links">Links</h3>
       <nav class="sidebar-nav">
         <a href="https://twitter.com/BetterTDeck" class="nav-item">@BetterTDeck</a>
         <a href="https://github.com/eramdam/BetterTweetDeck" class="nav-item">GitHub</a>
-        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK9SQ6ZDE9UF2&lc=US&item_name=Damien%20Erambert&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted" class="nav-item" data-i18n="sec_donate">Donate</a>
+        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK9SQ6ZDE9UF2&lc=US&item_name=Damien%20Erambert&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted" class="nav-item" data-lang="sec_donate">Donate</a>
       </nav>
     </div>
   </aside>
 
   <main class="content">
     <section class="content-block" id="tweets">
-      <h2 class="section-title" data-i18n="sec_tweetsName">Tweets: name & time</h2>
+      <h2 class="section-title" data-lang="sec_tweetsName">Tweets: name & time</h2>
 
       <div class="settings-section">
-        <h5>Time display style</h5>
+        <h5 data-lang="title_timeDisplay">Time display style</h5>
 
         <ul>
           <li>
-            <input type="radio" name="ts" id="relative"><label for="relative">Relative <small>1m, 2h, 3d</small></label>
+            <input type="radio" name="ts" id="relative"><label data-lang="time_relative" for="relative">Relative <small>1m, 2h, 3d</small></label>
           </li>
           <li>
-            <input type="radio" name="ts" id="absolute_metric"><label for="absolute_metric">Absolute<small>dd/mm/yy hh:mm</small></label>
+            <input type="radio" name="ts" id="absolute_metric"><label data-lang="time_absolute" for="absolute_metric">Absolute<small>dd/mm/yy hh:mm</small></label>
           </li>
           <li>
-            <input type="radio" name="ts" id="absolute_us"><label for="absolute_us">Absolute US Style<small>mm/dd/yy hh:mm</small></label>
+            <input type="radio" name="ts" id="absolute_us"><label data-lang="time_absolute_us" for="absolute_us">Absolute US Style<small>mm/dd/yy hh:mm</small></label>
           </li>
           <li>
-            <input type="radio" name="ts" data-ghost id="custom"><label for="custom">Custom format (<a target="_blank" href="https://github.com/taylorhakes/fecha#formatting-tokens">Formatting help</a>)</label>
+            <input type="radio" name="ts" data-ghost id="custom"><label data-lang="time_custom" for="custom">Custom format (<a target="_blank" href="https://github.com/taylorhakes/fecha#formatting-tokens">Formatting help</a>)</label>
             <ul>
               <li>
-                <label class="left-label" for="custom_ts.short">Short</label> <input disabled type="text" name="custom_ts.short">
+                <label class="left-label" for="custom_ts.short" data-lang="time_short">Short</label> <input disabled type="text" name="custom_ts.short">
               </li>
               <li>
-                <label class="left-label" for="custom_ts.full">Full</label> <input disabled type="text" name="custom_ts.full">
+                <label class="left-label" for="custom_ts.full" data-lang="time_full">Full</label> <input disabled type="text" name="custom_ts.full">
               </li>
             </ul>
           </li>
 
           <li>
-            <input type="checkbox" name="full_aft_24" id="full_aft_24"><label for="full_aft_24">Display full date after 24h</label>
+            <input type="checkbox" name="full_aft_24" id="full_aft_24"><label data-lang="time_full24" for="full_aft_24">Display full date after 24h</label>
           </li>
         </ul>
       </div>
 
       <div class="settings-section">
-        <h5>Name display style</h5>
+        <h5 data-lang="title_nameDisplay">Name display style</h5>
 
         <ul>
           <li>
-            <input type="radio" name="nm_disp" id="both"><label for="both">Full name @Username</label>
+            <input type="radio" name="nm_disp" id="both"><label data-lang="name_full_user" for="both">Full name @Username</label>
           </li>
           <li>
-            <input type="radio" name="nm_disp" id="inverted"><label for="inverted">@Username Full name</label>
+            <input type="radio" name="nm_disp" id="inverted"><label for="inverted" data-lang="name_inverted">@Username Full name</label>
           </li>
           <li>
-            <input type="radio" name="nm_disp" id="username"><label for="username">@Username</label>
+            <input type="radio" name="nm_disp" id="username"><label for="username" data-lang="name_username">@Username</label>
           </li>
           <li>
-            <input type="radio" name="nm_disp" id="fullname"><label for="fullname">Full name</label>
+            <input type="radio" name="nm_disp" id="fullname"><label data-lang="name_full" for="fullname">Full name</label>
           </li>
           <li>
-            <input type="checkbox" name="css.usrname_only_typeahed" id="usrname_only_typeahed"><label for="usrname_only_typeahed">The auto-completion displays only usernames</label>
+            <input type="checkbox" name="css.usrname_only_typeahead" id="usrname_only_typeahead"><label for="usrname_only_typeahead" data-lang="name_typeahead">The auto-completion displays only usernames</label>
           </li>
         </ul>
       </div>
 
       <div class="settings-section">
-        <h5>Preview</h5>
+        <h5 data-lang="sec_preview">Preview</h5>
 
         <div class="tweet-preview -name-time">
           <span class="username">BetterTDeck <em>Better TweetDeck</em></span>
@@ -108,48 +108,48 @@
     </section>
 
     <section class="content-block" id="tweetsDisplay">
-      <h2 class="section-title">Tweets: display</h2>
+      <h2 class="section-title" data-lang="sec_tweetsDisplay">Tweets: display</h2>
 
       <div class="settings-section">
-        <h5>Avatars & details</h5>
+        <h5 data-lang="title_avatars">Avatars & details</h5>
 
         <ul>
           <li>
             <input type="checkbox" name="css.round_pic" id="round_pic">
-            <label for="round_pic">Rounded avatars</label>
+            <label for="round_pic" data-lang="css_round_pic">Rounded avatars</label>
           </li>
           <li>
             <input type="checkbox" name="css.show_verified" id="show_verified">
-            <label for="show_verified">Show "verified" badge</label>
+            <label for="show_verified" data-lang="css_show_verified">Show "verified" badge</label>
           </li>
           <li>
             <input type="checkbox" name="css.hide_context" id="hide_context">
-            <label for="hide_context">Hide "In reply to" label on mentions</label>
+            <label for="hide_context" data-lang="css_hide_context">Hide "In reply to" label on mentions</label>
           </li>
           <li>
             <input type="checkbox" name="css.actions_on_right" id="actions_on_right">
-            <label for="actions_on_right">Show tweet actions on the right</label>
+            <label for="actions_on_right" data-lang="css_actions_on_right">Show tweet actions on the right</label>
           </li>
           <li>
             <input type="checkbox" name="css.actions_on_hover" id="actions_on_hover">
-            <label for="actions_on_hover">Show tweet actions on hover</label>
+            <label for="actions_on_hover" data-lang="css_actions_on_hover">Show tweet actions on hover</label>
           </li>
           <li>
             <input type="checkbox" name="no_hearts" id="no_hearts">
-            <label for="no_hearts">Show stars instead of hearts</label>
+            <label for="no_hearts" data-lang="no_hearts">Show stars instead of hearts</label>
           </li>
           <li>
             <input type="checkbox" name="rtl_text_style" id="rtl_text_style">
-            <label for="rtl_text_style">Detect and apply RTL style when needed</label>
+            <label for="rtl_text_style" data-lang="rtl_text_style">Detect and apply RTL style when needed</label>
           </li>
           <li>
-            <input type="checkbox" name="flash_tweets.enabled" id="flash" data-ghost><label for="flash">Make tweets flash in:</label>
+            <input type="checkbox" name="flash_tweets.enabled" id="flash" data-ghost><label for="flash" data-lang="flash_tweets">Make tweets flash in:</label>
             <ul>
               <li>
-                <input disabled type="radio" name="flash_tweets.mode" id="mentions"><label for="mentions">Mentions columns</label>
+                <input disabled type="radio" name="flash_tweets.mode" id="mentions"><label for="mentions" data-lang="flash_tweets_mentions">Mentions columns</label>
               </li>
               <li>
-                <input disabled type="radio" name="flash_tweets.mode" id="all"><label for="all">In every columns</label>
+                <input disabled type="radio" name="flash_tweets.mode" id="all"><label for="all" data-lang="flash_tweets_all">In every columns</label>
               </li>
             </ul>
           </li>
@@ -157,7 +157,7 @@
       </div>
 
       <div class="settings-section">
-        <h5>Preview</h5>
+        <h5 data-lang="sec_preview">Preview</h5>
 
         <div class="tweet-preview -display -name-time">
           <span class="username">BetterTDeck <em>Better TweetDeck</em></span>
@@ -173,139 +173,140 @@
     </section>
 
     <section class="content-block" id="btdContent">
-      <h2 class="section-title">Content</h2>
+      <h2 class="section-title" data-lang="sec_content">Content</h2>
 
       <div class="settings-section">
         <ul>
           <li>
             <input type="checkbox" name="share_item.enabled" id="enabled">
-            <label for="enabled">Add the "Share on Better TweetDeck" action on contextual menu <small>Will be applied at next Chrome restart</small></label>
+            <label for="enabled" data-lang="share_btd_item">Add the "Share on Better TweetDeck" action on contextual menu <small>Will be applied at next Chrome restart</small></label>
           </li>
           <li>
             <input type="checkbox" name="share_item.short_txt" id="short_txt">
-            <label for="short_txt">Shorten the selected text while using the "Share on Better TweetDeck" action <small>Will be applied at next Chrome restart</small></label>
+            <label for="short_txt" data-lang="share_short_txt">Shorten the selected text while using the "Share on Better TweetDeck" action <small>Will be applied at next Chrome restart</small></label>
           </li>
           <li>
             <input type="checkbox" name="no_tco" id="no_tco">
-            <label for="no_tco">Remove t.co redirection on links</label>
+            <label for="no_tco" data-lang="no_tco">Remove t.co redirection on links</label>
           </li>
           <li>
             <input type="checkbox" name="stop_gifs" id="stop_gifs">
-            <label for="stop_gifs">Don't autoplay GIFs in columns</label>
+            <label for="stop_gifs" data-lang="stop_autoplay_gifs">Don't autoplay GIFs in columns</label>
           </li>
         </ul>
       </div>
 
       <div class="settings-section">
-        <h5>Display thumbnails from:</h5>
+        <h5 data-lang="thumbnails_from">Display thumbnails from:</h5>
 
         <ul class="settings-thumbnails-providers-list">
+          <!-- Will be populated by JS -->
         </ul>
       </div>
     </section>
 
     <section class="content-block" id="visual">
-      <h2 class="section-title">Interface</h2>
+      <h2 class="section-title" data-lang="sec_interface">Interface</h2>
 
       <div class="settings-section">
-        <h5>General</h5>
+        <h5 data-lang="sec_general">General</h5>
 
         <ul>
           <li>
             <input type="checkbox" name="css.minimal_mode" id="minimal_mode">
-            <label for="minimal_mode">Enable the "Minimal" mode</label>
+            <label for="minimal_mode" data-lang="css_minimal_mode">Enable the "Minimal" mode</label>
           </li>
           <li>
             <input type="checkbox" name="css.no_play_btn" id="no_play_btn">
-            <label for="no_play_btn">Hide the Play button on video thumbnails</label>
+            <label for="no_play_btn" data-lang="css_no_play_btn">Hide the Play button on video thumbnails</label>
           </li>
           <li>
             <input type="checkbox" name="css.no_col_icns" id="no_col_icns">
-            <label for="no_col_icns">Hide icons in columns headers</label>
+            <label for="no_col_icns" data-lang="css_no_col_icns">Hide icons in columns headers</label>
           </li>
           <li>
             <input type="checkbox" name="css.small_icns_compose" id="small_icns_compose">
-            <label for="small_icns_compose">Icons are smaller in the Compose panel</label>
+            <label for="small_icns_compose" data-lang="css_small_icns_compose">Icons are smaller in the Compose panel</label>
           </li>
           <li>
             <input type="checkbox" name="css.gray_icns_notifs" id="gray_icns_notifs">
-            <label for="gray_icns_notifs">Notifications icons are in grayscale</label>
+            <label for="gray_icns_notifs" data-lang="css_gray_icns_notifs">Notifications icons are in grayscale</label>
           </li>
         </ul>
       </div>
     </section>
 
     <section class="content-block" id="onInstall">
-      <h2 class="section-title">Thanks for installing Better TweetDeck!</h2>
+      <h2 class="section-title" data-lang="btd_thx">Thanks for installing Better TweetDeck!</h2>
 
       <div class="settings-section">
-        <h5>Let's get started!</h5>
+        <h5 data-lang="btd_get_started">Let's get started!</h5>
 
-        <p>Better TweetDeck is made to improve your experience on <a href="https://tweetdeck.twitter.com">tweetdeck.twitter.com</a>!</p>
+        <p data-lang="btd_whatsBTD">Better TweetDeck is made to improve your experience on <a href="https://tweetdeck.twitter.com">tweetdeck.twitter.com</a>!</p>
 
-        <p>
+        <p data-lang="btd_default">
           The default settings have been applied, feel free to modify them to your liking!
         </p>
 
-        <h5>Then?</h5>
+        <h5 data-lang="btd_then">Then?</h5>
 
-        <p>You should follow <a href="https://twitter.com/BetterTDeck">@BetterTDeck</a> on Twitter for support, news and trivia about Better TweetDeck!</p>
+        <p data-lang="btd_follow">You should follow <a href="https://twitter.com/BetterTDeck">@BetterTDeck</a> on Twitter for support, news and trivia about Better TweetDeck!</p>
       </div>
     </section>
 
     <section class="content-block" id="debug">
-      <h2 class="section-title">Debug Infos</h2>
+      <h2 class="section-title" data-lang="sec_debug">Debug Infos</h2>
 
       <div class="settings-section">
-        <h5>Informations</h5>
+        <h5 data-lang="sec_infos">Informations</h5>
 
         <ul>
-          <li>Version: <span class="settings-version-number"></span></li>
-          <li>User-Agent: <span class="settings-user-agent"></span></li>
+          <li><span data-lang="debug_version">Version</span>: <span class="settings-version-number"></span></li>
+          <li><span data-lang="debug_ua">User-Agent</span>: <span class="settings-user-agent"></span></li>
         </ul>
       </div>
 
       <div class="settings-section">
-        <h5>Settings dump</h5>
+        <h5 data-lang="sec_settings">Settings dump</h5>
 
         <pre class="settings-pre"><code class="settings-dump language-json"></code></pre>
       </div>
     </section>
 
     <section class="content-block" id="credits">
-      <h2 class="section-title">Credits / About</h2>
+      <h2 class="section-title" data-lang="sec_credits">Credits / About</h2>
 
       <div class="settings-section">
-        <h5>Author</h5>
+        <h5 data-lang="credits_author">Author</h5>
 
         <ul>
           <li>Damien Erambert</li>
         </ul>
 
-        <h5>Contributors</h5>
+        <h5 data-lang="credits_contribs">Contributors</h5>
 
         <ul class="settings-contributors"></ul>
 
-        <h5>Ressources used</h5>
+        <h5 data-lang="credits_rsrc">Ressources used</h5>
 
         <ul class="settings-deps">
         </ul>
 
-        <h5>Links</h5>
+        <h5 data-lang="credits_links">Links</h5>
 
         <ul>
           <li><a href="https://chrome.google.com/webstore/detail/bettertweetdeck/micblkellenpbfapmcpcfhcoeohhnpob">Chrome Web Store</a></li>
           <li>
-            <a href="https://twitter.com/BetterTDeck/">Better TweetDeck on Twitter</a>
+            <a href="https://twitter.com/BetterTDeck/" data-lang="credits_twitter">Better TweetDeck on Twitter</a>
           </li>
           <li>
-            <a href="https://github.com/eramdam/BetterTweetDeck/issues">Bugs or suggestions</a>
+            <a href="https://github.com/eramdam/BetterTweetDeck/issues" data-lang="credits_bugs">Bugs or suggestions</a>
           </li>
           <li>
-            <a href="https://github.com/eramdam/BetterTweetDeck">Source code on GitHub</a>
+            <a href="https://github.com/eramdam/BetterTweetDeck" data-lang="credits_source">Source code on GitHub</a>
           </li>
           <li>
-            <a href="http://erambert.me/">Author's website</a>
+            <a href="http://erambert.me/" data-lang="credits_author">Author's website</a>
           </li>
         </ul>
       </div>
