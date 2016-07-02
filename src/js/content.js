@@ -224,6 +224,12 @@ function tweetHandler(tweet, columnKey, parent) {
       });
     }
 
+    if (tweet.inReplyToScreenName) {
+      if (['username', 'inverted'].includes(settings.nm_disp)) {
+        Usernames.rewriteElMatchingSel('.tweet-context .txt-ellipsis .account-link', node, tweet.inReplyToScreenName);
+      }
+    }
+
 
     // Urls:
     // If it got entities, it's a tweet
