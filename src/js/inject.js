@@ -1,4 +1,20 @@
 /* eslint no-underscore-dangle: 0 */
+
+import config from 'config';
+
+if (config.get('Client.debug')) {
+  window._BTDinspectChirp = (element) => {
+    if (!element.closest('[data-key]') || !element.closest('[data-column]')) {
+      throw new Error('Not a chirp');
+    }
+
+    const colKey = element.closest('[data-column]').getAttribute('data-column');
+    const chirpKey = element.closest('article[data-key]').getAttribute('data-key');
+
+    return TD.controller.columnManager.get(colKey).updateIndex[chirpKey];
+  };
+}
+
 const proxyEvent = (name, detail = {}) => {
   name = `BTDC_${name}`;
   let cache = [];
