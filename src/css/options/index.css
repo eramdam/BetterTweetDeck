@@ -162,7 +162,7 @@ body {
 }
 
 .save-button {
-  float: right;
+  float: left;
   outline: none;
   background: white;
   border: none;

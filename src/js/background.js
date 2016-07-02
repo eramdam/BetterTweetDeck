@@ -21,10 +21,10 @@ const defaultSettings = {
   stop_gifs: true,
   css: {
     round_pic: true,
-    no_col_icns: true,
+    no_col_icns: false,
     no_play_btn: true,
     gray_icns_notifs: false,
-    minimal_mode: true,
+    minimal_mode: false,
     small_icns_compose: true,
     usrname_only_typeahead: true,
     hide_context: false,
