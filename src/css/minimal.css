@@ -101,10 +101,6 @@
     border-left: 0;
   }
 
-  .scroll-styled-v::-webkit-scrollbar {
-    width: 1px;
-  }
-
   .scroll-styled-h::-webkit-scrollbar {
     height: 0;
   }
