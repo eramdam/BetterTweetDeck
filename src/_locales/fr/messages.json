@@ -1,0 +1,86 @@
+{
+  "appDesc": {
+		"message": "Emojis, miniatures et fonctionnalités avancées pour TweetDeck !"
+	},
+	"appName": {
+		"message": "BetterTweetDeck 3"
+	},
+  "settingsTitle": { "message": "Better TweetDeck: options" },
+  "settings": { "message": "Options" },
+  "sec_tweetsName": { "message": "Tweets: noms et date" },
+  "sec_tweetsDisplay": { "message": "Tweets: affichage" },
+  "sec_interface": { "message": "Interface" },
+  "sec_content": { "message": "Contenu" },
+  "sec_welcome": { "message": "Bienvenue" },
+  "sec_credits": { "message": "Crédits / A Propos" },
+  "sec_debug": { "message": "Déboggage" },
+  "sec_links": { "message": "Liens" },
+  "sec_donate": { "message": "Faire un don" },
+  "sec_preview": { "message": "Preview" },
+  "sec_general": { "message": "Général" },
+
+  "title_timeDisplay": { "message": "Affichage du temps"},
+  "time_relative": { "message": "Relatif" },
+  "time_absolute": { "message": "Absolu" },
+  "time_absolute_us": { "message": "Absolu style 'US'" },
+  "time_custom": { "message": "Personnalisé" },
+  "time_short": { "message": "Court" },
+  "time_full": { "message": "Long" },
+  "time_full24": { "message": "Afficher longue date après 24h" },
+
+  "title_nameDisplay": { "message": "Affichage des noms" },
+
+  "name_full_user": { "message": "Nom d'utilisateur @Tweetname" },
+  "name_inverted": { "message": "@Tweetname Nom d'utilisateur" },
+  "name_username": { "message": "@Tweetname" },
+  "name_full": { "message": "Nom d'utilisateur" },
+  "name_typeahead": { "message": "L'auto-complétion n'affiche que les tweetnames" },
+
+  "title_avatars": { "message": "Avatars & détails" },
+  "css_round_pic": { "message": "Avatars ronds" },
+  "css_show_verified": { "message": "Affiche les badges 'vérifié'" },
+  "css_hide_context": { "message": "Masquer 'In reply to' sur les mentions" },
+  "css_actions_on_right": { "message": "Afficher les actions de tweets sur la droite" },
+  "css_actions_on_hover": { "message": "Afficher les actions de tweets au survol" },
+  "no_hearts": { "message": "Afficher des étoiles au lieu des coeurs" },
+  "rtl_text_style": { "message": "Détecter le texte se lisant de droite à gauche" },
+  "flash_tweets": { "message": "Faire 'flasher' les tweets dans:" },
+  "flash_tweets_mentions": { "message": "les colonnes Mentions" },
+  "flash_tweets_all": { "message": "toutes les colonnes" },
+
+  "share_btd_item": { "message": "Ajouter le bouton 'Share on Better TweetDeck' dans le menu contextuel <small>Nécessite un redémarrage de Chrome</small>" },
+  "share_short_txt": { "message": "Réduire automatiquement la longueur du texte en utilisant le partage <small>Nécessite un redémarrage de Chrome</small>" },
+  "no_tco": { "message": "Supprimer la redirection de t.co sur les liens" },
+  "stop_autoplay_gifs": { "message": "Ne pas jouer les GIFs automatiquement" },
+  "thumbnails_from": { "message": "Afficher les miniatures de:" },
+
+  "css_minimal_mode": { "message": "Activer le mode 'Minimaliste'" },
+  "css_no_play_btn": { "message": "Masquer les icônes de lecture sur les vidéos" },
+  "css_no_col_icns": { "message": "Masquer les icônes dans les entêtes de colonnes" },
+  "css_small_icns_compose": { "message": "Les icônes sont plus petites dans le 'Compose'" },
+  "css_gray_icns_notifs": { "message": "Les icônes de notifications sont en niveaux de gris" },
+
+  "btd_thx": { "message": "Merci d'avoir installé Better TweetDeck!" },
+  "btd_get_started": { "message": "C'est parti!" },
+  "btd_whatsBTD": { "message": "Better TweetDeck améliore votre expérience sur <a href='https://tweetdeck.twitter.com'>tweetdeck.twitter.com</a>!" },
+  "btd_default": { "message": "Les réglages par défaut ont été appliqués, n'hésitez pas à les modifier selon vos envies!" },
+  "btd_then": { "message": "Ensuite?" },
+  "btd_follow": { "message": "Vous devriez suivre <a href='https://twitter.com/BetterTDeck'>@BetterTDeck</a> sur Twitter pour du support et des news sur Better TweetDeck (en anglais et français)" },
+
+  "sec_infos": { "message": "Informations" },
+  "debug_version": { "message": "Version" },
+  "debug_ua": { "message": "User-Agent" },
+  "sec_settings": { "message": "Réglages appliqués" },
+
+  "credits_author":  { "message": "Auteru" },
+  "credits_contribs":  { "message": "Contributeurs" },
+  "credits_rsrc":  { "message": "Ressources utilisées" },
+  "credits_links":  { "message": "Liens" },
+  "credits_twitter":  { "message": "Better TweetDeck sur Twitter" },
+  "credits_bugs":  { "message": "Bugs ou suggestions" },
+  "credits_source":  { "message": "Source sur GitHub" },
+  "credits_author":  { "message": "Site web de l'auteur" },
+
+  "save_no":  { "message": "Pas de changements" },
+  "save_save":  { "message": "Appliquer" }
+}
