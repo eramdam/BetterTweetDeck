@@ -43,7 +43,7 @@
   "css_actions_on_right": { "message": "Show tweet actions on the right" },
   "css_actions_on_hover": { "message": "Show tweet actions on hover" },
   "no_hearts": { "message": "Show stars instead of hearts" },
-  "rtl_text_style": { "message": "Detect and apply RLT style when needed" },
+  "rtl_text_style": { "message": "Detect and apply RTL style when needed" },
   "flash_tweets": { "message": "Make tweets flash in:" },
   "flash_tweets_mentions": { "message": "Mentions columns" },
   "flash_tweets_all": { "message": "Every column" },
