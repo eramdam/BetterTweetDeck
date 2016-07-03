@@ -76,9 +76,11 @@ function contextMenuHandler(info, tab, settings) {
 
 BHelper.settings.getAll(settings => {
   BHelper.settings.setAll(defaultsDeep(settings, defaultSettings), (newSettings) => {
-    chrome.tabs.create({
-      url: 'options/options.html?on=install',
-    });
+    if (!newSettings.installed_date) {
+      chrome.tabs.create({
+        url: 'options/options.html?on=install',
+      });
+    }
 
     chrome.contextMenus.create({
       title: 'Share on TweetDeck',
