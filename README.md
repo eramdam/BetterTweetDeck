@@ -8,7 +8,7 @@ Issues and Pull Requests are welcome!
 
 Follow these steps to build/edit the project. You will need:
 
-+ Node v6
++ Node v6 / npm v3
 + gulp
 
 Then follow this workflow:
