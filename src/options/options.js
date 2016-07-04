@@ -82,7 +82,7 @@ function refreshPreviews(settings) {
     const el = $('.tweet-preview.-display .verified');
     el.addClass('-hidden');
 
-    if (settings.css.round_pic) {
+    if (settings.css.show_verified) {
       el.removeClass('-hidden');
     }
   }
@@ -330,9 +330,5 @@ usedDeps.forEach(dep => {
 
 [...document.querySelectorAll('[data-lang]')].forEach(el => {
   const msg = el.getAttribute('data-lang');
-  el.innerHTML = chrome.i18n.getMessage(msg);
-
-  if (chrome.i18n.getMessage(msg) === '') {
-    throw new Error(`No Message found for ${msg} in locales`);
-  }
+  el.innerHTML = BHelper.getMessage(msg);
 });

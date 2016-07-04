@@ -5,6 +5,7 @@
 	"appName": {
 		"message": "BetterTweetDeck 3"
 	},
+  "shareOnTD": { "message": "Partager sur TweetDeck" },
   "settingsTitle": { "message": "Better TweetDeck: options" },
   "settings": { "message": "Options" },
   "sec_tweetsName": { "message": "Tweets: noms et date" },

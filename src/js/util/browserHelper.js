@@ -22,6 +22,15 @@ const storage = chrome.storage.sync || chrome.storage.local;
 
 export const getVersion = () => chrome.app.getDetails().version;
 export const getUA = () => window.navigator.userAgent;
+export const getMessage = (msg) => {
+  const string = chrome.i18n.getMessage(msg);
+
+  if (string === '') {
+    throw new Error(`No Message found for ${msg} in locales`);
+  }
+
+  return string;
+};
 
 export const settings = {
   get(property, cb) {

@@ -83,7 +83,7 @@ BHelper.settings.getAll(settings => {
     }
 
     chrome.contextMenus.create({
-      title: 'Share on TweetDeck',
+      title: BHelper.getMessage('shareOnTD'),
       contexts: ['page', 'selection', 'image', 'link'],
       onclick: (info, tab) => contextMenuHandler(info, tab, newSettings),
     });
