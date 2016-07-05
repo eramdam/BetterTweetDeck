@@ -21,7 +21,7 @@
 		"storage",
 		"https://api.embed.ly/1/*",
 		"http://erambert.me/*",
-		"https://tweetdeck.twitter.com/*",
+		"*://tweetdeck.twitter.com/*",
 		"tabs",
 		"contextMenus"
 	],
