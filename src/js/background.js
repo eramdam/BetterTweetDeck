@@ -84,7 +84,7 @@ BHelper.settings.getAll(settings => {
   let curSettings;
 
   // Migrating old settings. Settings that don't exist will default automatically
-  if (settings.circled_avatars) {
+  if (settings && settings.circled_avatars) {
     curSettings = {
       ts: oldTStoNew[settings.timestamp],
       full_aft_24: settings.full_after_24h,
