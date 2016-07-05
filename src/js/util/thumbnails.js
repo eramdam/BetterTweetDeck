@@ -3,6 +3,7 @@ import qs from 'query-string';
 import reusePromise from 'reuse-promise';
 
 import { send as sendMessage } from './messaging';
+import * as Log from './logger';
 
 const endpoints = {
   embedly: 'https://api.embed.ly/1/oembed?',
@@ -75,7 +76,7 @@ const validateUrl = (url) => schemeWhitelist.some((scheme) => {
 });
 
 function thumbnailForFetch(url) {
-  console.debug(`Fetching ${url}`);
+  Log.debug(`Fetching ${url}`);
   return fetch(`${getEnpointFor('embedly')}${qs.stringify({
     url,
     secure: true,

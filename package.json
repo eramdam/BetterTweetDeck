@@ -14,7 +14,7 @@
   "scripts": {
     "start": "export NODE_ENV=dev && gulp",
     "build": "export NODE_ENV=dev && gulp build",
-    "build:prod": "rm -rf dist/ && export NODE_ENV=dev && gulp build --type production",
+    "build:prod": "rm -rf dist/ && export NODE_ENV=prod && gulp build --type production",
     "bs-options": "browser-sync start --server 'dist/options/' --files 'dist/options/**/*'"
   },
   "homepage": "https://github.com/eramdam/BetterTweetDeck",

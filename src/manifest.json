@@ -7,7 +7,7 @@
 	"description": "__MSG_appDesc__",
 	"homepage_url": "https://github.com/eramdam/BetterTweetDeck/",
 	"content_scripts": [{
-		"matches": ["https://tweetdeck.twitter.com/*","http://tweetdeck.twitter.com/*"],
+		"matches": ["*://tweetdeck.twitter.com/*"],
 		"js": ["js/content.js"],
 		"css": ["css/index.css"]
 		}],

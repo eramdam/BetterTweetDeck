@@ -5,6 +5,7 @@ import * as Thumbnails from './util/thumbnails';
 import * as Templates from './util/templates';
 import * as Usernames from './util/usernames';
 import * as Emojis from './util/emojis';
+import * as Log from './util/logger.js';
 
 import { $, TIMESTAMP_INTERVAL, on, sendEvent } from './util/util';
 
@@ -117,7 +118,7 @@ function tweetHandler(tweet, columnKey, parent) {
 
   if (!hasParent) {
     if (!$(`.js-column[data-column="${columnKey}"]`)) {
-      console.log(tweet, columnKey);
+      Log.debug(tweet, columnKey);
     }
     parent = $(`.js-column[data-column="${columnKey}"]`)[0];
   }
@@ -138,7 +139,7 @@ function tweetHandler(tweet, columnKey, parent) {
 
   if (!nodes) {
     nodes = [];
-    console.debug('failed to get node for', tweet);
+    Log.debug('failed to get node for', tweet);
   }
 
   nodes.forEach((node) => {
