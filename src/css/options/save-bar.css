@@ -1,0 +1,81 @@
+/*
+  Topbar
+ */
+.save-bar {
+  background: linear-gradient(white, hsl(0, 0%, 95%));
+  border-bottom: 1px solid color(black a(14%));
+  padding: 10px 15px;
+  padding-left: 0;
+  width: 100%;
+  height: var(--save-bar-height);
+  z-index: 9;
+  position: relative;
+  position: absolute;
+
+  color: color(black a(80%));
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+  display: flex;
+  flex-direction: row;
+}
+
+.save-button {
+  position: absolute;
+  top: 50%;
+  margin-left: 20px;
+  transform: translateY(-50%);
+  outline: none;
+  border: none;
+
+  font-size: 14px;
+  border-radius: 4px;
+  box-shadow: 0 0px 2px rgba(0,0,0,.2);
+  background: linear-gradient(#4ec9fb, #3ea0fb);
+  color: white;
+  font-weight: 500;
+  padding: 3px 13px 4px 13px;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+
+  &[disabled] {
+    -webkit-font-smoothing: auto;
+    background: transparent;
+    box-shadow: none;
+    color: color(grey a(50%))
+  }
+}
+
+.save-button:active {
+  color: white;
+  -webkit-font-smoothing: antialiased;
+  background-image: linear-gradient(#67b0fa, #3584fe);
+}
+
+
+.topbar-logo {
+  font-size: 14px;
+  width: var(--sidebar-width);
+  padding-left: 10px;
+  border-right: 1px solid color(black a(20%))
+}
+
+.topbar-icon {
+  width: 32px;
+  vertical-align: middle;
+  margin-right: .5em;
+  display: inline-block;
+}
+
+.topbar-name {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.topbar-version-number {
+  color: color(black a(40%))
+}
+
+.topbar-title {
+  color: var(--sidebar-highlight);
+  font-weight: 300;
+}

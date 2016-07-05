@@ -1,0 +1,127 @@
+.tweet-preview {
+  width: 400px;
+  height: 97px;
+  border-radius: 6px;
+  background: pink;
+  position: relative;
+}
+
+.tweet-preview.-name-time {
+  background-image: url('/options/img/name-time-bg.png');
+  font-family: Helvetica, Arial, Verdana, sans-serif;
+  background-repeat: no-repeat;
+  background-color: #1d1f21;
+
+  .username {
+    font-size: 14px;
+    color: white;
+    font-weight: bold;
+    position: absolute;
+
+    top: 30px;
+    left: 69px;
+
+    em {
+      color: #969696;
+      font-style: normal;
+      font-size: 12px;
+      font-weight: normal;
+    }
+  }
+
+  .date {
+    font-size: 12px;
+    color: #969696;
+    position: absolute;
+
+    top: 31px;
+    right: 10px;
+  }
+}
+
+.tweet-preview.-display {
+  width: 352px;
+  overflow: hidden;
+  background-image: url('/options/img/display-bg.png');
+  background-repeat: no-repeat;
+  background-color: #1d1f21;
+
+  &:hover .actions {
+    opacity: 1;
+  }
+
+  .-hidden {
+    opacity: 0;
+  }
+
+  .avatar {
+    display: block;
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    background-image: url('/options/img/name-time-avatar.png');
+
+    top: 32px;
+    left: 11px;
+
+    &.-rounded {
+      border-radius: 50%;
+    }
+  }
+
+  .actions {
+    width: 290px;
+    height: 30px;
+    display: block;
+    position: absolute;
+
+    background-image: url('/options/img/name-time-actions-left.png');
+    bottom: 0;
+    left: 62px;
+
+    &.-right {
+      background-image: url('/options/img/name-time-actions-right.png');
+
+      .heart {
+        left: auto;
+        right: 56px;
+      }
+    }
+
+    &.-on-hover {
+      opacity: 0;
+    }
+  }
+
+  .context {
+    position: absolute;
+    width: 82px;
+    height: 20px;
+    background-color: #1d1f21;
+
+    left: 45px;
+    top: 6px;
+  }
+
+  .heart {
+    display: block;
+    position: absolute;
+    background-image: url('/options/img/heart.png');
+    width: 19px;
+    height: 18px;
+
+    top: 3px;
+    left: 75px;
+  }
+
+  .verified {
+    width: 20px;
+    height: 20px;
+    background-image: url(/options/img/verified.png);
+    position: absolute;
+    bottom: 13px;
+    left: 44px;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}

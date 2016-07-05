@@ -6,15 +6,20 @@
   <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
+<div class="save-bar">
+  <div class="topbar-logo">
+    <img src="img/icon-sidebar.png" alt="" class="topbar-icon">
+    <span class="topbar-name">
+      Better TweetDeck <br>
+      <small class="topbar-version-number">v3.0.0</small>
+    </span>
+  </div>
+  <div class="save-wrap">
+    <button class="save-button" disabled data-lang="save_no">No changes</button>
+  </div>
+</div>
 <div id="container">
   <aside class="sidebar">
-    <div class="sidebar-logo">
-      <img src="img/icon-sidebar.png" alt="" class="sidebar-icon">
-      <span class="sidebar-name">
-        Better TweetDeck <br>
-        <small class="sidebar-version-number">v3.0.0</small>
-      </span>
-    </div>
     <div class="nav-flex">
       <h3 class="sidebar-title" data-lang="settings">Settings</h3>
       <nav class="sidebar-nav">
@@ -39,7 +44,6 @@
       </nav>
     </div>
   </aside>
-
   <main class="content">
     <section class="content-block" id="tweets">
       <h2 class="section-title" data-lang="sec_tweetsName">Tweets: name & time</h2>
@@ -311,10 +315,6 @@
         </ul>
       </div>
     </section>
-
-    <div class="save-bar">
-      <button class="save-button" disabled data-lang="save_no">No changes</button>
-    </div>
   </main>
 </div>
 <script src="options.js"></script>
