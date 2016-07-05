@@ -1,3 +1,4 @@
 gulpfile.*
-update_emojis.js
+tools/**/*.js
+tools/**/*.json
 src/emojis/emojis.js

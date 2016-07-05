@@ -1,6 +1,6 @@
 import Mustache from 'mustache';
 /* eslint max-len: 0*/
-const _templates = {
+const templates = {
   preview: `
   <div class="js-media media-preview position-rel">
   <div class="js-media-preview-container position-rel {{^isMediaPreviewLarge}}{{^isMediaPreviewCompact}}{{^isMediaPreviewInQuoted}}margin-vm{{/isMediaPreviewInQuoted}}{{/isMediaPreviewCompact}}{{/isMediaPreviewLarge}}  {{#isMediaPreviewSmall}}{{#isPossiblySensitive}}media-size-medium{{/isPossiblySensitive}}{{/isMediaPreviewSmall}} {{#isMediaPreviewCompact}}media-size-medium margin-t--8{{/isMediaPreviewCompact}} {{#isMediaPreviewInQuoted}}margin-tm{{/isMediaPreviewInQuoted}} {{#isAnimatedGif}}is-gif{{/isAnimatedGif}} {{#isVideo}}is-video{{/isVideo}} {{#isMediaPreviewLarge}}margin-tm item-box-full-bleed{{/isMediaPreviewLarge}}">
@@ -72,7 +72,7 @@ const defaultData = {
   },
 };
 
-const previewTemplate = (mediaPreviewSrc, sourceLink, size, type = 'picture') => Mustache.render(_templates.preview, Object.assign(defaultData.preview, {
+const previewTemplate = (mediaPreviewSrc, sourceLink, size, type = 'picture') => Mustache.render(templates.preview, Object.assign(defaultData.preview, {
   url: sourceLink,
   mediaPreviewSrc,
   isVideo: type === 'video',
@@ -82,11 +82,11 @@ const previewTemplate = (mediaPreviewSrc, sourceLink, size, type = 'picture') =>
   thumbSizeClass: `media-size-${size}`,
 }));
 
-const modalTemplate = (imageUrl, originalUrl, type, videoEmbed = null) => Mustache.render(_templates.modal, Object.assign(defaultData.modal, {
+const modalTemplate = (imageUrl, originalUrl, type, videoEmbed = null) => Mustache.render(templates.modal, Object.assign(defaultData.modal, {
   imageUrl,
   videoEmbed,
   originalUrl,
-  isVideo: type === 'video'
+  isVideo: type === 'video',
 }));
 
 module.exports = { modalTemplate, previewTemplate };
