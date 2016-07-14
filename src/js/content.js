@@ -73,7 +73,7 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
   anchor.setAttribute('data-url-scanned', 'true');
 
   Thumbnails.thumbnailFor(url.expanded_url).then((data) => {
-    if (!data) {
+    if (!data || (data.type === 'video' && !data.thumbnail_url)) {
       return;
     }
 
@@ -239,6 +239,8 @@ function tweetHandler(tweet, columnKey, parent) {
     } else if (tweet.targetTweet && tweet.targetUser) {
       // If it got targetTweet it's an activity on a tweet
       urlsToChange = [...tweet.targetTweet.entities.urls, ...tweet.targetTweet.entities.media];
+    } else if (tweet.retweetedStatus) {
+      urlsToChange = [...tweet.retweetedStatus.entities.urls, ...tweet.retweetedStatus.entities.media];
     }
 
     if (urlsToChange.length > 0) {
