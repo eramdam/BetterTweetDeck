@@ -10,16 +10,29 @@ import * as Log from './util/logger.js';
 import { $, TIMESTAMP_INTERVAL, on, sendEvent } from './util/util';
 
 let settings;
+
+/**
+ * This will contain the sizes of each column
+ * Ensuring a much faster way to retrieve/update them than querying the DOM
+ */
 const COLUMNS_MEDIA_SIZES = new Map();
 
 sendMessage({ action: 'get_settings' }, (response) => {
   settings = response.settings;
 });
 
+/**
+ * Injecting inject.js in head before doing anything else
+ */
 const scriptEl = document.createElement('script');
 scriptEl.src = chrome.extension.getURL('js/inject.js');
 document.head.appendChild(scriptEl);
 
+
+/**
+ * Since this function wil be called every ~3sec we have to check if we actually
+ * have timestamps to change before anything else
+ */
 function refreshTimestamps() {
   if (!$('.js-timestamp')) {
     return;
@@ -31,6 +44,10 @@ function refreshTimestamps() {
   });
 }
 
+/**
+ * This function will simply take settings in `css` field
+ * and then add/remove classes on the body
+ */
 function tweakClassesFromVisualSettings() {
   const enabledClasses = Object.keys(settings.css)
                         .filter((key) => settings.css[key])
@@ -47,32 +64,49 @@ function tweakClassesFromVisualSettings() {
   }
 }
 
+
 function expandURL(url, node) {
   const anchors = $(`a[href="${url.url}"]`, node);
 
-  if (!settings.no_tco || !anchors) {
+  if (!anchors) {
     return;
   }
 
   anchors.forEach((anchor) => anchor.setAttribute('href', url.expanded_url));
 }
 
+/**
+ * Adds a media preview on a node (tweet) from an url
+ * @param  {String} url         The url of the media
+ * @param  {DOMElement} node    The node containing the said url
+ * @param  {String} mediaSize   Size of the thumbnail
+ * @return {Promise}
+ */
 function thumbnailFromSingleURL(url, node, mediaSize) {
+  if (mediaSize === 'off') {
+    return Promise.resolve('No need for thumbnails');
+  }
+
   const anchors = $(`a[href="${url.expanded_url}"]`, node);
 
-  if (!anchors || mediaSize === 'off') {
-    return Promise.resolve();
+  if (!anchors) {
+    return Promise.resolve('No anchors found');
   }
 
   const anchor = anchors[0];
 
   if (anchor.getAttribute('data-url-scanned') === 'true' || $('.js-media', node)) {
-    return Promise.resolve();
+    return Promise.resolve('Media preview already added');
   }
 
   anchor.setAttribute('data-url-scanned', 'true');
 
   Thumbnails.thumbnailFor(url.expanded_url).then((data) => {
+    /**
+     * Prematurely stops the process if one of the two is met:
+     * - no data
+     * - the content is a video and Embed.ly didn't find any thumbnail
+     */
     if (!data || (data.type === 'video' && !data.thumbnail_url)) {
       return;
     }
@@ -92,7 +126,6 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
     $('.js-media-image-link', node)[0].addEventListener('click', (e) => {
       e.preventDefault();
 
-
       const tweetKey = node.getAttribute('data-key');
       const colKey = node.closest('[data-column]').getAttribute('data-column');
 
@@ -103,8 +136,10 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
   return Promise.resolve();
 }
 
+// Will call thumbnailFromSingleURL on a given set of urls + node + media size
 function thumbnailsFromURLs(urls, node, mediaSize) {
   return Promise.resolve(urls).then(each((url) => {
+    // If the url is in fact an entity object from TweetDeck OR is not supported then we don't process it
     if (url.type || url.sizes || !Thumbnails.validateUrl(url.expanded_url)) {
       return false;
     }
@@ -113,6 +148,9 @@ function thumbnailsFromURLs(urls, node, mediaSize) {
   }));
 }
 
+/**
+ * This is the main stuff, function called on every tweet
+ */
 function tweetHandler(tweet, columnKey, parent) {
   const hasParent = Boolean(parent);
 
@@ -131,6 +169,7 @@ function tweetHandler(tweet, columnKey, parent) {
     nodes = $(`[data-key="${tweet.id}"]`, parent);
   }
 
+  // If the tweet is actually a message in the DM column
   if (!nodes && tweet.messageThreadId) {
     nodes = $(`.stream-item[data-key="${tweet.messageThreadId}"]`, parent);
   }
@@ -152,8 +191,9 @@ function tweetHandler(tweet, columnKey, parent) {
       $('time > *', node).forEach((el) => timestampOnElement(el, t));
     }
 
-    // Usernames:
-    // If it has `targetTweet` then it's an activity and we need to change both the desc and the tweet if displayed
+    /**
+     * Usernames formatting
+     */
     if (tweet.targetTweet) {
       if (!tweet.id.startsWith('mention_') && !tweet.id.startsWith('quoted_tweet_')) {
         Usernames.format({
@@ -244,8 +284,10 @@ function tweetHandler(tweet, columnKey, parent) {
     }
 
     if (urlsToChange.length > 0) {
-      // We expand URLs
-      urlsToChange.forEach(url => expandURL(url, node));
+      // We expand URLs if needed
+      if (settings.no_tco) {
+        urlsToChange.forEach(url => expandURL(url, node));
+      }
 
       const urlForThumbnail = urlsToChange.filter(url => !url.id).pop();
 

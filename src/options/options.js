@@ -107,7 +107,7 @@ function refreshPreviews(settings) {
 }
 
 /**
- * When got the settings we initliase the view
+ * When got the settings we initialise the view
  */
 BHelper.settings.getAll(settings => {
   const settingsStr = JSON.stringify(settings, null, 2);
@@ -230,6 +230,7 @@ BHelper.settings.getAll(settings => {
 
   $('button.save-button').click(() => {
     const newSettings = {};
+
     $('input[name]').each((i, el) => {
       const input = el;
       const type = input.getAttribute('type').toLowerCase();
@@ -266,10 +267,13 @@ BHelper.settings.getAll(settings => {
   });
 });
 
+// Auto-select sidebar items
 $('.sidebar-nav:first-child a:first-child, .content-block:first-child').addClass('-selected');
 
+// Automatically add target=_blank on external links
 $('.sidebar-nav a:not([href^="#"])').each((i, el) => el.setAttribute('target', '_blank'));
 
+// "Animation" logic
 $('.sidebar-nav a[href^="#"]').on('click', (ev) => {
   ev.preventDefault();
   const href = ev.target.getAttribute('href').slice(1);
@@ -278,6 +282,7 @@ $('.sidebar-nav a[href^="#"]').on('click', (ev) => {
   $(`.sidebar-nav a[href="#${href}"], .content-block#${href}`).addClass('-selected');
 });
 
+// Open a specific section when needed
 if (Object.keys(queryString.parse(location.search)).length > 0) {
   const QS = queryString.parse(location.search);
 
@@ -287,10 +292,12 @@ if (Object.keys(queryString.parse(location.search)).length > 0) {
   }
 }
 
+// Write UA/version infos
 $('.sidebar-version-number').text(`v${BHelper.getVersion()}`);
 $('.settings-version-number').text(BHelper.getVersion());
 $('.settings-user-agent').text(BHelper.getUA());
 
+// Get GitHub infos
 fetch('https://api.github.com/repos/eramdam/BetterTweetDeck/contributors').then(res => {
   res.json().then(json => {
     json.forEach(contributor => {
@@ -310,6 +317,7 @@ fetch('https://api.github.com/repos/eramdam/BetterTweetDeck/contributors').then(
   });
 });
 
+// Because nobody got time to write that HTML by hand, right?
 const usedDeps = [
   { name: 'BabelJS', url: 'https://babeljs.io/' },
   { name: 'Embed.ly', url: 'http://embed.ly/' },
@@ -328,7 +336,18 @@ usedDeps.forEach(dep => {
   `);
 });
 
+// Easy-peasy-lemon-sqeezy i18n code
 [...document.querySelectorAll('[data-lang]')].forEach(el => {
   const msg = el.getAttribute('data-lang');
   el.innerHTML = BHelper.getMessage(msg);
 });
+
+
+// Add the "Are you sure you wanna leave?" alert when the save button isn't clicked
+window.onbeforeunload = () => {
+  if (!$('.save-button').is(':disabled')) {
+    return false;
+  }
+
+  return null;
+};

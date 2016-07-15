@@ -3,6 +3,9 @@
 import config from 'config';
 
 if (config.get('Client.debug')) {
+  /**
+   * Takes a node and fetches the chirp associated with it (useful for debugging)
+   */
   window._BTDinspectChirp = (element) => {
     if (!element.closest('[data-key]') || !element.closest('[data-column]')) {
       throw new Error('Not a chirp');
@@ -15,6 +18,9 @@ if (config.get('Client.debug')) {
   };
 }
 
+/**
+ * Send messages to the content window with BTDC_ prefix
+ */
 const proxyEvent = (name, detail = {}) => {
   name = `BTDC_${name}`;
   let cache = [];
@@ -125,6 +131,7 @@ const switchThemeClass = () => {
 };
 
 document.addEventListener('DOMNodeInserted', (ev) => {
+  // If the target of the event contains mediatable then we are inside the media modal
   if (ev.target.classList && ev.target.classList.contains('js-mediatable')) {
     const chirpKey = ev.target.querySelector('[data-key]').getAttribute('data-key');
     const colKey = document.querySelector(`[data-column] [data-key="${chirpKey}"]`).closest('[data-column]').getAttribute('data-column');

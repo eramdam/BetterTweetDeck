@@ -48,6 +48,9 @@ function contextMenuHandler(info, tab, settings) {
     textToShare = textToShare.substr(0, 110);
   }
 
+  /**
+   * We query a tab with TweetDeck opened in it
+   */
   chrome.tabs.query({
     url: '*://tweetdeck.twitter.com/*',
   }, (tabs) => {
@@ -57,6 +60,9 @@ function contextMenuHandler(info, tab, settings) {
 
     const TDTab = tabs[0];
 
+    /**
+     * We take the first tab we find, focus/select it and send a message to it
+     */
     chrome.windows.update(TDTab.windowId, {
       focused: true,
     }, () => {
@@ -113,12 +119,15 @@ BHelper.settings.getAll(settings => {
   }
 
   BHelper.settings.setAll(defaultsDeep(curSettings, defaultSettings), (newSettings) => {
-    if (!newSettings.installed_date) {
+    // If the user is new on v3 then we display the "on install" page
+    // '1468605919620' => ~15th of July
+    if (!newSettings.installed_date || newSettings.installed_date <= 1468605919620) {
       chrome.tabs.create({
         url: 'options/options.html?on=install',
       });
     }
 
+    // We create the context menu item
     chrome.contextMenus.create({
       title: BHelper.getMessage('shareOnTD'),
       contexts: ['page', 'selection', 'image', 'link'],
@@ -127,6 +136,7 @@ BHelper.settings.getAll(settings => {
   }, true);
 });
 
+// Simple interface to get settings
 Messages.on((message, sender, sendResponse) => {
   switch (message.action) {
     case 'get_settings':
