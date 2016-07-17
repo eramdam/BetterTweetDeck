@@ -239,6 +239,10 @@ function tweetHandler(tweet, columnKey, parent) {
         fSel: '.fullname',
         uSel: '.username',
       });
+
+      if (tweet.user && tweet.user.isVerified) {
+        node.querySelector('.account-link.link-complex').classList.add('btd-is-verified');
+      }
     } else if (tweet.messages && !tweet.name) {
       if (tweet.type === 'ONE_TO_ONE') {
         Usernames.format({
