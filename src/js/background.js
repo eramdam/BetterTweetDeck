@@ -125,6 +125,8 @@ BHelper.settings.getAll(settings => {
       chrome.tabs.create({
         url: 'options/options.html?on=install',
       });
+
+      BHelper.settings.set({ installed_date: new Date().getTime() });
     }
 
     // We create the context menu item
