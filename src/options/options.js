@@ -141,7 +141,8 @@ BHelper.settings.getAll(settings => {
           }
 
           $('input[name="flash_tweets.mode"]').removeAttr('checked');
-          $(`input[name="flash_tweets.mode"]#${settings.flash_tweets.mode}`).prop('checked', true);
+          $('input[name="flash_tweets.mode"]').prop('disabled', !settings.flash_tweets.enabled);
+          $(`input[name="flash_tweets.mode"]#${settings.flash_tweets.mode}`).prop('checked', settings.flash_tweets.enabled && true);
         }
       });
     } else {
