@@ -6,7 +6,16 @@
 - [Feature] Verified badge in the columns
 - [Feature] Updated Minimal theme for dark/white + more reliable support of it
 - [Feature] Can change hearts back to stars
-- [Feature] Emoji picker w/ a search and diversity support
-- [Feature] Gfycat, Giphy, Mixcloud, Skitch, Spotify, Streamable, Twitch, Vidme and youtu.be are supported
-- [Feature] Every thumbnail is powered by [Embed.ly](http://embed.ly/)
+- [Feature] Emoji picker now has a search and diversity support
+- [Feature] Every thumbnail is powered by [Embed.ly](http://embed.ly/) and added thumbnails providers:
+  - Gfycat
+  - Giphy
+  - Mixcloud
+  - Skitch
+  - Spotify
+  - Streamable
+  - TinyGrab
+  - Twitch
+  - Vidme
+  - youtu.be
 - [Feature] Custom format for timestamps

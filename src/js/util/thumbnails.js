@@ -36,6 +36,7 @@ const schemeWhitelist = [
   { name: 'Spotify', setting: 'spotify', re: /(?:open.spotify.com|play.spotify.com|spoti.fi)/, default: true },
   { name: 'Streamable', setting: 'streamable', re: /streamable.com/, default: true },
   { name: 'TED', setting: 'ted', re: /ted.com\/talks/, default: true },
+  { name: 'TinyGrab', setting: 'tinygrab', re: /grab.by/, default: true },
   { name: 'Tumblr', setting: 'tumblr', re: /tumblr.com\/.+.(?:gif|png|jpg)$/, default: true },
   { name: 'Twitch', setting: 'twitch_tv', re: /twitch.tv/, default: true },
   { name: 'Vidme', setting: 'vid_me', re: /(?:vidd.me|vid.me)/, default: true },
