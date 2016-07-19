@@ -21,6 +21,7 @@ const defaultSettings = {
   stop_gifs: true,
   css: {
     round_pic: true,
+    bigger_emojis: true,
     no_col_icns: false,
     no_play_btn: true,
     gray_icns_notifs: false,

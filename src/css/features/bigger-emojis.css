@@ -1,0 +1,8 @@
+.btd__bigger_emojis {
+  .emoji {
+    width: 1.3em !important;
+    height: 1.3em !important;
+    padding: .2em .05em 0 .1em !important;
+    vertical-align: text-bottom !important;
+  }
+}

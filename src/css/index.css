@@ -5,6 +5,7 @@
 
 /* Visual Features */
 @import './features/actions.css';
+@import './features/bigger-emojis.css';
 @import './features/flash-tweets.css';
 @import './features/gray-notif-icns.css';
 @import './features/hide-context.css';
