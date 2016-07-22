@@ -1,0 +1,3 @@
+.btd__hide_url_thumb [data-url-has-preview] {
+  display: none;
+}

@@ -58,6 +58,7 @@
 
   "css_minimal_mode": { "message": "Activer le mode 'Minimaliste'" },
   "css_no_play_btn": { "message": "Masquer les icônes de lecture sur les vidéos" },
+  "css_hide_url_thumb": { "message": "Masquer les urls relatives aux miniatures (à la Twitter iOS/Android)" },
   "css_no_col_icns": { "message": "Masquer les icônes dans les entêtes de colonnes" },
   "css_small_icns_compose": { "message": "Les icônes sont plus petites dans le 'Compose'" },
   "css_gray_icns_notifs": { "message": "Les icônes de notifications sont en niveaux de gris" },

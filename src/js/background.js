@@ -1,5 +1,6 @@
 import * as BHelper from './util/browserHelper';
 import * as Messages from './util/messaging';
+import * as Log from './util/logger';
 import { defaultsDeep } from 'lodash';
 
 const defaultSettings = {
@@ -23,7 +24,6 @@ const defaultSettings = {
     round_pic: true,
     bigger_emojis: true,
     no_col_icns: false,
-    no_play_btn: true,
     gray_icns_notifs: false,
     minimal_mode: false,
     small_icns_compose: true,
@@ -33,6 +33,7 @@ const defaultSettings = {
     show_verified: true,
     actions_on_right: true,
     actions_on_hover: true,
+    hide_url_thumb: true,
   },
   share_item: {
     enabled: true,
@@ -120,6 +121,7 @@ BHelper.settings.getAll(settings => {
   }
 
   BHelper.settings.setAll(defaultsDeep(curSettings, defaultSettings), (newSettings) => {
+    Log.debug(newSettings);
     // If the user is new on v3 then we display the "on install" page
     // '1468605919620' => ~15th of July
     if (!newSettings.installed_date || newSettings.installed_date <= 1468605919620) {

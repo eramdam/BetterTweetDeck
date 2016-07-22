@@ -75,6 +75,20 @@ function expandURL(url, node) {
   anchors.forEach((anchor) => anchor.setAttribute('href', url.expanded_url));
 }
 
+function hideURLVisually(url, node) {
+  if (!url) {
+    return;
+  }
+
+  const anchors = $(`a[href="${url.expanded_url}"]`, node);
+
+  if (!anchors) {
+    return;
+  }
+
+  anchors.forEach(a => a.setAttribute('data-url-has-preview', 'true'));
+}
+
 /**
  * Adds a media preview on a node (tweet) from an url
  * @param  {String} url         The url of the media
@@ -100,6 +114,10 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
   }
 
   anchor.setAttribute('data-url-scanned', 'true');
+
+  if (settings.css.hide_url_thumb) {
+    hideURLVisually(url, node);
+  }
 
   Thumbnails.thumbnailFor(url.expanded_url).then((data) => {
     /**
@@ -280,12 +298,14 @@ function tweetHandler(tweet, columnKey, parent) {
     // If it got entities, it's a tweet
     if (tweet.entities) {
       urlsToChange = [...tweet.entities.urls, ...tweet.entities.media];
-    } else if (tweet.targetTweet && tweet.targetUser) {
+    } else if (tweet.targetTweet) {
       // If it got targetTweet it's an activity on a tweet
       urlsToChange = [...tweet.targetTweet.entities.urls, ...tweet.targetTweet.entities.media];
     } else if (tweet.retweetedStatus) {
       urlsToChange = [...tweet.retweetedStatus.entities.urls, ...tweet.retweetedStatus.entities.media];
     }
+
+    const mediaURLS = urlsToChange.filter(url => url.type || url.display_url.startsWith('youtube.') || url.display_url.startsWith('vine'));
 
     if (urlsToChange.length > 0) {
       // We expand URLs if needed
@@ -294,6 +314,15 @@ function tweetHandler(tweet, columnKey, parent) {
       }
 
       const urlForThumbnail = urlsToChange.filter(url => !url.id).pop();
+      let urlToHide;
+
+      if (mediaURLS.length > 0) {
+        urlToHide = mediaURLS.pop();
+      }
+
+      if (settings.css.hide_url_thumb) {
+        hideURLVisually(urlToHide, node);
+      }
 
       if (!urlForThumbnail || !node.closest('[data-column]')) {
         return;

@@ -58,6 +58,7 @@
 
   "css_minimal_mode": { "message": "Enable the 'Minimal' mode" },
   "css_no_play_btn": { "message": "Hide the play button on video thumbnails" },
+  "css_hide_url_thumb": { "message": "Hide the link related to thumbnails in tweets (à la Twitter iOS/Android)" },
   "css_no_col_icns": { "message": "Hide icons in columns headers" },
   "css_small_icns_compose": { "message": "Icons are smaller in the Compose panel" },
   "css_gray_icns_notifs": { "message": "Notifications icons are in grayscale" },
