@@ -24,7 +24,7 @@
   "time_relative": { "message": "Relative" },
   "time_absolute": { "message": "Absolute" },
   "time_absolute_us": { "message": "Absolute US Style" },
-  "time_custom": { "message": "Custom" },
+  "time_custom": { "message": "Custom (<a target='_blank' href='https://github.com/taylorhakes/fecha#formatting-tokens'>Formatting help</a>)" },
   "time_short": { "message": "Short" },
   "time_full": { "message": "Full" },
   "time_full24": { "message": "Display full date after 24h" },

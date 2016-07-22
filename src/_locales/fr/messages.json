@@ -24,7 +24,7 @@
   "time_relative": { "message": "Relatif" },
   "time_absolute": { "message": "Absolu" },
   "time_absolute_us": { "message": "Absolu style 'US'" },
-  "time_custom": { "message": "Personnalisé" },
+  "time_custom": { "message": "Personnalisé (<a target='_blank' href='https://github.com/taylorhakes/fecha#formatting-tokens'>Formattage (anglais)</a>)" },
   "time_short": { "message": "Court" },
   "time_full": { "message": "Long" },
   "time_full24": { "message": "Afficher longue date après 24h" },
