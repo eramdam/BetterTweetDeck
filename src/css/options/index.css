@@ -135,6 +135,25 @@ body {
       display: inline-block;
     }
 
+    label[data-new-feat] {
+      position: relative;
+    }
+
+    label[data-new-feat]:after {
+      content: 'New';
+      text-transform: uppercase;
+      display: inline-block;
+      background: #00a2ee;
+      font-size: 10px;
+      margin-left: 0.6em;
+      padding: 0.12em 0.45em;
+      position: absolute;
+      border-radius: 4px;
+      color: white;
+      top: 50%;
+      transform: translate(0%,-50%);
+    }
+
     label small,
     li small {
       margin-left: .4em;
