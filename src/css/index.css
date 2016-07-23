@@ -41,6 +41,38 @@
   /* Future loading bg image */
 }
 
+[data-btdtheme] .video-overlay {
+  display: none;
+}
+
+[data-btdtheme] .js-media-preview-container.is-video a {
+  &::after,
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+  }
+
+  &::after {
+    background-color: black;
+    border-radius: 50%;
+    opacity: 0.75;
+    z-index: 98;
+    width: 40px;
+    height: 40px;
+  }
+
+  &::before {
+    z-index: 99;
+    width: calc(40px * 80 / 100);
+    height: calc(40px * 80 / 100);
+    opacity: .8;
+    background-image: url('../icons/controller-play.svg');
+  }
+}
+
 .js-add-emojis .btd-emoji-icon {
   background-image: url('../emojis/emoji-happy.svg');
 }
