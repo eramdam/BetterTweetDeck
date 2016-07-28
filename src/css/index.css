@@ -45,6 +45,14 @@
   display: none;
 }
 
+[data-btdtheme] .js-media-image-link {
+  background-color: white;
+}
+
+[data-btdtheme] .js-modal-panel .js-media-image-link {
+  background-color: transparent;
+}
+
 [data-btdtheme] .js-media-preview-container.is-video a {
   &::after,
   &::before {
