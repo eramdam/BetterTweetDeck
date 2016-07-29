@@ -231,7 +231,7 @@ function tweetHandler(tweet, columnKey, parent) {
       if (tweet.sourceUser && tweet.sourceUser.isVerified) {
         node.querySelector('.account-link.link-complex, .has-source-avatar .item-img').classList.add('btd-is-verified');
       }
-    } else if (tweet.retweet) {
+    } else if (tweet.retweetedStatus) {
       Usernames.format({
         node,
         user: tweet.user,
@@ -240,17 +240,17 @@ function tweetHandler(tweet, columnKey, parent) {
 
       Usernames.format({
         node,
-        user: tweet.retweet.user,
+        user: tweet.retweetedStatus.user,
         fSel: '.tweet-header .fullname',
         uSel: '.tweet-header .username',
       });
 
       node.classList.add('btd-is-retweet');
 
-      if (tweet.retweet.user.isVerified) {
+      if (tweet.retweetedStatus.user.isVerified) {
         node.querySelector('.account-link.link-complex').classList.add('btd-is-verified');
       }
-    } else if (tweet.user && !tweet.retweet) {
+    } else if (tweet.user && !tweet.retweetedStatus) {
       Usernames.format({
         node,
         user: tweet.user,
