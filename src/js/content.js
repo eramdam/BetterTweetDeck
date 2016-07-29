@@ -205,7 +205,7 @@ function tweetHandler(tweet, columnKey, parent) {
     // Timestamps:
     // $('time > *', node).forEach((el) => timestampOnElement(el, tweet.created));
     if ($('time > *', node)) {
-      const t = tweet.retweetedStatus ? tweet.retweetedStatus.created : tweet.created;
+      const t = tweet.retweet ? tweet.retweet.created : tweet.created;
       $('time > *', node).forEach((el) => timestampOnElement(el, t));
     }
 
@@ -231,7 +231,7 @@ function tweetHandler(tweet, columnKey, parent) {
       if (tweet.sourceUser && tweet.sourceUser.isVerified) {
         node.querySelector('.account-link.link-complex, .has-source-avatar .item-img').classList.add('btd-is-verified');
       }
-    } else if (tweet.retweetedStatus) {
+    } else if (tweet.retweet) {
       Usernames.format({
         node,
         user: tweet.user,
@@ -240,17 +240,17 @@ function tweetHandler(tweet, columnKey, parent) {
 
       Usernames.format({
         node,
-        user: tweet.retweetedStatus.user,
+        user: tweet.retweet.user,
         fSel: '.tweet-header .fullname',
         uSel: '.tweet-header .username',
       });
 
       node.classList.add('btd-is-retweet');
 
-      if (tweet.retweetedStatus.user.isVerified) {
+      if (tweet.retweet.user.isVerified) {
         node.querySelector('.account-link.link-complex').classList.add('btd-is-verified');
       }
-    } else if (tweet.user && !tweet.retweetedStatus) {
+    } else if (tweet.user && !tweet.retweet) {
       Usernames.format({
         node,
         user: tweet.user,
@@ -301,8 +301,8 @@ function tweetHandler(tweet, columnKey, parent) {
     } else if (tweet.targetTweet) {
       // If it got targetTweet it's an activity on a tweet
       urlsToChange = [...tweet.targetTweet.entities.urls, ...tweet.targetTweet.entities.media];
-    } else if (tweet.retweetedStatus) {
-      urlsToChange = [...tweet.retweetedStatus.entities.urls, ...tweet.retweetedStatus.entities.media];
+    } else if (tweet.retweet) {
+      urlsToChange = [...tweet.retweet.entities.urls, ...tweet.retweet.entities.media];
     }
 
     const mediaURLS = urlsToChange.filter(url => url.type || url.display_url.startsWith('youtube.') || url.display_url.startsWith('vine'));
