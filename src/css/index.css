@@ -45,7 +45,7 @@
   display: none;
 }
 
-[data-btdtheme] .js-media-image-link {
+[data-btdtheme] .js-media[data-key] .js-media-image-link {
   background-color: white;
 }
 
