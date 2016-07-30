@@ -303,6 +303,8 @@ function tweetHandler(tweet, columnKey, parent) {
       urlsToChange = [...tweet.targetTweet.entities.urls, ...tweet.targetTweet.entities.media];
     } else if (tweet.retweet) {
       urlsToChange = [...tweet.retweet.entities.urls, ...tweet.retweet.entities.media];
+    } else if (tweet.retweetedStatus) {
+      urlsToChange = [...tweet.retweetedStatus.entities.urls, ...tweet.retweetedStatus.entities.media];
     }
 
     const mediaURLS = urlsToChange.filter(url => url.type || url.display_url.startsWith('youtube.') || url.display_url.startsWith('vine'));
