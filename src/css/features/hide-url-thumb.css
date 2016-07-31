@@ -1,3 +1,7 @@
-.btd__hide_url_thumb [data-url-has-preview] {
-  display: none;
+.btd__hide_url_thumb article a.btd-isvishidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
 }

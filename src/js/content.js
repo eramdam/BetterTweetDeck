@@ -80,13 +80,13 @@ function hideURLVisually(url, node) {
     return;
   }
 
-  const anchors = $(`a[href="${url.expanded_url}"]`, node);
+  const anchors = $(`p > a[href="${url.expanded_url}"]`, node);
 
   if (!anchors) {
     return;
   }
 
-  anchors.forEach(a => a.setAttribute('data-url-has-preview', 'true'));
+  anchors.forEach(a => a.classList.add('btd-isvishidden'));
 }
 
 /**
