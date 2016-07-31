@@ -138,7 +138,7 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
     if (mediaSize === 'large') {
       $('.tweet.js-tweet', node)[0].insertAdjacentHTML('afterend', html);
     } else {
-      $('.tweet-body p', node)[0].insertAdjacentHTML('afterend', html);
+      $('.tweet-body p, .tweet-text', node)[0].insertAdjacentHTML('afterend', html);
     }
 
     $('.js-media-image-link', node)[0].addEventListener('click', (e) => {
