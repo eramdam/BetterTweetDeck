@@ -172,6 +172,10 @@ function thumbnailsFromURLs(urls, node, mediaSize) {
 function tweetHandler(tweet, columnKey, parent) {
   const hasParent = Boolean(parent);
 
+  if (!tweet) {
+    return;
+  }
+
   if (!hasParent) {
     if (!$(`.js-column[data-column="${columnKey}"]`)) {
       Log.debug(tweet, columnKey);
