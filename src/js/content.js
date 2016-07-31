@@ -192,8 +192,12 @@ function tweetHandler(tweet, columnKey, parent) {
   }
 
   // If the tweet is actually a message in the DM column
-  if (!nodes && tweet.messageThreadId) {
+  if (tweet.messageThreadId) {
     nodes = $(`.stream-item[data-key="${tweet.messageThreadId}"]`, parent);
+  }
+
+  if (tweet.sender) {
+    nodes = $(`.stream-item[data-key="${tweet.id}"]`, parent);
   }
 
   const mediaSize = COLUMNS_MEDIA_SIZES.get(columnKey);
@@ -295,6 +299,15 @@ function tweetHandler(tweet, columnKey, parent) {
       if (['username', 'inverted'].includes(settings.nm_disp)) {
         Usernames.rewriteElMatchingSel('.tweet-context .txt-ellipsis .account-link', node, tweet.inReplyToScreenName);
       }
+    }
+
+    if (tweet.sender) {
+      Usernames.format({
+        node,
+        user: tweet.sender,
+        fSel: '.tweet-header .fullname',
+        uSel: '.tweet-header .username',
+      });
     }
 
 

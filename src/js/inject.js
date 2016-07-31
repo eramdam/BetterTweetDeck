@@ -26,7 +26,7 @@ const proxyEvent = (name, detail = {}) => {
   let cache = [];
   detail = JSON.stringify(detail, (key, val) => {
     if (typeof val === 'object' && val !== null) {
-      if (cache.indexOf(val) !== -1) {
+      if (cache.indexOf(val) !== -1 && !val.screenName) {
         return null;
       }
       cache.push(val);
@@ -131,9 +131,10 @@ const switchThemeClass = () => {
 };
 
 document.addEventListener('DOMNodeInserted', (ev) => {
+  const target = ev.target;
   // If the target of the event contains mediatable then we are inside the media modal
-  if (ev.target.classList && ev.target.classList.contains('js-mediatable')) {
-    const chirpKey = ev.target.querySelector('[data-key]').getAttribute('data-key');
+  if (target.classList && target.classList.contains('js-mediatable')) {
+    const chirpKey = target.querySelector('[data-key]').getAttribute('data-key');
     const colKey = document.querySelector(`[data-column] [data-key="${chirpKey}"]`).closest('[data-column]').getAttribute('data-column');
 
     const chirp = TD.controller.columnManager.get(colKey).updateIndex[chirpKey];
@@ -141,18 +142,23 @@ document.addEventListener('DOMNodeInserted', (ev) => {
     proxyEvent('gotChirpInMediaModal', { chirp });
   }
 
-  if (!ev.target.hasAttribute || !ev.target.hasAttribute('data-key')) {
+  if (!target.hasAttribute || !target.hasAttribute('data-key')) {
     return;
   }
 
-  const chirpKey = ev.target.getAttribute('data-key');
-  const colKey = ev.target.closest('.js-column').getAttribute('data-column');
+  const chirpKey = target.getAttribute('data-key');
+  const colKey = target.closest('.js-column').getAttribute('data-column');
 
   if (!TD.controller.columnManager.get(colKey)) {
     return;
   }
 
-  const chirp = TD.controller.columnManager.get(colKey).updateIndex[chirpKey];
+  const column = TD.controller.columnManager.get(colKey);
+  let chirp = column.updateIndex[chirpKey];
+
+  if (target.hasAttribute('data-account-key') && !target.hasAttribute('data-tweet-id') && !chirp) {
+    chirp = column.updateIndex[column.detailViewComponent.chirp.id].messageIndex[chirpKey];
+  }
 
   if (!chirp) {
     return;
@@ -186,15 +192,15 @@ $(document).on('uiVisibleChirps', (ev, data) => {
   }
 });
 
-
 // TD Events
 $(document).on('uiDetailViewOpening', (ev, data) => {
+  if (config.get('Client.debug')) {
+    window._BTDLastDetailColumn = data.column;
+  }
   setTimeout(() => {
-    let chirpsData;
+    let chirpsData = [];
 
-    if (['ONE_TO_ONE', 'GROUP_DM'].includes(data.column.detailViewComponent.chirp.type)) {
-      chirpsData = [...data.column.detailViewComponent.chirp.messages];
-    } else {
+    if (!['ONE_TO_ONE', 'GROUP_DM'].includes(data.column.detailViewComponent.chirp.type)) {
       chirpsData = [
         ...data.column.detailViewComponent.repliesTo.repliesTo || [],
         data.column.detailViewComponent.parentChirp,
@@ -206,7 +212,7 @@ $(document).on('uiDetailViewOpening', (ev, data) => {
       // On va manger....DES CHIRPS
       chirpsData,
     });
-  }, 200);
+  }, 500);
 });
 
 $(document).on('dataColumns', (ev, data) => {
