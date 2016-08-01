@@ -210,6 +210,10 @@ function tweetHandler(tweet, columnKey, parent) {
   nodes.forEach((node) => {
     let urlsToChange = [];
 
+    if (tweet.retweetedStatus) {
+      node.classList.add('btd-is-retweet');
+    }
+
     // Timestamps:
     // $('time > *', node).forEach((el) => timestampOnElement(el, tweet.created));
     if ($('time > *', node)) {
@@ -252,8 +256,6 @@ function tweetHandler(tweet, columnKey, parent) {
         fSel: '.tweet-header .fullname',
         uSel: '.tweet-header .username',
       });
-
-      node.classList.add('btd-is-retweet');
 
       if (tweet.retweetedStatus.user.isVerified) {
         node.querySelector('.account-link.link-complex').classList.add('btd-is-verified');
