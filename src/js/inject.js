@@ -160,6 +160,20 @@ document.addEventListener('DOMNodeInserted', (ev) => {
     chirp = column.updateIndex[column.detailViewComponent.chirp.id].messageIndex[chirpKey];
   }
 
+  if (target.hasAttribute('data-account-key') && target.hasAttribute('data-tweet-id') && !chirp) {
+    const chirpsStack = [];
+
+    if (column.detailViewComponent.repliesTo && column.detailViewComponent.repliesTo.repliesTo) {
+      chirpsStack.push(...column.detailViewComponent.repliesTo.repliesTo);
+    }
+
+    if (column.detailViewComponent.replies && column.detailViewComponent.replies.replies) {
+      chirpsStack.push(...column.detailViewComponent.replies.replies);
+    }
+
+    chirp = chirpsStack.find(c => c.id === chirpKey);
+  }
+
   if (!chirp) {
     return;
   }
@@ -201,17 +215,22 @@ $(document).on('uiDetailViewOpening', (ev, data) => {
     let chirpsData = [];
 
     if (!['ONE_TO_ONE', 'GROUP_DM'].includes(data.column.detailViewComponent.chirp.type)) {
-      chirpsData = [
-        ...data.column.detailViewComponent.repliesTo.repliesTo || [],
-        data.column.detailViewComponent.parentChirp,
-        ...data.column.detailViewComponent.replies.replies || []];
-    }
+      chirpsData = [data.column.detailViewComponent.parentChirp];
 
-    proxyEvent(ev.type, {
-      columnKey: data.column.model.privateState.key,
-      // On va manger....DES CHIRPS
-      chirpsData,
-    });
+      if (data.column.detailViewComponent.repliesTo && data.column.detailViewComponent.repliesTo.repliesTo) {
+        chirpsData.push(...data.column.detailViewComponent.repliesTo.repliesTo);
+      }
+
+      if (data.column.detailViewComponent.replies && data.column.detailViewComponent.replies.replies) {
+        chirpsData.push(...data.column.detailViewComponent.replies.replies);
+      }
+
+      proxyEvent(ev.type, {
+        columnKey: data.column.model.privateState.key,
+        // On va manger....DES CHIRPS
+        chirpsData,
+      });
+    }
   }, 500);
 });
 
