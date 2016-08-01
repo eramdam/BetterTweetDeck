@@ -115,10 +115,6 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
 
   anchor.setAttribute('data-url-scanned', 'true');
 
-  if (settings.css.hide_url_thumb) {
-    hideURLVisually(url, node);
-  }
-
   Thumbnails.thumbnailFor(url.expanded_url).then((data) => {
     /**
      * Prematurely stops the process if one of the two is met:
@@ -127,6 +123,10 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
      */
     if (!data || (data.type === 'video' && !data.thumbnail_url)) {
       return;
+    }
+
+    if (settings.css.hide_url_thumb) {
+      hideURLVisually(url, node);
     }
 
     const tbUrl = data.thumbnail_url || data.url;
