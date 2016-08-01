@@ -46,7 +46,21 @@ const postMessagesListeners = {
       return;
     }
 
-    const chirp = TD.controller.columnManager.get(colKey).updateIndex[tweetKey];
+    const column = TD.controller.columnManager.get(colKey);
+    const chirpsStack = [];
+    let chirp = column.updateIndex[tweetKey];
+
+    if (!chirp) {
+      if (column.detailViewComponent.repliesTo && column.detailViewComponent.repliesTo.repliesTo) {
+        chirpsStack.push(...column.detailViewComponent.repliesTo.repliesTo);
+      }
+
+      if (column.detailViewComponent.replies && column.detailViewComponent.replies.replies) {
+        chirpsStack.push(...column.detailViewComponent.replies.replies);
+      }
+
+      chirp = chirpsStack.find(c => c.id === tweetKey);
+    }
 
     if (!chirp) {
       return;
