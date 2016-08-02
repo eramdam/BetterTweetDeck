@@ -158,6 +158,7 @@ document.addEventListener('DOMNodeInserted', (ev) => {
     const chirp = TD.controller.columnManager.get(colKey).updateIndex[chirpKey];
 
     proxyEvent('gotChirpInMediaModal', { chirp });
+    return;
   }
 
   if (!target.hasAttribute || !target.hasAttribute('data-key')) {
@@ -174,7 +175,7 @@ document.addEventListener('DOMNodeInserted', (ev) => {
   const column = TD.controller.columnManager.get(colKey);
   let chirp = column.updateIndex[chirpKey];
 
-  if (target.hasAttribute('data-account-key') && !target.hasAttribute('data-tweet-id') && !chirp) {
+  if (target.closest('.js-column-detail') && target.closest('.column-type-message') && !chirp) {
     chirp = column.updateIndex[column.detailViewComponent.chirp.id].messageIndex[chirpKey];
   }
 
@@ -225,33 +226,6 @@ $(document).on('uiVisibleChirps', (ev, data) => {
 });
 
 // TD Events
-$(document).on('uiDetailViewOpening', (ev, data) => {
-  if (config.get('Client.debug')) {
-    window._BTDLastDetailColumn = data.column;
-  }
-  setTimeout(() => {
-    let chirpsData = [];
-
-    if (!['ONE_TO_ONE', 'GROUP_DM'].includes(data.column.detailViewComponent.chirp.type)) {
-      chirpsData = [data.column.detailViewComponent.parentChirp];
-
-      if (data.column.detailViewComponent.repliesTo && data.column.detailViewComponent.repliesTo.repliesTo) {
-        chirpsData.push(...data.column.detailViewComponent.repliesTo.repliesTo);
-      }
-
-      if (data.column.detailViewComponent.replies && data.column.detailViewComponent.replies.replies) {
-        chirpsData.push(...data.column.detailViewComponent.replies.replies);
-      }
-
-      proxyEvent(ev.type, {
-        columnKey: data.column.model.privateState.key,
-        // On va manger....DES CHIRPS
-        chirpsData,
-      });
-    }
-  }, 500);
-});
-
 $(document).on('dataColumns', (ev, data) => {
   const cols = data.columns.filter(col => col.model.state.settings).map((col) => ({
     id: col.model.privateState.key,

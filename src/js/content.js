@@ -452,13 +452,6 @@ on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
   });
 });
 
-on('BTDC_uiDetailViewOpening', (ev, data) => {
-  const detail = data;
-  const tweets = detail.chirpsData;
-
-  tweets.forEach((tweet) => tweetHandler(tweet, detail.columnKey));
-});
-
 on('BTDC_columnMediaSizeUpdated', (ev, data) => {
   const { id, size } = data;
 
