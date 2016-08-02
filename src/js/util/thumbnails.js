@@ -26,7 +26,7 @@ const schemeWhitelist = [
   { name: 'Flickr', setting: 'flickr', re: /(?:flic.kr|flickr.com)/, default: true },
   { name: 'Gfycat', setting: 'gfycat', re: /gfycat.com/, default: true },
   { name: 'Giphy', setting: 'giphy', re: /(?:giphy.com\/gifs\/|gph.is\/)/, default: true },
-  { name: 'Imgur', setting: 'imgur', re: /imgur.com/, default: true },
+  { name: 'Imgur', setting: 'imgur', re: /(?:imgur.com|i.imgur.com)/, default: true },
   { name: 'img.ly', setting: 'img_ly', re: /img.ly/, default: true },
   { name: 'Instagram', setting: 'instagram', re: /https?:\/\/(?:i.|www.|)instagr(?:.am|am.com)\/p\/.+/, default: true },
   { name: 'Mixcloud', setting: 'mixcloud', re: /mixcloud.com\/[\w]+\/[\w]+/, default: true },

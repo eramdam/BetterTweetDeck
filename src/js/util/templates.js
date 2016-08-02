@@ -1,4 +1,5 @@
 import Mustache from 'mustache';
+import qs from 'query-string';
 /* eslint max-len: 0*/
 const templates = {
   preview: `
@@ -23,7 +24,7 @@ const templates = {
               <!-- Insert here  -->
               <div class="med-tray js-mediaembed" style="opacity: 1;">
                 <div class="js-media-preview-container position-rel margin-vm">
-                  <a class="js-media-image-link block med-link media-item" href="https://t.co/Vztmxfe5nn" rel="mediaPreview" target="_blank" data-media-entity-id="">
+                  <a class="js-media-image-link block med-link media-item" href="{{imageUrl}}" rel="mediaPreview" target="_blank" data-media-entity-id="">
                     {{^isVideo}}
                     <img class="media-img" src="{{imageUrl}}" alt="{{AltInfo}}" data-maxwidth="{{maxWidth}}" data-maxheight="{{maxHeight}}" style="max-width: 1024px; max-height: 688px;">
                     {{/isVideo}}
@@ -82,11 +83,18 @@ const previewTemplate = (mediaPreviewSrc, sourceLink, size, type = 'picture') =>
   thumbSizeClass: `media-size-${size}`,
 }));
 
-const modalTemplate = (imageUrl, originalUrl, type, videoEmbed = null) => Mustache.render(templates.modal, Object.assign(defaultData.modal, {
-  imageUrl,
-  videoEmbed,
-  originalUrl,
-  isVideo: type === 'video',
-}));
+const modalTemplate = (imageUrl, originalUrl, type, videoEmbed = null) => {
+  if (type !== 'video') {
+    const parsed = qs.parse(imageUrl);
+    imageUrl = parsed[Object.keys(parsed)[0]];
+  }
+
+  return Mustache.render(templates.modal, Object.assign(defaultData.modal, {
+    imageUrl,
+    videoEmbed,
+    originalUrl,
+    isVideo: type === 'video',
+  }));
+};
 
 module.exports = { modalTemplate, previewTemplate };

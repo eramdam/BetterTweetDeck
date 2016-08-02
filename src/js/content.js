@@ -130,10 +130,16 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
     }
 
     const tbUrl = data.thumbnail_url || data.url;
+    let origUrl = undefined;
+
+    if (data.height > data.thumbnail_height || data.width > data.thumbnail_width) {
+      origUrl = data.url;
+    }
+
     const type = data.html ? 'video' : 'image';
     const embed = data.html ? data.html : null;
     const html = Templates.previewTemplate(tbUrl, url.expanded_url, mediaSize, type);
-    const modalHtml = Templates.modalTemplate(tbUrl, url.expanded_url, type, embed);
+    const modalHtml = Templates.modalTemplate(origUrl || tbUrl, url.expanded_url, type, embed);
 
     if (mediaSize === 'large') {
       $('.tweet.js-tweet', node)[0].insertAdjacentHTML('afterend', html);
