@@ -63,6 +63,10 @@ const postMessagesListeners = {
     }
 
     if (!chirp) {
+      chirp = column.updateIndex[column.detailViewComponent.chirp.id].messageIndex[tweetKey];
+    }
+
+    if (!chirp) {
       return;
     }
 
