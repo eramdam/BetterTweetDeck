@@ -2,6 +2,7 @@
 ===============
 - [Meta] Completely re-written in ES2015 with modules for a more maintainable code
 - [Meta] Faster than 2.x, more reliable and nicer on resources
+- [Feature] Modals/thumbnails work in DMs
 - [Feature] Stop the autoplay of GIFs
 - [Feature] Verified badge in the columns
 - [Feature] Updated Minimal theme for dark/white + more reliable support of it
