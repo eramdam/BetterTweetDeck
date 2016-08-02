@@ -323,12 +323,12 @@ function tweetHandler(tweet, columnKey, parent) {
     // If it got entities, it's a tweet
     if (tweet.entities) {
       urlsToChange = [...tweet.entities.urls, ...tweet.entities.media];
-    } else if (tweet.targetTweet) {
+    } else if (tweet.targetTweet && tweet.targetTweet.entities) {
       // If it got targetTweet it's an activity on a tweet
       urlsToChange = [...tweet.targetTweet.entities.urls, ...tweet.targetTweet.entities.media];
-    } else if (tweet.retweet) {
+    } else if (tweet.retweet && tweet.retweet.entities) {
       urlsToChange = [...tweet.retweet.entities.urls, ...tweet.retweet.entities.media];
-    } else if (tweet.retweetedStatus) {
+    } else if (tweet.retweetedStatus && tweet.retweetedStatus.entities) {
       urlsToChange = [...tweet.retweetedStatus.entities.urls, ...tweet.retweetedStatus.entities.media];
     }
 
