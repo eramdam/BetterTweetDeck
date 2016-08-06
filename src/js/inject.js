@@ -136,6 +136,19 @@ const postMessagesListeners = {
       $(`[data-column="${colKey}"] [data-key="${chirpKey}"] [rel="pause"]`)[0].click();
     });
   },
+  BTDC_settingsReady: (ev, data) => {
+    const { settings } = data;
+
+    const tasks = TD.controller.scheduler._tasks;
+    // We delete the callback for the timestamp task so the content script can do it itself
+    if (settings.ts !== 'relative') {
+      Object.keys(tasks).forEach((key) => {
+        if (tasks[key].period === 30000) {
+          tasks[key].callback = () => false;
+        }
+      });
+    }
+  },
 };
 
 window.addEventListener('message', (ev) => {
@@ -264,16 +277,7 @@ $(document).one('dataColumnsLoaded', () => {
     $(el).attr('data-media-size', size);
   });
 
-  const tasks = TD.controller.scheduler._tasks;
-
   switchThemeClass();
-
-  // We delete the callback for the timestamp task so the content script can do it itself
-  Object.keys(tasks).forEach((key) => {
-    if (tasks[key].period === 30000) {
-      tasks[key].callback = () => false;
-    }
-  });
 });
 
 $('body').on('click', '#open-modal', (ev) => {
