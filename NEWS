@@ -1,3 +1,10 @@
+3.0.1
+===============
+- [Fix] The play glyph is aligned on the "play icon"
+- [Fix] Modal previews open for tweets in notifications
+- [Fix] The "bubble" in minimal mode actually depends on the "show context" setting
+- [Improvement] Another "save" button has been added in options page
+
 3.0.0 Codename "Half-Life 3"
 ===============
 - [Meta] Completely re-written in ES2015 with modules for a more maintainable code
