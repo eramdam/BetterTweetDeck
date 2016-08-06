@@ -1,4 +1,4 @@
-.btd__hide-scrollbars {
+.btd__no_scrollbars {
   .js-column-scroller {
     overflow-y:hidden;
   }

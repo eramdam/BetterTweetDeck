@@ -62,6 +62,7 @@
   "css_no_col_icns": { "message": "Masquer les icônes dans les entêtes de colonnes" },
   "css_small_icns_compose": { "message": "Les icônes sont plus petites dans le 'Compose'" },
   "css_gray_icns_notifs": { "message": "Les icônes de notifications sont en niveaux de gris" },
+  "css_no_scrollbars": { "message": "Masquer les barres de défilement" },
 
   "btd_thx": { "message": "Merci d'avoir installé Better TweetDeck!" },
   "btd_get_started": { "message": "C'est parti!" },
