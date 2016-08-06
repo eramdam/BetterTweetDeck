@@ -19,11 +19,14 @@
   flex-direction: row;
 }
 
-.save-button {
+.save-bar .save-button {
   position: absolute;
   top: 50%;
   margin-left: 20px;
   transform: translateY(-50%);
+}
+
+.save-button {
   outline: none;
   border: none;
 
