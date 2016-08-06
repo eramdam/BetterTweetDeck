@@ -60,7 +60,6 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
   }
 
   &::after {
@@ -70,6 +69,7 @@
     z-index: 98;
     width: 40px;
     height: 40px;
+    transform: translate(-50%,-50%);
   }
 
   &::before {
@@ -77,6 +77,7 @@
     width: calc(40px * 80 / 100);
     height: calc(40px * 80 / 100);
     opacity: .8;
+    transform: translate(-45%,-50%);
     background-image: url('../icons/controller-play.svg');
   }
 }
