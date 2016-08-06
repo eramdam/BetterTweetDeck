@@ -17,16 +17,17 @@ let settings;
  */
 const COLUMNS_MEDIA_SIZES = new Map();
 
-sendMessage({ action: 'get_settings' }, (response) => {
-  settings = response.settings;
-});
-
 /**
  * Injecting inject.js in head before doing anything else
  */
 const scriptEl = document.createElement('script');
 scriptEl.src = chrome.extension.getURL('js/inject.js');
 document.head.appendChild(scriptEl);
+
+sendMessage({ action: 'get_settings' }, (response) => {
+  settings = response.settings;
+  sendEvent('settingsReady', { settings });
+});
 
 
 /**
