@@ -70,7 +70,13 @@ const postMessagesListeners = {
       return;
     }
 
-    const markup = chirp.renderInMediaGallery();
+    let markup;
+
+    if (chirp.renderInMediaGallery) {
+      markup = chirp.renderInMediaGallery();
+    } else if (chirp.targetTweet) {
+      markup = chirp.targetTweet.renderInMediaGallery();
+    }
 
     proxyEvent('gotMediaGalleryChirpHTML', { markup, chirp, modalHtml, colKey });
   },
