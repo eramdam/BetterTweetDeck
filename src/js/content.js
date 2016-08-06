@@ -26,7 +26,6 @@ document.head.appendChild(scriptEl);
 
 sendMessage({ action: 'get_settings' }, (response) => {
   settings = response.settings;
-  sendEvent('settingsReady', { settings });
 });
 
 
@@ -382,6 +381,7 @@ function closeOpenModal() {
 // Prepare to know when TD is ready
 on('BTDC_ready', () => {
   tweakClassesFromVisualSettings();
+  sendEvent('settingsReady', { settings });
   // Refresh timestamps once and then set the interval
   refreshTimestamps();
   setInterval(refreshTimestamps, TIMESTAMP_INTERVAL);
