@@ -2,6 +2,12 @@
 
 Adds some nice options on [TweetDeck](http://tweetdeck.twitter.com) to provide a better experience on the webapp when used on Chrome, Opera and soon Firefox/Edge!
 
+# Installation
+
+## Chrome
+
+Navigate to https://chrome.google.com/webstore/detail/bettertweetdeck-3/micblkellenpbfapmcpcfhcoeohhnpob and click "Add to Chrome" :tada:
+
 # Contributing & helping
 
 Issues and Pull Requests are welcome!
