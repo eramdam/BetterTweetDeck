@@ -387,6 +387,16 @@ on('BTDC_ready', () => {
   setInterval(refreshTimestamps, TIMESTAMP_INTERVAL);
   Emojis.buildEmojiPicker();
 
+  const settingsURL = chrome.extension.getURL('options/options.html');
+  const settingsBtn = `
+  <a class="btd-settings-btn js-header-action link-clean cf app-nav-link padding-hl" data-title="Better TweetDeck Settings"> <div class="obj-left"> <i class="icon icon-sliders icon-large"></i> </div> <div class="nbfc padding-ts hide-condensed">Better TweetDeck Settings</div> </a>
+  `;
+  $('nav.app-navigator')[0].insertAdjacentHTML('beforeend', settingsBtn);
+  $('.btd-settings-btn')[0].addEventListener('click', (e) => {
+    e.preventDefault();
+    window.open(settingsURL);
+  });
+
   onMessage((details) => {
     document.dispatchEvent(new CustomEvent('uiComposeTweet'));
     $('textarea.js-compose-text')[0].value = `${details.text} ${details.url}`;

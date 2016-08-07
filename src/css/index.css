@@ -82,6 +82,10 @@
   }
 }
 
+.btd-settings-btn .icon {
+  color: #009cf0;
+}
+
 .js-add-emojis .btd-emoji-icon {
   background-image: url('../emojis/emoji-happy.svg');
 }
