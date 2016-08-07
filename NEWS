@@ -1,3 +1,10 @@
+3.0.3
+===============
+- [Fix] Relative time correctly updates
+- [Fix] Share item is correctly added or not
+- [Improvement] Settings button is back in TD
+- [Improvement] Settings to hide scrollbars or not
+
 3.0.1
 ===============
 - [Fix] The play glyph is aligned on the "play icon"
