@@ -14,6 +14,7 @@ const endpoints = {
   dribbble: 'https://api.dribbble.com/v1/shots/',
   noembed: 'https://noembed.com/embed?nowrap=on&url=',
   imgur: 'https://api.imgur.com/3/',
+  instagram: 'https://api.instagram.com/oembed?url=',
 };
 
 let providersSettings;
@@ -274,7 +275,7 @@ const schemeWhitelist = [
           if (data.data.animated) {
             srcUrl = data.data.link;
             return {
-              type: 'image',
+              type: 'video',
               thumbnail_url: `https://i.imgur.com/${data.data.id}l.jpg`,
               url,
               html: `<video autoplay src="${data.data.mp4}"></video>`,
@@ -297,12 +298,6 @@ const schemeWhitelist = [
         url: getSafeURL(`https://i.imgur.com/${imgurID}.jpg`),
       });
     },
-  },
-  {
-    name: 'img.ly',
-    setting: 'img_ly',
-    re: /img.ly/,
-    default: true,
   },
   {
     name: 'Instagram',
