@@ -425,16 +425,6 @@ on('BTDC_gotChirpInMediaModal', (ev, data) => {
   tweetHandler(chirp, null, $('.js-mediatable')[0]);
 });
 
-on('BTDC_chirpsWithGifs', (ev, data) => {
-  const { chirps, colKey } = data;
-
-  if (settings.stop_gifs) {
-    chirps.forEach(chirp => {
-      sendEvent('stopGifForChirp', { chirpKey: chirp.id, colKey });
-    });
-  }
-});
-
 on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
   const { markup, modalHtml, chirp, colKey } = data;
 

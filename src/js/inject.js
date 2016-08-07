@@ -127,17 +127,6 @@ const postMessagesListeners = {
 
     chirp.retweet();
   },
-  BTDC_stopGifForChirp: (ev, data) => {
-    const { chirpKey, colKey } = data;
-
-    if ($(`[data-column="${colKey}"] [data-key="${chirpKey}"] video`).paused) {
-      return;
-    }
-
-    setTimeout(() => {
-      $(`[data-column="${colKey}"] [data-key="${chirpKey}"] [rel="pause"]`)[0].click();
-    });
-  },
   BTDC_settingsReady: (ev, data) => {
     const { settings } = data;
     SETTINGS = settings;
@@ -226,10 +215,11 @@ document.addEventListener('DOMNodeInserted', (ev) => {
       return;
     }
 
-    proxyEvent('chirpsWithGifs', {
-      chirps: [chirp],
-      colKey,
-    });
+    if (SETTINGS.stop_gifs) {
+      setTimeout(() => {
+        $(`[data-key="${chirp.entities.media[0].id}"] [rel="pause"]`)[0].click();
+      });
+    }
   }
 
   proxyEvent('gotChirpForColumn', { chirp, colKey });
@@ -240,9 +230,14 @@ $(document).on('uiVisibleChirps', (ev, data) => {
   const isThereGifs = chirpsData.filter(chirp => chirp.chirp._hasAnimatedGif && !chirp.$elem[0].querySelector('video').paused).length > 0;
 
   if (isThereGifs) {
-    proxyEvent('chirpsWithGifs', {
-      chirps: chirpsData.filter(chirp => chirp.chirp._hasAnimatedGif),
-      colKey: columnKey,
+    chirpsData.filter(chirp => chirp.chirp._hasAnimatedGif).forEach(c => {
+      if ($(`[data-column="${columnKey}"] [data-key="${c.id}"] video`).paused) {
+        return;
+      }
+
+      setTimeout(() => {
+        $(`[data-column="${columnKey}"] [data-key="${c.id}"] [rel="pause"]`)[0].click();
+      });
     });
   }
 });
