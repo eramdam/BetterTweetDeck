@@ -170,7 +170,7 @@ BHelper.settings.getAll(settings => {
   schemeWhitelist.forEach(scheme => {
     $('.settings-thumbnails-providers-list').append(`
       <li>
-        <input type="checkbox" name="thumbnails.${scheme.setting}" id="${scheme.setting}" ${settings.thumbnails[scheme.setting] || scheme.default === true ? 'checked' : ''}>
+        <input type="checkbox" name="thumbnails.${scheme.setting}" id="${scheme.setting}" ${settings.thumbnails[scheme.setting] ? 'checked' : ''}>
         <img src="${getFaviconURL(scheme)}" class="favicon-icon" />
         <label for="${scheme.setting}">${scheme.name}</label>
       </li>

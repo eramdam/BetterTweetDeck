@@ -11,7 +11,7 @@ const templates = {
     {{#isAnimatedGif}}
       {{#animatedGif}} {{> media/animated_gif}} {{/animatedGif}}
     {{/isAnimatedGif}} {{^isAnimatedGif}} <a class="js-media-image-link block med-link media-item {{thumbSizeClass}} {{#isPossiblySensitive}}is-invisible{{/isPossiblySensitive}} {{#needsSecureUrl}}js-needs-secure-url{{/needsSecureUrl}} {{^isGalleryView}}is-zoomable{{/isGalleryView}}"
-     {{#needsSecureUrl}} data-original-url="{{mediaPreviewSrc}}{{imageSrc}}" {{/needsSecureUrl}} href="{{url}}" target="_blank" {{^needsSecureUrl}} {{^imageSrc}} style="background-image:url({{mediaPreviewSrc}})" {{/imageSrc}} {{/needsSecureUrl}}
+     {{#needsSecureUrl}} data-original-url="{{mediaPreviewSrc}}{{imageSrc}}" {{/needsSecureUrl}} href="{{url}}" target="_blank" {{^needsSecureUrl}} {{^imageSrc}} style="background-image:url('{{mediaPreviewSrc}}')" {{/imageSrc}} {{/needsSecureUrl}}
     data-media-entity-id="{{mediaId}}"> {{#isVideo}} {{> media/video_overlay}} {{/isVideo}}  {{#imageSrc}} <img class="{{thumbClass}}" src="{{^needsSecureUrl}}{{imageSrc}}{{/needsSecureUrl}}" alt="Media preview"> {{/imageSrc}} </a> {{/isAnimatedGif}}
     {{> status/media_sensitive}}</div></div>
   `,
@@ -76,7 +76,7 @@ const defaultData = {
 const previewTemplate = (mediaPreviewSrc, sourceLink, size, type = 'picture') => Mustache.render(templates.preview, Object.assign(defaultData.preview, {
   url: sourceLink,
   mediaPreviewSrc,
-  isVideo: type === 'video',
+  isVideo: type !== 'image',
   isMediaPreviewLarge: size === 'large',
   isMediaPreviewCompact: size === 'medium',
   isMediaPreviewSmall: size === 'small',
@@ -84,7 +84,7 @@ const previewTemplate = (mediaPreviewSrc, sourceLink, size, type = 'picture') =>
 }));
 
 const modalTemplate = (imageUrl, originalUrl, type, videoEmbed = null) => {
-  if (type !== 'video') {
+  if (type === 'image') {
     const parsed = qs.parse(imageUrl);
     imageUrl = parsed[Object.keys(parsed)[0]];
   }
@@ -93,7 +93,7 @@ const modalTemplate = (imageUrl, originalUrl, type, videoEmbed = null) => {
     imageUrl,
     videoEmbed,
     originalUrl,
-    isVideo: type === 'video',
+    isVideo: type !== 'image',
   }));
 };
 

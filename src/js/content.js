@@ -129,17 +129,13 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
       hideURLVisually(url, node);
     }
 
-    const tbUrl = data.thumbnail_url || data.url;
-    let origUrl = undefined;
-
-    if (data.height > data.thumbnail_height || data.width > data.thumbnail_width) {
-      origUrl = data.url;
-    }
+    const tbUrl = data.thumbnail_url;
+    const origUrl = data.url;
 
     const type = data.html ? 'video' : 'image';
     const embed = data.html ? data.html : null;
     const html = Templates.previewTemplate(tbUrl, url.expanded_url, mediaSize, type);
-    const modalHtml = Templates.modalTemplate(origUrl || tbUrl, url.expanded_url, type, embed);
+    const modalHtml = Templates.modalTemplate(origUrl, url.expanded_url, type, embed);
 
     if (mediaSize === 'large') {
       $('.tweet.js-tweet', node)[0].insertAdjacentHTML('afterend', html);
@@ -164,7 +160,7 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
 function thumbnailsFromURLs(urls, node, mediaSize) {
   return Promise.resolve(urls).then(each((url) => {
     // If the url is in fact an entity object from TweetDeck OR is not supported then we don't process it
-    if (url.type || url.sizes || !Thumbnails.validateUrl(url.expanded_url)) {
+    if (url.type || url.sizes || !Thumbnails.validateUrl(url.expanded_url).matches) {
       return false;
     }
 

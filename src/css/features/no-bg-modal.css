@@ -38,6 +38,7 @@
   min-width: 600px;
   left: 50%;
   transform: translate(-50%, 0);
+  overflow: hidden;
 }
 
 .btd__no_bg_modal .med-tray {
