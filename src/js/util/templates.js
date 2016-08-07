@@ -74,9 +74,15 @@ const defaultData = {
 };
 
 const previewTemplate = (mediaPreviewSrc, sourceLink, size, type = 'picture') => {
-  if (type === 'image' && !mediaPreviewSrc.includes('imgur.com')) {
+  const safeURL = mediaPreviewSrc;
+
+  if (type === 'image' && !mediaPreviewSrc.includes('imgur.com') && mediaPreviewSrc) {
     const parsed = qs.parse(mediaPreviewSrc);
     mediaPreviewSrc = parsed[Object.keys(parsed)[0]];
+
+    if (!mediaPreviewSrc.includes('https')) {
+      mediaPreviewSrc = safeURL;
+    }
   }
 
   return Mustache.render(templates.preview, Object.assign(defaultData.preview, {
