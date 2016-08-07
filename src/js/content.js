@@ -134,6 +134,7 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
 
     const type = data.html ? 'video' : 'image';
     const embed = data.html ? data.html : null;
+
     const html = Templates.previewTemplate(tbUrl, url.expanded_url, mediaSize, type);
     const modalHtml = Templates.modalTemplate(origUrl, url.expanded_url, type, embed);
 
@@ -343,7 +344,7 @@ function tweetHandler(tweet, columnKey, parent) {
         urlToHide = mediaURLS.pop();
       }
 
-      if (settings.css.hide_url_thumb) {
+      if (settings.css.hide_url_thumb && mediaSize !== 'off') {
         hideURLVisually(urlToHide, node);
       }
 
