@@ -24,6 +24,7 @@
 		"https://api.500px.com/v1/photos/*",
 		"https://api.dailymotion.com/video/*",
 		"https://api.dribbble.com/v1/shots/*",
+		"https://*.imgur.com/*",
 		"https://images4-focus-opensocial.googleusercontent.com/gadgets/proxy*",
 		"http://erambert.me/*",
 		"*://tweetdeck.twitter.com/*",

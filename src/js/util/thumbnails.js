@@ -13,6 +13,7 @@ const endpoints = {
   deviantart: 'https://backend.deviantart.com/oembed?',
   dribbble: 'https://api.dribbble.com/v1/shots/',
   noembed: 'https://noembed.com/embed?nowrap=on&url=',
+  imgur: 'https://api.imgur.com/3/',
 };
 
 let providersSettings;
@@ -49,11 +50,11 @@ const json = (res) => {
   return res.json();
 };
 
+const statusAndJson = (res) => status(res).catch(() => null).then(json);
+
 const noEmbedImgCB = url => {
   return fetch(`${getEnpointFor('noembed')}${url}`)
-  .then(status)
-  .catch(() => null)
-  .then(json)
+  .then(statusAndJson)
   .then(data => {
     const obj = {
       type: 'image',
@@ -67,9 +68,7 @@ const noEmbedImgCB = url => {
 
 const noEmbedVideoCB = url => {
   return fetch(`${getEnpointFor('noembed')}${url}`)
-  .then(status)
-  .catch(() => null)
-  .then(json)
+  .then(statusAndJson)
   .then(data => {
     const obj = {
       type: 'video',
@@ -94,9 +93,7 @@ const schemeWhitelist = [
       return fetch(`${getEnpointFor('500px')}/${photoID}?${qs.stringify({
         consumer_key: getKeyFor('500px'),
       })}`)
-        .then(status)
-        .catch(() => null)
-        .then(json)
+        .then(statusAndJson)
         .then(data => {
           const obj = {
             type: 'image',
@@ -131,9 +128,7 @@ const schemeWhitelist = [
       return fetch(`${getEnpointFor('dailymotion')}/${ID}?${qs.stringify({
         fields: 'thumbnail_240_url,thumbnail_360_url,thumbnail_180_url,embed_html',
       })}`)
-        .then(status)
-        .catch(() => null)
-        .then(json)
+        .then(statusAndJson)
         .then(data => {
           const obj = {
             type: 'video',
@@ -156,9 +151,7 @@ const schemeWhitelist = [
       return fetch(`${getEnpointFor('deviantart')}${qs.stringify({
         url: sourceURL,
       })}`)
-        .then(status)
-        .catch(() => null)
-        .then(json)
+        .then(statusAndJson)
         .then(data => {
           const obj = {
             type: 'image',
@@ -183,9 +176,7 @@ const schemeWhitelist = [
       return fetch(`${getEnpointFor('dribbble')}${dribbbleID}`, {
         headers,
       })
-        .then(status)
-        .catch(() => null)
-        .then(json)
+        .then(statusAndJson)
         .then(data => {
           const obj = {
             type: 'image',
@@ -205,11 +196,11 @@ const schemeWhitelist = [
     callback: url => {
       const dpUrl = getSafeURL(`${url.replace(/\/$/, '')}/medium`);
 
-      return {
+      return Promise.resolve({
         type: 'image',
         thumbnail_url: dpUrl,
         url: dpUrl,
-      };
+      });
     },
   },
   {
@@ -224,6 +215,27 @@ const schemeWhitelist = [
     setting: 'gfycat',
     re: /gfycat.com/,
     default: true,
+    callback: url => {
+      return fetch(`${getEnpointFor('noembed')}${url}`)
+      .then(statusAndJson)
+      .then(data => {
+        let tbUrl = data.thumbnail_url;
+        const ID = parseURL(data.url).segments[0];
+
+        if (!data.thumbnail_url) {
+          tbUrl = `https://thumbs.gfycat.com/${ID}-poster.jpg`;
+        }
+
+        const obj = {
+          type: 'video',
+          thumbnail_url: getSafeURL(tbUrl),
+          html: data.html,
+          url,
+        };
+
+        return obj;
+      });
+    },
   },
   {
     name: 'Giphy',
@@ -236,6 +248,55 @@ const schemeWhitelist = [
     setting: 'imgur',
     re: /(?:imgur.com|i.imgur.com)/,
     default: true,
+    callback: url => {
+      const headers = new Headers();
+      headers.append('Authorization', `Client-ID ${getKeyFor('imgur')}`);
+
+      if (url.includes('imgur.com/a/')) {
+        const imgurID = parseURL(url).segments[1];
+
+        return fetch(`${getEnpointFor('imgur')}/album/${imgurID}`, { headers }).then(statusAndJson)
+        .then(data => {
+          return {
+            type: 'image',
+            thumbnail_url: `https://i.imgur.com/${data.data.cover}l.jpg`,
+            html: `<iframe class="imgur-album" width="708" height="550" frameborder="0" src="https://imgur.com/a/${imgurID}/embed"></iframe>`,
+            url: getSafeURL(url),
+          };
+        });
+      } else if (url.includes('imgur.com/gallery')) {
+        const imgurID = parseURL(url).segments[1];
+
+        return fetch(`${getEnpointFor('imgur')}/gallery/image/${imgurID}`, { headers }).then(statusAndJson)
+        .then(data => {
+          let srcUrl;
+
+          if (data.data.animated) {
+            srcUrl = data.data.link;
+            return {
+              type: 'image',
+              thumbnail_url: `https://i.imgur.com/${data.data.id}l.jpg`,
+              url,
+              html: `<video autoplay src="${data.data.mp4}"></video>`,
+            };
+          }
+
+          return {
+            type: 'image',
+            thumbnail_url: `https://i.imgur.com/${data.data.id}l.jpg`,
+            url: srcUrl,
+          };
+        });
+      }
+
+      const imgurID = parseURL(url).segments[0].split('.')[0];
+
+      return Promise.resolve({
+        type: 'image',
+        thumbnail_url: `https://i.imgur.com/${imgurID}l.jpg`,
+        url: getSafeURL(`https://i.imgur.com/${imgurID}.jpg`),
+      });
+    },
   },
   {
     name: 'img.ly',
@@ -256,9 +317,7 @@ const schemeWhitelist = [
     default: true,
     callback: url => {
       return fetch(`${getEnpointFor('noembed')}${url}`)
-      .then(status)
-      .catch(() => null)
-      .then(json)
+      .then(statusAndJson)
       .then(data => {
         const obj = {
           type: 'audio',
@@ -292,9 +351,7 @@ const schemeWhitelist = [
     default: true,
     callback: url => {
       return fetch(`${getEnpointFor('noembed')}${url}`)
-      .then(status)
-      .catch(() => null)
-      .then(json)
+      .then(statusAndJson)
       .then(data => {
         const obj = {
           type: 'audio',
@@ -337,13 +394,11 @@ const schemeWhitelist = [
     setting: 'tumblr',
     re: /tumblr.com\/.+.(?:gif|png|jpg)$/,
     default: true,
-    callback: url => {
-      return {
-        type: 'image',
-        thumbnail_url: getSafeURL(url),
-        url,
-      };
-    },
+    callback: url => Promise.resolve({
+      type: 'image',
+      thumbnail_url: getSafeURL(url),
+      url: getSafeURL(url),
+    }),
   },
   {
     name: 'Twitch',
@@ -383,13 +438,11 @@ const schemeWhitelist = [
     setting: 'universal',
     re: /.(jpg|gif|png|jpeg)$/,
     default: false,
-    callback: url => {
-      return {
-        type: 'image',
-        thumbnail_url: getSafeURL(url),
-        url,
-      };
-    },
+    callback: url => Promise.resolve({
+      type: 'image',
+      thumbnail_url: getSafeURL(url),
+      url: getSafeURL(url),
+    }),
   },
 ];
 
@@ -428,9 +481,7 @@ function thumbnailForFetch(url) {
     scheme: 'https',
     key: getKeyFor('embedly'),
   })}`)
-    .then(status)
-    .catch(() => null)
-    .then(json);
+    .then(statusAndJson);
 }
 
 const thumbnailFor = reusePromise(thumbnailForFetch);
