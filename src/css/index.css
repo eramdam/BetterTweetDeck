@@ -86,6 +86,10 @@
   color: #009cf0;
 }
 
+.column-navigator-overflow {
+  bottom: 290px !important;
+}
+
 .js-add-emojis .btd-emoji-icon {
   background-image: url('../emojis/emoji-happy.svg');
 }
