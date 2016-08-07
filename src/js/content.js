@@ -243,8 +243,23 @@ function tweetHandler(tweet, columnKey, parent) {
         uSel: '.username',
       });
 
+      if (tweet.targetTweet.user && tweet.targetTweet.user.isVerified) {
+        const avatar = node.querySelector('.account-link.link-complex');
+
+        if (avatar.href === tweet.targetTweet.user.profileURL) {
+          avatar.classList.add('btd-is-verified');
+        }
+      }
+
       if (tweet.sourceUser && tweet.sourceUser.isVerified) {
-        node.querySelector('.account-link.link-complex, .has-source-avatar .item-img').classList.add('btd-is-verified');
+        const avatar = node.querySelector('.activity-header.has-source-avatar .item-img, .account-link.link-complex');
+
+        if (avatar.href === tweet.sourceUser.profileURL || avatar.querySelector('img').src === tweet.sourceUser.profileImageURL.replace('normal', 'mini')) {
+          avatar.classList.add('btd-is-verified');
+        } else {
+          console.log('no badge for', tweet);
+          console.log(avatar.querySelector('img').src, tweet.sourceUser.profileImageURL);
+        }
       }
     } else if (tweet.retweetedStatus) {
       Usernames.format({
