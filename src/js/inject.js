@@ -2,6 +2,8 @@
 
 import config from 'config';
 
+let SETTINGS;
+
 if (config.get('Client.debug')) {
   /**
    * Takes a node and fetches the chirp associated with it (useful for debugging)
@@ -138,6 +140,7 @@ const postMessagesListeners = {
   },
   BTDC_settingsReady: (ev, data) => {
     const { settings } = data;
+    SETTINGS = settings;
 
     const tasks = TD.controller.scheduler._tasks;
     // We delete the callback for the timestamp task so the content script can do it itself
@@ -283,7 +286,7 @@ $(document).one('dataColumnsLoaded', () => {
 $('body').on('click', '#open-modal', (ev) => {
   const isMediaModal = document.querySelector('.js-modal-panel .js-media-preview-container, .js-modal-panel iframe');
 
-  if (!document.body.classList.contains('btd__minimal_mode') ||
+  if (!SETTINGS.css.no_bg_modal ||
   !isMediaModal) {
     return;
   }

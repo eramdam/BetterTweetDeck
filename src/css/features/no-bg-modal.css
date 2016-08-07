@@ -1,0 +1,62 @@
+/**
+ * Nicer modal styles
+ */
+ .btd__no_bg_modal {
+   .med-fullpanel {
+     box-shadow: none;
+     background: transparent;
+   }
+ }
+
+.btd__no_bg_modal :matches(.mdl-media-prev, .mdl-media-next) {
+  background: transparent;
+  z-index: 10;
+
+  .icon {
+    background: color(#151515 a(60%));
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    margin-left: -21px;
+    margin-top: -21px;
+  }
+
+  .icon:before {
+    position: absolute;
+    left: 45%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+  }
+}
+.btd__no_bg_modal :matches(.mdl-btn-media, .is-inverted-light .mdl-btn-media) {
+  opacity: 1;
+}
+.btd__no_bg_modal .media-img {
+  max-width: 100% !important;
+}
+.btd__no_bg_modal .med-embeditem {
+  min-width: 600px;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.btd__no_bg_modal .med-tray {
+  z-index: 9;
+}
+
+.btd__no_bg_modal :matches(.column-header, .column-header-temp) {
+  background-color: transparent;
+  border-bottom: 0 !important;
+}
+
+.btd__no_bg_modal :matches(.drawer .compose .btn-on-blue) {
+  background-color: color(white alpha(15%));
+
+  &:hover {
+    background-color: color(white alpha(10%));
+  }
+}
+
+.btd__no_bg_modal :matches(.ovl, .overlay) {
+  background: color(black a(80%));
+}

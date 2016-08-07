@@ -34,6 +34,7 @@ const defaultSettings = {
     actions_on_right: true,
     actions_on_hover: true,
     hide_url_thumb: true,
+    no_bg_modal: true,
   },
   share_item: {
     enabled: true,

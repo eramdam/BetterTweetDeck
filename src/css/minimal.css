@@ -38,62 +38,6 @@
   background: rgba(0, 0, 0, 0.13);
 }
 
-/**
- * Nicer modal styles
- */
-.btd__minimal_mode :matches(.mdl-media-prev, .mdl-media-next) {
-  background: transparent;
-  z-index: 10;
-
-  .icon {
-    background: color(#151515 a(60%));
-    border-radius: 50%;
-    width: 42px;
-    height: 42px;
-    margin-left: -21px;
-    margin-top: -21px;
-  }
-
-  .icon:before {
-    position: absolute;
-    left: 45%;
-    top: 50%;
-    transform: translate(-50%,-50%);
-  }
-}
-.btd__minimal_mode :matches(.mdl-btn-media, .is-inverted-light .mdl-btn-media) {
-  opacity: 1;
-}
-.btd__minimal_mode .media-img {
-  max-width: 100% !important;
-}
-.btd__minimal_mode .med-embeditem {
-  min-width: 600px;
-  left: 50%;
-  transform: translate(-50%, 0);
-}
-
-.btd__minimal_mode .med-tray {
-  z-index: 9;
-}
-
-.btd__minimal_mode :matches(.column-header, .column-header-temp) {
-  background-color: transparent;
-  border-bottom: 0 !important;
-}
-
-.btd__minimal_mode :matches(.drawer .compose .btn-on-blue) {
-  background-color: color(white alpha(15%));
-
-  &:hover {
-    background-color: color(white alpha(10%));
-  }
-}
-
-.btd__minimal_mode :matches(.ovl, .overlay) {
-  background: color(black a(80%));
-}
-
 .btd__minimal_mode.btd__no_scrollbars {
   .scroll-styled-v::-webkit-scrollbar-track,
   .scroll-styled-h::-webkit-scrollbar-track {
@@ -106,14 +50,6 @@
 
   .needs-scroll-bottom-offset.scroll-styled-h {
     bottom: 0;
-  }
-}
-
-.btd__minimal_mode {
-
-  .med-fullpanel {
-    box-shadow: none;
-    background: transparent;
   }
 }
 

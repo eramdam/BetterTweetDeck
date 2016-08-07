@@ -44,6 +44,7 @@
   "css_hide_context": { "message": "Masquer 'In reply to' sur les mentions" },
   "css_actions_on_right": { "message": "Afficher les actions de tweets sur la droite" },
   "css_actions_on_hover": { "message": "Afficher les actions de tweets au survol" },
+  "css_no_bg_modal": { "message": "Masquer le fond des aperçus en plein écran" },
   "no_hearts": { "message": "Afficher des étoiles au lieu des coeurs" },
   "rtl_text_style": { "message": "Détecter le texte se lisant de droite à gauche" },
   "flash_tweets": { "message": "Faire 'flasher' les tweets dans:" },
