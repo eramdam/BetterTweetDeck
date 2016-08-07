@@ -73,15 +73,22 @@ const defaultData = {
   },
 };
 
-const previewTemplate = (mediaPreviewSrc, sourceLink, size, type = 'picture') => Mustache.render(templates.preview, Object.assign(defaultData.preview, {
-  url: sourceLink,
-  mediaPreviewSrc,
-  isVideo: type !== 'image',
-  isMediaPreviewLarge: size === 'large',
-  isMediaPreviewCompact: size === 'medium',
-  isMediaPreviewSmall: size === 'small',
-  thumbSizeClass: `media-size-${size}`,
-}));
+const previewTemplate = (mediaPreviewSrc, sourceLink, size, type = 'picture') => {
+  if (type === 'image' && !mediaPreviewSrc.includes('imgur.com')) {
+    const parsed = qs.parse(mediaPreviewSrc);
+    mediaPreviewSrc = parsed[Object.keys(parsed)[0]];
+  }
+
+  return Mustache.render(templates.preview, Object.assign(defaultData.preview, {
+    url: sourceLink,
+    mediaPreviewSrc,
+    isVideo: type !== 'image',
+    isMediaPreviewLarge: size === 'large',
+    isMediaPreviewCompact: size === 'medium',
+    isMediaPreviewSmall: size === 'small',
+    thumbSizeClass: `media-size-${size}`,
+  }));
+};
 
 const modalTemplate = (imageUrl, originalUrl, type, videoEmbed = null) => {
   if (type === 'image') {
