@@ -294,7 +294,7 @@ if (Object.keys(queryString.parse(location.search)).length > 0) {
 }
 
 // Write UA/version infos
-$('.sidebar-version-number').text(`v${BHelper.getVersion()}`);
+$('.topbar-version-number').text(`v${BHelper.getVersion()}`);
 $('.settings-version-number').text(BHelper.getVersion());
 $('.settings-user-agent').text(BHelper.getUA());
 
