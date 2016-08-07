@@ -12,6 +12,7 @@ const endpoints = {
   dailymotion: 'https://api.dailymotion.com/video/',
   deviantart: 'https://backend.deviantart.com/oembed?',
   dribbble: 'https://api.dribbble.com/v1/shots/',
+  noembed: 'https://noembed.com/embed?nowrap=on&url=',
 };
 
 let providersSettings;
@@ -20,7 +21,13 @@ sendMessage({ action: 'get', key: 'thumbnails' }, (response) => {
   providersSettings = response.val;
 });
 
-const getSafeURL = (url) => `https://images4-focus-opensocial.googleusercontent.com/gadgets/proxy?url=${encodeURIComponent(url)}&container=focus&resize_w=720&refresh=86400`;
+const getSafeURL = (url) => {
+  if (url.startsWith('//')) {
+    url = `https:${url}`;
+  }
+
+  return `https://images4-focus-opensocial.googleusercontent.com/gadgets/proxy?url=${encodeURIComponent(url)}&container=focus&resize_w=720&refresh=86400`;
+};
 
 const getEnpointFor = (service) => endpoints[service];
 
@@ -40,6 +47,39 @@ const json = (res) => {
   }
 
   return res.json();
+};
+
+const noEmbedImgCB = url => {
+  return fetch(`${getEnpointFor('noembed')}${url}`)
+  .then(status)
+  .catch(() => null)
+  .then(json)
+  .then(data => {
+    const obj = {
+      type: 'image',
+      thumbnail_url: getSafeURL(data.media_url),
+      url: getSafeURL(data.media_url),
+    };
+
+    return obj;
+  });
+};
+
+const noEmbedVideoCB = url => {
+  return fetch(`${getEnpointFor('noembed')}${url}`)
+  .then(status)
+  .catch(() => null)
+  .then(json)
+  .then(data => {
+    const obj = {
+      type: 'video',
+      thumbnail_url: getSafeURL(data.thumbnail_url),
+      html: data.html,
+      url,
+    };
+
+    return obj;
+  });
 };
 
 const schemeWhitelist = [
@@ -196,21 +236,7 @@ const schemeWhitelist = [
     setting: 'flickr',
     re: /(?:flic.kr|flickr.com)/,
     default: true,
-    callback: url => {
-      return fetch(`https://noembed.com/embed?url=${url}`)
-      .then(status)
-      .catch(() => null)
-      .then(json)
-      .then(data => {
-        const obj = {
-          type: 'image',
-          thumbnail_url: getSafeURL(data.media_url),
-          url: getSafeURL(data.media_url),
-        };
-
-        return obj;
-      });
-    },
+    callback: noEmbedImgCB,
   },
   {
     name: 'Gfycat',
@@ -247,24 +273,58 @@ const schemeWhitelist = [
     setting: 'mixcloud',
     re: /mixcloud.com\/[\w]+\/[\w]+/,
     default: true,
+    callback: url => {
+      return fetch(`${getEnpointFor('noembed')}${url}`)
+      .then(status)
+      .catch(() => null)
+      .then(json)
+      .then(data => {
+        const obj = {
+          type: 'audio',
+          thumbnail_url: getSafeURL(data.image),
+          html: data.embed,
+          url,
+        };
+
+        return obj;
+      });
+    },
   },
   {
     name: 'moby.to',
     setting: 'moby_to',
     re: /moby.to/,
     default: true,
+    callback: noEmbedImgCB,
   },
   {
     name: 'Skitch',
     setting: 'skitch',
     re: /(?:skitch.com|img.skitch.com)/,
     default: true,
+    callback: noEmbedImgCB,
   },
   {
     name: 'Soundcloud',
     setting: 'soundcloud',
     re: /soundcloud.com/,
     default: true,
+    callback: url => {
+      return fetch(`${getEnpointFor('noembed')}${url}`)
+      .then(status)
+      .catch(() => null)
+      .then(json)
+      .then(data => {
+        const obj = {
+          type: 'audio',
+          thumbnail_url: getSafeURL(data.thumbnail_url),
+          html: data.html,
+          url,
+        };
+
+        return obj;
+      });
+    },
   },
   {
     name: 'Spotify',
@@ -283,6 +343,7 @@ const schemeWhitelist = [
     setting: 'ted',
     re: /ted.com\/talks/,
     default: true,
+    callback: noEmbedVideoCB,
   },
   {
     name: 'TinyGrab',
@@ -295,6 +356,13 @@ const schemeWhitelist = [
     setting: 'tumblr',
     re: /tumblr.com\/.+.(?:gif|png|jpg)$/,
     default: true,
+    callback: url => {
+      return {
+        type: 'image',
+        thumbnail_url: getSafeURL(url),
+        url,
+      };
+    },
   },
   {
     name: 'Twitch',
@@ -313,24 +381,34 @@ const schemeWhitelist = [
     setting: 'vimeo',
     re: /vimeo.com\/[0-9]*$/,
     default: true,
+    callback: noEmbedVideoCB,
   },
   {
     name: 'Youtu.be',
     setting: 'youtu_be',
     re: /youtu.be/,
     default: true,
+    callback: noEmbedVideoCB,
   },
   {
     name: 'yfrog',
     setting: 'yfrog',
     re: /yfrog.com/,
     default: true,
+    callback: noEmbedImgCB,
   },
   {
     name: 'Universal',
     setting: 'universal',
     re: /.(jpg|gif|png|jpeg)$/,
-    default: true,
+    default: false,
+    callback: url => {
+      return {
+        type: 'image',
+        thumbnail_url: getSafeURL(url),
+        url,
+      };
+    },
   },
 ];
 

@@ -76,7 +76,7 @@ const defaultData = {
 const previewTemplate = (mediaPreviewSrc, sourceLink, size, type = 'picture') => Mustache.render(templates.preview, Object.assign(defaultData.preview, {
   url: sourceLink,
   mediaPreviewSrc,
-  isVideo: type === 'video',
+  isVideo: type !== 'image',
   isMediaPreviewLarge: size === 'large',
   isMediaPreviewCompact: size === 'medium',
   isMediaPreviewSmall: size === 'small',
@@ -84,7 +84,7 @@ const previewTemplate = (mediaPreviewSrc, sourceLink, size, type = 'picture') =>
 }));
 
 const modalTemplate = (imageUrl, originalUrl, type, videoEmbed = null) => {
-  if (type !== 'video') {
+  if (type === 'image') {
     const parsed = qs.parse(imageUrl);
     imageUrl = parsed[Object.keys(parsed)[0]];
   }
@@ -93,7 +93,7 @@ const modalTemplate = (imageUrl, originalUrl, type, videoEmbed = null) => {
     imageUrl,
     videoEmbed,
     originalUrl,
-    isVideo: type === 'video',
+    isVideo: type !== 'image',
   }));
 };
 
