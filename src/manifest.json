@@ -20,6 +20,11 @@
 	"permissions": [
 		"storage",
 		"https://api.embed.ly/1/*",
+		"https://backend.deviantart.com/*",
+		"https://api.500px.com/v1/photos/*",
+		"https://api.dailymotion.com/video/*",
+		"https://api.dribbble.com/v1/shots/*",
+		"https://images4-focus-opensocial.googleusercontent.com/gadgets/proxy*",
 		"http://erambert.me/*",
 		"*://tweetdeck.twitter.com/*",
 		"tabs",
