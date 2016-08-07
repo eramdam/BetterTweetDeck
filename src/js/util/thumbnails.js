@@ -181,12 +181,36 @@ const schemeWhitelist = [
     setting: 'droplr',
     re: /d.pr\/i/,
     default: true,
+    callback: url => {
+      const dpUrl = getSafeURL(`${url.replace(/\/$/, '')}/medium`);
+
+      return {
+        type: 'image',
+        thumbnail_url: dpUrl,
+        url: dpUrl,
+      };
+    },
   },
   {
     name: 'Flickr',
     setting: 'flickr',
     re: /(?:flic.kr|flickr.com)/,
     default: true,
+    callback: url => {
+      return fetch(`https://noembed.com/embed?url=${url}`)
+      .then(status)
+      .catch(() => null)
+      .then(json)
+      .then(data => {
+        const obj = {
+          type: 'image',
+          thumbnail_url: getSafeURL(data.media_url),
+          url: getSafeURL(data.media_url),
+        };
+
+        return obj;
+      });
+    },
   },
   {
     name: 'Gfycat',
