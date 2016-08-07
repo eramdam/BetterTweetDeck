@@ -114,31 +114,12 @@ const schemeWhitelist = [
     re: /bandcamp.com/,
     default: true,
   },
-  // {
-  //   name: 'CloudApp',
-  //   setting: 'cl_ly',
-  //   re: /cl.ly/,
-  //   default: true,
-  //   callback: url => {
-  //     const photoID = parseURL(url).pathname.split('/')[2];
-  //
-  //     return fetch(`${getEnpointFor('500px')}/${photoID}${qs.stringify({
-  //       consumer_key: getKeyFor('500px'),
-  //     })}`)
-  //       .then(status)
-  //       .catch(() => null)
-  //       .then(json)
-  //       .then(data => {
-  //         const obj = {
-  //           type: 'image',
-  //           thumbnail_url: data.image_url,
-  //           url: data.images[0].https_url,
-  //         };
-  //
-  //         return obj;
-  //       });
-  //   },
-  // },
+  {
+    name: 'CloudApp',
+    setting: 'cl_ly',
+    re: /cl.ly/,
+    default: true,
+  },
   {
     name: 'Dailymotion',
     setting: 'dailymotion',
