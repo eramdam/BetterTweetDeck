@@ -91,10 +91,6 @@
 
   "donate_title":  { "message": "Aidez-moi à maintenir Better TweetDeck!" },
   "donate_p3":  { "message": "Merci d'utiliser Better TweetDeck et d'aider à le garder en vie!" },
-  "donate_p2":  { "message": "Si vous pouvew vous le permettre et vous sentez généreux, cela serait <strong>incroyable</strong> si vous pouviez a href='https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK9SQ6ZDE9UF2&lc=US&item_name=Damien%20Erambert&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'>donner sur Paypal</a> ou <a href='https://patreon.com/eramdam'>me supporter sur Patreon</a> (et ainsi avoir accès à des pré-versions de Better TweetDeck!)
-    <br><br>
-    Même la plus petite contribution aide!" },
-  "donate_p1": { "message": "Better TweetDeck est et sera toujours <strong>gratuit</strong> mais le développer prend du temps et coûte de l'argent
-  <br> <br>
-  Le principal coût est l'abonnement <a href='https://embed.ly/'>Embed.ly</a> permettant à Better TweetDeck les miniatures de différents services."}
+  "donate_p2":  { "message": "Si vous pouvew vous le permettre et vous sentez généreux, cela serait <strong>incroyable</strong> si vous pouviez a href='https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK9SQ6ZDE9UF2&lc=US&item_name=Damien%20Erambert&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'>donner sur Paypal</a> ou <a href='https://patreon.com/eramdam'>me supporter sur Patreon</a> (et ainsi avoir accès à des pré-versions de Better TweetDeck!)<br><br>Même la plus petite contribution aide!" },
+  "donate_p1": { "message": "Better TweetDeck est et sera toujours <strong>gratuit</strong> mais le développer prend du temps et coûte de l'argent<br> <br>Le principal coût est l'abonnement <a href='https://embed.ly/'>Embed.ly</a> permettant à Better TweetDeck les miniatures de différents services."}
 }
