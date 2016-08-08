@@ -106,18 +106,18 @@ const schemeWhitelist = [
         });
     },
   },
-  {
-    name: 'Bandcamp',
-    setting: 'bandcamp',
-    re: /bandcamp.com/,
-    default: true,
-  },
-  {
-    name: 'CloudApp',
-    setting: 'cl_ly',
-    re: /cl.ly/,
-    default: true,
-  },
+  // {
+  //   name: 'Bandcamp',
+  //   setting: 'bandcamp',
+  //   re: /bandcamp.com/,
+  //   default: true,
+  // },
+  // {
+  //   name: 'CloudApp',
+  //   setting: 'cl_ly',
+  //   re: /cl.ly/,
+  //   default: true,
+  // },
   {
     name: 'Dailymotion',
     setting: 'dailymotion',
@@ -238,12 +238,12 @@ const schemeWhitelist = [
       });
     },
   },
-  {
-    name: 'Giphy',
-    setting: 'giphy',
-    re: /(?:giphy.com\/gifs\/|gph.is\/)/,
-    default: true,
-  },
+  // {
+  //   name: 'Giphy',
+  //   setting: 'giphy',
+  //   re: /(?:giphy.com\/gifs\/|gph.is\/)/,
+  //   default: true,
+  // },
   {
     name: 'Imgur',
     setting: 'imgur',
@@ -364,12 +364,34 @@ const schemeWhitelist = [
     setting: 'spotify',
     re: /(?:open.spotify.com|play.spotify.com|spoti.fi)/,
     default: true,
+    callback: url => {
+      return fetch(`https://embed.spotify.com/oembed/?url=${url}`).then(statusAndJson)
+      .then(data => {
+        return {
+          type: 'audio',
+          html: data.html,
+          thumbnail_url: getSafeURL(data.thumbnail_url),
+          url,
+        };
+      });
+    },
   },
   {
     name: 'Streamable',
     setting: 'streamable',
     re: /streamable.com/,
     default: true,
+    callback: url => {
+      return fetch(`https://api.streamable.com/oembed.json?url=${url}`).then(statusAndJson)
+      .then(data => {
+        return {
+          type: 'video',
+          html: data.html,
+          thumbnail_url: getSafeURL(data.thumbnail_url),
+          url,
+        };
+      });
+    },
   },
   {
     name: 'TED',
@@ -377,12 +399,6 @@ const schemeWhitelist = [
     re: /ted.com\/talks/,
     default: true,
     callback: noEmbedVideoCB,
-  },
-  {
-    name: 'TinyGrab',
-    setting: 'tinygrab',
-    re: /grab.by/,
-    default: true,
   },
   {
     name: 'Tumblr',
@@ -395,18 +411,12 @@ const schemeWhitelist = [
       url: getSafeURL(url),
     }),
   },
-  {
-    name: 'Twitch',
-    setting: 'twitch_tv',
-    re: /twitch.tv/,
-    default: true,
-  },
-  {
-    name: 'Vidme',
-    setting: 'vid_me',
-    re: /(?:vidd.me|vid.me)/,
-    default: true,
-  },
+  // {
+  //   name: 'Twitch',
+  //   setting: 'twitch_tv',
+  //   re: /twitch.tv/,
+  //   default: true,
+  // },
   {
     name: 'Vimeo',
     setting: 'vimeo',
