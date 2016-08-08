@@ -124,8 +124,8 @@ BHelper.settings.getAll(settings => {
   BHelper.settings.setAll(defaultsDeep(curSettings, defaultSettings), (newSettings) => {
     Log.debug(newSettings);
     // If the user is new on v3 then we display the "on install" page
-    // '1468605919620' => ~15th of July
-    if (!newSettings.installed_date || newSettings.installed_date <= 1468605919620) {
+    // '1468605919620' => ~7th of August
+    if (!newSettings.installed_date || newSettings.installed_date <= 1470620185697) {
       chrome.tabs.create({
         url: 'options/options.html?on=install',
       });

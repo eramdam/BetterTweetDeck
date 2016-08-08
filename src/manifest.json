@@ -28,7 +28,6 @@
 		"https://images4-focus-opensocial.googleusercontent.com/gadgets/proxy*",
 		"http://erambert.me/*",
 		"*://tweetdeck.twitter.com/*",
-		"tabs",
 		"contextMenus"
 	],
 	"options_ui": {
