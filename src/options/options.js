@@ -168,9 +168,11 @@ BHelper.settings.getAll(settings => {
    * Special treatment for thumb providers list who gets created from the source directly
    */
   schemeWhitelist.forEach(scheme => {
+    const isEnabled = _.isBoolean(settings.thumbnails[scheme.setting]) ? settings.thumbnails[scheme.setting] : scheme.default;
+
     $('.settings-thumbnails-providers-list').append(`
       <li>
-        <input type="checkbox" name="thumbnails.${scheme.setting}" id="${scheme.setting}" ${settings.thumbnails[scheme.setting] ? 'checked' : ''}>
+        <input type="checkbox" name="thumbnails.${scheme.setting}" id="${scheme.setting}" ${isEnabled ? 'checked' : ''}>
         <img src="${getFaviconURL(scheme)}" class="favicon-icon" />
         <label for="${scheme.setting}">${scheme.name}</label>
       </li>
