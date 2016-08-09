@@ -30,6 +30,7 @@
 		"http://erambert.me/*",
 		"https://embed.spotify.com/oembed/*",
 		"https://api.streamable.com/*",
+		"https://api.twitch.tv/kraken/*",
 		"*://tweetdeck.twitter.com/*",
 		"contextMenus"
 	],

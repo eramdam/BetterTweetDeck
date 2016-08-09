@@ -15,6 +15,7 @@ const endpoints = {
   noembed: 'https://noembed.com/embed?nowrap=on&url=',
   imgur: 'https://api.imgur.com/3/',
   instagram: 'https://api.instagram.com/oembed?url=',
+  twitch: 'https://api.twitch.tv/kraken/',
 };
 
 let providersSettings;
@@ -434,12 +435,50 @@ const schemeWhitelist = [
       url: getSafeURL(url),
     }),
   },
-  // {
-  //   name: 'Twitch',
-  //   setting: 'twitch_tv',
-  //   re: /twitch.tv/,
-  //   default: true,
-  // },
+  {
+    name: 'Twitch',
+    setting: 'twitch_tv',
+    re: new RegExp('twitch.tv/*|twitch.tv/*/b/*'),
+    default: true,
+    callback: url => {
+      /* eslint no-underscore-dangle: 0 */
+      const parsed = parseURL(url);
+      const channel = parsed.segments[0];
+
+      const isBroadcast = parsed.segments[1] && ['v', 'b'].includes(parsed.segments[1]);
+
+      if (isBroadcast) {
+        const broadcastId = parsed.segments[1] + parsed.segments[2];
+
+        return fetch(`${getEnpointFor('twitch')}channels/${channel}/videos?broadcasts=true&client_id=${getKeyFor('twitch')}`).then(statusAndJson)
+        .then(data => {
+          const finalVideo = data.videos.find(video => video._id === broadcastId);
+
+          if (!finalVideo) {
+            return null;
+          }
+
+          return {
+            type: 'video',
+            thumbnail_url: getSafeURL(finalVideo.thumbnails[0].url),
+            html: `<iframe src="https://player.twitch.tv/?video=${broadcastId}" height="720" width="1280" frameborder="0" scrolling="no" allowfullscreen="true"></iframe>`,
+            url,
+          };
+        });
+      }
+
+      return fetch(`${getEnpointFor('twitch')}channels/${channel}?client_id=${getKeyFor('twitch')}`).then(statusAndJson)
+      .then(data => {
+        return {
+          type: 'video',
+          thumbnail_url: getSafeURL(data.profile_banner || data.video_banner || data.logo),
+          html: `<iframe src="https://player.twitch.tv/?channel=${channel}" height="720" width="1280" frameborder="0" scrolling="no" allowfullscreen="true"></iframe>`,
+          url,
+        };
+      });
+    /* eslint no-underscore-dangle: 1 */
+    },
+  },
   {
     name: 'Vimeo',
     setting: 'vimeo',
@@ -498,11 +537,11 @@ function thumbnailForFetch(url) {
   const validationObj = validateUrl(url);
 
   if (validationObj.cb) {
-    Log.debug(`Fetching ${url}`);
+    Log.debug(`[${validationObj.provider.toUpperCase()}] Fetching ${url}`);
     return validationObj.cb(url);
   }
 
-  Log.debug(`Fetching ${url}`);
+  Log.debug(`[EMBED.LY] Fetching ${url}`);
   return fetch(`${getEnpointFor('embedly')}${qs.stringify({
     url,
     secure: true,
