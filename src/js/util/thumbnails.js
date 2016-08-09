@@ -1,10 +1,12 @@
 import config from 'config';
 import qs from 'query-string';
 import reusePromise from 'reuse-promise';
+import domify from 'domify';
 
 import { send as sendMessage } from './messaging';
 import * as Log from './logger';
 import { parseURL } from './parseUrl.js';
+import { fetch as fetchPage } from './fetchPage.js';
 
 const endpoints = {
   embedly: 'https://api.embed.ly/1/oembed?',
@@ -16,6 +18,7 @@ const endpoints = {
   imgur: 'https://api.imgur.com/3/',
   instagram: 'https://api.instagram.com/oembed?url=',
   twitch: 'https://api.twitch.tv/kraken/',
+  giphy: 'https://giphy.com/services/oembed?url=',
 };
 
 let providersSettings;
@@ -107,18 +110,57 @@ const schemeWhitelist = [
         });
     },
   },
-  // {
-  //   name: 'Bandcamp',
-  //   setting: 'bandcamp',
-  //   re: /bandcamp.com/,
-  //   default: true,
-  // },
-  // {
-  //   name: 'CloudApp',
-  //   setting: 'cl_ly',
-  //   re: /cl.ly/,
-  //   default: true,
-  // },
+  {
+    name: 'Bandcamp',
+    setting: 'bandcamp',
+    re: /bandcamp.com/,
+    default: true,
+    callback: url => fetchPage(url).then(data => {
+      if (data.currentTarget.status !== 200) {
+        return null;
+      }
+
+      const el = domify(data.currentTarget.response);
+      const thumbnail = el.querySelector('[property="twitter:image"]').content;
+      const embedURL = el.querySelector('[property="twitter:player"]').content;
+      const height = el.querySelector('[property="twitter:player:height"]').content;
+      const width = el.querySelector('[property="twitter:player:width"]').content;
+
+      if (!thumbnail || !embedURL) {
+        return null;
+      }
+
+      return {
+        type: 'audio',
+        thumbnail_url: getSafeURL(thumbnail),
+        html: `<iframe style="border: 0; width: ${width}px; height: ${height}px;" src="${embedURL}" seamless></iframe>`,
+        url,
+      };
+    }),
+  },
+  {
+    name: 'CloudApp',
+    setting: 'cl_ly',
+    re: /cl.ly/,
+    default: true,
+    callback: url => {
+      const headers = new Headers();
+      headers.append('Accept', 'application/json');
+
+      return fetch(url, { headers }).then(statusAndJson)
+      .then(data => {
+        if (data.item_type !== 'image') {
+          return null;
+        }
+
+        return {
+          type: 'image',
+          thumbnail_url: getSafeURL(data.thumbnail_url),
+          url: getSafeURL(data.content_url),
+        };
+      });
+    },
+  },
   {
     name: 'Dailymotion',
     setting: 'dailymotion',
@@ -239,12 +281,22 @@ const schemeWhitelist = [
       });
     },
   },
-  // {
-  //   name: 'Giphy',
-  //   setting: 'giphy',
-  //   re: /(?:giphy.com\/gifs\/|gph.is\/)/,
-  //   default: true,
-  // },
+  {
+    name: 'Giphy',
+    setting: 'giphy',
+    re: /(?:giphy.com\/gifs\/|gph.is\/)/,
+    default: true,
+    callback: url => {
+      return fetch(`${getEnpointFor('giphy')}${url}`).then(statusAndJson)
+      .then(data => {
+        return {
+          type: 'image',
+          thumbnail_url: getSafeURL(data.image.replace('giphy.gif', 'giphy-facebook_s.jpg')),
+          url: getSafeURL(data.image),
+        };
+      });
+    },
+  },
   {
     name: 'Imgur',
     setting: 'imgur',
@@ -536,19 +588,12 @@ const validateUrl = (url) => {
 function thumbnailForFetch(url) {
   const validationObj = validateUrl(url);
 
-  if (validationObj.cb) {
-    Log.debug(`[${validationObj.provider.toUpperCase()}] Fetching ${url}`);
-    return validationObj.cb(url);
+  if (!validationObj.cb) {
+    return Promise.reject();
   }
 
-  Log.debug(`[EMBED.LY] Fetching ${url}`);
-  return fetch(`${getEnpointFor('embedly')}${qs.stringify({
-    url,
-    secure: true,
-    scheme: 'https',
-    key: getKeyFor('embedly'),
-  })}`)
-    .then(statusAndJson);
+  Log.debug(`[${validationObj.provider.toUpperCase()}] Fetching ${url}`);
+  return validationObj.cb(url);
 }
 
 const thumbnailFor = reusePromise(thumbnailForFetch);
