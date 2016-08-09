@@ -21,7 +21,7 @@
 		"storage",
 		"https://api.embed.ly/1/*",
 		"https://backend.deviantart.com/*",
-		"https://api.500px.com/v1/photos/*",
+		"https://500px.com/oembed*",
 		"https://api.dailymotion.com/video/*",
 		"https://api.dribbble.com/v1/shots/*",
 		"https://*.imgur.com/*",

@@ -10,7 +10,7 @@ import { fetch as fetchPage } from './fetchPage.js';
 
 const endpoints = {
   embedly: 'https://api.embed.ly/1/oembed?',
-  '500px': 'https://api.500px.com/v1/photos/',
+  '500px': 'https://500px.com/oembed?format=json&url=',
   dailymotion: 'https://api.dailymotion.com/video/',
   deviantart: 'https://backend.deviantart.com/oembed?',
   dribbble: 'https://api.dribbble.com/v1/shots/',
@@ -93,17 +93,13 @@ const schemeWhitelist = [
     re: /500px.com/,
     default: true,
     callback: url => {
-      const photoID = parseURL(url).segments[1];
-
-      return fetch(`${getEnpointFor('500px')}/${photoID}?${qs.stringify({
-        consumer_key: getKeyFor('500px'),
-      })}`)
+      return fetch(`${getEnpointFor('500px')}${url}`)
         .then(statusAndJson)
         .then(data => {
           const obj = {
             type: 'image',
-            thumbnail_url: getSafeURL(data.photo.image_url),
-            url: getSafeURL(data.photo.images[0].https_url),
+            thumbnail_url: getSafeURL(data.thumbnail_url),
+            url: getSafeURL(data.url),
           };
 
           return obj;
