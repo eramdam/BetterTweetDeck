@@ -227,11 +227,19 @@ document.addEventListener('DOMNodeInserted', (ev) => {
 
 $(document).on('uiVisibleChirps', (ev, data) => {
   const { chirpsData, columnKey } = data;
-  const isThereGifs = chirpsData.filter(chirp => chirp.chirp._hasAnimatedGif && !chirp.$elem[0].querySelector('video').paused).length > 0;
+  const isThereGifs = chirpsData.filter(chirp => {
+    const hasGif = chirp.chirp._hasAnimatedGif;
+    const el = chirp.$elem[0];
+    const isPaused = el.querySelector('video') && !el.querySelector('video').paused;
+
+    return hasGif && isPaused;
+  }).length > 0;
 
   if (isThereGifs) {
     chirpsData.filter(chirp => chirp.chirp._hasAnimatedGif).forEach(c => {
-      if ($(`[data-column="${columnKey}"] [data-key="${c.id}"] video`).paused) {
+      const videoEl = $(`[data-column="${columnKey}"] [data-key="${c.id}"] video`)[0];
+
+      if (videoEl && videoEl.paused) {
         return;
       }
 
