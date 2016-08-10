@@ -1,6 +1,24 @@
+3.0.11
+===============
+- [Fix] Choice of activating a provider or not is correctly taken into account in settings
+- [Improvement] Universal preview is re-enabled by default
+- [Improvement] The code don't use Embed.ly anymore
+
+3.0.7 => 3.0.10
+===============
+- [Improvement] Removal of "tabs" permissions
+- [Improvement] More reliable way of showing verified badges
+- [Fix] Fix flashing of tweets
+- [Fix] Links won't be hidden if a column has its media size on "off"
+- [Fix] Modal should not have a scrollbar anymore
+- [Improvement] The code don't rely on Embed.ly anymore for most services (except Giphy, cloudapp, bandcamp and twitch)
+
+3.0.5
+===============
+- [Improvement] Option to hide bg of modals
+
 3.0.3
 ===============
-- [Fix] Relative time correctly updates
 - [Fix] Share item is correctly added or not
 - [Improvement] Settings button is back in TD
 - [Improvement] Settings to hide scrollbars or not
