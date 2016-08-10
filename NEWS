@@ -1,3 +1,8 @@
+3.0.12 (To be released)
+===============
+- [Fix] Verified badges should display correctly when relevant
+- [Improvement] Verified badges should display in modals and in the DM columns
+
 3.0.11
 ===============
 - [Fix] Choice of activating a provider or not is correctly taken into account in settings
