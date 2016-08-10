@@ -35,7 +35,7 @@
 }
 
 [data-btdtheme] .dropdown-menu {
-  z-index: 10;
+  z-index: 20;
 }
 
 [data-btdtheme] .js-media-image-link {
@@ -67,14 +67,14 @@
     background-color: black;
     border-radius: 50%;
     opacity: 0.75;
-    z-index: 98;
+    z-index: 9;
     width: 40px;
     height: 40px;
     transform: translate(-50%,-50%);
   }
 
   &::before {
-    z-index: 99;
+    z-index: 10;
     width: calc(40px * 80 / 100);
     height: calc(40px * 80 / 100);
     opacity: .8;

@@ -3,10 +3,10 @@
 	width: auto !important;
 }
 
-.btd__actions_on_hover .js-stream-item .js-tweet-actions {
+.btd__actions_on_hover .js-stream-item .js-tweet-actions a.tweet-action {
 	opacity: 0 !important;
 }
 
-.btd__actions_on_hover .js-stream-item:hover .js-tweet-actions {
+.btd__actions_on_hover .js-stream-item:hover .js-tweet-actions a.tweet-action {
 	opacity: 1 !important;
 }
