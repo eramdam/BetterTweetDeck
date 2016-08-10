@@ -242,22 +242,6 @@ function tweetHandler(tweet, columnKey, parent) {
         fSel: '.fullname',
         uSel: '.username',
       });
-
-      if (tweet.targetTweet.user && tweet.targetTweet.user.isVerified) {
-        const avatar = node.querySelector('.account-link.link-complex');
-
-        if (avatar.href === tweet.targetTweet.user.profileURL) {
-          avatar.classList.add('btd-is-verified');
-        }
-      }
-
-      if (tweet.sourceUser && tweet.sourceUser.isVerified) {
-        const avatar = node.querySelector('.activity-header.has-source-avatar .item-img, .account-link.link-complex');
-
-        if (avatar.href === tweet.sourceUser.profileURL || avatar.querySelector('img').src === tweet.sourceUser.profileImageURL.replace('normal', 'mini')) {
-          avatar.classList.add('btd-is-verified');
-        }
-      }
     } else if (tweet.retweetedStatus) {
       Usernames.format({
         node,
@@ -271,10 +255,6 @@ function tweetHandler(tweet, columnKey, parent) {
         fSel: '.tweet-header .fullname',
         uSel: '.tweet-header .username',
       });
-
-      if (tweet.retweetedStatus.user.isVerified) {
-        node.querySelector('.account-link.link-complex').classList.add('btd-is-verified');
-      }
     } else if (tweet.user && !tweet.retweetedStatus) {
       Usernames.format({
         node,
@@ -282,10 +262,6 @@ function tweetHandler(tweet, columnKey, parent) {
         fSel: '.fullname',
         uSel: '.username',
       });
-
-      if (tweet.user && tweet.user.isVerified) {
-        node.querySelector('.account-link.link-complex').classList.add('btd-is-verified');
-      }
     } else if (tweet.messages && !tweet.name) {
       if (tweet.type === 'ONE_TO_ONE') {
         Usernames.format({
@@ -325,6 +301,63 @@ function tweetHandler(tweet, columnKey, parent) {
         fSel: '.tweet-header .fullname',
         uSel: '.tweet-header .username',
       });
+    }
+
+    /**
+     * Adding Verified badge if needed
+     */
+    if (settings.css.show_verified) {
+      const field = tweet.action || tweet.chirpType;
+      let userToVerify;
+      let avatar;
+      const classesToAdd = ['btd-is-verified'];
+
+      switch (field) {
+        case 'retweet':
+        case 'retweeted_retweet':
+        case 'favorite':
+          userToVerify = tweet.sourceUser;
+          avatar = $('.activity-header .item-img', node)[0];
+          classesToAdd.push('btd-is-verified-mini');
+          break;
+
+        case 'mention':
+        case 'quoted_tweet':
+          userToVerify = tweet.sourceUser;
+          avatar = $('.tweet-header .account-link', node)[0];
+          break;
+
+        case 'list_membed_added':
+          userToVerify = tweet.owner;
+          avatar = $('.obj-let.item-img', node)[0];
+          classesToAdd.push('btd-is-verified-mini');
+          break;
+
+        case 'message_thread':
+          if (tweet.participants.length > 1) {
+            break;
+          }
+
+          userToVerify = tweet.participants[0].isVerified;
+          avatar = $('.obj-let.item-img', node)[0];
+          break;
+
+        case 'tweet':
+          userToVerify = tweet.retweetedStatus ? tweet.retweetedStatus.user : tweet.user;
+          avatar = $('.account-link .item-img', node)[0];
+          break;
+
+        default:
+          break;
+      }
+
+      if (!userToVerify) {
+        console.log('failed for', tweet);
+      }
+
+      if (userToVerify && userToVerify.isVerified) {
+        avatar.classList.add(...classesToAdd);
+      }
     }
 
 

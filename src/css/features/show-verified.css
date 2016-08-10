@@ -1,5 +1,5 @@
-.btd__show_verified .js-stream-item .account-link.btd-is-verified .tweet-img,
-.btd__show_verified .js-stream-item .item-img.btd-is-verified {
+.btd__show_verified .js-tweet .account-link.btd-is-verified .tweet-img,
+.btd__show_verified .js-tweet .item-img.btd-is-verified {
   position: relative;
 
   &::before {
@@ -20,7 +20,8 @@
   }
 }
 
-.btd__show_verified .js-stream-item .has-source-avatar .item-img.btd-is-verified:before {
+.btd__show_verified .btd-is-verified-mini:before,
+.btd__show_verified .btd-is-verified-mini .tweet-img:before {
   bottom: -5px;
   right: -3px;
   transform-origin: bottom right;
