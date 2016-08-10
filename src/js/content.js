@@ -309,7 +309,7 @@ function tweetHandler(tweet, columnKey, parent) {
     if (settings.css.show_verified) {
       const field = tweet.action || tweet.chirpType;
       let userToVerify;
-      let avatar;
+      let avatarSelector;
       const classesToAdd = ['btd-is-verified'];
 
       switch (field) {
@@ -317,19 +317,19 @@ function tweetHandler(tweet, columnKey, parent) {
         case 'retweeted_retweet':
         case 'favorite':
           userToVerify = tweet.sourceUser;
-          avatar = $('.activity-header .item-img', node)[0];
+          avatarSelector = '.activity-header .item-img';
           classesToAdd.push('btd-is-verified-mini');
           break;
 
         case 'mention':
         case 'quoted_tweet':
           userToVerify = tweet.sourceUser;
-          avatar = $('.tweet-header .account-link', node)[0];
+          avatarSelector = '.tweet-header .account-link';
           break;
 
-        case 'list_membed_added':
+        case 'list_member_added':
           userToVerify = tweet.owner;
-          avatar = $('.obj-let.item-img', node)[0];
+          avatarSelector = '.obj-left.item-img';
           classesToAdd.push('btd-is-verified-mini');
           break;
 
@@ -338,25 +338,23 @@ function tweetHandler(tweet, columnKey, parent) {
             break;
           }
 
-          userToVerify = tweet.participants[0].isVerified;
-          avatar = $('.obj-let.item-img', node)[0];
+          userToVerify = tweet.participants[0];
+          avatarSelector = '.obj-left.item-img';
           break;
 
         case 'tweet':
           userToVerify = tweet.retweetedStatus ? tweet.retweetedStatus.user : tweet.user;
-          avatar = $('.account-link .item-img', node)[0];
+          avatarSelector = '.account-link .item-img';
           break;
 
         default:
           break;
       }
 
-      if (!userToVerify) {
-        console.log('failed for', tweet);
-      }
+      if (userToVerify && userToVerify.isVerified && avatarSelector) {
+        const el = $(avatarSelector, node);
 
-      if (userToVerify && userToVerify.isVerified) {
-        avatar.classList.add(...classesToAdd);
+        el[0].classList.add(...classesToAdd);
       }
     }
 

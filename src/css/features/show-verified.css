@@ -1,5 +1,5 @@
-.btd__show_verified .js-tweet .account-link.btd-is-verified .tweet-img,
-.btd__show_verified .js-tweet .item-img.btd-is-verified {
+.btd__show_verified :matches(.js-stream-item-content, .js-tweet) .account-link.btd-is-verified .tweet-img,
+.btd__show_verified :matches(.js-stream-item-content, .js-tweet) .item-img.btd-is-verified {
   position: relative;
 
   &::before {
@@ -15,6 +15,7 @@
     width: 1em;
     height: 1em;
     font-size: 20px;
+    z-index: 1;
 
     background-image: radial-gradient(circle 11px, white 50%, color(white a(0)) 51%);
   }
