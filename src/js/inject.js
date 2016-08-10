@@ -16,7 +16,27 @@ if (config.get('Client.debug')) {
     const colKey = element.closest('[data-column]').getAttribute('data-column');
     const chirpKey = element.closest('article[data-key]').getAttribute('data-key');
 
-    return TD.controller.columnManager.get(colKey).updateIndex[chirpKey];
+    const column = TD.controller.columnManager.get(colKey);
+    let chirp = column.updateIndex[chirpKey];
+    const chirpsStack = [];
+
+    if (!chirp) {
+      if (column.detailViewComponent.repliesTo && column.detailViewComponent.repliesTo.repliesTo) {
+        chirpsStack.push(...column.detailViewComponent.repliesTo.repliesTo);
+      }
+
+      if (column.detailViewComponent.replies && column.detailViewComponent.replies.replies) {
+        chirpsStack.push(...column.detailViewComponent.replies.replies);
+      }
+
+      chirp = chirpsStack.find(c => c.id === chirpKey);
+    }
+
+    if (!chirp) {
+      chirp = column.updateIndex[column.detailViewComponent.chirp.id].messageIndex[chirpKey];
+    }
+
+    return chirp;
   };
 }
 
