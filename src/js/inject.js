@@ -1,6 +1,7 @@
 /* eslint no-underscore-dangle: 0 */
 
 import config from 'config';
+import { isObject } from 'lodash';
 
 let SETTINGS;
 
@@ -60,6 +61,12 @@ const proxyEvent = (name, detail = {}) => {
   window.postMessage({ name, detail }, 'https://tweetdeck.twitter.com');
 };
 
+const decorateChirp = (chirp) => {
+  chirp.chirpType = chirp.chirpType;
+  chirp.action = chirp.action;
+  return chirp;
+};
+
 const postMessagesListeners = {
   BTDC_getOpenModalTweetHTML: (ev, data) => {
     const { tweetKey, colKey, modalHtml } = data;
@@ -100,7 +107,7 @@ const postMessagesListeners = {
       markup = chirp.targetTweet.renderInMediaGallery();
     }
 
-    proxyEvent('gotMediaGalleryChirpHTML', { markup, chirp, modalHtml, colKey });
+    proxyEvent('gotMediaGalleryChirpHTML', { markup, chirp: decorateChirp(decorateChirp), modalHtml, colKey });
   },
   BTDC_getChirpFromColumn: (ev, data) => {
     const { chirpKey, colKey } = data;
@@ -115,7 +122,7 @@ const postMessagesListeners = {
       return;
     }
 
-    proxyEvent('gotChirpForColumn', { chirp, colKey });
+    proxyEvent('gotChirpForColumn', { chirp: decorateChirp(decorateChirp), colKey });
   },
   BTDC_likeChirp: (ev, data) => {
     const { chirpKey, colKey } = data;
@@ -188,7 +195,7 @@ document.addEventListener('DOMNodeInserted', (ev) => {
 
     const chirp = TD.controller.columnManager.get(colKey).updateIndex[chirpKey];
 
-    proxyEvent('gotChirpInMediaModal', { chirp });
+    proxyEvent('gotChirpInMediaModal', { chirp: decorateChirp(chirp) });
     return;
   }
 
@@ -242,7 +249,7 @@ document.addEventListener('DOMNodeInserted', (ev) => {
     }
   }
 
-  proxyEvent('gotChirpForColumn', { chirp, colKey });
+  proxyEvent('gotChirpForColumn', { chirp: decorateChirp(chirp), colKey });
 });
 
 $(document).on('uiVisibleChirps', (ev, data) => {
