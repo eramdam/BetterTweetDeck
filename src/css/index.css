@@ -102,3 +102,27 @@
 .noembed-embed-inner > div {
   min-width: 750px;
 }
+
+.tweet-dogear {
+  position: absolute;
+  top: 0;
+  right: 0;
+  visibility: hidden;
+  width: 24px;
+  height: 24px;
+  z-index: 9;
+}
+
+.is-retweet .tweet-dogear {
+  visibility: visible;
+  background-position: -170px -10px;
+}
+
+.is-favorite .tweet-dogear {
+  visibility: visible;
+  background-position: -140px -10px;
+}
+
+.is-retweet.is-favorite .tweet-dogear {
+  background-position: -200px -10px
+}
