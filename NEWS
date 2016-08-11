@@ -1,6 +1,7 @@
 3.0.12 (To be released)
 ===============
 - [Fix] Verified badges should display correctly when relevant
+- [Fix] Bring back the like/RT indicator on tweets because TweetDeck killed it
 - [Improvement] Verified badges should display in modals and in the DM columns
 
 3.0.11
