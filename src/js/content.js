@@ -434,7 +434,7 @@ on('BTDC_ready', () => {
   const settingsBtn = `
   <a class="btd-settings-btn js-header-action link-clean cf app-nav-link padding-hl" data-title="Better TweetDeck Settings"> <div class="obj-left"> <i class="icon icon-sliders icon-large"></i> </div> <div class="nbfc padding-ts hide-condensed">Better TweetDeck Settings</div> </a>
   `;
-  $('nav.app-navigator')[0].insertAdjacentHTML('beforeend', settingsBtn);
+  $('nav.app-navigator')[0].insertAdjacentHTML('afterbegin', settingsBtn);
   $('.btd-settings-btn')[0].addEventListener('click', (e) => {
     e.preventDefault();
     window.open(settingsURL);

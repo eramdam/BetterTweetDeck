@@ -44,6 +44,7 @@
     "jquery": "^3.0.0",
     "js-emoji": "https://github.com/iamcal/js-emoji/tarball/v3.0.2",
     "lodash": "^4.0.0",
+    "marked": "^0.3.6",
     "mustache": "^2.2.1",
     "needle": "^1.0.0",
     "normalize.css": "^4.1.1",

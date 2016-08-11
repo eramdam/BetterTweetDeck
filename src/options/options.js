@@ -4,8 +4,16 @@ import { schemeWhitelist } from '../js/util/thumbnails';
 import $ from 'jquery';
 import _ from 'lodash';
 import Prism from 'prismjs';
+import marked from 'marked';
 import queryString from 'query-string';
 import fecha from 'fecha';
+
+import jsEmoji from 'js-emoji';
+const Emoji = new jsEmoji.EmojiConvertor();
+Emoji.img_set = 'twitter';
+Emoji.replace_mode = 'css';
+Emoji.supports_css = true;
+Emoji.use_sheet = true;
 
 function refreshPreviews(settings) {
   if (settings.nm_disp) {
@@ -318,6 +326,10 @@ fetch('https://api.github.com/repos/eramdam/BetterTweetDeck/contributors').then(
       `);
     });
   });
+});
+
+fetch(chrome.extension.getURL('options/NEWS')).then(res => res.text()).then(body => {
+  $('.settings-section.changelog')[0].innerHTML = Emoji.replace_colons(marked(body)).split('/emoji-data/sheet_twitter_64.png').join(chrome.extension.getURL('emojis/sheet_twitter_64.png'));
 });
 
 // Because nobody got time to write that HTML by hand, right?

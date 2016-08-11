@@ -84,9 +84,9 @@ gulp.task('clean', () => del(['dist/']));
 * Simply copy files like images/json to the build folder
 *
 */
-gulp.task('static', () => (
-  gulp.src(staticFiles, { base: './src' }).pipe(gulp.dest('./dist'))
-));
+gulp.task('static', () => gulp.src(staticFiles, { base: './src' }).pipe(gulp.dest('./dist')) );
+
+gulp.task('static-news', () => gulp.src('./NEWS').pipe(gulp.dest('./dist/options/')) );
 
 /*
 *
@@ -152,7 +152,7 @@ gulp.task('lint', () => (
 *
 */
 gulp.task('build', (done) => {
-  runSequence('clean', ['js', 'static', 'css', 'css-options'], done);
+  runSequence('clean', ['js', 'static', 'css', 'css-options'], 'static-news', done);
 });
 
 /*
@@ -162,10 +162,11 @@ gulp.task('build', (done) => {
 *
 */
 gulp.task('default', (done) => {
-  runSequence('clean', ['css', 'css-options', 'js', 'static'], () => {
+  runSequence('clean', ['css', 'css-options', 'js', 'static'], 'static-news', () => {
     gulp.watch(['./src/js/**/*.js',  './src/options/*.js'], ['js', 'js-options']);
     gulp.watch(['./src/css/**/*.css'], ['css', 'css-options']);
-    gulp.watch(staticFiles, ['static']);
+    gulp.watch(staticFiles, ['static', 'static-news']);
+    gulp.watch('./NEWS', ['static-news']);
     done();
   });
 });

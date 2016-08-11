@@ -14,6 +14,7 @@
   "sec_content": { "message": "Content" },
   "sec_welcome": { "message": "Welcome" },
   "sec_credits": { "message": "Credits / About" },
+  "sec_changelog": { "message": "Changelog" },
   "sec_debug": { "message": "Debug Infos" },
   "sec_links": { "message": "Links" },
   "sec_donate": { "message": "Donate" },
