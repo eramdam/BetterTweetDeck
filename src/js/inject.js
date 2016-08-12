@@ -264,7 +264,7 @@ $(document).on('uiVisibleChirps', (ev, data) => {
     return hasGif && isPaused;
   }).length > 0;
 
-  if (isThereGifs) {
+  if (isThereGifs && SETTINGS.stop_gifs) {
     chirpsData.filter(chirp => chirp.chirp._hasAnimatedGif).forEach(c => {
       const videoEl = $(`[data-column="${columnKey}"] [data-key="${c.id}"] video`)[0];
 
