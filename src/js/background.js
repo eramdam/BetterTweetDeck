@@ -5,6 +5,7 @@ import { defaultsDeep } from 'lodash';
 
 const defaultSettings = {
   installed_date: new Date().getTime(),
+  installed_version: BHelper.getVersion(),
   ts: 'relative',
   custom_ts: {
     short: '',
@@ -124,7 +125,7 @@ BHelper.settings.getAll(settings => {
   BHelper.settings.setAll(defaultsDeep(curSettings, defaultSettings), (newSettings) => {
     Log.debug(newSettings);
     // If the user is new on v3 then we display the "on install" page
-    // '1468605919620' => ~7th of August
+    // '1470620185697' => ~7th of August
     if (!newSettings.installed_date || newSettings.installed_date <= 1470620185697) {
       chrome.tabs.create({
         url: 'options/options.html?on=install',
