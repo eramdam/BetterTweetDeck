@@ -1,4 +1,4 @@
-[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/micblkellenpbfapmcpcfhcoeohhnpob.svg?maxAge=2592000)]() [![Chrome Web Store](https://img.shields.io/chrome-web-store/d/micblkellenpbfapmcpcfhcoeohhnpob.svg?maxAge=2592000)]() ![](https://img.shields.io/twitter/follow/bettertdeck.svg?style=social&label=Follow)
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/micblkellenpbfapmcpcfhcoeohhnpob.svg)]() [![Chrome Web Store](https://img.shields.io/chrome-web-store/d/micblkellenpbfapmcpcfhcoeohhnpob.svg)]() ![](https://img.shields.io/twitter/follow/bettertdeck.svg?style=social&label=Follow)
 [![](https://img.shields.io/badge/patreon-donate-yellow.svg)](https://www.patreon.com/eramdam) [![](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK9SQ6ZDE9UF2&lc=US&item_name=Damien%20Erambert&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted)
 
 # Better TweetDeck 3.0
