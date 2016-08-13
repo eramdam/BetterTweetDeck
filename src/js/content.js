@@ -372,7 +372,7 @@ function tweetHandler(tweet, columnKey, parent) {
       urlsToChange = [...tweet.retweetedStatus.entities.urls, ...tweet.retweetedStatus.entities.media];
     }
 
-    const mediaURLS = urlsToChange.filter(url => url.type || url.display_url.startsWith('youtube.') || url.display_url.startsWith('vine'));
+    const mediaURLS = urlsToChange.filter(url => url.type || url.display_url.startsWith('youtube.com/watch?v=') || url.display_url.startsWith('vine.co/v/'));
 
     if (urlsToChange.length > 0) {
       // We expand URLs if needed
