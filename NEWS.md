@@ -2,6 +2,7 @@
 ===============
 - [Fix] GIFs should not stop anymore when the option "Stop gif autoplay" is unchecked
 - [Improvement] The option "hide links relative to thumbnails" should work more reliably
+- [Feature] Twitch clips (clips.twitch.tv) are now supported
 
 3.0.12
 ===============
