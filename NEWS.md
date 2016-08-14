@@ -1,4 +1,9 @@
-:tada: 3.0.12 :tada:
+:tada: 3.0.13 (To be released) :tada:
+===============
+- [Fix] GIFs should not stop anymore when the option "Stop gif autoplay" is unchecked
+- [Improvement] The option "hide links relative to thumbnails" should work more reliably
+
+3.0.12
 ===============
 - [Fix] Verified badges should display correctly when relevant
 - [Fix] Bring back the like/RT indicator on tweets because TweetDeck killed it
