@@ -1,0 +1,59 @@
+import { parseURL } from '../parseUrl.js';
+
+export default function ($) {
+  return {
+    name: 'Imgur',
+    setting: 'imgur',
+    re: /(?:imgur.com|i.imgur.com)/,
+    default: true,
+    callback: url => {
+      const headers = new Headers();
+      headers.append('Authorization', `Client-ID ${$.getKeyFor('imgur')}`);
+
+      if (url.includes('imgur.com/a/')) {
+        const imgurID = parseURL(url).segments[1];
+
+        return fetch(`${$.getEnpointFor('imgur')}album/${imgurID}`, { headers }).then($.statusAndJson)
+        .then(data => {
+          return {
+            type: 'image',
+            thumbnail_url: `https://i.imgur.com/${data.data.cover}l.jpg`,
+            html: `<iframe class="imgur-album" width="708" height="550" frameborder="0" src="https://imgur.com/a/${imgurID}/embed"></iframe>`,
+            url: $.getSafeURL(url),
+          };
+        });
+      } else if (url.includes('imgur.com/gallery')) {
+        const imgurID = parseURL(url).segments[1];
+
+        return fetch(`${$.getEnpointFor('imgur')}gallery/image/${imgurID}`, { headers }).then($.statusAndJson)
+        .then(data => {
+          let srcUrl;
+
+          if (data.data.animated) {
+            srcUrl = data.data.link;
+            return {
+              type: 'video',
+              thumbnail_url: `https://i.imgur.com/${data.data.id}l.jpg`,
+              url,
+              html: `<video autoplay src="${data.data.mp4}"></video>`,
+            };
+          }
+
+          return {
+            type: 'image',
+            thumbnail_url: `https://i.imgur.com/${data.data.id}l.jpg`,
+            url: srcUrl,
+          };
+        });
+      }
+
+      const imgurID = parseURL(url).segments[0].split('.')[0];
+
+      return Promise.resolve({
+        type: 'image',
+        thumbnail_url: `https://i.imgur.com/${imgurID}l.jpg`,
+        url: $.getSafeURL(`https://i.imgur.com/${imgurID}.jpg`),
+      });
+    },
+  };
+}

@@ -1,12 +1,9 @@
 import config from 'config';
-import qs from 'query-string';
 import reusePromise from 'reuse-promise';
-import domify from 'domify';
 
 import { send as sendMessage } from './messaging';
 import * as Log from './logger';
-import { parseURL } from './parseUrl.js';
-import { fetch as fetchPage } from './fetchPage.js';
+import * as Providers from './providers/index';
 
 const endpoints = {
   embedly: 'https://api.embed.ly/1/oembed?',
@@ -27,6 +24,11 @@ sendMessage({ action: 'get', key: 'thumbnails' }, (response) => {
   providersSettings = response.val;
 });
 
+/**
+ * Returns a 'safe' URL for images to use as background-image/src value
+ * @param  {String} url url of image
+ * @return {String}     safe url
+ */
 const getSafeURL = (url) => {
   if (url.startsWith('//')) {
     url = `https:${url}`;
@@ -35,28 +37,34 @@ const getSafeURL = (url) => {
   return `https://images4-focus-opensocial.googleusercontent.com/gadgets/proxy?url=${encodeURIComponent(url)}&container=focus&resize_w=720&refresh=86400`;
 };
 
+/**
+ * Returns the endpoint for the asked service
+ * @param  {String} service key of service from `endpoints` object
+ * @return {String}         url to fetch
+ */
 const getEnpointFor = (service) => endpoints[service];
 
+/**
+ * Returns API key from config for a given servic3e
+ * @param  {String} service Name of service
+ * @return {String}         API key of service
+ */
 const getKeyFor = service => config.get(`Client.APIs.${service}`);
 
-const status = (res) => {
+/**
+ * Function to use in promise that will return the json output of a request
+ */
+const statusAndJson = res => {
   if (res.status >= 200 && res.status < 300) {
-    return Promise.resolve(res);
+    return res.json();
   }
 
   return Promise.reject(new Error(res.statusText));
 };
 
-const json = (res) => {
-  if (!res) {
-    return null;
-  }
-
-  return res.json();
-};
-
-const statusAndJson = (res) => status(res).catch(() => null).then(json);
-
+/**
+ * Returns a promise with image data from noembed
+ */
 const noEmbedImgCB = url => {
   return fetch(`${getEnpointFor('noembed')}${url}`)
   .then(statusAndJson)
@@ -71,6 +79,9 @@ const noEmbedImgCB = url => {
   });
 };
 
+/**
+ * Returns a promise with video data from noembed
+ */
 const noEmbedVideoCB = url => {
   return fetch(`${getEnpointFor('noembed')}${url}`)
   .then(statusAndJson)
@@ -86,489 +97,48 @@ const noEmbedVideoCB = url => {
   });
 };
 
+// We export a few useful functions for providers
+const util = { getKeyFor, statusAndJson, getEnpointFor, getSafeURL, noEmbedVideoCB, noEmbedImgCB };
+
 const schemeWhitelist = [
-  {
-    name: '500px',
-    setting: '500px',
-    re: /500px.com/,
-    default: true,
-    callback: url => {
-      return fetch(`${getEnpointFor('500px')}${url}`)
-        .then(statusAndJson)
-        .then(data => {
-          const obj = {
-            type: 'image',
-            thumbnail_url: getSafeURL(data.thumbnail_url),
-            url: getSafeURL(data.url),
-          };
-
-          return obj;
-        });
-    },
-  },
-  {
-    name: 'Bandcamp',
-    setting: 'bandcamp',
-    re: /bandcamp.com/,
-    default: true,
-    callback: url => fetchPage(url).then(data => {
-      if (data.currentTarget.status !== 200) {
-        return null;
-      }
-
-      const el = domify(data.currentTarget.response);
-      const thumbnail = el.querySelector('[property="twitter:image"]').content;
-      const embedURL = el.querySelector('[property="twitter:player"]').content;
-      const height = el.querySelector('[property="twitter:player:height"]').content;
-      const width = el.querySelector('[property="twitter:player:width"]').content;
-
-      if (!thumbnail || !embedURL) {
-        return null;
-      }
-
-      return {
-        type: 'audio',
-        thumbnail_url: getSafeURL(thumbnail),
-        html: `<iframe style="border: 0; width: ${width}px; height: ${height}px;" src="${embedURL}" seamless></iframe>`,
-        url,
-      };
-    }),
-  },
-  {
-    name: 'CloudApp',
-    setting: 'cl_ly',
-    re: /cl.ly/,
-    default: true,
-    callback: url => {
-      const headers = new Headers();
-      headers.append('Accept', 'application/json');
-
-      return fetch(url, { headers }).then(statusAndJson)
-      .then(data => {
-        if (data.item_type !== 'image') {
-          return null;
-        }
-
-        return {
-          type: 'image',
-          thumbnail_url: getSafeURL(data.thumbnail_url),
-          url: getSafeURL(data.content_url),
-        };
-      });
-    },
-  },
-  {
-    name: 'Dailymotion',
-    setting: 'dailymotion',
-    re: /dailymotion.com\/video/,
-    default: true,
-    callback: url => {
-      const ID = parseURL(url).segments[1];
-
-      return fetch(`${getEnpointFor('dailymotion')}/${ID}?${qs.stringify({
-        fields: 'thumbnail_240_url,thumbnail_360_url,thumbnail_180_url,embed_html',
-      })}`)
-        .then(statusAndJson)
-        .then(data => {
-          const obj = {
-            type: 'video',
-            thumbnail_url: getSafeURL(data.thumbnail_360_url),
-            url,
-            html: data.embed_html.replace('http://', 'https://'),
-          };
-
-          return obj;
-        });
-    },
-  },
-  {
-    name: 'DeviantArt',
-    setting: 'deviantart',
-    re: /(?:deviantart.com\/art|fav.me|sta.sh)/,
-    default: true,
-    callback: url => {
-      const sourceURL = url;
-      return fetch(`${getEnpointFor('deviantart')}${qs.stringify({
-        url: sourceURL,
-      })}`)
-        .then(statusAndJson)
-        .then(data => {
-          const obj = {
-            type: 'image',
-            thumbnail_url: getSafeURL(data.thumbnail_url),
-            url: getSafeURL(data.url),
-          };
-
-          return obj;
-        });
-    },
-  },
-  {
-    name: 'Dribbble',
-    setting: 'dribbble',
-    re: /(?:dribbble.com\/shots|drbl.in)/,
-    default: true,
-    callback: url => {
-      const dribbbleID = parseURL(url).file.split('-').shift();
-      const headers = new Headers();
-      headers.append('Authorization', `Bearer ${getKeyFor('dribbble')}`);
-
-      return fetch(`${getEnpointFor('dribbble')}${dribbbleID}`, {
-        headers,
-      })
-        .then(statusAndJson)
-        .then(data => {
-          const obj = {
-            type: 'image',
-            thumbnail_url: getSafeURL(data.images.teaser),
-            url: getSafeURL(data.images.hidpi || data.images.normal),
-          };
-
-          return obj;
-        });
-    },
-  },
-  {
-    name: 'Droplr',
-    setting: 'droplr',
-    re: /d.pr\/i/,
-    default: true,
-    callback: url => {
-      const dpUrl = getSafeURL(`${url.replace(/\/$/, '')}/medium`);
-
-      return Promise.resolve({
-        type: 'image',
-        thumbnail_url: dpUrl,
-        url: dpUrl,
-      });
-    },
-  },
-  {
-    name: 'Flickr',
-    setting: 'flickr',
-    re: /(?:flic.kr|flickr.com)/,
-    default: true,
-    callback: noEmbedImgCB,
-  },
-  {
-    name: 'Gfycat',
-    setting: 'gfycat',
-    re: /gfycat.com/,
-    default: true,
-    callback: url => {
-      return fetch(`${getEnpointFor('noembed')}${url}`)
-      .then(statusAndJson)
-      .then(data => {
-        let tbUrl = data.thumbnail_url;
-        const ID = parseURL(data.url).segments[0];
-
-        if (!data.thumbnail_url) {
-          tbUrl = `https://thumbs.gfycat.com/${ID}-poster.jpg`;
-        }
-
-        const obj = {
-          type: 'video',
-          thumbnail_url: getSafeURL(tbUrl),
-          html: data.html,
-          url,
-        };
-
-        return obj;
-      });
-    },
-  },
-  {
-    name: 'Giphy',
-    setting: 'giphy',
-    re: /(?:giphy.com\/gifs\/|gph.is\/)/,
-    default: true,
-    callback: url => {
-      return fetch(`${getEnpointFor('giphy')}${url}`).then(statusAndJson)
-      .then(data => {
-        return {
-          type: 'image',
-          thumbnail_url: getSafeURL(data.image.replace('giphy.gif', 'giphy-facebook_s.jpg')),
-          url: getSafeURL(data.image),
-        };
-      });
-    },
-  },
-  {
-    name: 'Imgur',
-    setting: 'imgur',
-    re: /(?:imgur.com|i.imgur.com)/,
-    default: true,
-    callback: url => {
-      const headers = new Headers();
-      headers.append('Authorization', `Client-ID ${getKeyFor('imgur')}`);
-
-      if (url.includes('imgur.com/a/')) {
-        const imgurID = parseURL(url).segments[1];
-
-        return fetch(`${getEnpointFor('imgur')}/album/${imgurID}`, { headers }).then(statusAndJson)
-        .then(data => {
-          return {
-            type: 'image',
-            thumbnail_url: `https://i.imgur.com/${data.data.cover}l.jpg`,
-            html: `<iframe class="imgur-album" width="708" height="550" frameborder="0" src="https://imgur.com/a/${imgurID}/embed"></iframe>`,
-            url: getSafeURL(url),
-          };
-        });
-      } else if (url.includes('imgur.com/gallery')) {
-        const imgurID = parseURL(url).segments[1];
-
-        return fetch(`${getEnpointFor('imgur')}/gallery/image/${imgurID}`, { headers }).then(statusAndJson)
-        .then(data => {
-          let srcUrl;
-
-          if (data.data.animated) {
-            srcUrl = data.data.link;
-            return {
-              type: 'video',
-              thumbnail_url: `https://i.imgur.com/${data.data.id}l.jpg`,
-              url,
-              html: `<video autoplay src="${data.data.mp4}"></video>`,
-            };
-          }
-
-          return {
-            type: 'image',
-            thumbnail_url: `https://i.imgur.com/${data.data.id}l.jpg`,
-            url: srcUrl,
-          };
-        });
-      }
-
-      const imgurID = parseURL(url).segments[0].split('.')[0];
-
-      return Promise.resolve({
-        type: 'image',
-        thumbnail_url: `https://i.imgur.com/${imgurID}l.jpg`,
-        url: getSafeURL(`https://i.imgur.com/${imgurID}.jpg`),
-      });
-    },
-  },
-  {
-    name: 'Instagram',
-    setting: 'instagram',
-    re: /https?:\/\/(?:i.|www.|)instagr(?:.am|am.com)\/p\/.+/,
-    default: true,
-    callback: url => {
-      if (!url.endsWith('/')) {
-        url += '/';
-      }
-
-      return fetch(`${getEnpointFor('instagram')}${url}`).then(statusAndJson)
-      .then(data => {
-        if (data.html.includes('video')) {
-          return {
-            type: 'video',
-            thumbnail_url: getSafeURL(data.thumbnail_url),
-            html: `<iframe src="${url}embed/" width="612" height="710" style="max-height: 710px !important;" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`,
-            url,
-          };
-        }
-
-        return {
-          type: 'image',
-          thumbnail_url: getSafeURL(data.thumbnail_url),
-          url: getSafeURL(data.thumbnail_url),
-        };
-      });
-    },
-  },
-  {
-    name: 'Mixcloud',
-    setting: 'mixcloud',
-    re: /mixcloud.com\/[\w]+\/[\w]+/,
-    default: true,
-    callback: url => {
-      return fetch(`${getEnpointFor('noembed')}${url}`)
-      .then(statusAndJson)
-      .then(data => {
-        const obj = {
-          type: 'audio',
-          thumbnail_url: getSafeURL(data.image),
-          html: data.embed,
-          url,
-        };
-
-        return obj;
-      });
-    },
-  },
-  {
-    name: 'moby.to',
-    setting: 'moby_to',
-    re: /moby.to/,
-    default: true,
-    callback: noEmbedImgCB,
-  },
-  {
-    name: 'Skitch',
-    setting: 'skitch',
-    re: /(?:skitch.com|img.skitch.com)/,
-    default: true,
-    callback: noEmbedImgCB,
-  },
-  {
-    name: 'Soundcloud',
-    setting: 'soundcloud',
-    re: /soundcloud.com/,
-    default: true,
-    callback: url => {
-      return fetch(`${getEnpointFor('noembed')}${url}`)
-      .then(statusAndJson)
-      .then(data => {
-        const obj = {
-          type: 'audio',
-          thumbnail_url: getSafeURL(data.thumbnail_url),
-          html: data.html,
-          url,
-        };
-
-        return obj;
-      });
-    },
-  },
-  {
-    name: 'Spotify',
-    setting: 'spotify',
-    re: /(?:open.spotify.com|play.spotify.com|spoti.fi)/,
-    default: true,
-    callback: url => {
-      return fetch(`https://embed.spotify.com/oembed/?url=${url}`).then(statusAndJson)
-      .then(data => {
-        return {
-          type: 'audio',
-          html: data.html,
-          thumbnail_url: getSafeURL(data.thumbnail_url),
-          url,
-        };
-      });
-    },
-  },
-  {
-    name: 'Streamable',
-    setting: 'streamable',
-    re: /streamable.com/,
-    default: true,
-    callback: url => {
-      return fetch(`https://api.streamable.com/oembed.json?url=${url}`).then(statusAndJson)
-      .then(data => {
-        return {
-          type: 'video',
-          html: data.html,
-          thumbnail_url: getSafeURL(data.thumbnail_url),
-          url,
-        };
-      });
-    },
-  },
-  {
-    name: 'TED',
-    setting: 'ted',
-    re: /ted.com\/talks/,
-    default: true,
-    callback: noEmbedVideoCB,
-  },
-  {
-    name: 'Tumblr',
-    setting: 'tumblr',
-    re: /tumblr.com\/.+.(?:gif|png|jpg)$/,
-    default: true,
-    callback: url => Promise.resolve({
-      type: 'image',
-      thumbnail_url: getSafeURL(url),
-      url: getSafeURL(url),
-    }),
-  },
-  {
-    name: 'Twitch',
-    setting: 'twitch_tv',
-    re: new RegExp('twitch.tv/*|twitch.tv/*/b/*'),
-    default: true,
-    callback: url => {
-      /* eslint no-underscore-dangle: 0 */
-      const parsed = parseURL(url);
-      const channel = parsed.segments[0];
-
-      const isBroadcast = parsed.segments[1] && ['v', 'b'].includes(parsed.segments[1]);
-
-      if (isBroadcast) {
-        const broadcastId = parsed.segments[1] + parsed.segments[2];
-
-        return fetch(`${getEnpointFor('twitch')}channels/${channel}/videos?broadcasts=true&client_id=${getKeyFor('twitch')}`).then(statusAndJson)
-        .then(data => {
-          const finalVideo = data.videos.find(video => video._id === broadcastId);
-
-          if (!finalVideo) {
-            return null;
-          }
-
-          return {
-            type: 'video',
-            thumbnail_url: getSafeURL(finalVideo.thumbnails[0].url),
-            html: `<iframe src="https://player.twitch.tv/?video=${broadcastId}" height="720" width="1280" frameborder="0" scrolling="no" allowfullscreen="true"></iframe>`,
-            url,
-          };
-        });
-      }
-
-      return fetch(`${getEnpointFor('twitch')}channels/${channel}?client_id=${getKeyFor('twitch')}`).then(statusAndJson)
-      .then(data => {
-        return {
-          type: 'video',
-          thumbnail_url: getSafeURL(data.profile_banner || data.video_banner || data.logo),
-          html: `<iframe src="https://player.twitch.tv/?channel=${channel}" height="720" width="1280" frameborder="0" scrolling="no" allowfullscreen="true"></iframe>`,
-          url,
-        };
-      });
-    /* eslint no-underscore-dangle: 1 */
-    },
-  },
-  {
-    name: 'Vimeo',
-    setting: 'vimeo',
-    re: /vimeo.com\/[0-9]*$/,
-    default: true,
-    callback: noEmbedVideoCB,
-  },
-  {
-    name: 'Youtu.be',
-    setting: 'youtu_be',
-    re: /youtu.be/,
-    default: true,
-    callback: noEmbedVideoCB,
-  },
-  {
-    name: 'yfrog',
-    setting: 'yfrog',
-    re: /yfrog.com/,
-    default: true,
-    callback: noEmbedImgCB,
-  },
-  {
-    name: 'Universal',
-    setting: 'universal',
-    re: /.(jpg|gif|png|jpeg)$/,
-    default: true,
-    callback: url => Promise.resolve({
-      type: 'image',
-      thumbnail_url: getSafeURL(url),
-      url: getSafeURL(url),
-    }),
-  },
+  Providers.fivehundredpx(util),
+  Providers.bandcamp(util),
+  Providers.cloudapp(util),
+  Providers.dailymotion(util),
+  Providers.deviantart(util),
+  Providers.dribbble(util),
+  Providers.droplr(util),
+  Providers.flickr(util),
+  Providers.gfycat(util),
+  Providers.giphy(util),
+  Providers.imgur(util),
+  Providers.instagram(util),
+  Providers.mixcloud(util),
+  Providers.mobyTo(util),
+  Providers.skitch(util),
+  Providers.soundcloud(util),
+  Providers.spotify(util),
+  Providers.streamable(util),
+  Providers.ted(util),
+  Providers.tumblr(util),
+  Providers.twitch(util),
+  Providers.vimeo(util),
+  Providers.youtube(util),
+  Providers.yfrog(util),
+  Providers.universal(util),
 ];
 
 const validateUrl = (url) => {
   let provider = '';
   let cb;
+  // We test every scheme to see if the url matches one of them
   const some = schemeWhitelist.some((scheme) => {
     if (scheme.re.test(url)) {
       if (providersSettings[scheme.setting] === false) {
         return false;
       } else if (providersSettings[scheme.setting] === true || scheme.default) {
+        // We an url matches, we stop and
+        // get the corresponding provider/callback func
         provider = scheme.setting;
         cb = scheme.callback;
         return true;
@@ -578,6 +148,7 @@ const validateUrl = (url) => {
     return false;
   });
 
+  // We return whether the url matches and some additional info
   return { matches: some, provider, cb };
 };
 
@@ -592,7 +163,7 @@ function thumbnailForFetch(url) {
   return validationObj.cb(url);
 }
 
+// We use reuse-promise so we don't have to fetch the same URL twice
 const thumbnailFor = reusePromise(thumbnailForFetch);
-
 
 module.exports = { validateUrl, thumbnailFor, schemeWhitelist };
