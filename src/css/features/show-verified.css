@@ -8,9 +8,10 @@
     font-weight: normal;
     font-style: normal;
     -webkit-font-smoothing: antialiased;
+    line-height: 1;
     position: absolute;
-    bottom: -2px;
-    right: 0;
+    bottom: -3px;
+    right: -5px;
     color: #55acee;
     width: 1em;
     height: 1em;
