@@ -35,7 +35,8 @@
 		"https://cl.ly/*",
 		"https://giphy.com/services/oembed*",
 		"*://tweetdeck.twitter.com/*",
-		"contextMenus"
+		"contextMenus",
+		"notifications"
 	],
 	"options_ui": {
 		"page": "options/ui/ui.html",

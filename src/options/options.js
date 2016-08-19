@@ -301,6 +301,11 @@ if (Object.keys(queryString.parse(location.search)).length > 0) {
     $('.sidebar-nav a, .content-block').removeClass('-selected');
     $('.sidebar-nav a[href="#onInstall"], .content-block#onInstall').addClass('-selected');
   }
+
+  if (QS.on === 'update') {
+    $('.sidebar-nav a, .content-block').removeClass('-selected');
+    $('.sidebar-nav a[href="#changelog"], .content-block#changelog').addClass('-selected');
+  }
 }
 
 // Write UA/version infos

@@ -44,6 +44,18 @@ const defaultSettings = {
   thumbnails: {},
 };
 
+function openChangelogPage() {
+  chrome.tabs.create({
+    url: 'options/options.html?on=update',
+  });
+}
+
+function openWelcomePage() {
+  chrome.tabs.create({
+    url: 'options/options.html?on=install',
+  });
+}
+
 function contextMenuHandler(info, tab, settings) {
   const urlToShare = info.linkUrl || info.srcUrl || info.pageUrl;
   let textToShare = info.selectionText || tab.title;
@@ -127,11 +139,24 @@ BHelper.settings.getAll(settings => {
     // If the user is new on v3 then we display the "on install" page
     // '1470620185697' => ~7th of August
     if (!newSettings.installed_date || newSettings.installed_date <= 1470620185697) {
-      chrome.tabs.create({
-        url: 'options/options.html?on=install',
-      });
-
+      openWelcomePage();
       BHelper.settings.set({ installed_date: new Date().getTime() });
+    }
+
+    const oldVersion = (curSettings.installed_version || '').replace(/\./g, '');
+    const newVersion = BHelper.getVersion().replace(/\./g, '');
+
+    BHelper.settings.set({ installed_version: BHelper.getVersion() });
+
+    if (!oldVersion || Number(oldVersion) < Number(newVersion)) {
+      chrome.notifications.create({
+        type: 'basic',
+        title: BHelper.getMessage('notification_title'),
+        message: BHelper.getUpgradeMessage(),
+        iconUrl: 'icons/notif-icon.png',
+      }, () => {
+        chrome.notifications.onClicked.addListener(openChangelogPage);
+      });
     }
 
     // We create the context menu item

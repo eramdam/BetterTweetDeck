@@ -31,6 +31,7 @@ export const getMessage = (msg) => {
 
   return string;
 };
+export const getUpgradeMessage = () => getMessage('notification_upgrade').replace('{{version}}', getVersion());
 
 export const settings = {
   get(property, cb) {

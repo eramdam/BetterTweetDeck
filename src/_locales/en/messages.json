@@ -94,5 +94,8 @@
   "donate_title":  { "message": "Help me to maintain Better TweetDeck!" },
   "donate_p3":  { "message": "Thanks a bunch for using Better TweetDeck and helping it live!" },
   "donate_p2":  { "message": "If you can afford it and feel generous, it would be <strong>wonderful</strong> if you could <a href='https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK9SQ6ZDE9UF2&lc=US&item_name=Damien%20Erambert&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'>donate on Paypal</a> or <a href='https://patreon.com/eramdam'>support me on Patreon</a> (you can have access to alpha/beta testing of future versions!).<br><br>Even the smallest contribution is helping!" },
-  "donate_p1": { "message": "Better TweetDeck is and always will be <strong>free of charge</strong> but developing it takes time and keeping it live costs money!<br> <br>The main cost is my <a href='https://embed.ly/'>Embed.ly</a> subscription that allows Better TweetDeck to easily display thumbnails from various services."}
+  "donate_p1": { "message": "Better TweetDeck is and always will be <strong>free of charge</strong> but developing it takes time and keeping it live costs money!<br> <br>The main cost is my <a href='https://embed.ly/'>Embed.ly</a> subscription that allows Better TweetDeck to easily display thumbnails from various services."},
+
+  "notification_title":  { "message": "Better TweetDeck Upgrade" },
+  "notification_upgrade":  { "message": "Better TweetDeck has been upgraded to v{{version}}. Click for more information." }
 }
