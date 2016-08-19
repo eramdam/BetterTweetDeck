@@ -6,3 +6,18 @@
     overflow-y:hidden;
   }
 }
+
+.btd__minimal_mode.btd__no_scrollbars {
+  .scroll-styled-v::-webkit-scrollbar-track,
+  .scroll-styled-h::-webkit-scrollbar-track {
+    border-left: 0;
+  }
+
+  .scroll-styled-h::-webkit-scrollbar {
+    height: 0;
+  }
+
+  .needs-scroll-bottom-offset.scroll-styled-h {
+    bottom: 0;
+  }
+}

@@ -38,21 +38,6 @@
   background: rgba(0, 0, 0, 0.13);
 }
 
-.btd__minimal_mode.btd__no_scrollbars {
-  .scroll-styled-v::-webkit-scrollbar-track,
-  .scroll-styled-h::-webkit-scrollbar-track {
-    border-left: 0;
-  }
-
-  .scroll-styled-h::-webkit-scrollbar {
-    height: 0;
-  }
-
-  .needs-scroll-bottom-offset.scroll-styled-h {
-    bottom: 0;
-  }
-}
-
 .btd__minimal_mode .js-stream-item:not(.btd-is-retweet) .tweet-context {
   .obj-left {
     margin-top: 60px;
@@ -75,4 +60,18 @@
 
 .btd__minimal_mode .js-stream-item .activity-header + .txt-mute .tweet-context {
   display: none;
+}
+
+.btd__minimal_mode {
+  .scroll-styled-v::-webkit-scrollbar {
+    width: 1px;
+  }
+
+  .scroll-styled-h::-webkit-scrollbar {
+    height: 1px;
+  }
+
+  .needs-scroll-bottom-offset.scroll-styled-h {
+    bottom: 1px;
+  }
 }
