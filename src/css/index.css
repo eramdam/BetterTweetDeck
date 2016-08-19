@@ -99,8 +99,13 @@
   cursor: zoom-in;
 }
 
-.noembed-embed-inner > div {
+.noembed-embed-inner > div,
+.streamable-embed-container {
   min-width: 750px;
+}
+
+.streamable-embed-container > iframe {
+  left: 0;
 }
 
 .tweet-dogear {
