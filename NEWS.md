@@ -2,6 +2,8 @@
 ===============
 - [Fix] GIFs should not stop anymore when the option "Stop gif autoplay" is unchecked
 - [Improvement] The option "hide links relative to thumbnails" should work more reliably
+- [Improvement] Better French translation (Thanks [LeoColomb](https://github.com/LeoColomb))
+- [Improvement] Verified badge are better positioned (Thanks [LeoColomb](https://github.com/LeoColomb))
 - [Feature] Twitch clips (clips.twitch.tv) are now supported
 
 3.0.12
