@@ -1,4 +1,8 @@
-:tada: 3.0.13 :tada:
+:tada: 3.0.14 :tada:
+===============
+- [Fix] Slimmer scrollbars are bigger and it's now an option
+
+3.0.13
 ===============
 - [Fix] GIFs should not stop anymore when the option "Stop gif autoplay" is unchecked
 - [Fix] Streamable embed players were too small and mis-placed, it's now fixed
