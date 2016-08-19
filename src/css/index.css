@@ -17,6 +17,7 @@
 @import './features/round-pic.css';
 @import './features/show-verified.css';
 @import './features/small-icns.css';
+@import './features/slim_scrollbars.css';
 @import './features/username-typeahead.css';
 
 /* Emoji Panel */

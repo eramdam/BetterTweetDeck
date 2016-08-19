@@ -1,0 +1,13 @@
+.btd__slim_scrollbars {
+  .scroll-styled-v::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  .scroll-styled-h::-webkit-scrollbar {
+    height: 3px;
+  }
+
+  .needs-scroll-bottom-offset.scroll-styled-h {
+    bottom: 3px;
+  }
+}

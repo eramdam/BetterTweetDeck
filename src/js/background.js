@@ -31,6 +31,7 @@ const defaultSettings = {
     usrname_only_typeahead: true,
     hide_context: false,
     no_scrollbars: false,
+    slim_scrollbars: false,
     show_verified: true,
     actions_on_right: true,
     actions_on_hover: true,

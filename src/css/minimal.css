@@ -61,17 +61,3 @@
 .btd__minimal_mode .js-stream-item .activity-header + .txt-mute .tweet-context {
   display: none;
 }
-
-.btd__minimal_mode {
-  .scroll-styled-v::-webkit-scrollbar {
-    width: 1px;
-  }
-
-  .scroll-styled-h::-webkit-scrollbar {
-    height: 1px;
-  }
-
-  .needs-scroll-bottom-offset.scroll-styled-h {
-    bottom: 1px;
-  }
-}
