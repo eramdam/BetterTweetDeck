@@ -4,7 +4,7 @@
 - [Fix] Streamable embed players were too small and mis-placed, it's now fixed
 - [Improvement] The option "hide links relative to thumbnails" should work more reliably
 - [Improvement] Better French translation (Thanks [LeoColomb](https://github.com/LeoColomb))
-- [Improvement] Verified badge are better positioned (Thanks [LeoColomb](https://github.com/LeoColomb))
+- [Improvement] Verified badge is better positioned (Thanks [LeoColomb](https://github.com/LeoColomb))
 - [Feature] Twitch clips (clips.twitch.tv) are now supported ![](https://static-cdn.jtvnw.net/emoticons/v1/41/1.0)
 
 3.0.12
