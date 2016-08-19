@@ -1,4 +1,4 @@
-:tada: 3.0.13 (To be released) :tada:
+:tada: 3.0.13 :tada:
 ===============
 - [Fix] GIFs should not stop anymore when the option "Stop gif autoplay" is unchecked
 - [Fix] Streamable embed players were too small and mis-placed, it's now fixed
