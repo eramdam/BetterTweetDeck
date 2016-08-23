@@ -28,7 +28,7 @@
   "time_custom": { "message": "Personnalisé (<a target='_blank' href='https://github.com/taylorhakes/fecha#formatting-tokens'>formattage (anglais)</a>)" },
   "time_short": { "message": "Court" },
   "time_full": { "message": "Long" },
-  "time_full24": { "message": "Afficher longue date après 24h" },
+  "time_full24": { "message": "Afficher une longue date après 24h <small>appliqué uniquement sur les dates non relatives</small>" },
 
   "title_nameDisplay": { "message": "Affichage des noms" },
 

@@ -28,7 +28,7 @@
   "time_custom": { "message": "Custom (<a target='_blank' href='https://github.com/taylorhakes/fecha#formatting-tokens'>Formatting help</a>)" },
   "time_short": { "message": "Short" },
   "time_full": { "message": "Full" },
-  "time_full24": { "message": "Display full date after 24h" },
+  "time_full24": { "message": "Display full date after 24h <small>Applies only for non-relative timestamps</small>" },
 
   "title_nameDisplay": { "message": "Name display style" },
 
