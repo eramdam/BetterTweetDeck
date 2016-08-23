@@ -1,3 +1,7 @@
+3.0.15 (To Be Released)
+===============
+- [Improvement] Username formatting should be more reliable/more performant
+
 :tada: 3.0.14 :tada:
 ===============
 - [Fix] Slimmer scrollbars are bigger and it's now an option
