@@ -53,8 +53,8 @@
   "flash_tweets_mentions": { "message": "Mentions columns" },
   "flash_tweets_all": { "message": "Every column" },
 
-  "share_btd_item": { "message": "Add the 'Share on Better TweetDeck' action on contextual menu <small>Will be applied at next Chrome restart</small>" },
-  "share_short_txt": { "message": "Shorten the selected text while using the 'Share on Better TweetDeck' action <small>Will be applied at next Chrome restart</small>" },
+  "share_btd_item": { "message": "Add the 'Share on Better TweetDeck' action on contextual menu <small>Will be applied at next restart</small>" },
+  "share_short_txt": { "message": "Shorten the selected text while using the 'Share on Better TweetDeck' action <small>Will be applied at next restart</small>" },
   "no_tco": { "message": "Remove t.co redirection on links" },
   "stop_autoplay_gifs": { "message": "Don't autoplay GIFs in columns" },
   "thumbnails_from": { "message": "Display thumbnails from:" },

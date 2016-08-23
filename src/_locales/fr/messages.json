@@ -53,8 +53,8 @@
   "flash_tweets_mentions": { "message": "les colonnes 'Mentions'" },
   "flash_tweets_all": { "message": "toutes les colonnes" },
 
-  "share_btd_item": { "message": "Ajouter le bouton 'Share on Better TweetDeck' dans le menu contextuel <small>Nécessite un redémarrage de Chrome</small>" },
-  "share_short_txt": { "message": "Réduire automatiquement la longueur du texte en utilisant le partage <small>Nécessite un redémarrage de Chrome</small>" },
+  "share_btd_item": { "message": "Ajouter le bouton 'Share on Better TweetDeck' dans le menu contextuel <small>Nécessite un redémarrage</small>" },
+  "share_short_txt": { "message": "Réduire automatiquement la longueur du texte en utilisant le partage <small>Nécessite un redémarrage</small>" },
   "no_tco": { "message": "Supprimer la redirection de <em>t.co</em> sur les liens" },
   "stop_autoplay_gifs": { "message": "Ne pas jouer les GIFs automatiquement" },
   "thumbnails_from": { "message": "Afficher les miniatures de :" },
