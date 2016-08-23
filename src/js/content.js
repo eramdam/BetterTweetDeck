@@ -224,95 +224,70 @@ function tweetHandler(tweet, columnKey, parent) {
       $('time > *', node).forEach((el) => timestampOnElement(el, t));
     }
 
+    const type = tweet.action || tweet.chirpType;
+
     /**
      * Usernames formatting
      */
-    if (tweet.targetTweet) {
-      if (!tweet.id.startsWith('mention_') && !tweet.id.startsWith('quoted_tweet_')) {
-        Usernames.format({
-          node,
-          user: tweet.sourceUser,
-          fSel: '.activity-header .account-link',
-        });
-      }
+    switch (type) {
+      case 'retweeted_retweet':
+      case 'retweet':
+      case 'favorite':
+        Usernames.format({ node, user: tweet.sourceUser, fSel: '.activity-header .nbfc .account-link.txt-bold' });
+        Usernames.format({ node, user: tweet.targetTweet.user, fSel: '.tweet-header .nbfc .fullname', uSel: '.tweet-header .nbfc .username' });
+        break;
 
-      Usernames.format({
-        node: $('.js-tweet > .tweet-header', node)[0],
-        user: tweet.targetTweet.user,
-        fSel: '.fullname',
-        uSel: '.username',
-      });
-    } else if (tweet.retweetedStatus) {
-      Usernames.format({
-        node,
-        user: tweet.user,
-        fSel: '.tweet-context .nbfc > a[rel=user]',
-      });
+      case 'mention':
+        Usernames.format({ node, user: tweet.sourceUser, fSel: '.tweet-header .nbfc .fullname', uSel: '.tweet-header .nbfc .username' });
+        break;
 
-      Usernames.format({
-        node,
-        user: tweet.retweetedStatus.user,
-        fSel: '.tweet-header .fullname',
-        uSel: '.tweet-header .username',
-      });
-    } else if (tweet.user && !tweet.retweetedStatus) {
-      Usernames.format({
-        node,
-        user: tweet.user,
-        fSel: '.fullname',
-        uSel: '.username',
-      });
-    } else if (tweet.messages && !tweet.name) {
-      if (tweet.type === 'ONE_TO_ONE') {
-        Usernames.format({
-          node,
-          user: tweet.participants[0],
-          fSel: '.link-complex b',
-          uSel: '.username',
-        });
-      } else if (tweet.type === 'GROUP_DM') {
-        Usernames.formatGroupDM({
-          node,
-          participants: tweet.participants,
-          fSel: '.tweet-header .account-link > b',
-        });
-      }
-    }
+      case 'quoted_tweet':
+        Usernames.format({ node, user: tweet.sourceUser, fSel: '.js-tweet > .tweet-header .nbfc .fullname', uSel: '.js-tweet > .tweet-header .nbfc .username' });
+        Usernames.format({ node, user: tweet.sourceUser, fSel: '.quoted-tweet .tweet-header .nbfc .fullname', uSel: '.quoted-tweet .tweet-header .nbfc .username' });
+        break;
 
-    if (tweet.quotedTweet) {
-      Usernames.format({
-        node,
-        user: tweet.quotedTweet.user,
-        fSel: '.quoted-tweet .tweet-header .fullname',
-        uSel: '.quoted-tweet .tweet-header .username',
-      });
-    }
+      case 'follow':
+        Usernames.format({ node, user: tweet.following, fSel: '.activity-header .account-link' });
+        break;
 
-    if (tweet.inReplyToScreenName) {
-      if (['username', 'inverted'].includes(settings.nm_disp)) {
-        Usernames.rewriteElMatchingSel('.tweet-context .txt-ellipsis .account-link', node, tweet.inReplyToScreenName);
-      }
-    }
+      case 'list_member_added':
+        Usernames.format({ node, user: tweet.owner, fSel: '.nbfc .account-link' });
+        break;
 
-    if (tweet.sender) {
-      Usernames.format({
-        node,
-        user: tweet.sender,
-        fSel: '.tweet-header .fullname',
-        uSel: '.tweet-header .username',
-      });
+      case 'tweet':
+        if (tweet.retweetedStatus) {
+          Usernames.format({ node, user: tweet.user, fSel: '.tweet-context .nbfc [rel=user]' });
+          Usernames.format({ node, user: tweet.retweetedStatus.user, fSel: '.tweet-header .nbfc .fullname', uSel: '.tweet-header .nbfc .username' });
+        } else {
+          Usernames.format({ node, user: tweet.user, fSel: '.tweet-header .nbfc .fullname', uSel: '.tweet-header .nbfc .username' });
+        }
+        break;
+
+      case 'message':
+        Usernames.format({ node, user: tweet.sender, fSel: '.tweet-header .nbfc .fullname', uSel: '.tweet-header .nbfc .username' });
+        break;
+
+      case 'message_thread':
+        if (tweet.type === 'ONE_TO_ONE') {
+          Usernames.format({ node, user: tweet.participants[0], fSel: '.link-complex b', uSel: '.username' });
+        } else if (tweet.type === 'GROUP_DM') {
+          Usernames.formatGroupDM({ node, participants: tweet.participants, fSel: '.tweet-header .account-link > b' });
+        }
+        break;
+
+      default:
+        break;
     }
 
     /**
      * Adding Verified badge if needed
      */
     if (settings.css.show_verified) {
-      const field = tweet.action || tweet.chirpType;
       let userToVerify;
       let avatarSelector;
       const classesToAdd = ['btd-is-verified'];
 
-      switch (field) {
+      switch (type) {
         case 'retweet':
         case 'retweeted_retweet':
         case 'favorite':
