@@ -61,3 +61,8 @@
 .btd__minimal_mode .js-stream-item .activity-header + .txt-mute .tweet-context {
   display: none;
 }
+
+.btd__minimal_mode .column-header,
+.btd__minimal_mode .column-header-temp {
+  background-color: transparent;
+}
