@@ -57,6 +57,7 @@
   "share_short_txt": { "message": "Shorten the selected text while using the 'Share on Better TweetDeck' action <small>Will be applied at next restart</small>" },
   "no_tco": { "message": "Remove t.co redirection on links" },
   "stop_autoplay_gifs": { "message": "Don't autoplay GIFs in columns" },
+  "no_gif_pp": { "message": "No GIFs in profile pictures in columns" },
   "thumbnails_from": { "message": "Display thumbnails from:" },
 
   "css_minimal_mode": { "message": "Enable the 'Minimal' mode" },

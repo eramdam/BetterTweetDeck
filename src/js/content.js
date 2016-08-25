@@ -333,6 +333,12 @@ function tweetHandler(tweet, columnKey, parent) {
       }
     }
 
+    const profilePicture = $('.tweet-avatar[src$=".gif"]', node) && $('.tweet-avatar[src$=".gif"]', node)[0];
+
+    if (profilePicture && settings.no_gif_pp) {
+      profilePicture.src = Thumbnails.getSafeURL(profilePicture.src);
+    }
+
 
     // Urls:
     // If it got entities, it's a tweet

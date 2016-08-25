@@ -166,4 +166,4 @@ function thumbnailForFetch(url) {
 // We use reuse-promise so we don't have to fetch the same URL twice
 const thumbnailFor = reusePromise(thumbnailForFetch);
 
-module.exports = { validateUrl, thumbnailFor, schemeWhitelist };
+module.exports = { validateUrl, thumbnailFor, schemeWhitelist, getSafeURL };
