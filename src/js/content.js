@@ -329,7 +329,9 @@ function tweetHandler(tweet, columnKey, parent) {
       if (userToVerify && userToVerify.isVerified && avatarSelector) {
         const el = $(avatarSelector, node);
 
-        el[0].classList.add(...classesToAdd);
+        if (el[0]) {
+          el[0].classList.add(...classesToAdd);
+        }
       }
     }
 
