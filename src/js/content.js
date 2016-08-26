@@ -233,6 +233,7 @@ function tweetHandler(tweet, columnKey, parent) {
       case 'retweeted_retweet':
       case 'retweet':
       case 'favorite':
+      case 'favorited_retweet':
         Usernames.format({ node, user: tweet.sourceUser, fSel: '.activity-header .nbfc .account-link.txt-bold' });
         Usernames.format({ node, user: tweet.targetTweet.user, fSel: '.tweet-header .nbfc .fullname', uSel: '.tweet-header .nbfc .username' });
         break;
@@ -243,7 +244,7 @@ function tweetHandler(tweet, columnKey, parent) {
 
       case 'quoted_tweet':
         Usernames.format({ node, user: tweet.sourceUser, fSel: '.js-tweet > .tweet-header .nbfc .fullname', uSel: '.js-tweet > .tweet-header .nbfc .username' });
-        Usernames.format({ node, user: tweet.sourceUser, fSel: '.quoted-tweet .tweet-header .nbfc .fullname', uSel: '.quoted-tweet .tweet-header .nbfc .username' });
+        Usernames.format({ node, user: tweet.targetUser, fSel: '.quoted-tweet .tweet-header .nbfc .fullname', uSel: '.quoted-tweet .tweet-header .nbfc .username' });
         break;
 
       case 'follow':
