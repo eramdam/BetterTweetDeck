@@ -132,3 +132,7 @@
 .is-retweet.is-favorite .tweet-dogear {
   background-position: -200px -10px
 }
+
+div.youtube-player:matches(.-gfycat) {
+  min-width: 700px;
+}

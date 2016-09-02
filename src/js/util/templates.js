@@ -29,7 +29,7 @@ const templates = {
                     <img class="media-img" src="{{imageUrl}}" alt="{{AltInfo}}" data-maxwidth="{{maxWidth}}" data-maxheight="{{maxHeight}}" style="max-width: 1024px; max-height: 688px;">
                     {{/isVideo}}
                     {{#isVideo}}
-                    <div class="youtube-player">
+                    <div class="youtube-player -{{provider}}">
                       {{&videoEmbed}}
                     </div>
                     {{/isVideo}}
@@ -96,7 +96,7 @@ const previewTemplate = (mediaPreviewSrc, sourceLink, size, type = 'picture') =>
   }));
 };
 
-const modalTemplate = (imageUrl, originalUrl, type, videoEmbed = null) => {
+const modalTemplate = ({ imageUrl, originalUrl, type, videoEmbed = null, provider = 'default' }) => {
   if (type === 'image') {
     const parsed = qs.parse(imageUrl);
     imageUrl = parsed[Object.keys(parsed)[0]];
@@ -107,6 +107,7 @@ const modalTemplate = (imageUrl, originalUrl, type, videoEmbed = null) => {
     videoEmbed,
     originalUrl,
     isVideo: type !== 'image',
+    provider,
   }));
 };
 

@@ -134,9 +134,10 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
 
     const type = data.html ? 'video' : 'image';
     const embed = data.html ? data.html : null;
+    const provider = Thumbnails.validateUrl(url.expanded_url).provider;
 
     const html = Templates.previewTemplate(tbUrl, url.expanded_url, mediaSize, type);
-    const modalHtml = Templates.modalTemplate(origUrl, url.expanded_url, type, embed);
+    const modalHtml = Templates.modalTemplate({ imageUrl: origUrl, originalUrl: url.expanded_url, type, videoEmbed: embed, provider });
 
     if (mediaSize === 'large') {
       $('.tweet.js-tweet', node)[0].insertAdjacentHTML('afterend', html);
