@@ -5,7 +5,6 @@
 - [Fix] Twitch clips should now actually work
 - [Improvement] Username formatting should be more reliable/more performant
 - [Improvement] The "no bg" background of modal now has a black to transparent gradient for improve readability
--
 
 :tada: 3.0.14 :tada:
 ===============
