@@ -1,4 +1,4 @@
-3.0.15 (To Be Released)
+:tada: 3.0.15 :tada:
 ===============
 - [Feature] Added a setting to "stop" GIFs in profile pictures in columns
 - [Fix] Gfycat embed players were too small, it's now fixed
@@ -6,7 +6,7 @@
 - [Improvement] Username formatting should be more reliable/more performant
 - [Improvement] The "no bg" background of modal now has a black to transparent gradient for improve readability
 
-:tada: 3.0.14 :tada:
+3.0.14
 ===============
 - [Fix] Slimmer scrollbars are bigger and it's now an option
 
