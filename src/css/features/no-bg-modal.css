@@ -59,6 +59,5 @@
 }
 
 .btd__no_bg_modal :matches(.ovl, .overlay) {
-  background-color: color(black a(80%));
-  background-image: linear-gradient(transparent, black);
+  background: color(black a(80%));
 }
