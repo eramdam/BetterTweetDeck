@@ -260,8 +260,13 @@ function tweetHandler(tweet, columnKey, parent) {
         if (tweet.retweetedStatus) {
           Usernames.format({ node, user: tweet.user, fSel: '.tweet-context .nbfc [rel=user]' });
           Usernames.format({ node, user: tweet.retweetedStatus.user, fSel: '.tweet-header .nbfc .fullname', uSel: '.tweet-header .nbfc .username' });
-        } else {
+        } else if (!tweet.quotedTweet) {
           Usernames.format({ node, user: tweet.user, fSel: '.tweet-header .nbfc .fullname', uSel: '.tweet-header .nbfc .username' });
+        }
+
+        if (tweet.quotedTweet) {
+          Usernames.format({ node, user: tweet.user, fSel: '.js-tweet > .tweet-header .nbfc .fullname', uSel: '.js-tweet > .tweet-header .nbfc .username' });
+          Usernames.format({ node, user: tweet.quotedTweet.user, fSel: '.quoted-tweet .tweet-header .fullname', uSel: '.quoted-tweet .tweet-header .username' });
         }
         break;
 
