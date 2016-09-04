@@ -140,7 +140,7 @@ BHelper.settings.getAll(settings => {
     Log.debug(newSettings);
     // If the user is new on v3 then we display the "on install" page
     // '1470620185697' => ~7th of August
-    if (!newSettings.installed_date || newSettings.installed_date <= 1470620185697) {
+    if (!newSettings.installed_date) {
       openWelcomePage();
       BHelper.settings.set({ installed_date: new Date().getTime() });
     }
