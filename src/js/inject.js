@@ -109,7 +109,7 @@ const postMessagesListeners = {
       markup = chirp.targetTweet.renderInMediaGallery();
     }
 
-    proxyEvent('gotMediaGalleryChirpHTML', { markup, chirp: decorateChirp(decorateChirp), modalHtml, colKey });
+    proxyEvent('gotMediaGalleryChirpHTML', { markup, chirp: decorateChirp(chirp), modalHtml, colKey });
   },
   BTDC_getChirpFromColumn: (ev, data) => {
     const { chirpKey, colKey } = data;
