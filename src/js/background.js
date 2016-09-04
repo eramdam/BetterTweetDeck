@@ -98,48 +98,17 @@ function contextMenuHandler(info, tab, settings) {
   });
 }
 
-const oldTStoNew = {
-  absolute: 'absolute_metric',
-  absolute_us: 'absolute_us',
-  relative: 'relative',
-};
-
 BHelper.settings.getAll(settings => {
-  let curSettings;
+  let curSettings = settings;
 
-  // Migrating old settings. Settings that don't exist will default automatically
-  if (settings && settings.circled_avatars) {
-    curSettings = {
-      ts: oldTStoNew[settings.timestamp],
-      full_aft_24: settings.full_after_24h,
-      nm_disp: settings.name_display,
-      share_item: {
-        enabled: settings.share_button,
-        short_txt: settings.shorten_text,
-      },
-      no_hearts: settings.no_hearts,
-      no_tco: settings.url_redirection,
-      css: {
-        round_pic: settings.circled_avatars,
-        no_col_icns: settings.no_columns_icons,
-        no_play_btn: settings.yt_rm_button,
-        gray_icns_notifs: settings.grayscale_notification_icons,
-        minimal_mode: settings.minimal_mode,
-        small_icns_compose: settings.small_icons_compose,
-        usrname_only_typeahead: settings.typeahead_display_username_only,
-        hide_context: settings.hide_view_conversation,
-        actions_on_right: settings.actions_on_right,
-        actions_on_hover: settings.actions_on_hover,
-      },
-    };
-  } else {
-    curSettings = settings;
+  if (curSettings.BTDSettings) {
+    const cleanedSettings = Object.assign({}, curSettings.BTDSettings);
+    curSettings = cleanedSettings;
+    chrome.storage.sync.clear();
   }
 
-  BHelper.settings.setAll(defaultsDeep(curSettings, defaultSettings), (newSettings) => {
+  BHelper.settings.set(defaultsDeep(curSettings, defaultSettings), (newSettings) => {
     Log.debug(newSettings);
-    // If the user is new on v3 then we display the "on install" page
-    // '1470620185697' => ~7th of August
     if (!newSettings.installed_date) {
       openWelcomePage();
       BHelper.settings.set({ installed_date: new Date().getTime() });
@@ -169,7 +138,7 @@ BHelper.settings.getAll(settings => {
         onclick: (info, tab) => contextMenuHandler(info, tab, newSettings),
       });
     }
-  }, true);
+  });
 });
 
 // Simple interface to get settings

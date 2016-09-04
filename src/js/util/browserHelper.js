@@ -17,7 +17,6 @@ const getKey = (object, property) => {
   return getKey(value, elems.slice(1));
 };
 
-const settingsKey = 'BTDSettings';
 const storage = chrome.storage.sync || chrome.storage.local;
 
 export const getVersion = () => chrome.app.getDetails().version;
@@ -41,11 +40,9 @@ export const settings = {
   },
   set(obj, cb) {
     this.getAll((currSettings) => {
-      storage.set({
-        [settingsKey]: Object.assign(currSettings, obj),
-      }, () => {
+      storage.set(Object.assign(currSettings, obj), () => {
         if (cb) {
-          return cb();
+          return this.getAll(cb);
         }
 
         return false;
@@ -53,19 +50,8 @@ export const settings = {
     });
   },
   getAll(done) {
-    storage.get(settingsKey, (obj) => {
-      done(obj[settingsKey]);
-    });
-  },
-  setAll(newSettings, done, getBack = false) {
-    storage.set({
-      [settingsKey]: newSettings,
-    }, () => {
-      if (getBack) {
-        return this.getAll(done);
-      }
-
-      return done();
+    storage.get(null, (obj) => {
+      done(obj);
     });
   },
 };
