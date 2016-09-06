@@ -1,4 +1,12 @@
-:tada: 3.0.15 :tada:
+:tada: 3.0.16 :tada:
+===============
+- [Fix] Fix a bug where tweet actions would not work on custom modals.
+- [Fix] Fix a bug where icons of accounts in Compose panel would be mis-placed.
+- [Fix] Fix a bug where usernames would wrongly gets changed in some edge cases.
+- [Improvement] Made some improvements to the way BTD stores its settings to handle future Edge/Firefox ports properly.
+- [Improvement] Revert back the gradient on the modal's background.
+
+3.0.15
 ===============
 - [Feature] Added a setting to "stop" GIFs in profile pictures in columns
 - [Fix] Gfycat embed players were too small, it's now fixed
