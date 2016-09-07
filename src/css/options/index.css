@@ -113,6 +113,7 @@ body {
   ul, ol {
     padding-left: .7em;
     font-size: 14px;
+    list-style-type: none;
 
     ul, ol {
       padding-left: 1.4em;
