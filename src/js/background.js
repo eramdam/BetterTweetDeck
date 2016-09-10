@@ -21,7 +21,7 @@ const defaultSettings = {
   },
   rtl_text_style: true,
   stop_gifs: true,
-  no_gif_pp: true,
+  no_gif_pp: false,
   css: {
     round_pic: true,
     bigger_emojis: true,
