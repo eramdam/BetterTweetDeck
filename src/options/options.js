@@ -333,7 +333,7 @@ fetch('https://api.github.com/repos/eramdam/BetterTweetDeck/contributors').then(
   });
 });
 
-fetch(chrome.extension.getURL('options/NEWS.md')).then(res => res.text()).then(body => {
+fetch(chrome.extension.getURL('options/CHANGELOG.md')).then(res => res.text()).then(body => {
   $('.settings-section.changelog')[0].innerHTML = Emoji.replace_colons(marked(body)).split('/emoji-data/sheet_twitter_64.png').join(chrome.extension.getURL('emojis/sheet_twitter_64.png'));
 });
 

@@ -86,7 +86,7 @@ gulp.task('clean', () => del(['dist/']));
 */
 gulp.task('static', () => gulp.src(staticFiles, { base: './src' }).pipe(gulp.dest('./dist')) );
 
-gulp.task('static-news', () => gulp.src('./NEWS.md').pipe(gulp.dest('./dist/options/')) );
+gulp.task('static-news', () => gulp.src('./CHANGELOG.md').pipe(gulp.dest('./dist/options/')) );
 
 /*
 *
