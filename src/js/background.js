@@ -4,7 +4,6 @@ import * as Log from './util/logger';
 import { defaultsDeep } from 'lodash';
 
 const defaultSettings = {
-  installed_date: new Date().getTime(),
   installed_version: BHelper.getVersion(),
   ts: 'relative',
   custom_ts: {
