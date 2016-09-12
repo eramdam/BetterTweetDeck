@@ -67,7 +67,7 @@ const buildWithBrowserify = (entry) => {
   .pipe(source(path.basename(entry)))
   .pipe(buffer())
   .pipe(isProduction() ? gutil.noop() : sourcemaps.init({ loadMaps: true }))
-  // .pipe(isProduction() ? uglify() : gutil.noop())
+  .pipe(isProduction() ? uglify() : gutil.noop())
   .pipe(isProduction() ? gutil.noop() : sourcemaps.write('./'));
 }
 
