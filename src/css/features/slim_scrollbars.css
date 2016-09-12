@@ -1,5 +1,5 @@
-.btd__slim_scrollbars .js-app-columns-container {
-  :not(.js-compose-scroller) .scroll-styled-v::-webkit-scrollbar {
+.btd__slim_scrollbars :matches(.js-app-columns-container, .js-column-scroller) {
+  .scroll-styled-v::-webkit-scrollbar {
     width: 3px;
   }
 
