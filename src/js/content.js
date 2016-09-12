@@ -86,7 +86,15 @@ function hideURLVisually(url, node) {
     return;
   }
 
-  anchors.forEach(a => a.classList.add('btd-isvishidden'));
+  anchors.forEach(a => {
+    const lastNode = [...a.parentNode.childNodes].pop();
+
+    if (lastNode !== a) {
+      return;
+    }
+
+    a.classList.add('btd-isvishidden');
+  });
 }
 
 /**
