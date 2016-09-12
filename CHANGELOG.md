@@ -1,4 +1,10 @@
-:tada: 3.0.16 :tada:
+:tada: 3.0.17 :tada:
+===============
+- [Fix] Horizontal scrollbars are also thin when "slim scrollbars" is enabled
+- [Fix] Dribbble/Imgur thumbnails work again
+- [Fix/Improvement] hide the link related to a thumbnail only if it ends the tweet
+
+3.0.16
 ===============
 - [Fix] Fix a bug where tweet actions would not work on custom modals.
 - [Fix] Fix a bug where icons of accounts in Compose panel would be mis-placed.
