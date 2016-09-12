@@ -1,4 +1,5 @@
-// This module is used by the background page
+const fs = require('fs');
+const packageJson = JSON.parse(fs.readFileSync(`${__dirname}/../../../package.json`, 'utf8'));
 
 // From https://github.com/lorenwest/node-config/blob/master/lib/config.js#L131-L152
 const getKey = (object, property) => {
@@ -19,7 +20,7 @@ const getKey = (object, property) => {
 
 const storage = chrome.storage.sync || chrome.storage.local;
 
-export const getVersion = () => chrome.app.getDetails().version;
+export const getVersion = () => packageJson.version;
 export const getUA = () => window.navigator.userAgent;
 export const getMessage = (msg) => {
   const string = chrome.i18n.getMessage(msg);

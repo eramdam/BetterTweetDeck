@@ -60,6 +60,7 @@ const buildWithBrowserify = (entry) => {
     debug: !isProduction(),
   })
   .transform('babelify')
+  .transform('brfs')
   .transform('config-browserify')
   .bundle()
   .on('error', maybeNotifyErrors())
