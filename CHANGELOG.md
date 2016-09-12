@@ -1,8 +1,8 @@
 :tada: 3.0.17 :tada:
 ===============
-- [Fix] Horizontal scrollbars are also thin when "slim scrollbars" is enabled
+- [Fix] Horizontal scrollbars are also thin when "slim scrollbars" is enabled ([#96](https://github.com/eramdam/BetterTweetDeck/issues/96))
 - [Fix] Dribbble/Imgur thumbnails work again
-- [Fix/Improvement] hide the link related to a thumbnail only if it ends the tweet
+- [Fix/Improvement] hide the link related to a thumbnail only if it ends the tweet ([#97](https://github.com/eramdam/BetterTweetDeck/issues/97))
 
 3.0.16
 ===============
