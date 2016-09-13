@@ -11,6 +11,10 @@ Adds some nice options on [TweetDeck](http://tweetdeck.twitter.com) to provide a
 
 Navigate to https://chrome.google.com/webstore/detail/bettertweetdeck-3/micblkellenpbfapmcpcfhcoeohhnpob and click "Add to Chrome" :tada:
 
+## Opera
+
+Navigate to https://addons.opera.com/en/extensions/details/bettertweetdeck/ and click "Add to Opera" :tada:
+
 # Contributing & helping
 
 Issues and Pull Requests are welcome!
