@@ -1,3 +1,8 @@
+3.0.17 (TBA)
+===============
+- [Fix] The verified icon won't display on top on the "like" icon. Even though a heart should always be checked. :white_check_mark: :heart:
+
+
 :tada: 3.0.17 :tada:
 ===============
 - [Fix] Horizontal scrollbars are also thin when "slim scrollbars" is enabled ([#96](https://github.com/eramdam/BetterTweetDeck/issues/96))

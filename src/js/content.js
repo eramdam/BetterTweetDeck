@@ -306,7 +306,7 @@ function tweetHandler(tweet, columnKey, parent) {
         case 'retweeted_retweet':
         case 'favorite':
           userToVerify = tweet.sourceUser;
-          avatarSelector = '.activity-header .item-img';
+          avatarSelector = '.has-source-avatar.activity-header .item-img';
           classesToAdd.push('btd-is-verified-mini');
           break;
 
@@ -343,7 +343,7 @@ function tweetHandler(tweet, columnKey, parent) {
       if (userToVerify && userToVerify.isVerified && avatarSelector) {
         const el = $(avatarSelector, node);
 
-        if (el[0]) {
+        if (el && el[0]) {
           el[0].classList.add(...classesToAdd);
         }
       }
