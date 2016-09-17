@@ -1,5 +1,6 @@
 :tada: 3.0.18 :tada:
 ===============
+- [Feature] You can choose a custom px width for columns (between 230 and 450px)
 - [Fix] The verified icon won't display on top on the "like" icon. Even though a heart should always be checked. :white_check_mark: :heart:
 - [Fix] The "replace hearts by stars" feature is fixed after TweetDeck broke it.
 - [Fix] The Esc key should close the lightboxes
