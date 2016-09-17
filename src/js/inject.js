@@ -315,6 +315,18 @@ $(document).one('dataColumnsLoaded', () => {
   switchThemeClass();
 });
 
+const closeCustomModal = () => {
+  $('#open-modal').css('display', 'none');
+  $('#open-modal').empty();
+};
+
+$(document).keydown((ev) => {
+  if ($('#open-modal [btd-custom-modal]').length && ev.keyCode === 27) {
+    closeCustomModal();
+    return;
+  }
+});
+
 $('body').on('click', '#open-modal', (ev) => {
   const isMediaModal = document.querySelector('.js-modal-panel .js-media-preview-container, .js-modal-panel iframe');
 
@@ -330,8 +342,7 @@ $('body').on('click', '#open-modal', (ev) => {
     ev.stopPropagation();
 
     if ($('#open-modal [btd-custom-modal]').length) {
-      $('#open-modal').css('display', 'none');
-      $('#open-modal').empty();
+      closeCustomModal();
       return;
     }
 
