@@ -21,6 +21,10 @@ const defaultSettings = {
   rtl_text_style: true,
   stop_gifs: true,
   no_gif_pp: false,
+  custom_columns_width: {
+    size: 250,
+    enabled: false,
+  },
   css: {
     round_pic: true,
     bigger_emojis: true,

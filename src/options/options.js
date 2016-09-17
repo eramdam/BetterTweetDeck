@@ -152,6 +152,17 @@ BHelper.settings.getAll(settings => {
           $('input[name="flash_tweets.mode"]').prop('disabled', !settings.flash_tweets.enabled);
           $(`input[name="flash_tweets.mode"]#${settings.flash_tweets.mode}`).prop('checked', settings.flash_tweets.enabled && true);
         }
+
+        if (key === 'custom_columns_width') {
+          if (settings.custom_columns_width) {
+            $('input[name="custom_columns_width.enabled"]').prop('checked', settings.custom_columns_width.enabled);
+            $('input[name="custom_columns_width.enabled"] ~ ul input').removeAttr('disabled');
+          }
+
+          $('input[name="custom_columns_width.size"]').removeAttr('checked');
+          $('input[name="custom_columns_width.size"]').prop('disabled', !settings.custom_columns_width.enabled);
+          $('input[name="custom_columns_width.size"]').prop('value', settings.custom_columns_width.size);
+        }
       });
     } else {
       const name = key;
@@ -258,7 +269,7 @@ BHelper.settings.getAll(settings => {
           newSettings[nameArr[0]][nameArr[1]] = input.getAttribute('id');
         } else if (type === 'checkbox') {
           newSettings[nameArr[0]][nameArr[1]] = isChecked;
-        } else if (type === 'text') {
+        } else if (type === 'text' || type === 'number') {
           newSettings[nameArr[0]][nameArr[1]] = input.value;
         }
       } else {

@@ -68,6 +68,9 @@
   "css_no_scrollbars": { "message": "Hide scrollbars" },
   "css_gray_icns_notifs": { "message": "Notifications icons are in grayscale" },
 
+  "custom_width_columns": { "message": "Custom width for columns:" },
+  "custom_width_size": { "message": "Width (in pixels)" },
+
   "btd_thx": { "message": "Thanks for installing Better TweetDeck!" },
   "btd_get_started": { "message": "Let's get started!" },
   "btd_whatsBTD": { "message": "Better TweetDeck is made to improve your experience on <a href='https://tweetdeck.twitter.com'>tweetdeck.twitter.com</a>!" },

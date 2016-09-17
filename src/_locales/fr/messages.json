@@ -68,6 +68,9 @@
   "css_gray_icns_notifs": { "message": "Les icônes de notification sont en niveaux de gris" },
   "css_no_scrollbars": { "message": "Masquer les barres de défilement" },
 
+  "custom_width_columns": { "message": "Largeur personnalisée pour les colonnes:" },
+  "custom_width_size": { "message": "Largeur (en pixels)" },
+
   "btd_thx": { "message": "Merci d'avoir installé Better TweetDeck !" },
   "btd_get_started": { "message": "C'est parti !" },
   "btd_whatsBTD": { "message": "Better TweetDeck améliore votre expérience sur <a href='https://tweetdeck.twitter.com'>tweetdeck.twitter.com</a> !" },
