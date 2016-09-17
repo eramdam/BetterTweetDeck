@@ -1,9 +1,11 @@
-3.0.17 (TBA)
+:tada: 3.0.18 :tada:
 ===============
 - [Fix] The verified icon won't display on top on the "like" icon. Even though a heart should always be checked. :white_check_mark: :heart:
+- [Fix] The "replace hearts by stars" feature is fixed after TweetDeck broke it.
+- [Fix] The Esc key should close the lightboxes
 
 
-:tada: 3.0.17 :tada:
+3.0.17
 ===============
 - [Fix] Horizontal scrollbars are also thin when "slim scrollbars" is enabled ([#96](https://github.com/eramdam/BetterTweetDeck/issues/96))
 - [Fix] Dribbble/Imgur thumbnails work again
