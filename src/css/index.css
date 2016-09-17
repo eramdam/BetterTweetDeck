@@ -19,6 +19,7 @@
 @import './features/small-icns.css';
 @import './features/slim_scrollbars.css';
 @import './features/username-typeahead.css';
+@import './features/stars.css';
 
 /* Emoji Panel */
 @import './emoji-panel.css';

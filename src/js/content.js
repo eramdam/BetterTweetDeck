@@ -60,7 +60,7 @@ function tweakClassesFromVisualSettings() {
   }
 
   if (settings.no_hearts) {
-    document.body.classList.remove('hearty');
+    document.body.classList.add('btd__stars');
   }
 }
 
