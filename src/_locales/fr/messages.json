@@ -69,7 +69,7 @@
   "css_no_scrollbars": { "message": "Masquer les barres de défilement" },
 
   "custom_width_columns": { "message": "Largeur personnalisée pour les colonnes:" },
-  "custom_width_size": { "message": "Largeur (en pixels)" },
+  "custom_width_size": { "message": "Largeur (doit être valide en CSS)" },
 
   "btd_thx": { "message": "Merci d'avoir installé Better TweetDeck !" },
   "btd_get_started": { "message": "C'est parti !" },

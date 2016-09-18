@@ -69,7 +69,7 @@
   "css_gray_icns_notifs": { "message": "Notifications icons are in grayscale" },
 
   "custom_width_columns": { "message": "Custom width for columns:" },
-  "custom_width_size": { "message": "Width (in pixels)" },
+  "custom_width_size": { "message": "Width (any valid CSS value)" },
 
   "btd_thx": { "message": "Thanks for installing Better TweetDeck!" },
   "btd_get_started": { "message": "Let's get started!" },

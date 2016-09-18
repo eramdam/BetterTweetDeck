@@ -1,3 +1,4 @@
+
 import * as BHelper from './util/browserHelper';
 import * as Messages from './util/messaging';
 import * as Log from './util/logger';
@@ -22,7 +23,7 @@ const defaultSettings = {
   stop_gifs: true,
   no_gif_pp: false,
   custom_columns_width: {
-    size: 250,
+    size: '250px',
     enabled: false,
   },
   css: {
