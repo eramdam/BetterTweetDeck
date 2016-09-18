@@ -3,7 +3,8 @@
     content: "\f007"
   }
 
-  .is-favorite .icon-favorite-toggle {
+  .is-favorite .icon-favorite-toggle,
+  .icon-favorite-color {
     color: #fab41e;
   }
 
