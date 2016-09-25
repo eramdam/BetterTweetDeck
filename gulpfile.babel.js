@@ -22,7 +22,6 @@ import cssnano from 'cssnano';
 import nested from 'postcss-nested';
 
 const staticFiles = [
-  'manifest.json',
   'icons/*.png',
   'emojis/sheet_twitter_64.png',
   'options/**/*.html',
@@ -53,6 +52,8 @@ const maybeNotifyErrors = () => notify.onError({
 });
 
 const isProduction = () => gutil.env.type === 'production';
+const browser = gutil.env.browser || 'chrome';
+
 
 const buildWithBrowserify = (entry) => {
   return browserify({
@@ -153,7 +154,35 @@ gulp.task('lint', () => (
 *
 */
 gulp.task('build', (done) => {
-  runSequence('clean', ['js', 'static', 'css', 'css-options'], 'static-news', done);
+  runSequence('clean', 'manifest', ['js', 'static', 'css', 'css-options'], 'static-news', done);
+});
+
+/*
+*
+* `gulp manifest`
+* Build the manifest
+*
+*/
+
+const string_src = (filename, string) => {
+  const src = require('stream').Readable({ objectMode: true });
+  src._read = function () {
+    this.push(new gutil.File({
+      cwd: '',
+      base: '',
+      path: filename,
+      contents: new Buffer(string)
+    }));
+    this.push(null);
+  }
+
+  return src;
+}
+
+gulp.task('manifest', (done) => {
+  const manifestJson = JSON.stringify(require(`./tools/manifests/${browser}.js`));
+
+  return string_src('manifest.json', manifestJson).pipe(gulp.dest('./dist/'));
 });
 
 /*
@@ -163,7 +192,7 @@ gulp.task('build', (done) => {
 *
 */
 gulp.task('default', (done) => {
-  runSequence('clean', ['css', 'css-options', 'js', 'static'], 'static-news', () => {
+  runSequence('clean', 'manifest', ['css', 'css-options', 'js', 'static'], 'static-news', () => {
     gulp.watch(['./src/js/**/*.js',  './src/options/*.js'], ['js', 'js-options']);
     gulp.watch(['./src/css/**/*.css'], ['css', 'css-options']);
     gulp.watch(staticFiles, ['static', 'static-news']);
