@@ -15,6 +15,14 @@
       background-repeat: no-repeat
   }
 
+  .heart-anim {
+    display: none;
+  }
+
+  .icon-favorite.is-invisible {
+    visibility: visible !important;
+  }
+
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
       .sprite {
           background-image: url('../../img/td_sprite_sheet_2013_@2x.png');
