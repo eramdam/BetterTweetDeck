@@ -1,5 +1,6 @@
 .btd__slim_scrollbars {
-  .js-column-scroller.scroll-styled-v::-webkit-scrollbar {
+  .js-column-scroller.scroll-styled-v::-webkit-scrollbar,
+  .js-dropdown-container.scroll-styled-v::-webkit-scrollbar {
     width: 3px;
   }
 
