@@ -22,6 +22,11 @@
   }
 }
 
+/* Probably a hotfix */
+.btd__show_verified :matches(.js-stream-item-content, .js-tweet) .item-img.btd-is-verified::before {
+  bottom: -50px;
+}
+
 .btd__show_verified .btd-is-verified-mini:before,
 .btd__show_verified .btd-is-verified-mini .tweet-img:before {
   bottom: -5px;
