@@ -432,6 +432,16 @@ function closeOpenModal() {
   $('#open-modal')[0].innerHTML = '';
 }
 
+function setMaxDimensionsOnModalImg() {
+  if ($('#open-modal [btd-custom-modal]').length) {
+    const rect = $('#open-modal [btd-custom-modal] .js-embeditem')[0].getBoundingClientRect();
+
+    $('#open-modal [btd-custom-modal] .js-embeditem [data-btdsetmax], #open-modal [btd-custom-modal] .js-embeditem iframe')[0].setAttribute('style', `max-width: ${rect.width}px; max-height: ${rect.height}px`);
+  }
+}
+
+window.addEventListener('resize', setMaxDimensionsOnModalImg);
+
 // Prepare to know when TD is ready
 on('BTDC_ready', () => {
   tweakClassesFromVisualSettings();
@@ -476,6 +486,7 @@ on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
   const openModal = $('#open-modal')[0];
   openModal.innerHTML = modalHtml.replace('<div class="js-med-tweet med-tweet"></div>', `<div class="js-med-tweet med-tweet">${markup}</div>`);
   openModal.style.display = 'block';
+  setMaxDimensionsOnModalImg();
 
   $('[rel="favorite"]', openModal)[0].addEventListener('click', () => {
     sendEvent('likeChirp', { chirpKey: chirp.id, colKey });

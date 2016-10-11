@@ -26,7 +26,7 @@ const templates = {
                 <div class="js-media-preview-container position-rel margin-vm">
                   <a class="js-media-image-link block med-link media-item" href="{{imageUrl}}" rel="mediaPreview" target="_blank" data-media-entity-id="">
                     {{^isVideo}}
-                    <img class="media-img" src="{{imageUrl}}" alt="{{AltInfo}}" data-maxwidth="{{maxWidth}}" data-maxheight="{{maxHeight}}" style="max-width: 1024px; max-height: 688px;">
+                    <img class="media-img" src="{{imageUrl}}" alt="{{AltInfo}}" data-btdsetmax>
                     {{/isVideo}}
                     {{#isVideo}}
                     <div class="youtube-player -{{provider}}">
