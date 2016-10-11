@@ -1,4 +1,12 @@
-:tada: 3.0.18 :tada:
+:tada: 3.0.19 :tada:
+===============
+- [Fix] Remove the heart button animation when the stars are displayed
+- [Fix] Slim scrollbars are also slim in detailed tweet view
+- [Fix] Fix display of verified badge because of TweetDeck update on 9th of October 2016
+- [Fix] Images/iframes in modals should be correctly resized now
+- [Improvement] Desaturate some colors in minimal + dark mode
+
+3.0.18
 ===============
 - [Feature] You can specify a custom width for columns using any CSS value
 - [Fix] The verified icon won't display on top on the "like" icon. Even though a heart should always be checked. :white_check_mark: :heart:
