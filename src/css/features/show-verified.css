@@ -1,6 +1,5 @@
-.btd__show_verified :matches(.js-stream-item-content, .js-tweet) .account-link.btd-is-verified .tweet-img,
 .btd__show_verified :matches(.js-stream-item-content, .js-tweet) .item-img.btd-is-verified {
-  position: relative;
+  position: absolute;
 
   &::before {
     content: "\f02a";
@@ -22,9 +21,19 @@
   }
 }
 
-/* Probably a hotfix */
-.btd__show_verified :matches(.js-stream-item-content, .js-tweet) .item-img.btd-is-verified::before {
-  bottom: -50px;
+.btd__show_verified :matches(.js-stream-item-content, .js-tweet) .item-img.btd-is-verified {
+  height: 48px;
+  width: 48px;
+}
+
+.btd__show_verified :matches(.js-stream-item-content, .js-tweet) .is-conversation .tweet-img.btd-is-verified {
+  width: 32px;
+  height: 32px;
+}
+
+.btd__show_verified :matches(.js-stream-item-content, .js-tweet) .is-conversation .tweet-img.btd-is-verified:before {
+  bottom: -7px;
+  right: -8px;
 }
 
 .btd__show_verified .btd-is-verified-mini:before,

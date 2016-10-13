@@ -319,9 +319,16 @@ function tweetHandler(tweet, columnKey, parent) {
         case 'retweet':
         case 'retweeted_retweet':
         case 'favorite':
-          userToVerify = tweet.sourceUser;
-          avatarSelector = '.has-source-avatar.activity-header .item-img';
-          classesToAdd.push('btd-is-verified-mini');
+          if ($('.has-source-avatar', node)) {
+            userToVerify = tweet.sourceUser;
+            avatarSelector = '.has-source-avatar.activity-header .item-img';
+            classesToAdd.push('btd-is-verified-mini');
+          } else {
+            userToVerify = tweet.targetTweet.user;
+            avatarSelector = '.account-link .item-img';
+            classesToAdd.push('btd-is-verified');
+          }
+
           break;
 
         case 'mention':
