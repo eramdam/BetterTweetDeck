@@ -441,9 +441,14 @@ function closeOpenModal() {
 
 function setMaxDimensionsOnModalImg() {
   if ($('#open-modal [btd-custom-modal]').length) {
-    const rect = $('#open-modal [btd-custom-modal] .js-embeditem')[0].getBoundingClientRect();
+    setTimeout(() => {
+      const rect = $('#open-modal [btd-custom-modal] .js-embeditem')[0].getBoundingClientRect();
+      const el = $('#open-modal [btd-custom-modal] .js-embeditem [data-btdsetmax], #open-modal [btd-custom-modal] .js-embeditem iframe')[0];
 
-    $('#open-modal [btd-custom-modal] .js-embeditem [data-btdsetmax], #open-modal [btd-custom-modal] .js-embeditem iframe')[0].setAttribute('style', `max-width: ${rect.width}px; max-height: ${rect.height}px`);
+      if (el.hasAttribute('data-btd-loaded') && !el.src.includes('gfycat.')) {
+        el.setAttribute('style', `max-width: ${rect.width}px; max-height: ${rect.height}px`);
+      }
+    });
   }
 }
 
@@ -494,6 +499,7 @@ on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
   openModal.innerHTML = modalHtml.replace('<div class="js-med-tweet med-tweet"></div>', `<div class="js-med-tweet med-tweet">${markup}</div>`);
   openModal.style.display = 'block';
   setMaxDimensionsOnModalImg();
+  openModal.querySelector('img, iframe').onload = (e) => e.target.setAttribute('data-btd-loaded', 'true');
 
   $('[rel="favorite"]', openModal)[0].addEventListener('click', () => {
     sendEvent('likeChirp', { chirpKey: chirp.id, colKey });
