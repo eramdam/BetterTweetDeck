@@ -36,6 +36,16 @@
   --main-bg-white: #ffffff;
 }
 
+/* Because apparently TweetDeck doesn't know how to ship updates without breaking their UI...*/
+[data-btdtheme] .is-conversation :matches(.tweet-context, .tweet-img) {
+  margin-left: -42px;
+}
+[data-btdtheme] .tweet.is-conversation {
+  padding-left: 48px;
+}
+
+
+
 [data-btdtheme] .dropdown-menu {
   z-index: 20;
 }
