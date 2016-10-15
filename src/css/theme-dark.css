@@ -63,6 +63,10 @@
     color: color(#8899a6 saturation(0%))
   }
 
+  .js-reply-info-container .txt-mute {
+    color: color(#8899a6 saturation(0%) shade(20%));
+  }
+
   .js-app-columns-container .js-column .tweet-timestamp > a {
     background-color: #222426;
     z-index: 1;
