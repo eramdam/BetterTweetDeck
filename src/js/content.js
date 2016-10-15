@@ -282,13 +282,30 @@ function tweetHandler(tweet, columnKey, parent) {
         if (tweet.retweetedStatus) {
           Usernames.format({ node, user: tweet.user, fSel: '.tweet-context .nbfc [rel=user]' });
           Usernames.format({ node, user: tweet.retweetedStatus.user, fSel: '.tweet-header .nbfc .fullname', uSel: '.tweet-header .nbfc .username' });
+
+          if (tweet.retweetedStatus.quotedTweet) {
+            Usernames.format({ node, user: tweet.retweetedStatus.quotedTweet.user, fSel: '.quoted-tweet .tweet-header .fullname', uSel: '.quoted-tweet .tweet-header .username' });
+
+            if (tweet.retweetedStatus.quotedTweet.inReplyToScreenName) {
+              const fullname = $('.js-reply-info-container .account-link')[0].textContent;
+
+              Usernames.format({ node, user: { screenName: tweet.retweetedStatus.quotedTweet.inReplyToScreenName, name: fullname }, fSel: '.js-reply-info-container .account-link' });
+            }
+          }
         } else {
           Usernames.format({ node, user: tweet.user, fSel: '.tweet-header .nbfc .fullname', uSel: '.tweet-header .nbfc .username' });
         }
 
         if (tweet.quotedTweet) {
           Usernames.format({ node, user: tweet.quotedTweet.user, fSel: '.quoted-tweet .tweet-header .fullname', uSel: '.quoted-tweet .tweet-header .username' });
+
+          if (tweet.quotedTweet.inReplyToScreenName) {
+            const fullname = $('.js-reply-info-container .account-link')[0].textContent;
+
+            Usernames.format({ node, user: { screenName: tweet.quotedTweet.inReplyToScreenName, name: fullname }, fSel: '.js-reply-info-container .account-link' });
+          }
         }
+
         break;
 
       case 'message':
