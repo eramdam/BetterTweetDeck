@@ -1,4 +1,12 @@
-:tada: 3.0.19 :tada:
+:tada: 3.0.20 :tada:
+===============
+- [Fix] Fix display of verified badge because of TweetDeck update on 9th of October 2016 FOR REAL THIS TIME
+- [Fix] Gfycat iframes in modals should be correctly resized now (due to technical weirdness on Gfycat end, they won't resize dynamically though)
+- [Fix] Fixing the display of avatars in conversations because TweetDeck still didn't fix it smh
+- [Improvement] BTD changes the usernames correctly inside quoted tweets inside retweets and inside the "in reply to" block inside quoted tweets
+- [Improvement] The "in reply to" part in quoted tweets is a little darker than the rest so it doesn't blend too much while in Dark + Minimal mode
+
+3.0.19
 ===============
 - [Fix] Remove the heart button animation when the stars are displayed
 - [Fix] Slim scrollbars are also slim in detailed tweet view
