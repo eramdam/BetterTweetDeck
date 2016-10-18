@@ -9,7 +9,7 @@
     -webkit-font-smoothing: antialiased;
     line-height: 1;
     position: absolute;
-    bottom: -3px;
+    bottom: -5px;
     right: -5px;
     color: #55acee;
     width: 1em;
@@ -21,12 +21,12 @@
   }
 }
 
-.btd__show_verified :matches(.js-stream-item-content, .js-tweet) .item-img.btd-is-verified {
+.btd__show_verified :matches(.js-stream-item-content, .js-tweet) .item-img.btd-is-verified:not(.btd-is-verified-mini) {
   height: 48px;
   width: 48px;
 }
 
-.btd__show_verified :matches(.js-stream-item-content, .js-tweet) .is-conversation .tweet-img.btd-is-verified {
+.btd__show_verified :matches(.js-stream-item-content, .js-tweet) .is-conversation .tweet-img.btd-is-verified:not(.btd-is-verified-mini) {
   width: 32px;
   height: 32px;
 }
@@ -44,4 +44,12 @@
   transform: scale(.8);
   background-image: radial-gradient(20px, rgb(255, 255, 255) 30%, rgba(255, 255, 255, 0) 31%);
   background-position: 0px 1px;
+}
+
+.btd__show_verified .activity-header.has-source-avatar .btd-is-verified-mini {
+  position: relative;
+}
+.btd__show_verified .activity-header.has-source-avatar .btd-is-verified-mini:before {
+  top: 5px;
+  bottom: auto;
 }
