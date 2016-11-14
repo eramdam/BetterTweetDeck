@@ -131,6 +131,7 @@ const schemeWhitelist = [
 const validateUrl = (url) => {
   let provider = '';
   let cb;
+
   // We test every scheme to see if the url matches one of them
   const some = schemeWhitelist.some((scheme) => {
     if (scheme.re.test(url)) {
@@ -154,6 +155,9 @@ const validateUrl = (url) => {
 
 function thumbnailForFetch(url) {
   const validationObj = validateUrl(url);
+  const cleanUrl = new URL(url);
+  cleanUrl.search = '';
+  url = cleanUrl.toString();
 
   if (!validationObj.cb) {
     return Promise.reject();
