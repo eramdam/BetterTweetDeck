@@ -14,4 +14,8 @@ module.exports = {
     run_at: 'document_start',
   }),
   icons: common.icons,
+  '-ms-preload': {
+    backgroundScript: 'backgroundScriptsAPIBridge.js',
+    contentScript: 'contentScriptsAPIBridge.js',
+  },
 };
