@@ -1,4 +1,10 @@
-:tada: 3.0.20 :tada:
+:tada: 3.0.21 :tada:
+===============
+- [Feature] You can now collapse read DMs in the Messages column for a cleaner look and more privacy (GG [@pixeldesu](https://github.com/pixeldesu)) ([#105](https://github.com/eramdam/BetterTweetDeck/pull/105))
+- [Fix] Fix a bug where valid "thumbnails" URLs would not get a preview because of the search query ([#104](https://github.com/eramdam/BetterTweetDeck/issues/104))
+
+
+3.0.20
 ===============
 - [Fix] Fix display of verified badge because of TweetDeck update on 9th of October 2016 FOR REAL THIS TIME
 - [Fix] Gfycat iframes in modals should be correctly resized now (due to technical weirdness on Gfycat end, they won't resize dynamically though)
