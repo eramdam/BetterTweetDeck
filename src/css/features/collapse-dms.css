@@ -27,6 +27,14 @@
   line-height: 1.6em; 	
 }
 
+.btd__collapse_dms .tweet-message .nbfc .account-link {
+  margin-top: 3px;
+}
+
+.btd__collapse_dms .tweet-message .tweet-timestamp {
+  margin-top: 3px;
+}
+
 .btd__collapse_dms .tweet-message .tweet-text {
   margin-left: -24px;	
 }
