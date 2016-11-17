@@ -77,7 +77,7 @@ This section guides you through the process of reporting bugs :bug:.
 
 Explain the problem and include details to help the contributors (usually me) fix the issue:
 
-- **Usse a clear and descriptive title** for the issue so the problem is clear
+- **Use a clear and descriptive title** for the issue so the problem is clear
 - **Describe exact steps** to reproduce the issue. When listing steps, **don't just say what you did, but also how you did it**. These infos are more important than you might think.
 - **Provide specific examples**, if a tweet is not correctly displayed or similar, add a link to it. If a thumbnail doesn't show even though it should not, link the media URL. If you copy/paste a console output, use the [<details> element](https://gist.github.com/ericclemmons/b146fe5da72ca1f706b2ef72a20ac39d) for a cleaner issue body
 
