@@ -40,7 +40,8 @@
 
   "title_avatars": { "message": "Avatars & détails" },
   "css_round_pic": { "message": "Avatars ronds" },
-  "css_bigger_emojis": { "message": "Bigger emojis in tweets" },
+  "css_bigger_emojis": { "message": "Emojis plus gros dans les tweets" },
+  "css_collapse_dms": { "message": "Masquer les DM lus" },
   "css_show_verified": { "message": "Afficher les badges des comptes vérifiés" },
   "css_hide_context": { "message": "Masquer 'in reply to' sur les mentions" },
   "css_actions_on_right": { "message": "Afficher les actions de tweets sur la droite" },
