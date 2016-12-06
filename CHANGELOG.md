@@ -1,4 +1,9 @@
-:tada: 3.0.21 :tada:
+:tada: 3.0.22 :tada:
+===============
+- [Fix] Fix some UI shenanigans because of last TweetDeck update (6th December 2016)
+
+
+3.0.21
 ===============
 - [Feature] You can now collapse read DMs in the Messages column for a cleaner look and more privacy (GG [@pixeldesu](https://github.com/pixeldesu)) ([#105](https://github.com/eramdam/BetterTweetDeck/pull/105))
 - [Fix] Fix a bug where valid "thumbnails" URLs would not get a preview because of the search query ([#104](https://github.com/eramdam/BetterTweetDeck/issues/104))
