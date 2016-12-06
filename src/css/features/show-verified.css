@@ -32,8 +32,8 @@
 }
 
 .btd__show_verified :matches(.js-stream-item-content, .js-tweet) .is-conversation .tweet-img.btd-is-verified:before {
-  bottom: -7px;
-  right: -8px;
+  bottom: -10px;
+  right: -20px;
 }
 
 .btd__show_verified .btd-is-verified-mini:before,
