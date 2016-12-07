@@ -287,9 +287,11 @@ function tweetHandler(tweet, columnKey, parent) {
             Usernames.format({ node, user: tweet.retweetedStatus.quotedTweet.user, fSel: '.quoted-tweet .tweet-header .fullname', uSel: '.quoted-tweet .tweet-header .username' });
 
             if (tweet.retweetedStatus.quotedTweet.inReplyToScreenName) {
-              const fullname = $('.js-reply-info-container .account-link')[0].textContent;
+              const fullnameNode = $('.js-reply-info-container .account-link', node);
 
-              Usernames.format({ node, user: { screenName: tweet.retweetedStatus.quotedTweet.inReplyToScreenName, name: fullname }, fSel: '.js-reply-info-container .account-link' });
+              if (fullnameNode) {
+                Usernames.format({ node, user: { screenName: tweet.retweetedStatus.quotedTweet.inReplyToScreenName, name: fullnameNode[0].textContent }, fSel: '.js-reply-info-container .account-link' });
+              }
             }
           }
         } else {
@@ -300,9 +302,11 @@ function tweetHandler(tweet, columnKey, parent) {
           Usernames.format({ node, user: tweet.quotedTweet.user, fSel: '.quoted-tweet .tweet-header .fullname', uSel: '.quoted-tweet .tweet-header .username' });
 
           if (tweet.quotedTweet.inReplyToScreenName) {
-            const fullname = $('.js-reply-info-container .account-link')[0].textContent;
+            const fullnameNode = $('.js-reply-info-container .account-link', node);
 
-            Usernames.format({ node, user: { screenName: tweet.quotedTweet.inReplyToScreenName, name: fullname }, fSel: '.js-reply-info-container .account-link' });
+            if (fullnameNode) {
+              Usernames.format({ node, user: { screenName: tweet.quotedTweet.inReplyToScreenName, name: fullnameNode[0].textContent }, fSel: '.js-reply-info-container .account-link' });
+            }
           }
         }
 
