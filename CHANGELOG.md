@@ -1,4 +1,8 @@
-:tada: 3.0.22 :tada:
+:tada: 3.0.23 :tada:
+===============
+- [Fix] Fix a glitch with verified badges on "XXX added you to a list" notifications
+
+3.0.22
 ===============
 - [Fix] Fix some UI shenanigans because of last TweetDeck update (6th December 2016)
 
