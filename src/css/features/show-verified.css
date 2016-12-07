@@ -46,9 +46,11 @@
   background-position: 0px 1px;
 }
 
-.btd__show_verified .activity-header.has-source-avatar .btd-is-verified-mini {
+.btd__show_verified .activity-header.has-source-avatar .btd-is-verified-mini,
+.btd__show_verified .stream-item[data-key^="list_member_added"] .btd-is-verified-mini {
   position: relative;
 }
+
 .btd__show_verified .activity-header.has-source-avatar .btd-is-verified-mini:before {
   top: 5px;
   bottom: auto;
