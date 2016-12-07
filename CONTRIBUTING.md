@@ -62,6 +62,18 @@ Better TweetDeck **is not** made to:
 
 # How Can I Contribute?
 
+## Adding a new feature/Fixing bugs
+
+Have a feature in mind you are able to implement yourself or a bug from the issues list you have a fix for? Awesome, here are some steps to follow: 
+
+- **[Fork](https://github.com/eramdam/BetterTweetDeck/fork)** this repository
+- **Create a new branch** including your feature/bugfix name, for example `hide-emoji`
+- **Commit your changes** to your feature branch
+- **Test your feature/bugfix locally** by building the extension given the instructions in the README file and be sure it works the way it is intended to
+- **[Submit a Pull Request](https://github.com/eramdam/BetterTweetDeck/compare)** if your changes are done and working
+- **Wait for feedback** on your Pull Request and make changes if necessary
+- **Enjoy the heartwarming feeling of your feature being merged**
+
 ## Reporting Bugs
 
 This section guides you through the process of reporting bugs :bug:.
