@@ -23,7 +23,7 @@ function initPostMessageListener() {
       return false;
     }
 
-    if (!ev.data.name.startsWith('BTDC_') || !listeners[ev.data.name]) {
+    if (!ev.data.name || !ev.data.name.startsWith('BTDC_') || !listeners[ev.data.name]) {
       return false;
     }
 

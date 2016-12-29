@@ -177,7 +177,7 @@ window.addEventListener('message', (ev) => {
     return false;
   }
 
-  if (!ev.data.name.startsWith('BTDC_') || !postMessagesListeners[ev.data.name]) {
+  if (!ev.data.name || !ev.data.name.startsWith('BTDC_') || !postMessagesListeners[ev.data.name]) {
     return false;
   }
 
