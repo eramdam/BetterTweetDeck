@@ -34,13 +34,22 @@ sendMessage({ action: 'get_settings' }, (response) => {
  * have timestamps to change before anything else
  */
 function refreshTimestamps() {
-  if (!$('.js-timestamp')) {
+  const timestamps = $('.js-timestamp');
+
+  if (!timestamps) {
     return;
   }
 
-  $('.js-timestamp').forEach((jsTimstp) => {
+
+  timestamps.forEach((jsTimstp) => {
     const d = jsTimstp.getAttribute('data-time');
-    $('a, span', jsTimstp).forEach((el) => timestampOnElement(el, d));
+    const t = $('a, span', jsTimstp);
+
+    if (!t) {
+      return;
+    }
+
+    t.forEach((el) => timestampOnElement(el, d));
   });
 }
 
