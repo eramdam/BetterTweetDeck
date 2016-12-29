@@ -30,6 +30,10 @@ sendMessage({ action: 'get', key: 'thumbnails' }, (response) => {
  * @return {String}     safe url
  */
 const getSafeURL = (url) => {
+  if (!url) {
+    return '';
+  }
+
   if (url.startsWith('//')) {
     url = `https:${url}`;
   }
