@@ -8,6 +8,10 @@ export default function ($) {
       return fetch(`${$.getEnpointFor('noembed')}${url}`)
       .then($.statusAndJson)
       .then(data => {
+        if (!data.thumbnail_url) {
+          return undefined;
+        }
+
         const obj = {
           type: 'audio',
           thumbnail_url: $.getSafeURL(data.thumbnail_url),
