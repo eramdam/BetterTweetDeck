@@ -364,7 +364,7 @@ function tweetHandler(tweet, columnKey, parent) {
         case 'mention':
         case 'quoted_tweet':
           userToVerify = tweet.sourceUser;
-          avatarSelector = '.tweet-header .account-link';
+          avatarSelector = '.tweet-header .account-link .item-img';
           break;
 
         case 'list_member_added':
