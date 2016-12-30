@@ -1,4 +1,9 @@
-:tada: 3.0.23 :tada:
+:tada: 3.0.24 :tada:
+===============
+- [Fix] Verified badges in mentions should display correctly (as of 29/12/2016)
+- Fix various little crashes (that were not disrupting the UI but still annoying me)
+
+3.0.23
 ===============
 - [Fix] Fix a glitch with verified badges on "XXX added you to a list" notifications
 
