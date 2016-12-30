@@ -124,7 +124,7 @@ const postMessagesListeners = {
       return;
     }
 
-    proxyEvent('gotChirpForColumn', { chirp: decorateChirp(decorateChirp), colKey });
+    proxyEvent('gotChirpForColumn', { chirp: decorateChirp(chirp), colKey });
   },
   BTDC_likeChirp: (ev, data) => {
     const { chirpKey, colKey } = data;
