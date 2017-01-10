@@ -1,5 +1,6 @@
 :tada: 3.0.24 :tada:
 ===============
+- [Feature] Better TweetDeck now speaks Japanese! :jp: (thanks to [@skuuji3](https://github.com/shuuji3)) ([#111](https://github.com/eramdam/BetterTweetDeck/pull/111))
 - [Fix] Verified badges in mentions should display correctly (as of 29/12/2016)
 - Fix various little crashes (that were not disrupting the UI but still annoying me)
 
