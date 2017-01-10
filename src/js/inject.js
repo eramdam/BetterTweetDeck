@@ -327,6 +327,35 @@ $(document).keydown((ev) => {
   }
 });
 
+document.addEventListener('paste', ev => {
+  if (ev.clipboardData) {
+    const items = ev.clipboardData.items;
+
+    if (!items) {
+      return;
+    }
+
+    const files = [];
+
+    [...items].forEach(item => {
+      if (item.type.indexOf('image') < 0) {
+        return;
+      }
+      const blob = item.getAsFile();
+
+      files.push(blob);
+    });
+
+    if (files.length === 0) {
+      return;
+    }
+
+    $(document).trigger('uiFilesAdded', {
+      files,
+    });
+  }
+});
+
 $('body').on('click', '#open-modal', (ev) => {
   const isMediaModal = document.querySelector('.js-modal-panel .js-media-preview-container, .js-modal-panel iframe');
 
