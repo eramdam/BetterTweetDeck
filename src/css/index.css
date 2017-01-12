@@ -139,3 +139,7 @@
 div.youtube-player:matches(.-gfycat) {
   min-width: 700px;
 }
+
+iframe.imgur-album {
+  max-height: 650px !important;
+}
