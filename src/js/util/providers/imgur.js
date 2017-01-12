@@ -18,7 +18,7 @@ export default function ($) {
           return {
             type: 'image',
             thumbnail_url: `https://i.imgur.com/${data.data.cover}l.jpg`,
-            html: `<iframe class="imgur-album" width="708" height="550" frameborder="0" src="https://imgur.com/a/${imgurID}/embed"></iframe>`,
+            html: `<iframe class="imgur-album" frameborder="0" src="https://imgur.com/a/${imgurID}/embed?pub=true&width=560" style="width: 560px !important;" scrolling="no"></iframe>`,
             url: $.getSafeURL(url),
           };
         });

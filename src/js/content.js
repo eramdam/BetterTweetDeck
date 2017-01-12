@@ -471,14 +471,20 @@ function closeOpenModal() {
 
 function setMaxDimensionsOnModalImg() {
   if ($('#open-modal [btd-custom-modal]').length) {
-    setTimeout(() => {
-      const rect = $('#open-modal [btd-custom-modal] .js-embeditem')[0].getBoundingClientRect();
-      const el = $('#open-modal [btd-custom-modal] .js-embeditem [data-btdsetmax], #open-modal [btd-custom-modal] .js-embeditem iframe')[0];
+    const loadableEls = $('#open-modal [btd-custom-modal] .js-embeditem [data-btdsetmax], #open-modal [btd-custom-modal] .js-embeditem iframe');
 
-      if (el.hasAttribute('data-btd-loaded') && !el.src.includes('gfycat.')) {
-        el.setAttribute('style', `max-width: ${rect.width}px; max-height: ${rect.height}px`);
+    if (!loadableEls) {
+      return;
+    }
+
+    const loadable = loadableEls[0];
+    loadable.onload = () => {
+      const rect = $('#open-modal [btd-custom-modal] .js-embeditem')[0].getBoundingClientRect();
+
+      if (!loadable.includes('gfycat.') || !loadable.includes('imgur.')) {
+        loadable.setAttribute('style', `max-width: ${rect.width}px; max-height: ${rect.height}px`);
       }
-    });
+    };
   }
 }
 
@@ -578,4 +584,25 @@ on('BTDC_columnsChanged', (ev, data) => {
            .forEach(col => {
              COLUMNS_MEDIA_SIZES.set(col.id, col.mediaSize || 'medium');
            });
+});
+
+window.addEventListener('message', (ev) => {
+  let data;
+
+  try {
+    data = ev.data && JSON.parse(ev.data);
+  } catch (e) {
+    // lolnope
+  }
+
+  if (data) {
+    switch (data.message) {
+      case 'resize_imgur':
+        $(`iframe[src="${data.href}"]`)[0].style.height = `${data.height}px`;
+        break;
+
+      default:
+        break;
+    }
+  }
 });
