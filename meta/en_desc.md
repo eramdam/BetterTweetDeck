@@ -1,6 +1,7 @@
 Improve your experience on TweetDeck web with emojis, thumbnails, and a lot of customization options to make TweetDeck even better for you!
 
 Features:
+- Paste images to tweet them!
 - Share any page/link to TweetDeck in a click!
 - A "minimal" theme.
 - An emoji picker to add them easily to your tweets.

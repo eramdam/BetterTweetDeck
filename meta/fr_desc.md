@@ -1,6 +1,7 @@
 Améliorez votre expérience sur TweetDeck Web avec des emojis, des miniatures et une multitude d'options de personnalisation pour rendre TweetDeck encore meilleur!
 
 Fonctionnalités:
+- Collez des images simplement pour les tweeter !
 - Partagez n'importe quelle page ou lien sur TweetDeck en un seul clic!
 - Un thème "minimaliste".
 - Un sélecteur d'emoji pour les ajouter facilement à vos tweets.
