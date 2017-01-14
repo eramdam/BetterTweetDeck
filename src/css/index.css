@@ -143,3 +143,7 @@ div.youtube-player:matches(.-gfycat) {
 iframe.imgur-album {
   max-height: 650px !important;
 }
+
+body :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
+  border-radius: 10% !important;
+}
