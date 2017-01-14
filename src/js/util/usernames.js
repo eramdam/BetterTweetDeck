@@ -52,7 +52,7 @@ export function formatGroupDM({ node, participants, fSel }) {
 
     case 'inverted':
     case 'username':
-      $(fSel, node).forEach((el, i) => {
+      ($(fSel, node) || []).forEach((el, i) => {
         el.innerHTML = participants[i].screenName;
       });
       break;
