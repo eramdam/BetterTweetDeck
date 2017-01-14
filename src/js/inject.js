@@ -64,6 +64,10 @@ const proxyEvent = (name, detail = {}) => {
 };
 
 const decorateChirp = (chirp) => {
+  if (!chirp) {
+    return undefined;
+  }
+
   chirp.chirpType = chirp.chirpType;
   chirp.action = chirp.action;
   return chirp;
