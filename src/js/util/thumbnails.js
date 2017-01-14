@@ -16,6 +16,7 @@ const endpoints = {
   instagram: 'https://api.instagram.com/oembed?url=',
   twitch: 'https://api.twitch.tv/kraken/',
   giphy: 'https://giphy.com/services/oembed?url=',
+  pixiv: 'http://embed.pixiv.net/embed_json.php?callback=callback&size=medium&id=',
 };
 
 let providersSettings;
@@ -130,6 +131,8 @@ const schemeWhitelist = [
   Providers.youtube(util),
   Providers.yfrog(util),
   Providers.universal(util),
+  Providers.twipple(util),
+  Providers.pixiv(util),
 ];
 
 const validateUrl = (url) => {
@@ -160,7 +163,10 @@ const validateUrl = (url) => {
 function thumbnailForFetch(url) {
   const validationObj = validateUrl(url);
   const cleanUrl = new URL(url);
-  cleanUrl.search = '';
+  // Pixiv requires url parameters
+  if (cleanUrl && !cleanUrl.hostname.includes('pixiv.')) {
+    cleanUrl.search = '';
+  }
   url = cleanUrl.toString();
 
   if (!validationObj.cb) {
