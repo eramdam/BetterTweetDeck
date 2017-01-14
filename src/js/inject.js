@@ -266,7 +266,7 @@ document.addEventListener('DOMNodeInserted', (ev) => {
 $(document).on('uiVisibleChirps', (ev, data) => {
   const { chirpsData, columnKey } = data;
   const isThereGifs = chirpsData.filter(chirp => {
-    const hasGif = chirp.chirp._hasAnimatedGif;
+    const hasGif = chirp.chirp && chirp.chirp._hasAnimatedGif;
     const el = chirp.$elem[0];
     const isPaused = el.querySelector('video') && !el.querySelector('video').paused;
 
