@@ -1,4 +1,4 @@
-:tada: 3.0.24 :tada:
+:tada: 3.1 :tada:
 ===============
 - [Feature] Better TweetDeck now speaks Japanese! :jp: (thanks to [@shuuji3](https://github.com/shuuji3)) ([#111](https://github.com/eramdam/BetterTweetDeck/pull/111))
 - [Feature] You can now paste images inside the tweet composer!           
