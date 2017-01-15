@@ -1,5 +1,4 @@
 import Mustache from 'mustache';
-import qs from 'query-string';
 /* eslint max-len: 0*/
 const templates = {
   preview: `
@@ -77,8 +76,8 @@ const previewTemplate = (mediaPreviewSrc, sourceLink, size, type = 'picture') =>
   const safeURL = mediaPreviewSrc;
 
   if (type === 'image' && !mediaPreviewSrc.includes('imgur.com') && mediaPreviewSrc) {
-    const parsed = qs.parse(mediaPreviewSrc);
-    mediaPreviewSrc = parsed[Object.keys(parsed)[0]];
+    const parsed = new URL(mediaPreviewSrc);
+    mediaPreviewSrc = parsed.searchParams.get('url');
 
     if (!mediaPreviewSrc.includes('https')) {
       mediaPreviewSrc = safeURL;
@@ -98,8 +97,8 @@ const previewTemplate = (mediaPreviewSrc, sourceLink, size, type = 'picture') =>
 
 const modalTemplate = ({ imageUrl, originalUrl, type, videoEmbed = null, provider = 'default' }) => {
   if (type === 'image') {
-    const parsed = qs.parse(imageUrl);
-    imageUrl = parsed[Object.keys(parsed)[0]];
+    const parsed = new URL(imageUrl);
+    imageUrl = parsed.searchParams.get('url');
   }
 
   return Mustache.render(templates.modal, Object.assign(defaultData.modal, {
