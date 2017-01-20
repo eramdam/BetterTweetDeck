@@ -24,3 +24,11 @@ span.token.-bugfix {
 span.token.-improvement {
   background-color: hsl(47, 99%, 60%);
 }
+
+.settings-dump .token {
+  text-transform: initial;
+  background-image: none;
+  box-shadow: none;
+  padding: 0;
+  text-shadow: none;
+}
