@@ -7,8 +7,8 @@ export default function ($) {
     callback: url => {
       let illustId;
       if (url.includes('member_illust.php')) {
-        const _url = new URL(url);
-        illustId = _url.searchParams.get('illust_id');
+        const urlObject = new URL(url);
+        illustId = urlObject.searchParams.get('illust_id');
       } else {
         illustId = url.slice(url.lastIndexOf('/') + 1);
       }
