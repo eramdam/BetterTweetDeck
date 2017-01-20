@@ -344,8 +344,21 @@ fetch('https://api.github.com/repos/eramdam/BetterTweetDeck/contributors').then(
   });
 });
 
+const labels = ['Feature', 'Bugfix', 'Improvement', 'Meta'];
+
 fetch(chrome.extension.getURL('options/CHANGELOG.md')).then(res => res.text()).then(body => {
-  $('.settings-section.changelog')[0].innerHTML = Emoji.replace_colons(marked(body)).split('/emoji-data/sheet_twitter_64.png').join(chrome.extension.getURL('emojis/sheet_twitter_64.png'));
+  const changelogMarkup =
+    Emoji.replace_colons(marked(body))
+    .replace(/\/emoji-data\/sheet_twitter_64.png/g, chrome.extension.getURL('emojis/sheet_twitter_64.png'))
+    .replace(new RegExp(`(\\[(${labels.join('|')})\\])`, 'gi'), (match, p1, p2) => {
+      return `
+        <span class="token -${p2.toLowerCase()}">${p2}</span>
+      `;
+    });
+
+  // console.log(changelogMarkup.match(new RegExp(`(\\[(${labels.join('|')})\\])`, 'gi')));
+
+  $('.settings-section.changelog')[0].innerHTML = changelogMarkup;
 });
 
 // Because nobody got time to write that HTML by hand, right?

@@ -3,6 +3,7 @@
 
 @import "./save-bar.css";
 @import "./sidebar.css";
+@import "./tokens.css";
 @import "./tweet-preview.css";
 
 :root {
@@ -106,7 +107,8 @@ body {
     column-count: 2;
   }
 
-  &:not(.changelog) :matches(ul, ol) {
+  &:not(.changelog) :matches(ul, ol),
+  &.changelog > ul > li {
     list-style: none;
   }
 
@@ -119,7 +121,7 @@ body {
     }
 
     li {
-      line-height: 1.6;
+      line-height: 1.8;
       margin: .6em 0;
     }
 
