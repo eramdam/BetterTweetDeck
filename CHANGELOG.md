@@ -1,4 +1,10 @@
-:tada: 3.1 :tada:
+:tada: 3.2 :tada:
+=============== 
+- [Feature] Added support for Pixiv and Twipple! (thanks to [@shuuji3](https://github.com/shuuji3)) ([#113](https://github.com/eramdam/BetterTweetDeck/pull/113))
+- [Bugfix] Re-unify square/rounded avatars everywhere in TweetDeck's UI following last TweetDeck update
+- [Bugfix] Patched some code to avoid various JS crashes :bug: 
+
+3.1
 ===============
 - [Feature] Better TweetDeck now speaks Japanese! :jp: (thanks to [@shuuji3](https://github.com/shuuji3)) ([#111](https://github.com/eramdam/BetterTweetDeck/pull/111))
 - [Feature] You can now paste images inside the tweet composer!           
