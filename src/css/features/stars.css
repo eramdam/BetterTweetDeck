@@ -18,6 +18,10 @@
   .heart-anim {
     display: none;
   }
+  
+  .tweet-action:hover .icon-favorite {
+    color: #fab41e;
+  }
 
   .icon-favorite.is-invisible {
     visibility: visible !important;
