@@ -1,6 +1,6 @@
 {
   "name": "BetterTweetDeck",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "Adds some nice options on TweetDeck to provide a better experience on the webapp when used on Chrome.",
   "repository": {
     "type": "git",
