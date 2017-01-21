@@ -17,6 +17,7 @@ const endpoints = {
   twitch: 'https://api.twitch.tv/kraken/',
   giphy: 'https://giphy.com/services/oembed?url=',
   pixiv: 'http://embed.pixiv.net/embed_json.php?callback=callback&size=medium&id=',
+  tinami: 'https://www.tinami.com/api/content/info?',
 };
 
 let providersSettings;
@@ -68,6 +69,16 @@ const statusAndJson = res => {
 };
 
 /**
+ * Function to use in promise that will return the text output of a request
+ */
+const statusAndText = res => {
+  if (res.status >= 200 && res.status < 300) {
+    return res.text();
+  }
+  return Promise.reject(new Error(res.statusText));
+}
+
+/**
  * Returns a promise with image data from noembed
  */
 const noEmbedImgCB = url => {
@@ -103,7 +114,7 @@ const noEmbedVideoCB = url => {
 };
 
 // We export a few useful functions for providers
-const util = { getKeyFor, statusAndJson, getEnpointFor, getSafeURL, noEmbedVideoCB, noEmbedImgCB };
+const util = { getKeyFor, statusAndJson, statusAndText, getEnpointFor, getSafeURL, noEmbedVideoCB, noEmbedImgCB };
 
 const schemeWhitelist = [
   Providers.fivehundredpx(util),
@@ -133,6 +144,7 @@ const schemeWhitelist = [
   Providers.universal(util),
   Providers.twipple(util),
   Providers.pixiv(util),
+  Providers.tinami(util),
 ];
 
 const validateUrl = (url) => {
