@@ -144,7 +144,7 @@ gulp.task('lint', () => (
   gulp.src(toLintFiles)
     .pipe(eslint())
     .pipe(eslint.format())
-    // .pipe(eslint.failAfterError())
+    .pipe(eslint.failAfterError())
 ));
 
 /*
