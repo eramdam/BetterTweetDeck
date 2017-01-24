@@ -1,5 +1,3 @@
-import convert from 'xml-js';
-
 export default function ($) {
   return {
     name: 'Nicoseiga',

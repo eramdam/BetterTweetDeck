@@ -77,7 +77,7 @@ const statusAndText = res => {
     return res.text();
   }
   return Promise.reject(new Error(res.statusText));
-}
+};
 
 /**
  * Returns a promise with image data from noembed
