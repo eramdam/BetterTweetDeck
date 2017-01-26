@@ -133,6 +133,7 @@ const schemeWhitelist = [
   Providers.universal(util),
   Providers.twipple(util),
   Providers.pixiv(util),
+  Providers.amazon(util),
 ];
 
 const validateUrl = (url) => {
