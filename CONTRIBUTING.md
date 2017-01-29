@@ -6,8 +6,26 @@ The following is a set of guidelines to contribute to Better TweetDeck so the pr
 
 
 #### Table Of Contents
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
+			- [Table Of Contents](#table-of-contents)
+- [What should I know before?](#what-should-i-know-before)
+	- [Background](#background)
+	- [Focus of the project](#focus-of-the-project)
+	- [Project structure](#project-structure)
+				- [Files and folders](#files-and-folders)
+				- [Rundown of `src/`](#rundown-of-src)
+- [How Can I Contribute?](#how-can-i-contribute)
+	- [Contributing by actually coding](#contributing-by-actually-coding)
+		- [Setup](#setup)
+		- [Getting started](#getting-started)
+		- [About the config](#about-the-config)
+		- [Ok I'm done, what do I do now?](#ok-im-done-what-do-i-do-now)
+	- [Reporting Bugs](#reporting-bugs)
+			- [Before Submitting A Bug Report](#before-submitting-a-bug-report)
+			- [How Do I Submit A (Good) Bug Report?](#how-do-i-submit-a-good-bug-report)
 
+<!-- /TOC -->
 # What should I know before?
 
 ## Background
@@ -62,14 +80,47 @@ Better TweetDeck **is not** made to:
 
 # How Can I Contribute?
 
-## Adding a new feature/Fixing bugs
+## Contributing by actually coding
 
-Have a feature in mind you are able to implement yourself or a bug from the issues list you have a fix for? Awesome, here are some steps to follow: 
+### Setup
+
+You will need [NodeJS](https://nodejs.org/en/) (the more recent the better). Fire up your favorite Terminal emulator and do the followings: 
 
 - **[Fork](https://github.com/eramdam/BetterTweetDeck/fork)** this repository
-- **Create a new branch** including your feature/bugfix name, for example `hide-emoji`
+- Clone the project
+- Run `npm install -g gulp && npm install`
+
+### Getting started
+
+There are a few scripts in the [package.json](https://github.com/eramdam/BetterTweetDeck/blob/master/package.json) file. Here is a run-down of all of them:
+
+- `start`: builds up the project once, then watches for modifications while using the `dev` config
+- `build`: simply build up the project with the `dev` config
+- `build:prod`: builds the project with `prod` config and makes a `.zip` file
+- `pack`: Runs the [pack.js](https://github.com/eramdam/BetterTweetDeck/blob/master/tools/pack.js) script used to pack the `dist/` folder into `.crx` and `.nex` files. I use this to make the Opera release files and to sign a `.crx` version with my private key
+- `release`: runs `build:prod` and `pack` one after the other
+- `test`: Runs the lint task from Gulp and tries to run `release`. This is ran everytime a commit is pushed on the repo, every pull request that does not pass it won't be accepted
+
+Now that you know what's available in your hands, let's get started. On a typical workflow you would
+
+- Run `npm run start` to build/watch the project
+- Open the `chrome://extensions` page
+- Drag and drop the `dist/` file in there, you installed the local version of Better TweetDeck!
+- Now [hack](http://i.giphy.com/l0HlvFUHvDB16UOwU.gif)!
+
+### About the config
+
+This project is using [config](https://npmjs.org/package/config) and [config-browserify](https://npmjs.org/package/config-browserify) to handle configuration.
+You will have to fill a `dev.js` using the [default.js](https://github.com/eramdam/BetterTweetDeck/blob/master/config/default.js) file as an example. 
+
+**DO NOT COMMIT YOUR CONFIGURATION FILE. DO NOT COMMIT API KEYS AND/OR SECRET**.
+
+### Ok I'm done, what do I do now?
+
+Awesome! I'm sure your feature and/or bugfix is amazing :tada:
+
 - **Commit your changes** to your feature branch
-- **Test your feature/bugfix locally** by building the extension given the instructions in the README file and be sure it works the way it is intended to
+- **Test your feature/bugfix locally** by building the extension given above and be sure it works the way it is intended to
 - **[Submit a Pull Request](https://github.com/eramdam/BetterTweetDeck/compare)** if your changes are done and working
 - **Wait for feedback** on your Pull Request and make changes if necessary
 - **Enjoy the heartwarming feeling of your feature being merged**
