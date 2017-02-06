@@ -19,6 +19,8 @@ The following is a set of guidelines to contribute to Better TweetDeck so the pr
 	- [Contributing by actually coding](#contributing-by-actually-coding)
 		- [Setup](#setup)
 		- [Getting started](#getting-started)
+			- [The npm scripts](#the-npm-scripts)
+			- [Actually building the project](#actually-building-the-project)
 		- [About the config](#about-the-config)
 		- [Ok I'm done, what do I do now?](#ok-im-done-what-do-i-do-now)
 	- [Reporting Bugs](#reporting-bugs)
@@ -92,6 +94,8 @@ You will need [NodeJS](https://nodejs.org/en/) (the more recent the better). Fir
 
 ### Getting started
 
+#### The npm scripts
+
 There are a few scripts in the [package.json](https://github.com/eramdam/BetterTweetDeck/blob/master/package.json) file. Here is a run-down of all of them:
 
 - `start`: builds up the project once, then watches for modifications while using the `dev` config
@@ -100,6 +104,8 @@ There are a few scripts in the [package.json](https://github.com/eramdam/BetterT
 - `pack`: Runs the [pack.js](https://github.com/eramdam/BetterTweetDeck/blob/master/tools/pack.js) script used to pack the `dist/` folder into `.crx` and `.nex` files. I use this to make the Opera release files and to sign a `.crx` version with my private key
 - `release`: runs `build:prod` and `pack` one after the other
 - `test`: Runs the lint task from Gulp and tries to run `release`. This is ran everytime a commit is pushed on the repo, every pull request that does not pass it won't be accepted
+
+#### Actually building the project
 
 Now that you know what's available in your hands, let's get started. On a typical workflow you would
 
