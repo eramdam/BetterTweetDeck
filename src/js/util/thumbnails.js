@@ -18,6 +18,7 @@ const endpoints = {
   giphy: 'https://giphy.com/services/oembed?url=',
   pixiv: 'http://embed.pixiv.net/embed_json.php?callback=callback&size=medium&id=',
   tinami: 'https://www.tinami.com/api/content/info?',
+  nicoseiga: 'http://ext.seiga.nicovideo.jp/thumb/',
 };
 
 let providersSettings;
@@ -76,7 +77,7 @@ const statusAndText = res => {
     return res.text();
   }
   return Promise.reject(new Error(res.statusText));
-}
+};
 
 /**
  * Returns a promise with image data from noembed
@@ -145,6 +146,7 @@ const schemeWhitelist = [
   Providers.twipple(util),
   Providers.pixiv(util),
   Providers.tinami(util),
+  Providers.nicoseiga(util),
 ];
 
 const validateUrl = (url) => {

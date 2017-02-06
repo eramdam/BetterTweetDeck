@@ -15,12 +15,12 @@ export default function ($) {
       return fetch($.getSafeURL(
         `${$.getEnpointFor('tinami')}cont_id=${imageId}&api_key=${$.getKeyFor('tinami')}`))
         .then($.statusAndText)
-        .then(xml => convert.xml2js(xml, {compact: true}))
+        .then(xml => convert.xml2js(xml, { compact: true }))
         .then(json => {
           // Quit if there is non-public image or no image
           if (json.rsp._attributes.stat !== 'ok' ||
-              json.rsp.content._attributes.type == 'novel') {
-            return;
+              json.rsp.content._attributes.type === 'novel') {
+            return undefined;
           }
           const image = json.rsp.content.image ||
                 json.rsp.content.images.image[0] ||
