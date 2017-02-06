@@ -29,10 +29,9 @@ Features:
   - Gfycat
   - Giphy
   - Imgur
-  - img.ly
   - Instagram
   - Mixcloud
-  - moby.to
+  - Pixiv
   - Skitch
   - Soundcloud
   - Spotify
@@ -40,10 +39,13 @@ Features:
   - TED
   - TinyGrab
   - Tumblr
+  - Twipple
   - Twitch
   - Vidme
   - Vimeo
   - Youtu.be
+  - img.ly
+  - moby.to
   - yfrog
 
 Report bugs here:
