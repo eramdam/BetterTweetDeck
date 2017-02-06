@@ -25,3 +25,4 @@ export { default as yfrog } from './yfrog';
 export { default as youtube } from './youtu_be';
 export { default as twipple } from './twipple';
 export { default as pixiv } from './pixiv';
+export { default as tinami } from './tinami';
