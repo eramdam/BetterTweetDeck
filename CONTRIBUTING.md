@@ -8,13 +8,13 @@ The following is a set of guidelines to contribute to Better TweetDeck so the pr
 #### Table Of Contents
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-			- [Table Of Contents](#table-of-contents)
+- [Table Of Contents](#table-of-contents)
 - [What should I know before?](#what-should-i-know-before)
 	- [Background](#background)
 	- [Focus of the project](#focus-of-the-project)
 	- [Project structure](#project-structure)
-				- [Files and folders](#files-and-folders)
-				- [Rundown of `src/`](#rundown-of-src)
+		- [Files and folders](#files-and-folders)
+		- [Rundown of `src/`](#rundown-of-src)
 - [How Can I Contribute?](#how-can-i-contribute)
 	- [Contributing by actually coding](#contributing-by-actually-coding)
 		- [Setup](#setup)
