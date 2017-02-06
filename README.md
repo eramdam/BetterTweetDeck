@@ -14,6 +14,7 @@ Adds some nice options on [TweetDeck](http://tweetdeck.twitter.com) to provide a
 The extensions is currently available for the following browsers:
 - [Chrome](https://chrome.google.com/webstore/detail/bettertweetdeck-3/micblkellenpbfapmcpcfhcoeohhnpob)
 - [Opera](https://addons.opera.com/en/extensions/details/bettertweetdeck/)
+- ~~Firefox~~ SOON
 
 # Features (as of 3.2.1)
 
