@@ -29,10 +29,9 @@ TweetDeck web を使いやすくする拡張機能です。絵文字、サムネ
   - Gfycat
   - Giphy
   - Imgur
-  - img.ly
   - Instagram
   - Mixcloud
-  - moby.to
+  - Pixiv
   - Skitch
   - Soundcloud
   - Spotify
@@ -40,10 +39,14 @@ TweetDeck web を使いやすくする拡張機能です。絵文字、サムネ
   - TED
   - TinyGrab
   - Tumblr
+  - Twipple
   - Twitch
   - Vidme
   - Vimeo
   - Youtu.be
+  - img.ly
+  - moby.to
+  - yfrog
   - yfrog
 
 バグ報告はこちら:

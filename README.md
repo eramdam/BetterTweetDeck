@@ -11,30 +11,59 @@ Adds some nice options on [TweetDeck](http://tweetdeck.twitter.com) to provide a
 
 # Installation
 
-## Chrome
+The extensions is currently available for the following browsers:
+- [Chrome](https://chrome.google.com/webstore/detail/bettertweetdeck-3/micblkellenpbfapmcpcfhcoeohhnpob)
+- [Opera](https://addons.opera.com/en/extensions/details/bettertweetdeck/)
+- ~~Firefox~~ SOON
 
-Navigate to https://chrome.google.com/webstore/detail/bettertweetdeck-3/micblkellenpbfapmcpcfhcoeohhnpob and click "Add to Chrome" :tada:
+# Features (as of 3.2.1)
 
-## Opera
+- Paste images to tweet them!
+- Share any page/link to TweetDeck in a click!
+- A "minimal" theme.
+- An emoji picker to add them easily to your tweets.
+- Show verified badge on profile pictures in columns.
+- Prevent GIFs from autoplaying.
+- Change hears back to stars.
+- Customize the format of dates.
+- Customize the format of names in tweets.
+- Remove the t.co redirection on links.
+- Rounded avatars.
+- Make Compose panel a little nicer with smaller buttons.
+- Hide the links like pic.twitter for a more mobile-like experience!
+- Make tweets flash visually in columns when they come in!
+- Hide/move tweet actions in tweets
+- Hide icons in columns header
+- Thumbnails and instant previews for:
+  - 500px
+  - Bandcamp
+  - CloudApp
+  - Dailymotion
+  - DeviantArt
+  - Dribbble
+  - Droplr
+  - Flickr
+  - Gfycat
+  - Giphy
+  - Imgur
+  - img.ly
+  - Instagram
+  - Mixcloud
+  - moby.to
+  - Skitch
+  - Soundcloud
+  - Spotify
+  - Streamable
+  - TED
+  - TinyGrab
+  - Tumblr
+  - Twitch
+  - Vidme
+  - Vimeo
+  - Youtu.be
+  - yfrog
 
-Navigate to https://addons.opera.com/en/extensions/details/bettertweetdeck/ and click "Add to Opera" :tada:
 
 # Contributing & helping
 
-Issues and Pull Requests are welcome!
-
-Follow these steps to build/edit the project. You will need:
-
-+ Node v6 / npm v3
-+ gulp
-
-Then follow this workflow:
-
-+ `npm install`
-+ `npm run start`, this will launch the default `gulp` task with `NODE_ENV` set to `dev`
-
-Drop the `dist/` folder into `chrome://extensions` and start hacking!
-
-## Configuration
-
-You will need to add a `dev.js` file in the `config/` folder populated with an Embed.ly key for the thumbnails to work.
+Feel free to read the [CONTRIBUTING](./CONTRIBUTING.md) documentation to know how to help and contribute!
