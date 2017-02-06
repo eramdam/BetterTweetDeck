@@ -46,21 +46,23 @@ The extensions is currently available for the following browsers:
   - Gfycat
   - Giphy
   - Imgur
-  - img.ly
   - Instagram
   - Mixcloud
-  - moby.to
+  - Nicoseiga
   - Skitch
   - Soundcloud
   - Spotify
   - Streamable
   - TED
+  - Tinami
   - TinyGrab
   - Tumblr
   - Twitch
   - Vidme
   - Vimeo
   - Youtu.be
+  - img.ly
+  - moby.to
   - yfrog
 
 

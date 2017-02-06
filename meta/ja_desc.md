@@ -31,22 +31,21 @@ TweetDeck web を使いやすくする拡張機能です。絵文字、サムネ
   - Imgur
   - Instagram
   - Mixcloud
-  - Pixiv
+  - Nicoseiga
   - Skitch
   - Soundcloud
   - Spotify
   - Streamable
   - TED
+  - Tinami
   - TinyGrab
   - Tumblr
-  - Twipple
   - Twitch
   - Vidme
   - Vimeo
   - Youtu.be
   - img.ly
   - moby.to
-  - yfrog
   - yfrog
 
 バグ報告はこちら:

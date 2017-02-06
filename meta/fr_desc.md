@@ -18,35 +18,35 @@ Fonctionnalités:
 - Masquez/déplacez les actions des tweets
 - Masquez les icônes dans les en-têtes de colonnes
 - Miniatures et prévisualisations pour les services suivants:
-- 500px
-- Bandcamp
-- CloudApp
-- Dailymotion
-- DeviantArt
-- Dribbble
-- Droplr
-- Flickr
-- Gfycat
-- Giphy
-- Imgur
-- Instagram
-- Mixcloud
-- Pixiv
-- Skitch
-- Soundcloud
-- Spotify
-- Streamable
-- TED
-- TinyGrab
-- Tumblr
-- Twipple
-- Twitch
-- Vidme
-- Vimeo
-- Youtu.be
-- img.ly
-- moby.to
-- yfrog
+  - 500px
+  - Bandcamp
+  - CloudApp
+  - Dailymotion
+  - DeviantArt
+  - Dribbble
+  - Droplr
+  - Flickr
+  - Gfycat
+  - Giphy
+  - Imgur
+  - Instagram
+  - Mixcloud
+  - Nicoseiga
+  - Skitch
+  - Soundcloud
+  - Spotify
+  - Streamable
+  - TED
+  - Tinami
+  - TinyGrab
+  - Tumblr
+  - Twitch
+  - Vidme
+  - Vimeo
+  - Youtu.be
+  - img.ly
+  - moby.to
+  - yfrog
 
 Rapport de bugs et suggestions:
 https://github.com/eramdam/BetterTweetDeck/issues

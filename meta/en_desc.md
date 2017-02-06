@@ -18,7 +18,7 @@ Features:
 - Hide/move tweet actions in tweets
 - Hide icons in columns header
 - Thumbnails and instant previews for:
-  - 500px
+  -  500px
   - Bandcamp
   - CloudApp
   - Dailymotion
@@ -31,15 +31,15 @@ Features:
   - Imgur
   - Instagram
   - Mixcloud
-  - Pixiv
+  - Nicoseiga
   - Skitch
   - Soundcloud
   - Spotify
   - Streamable
   - TED
+  - Tinami
   - TinyGrab
   - Tumblr
-  - Twipple
   - Twitch
   - Vidme
   - Vimeo
