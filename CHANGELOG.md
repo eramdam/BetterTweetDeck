@@ -1,4 +1,11 @@
-:tada: 3.2 :tada:
+:tada: 3.2.1 :tada:
+=============== 
+- [Meta] Added some donating alternatives #Resist 
+- [Bugfix] Fixed the settings dump section of the options page (thanks to [@pixeldesu](https://github.com/pixeldesu)) ([#115](https://github.com/eramdam/BetterTweetDeck/pull/115))
+- [Bugfix] Fixed the "red stars on hover" bug (☭)
+
+
+3.2
 =============== 
 - [Meta] The changelog page now has some sweet looking pills :pill:
 - [Feature] Added support for Pixiv and Twipple! (thanks to [@shuuji3](https://github.com/shuuji3)) ([#113](https://github.com/eramdam/BetterTweetDeck/pull/113))

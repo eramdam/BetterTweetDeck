@@ -1,6 +1,6 @@
 {
   "name": "BetterTweetDeck",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "Adds some nice options on TweetDeck to provide a better experience on the webapp when used on Chrome.",
   "repository": {
     "type": "git",
@@ -16,7 +16,8 @@
     "build": "cross-env NODE_ENV=dev gulp build",
     "build:prod": "rimraf dist/ && cross-env NODE_ENV=prod gulp build --type production && bestzip packed/dist.zip dist/",
     "pack": "node tools/pack.js",
-    "release": "npm run build:prod && npm run pack"
+    "release": "npm run build:prod && npm run pack",
+    "test": "gulp lint && npm run release"
   },
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
   "dependencies": {
