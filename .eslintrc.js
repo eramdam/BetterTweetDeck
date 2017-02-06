@@ -15,6 +15,7 @@ module.exports = {
   'rules': {
     'no-param-reassign': 0,
     'max-len': 0,
-    'arrow-body-style': 0
+    'arrow-body-style': 0,
+    'no-underscore-dangle': 0
   }
 };
