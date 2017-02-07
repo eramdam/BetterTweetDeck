@@ -55,3 +55,7 @@
   top: 5px;
   bottom: auto;
 }
+
+.btd__show_verified .stream-item .sprite-verified-mini {
+  display: none;
+}
