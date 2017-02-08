@@ -22,11 +22,14 @@ export default function ($) {
               json.rsp.content._attributes.type === 'novel') {
             return undefined;
           }
+
           const image = json.rsp.content.image ||
                 json.rsp.content.images.image[0] ||
                 json.rsp.content.images.image;
+
           const imgUrl = $.getSafeURL(image.url._text.replace(
             'http://api.tinami.com/', 'https://www.tinami.com/api/'));
+
           return Promise.resolve({
             type: 'image',
             thumbnail_url: imgUrl,
