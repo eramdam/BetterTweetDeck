@@ -1,4 +1,11 @@
-:tada: 3.2.1 :tada:
+:tada: 3.2.2 :tada:
+=============== 
+- [Feature] Added support for TINAMI (thanks to [@shuuji3](https://github.com/shuuji3)) ([#117](https://github.com/eramdam/BetterTweetDeck/pull/117))
+- [Feature] Added support for Nicoseiga (thanks to [@shuuji3](https://github.com/shuuji3)) ([#120](https://github.com/eramdam/BetterTweetDeck/pull/120))
+- [Improvement] Renamed "show verified badges" to "show verified badges on top of avatar" to fit TweetDeck's update on Feb 7th 2017
+
+
+3.2.1
 =============== 
 - [Meta] Added some donating alternatives #Resist 
 - [Bugfix] Fixed the settings dump section of the options page (thanks to [@pixeldesu](https://github.com/pixeldesu)) ([#115](https://github.com/eramdam/BetterTweetDeck/pull/115))
