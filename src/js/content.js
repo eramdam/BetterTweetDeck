@@ -468,22 +468,32 @@ function closeOpenModal() {
   $('#open-modal')[0].innerHTML = '';
 }
 
+function setMaxDimensionsOnElement(el) {
+  const rect = $('#open-modal [btd-custom-modal] .js-embeditem')[0].getBoundingClientRect();
+  const src = el.src;
+
+  if (src.includes('gfycat.') || src.includes('imgur.') || src.includes('bandcamp.')) {
+    return;
+  }
+
+  el.setAttribute('style', `max-width: ${rect.width}px; max-height: ${rect.height}px`);
+}
+
 function setMaxDimensionsOnModalImg() {
   if ($('#open-modal [btd-custom-modal]').length) {
-    const loadableEls = $('#open-modal [btd-custom-modal] .js-embeditem [data-btdsetmax], #open-modal [btd-custom-modal] .js-embeditem iframe');
+    const loadableEls = $('#open-modal [btd-custom-modal] .js-embeditem [data-btdsetmax], #open-modal [btd-custom-modal] .js-embeditem iframe, #open-modal [btd-custom-modal] .js-embeditem video');
 
     if (!loadableEls) {
       return;
     }
 
     const loadable = loadableEls[0];
-    loadable.onload = () => {
-      const rect = $('#open-modal [btd-custom-modal] .js-embeditem')[0].getBoundingClientRect();
+    loadable.addEventListener('load', (ev) => setMaxDimensionsOnElement(ev.target));
+    loadable.addEventListener('loadstart', (ev) => setMaxDimensionsOnElement(ev.target));
 
-      if (!loadable.includes('gfycat.') || !loadable.includes('imgur.')) {
-        loadable.setAttribute('style', `max-width: ${rect.width}px; max-height: ${rect.height}px`);
-      }
-    };
+    if (loadable.hasAttribute('data-btd-loaded') || loadable.readyState === 4) {
+      setMaxDimensionsOnElement(loadable);
+    }
   }
 }
 
