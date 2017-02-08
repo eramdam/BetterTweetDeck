@@ -99,7 +99,8 @@
   background-image: url('../emojis/emoji-happy.svg');
 }
 
-.js-media-image-link {
+.js-media-image-link,
+article video.js-media-gif {
   cursor: zoom-in;
 }
 
