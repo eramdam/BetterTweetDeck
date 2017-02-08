@@ -1,3 +1,5 @@
+import domify from 'domify';
+
 export default function ($) {
   return {
     name: 'Nicoseiga',
@@ -9,8 +11,9 @@ export default function ($) {
       return fetch($.getSafeURL(`${$.getEnpointFor('nicoseiga')}${id}`))
         .then($.statusAndText)
         .then(html => {
-          const imgUrl = /<img src="(http:\/\/lohas.+?)"/.exec(html)[1]
-                .replace('q?', 'l?');
+          const doc = domify(html);
+          const imgUrl = doc.querySelector('img').src.replace('q?', 'l?').replace('http', 'https');
+
           return {
             type: 'image',
             thumbnail_url: $.getSafeURL(imgUrl),
