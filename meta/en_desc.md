@@ -18,7 +18,7 @@ Features:
 - Hide/move tweet actions in tweets
 - Hide icons in columns header
 - Thumbnails and instant previews for:
-  -  500px
+  - 500px
   - Bandcamp
   - CloudApp
   - Dailymotion
