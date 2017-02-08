@@ -365,6 +365,17 @@ document.addEventListener('paste', ev => {
   }
 });
 
+$('body').on('click', 'article video.js-media-gif', (ev) => {
+  ev.preventDefault();
+  ev.stopPropagation();
+
+  const chirpKey = ev.target.closest('.js-stream-item[data-key]').getAttribute('data-key');
+  const colKey = ev.target.closest('.js-column').getAttribute('data-column');
+  const video = ev.target.src;
+
+  proxyEvent('clickedOnGif', { tweetKey: chirpKey, colKey, video });
+});
+
 $('body').on('click', '#open-modal', (ev) => {
   const isMediaModal = document.querySelector('.js-modal-panel .js-media-preview-container, .js-modal-panel iframe');
 

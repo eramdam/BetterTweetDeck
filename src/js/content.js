@@ -439,12 +439,11 @@ function tweetHandler(tweet, columnKey, parent) {
         hideURLVisually(urlToHide, node);
       }
 
-      if (!urlForThumbnail || !node.closest('[data-column]')) {
-        return;
-      }
-      // We pass a single URL even though the code is ready to handle multiples URLs
       // Maybe we could have a gallery or something when we have different URLs
-      thumbnailsFromURLs([urlForThumbnail], node, mediaSize);
+      // We pass a single URL even though the code is ready to handle multiples URLs
+      if (urlForThumbnail && node.closest('[data-column]')) {
+        thumbnailsFromURLs([urlForThumbnail], node, mediaSize);
+      }
     }
 
     const RTL_RE = /[\u0590-\u083F]|[\u08A0-\u08FF]|[\uFB1D-\uFDFF]|[\uFE70-\uFEFF]/mg;
@@ -584,6 +583,23 @@ on('BTDC_columnsChanged', (ev, data) => {
            .forEach(col => {
              COLUMNS_MEDIA_SIZES.set(col.id, col.mediaSize || 'medium');
            });
+});
+
+on('BTDC_clickedOnGif', (ev, data) => {
+  const { tweetKey, colKey, video } = data;
+  const modalHtml = Templates.modalTemplate({
+    imageUrl: '',
+    originalUrl: '',
+    type: 'video',
+    videoEmbed: `
+      <video autoplay loop src="${video}">
+        <source video-src="${video}" type="video/mp4" src="${video}">
+      </video>
+    `,
+    provider: 'gif',
+  });
+
+  sendEvent('getOpenModalTweetHTML', { tweetKey, colKey, modalHtml });
 });
 
 window.addEventListener('message', (ev) => {
