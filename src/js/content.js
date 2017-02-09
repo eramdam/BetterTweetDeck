@@ -480,7 +480,7 @@ function setMaxDimensionsOnElement(el) {
 }
 
 function setMaxDimensionsOnModalImg() {
-  if ($('#open-modal [btd-custom-modal]').length) {
+  if ($('#open-modal [btd-custom-modal]') && $('#open-modal [btd-custom-modal]').length) {
     const loadableEls = $('#open-modal [btd-custom-modal] .js-embeditem [data-btdsetmax], #open-modal [btd-custom-modal] .js-embeditem iframe, #open-modal [btd-custom-modal] .js-embeditem video');
 
     if (!loadableEls) {
