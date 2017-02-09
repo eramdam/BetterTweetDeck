@@ -1,5 +1,3 @@
-/* eslint no-underscore-dangle: 0 */
-
 import config from 'config';
 
 let SETTINGS;
@@ -70,6 +68,20 @@ const decorateChirp = (chirp) => {
 
   chirp.chirpType = chirp.chirpType;
   chirp.action = chirp.action;
+  return chirp;
+};
+
+const getChirpFromKey = (key, colKey) => {
+  if (!TD.controller.columnManager.get(colKey)) {
+    return null;
+  }
+
+  const chirp = TD.controller.columnManager.get(colKey).updateIndex[key];
+
+  if (!chirp) {
+    return null;
+  }
+
   return chirp;
 };
 
@@ -371,7 +383,14 @@ $('body').on('click', 'article video.js-media-gif', (ev) => {
 
   const chirpKey = ev.target.closest('.js-stream-item[data-key]').getAttribute('data-key');
   const colKey = ev.target.closest('.js-column').getAttribute('data-column');
-  const video = ev.target.src;
+  const video = {
+    src: ev.target.src,
+  };
+
+  const chirpObject = getChirpFromKey(chirpKey, colKey);
+  video.height = (chirpObject.entities.media || chirpObject.quotedTweet.media)[0].sizes.large.h;
+  video.width = (chirpObject.entities.media || chirpObject.quotedTweet.media)[0].sizes.large.w;
+  video.name = (chirpObject.quotedTweet || chirpObject).user.screenName + '-' + video.src.split('/').pop().replace('.mp4', '');
 
   proxyEvent('clickedOnGif', { tweetKey: chirpKey, colKey, video });
 });
