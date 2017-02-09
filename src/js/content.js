@@ -1,3 +1,5 @@
+import gifshot from 'gifshot';
+import FileSaver from 'file-saver';
 import each from 'promise-each';
 import timestampOnElement from './util/timestamp';
 import { send as sendMessage, on as onMessage } from './util/messaging';
@@ -7,7 +9,7 @@ import * as Usernames from './util/usernames';
 import * as Emojis from './util/emojis';
 import * as Log from './util/logger.js';
 
-import { $, TIMESTAMP_INTERVAL, on, sendEvent } from './util/util';
+import { $, TIMESTAMP_INTERVAL, on, sendEvent, base64toBlob } from './util/util';
 
 let settings;
 
@@ -574,6 +576,37 @@ on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
       $('#open-modal .dropdown-menu').forEach((el) => el.addEventListener('click', closeOpenModal));
     }, 0);
   });
+
+  if ($('[data-btd-dl-gif]', openModal)) {
+    const videoEl = $('video', openModal)[0];
+
+    $('[data-btd-dl-gif]', openModal)[0].addEventListener('click', (e) => {
+      e.preventDefault();
+      e.target.style.opacity = 0.8;
+
+      gifshot.createGIF({
+        gifWidth: videoEl.getAttribute('data-btd-width'),
+        gifHeight: videoEl.getAttribute('data-btd-height'),
+        video: [videoEl.getAttribute('src')],
+        numFrames: Math.floor(videoEl.duration / 0.1),
+        sampleInterval: 10,
+        progressCallback: (progress) => {
+          e.target.innerText = `Converting to GIF... (${Number(progress * 100).toFixed(1)}%)`;
+        },
+      }, obj => {
+        if (!obj.error) {
+          e.target.innerText = 'Preparing the file...';
+          fetch(obj.image)
+          .then(res => res.blob())
+          .then(blob => {
+            e.target.style.opacity = 1;
+            e.target.innerText = 'Download as .GIF';
+            FileSaver.saveAs(blob, `${videoEl.getAttribute('data-btd-name')}.gif`);
+          });
+        }
+      });
+    });
+  }
 });
 
 on('BTDC_columnMediaSizeUpdated', (ev, data) => {
@@ -597,15 +630,17 @@ on('BTDC_columnsChanged', (ev, data) => {
 
 on('BTDC_clickedOnGif', (ev, data) => {
   const { tweetKey, colKey, video } = data;
+
   const modalHtml = Templates.modalTemplate({
     imageUrl: '',
     originalUrl: '',
     type: 'video',
     videoEmbed: `
-      <video autoplay loop src="${video}">
-        <source video-src="${video}" type="video/mp4" src="${video}">
+      <video autoplay loop src="${video.src}" data-btd-name="${video.name}" data-btd-height="${video.height}" data-btd-width="${video.width}">
+        <source video-src="${video.src}" type="video/mp4" src="${video.src}">
       </video>
     `,
+    hasGIFDownload: true,
     provider: 'gif',
   });
 
