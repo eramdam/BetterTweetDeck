@@ -1,7 +1,7 @@
 export default function ($) {
   return {
     name: 'twipple',
-    setting: 'twipple',
+    setting: 'twipple_jp',
     re: /(?:p.twipple.jp|p.twpl.jp)/,
     default: true,
     callback: url => {
