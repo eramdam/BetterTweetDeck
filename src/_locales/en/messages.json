@@ -84,7 +84,6 @@
   "debug_ua": { "message": "User-Agent" },
   "sec_settings": { "message": "Settings dump" },
 
-  "sec_credits":  { "message": "Credits / About" },
   "credits_author":  { "message": "Author" },
   "credits_contribs":  { "message": "Contributors" },
   "credits_rsrc":  { "message": "Ressources used" },
@@ -92,7 +91,7 @@
   "credits_twitter":  { "message": "Better TweetDeck on Twitter" },
   "credits_bugs":  { "message": "Bugs or suggestions" },
   "credits_source":  { "message": "Source on GitHub" },
-  "credits_author":  { "message": "Author's website" },
+  "credits_author_website":  { "message": "Author's website" },
 
   "save_no":  { "message": "No changes" },
   "save_save":  { "message": "Save changes" },

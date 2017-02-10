@@ -91,7 +91,7 @@
   "credits_twitter":  { "message": "Better TweetDeck sur Twitter" },
   "credits_bugs":  { "message": "Bugs ou suggestions" },
   "credits_source":  { "message": "Sources sur GitHub" },
-  "credits_author":  { "message": "Site web de l'auteur" },
+  "credits_author_website":  { "message": "Site web de l'auteur" },
 
   "save_no":  { "message": "Réglages actuels" },
   "save_save":  { "message": "Appliquer" },
@@ -102,6 +102,5 @@
   "donate_p1": { "message": "Better TweetDeck est et sera toujours <strong>gratuit</strong> mais le développer prend du temps et coûte de l'argent."},
 
   "notification_title":  { "message": "Mise à jour de Better TweetDeck" },
-  "notification_upgrade":  { "message": "Better TweetDeck has been upgraded to {{version}}. Click for more information." },
   "notification_upgrade":  { "message": "Better TweetDeck a été mis à jour en version {{version}}. Cliquez pour plus d'informations." }
 }

@@ -84,7 +84,6 @@
   "debug_ua": { "message": "User-Agent" },
   "sec_settings": { "message": "設定の dump" },
 
-  "sec_credits":  { "message": "クレジット / About" },
   "credits_author":  { "message": "作者" },
   "credits_contribs":  { "message": "協力者" },
   "credits_rsrc":  { "message": "使用したリソース" },
@@ -92,7 +91,7 @@
   "credits_twitter":  { "message": "Better TweetDeck の Twitter アカウント" },
   "credits_bugs":  { "message": "バグ報告 / 提案" },
   "credits_source":  { "message": "GitHub 上のソースコード" },
-  "credits_author":  { "message": "作者のウェブサイト" },
+  "credits_author_website":  { "message": "作者のウェブサイト" },
 
   "save_no":  { "message": "変更なし" },
   "save_save":  { "message": "変更を保存する" },
