@@ -19,6 +19,7 @@ const endpoints = {
   pixiv: 'http://embed.pixiv.net/embed_json.php?callback=callback&size=medium&id=',
   tinami: 'https://www.tinami.com/api/content/info?',
   nicoseiga: 'http://ext.seiga.nicovideo.jp/thumb/',
+  googleplus: 'https://picasaweb.google.com/data/feed/api/',
 };
 
 let providersSettings;
@@ -128,6 +129,7 @@ const schemeWhitelist = [
   Providers.flickr(util),
   Providers.gfycat(util),
   Providers.giphy(util),
+  Providers.googleplus(util),
   Providers.imgur(util),
   Providers.instagram(util),
   Providers.mixcloud(util),
