@@ -3,7 +3,7 @@ import domify from 'domify';
 export default function ($) {
   return {
     name: 'WorldCosplay',
-    setting: 'worldcosplay',
+    setting: 'worldcosplay_net',
     re: /worldcosplay.net/,
     default: true,
     callback: url => {
