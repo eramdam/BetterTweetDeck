@@ -28,7 +28,7 @@
   "time_custom": { "message": "カスタム (<a target='_blank' href='https://github.com/shuuji3/fecha/blob/master/README-ja.md#フォーマットトークン'>時刻のフォーマットはこちらを参照</a>)" },
   "time_short": { "message": "ショート表示" },
   "time_full": { "message": "フル表示" },
-  "time_full24": { "message": "24時間以上経過したツイートはフル表示になります。<small>相対表示を除く</small>" },
+  "time_full24": { "message": "24時間以上経過したツイートをフル表示にする <small>相対表示を除く</small>" },
 
   "title_nameDisplay": { "message": "名前の表示スタイル" },
 
@@ -45,7 +45,7 @@
   "css_show_verified": { "message": "アイコン上に認証バッジを表示する" },
   "css_hide_context": { "message": "リプライツイートの 'In reply to' というラベルを非表示にする" },
   "css_actions_on_right": { "message": "ツイートアクションを右寄せにする" },
-  "css_actions_on_hover": { "message": "カーソルを外すと、ツイートアクションを非表示にする" },
+  "css_actions_on_hover": { "message": "ツイートからカーソルを外した時に、ツイートアクションを非表示にする" },
   "css_no_bg_modal": { "message": "フルスクリーンのプレビュー時にバックグラウンドを非表示にする" },
   "css_slim_scrollbars": { "message": "スクロールバーを細くする" },
   "no_hearts": { "message": "ハートの代わりにスターを表示する" },
@@ -84,15 +84,14 @@
   "debug_ua": { "message": "User-Agent" },
   "sec_settings": { "message": "設定の dump" },
 
-  "sec_credits":  { "message": "クレジット / About" },
   "credits_author":  { "message": "作者" },
   "credits_contribs":  { "message": "協力者" },
   "credits_rsrc":  { "message": "使用したリソース" },
   "credits_links":  { "message": "リンク" },
   "credits_twitter":  { "message": "Better TweetDeck の Twitter アカウント" },
-  "credits_bugs":  { "message": "バグ/提案" },
+  "credits_bugs":  { "message": "バグ報告 / 提案" },
   "credits_source":  { "message": "GitHub 上のソースコード" },
-  "credits_author":  { "message": "作者のウェブサイト" },
+  "credits_author_website":  { "message": "作者のウェブサイト" },
 
   "save_no":  { "message": "変更なし" },
   "save_save":  { "message": "変更を保存する" },
