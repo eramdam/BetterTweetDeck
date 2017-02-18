@@ -6,6 +6,35 @@ let SETTINGS;
 TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace('{{>status/tweet_single_footer}} </div> </div>', '{{>status/tweet_single_footer}} </div> <i class="sprite tweet-dogear"></i></div>');
 TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('</footer> {{/getMainTweet}}', '</footer> {{/getMainTweet}} <i class="sprite tweet-dogear"></i>');
 
+const getChirpFromKey = (key, colKey) => {
+  const column = TD.controller.columnManager.get(colKey);
+
+  if (!column) {
+    return null;
+  }
+
+  const chirpsArray = column.updateArray.map(c => [c, c.retweetedStatus, c.quotedTweet, c.messages]);
+
+  if (column.detailViewComponent) {
+    if (column.detailViewComponent.repliesTo && column.detailViewComponent.repliesTo.repliesTo) {
+      chirpsArray.push(...column.detailViewComponent.repliesTo.repliesTo);
+    }
+
+    if (column.detailViewComponent.replies && column.detailViewComponent.replies.replies) {
+      chirpsArray.push(...column.detailViewComponent.replies.replies);
+    }
+  }
+
+  const chirp = flattenDeep(chirpsArray).filter(i => i).find(c => c.id === key);
+
+  if (!chirp) {
+    console.error(`did not find chirp ${key} within ${colKey}`);
+    return null;
+  }
+
+  return chirp;
+};
+
 if (config.get('Client.debug')) {
   /**
    * Takes a node and fetches the chirp associated with it (useful for debugging)
@@ -16,29 +45,9 @@ if (config.get('Client.debug')) {
     }
 
     const colKey = element.closest('[data-column]').getAttribute('data-column');
-    const chirpKey = element.closest('article[data-key]').getAttribute('data-key');
+    const chirpKey = element.closest('[data-key]').getAttribute('data-key');
 
-    const column = TD.controller.columnManager.get(colKey);
-    let chirp = column.updateIndex[chirpKey];
-    const chirpsStack = [];
-
-    if (!chirp) {
-      if (column.detailViewComponent.repliesTo && column.detailViewComponent.repliesTo.repliesTo) {
-        chirpsStack.push(...column.detailViewComponent.repliesTo.repliesTo);
-      }
-
-      if (column.detailViewComponent.replies && column.detailViewComponent.replies.replies) {
-        chirpsStack.push(...column.detailViewComponent.replies.replies);
-      }
-
-      chirp = chirpsStack.find(c => c.id === chirpKey);
-    }
-
-    if (!chirp) {
-      chirp = column.updateIndex[column.detailViewComponent.chirp.id].messageIndex[chirpKey];
-    }
-
-    return chirp;
+    return getChirpFromKey(chirpKey, colKey);
   };
 }
 
@@ -69,35 +78,6 @@ const decorateChirp = (chirp) => {
 
   chirp.chirpType = chirp.chirpType;
   chirp.action = chirp.action;
-  return chirp;
-};
-
-const getChirpFromKey = (key, colKey) => {
-  const column = TD.controller.columnManager.get(colKey);
-
-  if (!column) {
-    return null;
-  }
-
-  const chirpsArray = column.updateArray.map(c => [c, c.retweetedStatus, c.quotedTweet, c.messages]);
-
-  if (column.detailViewComponent) {
-    if (column.detailViewComponent.repliesTo && column.detailViewComponent.repliesTo.repliesTo) {
-      chirpsArray.push(...column.detailViewComponent.repliesTo.repliesTo);
-    }
-
-    if (column.detailViewComponent.replies && column.detailViewComponent.replies.replies) {
-      chirpsArray.push(...column.detailViewComponent.replies.replies);
-    }
-  }
-
-  const chirp = flattenDeep(chirpsArray).filter(i => i).find(c => c.id === key);
-
-  if (!chirp) {
-    console.error(`did not find chirp ${key} within ${colKey}`);
-    return null;
-  }
-
   return chirp;
 };
 
