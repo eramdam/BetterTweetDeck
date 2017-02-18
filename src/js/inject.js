@@ -393,23 +393,28 @@ document.addEventListener('paste', ev => {
   }
 });
 
-$('body').on('click', 'article video.js-media-gif', (ev) => {
-  ev.preventDefault();
-  ev.stopPropagation();
-
-  const chirpKey = ev.target.closest('.js-stream-item[data-key]').getAttribute('data-key');
-  const colKey = ev.target.closest('.js-column').getAttribute('data-column');
-  const video = {
-    src: ev.target.src,
-  };
-
-  const chirpObject = getChirpFromKey(chirpKey, colKey);
-  video.height = (chirpObject.entities.media || chirpObject.quotedTweet.media)[0].sizes.large.h;
-  video.width = (chirpObject.entities.media || chirpObject.quotedTweet.media)[0].sizes.large.w;
-  video.name = (chirpObject.quotedTweet || chirpObject).user.screenName + '-' + video.src.split('/').pop().replace('.mp4', '');
-
-  proxyEvent('clickedOnGif', { tweetKey: chirpKey, colKey, video });
-});
+// $('body').on('click', 'article video.js-media-gif', (ev) => {
+//   ev.preventDefault();
+//   ev.stopPropagation();
+// 
+//   const chirpKey = ev.target.closest('[data-key]').getAttribute('data-key');
+//   const chirpWithVideoId = ev.target.closest('[data-key]').getAttribute('data-key');
+//   const colKey = ev.target.closest('.js-column').getAttribute('data-column');
+//   const video = {
+//     src: ev.target.src,
+//   };
+// 
+//   let chirpObject = getChirpFromKey(chirpKey, colKey);
+//   const chirpsToScan = [chirpObject, chirpObject.quotedTweet, chirpObject.retweetedStatus];
+//   chirpObject = chirpsToScan.find(c => c.id === chirpWithVideoId);
+//   console.log(chirpObject);
+// 
+//   // video.height = (chirpObject.entities.media || chirpObject.quotedTweet.media)[0].sizes.large.h;
+//   // video.width = (chirpObject.entities.media || chirpObject.quotedTweet.media)[0].sizes.large.w;
+//   // video.name = (chirpObject.quotedTweet || chirpObject).user.screenName + '-' + video.src.split('/').pop().replace('.mp4', '');
+// 
+//   proxyEvent('clickedOnGif', { tweetKey: chirpKey, colKey, video });
+// });
 
 $('body').on('click', '#open-modal', (ev) => {
   const isMediaModal = document.querySelector('.js-modal-panel .js-media-preview-container, .js-modal-panel iframe');
