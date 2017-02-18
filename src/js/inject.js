@@ -1,4 +1,5 @@
 import config from 'config';
+import { flattenDeep } from 'lodash';
 
 let SETTINGS;
 
@@ -72,13 +73,28 @@ const decorateChirp = (chirp) => {
 };
 
 const getChirpFromKey = (key, colKey) => {
-  if (!TD.controller.columnManager.get(colKey)) {
+  const column = TD.controller.columnManager.get(colKey);
+
+  if (!column) {
     return null;
   }
 
-  const chirp = TD.controller.columnManager.get(colKey).updateIndex[key];
+  const chirpsArray = column.updateArray.map(c => [c, c.retweetedStatus, c.quotedTweet, c.messages]);
+
+  if (column.detailViewComponent) {
+    if (column.detailViewComponent.repliesTo && column.detailViewComponent.repliesTo.repliesTo) {
+      chirpsArray.push(...column.detailViewComponent.repliesTo.repliesTo);
+    }
+
+    if (column.detailViewComponent.replies && column.detailViewComponent.replies.replies) {
+      chirpsArray.push(...column.detailViewComponent.replies.replies);
+    }
+  }
+
+  const chirp = flattenDeep(chirpsArray).filter(i => i).find(c => c.id === key);
 
   if (!chirp) {
+    console.error(`did not find chirp ${key} within ${colKey}`);
     return null;
   }
 
