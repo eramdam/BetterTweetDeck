@@ -9,7 +9,7 @@ import * as Usernames from './util/usernames';
 import * as Emojis from './util/emojis';
 import * as Log from './util/logger.js';
 
-import { $, TIMESTAMP_INTERVAL, on, sendEvent, base64toBlob } from './util/util';
+import { $, TIMESTAMP_INTERVAL, on, sendEvent } from './util/util';
 
 let settings;
 
