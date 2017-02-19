@@ -1,5 +1,5 @@
 import config from 'config';
-import { flattenDeep } from 'lodash';
+import { flatten } from 'lodash';
 
 let SETTINGS;
 
@@ -13,7 +13,25 @@ const getChirpFromKey = (key, colKey) => {
     return null;
   }
 
-  const chirpsArray = column.updateArray.map(c => [c, c.retweetedStatus, c.quotedTweet, c.messages]);
+  const chirpsArray = [];
+  Object.keys(column.updateIndex).forEach(updateKey => {
+    const c = column.updateIndex[updateKey];
+    if (c) {
+      chirpsArray.push(c);
+    }
+
+    if (c && c.retweetedStatus) {
+      chirpsArray.push(c.retweetedStatus);
+    }
+
+    if (c && c.quotedTweet) {
+      chirpsArray.push(c.quotedTweet);
+    }
+
+    if (c && c.messages) {
+      chirpsArray.push(...c.messages);
+    }
+  });
 
   if (column.detailViewComponent) {
     if (column.detailViewComponent.repliesTo && column.detailViewComponent.repliesTo.repliesTo) {
@@ -25,7 +43,7 @@ const getChirpFromKey = (key, colKey) => {
     }
   }
 
-  const chirp = flattenDeep(chirpsArray).filter(i => i).find(c => c.id === key);
+  const chirp = chirpsArray.find(c => c.id === String(key));
 
   if (!chirp) {
     console.error(`did not find chirp ${key} within ${colKey}`);
@@ -49,6 +67,8 @@ if (config.get('Client.debug')) {
 
     return getChirpFromKey(chirpKey, colKey);
   };
+
+  window._BTDGetChirp = getChirpFromKey;
 }
 
 /**
@@ -85,29 +105,7 @@ const postMessagesListeners = {
   BTDC_getOpenModalTweetHTML: (ev, data) => {
     const { tweetKey, colKey, modalHtml } = data;
 
-    if (!TD.controller.columnManager.get(colKey)) {
-      return;
-    }
-
-    const column = TD.controller.columnManager.get(colKey);
-    const chirpsStack = [];
-    let chirp = column.updateIndex[tweetKey];
-
-    if (!chirp) {
-      if (column.detailViewComponent.repliesTo && column.detailViewComponent.repliesTo.repliesTo) {
-        chirpsStack.push(...column.detailViewComponent.repliesTo.repliesTo);
-      }
-
-      if (column.detailViewComponent.replies && column.detailViewComponent.replies.replies) {
-        chirpsStack.push(...column.detailViewComponent.replies.replies);
-      }
-
-      chirp = chirpsStack.find(c => c.id === tweetKey);
-    }
-
-    if (!chirp) {
-      chirp = column.updateIndex[column.detailViewComponent.chirp.id].messageIndex[tweetKey];
-    }
+    const chirp = getChirpFromKey(tweetKey, colKey);
 
     if (!chirp) {
       return;
@@ -125,12 +123,7 @@ const postMessagesListeners = {
   },
   BTDC_getChirpFromColumn: (ev, data) => {
     const { chirpKey, colKey } = data;
-
-    if (!TD.controller.columnManager.get(colKey)) {
-      return;
-    }
-
-    const chirp = TD.controller.columnManager.get(colKey).updateIndex[chirpKey];
+    const chirp = getChirpFromKey(chirpKey, colKey);
 
     if (!chirp) {
       return;
@@ -140,12 +133,7 @@ const postMessagesListeners = {
   },
   BTDC_likeChirp: (ev, data) => {
     const { chirpKey, colKey } = data;
-
-    if (!TD.controller.columnManager.get(colKey)) {
-      return;
-    }
-
-    const chirp = TD.controller.columnManager.get(colKey).updateIndex[chirpKey];
+    const chirp = getChirpFromKey(chirpKey, colKey);
 
     if (!chirp) {
       return;
@@ -155,12 +143,7 @@ const postMessagesListeners = {
   },
   BTDC_retweetChirp: (ev, data) => {
     const { chirpKey, colKey } = data;
-
-    if (!TD.controller.columnManager.get(colKey)) {
-      return;
-    }
-
-    const chirp = TD.controller.columnManager.get(colKey).updateIndex[chirpKey];
+    const chirp = getChirpFromKey(chirpKey, colKey);
 
     if (!chirp) {
       return;
@@ -200,7 +183,7 @@ const switchThemeClass = () => {
   document.body.dataset.btdtheme = TD.settings.getTheme();
 };
 
-document.addEventListener('DOMNodeInserted', (ev) => {
+const handleInsertedNode = (ev) => {
   const target = ev.target;
   // If the target of the event contains mediatable then we are inside the media modal
   if (target.classList && target.classList.contains('js-mediatable')) {
@@ -212,7 +195,11 @@ document.addEventListener('DOMNodeInserted', (ev) => {
       return;
     }
 
-    const chirp = TD.controller.columnManager.get(colKey).updateIndex[chirpKey];
+    const chirp = getChirpFromKey(chirpKey, colKey);
+
+    if (!chirp) {
+      return;
+    }
 
     proxyEvent('gotChirpInMediaModal', { chirp: decorateChirp(chirp) });
     return;
@@ -225,30 +212,7 @@ document.addEventListener('DOMNodeInserted', (ev) => {
   const chirpKey = target.getAttribute('data-key');
   const colKey = target.closest('.js-column').getAttribute('data-column');
 
-  if (!TD.controller.columnManager.get(colKey)) {
-    return;
-  }
-
-  const column = TD.controller.columnManager.get(colKey);
-  let chirp = column.updateIndex[chirpKey];
-
-  if (target.closest('.js-column-detail') && target.closest('.column-type-message') && !chirp) {
-    chirp = column.updateIndex[column.detailViewComponent.chirp.id].messageIndex[chirpKey];
-  }
-
-  if (target.hasAttribute('data-account-key') && target.hasAttribute('data-tweet-id') && !chirp) {
-    const chirpsStack = [];
-
-    if (column.detailViewComponent.repliesTo && column.detailViewComponent.repliesTo.repliesTo) {
-      chirpsStack.push(...column.detailViewComponent.repliesTo.repliesTo);
-    }
-
-    if (column.detailViewComponent.replies && column.detailViewComponent.replies.replies) {
-      chirpsStack.push(...column.detailViewComponent.replies.replies);
-    }
-
-    chirp = chirpsStack.find(c => c.id === chirpKey);
-  }
+  const chirp = getChirpFromKey(chirpKey, colKey);
 
   if (!chirp) {
     return;
@@ -269,7 +233,9 @@ document.addEventListener('DOMNodeInserted', (ev) => {
   }
 
   proxyEvent('gotChirpForColumn', { chirp: decorateChirp(chirp), colKey });
-});
+};
+
+document.addEventListener('DOMNodeInserted', handleInsertedNode);
 
 $(document).on('uiVisibleChirps', (ev, data) => {
   const { chirpsData, columnKey } = data;
