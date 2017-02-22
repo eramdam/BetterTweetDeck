@@ -19,6 +19,7 @@ const endpoints = {
   pixiv: 'http://embed.pixiv.net/embed_json.php?callback=callback&size=medium&id=',
   tinami: 'https://www.tinami.com/api/content/info?',
   nicoseiga: 'http://ext.seiga.nicovideo.jp/thumb/',
+  tumblr: 'https://api.tumblr.com/v2/blog/',
 };
 
 let providersSettings;
