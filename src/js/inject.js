@@ -1,5 +1,5 @@
 import config from 'config';
-import { flatten } from 'lodash';
+import { debug } from './util/logger';
 
 let SETTINGS;
 
@@ -50,7 +50,7 @@ const getChirpFromKey = (key, colKey) => {
   const chirp = chirpsArray.find(c => c.id === String(key));
 
   if (!chirp) {
-    console.error(`did not find chirp ${key} within ${colKey}`);
+    debug(`did not find chirp ${key} within ${colKey}`);
     return null;
   }
 
