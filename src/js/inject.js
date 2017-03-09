@@ -216,13 +216,17 @@ const handleInsertedNode = (ev) => {
   const chirpKey = target.getAttribute('data-key');
   const colKey = target.closest('.js-column').getAttribute('data-column');
 
-  const chirp = getChirpFromKey(chirpKey, colKey);
+  let chirp = getChirpFromKey(chirpKey, colKey);
 
   if (!chirp) {
     return;
   }
 
   if (chirp._hasAnimatedGif) {
+    if (chirp.targetTweet) {
+      chirp = chirp.targetTweet;
+    }
+
     const videoEl = $(`[data-key="${chirp.entities.media[0].id}"] video`)[0];
 
     if (videoEl && videoEl.paused) {
