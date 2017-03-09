@@ -31,6 +31,10 @@ const getChirpFromKey = (key, colKey) => {
     if (c && c.messages) {
       chirpsArray.push(...c.messages);
     }
+
+    if (c && c.targetTweet) {
+      chirpsArray.push(c.targetTweet);
+    }
   });
 
   if (column.detailViewComponent) {
