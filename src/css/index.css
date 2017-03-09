@@ -101,7 +101,7 @@
 
 .js-media-image-link,
 article video.js-media-gif {
-  cursor: zoom-in;
+  cursor: zoom-in !important;
 }
 
 .noembed-embed-inner > div,
