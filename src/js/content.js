@@ -591,7 +591,11 @@ on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
         numFrames: Math.floor(videoEl.duration / 0.1),
         sampleInterval: 10,
         progressCallback: (progress) => {
-          e.target.innerText = `Converting to GIF... (${Number(progress * 100).toFixed(1)}%)`;
+          if (progress > 0.99) {
+            e.target.innerText = 'Converting to GIF... (Finalizing)';
+          } else {
+            e.target.innerText = `Converting to GIF... (${Number(progress * 100).toFixed(1)}%)`;
+          }
         },
       }, obj => {
         if (!obj.error) {
