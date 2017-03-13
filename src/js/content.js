@@ -447,21 +447,6 @@ function tweetHandler(tweet, columnKey, parent) {
         thumbnailsFromURLs([urlForThumbnail], node, mediaSize);
       }
     }
-
-    const RTL_RE = /[\u0590-\u083F]|[\u08A0-\u08FF]|[\uFB1D-\uFDFF]|[\uFE70-\uFEFF]/mg;
-    const tweetTextNode = $('.tweet-text', node) && $('.tweet-text', node)[0];
-
-    if (tweetTextNode && settings.rtl_text_style) {
-      if (tweet.htmlText && !tweet.targetTweet) {
-        if (tweet.htmlText.match(RTL_RE)) {
-          tweetTextNode.style.direction = 'rtl';
-        }
-      } else if (tweet.targetTweet) {
-        if (tweet.targetTweet.htmlText.match(RTL_RE)) {
-          tweetTextNode.style.direction = 'rtl';
-        }
-      }
-    }
   });
 }
 
