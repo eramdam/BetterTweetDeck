@@ -341,6 +341,18 @@ document.addEventListener('paste', ev => {
       return;
     }
 
+    const canPopout = $('.js-inline-compose-pop, .js-reply-popout').length > 0 && !$('.js-app-content').hasClass('is-open');
+
+    if (canPopout) {
+      $('.js-inline-compose-pop, .js-reply-popout').first().trigger('click');
+      setTimeout(() => {
+        $(document).trigger('uiFilesAdded', {
+          files,
+        });
+      }, 0);
+      return;
+    }
+
     $(document).trigger('uiFilesAdded', {
       files,
     });
