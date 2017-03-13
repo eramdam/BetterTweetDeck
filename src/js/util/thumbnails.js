@@ -167,7 +167,7 @@ const validateUrl = (url) => {
       } else if (providersSettings[scheme.setting] === true || scheme.default) {
         // We an url matches, we stop and
         // get the corresponding provider/callback func
-        provider = scheme.setting;
+        provider = scheme.name || scheme.setting;
         cb = scheme.callback;
         return true;
       }

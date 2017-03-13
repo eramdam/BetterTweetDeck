@@ -42,6 +42,7 @@ const defaultSettings = {
     actions_on_hover: true,
     hide_url_thumb: true,
     no_bg_modal: true,
+    show_provider_indicator: false,
   },
   share_item: {
     enabled: true,

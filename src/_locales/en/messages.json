@@ -48,6 +48,7 @@
   "css_actions_on_hover": { "message": "Show tweet actions on hover" },
   "css_no_bg_modal": { "message": "Hide background behind fullscreen previews" },
   "css_slim_scrollbars": { "message": "Thinner scrollbars" },
+  "css_show_provider_indicator": { "message": "Show thumbnails' source on top of them" },
   "no_hearts": { "message": "Show stars instead of hearts" },
   "rtl_text_style": { "message": "Detect and apply RTL style when needed" },
   "flash_tweets": { "message": "Make tweets flash in:" },

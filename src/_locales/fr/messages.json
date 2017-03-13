@@ -48,6 +48,7 @@
   "css_actions_on_hover": { "message": "Afficher les actions de tweets au survol" },
   "css_no_bg_modal": { "message": "Masquer le fond des aperçus en plein écran" },
   "css_slim_scrollbars": { "message": "Barres de défilement plus fines" },
+  "css_show_provider_indicator": { "message": "Montrer la source des miniatures en sur-impression" },
   "no_hearts": { "message": "Afficher des étoiles au lieu des coeurs" },
   "rtl_text_style": { "message": "Détecter le texte se lisant de droite à gauche" },
   "flash_tweets": { "message": "Faire 'flasher' les nouveaux tweets dans :" },

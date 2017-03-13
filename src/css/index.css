@@ -21,6 +21,7 @@
 @import './features/slim_scrollbars.css';
 @import './features/username-typeahead.css';
 @import './features/stars.css';
+@import './features/show-provider-name.css';
 
 /* Emoji Panel */
 @import './emoji-panel.css';
