@@ -147,3 +147,11 @@ iframe.imgur-album {
 body :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
   border-radius: 10% !important;
 }
+
+@media (max-height: 720px) {
+  [data-btdtheme] .med-embeditem {
+    top: 30px;
+    bottom: 130px;
+  }
+}
+    

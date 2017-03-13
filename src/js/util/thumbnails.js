@@ -20,6 +20,8 @@ const endpoints = {
   tinami: 'https://www.tinami.com/api/content/info?',
   nicoseiga: 'http://ext.seiga.nicovideo.jp/thumb/',
   photozou: 'https://api.photozou.jp/rest/',
+  googleplus: 'https://picasaweb.google.com/data/feed/api/',
+  gyazo: 'https://api.gyazo.com/api/oembed?url=',
 };
 
 let providersSettings;
@@ -127,8 +129,10 @@ const schemeWhitelist = [
   Providers.dribbble(util),
   Providers.droplr(util),
   Providers.flickr(util),
+  Providers.gyazo(util),
   Providers.gfycat(util),
   Providers.giphy(util),
+  Providers.googleplus(util),
   Providers.imgur(util),
   Providers.instagram(util),
   Providers.mixcloud(util),
@@ -146,6 +150,7 @@ const schemeWhitelist = [
   Providers.twipple(util),
   Providers.twitch(util),
   Providers.vimeo(util),
+  Providers.worldcosplay(util),
   Providers.youtube(util),
   Providers.yfrog(util),
   Providers.universal(util),
