@@ -34,6 +34,9 @@ const templates = {
                     {{/isVideo}}
                   </a>
                 </div>
+                {{#hasGIFDownload}}
+                <a href="#" class="med-flaglink" data-btd-dl-gif rel="url" target="_blank">Download as .GIF</a>
+                {{/hasGIFDownload}}
                 <a href="{{originalUrl}}" class="med-origlink" rel="url" target="_blank">View original</a>
               </div>
             </div>
@@ -95,7 +98,7 @@ const previewTemplate = (mediaPreviewSrc, sourceLink, size, type = 'picture') =>
   }));
 };
 
-const modalTemplate = ({ imageUrl, originalUrl, type, videoEmbed = null, provider = 'default' }) => {
+const modalTemplate = ({ imageUrl, originalUrl, type, videoEmbed = null, provider = 'default', hasGIFDownload = false }) => {
   if (type === 'image') {
     const parsed = new URL(imageUrl);
     imageUrl = parsed.searchParams.get('url');
@@ -107,6 +110,7 @@ const modalTemplate = ({ imageUrl, originalUrl, type, videoEmbed = null, provide
     originalUrl,
     isVideo: type !== 'image',
     provider,
+    hasGIFDownload,
   }));
 };
 
