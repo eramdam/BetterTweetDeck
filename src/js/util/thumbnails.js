@@ -139,7 +139,6 @@ const schemeWhitelist = [
   Providers.mobyTo(util),
   Providers.nicoseiga(util),
   Providers.photozou(util),
-  Providers.pixiv(util),
   Providers.skitch(util),
   Providers.soundcloud(util),
   Providers.spotify(util),
