@@ -24,7 +24,7 @@ The extensions is currently available for the following browsers:
 - An emoji picker to add them easily to your tweets.
 - Show verified badge on profile pictures in columns.
 - Prevent GIFs from autoplaying.
-- Change hears back to stars.
+- Change hearts back to stars.
 - Customize the format of dates.
 - Customize the format of names in tweets.
 - Remove the t.co redirection on links.
