@@ -40,11 +40,11 @@ export default function ($) {
             thumbnailUrl = json.feed.entry[0]['media:group']['media:content']._attributes.url;
           }
           const imgUrl = thumbnailUrl.replace(/[^/]+$/, 's1152/$&');
-          return Promise.resolve({
+          return {
             type: 'image',
             thumbnail_url: $.getSafeURL(thumbnailUrl),
             url: $.getSafeURL(imgUrl),
-          });
+          };
         });
     },
   };

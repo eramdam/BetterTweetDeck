@@ -30,11 +30,11 @@ export default function ($) {
             return undefined;
           }
 
-          return Promise.resolve({
+          return {
             type: 'image',
             thumbnail_url: $.getSafeURL(thumbnailUrl),
             url: $.getSafeURL(imgUrl),
-          });
+          };
         });
     },
   };

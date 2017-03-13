@@ -22,11 +22,11 @@ export default function ($) {
         .then($.statusAndJson)
         .then(json => {
           const photo = json.info.photo[0] || json.info.photo;
-          return Promise.resolve({
+          return {
             type: 'image',
             thumbnail_url: $.getSafeURL(photo.image_url),
             url: $.getSafeURL(photo.original_image_url),
-          });
+          };
         });
     },
   };
