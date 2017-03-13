@@ -30,7 +30,7 @@ export function format({ node, user, fSel, uSel }) {
 
     case 'fullname':
       removeElMatchingSel(uSel, node);
-      rewriteElMatchingSel(fSel, node, user.name);
+      rewriteElMatchingSel(fSel, node, user.emojifiedName || user.name);
       break;
 
     case 'username':
@@ -40,7 +40,7 @@ export function format({ node, user, fSel, uSel }) {
 
     case 'inverted':
       rewriteElMatchingSel(fSel, node, user.screenName);
-      rewriteElMatchingSel(uSel, node, user.name);
+      rewriteElMatchingSel(uSel, node, user.emojifiedName || user.name);
       break;
   }
 }
