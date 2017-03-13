@@ -27,5 +27,7 @@ export { default as twipple } from './twipple';
 export { default as pixiv } from './pixiv';
 export { default as tinami } from './tinami';
 export { default as nicoseiga } from './nicoseiga';
+export { default as worldcosplay } from './worldcosplay';
 export { default as googleplus } from './googleplus';
 export { default as gyazo } from './gyazo';
+        

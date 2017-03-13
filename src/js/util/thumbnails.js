@@ -148,6 +148,7 @@ const schemeWhitelist = [
   Providers.twipple(util),
   Providers.twitch(util),
   Providers.vimeo(util),
+  Providers.worldcosplay(util),
   Providers.youtube(util),
   Providers.yfrog(util),
   Providers.universal(util),
