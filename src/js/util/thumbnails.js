@@ -20,6 +20,7 @@ const endpoints = {
   tinami: 'https://www.tinami.com/api/content/info?',
   nicoseiga: 'http://ext.seiga.nicovideo.jp/thumb/',
   googleplus: 'https://picasaweb.google.com/data/feed/api/',
+  gyazo: 'https://api.gyazo.com/api/oembed?url=',
 };
 
 let providersSettings;
@@ -127,6 +128,7 @@ const schemeWhitelist = [
   Providers.dribbble(util),
   Providers.droplr(util),
   Providers.flickr(util),
+  Providers.gyazo(util),
   Providers.gfycat(util),
   Providers.giphy(util),
   Providers.googleplus(util),

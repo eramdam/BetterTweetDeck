@@ -2,7 +2,10 @@ module.exports = {
   'Client': {
     'debug': false,
     'APIs': {
-      embedly: ''
+      dribbble: '',
+      imgur: '',
+      twitch: '',
+      tinami: ''
     }
   }
 };
