@@ -19,6 +19,7 @@ const endpoints = {
   pixiv: 'http://embed.pixiv.net/embed_json.php?callback=callback&size=medium&id=',
   tinami: 'https://www.tinami.com/api/content/info?',
   nicoseiga: 'http://ext.seiga.nicovideo.jp/thumb/',
+  photozou: 'https://api.photozou.jp/rest/',
   googleplus: 'https://picasaweb.google.com/data/feed/api/',
   gyazo: 'https://api.gyazo.com/api/oembed?url=',
 };
@@ -137,6 +138,7 @@ const schemeWhitelist = [
   Providers.mixcloud(util),
   Providers.mobyTo(util),
   Providers.nicoseiga(util),
+  Providers.photozou(util),
   Providers.pixiv(util),
   Providers.skitch(util),
   Providers.soundcloud(util),
