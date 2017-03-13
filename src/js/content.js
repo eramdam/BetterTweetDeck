@@ -169,8 +169,21 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
     const embed = data.html ? data.html : null;
     const provider = Thumbnails.validateUrl(url.expanded_url).provider;
 
-    const html = Templates.previewTemplate(tbUrl, url.expanded_url, mediaSize, type);
-    const modalHtml = Templates.modalTemplate({ imageUrl: origUrl, originalUrl: url.expanded_url, type, videoEmbed: embed, provider });
+    const html = Templates.previewTemplate({
+      mediaPreviewSrc: tbUrl,
+      sourceLink: url.expanded_url,
+      size: mediaSize,
+      type,
+      provider,
+    });
+
+    const modalHtml = Templates.modalTemplate({
+      imageUrl: origUrl,
+      originalUrl: url.expanded_url,
+      type,
+      videoEmbed: embed,
+      provider,
+    });
 
     if (mediaSize === 'large') {
       $('.tweet.js-tweet', node)[0].insertAdjacentHTML('afterend', html);

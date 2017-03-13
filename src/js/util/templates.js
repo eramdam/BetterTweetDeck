@@ -75,7 +75,7 @@ const defaultData = {
   },
 };
 
-const previewTemplate = (mediaPreviewSrc, sourceLink, size, type = 'picture') => {
+const previewTemplate = ({ mediaPreviewSrc, sourceLink, size, type = 'picture', provider = 'default' }) => {
   const safeURL = mediaPreviewSrc;
 
   if (type === 'image' && !mediaPreviewSrc.includes('imgur.com') && mediaPreviewSrc) {
@@ -95,6 +95,7 @@ const previewTemplate = (mediaPreviewSrc, sourceLink, size, type = 'picture') =>
     isMediaPreviewCompact: size === 'medium',
     isMediaPreviewSmall: size === 'small',
     thumbSizeClass: `media-size-${size}`,
+    provider: provider !== 'default' ? provider : undefined,
   }));
 };
 
