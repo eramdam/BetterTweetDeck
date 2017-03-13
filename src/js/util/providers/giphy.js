@@ -7,10 +7,12 @@ export default function ($) {
     callback: url => {
       return fetch(`${$.getEnpointFor('giphy')}${url}`).then($.statusAndJson)
       .then(data => {
+        const gifUrl = $.getSafeURL(data.image || data.url);
+
         return {
           type: 'image',
-          thumbnail_url: $.getSafeURL(data.image.replace('giphy.gif', 'giphy-facebook_s.jpg')),
-          url: $.getSafeURL(data.image),
+          thumbnail_url: gifUrl,
+          url: gifUrl,
         };
       });
     },

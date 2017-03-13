@@ -1,11 +1,61 @@
-/* eslint no-underscore-dangle: 0 */
-
 import config from 'config';
+import { debug } from './util/logger';
 
 let SETTINGS;
 
 TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace('{{>status/tweet_single_footer}} </div> </div>', '{{>status/tweet_single_footer}} </div> <i class="sprite tweet-dogear"></i></div>');
 TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('</footer> {{/getMainTweet}}', '</footer> {{/getMainTweet}} <i class="sprite tweet-dogear"></i>');
+
+const getChirpFromKey = (key, colKey) => {
+  const column = TD.controller.columnManager.get(colKey);
+
+  if (!column) {
+    return null;
+  }
+
+  const chirpsArray = [];
+  Object.keys(column.updateIndex).forEach(updateKey => {
+    const c = column.updateIndex[updateKey];
+    if (c) {
+      chirpsArray.push(c);
+    }
+
+    if (c && c.retweetedStatus) {
+      chirpsArray.push(c.retweetedStatus);
+    }
+
+    if (c && c.quotedTweet) {
+      chirpsArray.push(c.quotedTweet);
+    }
+
+    if (c && c.messages) {
+      chirpsArray.push(...c.messages);
+    }
+
+    if (c && c.targetTweet) {
+      chirpsArray.push(c.targetTweet);
+    }
+  });
+
+  if (column.detailViewComponent) {
+    if (column.detailViewComponent.repliesTo && column.detailViewComponent.repliesTo.repliesTo) {
+      chirpsArray.push(...column.detailViewComponent.repliesTo.repliesTo);
+    }
+
+    if (column.detailViewComponent.replies && column.detailViewComponent.replies.replies) {
+      chirpsArray.push(...column.detailViewComponent.replies.replies);
+    }
+  }
+
+  const chirp = chirpsArray.find(c => c.id === String(key));
+
+  if (!chirp) {
+    debug(`did not find chirp ${key} within ${colKey}`);
+    return null;
+  }
+
+  return chirp;
+};
 
 if (config.get('Client.debug')) {
   /**
@@ -17,30 +67,12 @@ if (config.get('Client.debug')) {
     }
 
     const colKey = element.closest('[data-column]').getAttribute('data-column');
-    const chirpKey = element.closest('article[data-key]').getAttribute('data-key');
+    const chirpKey = element.closest('[data-key]').getAttribute('data-key');
 
-    const column = TD.controller.columnManager.get(colKey);
-    let chirp = column.updateIndex[chirpKey];
-    const chirpsStack = [];
-
-    if (!chirp) {
-      if (column.detailViewComponent.repliesTo && column.detailViewComponent.repliesTo.repliesTo) {
-        chirpsStack.push(...column.detailViewComponent.repliesTo.repliesTo);
-      }
-
-      if (column.detailViewComponent.replies && column.detailViewComponent.replies.replies) {
-        chirpsStack.push(...column.detailViewComponent.replies.replies);
-      }
-
-      chirp = chirpsStack.find(c => c.id === chirpKey);
-    }
-
-    if (!chirp) {
-      chirp = column.updateIndex[column.detailViewComponent.chirp.id].messageIndex[chirpKey];
-    }
-
-    return chirp;
+    return getChirpFromKey(chirpKey, colKey);
   };
+
+  window._BTDGetChirp = getChirpFromKey;
 }
 
 /**
@@ -77,29 +109,7 @@ const postMessagesListeners = {
   BTDC_getOpenModalTweetHTML: (ev, data) => {
     const { tweetKey, colKey, modalHtml } = data;
 
-    if (!TD.controller.columnManager.get(colKey)) {
-      return;
-    }
-
-    const column = TD.controller.columnManager.get(colKey);
-    const chirpsStack = [];
-    let chirp = column.updateIndex[tweetKey];
-
-    if (!chirp) {
-      if (column.detailViewComponent.repliesTo && column.detailViewComponent.repliesTo.repliesTo) {
-        chirpsStack.push(...column.detailViewComponent.repliesTo.repliesTo);
-      }
-
-      if (column.detailViewComponent.replies && column.detailViewComponent.replies.replies) {
-        chirpsStack.push(...column.detailViewComponent.replies.replies);
-      }
-
-      chirp = chirpsStack.find(c => c.id === tweetKey);
-    }
-
-    if (!chirp) {
-      chirp = column.updateIndex[column.detailViewComponent.chirp.id].messageIndex[tweetKey];
-    }
+    const chirp = getChirpFromKey(tweetKey, colKey);
 
     if (!chirp) {
       return;
@@ -117,12 +127,7 @@ const postMessagesListeners = {
   },
   BTDC_getChirpFromColumn: (ev, data) => {
     const { chirpKey, colKey } = data;
-
-    if (!TD.controller.columnManager.get(colKey)) {
-      return;
-    }
-
-    const chirp = TD.controller.columnManager.get(colKey).updateIndex[chirpKey];
+    const chirp = getChirpFromKey(chirpKey, colKey);
 
     if (!chirp) {
       return;
@@ -132,12 +137,7 @@ const postMessagesListeners = {
   },
   BTDC_likeChirp: (ev, data) => {
     const { chirpKey, colKey } = data;
-
-    if (!TD.controller.columnManager.get(colKey)) {
-      return;
-    }
-
-    const chirp = TD.controller.columnManager.get(colKey).updateIndex[chirpKey];
+    const chirp = getChirpFromKey(chirpKey, colKey);
 
     if (!chirp) {
       return;
@@ -147,12 +147,7 @@ const postMessagesListeners = {
   },
   BTDC_retweetChirp: (ev, data) => {
     const { chirpKey, colKey } = data;
-
-    if (!TD.controller.columnManager.get(colKey)) {
-      return;
-    }
-
-    const chirp = TD.controller.columnManager.get(colKey).updateIndex[chirpKey];
+    const chirp = getChirpFromKey(chirpKey, colKey);
 
     if (!chirp) {
       return;
@@ -192,7 +187,7 @@ const switchThemeClass = () => {
   document.body.dataset.btdtheme = TD.settings.getTheme();
 };
 
-document.addEventListener('DOMNodeInserted', (ev) => {
+const handleInsertedNode = (ev) => {
   const target = ev.target;
   // If the target of the event contains mediatable then we are inside the media modal
   if (target.classList && target.classList.contains('js-mediatable')) {
@@ -204,7 +199,11 @@ document.addEventListener('DOMNodeInserted', (ev) => {
       return;
     }
 
-    const chirp = TD.controller.columnManager.get(colKey).updateIndex[chirpKey];
+    const chirp = getChirpFromKey(chirpKey, colKey);
+
+    if (!chirp) {
+      return;
+    }
 
     proxyEvent('gotChirpInMediaModal', { chirp: decorateChirp(chirp) });
     return;
@@ -217,36 +216,17 @@ document.addEventListener('DOMNodeInserted', (ev) => {
   const chirpKey = target.getAttribute('data-key');
   const colKey = target.closest('.js-column').getAttribute('data-column');
 
-  if (!TD.controller.columnManager.get(colKey)) {
-    return;
-  }
-
-  const column = TD.controller.columnManager.get(colKey);
-  let chirp = column.updateIndex[chirpKey];
-
-  if (target.closest('.js-column-detail') && target.closest('.column-type-message') && !chirp) {
-    chirp = column.updateIndex[column.detailViewComponent.chirp.id].messageIndex[chirpKey];
-  }
-
-  if (target.hasAttribute('data-account-key') && target.hasAttribute('data-tweet-id') && !chirp) {
-    const chirpsStack = [];
-
-    if (column.detailViewComponent.repliesTo && column.detailViewComponent.repliesTo.repliesTo) {
-      chirpsStack.push(...column.detailViewComponent.repliesTo.repliesTo);
-    }
-
-    if (column.detailViewComponent.replies && column.detailViewComponent.replies.replies) {
-      chirpsStack.push(...column.detailViewComponent.replies.replies);
-    }
-
-    chirp = chirpsStack.find(c => c.id === chirpKey);
-  }
+  let chirp = getChirpFromKey(chirpKey, colKey);
 
   if (!chirp) {
     return;
   }
 
   if (chirp._hasAnimatedGif) {
+    if (chirp.targetTweet) {
+      chirp = chirp.targetTweet;
+    }
+
     const videoEl = $(`[data-key="${chirp.entities.media[0].id}"] video`)[0];
 
     if (videoEl && videoEl.paused) {
@@ -261,7 +241,9 @@ document.addEventListener('DOMNodeInserted', (ev) => {
   }
 
   proxyEvent('gotChirpForColumn', { chirp: decorateChirp(chirp), colKey });
-});
+};
+
+document.addEventListener('DOMNodeInserted', handleInsertedNode);
 
 $(document).on('uiVisibleChirps', (ev, data) => {
   const { chirpsData, columnKey } = data;
@@ -364,6 +346,31 @@ document.addEventListener('paste', ev => {
     });
   }
 });
+
+const handleGifClick = (ev) => {
+  ev.preventDefault();
+  ev.stopPropagation();
+
+  const chirpKey = ev.target.closest('[data-key]').getAttribute('data-key');
+  const colKey = ev.target.closest('.js-column').getAttribute('data-column');
+  const video = {
+    src: ev.target.src,
+  };
+
+  const chirp = getChirpFromKey(chirpKey, colKey);
+
+  if (!chirp) {
+    return;
+  }
+
+  video.height = chirp.entities.media[0].sizes.large.h;
+  video.width = chirp.entities.media[0].sizes.large.w;
+  video.name = `${chirp.user.screenName}-${video.src.split('/').pop().replace('.mp4', '')}`;
+
+  proxyEvent('clickedOnGif', { tweetKey: chirpKey, colKey, video });
+};
+
+$('body').on('click', 'article video.js-media-gif', handleGifClick);
 
 $('body').on('click', '#open-modal', (ev) => {
   const isMediaModal = document.querySelector('.js-modal-panel .js-media-preview-container, .js-modal-panel iframe');

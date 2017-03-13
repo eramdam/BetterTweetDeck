@@ -1,3 +1,5 @@
+import gifshot from 'gifshot';
+import FileSaver from 'file-saver';
 import each from 'promise-each';
 import timestampOnElement from './util/timestamp';
 import { send as sendMessage, on as onMessage } from './util/messaging';
@@ -439,12 +441,11 @@ function tweetHandler(tweet, columnKey, parent) {
         hideURLVisually(urlToHide, node);
       }
 
-      if (!urlForThumbnail || !node.closest('[data-column]')) {
-        return;
-      }
-      // We pass a single URL even though the code is ready to handle multiples URLs
       // Maybe we could have a gallery or something when we have different URLs
-      thumbnailsFromURLs([urlForThumbnail], node, mediaSize);
+      // We pass a single URL even though the code is ready to handle multiples URLs
+      if (urlForThumbnail && node.closest('[data-column]')) {
+        thumbnailsFromURLs([urlForThumbnail], node, mediaSize);
+      }
     }
 
     const RTL_RE = /[\u0590-\u083F]|[\u08A0-\u08FF]|[\uFB1D-\uFDFF]|[\uFE70-\uFEFF]/mg;
@@ -469,22 +470,32 @@ function closeOpenModal() {
   $('#open-modal')[0].innerHTML = '';
 }
 
+function setMaxDimensionsOnElement(el) {
+  const rect = $('#open-modal [btd-custom-modal] .js-embeditem')[0].getBoundingClientRect();
+  const src = el.src;
+
+  if (src.includes('gfycat.') || src.includes('imgur.') || src.includes('bandcamp.')) {
+    return;
+  }
+
+  el.setAttribute('style', `max-width: ${rect.width}px; max-height: ${rect.height}px`);
+}
+
 function setMaxDimensionsOnModalImg() {
-  if ($('#open-modal [btd-custom-modal]').length) {
-    const loadableEls = $('#open-modal [btd-custom-modal] .js-embeditem [data-btdsetmax], #open-modal [btd-custom-modal] .js-embeditem iframe');
+  if ($('#open-modal [btd-custom-modal]') && $('#open-modal [btd-custom-modal]').length) {
+    const loadableEls = $('#open-modal [btd-custom-modal] .js-embeditem [data-btdsetmax], #open-modal [btd-custom-modal] .js-embeditem iframe, #open-modal [btd-custom-modal] .js-embeditem video');
 
     if (!loadableEls) {
       return;
     }
 
     const loadable = loadableEls[0];
-    loadable.onload = () => {
-      const rect = $('#open-modal [btd-custom-modal] .js-embeditem')[0].getBoundingClientRect();
+    loadable.addEventListener('load', (ev) => setMaxDimensionsOnElement(ev.target));
+    loadable.addEventListener('loadstart', (ev) => setMaxDimensionsOnElement(ev.target));
 
-      if (!loadable.includes('gfycat.') || !loadable.includes('imgur.')) {
-        loadable.setAttribute('style', `max-width: ${rect.width}px; max-height: ${rect.height}px`);
-      }
-    };
+    if (loadable.hasAttribute('data-btd-loaded') || loadable.readyState === 4) {
+      setMaxDimensionsOnElement(loadable);
+    }
   }
 }
 
@@ -565,6 +576,41 @@ on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
       $('#open-modal .dropdown-menu').forEach((el) => el.addEventListener('click', closeOpenModal));
     }, 0);
   });
+
+  if ($('[data-btd-dl-gif]', openModal)) {
+    const videoEl = $('video', openModal)[0];
+
+    $('[data-btd-dl-gif]', openModal)[0].addEventListener('click', (e) => {
+      e.preventDefault();
+      e.target.style.opacity = 0.8;
+
+      gifshot.createGIF({
+        gifWidth: videoEl.getAttribute('data-btd-width'),
+        gifHeight: videoEl.getAttribute('data-btd-height'),
+        video: [videoEl.getAttribute('src')],
+        numFrames: Math.floor(videoEl.duration / 0.1),
+        sampleInterval: 10,
+        progressCallback: (progress) => {
+          if (progress > 0.99) {
+            e.target.innerText = 'Converting to GIF... (Finalizing)';
+          } else {
+            e.target.innerText = `Converting to GIF... (${Number(progress * 100).toFixed(1)}%)`;
+          }
+        },
+      }, obj => {
+        if (!obj.error) {
+          e.target.innerText = 'Preparing the file...';
+          fetch(obj.image)
+          .then(res => res.blob())
+          .then(blob => {
+            e.target.style.opacity = 1;
+            e.target.innerText = 'Download as .GIF';
+            FileSaver.saveAs(blob, `${videoEl.getAttribute('data-btd-name')}.gif`);
+          });
+        }
+      });
+    });
+  }
 });
 
 on('BTDC_columnMediaSizeUpdated', (ev, data) => {
@@ -584,6 +630,25 @@ on('BTDC_columnsChanged', (ev, data) => {
            .forEach(col => {
              COLUMNS_MEDIA_SIZES.set(col.id, col.mediaSize || 'medium');
            });
+});
+
+on('BTDC_clickedOnGif', (ev, data) => {
+  const { tweetKey, colKey, video } = data;
+
+  const modalHtml = Templates.modalTemplate({
+    imageUrl: '',
+    originalUrl: '',
+    type: 'video',
+    videoEmbed: `
+      <video autoplay loop src="${video.src}" data-btd-name="${video.name}" data-btd-height="${video.height}" data-btd-width="${video.width}">
+        <source video-src="${video.src}" type="video/mp4" src="${video.src}">
+      </video>
+    `,
+    hasGIFDownload: true,
+    provider: 'gif',
+  });
+
+  sendEvent('getOpenModalTweetHTML', { tweetKey, colKey, modalHtml });
 });
 
 window.addEventListener('message', (ev) => {

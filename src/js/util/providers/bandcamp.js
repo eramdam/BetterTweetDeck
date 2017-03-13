@@ -5,7 +5,7 @@ export default function ($) {
   return {
     name: 'Bandcamp',
     setting: 'bandcamp',
-    re: /bandcamp.com/,
+    re: /bandcamp.com\/(?:album|track)/,
     default: true,
     callback: url => fetchPage(url).then(data => {
       if (data.currentTarget.status !== 200) {
