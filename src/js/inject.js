@@ -235,7 +235,9 @@ const handleInsertedNode = (ev) => {
 
     if (SETTINGS.stop_gifs) {
       setTimeout(() => {
-        $(`[data-key="${chirp.entities.media[0].id}"] [rel="pause"]`)[0].click();
+        if ($(`[data-key="${chirp.entities.media[0].id}"] [rel="pause"]`).length > 0) {
+          $(`[data-key="${chirp.entities.media[0].id}"] [rel="pause"]`)[0].click();
+        }
       });
     }
   }
@@ -264,7 +266,9 @@ $(document).on('uiVisibleChirps', (ev, data) => {
       }
 
       setTimeout(() => {
-        $(`[data-column="${columnKey}"] [data-key="${c.id}"] [rel="pause"]`)[0].click();
+        if ($(`[data-column="${columnKey}"] [data-key="${c.id}"] [rel="pause"]`).length > 0) {
+          $(`[data-column="${columnKey}"] [data-key="${c.id}"] [rel="pause"]`)[0].click();
+        }
       });
     });
   }
