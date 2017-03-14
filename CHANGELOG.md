@@ -1,4 +1,23 @@
-:tada: 3.2.2 :tada:
+:tada: 3.3 :tada:
+=============== 
+- [Feature] Rejoice, the day finally came, GIFs can be viewed in fullscreen! :boom:
+- [Feature] Party hard, you can download GIFs from the fullscreen preview in one-click! :tada:
+- [Feature] You can choose the source of the thumbnails as a small badge on top of them (see the "Content" section)
+- [Feature] Added support for WorldCosplay (thanks to [@shuuji3](https://github.com/shuuji3)) ([#127](https://github.com/eramdam/BetterTweetDeck/pull/127))
+- [Feature] Added support for Google+ photo albums (thanks to [@shuuji3](https://github.com/shuuji3)) ([#126](https://github.com/eramdam/BetterTweetDeck/pull/126))
+- [Feature] Added support for Photozou photo albums (thanks to [@shuuji3](https://github.com/shuuji3)) ([#125](https://github.com/eramdam/BetterTweetDeck/pull/125))
+- [Feature] Added support for Gyazo photo albums (thanks to [@shuuji3](https://github.com/shuuji3)) ([#124](https://github.com/eramdam/BetterTweetDeck/pull/124))
+- [Improvement] You can now paste images in replies and DMs 
+- [Improvement] Fullscreen previews are larger on smaller screens (thanks to [@d4rky-pl](https://github.com/d4rky-pl)) ([#128](https://github.com/eramdam/BetterTweetDeck/pull/128))
+- [Improvement] When inverted the usernames now correctly display the emojis with Twitter's assets
+- [Improvement] Made some changes under the hood so the core of Better TweetDeck is more reliable and a bit faster
+- [Bugfix] Images in modals should correctly auto-resize now
+- [Bugfix] Giphy thumbnails should work again (they changed their API recently)
+- [Bugfix] Better TweetDeck was trying to fetch Bandcamp thumbnails for URLs like `https://bandcamp.com/<username>`, it should not happen anymore
+- [Meta] Removed the code that adjust the text direction automatically as TweetDeck handles that on their own now
+- [Meta] Removed the support of Pixiv as their API changed, breaking the current one
+
+3.2.2
 =============== 
 - [Feature] Added support for TINAMI (thanks to [@shuuji3](https://github.com/shuuji3)) ([#117](https://github.com/eramdam/BetterTweetDeck/pull/117))
 - [Feature] Added support for Nicoseiga (thanks to [@shuuji3](https://github.com/shuuji3)) ([#120](https://github.com/eramdam/BetterTweetDeck/pull/120))
