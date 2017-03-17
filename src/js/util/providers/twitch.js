@@ -6,7 +6,7 @@ export default function ($) {
   return {
     name: 'Twitch',
     setting: 'twitch_tv',
-    re: new RegExp('twitch.tv/*|twitch.tv/*/b/*'),
+    re: new RegExp('https?://(?:www.|)twitch.tv/*|twitch.tv/*/b/*'),
     default: true,
     callback: url => {
       /* eslint no-underscore-dangle: 0 */
