@@ -543,7 +543,7 @@ on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
   const openModal = $('#open-modal')[0];
   openModal.innerHTML = modalHtml.replace('<div class="js-med-tweet med-tweet"></div>', `<div class="js-med-tweet med-tweet">${markup}</div>`);
   openModal.style.display = 'block';
-  setMaxDimensionsOnModalImg();
+  // setMaxDimensionsOnModalImg();
   openModal.querySelector('img, iframe').onload = (e) => e.target.setAttribute('data-btd-loaded', 'true');
 
   $('[rel="favorite"]', openModal)[0].addEventListener('click', () => {
