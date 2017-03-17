@@ -97,7 +97,7 @@ const previewTemplate = ({ mediaPreviewSrc, sourceLink, size, type = 'picture', 
     isMediaPreviewSmall: size === 'small',
     thumbSizeClass: `media-size-${size || 'medium'}`,
     needsProvider: !['default', 'universal'].includes(provider),
-    provider,
+    provider: (provider || '').toLowerCase(),
   }));
 };
 
@@ -112,7 +112,7 @@ const modalTemplate = ({ imageUrl, originalUrl, type, videoEmbed = null, provide
     videoEmbed,
     originalUrl,
     isVideo: type !== 'image',
-    provider,
+    provider: (provider || '').toLowerCase(),
     hasGIFDownload,
   }));
 };
