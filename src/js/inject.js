@@ -389,7 +389,7 @@ const handleGifClick = (ev) => {
 $('body').on('click', 'article video.js-media-gif', handleGifClick);
 
 $('body').on('click', '#open-modal', (ev) => {
-  const isMediaModal = document.querySelector('.js-modal-panel .js-media-preview-container, .js-modal-panel iframe');
+  const isMediaModal = document.querySelector('.js-modal-panel .js-media-preview-container, .js-modal-panel iframe, .js-modal-panel .btd-embed-container');
 
   if (!SETTINGS.css.no_bg_modal ||
   !isMediaModal) {
