@@ -95,7 +95,7 @@ const previewTemplate = ({ mediaPreviewSrc, sourceLink, size, type = 'picture', 
     isMediaPreviewLarge: size === 'large',
     isMediaPreviewCompact: size === 'medium',
     isMediaPreviewSmall: size === 'small',
-    thumbSizeClass: `media-size-${size}`,
+    thumbSizeClass: `media-size-${size || 'medium'}`,
     needsProvider: !['default', 'universal'].includes(provider),
     provider,
   }));
