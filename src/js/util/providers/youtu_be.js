@@ -1,6 +1,6 @@
 export default function ($) {
   return {
-    name: 'Youtu.be',
+    name: 'Youtube',
     setting: 'youtu_be',
     re: /youtu.be/,
     default: true,
