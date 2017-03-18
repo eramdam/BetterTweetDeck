@@ -364,7 +364,6 @@ fetch(chrome.extension.getURL('options/CHANGELOG.md')).then(res => res.text()).t
 // Because nobody got time to write that HTML by hand, right?
 const usedDeps = [
   { name: 'BabelJS', url: 'https://babeljs.io/' },
-  { name: 'Embed.ly', url: 'http://embed.ly/' },
   { name: 'ESLint', url: 'http://eslint.org/' },
   { name: 'Gulp', url: 'http://gulpjs.com/' },
   { name: 'jQuery', url: 'http://jquery.com/' },

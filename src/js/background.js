@@ -43,6 +43,7 @@ const defaultSettings = {
     hide_url_thumb: true,
     no_bg_modal: true,
     show_provider_indicator: false,
+    hide_like_rt_indicators: false,
   },
   share_item: {
     enabled: true,

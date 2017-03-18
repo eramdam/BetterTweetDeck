@@ -1,4 +1,11 @@
-:tada: 3.3 :tada:
+3.3.1
+=============== 
+- [Feature] You can now hide the RT/Like indicator on top of tweets
+- [Bugfix] BTD was trying to find thumbnails on Twitch chat links, I made the regex stricter so this should not happen anymore
+- [Bugfix] Instagram multi-video/multi-pictures posts were not correctly handled, it's now working fine
+- Other minor bugfixes
+
+3.3
 =============== 
 - [Feature] Rejoice, the day finally came, GIFs can be viewed in fullscreen! :boom:
 - [Feature] Party hard, you can download GIFs from the fullscreen preview in one-click! :tada:
