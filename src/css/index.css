@@ -115,6 +115,23 @@ article video.js-media-gif {
   left: 0;
 }
 
+.btd-embed-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.btd-embed-container .btd-embed-and-links {
+  display: inline-flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.btd-embed-container .btd-embed-and-links img {
+  max-height: 100%;
+  object-fit: contain;
+}
+
 .tweet-dogear {
   position: absolute;
   top: 0;
