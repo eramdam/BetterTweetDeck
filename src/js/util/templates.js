@@ -48,7 +48,7 @@ const templates = {
       </div>
     </div>
   </div>`,
-  newModal: `<div class="js-mediatable ovl-block is-inverted-light" btd-custom-modal>
+  imageModal: `<div class="js-mediatable ovl-block is-inverted-light" btd-custom-modal>
     <div class="s-padded">
       <div class="js-modal-panel mdl s-full med-fullpanel"> <a href="#" class="mdl-dismiss js-dismiss mdl-dismiss-media mdl-btn-media" rel="dismiss"><i class="icon txt-size--24 icon-close"></i></a>
         <div class="js-embeditem med-embeditem btd-embed-container">
@@ -126,7 +126,7 @@ const modalTemplate = ({ imageUrl, originalUrl, type, videoEmbed = null, provide
     imageUrl = parsed.searchParams.get('url');
   }
 
-  return Mustache.render(type === 'image' ? templates.newModal : templates.modal, Object.assign(defaultData.modal, {
+  return Mustache.render(type === 'image' ? templates.imageModal : templates.modal, Object.assign(defaultData.modal, {
     imageUrl,
     videoEmbed,
     originalUrl,
