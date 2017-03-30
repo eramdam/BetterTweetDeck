@@ -16,8 +16,12 @@ The extensions is currently available for the following browsers:
 - [Opera](https://addons.opera.com/en/extensions/details/bettertweetdeck/)
 - ~~Firefox~~ SOON
 
-# Features (as of 3.2.1)
+# Features (as of 3.3.1)
 
+- You can revert to the old style of replies!
+- You can hide the RT/Like indicator
+- You can open GIFs in fullscreen
+- You can download GIFs as... .gif files!
 - Paste images to tweet them!
 - Share any page/link to TweetDeck in a click!
 - A "minimal" theme.
