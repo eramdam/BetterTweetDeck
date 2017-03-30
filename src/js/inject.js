@@ -1,7 +1,12 @@
 import config from 'config';
+import _ from 'lodash';
 import { debug } from './util/logger';
 
 let SETTINGS;
+
+const deciderOverride = {
+  simplified_replies: false,
+};
 
 TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace('{{>status/tweet_single_footer}} </div> </div>', '{{>status/tweet_single_footer}} </div> <i class="sprite tweet-dogear"></i></div>');
 TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('</footer> {{/getMainTweet}}', '</footer> {{/getMainTweet}} <i class="sprite tweet-dogear"></i>');
@@ -167,6 +172,20 @@ const postMessagesListeners = {
           tasks[key].callback = () => false;
         }
       });
+    }
+
+    if (settings.old_replies) {
+      TD.decider.updateFromBackend = _.wrap(TD.decider.updateFromBackend, (func, dict) => {
+        Object.keys(deciderOverride).forEach(key => {
+          if (dict[key]) {
+            dict[key] = deciderOverride[key];
+          }
+        });
+
+        return func(dict);
+      });
+
+      TD.decider.updateForGuestId();
     }
   },
 };

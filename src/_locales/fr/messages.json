@@ -39,6 +39,7 @@
   "name_typeahead": { "message": "L'auto-complétion n'affiche que les tweetnames" },
 
   "title_avatars": { "message": "Avatars & détails" },
+  "old_replies": { "message": "Revenir à l'ancien style de mentions (pré 30/03/2017)" },
   "css_round_pic": { "message": "Avatars ronds" },
   "css_bigger_emojis": { "message": "Emojis plus gros dans les tweets" },
   "css_collapse_dms": { "message": "Masquer les DM lus" },

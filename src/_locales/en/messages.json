@@ -39,6 +39,7 @@
   "name_typeahead": { "message": "The auto-completion displays only usernames" },
 
   "title_avatars": { "message": "Avatars & details" },
+  "old_replies": { "message": "Revert to the old replies style (pre 03/30/2017)" },
   "css_round_pic": { "message": "Rounded avatars" },
   "css_bigger_emojis": { "message": "Bigger emojis in tweets" },
   "css_collapse_dms": { "message": "Collapse read direct messages" },
