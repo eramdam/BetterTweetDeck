@@ -16,7 +16,7 @@ The extensions is currently available for the following browsers:
 - [Opera](https://addons.opera.com/en/extensions/details/bettertweetdeck/)
 - ~~Firefox~~ SOON
 
-# Features (as of 3.3.1)
+# Features
 
 - You can revert to the old style of replies!
 - You can hide the RT/Like indicator
