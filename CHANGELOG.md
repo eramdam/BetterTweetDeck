@@ -1,9 +1,10 @@
-3.3.1
+:tada: 3.3.1 :tada:
 =============== 
+- [Feature] You can revert this nasty reply change thing (you know what I mean)
 - [Feature] You can now hide the RT/Like indicator on top of tweets
 - [Bugfix] BTD was trying to find thumbnails on Twitch chat links, I made the regex stricter so this should not happen anymore
 - [Bugfix] Instagram multi-video/multi-pictures posts were not correctly handled, it's now working fine
-- Other minor bugfixes
+- [Bugfix] Other minor bugfixes
 
 3.3
 =============== 
