@@ -516,7 +516,12 @@ on('BTDC_ready', () => {
 
   const settingsURL = chrome.extension.getURL('options/options.html');
   const settingsBtn = `
-  <a class="btd-settings-btn js-header-action link-clean cf app-nav-link padding-hl" data-title="Better TweetDeck Settings"> <div class="obj-left"> <i class="icon icon-sliders icon-large"></i> </div> <div class="nbfc padding-ts hide-condensed">Better TweetDeck Settings</div> </a>
+    <a class="btd-settings-btn js-header-action link-clean cf app-nav-link padding-hl txt-size--16 data-title="BTD Settings" style="margin-bottom: 6px;">
+      <div class="obj-left margin-l--2">
+        <i class="icon icon-sliders icon-medium"></i>
+      </div>
+      <div class="nbfc padding-ts hide-condensed">BTD Settings</div>
+    </a>
   `;
   $('nav.app-navigator')[0].insertAdjacentHTML('afterbegin', settingsBtn);
   $('.btd-settings-btn')[0].addEventListener('click', (e) => {
