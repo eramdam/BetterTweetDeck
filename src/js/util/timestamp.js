@@ -28,19 +28,19 @@ const formatMaps = {
   },
 };
 
-function moreThan24(d) {
+function lessThan24(d) {
   return (new Date().getTime() - d.getTime()) <= 60 * 60 * 24000;
 }
 
 function getFormat(dateObject, mode) {
   if (mode === 'custom') {
-    if (fullAfter24 && moreThan24(dateObject)) {
+    if (fullAfter24 && lessThan24(dateObject)) {
       return customMode.short;
     }
 
     return customMode.full;
   }
-  if (fullAfter24 && moreThan24(dateObject)) {
+  if (fullAfter24 && lessThan24(dateObject)) {
     return formatMaps[mode].short;
   }
 

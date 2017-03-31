@@ -46,8 +46,14 @@ function refreshTimestamps() {
   timestamps.forEach((jsTimstp) => {
     const d = jsTimstp.getAttribute('data-time');
     const t = $('a, span', jsTimstp);
+    const noChildren = jsTimstp.childElementCount === 0;
 
-    if (!t) {
+    if (!t && !noChildren) {
+      return;
+    }
+
+    if (noChildren) {
+      timestampOnElement(jsTimstp, d);
       return;
     }
 
