@@ -626,7 +626,7 @@ on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
       // ...
       // Yes, it's hacky but we have no choice ¯\(ツ)/¯
       if (BHelper.isFirefox) {
-        e.target.innerText = 'Converting to GIF... (can take a few minutes)';
+        e.target.innerText = 'Converting to GIF... (in progress)';
         return sendMessage({
           action: 'download_gif',
           options: gifshotOptions,
