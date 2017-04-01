@@ -45,6 +45,7 @@ module.exports = {
     '*://tweetdeck.twitter.com/*',
     'contextMenus',
     'notifications',
+    'tabs',
   ],
   options_ui: {
     page: 'options/ui/ui.html',
