@@ -1,6 +1,8 @@
 const fs = require('fs');
 const packageJson = JSON.parse(fs.readFileSync(`${__dirname}/../../../package.json`, 'utf8'));
 
+export const getUA = () => window.navigator.userAgent;
+
 // From https://github.com/lorenwest/node-config/blob/master/lib/config.js#L131-L152
 const getKey = (object, property) => {
   const elems = Array.isArray(property) ? property : property.split('.');
@@ -18,10 +20,11 @@ const getKey = (object, property) => {
   return getKey(value, elems.slice(1));
 };
 
-const storage = chrome.storage.sync || chrome.storage.local;
+const isFirefox = getUA().includes('Firefox/');
+const storage = isFirefox ? chrome.storage.local : chrome.storage.sync;
 
 export const getVersion = () => packageJson.version;
-export const getUA = () => window.navigator.userAgent;
+
 export const getMessage = (msg) => {
   const string = chrome.i18n.getMessage(msg);
 
