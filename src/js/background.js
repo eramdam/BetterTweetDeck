@@ -92,9 +92,7 @@ function contextMenuHandler(info, tab, settings) {
       focused: true,
     }, () => {
       chrome.tabs.update(TDTab.id, {
-        selected: true,
         active: true,
-        highlighted: true,
       }, () => {
         chrome.tabs.sendMessage(TDTab.id, {
           text: textToShare,
