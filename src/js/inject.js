@@ -187,6 +187,10 @@ const postMessagesListeners = {
 
       TD.decider.updateForGuestId();
     }
+
+    if (settings.old_search) {
+      TD.controller.stats.setExperiments({ config: { tweetdeck_simplified_search_flow_5499: { value: 'nope' } } });
+    }
   },
 };
 
