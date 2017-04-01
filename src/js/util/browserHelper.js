@@ -20,7 +20,7 @@ const getKey = (object, property) => {
   return getKey(value, elems.slice(1));
 };
 
-const isFirefox = getUA().includes('Firefox/');
+export const isFirefox = getUA().includes('Firefox/');
 const storage = isFirefox ? chrome.storage.local : chrome.storage.sync;
 
 export const getVersion = () => packageJson.version;
