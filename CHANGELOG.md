@@ -1,4 +1,11 @@
-:tada: 3.3.1 :tada:
+:tada: 3.3.2 :tada:
+=============== 
+- [Feature] You can revert to the old search! (thanks to [@pixeldesu](https://github.com/pixeldesu)) ([#144](https://github.com/eramdam/BetterTweetDeck/pull/144))
+- [Bugfix] Re-position the Settings button properly
+- [Bugfix] The RT/likes indicator should now re-appear correctly
+- [Bugfix] Some timestamps were not correctly replaced/updated. This should be fixed
+
+3.3.1
 =============== 
 - [Feature] You can revert this nasty reply change thing (you know what I mean)
 - [Feature] You can now hide the RT/Like indicator on top of tweets

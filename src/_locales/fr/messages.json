@@ -40,6 +40,7 @@
 
   "title_avatars": { "message": "Avatars & détails" },
   "old_replies": { "message": "Revenir à l'ancien style de mentions (pré 30/03/2017)" },
+  "old_search": { "message": "Revenir à l'ancien fonctionnement de la recherche (pas de nouvelle colonne à chaque recherche)"},
   "css_round_pic": { "message": "Avatars ronds" },
   "css_bigger_emojis": { "message": "Emojis plus gros dans les tweets" },
   "css_collapse_dms": { "message": "Masquer les DM lus" },
