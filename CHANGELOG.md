@@ -4,6 +4,7 @@
 - [Bugfix] Re-position the Settings button properly
 - [Bugfix] The RT/likes indicator should now re-appear correctly
 - [Bugfix] Some timestamps were not correctly replaced/updated. This should be fixed
+- [Bugfix] The verified icon should be correctly displayed again now
 
 3.3.1
 =============== 
