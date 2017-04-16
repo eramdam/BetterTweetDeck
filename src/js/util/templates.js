@@ -48,17 +48,25 @@ const templates = {
       </div>
     </div>
   </div>`,
+  videoModal: `<div data-btd-provider="{{provider}}" class="js-mediatable ovl-block is-inverted-light" btd-custom-modal>
+    <div class="s-padded">
+      <div class="js-modal-panel mdl s-full med-fullpanel btd-embed-panel">
+        <a href="#" class="mdl-dismiss js-dismiss mdl-dismiss-media mdl-btn-media" rel="dismiss"><i class="icon txt-size--24 icon-close"></i></a>
+        <div class="btd-embed-container -video">
+          {{&videoEmbed}}
+        </div>
+        <div id="media-gallery-tray"></div>
+        <div class="js-med-tweet med-tweet">{{&tweetEmbed}}</div>
+      </div>
+    </div>
+  </div>`,
   imageModal: `<div class="js-mediatable ovl-block is-inverted-light" btd-custom-modal>
     <div class="s-padded">
-      <div class="js-modal-panel mdl s-full med-fullpanel"> <a href="#" class="mdl-dismiss js-dismiss mdl-dismiss-media mdl-btn-media" rel="dismiss"><i class="icon txt-size--24 icon-close"></i></a>
+      <div class="js-modal-panel mdl s-full med-fullpanel">
+        <a href="#" class="mdl-dismiss js-dismiss mdl-dismiss-media mdl-btn-media" rel="dismiss"><i class="icon txt-size--24 icon-close"></i></a>
         <div class="js-embeditem med-embeditem btd-embed-container">
           <div class="btd-embed-and-links">
-            {{^isVideo}}
             <img class="media-img" src="{{imageUrl}}" alt="{{AltInfo}}" data-btdsetmax>
-            {{/isVideo}}
-            {{#isVideo}}
-              {{&videoEmbed}}
-            {{/isVideo}}
           </div>
           
         </div>
@@ -126,7 +134,7 @@ const modalTemplate = ({ imageUrl, originalUrl, type, videoEmbed = null, provide
     imageUrl = parsed.searchParams.get('url');
   }
 
-  return Mustache.render(type === 'image' ? templates.imageModal : templates.modal, Object.assign(defaultData.modal, {
+  return Mustache.render(type === 'image' ? templates.imageModal : templates.videoModal, Object.assign(defaultData.modal, {
     imageUrl,
     videoEmbed,
     originalUrl,

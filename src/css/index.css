@@ -27,6 +27,9 @@
 /* Emoji Panel */
 @import './emoji-panel.css';
 
+/* Embed/modals */
+@import './embeds.css';
+
 :root {
   /* Dark*/
   --compose-btn-bg-dark: #373839;
@@ -104,32 +107,6 @@
 .js-media-image-link,
 article video.js-media-gif {
   cursor: zoom-in !important;
-}
-
-.noembed-embed-inner > div,
-.streamable-embed-container {
-  min-width: 750px;
-}
-
-.streamable-embed-container > iframe {
-  left: 0;
-}
-
-.btd-embed-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.btd-embed-container .btd-embed-and-links {
-  display: inline-flex;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-}
-
-.btd-embed-container .btd-embed-and-links img {
-  max-height: 100%;
-  object-fit: contain;
 }
 
 .tweet-dogear {

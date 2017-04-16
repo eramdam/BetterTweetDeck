@@ -22,9 +22,15 @@ const COLUMNS_MEDIA_SIZES = new Map();
 /**
  * Injecting inject.js in head before doing anything else
  */
-const scriptEl = document.createElement('script');
-scriptEl.src = chrome.extension.getURL('js/inject.js');
-document.head.appendChild(scriptEl);
+const scripts = [
+  chrome.extension.getURL('js/inject.js')
+];
+
+scripts.forEach(src => {
+  const el = document.createElement('script');
+  el.src = src;
+  document.head.appendChild(el);
+});
 
 sendMessage({ action: 'get_settings' }, (response) => {
   settings = response.settings;
