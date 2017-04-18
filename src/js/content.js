@@ -564,6 +564,10 @@ on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
   // setMaxDimensionsOnModalImg();
   openModal.querySelector('img, iframe').onload = (e) => e.target.setAttribute('data-btd-loaded', 'true');
 
+  if ($('[data-instgrm-version]', openModal)) {
+    sendEvent('renderInstagramEmbed');
+  }
+
   $('[rel="favorite"]', openModal)[0].addEventListener('click', () => {
     sendEvent('likeChirp', { chirpKey: chirp.id, colKey });
   });

@@ -180,6 +180,9 @@ const postMessagesListeners = {
 
     chirp.retweet();
   },
+  BTDC_renderInstagramEmbed: () => {
+    instgrm.Embeds.process();
+  },
   BTDC_settingsReady: (ev, data) => {
     const { settings } = data;
     SETTINGS = settings;
