@@ -23,7 +23,8 @@ const COLUMNS_MEDIA_SIZES = new Map();
  * Injecting inject.js in head before doing anything else
  */
 const scripts = [
-  chrome.extension.getURL('js/inject.js')
+  chrome.extension.getURL('js/inject.js'),
+  'https://platform.instagram.com/en_US/embeds.js',
 ];
 
 scripts.forEach(src => {
