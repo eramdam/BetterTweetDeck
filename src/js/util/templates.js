@@ -15,39 +15,6 @@ const templates = {
     data-media-entity-id="{{mediaId}}"> {{#isVideo}} {{> media/video_overlay}} {{/isVideo}}  {{#imageSrc}} <img class="{{thumbClass}}" src="{{^needsSecureUrl}}{{imageSrc}}{{/needsSecureUrl}}" alt="Media preview"> {{/imageSrc}} </a> {{/isAnimatedGif}}
     {{> status/media_sensitive}}</div></div>
   `,
-  modal: `<div class="js-mediatable ovl-block is-inverted-light" btd-custom-modal>
-    <div class="s-padded">
-      <div class="js-modal-panel mdl s-full med-fullpanel"> <a href="#" class="mdl-dismiss js-dismiss mdl-dismiss-media mdl-btn-media" rel="dismiss"><i class="icon txt-size--24 icon-close"></i></a>
-        <div class="js-embeditem med-embeditem">
-          <div class="l-table">
-            <div class="l-cell">
-              <!-- Insert here  -->
-              <div class="med-tray js-mediaembed" style="opacity: 1;">
-                <div class="js-media-preview-container position-rel margin-vm">
-                  <a class="js-media-image-link block med-link media-item" href="{{imageUrl}}" rel="mediaPreview" target="_blank" data-media-entity-id="">
-                    {{^isVideo}}
-                    <img class="media-img" src="{{imageUrl}}" alt="{{AltInfo}}" data-btdsetmax>
-                    {{/isVideo}}
-                    {{#isVideo}}
-                    <div class="youtube-player -{{provider}}">
-                      {{&videoEmbed}}
-                    </div>
-                    {{/isVideo}}
-                  </a>
-                </div>
-                {{#hasGIFDownload}}
-                <a href="#" class="med-flaglink" data-btd-dl-gif rel="url" target="_blank">Download as .GIF</a>
-                {{/hasGIFDownload}}
-                <a href="{{originalUrl}}" class="med-origlink" rel="url" target="_blank">View original</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div id="media-gallery-tray"></div>
-        <div class="js-med-tweet med-tweet">{{&tweetEmbed}}</div>
-      </div>
-    </div>
-  </div>`,
   videoModal: `<div data-btd-provider="{{provider}}" class="js-mediatable ovl-block is-inverted-light" btd-custom-modal>
     <div class="s-padded">
       <div class="js-modal-panel mdl s-full med-fullpanel btd-embed-panel">
