@@ -297,7 +297,7 @@ function tweetHandler(tweet, columnKey, parent) {
       case 'retweet':
       case 'favorite':
       case 'favorited_retweet':
-        Usernames.format({ node, user: tweet.sourceUser, fSel: '.activity-header .nbfc .account-link.txt-bold' });
+        Usernames.format({ node, user: tweet.sourceUser, fSel: '.activity-header .nbfc .account-link' });
         Usernames.format({ node, user: tweet.targetTweet.user, fSel: '.tweet-header .nbfc .fullname', uSel: '.tweet-header .nbfc .username' });
         break;
 
