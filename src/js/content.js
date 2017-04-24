@@ -27,8 +27,11 @@ sendMessage({ action: 'get_settings' }, (response) => {
   settings = response.settings;
   const scripts = [
     chrome.extension.getURL('js/inject.js'),
-    'https://platform.instagram.com/en_US/embeds.js',
   ];
+
+  if (settings.thumbnails && settings.thumbnails.instagram) {
+    scripts.push('https://platform.instagram.com/en_US/embeds.js');
+  }
 
   scripts.forEach(src => {
     const el = document.createElement('script');
