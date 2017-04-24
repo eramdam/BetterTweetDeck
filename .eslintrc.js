@@ -9,6 +9,7 @@ module.exports = {
   },
   'globals': {
     'chrome': false,
+    'instgrm': false,
     'TD': false
   },
   'extends': 'airbnb-base',

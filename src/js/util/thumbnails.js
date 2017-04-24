@@ -13,7 +13,7 @@ const endpoints = {
   dribbble: 'https://api.dribbble.com/v1/shots/',
   noembed: 'https://noembed.com/embed?nowrap=on&url=',
   imgur: 'https://api.imgur.com/3/',
-  instagram: 'https://api.instagram.com/oembed?url=',
+  instagram: 'https://api.instagram.com/oembed?omitscript=true&url=',
   twitch: 'https://api.twitch.tv/kraken/',
   giphy: 'https://giphy.com/services/oembed?url=',
   pixiv: 'http://embed.pixiv.net/embed_json.php?callback=callback&size=medium&id=',

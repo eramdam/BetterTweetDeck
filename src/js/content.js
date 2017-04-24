@@ -22,12 +22,22 @@ const COLUMNS_MEDIA_SIZES = new Map();
 /**
  * Injecting inject.js in head before doing anything else
  */
-const scriptEl = document.createElement('script');
-scriptEl.src = chrome.extension.getURL('js/inject.js');
-document.head.appendChild(scriptEl);
 
 sendMessage({ action: 'get_settings' }, (response) => {
   settings = response.settings;
+  const scripts = [
+    chrome.extension.getURL('js/inject.js'),
+  ];
+
+  if (settings.thumbnails && settings.thumbnails.instagram) {
+    scripts.push('https://platform.instagram.com/en_US/embeds.js');
+  }
+
+  scripts.forEach(src => {
+    const el = document.createElement('script');
+    el.src = src;
+    document.head.appendChild(el);
+  });
 });
 
 
@@ -556,6 +566,10 @@ on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
   openModal.style.display = 'block';
   // setMaxDimensionsOnModalImg();
   openModal.querySelector('img, iframe').onload = (e) => e.target.setAttribute('data-btd-loaded', 'true');
+
+  if ($('[data-instgrm-version]', openModal)) {
+    sendEvent('renderInstagramEmbed');
+  }
 
   $('[rel="favorite"]', openModal)[0].addEventListener('click', () => {
     sendEvent('likeChirp', { chirpKey: chirp.id, colKey });
