@@ -1,10 +1,13 @@
 :tada: 3.3.2 :tada:
 =============== 
 - [Feature] You can revert to the old search! (thanks to [@pixeldesu](https://github.com/pixeldesu)) ([#144](https://github.com/eramdam/BetterTweetDeck/pull/144))
-- [Bugfix] Re-position the Settings button properly
-- [Bugfix] The RT/likes indicator should now re-appear correctly
-- [Bugfix] Some timestamps were not correctly replaced/updated. This should be fixed
+- [Improvement] Instagram fullscreen previews should work properly now
+- [Bugfix] Video/iFrame-based modals should resize properly now
+- [Bugfix] Re-position the Settings button
+- [Bugfix] The RT/likes indicator should now re-appear
+- [Bugfix] Some timestamps were not replaced/updated. This should be fixed
 - [Bugfix] The verified icon should be correctly displayed again now
+- [Bugfix] Some usernames were not handled, specifically in Activity columns. This should be alright now.
 
 3.3.1
 =============== 
