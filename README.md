@@ -19,6 +19,7 @@ The extensions is currently available for the following browsers:
 # Features
 
 - You can revert to the old style of replies!
+- You can revert to the old style of search!
 - You can hide the RT/Like indicator
 - You can open GIFs in fullscreen
 - You can download GIFs as... .gif files!
