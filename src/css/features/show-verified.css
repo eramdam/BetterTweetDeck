@@ -10,12 +10,12 @@
     line-height: 1;
     position: absolute;
     bottom: -5px;
-    right: -5px;
+    right: -1px;
     color: #55acee;
     width: 1em;
     height: 1em;
     font-size: 20px;
-    z-index: 1;
+    z-index: 9;
 
     background-image: radial-gradient(circle 11px, white 50%, color(white a(0)) 51%);
   }
@@ -32,8 +32,8 @@
 }
 
 .btd__show_verified :matches(.js-stream-item-content, .js-tweet) .is-conversation .tweet-img.btd-is-verified:before {
-  bottom: -10px;
-  right: -20px;
+  bottom: -22px;
+  right: -19px;
 }
 
 .btd__show_verified .btd-is-verified-mini:before,
@@ -52,7 +52,8 @@
 }
 
 .btd__show_verified .activity-header.has-source-avatar .btd-is-verified-mini:before {
-  top: 5px;
+  top: 8px;
+  right: -3px;
   bottom: auto;
 }
 

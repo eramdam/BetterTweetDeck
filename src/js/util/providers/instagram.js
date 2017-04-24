@@ -20,7 +20,13 @@ export default function ($) {
           return {
             type: 'video',
             thumbnail_url: $.getSafeURL(needNewThumbnail ? `${url}media/?size=t` : data.thumbnail_url),
-            html: `<iframe src="${url}embed/" width="612" height="710" style="max-height: 710px !important;" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`,
+            html: `
+              <div style="width: 100%; flex: 1; display: flex; align-items: center; justify-content: center;">
+                <div style="max-width: 450px; flex: 1; max-height: 100%;" btd-instagram-embed>
+                  ${data.html}
+                </div>
+              </div>
+            `,
             url,
           };
         }

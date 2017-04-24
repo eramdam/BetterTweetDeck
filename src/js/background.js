@@ -50,6 +50,7 @@ const defaultSettings = {
     short_txt: false,
   },
   old_replies: false,
+  old_search: false,
   thumbnails: {},
 };
 

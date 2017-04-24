@@ -8,7 +8,27 @@ const deciderOverride = {
   simplified_replies: false,
 };
 
-TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace('{{>status/tweet_single_footer}} </div> </div>', '{{>status/tweet_single_footer}} </div> <i class="sprite tweet-dogear"></i></div>');
+const experimentOverride = {
+  config: {
+    tweetdeck_notifications_streaming_5807: {
+      value: 'no_streaming',
+    },
+    tweetdeck_simplified_search_flow_5499: {
+      value: 'no_temp_editable_header_search',
+    },
+    tweetdeck_editable_search_headers_5431: {
+      value: 'editable_search_headers',
+    },
+    tweetdeck_engagement_icons_3569: {
+      value: '',
+    },
+    thamshere_test_3281: {
+      value: '',
+    },
+  },
+};
+
+TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace('{{>status/tweet_single_footer}} </div>', '{{>status/tweet_single_footer}} <i class="sprite tweet-dogear"></i> </div>');
 TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('</footer> {{/getMainTweet}}', '</footer> {{/getMainTweet}} <i class="sprite tweet-dogear"></i>');
 
 const getChirpFromKey = (key, colKey) => {
@@ -160,6 +180,9 @@ const postMessagesListeners = {
 
     chirp.retweet();
   },
+  BTDC_renderInstagramEmbed: () => {
+    instgrm.Embeds.process();
+  },
   BTDC_settingsReady: (ev, data) => {
     const { settings } = data;
     SETTINGS = settings;
@@ -186,6 +209,13 @@ const postMessagesListeners = {
       });
 
       TD.decider.updateForGuestId();
+    }
+
+    if (settings.old_search) {
+      const searchOverride = { tweetdeck_simplified_search_flow_5499: { value: 'nope' } };
+      Object.assign(experimentOverride.config, searchOverride);
+
+      TD.controller.stats.setExperiments(experimentOverride);
     }
   },
 };
