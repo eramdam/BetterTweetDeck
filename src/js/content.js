@@ -30,7 +30,7 @@ sendMessage({ action: 'get_settings' }, (response) => {
   ];
 
   if (settings.thumbnails && settings.thumbnails.instagram) {
-    scripts.push('https://platform.instagram.com/en_US/embeds.js');
+    scripts.push(chrome.extension.getURL('embeds.js'));
   }
 
   scripts.forEach(src => {

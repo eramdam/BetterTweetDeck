@@ -49,6 +49,16 @@ module.exports = {
     page: 'options/ui/ui.html',
     chrome_style: false,
   },
-  web_accessible_resources: ['js/inject.js', 'js/content.js.map', 'js/inject.js.map', 'js/background.js.map', 'emojis/sheet_twitter_64.png', 'emojis/emoji-happy.svg', 'icons/controller-play.svg', 'options/options.html'],
+  web_accessible_resources: [
+    'js/inject.js',
+    'js/content.js.map',
+    'js/inject.js.map',
+    'js/background.js.map',
+    'emojis/sheet_twitter_64.png',
+    'emojis/emoji-happy.svg',
+    'icons/controller-play.svg',
+    'options/options.html',
+    'embeds.js',
+  ],
   content_security_policy: 'img-src \'self\' *; default-src; connect-src * https:; style-src \'unsafe-inline\'',
 };

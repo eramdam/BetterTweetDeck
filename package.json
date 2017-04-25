@@ -13,7 +13,7 @@
   },
   "scripts": {
     "start": "cross-env NODE_ENV=dev gulp",
-    "build": "cross-env NODE_ENV=dev gulp build",
+    "build": "cross-env NODE_ENV=dev gulp build && node tools/update_instagram_embeds.js",
     "build:prod": "rimraf dist/ && cross-env NODE_ENV=prod gulp build --type production && bestzip packed/dist.zip dist/",
     "pack": "node tools/pack.js",
     "release": "npm run build:prod && npm run pack",
