@@ -1,4 +1,8 @@
-:tada: 3.3.2 :tada:
+:tada: 3.3.3 :tada:
+===============
+- [Bugfix] The "download as GIF" link under GIF fullscreen previews is back. Sorry about that.
+
+3.3.2
 =============== 
 - [Feature] You can revert to the old search! (thanks to [@pixeldesu](https://github.com/pixeldesu)) ([#144](https://github.com/eramdam/BetterTweetDeck/pull/144))
 - [Improvement] Instagram fullscreen previews should work properly now
