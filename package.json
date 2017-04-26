@@ -76,6 +76,7 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": ">=1.1.0",
     "vinyl-transform": "^1.0.0",
+    "web-ext": "^1.9.0",
     "xml-js": "^1.0.0"
   }
 }
