@@ -21,6 +21,11 @@ const templates = {
         <a href="#" class="mdl-dismiss js-dismiss mdl-dismiss-media mdl-btn-media" rel="dismiss"><i class="icon txt-size--24 icon-close"></i></a>
         <div class="btd-embed-container -video">
           {{&videoEmbed}}
+          {{#hasGIFDownload}}
+            <div class="gif-download" style="text-align: center; margin-top: 10px;">
+              <a href="#" data-btd-dl-gif rel="url" target="_blank">Download as .GIF</a>
+            </div>
+          {{/hasGIFDownload}}
         </div>
         <div id="media-gallery-tray"></div>
         <div class="js-med-tweet med-tweet">{{&tweetEmbed}}</div>
