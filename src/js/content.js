@@ -1,3 +1,4 @@
+import config from 'config';
 import gifshot from 'gifshot';
 import FileSaver from 'file-saver';
 import each from 'promise-each';
@@ -30,7 +31,7 @@ sendMessage({ action: 'get_settings' }, (response) => {
   ];
 
   if (settings.thumbnails && settings.thumbnails.instagram) {
-    scripts.push(chrome.extension.getURL('embeds.js'));
+    scripts.push(config.get('Client.remote_inst') ? 'https://platform.instagram.com/en_US/embeds.js' : chrome.extension.getURL('embeds.js'));
   }
 
   scripts.forEach(src => {

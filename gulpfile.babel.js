@@ -1,10 +1,13 @@
 // Gulp & utils
+import fs from 'fs';
 import path from 'path';
 import gulp from 'gulp';
 import runSequence from 'run-sequence';
 import del from 'del';
 import plumber from 'gulp-plumber';
 import notify from 'gulp-notify';
+import config from 'config';
+import needle from 'needle';
 
 // JS
 import browserify from 'browserify';
@@ -90,6 +93,14 @@ gulp.task('static', () => gulp.src(staticFiles, { base: './src' }).pipe(gulp.des
 
 gulp.task('static-news', () => gulp.src('./CHANGELOG.md').pipe(gulp.dest('./dist/options/')) );
 
+gulp.task('embed_instagram', (done) => {
+  const out = fs.createWriteStream('./dist/embeds.js');
+  
+  needle.get('https://platform.instagram.com/en_US/embeds.js').pipe(out);
+  out.on('end', done);
+  out.on('error', done);
+});
+
 /*
 *
 * `gulp js`
@@ -154,7 +165,12 @@ gulp.task('lint', () => (
 *
 */
 gulp.task('build', (done) => {
-  runSequence('clean', 'manifest', ['js', 'static', 'css', 'css-options'], 'static-news', done);
+  const tasks = ['clean', 'manifest', ['js', 'static', 'css', 'css-options'], 'static-news'];
+  
+  if (!config.get('Client.remote_inst'))
+    tasks.push('embed_instagram');
+
+  runSequence(...tasks, done);
 });
 
 /*
@@ -192,7 +208,12 @@ gulp.task('manifest', (done) => {
 *
 */
 gulp.task('default', (done) => {
-  runSequence('clean', 'manifest', ['css', 'css-options', 'js', 'static'], 'static-news', () => {
+  const tasks = ['clean', 'manifest', ['css', 'css-options', 'js', 'static'], 'static-news'];
+  
+  if (!config.get('Client.remote_inst'))
+    tasks.push('embed_instagram');
+
+  runSequence(...tasks, () => {
     gulp.watch(['./src/js/**/*.js',  './src/options/*.js'], ['js', 'js-options']);
     gulp.watch(['./src/css/**/*.css'], ['css', 'css-options']);
     gulp.watch(staticFiles, ['static', 'static-news']);
