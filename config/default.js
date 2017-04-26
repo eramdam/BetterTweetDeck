@@ -1,4 +1,5 @@
 module.exports = {
+  FirefoxId: '',
   'Client': {
     'debug': false,
     'remote_inst': true,

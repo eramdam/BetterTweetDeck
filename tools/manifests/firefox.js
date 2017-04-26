@@ -1,3 +1,5 @@
+const config = require('config');
+
 /* eslint quotes: 0 */
 module.exports = Object.assign(require('./common.js'), {
   name: '__MSG_appName__',
@@ -5,7 +7,7 @@ module.exports = Object.assign(require('./common.js'), {
   default_locale: 'en',
   applications: {
     gecko: {
-      id: 'BetterTweetDeck@erambert.me',
+      id: config.get('FirefoxId'),
       strict_min_version: '48.0',
     },
   },
