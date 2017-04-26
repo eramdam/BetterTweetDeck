@@ -1,4 +1,8 @@
-:tada: 3.3.3 :tada:
+:tada: 3.3.4 :tada:
+===============
+- [Bugfix] There was some weird issues with the Instagram embed script. It's now bundled w/ the extension to improve reliability.
+
+3.3.3
 ===============
 - [Bugfix] The "download as GIF" link under GIF fullscreen previews is back. Sorry about that.
 
