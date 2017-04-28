@@ -20,6 +20,7 @@
   "sec_donate": { "message": "Donate" },
   "sec_preview": { "message": "Preview" },
   "sec_general": { "message": "General" },
+  "sec_experimental": { "message": "Experimental" },
 
   "title_timeDisplay": { "message": "Time display style"},
   "time_relative": { "message": "Relative" },
@@ -41,6 +42,7 @@
   "title_avatars": { "message": "Avatars & details" },
   "old_replies": { "message": "Revert to the old replies style (pre 03/30/2017)" },
   "old_search": { "message": "Revert to the old search system (no columns for searches!)"},
+  "streaming": { "message": "Re-enable streaming for the notifications column"},
   "css_round_pic": { "message": "Rounded avatars" },
   "css_bigger_emojis": { "message": "Bigger emojis in tweets" },
   "css_collapse_dms": { "message": "Collapse read direct messages" },

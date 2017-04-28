@@ -51,6 +51,7 @@ const defaultSettings = {
   },
   old_replies: false,
   old_search: false,
+  streaming: false,
   thumbnails: {},
 };
 
