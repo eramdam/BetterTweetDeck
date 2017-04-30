@@ -18,9 +18,9 @@
     "chrome:prod": "cross-env NODE_ENV=prod gulp build --type production --browser chrome",
     "firefox": "cross-env NODE_ENV=prod gulp build --browser firefox",
     "firefox:prod": "cross-env NODE_ENV=prod gulp build --type production --browser firefox",
-    "pack:chrome-opera": "node tools/pack.js",
+    "pack:chrome": "node tools/pack.js",
     "pack:firefox": "web-ext build -s dist -a artifacts",
-    "release": "npm run chrome:prod && npm run pack:chrome-opera && npm run firefox:prod && npm run pack:firefox",
+    "release": "npm run chrome:prod && npm run pack:chrome && npm run firefox:prod && npm run pack:firefox",
     "test": "gulp lint && npm run release"
   },
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
