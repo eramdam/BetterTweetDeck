@@ -1,3 +1,6 @@
+/**
+ * EDGE SUPPORT STILL IN WORK THO
+ */
 const common = require('./common.js');
 
 module.exports = {
