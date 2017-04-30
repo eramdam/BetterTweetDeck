@@ -1,6 +1,7 @@
 const fs = require('fs');
 const packageJson = JSON.parse(fs.readFileSync(`${__dirname}/../../package.json`, 'utf8'));
 
+/* eslint quotes: 0 */
 module.exports = {
   name: 'Better TweetDeck 3',
   short_name: 'BetterTDeck',
@@ -44,21 +45,23 @@ module.exports = {
     '*://tweetdeck.twitter.com/*',
     'contextMenus',
     'notifications',
+    'tabs',
   ],
   options_ui: {
     page: 'options/ui/ui.html',
     chrome_style: false,
   },
   web_accessible_resources: [
-    'js/inject.js',
-    'js/content.js.map',
-    'js/inject.js.map',
-    'js/background.js.map',
-    'emojis/sheet_twitter_64.png',
-    'emojis/emoji-happy.svg',
-    'icons/controller-play.svg',
-    'options/options.html',
     'embeds.js',
+    'emojis/emoji-happy.svg',
+    'emojis/sheet_twitter_64.png',
+    'icons/controller-play.svg',
+    'js/background.js.map',
+    'js/content.js.map',
+    'js/inject.js',
+    'js/inject.js.map',
+    'options/options.html',
+    'options/options.html',
   ],
-  content_security_policy: 'img-src \'self\' *; default-src; connect-src * https:; style-src \'unsafe-inline\'',
+  content_security_policy: `img-src https: data: 'self' *; default-src; connect-src * https:; style-src 'unsafe-inline'`,
 };

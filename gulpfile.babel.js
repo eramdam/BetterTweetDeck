@@ -15,6 +15,7 @@ import source from 'vinyl-source-stream';
 import buffer from 'vinyl-buffer';
 import eslint from 'gulp-eslint';
 import uglify from 'gulp-uglify';
+import zip from 'gulp-zip';
 import sourcemaps from 'gulp-sourcemaps';
 import gutil from 'gulp-util';
 
@@ -78,10 +79,22 @@ const buildWithBrowserify = (entry) => {
 /*
 *
 * `gulp clean`
-* Remove the build/ folder (used before build)
+* Remove the dist/ folder (used before build)
 *
 */
 gulp.task('clean', () => del(['dist/']));
+
+/*
+*
+* `gulp zip`
+* zips the dist/ folder (used before build)
+*
+*/
+gulp.task('zip', () => (
+  gulp.src('dist/*')
+  .pipe(zip(`dist-${browser}.zip`))
+  .pipe(gulp.dest('artifacts/'))
+));
 
 /*
 *
@@ -165,7 +178,7 @@ gulp.task('lint', () => (
 *
 */
 gulp.task('build', (done) => {
-  const tasks = ['clean', 'manifest', ['js', 'static', 'css', 'css-options'], 'static-news'];
+  const tasks = ['clean', 'manifest', ['js', 'static', 'css', 'css-options'], 'static-news', 'zip'];
   
   if (!config.get('Client.remote_inst'))
     tasks.push('embed_instagram');

@@ -8,7 +8,8 @@ import * as Thumbnails from './util/thumbnails';
 import * as Templates from './util/templates';
 import * as Usernames from './util/usernames';
 import * as Emojis from './util/emojis';
-import * as Log from './util/logger.js';
+import * as Log from './util/logger';
+import * as BHelper from './util/browserHelper';
 
 import { $, TIMESTAMP_INTERVAL, on, sendEvent } from './util/util';
 
@@ -40,6 +41,16 @@ sendMessage({ action: 'get_settings' }, (response) => {
     document.head.appendChild(el);
   });
 });
+
+function saveGif(gifshotObj, name, event) {
+  return fetch(gifshotObj.image)
+  .then(res => res.blob())
+  .then(blob => {
+    event.target.style.opacity = 1;
+    event.target.innerText = 'Download as .GIF';
+    FileSaver.saveAs(blob, `${name}.gif`);
+  });
+}
 
 
 /**
@@ -608,12 +619,36 @@ on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
       e.preventDefault();
       e.target.style.opacity = 0.8;
 
-      gifshot.createGIF({
+      const gifshotOptions = {
         gifWidth: videoEl.getAttribute('data-btd-width'),
         gifHeight: videoEl.getAttribute('data-btd-height'),
         video: [videoEl.getAttribute('src')],
+        name: videoEl.getAttribute('data-btd-name'),
         numFrames: Math.floor(videoEl.duration / 0.1),
         sampleInterval: 10,
+      };
+
+      const gifshotCb = (obj) => {
+        if (obj.error) {
+          return;
+        }
+
+        saveGif(obj, gifshotOptions.name, e);
+      };
+
+      // Firefox doesn't support Web Workers from content scripts so we have to run it in the background
+      // ...
+      // ...
+      // Yes, it's hacky but we have no choice ¯\(ツ)/¯
+      if (BHelper.isFirefox) {
+        e.target.innerText = 'Converting to GIF... (in progress)';
+        return sendMessage({
+          action: 'download_gif',
+          options: gifshotOptions,
+        }, (response) => gifshotCb(response.obj));
+      }
+
+      return gifshot.createGIF(Object.assign(gifshotOptions, {
         progressCallback: (progress) => {
           if (progress > 0.99) {
             e.target.innerText = 'Converting to GIF... (Finalizing)';
@@ -621,18 +656,7 @@ on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
             e.target.innerText = `Converting to GIF... (${Number(progress * 100).toFixed(1)}%)`;
           }
         },
-      }, obj => {
-        if (!obj.error) {
-          e.target.innerText = 'Preparing the file...';
-          fetch(obj.image)
-          .then(res => res.blob())
-          .then(blob => {
-            e.target.style.opacity = 1;
-            e.target.innerText = 'Download as .GIF';
-            FileSaver.saveAs(blob, `${videoEl.getAttribute('data-btd-name')}.gif`);
-          });
-        }
-      });
+      }), gifshotCb);
     });
   }
 });

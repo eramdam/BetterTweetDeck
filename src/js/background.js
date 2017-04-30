@@ -1,4 +1,4 @@
-
+import gifshot from 'gifshot';
 import * as BHelper from './util/browserHelper';
 import * as Messages from './util/messaging';
 import * as Log from './util/logger';
@@ -93,9 +93,7 @@ function contextMenuHandler(info, tab, settings) {
       focused: true,
     }, () => {
       chrome.tabs.update(TDTab.id, {
-        selected: true,
         active: true,
-        highlighted: true,
       }, () => {
         chrome.tabs.sendMessage(TDTab.id, {
           text: textToShare,
@@ -158,6 +156,12 @@ Messages.on((message, sender, sendResponse) => {
 
     case 'get':
       BHelper.settings.get(message.key, (val) => sendResponse({ val }));
+      return true;
+
+    case 'download_gif':
+      gifshot.createGIF(message.options, obj => {
+        sendResponse({ obj });
+      });
       return true;
 
     default:
