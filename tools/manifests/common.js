@@ -57,6 +57,7 @@ module.exports = {
     'emojis/emoji-happy.svg',
     'emojis/sheet_twitter_64.png',
     'icons/controller-play.svg',
+    'icons/poll.svg',
     'js/background.js.map',
     'js/content.js.map',
     'js/inject.js',

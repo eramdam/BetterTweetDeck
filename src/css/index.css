@@ -92,6 +92,17 @@
   }
 }
 
+[data-btdtheme] .btd-poll-icon {
+  background-image: url('../icons/poll.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+[data-btdtheme] .btd-has-poll .tweet-detail .media-badge {
+  display: none;
+}
+
 .btd-settings-btn .icon {
   color: #009cf0;
 }

@@ -459,6 +459,15 @@ function tweetHandler(tweet, columnKey, parent) {
       profilePicture.src = Thumbnails.getSafeURL(profilePicture.src);
     }
 
+    if (tweet.poll && !node.classList.contains('btd-has-poll')) {
+      node.classList.add('btd-has-poll');
+      node.querySelector('.js-card-container').insertAdjacentHTML('afterend', `
+        <div class="media-badge txt-size-variable--12 txt-mute">
+          <span class="btd-poll-icon icon txt-size-variable--15 align-top"></span> POLL
+        </div>
+      `);
+    }
+
 
     // Urls:
     // If it got entities, it's a tweet
