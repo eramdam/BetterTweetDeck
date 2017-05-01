@@ -15,6 +15,10 @@ Emoji.replace_mode = 'css';
 Emoji.supports_css = true;
 Emoji.use_sheet = true;
 
+if (BHelper.isFirefox) {
+  document.body.classList.add('-browser-firefox');
+}
+
 function refreshPreviews(settings) {
   if (settings.nm_disp) {
     let html;

@@ -87,8 +87,18 @@ function refreshTimestamps() {
  * This function will simply take settings in `css` field
  * and then add/remove classes on the body
  */
+
+const disabledOnFirefox = ['no_scrollbars', 'slim_scrollbars'];
+
 function tweakClassesFromVisualSettings() {
   const enabledClasses = Object.keys(settings.css)
+                        .filter((key) => {
+                          if (BHelper.isFirefox) {
+                            return !disabledOnFirefox.includes(key);
+                          }
+
+                          return true;
+                        })
                         .filter((key) => settings.css[key])
                         .map((cl) => `btd__${cl}`);
 

@@ -25,6 +25,10 @@ body {
   line-height: 1.4;
 }
 
+body.-browser-firefox [data-hidden-firefox] {
+  display: none;
+}
+
 /*
   Main container
  */
