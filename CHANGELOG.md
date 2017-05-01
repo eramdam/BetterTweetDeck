@@ -1,5 +1,7 @@
 :tada: 3.3.4 :tada:
 ===============
+- [Feature] Tweets with a poll will now have a "poll" indicator below them in the columns
+- [Bugfix] Spotify were not working anymore. This should be fixed.
 - [Bugfix] There was some weird issues with the Instagram embed script. It's now bundled w/ the extension to improve reliability.
 
 3.3.3
