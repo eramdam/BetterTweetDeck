@@ -460,3 +460,26 @@ $('body').on('click', '#open-modal', (ev) => {
     return;
   }
 });
+
+const isVisible = (elem) => {
+  if (!(elem instanceof Element)) throw Error('not an element');
+  const style = getComputedStyle(elem);
+  return style.display !== 'none' &&
+        style.visibility === 'visible' &&
+        elem.offsetWidth + elem.offsetHeight + elem.getBoundingClientRect().height + elem.getBoundingClientRect().width !== 0;
+};
+
+window.addEventListener('focus', () => {
+  const active = document.activeElement;
+  if (active && (active.tagName === 'TEXTAREA' || active.tagName === 'INPUT')) {
+    return;
+  }
+  const widget = [
+    document.querySelector('input.is-focused'),
+    document.querySelector('input.search-input[type=text]'),
+    document.querySelector('textarea.compose-text'),
+  ].find(elem => elem && isVisible(elem));
+  if (widget) {
+    widget.focus();
+  }
+}, true);
