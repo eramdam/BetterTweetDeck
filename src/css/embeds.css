@@ -65,7 +65,8 @@
   }
 }
 
-.btd-embed-container.-video iframe {
+.btd-embed-container.-video iframe,
+.btd-embed-container.-video video {
   max-width: 100% !important;
   max-height: 100% !important;
   object-fit: contain;
