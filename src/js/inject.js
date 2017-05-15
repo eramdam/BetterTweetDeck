@@ -6,6 +6,7 @@ let SETTINGS;
 
 const deciderOverride = {
   simplified_replies: false,
+  disable_streaming: false,
 };
 
 const experimentOverride = {
@@ -214,9 +215,15 @@ const postMessagesListeners = {
     if (settings.old_search) {
       const searchOverride = { tweetdeck_simplified_search_flow_5499: { value: 'nope' } };
       Object.assign(experimentOverride.config, searchOverride);
-
-      TD.controller.stats.setExperiments(experimentOverride);
     }
+
+    if (settings.streaming) {
+      const streamingOverride = { tweetdeck_notifications_streaming_5807: { value: 'streaming_please' } };
+      Object.assign(experimentOverride.config, streamingOverride);
+    }
+
+    // FIXME: This does not work, yet. Fix proper entrypoint or whatever.
+    TD.controller.stats.setExperiments(experimentOverride);
   },
 };
 
