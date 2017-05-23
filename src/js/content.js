@@ -654,22 +654,16 @@ on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
       e.preventDefault();
       e.target.style.opacity = 0.8;
 
-      // For some reason gifshot generates GIFs that are twice as fast on Firefox
-      // We slow-down the source mp4 to work around that
-      // It's hacky, but it works! A better fix would be to use gif.js (https://jnordberg.github.io/gif.js/tests/video.html)
-      if (BHelper.isFirefox) {
-        videoEl.playbackRate = 0.5;
-      }
-
       const gifshotOptions = {
         gifWidth: videoEl.getAttribute('data-btd-width'),
         gifHeight: videoEl.getAttribute('data-btd-height'),
         video: [videoEl.getAttribute('src')],
         name: videoEl.getAttribute('data-btd-name'),
-        numFrames: Math.floor(videoEl.duration / 0.05),
-        interval: 0.05,
+        numFrames: Math.floor(videoEl.duration / 0.1),
+        interval: 0.1,
         sampleInterval: 10,
       };
+
 
       const gifshotCb = (obj) => {
         if (obj.error) {
@@ -683,11 +677,17 @@ on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
       // ...
       // ...
       // Yes, it's hacky but we have no choice ¯\(ツ)/¯
-      e.target.innerText = 'Converting to GIF... (in progress)';
-      return sendMessage({
-        action: 'download_gif',
-        options: gifshotOptions,
-      }, (response) => gifshotCb(response.obj));
+      if (BHelper.isFirefox) {
+        e.target.innerText = 'Converting to GIF... (in progress)';
+        return sendMessage({
+          action: 'download_gif',
+          options: gifshotOptions,
+        }, (response) => gifshotCb(response.obj));
+      }
+
+      return gifshot.createGIF(Object.assign(gifshotOptions, {
+        progressCallback: (progress) => updateGifProgress(e.target, progress),
+      }), gifshotCb);
     });
   }
 });
