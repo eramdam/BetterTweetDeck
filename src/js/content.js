@@ -42,14 +42,23 @@ sendMessage({ action: 'get_settings' }, (response) => {
   });
 });
 
-function saveGif(gifshotObj, name, event) {
+function saveGif(gifshotObj, name, event, videoEl) {
   return fetch(gifshotObj.image)
   .then(res => res.blob())
   .then(blob => {
     event.target.style.opacity = 1;
     event.target.innerText = 'Download as .GIF';
     FileSaver.saveAs(blob, `${name}.gif`);
+    videoEl.playbackRate = 1;
   });
+}
+
+function updateGifProgress(element, progress) {
+  if (progress > 0.99) {
+    element.innerText = 'Converting to GIF... (Finalizing)';
+  } else {
+    element.innerText = `Converting to GIF... (${Number(progress * 100).toFixed(1)}%)`;
+  }
 }
 
 
@@ -571,9 +580,16 @@ on('BTDC_ready', () => {
   });
 
   onMessage((details) => {
-    document.dispatchEvent(new CustomEvent('uiComposeTweet'));
-    $('textarea.js-compose-text')[0].value = `${details.text} ${details.url}`;
-    $('textarea.js-compose-text')[0].dispatchEvent(new Event('change'));
+    switch (details.action) {
+      case 'progress_gif':
+        updateGifProgress($('[data-btd-dl-gif]')[0], details.progress);
+        break;
+      default:
+        document.dispatchEvent(new CustomEvent('uiComposeTweet'));
+        $('textarea.js-compose-text')[0].value = `${details.text} ${details.url}`;
+        $('textarea.js-compose-text')[0].dispatchEvent(new Event('change'));
+        break;
+    }
   });
 });
 
@@ -638,12 +654,20 @@ on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
       e.preventDefault();
       e.target.style.opacity = 0.8;
 
+      // For some reason gifshot generates GIFs that are twice as fast on Firefox
+      // We slow-down the source mp4 to work around that
+      // It's hacky, but it works! A better fix would be to use gif.js (https://jnordberg.github.io/gif.js/tests/video.html)
+      if (BHelper.isFirefox) {
+        videoEl.playbackRate = 0.5;
+      }
+
       const gifshotOptions = {
         gifWidth: videoEl.getAttribute('data-btd-width'),
         gifHeight: videoEl.getAttribute('data-btd-height'),
         video: [videoEl.getAttribute('src')],
         name: videoEl.getAttribute('data-btd-name'),
-        numFrames: Math.floor(videoEl.duration / 0.1),
+        numFrames: Math.floor(videoEl.duration / 0.05),
+        interval: 0.05,
         sampleInterval: 10,
       };
 
@@ -652,30 +676,18 @@ on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
           return;
         }
 
-        saveGif(obj, gifshotOptions.name, e);
+        saveGif(obj, gifshotOptions.name, e, videoEl);
       };
 
       // Firefox doesn't support Web Workers from content scripts so we have to run it in the background
       // ...
       // ...
       // Yes, it's hacky but we have no choice ¯\(ツ)/¯
-      if (BHelper.isFirefox) {
-        e.target.innerText = 'Converting to GIF... (in progress)';
-        return sendMessage({
-          action: 'download_gif',
-          options: gifshotOptions,
-        }, (response) => gifshotCb(response.obj));
-      }
-
-      return gifshot.createGIF(Object.assign(gifshotOptions, {
-        progressCallback: (progress) => {
-          if (progress > 0.99) {
-            e.target.innerText = 'Converting to GIF... (Finalizing)';
-          } else {
-            e.target.innerText = `Converting to GIF... (${Number(progress * 100).toFixed(1)}%)`;
-          }
-        },
-      }), gifshotCb);
+      e.target.innerText = 'Converting to GIF... (in progress)';
+      return sendMessage({
+        action: 'download_gif',
+        options: gifshotOptions,
+      }, (response) => gifshotCb(response.obj));
     });
   }
 });

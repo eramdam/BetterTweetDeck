@@ -96,6 +96,7 @@ function contextMenuHandler(info, tab, settings) {
         active: true,
       }, () => {
         chrome.tabs.sendMessage(TDTab.id, {
+          action: 'share',
           text: textToShare,
           url: urlToShare,
         });
@@ -147,6 +148,12 @@ BHelper.settings.getAll(settings => {
   });
 });
 
+const sendToCurrentTab = (message) => {
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    chrome.tabs.sendMessage(tabs[0].id, message);
+  });
+};
+
 // Simple interface to get settings
 Messages.on((message, sender, sendResponse) => {
   switch (message.action) {
@@ -159,6 +166,10 @@ Messages.on((message, sender, sendResponse) => {
       return true;
 
     case 'download_gif':
+      message.options.progressCallback = (progress) => {
+        sendToCurrentTab({ action: 'progress_gif', progress });
+      };
+
       gifshot.createGIF(message.options, obj => {
         sendResponse({ obj });
       });
