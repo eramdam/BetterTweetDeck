@@ -1,6 +1,7 @@
 :tada: 3.3.5 :tada:
 ===============
 - [Meta] **Removed the old search setting**. TweetDeck killed the hack, sorry, RIP :sob:
+- [Bugfix] Tweet field will be re-focused when you alt-tab after having it focused already (thanks to [@knu](https://github.com/knu)) ([#152](https://github.com/eramdam/BetterTweetDeck/pull/152))
 - [Bugfix] Videos/iframe should (hopefully) be correctly resized in full screen previews
 
 3.3.4 
