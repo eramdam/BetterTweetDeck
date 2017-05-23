@@ -462,14 +462,26 @@ $('body').on('click', '#open-modal', (ev) => {
 });
 
 const isVisible = (elem) => {
-  if (!(elem instanceof Element)) throw Error('not an element');
+  if (!(elem instanceof Element)) {
+    throw Error('not an element');
+  }
+
   const style = getComputedStyle(elem);
+  const boundRect = elem.getBoundingClientRect();
+
+  // If a single top/bottom/left/right value is negative then the element is partially out of the window
+  const isCompletelyVisible = ['left', 'right', 'top', 'bottom'].every(i => boundRect[i] > 0);
+
   return style.display !== 'none' &&
-        style.visibility === 'visible' &&
-        elem.offsetWidth + elem.offsetHeight + elem.getBoundingClientRect().height + elem.getBoundingClientRect().width !== 0;
+        style.visibility === 'visible' && isCompletelyVisible;
 };
 
-window.addEventListener('focus', () => {
+window.addEventListener('focus', (ev) => {
+  // Don't do anything if we don't focus the window
+  if (!(ev.target instanceof Window)) {
+    return;
+  }
+
   const active = document.activeElement;
   if (active && (active.tagName === 'TEXTAREA' || active.tagName === 'INPUT')) {
     return;
