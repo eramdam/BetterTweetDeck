@@ -18,12 +18,14 @@ import uglify from 'gulp-uglify';
 import zip from 'gulp-zip';
 import sourcemaps from 'gulp-sourcemaps';
 import gutil from 'gulp-util';
+import remoteSrc from 'gulp-remote-src';
 
 // CSS
 import postcss from 'gulp-postcss';
 import cssnext from 'postcss-cssnext';
 import cssnano from 'cssnano';
 import nested from 'postcss-nested';
+
 
 const staticFiles = [
   'icons/*.png',
@@ -91,7 +93,7 @@ gulp.task('clean', () => del(['dist/']));
 *
 */
 gulp.task('zip', () => (
-  gulp.src('dist/*')
+  gulp.src('dist/**/*')
   .pipe(zip(`dist-${browser}.zip`))
   .pipe(gulp.dest('artifacts/'))
 ));
@@ -107,11 +109,11 @@ gulp.task('static', () => gulp.src(staticFiles, { base: './src' }).pipe(gulp.des
 gulp.task('static-news', () => gulp.src('./CHANGELOG.md').pipe(gulp.dest('./dist/options/')) );
 
 gulp.task('embed_instagram', (done) => {
-  const out = fs.createWriteStream('./dist/embeds.js');
-  
-  needle.get('https://platform.instagram.com/en_US/embeds.js').pipe(out);
-  out.on('end', done);
-  out.on('error', done);
+  return remoteSrc(['embeds.js'], {
+    base: 'https://platform.instagram.com/en_US/'
+  })
+  .pipe(uglify())
+  .pipe(gulp.dest('./dist/'));
 });
 
 /*
@@ -178,11 +180,12 @@ gulp.task('lint', () => (
 *
 */
 gulp.task('build', (done) => {
-  const tasks = ['clean', 'manifest', ['js', 'static', 'css', 'css-options'], 'static-news', 'zip'];
+  const tasks = ['clean', 'manifest', ['js', 'static', 'css', 'css-options'], 'static-news'];
   
   if (!config.get('Client.remote_inst'))
     tasks.push('embed_instagram');
-
+  
+  tasks.push('zip');
   runSequence(...tasks, done);
 });
 
