@@ -1,4 +1,3 @@
-import config from 'config';
 import gifshot from 'gifshot';
 import FileSaver from 'file-saver';
 import each from 'promise-each';
