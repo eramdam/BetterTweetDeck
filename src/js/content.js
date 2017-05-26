@@ -29,11 +29,8 @@ sendMessage({ action: 'get_settings' }, (response) => {
   settings = response.settings;
   const scripts = [
     chrome.extension.getURL('js/inject.js'),
+    chrome.extension.getURL('embeds.js'),
   ];
-
-  if (settings.thumbnails && settings.thumbnails.instagram) {
-    scripts.push(config.get('Client.remote_inst') ? 'https://platform.instagram.com/en_US/embeds.js' : chrome.extension.getURL('embeds.js'));
-  }
 
   scripts.forEach(src => {
     const el = document.createElement('script');

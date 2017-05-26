@@ -180,12 +180,8 @@ gulp.task('lint', () => (
 *
 */
 gulp.task('build', (done) => {
-  const tasks = ['clean', 'manifest', ['js', 'static', 'css', 'css-options'], 'static-news'];
-  
-  if (!config.get('Client.remote_inst'))
-    tasks.push('embed_instagram');
-  
-  tasks.push('zip');
+  const tasks = ['clean', 'manifest', ['js', 'static', 'css', 'css-options'], 'static-news', 'embed_instagram', 'zip'];
+
   runSequence(...tasks, done);
 });
 
@@ -224,10 +220,7 @@ gulp.task('manifest', (done) => {
 *
 */
 gulp.task('default', (done) => {
-  const tasks = ['clean', 'manifest', ['css', 'css-options', 'js', 'static'], 'static-news'];
-  
-  if (!config.get('Client.remote_inst'))
-    tasks.push('embed_instagram');
+  const tasks = ['clean', 'manifest', ['css', 'css-options', 'js', 'static'], 'static-news', 'embed_instagram'];
 
   runSequence(...tasks, () => {
     gulp.watch(['./src/js/**/*.js',  './src/options/*.js'], ['js', 'js-options']);
