@@ -162,4 +162,12 @@ body :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
     bottom: 130px;
   }
 }
-    
+
+
+.tweet-detail-media:hover .reverse-image-search, .media-preview-container:hover .reverse-image-search {
+  pointer-events: initial;
+}
+
+.stream-item .reverse-image-search {
+  pointer-events: none;
+}
