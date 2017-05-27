@@ -164,10 +164,10 @@ body :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
 }
 
 
-.tweet-detail-media:hover .reverse-image-search, .media-preview-container:hover .reverse-image-search {
-  pointer-events: initial;
-}
-
-.stream-item .reverse-image-search {
-  pointer-events: none;
+.stream-item .tweet-body .reverse-image-search {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
 }
