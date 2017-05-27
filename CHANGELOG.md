@@ -1,4 +1,9 @@
-:tada: 3.3.5 :tada:
+:tada: 3.3.6 :tada:
+===============
+- [Bugfix] the previous fix for the Google search link issue (see 3.3.5) was not reliable enough. That should be better now
+- [Feature] The emoji picker has been updated (Unicode 8/9)
+
+3.3.5
 ===============
 - [Meta] **Removed the old search setting**. TweetDeck killed the hack, sorry, RIP :sob:
 - [Bugfix] Fix the bug that opened a Google search view when clicking on videos in the timeline (Related to a new TweetDeck feature)
