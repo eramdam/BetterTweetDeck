@@ -25,7 +25,8 @@
     "release": "npm run build:chrome:prod && npm run pack:chrome && npm run build:firefox:prod && npm run pack:firefox",
     "release:firefox": "npm run build:firefox:prod && npm run pack:firefox && rimraf artifacts/dist-firefox.zip",
     "release:chrome": "npm run build:chrome:prod && cross-env NODE_ENV=prod npm run pack:chrome",
-    "test": "gulp lint && npm run release"
+    "test": "gulp lint && npm run release",
+    "update_emojis": "node tools/update_emojis.js"
   },
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
   "dependencies": {
@@ -62,7 +63,7 @@
     "gulp-util": "^3.0.7",
     "gulp-zip": "^4.0.0",
     "jquery": "^3.0.0",
-    "js-emoji": "https://github.com/iamcal/js-emoji/tarball/v3.0.2",
+    "js-emoji": "https://github.com/iamcal/js-emoji/tarball/v3.2.2",
     "lodash": "^4.0.0",
     "marked": "^0.3.6",
     "mustache": "^2.2.1",

@@ -49,10 +49,10 @@ needle.get('https://raw.githubusercontent.com/iamcal/emoji-data/master/emoji.jso
                   .sortBy(emoji => catOrder[emoji.category])
                   .map(emoji => {
                     return {
-                      s: emoji.shortName,
+                      s: emoji.short_name,
                       n: emoji.name,
                       hs: Boolean(emoji.skin_variations),
-                      cat: emoji.category || getMissingCategory(emoji.s_name),
+                      cat: emoji.category || getMissingCategory(emoji.short_name),
                     };
                   })
                   .value();

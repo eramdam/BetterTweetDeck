@@ -2222,6 +2222,10 @@ emitter-steward@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/emitter-steward/-/emitter-steward-1.0.0.tgz#f3411ade9758a7565df848b2da0cbbd1b46cbd64"
 
+emoji-datasource@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/emoji-datasource/-/emoji-datasource-3.0.0.tgz#3c46c5aa4c39bb7a0c8e6877ae02cc94dbc1b12f"
+
 encodeurl@~1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/encodeurl/-/encodeurl-1.0.1.tgz#79e3d58655346909fe6f0f45a5de68103b294d20"
@@ -3912,9 +3916,11 @@ js-base64@^2.1.5, js-base64@^2.1.9:
   version "2.1.9"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.1.9.tgz#f0e80ae039a4bd654b5f281fc93f04a914a7fcce"
 
-"js-emoji@https://github.com/iamcal/js-emoji/tarball/v3.0.2":
-  version "3.0.2"
-  resolved "https://github.com/iamcal/js-emoji/tarball/v3.0.2#bb740e06aaa0423785ad98804a028612084f39d6"
+"js-emoji@https://github.com/iamcal/js-emoji/tarball/v3.2.2":
+  version "3.2.2"
+  resolved "https://github.com/iamcal/js-emoji/tarball/v3.2.2#52fb94242bfa30f14daa48a0d7cb5dc3e92afee8"
+  dependencies:
+    emoji-datasource "3.0.0"
 
 js-select@~0.6.0:
   version "0.6.0"
