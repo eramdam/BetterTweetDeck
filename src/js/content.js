@@ -259,6 +259,24 @@ function thumbnailsFromURLs(urls, node, mediaSize) {
   }));
 }
 
+function addStickerToMessage(stickerObject, node) {
+  const url = stickerObject.images.size_1x.url;
+  const id = stickerObject.id;
+  const html = `<img src="${url}" class="btd-sticker-message" style="max-width: 72px;" />`;
+
+  if ($('.btd-sticker-message', node)) {
+    return;
+  }
+
+  const link = $(`[href$="${id}"]`, node);
+
+  if (link) {
+    link[0].classList.add('btd-isvishidden');
+  }
+
+  $('.tweet-body p, .tweet-text', node)[0].insertAdjacentHTML('afterend', html);
+}
+
 /**
  * This is the main stuff, function called on every tweet
  */
@@ -486,6 +504,12 @@ function tweetHandler(tweet, columnKey, parent) {
     } else if (tweet.retweetedStatus && tweet.retweetedStatus.entities) {
       urlsToChange = [...tweet.retweetedStatus.entities.urls, ...tweet.retweetedStatus.entities.media];
     }
+
+    setTimeout(() => {
+      if (tweet.attachment && tweet.attachment.sticker) {
+        addStickerToMessage(tweet.attachment.sticker, node);
+      }
+    }, 0);
 
     const mediaURLS = urlsToChange.filter(url => url.type || url.display_url.startsWith('youtube.com/watch?v=') || url.display_url.startsWith('vine.co/v/'));
 
