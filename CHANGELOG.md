@@ -1,7 +1,9 @@
 :tada: 3.3.6 :tada:
 ===============
-- [Bugfix] the previous fix for the Google search link issue (see 3.3.5) was not reliable enough. That should be better now
+- [Bugfix] The previous fix for the Google search link issue (see 3.3.5) was not reliable enough. That should be better now.
+- [Bugfix] There was a bug with small thumbnails showing a 2nd play icon. This should be fixed.
 - [Feature] The emoji picker has been updated (Unicode 8/9)
+- [Feature] [Stickers](https://blog.twitter.com/official/en_us/a/2016/introducing-stickers-on-twitter.html) sent in Direct Messages from Twitter apps are displayed now.
 
 3.3.5
 ===============
