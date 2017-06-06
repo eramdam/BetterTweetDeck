@@ -231,3 +231,32 @@ img.emoji {
 	width: 1em;
 	height: 1em;
 }
+
+button.plain-button {
+  outline: none;
+  border: none;
+
+  font-size: 14px;
+  border-radius: 4px;
+  color: #3B3B3B;
+  font-weight: 500;
+  padding: 3px 13px 4px 13px;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  
+  &:hover {
+    background: linear-gradient(#ffffff, #f1f1f1);
+    border: 1px solid #b1b1b1;
+  }
+  
+  &, &[disabled]:hover {
+    border: 1px solid #cecece;
+    background: linear-gradient(#ffffff, #e8e8e8);
+  }
+  
+  &[disabled] {
+    pointer-events: none;
+    background-color: transparent;
+    opacity: .8;
+  }
+}

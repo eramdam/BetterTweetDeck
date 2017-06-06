@@ -139,10 +139,18 @@ BHelper.settings.getAll(settings => {
 
     // We create the context menu item
     if (newSettings.share_item && newSettings.share_item.enabled) {
-      chrome.contextMenus.create({
-        title: BHelper.getMessage('shareOnTD'),
-        contexts: ['page', 'selection', 'image', 'link'],
-        onclick: (info, tab) => contextMenuHandler(info, tab, newSettings),
+      chrome.permissions.contains({
+        permissions: ['tabs'],
+      }, hasTabs => {
+        if (!hasTabs) {
+          return;
+        }
+
+        chrome.contextMenus.create({
+          title: BHelper.getMessage('shareOnTD'),
+          contexts: ['page', 'selection', 'image', 'link'],
+          onclick: (info, tab) => contextMenuHandler(info, tab, newSettings),
+        });
       });
     }
   });

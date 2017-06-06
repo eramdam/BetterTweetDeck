@@ -27,6 +27,7 @@
         <a href="#tweetsDisplay" class="nav-item" data-lang="sec_tweetsDisplay">Tweets: display</a>
         <a href="#visual" class="nav-item" data-lang="sec_interface">Interface</a>
         <a href="#btdContent" class="nav-item" data-lang="sec_content">Content</a>
+        <a href="#share" class="nav-item" data-lang="shared_btd_h1">Sharing</a>
       </nav>
 
       <h3 class="sidebar-title">Meta</h3>
@@ -189,14 +190,6 @@
       <div class="settings-section">
         <ul>
           <li>
-            <input type="checkbox" name="share_item.enabled" id="enabled">
-            <label for="enabled" data-lang="share_btd_item">Add the "Share on Better TweetDeck" action on contextual menu <small>Will be applied at next Chrome restart</small></label>
-          </li>
-          <li>
-            <input type="checkbox" name="share_item.short_txt" id="short_txt">
-            <label for="short_txt" data-lang="share_short_txt">Shorten the selected text while using the "Share on Better TweetDeck" action <small>Will be applied at next Chrome restart</small></label>
-          </li>
-          <li>
             <input type="checkbox" name="no_tco" id="no_tco">
             <label for="no_tco" data-lang="no_tco">Remove t.co redirection on links</label>
           </li>
@@ -223,6 +216,35 @@
         </ul>
       </div>
       <button class="save-button" disabled data-lang="save_no">No changes</button>
+    </section>
+    
+    <section class="content-block" id="share">
+      <h2 class="section-title" data-lang="shared_btd_h1">Sharing</h2>
+      
+      <div class="settings-section" data-require-permission>
+        <p data-lang="share_btd_p1">The "Share on TweetDeck" feature requires permissions to see your open tabs to work properly. Click the button below to require those permissions.</p>
+        
+        <p>
+          <button class="plain-button" data-lang="share_request" data-ask-permissions>Request tabs reading permissions</button>
+        </p>
+
+        <p data-lang="share_btd_p2">Better TweetDeck <strong>cannot</strong> read the content of your tabs and doesn't track it.</p>
+        
+        <p data-lang="share_btd_p3">Feel free to read <a href="https://developer.chrome.com/extensions/tabs">Chrome's documentation</a> about this permission for more details.</p>
+        
+        <p><strong data-lang="share_btd_p4">Any modification on this page will be applied after a Chrome restart</strong></p>
+
+        <ul>
+          <li>
+            <input type="checkbox" name="share_item.enabled" id="enabled">
+            <label for="enabled" data-lang="share_btd_item">Add the "Share on Better TweetDeck" action on contextual menu</label>
+          </li>
+          <li>
+            <input type="checkbox" name="share_item.short_txt" id="short_txt">
+            <label for="short_txt" data-lang="share_short_txt">Shorten the selected text while using the "Share on Better TweetDeck" action</label>
+          </li>
+        </ul>
+      </div>
     </section>
 
     <section class="content-block" id="visual">

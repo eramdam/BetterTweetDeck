@@ -46,8 +46,8 @@ module.exports = {
     '*://tweetdeck.twitter.com/*',
     'contextMenus',
     'notifications',
-    'tabs',
   ],
+  optional_permissions: ['tabs'],
   options_ui: {
     page: 'options/ui/ui.html',
     chrome_style: false,

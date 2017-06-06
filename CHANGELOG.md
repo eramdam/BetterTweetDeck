@@ -1,4 +1,9 @@
-:tada: 3.3.6 :tada:
+:tada: 3.3.7 :tada:
+===============
+- [Feature] [Meta] The sharing feature now requires your explicit permission before working. See the "Share" section on the left to learn more.
+- [Bugfix] There was some focusing issues on Opera. This should be fixed now
+
+3.3.6
 ===============
 - [Bugfix] The previous fix for the Google search link issue (see 3.3.5) was not reliable enough. That should be better now.
 - [Bugfix] There was a bug with small thumbnails showing a 2nd play icon. This should be fixed.
