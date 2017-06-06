@@ -487,8 +487,6 @@ window.addEventListener('focus', (ev) => {
     return;
   }
   const widget = [
-    document.querySelector('input.is-focused'),
-    document.querySelector('input.search-input[type=text]'),
     document.querySelector('textarea.compose-text'),
   ].find(elem => elem && isVisible(elem));
   if (widget) {
