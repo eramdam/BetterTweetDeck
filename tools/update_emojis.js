@@ -1,6 +1,6 @@
 const needle = require('needle');
 const _ = require('lodash');
-const jsEmoji = require('js-emoji');
+const jsEmoji = require('emoji-js');
 const Emoji = new jsEmoji.EmojiConvertor();
 const fs = require('fs');
 Emoji.img_set = 'twitter';

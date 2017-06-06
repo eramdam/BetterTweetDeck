@@ -1,5 +1,5 @@
 import emojis from '../../emojis/emojis.js';
-import jsEmoji from 'js-emoji';
+import jsEmoji from 'emoji-js';
 import { $ } from './util';
 
 const Emoji = new jsEmoji.EmojiConvertor();

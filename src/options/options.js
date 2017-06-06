@@ -8,7 +8,7 @@ import marked from 'marked';
 import queryString from 'query-string';
 import fecha from 'fecha';
 
-import jsEmoji from 'js-emoji';
+import jsEmoji from 'emoji-js';
 const Emoji = new jsEmoji.EmojiConvertor();
 Emoji.img_set = 'twitter';
 Emoji.replace_mode = 'css';
