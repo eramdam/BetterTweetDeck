@@ -6,7 +6,6 @@ Fonctionnalités:
 - Un thème "minimaliste".
 - Un sélecteur d'emoji pour les ajouter facilement à vos tweets.
 - Affichez le badge "Vérifié" sur les images de profil dans les colonnes
-- Empêchez les GIFs de se jouer automatiquement
 - Ramenez les étoiles au lieu des coeurs pour les favoris
 - Changez le format des dates
 - Changez le format des noms dans les tweets

@@ -1,7 +1,8 @@
 :tada: 3.3.7 :tada:
 ===============
-- [Feature] [Meta] The sharing feature now requires your explicit permission before working. See the "Share" section on the left to learn more.
-- [Bugfix] There was some focusing issues on Opera. This should be fixed now
+- [Meta] [Improvement] The "don't autoplay GIFs" feature has been removed now that [TweetDeck has that feature now](https://twitter.com/TweetDeck/status/861997926587019264)
+- [Meta] [Feature] The sharing feature now requires your explicit permission before working. See the "Share" section on the left to learn more.
+- [Bugfix] There was some focusing issues on Opera/Chrome. This should be fixed now
 
 3.3.6
 ===============
