@@ -67,7 +67,6 @@
   "share_btd_item": { "message": "Add the 'Share on Better TweetDeck' action on contextual menu" },
   "share_short_txt": { "message": "Shorten the selected text while using the 'Share on Better TweetDeck' action" },
   "no_tco": { "message": "Remove t.co redirection on links" },
-  "stop_autoplay_gifs": { "message": "Don't autoplay GIFs in columns" },
   "no_gif_pp": { "message": "No GIFs in profile pictures in columns" },
   "thumbnails_from": { "message": "Display thumbnails from:" },
 

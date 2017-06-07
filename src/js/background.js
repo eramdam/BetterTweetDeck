@@ -19,7 +19,6 @@ const defaultSettings = {
     mode: 'mentions',
     enabled: true,
   },
-  stop_gifs: true,
   no_gif_pp: false,
   custom_columns_width: {
     size: '250px',

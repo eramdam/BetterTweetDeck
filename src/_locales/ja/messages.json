@@ -57,7 +57,6 @@
   "share_btd_item": { "message": "コンテキストメニューに「TweetDeck で共有」アクションを追加する <small>再起動後に適用されます</small>" },
   "share_short_txt": { "message": "「TweetDeck で共有」アクション実行時に、選択していたテキストを短くする <small>再起動後に適用されます</small>" },
   "no_tco": { "message": "t.co リンクのリダイレクトを除去する" },
-  "stop_autoplay_gifs": { "message": "カラム内の GIF の自動再生を停止する" },
   "no_gif_pp": { "message": "ユーザーアイコンの GIF の自動再生を停止する" },
   "thumbnails_from": { "message": "次のサービスのサムネイル画像を表示する" },
 

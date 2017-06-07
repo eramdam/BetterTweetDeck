@@ -265,63 +265,16 @@ const handleInsertedNode = (ev) => {
   const chirpKey = target.getAttribute('data-key');
   const colKey = target.closest('.js-column').getAttribute('data-column');
 
-  let chirp = getChirpFromKey(chirpKey, colKey);
+  const chirp = getChirpFromKey(chirpKey, colKey);
 
   if (!chirp) {
     return;
-  }
-
-  if (chirp._hasAnimatedGif) {
-    if (chirp.targetTweet) {
-      chirp = chirp.targetTweet;
-    }
-
-    const videoEl = $(`[data-key="${chirp.entities.media[0].id}"] video`)[0];
-
-    if (videoEl && videoEl.paused) {
-      return;
-    }
-
-    if (SETTINGS.stop_gifs) {
-      setTimeout(() => {
-        if ($(`[data-key="${chirp.entities.media[0].id}"] [rel="pause"]`).length > 0) {
-          $(`[data-key="${chirp.entities.media[0].id}"] [rel="pause"]`)[0].click();
-        }
-      });
-    }
   }
 
   proxyEvent('gotChirpForColumn', { chirp: decorateChirp(chirp), colKey });
 };
 
 document.addEventListener('DOMNodeInserted', handleInsertedNode);
-
-$(document).on('uiVisibleChirps', (ev, data) => {
-  const { chirpsData, columnKey } = data;
-  const isThereGifs = chirpsData.filter(chirp => {
-    const hasGif = chirp.chirp && chirp.chirp._hasAnimatedGif;
-    const el = chirp.$elem[0];
-    const isPaused = el.querySelector('video') && !el.querySelector('video').paused;
-
-    return hasGif && isPaused;
-  }).length > 0;
-
-  if (isThereGifs && SETTINGS.stop_gifs) {
-    chirpsData.filter(chirp => chirp.chirp._hasAnimatedGif).forEach(c => {
-      const videoEl = $(`[data-column="${columnKey}"] [data-key="${c.id}"] video`)[0];
-
-      if (videoEl && videoEl.paused) {
-        return;
-      }
-
-      setTimeout(() => {
-        if ($(`[data-column="${columnKey}"] [data-key="${c.id}"] [rel="pause"]`).length > 0) {
-          $(`[data-column="${columnKey}"] [data-key="${c.id}"] [rel="pause"]`)[0].click();
-        }
-      });
-    });
-  }
-});
 
 // TD Events
 $(document).on('dataColumns', (ev, data) => {
