@@ -42,7 +42,7 @@
     "config": "^1.17.1",
     "config-browserify": "^1.0.5",
     "cross-env": "^2.0.1",
-    "crx": "^3.0.3",
+    "crx": "^3.2.1",
     "cssnano": "^3.5.2",
     "del": ">=1.2.1",
     "domify": "^1.4.0",

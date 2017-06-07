@@ -87,7 +87,7 @@ Better TweetDeck **is not** made to:
 
 ### Setup
 
-You will need [NodeJS](https://nodejs.org/en/) (the more recent the better). Fire up your favorite Terminal emulator and do the followings: 
+You will need [NodeJS](https://nodejs.org/en/) (**7.x at most**). Fire up your favorite Terminal emulator and do the followings: 
 
 - **[Fork](https://github.com/eramdam/BetterTweetDeck/fork)** this repository
 - Clone the project
