@@ -63,7 +63,7 @@
   "share_btd_p1": { "message": " In order to use the \"Share on TweetDeck\" feature, you'll need to approve certain permissions which you can do so by clicking below" },
   "share_btd_p2": { "message": "Better TweetDeck <strong>cannot</strong> read the content of your tabs and doesn't track it." },
   "share_btd_p3": { "message": "Feel free to read <a href=\"https://developer.chrome.com/extensions/tabs\">Google's documentation</a> about this permission for more details." },
-  "share_btd_p4": { "message": "Any modification on this page will be applied after a Chrome restart" },
+  "share_btd_p4": { "message": "Any modification on this page will be applied after a browser restart" },
   "share_btd_item": { "message": "Add the 'Share on Better TweetDeck' action on contextual menu" },
   "share_short_txt": { "message": "Shorten the selected text while using the 'Share on Better TweetDeck' action" },
   "no_tco": { "message": "Remove t.co redirection on links" },

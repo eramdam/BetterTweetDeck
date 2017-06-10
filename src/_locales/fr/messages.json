@@ -64,7 +64,7 @@
   "share_btd_p1": { "message": "La fonctionnalité de partage requiert l'autorisation de voir les onglets ouverts. Cliquez sur le bouton ci-dessous pour demander ladite autorisation." },
   "share_btd_p2": { "message": "Better TweetDeck <strong>ne peux pas</strong> lire le contenu de vos onglets ni l'analyser." },
   "share_btd_p3": { "message": "Vous pouvez lire la <a href=\"https://developer.chrome.com/extensions/tabs\">documentation de Google</a> à propos de cette autorisation pour plus de détails" },
-  "share_btd_p4": { "message": "Toute modification sur cette page prendra effet après un redémarrage de Chrome" },
+  "share_btd_p4": { "message": "Toute modification sur cette page prendra effet après un redémarrage du navigateur" },
   "share_btd_item": { "message": "Ajouter le bouton 'Share on Better TweetDeck' dans le menu contextuel" },
   "share_short_txt": { "message": "Réduire automatiquement la longueur du texte en utilisant le partage" },
   "no_tco": { "message": "Supprimer la redirection de <em>t.co</em> sur les liens" },
