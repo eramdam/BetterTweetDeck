@@ -104,6 +104,14 @@ function contextMenuHandler(info, tab, settings) {
   });
 }
 
+const createMenuItem = (newSettings) => {
+  chrome.contextMenus.create({
+    title: BHelper.getMessage('shareOnTD'),
+    contexts: ['page', 'selection', 'image', 'link'],
+    onclick: (info, tab) => contextMenuHandler(info, tab, newSettings),
+  });
+};
+
 BHelper.settings.getAll(settings => {
   let curSettings = settings;
 
@@ -138,19 +146,18 @@ BHelper.settings.getAll(settings => {
 
     // We create the context menu item
     if (newSettings.share_item && newSettings.share_item.enabled) {
-      chrome.permissions.contains({
-        permissions: ['tabs'],
-      }, hasTabs => {
-        if (!hasTabs) {
-          return;
-        }
-
-        chrome.contextMenus.create({
-          title: BHelper.getMessage('shareOnTD'),
-          contexts: ['page', 'selection', 'image', 'link'],
-          onclick: (info, tab) => contextMenuHandler(info, tab, newSettings),
+      if (chrome.permissions) {
+        chrome.permissions.contains({
+          permissions: ['tabs'],
+        }, hasTabs => {
+          if (!hasTabs) {
+            return;
+          }
+          createMenuItem(newSettings);
         });
-      });
+      } else {
+        createMenuItem(newSettings);
+      }
     }
   });
 });
