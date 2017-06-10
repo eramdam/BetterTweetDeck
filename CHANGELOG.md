@@ -1,4 +1,10 @@
-:tada: 3.3.7 :tada:
+:tada: 3.3.8 :tada:
+===============
+- [Bugfix] The settings page was broken on Firefox because of a mistake on my side. It's fixed
+- [Meta] Changed mentions of "Chrome" in the locales to "browser"
+
+
+3.3.7
 ===============
 - [Meta] [Improvement] The "don't autoplay GIFs" feature has been removed now that [TweetDeck has that feature now](https://twitter.com/TweetDeck/status/861997926587019264)
 - [Meta] [Feature] The sharing feature now requires your explicit permission before working. See the "Share" section on the left to learn more.
