@@ -2,7 +2,7 @@
   position: absolute;
 
   &::before {
-    content: "\f02a";
+    content: "\f099";
     font-family: "tweetdeckregular";
     font-weight: normal;
     font-style: normal;
