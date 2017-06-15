@@ -36,7 +36,7 @@
   padding: 10px;
 }
 
-.emoji-popover .category-chooser:before {
+.emoji-popover .category-chooser::before {
   content: '';
   position: absolute;
   width: 100%;

@@ -1,5 +1,5 @@
 .btd__stars {
-  .icon-favorite:before {
+  .icon-favorite::before {
     content: "\f007"
   }
 
