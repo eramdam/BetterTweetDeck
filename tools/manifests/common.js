@@ -55,7 +55,6 @@ module.exports = {
   web_accessible_resources: [
     'embeds.js',
     'emojis/sheet_twitter_64.png',
-    'icons/poll.svg',
     'js/inject.js',
     'options/options.html',
   ],
