@@ -111,8 +111,8 @@
   bottom: 260px !important;
 }
 
-.js-add-emojis .btd-emoji-icon {
-  background-image: url('../emojis/emoji-happy.svg');
+.js-add-emojis .btd-emoji-icon::before {
+  content: "\f438";
 }
 
 .js-media-image-link,
