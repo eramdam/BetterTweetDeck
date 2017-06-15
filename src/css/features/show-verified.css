@@ -31,13 +31,13 @@
   height: 32px;
 }
 
-.btd__show_verified :matches(.js-stream-item-content, .js-tweet) .is-conversation .tweet-img.btd-is-verified:before {
+.btd__show_verified :matches(.js-stream-item-content, .js-tweet) .is-conversation .tweet-img.btd-is-verified::before {
   bottom: -22px;
   right: -19px;
 }
 
-.btd__show_verified .btd-is-verified-mini:before,
-.btd__show_verified .btd-is-verified-mini .tweet-img:before {
+.btd__show_verified .btd-is-verified-mini::before,
+.btd__show_verified .btd-is-verified-mini .tweet-img::before {
   bottom: -5px;
   right: -3px;
   transform-origin: bottom right;
@@ -51,7 +51,7 @@
   position: relative;
 }
 
-.btd__show_verified .activity-header.has-source-avatar .btd-is-verified-mini:before {
+.btd__show_verified .activity-header.has-source-avatar .btd-is-verified-mini::before {
   top: 8px;
   right: -3px;
   bottom: auto;

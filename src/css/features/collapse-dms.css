@@ -8,7 +8,7 @@
   height: 24px !important;
 }
 
-.btd__collapse_dms .tweet-message .tweet-img.btd-is-verified:before {
+.btd__collapse_dms .tweet-message .tweet-img.btd-is-verified::before {
   transform: scale(.8);
   bottom: -8px !important;
 }
