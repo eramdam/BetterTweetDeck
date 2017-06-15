@@ -2,7 +2,7 @@
   position: absolute;
 
   &::before {
-    content: "\f02a";
+    content: "\f099";
     font-family: "tweetdeckregular";
     font-weight: normal;
     font-style: normal;
@@ -10,11 +10,11 @@
     line-height: 1;
     position: absolute;
     bottom: -5px;
-    right: -1px;
+    right: -4px;
     color: #55acee;
     width: 1em;
     height: 1em;
-    font-size: 20px;
+    font-size: 18px;
     z-index: 9;
 
     background-image: radial-gradient(circle 11px, white 50%, color(white a(0)) 51%);
