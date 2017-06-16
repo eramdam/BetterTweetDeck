@@ -1,4 +1,11 @@
-:tada: 3.3.8 :tada:
+:tada: 3.3.9 :tada:
+===============
+- [Meta] A banner is displayed when BTD has been updated for better visibility
+- [Bugfix] The stars icons are correctly changed with the new TweetDeck design
+- [Bugfix] The verified icons are correctly displayed with the new TweetDeck design (thanks to [@LeoColomb](https://github.com/LeoColomb)) ([#152](https://github.com/eramdam/BetterTweetDeck/pull/165))
+- [Bugfix] [Improvement] Some icons now use the official TweetDeck iconfont (thanks to [@LeoColomb](https://github.com/LeoColomb)) ([#152](https://github.com/eramdam/BetterTweetDeck/pull/167))
+
+3.3.8
 ===============
 - [Bugfix] The settings page was broken on Firefox because of a mistake on my side. It's fixed
 - [Meta] Changed mentions of "Chrome" in the locales to "browser"
