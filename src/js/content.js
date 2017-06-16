@@ -627,6 +627,27 @@ on('BTDC_ready', () => {
         break;
     }
   });
+
+  if (settings.need_update_banner) {
+    sendMessage({ action: 'displayed_update_banner' });
+    setTimeout(() => {
+      sendEvent('showTDBanner', {
+        banner: {
+          bg: '#3daafb',
+          fg: '#07214c',
+          action: 'trigger-event',
+          event: {
+            type: 'openBtdSettings',
+            data: {
+              url: chrome.extension.getURL('options/options.html?on=update'),
+            },
+          },
+          text: 'Better TweetDeck has been updated',
+          label: 'See the changes',
+        },
+      });
+    }, 1000);
+  }
 });
 
 on('BTDC_gotChirpForColumn', (ev, data) => {

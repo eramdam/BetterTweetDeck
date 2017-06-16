@@ -130,6 +130,8 @@ const decorateChirp = (chirp) => {
   return chirp;
 };
 
+let bannerID = 1;
+
 const postMessagesListeners = {
   BTDC_getOpenModalTweetHTML: (ev, data) => {
     const { tweetKey, colKey, modalHtml } = data;
@@ -217,6 +219,28 @@ const postMessagesListeners = {
 
       TD.controller.stats.setExperiments(experimentOverride);
     }
+  },
+  BTDC_showTDBanner: (ev, data) => {
+    const { banner } = data;
+    bannerID++;
+
+    $(document).trigger('dataMessage', {
+      message: {
+        id: bannerID,
+        text: TD.i(banner.text),
+        colors: {
+          background: banner.bg || '#b2d5ed',
+          foreground: banner.fg || '#555',
+        },
+        actions: [{
+          id: `btd-banner-${bannerID}`,
+          action: banner.action || 'url-ext',
+          label: TD.i(banner.label),
+          url: banner.url,
+          event: banner.event ? banner.event : undefined,
+        }],
+      },
+    });
   },
 };
 
@@ -322,6 +346,10 @@ $(document).keydown((ev) => {
     closeCustomModal();
     return;
   }
+});
+
+$(document).on('openBtdSettings', (ev, data) => {
+  window.open(data.url);
 });
 
 document.addEventListener('paste', ev => {

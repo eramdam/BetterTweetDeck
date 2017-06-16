@@ -131,9 +131,13 @@ BHelper.settings.getAll(settings => {
     const oldVersion = (curSettings.installed_version || '').replace(/\./g, '');
     const newVersion = BHelper.getVersion().replace(/\./g, '');
 
-    BHelper.settings.set({ installed_version: BHelper.getVersion() });
+    Log.debug('version', BHelper.getVersion());
+    BHelper.settings.set({ installed_version: String(BHelper.getVersion()) });
 
-    if (!oldVersion || Number(oldVersion) < Number(newVersion)) {
+    if (!oldVersion || Number(oldVersion) !== Number(newVersion)) {
+      BHelper.settings.set({
+        need_update_banner: true,
+      });
       chrome.notifications.create({
         type: 'basic',
         title: BHelper.getMessage('notification_title'),
@@ -171,6 +175,12 @@ const sendToCurrentTab = (message) => {
 // Simple interface to get settings
 Messages.on((message, sender, sendResponse) => {
   switch (message.action) {
+    case 'displayed_update_banner':
+      BHelper.settings.set({
+        need_update_banner: false,
+        installed_version: String(BHelper.getVersion()),
+      });
+      return false;
     case 'get_settings':
       BHelper.settings.getAll((settings) => sendResponse({ settings }));
       return true;
