@@ -36,6 +36,22 @@ sendMessage({ action: 'get_settings' }, (response) => {
     el.src = src;
     document.head.appendChild(el);
   });
+
+  const getFontFile = (format) => chrome.extension.getURL(`fonts/tweetdeck-regular-webfont-old.${format}`);
+
+  const style = document.createElement('style');
+  style.type = 'text/css';
+  style.textContent = `
+    @font-face {
+      font-family: 'old_tweetdeckregular';
+      src: url("${getFontFile('eot')}");
+      src: url("${getFontFile('eot')}?#iefix") format("embedded-opentype"), url("${getFontFile('woff')}") format("woff"), url("${getFontFile('ttf')}") format("truetype"), url("${getFontFile('svg')}") format("svg");
+      font-weight: normal;
+      font-style: normal
+    }
+  `;
+
+  document.head.appendChild(style);
 });
 
 function saveGif(gifshotObj, name, event, videoEl) {

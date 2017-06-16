@@ -29,6 +29,7 @@ import nested from 'postcss-nested';
 
 const staticFiles = [
   'icons/*.png',
+  'fonts/*',
   'emojis/sheet_twitter_64.png',
   'options/**/*.html',
   'options/ui/*',

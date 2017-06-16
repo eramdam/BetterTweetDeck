@@ -160,7 +160,6 @@ body :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
   }
 }
 
-
 .stream-item .tweet-body .reverse-image-search {
   position: absolute !important;
   width: 1px;
