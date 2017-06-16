@@ -35,7 +35,8 @@
   }
   
   .tweet-action .icon, .tweet-detail-action .icon, .dm-action .icon, .tweet-action .Icon, .tweet-detail-action .Icon, .dm-action .Icon {
-    &.icon-favorite {
+    &.icon-favorite,
+    &.icon-favorite-toggle {
       margin-top: 1px;
     }
   }
