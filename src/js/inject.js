@@ -39,7 +39,7 @@ const getChirpFromKey = (key, colKey) => {
   }
 
   const chirpsArray = [];
-  Object.keys(column.updateIndex).forEach(updateKey => {
+  Object.keys(column.updateIndex).forEach((updateKey) => {
     const c = column.updateIndex[updateKey];
     if (c) {
       chirpsArray.push(c);
@@ -201,7 +201,7 @@ const postMessagesListeners = {
 
     if (settings.old_replies) {
       TD.decider.updateFromBackend = _.wrap(TD.decider.updateFromBackend, (func, dict) => {
-        Object.keys(deciderOverride).forEach(key => {
+        Object.keys(deciderOverride).forEach((key) => {
           if (dict[key]) {
             dict[key] = deciderOverride[key];
           }
@@ -222,7 +222,7 @@ const postMessagesListeners = {
   },
   BTDC_showTDBanner: (ev, data) => {
     const { banner } = data;
-    bannerID++;
+    bannerID += 1;
 
     $(document).trigger('dataMessage', {
       message: {
@@ -302,7 +302,7 @@ document.addEventListener('DOMNodeInserted', handleInsertedNode);
 
 // TD Events
 $(document).on('dataColumns', (ev, data) => {
-  const cols = data.columns.filter(col => col.model.state.settings).map((col) => ({
+  const cols = data.columns.filter(col => col.model.state.settings).map(col => ({
     id: col.model.privateState.key,
     mediaSize: col.model.state.settings.media_preview_size,
   }));
@@ -344,7 +344,6 @@ const closeCustomModal = () => {
 $(document).keydown((ev) => {
   if ($('#open-modal [btd-custom-modal]').length && ev.keyCode === 27) {
     closeCustomModal();
-    return;
   }
 });
 
@@ -352,7 +351,7 @@ $(document).on('openBtdSettings', (ev, data) => {
   window.open(data.url);
 });
 
-document.addEventListener('paste', ev => {
+document.addEventListener('paste', (ev) => {
   if (ev.clipboardData) {
     const items = ev.clipboardData.items;
 
@@ -362,7 +361,7 @@ document.addEventListener('paste', ev => {
 
     const files = [];
 
-    [...items].forEach(item => {
+    [...items].forEach((item) => {
       if (item.type.indexOf('image') < 0) {
         return;
       }
@@ -438,7 +437,6 @@ $('body').on('click', '#open-modal', (ev) => {
     }
 
     $('a[rel="dismiss"]').click();
-    return;
   }
 });
 
