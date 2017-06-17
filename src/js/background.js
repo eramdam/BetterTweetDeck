@@ -3,7 +3,7 @@ import { defaultsDeep } from 'lodash';
 
 import * as BHelper from './util/browserHelper';
 import * as Messages from './util/messaging';
-import * as Log from './util/logger';
+import Log from './util/logger';
 
 const defaultSettings = {
   installed_version: BHelper.getVersion(),
@@ -123,7 +123,7 @@ BHelper.settings.getAll((settings) => {
   }
 
   BHelper.settings.set(defaultsDeep(curSettings, defaultSettings), (newSettings) => {
-    Log.debug(newSettings);
+    Log(newSettings);
     if (!newSettings.installed_date) {
       openWelcomePage();
       BHelper.settings.set({ installed_date: new Date().getTime() });
@@ -132,7 +132,7 @@ BHelper.settings.getAll((settings) => {
     const oldVersion = (curSettings.installed_version || '').replace(/\./g, '');
     const newVersion = BHelper.getVersion().replace(/\./g, '');
 
-    Log.debug('version', BHelper.getVersion());
+    Log('version', BHelper.getVersion());
     BHelper.settings.set({ installed_version: String(BHelper.getVersion()) });
 
     if (!oldVersion || Number(oldVersion) !== Number(newVersion)) {

@@ -2,7 +2,7 @@ import config from 'config';
 import reusePromise from 'reuse-promise';
 
 import { send as sendMessage } from './messaging';
-import * as Log from './logger';
+import Log from './logger';
 import * as Providers from './providers/index';
 
 const endpoints = {
@@ -193,7 +193,7 @@ function thumbnailForFetch(url) {
     return Promise.reject();
   }
 
-  Log.debug(`[${validationObj.provider.toUpperCase()}] Fetching ${url}`);
+  Log(`[${validationObj.provider.toUpperCase()}] Fetching ${url}`);
   return validationObj.cb(url);
 }
 
