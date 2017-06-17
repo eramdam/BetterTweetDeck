@@ -1,5 +1,5 @@
 import domify from 'domify';
-import fetchPage from '../fetchPage.js';
+import fetchPage from '../fetchPage';
 
 export default function ($) {
   return {
@@ -7,7 +7,7 @@ export default function ($) {
     setting: 'bandcamp',
     re: /bandcamp.com\/(?:album|track)/,
     default: true,
-    callback: url => fetchPage(url).then(data => {
+    callback: url => fetchPage(url).then((data) => {
       if (data.currentTarget.status !== 200) {
         return null;
       }

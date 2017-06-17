@@ -4,7 +4,7 @@ export default function ($) {
     setting: 'twipple_jp',
     re: /(?:p.twipple.jp|p.twpl.jp)/,
     default: true,
-    callback: url => {
+    callback: (url) => {
       const imageId = url.slice(url.lastIndexOf('/') + 1);
       return Promise.resolve({
         type: 'image',

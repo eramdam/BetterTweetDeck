@@ -1,4 +1,4 @@
-import parseURL from '../parseUrl.js';
+import parseURL from '../parseUrl';
 
 export default function ($) {
   return {
@@ -6,7 +6,7 @@ export default function ($) {
     setting: 'dribbble',
     re: /(?:dribbble.com\/shots|drbl.in)/,
     default: true,
-    callback: url => {
+    callback: (url) => {
       const dribbbleID = parseURL(url).file.split('-').shift();
       const headers = new Headers();
       headers.append('Authorization', `Bearer ${$.getKeyFor('dribbble')}`);
@@ -15,7 +15,7 @@ export default function ($) {
         headers,
       })
         .then($.statusAndJson)
-        .then(data => {
+        .then((data) => {
           const obj = {
             type: 'image',
             thumbnail_url: $.getSafeURL(data.images.teaser),

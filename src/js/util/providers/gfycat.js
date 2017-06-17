@@ -1,4 +1,4 @@
-import parseURL from '../parseUrl.js';
+import parseURL from '../parseUrl';
 
 export default function ($) {
   return {
@@ -6,26 +6,26 @@ export default function ($) {
     setting: 'gfycat',
     re: /gfycat.com/,
     default: true,
-    callback: url => {
+    callback: (url) => {
       return fetch(`${$.getEnpointFor('noembed')}${url}`)
-      .then($.statusAndJson)
-      .then(data => {
-        let tbUrl = data.thumbnail_url;
-        const ID = parseURL(data.url).segments[0];
+        .then($.statusAndJson)
+        .then((data) => {
+          let tbUrl = data.thumbnail_url;
+          const ID = parseURL(data.url).segments[0];
 
-        if (!data.thumbnail_url) {
-          tbUrl = `https://thumbs.gfycat.com/${ID}-poster.jpg`;
-        }
+          if (!data.thumbnail_url) {
+            tbUrl = `https://thumbs.gfycat.com/${ID}-poster.jpg`;
+          }
 
-        const obj = {
-          type: 'video',
-          thumbnail_url: $.getSafeURL(tbUrl),
-          html: data.html,
-          url,
-        };
+          const obj = {
+            type: 'video',
+            thumbnail_url: $.getSafeURL(tbUrl),
+            html: data.html,
+            url,
+          };
 
-        return obj;
-      });
+          return obj;
+        });
     },
   };
 }

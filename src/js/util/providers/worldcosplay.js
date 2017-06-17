@@ -6,14 +6,14 @@ export default function ($) {
     setting: 'worldcosplay_net',
     re: /worldcosplay.net/,
     default: true,
-    callback: url => {
+    callback: (url) => {
       url = url.replace(/m.(worldcosplay.net)/, '$1');
       const photoRegex = /worldcosplay.net\/(photo|instants|collections)\/(\d+)/;
       const match = photoRegex.exec(url);
       const type = match[1];
       return fetch($.getSafeURL(url))
         .then($.statusAndText)
-        .then(html => {
+        .then((html) => {
           const doc = domify(html);
           let imgUrl;
           let thumbnailUrl;

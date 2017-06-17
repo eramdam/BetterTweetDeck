@@ -1,4 +1,4 @@
-import parseURL from '../parseUrl.js';
+import parseURL from '../parseUrl';
 import fetchPage from '../fetchPage.js';
 import domify from 'domify';
 
@@ -8,7 +8,7 @@ export default function ($) {
     setting: 'twitch_tv',
     re: new RegExp('https?://(?:www.|)twitch.tv/*|twitch.tv/*/b/*'),
     default: true,
-    callback: url => {
+    callback: (url) => {
       /* eslint no-underscore-dangle: 0 */
       const parsed = parseURL(url);
       const channel = parsed.segments[0];
@@ -17,7 +17,7 @@ export default function ($) {
       const isClip = url.includes('clips.twitch.tv');
 
       if (isClip) {
-        return fetchPage(url).then(data => {
+        return fetchPage(url).then((data) => {
           if (data.currentTarget.status !== 200) {
             return null;
           }
@@ -41,31 +41,31 @@ export default function ($) {
         const broadcastId = parsed.segments[1] + parsed.segments[2];
 
         return fetch(`${$.getEnpointFor('twitch')}channels/${channel}/videos?broadcasts=true&client_id=${$.getKeyFor('twitch')}`).then($.statusAndJson)
-        .then(data => {
-          const finalVideo = data.videos.find(video => video._id === broadcastId);
+          .then((data) => {
+            const finalVideo = data.videos.find(video => video._id === broadcastId);
 
-          if (!finalVideo) {
-            return null;
-          }
+            if (!finalVideo) {
+              return null;
+            }
 
-          return {
-            type: 'video',
-            thumbnail_url: $.getSafeURL(finalVideo.thumbnails[0].url),
-            html: `<iframe src="https://player.twitch.tv/?video=${broadcastId}" height="720" width="1280" frameborder="0" scrolling="no" allowfullscreen="true"></iframe>`,
-            url,
-          };
-        });
+            return {
+              type: 'video',
+              thumbnail_url: $.getSafeURL(finalVideo.thumbnails[0].url),
+              html: `<iframe src="https://player.twitch.tv/?video=${broadcastId}" height="720" width="1280" frameborder="0" scrolling="no" allowfullscreen="true"></iframe>`,
+              url,
+            };
+          });
       }
 
       return fetch(`${$.getEnpointFor('twitch')}channels/${channel}?client_id=${$.getKeyFor('twitch')}`).then($.statusAndJson)
-      .then(data => {
-        return {
-          type: 'video',
-          thumbnail_url: $.getSafeURL(data.profile_banner || data.video_banner || data.logo),
-          html: `<iframe src="https://player.twitch.tv/?channel=${channel}" height="720" width="1280" frameborder="0" scrolling="no" allowfullscreen="true"></iframe>`,
-          url,
-        };
-      });
+        .then((data) => {
+          return {
+            type: 'video',
+            thumbnail_url: $.getSafeURL(data.profile_banner || data.video_banner || data.logo),
+            html: `<iframe src="https://player.twitch.tv/?channel=${channel}" height="720" width="1280" frameborder="0" scrolling="no" allowfullscreen="true"></iframe>`,
+            url,
+          };
+        });
     },
   };
 }

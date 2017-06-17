@@ -4,16 +4,16 @@ export default function ($) {
     setting: 'streamable',
     re: /streamable.com/,
     default: true,
-    callback: url => {
+    callback: (url) => {
       return fetch(`https://api.streamable.com/oembed.json?url=${url}`).then($.statusAndJson)
-      .then(data => {
-        return {
-          type: 'video',
-          html: data.html,
-          thumbnail_url: $.getSafeURL(data.thumbnail_url),
-          url,
-        };
-      });
+        .then((data) => {
+          return {
+            type: 'video',
+            html: data.html,
+            thumbnail_url: $.getSafeURL(data.thumbnail_url),
+            url,
+          };
+        });
     },
   };
 }

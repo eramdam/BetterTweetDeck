@@ -4,17 +4,17 @@ export default function ($) {
     setting: 'giphy',
     re: /(?:giphy.com\/gifs\/|gph.is\/)/,
     default: true,
-    callback: url => {
+    callback: (url) => {
       return fetch(`${$.getEnpointFor('giphy')}${url}`).then($.statusAndJson)
-      .then(data => {
-        const gifUrl = $.getSafeURL(data.image || data.url);
+        .then((data) => {
+          const gifUrl = $.getSafeURL(data.image || data.url);
 
-        return {
-          type: 'image',
-          thumbnail_url: gifUrl,
-          url: gifUrl,
-        };
-      });
+          return {
+            type: 'image',
+            thumbnail_url: gifUrl,
+            url: gifUrl,
+          };
+        });
     },
   };
 }

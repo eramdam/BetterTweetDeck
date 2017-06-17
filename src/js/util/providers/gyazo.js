@@ -7,12 +7,12 @@ export default function ($) {
     setting: 'gyazo',
     re: /gyazo.com/,
     default: true,
-    callback: url => {
+    callback: (url) => {
       let gyazoData = {};
 
       return fetch($.getSafeURL(`${$.getEnpointFor('gyazo')}${url}`))
         .then($.statusAndJson)
-        .then(data => {
+        .then((data) => {
           if (data.type === 'photo') {
             return {
               type: 'image',
@@ -24,7 +24,7 @@ export default function ($) {
           gyazoData = data;
           return fetchPage(url);
         })
-        .then(data => {
+        .then((data) => {
           if (data.type === 'image') {
             return data;
           }
