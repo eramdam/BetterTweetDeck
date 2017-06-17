@@ -45,7 +45,7 @@ const postCssPlugins = [
   cssimport,
   cssnext,
   nested,
-  url('postcss-url')({
+  url({
     url: 'inline',
     from: './src/css/index.css',
   }),
