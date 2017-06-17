@@ -1,5 +1,5 @@
 import { parseURL } from '../parseUrl.js';
-import { fetch as fetchPage } from '../fetchPage.js';
+import fetchPage from '../fetchPage.js';
 import domify from 'domify';
 
 export default function ($) {

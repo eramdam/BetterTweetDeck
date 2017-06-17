@@ -1,5 +1,5 @@
 import domify from 'domify';
-import { fetch as fetchPage } from '../fetchPage.js';
+import fetchPage from '../fetchPage.js';
 
 export default function ($) {
   return {
