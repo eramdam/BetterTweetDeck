@@ -39,7 +39,7 @@ These previews are mostly embeds or images, depending on service type.
   * You can use the `fetch(url)` function to get data from an API
   * You can use `fetchPage(url)` to fetch an entire page using an XMLHttpRequest, but you need to import it first, just add this at the top of your provider file:
     ```js
-      import { fetch as fetchPage } from '../fetchPage.js';
+      import fetchPage from '../fetchPage.js';
     ```
     * To properly work with the document you just loaded, you can import the `domify` module and use it like this:
       ```js

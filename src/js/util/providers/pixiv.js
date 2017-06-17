@@ -4,7 +4,7 @@ export default function ($) {
     setting: 'pixiv',
     re: /(?:pixiv.net\/member_illust.php|pixiv.net\/i\/)/,
     default: true,
-    callback: url => {
+    callback: (url) => {
       let illustId;
       if (url.includes('member_illust.php')) {
         const urlObject = new URL(url);
@@ -13,13 +13,13 @@ export default function ($) {
         illustId = url.slice(url.lastIndexOf('/') + 1);
       }
       return fetch($.getSafeURL(`${$.getEnpointFor('pixiv')}${illustId}`))
-        .then((res) => res.text())
+        .then(res => res.text())
         .then((res) => {
           const match = res.match(/callback\((.*)\)/);
           const data = JSON.parse(match[1]);
           return data;
         })
-        .then(data => {
+        .then((data) => {
           const thumbnailUrl = $.getSafeURL(data.img.replace('240x480', '600x600'));
           const imgUrl = $.getSafeURL(data.img.replace('240x480', '1200x1200'));
           return {

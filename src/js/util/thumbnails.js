@@ -2,7 +2,7 @@ import config from 'config';
 import reusePromise from 'reuse-promise';
 
 import { send as sendMessage } from './messaging';
-import * as Log from './logger';
+import Log from './logger';
 import * as Providers from './providers/index';
 
 const endpoints = {
@@ -52,7 +52,7 @@ const getSafeURL = (url) => {
  * @param  {String} service key of service from `endpoints` object
  * @return {String}         url to fetch
  */
-const getEnpointFor = (service) => endpoints[service];
+const getEnpointFor = service => endpoints[service];
 
 /**
  * Returns API key from config for a given servic3e
@@ -64,7 +64,7 @@ const getKeyFor = service => config.get(`Client.APIs.${service}`);
 /**
  * Function to use in promise that will return the json output of a request
  */
-const statusAndJson = res => {
+const statusAndJson = (res) => {
   if (res.status >= 200 && res.status < 300) {
     return res.json();
   }
@@ -75,7 +75,7 @@ const statusAndJson = res => {
 /**
  * Function to use in promise that will return the text output of a request
  */
-const statusAndText = res => {
+const statusAndText = (res) => {
   if (res.status >= 200 && res.status < 300) {
     return res.text();
   }
@@ -85,36 +85,36 @@ const statusAndText = res => {
 /**
  * Returns a promise with image data from noembed
  */
-const noEmbedImgCB = url => {
+const noEmbedImgCB = (url) => {
   return fetch(`${getEnpointFor('noembed')}${url}`)
-  .then(statusAndJson)
-  .then(data => {
-    const obj = {
-      type: 'image',
-      thumbnail_url: getSafeURL(data.media_url),
-      url: getSafeURL(data.media_url),
-    };
+    .then(statusAndJson)
+    .then((data) => {
+      const obj = {
+        type: 'image',
+        thumbnail_url: getSafeURL(data.media_url),
+        url: getSafeURL(data.media_url),
+      };
 
-    return obj;
-  });
+      return obj;
+    });
 };
 
 /**
  * Returns a promise with video data from noembed
  */
-const noEmbedVideoCB = url => {
+const noEmbedVideoCB = (url) => {
   return fetch(`${getEnpointFor('noembed')}${url}`)
-  .then(statusAndJson)
-  .then(data => {
-    const obj = {
-      type: 'video',
-      thumbnail_url: getSafeURL(data.thumbnail_url),
-      html: data.html,
-      url,
-    };
+    .then(statusAndJson)
+    .then((data) => {
+      const obj = {
+        type: 'video',
+        thumbnail_url: getSafeURL(data.thumbnail_url),
+        html: data.html,
+        url,
+      };
 
-    return obj;
-  });
+      return obj;
+    });
 };
 
 // We export a few useful functions for providers
@@ -193,7 +193,7 @@ function thumbnailForFetch(url) {
     return Promise.reject();
   }
 
-  Log.debug(`[${validationObj.provider.toUpperCase()}] Fetching ${url}`);
+  Log(`[${validationObj.provider.toUpperCase()}] Fetching ${url}`);
   return validationObj.cb(url);
 }
 

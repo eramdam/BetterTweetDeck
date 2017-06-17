@@ -4,7 +4,7 @@ export default function ($) {
     setting: 'droplr',
     re: /d.pr\/i/,
     default: true,
-    callback: url => {
+    callback: (url) => {
       const dpUrl = $.getSafeURL(`${url.replace(/\/$/, '')}/medium`);
 
       return Promise.resolve({

@@ -1,4 +1,5 @@
 const fs = require('fs');
+
 const packageJson = JSON.parse(fs.readFileSync(`${__dirname}/../../../package.json`, 'utf8'));
 
 export const getUA = () => window.navigator.userAgent;

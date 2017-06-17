@@ -6,13 +6,13 @@ export default function ($) {
     setting: 'deviantart',
     re: /(?:deviantart.com\/art|fav.me|sta.sh)/,
     default: true,
-    callback: url => {
+    callback: (url) => {
       const sourceURL = url;
       return fetch(`${$.getEnpointFor('deviantart')}${qs.stringify({
         url: sourceURL,
       })}`)
         .then($.statusAndJson)
-        .then(data => {
+        .then((data) => {
           const obj = {
             type: 'image',
             thumbnail_url: $.getSafeURL(data.thumbnail_url),

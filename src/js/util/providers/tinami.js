@@ -6,7 +6,7 @@ export default function ($) {
     setting: 'tinami',
     re: /(?:www.tinami.com\/view|tinami.jp\/)/,
     default: true,
-    callback: url => {
+    callback: (url) => {
       let imageId = new URL(url).pathname.split('/').pop();
       // If short url, encode ID with base 36
       if (url.includes('tinami.jp')) {
@@ -16,7 +16,7 @@ export default function ($) {
         `${$.getEnpointFor('tinami')}cont_id=${imageId}&api_key=${$.getKeyFor('tinami')}`))
         .then($.statusAndText)
         .then(xml => convert.xml2js(xml, { compact: true }))
-        .then(json => {
+        .then((json) => {
           // Quit if there is non-public image or no image
           if (json.rsp._attributes.stat !== 'ok' ||
               json.rsp.content._attributes.type === 'novel') {

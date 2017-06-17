@@ -1,8 +1,9 @@
 import gifshot from 'gifshot';
+import { defaultsDeep } from 'lodash';
+
 import * as BHelper from './util/browserHelper';
 import * as Messages from './util/messaging';
-import * as Log from './util/logger';
-import { defaultsDeep } from 'lodash';
+import Log from './util/logger';
 
 const defaultSettings = {
   installed_version: BHelper.getVersion(),
@@ -112,7 +113,7 @@ const createMenuItem = (newSettings) => {
   });
 };
 
-BHelper.settings.getAll(settings => {
+BHelper.settings.getAll((settings) => {
   let curSettings = settings;
 
   if (curSettings.BTDSettings) {
@@ -122,7 +123,7 @@ BHelper.settings.getAll(settings => {
   }
 
   BHelper.settings.set(defaultsDeep(curSettings, defaultSettings), (newSettings) => {
-    Log.debug(newSettings);
+    Log(newSettings);
     if (!newSettings.installed_date) {
       openWelcomePage();
       BHelper.settings.set({ installed_date: new Date().getTime() });
@@ -131,7 +132,7 @@ BHelper.settings.getAll(settings => {
     const oldVersion = (curSettings.installed_version || '').replace(/\./g, '');
     const newVersion = BHelper.getVersion().replace(/\./g, '');
 
-    Log.debug('version', BHelper.getVersion());
+    Log('version', BHelper.getVersion());
     BHelper.settings.set({ installed_version: String(BHelper.getVersion()) });
 
     if (!oldVersion || Number(oldVersion) !== Number(newVersion)) {
@@ -153,7 +154,7 @@ BHelper.settings.getAll(settings => {
       if (chrome.permissions) {
         chrome.permissions.contains({
           permissions: ['tabs'],
-        }, hasTabs => {
+        }, (hasTabs) => {
           if (!hasTabs) {
             return;
           }
@@ -182,11 +183,11 @@ Messages.on((message, sender, sendResponse) => {
       });
       return false;
     case 'get_settings':
-      BHelper.settings.getAll((settings) => sendResponse({ settings }));
+      BHelper.settings.getAll(settings => sendResponse({ settings }));
       return true;
 
     case 'get':
-      BHelper.settings.get(message.key, (val) => sendResponse({ val }));
+      BHelper.settings.get(message.key, val => sendResponse({ val }));
       return true;
 
     case 'download_gif':
@@ -194,7 +195,7 @@ Messages.on((message, sender, sendResponse) => {
         sendToCurrentTab({ action: 'progress_gif', progress });
       };
 
-      gifshot.createGIF(message.options, obj => {
+      gifshot.createGIF(message.options, (obj) => {
         sendResponse({ obj });
       });
       return true;

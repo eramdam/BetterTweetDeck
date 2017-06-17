@@ -6,11 +6,11 @@ export default function ($) {
     setting: 'nicoseiga_jp',
     re: /(?:nico.ms|nicovideo.jp)\/(?:\w+\/)?(?:im|mg)/,
     default: true,
-    callback: url => {
+    callback: (url) => {
       const id = /(?:nico.ms|nicovideo.jp)\/(?:\w+\/)?((?:im|mg)\d+)/.exec(url)[1];
       return fetch($.getSafeURL(`${$.getEnpointFor('nicoseiga')}${id}`))
         .then($.statusAndText)
-        .then(html => {
+        .then((html) => {
           const doc = domify(html);
           const imgUrl = doc.querySelector('img').src.replace('q?', 'l?').replace('http', 'https');
 

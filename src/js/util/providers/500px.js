@@ -4,10 +4,10 @@ export default function ($) {
     setting: '500px',
     re: /500px.com/,
     default: true,
-    callback: url => {
+    callback: (url) => {
       return fetch(`${$.getEnpointFor('500px')}${url}`)
         .then($.statusAndJson)
-        .then(data => {
+        .then((data) => {
           const obj = {
             type: 'image',
             thumbnail_url: $.getSafeURL(data.thumbnail_url),

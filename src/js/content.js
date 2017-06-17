@@ -6,8 +6,8 @@ import { send as sendMessage, on as onMessage } from './util/messaging';
 import * as Thumbnails from './util/thumbnails';
 import * as Templates from './util/templates';
 import * as Usernames from './util/usernames';
-import * as Emojis from './util/emojis';
-import * as Log from './util/logger';
+import Emojis from './util/emojis';
+import Log from './util/logger';
 import * as BHelper from './util/browserHelper';
 
 import { $, TIMESTAMP_INTERVAL, on, sendEvent } from './util/util';
@@ -31,13 +31,13 @@ sendMessage({ action: 'get_settings' }, (response) => {
     chrome.extension.getURL('embeds.js'),
   ];
 
-  scripts.forEach(src => {
+  scripts.forEach((src) => {
     const el = document.createElement('script');
     el.src = src;
     document.head.appendChild(el);
   });
 
-  const getFontFile = (format) => chrome.extension.getURL(`fonts/tweetdeck-regular-webfont-old.${format}`);
+  const getFontFile = format => chrome.extension.getURL(`fonts/tweetdeck-regular-webfont-old.${format}`);
 
   const style = document.createElement('style');
   style.type = 'text/css';
@@ -56,13 +56,13 @@ sendMessage({ action: 'get_settings' }, (response) => {
 
 function saveGif(gifshotObj, name, event, videoEl) {
   return fetch(gifshotObj.image)
-  .then(res => res.blob())
-  .then(blob => {
-    event.target.style.opacity = 1;
-    event.target.innerText = 'Download as .GIF';
-    FileSaver.saveAs(blob, `${name}.gif`);
-    videoEl.playbackRate = 1;
-  });
+    .then(res => res.blob())
+    .then((blob) => {
+      event.target.style.opacity = 1;
+      event.target.innerText = 'Download as .GIF';
+      FileSaver.saveAs(blob, `${name}.gif`);
+      videoEl.playbackRate = 1;
+    });
 }
 
 function updateGifProgress(element, progress) {
@@ -100,7 +100,7 @@ function refreshTimestamps() {
       return;
     }
 
-    t.forEach((el) => timestampOnElement(el, d));
+    t.forEach(el => timestampOnElement(el, d));
   });
 }
 
@@ -113,15 +113,15 @@ const disabledOnFirefox = ['no_scrollbars', 'slim_scrollbars'];
 
 function tweakClassesFromVisualSettings() {
   const enabledClasses = Object.keys(settings.css)
-                        .filter((key) => {
-                          if (BHelper.isFirefox) {
-                            return !disabledOnFirefox.includes(key);
-                          }
+    .filter((key) => {
+      if (BHelper.isFirefox) {
+        return !disabledOnFirefox.includes(key);
+      }
 
-                          return true;
-                        })
-                        .filter((key) => settings.css[key])
-                        .map((cl) => `btd__${cl}`);
+      return true;
+    })
+    .filter(key => settings.css[key])
+    .map(cl => `btd__${cl}`);
 
   document.body.classList.add(...enabledClasses);
 
@@ -156,7 +156,7 @@ function expandURL(url, node) {
     return;
   }
 
-  anchors.forEach((anchor) => anchor.setAttribute('href', url.expanded_url));
+  anchors.forEach(anchor => anchor.setAttribute('href', url.expanded_url));
 }
 
 function hideURLVisually(url, node) {
@@ -170,7 +170,7 @@ function hideURLVisually(url, node) {
     return;
   }
 
-  anchors.forEach(a => {
+  anchors.forEach((a) => {
     const lastNode = [...a.parentNode.childNodes].pop();
 
     if (lastNode !== a) {
@@ -305,7 +305,7 @@ function tweetHandler(tweet, columnKey, parent) {
 
   if (!hasParent) {
     if (!$(`.js-column[data-column="${columnKey}"]`)) {
-      Log.debug(tweet, columnKey);
+      Log(tweet, columnKey);
     }
     parent = $(`.js-column[data-column="${columnKey}"]`)[0];
   }
@@ -331,7 +331,7 @@ function tweetHandler(tweet, columnKey, parent) {
 
   if (!nodes) {
     nodes = [];
-    Log.debug('failed to get node for', tweet);
+    Log('failed to get node for', tweet);
   }
 
   nodes.forEach((node) => {
@@ -345,7 +345,7 @@ function tweetHandler(tweet, columnKey, parent) {
     // $('time > *', node).forEach((el) => timestampOnElement(el, tweet.created));
     if ($('time > *', node)) {
       const t = tweet.retweet ? tweet.retweet.created : tweet.created;
-      $('time > *', node).forEach((el) => timestampOnElement(el, t));
+      $('time > *', node).forEach(el => timestampOnElement(el, t));
     }
 
     const type = tweet.action || tweet.chirpType;
@@ -580,8 +580,8 @@ function setMaxDimensionsOnModalImg() {
     }
 
     const loadable = loadableEls[0];
-    loadable.addEventListener('load', (ev) => setMaxDimensionsOnElement(ev.target));
-    loadable.addEventListener('loadstart', (ev) => setMaxDimensionsOnElement(ev.target));
+    loadable.addEventListener('load', ev => setMaxDimensionsOnElement(ev.target));
+    loadable.addEventListener('loadstart', ev => setMaxDimensionsOnElement(ev.target));
 
     if (loadable.hasAttribute('data-btd-loaded') || loadable.readyState === 4) {
       setMaxDimensionsOnElement(loadable);
@@ -598,7 +598,7 @@ on('BTDC_ready', () => {
   // Refresh timestamps once and then set the interval
   refreshTimestamps();
   setInterval(refreshTimestamps, TIMESTAMP_INTERVAL);
-  Emojis.buildEmojiPicker();
+  Emojis();
 
   const settingsURL = chrome.extension.getURL('options/options.html');
   const settingsBtn = `
@@ -669,7 +669,7 @@ on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
   openModal.innerHTML = modalHtml.replace('<div class="js-med-tweet med-tweet"></div>', `<div class="js-med-tweet med-tweet">${markup}</div>`);
   openModal.style.display = 'block';
   // setMaxDimensionsOnModalImg();
-  openModal.querySelector('img, iframe').onload = (e) => e.target.setAttribute('data-btd-loaded', 'true');
+  openModal.querySelector('img, iframe').onload = e => e.target.setAttribute('data-btd-loaded', 'true');
 
   if ($('[data-instgrm-version]', openModal)) {
     sendEvent('renderInstagramEmbed');
@@ -700,7 +700,7 @@ on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
       const originalMenu = document.querySelector(`[data-column="${colKey}"] [data-key="${chirp.id}"] .dropdown-menu`);
       originalMenu.classList.add('pos-t');
       $('[rel="actionsMenu"]', openModal)[0].insertAdjacentElement('afterEnd', originalMenu);
-      $('#open-modal .dropdown-menu').forEach((el) => el.addEventListener('click', closeOpenModal));
+      $('#open-modal .dropdown-menu').forEach(el => el.addEventListener('click', closeOpenModal));
     }, 0);
   });
 
@@ -739,11 +739,11 @@ on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
         return sendMessage({
           action: 'download_gif',
           options: gifshotOptions,
-        }, (response) => gifshotCb(response.obj));
+        }, response => gifshotCb(response.obj));
       }
 
       return gifshot.createGIF(Object.assign(gifshotOptions, {
-        progressCallback: (progress) => updateGifProgress(e.target, progress),
+        progressCallback: progress => updateGifProgress(e.target, progress),
       }), gifshotCb);
     });
   }
@@ -763,9 +763,9 @@ on('BTDC_columnsChanged', (ev, data) => {
   }
 
   colsArray.filter(col => col.id)
-           .forEach(col => {
-             COLUMNS_MEDIA_SIZES.set(col.id, col.mediaSize || 'medium');
-           });
+    .forEach((col) => {
+      COLUMNS_MEDIA_SIZES.set(col.id, col.mediaSize || 'medium');
+    });
 });
 
 on('BTDC_clickedOnGif', (ev, data) => {
