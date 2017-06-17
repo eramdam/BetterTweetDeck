@@ -1,13 +1,10 @@
 // Gulp & utils
-import fs from 'fs';
 import path from 'path';
 import gulp from 'gulp';
 import runSequence from 'run-sequence';
 import del from 'del';
 import plumber from 'gulp-plumber';
 import notify from 'gulp-notify';
-import config from 'config';
-import needle from 'needle';
 
 // JS
 import browserify from 'browserify';
@@ -25,6 +22,8 @@ import postcss from 'gulp-postcss';
 import cssnext from 'postcss-cssnext';
 import cssnano from 'cssnano';
 import nested from 'postcss-nested';
+import cssimport from 'postcss-import';
+import url from 'postcss-url';
 
 
 const staticFiles = [
@@ -34,8 +33,8 @@ const staticFiles = [
   'options/**/*.html',
   'options/ui/*',
   'options/img/*',
-  '_locales/**/*'
-].map((i) => path.resolve('src/', i));
+  '_locales/**/*',
+].map(i => path.resolve('src/', i));
 
 const toLintFiles = [
   'src/js/**/*.js',
@@ -43,12 +42,12 @@ const toLintFiles = [
 ];
 
 const postCssPlugins = [
-  require('postcss-import'),
+  cssimport,
   cssnext,
   nested,
-  require('postcss-url')({
+  url('postcss-url')({
     url: 'inline',
-    from: './src/css/index.css'
+    from: './src/css/index.css',
   }),
   cssnano({ autoprefixer: false, zindex: false }),
 ];
@@ -67,17 +66,17 @@ const buildWithBrowserify = (entry) => {
     entries: entry,
     debug: !isProduction(),
   })
-  .transform('babelify')
-  .transform('brfs')
-  .transform('config-browserify')
-  .bundle()
-  .on('error', maybeNotifyErrors())
-  .pipe(source(path.basename(entry)))
-  .pipe(buffer())
-  .pipe(isProduction() ? gutil.noop() : sourcemaps.init({ loadMaps: true }))
-  .pipe(isProduction() ? uglify() : gutil.noop())
-  .pipe(isProduction() ? gutil.noop() : sourcemaps.write('./'));
-}
+    .transform('babelify')
+    .transform('brfs')
+    .transform('config-browserify')
+    .bundle()
+    .on('error', maybeNotifyErrors())
+    .pipe(source(path.basename(entry)))
+    .pipe(buffer())
+    .pipe(isProduction() ? gutil.noop() : sourcemaps.init({ loadMaps: true }))
+    .pipe(isProduction() ? uglify() : gutil.noop())
+    .pipe(isProduction() ? gutil.noop() : sourcemaps.write('./'));
+};
 
 /*
 *
@@ -95,8 +94,8 @@ gulp.task('clean', () => del(['dist/']));
 */
 gulp.task('zip', () => (
   gulp.src('dist/**/*')
-  .pipe(zip(`dist-${browser}.zip`))
-  .pipe(gulp.dest('artifacts/'))
+    .pipe(zip(`dist-${browser}.zip`))
+    .pipe(gulp.dest('artifacts/'))
 ));
 
 /*
@@ -105,16 +104,16 @@ gulp.task('zip', () => (
 * Simply copy files like images/json to the build folder
 *
 */
-gulp.task('static', () => gulp.src(staticFiles, { base: './src' }).pipe(gulp.dest('./dist')) );
+gulp.task('static', () => gulp.src(staticFiles, { base: './src' }).pipe(gulp.dest('./dist')));
 
-gulp.task('static-news', () => gulp.src('./CHANGELOG.md').pipe(gulp.dest('./dist/options/')) );
+gulp.task('static-news', () => gulp.src('./CHANGELOG.md').pipe(gulp.dest('./dist/options/')));
 
-gulp.task('embed_instagram', (done) => {
+gulp.task('embed_instagram', () => {
   return remoteSrc(['embeds.js'], {
-    base: 'https://platform.instagram.com/en_US/'
+    base: 'https://platform.instagram.com/en_US/',
   })
-  .pipe(uglify())
-  .pipe(gulp.dest('./dist/'));
+    .pipe(uglify())
+    .pipe(gulp.dest('./dist/'));
 });
 
 /*
@@ -125,22 +124,22 @@ gulp.task('embed_instagram', (done) => {
 */
 gulp.task('js-content', () => {
   return buildWithBrowserify('src/js/content.js')
-  .pipe(gulp.dest('./dist/js'))
+    .pipe(gulp.dest('./dist/js'));
 });
 
 gulp.task('js-injected', () => {
   return buildWithBrowserify('src/js/inject.js')
-  .pipe(gulp.dest('./dist/js'));
+    .pipe(gulp.dest('./dist/js'));
 });
 
 gulp.task('js-background', () => {
   return buildWithBrowserify('src/js/background.js')
-  .pipe(gulp.dest('./dist/js'));
+    .pipe(gulp.dest('./dist/js'));
 });
 
 gulp.task('js-options', () => {
   return buildWithBrowserify('src/options/options.js')
-  .pipe(gulp.dest('./dist/options'));
+    .pipe(gulp.dest('./dist/options'));
 });
 
 gulp.task('js', ['js-content', 'js-injected', 'js-background', 'js-options']);
@@ -193,25 +192,29 @@ gulp.task('build', (done) => {
 *
 */
 
-const string_src = (filename, string) => {
-  const src = require('stream').Readable({ objectMode: true });
-  src._read = function () {
+const stream = require('stream');
+
+const stringSrc = (filename, string) => {
+  const src = stream.Readable({ objectMode: true });
+  src._read = function read() {
     this.push(new gutil.File({
       cwd: '',
       base: '',
       path: filename,
-      contents: new Buffer(string)
+      contents: new Buffer(string),
     }));
     this.push(null);
-  }
+  };
 
   return src;
-}
+};
 
-gulp.task('manifest', (done) => {
-  const manifestJson = JSON.stringify(require(`./tools/manifests/${browser}.js`));
+const browserManifest = require(`./tools/manifests/${browser}.js`);
 
-  return string_src('manifest.json', manifestJson).pipe(gulp.dest('./dist/'));
+gulp.task('manifest', () => {
+  const manifestJson = JSON.stringify(browserManifest);
+
+  return stringSrc('manifest.json', manifestJson).pipe(gulp.dest('./dist/'));
 });
 
 /*
@@ -224,7 +227,7 @@ gulp.task('default', (done) => {
   const tasks = ['clean', 'manifest', ['css', 'css-options', 'js', 'static'], 'static-news', 'embed_instagram'];
 
   runSequence(...tasks, () => {
-    gulp.watch(['./src/js/**/*.js',  './src/options/*.js'], ['js', 'js-options']);
+    gulp.watch(['./src/js/**/*.js', './src/options/*.js'], ['js', 'js-options']);
     gulp.watch(['./src/css/**/*.css'], ['css', 'css-options']);
     gulp.watch(staticFiles, ['static', 'static-news']);
     gulp.watch('./CHANGELOG.md', ['static-news']);
