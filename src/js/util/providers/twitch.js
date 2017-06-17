@@ -1,4 +1,4 @@
-import { parseURL } from '../parseUrl.js';
+import parseURL from '../parseUrl.js';
 import fetchPage from '../fetchPage.js';
 import domify from 'domify';
 

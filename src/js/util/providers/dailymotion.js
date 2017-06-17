@@ -1,5 +1,5 @@
 import qs from 'query-string';
-import { parseURL } from '../parseUrl.js';
+import parseURL from '../parseUrl.js';
 
 export default function ($) {
   return {

@@ -10,18 +10,17 @@ const getParams = (a) => {
   const len = seg.length;
   let i = 0;
   let s;
-  for (; i < len; i++) {
-    if (!seg[i]) {
-      continue;
+  for (; i < len; i += 1) {
+    if (seg[i]) {
+      s = seg[i].split('=');
+      ret[s[0]] = s[1];
     }
-    s = seg[i].split('=');
-    ret[s[0]] = s[1];
   }
 
   return ret;
 };
 
-export function parseURL(url) {
+export default function parseURL(url) {
   const a = document.createElement('a');
   a.href = url;
   return {
@@ -31,10 +30,10 @@ export function parseURL(url) {
     port: a.port,
     query: a.search,
     params: () => getParams(a),
-    file: (a.pathname.match(/\/([^\/?#]+)$/i) || [undefined, ''])[1],
+    file: (a.pathname.match(/\/([^/?#]+)$/i) || [undefined, ''])[1],
     hash: a.hash.replace('#', ''),
-    path: a.pathname.replace(/^([^\/])/, '/$1'),
-    relative: (a.href.match(/tps?:\/\/[^\/]+(.+)/) || [undefined, ''])[1],
+    path: a.pathname.replace(/^([^/])/, '/$1'),
+    relative: (a.href.match(/tps?:\/\/[^/]+(.+)/) || [undefined, ''])[1],
     segments: a.pathname.replace(/^\//, '').split('/'),
   };
 }
