@@ -1,5 +1,6 @@
 const chalk = require('chalk');
 const config = require('config');
+
 const clog = (color, ...args) => console.log(chalk[color](...args));
 const fs = require('fs');
 const path = require('path');
@@ -12,6 +13,7 @@ if (!config.get('opera_key')) {
 const privateKeyPath = path.resolve(config.get('opera_key'));
 const extensionPath = path.resolve(__dirname, '../dist');
 const ChromeExtension = require('crx');
+
 const crx = new ChromeExtension({
   privateKey: fs.readFileSync(privateKeyPath),
 });
@@ -23,7 +25,7 @@ crx.load(extensionPath)
   .then((d) => {
     clog('blue', 'Loaded', d.manifest.short_name, d.manifest.version);
 
-    return crx.pack().then(buffer => {
+    return crx.pack().then((buffer) => {
       fs.writeFile(path.resolve(__dirname, '../artifacts/', 'better-tweetdeck.crx'), buffer, (err) => {
         if (err) {
           clog('red', err);
