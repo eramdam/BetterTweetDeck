@@ -642,7 +642,7 @@ on('BTDC_ready', () => {
               url: chrome.extension.getURL('options/options.html?on=update'),
             },
           },
-          text: 'Better TweetDeck has been updated',
+          text: `Better TweetDeck has been updated to ${BHelper.getVersion()}`,
           label: 'See the changes',
         },
       });
