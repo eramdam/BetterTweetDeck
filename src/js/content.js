@@ -6,7 +6,7 @@ import { send as sendMessage, on as onMessage } from './util/messaging';
 import * as Thumbnails from './util/thumbnails';
 import * as Templates from './util/templates';
 import * as Usernames from './util/usernames';
-import * as Emojis from './util/emojis';
+import Emojis from './util/emojis';
 import * as Log from './util/logger';
 import * as BHelper from './util/browserHelper';
 
@@ -598,7 +598,7 @@ on('BTDC_ready', () => {
   // Refresh timestamps once and then set the interval
   refreshTimestamps();
   setInterval(refreshTimestamps, TIMESTAMP_INTERVAL);
-  Emojis.buildEmojiPicker();
+  Emojis();
 
   const settingsURL = chrome.extension.getURL('options/options.html');
   const settingsBtn = `

@@ -1,5 +1,5 @@
-import emojis from '../../emojis/emojis.js';
 import jsEmoji from 'emoji-js';
+import emojis from '../../emojis/emojis';
 import { $ } from './util';
 
 const Emoji = new jsEmoji.EmojiConvertor();
@@ -121,13 +121,13 @@ function getEmojiPickerMarkup(emojiContent) {
           <button title="Objects" data-btd-emoji-cat="Objects" class="-active">${getImage({ s: 'bulb' })}</button>
           <button title="Symbols" data-btd-emoji-cat="Symbols" class="-active">${getImage({ s: '100' })}</button>
           <button title="Flags" data-btd-emoji-cat="Flags" class="-active">${getImage({ s: 'fr' })}</button>
-    		</div>
+        </div>
       </div>
     </div>
   `;
 }
 
-export function buildEmojiPicker(rebuild = false) {
+export default function buildEmojiPicker(rebuild = false) {
   let emojiContent = '';
   let skinV;
 
