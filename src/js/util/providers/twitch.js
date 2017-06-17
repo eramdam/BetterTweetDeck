@@ -1,6 +1,6 @@
-import parseURL from '../parseUrl';
-import fetchPage from '../fetchPage.js';
 import domify from 'domify';
+import parseURL from '../parseUrl';
+import fetchPage from '../fetchPage';
 
 export default function ($) {
   return {
