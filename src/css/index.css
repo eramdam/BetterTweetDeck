@@ -92,10 +92,6 @@
   }
 }
 
-[data-btdtheme] .btd-poll-icon::before {
-  content: "\f199";
-}
-
 [data-btdtheme] .btd-has-poll .tweet-detail .media-badge {
   display: none;
 }

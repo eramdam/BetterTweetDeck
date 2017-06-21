@@ -1,4 +1,9 @@
-:tada: 3.3.9 :tada:
+:tada: 3.3.10 :tada:
+===============
+- [Meta] TweetDeck now has its [own poll indicator](https://twitter.com/TweetDeck/status/877536207034568704) so I can remove mine :grin: 
+
+
+3.3.9
 ===============
 - [Meta] A banner is displayed when BTD has been updated for better visibility
 - [Bugfix] The stars icons are correctly changed with the new TweetDeck design
