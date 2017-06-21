@@ -1,5 +1,4 @@
 import config from 'config';
-import _ from 'lodash';
 import { debug } from './util/logger';
 
 let SETTINGS;
