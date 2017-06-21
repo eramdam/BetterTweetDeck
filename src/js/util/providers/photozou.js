@@ -4,7 +4,7 @@ export default function ($) {
     setting: 'photozou',
     re: /photozou.jp\/photo\/(?:show|photo_only|list)\/\d+\/\d+/,
     default: true,
-    callback: url => {
+    callback: (url) => {
       let requestUrl;
       const regex = /photozou.jp\/photo\/(show|photo_only|list)\/(\d+)\/(\d+)/;
       const type = regex.exec(url)[1];
@@ -20,7 +20,7 @@ export default function ($) {
 
       return fetch($.getSafeURL(requestUrl))
         .then($.statusAndJson)
-        .then(json => {
+        .then((json) => {
           const photo = json.info.photo[0] || json.info.photo;
           return {
             type: 'image',

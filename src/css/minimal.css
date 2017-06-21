@@ -34,7 +34,7 @@
 .btd__minimal_mode :matches(.stream-item, .tweet-detail-reply .stream-item, .compose-header) {
   border-bottom: 0;
 }
-.btd__minimal_mode .in-tweet-divider:before {
+.btd__minimal_mode .in-tweet-divider::before {
   background: rgba(0, 0, 0, 0.13);
 }
 
@@ -50,7 +50,7 @@
   }
 
   .icon-reply::before {
-    content: "\f048";
+    content: "\f151";
   }
 
   .nbfc {

@@ -1,5 +1,5 @@
-import emojis from '../../emojis/emojis.js';
-import jsEmoji from 'js-emoji';
+import jsEmoji from 'emoji-js';
+import emojis from '../../emojis/emojis';
 import { $ } from './util';
 
 const Emoji = new jsEmoji.EmojiConvertor();
@@ -121,13 +121,13 @@ function getEmojiPickerMarkup(emojiContent) {
           <button title="Objects" data-btd-emoji-cat="Objects" class="-active">${getImage({ s: 'bulb' })}</button>
           <button title="Symbols" data-btd-emoji-cat="Symbols" class="-active">${getImage({ s: '100' })}</button>
           <button title="Flags" data-btd-emoji-cat="Flags" class="-active">${getImage({ s: 'fr' })}</button>
-    		</div>
+        </div>
       </div>
     </div>
   `;
 }
 
-export function buildEmojiPicker(rebuild = false) {
+export default function buildEmojiPicker(rebuild = false) {
   let emojiContent = '';
   let skinV;
 
@@ -145,7 +145,7 @@ export function buildEmojiPicker(rebuild = false) {
     <div class="emoji-category" data-btd-emoji-cat="${cat}">
     `;
 
-    emojis.filter(emoji => emoji.cat === cat).forEach(emoji => {
+    emojis.filter(emoji => emoji.cat === cat).forEach((emoji) => {
       emojiContent += getEmojiElement(emoji, emoji.hs ? skinV : undefined);
     });
 
@@ -185,7 +185,7 @@ export function buildEmojiPicker(rebuild = false) {
 
   $('.emoji-search input')[0].addEventListener('keyup', (ev) => {
     const val = String(ev.target.value);
-    $('.emoji-container [title]').forEach(el => {
+    $('.emoji-container [title]').forEach((el) => {
       el.style.display = 'inline-block';
     });
 
@@ -195,13 +195,13 @@ export function buildEmojiPicker(rebuild = false) {
 
     const emojisToHide = $(`.emoji-container .btd-emoji:not([title*="${val}"])`);
 
-    emojisToHide.forEach(el => {
+    emojisToHide.forEach((el) => {
       el.style.display = 'none';
     });
   });
 
-  $('.category-chooser button').forEach(catButton => {
-    catButton.addEventListener('click', ev => {
+  $('.category-chooser button').forEach((catButton) => {
+    catButton.addEventListener('click', (ev) => {
       let emojiCat;
 
       if (ev.target.hasAttribute('data-btd-emoji-cat')) {
@@ -219,7 +219,7 @@ export function buildEmojiPicker(rebuild = false) {
   });
 
   const tweetCompose = $('textarea.js-compose-text')[0];
-  $('.emoji-popover .btd-emoji').forEach(emojiEl => {
+  $('.emoji-popover .btd-emoji').forEach((emojiEl) => {
     emojiEl.addEventListener('click', (ev) => {
       let emoji;
 
@@ -237,7 +237,7 @@ export function buildEmojiPicker(rebuild = false) {
     });
   });
 
-  $('.emoji-popover .btd-skin-tone').forEach(skinToneEl => {
+  $('.emoji-popover .btd-skin-tone').forEach((skinToneEl) => {
     skinToneEl.addEventListener('click', (ev) => {
       const skinTone = ev.target.getAttribute('data-btd-skin-tone');
 
@@ -252,7 +252,7 @@ export function buildEmojiPicker(rebuild = false) {
     if (clickedOutsideElement('.emoji-popover') && clickedOutsideElement('.js-add-emojis') && emojiPicker.style.display === 'block') {
       emojiPicker.style.display = 'none';
       $('.emoji-search input')[0].value = '';
-      $('.emoji-container [title]').forEach(el => {
+      $('.emoji-container [title]').forEach((el) => {
         el.style.display = 'inline-block';
       });
     }

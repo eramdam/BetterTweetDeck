@@ -32,18 +32,19 @@
 
   font-size: 14px;
   border-radius: 4px;
-  box-shadow: 0 0px 2px rgba(0,0,0,.2);
+  border: 1px solid #3ea1fb;
   background: linear-gradient(#4ec9fb, #3ea0fb);
   color: white;
   font-weight: 500;
-  padding: 3px 13px 4px 13px;
+  padding: 5px 13px 6px 13px;
   cursor: pointer;
   -webkit-font-smoothing: antialiased;
 
   &[disabled] {
+    pointer-events: none;
     -webkit-font-smoothing: auto;
     background: transparent;
-    box-shadow: none;
+    border: none;
     color: color(grey a(50%))
   }
 }

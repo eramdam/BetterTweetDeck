@@ -9,10 +9,12 @@ module.exports = {
   },
   'globals': {
     'chrome': false,
+    'instgrm': false,
     'TD': false
   },
   'extends': 'airbnb-base',
   'rules': {
+    'import/no-dynamic-require': 0,
     'no-param-reassign': 0,
     'max-len': 0,
     'arrow-body-style': 0,

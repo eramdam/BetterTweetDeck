@@ -1,3 +1,2 @@
-gulpfile.*
 tools/**/*.json
 src/emojis/emojis.js

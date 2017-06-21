@@ -1,4 +1,63 @@
-:tada: 3.3.1 :tada:
+:tada: 3.3.10 :tada:
+===============
+- [Meta] TweetDeck now has its [own poll indicator](https://twitter.com/TweetDeck/status/877536207034568704) so I can remove mine :grin: 
+
+
+3.3.9
+===============
+- [Meta] A banner is displayed when BTD has been updated for better visibility
+- [Bugfix] The stars icons are correctly changed with the new TweetDeck design
+- [Bugfix] The verified icons are correctly displayed with the new TweetDeck design (thanks to [@LeoColomb](https://github.com/LeoColomb)) ([#152](https://github.com/eramdam/BetterTweetDeck/pull/165))
+- [Bugfix] [Improvement] Some icons now use the official TweetDeck iconfont (thanks to [@LeoColomb](https://github.com/LeoColomb)) ([#152](https://github.com/eramdam/BetterTweetDeck/pull/167))
+
+3.3.8
+===============
+- [Bugfix] The settings page was broken on Firefox because of a mistake on my side. It's fixed
+- [Meta] Changed mentions of "Chrome" in the locales to "browser"
+
+
+3.3.7
+===============
+- [Meta] [Improvement] The "don't autoplay GIFs" feature has been removed now that [TweetDeck has that feature now](https://twitter.com/TweetDeck/status/861997926587019264)
+- [Meta] [Feature] The sharing feature now requires your explicit permission before working. See the "Share" section on the left to learn more.
+- [Bugfix] There was some focusing issues on Opera/Chrome. This should be fixed now
+
+3.3.6
+===============
+- [Bugfix] The previous fix for the Google search link issue (see 3.3.5) was not reliable enough. That should be better now.
+- [Bugfix] There was a bug with small thumbnails showing a 2nd play icon. This should be fixed.
+- [Feature] The emoji picker has been updated (Unicode 8/9)
+- [Feature] [Stickers](https://blog.twitter.com/official/en_us/a/2016/introducing-stickers-on-twitter.html) sent in Direct Messages from Twitter apps are displayed now.
+
+3.3.5
+===============
+- [Meta] **Removed the old search setting**. TweetDeck killed the hack, sorry, RIP :sob:
+- [Bugfix] Fix the bug that opened a Google search view when clicking on videos in the timeline (Related to a new TweetDeck feature)
+- [Bugfix] Tweet field will be re-focused when you alt-tab after having it focused already (thanks to [@knu](https://github.com/knu)) ([#152](https://github.com/eramdam/BetterTweetDeck/pull/152))
+- [Bugfix] Videos/iframe should (hopefully) be correctly resized in full screen previews
+
+3.3.4 
+===============
+- [Feature] Tweets with a poll will now have a "poll" indicator below them in the columns
+- [Bugfix] Spotify was not working anymore. This should be fixed.
+- [Bugfix] There was some weird issues with the Instagram embed script. It's now bundled w/ the extension to improve reliability.
+
+3.3.3
+===============
+- [Bugfix] The "download as GIF" link under GIF fullscreen previews is back. Sorry about that.
+
+3.3.2
+=============== 
+- [Feature] You can revert to the old search! (thanks to [@pixeldesu](https://github.com/pixeldesu)) ([#144](https://github.com/eramdam/BetterTweetDeck/pull/144))
+- [Improvement] Instagram fullscreen previews should work properly now
+- [Bugfix] Video/iFrame-based modals should resize properly now
+- [Bugfix] Re-position the Settings button
+- [Bugfix] The RT/likes indicator should now re-appear
+- [Bugfix] Some timestamps were not replaced/updated. This should be fixed
+- [Bugfix] The verified icon should be correctly displayed again now
+- [Bugfix] Some usernames were not handled, specifically in Activity columns. This should be alright now.
+
+3.3.1
 =============== 
 - [Feature] You can revert this nasty reply change thing (you know what I mean)
 - [Feature] You can now hide the RT/Like indicator on top of tweets

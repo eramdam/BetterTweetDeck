@@ -42,7 +42,7 @@ if (typeof Element.prototype.matches !== 'function') {
     let index = 0;
 
     while (elements[index] && elements[index] !== element) {
-      ++index;
+      index += 1;
     }
 
     return Boolean(elements[index]);

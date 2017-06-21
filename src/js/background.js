@@ -1,8 +1,9 @@
+import gifshot from 'gifshot';
+import { defaultsDeep } from 'lodash';
 
 import * as BHelper from './util/browserHelper';
 import * as Messages from './util/messaging';
-import * as Log from './util/logger';
-import { defaultsDeep } from 'lodash';
+import Log from './util/logger';
 
 const defaultSettings = {
   installed_version: BHelper.getVersion(),
@@ -19,7 +20,6 @@ const defaultSettings = {
     mode: 'mentions',
     enabled: true,
   },
-  stop_gifs: true,
   no_gif_pp: false,
   custom_columns_width: {
     size: '250px',
@@ -50,6 +50,7 @@ const defaultSettings = {
     short_txt: false,
   },
   old_replies: false,
+  old_search: false,
   thumbnails: {},
 };
 
@@ -92,11 +93,10 @@ function contextMenuHandler(info, tab, settings) {
       focused: true,
     }, () => {
       chrome.tabs.update(TDTab.id, {
-        selected: true,
         active: true,
-        highlighted: true,
       }, () => {
         chrome.tabs.sendMessage(TDTab.id, {
+          action: 'share',
           text: textToShare,
           url: urlToShare,
         });
@@ -105,7 +105,15 @@ function contextMenuHandler(info, tab, settings) {
   });
 }
 
-BHelper.settings.getAll(settings => {
+const createMenuItem = (newSettings) => {
+  chrome.contextMenus.create({
+    title: BHelper.getMessage('shareOnTD'),
+    contexts: ['page', 'selection', 'image', 'link'],
+    onclick: (info, tab) => contextMenuHandler(info, tab, newSettings),
+  });
+};
+
+BHelper.settings.getAll((settings) => {
   let curSettings = settings;
 
   if (curSettings.BTDSettings) {
@@ -115,7 +123,7 @@ BHelper.settings.getAll(settings => {
   }
 
   BHelper.settings.set(defaultsDeep(curSettings, defaultSettings), (newSettings) => {
-    Log.debug(newSettings);
+    Log(newSettings);
     if (!newSettings.installed_date) {
       openWelcomePage();
       BHelper.settings.set({ installed_date: new Date().getTime() });
@@ -124,9 +132,13 @@ BHelper.settings.getAll(settings => {
     const oldVersion = (curSettings.installed_version || '').replace(/\./g, '');
     const newVersion = BHelper.getVersion().replace(/\./g, '');
 
-    BHelper.settings.set({ installed_version: BHelper.getVersion() });
+    Log('version', BHelper.getVersion());
+    BHelper.settings.set({ installed_version: String(BHelper.getVersion()) });
 
-    if (!oldVersion || Number(oldVersion) < Number(newVersion)) {
+    if (!oldVersion || Number(oldVersion) !== Number(newVersion)) {
+      BHelper.settings.set({
+        need_update_banner: true,
+      });
       chrome.notifications.create({
         type: 'basic',
         title: BHelper.getMessage('notification_title'),
@@ -139,24 +151,53 @@ BHelper.settings.getAll(settings => {
 
     // We create the context menu item
     if (newSettings.share_item && newSettings.share_item.enabled) {
-      chrome.contextMenus.create({
-        title: BHelper.getMessage('shareOnTD'),
-        contexts: ['page', 'selection', 'image', 'link'],
-        onclick: (info, tab) => contextMenuHandler(info, tab, newSettings),
-      });
+      if (chrome.permissions) {
+        chrome.permissions.contains({
+          permissions: ['tabs'],
+        }, (hasTabs) => {
+          if (!hasTabs) {
+            return;
+          }
+          createMenuItem(newSettings);
+        });
+      } else {
+        createMenuItem(newSettings);
+      }
     }
   });
 });
 
+const sendToCurrentTab = (message) => {
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    chrome.tabs.sendMessage(tabs[0].id, message);
+  });
+};
+
 // Simple interface to get settings
 Messages.on((message, sender, sendResponse) => {
   switch (message.action) {
+    case 'displayed_update_banner':
+      BHelper.settings.set({
+        need_update_banner: false,
+        installed_version: String(BHelper.getVersion()),
+      });
+      return false;
     case 'get_settings':
-      BHelper.settings.getAll((settings) => sendResponse({ settings }));
+      BHelper.settings.getAll(settings => sendResponse({ settings }));
       return true;
 
     case 'get':
-      BHelper.settings.get(message.key, (val) => sendResponse({ val }));
+      BHelper.settings.get(message.key, val => sendResponse({ val }));
+      return true;
+
+    case 'download_gif':
+      message.options.progressCallback = (progress) => {
+        sendToCurrentTab({ action: 'progress_gif', progress });
+      };
+
+      gifshot.createGIF(message.options, (obj) => {
+        sendResponse({ obj });
+      });
       return true;
 
     default:

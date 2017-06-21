@@ -27,6 +27,7 @@
         <a href="#tweetsDisplay" class="nav-item" data-lang="sec_tweetsDisplay">Tweets: display</a>
         <a href="#visual" class="nav-item" data-lang="sec_interface">Interface</a>
         <a href="#btdContent" class="nav-item" data-lang="sec_content">Content</a>
+        <a href="#share" class="nav-item" data-lang="shared_btd_h1">Sharing</a>
       </nav>
 
       <h3 class="sidebar-title">Meta</h3>
@@ -189,20 +190,8 @@
       <div class="settings-section">
         <ul>
           <li>
-            <input type="checkbox" name="share_item.enabled" id="enabled">
-            <label for="enabled" data-lang="share_btd_item">Add the "Share on Better TweetDeck" action on contextual menu <small>Will be applied at next Chrome restart</small></label>
-          </li>
-          <li>
-            <input type="checkbox" name="share_item.short_txt" id="short_txt">
-            <label for="short_txt" data-lang="share_short_txt">Shorten the selected text while using the "Share on Better TweetDeck" action <small>Will be applied at next Chrome restart</small></label>
-          </li>
-          <li>
             <input type="checkbox" name="no_tco" id="no_tco">
             <label for="no_tco" data-lang="no_tco">Remove t.co redirection on links</label>
-          </li>
-          <li>
-            <input type="checkbox" name="stop_gifs" id="stop_gifs">
-            <label for="stop_gifs" data-lang="stop_autoplay_gifs" data-new-feat>Don't autoplay GIFs in columns</label>
           </li>
           <li>
             <input type="checkbox" name="no_gif_pp" id="no_gif_pp">
@@ -223,6 +212,35 @@
         </ul>
       </div>
       <button class="save-button" disabled data-lang="save_no">No changes</button>
+    </section>
+    
+    <section class="content-block" id="share">
+      <h2 class="section-title" data-lang="shared_btd_h1">Sharing</h2>
+      
+      <div class="settings-section" data-require-permission>
+        <p data-lang="share_btd_p1" data-hidden-firefox>In order to use the "Share on TweetDeck" feature, you'll need to approve certain permissions which you can do so by clicking below</p>
+        
+        <p data-hidden-firefox>
+          <button class="plain-button" data-lang="share_request" data-ask-permissions>Request tabs reading permissions</button>
+        </p>
+
+        <p data-lang="share_btd_p2">Better TweetDeck can <strong>NOT</strong> read or track the contents of any open tabs.</p>
+        
+        <p data-lang="share_btd_p3">Feel free to read <a href="https://developer.chrome.com/extensions/tabs">Chrome's documentation</a> about this permission for more details.</p>
+        
+        <p><strong data-lang="share_btd_p4">Any modification on this page will be applied after a browser restart</strong></p>
+
+        <ul>
+          <li>
+            <input type="checkbox" name="share_item.enabled" id="enabled">
+            <label for="enabled" data-lang="share_btd_item">Add the "Share on Better TweetDeck" action on contextual menu</label>
+          </li>
+          <li>
+            <input type="checkbox" name="share_item.short_txt" id="short_txt">
+            <label for="short_txt" data-lang="share_short_txt">Shorten the selected text while using the "Share on Better TweetDeck" action</label>
+          </li>
+        </ul>
+      </div>
     </section>
 
     <section class="content-block" id="visual">
@@ -248,11 +266,11 @@
             <input type="checkbox" name="css.no_col_icns" id="no_col_icns">
             <label for="no_col_icns" data-lang="css_no_col_icns">Hide icons in columns headers</label>
           </li>
-          <li>
+          <li data-hidden-firefox>
             <input type="checkbox" name="css.no_scrollbars" id="no_scrollbars">
             <label for="no_scrollbars" data-lang="css_no_scrollbars" data-new-feat>Hide scrollbars</label>
           </li>
-          <li>
+          <li data-hidden-firefox>
             <input type="checkbox" name="css.slim_scrollbars" id="slim_scrollbars">
             <label for="slim_scrollbars" data-lang="css_slim_scrollbars" data-new-feat>Thinner scrollbars</label>
           </li>
@@ -368,7 +386,12 @@
 
         <h5 data-lang="credits_contribs">Contributors</h5>
 
-        <ul class="settings-contributors"></ul>
+        <ul class="settings-contributors">
+          <li>
+            <a href="https://github.com/no-boot-device" target="_blank">no-boot-device</a>
+            <small>That Old Replies Trick</small>
+          </li>
+        </ul>
 
         <h5 data-lang="credits_rsrc">Ressources used</h5>
 

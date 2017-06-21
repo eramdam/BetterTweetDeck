@@ -6,8 +6,9 @@ import { send as sendMessage, on as onMessage } from './util/messaging';
 import * as Thumbnails from './util/thumbnails';
 import * as Templates from './util/templates';
 import * as Usernames from './util/usernames';
-import * as Emojis from './util/emojis';
-import * as Log from './util/logger.js';
+import Emojis from './util/emojis';
+import Log from './util/logger';
+import * as BHelper from './util/browserHelper';
 
 import { $, TIMESTAMP_INTERVAL, on, sendEvent } from './util/util';
 
@@ -22,13 +23,55 @@ const COLUMNS_MEDIA_SIZES = new Map();
 /**
  * Injecting inject.js in head before doing anything else
  */
-const scriptEl = document.createElement('script');
-scriptEl.src = chrome.extension.getURL('js/inject.js');
-document.head.appendChild(scriptEl);
 
 sendMessage({ action: 'get_settings' }, (response) => {
   settings = response.settings;
+  const scripts = [
+    chrome.extension.getURL('js/inject.js'),
+    chrome.extension.getURL('embeds.js'),
+  ];
+
+  scripts.forEach((src) => {
+    const el = document.createElement('script');
+    el.src = src;
+    document.head.appendChild(el);
+  });
+
+  const getFontFile = format => chrome.extension.getURL(`fonts/tweetdeck-regular-webfont-old.${format}`);
+
+  const style = document.createElement('style');
+  style.type = 'text/css';
+  style.textContent = `
+    @font-face {
+      font-family: 'old_tweetdeckregular';
+      src: url("${getFontFile('eot')}");
+      src: url("${getFontFile('eot')}?#iefix") format("embedded-opentype"), url("${getFontFile('woff')}") format("woff"), url("${getFontFile('ttf')}") format("truetype"), url("${getFontFile('svg')}") format("svg");
+      font-weight: normal;
+      font-style: normal
+    }
+  `;
+
+  document.head.appendChild(style);
 });
+
+function saveGif(gifshotObj, name, event, videoEl) {
+  return fetch(gifshotObj.image)
+    .then(res => res.blob())
+    .then((blob) => {
+      event.target.style.opacity = 1;
+      event.target.innerText = 'Download as .GIF';
+      FileSaver.saveAs(blob, `${name}.gif`);
+      videoEl.playbackRate = 1;
+    });
+}
+
+function updateGifProgress(element, progress) {
+  if (progress > 0.99) {
+    element.innerText = 'Converting to GIF... (Finalizing)';
+  } else {
+    element.innerText = `Converting to GIF... (${Number(progress * 100).toFixed(1)}%)`;
+  }
+}
 
 
 /**
@@ -57,7 +100,7 @@ function refreshTimestamps() {
       return;
     }
 
-    t.forEach((el) => timestampOnElement(el, d));
+    t.forEach(el => timestampOnElement(el, d));
   });
 }
 
@@ -65,10 +108,20 @@ function refreshTimestamps() {
  * This function will simply take settings in `css` field
  * and then add/remove classes on the body
  */
+
+const disabledOnFirefox = ['no_scrollbars', 'slim_scrollbars'];
+
 function tweakClassesFromVisualSettings() {
   const enabledClasses = Object.keys(settings.css)
-                        .filter((key) => settings.css[key])
-                        .map((cl) => `btd__${cl}`);
+    .filter((key) => {
+      if (BHelper.isFirefox) {
+        return !disabledOnFirefox.includes(key);
+      }
+
+      return true;
+    })
+    .filter(key => settings.css[key])
+    .map(cl => `btd__${cl}`);
 
   document.body.classList.add(...enabledClasses);
 
@@ -103,7 +156,7 @@ function expandURL(url, node) {
     return;
   }
 
-  anchors.forEach((anchor) => anchor.setAttribute('href', url.expanded_url));
+  anchors.forEach(anchor => anchor.setAttribute('href', url.expanded_url));
 }
 
 function hideURLVisually(url, node) {
@@ -117,7 +170,7 @@ function hideURLVisually(url, node) {
     return;
   }
 
-  anchors.forEach(a => {
+  anchors.forEach((a) => {
     const lastNode = [...a.parentNode.childNodes].pop();
 
     if (lastNode !== a) {
@@ -222,6 +275,24 @@ function thumbnailsFromURLs(urls, node, mediaSize) {
   }));
 }
 
+function addStickerToMessage(stickerObject, node) {
+  const url = stickerObject.images.size_1x.url;
+  const id = stickerObject.id;
+  const html = `<img src="${url}" class="btd-sticker-message" style="max-width: 72px;" />`;
+
+  if ($('.btd-sticker-message', node)) {
+    return;
+  }
+
+  const link = $(`[href$="${id}"]`, node);
+
+  if (link) {
+    link[0].classList.add('btd-isvishidden');
+  }
+
+  $('.tweet-body p, .tweet-text', node)[0].insertAdjacentHTML('afterend', html);
+}
+
 /**
  * This is the main stuff, function called on every tweet
  */
@@ -234,7 +305,7 @@ function tweetHandler(tweet, columnKey, parent) {
 
   if (!hasParent) {
     if (!$(`.js-column[data-column="${columnKey}"]`)) {
-      Log.debug(tweet, columnKey);
+      Log(tweet, columnKey);
     }
     parent = $(`.js-column[data-column="${columnKey}"]`)[0];
   }
@@ -260,7 +331,7 @@ function tweetHandler(tweet, columnKey, parent) {
 
   if (!nodes) {
     nodes = [];
-    Log.debug('failed to get node for', tweet);
+    Log('failed to get node for', tweet);
   }
 
   nodes.forEach((node) => {
@@ -274,7 +345,7 @@ function tweetHandler(tweet, columnKey, parent) {
     // $('time > *', node).forEach((el) => timestampOnElement(el, tweet.created));
     if ($('time > *', node)) {
       const t = tweet.retweet ? tweet.retweet.created : tweet.created;
-      $('time > *', node).forEach((el) => timestampOnElement(el, t));
+      $('time > *', node).forEach(el => timestampOnElement(el, t));
     }
 
     const type = tweet.action || tweet.chirpType;
@@ -287,7 +358,7 @@ function tweetHandler(tweet, columnKey, parent) {
       case 'retweet':
       case 'favorite':
       case 'favorited_retweet':
-        Usernames.format({ node, user: tweet.sourceUser, fSel: '.activity-header .nbfc .account-link.txt-bold' });
+        Usernames.format({ node, user: tweet.sourceUser, fSel: '.activity-header .nbfc .account-link' });
         Usernames.format({ node, user: tweet.targetTweet.user, fSel: '.tweet-header .nbfc .fullname', uSel: '.tweet-header .nbfc .username' });
         break;
 
@@ -441,6 +512,12 @@ function tweetHandler(tweet, columnKey, parent) {
       urlsToChange = [...tweet.retweetedStatus.entities.urls, ...tweet.retweetedStatus.entities.media];
     }
 
+    setTimeout(() => {
+      if (tweet.attachment && tweet.attachment.sticker) {
+        addStickerToMessage(tweet.attachment.sticker, node);
+      }
+    }, 0);
+
     const mediaURLS = urlsToChange.filter(url => url.type || url.display_url.startsWith('youtube.com/watch?v=') || url.display_url.startsWith('vine.co/v/'));
 
     if (urlsToChange.length > 0) {
@@ -494,8 +571,8 @@ function setMaxDimensionsOnModalImg() {
     }
 
     const loadable = loadableEls[0];
-    loadable.addEventListener('load', (ev) => setMaxDimensionsOnElement(ev.target));
-    loadable.addEventListener('loadstart', (ev) => setMaxDimensionsOnElement(ev.target));
+    loadable.addEventListener('load', ev => setMaxDimensionsOnElement(ev.target));
+    loadable.addEventListener('loadstart', ev => setMaxDimensionsOnElement(ev.target));
 
     if (loadable.hasAttribute('data-btd-loaded') || loadable.readyState === 4) {
       setMaxDimensionsOnElement(loadable);
@@ -512,7 +589,7 @@ on('BTDC_ready', () => {
   // Refresh timestamps once and then set the interval
   refreshTimestamps();
   setInterval(refreshTimestamps, TIMESTAMP_INTERVAL);
-  Emojis.buildEmojiPicker();
+  Emojis();
 
   const settingsURL = chrome.extension.getURL('options/options.html');
   const settingsBtn = `
@@ -530,10 +607,38 @@ on('BTDC_ready', () => {
   });
 
   onMessage((details) => {
-    document.dispatchEvent(new CustomEvent('uiComposeTweet'));
-    $('textarea.js-compose-text')[0].value = `${details.text} ${details.url}`;
-    $('textarea.js-compose-text')[0].dispatchEvent(new Event('change'));
+    switch (details.action) {
+      case 'progress_gif':
+        updateGifProgress($('[data-btd-dl-gif]')[0], details.progress);
+        break;
+      default:
+        document.dispatchEvent(new CustomEvent('uiComposeTweet'));
+        $('textarea.js-compose-text')[0].value = `${details.text} ${details.url}`;
+        $('textarea.js-compose-text')[0].dispatchEvent(new Event('change'));
+        break;
+    }
   });
+
+  if (settings.need_update_banner) {
+    sendMessage({ action: 'displayed_update_banner' });
+    setTimeout(() => {
+      sendEvent('showTDBanner', {
+        banner: {
+          bg: '#3daafb',
+          fg: '#07214c',
+          action: 'trigger-event',
+          event: {
+            type: 'openBtdSettings',
+            data: {
+              url: chrome.extension.getURL('options/options.html?on=update'),
+            },
+          },
+          text: `Better TweetDeck has been updated to ${BHelper.getVersion()}`,
+          label: 'See the changes',
+        },
+      });
+    }, 1000);
+  }
 });
 
 on('BTDC_gotChirpForColumn', (ev, data) => {
@@ -555,7 +660,11 @@ on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
   openModal.innerHTML = modalHtml.replace('<div class="js-med-tweet med-tweet"></div>', `<div class="js-med-tweet med-tweet">${markup}</div>`);
   openModal.style.display = 'block';
   // setMaxDimensionsOnModalImg();
-  openModal.querySelector('img, iframe').onload = (e) => e.target.setAttribute('data-btd-loaded', 'true');
+  openModal.querySelector('img, iframe').onload = e => e.target.setAttribute('data-btd-loaded', 'true');
+
+  if ($('[data-instgrm-version]', openModal)) {
+    sendEvent('renderInstagramEmbed');
+  }
 
   $('[rel="favorite"]', openModal)[0].addEventListener('click', () => {
     sendEvent('likeChirp', { chirpKey: chirp.id, colKey });
@@ -582,7 +691,7 @@ on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
       const originalMenu = document.querySelector(`[data-column="${colKey}"] [data-key="${chirp.id}"] .dropdown-menu`);
       originalMenu.classList.add('pos-t');
       $('[rel="actionsMenu"]', openModal)[0].insertAdjacentElement('afterEnd', originalMenu);
-      $('#open-modal .dropdown-menu').forEach((el) => el.addEventListener('click', closeOpenModal));
+      $('#open-modal .dropdown-menu').forEach(el => el.addEventListener('click', closeOpenModal));
     }, 0);
   });
 
@@ -593,31 +702,40 @@ on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
       e.preventDefault();
       e.target.style.opacity = 0.8;
 
-      gifshot.createGIF({
+      const gifshotOptions = {
         gifWidth: videoEl.getAttribute('data-btd-width'),
         gifHeight: videoEl.getAttribute('data-btd-height'),
         video: [videoEl.getAttribute('src')],
+        name: videoEl.getAttribute('data-btd-name'),
         numFrames: Math.floor(videoEl.duration / 0.1),
+        interval: 0.1,
         sampleInterval: 10,
-        progressCallback: (progress) => {
-          if (progress > 0.99) {
-            e.target.innerText = 'Converting to GIF... (Finalizing)';
-          } else {
-            e.target.innerText = `Converting to GIF... (${Number(progress * 100).toFixed(1)}%)`;
-          }
-        },
-      }, obj => {
-        if (!obj.error) {
-          e.target.innerText = 'Preparing the file...';
-          fetch(obj.image)
-          .then(res => res.blob())
-          .then(blob => {
-            e.target.style.opacity = 1;
-            e.target.innerText = 'Download as .GIF';
-            FileSaver.saveAs(blob, `${videoEl.getAttribute('data-btd-name')}.gif`);
-          });
+      };
+
+
+      const gifshotCb = (obj) => {
+        if (obj.error) {
+          return;
         }
-      });
+
+        saveGif(obj, gifshotOptions.name, e, videoEl);
+      };
+
+      // Firefox doesn't support Web Workers from content scripts so we have to run it in the background
+      // ...
+      // ...
+      // Yes, it's hacky but we have no choice ¯\(ツ)/¯
+      if (BHelper.isFirefox) {
+        e.target.innerText = 'Converting to GIF... (in progress)';
+        return sendMessage({
+          action: 'download_gif',
+          options: gifshotOptions,
+        }, response => gifshotCb(response.obj));
+      }
+
+      return gifshot.createGIF(Object.assign(gifshotOptions, {
+        progressCallback: progress => updateGifProgress(e.target, progress),
+      }), gifshotCb);
     });
   }
 });
@@ -636,9 +754,9 @@ on('BTDC_columnsChanged', (ev, data) => {
   }
 
   colsArray.filter(col => col.id)
-           .forEach(col => {
-             COLUMNS_MEDIA_SIZES.set(col.id, col.mediaSize || 'medium');
-           });
+    .forEach((col) => {
+      COLUMNS_MEDIA_SIZES.set(col.id, col.mediaSize || 'medium');
+    });
 });
 
 on('BTDC_clickedOnGif', (ev, data) => {

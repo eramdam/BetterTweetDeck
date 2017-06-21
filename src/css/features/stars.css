@@ -1,10 +1,25 @@
 .btd__stars {
-  .icon-favorite:before {
-    content: "\f007"
+  .icon-favorite::before,
+  .icon-heart-filled:before {
+    content: "\f007";
+    font-family: "old_tweetdeckregular";
   }
-
+  
+  .tweet-action:hover .icon-favorite,
+  .tweet-detail-action:hover .icon-favorite,
+  .dm-action:hover .icon-favorite,
+  .tweet-action:focus .icon-favorite,
+  .tweet-detail-action:focus .icon-favorite,
+  .dm-action:focus .icon-favorite,
+  .tweet-action:active .icon-favorite,
+  .tweet-detail-action:active .icon-favorite,
+  .dm-action:active .icon-favorite,
+  .tweet-action.is-selected .icon-favorite,
+  .is-selected.tweet-detail-action .icon-favorite,
+  .is-selected.dm-action .icon-favorite,
   .is-favorite .icon-favorite-toggle,
-  .icon-favorite-color {
+  .icon-favorite-color,
+  .tweet-action:hover .icon-favorite {
     color: #fab41e;
   }
 
@@ -19,8 +34,11 @@
     display: none;
   }
   
-  .tweet-action:hover .icon-favorite {
-    color: #fab41e;
+  .tweet-action .icon, .tweet-detail-action .icon, .dm-action .icon, .tweet-action .Icon, .tweet-detail-action .Icon, .dm-action .Icon {
+    &.icon-favorite,
+    &.icon-favorite-toggle {
+      margin-top: 1px;
+    }
   }
 
   .icon-favorite.is-invisible {

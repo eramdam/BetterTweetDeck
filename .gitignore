@@ -5,10 +5,6 @@ reverse/
 config/*.js
 events.js
 backup
-
 *.crx
-
 *.nex
-
 *.zip
-yarn.lock

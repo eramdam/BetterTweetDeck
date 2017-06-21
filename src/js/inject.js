@@ -8,6 +8,26 @@ const deciderOverride = {
   simplified_replies: false,
 };
 
+const experimentOverride = {
+  config: {
+    tweetdeck_notifications_streaming_5807: {
+      value: 'no_streaming',
+    },
+    tweetdeck_simplified_search_flow_5499: {
+      value: 'no_temp_editable_header_search',
+    },
+    tweetdeck_editable_search_headers_5431: {
+      value: 'editable_search_headers',
+    },
+    tweetdeck_engagement_icons_3569: {
+      value: '',
+    },
+    thamshere_test_3281: {
+      value: '',
+    },
+  },
+};
+
 TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace('{{>status/tweet_single_footer}} </div>', '{{>status/tweet_single_footer}} <i class="sprite tweet-dogear"></i> </div>');
 TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('</footer> {{/getMainTweet}}', '</footer> {{/getMainTweet}} <i class="sprite tweet-dogear"></i>');
 
@@ -19,7 +39,7 @@ const getChirpFromKey = (key, colKey) => {
   }
 
   const chirpsArray = [];
-  Object.keys(column.updateIndex).forEach(updateKey => {
+  Object.keys(column.updateIndex).forEach((updateKey) => {
     const c = column.updateIndex[updateKey];
     if (c) {
       chirpsArray.push(c);
@@ -110,6 +130,8 @@ const decorateChirp = (chirp) => {
   return chirp;
 };
 
+let bannerID = 1;
+
 const postMessagesListeners = {
   BTDC_getOpenModalTweetHTML: (ev, data) => {
     const { tweetKey, colKey, modalHtml } = data;
@@ -160,6 +182,9 @@ const postMessagesListeners = {
 
     chirp.retweet();
   },
+  BTDC_renderInstagramEmbed: () => {
+    instgrm.Embeds.process();
+  },
   BTDC_settingsReady: (ev, data) => {
     const { settings } = data;
     SETTINGS = settings;
@@ -176,7 +201,7 @@ const postMessagesListeners = {
 
     if (settings.old_replies) {
       TD.decider.updateFromBackend = _.wrap(TD.decider.updateFromBackend, (func, dict) => {
-        Object.keys(deciderOverride).forEach(key => {
+        Object.keys(deciderOverride).forEach((key) => {
           if (dict[key]) {
             dict[key] = deciderOverride[key];
           }
@@ -187,6 +212,35 @@ const postMessagesListeners = {
 
       TD.decider.updateForGuestId();
     }
+
+    if (settings.old_search) {
+      const searchOverride = { tweetdeck_simplified_search_flow_5499: { value: 'nope' } };
+      Object.assign(experimentOverride.config, searchOverride);
+
+      TD.controller.stats.setExperiments(experimentOverride);
+    }
+  },
+  BTDC_showTDBanner: (ev, data) => {
+    const { banner } = data;
+    bannerID += 1;
+
+    $(document).trigger('dataMessage', {
+      message: {
+        id: bannerID,
+        text: TD.i(banner.text),
+        colors: {
+          background: banner.bg || '#b2d5ed',
+          foreground: banner.fg || '#555',
+        },
+        actions: [{
+          id: `btd-banner-${bannerID}`,
+          action: banner.action || 'url-ext',
+          label: TD.i(banner.label),
+          url: banner.url,
+          event: banner.event ? banner.event : undefined,
+        }],
+      },
+    });
   },
 };
 
@@ -235,30 +289,10 @@ const handleInsertedNode = (ev) => {
   const chirpKey = target.getAttribute('data-key');
   const colKey = target.closest('.js-column').getAttribute('data-column');
 
-  let chirp = getChirpFromKey(chirpKey, colKey);
+  const chirp = getChirpFromKey(chirpKey, colKey);
 
   if (!chirp) {
     return;
-  }
-
-  if (chirp._hasAnimatedGif) {
-    if (chirp.targetTweet) {
-      chirp = chirp.targetTweet;
-    }
-
-    const videoEl = $(`[data-key="${chirp.entities.media[0].id}"] video`)[0];
-
-    if (videoEl && videoEl.paused) {
-      return;
-    }
-
-    if (SETTINGS.stop_gifs) {
-      setTimeout(() => {
-        if ($(`[data-key="${chirp.entities.media[0].id}"] [rel="pause"]`).length > 0) {
-          $(`[data-key="${chirp.entities.media[0].id}"] [rel="pause"]`)[0].click();
-        }
-      });
-    }
   }
 
   proxyEvent('gotChirpForColumn', { chirp: decorateChirp(chirp), colKey });
@@ -266,36 +300,9 @@ const handleInsertedNode = (ev) => {
 
 document.addEventListener('DOMNodeInserted', handleInsertedNode);
 
-$(document).on('uiVisibleChirps', (ev, data) => {
-  const { chirpsData, columnKey } = data;
-  const isThereGifs = chirpsData.filter(chirp => {
-    const hasGif = chirp.chirp && chirp.chirp._hasAnimatedGif;
-    const el = chirp.$elem[0];
-    const isPaused = el.querySelector('video') && !el.querySelector('video').paused;
-
-    return hasGif && isPaused;
-  }).length > 0;
-
-  if (isThereGifs && SETTINGS.stop_gifs) {
-    chirpsData.filter(chirp => chirp.chirp._hasAnimatedGif).forEach(c => {
-      const videoEl = $(`[data-column="${columnKey}"] [data-key="${c.id}"] video`)[0];
-
-      if (videoEl && videoEl.paused) {
-        return;
-      }
-
-      setTimeout(() => {
-        if ($(`[data-column="${columnKey}"] [data-key="${c.id}"] [rel="pause"]`).length > 0) {
-          $(`[data-column="${columnKey}"] [data-key="${c.id}"] [rel="pause"]`)[0].click();
-        }
-      });
-    });
-  }
-});
-
 // TD Events
 $(document).on('dataColumns', (ev, data) => {
-  const cols = data.columns.filter(col => col.model.state.settings).map((col) => ({
+  const cols = data.columns.filter(col => col.model.state.settings).map(col => ({
     id: col.model.privateState.key,
     mediaSize: col.model.state.settings.media_preview_size,
   }));
@@ -337,11 +344,14 @@ const closeCustomModal = () => {
 $(document).keydown((ev) => {
   if ($('#open-modal [btd-custom-modal]').length && ev.keyCode === 27) {
     closeCustomModal();
-    return;
   }
 });
 
-document.addEventListener('paste', ev => {
+$(document).on('openBtdSettings', (ev, data) => {
+  window.open(data.url);
+});
+
+document.addEventListener('paste', (ev) => {
   if (ev.clipboardData) {
     const items = ev.clipboardData.items;
 
@@ -351,7 +361,7 @@ document.addEventListener('paste', ev => {
 
     const files = [];
 
-    [...items].forEach(item => {
+    [...items].forEach((item) => {
       if (item.type.indexOf('image') < 0) {
         return;
       }
@@ -427,6 +437,38 @@ $('body').on('click', '#open-modal', (ev) => {
     }
 
     $('a[rel="dismiss"]').click();
-    return;
   }
 });
+
+const isVisible = (elem) => {
+  if (!(elem instanceof Element)) {
+    throw Error('not an element');
+  }
+
+  const style = getComputedStyle(elem);
+  const boundRect = elem.getBoundingClientRect();
+
+  // If a single top/bottom/left/right value is negative then the element is partially out of the window
+  const isCompletelyVisible = ['left', 'right', 'top', 'bottom'].every(i => boundRect[i] > 0);
+
+  return style.display !== 'none' &&
+        style.visibility === 'visible' && isCompletelyVisible;
+};
+
+window.addEventListener('focus', (ev) => {
+  // Don't do anything if we don't focus the window
+  if (!(ev.target instanceof Window)) {
+    return;
+  }
+
+  const active = document.activeElement;
+  if (active && (active.tagName === 'TEXTAREA' || active.tagName === 'INPUT')) {
+    return;
+  }
+  const widget = [
+    document.querySelector('textarea.compose-text'),
+  ].find(elem => elem && isVisible(elem));
+  if (widget) {
+    widget.focus();
+  }
+}, true);

@@ -27,6 +27,9 @@
 /* Emoji Panel */
 @import './emoji-panel.css';
 
+/* Embed/modals */
+@import './embeds.css';
+
 :root {
   /* Dark*/
   --compose-btn-bg-dark: #373839;
@@ -89,6 +92,10 @@
   }
 }
 
+[data-btdtheme] .btd-has-poll .tweet-detail .media-badge {
+  display: none;
+}
+
 .btd-settings-btn .icon {
   color: #009cf0;
 }
@@ -97,39 +104,13 @@
   bottom: 260px !important;
 }
 
-.js-add-emojis .btd-emoji-icon {
-  background-image: url('../emojis/emoji-happy.svg');
+.js-add-emojis .btd-emoji-icon::before {
+  content: "\f438";
 }
 
 .js-media-image-link,
 article video.js-media-gif {
   cursor: zoom-in !important;
-}
-
-.noembed-embed-inner > div,
-.streamable-embed-container {
-  min-width: 750px;
-}
-
-.streamable-embed-container > iframe {
-  left: 0;
-}
-
-.btd-embed-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.btd-embed-container .btd-embed-and-links {
-  display: inline-flex;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-}
-
-.btd-embed-container .btd-embed-and-links img {
-  max-height: 100%;
-  object-fit: contain;
 }
 
 .tweet-dogear {
@@ -174,4 +155,15 @@ body :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
     bottom: 130px;
   }
 }
-    
+
+.stream-item .tweet-body .reverse-image-search {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+[data-action-id^="btd-banner"] {
+  background-color: color(black alpha(30%)) !important;
+}

@@ -40,6 +40,7 @@
 
   "title_avatars": { "message": "Avatars & détails" },
   "old_replies": { "message": "Revenir à l'ancien style de mentions (pré 30/03/2017)" },
+  "old_search": { "message": "Revenir à l'ancien fonctionnement de la recherche (pas de nouvelle colonne à chaque recherche)"},
   "css_round_pic": { "message": "Avatars ronds" },
   "css_bigger_emojis": { "message": "Emojis plus gros dans les tweets" },
   "css_collapse_dms": { "message": "Masquer les DM lus" },
@@ -56,11 +57,17 @@
   "flash_tweets": { "message": "Faire 'flasher' les nouveaux tweets dans :" },
   "flash_tweets_mentions": { "message": "les colonnes 'Mentions'" },
   "flash_tweets_all": { "message": "toutes les colonnes" },
-
-  "share_btd_item": { "message": "Ajouter le bouton 'Share on Better TweetDeck' dans le menu contextuel <small>Nécessite un redémarrage</small>" },
-  "share_short_txt": { "message": "Réduire automatiquement la longueur du texte en utilisant le partage <small>Nécessite un redémarrage</small>" },
+  
+  "share_request": { "message": "Demander l'autorisation" },
+  "share_granted": { "message": "Autorisation accordée !" },
+  "shared_btd_h1": { "message": "Partage" },
+  "share_btd_p1": { "message": "La fonctionnalité de partage requiert l'autorisation de voir les onglets ouverts. Cliquez sur le bouton ci-dessous pour demander ladite autorisation." },
+  "share_btd_p2": { "message": "Better TweetDeck <strong>ne peux pas</strong> lire le contenu de vos onglets ni l'analyser." },
+  "share_btd_p3": { "message": "Vous pouvez lire la <a href=\"https://developer.chrome.com/extensions/tabs\">documentation de Google</a> à propos de cette autorisation pour plus de détails" },
+  "share_btd_p4": { "message": "Toute modification sur cette page prendra effet après un redémarrage du navigateur" },
+  "share_btd_item": { "message": "Ajouter le bouton 'Share on Better TweetDeck' dans le menu contextuel" },
+  "share_short_txt": { "message": "Réduire automatiquement la longueur du texte en utilisant le partage" },
   "no_tco": { "message": "Supprimer la redirection de <em>t.co</em> sur les liens" },
-  "stop_autoplay_gifs": { "message": "Ne pas jouer les GIFs automatiquement" },
   "no_gif_pp": { "message": "Arrêter les GIFs dans les avatars dans les colonnes" },
   "thumbnails_from": { "message": "Afficher les miniatures de :" },
 

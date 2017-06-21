@@ -6,7 +6,6 @@ Features:
 - A "minimal" theme.
 - An emoji picker to add them easily to your tweets.
 - Show verified badge on profile pictures in columns.
-- Prevent GIFs from autoplaying.
 - Change hears back to stars.
 - Customize the format of dates.
 - Customize the format of names in tweets.

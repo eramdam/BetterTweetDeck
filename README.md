@@ -14,11 +14,12 @@ Adds some nice options on [TweetDeck](http://tweetdeck.twitter.com) to provide a
 The extensions is currently available for the following browsers:
 - [Chrome](https://chrome.google.com/webstore/detail/bettertweetdeck-3/micblkellenpbfapmcpcfhcoeohhnpob)
 - [Opera](https://addons.opera.com/en/extensions/details/bettertweetdeck/)
-- ~~Firefox~~ SOON
+- [Firefox](https://addons.mozilla.org/en-US/firefox/addon/better-tweetdeck-17/)
 
 # Features
 
 - You can revert to the old style of replies!
+- You can revert to the old style of search!
 - You can hide the RT/Like indicator
 - You can open GIFs in fullscreen
 - You can download GIFs as... .gif files!
@@ -27,7 +28,6 @@ The extensions is currently available for the following browsers:
 - A "minimal" theme.
 - An emoji picker to add them easily to your tweets.
 - Show verified badge on profile pictures in columns.
-- Prevent GIFs from autoplaying.
 - Change hearts back to stars.
 - Customize the format of dates.
 - Customize the format of names in tweets.

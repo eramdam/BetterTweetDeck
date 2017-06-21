@@ -1,19 +1,22 @@
-import * as BHelper from '../js/util/browserHelper';
-import { schemeWhitelist } from '../js/util/thumbnails';
-
 import $ from 'jquery';
 import _ from 'lodash';
 import Prism from 'prismjs';
 import marked from 'marked';
 import queryString from 'query-string';
 import fecha from 'fecha';
+import jsEmoji from 'emoji-js';
+import * as BHelper from '../js/util/browserHelper';
+import { schemeWhitelist } from '../js/util/thumbnails';
 
-import jsEmoji from 'js-emoji';
 const Emoji = new jsEmoji.EmojiConvertor();
 Emoji.img_set = 'twitter';
 Emoji.replace_mode = 'css';
 Emoji.supports_css = true;
 Emoji.use_sheet = true;
+
+if (BHelper.isFirefox) {
+  document.body.classList.add('-browser-firefox');
+}
 
 function refreshPreviews(settings) {
   if (settings.nm_disp) {
@@ -117,7 +120,7 @@ function refreshPreviews(settings) {
 /**
  * When got the settings we initialise the view
  */
-BHelper.settings.getAll(settings => {
+BHelper.settings.getAll((settings) => {
   const settingsStr = JSON.stringify(settings, null, 2);
 
   $('.settings-dump').html(Prism.highlight(settingsStr, Prism.languages.js));
@@ -186,7 +189,7 @@ BHelper.settings.getAll(settings => {
   /**
    * Special treatment for thumb providers list who gets created from the source directly
    */
-  schemeWhitelist.forEach(scheme => {
+  schemeWhitelist.forEach((scheme) => {
     const isEnabled = _.isBoolean(settings.thumbnails[scheme.setting]) ? settings.thumbnails[scheme.setting] : scheme.default;
 
     $('.settings-thumbnails-providers-list').append(`
@@ -210,8 +213,8 @@ BHelper.settings.getAll(settings => {
     if (e.target.type === 'radio' && e.target.name === 'ts') {
       if (e.target.hasAttribute('data-ghost')) {
         $(e.target).parent()
-                   .find('ul input')
-                   .removeAttr('disabled');
+          .find('ul input')
+          .removeAttr('disabled');
       } else {
         $('[data-ghost] ~ ul input').attr('disabled', '');
       }
@@ -272,14 +275,12 @@ BHelper.settings.getAll(settings => {
         } else if (type === 'text' || type === 'number') {
           newSettings[nameArr[0]][nameArr[1]] = input.value;
         }
-      } else {
-        if (type === 'radio' && isChecked) {
-          newSettings[name] = input.getAttribute('id');
-        } else if (type === 'checkbox') {
-          newSettings[name] = isChecked;
-        } else if (type === 'text') {
-          newSettings[name] = input.value;
-        }
+      } else if (type === 'radio' && isChecked) {
+        newSettings[name] = input.getAttribute('id');
+      } else if (type === 'checkbox') {
+        newSettings[name] = isChecked;
+      } else if (type === 'text') {
+        newSettings[name] = input.value;
       }
     });
 
@@ -288,6 +289,32 @@ BHelper.settings.getAll(settings => {
     $('.save-button').text(chrome.i18n.getMessage('save_no')).attr('disabled', '');
   });
 });
+
+if (chrome.permissions) {
+  chrome.permissions.contains({
+    permissions: ['tabs'],
+  }, (hasTabs) => {
+    if (!hasTabs) {
+      $('[data-require-permission] input').each((i, el) => $(el).prop('disabled', true));
+    } else {
+      $('[data-ask-permissions]').prop('disabled', true);
+      $('[data-ask-permissions]').text(BHelper.getMessage('share_granted'));
+    }
+  });
+
+  $('[data-ask-permissions]').on('click', (ev) => {
+    ev.preventDefault();
+    chrome.permissions.request({
+      permissions: ['tabs'],
+    }, (granted) => {
+      if (granted) {
+        $('[data-require-permission] input').each((i, el) => $(el).prop('disabled', false));
+        $(ev.target).prop('disabled', true);
+        $(ev.target).text(BHelper.getMessage('share_granted'));
+      }
+    });
+  });
+}
 
 // Auto-select sidebar items
 $('.sidebar-nav:first-child a:first-child, .content-block:first-child').addClass('-selected');
@@ -325,9 +352,9 @@ $('.settings-version-number').text(BHelper.getVersion());
 $('.settings-user-agent').text(BHelper.getUA());
 
 // Get GitHub infos
-fetch('https://api.github.com/repos/eramdam/BetterTweetDeck/contributors').then(res => {
-  res.json().then(json => {
-    json.forEach(contributor => {
+fetch('https://api.github.com/repos/eramdam/BetterTweetDeck/contributors').then((res) => {
+  res.json().then((json) => {
+    json.forEach((contributor) => {
       if (contributor.login === 'eramdam') {
         return;
       }
@@ -346,15 +373,15 @@ fetch('https://api.github.com/repos/eramdam/BetterTweetDeck/contributors').then(
 
 const labels = ['Feature', 'Bugfix', 'Improvement', 'Meta'];
 
-fetch(chrome.extension.getURL('options/CHANGELOG.md')).then(res => res.text()).then(body => {
+fetch(chrome.extension.getURL('options/CHANGELOG.md')).then(res => res.text()).then((body) => {
   const changelogMarkup =
     Emoji.replace_colons(marked(body))
-    .replace(/\/emoji-data\/sheet_twitter_64.png/g, chrome.extension.getURL('emojis/sheet_twitter_64.png'))
-    .replace(new RegExp(`(\\[(${labels.join('|')})\\])`, 'gi'), (match, p1, p2) => {
-      return `
+      .replace(/\/emoji-data\/sheet_twitter_64.png/g, chrome.extension.getURL('emojis/sheet_twitter_64.png'))
+      .replace(new RegExp(`(\\[(${labels.join('|')})\\])`, 'gi'), (match, p1, p2) => {
+        return `
         <span class="token -${p2.toLowerCase()}">${p2}</span>
       `;
-    });
+      });
 
   // console.log(changelogMarkup.match(new RegExp(`(\\[(${labels.join('|')})\\])`, 'gi')));
 
@@ -371,7 +398,7 @@ const usedDeps = [
   { name: 'See other dependencies', url: 'https://github.com/eramdam/BetterTweetDeck/blob/master/package.json' },
 ];
 
-usedDeps.forEach(dep => {
+usedDeps.forEach((dep) => {
   $('.settings-deps').append(`
     <li>
       <a href="${dep.url}" target="_blank">${dep.name}</a>
@@ -380,7 +407,7 @@ usedDeps.forEach(dep => {
 });
 
 // Easy-peasy-lemon-sqeezy i18n code
-[...document.querySelectorAll('[data-lang]')].forEach(el => {
+[...document.querySelectorAll('[data-lang]')].forEach((el) => {
   const msg = el.getAttribute('data-lang');
   el.innerHTML = BHelper.getMessage(msg);
 });

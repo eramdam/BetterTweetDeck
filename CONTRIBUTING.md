@@ -52,7 +52,8 @@ Better TweetDeck **is not** made to:
 ##### Files and folders
 
 - `config/`: configuration files with API keys and debug flags
-- `dist/`: build output
+- `dist/`: build output (useful for dev)
+- `artifacts/`: location of zip files/.crx/.nex files used for release
 - `meta/`: contains the description of the extension for the stores and other repo-related files
 - `src/`: source code
 - `tools/`: various scripts and useful files for the build process
@@ -86,7 +87,7 @@ Better TweetDeck **is not** made to:
 
 ### Setup
 
-You will need [NodeJS](https://nodejs.org/en/) (the more recent the better). Fire up your favorite Terminal emulator and do the followings: 
+You will need [NodeJS](https://nodejs.org/en/) (**7.x at most**). Fire up your favorite Terminal emulator and do the followings: 
 
 - **[Fork](https://github.com/eramdam/BetterTweetDeck/fork)** this repository
 - Clone the project
@@ -96,14 +97,26 @@ You will need [NodeJS](https://nodejs.org/en/) (the more recent the better). Fir
 
 #### The npm scripts
 
-There are a few scripts in the [package.json](https://github.com/eramdam/BetterTweetDeck/blob/master/package.json) file. Here is a run-down of all of them:
+The [package.json](https://github.com/eramdam/BetterTweetDeck/blob/master/package.json) file contains various scripts.
 
-- `start`: builds up the project once, then watches for modifications while using the `dev` config
-- `build`: simply build up the project with the `dev` config
-- `build:prod`: builds the project with `prod` config and makes a `.zip` file
-- `pack`: Runs the [pack.js](https://github.com/eramdam/BetterTweetDeck/blob/master/tools/pack.js) script used to pack the `dist/` folder into `.crx` and `.nex` files. I use this to make the Opera release files and to sign a `.crx` version with my private key
-- `release`: runs `build:prod` and `pack` one after the other
-- `test`: Runs the lint task from Gulp and tries to run `release`. This is ran everytime a commit is pushed on the repo, every pull request that does not pass it won't be accepted
+Some scripts have `<browser>` in their name. As of now, two browsers (or rather three actually) are supported:
+
+- Google Chrome / Opera, by using the **`chrome`** target
+- Firefox by using the **`firefox`** target
+
+Here is a run-down of all the scripts:
+
+- `start` is a shortcut for `start:chrome`
+- `start:<target>`: builds up the project once, then watches for modifications while using the **`dev`** config and the defined target (see above)
+- `build` is a shortcut for `build:chrome`
+- `build:<target>` builds the extension in **`dev`** mode against the defined target
+- `build:<target>:prod`: builds the extension in **`prod`** mode against the defined target
+- `pack:<target>` packages the extension for the given target:
+	- `chrome` will make a `.crx` and a `.nex` file with a private key
+	- `firefox` will use `web-ext` to make a zip file that has to be submitted to Mozilla Add-ons
+- `release` builds and packages the extension for **all** the targets
+- `release:<target>` builds and packages the extension for the given target
+- `test` Runs the link task from the Gulpfile and tries to run `release`. This is run on [Travis](https://travis-ci.org/eramdam/BetterTweetDeck) at every push and on every pull requests. If a given pull request doesn't pass this task, it won't be accepted.
 
 #### Actually building the project
 

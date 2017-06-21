@@ -40,6 +40,7 @@
 
   "title_avatars": { "message": "Avatars & details" },
   "old_replies": { "message": "Revert to the old replies style (pre 03/30/2017)" },
+  "old_search": { "message": "Revert to the old search system (no columns for searches!)"},
   "css_round_pic": { "message": "Rounded avatars" },
   "css_bigger_emojis": { "message": "Bigger emojis in tweets" },
   "css_collapse_dms": { "message": "Collapse read direct messages" },
@@ -56,11 +57,16 @@
   "flash_tweets": { "message": "Make tweets flash in:" },
   "flash_tweets_mentions": { "message": "Mentions columns" },
   "flash_tweets_all": { "message": "Every column" },
-
-  "share_btd_item": { "message": "Add the 'Share on Better TweetDeck' action on contextual menu <small>Will be applied at next restart</small>" },
-  "share_short_txt": { "message": "Shorten the selected text while using the 'Share on Better TweetDeck' action <small>Will be applied at next restart</small>" },
+  
+  "share_request": { "message": "Request tabs reading permissions" },
+  "share_granted": { "message": "Permissions granted" },
+  "share_btd_p1": { "message": " In order to use the \"Share on TweetDeck\" feature, you'll need to approve certain permissions which you can do so by clicking below" },
+  "share_btd_p2": { "message": "Better TweetDeck <strong>cannot</strong> read the content of your tabs and doesn't track it." },
+  "share_btd_p3": { "message": "Feel free to read <a href=\"https://developer.chrome.com/extensions/tabs\">Google's documentation</a> about this permission for more details." },
+  "share_btd_p4": { "message": "Any modification on this page will be applied after a browser restart" },
+  "share_btd_item": { "message": "Add the 'Share on Better TweetDeck' action on contextual menu" },
+  "share_short_txt": { "message": "Shorten the selected text while using the 'Share on Better TweetDeck' action" },
   "no_tco": { "message": "Remove t.co redirection on links" },
-  "stop_autoplay_gifs": { "message": "Don't autoplay GIFs in columns" },
   "no_gif_pp": { "message": "No GIFs in profile pictures in columns" },
   "thumbnails_from": { "message": "Display thumbnails from:" },
 

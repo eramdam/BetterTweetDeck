@@ -1,8 +1,9 @@
 const needle = require('needle');
 const _ = require('lodash');
-const jsEmoji = require('js-emoji');
-const Emoji = new jsEmoji.EmojiConvertor();
+const jsEmoji = require('emoji-js');
 const fs = require('fs');
+
+const Emoji = new jsEmoji.EmojiConvertor();
 Emoji.img_set = 'twitter';
 
 function getUnified(emoji) {
@@ -44,18 +45,18 @@ needle.get('https://raw.githubusercontent.com/iamcal/emoji-data/master/emoji.jso
   const emojiArr = JSON.parse(res.body);
 
   const final = _.chain(emojiArr)
-                  .filter(emoji => emoji.category)
-                  .sortBy(emoji => emoji.sort_order)
-                  .sortBy(emoji => catOrder[emoji.category])
-                  .map(emoji => {
-                    return {
-                      s: emoji.shortName,
-                      n: emoji.name,
-                      hs: Boolean(emoji.skin_variations),
-                      cat: emoji.category || getMissingCategory(emoji.s_name),
-                    };
-                  })
-                  .value();
+    .filter(emoji => emoji.category)
+    .sortBy(emoji => emoji.sort_order)
+    .sortBy(emoji => catOrder[emoji.category])
+    .map((emoji) => {
+      return {
+        s: emoji.short_name,
+        n: emoji.name,
+        hs: Boolean(emoji.skin_variations),
+        cat: emoji.category || getMissingCategory(emoji.short_name),
+      };
+    })
+    .value();
 
   const finalForTemplate = final.filter(emoji => getUnified(emoji));
   const outStr = `module.exports = ${JSON.stringify(finalForTemplate)}`;

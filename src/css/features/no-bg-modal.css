@@ -21,7 +21,7 @@
     margin-top: -21px;
   }
 
-  .icon:before {
+  .icon::before {
     position: absolute;
     left: 45%;
     top: 50%;
