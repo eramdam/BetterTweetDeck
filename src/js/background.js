@@ -54,12 +54,6 @@ const defaultSettings = {
   thumbnails: {},
 };
 
-function openChangelogPage() {
-  chrome.tabs.create({
-    url: 'options/options.html?on=update',
-  });
-}
-
 function openWelcomePage() {
   chrome.tabs.create({
     url: 'options/options.html?on=install',
