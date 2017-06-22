@@ -1,5 +1,5 @@
 import config from 'config';
-import { debug } from './util/logger';
+import Log from './util/logger';
 
 let SETTINGS;
 
@@ -74,7 +74,7 @@ const getChirpFromKey = (key, colKey) => {
   const chirp = chirpsArray.find(c => c.id === String(key));
 
   if (!chirp) {
-    debug(`did not find chirp ${key} within ${colKey}`);
+    Log(`did not find chirp ${key} within ${colKey}`);
     return null;
   }
 
