@@ -1,5 +1,4 @@
 import config from 'config';
-import _ from 'lodash';
 import { debug } from './util/logger';
 
 let SETTINGS;
@@ -200,15 +199,7 @@ const postMessagesListeners = {
     }
 
     if (settings.old_replies) {
-      TD.decider.updateFromBackend = _.wrap(TD.decider.updateFromBackend, (func, dict) => {
-        Object.keys(deciderOverride).forEach((key) => {
-          if (dict[key]) {
-            dict[key] = deciderOverride[key];
-          }
-        });
-
-        return func(dict);
-      });
+      TD.config.decider_overlay = deciderOverride;
 
       TD.decider.updateForGuestId();
     }
