@@ -1,6 +1,7 @@
 :tada: 3.3.10 :tada:
 ===============
-- [Meta] TweetDeck now has its [own poll indicator](https://twitter.com/TweetDeck/status/877536207034568704) so I can remove mine :grin: 
+- [Meta] TweetDeck now has its [own poll indicator](https://twitter.com/TweetDeck/status/877536207034568704) so I can remove mine :grin:
+- [Improvement] the way we apply some hacks should be less error-prone now (thanks to [@pixeldesu](https://github.com/pixeldesu)) ([#173](https://github.com/eramdam/BetterTweetDeck/pull/173))
 
 
 3.3.9
