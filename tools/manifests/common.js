@@ -44,6 +44,7 @@ module.exports = {
     'https://api.gyazo.com/api/*',
     'https://www.tinami.com/api/*',
     'https://gyazo.com/*',
+    'https://raw.githubusercontent.com/eramdam/BetterTweetDeck/master/*',
     '*://tweetdeck.twitter.com/*',
     'contextMenus',
     'notifications',

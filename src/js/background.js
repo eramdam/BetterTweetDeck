@@ -54,12 +54,6 @@ const defaultSettings = {
   thumbnails: {},
 };
 
-function openChangelogPage() {
-  chrome.tabs.create({
-    url: 'options/options.html?on=update',
-  });
-}
-
 function openWelcomePage() {
   chrome.tabs.create({
     url: 'options/options.html?on=install',
@@ -138,14 +132,6 @@ BHelper.settings.getAll((settings) => {
     if (!oldVersion || Number(oldVersion) !== Number(newVersion)) {
       BHelper.settings.set({
         need_update_banner: true,
-      });
-      chrome.notifications.create({
-        type: 'basic',
-        title: BHelper.getMessage('notification_title'),
-        message: BHelper.getUpgradeMessage(),
-        iconUrl: 'icons/notif-icon.png',
-      }, () => {
-        chrome.notifications.onClicked.addListener(openChangelogPage);
       });
     }
 
