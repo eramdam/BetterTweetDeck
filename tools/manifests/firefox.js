@@ -34,6 +34,7 @@ module.exports = Object.assign(require('./common.js'), {
     'https://www.tinami.com/api/*',
     'https://gyazo.com/*',
     '*://tweetdeck.twitter.com/*',
+    'https://raw.githubusercontent.com/eramdam/BetterTweetDeck/master/*',
     'contextMenus',
     'notifications',
     'tabs',
