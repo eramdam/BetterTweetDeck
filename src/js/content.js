@@ -54,6 +54,21 @@ sendMessage({ action: 'get_settings' }, (response) => {
   document.head.appendChild(style);
 });
 
+fetch('https://raw.githubusercontent.com/eramdam/BetterTweetDeck/master/meta/hotfixes.css').then((res) => {
+  if (res.status >= 200 && res.status < 300) {
+    return res.text();
+  }
+
+  return Promise.reject(new Error(res.statusText));
+}).then((text) => {
+  const style = document.createElement('style');
+  style.type = 'text/css';
+  style.textContent = text;
+
+  Log('apply CSS hotfixes');
+  document.head.appendChild(style);
+});
+
 function saveGif(gifshotObj, name, event, videoEl) {
   return fetch(gifshotObj.image)
     .then(res => res.blob())
