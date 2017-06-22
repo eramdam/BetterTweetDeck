@@ -139,14 +139,6 @@ BHelper.settings.getAll((settings) => {
       BHelper.settings.set({
         need_update_banner: true,
       });
-      chrome.notifications.create({
-        type: 'basic',
-        title: BHelper.getMessage('notification_title'),
-        message: BHelper.getUpgradeMessage(),
-        iconUrl: 'icons/notif-icon.png',
-      }, () => {
-        chrome.notifications.onClicked.addListener(openChangelogPage);
-      });
     }
 
     // We create the context menu item
