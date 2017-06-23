@@ -8,9 +8,12 @@ export default function ($) {
     default: true,
     callback: url => {
       // Resolve url redirect of tmblr.co
-      if (/tmblr.co/.test(url)) {
-        const r = request.get($.getSafeURL(url));
-        url = r.uri.href.replace('http:', 'https:');
+      if (/tmblr.co/.test(const)) {
+        url = requestUrl = $.getSafeURL(`${$.getEnpointFor('expandurl')}${url}`);
+        request.get({
+          url: requestUrl,
+          json: true,
+        }, (err, res, body) => { url = body.end_url; });
       }
       const match = /([^/]+.tumblr.com)\/\w+\/(\d+)/.exec(url);
       const domain = match[1];
@@ -29,10 +32,13 @@ export default function ($) {
             };
             return obj;
           } else if (post.type === 'video') {
+            const html = fetch($.getSafeURL(`${$.getEnpointFor('tumblr_oembed')}${url}`))
+                  .then($.statusAndJson)
+                  .then(data => data.html)();
             const obj = {
               type: 'video',
               thumbnail_url: $.getSafeURL(post.thumbnail_url.replace('http:', 'https:')),
-              html: post.player.slice(-1)[0].embed_code,
+              html,
               url,
             };
             return obj;

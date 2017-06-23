@@ -20,6 +20,8 @@ const endpoints = {
   tinami: 'https://www.tinami.com/api/content/info?',
   nicoseiga: 'http://ext.seiga.nicovideo.jp/thumb/',
   tumblr: 'https://api.tumblr.com/v2/blog/',
+  tumblr_oembed: 'https://www.tumblr.com/oembed/1.0/?url=',
+  expandurl: 'http://redirect-test-for-btd.appspot.com/expand?url=',
 };
 
 let providersSettings;
