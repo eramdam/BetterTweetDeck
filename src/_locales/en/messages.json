@@ -44,6 +44,7 @@
   "css_round_pic": { "message": "Rounded avatars" },
   "css_bigger_emojis": { "message": "Bigger emojis in tweets" },
   "css_collapse_dms": { "message": "Collapse read direct messages" },
+  "css_system_fonts": { "message": "Use the system font in the UI" },
   "css_show_verified": { "message": "Show 'verified' badges on top of avatars" },
   "css_hide_context": { "message": "Hide 'In reply to' label on mentions" },
   "css_actions_on_right": { "message": "Show tweet actions on the right" },
