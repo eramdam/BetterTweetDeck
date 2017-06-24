@@ -608,11 +608,11 @@ on('BTDC_ready', () => {
 
   const settingsURL = chrome.extension.getURL('options/options.html');
   const settingsBtn = `
-    <a class="btd-settings-btn js-header-action link-clean cf app-nav-link padding-hl txt-size--16 data-title="BTD Settings" style="margin-bottom: 6px;">
+    <a class="btd-settings-btn js-header-action link-clean cf app-nav-link padding-h--10 with-nav-border-t" data-title="BTD Settings" style="margin-bottom: 6px;">
       <div class="obj-left margin-l--2">
         <i class="icon icon-sliders icon-medium"></i>
       </div>
-      <div class="nbfc padding-ts hide-condensed">BTD Settings</div>
+      <div class="nbfc padding-ts hide-condensed txt-size--16">BTD Settings</div>
     </a>
   `;
   $('nav.app-navigator')[0].insertAdjacentHTML('afterbegin', settingsBtn);
