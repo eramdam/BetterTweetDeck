@@ -97,12 +97,12 @@
   display: none;
 }
 
-.btd-settings-btn .icon {
-  color: #009cf0;
+.column-navigator-overflow {
+  bottom: 267px !important;
 }
 
-.column-navigator-overflow {
-  bottom: 260px !important;
+.app-navigator .with-nav-border-t:not(:first-of-type)::before {
+  display: none;
 }
 
 .js-add-emojis .btd-emoji-icon::before {
