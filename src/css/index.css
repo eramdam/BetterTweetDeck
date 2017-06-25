@@ -181,3 +181,7 @@ body :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
 .dropdown-menu .is-selected [data-btd-action] {
   color: #fff;
 }
+
+.btd-settings-btn .icon {
+  color: #009cf0;
+}
