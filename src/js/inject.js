@@ -207,10 +207,15 @@ const postMessagesListeners = {
     TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace('{{>status/tweet_single_footer}} </div>', '{{>status/tweet_single_footer}} <i class="sprite tweet-dogear"></i> </div>');
     TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('</footer> {{/getMainTweet}}', '</footer> {{/getMainTweet}} <i class="sprite tweet-dogear"></i>');
 
-    // Adds the Favstar.fm item in menus
+    // Adds the Favstar.fm item in menus and adds mute action for each hashtag
     TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].replace('{{/chirp}} </ul>', `
       {{/chirp}}
       {{#chirp}}
+        {{#entities.hashtags}}
+          <li class="is-selectable">
+            <a href="#" data-btd-action="mute-hashtag" data-btd-hashtag="{{text}}">Mute #{{text}}</a>
+          </li>
+        {{/entities.hashtags}}
         <li class="drp-h-divider"></li>
         <li class="btd-action-menu-item is-selectable"><a href="https://favstar.fm/users/{{user.screenName}}/status/{{chirp.id}}" target="_blank" data-action="favstar">{{_i}}Show on Favstar{{/i}}</a></li>
       {{/chirp}}
@@ -435,6 +440,13 @@ $('body').on('click', '#open-modal', (ev) => {
 
     $('a[rel="dismiss"]').click();
   }
+});
+
+$('body').on('click', '[data-btd-action="mute-hashtag"]', (ev) => {
+  ev.preventDefault();
+  const hashtag = $(ev.target).data('btd-hashtag');
+
+  TD.controller.filterManager.addFilter('phrase', `#${hashtag}`);
 });
 
 const isVisible = (elem) => {
