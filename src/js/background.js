@@ -52,6 +52,7 @@ const defaultSettings = {
   },
   old_replies: false,
   old_search: false,
+  regex_filter: false,
   thumbnails: {},
 };
 

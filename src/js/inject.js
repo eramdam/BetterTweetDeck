@@ -181,6 +181,28 @@ const postMessagesListeners = {
       TD.decider.updateForGuestId();
     }
 
+    if (settings.regex_filter) {
+      TD.vo.Filter.prototype._testString = function (e) {
+        const regex = new RegExp(this.value, 'g');
+        if (!e || !this.value) {
+          return !0;
+        }  
+        if (this.exact) {
+          if (e === this.value) {
+            return this.positive;
+          }
+          if (this.fuzzy && '@' + e === this.value) {
+            return this.positive;
+          }  
+        } else if (e.match(regex) && this.type === 'phrase') {
+          return this.positive;
+        } else if (e.indexOf(this.value) !== -1) {
+          return this.positive;
+        }
+        return !this.positive;
+      }
+    }
+
     // Re-adds the RT/Like indicators
     TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace('{{>status/tweet_single_footer}} </div>', '{{>status/tweet_single_footer}} <i class="sprite tweet-dogear"></i> </div>');
     TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('</footer> {{/getMainTweet}}', '</footer> {{/getMainTweet}} <i class="sprite tweet-dogear"></i>');
