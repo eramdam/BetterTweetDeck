@@ -44,6 +44,7 @@ const defaultSettings = {
     no_bg_modal: true,
     show_provider_indicator: false,
     hide_like_rt_indicators: false,
+    system_fonts: false,
   },
   share_item: {
     enabled: true,
