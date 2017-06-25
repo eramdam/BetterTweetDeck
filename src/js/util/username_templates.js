@@ -14,6 +14,13 @@ export default function (templates, settingValue) {
     replaceWrapper('status/tweet_single', '<a href="{{getProfileURL}}" rel="user" target="_blank">{{{emojifiedName}}}</a>', `
       <a href="{{getProfileURL}}" rel="user" target="_blank">{{#btd.usernameFromURL}}{{getProfileURL}}{{/btd.usernameFromURL}}</a>
     `);
+
+    // "<name> added you" in a group conversation
+    replaceWrapper('status/conversation_join_preview', '{{sender.name}}', '@{{sender.screenName}}');
+    replaceWrapper('status/conversation_join',
+      '<a href="{{profileURL}}" rel="user" target="_blank">{{name}}</a>',
+      '<a href="{{profileURL}}" rel="user" target="_blank">@{{#btd.usernameFromURL}}{{profileURL}}{{/btd.usernameFromURL}}</a>',
+    );
   }
 
   switch (settingValue) {
@@ -32,6 +39,9 @@ export default function (templates, settingValue) {
 
       // DM conversation headers
       replaceWrapper('status/conversation_header', '<b class="link-complex-target">{{{emojifiedName}}}</b> <span class="attribution username txt-mute txt-small">@{{screenName}}</span>', '<b class="link-complex-target">{{screenName}}</b>');
+
+      // DM conversation headers
+      replaceWrapper('status/conversation_header', /{{{emojifiedName}}}/g, '{{screenName}}');
       break;
 
     // Username - fullname
@@ -41,8 +51,8 @@ export default function (templates, settingValue) {
       replaceWrapper('status/tweet_single_header', '@{{screenName}}', '{{{emojifiedName}}}');
 
       // DM conversation headers
-      replaceWrapper('status/conversation_header', '{{{emojifiedName}}}', '{{screenName}}');
-      replaceWrapper('status/conversation_header', '@{{screenName}}', '{{{emojifiedName}}}');
+      replaceWrapper('status/conversation_header', /{{{emojifiedName}}}/g, '{{screenName}}');
+      replaceWrapper('status/conversation_header', /@{{screenName}}/g, '{{{emojifiedName}}}');
       break;
 
     default:
