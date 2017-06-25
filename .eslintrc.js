@@ -10,7 +10,8 @@ module.exports = {
   'globals': {
     'chrome': false,
     'instgrm': false,
-    'TD': false
+    'TD': false,
+    'Hogan': false
   },
   'extends': 'airbnb-base',
   'rules': {

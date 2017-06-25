@@ -181,6 +181,24 @@ const postMessagesListeners = {
       TD.decider.updateForGuestId();
     }
 
+    TD.old_mustaches = Object.assign({}, TD.mustaches);
+
+
+    TD.globalRenderOptions.btd = {
+      // Use with
+      // <div class="bg-r-white txt-seamful-black">
+      // {{#btd.usernameFromURL}}myProfileURL{{/btd.usernameFromURL}}
+      usernameFromURL: function usernameFromURL() {
+        return function what(input, render) {
+          // I don't want this function to break horribly the day Twitter closes this issue
+          // https://github.com/twitter/hogan.js/issues/222#issuecomment-106101791
+          const val = render ? render(input) : Hogan.compile(input).render(this);
+
+          return val.match(/https:\/\/(?:www.|)twitter.com\/(?:@|)([A-Za-z0-9_]+)/) && val.match(/https:\/\/(?:www.|)twitter.com\/(?:@|)([A-Za-z0-9_]+)/)[1];
+        };
+      },
+    };
+
     // Re-adds the RT/Like indicators
     TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace('{{>status/tweet_single_footer}} </div>', '{{>status/tweet_single_footer}} <i class="sprite tweet-dogear"></i> </div>');
     TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('</footer> {{/getMainTweet}}', '</footer> {{/getMainTweet}} <i class="sprite tweet-dogear"></i>');
