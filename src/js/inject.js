@@ -1,5 +1,6 @@
 import config from 'config';
 import Log from './util/logger';
+import UsernamesTemplates from './util/username_templates';
 
 let SETTINGS;
 
@@ -74,6 +75,8 @@ if (config.get('Client.debug')) {
   };
 
   window._BTDGetChirp = getChirpFromKey;
+
+  window._BTDFindMustache = content => Object.keys(TD.mustaches).filter(i => TD.mustaches[i].toLowerCase().includes(content.toLowerCase()));
 }
 
 /**
@@ -181,6 +184,24 @@ const postMessagesListeners = {
       TD.decider.updateForGuestId();
     }
 
+    TD.old_mustaches = Object.assign({}, TD.mustaches);
+
+
+    TD.globalRenderOptions.btd = {
+      // Use with
+      // <div class="bg-r-white txt-seamful-black">
+      // {{#btd.usernameFromURL}}myProfileURL{{/btd.usernameFromURL}}
+      usernameFromURL: function usernameFromURL() {
+        return function what(input, render) {
+          // I don't want this function to break horribly the day Twitter closes this issue
+          // https://github.com/twitter/hogan.js/issues/222#issuecomment-106101791
+          const val = render ? render(input) : Hogan.compile(input).render(this);
+
+          return val.match(/https:\/\/(?:www.|)twitter.com\/(?:@|)([A-Za-z0-9_]+)/) && val.match(/https:\/\/(?:www.|)twitter.com\/(?:@|)([A-Za-z0-9_]+)/)[1];
+        };
+      },
+    };
+
     if (settings.regex_filter) {
       TD.vo.Filter.prototype._testString = function _testString(e) {
         const regex = new RegExp(this.value, 'g');
@@ -221,6 +242,8 @@ const postMessagesListeners = {
       {{/chirp}}
       </ul>
     `);
+
+    UsernamesTemplates(TD.mustaches, settings.nm_disp);
   },
   BTDC_showTDBanner: (ev, data) => {
     const { banner } = data;

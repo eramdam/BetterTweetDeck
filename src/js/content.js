@@ -5,7 +5,6 @@ import timestampOnElement from './util/timestamp';
 import { send as sendMessage, on as onMessage } from './util/messaging';
 import * as Thumbnails from './util/thumbnails';
 import * as Templates from './util/templates';
-import * as Usernames from './util/usernames';
 import Emojis from './util/emojis';
 import Log from './util/logger';
 import * as BHelper from './util/browserHelper';
@@ -366,91 +365,11 @@ function tweetHandler(tweet, columnKey, parent) {
     const type = tweet.action || tweet.chirpType;
 
     /**
-     * Usernames formatting
-     */
-    switch (type) {
-      case 'retweeted_retweet':
-      case 'retweet':
-      case 'favorite':
-      case 'favorited_retweet':
-        Usernames.format({ node, user: tweet.sourceUser, fSel: '.activity-header .nbfc .account-link' });
-        Usernames.format({ node, user: tweet.targetTweet.user, fSel: '.tweet-header .nbfc .fullname', uSel: '.tweet-header .nbfc .username' });
-        break;
-
-      case 'mention':
-        Usernames.format({ node, user: tweet.sourceUser, fSel: '.tweet-header .nbfc .fullname', uSel: '.tweet-header .nbfc .username' });
-        break;
-
-      case 'quoted_tweet':
-        Usernames.format({ node, user: tweet.sourceUser, fSel: '.js-tweet > .tweet-header .nbfc .fullname', uSel: '.js-tweet > .tweet-header .nbfc .username' });
-        Usernames.format({ node, user: tweet.targetUser, fSel: '.quoted-tweet .tweet-header .nbfc .fullname', uSel: '.quoted-tweet .tweet-header .nbfc .username' });
-        break;
-
-      case 'follow':
-        Usernames.format({ node, user: tweet.following, fSel: '.activity-header .account-link' });
-        break;
-
-      case 'list_member_added':
-        Usernames.format({ node, user: tweet.owner, fSel: '.nbfc .account-link' });
-        break;
-
-      case 'tweet':
-        if (tweet.retweetedStatus) {
-          Usernames.format({ node, user: tweet.user, fSel: '.tweet-context .nbfc [rel=user]' });
-          Usernames.format({ node, user: tweet.retweetedStatus.user, fSel: '.tweet-header .nbfc .fullname', uSel: '.tweet-header .nbfc .username' });
-
-          if (tweet.retweetedStatus.quotedTweet) {
-            Usernames.format({ node, user: tweet.retweetedStatus.quotedTweet.user, fSel: '.quoted-tweet .tweet-header .fullname', uSel: '.quoted-tweet .tweet-header .username' });
-
-            if (tweet.retweetedStatus.quotedTweet.inReplyToScreenName) {
-              const fullnameNode = $('.js-reply-info-container .account-link', node);
-
-              if (fullnameNode) {
-                Usernames.format({ node, user: { screenName: tweet.retweetedStatus.quotedTweet.inReplyToScreenName, name: fullnameNode[0].textContent }, fSel: '.js-reply-info-container .account-link' });
-              }
-            }
-          }
-        } else {
-          Usernames.format({ node, user: tweet.user, fSel: '.tweet-header .nbfc .fullname', uSel: '.tweet-header .nbfc .username' });
-        }
-
-        if (tweet.quotedTweet) {
-          Usernames.format({ node, user: tweet.quotedTweet.user, fSel: '.quoted-tweet .tweet-header .fullname', uSel: '.quoted-tweet .tweet-header .username' });
-
-          if (tweet.quotedTweet.inReplyToScreenName) {
-            const fullnameNode = $('.js-reply-info-container .account-link', node);
-
-            if (fullnameNode) {
-              Usernames.format({ node, user: { screenName: tweet.quotedTweet.inReplyToScreenName, name: fullnameNode[0].textContent }, fSel: '.js-reply-info-container .account-link' });
-            }
-          }
-        }
-
-        break;
-
-      case 'message':
-        Usernames.format({ node, user: tweet.sender, fSel: '.tweet-header .nbfc .fullname', uSel: '.tweet-header .nbfc .username' });
-        break;
-
-      case 'message_thread':
-        if (tweet.type === 'ONE_TO_ONE') {
-          Usernames.format({ node, user: tweet.participants[0], fSel: '.link-complex b', uSel: '.username' });
-        } else if (tweet.type === 'GROUP_DM') {
-          Usernames.formatGroupDM({ node, participants: tweet.participants, fSel: '.tweet-header .account-link > b' });
-        }
-        break;
-
-      default:
-        break;
-    }
-
-    /**
      * Adding Verified badge if needed
      */
     if (settings.css.show_verified) {
       let userToVerify;
-      let avatarSelector;
-      const classesToAdd = ['btd-is-verified'];
+      const classesToAdd = ['btd-is-from-verified'];
 
       switch (type) {
         case 'retweet':
@@ -458,12 +377,9 @@ function tweetHandler(tweet, columnKey, parent) {
         case 'favorite':
           if ($('.has-source-avatar', node)) {
             userToVerify = tweet.sourceUser;
-            avatarSelector = '.has-source-avatar.activity-header .item-img';
-            classesToAdd.push('btd-is-verified-mini');
+            classesToAdd.push('btd-is-from-verified-mini');
           } else {
             userToVerify = tweet.targetTweet.user;
-            avatarSelector = '.account-link .item-img';
-            classesToAdd.push('btd-is-verified');
           }
 
           break;
@@ -471,13 +387,11 @@ function tweetHandler(tweet, columnKey, parent) {
         case 'mention':
         case 'quoted_tweet':
           userToVerify = tweet.sourceUser;
-          avatarSelector = '.tweet-header .account-link .item-img';
           break;
 
         case 'list_member_added':
           userToVerify = tweet.owner;
-          avatarSelector = '.obj-left.item-img';
-          classesToAdd.push('btd-is-verified-mini');
+          classesToAdd.push('btd-is-from-verified-mini');
           break;
 
         case 'message_thread':
@@ -486,23 +400,21 @@ function tweetHandler(tweet, columnKey, parent) {
           }
 
           userToVerify = tweet.participants[0];
-          avatarSelector = '.obj-left.item-img';
           break;
 
         case 'tweet':
           userToVerify = tweet.retweetedStatus ? tweet.retweetedStatus.user : tweet.user;
-          avatarSelector = '.account-link .item-img';
           break;
 
         default:
           break;
       }
 
-      if (userToVerify && userToVerify.isVerified && avatarSelector) {
-        const el = $(avatarSelector, node);
+      if (userToVerify && userToVerify.isVerified) {
+        const el = node;
 
-        if (el && el[0]) {
-          el[0].classList.add(...classesToAdd);
+        if (el) {
+          el.classList.add(...classesToAdd);
         }
       }
     }
