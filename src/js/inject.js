@@ -418,7 +418,7 @@ $('body').on('click', '#open-modal', (ev) => {
   }
 });
 
-$('body').on('click', '[data-btd-action]', (ev) => {
+$('body').on('click', '[data-btd-action="mute-hashtag"]', (ev) => {
   ev.preventDefault();
   const hashtag = $(ev.target).data('btd-hashtag');
 
