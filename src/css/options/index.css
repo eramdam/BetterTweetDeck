@@ -240,7 +240,8 @@ button.plain-button {
   border-radius: 4px;
   color: #3B3B3B;
   font-weight: 500;
-  padding: 3px 13px 4px 13px;
+  padding: 5px 13px 6px 13px;
+  border: 1px solid #b1b1b1;
   cursor: pointer;
   -webkit-font-smoothing: antialiased;
   
