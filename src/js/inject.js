@@ -194,6 +194,9 @@ const postMessagesListeners = {
       {{/chirp}}
       </ul>
     `);
+
+    TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].replace(`{{#chirp}}
+        <li class="drp-h-divider"></li>`, '{{#chirp}}{{#entities.hashtags}}<li class="is-selectable"><a href="#" data-btd-action="mute-hashtag" data-btd-hashtag="{{text}}">Mute #{{text}}</a></li> {{/entities.hashtags}}<li class="drp-h-divider"></li>');
   },
   BTDC_showTDBanner: (ev, data) => {
     const { banner } = data;
@@ -414,6 +417,13 @@ $('body').on('click', '#open-modal', (ev) => {
     $('a[rel="dismiss"]').click();
   }
 });
+
+$('body').on('click', '[data-btd-action]', (ev) => {
+  ev.preventDefault();
+  const hashtag = $(ev.target).data('btd-hashtag');
+
+  TD.controller.filterManager.addFilter('phrase', `#${hashtag}`);
+})
 
 const isVisible = (elem) => {
   if (!(elem instanceof Element)) {
