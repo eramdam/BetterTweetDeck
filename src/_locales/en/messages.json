@@ -83,6 +83,9 @@
   "custom_width_columns": { "message": "Custom width for columns:" },
   "custom_width_size": { "message": "Width (any valid CSS value)" },
 
+  "regex_filter_notice_heading": { "message": "Notice for regular expression filters" },
+  "regex_filter_notice_text": { "message": "Due to the way TweetDeck's filtering works, expressions are not case sensitive!" },
+
   "btd_thx": { "message": "Thanks for installing Better TweetDeck!" },
   "btd_get_started": { "message": "Let's get started!" },
   "btd_whatsBTD": { "message": "Better TweetDeck is made to improve your experience on <a href='https://tweetdeck.twitter.com'>tweetdeck.twitter.com</a>!" },

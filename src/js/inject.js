@@ -182,8 +182,7 @@ const postMessagesListeners = {
     }
 
     if (settings.regex_filter) {
-      // eslint-disable-next-line func-names
-      TD.vo.Filter.prototype._testString = function (e) {
+      TD.vo.Filter.prototype._testString = function _testString(e) {
         const regex = new RegExp(this.value, 'g');
         if (!e || !this.value) {
           return !0;
