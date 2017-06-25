@@ -449,8 +449,7 @@ function tweetHandler(tweet, columnKey, parent) {
      */
     if (settings.css.show_verified) {
       let userToVerify;
-      let avatarSelector;
-      const classesToAdd = ['btd-is-verified'];
+      const classesToAdd = ['btd-is-from-verified'];
 
       switch (type) {
         case 'retweet':
@@ -458,12 +457,9 @@ function tweetHandler(tweet, columnKey, parent) {
         case 'favorite':
           if ($('.has-source-avatar', node)) {
             userToVerify = tweet.sourceUser;
-            avatarSelector = '.has-source-avatar.activity-header .item-img';
-            classesToAdd.push('btd-is-verified-mini');
+            classesToAdd.push('btd-is-from-verified-mini');
           } else {
             userToVerify = tweet.targetTweet.user;
-            avatarSelector = '.account-link .item-img';
-            classesToAdd.push('btd-is-verified');
           }
 
           break;
@@ -471,13 +467,11 @@ function tweetHandler(tweet, columnKey, parent) {
         case 'mention':
         case 'quoted_tweet':
           userToVerify = tweet.sourceUser;
-          avatarSelector = '.tweet-header .account-link .item-img';
           break;
 
         case 'list_member_added':
           userToVerify = tweet.owner;
-          avatarSelector = '.obj-left.item-img';
-          classesToAdd.push('btd-is-verified-mini');
+          classesToAdd.push('btd-is-from-verified-mini');
           break;
 
         case 'message_thread':
@@ -486,23 +480,21 @@ function tweetHandler(tweet, columnKey, parent) {
           }
 
           userToVerify = tweet.participants[0];
-          avatarSelector = '.obj-left.item-img';
           break;
 
         case 'tweet':
           userToVerify = tweet.retweetedStatus ? tweet.retweetedStatus.user : tweet.user;
-          avatarSelector = '.account-link .item-img';
           break;
 
         default:
           break;
       }
 
-      if (userToVerify && userToVerify.isVerified && avatarSelector) {
-        const el = $(avatarSelector, node);
+      if (userToVerify && userToVerify.isVerified) {
+        const el = node;
 
-        if (el && el[0]) {
-          el[0].classList.add(...classesToAdd);
+        if (el) {
+          el.classList.add(...classesToAdd);
         }
       }
     }
