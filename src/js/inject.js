@@ -1,5 +1,6 @@
 import config from 'config';
 import Log from './util/logger';
+import UsernamesTemplates from './util/username_templates';
 
 let SETTINGS;
 
@@ -212,6 +213,8 @@ const postMessagesListeners = {
       {{/chirp}}
       </ul>
     `);
+
+    UsernamesTemplates(TD.mustaches, settings.nm_disp);
   },
   BTDC_showTDBanner: (ev, data) => {
     const { banner } = data;
