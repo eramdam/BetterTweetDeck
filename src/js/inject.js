@@ -75,6 +75,8 @@ if (config.get('Client.debug')) {
   };
 
   window._BTDGetChirp = getChirpFromKey;
+
+  window._BTDFindMustache = content => Object.keys(TD.mustaches).filter(i => TD.mustaches[i].toLowerCase().includes(content.toLowerCase()));
 }
 
 /**
