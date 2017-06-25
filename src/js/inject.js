@@ -181,14 +181,41 @@ const postMessagesListeners = {
       TD.decider.updateForGuestId();
     }
 
+    if (settings.regex_filter) {
+      TD.vo.Filter.prototype._testString = function _testString(e) {
+        const regex = new RegExp(this.value, 'g');
+        if (!e || !this.value) {
+          return !0;
+        }
+        if (this.exact) {
+          if (e === this.value) {
+            return this.positive;
+          }
+          if (this.fuzzy && `@${e}` === this.value) {
+            return this.positive;
+          }
+        } else if (e.match(regex) && this.type === 'phrase') {
+          return this.positive;
+        } else if (e.indexOf(this.value) !== -1) {
+          return this.positive;
+        }
+        return !this.positive;
+      };
+    }
+
     // Re-adds the RT/Like indicators
     TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace('{{>status/tweet_single_footer}} </div>', '{{>status/tweet_single_footer}} <i class="sprite tweet-dogear"></i> </div>');
     TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('</footer> {{/getMainTweet}}', '</footer> {{/getMainTweet}} <i class="sprite tweet-dogear"></i>');
 
-    // Adds the Favstar.fm item in menus
+    // Adds the Favstar.fm item in menus and adds mute action for each hashtag
     TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].replace('{{/chirp}} </ul>', `
       {{/chirp}}
       {{#chirp}}
+        {{#entities.hashtags}}
+          <li class="is-selectable">
+            <a href="#" data-btd-action="mute-hashtag" data-btd-hashtag="{{text}}">Mute #{{text}}</a>
+          </li>
+        {{/entities.hashtags}}
         <li class="drp-h-divider"></li>
         <li class="btd-action-menu-item is-selectable"><a href="https://favstar.fm/users/{{user.screenName}}/status/{{chirp.id}}" target="_blank" data-action="favstar">{{_i}}Show on Favstar{{/i}}</a></li>
       {{/chirp}}
@@ -413,6 +440,13 @@ $('body').on('click', '#open-modal', (ev) => {
 
     $('a[rel="dismiss"]').click();
   }
+});
+
+$('body').on('click', '[data-btd-action="mute-hashtag"]', (ev) => {
+  ev.preventDefault();
+  const hashtag = $(ev.target).data('btd-hashtag');
+
+  TD.controller.filterManager.addFilter('phrase', `#${hashtag}`);
 });
 
 const isVisible = (elem) => {
