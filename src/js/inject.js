@@ -423,7 +423,7 @@ $('body').on('click', '[data-btd-action="mute-hashtag"]', (ev) => {
   const hashtag = $(ev.target).data('btd-hashtag');
 
   TD.controller.filterManager.addFilter('phrase', `#${hashtag}`);
-})
+});
 
 const isVisible = (elem) => {
   if (!(elem instanceof Element)) {
