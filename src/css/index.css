@@ -97,12 +97,12 @@
   display: none;
 }
 
-.btd-settings-btn .icon {
-  color: #009cf0;
+.column-navigator-overflow {
+  bottom: 267px !important;
 }
 
-.column-navigator-overflow {
-  bottom: 260px !important;
+.app-navigator .with-nav-border-t:not(:first-of-type)::before {
+  display: none;
 }
 
 .js-add-emojis .btd-emoji-icon::before {
@@ -167,4 +167,17 @@ body :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
 
 [data-action-id^="btd-banner"] {
   background-color: color(black alpha(30%)) !important;
+}
+
+.dropdown-menu .typeahead-item, .dropdown-menu [data-btd-action] {
+    display: block;
+    padding: 5px 20px;
+    color: #292F33;
+    text-shadow: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.dropdown-menu .is-selected [data-btd-action] {
+  color: #fff;
 }

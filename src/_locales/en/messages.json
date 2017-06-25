@@ -41,6 +41,7 @@
   "title_avatars": { "message": "Avatars & details" },
   "old_replies": { "message": "Revert to the old replies style (pre 03/30/2017)" },
   "old_search": { "message": "Revert to the old search system (no columns for searches!)"},
+  "regex_filter": { "message": "Enable regular expression support in Mute filters"},
   "css_round_pic": { "message": "Rounded avatars" },
   "css_bigger_emojis": { "message": "Bigger emojis in tweets" },
   "css_collapse_dms": { "message": "Collapse read direct messages" },
@@ -81,6 +82,9 @@
 
   "custom_width_columns": { "message": "Custom width for columns:" },
   "custom_width_size": { "message": "Width (any valid CSS value)" },
+
+  "regex_filter_notice_heading": { "message": "Notice for regular expression filters" },
+  "regex_filter_notice_text": { "message": "Due to the way TweetDeck's filtering works, expressions are not case sensitive!" },
 
   "btd_thx": { "message": "Thanks for installing Better TweetDeck!" },
   "btd_get_started": { "message": "Let's get started!" },
