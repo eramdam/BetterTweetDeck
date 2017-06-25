@@ -182,25 +182,26 @@ const postMessagesListeners = {
     }
 
     if (settings.regex_filter) {
+      // eslint-disable-next-line func-names
       TD.vo.Filter.prototype._testString = function (e) {
         const regex = new RegExp(this.value, 'g');
         if (!e || !this.value) {
           return !0;
-        }  
+        }
         if (this.exact) {
           if (e === this.value) {
             return this.positive;
           }
-          if (this.fuzzy && '@' + e === this.value) {
+          if (this.fuzzy && `@${e}` === this.value) {
             return this.positive;
-          }  
+          }
         } else if (e.match(regex) && this.type === 'phrase') {
           return this.positive;
         } else if (e.indexOf(this.value) !== -1) {
           return this.positive;
         }
         return !this.positive;
-      }
+      };
     }
 
     // Re-adds the RT/Like indicators
