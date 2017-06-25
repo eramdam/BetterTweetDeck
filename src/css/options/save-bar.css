@@ -19,11 +19,14 @@
   flex-direction: row;
 }
 
+.save-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .save-bar .save-button {
-  position: absolute;
-  top: 50%;
   margin-left: 20px;
-  transform: translateY(-50%);
 }
 
 .save-button {
