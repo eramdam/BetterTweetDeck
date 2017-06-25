@@ -62,6 +62,7 @@
   
   "share_request": { "message": "Request tabs reading permissions" },
   "share_granted": { "message": "Permissions granted" },
+  "shared_btd_h1": { "message": "Sharing" },
   "share_btd_p1": { "message": " In order to use the \"Share on TweetDeck\" feature, you'll need to approve certain permissions which you can do by clicking below" },
   "share_btd_p2": { "message": "Better TweetDeck <strong>cannot</strong> read the content of your tabs and doesn't track it." },
   "share_btd_p3": { "message": "Feel free to read <a href=\"https://developer.chrome.com/extensions/tabs\">Google's documentation</a> about this permission for more details." },
