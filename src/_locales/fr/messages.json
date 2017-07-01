@@ -78,9 +78,16 @@
   "css_small_icns_compose": { "message": "Les icônes sont plus petites dans l'onglet 'Compose'" },
   "css_gray_icns_notifs": { "message": "Les icônes de notification sont en niveaux de gris" },
   "css_no_scrollbars": { "message": "Masquer les barres de défilement" },
+  "css_system_fonts": { "message": "Utiliser la police du système dans l'interface de TweetDeck" },
 
   "custom_width_columns": { "message": "Largeur personnalisée pour les colonnes:" },
   "custom_width_size": { "message": "Largeur (doit être valide en CSS)" },
+  
+  "regex_filter": { "message": "Activer le support des expressions régulières dans les filtres."},
+  "regex_filter_notice_text": { "message": "De part la manière dont fonctionne TweetDeck, les expressions régulières ne tiennent PAS compte de la casse!" },
+
+  "favstar_item": { "message": "Ajouter un item \"Show on favstar\" dans le menu d'un tweets"},
+  "mute_hashtags": { "message": "Ajouter des raccourcis pour filter les #hashtags dans le menu d'un tweet"},
 
   "btd_thx": { "message": "Merci d'avoir installé Better TweetDeck !" },
   "btd_get_started": { "message": "C'est parti !" },

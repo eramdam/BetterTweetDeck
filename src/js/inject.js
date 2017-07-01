@@ -232,13 +232,13 @@ const postMessagesListeners = {
     TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].replace('{{/chirp}} </ul>', `
       {{/chirp}}
       {{#chirp}}
-        {{#entities.hashtags}}
+        ${settings.mute_hashtags ? `{{#entities.hashtags}}
           <li class="is-selectable">
             <a href="#" data-btd-action="mute-hashtag" data-btd-hashtag="{{text}}">Mute #{{text}}</a>
           </li>
-        {{/entities.hashtags}}
-        <li class="drp-h-divider"></li>
-        <li class="btd-action-menu-item is-selectable"><a href="https://favstar.fm/users/{{user.screenName}}/status/{{chirp.id}}" target="_blank" data-action="favstar">{{_i}}Show on Favstar{{/i}}</a></li>
+        {{/entities.hashtags}}` : ''}
+        ${settings.favstar_item ? `<li class="drp-h-divider"></li>
+        <li class="btd-action-menu-item is-selectable"><a href="https://favstar.fm/users/{{user.screenName}}/status/{{chirp.id}}" target="_blank" data-action="favstar">{{_i}}Show on Favstar{{/i}}</a></li>` : ''}
       {{/chirp}}
       </ul>
     `);
