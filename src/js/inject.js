@@ -472,6 +472,35 @@ $('body').on('click', '[data-btd-action="mute-hashtag"]', (ev) => {
   TD.controller.filterManager.addFilter('phrase', `#${hashtag}`);
 });
 
+
+const defaultTitle = 'TweetDeck';
+const unreadTitle = '[*] TweetDeck';
+const countTitle = count => `[${count}] TweetDeck`;
+
+// This event triggers everytime the "read" change of a column changes in TweetDeck
+$(document).on('uiReadStateChange uiMessageUnreadCount', (ev, data) => {
+  // If we didn't enable the option, we stop here
+  if (!SETTINGS.update_title_on_notifications) {
+    return;
+  }
+
+  // We get the "read" flag from the event's payload
+
+  const { read, count } = data;
+
+  if (Number(count) > 0 && document.title === defaultTitle && document.title !== countTitle(count)) {
+    document.title = countTitle(count);
+  }
+
+  if (read === false && document.title === defaultTitle) {
+    document.title = unreadTitle;
+  }
+
+  if (document.title !== defaultTitle && $('.is-new, .js-unread-count.is-visible').length === 0) {
+    document.title = defaultTitle;
+  }
+});
+
 const isVisible = (elem) => {
   if (!(elem instanceof Element)) {
     throw Error('not an element');
