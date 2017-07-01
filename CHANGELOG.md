@@ -1,9 +1,11 @@
 :tada: 3.4 :tada:
 ===============
-- [Feature] You can mute hashtags right from the tweet menu (thanks to [@pixeldesu](https://github.com/pixeldesu)) ([#180](https://github.com/eramdam/BetterTweetDeck/pull/180))
+- [Feature] You can mute #hashtags right from the tweet menu (toggable in the settings) (thanks to [@pixeldesu](https://github.com/pixeldesu)) ([#180](https://github.com/eramdam/BetterTweetDeck/pull/180))
 - [Feature] You can now choose to use the default font of your OS inside TweetDeck's UI! (thanks to [@pixeldesu](https://github.com/pixeldesu)) ([#176](https://github.com/eramdam/BetterTweetDeck/pull/176))
 - [Feature] You can use [JavaScript regular expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions) as mute filters (thanks to [@pixeldesu](https://github.com/pixeldesu) ([#179](https://github.com/eramdam/BetterTweetDeck/pull/179))
+- [Bugfix] With the related settings, emojis were made bigger everywhere in TweetDeck and not just in tweets. This is fixed.
 - [Improvement] [Bugfix] Usernames and verified badges should not disappear randomly anymore. BTD should be WAY ligther thanks to that :racehorse: [more technical details](https://github.com/eramdam/BetterTweetDeck/pull/178)
+- [Improvement] You can disable the "Show in Favstar" item in tweets' menu in the **Content** section
 - [Improvement] The settings button is better integrated inside of TweetDeck's UI (thanks to [@LeoColomb](https://github.com/LeoColomb)) ([#177](https://github.com/eramdam/BetterTweetDeck/pull/177))
 
 3.3.10
