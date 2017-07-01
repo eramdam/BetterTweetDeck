@@ -480,7 +480,7 @@ const countTitle = count => `[${count}] TweetDeck`;
 // This event triggers everytime the "read" change of a column changes in TweetDeck
 $(document).on('uiReadStateChange uiMessageUnreadCount', (ev, data) => {
   // If we didn't enable the option, we stop here
-  if (!SETTINGS.update_title_on_notifications) {
+  if (!SETTINGS || !SETTINGS.update_title_on_notifications) {
     return;
   }
 
