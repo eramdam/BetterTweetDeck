@@ -54,7 +54,7 @@ General style setup
 }
 
 /* Hide the vanilla verified badge in columns */
-.btd__show_verified .stream-item .sprite-verified-mini,
-.btd__show_verified .tweet .sprite-verified-mini {
+.btd__show_verified .stream-item .js-tweet:not(.txt-mute) > header .sprite-verified-mini {
   display: none;
 }
+
