@@ -72,7 +72,7 @@
   "no_gif_pp": { "message": "No GIFs in profile pictures in columns" },
   "thumbnails_from": { "message": "Display thumbnails from:" },
 
-  "css_minimal_mode": { "message": "Enable the 'Minimal' mode" },
+  "css_minimal_mode": { "message": "Enable the 'Minimal' theme" },
   "css_no_play_btn": { "message": "Hide the play button on video thumbnails" },
   "css_hide_url_thumb": { "message": "Hide the link related to thumbnails in tweets (à la Twitter iOS/Android)" },
   "css_no_col_icns": { "message": "Hide icons in columns headers" },

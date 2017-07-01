@@ -71,7 +71,7 @@
   "no_gif_pp": { "message": "Arrêter les GIFs dans les avatars dans les colonnes" },
   "thumbnails_from": { "message": "Afficher les miniatures de :" },
 
-  "css_minimal_mode": { "message": "Activer le mode 'Minimaliste'" },
+  "css_minimal_mode": { "message": "Activer le thème 'Minimaliste'" },
   "css_no_play_btn": { "message": "Masquer les icônes de lecture sur les vidéos" },
   "css_hide_url_thumb": { "message": "Masquer les urls relatives aux miniatures (à la Twitter iOS/Android)" },
   "css_no_col_icns": { "message": "Masquer les icônes dans les entêtes de colonnes" },
