@@ -185,3 +185,7 @@ body :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
 .btd-settings-btn .icon {
   color: #009cf0;
 }
+
+.tweet-detail .js-media.btd-media-thumbnail ~ .js-card-container {
+  display: none;
+}
