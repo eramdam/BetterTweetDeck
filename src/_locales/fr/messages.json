@@ -58,6 +58,8 @@
   "flash_tweets_mentions": { "message": "les colonnes 'Mentions'" },
   "flash_tweets_all": { "message": "toutes les colonnes" },
   
+  "update_title_on_notifications": { "message": "Afficher un indicateur de DMs/tweets non-lus dans le titre de l'onglet de TweetDeck" },
+  
   "share_request": { "message": "Demander l'autorisation" },
   "share_granted": { "message": "Autorisation accordée !" },
   "shared_btd_h1": { "message": "Partage" },

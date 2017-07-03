@@ -59,6 +59,8 @@
   "flash_tweets_mentions": { "message": "Mentions columns" },
   "flash_tweets_all": { "message": "Every column" },
   
+  "update_title_on_notifications": { "message": "Display an unread tweets/DMs indicator in TweetDeck's tab's title." },
+  
   "share_request": { "message": "Request tabs reading permissions" },
   "share_granted": { "message": "Permissions granted" },
   "shared_btd_h1": { "message": "Sharing" },
