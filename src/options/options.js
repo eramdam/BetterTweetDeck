@@ -331,36 +331,59 @@ $('.sidebar-nav a[href^="#"]').on('click', (ev) => {
   $(`.sidebar-nav a[href="#${href}"], .content-block#${href}`).addClass('-selected');
 });
 
+const switchSettingPage = (page) => {
+  $('.sidebar-nav a, .content-block').removeClass('-selected');
+  $(`.sidebar-nav a[href="#${page}"], .content-block#${page}`).addClass('-selected');
+};
+
+const flashSettingByName = (name) => {
+  $('[data-setting-name]').removeClass('flash-setting');
+  const featBlock = $(`[data-setting-name=${name}]`);
+
+  if (featBlock) {
+    setTimeout(() => {
+      featBlock.addClass('flash-setting');
+    }, 200);
+  }
+};
+
+$('body').on('click', '[data-info-setting]', (ev) => {
+  const $target = $(ev.target);
+
+  if (!$target.data('info-setting')) {
+    return;
+  }
+
+  const [settingCat, settingName] = $target.data('info-setting').split('/');
+
+  if (!settingCat || !settingName) {
+    return;
+  }
+
+  switchSettingPage(settingCat);
+  setTimeout(() => flashSettingByName(settingName));
+});
+
 // Open a specific section when needed
 if (Object.keys(queryString.parse(location.search)).length > 0) {
   const QS = queryString.parse(location.search);
 
   if (QS.on === 'install') {
-    $('.sidebar-nav a, .content-block').removeClass('-selected');
-    $('.sidebar-nav a[href="#onInstall"], .content-block#onInstall').addClass('-selected');
+    switchSettingPage('onInstall');
   }
 
   if (QS.on === 'update') {
-    $('.sidebar-nav a, .content-block').removeClass('-selected');
-    $('.sidebar-nav a[href="#changelog"], .content-block#changelog').addClass('-selected');
+    switchSettingPage('changelog');
   }
 
   const navItemsHrefs = [...$('.nav-flex .nav-item')].map(i => i.getAttribute('href')).filter(i => i.startsWith('#')).map(i => i.slice(1));
 
   if (navItemsHrefs.includes(QS.on)) {
-    $('.sidebar-nav a, .content-block').removeClass('-selected');
-    $(`.sidebar-nav a[href="#${QS.on}"], .content-block#${QS.on}`).addClass('-selected');
+    switchSettingPage(QS.on);
   }
 
   if (QS.feat) {
-    $('[data-setting-name]').removeClass('flash-setting');
-    const featBlock = $(`[data-setting-name=${QS.feat}]`);
-
-    if (featBlock) {
-      setTimeout(() => {
-        featBlock.addClass('flash-setting');
-      }, 0);
-    }
+    flashSettingByName(QS.feat);
   }
 }
 
