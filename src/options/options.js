@@ -345,11 +345,22 @@ if (Object.keys(queryString.parse(location.search)).length > 0) {
     $('.sidebar-nav a[href="#changelog"], .content-block#changelog').addClass('-selected');
   }
 
-  const navItemsHrefs = [...$('.nav-flex .nav-item')].map(i => i.getAttribute('href')).filter(i => i.startsWith('#'));
+  const navItemsHrefs = [...$('.nav-flex .nav-item')].map(i => i.getAttribute('href')).filter(i => i.startsWith('#')).map(i => i.slice(1));
 
   if (navItemsHrefs.includes(QS.on)) {
     $('.sidebar-nav a, .content-block').removeClass('-selected');
     $(`.sidebar-nav a[href="#${QS.on}"], .content-block#${QS.on}`).addClass('-selected');
+  }
+
+  if (QS.feat) {
+    $('[data-setting-name]').removeClass('flash-setting');
+    const featBlock = $(`[data-setting-name=${QS.feat}]`);
+
+    if (featBlock) {
+      setTimeout(() => {
+        featBlock.addClass('flash-setting');
+      }, 0);
+    }
   }
 }
 

@@ -87,16 +87,16 @@
         <ul>
           <li>
             <input type="radio" name="nm_disp" id="both"><label data-lang="name_full_user" for="both">Full name @Username</label>
-          </li>
+          </li data-setting-name="inverted">
           <li>
             <input type="radio" name="nm_disp" id="inverted"><label for="inverted" data-lang="name_inverted">@Username Full name</label>
-          </li>
+          </li data-setting-name="username">
           <li>
             <input type="radio" name="nm_disp" id="username"><label for="username" data-lang="name_username">@Username</label>
           </li>
           <li>
             <input type="radio" name="nm_disp" id="fullname"><label data-lang="name_full" for="fullname">Full name</label>
-          </li>
+          </li data-setting-name="usrname_only_typeahead">
           <li>
             <input type="checkbox" name="css.usrname_only_typeahead" id="usrname_only_typeahead"><label for="usrname_only_typeahead" data-lang="name_typeahead">The auto-completion displays only usernames</label>
           </li>
@@ -121,44 +121,44 @@
         <h5 data-lang="title_avatars">Avatars & details</h5>
 
         <ul>
-          <li>
+          <li data-setting-name="bigger_emojis">
             <input type="checkbox" name="css.bigger_emojis" id="bigger_emojis">
             <label for="bigger_emojis" data-lang="css_bigger_emojis">Bigger emojis in tweets</label>
           </li>
-          <li>
+          <li data-setting-name="round_pic">
             <input type="checkbox" name="css.round_pic" id="round_pic">
             <label for="round_pic" data-lang="css_round_pic">Rounded avatars</label>
           </li>
-          <li>
+          <li data-setting-name="show_verified">
             <input type="checkbox" name="css.show_verified" id="show_verified">
             <label for="show_verified" data-lang="css_show_verified">Show "verified" badge on top of avatars</label>
           </li>
-          <li>
+          <li data-setting-name="hide_context">
             <input type="checkbox" name="css.hide_context" id="hide_context">
             <label for="hide_context" data-lang="css_hide_context">Hide "In reply to" label on mentions</label>
           </li>
-          <li>
+          <li data-setting-name="actions_on_right">
             <input type="checkbox" name="css.actions_on_right" id="actions_on_right">
             <label for="actions_on_right" data-lang="css_actions_on_right">Show tweet actions on the right</label>
           </li>
-          <li>
+          <li data-setting-name="actions_on_hover">
             <input type="checkbox" name="css.actions_on_hover" id="actions_on_hover">
             <label for="actions_on_hover" data-lang="css_actions_on_hover">Show tweet actions on hover</label>
           </li>
-          <li>
+          <li data-setting-name="no_hearts">
             <input type="checkbox" name="no_hearts" id="no_hearts">
             <label for="no_hearts" data-lang="no_hearts">Show stars instead of hearts</label>
           </li>
-          <li>
+          <li data-setting-name="hide_like_rt_indicators">
             <input type="checkbox" name="css.hide_like_rt_indicators" id="hide_like_rt_indicators">
             <label for="hide_like_rt_indicators" data-lang="css_hide_like_rt_indicators">Hide Like/RT indicators on top of tweets</label>
-          </li>
+          </li data-setting-name="flash">
           <li>
             <input type="checkbox" name="flash_tweets.enabled" id="flash" data-ghost><label for="flash" data-lang="flash_tweets">Make tweets flash in:</label>
-            <ul>
+            <ul data-setting-name="mentions">
               <li>
                 <input disabled type="radio" name="flash_tweets.mode" id="mentions"><label for="mentions" data-lang="flash_tweets_mentions">Mentions columns</label>
-              </li>
+              </li data-setting-name="all">
               <li>
                 <input disabled type="radio" name="flash_tweets.mode" id="all"><label for="all" data-lang="flash_tweets_all">In every columns</label>
               </li>
@@ -189,32 +189,32 @@
 
       <div class="settings-section">
         <ul>
-          <li>
+          <li data-setting-name="update_title_on_notifications">
             <input type="checkbox" name="update_title_on_notifications" id="update_title_on_notifications">
-            <label for="update_title_on_notifications" data-lang="update_title_on_notifications">Change tab's title when a new tweet/message is unread</label>
+            <label for="update_title_on_notifications" data-lang="update_title_on_notifications" data-new-feat>Change TweetDeck's tab's title when a new tweet/message is unread</label>
           </li>
-          <li>
+          <li data-setting-name="no_tco">
             <input type="checkbox" name="no_tco" id="no_tco">
             <label for="no_tco" data-lang="no_tco">Remove t.co redirection on links</label>
           </li>
-          <li>
+          <li data-setting-name="no_gif_pp">
             <input type="checkbox" name="no_gif_pp" id="no_gif_pp">
             <label for="no_gif_pp" data-lang="no_gif_pp">No GIFs in profile pictures in columns</label>
           </li>
-          <li>
+          <li data-setting-name="show_provider_indicator">
             <input type="checkbox" name="css.show_provider_indicator" id="show_provider_indicator">
             <label for="show_provider_indicator" data-lang="css_show_provider_indicator">Show thumbnails source on top of them</label>
           </li>
-          <li>
+          <li data-setting-name="regex_filter">
             <input type="checkbox" name="regex_filter" id="regex_filter">
             <label for="regex_filter" data-lang="regex_filter" data-new-feat>Enable regular expression support in Mute filters</label>
             <br /><small data-lang="regex_filter_notice_text">Due to the way TweetDeck's filtering works, expressions are not case sensitive!</small>
           </li>
-          <li>
+          <li data-setting-name="favstar_item">
             <input type="checkbox" name="favstar_item" id="favstar_item">
             <label for="favstar_item" data-lang="favstar_item" data-new-feat>Add a "Show in Favstar" item in tweets' menu</label>
           </li>
-          <li>
+          <li data-setting-name="mute_hashtags">
             <input type="checkbox" name="mute_hashtags" id="mute_hashtags">
             <label for="mute_hashtags" data-lang="mute_hashtags" data-new-feat>Add shortcuts to mute #hashtags in tweets' menu</label>
           </li>
@@ -248,11 +248,11 @@
         <p><strong data-lang="share_btd_p4">Any modification on this page will be applied after a browser restart</strong></p>
 
         <ul>
-          <li>
+          <li data-setting-name="enabled">
             <input type="checkbox" name="share_item.enabled" id="enabled">
             <label for="enabled" data-lang="share_btd_item">Add the "Share on Better TweetDeck" action on contextual menu</label>
           </li>
-          <li>
+          <li data-setting-name="short_txt">
             <input type="checkbox" name="share_item.short_txt" id="short_txt">
             <label for="short_txt" data-lang="share_short_txt">Shorten the selected text while using the "Share on Better TweetDeck" action</label>
           </li>
@@ -267,53 +267,53 @@
         <h5 data-lang="sec_general">General</h5>
 
         <ul>
-          <li>
+          <li data-setting-name="old_replies">
             <input type="checkbox" name="old_replies" id="old_replies">
             <label for="old_replies" data-lang="old_replies" data-new-feat>Revert to the old replies style (pre 03/30/2017)</label>
           </li>
-          <li>
+          <li data-setting-name="minimal_mode">
             <input type="checkbox" name="css.minimal_mode" id="minimal_mode">
             <label for="minimal_mode" data-lang="css_minimal_mode">Enable the "Minimal" theme</label>
           </li>
-          <li>
+          <li data-setting-name="hide_url_thumb">
             <input type="checkbox" name="css.hide_url_thumb" id="hide_url_thumb">
             <label for="hide_url_thumb" data-lang="css_hide_url_thumb" data-new-feat>Hide link related to thumbnails in tweet (à la Twitter mobile)</label>
           </li>
-          <li>
+          <li data-setting-name="no_col_icns">
             <input type="checkbox" name="css.no_col_icns" id="no_col_icns">
             <label for="no_col_icns" data-lang="css_no_col_icns">Hide icons in columns headers</label>
           </li>
-          <li data-hidden-firefox>
+          <li data-hidd data-setting-name="no_scrollbars"en-firefox>
             <input type="checkbox" name="css.no_scrollbars" id="no_scrollbars">
             <label for="no_scrollbars" data-lang="css_no_scrollbars">Hide scrollbars</label>
           </li>
-          <li data-hidden-firefox>
+          <li data-hidd data-setting-name="slim_scrollbars"en-firefox>
             <input type="checkbox" name="css.slim_scrollbars" id="slim_scrollbars">
             <label for="slim_scrollbars" data-lang="css_slim_scrollbars">Thinner scrollbars</label>
           </li>
-          <li>
+          <li data-setting-name="no_bg_modal">
             <input type="checkbox" name="css.no_bg_modal" id="no_bg_modal">
             <label for="no_bg_modal" data-lang="css_no_bg_modal">Hide background behind fullscreen previews</label>
           </li>
-          <li>
+          <li data-setting-name="small_icns_compose">
             <input type="checkbox" name="css.small_icns_compose" id="small_icns_compose">
             <label for="small_icns_compose" data-lang="css_small_icns_compose">Make buttons smaller in the Compose panel</label>
           </li>
-          <li>
+          <li data-setting-name="gray_icns_notifs">
             <input type="checkbox" name="css.gray_icns_notifs" id="gray_icns_notifs">
             <label for="gray_icns_notifs" data-lang="css_gray_icns_notifs">Notifications icons are in grayscale</label>
           </li>
-          <li>
+          <li data-setting-name="collapse_dms">
             <input type="checkbox" name="css.collapse_dms" id="collapse_dms">
             <label for="collapse_dms" data-lang="css_collapse_dms" data-new-feat>Collapse read direct messages</label>
           </li>
-          <li>
+          <li data-setting-name="system_fonts">
             <input type="checkbox" name="css.system_fonts" id="system_fonts">
             <label for="system_fonts" data-lang="css_system_fonts" data-new-feat>Use the system font in the UI</label>
-          </li>
+          </li data-setting-name="column_width">
           <li>
             <input type="checkbox" name="custom_columns_width.enabled" id="column_width" data-ghost><label for="column_width" data-lang="custom_width_columns" data-new-feat>Custom width for columns:</label>
-            <ul>
+            <ul data-setting-name="column_size">
               <li>
                 <input disabled type="text" name="custom_columns_width.size" id="column_size"><label for="column_size" data-lang="custom_width_size">Width (in pixels)</label>
               </li>
