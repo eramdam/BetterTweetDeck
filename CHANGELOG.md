@@ -7,7 +7,7 @@
 - [Bugfix] With the related settings, emojis were made bigger everywhere in TweetDeck and not just in tweets. This is fixed.
 - [Improvement] [Bugfix] Usernames and verified badges should not disappear randomly anymore. BTD should be WAY ligther/faster thanks to that :racehorse: [more technical details](https://github.com/eramdam/BetterTweetDeck/pull/178)
 - [Improvement] [Bugfix] When "Show Verified badges above avatars" settings was enabled, verified badges were hidden inside quoted tweets and tweets that were the target of a like/retweet. They should be displayed correctly now.
-- [Improvement] You can disable the "Show in Favstar" item in tweets' menu in the **[Content](?on=btdContent)** section
+- [Improvement] You can disable the "Show in Favstar" item in tweets' menu in the **[Content](?on=content)** section
 - [Improvement] The settings button is better integrated inside of TweetDeck's UI (thanks to [@LeoColomb](https://github.com/LeoColomb)) ([#177](https://github.com/eramdam/BetterTweetDeck/pull/177))
 
 3.3.10
