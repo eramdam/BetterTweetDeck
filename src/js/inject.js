@@ -534,11 +534,16 @@ const getMediaForElement = (element) => {
   return urls;
 };
 
-// eslint-disable-next-line
 const clipboard = new Clipboard('.btd-clipboard', {
   text: (trigger) => {
     return getMediaForElement(trigger).join('\n');
   },
+}).on('success', function(e) {
+  const lineCount = e.text.split("\n").length;
+  TD.controller.progressIndicator.addMessage(`Success: Copied ${lineCount} link${lineCount > 1 ? 's' : ''}`);
+}).on('error', function(e) {
+  const lineCount = e.text.split("\n").length;
+  TD.controller.progressIndicator.addMessage(`Failed: Could not copy ${lineCount} link${lineCount > 1 ? 's' : ''}`);
 });
 
 $('body').on('click', '[data-btd-action="mute-hashtag"]', (ev) => {
