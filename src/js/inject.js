@@ -1,4 +1,5 @@
 import config from 'config';
+import Clipboard from 'clipboard';
 import Log from './util/logger';
 import UsernamesTemplates from './util/username_templates';
 
@@ -59,20 +60,28 @@ const getChirpFromKey = (key, colKey) => {
   return chirp;
 };
 
+/**
+ * Takes a node and fetches the chirp associated with it (useful for debugging)
+ */
+const getChirpFromElement = (element) => {
+  if (!element.closest('[data-key]')) {
+    throw new Error('Not a chirp');
+  }
+
+  const chirpKey = element.closest('[data-key]').getAttribute('data-key');
+  const col = document.querySelector(`[data-column] [data-key="${chirpKey}"]`).parentNode;
+
+  if (!col) {
+    throw new Error('Chirp has no column');
+  }
+
+  const colKey = col.getAttribute('data-column');
+
+  return getChirpFromKey(chirpKey, colKey);
+};
+
 if (config.get('Client.debug')) {
-  /**
-   * Takes a node and fetches the chirp associated with it (useful for debugging)
-   */
-  window._BTDinspectChirp = (element) => {
-    if (!element.closest('[data-key]') || !element.closest('[data-column]')) {
-      throw new Error('Not a chirp');
-    }
-
-    const colKey = element.closest('[data-column]').getAttribute('data-column');
-    const chirpKey = element.closest('[data-key]').getAttribute('data-key');
-
-    return getChirpFromKey(chirpKey, colKey);
-  };
+  window._BTDinspectChirp = getChirpFromElement;
 
   window._BTDGetChirp = getChirpFromKey;
 
@@ -230,48 +239,31 @@ const postMessagesListeners = {
 
     // Inject items into the interaction bar
     if (settings.hotlink_item) {
-      let insertedActions = '';
-      let insertedDetails = '';
-      const actionStache = TD.mustaches['status/tweet_single_actions.mustache'];
-      const detailStache = TD.mustaches['status/tweet_detail_actions.mustache'];
+      TD.mustaches['status/tweet_single_actions.mustache'] = TD.mustaches['status/tweet_single_actions.mustache']
+        .replace('{{_i}}Like{{/i}} </span> </a> </li>',
+          `{{_i}}Like{{/i}} </span> </a> </li>
+           {{#tweet.entities.media.length}}
+           <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--13 margin-l--1">
+             <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
+               data-btd-action="hotlink-media" rel="hotlink" title=" Hotlink "> 
+               <i class="js-icon-image icon icon-image icon-image-toggle txt-center"></i>
+               <span class="is-vishidden"> {{_i}}Hotlink{{/i}} </span>
+             </a>
+           </li>
+           {{/tweet.entities.media.length}}`);
 
-      // Duplicate the 'Like' action
-      const actionPrototype = actionStache.match(/(<li[\s\S]*?li>)/gm)[2];
-      const detailPrototype = detailStache.match(/(<li[\s\S]*?li>)/gm)[2];
-
-      TD.mustaches['text/hotlink_action.mustache'] = TD.mustaches['text/favorite_action.mustache']
-        .replace(/Favorite/g, 'Hotlinked')
-        .replace(/Unlike/g, 'Unlink')
-        .replace(/Like/g, 'Hotlink');
-
-      insertedActions += actionPrototype.replace(/Like/g, 'Hotlink')
-        .replace(/icon-favorite/g, 'icon-link')
-        .replace(/icon-heart/g, 'icon-link')
-        .replace(/Favorited/g, 'Hotlinked')
-        .replace(/favorite/g, 'hotlink')
-        .replace(/href="#"/g, 'href="#" data-btd-action="hotlink-media"')
-        .replace(/tweet-action/g, 'btd-tweet-action tweet-action')
-        .replace(/tweet-action-item/g, 'btd-tweet-action-item tweet-action-item');
-      insertedDetails += detailPrototype.replace(/Like/g, 'Hotlink')
-        .replace(/icon-favorite/g, 'icon-link')
-        .replace(/icon-heart/g, 'icon-link')
-        .replace(/Favorited/g, 'Hotlinked')
-        .replace(/favorite/g, 'hotlink')
-        .replace(/href="#"/g, 'href="#" data-btd-action="hotlink-media"')
-        .replace(/tweet-detail-action/g, 'btd-tweet-detail-action tweet-detail-action')
-        .replace(/tweet-detail-action-item/g, 'btd-tweet-action-item tweet-detail-action-item')
-        .replace(/<li class/, '<li style="width: 20%;" class');
-
-      const insertActionPosition = actionStache.lastIndexOf('<li class="tweet-action-item position-rel');
-      TD.mustaches['status/tweet_single_actions.mustache'] = actionStache.substring(0, insertActionPosition)
-        + insertedActions
-        + actionStache.substring(insertActionPosition);
-
-      const insertDetailPosition = detailStache.lastIndexOf('<li class="tweet-detail-action-item position-rel');
-      TD.mustaches['status/tweet_detail_actions.mustache'] = (detailStache.substring(0, insertDetailPosition)
-      + insertedDetails
-      + detailStache.substring(insertDetailPosition))
-        .replace(/<li class/g, '<li style="width: 20%;" class');
+      TD.mustaches['status/tweet_detail_actions.mustache'] = TD.mustaches['status/tweet_detail_actions.mustache']
+        .replace('{{_i}}Like{{/i}} </span> </a> {{/account}} </li>',
+          `{{_i}}Like{{/i}} </span> </a> {{/account}} </li>
+           {{#getMainTweet}}{{#entities.media.length}}
+           <li class="tweet-detail-action-item btd-tweet-detail-action-item">
+             <a class="js-show-tip tweet-detail-action btd-tweet-detail-action btd-clipboard position-rel" href="#"
+               data-btd-action="hotlink-media" rel="hotlink" title=" Hotlink ">
+               <i class="js-icon-image icon icon-image icon-image-toggle txt-center"></i>
+               <span class="is-vishidden"> {{_i}}Hotlink{{/i}} </span>
+             </a>
+           </li>
+           {{/entities.media.length}}{{/getMainTweet}}`);
     }
 
     // Adds the Favstar.fm item in menus and adds mute action for each hashtag
@@ -511,149 +503,38 @@ $('body').on('click', '#open-modal', (ev) => {
   }
 });
 
-// http://stackoverflow.com/a/2091331
-const getQueryVariable = (str, variable) => {
-  const vars = str.substring(1).split('&');
-  for (let i = 0; i < vars.length; i += 1) {
-    const pair = vars[i].split('=');
-    if (decodeURIComponent(pair[0]) === variable) {
-      return decodeURIComponent(pair[1]);
-    }
-  }
-  return null;
+const findBiggestBitrate = (videos) => {
+  return videos.reduce((max, x) => {
+    return (x.bitrate || -1) > (max.bitrate || -1) ? x : max;
+  });
 };
 
-const setClipboard = (text) => {
-  const tc = $('.compose-text-container .js-compose-text');
-  const orig = tc.val();
-  const active = document.activeElement;
-  tc.val(text);
-  tc[0].focus();
-  tc[0].setSelectionRange(0, text.length);
-  document.execCommand('copy');
-  tc.val(orig);
-  active.focus();
+const getMediaForElement = (element) => {
+  const chirp = getChirpFromElement(element);
+  const urls = [];
+
+  chirp.entities.media.forEach((item) => {
+    switch (item.type) {
+      case 'video':
+      case 'animated_gif':
+        urls.push(findBiggestBitrate(item.video_info.variants).url);
+        break;
+      case 'photo':
+        urls.push(item.media_url_https);
+        break;
+      default:
+        throw new Error(`unsupported media type: ${item.type}`);
+    }
+  });
+
+  return urls;
 };
 
-const cleanMediaUrl = (str) => {
-  return str
-    .replace(/url\(/g, '')
-    .replace(/["')]/g, '')
-    .replace(/:(thumb|small|medium|large|orig)$/, '')
-    .replace(/^none$/, '');
-};
-
-const getMediaFromEmbed = (embed) => {
-  const iframeSrc = $(embed).find('iframe').attr('src');
-  if (iframeSrc && iframeSrc.length) {
-    return getQueryVariable(iframeSrc, 'video_url');
-  }
-  return '';
-};
-
-const getMedia = (elem) => {
-  const media = [];
-
-  // check the obscure case of being in a modal
-  const modalContainer = $(elem).parents('.js-modal-panel');
-
-  $(modalContainer).find('.js-embeditem').each((i, embed) => {
-    const iframeSrc = getMediaFromEmbed(embed);
-    if (iframeSrc.length) {
-      media.push(iframeSrc);
-    }
-  });
-  if (media.length) return media;
-
-  // we want to be sure this modal is a gif
-  $(modalContainer).parents('[data-btd-provider="gif"]')
-    .find('.btd-embed-container video').each((i, link) => {
-      const vidSrc = $(link).attr('src');
-      if (vidSrc.length) {
-        media.push(vidSrc);
-      }
-    });
-  if (media.length) return media;
-
-  // check the most typical case of a stream item
-  const normalContainer = $(elem).parents('article');
-
-  $(normalContainer).find('.quoted-tweet').each((i, link) => {
-    const tweetID = $(link).data('tweet-id');
-    const fullURI = `${$(link).find('.account-link').attr('href')}/status/${tweetID}`;
-    if (fullURI.length) {
-      media.push(fullURI);
-    }
-  });
-  if (media.length) return media;
-
-  $(normalContainer).find('.tweet-detail-media .js-media iframe').parent().each((i, embed) => {
-    const iframeSrc = getMediaFromEmbed(embed);
-    if (iframeSrc.length) {
-      media.push(iframeSrc);
-    }
-  });
-  if (media.length) return media;
-
-  $(normalContainer).find('.is-video .js-media-image-link').each((i, link) => {
-    const oTarget = $(link).attr('target');
-    const oSrc = $(link).attr('src');
-    $(link).attr('target', '');
-    $(link).attr('src', '#');
-    $(link).click();
-
-    const embeds = $('.js-embeditem');
-    $(embeds).each((j, embed) => {
-      const iframeSrc = getMediaFromEmbed(embed);
-      if (iframeSrc.length) {
-        media.push(iframeSrc);
-      }
-      $('.mdl-dismiss .icon-close').click();
-    });
-
-    $(link).attr('target', oTarget);
-    $(link).attr('src', oSrc);
-  });
-  if (media.length) return media;
-
-  $(normalContainer).find('video.js-media-gif').each((i, link) => {
-    const vidSrc = $(link).attr('src');
-    if (vidSrc.length) {
-      media.push(vidSrc);
-    }
-  });
-  if (media.length) return media;
-
-  $(normalContainer).find('.js-media ')
-    .find('.med-link, .media-image')
-    .each((i, link) => {
-      const imgSrc = cleanMediaUrl($(link).css('background-image'));
-
-      if (imgSrc && imgSrc.length) {
-        media.push(imgSrc);
-      }
-    });
-
-  // these rules work in all contexts
-  const all = $()
-    .add($(normalContainer))
-    .add($(modalContainer));
-
-  $(all).find('img.media-img').each((i, link) => {
-    const imgSrc = cleanMediaUrl($(link).attr('src'));
-
-    if (imgSrc.length) {
-      media.push(imgSrc);
-    }
-  });
-
-  return media;
-};
-
-$('body').on('click', '[data-btd-action="hotlink-media"]', (ev) => {
-  ev.preventDefault();
-  const foundMedia = getMedia($(ev.target));
-  setClipboard(foundMedia.join('\n'));
+// eslint-disable-next-line
+const clipboard = new Clipboard('.btd-clipboard', {
+  text: (trigger) => {
+    return getMediaForElement(trigger).join('\n');
+  },
 });
 
 $('body').on('click', '[data-btd-action="mute-hashtag"]', (ev) => {

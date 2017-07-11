@@ -25,7 +25,6 @@ const defaultSettings = {
     size: '250px',
     enabled: false,
   },
-  hotlink_item: false,
   css: {
     round_pic: true,
     bigger_emojis: true,
@@ -56,6 +55,7 @@ const defaultSettings = {
   regex_filter: false,
   favstar_item: true,
   mute_hashtags: true,
+  hotlink_item: false,
   update_title_on_notifications: true,
   thumbnails: {},
 };
