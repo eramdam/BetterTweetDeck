@@ -228,6 +228,52 @@ const postMessagesListeners = {
     TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace('{{>status/tweet_single_footer}} </div>', '{{>status/tweet_single_footer}} <i class="sprite tweet-dogear"></i> </div>');
     TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('</footer> {{/getMainTweet}}', '</footer> {{/getMainTweet}} <i class="sprite tweet-dogear"></i>');
 
+    // Inject items into the interaction bar
+    if (settings.hotlink_item) {
+      let insertedActions = '';
+      let insertedDetails = '';
+      const actionStache = TD.mustaches['status/tweet_single_actions.mustache'];
+      const detailStache = TD.mustaches['status/tweet_detail_actions.mustache'];
+
+      // Duplicate the 'Like' action
+      const actionPrototype = actionStache.match(/(<li[\s\S]*?li>)/gm)[2];
+      const detailPrototype = detailStache.match(/(<li[\s\S]*?li>)/gm)[2];
+
+      TD.mustaches['text/hotlink_action.mustache'] = TD.mustaches['text/favorite_action.mustache']
+        .replace(/Favorite/g, 'Hotlinked')
+        .replace(/Unlike/g, 'Unlink')
+        .replace(/Like/g, 'Hotlink');
+
+      insertedActions += actionPrototype.replace(/Like/g, 'Hotlink')
+        .replace(/icon-favorite/g, 'icon-link')
+        .replace(/icon-heart/g, 'icon-link')
+        .replace(/Favorited/g, 'Hotlinked')
+        .replace(/favorite/g, 'hotlink')
+        .replace(/href="#"/g, 'href="#" data-btd-action="hotlink-media"')
+        .replace(/tweet-action/g, 'btd-tweet-action tweet-action')
+        .replace(/tweet-action-item/g, 'btd-tweet-action-item tweet-action-item');
+      insertedDetails += detailPrototype.replace(/Like/g, 'Hotlink')
+        .replace(/icon-favorite/g, 'icon-link')
+        .replace(/icon-heart/g, 'icon-link')
+        .replace(/Favorited/g, 'Hotlinked')
+        .replace(/favorite/g, 'hotlink')
+        .replace(/href="#"/g, 'href="#" data-btd-action="hotlink-media"')
+        .replace(/tweet-detail-action/g, 'btd-tweet-detail-action tweet-detail-action')
+        .replace(/tweet-detail-action-item/g, 'btd-tweet-action-item tweet-detail-action-item')
+        .replace(/<li class/, '<li style="width: 20%;" class');
+
+      const insertActionPosition = actionStache.lastIndexOf('<li class="tweet-action-item position-rel');
+      TD.mustaches['status/tweet_single_actions.mustache'] = actionStache.substring(0, insertActionPosition)
+        + insertedActions
+        + actionStache.substring(insertActionPosition);
+
+      const insertDetailPosition = detailStache.lastIndexOf('<li class="tweet-detail-action-item position-rel');
+      TD.mustaches['status/tweet_detail_actions.mustache'] = (detailStache.substring(0, insertDetailPosition)
+      + insertedDetails
+      + detailStache.substring(insertDetailPosition))
+        .replace(/<li class/g, '<li style="width: 20%;" class');
+    }
+
     // Adds the Favstar.fm item in menus and adds mute action for each hashtag
     TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].replace('{{/chirp}} </ul>', `
       {{/chirp}}
@@ -463,6 +509,153 @@ $('body').on('click', '#open-modal', (ev) => {
 
     $('a[rel="dismiss"]').click();
   }
+});
+
+// http://stackoverflow.com/a/2091331
+const getQueryVariable = (str, variable) => {
+  const vars = str.substring(1).split('&');
+  for (let i = 0; i < vars.length; i += 1) {
+    const pair = vars[i].split('=');
+    if (decodeURIComponent(pair[0]) === variable) {
+      return decodeURIComponent(pair[1]);
+    }
+  }
+  return null;
+};
+
+const setClipboard = (text) => {
+  const tc = $('.compose-text-container .js-compose-text');
+  const orig = tc.val();
+  const active = document.activeElement;
+  tc.val(text);
+  tc[0].focus();
+  tc[0].setSelectionRange(0, text.length);
+  document.execCommand('copy');
+  tc.val(orig);
+  active.focus();
+};
+
+const cleanMediaUrl = (str) => {
+  return str
+    .replace(/url\(/g, '')
+    .replace(/["')]/g, '')
+    .replace(/:(thumb|small|medium|large|orig)$/, '')
+    .replace(/^none$/, '');
+};
+
+const getMediaFromEmbed = (embed) => {
+  const iframeSrc = $(embed).find('iframe').attr('src');
+  if (iframeSrc && iframeSrc.length) {
+    return getQueryVariable(iframeSrc, 'video_url');
+  }
+  return '';
+};
+
+const getMedia = (elem) => {
+  const media = [];
+
+  // check the obscure case of being in a modal
+  const modalContainer = $(elem).parents('.js-modal-panel');
+
+  $(modalContainer).find('.js-embeditem').each((i, embed) => {
+    const iframeSrc = getMediaFromEmbed(embed);
+    if (iframeSrc.length) {
+      media.push(iframeSrc);
+    }
+  });
+  if (media.length) return media;
+
+  // we want to be sure this modal is a gif
+  $(modalContainer).parents('[data-btd-provider="gif"]')
+    .find('.btd-embed-container video').each((i, link) => {
+      const vidSrc = $(link).attr('src');
+      if (vidSrc.length) {
+        media.push(vidSrc);
+      }
+    });
+  if (media.length) return media;
+
+  // check the most typical case of a stream item
+  const normalContainer = $(elem).parents('article');
+
+  $(normalContainer).find('.quoted-tweet').each((i, link) => {
+    const tweetID = $(link).data('tweet-id');
+    const fullURI = `${$(link).find('.account-link').attr('href')}/status/${tweetID}`;
+    if (fullURI.length) {
+      media.push(fullURI);
+    }
+  });
+  if (media.length) return media;
+
+  $(normalContainer).find('.tweet-detail-media .js-media iframe').parent().each((i, embed) => {
+    const iframeSrc = getMediaFromEmbed(embed);
+    if (iframeSrc.length) {
+      media.push(iframeSrc);
+    }
+  });
+  if (media.length) return media;
+
+  $(normalContainer).find('.is-video .js-media-image-link').each((i, link) => {
+    const oTarget = $(link).attr('target');
+    const oSrc = $(link).attr('src');
+    $(link).attr('target', '');
+    $(link).attr('src', '#');
+    $(link).click();
+
+    const embeds = $('.js-embeditem');
+    $(embeds).each((j, embed) => {
+      const iframeSrc = getMediaFromEmbed(embed);
+      if (iframeSrc.length) {
+        media.push(iframeSrc);
+      }
+      $('.mdl-dismiss .icon-close').click();
+    });
+
+    $(link).attr('target', oTarget);
+    $(link).attr('src', oSrc);
+  });
+  if (media.length) return media;
+
+  $(normalContainer).find('video.js-media-gif').each((i, link) => {
+    const vidSrc = $(link).attr('src');
+    if (vidSrc.length) {
+      media.push(vidSrc);
+    }
+  });
+  if (media.length) return media;
+
+  $(normalContainer).find('.js-media ')
+    .find('.med-link, .media-image')
+    .each((i, link) => {
+      console.log($(link));
+      const imgSrc = cleanMediaUrl($(link).css('background-image'));
+
+      if (imgSrc && imgSrc.length) {
+        media.push(imgSrc);
+      }
+    });
+
+  // these rules work in all contexts
+  const all = $()
+    .add($(normalContainer))
+    .add($(modalContainer));
+
+  $(all).find('img.media-img').each((i, link) => {
+    const imgSrc = cleanMediaUrl($(link).attr('src'));
+
+    if (imgSrc.length) {
+      media.push(imgSrc);
+    }
+  });
+
+  return media;
+};
+
+$('body').on('click', '[data-btd-action="hotlink-media"]', (ev) => {
+  ev.preventDefault();
+  const foundMedia = getMedia($(ev.target));
+  console.log(foundMedia);
+  setClipboard(foundMedia.join('\n'));
 });
 
 $('body').on('click', '[data-btd-action="mute-hashtag"]', (ev) => {

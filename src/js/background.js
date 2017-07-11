@@ -25,6 +25,7 @@ const defaultSettings = {
     size: '250px',
     enabled: false,
   },
+  hotlink_item: false,
   css: {
     round_pic: true,
     bigger_emojis: true,
