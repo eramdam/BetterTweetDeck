@@ -64,20 +64,24 @@ const getChirpFromKey = (key, colKey) => {
  * Takes a node and fetches the chirp associated with it (useful for debugging)
  */
 const getChirpFromElement = (element) => {
-  if (!element.closest('[data-key]')) {
+  const chirp = element.closest('[data-key]');
+  if (!chirp) {
     throw new Error('Not a chirp');
   }
 
-  const chirpKey = element.closest('[data-key]').getAttribute('data-key');
-  const col = document.querySelector(`[data-column] [data-key="${chirpKey}"]`).parentNode;
+  const chirpKey = chirp.getAttribute('data-key');
 
+  let col = chirp.closest('[data-column]');
   if (!col) {
-    throw new Error('Chirp has no column');
+    col = document.querySelector(`[data-column] [data-key="${chirpKey}"]`);
+    if (!col || !col.parentNode) {
+      throw new Error('Chirp has no column');
+    } else {
+      col = col.parentNode;
+    }
   }
 
-  const colKey = col.getAttribute('data-column');
-
-  return getChirpFromKey(chirpKey, colKey);
+  return getChirpFromKey(chirpKey, col.getAttribute('data-column'));
 };
 
 if (config.get('Client.debug')) {
