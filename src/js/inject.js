@@ -627,7 +627,6 @@ const getMedia = (elem) => {
   $(normalContainer).find('.js-media ')
     .find('.med-link, .media-image')
     .each((i, link) => {
-      console.log($(link));
       const imgSrc = cleanMediaUrl($(link).css('background-image'));
 
       if (imgSrc && imgSrc.length) {
@@ -654,7 +653,6 @@ const getMedia = (elem) => {
 $('body').on('click', '[data-btd-action="hotlink-media"]', (ev) => {
   ev.preventDefault();
   const foundMedia = getMedia($(ev.target));
-  console.log(foundMedia);
   setClipboard(foundMedia.join('\n'));
 });
 
