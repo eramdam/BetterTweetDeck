@@ -532,8 +532,7 @@ const findBiggestBitrate = (videos) => {
   });
 };
 
-const getMediaForElement = (element) => {
-  const chirp = getChirpFromElement(element);
+const getMediaFromChirp = (chirp) => {
   const urls = [];
 
   chirp.entities.media.forEach((item) => {
@@ -557,7 +556,7 @@ const getMediaForElement = (element) => {
 // eslint-disable-next-line
 const clipboard = new Clipboard('.btd-clipboard', {
   text: (trigger) => {
-    return getMediaForElement(trigger).join('\n');
+    return getMediaFromChirp(getChirpFromElement(trigger)).join('\n');
   },
 }).on('success', (e) => {
   const lineCount = e.text.split('\n').length;
@@ -570,10 +569,9 @@ const clipboard = new Clipboard('.btd-clipboard', {
 $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
   ev.preventDefault();
   const chirp = getChirpFromElement(ev.target);
-  const media = getMediaForElement(ev.target);
+  const media = getMediaFromChirp(chirp);
 
-  for (let i = 0; i < media.length; i += 1) {
-    const item = media[i];
+  media.forEach((item, i) => {
     const downloadIndicator = TD.controller.progressIndicator.addTask(`Downloading ${media.length} file${media.length > 1 ? 's' : ''}`);
     fetch(item)
       .then(res => res.blob())
@@ -582,11 +580,11 @@ $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
         const originalFile = item.split('/').pop().split('.')[0];
         FileSaver.saveAs(blob, `${chirp.user.screenName}-${originalFile}.${originalExtension}`);
       }).then(() => {
-        TD.controller.progressIndicator.taskComplete(downloadIndicator, `Downloaded ${i + 1} file${i > 1 ? 's' : ''}`);
+        TD.controller.progressIndicator.taskComplete(downloadIndicator, `Downloaded file${i + 1 > 1 ? 's' : ''} ${i + 1}/${media.length}`);
       }, (reason) => {
-        TD.controller.progressIndicator.taskFailed(downloadIndicator, `Could not download ${i + 1} file${i > 1 ? 's' : ''}, ${reason}`);
+        TD.controller.progressIndicator.taskFailed(downloadIndicator, `Could not download file${i + 1 > 1 ? 's' : ''}  ${i + 1}/${media.length}, ${reason}`);
       });
-  }
+  });
 });
 
 $('body').on('click', '[data-btd-action="mute-hashtag"]', (ev) => {
