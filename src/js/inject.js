@@ -582,9 +582,9 @@ $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
         const originalFile = item.split('/').pop().split('.')[0];
         FileSaver.saveAs(blob, `${chirp.user.screenName}-${originalFile}.${originalExtension}`);
       }).then(() => {
-        TD.controller.progressIndicator.taskComplete(downloadIndicator, `Downloaded ${i} file${i > 1 ? 's' : ''}`);
+        TD.controller.progressIndicator.taskComplete(downloadIndicator, `Downloaded ${i + 1} file${i > 1 ? 's' : ''}`);
       }, (reason) => {
-        TD.controller.progressIndicator.taskFailed(downloadIndicator, `Could not download ${i} file${i > 1 ? 's' : ''}, ${reason}`);
+        TD.controller.progressIndicator.taskFailed(downloadIndicator, `Could not download ${i + 1} file${i > 1 ? 's' : ''}, ${reason}`);
       });
   }
 });
