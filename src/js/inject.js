@@ -1,4 +1,5 @@
 import config from 'config';
+import FileSaver from 'file-saver';
 import Clipboard from 'clipboard';
 import Log from './util/logger';
 import UsernamesTemplates from './util/username_templates';
@@ -242,31 +243,49 @@ const postMessagesListeners = {
     TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('</footer> {{/getMainTweet}}', '</footer> {{/getMainTweet}} <i class="sprite tweet-dogear"></i>');
 
     // Inject items into the interaction bar
-    if (settings.hotlink_item) {
+    if (settings.hotlink_item || settings.download_item) {
       TD.mustaches['status/tweet_single_actions.mustache'] = TD.mustaches['status/tweet_single_actions.mustache']
         .replace('{{_i}}Like{{/i}} </span> </a> </li>',
           `{{_i}}Like{{/i}} </span> </a> </li>
            {{#tweet.entities.media.length}}
+           ${settings.hotlink_item ? `
            <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--13 margin-l--1">
              <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
                data-btd-action="hotlink-media" rel="hotlink" title=" Hotlink "> 
                <i class="js-icon-image icon icon-image icon-image-toggle txt-center"></i>
                <span class="is-vishidden"> {{_i}}Hotlink{{/i}} </span>
              </a>
-           </li>
+           </li>` : ''}
+           ${settings.download_item ? `
+           <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--13 margin-l--1">
+             <a class="js-show-tip tweet-action btd-tweet-action position-rel" href="#" 
+               data-btd-action="download-media" rel="download" title=" Download "> 
+               <i class="js-icon-attachment icon icon-attachment icon-attachment-toggle txt-center"></i>
+               <span class="is-vishidden"> {{_i}}Download{{/i}} </span>
+             </a>
+           </li>` : ''}
            {{/tweet.entities.media.length}}`);
 
       TD.mustaches['status/tweet_detail_actions.mustache'] = TD.mustaches['status/tweet_detail_actions.mustache']
         .replace('{{_i}}Like{{/i}} </span> </a> {{/account}} </li>',
           `{{_i}}Like{{/i}} </span> </a> {{/account}} </li>
            {{#getMainTweet}}{{#entities.media.length}}
+           ${settings.hotlink_item ? `
            <li class="tweet-detail-action-item btd-tweet-detail-action-item">
              <a class="js-show-tip tweet-detail-action btd-tweet-detail-action btd-clipboard position-rel" href="#"
                data-btd-action="hotlink-media" rel="hotlink" title=" Hotlink ">
                <i class="js-icon-image icon icon-image icon-image-toggle txt-center"></i>
                <span class="is-vishidden"> {{_i}}Hotlink{{/i}} </span>
              </a>
-           </li>
+           </li>` : ''}
+           ${settings.download_item ? `
+           <li class="tweet-detail-action-item btd-tweet-detail-action-item">
+             <a class="js-show-tip tweet-detail-action btd-tweet-detail-action position-rel" href="#"
+               data-btd-action="download-media" rel="download" title=" Download ">
+               <i class="js-icon-attachment icon icon-attachment icon-attachment-toggle txt-center"></i>
+               <span class="is-vishidden"> {{_i}}Download{{/i}} </span>
+             </a>
+           </li>` : ''}
            {{/entities.media.length}}{{/getMainTweet}}`);
     }
 
@@ -546,6 +565,28 @@ const clipboard = new Clipboard('.btd-clipboard', {
 }).on('error', (e) => {
   const lineCount = e.text.split('\n').length;
   TD.controller.progressIndicator.addMessage(`Failed: Could not copy ${lineCount} link${lineCount > 1 ? 's' : ''}`);
+});
+
+$('body').on('click', '[data-btd-action="download-media"]', (ev) => {
+  ev.preventDefault();
+  const chirp = getChirpFromElement(ev.target);
+  const media = getMediaForElement(ev.target);
+
+  for (let i = 0; i < media.length; i += 1) {
+    const item = media[i];
+    const downloadIndicator = TD.controller.progressIndicator.addTask(`Downloading ${media.length} file${media.length > 1 ? 's' : ''}`);
+    fetch(item)
+      .then(res => res.blob())
+      .then((blob) => {
+        const originalExtension = item.split('.').pop();
+        const originalFile = item.split('/').pop().split('.')[0];
+        FileSaver.saveAs(blob, `${chirp.user.screenName}-${originalFile}.${originalExtension}`);
+      }).then(() => {
+        TD.controller.progressIndicator.taskComplete(downloadIndicator, `Downloaded ${i} file${i > 1 ? 's' : ''}`);
+      }, (reason) => {
+        TD.controller.progressIndicator.taskFailed(downloadIndicator, `Could not download ${i} file${i > 1 ? 's' : ''}, ${reason}`);
+      });
+  }
 });
 
 $('body').on('click', '[data-btd-action="mute-hashtag"]', (ev) => {
