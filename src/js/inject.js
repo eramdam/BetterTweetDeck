@@ -542,7 +542,7 @@ const getMediaFromChirp = (chirp) => {
         urls.push(findBiggestBitrate(item.video_info.variants).url);
         break;
       case 'photo':
-        urls.push(item.media_url_https);
+        urls.push(`${item.media_url_https}:orig`);
         break;
       default:
         throw new Error(`unsupported media type: ${item.type}`);
@@ -576,7 +576,7 @@ $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
     fetch(item)
       .then(res => res.blob())
       .then((blob) => {
-        const originalExtension = item.split('.').pop();
+        const originalExtension = item.replace(/:[a-z]+$/, '').split('.').pop();
         const originalFile = item.split('/').pop().split('.')[0];
         FileSaver.saveAs(blob, `${chirp.user.screenName}-${originalFile}.${originalExtension}`);
       }).then(() => {
