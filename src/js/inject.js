@@ -290,19 +290,24 @@ const postMessagesListeners = {
     }
 
     // Adds the Favstar.fm item in menus and adds mute action for each hashtag
-    TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].replace('{{/chirp}} </ul>', `
-      {{/chirp}}
-      {{#chirp}}
-        ${settings.mute_hashtags ? `{{#entities.hashtags}}
-          <li class="is-selectable">
-            <a href="#" data-btd-action="mute-hashtag" data-btd-hashtag="{{text}}">Mute #{{text}}</a>
-          </li>
-        {{/entities.hashtags}}` : ''}
-        ${settings.favstar_item ? `<li class="drp-h-divider"></li>
+    TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].replace('{{/isOwnChirp}} {{/chirp}} </ul>', `
+      ${settings.edit_item ? `
+      <li class="is-selectable">
+        <a href="#" data-btd-action="edit-tweet">Edit</a>
+      </li>
+      ` : ''}
+      {{/isOwnChirp}}
+      ${settings.mute_hashtags ? `
+      {{#entities.hashtags}}
+      <li class="is-selectable">
+        <a href="#" data-btd-action="mute-hashtag" data-btd-hashtag="{{text}}">Mute #{{text}}</a>
+      </li>
+      {{/entities.hashtags}}` : ''}
+      ${settings.favstar_item ? `
+      <li class="drp-h-divider"></li>
         <li class="btd-action-menu-item is-selectable"><a href="https://favstar.fm/users/{{user.screenName}}/status/{{chirp.id}}" target="_blank" data-action="favstar">{{_i}}Show on Favstar{{/i}}</a></li>` : ''}
       {{/chirp}}
-      </ul>
-    `);
+      </ul>`);
 
     UsernamesTemplates(TD.mustaches, settings.nm_disp);
   },
@@ -585,6 +590,14 @@ $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
         TD.controller.progressIndicator.taskFailed(downloadIndicator, `Could not download file${i + 1 > 1 ? 's' : ''}  ${i + 1}/${media.length}, ${reason}`);
       });
   });
+});
+
+$('body').on('click', '[data-btd-action="edit-tweet"]', (ev) => {
+  ev.preventDefault();
+  const chirp = getChirpFromElement(ev.target);
+
+  $(document).trigger('uiComposeTweet', { text: chirp.text, from: chirp.creatorAccount });
+  chirp.destroy();
 });
 
 $('body').on('click', '[data-btd-action="mute-hashtag"]', (ev) => {
