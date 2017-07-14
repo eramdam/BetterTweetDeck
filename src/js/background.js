@@ -55,6 +55,8 @@ const defaultSettings = {
   regex_filter: false,
   favstar_item: true,
   mute_hashtags: true,
+  hotlink_item: false,
+  download_item: false,
   update_title_on_notifications: true,
   thumbnails: {},
 };
