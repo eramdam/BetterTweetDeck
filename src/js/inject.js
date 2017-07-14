@@ -251,17 +251,17 @@ const postMessagesListeners = {
            ${settings.hotlink_item ? `
            <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--13 margin-l--1">
              <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
-               data-btd-action="hotlink-media" rel="hotlink" title=" Hotlink "> 
-               <i class="js-icon-image icon icon-image icon-image-toggle txt-center"></i>
-               <span class="is-vishidden"> {{_i}}Hotlink{{/i}} </span>
+               data-btd-action="hotlink-media" rel="hotlink" title="Copy links to media"> 
+               <i class="js-icon-attachment icon icon-attachment txt-center"></i>
+               <span class="is-vishidden"> {{_i}}Copy links to media{{/i}} </span>
              </a>
            </li>` : ''}
            ${settings.download_item ? `
            <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--13 margin-l--1">
              <a class="js-show-tip tweet-action btd-tweet-action position-rel" href="#" 
-               data-btd-action="download-media" rel="download" title=" Download "> 
-               <i class="js-icon-attachment icon icon-attachment icon-attachment-toggle txt-center"></i>
-               <span class="is-vishidden"> {{_i}}Download{{/i}} </span>
+               data-btd-action="download-media" rel="download" title="Download media"> 
+               <i class="js-icon icon icon-download txt-center"></i>
+               <span class="is-vishidden"> {{_i}}Download media{{/i}} </span>
              </a>
            </li>` : ''}
            {{/tweet.entities.media.length}}`);
@@ -273,17 +273,17 @@ const postMessagesListeners = {
            ${settings.hotlink_item ? `
            <li class="tweet-detail-action-item btd-tweet-detail-action-item">
              <a class="js-show-tip tweet-detail-action btd-tweet-detail-action btd-clipboard position-rel" href="#"
-               data-btd-action="hotlink-media" rel="hotlink" title=" Hotlink ">
-               <i class="js-icon-image icon icon-image icon-image-toggle txt-center"></i>
-               <span class="is-vishidden"> {{_i}}Hotlink{{/i}} </span>
+               data-btd-action="hotlink-media" rel="hotlink" title="Copy links to media">
+               <i class="js-icon-attachment icon icon-attachment txt-center"></i>
+               <span class="is-vishidden"> {{_i}}Copy links to media{{/i}} </span>
              </a>
            </li>` : ''}
            ${settings.download_item ? `
            <li class="tweet-detail-action-item btd-tweet-detail-action-item">
              <a class="js-show-tip tweet-detail-action btd-tweet-detail-action position-rel" href="#"
-               data-btd-action="download-media" rel="download" title=" Download ">
-               <i class="js-icon-attachment icon icon-attachment icon-attachment-toggle txt-center"></i>
-               <span class="is-vishidden"> {{_i}}Download{{/i}} </span>
+               data-btd-action="download-media" rel="download" title="Download media">
+               <i class="js-icon icon icon-download txt-center"></i>
+               <span class="is-vishidden"> {{_i}}Download media{{/i}} </span>
              </a>
            </li>` : ''}
            {{/entities.media.length}}{{/getMainTweet}}`);
