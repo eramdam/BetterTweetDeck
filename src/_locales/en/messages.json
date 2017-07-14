@@ -93,6 +93,7 @@
   "regex_filter": { "message": "Enable regular expression support in Mute filters"},
   "regex_filter_notice_text": { "message": "Due to the way TweetDeck's filtering works, expressions are NOT case sensitive!" },
 
+  "edit_item": { "message": "Add an edit item in tweets' menu"},
   "favstar_item": { "message": "Add a \"Show in Favstar\" item in tweets' menu"},
   "mute_hashtags": { "message": "Add shortcuts to mute #hashtags in tweets' menu"},
   "mute_source": { "message": "Add a shortcut to mute the source (application) of a tweet in tweets' menu"},

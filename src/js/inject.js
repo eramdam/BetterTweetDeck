@@ -320,9 +320,13 @@ if (SETTINGS.hotlink_item || SETTINGS.download_item) {
 }
 
 // Adds the Favstar.fm item in menus and adds mute action for each hashtag
-TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].replace('{{/chirp}} </ul>', `
-      {{/chirp}}
-      {{#chirp}}
+TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].replace('{{/isOwnChirp}} {{/chirp}} </ul>', `
+      ${SETTINGS.edit_item ? `  
+        <li class="is-selectable">
+          <a href="#" data-btd-action="edit-tweet">Edit</a>
+        </li>
+        ` : ''}
+        {{/isOwnChirp}}
         ${SETTINGS.mute_source ? `<li class="is-selectable">
           <a href="#" data-btd-action="mute-source" data-btd-source="{{sourceNoHTML}}">Mute "{{sourceNoHTML}}"</a>
         </li>` : ''}
@@ -834,6 +838,14 @@ $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
         FileSaver.saveAs(blob, TD.ui.template.render('btd/download_filename_format', getMediaParts(chirp, item)));
       });
   });
+});
+
+$('body').on('click', '[data-btd-action="edit-tweet"]', (ev) => {
+  ev.preventDefault();
+  const chirp = getChirpFromElement(ev.target);
+
+  $(document).trigger('uiComposeTweet', { text: chirp.text, from: chirp.creatorAccount });
+  chirp.destroy();
 });
 
 $('body').on('click', '[data-btd-action="mute-hashtag"]', (ev) => {
