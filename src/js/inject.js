@@ -42,6 +42,14 @@ const getChirpFromKey = (key, colKey) => {
   });
 
   if (column.detailViewComponent) {
+    if (column.detailViewComponent.chirp) {
+      chirpsArray.push(column.detailViewComponent.chirp);
+    }
+
+    if (column.detailViewComponent.mainChirp) {
+      chirpsArray.push(column.detailViewComponent.mainChirp);
+    }
+
     if (column.detailViewComponent.repliesTo && column.detailViewComponent.repliesTo.repliesTo) {
       chirpsArray.push(...column.detailViewComponent.repliesTo.repliesTo);
     }
