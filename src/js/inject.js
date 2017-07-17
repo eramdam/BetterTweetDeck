@@ -96,14 +96,14 @@ const getChirpFromKey = (key, colKey) => {
  * Takes a node and fetches the chirp associated with it (useful for debugging)
  */
 const getChirpFromElement = (element) => {
-  const chirp = element.closest('[data-key]');
-  if (!chirp) {
+  const chirpElm = element.closest('[data-key]');
+  if (!chirpElm) {
     throw new Error('Not a chirp');
   }
 
-  const chirpKey = chirp.getAttribute('data-key');
+  const chirpKey = chirpElm.getAttribute('data-key');
 
-  let col = chirp.closest('[data-column]');
+  let col = chirpElm.closest('[data-column]');
   if (!col) {
     const chirpElm = document.querySelector(`[data-column] [data-key="${chirpKey}"]`);
     if (!chirpElm) {
@@ -113,7 +113,13 @@ const getChirpFromElement = (element) => {
     }
   }
 
-  return getChirpFromKey(chirpKey, col.getAttribute('data-column'));
+  const colKey = col.getAttribute('data-column');
+  const chirp = getChirpFromKey(chirpKey, colKey);
+  chirp._btd = {
+    chirpKey,
+    columnKey: colKey,
+  };
+  return chirp;
 };
 
 if (config.get('Client.debug')) {
@@ -844,7 +850,7 @@ $('body').on('click', '[data-btd-action="edit-tweet"]', (ev) => {
   ev.preventDefault();
   const chirp = getChirpFromElement(ev.target);
 
-  $(document).trigger('uiComposeTweet', { text: chirp.text, from: chirp.creatorAccount });
+  $(document).trigger('uiComposeTweet', { text: chirp.text, from: chirp.creatorAccount, columnKey: chirp._btd.columnKey });
   chirp.destroy();
 });
 
