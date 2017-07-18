@@ -105,11 +105,11 @@ const getChirpFromElement = (element) => {
 
   let col = chirpElm.closest('[data-column]');
   if (!col) {
-    const chirpElm = document.querySelector(`[data-column] [data-key="${chirpKey}"]`);
-    if (!chirpElm) {
-      throw new Error('Could not locate chirp in any column.');
+    col = document.querySelector(`[data-column] [data-key="${chirpKey}"]`);
+    if (!col || !col.parentNode) {
+      throw new Error('Chirp has no column');
     } else {
-      col = chirpElm.closest('[data-column]');
+      col = col.parentNode;
     }
   }
 
@@ -161,12 +161,13 @@ const decorateChirp = (chirp) => {
 };
 
 TD.services.TwitterStatus.prototype.getOGContext = function getOGContext() {
-  const repliers = this.getReplyingToUsers() || [];
+  const hasRepliers = this.getReplyingToUsers().length > 0;
 
-  if (repliers.length === 0 || (this.user.screenName === this.inReplyToScreenName && repliers.length === 1)) {
+  if (!hasRepliers || this.user.screenName === this.inReplyToScreenName) {
     return '';
   }
 
+  const repliers = this.getReplyingToUsers() || [];
   const filtered = repliers.filter((user) => {
     const str = `<a href="https://twitter.com/${user.screenName}/"`;
 
@@ -846,12 +847,34 @@ $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
   });
 });
 
+const getMediaUrlParts = (url) => {
+  return {
+    originalExtension: url.replace(/:[a-z]+$/, '').split('.').pop(),
+    originalFile: url.split('/').pop().split('.')[0],
+  };
+};
+
 $('body').on('click', '[data-btd-action="edit-tweet"]', (ev) => {
   ev.preventDefault();
   const chirp = getChirpFromElement(ev.target);
+  const media = getMediaFromChirp(chirp);
 
-  $(document).trigger('uiComposeTweet', { text: chirp.text, from: chirp.creatorAccount, columnKey: chirp._btd.columnKey });
-  chirp.destroy();
+  $(document).trigger('uiComposeTweet', {
+    text: chirp.htmlText,
+    from: chirp.creatorAccount,
+    columnKey: chirp._btd.columnKey,
+  });
+
+  Promise.all(media.map(item =>
+    fetch(item)
+      .then(res => res.blob())
+      .then((blob) => {
+        const url = getMediaUrlParts(item);
+        return new File([blob], `${url.originalFile}.${url.originalExtension}`);
+      }))).then((gotFiles) => {
+    $(document).trigger('uiFilesAdded', { files: gotFiles });
+    chirp.destroy();
+  });
 });
 
 $('body').on('click', '[data-btd-action="mute-hashtag"]', (ev) => {
