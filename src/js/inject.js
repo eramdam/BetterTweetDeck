@@ -577,6 +577,13 @@ const clipboard = new Clipboard('.btd-clipboard', {
   TD.controller.progressIndicator.addMessage(`Failed: Could not copy ${lineCount} link${lineCount > 1 ? 's' : ''}`);
 });
 
+const getMediaUrlParts = (url) => {
+  return {
+    originalExtension: url.replace(/:[a-z]+$/, '').split('.').pop(),
+    originalFile: url.split('/').pop().split('.')[0],
+  };
+};
+
 $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
   ev.preventDefault();
   const chirp = getChirpFromElement(ev.target);
@@ -587,9 +594,8 @@ $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
     fetch(item)
       .then(res => res.blob())
       .then((blob) => {
-        const originalExtension = item.replace(/:[a-z]+$/, '').split('.').pop();
-        const originalFile = item.split('/').pop().split('.')[0];
-        FileSaver.saveAs(blob, `${chirp.user.screenName}-${originalFile}.${originalExtension}`);
+        const url = getMediaUrlParts(item);
+        FileSaver.saveAs(blob, `${chirp.user.screenName}-${url.originalFile}.${url.originalExtension}`);
       }).then(() => {
         TD.controller.progressIndicator.taskComplete(downloadIndicator, `Downloaded file${i + 1 > 1 ? 's' : ''} ${i + 1}/${media.length}`);
       }, (reason) => {
@@ -601,9 +607,25 @@ $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
 $('body').on('click', '[data-btd-action="edit-tweet"]', (ev) => {
   ev.preventDefault();
   const chirp = getChirpFromElement(ev.target);
+  const media = getMediaFromChirp(chirp);
 
-  $(document).trigger('uiComposeTweet', { text: chirp.text, from: chirp.creatorAccount, columnKey: chirp._btd.columnKey });
-  chirp.destroy();
+  $(document).trigger('uiComposeTweet', {
+    text: chirp.htmlText,
+    from: chirp.creatorAccount,
+    columnKey: chirp._btd.columnKey,
+  });
+
+  Promise.all(media.map(item =>
+    fetch(item)
+      .then(res => res.blob())
+      .then((blob) => {
+        const url = getMediaUrlParts(item);
+        return new File([blob], `${url.originalFile}.${url.originalExtension}`);
+      })),
+  ).then((gotFiles) => {
+    $(document).trigger('uiFilesAdded', { files: gotFiles });
+    chirp.destroy();
+  });
 });
 
 $('body').on('click', '[data-btd-action="mute-hashtag"]', (ev) => {
