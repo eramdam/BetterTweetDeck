@@ -1,4 +1,6 @@
 import config from 'config';
+import FileSaver from 'file-saver';
+import Clipboard from 'clipboard';
 import Log from './util/logger';
 import UsernamesTemplates from './util/username_templates';
 
@@ -40,6 +42,14 @@ const getChirpFromKey = (key, colKey) => {
   });
 
   if (column.detailViewComponent) {
+    if (column.detailViewComponent.chirp) {
+      chirpsArray.push(column.detailViewComponent.chirp);
+    }
+
+    if (column.detailViewComponent.mainChirp) {
+      chirpsArray.push(column.detailViewComponent.mainChirp);
+    }
+
     if (column.detailViewComponent.repliesTo && column.detailViewComponent.repliesTo.repliesTo) {
       chirpsArray.push(...column.detailViewComponent.repliesTo.repliesTo);
     }
@@ -59,20 +69,32 @@ const getChirpFromKey = (key, colKey) => {
   return chirp;
 };
 
-if (config.get('Client.debug')) {
-  /**
-   * Takes a node and fetches the chirp associated with it (useful for debugging)
-   */
-  window._BTDinspectChirp = (element) => {
-    if (!element.closest('[data-key]') || !element.closest('[data-column]')) {
-      throw new Error('Not a chirp');
+/**
+ * Takes a node and fetches the chirp associated with it (useful for debugging)
+ */
+const getChirpFromElement = (element) => {
+  const chirp = element.closest('[data-key]');
+  if (!chirp) {
+    throw new Error('Not a chirp');
+  }
+
+  const chirpKey = chirp.getAttribute('data-key');
+
+  let col = chirp.closest('[data-column]');
+  if (!col) {
+    col = document.querySelector(`[data-column] [data-key="${chirpKey}"]`);
+    if (!col || !col.parentNode) {
+      throw new Error('Chirp has no column');
+    } else {
+      col = col.parentNode;
     }
+  }
 
-    const colKey = element.closest('[data-column]').getAttribute('data-column');
-    const chirpKey = element.closest('[data-key]').getAttribute('data-key');
+  return getChirpFromKey(chirpKey, col.getAttribute('data-column'));
+};
 
-    return getChirpFromKey(chirpKey, colKey);
-  };
+if (config.get('Client.debug')) {
+  window._BTDinspectChirp = getChirpFromElement;
 
   window._BTDGetChirp = getChirpFromKey;
 
@@ -228,17 +250,64 @@ const postMessagesListeners = {
     TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace('{{>status/tweet_single_footer}} </div>', '{{>status/tweet_single_footer}} <i class="sprite tweet-dogear"></i> </div>');
     TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('</footer> {{/getMainTweet}}', '</footer> {{/getMainTweet}} <i class="sprite tweet-dogear"></i>');
 
+    // Inject items into the interaction bar
+    if (settings.hotlink_item || settings.download_item) {
+      TD.mustaches['status/tweet_single_actions.mustache'] = TD.mustaches['status/tweet_single_actions.mustache']
+        .replace('{{_i}}Like{{/i}} </span> </a> </li>',
+          `{{_i}}Like{{/i}} </span> </a> </li>
+           {{#tweet.entities.media.length}}
+           ${settings.hotlink_item ? `
+           <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--13 margin-l--1">
+             <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
+               data-btd-action="hotlink-media" rel="hotlink" title="Copy links to media"> 
+               <i class="js-icon-attachment icon icon-attachment txt-center"></i>
+               <span class="is-vishidden"> {{_i}}Copy links to media{{/i}} </span>
+             </a>
+           </li>` : ''}
+           ${settings.download_item ? `
+           <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--13 margin-l--1">
+             <a class="js-show-tip tweet-action btd-tweet-action position-rel" href="#" 
+               data-btd-action="download-media" rel="download" title="Download media"> 
+               <i class="js-icon icon icon-download txt-center"></i>
+               <span class="is-vishidden"> {{_i}}Download media{{/i}} </span>
+             </a>
+           </li>` : ''}
+           {{/tweet.entities.media.length}}`);
+
+      TD.mustaches['status/tweet_detail_actions.mustache'] = TD.mustaches['status/tweet_detail_actions.mustache']
+        .replace('{{_i}}Like{{/i}} </span> </a> {{/account}} </li>',
+          `{{_i}}Like{{/i}} </span> </a> {{/account}} </li>
+           {{#getMainTweet}}{{#entities.media.length}}
+           ${settings.hotlink_item ? `
+           <li class="tweet-detail-action-item btd-tweet-detail-action-item">
+             <a class="js-show-tip tweet-detail-action btd-tweet-detail-action btd-clipboard position-rel" href="#"
+               data-btd-action="hotlink-media" rel="hotlink" title="Copy links to media">
+               <i class="js-icon-attachment icon icon-attachment txt-center"></i>
+               <span class="is-vishidden"> {{_i}}Copy links to media{{/i}} </span>
+             </a>
+           </li>` : ''}
+           ${settings.download_item ? `
+           <li class="tweet-detail-action-item btd-tweet-detail-action-item">
+             <a class="js-show-tip tweet-detail-action btd-tweet-detail-action position-rel" href="#"
+               data-btd-action="download-media" rel="download" title="Download media">
+               <i class="js-icon icon icon-download txt-center"></i>
+               <span class="is-vishidden"> {{_i}}Download media{{/i}} </span>
+             </a>
+           </li>` : ''}
+           {{/entities.media.length}}{{/getMainTweet}}`);
+    }
+
     // Adds the Favstar.fm item in menus and adds mute action for each hashtag
     TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].replace('{{/chirp}} </ul>', `
       {{/chirp}}
       {{#chirp}}
-        {{#entities.hashtags}}
+        ${settings.mute_hashtags ? `{{#entities.hashtags}}
           <li class="is-selectable">
             <a href="#" data-btd-action="mute-hashtag" data-btd-hashtag="{{text}}">Mute #{{text}}</a>
           </li>
-        {{/entities.hashtags}}
-        <li class="drp-h-divider"></li>
-        <li class="btd-action-menu-item is-selectable"><a href="https://favstar.fm/users/{{user.screenName}}/status/{{chirp.id}}" target="_blank" data-action="favstar">{{_i}}Show on Favstar{{/i}}</a></li>
+        {{/entities.hashtags}}` : ''}
+        ${settings.favstar_item ? `<li class="drp-h-divider"></li>
+        <li class="btd-action-menu-item is-selectable"><a href="https://favstar.fm/users/{{user.screenName}}/status/{{chirp.id}}" target="_blank" data-action="favstar">{{_i}}Show on Favstar{{/i}}</a></li>` : ''}
       {{/chirp}}
       </ul>
     `);
@@ -465,11 +534,100 @@ $('body').on('click', '#open-modal', (ev) => {
   }
 });
 
+const findBiggestBitrate = (videos) => {
+  return videos.reduce((max, x) => {
+    return (x.bitrate || -1) > (max.bitrate || -1) ? x : max;
+  });
+};
+
+const getMediaFromChirp = (chirp) => {
+  const urls = [];
+
+  chirp.entities.media.forEach((item) => {
+    switch (item.type) {
+      case 'video':
+      case 'animated_gif':
+        urls.push(findBiggestBitrate(item.video_info.variants).url);
+        break;
+      case 'photo':
+        urls.push(`${item.media_url_https}:orig`);
+        break;
+      default:
+        throw new Error(`unsupported media type: ${item.type}`);
+    }
+  });
+
+  return urls;
+};
+
+// Disable eslint so that we can keep a copy of the clipboard around.
+// eslint-disable-next-line
+const clipboard = new Clipboard('.btd-clipboard', {
+  text: (trigger) => {
+    return getMediaFromChirp(getChirpFromElement(trigger)).join('\n');
+  },
+}).on('success', (e) => {
+  const lineCount = e.text.split('\n').length;
+  TD.controller.progressIndicator.addMessage(`Success: Copied ${lineCount} link${lineCount > 1 ? 's' : ''}`);
+}).on('error', (e) => {
+  const lineCount = e.text.split('\n').length;
+  TD.controller.progressIndicator.addMessage(`Failed: Could not copy ${lineCount} link${lineCount > 1 ? 's' : ''}`);
+});
+
+$('body').on('click', '[data-btd-action="download-media"]', (ev) => {
+  ev.preventDefault();
+  const chirp = getChirpFromElement(ev.target);
+  const media = getMediaFromChirp(chirp);
+
+  media.forEach((item, i) => {
+    const downloadIndicator = TD.controller.progressIndicator.addTask(`Downloading ${media.length} file${media.length > 1 ? 's' : ''}`);
+    fetch(item)
+      .then(res => res.blob())
+      .then((blob) => {
+        const originalExtension = item.replace(/:[a-z]+$/, '').split('.').pop();
+        const originalFile = item.split('/').pop().split('.')[0];
+        FileSaver.saveAs(blob, `${chirp.user.screenName}-${originalFile}.${originalExtension}`);
+      }).then(() => {
+        TD.controller.progressIndicator.taskComplete(downloadIndicator, `Downloaded file${i + 1 > 1 ? 's' : ''} ${i + 1}/${media.length}`);
+      }, (reason) => {
+        TD.controller.progressIndicator.taskFailed(downloadIndicator, `Could not download file${i + 1 > 1 ? 's' : ''}  ${i + 1}/${media.length}, ${reason}`);
+      });
+  });
+});
+
 $('body').on('click', '[data-btd-action="mute-hashtag"]', (ev) => {
   ev.preventDefault();
   const hashtag = $(ev.target).data('btd-hashtag');
 
   TD.controller.filterManager.addFilter('phrase', `#${hashtag}`);
+});
+
+const defaultTitle = 'TweetDeck';
+const unreadTitle = '[*] TweetDeck';
+const countTitle = count => `[${count}] TweetDeck`;
+
+// This event triggers everytime the "read" change of a column changes in TweetDeck
+$(document).on('uiReadStateChange uiMessageUnreadCount', (ev, data) => {
+  // If we didn't enable the option, we stop here
+  if (!SETTINGS || !SETTINGS.update_title_on_notifications) {
+    return;
+  }
+
+  // We get the "read" flag from the event's payload
+
+  const { read, count } = data;
+
+  if (Number(count) > 0 && document.title === defaultTitle && document.title !== countTitle(count)) {
+    document.title = countTitle(count);
+  }
+
+  if (read === false && document.title === defaultTitle) {
+    document.title = unreadTitle;
+  }
+
+  if (document.title !== defaultTitle && $('.is-new, .js-unread-count.is-visible').length === 0) {
+    document.title = defaultTitle;
+  }
 });
 
 const isVisible = (elem) => {

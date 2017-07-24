@@ -2,7 +2,7 @@ import Mustache from 'mustache';
 /* eslint max-len: 0*/
 const templates = {
   preview: `
-  <div class="js-media media-preview position-rel">
+  <div class="js-media media-preview position-rel btd-media-thumbnail">
   <div {{#needsProvider}} data-btd-provider="{{provider}}" {{/needsProvider}} class="js-media-preview-container position-rel {{^isMediaPreviewLarge}}{{^isMediaPreviewCompact}}{{^isMediaPreviewInQuoted}}margin-vm{{/isMediaPreviewInQuoted}}{{/isMediaPreviewCompact}}{{/isMediaPreviewLarge}}  {{#isMediaPreviewSmall}}{{#isPossiblySensitive}}media-size-medium{{/isPossiblySensitive}}{{/isMediaPreviewSmall}} {{#isMediaPreviewCompact}}media-size-medium margin-t--8{{/isMediaPreviewCompact}} {{#isMediaPreviewInQuoted}}margin-tm{{/isMediaPreviewInQuoted}} {{#isAnimatedGif}}is-gif{{/isAnimatedGif}} {{#isVideo}}is-video{{/isVideo}} {{#isMediaPreviewLarge}}margin-tm item-box-full-bleed{{/isMediaPreviewLarge}}">
     {{#isMediaPreviewLarge}}
       <div class="media-caret"></div>

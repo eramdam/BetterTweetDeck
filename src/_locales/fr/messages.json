@@ -41,10 +41,10 @@
   "title_avatars": { "message": "Avatars & détails" },
   "old_replies": { "message": "Revenir à l'ancien style de mentions (pré 30/03/2017)" },
   "old_search": { "message": "Revenir à l'ancien fonctionnement de la recherche (pas de nouvelle colonne à chaque recherche)"},
-  "css_round_pic": { "message": "Avatars ronds" },
-  "css_bigger_emojis": { "message": "Emojis plus gros dans les tweets" },
-  "css_collapse_dms": { "message": "Masquer les DM lus" },
-  "css_show_verified": { "message": "Afficher les badges des comptes vérifiés par dessus les avatars" },
+  "css_round_pic": { "message": "Rendre les avatars ronds" },
+  "css_bigger_emojis": { "message": "Afficher les emojis plus gros dans les tweets" },
+  "css_collapse_dms": { "message": "Masquer les DMs lus" },
+  "css_show_verified": { "message": "Afficher les badges des comptes vérifiés au dessus des avatars" },
   "css_hide_context": { "message": "Masquer 'in reply to' sur les mentions" },
   "css_actions_on_right": { "message": "Afficher les actions de tweets sur la droite" },
   "css_actions_on_hover": { "message": "Afficher les actions de tweets au survol" },
@@ -57,6 +57,8 @@
   "flash_tweets": { "message": "Faire 'flasher' les nouveaux tweets dans :" },
   "flash_tweets_mentions": { "message": "les colonnes 'Mentions'" },
   "flash_tweets_all": { "message": "toutes les colonnes" },
+  
+  "update_title_on_notifications": { "message": "Afficher un indicateur de DMs/tweets non-lus dans le titre de l'onglet de TweetDeck" },
   
   "share_request": { "message": "Demander l'autorisation" },
   "share_granted": { "message": "Autorisation accordée !" },
@@ -71,16 +73,23 @@
   "no_gif_pp": { "message": "Arrêter les GIFs dans les avatars dans les colonnes" },
   "thumbnails_from": { "message": "Afficher les miniatures de :" },
 
-  "css_minimal_mode": { "message": "Activer le mode 'Minimaliste'" },
+  "css_minimal_mode": { "message": "Activer le thème 'Minimaliste'" },
   "css_no_play_btn": { "message": "Masquer les icônes de lecture sur les vidéos" },
   "css_hide_url_thumb": { "message": "Masquer les urls relatives aux miniatures (à la Twitter iOS/Android)" },
   "css_no_col_icns": { "message": "Masquer les icônes dans les entêtes de colonnes" },
-  "css_small_icns_compose": { "message": "Les icônes sont plus petites dans l'onglet 'Compose'" },
-  "css_gray_icns_notifs": { "message": "Les icônes de notification sont en niveaux de gris" },
+  "css_small_icns_compose": { "message": "Rendre les boutons plus petits dans l'onglet 'Compose'" },
+  "css_gray_icns_notifs": { "message": "Afficher les icônes de notifications en niveaux de gris." },
   "css_no_scrollbars": { "message": "Masquer les barres de défilement" },
+  "css_system_fonts": { "message": "Utiliser la police du système dans l'interface de TweetDeck" },
 
   "custom_width_columns": { "message": "Largeur personnalisée pour les colonnes:" },
   "custom_width_size": { "message": "Largeur (doit être valide en CSS)" },
+  
+  "regex_filter": { "message": "Activer le support des expressions régulières dans les filtres."},
+  "regex_filter_notice_text": { "message": "De part la manière dont fonctionne TweetDeck, les expressions régulières ne tiennent PAS compte de la casse!" },
+
+  "favstar_item": { "message": "Ajouter un item \"Show on favstar\" dans le menu d'un tweets"},
+  "mute_hashtags": { "message": "Ajouter des raccourcis pour filter les #hashtags dans le menu d'un tweet"},
 
   "btd_thx": { "message": "Merci d'avoir installé Better TweetDeck !" },
   "btd_get_started": { "message": "C'est parti !" },

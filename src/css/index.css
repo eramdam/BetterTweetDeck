@@ -16,7 +16,7 @@
 @import './features/no-bg-modal.css';
 @import './features/no-play-btn.css';
 @import './features/round-pic.css';
-@import './features/show-verified-redux.css';
+@import './features/show-verified.css';
 @import './features/small-icns.css';
 @import './features/slim_scrollbars.css';
 @import './features/username-typeahead.css';
@@ -184,4 +184,17 @@ body :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
 
 .btd-settings-btn .icon {
   color: #009cf0;
+}
+
+.tweet-detail .js-media.btd-media-thumbnail ~ .js-card-container {
+  display: none;
+}
+
+.icon-download:before {
+  content: "\F186";
+}
+
+.tweet-detail-actions.tweet-detail-actions {
+  display: flex;
+  padding-bottom: 8px;
 }

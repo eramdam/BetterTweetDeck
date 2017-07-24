@@ -261,3 +261,43 @@ button.plain-button {
     opacity: .8;
   }
 }
+
+@keyframes flashSetting {
+	from { background-color: rgba(255, 255, 0, 0.7); }
+	to { background-color: rgba(255, 255, 0, 0); }
+}
+
+.flash-setting {
+  animation: 2s flashSetting linear;
+}
+
+.settings-section.changelog [data-info-setting] {
+  position: relative;
+  cursor: pointer;
+  
+  &::before {
+    content: '\2197';
+    position: absolute;
+    height: 1.3em;
+    width: 1.3em;
+    font-size: 1.3em;
+    top: 56%;
+    left: 0;
+    transform: translate(-100%, -50%);
+
+    text-align: center;
+    color: black;
+    opacity: .4;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  &:hover::before {
+    color: #1586ce;
+    text-decoration: underline;
+    opacity: 1;    
+  }
+}

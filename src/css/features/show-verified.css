@@ -1,6 +1,10 @@
-.btd__show_verified :matches(.js-stream-item-content, .js-tweet) .item-img.btd-is-verified {
+/*
+General style setup
+ */
+.btd__show_verified .js-stream-item.btd-is-from-verified:not(.btd-is-from-verified-mini) > .js-stream-item-content > .js-tweet > .tweet-header .item-img.tweet-img,
+.btd__show_verified .js-stream-item.btd-is-from-verified-mini > .js-stream-item-content > .activity-header > .item-img {
   position: absolute;
-
+  
   &::before {
     content: "\f099";
     font-family: "tweetdeckregular";
@@ -9,8 +13,6 @@
     -webkit-font-smoothing: antialiased;
     line-height: 1;
     position: absolute;
-    bottom: -5px;
-    right: -4px;
     color: #55acee;
     width: 1em;
     height: 1em;
@@ -21,43 +23,38 @@
   }
 }
 
-.btd__show_verified :matches(.js-stream-item-content, .js-tweet) .item-img.btd-is-verified:not(.btd-is-verified-mini) {
+/* General style */
+.btd__show_verified .js-stream-item.btd-is-from-verified:not(.btd-is-from-verified-mini) > .js-stream-item-content > .js-tweet > .tweet-header .item-img.tweet-img {
+  /* Allows */
+  position: absolute;
+  
+  /* Helps with the positioning of the pseudo-element */
   height: 48px;
   width: 48px;
+  
+  &:before {
+    bottom: -3px;
+    right: -3px;
+  }
 }
-
-.btd__show_verified :matches(.js-stream-item-content, .js-tweet) .is-conversation .tweet-img.btd-is-verified:not(.btd-is-verified-mini) {
-  width: 32px;
-  height: 32px;
-}
-
-.btd__show_verified :matches(.js-stream-item-content, .js-tweet) .is-conversation .tweet-img.btd-is-verified::before {
-  bottom: -22px;
-  right: -19px;
-}
-
-.btd__show_verified .btd-is-verified-mini::before,
-.btd__show_verified .btd-is-verified-mini .tweet-img::before {
-  bottom: -5px;
-  right: -3px;
-  transform-origin: bottom right;
-  transform: scale(.8);
-  background-image: radial-gradient(20px, rgb(255, 255, 255) 30%, rgba(255, 255, 255, 0) 31%);
-  background-position: 0px 1px;
-}
-
-.btd__show_verified .activity-header.has-source-avatar .btd-is-verified-mini,
-.btd__show_verified .stream-item[data-key^="list_member_added"] .btd-is-verified-mini {
+/*
+ small avatar on activities ("Bob liked", "Alice retweeted", "Damien added you to a list", etc)
+ */
+.btd__show_verified .js-stream-item.btd-is-from-verified-mini > .js-stream-item-content > .activity-header > .item-img {
   position: relative;
+  
+  &::before {
+    bottom: -10px;
+    right: -3px;
+    transform-origin: bottom right;
+    transform: scale(.8);
+    background-image: radial-gradient(20px, rgb(255, 255, 255) 30%, rgba(255, 255, 255, 0) 31%);
+    background-position: 0px 1px;
+  }
 }
 
-.btd__show_verified .activity-header.has-source-avatar .btd-is-verified-mini::before {
-  top: 8px;
-  right: -3px;
-  bottom: auto;
-}
-
-.btd__show_verified .stream-item .sprite-verified-mini,
-.btd__show_verified .tweet .sprite-verified-mini {
+/* Hide the vanilla verified badge in columns */
+.btd__show_verified .stream-item .js-tweet:not(.txt-mute) > header .sprite-verified-mini {
   display: none;
 }
+

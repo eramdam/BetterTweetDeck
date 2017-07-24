@@ -1,10 +1,16 @@
 :tada: 3.4 :tada:
 ===============
-- [Feature] You can mute hashtags right from the tweet menu (thanks to [@pixeldesu](https://github.com/pixeldesu)) ([#180](https://github.com/eramdam/BetterTweetDeck/pull/180))
-- [Feature] You can now choose to use the default font of your OS inside TweetDeck's UI! (thanks to [@pixeldesu](https://github.com/pixeldesu)) ([#176](https://github.com/eramdam/BetterTweetDeck/pull/176))
-- [Feature] You can use [JavaScript regular expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions) as mute filters (thanks to [@pixeldesu](https://github.com/pixeldesu) ([#179](https://github.com/eramdam/BetterTweetDeck/pull/179))
-- [Improvement] [Bugfix] Usernames and verified badges should not disappear randomly anymore. BTD should be WAY ligther thanks to that :racehorse: [more technical details](https://github.com/eramdam/BetterTweetDeck/pull/178)
-- [Improvement] The settings button is better integrated inside of TweetDeck's UI (thanks to [@LeoColomb](https://github.com/LeoColomb)) ([#177](https://github.com/eramdam/BetterTweetDeck/pull/177))
+<ul>
+  <li data-info-setting="content/update_title_on_notifications">[Feature] You can update the title of TweetDeck's tab when there are unread tweets/DMs</li>
+  <li data-info-setting="content/mute_hashtags">[Feature] You can mute #hashtags right from the tweet menu (toggable in the settings) (thanks to [@pixeldesu](https://github.com/pixeldesu)) ([#180](https://github.com/eramdam/BetterTweetDeck/pull/180))</li>
+  <li data-info-setting="content/regex_filter">[Feature] You can use [JavaScript regular expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions) as mute filters (thanks to [@pixeldesu](https://github.com/pixeldesu) ([#179](https://github.com/eramdam/BetterTweetDeck/pull/179))</li>
+  <li data-info-setting="visual/system_fonts">[Feature] You can now choose to use the default font of your OS inside TweetDeck's UI! (thanks to [@pixeldesu](https://github.com/pixeldesu)) ([#176](https://github.com/eramdam/BetterTweetDeck/pull/176))</li>
+  <li data-info-setting="tweetsDisplay/bigger_emojis">[Bugfix] With the related settings, emojis were made bigger everywhere in TweetDeck and not just in tweets. This is fixed.</li>
+  <li>[Improvement] [Bugfix] Usernames and verified badges should not disappear randomly anymore. BTD should be WAY ligther/faster thanks to that :racehorse: [more technical details](https://github.com/eramdam/BetterTweetDeck/pull/178)</li>
+  <li>[Improvement] [Bugfix] When "Show Verified badges above avatars" settings was enabled, verified badges were hidden inside quoted tweets and tweets that were the target of a like/retweet. They should be displayed correctly now.</li>
+  <li data-info-setting="content/favstar_item">[Improvement] You can disable the "Show in Favstar" item in tweets' menu in the Content section</li>
+  <li>[Improvement] The settings button is better integrated inside of TweetDeck's UI (thanks to [@LeoColomb](https://github.com/LeoColomb)) ([#177](https://github.com/eramdam/BetterTweetDeck/pull/177))</li>
+</ul>
 
 3.3.10
 ===============
