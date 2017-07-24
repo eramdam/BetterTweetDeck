@@ -259,7 +259,11 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
     });
 
     if (mediaSize === 'large') {
-      $('.tweet.js-tweet', node)[0].insertAdjacentHTML('afterend', html);
+      $('.tweet.js-tweet, p.tweet-text.js-tweet-text.txt-large', node)[0].insertAdjacentHTML('afterend', html);
+      const detailMedia = $('.tweet-detail .js-media-preview-container');
+      if (detailMedia) {
+        detailMedia[0].classList.add('margin-v--15');
+      }
     } else {
       $('.tweet-body p, .tweet-text', node)[0].insertAdjacentHTML('afterend', html);
     }
