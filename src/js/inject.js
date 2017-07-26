@@ -133,6 +133,16 @@ const decorateChirp = (chirp) => {
 
 let bannerID = 1;
 
+TD.services.TwitterStatus.prototype.getOGContext = function getOGContext() {
+  const hasRepliers = this.getReplyingToUsers().length > 0;
+
+  if (!hasRepliers) {
+    return '';
+  }
+
+  return this.getReplyingToUsers().map(user => TD.ui.template.render('text/profile_link', { user })).concat('').join(' ');
+};
+
 const postMessagesListeners = {
   BTDC_getOpenModalTweetHTML: (ev, data) => {
     const { tweetKey, colKey, modalHtml } = data;
@@ -246,9 +256,18 @@ const postMessagesListeners = {
       };
     }
 
-    // Re-adds the RT/Like indicators
+    // Re-adds the RT/Like indicators on single tweets
     TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace('{{>status/tweet_single_footer}} </div>', '{{>status/tweet_single_footer}} <i class="sprite tweet-dogear"></i> </div>');
+
+    // Call the OG reply stuff
+    TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace('lang="{{lang}}">{{{htmlText}}}</p>', 'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>');
+
+    // Re-add the RT/like indicator on detailed tweet
     TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('</footer> {{/getMainTweet}}', '</footer> {{/getMainTweet}} <i class="sprite tweet-dogear"></i>');
+
+    TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('lang="{{lang}}">{{{htmlText}}}</p>', 'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>');
+
+    TD.mustaches['status/quoted_tweet.mustache'] = TD.mustaches['status/quoted_tweet.mustache'].replace('with-linebreaks">{{{htmlText}}}', 'with-linebreaks">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}');
 
     // Inject items into the interaction bar
     if (settings.hotlink_item || settings.download_item) {
