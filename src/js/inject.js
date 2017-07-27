@@ -432,10 +432,12 @@ $(document).on('uiColumnUpdateMediaPreview', (ev, data) => {
   proxyEvent('columnMediaSizeUpdated', { id, size: data.value });
 });
 
+$(document).one('dataColumns', () => {
+  proxyEvent('ready');
+});
+
 // We wait for the loading of the columns and we get all the media preview size
 $(document).one('dataColumnsLoaded', () => {
-  proxyEvent('ready');
-
   $('.js-column').each((i, el) => {
     let size = TD.storage.columnController.get($(el).data('column')).getMediaPreviewSize();
 
