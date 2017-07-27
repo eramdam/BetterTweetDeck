@@ -140,7 +140,14 @@ TD.services.TwitterStatus.prototype.getOGContext = function getOGContext() {
     return '';
   }
 
-  return this.getReplyingToUsers().map(user => TD.ui.template.render('text/profile_link', { user })).concat('').join(' ');
+  const repliers = this.getReplyingToUsers() || [];
+  const filtered = repliers.filter((user) => {
+    const str = `<a href="https://twitter.com/${user.screenName}/"`;
+
+    return this.htmlText.indexOf(str) !== 0;
+  });
+
+  return filtered.map(user => TD.ui.template.render('text/profile_link', { user })).concat('').join(' ');
 };
 
 const postMessagesListeners = {
