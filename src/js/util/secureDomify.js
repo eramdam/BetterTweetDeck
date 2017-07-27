@@ -17,6 +17,16 @@ export function getAttributeFromNode(selector, node, attribute) {
   return escapeHtml(attr);
 }
 
+const unsafeElements = ['script', 'style'];
+
 export function parse(html) {
-  return domify(html);
+  const doc = domify(html);
+
+  [...doc.querySelectorAll('*')].forEach((node) => {
+    if (unsafeElements.includes(node.nodeName.toLowerCase())) {
+      node.remove();
+    }
+  });
+
+  return doc;
 }
