@@ -3,6 +3,7 @@ import FileSaver from 'file-saver';
 import each from 'promise-each';
 import timestampOnElement from './util/timestamp';
 import { send as sendMessage, on as onMessage } from './util/messaging';
+import * as secureDomify from './util/secureDomify';
 import * as Thumbnails from './util/thumbnails';
 import * as Templates from './util/templates';
 import Emojis from './util/emojis';
@@ -138,11 +139,11 @@ function tweakClassesFromVisualSettings() {
     const styleTag = document.createElement('style');
     const safeValue = settings.custom_columns_width.size.replace(/;\{\}/g, '');
     styleTag.type = 'text/css';
-    styleTag.innerHTML = `
+    styleTag.appendChild(document.createTextNode(`
       body.btd__custom_column_size .column {
         width: ${safeValue} !important;
       }
-    `;
+    `));
     document.head.appendChild(styleTag);
   }
 }
@@ -234,6 +235,7 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
       type,
       provider,
     });
+    const previewNode = secureDomify.parse(html);
 
     const modalHtml = Templates.modalTemplate({
       imageUrl: origUrl,
@@ -244,9 +246,9 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
     });
 
     if (mediaSize === 'large') {
-      $('.tweet.js-tweet', node)[0].insertAdjacentHTML('afterend', html);
+      $('.tweet.js-tweet', node)[0].insertAdjacentElement('afterend', previewNode);
     } else {
-      $('.tweet-body p, .tweet-text', node)[0].insertAdjacentHTML('afterend', html);
+      $('.tweet-body p, .tweet-text', node)[0].insertAdjacentElement('afterend', previewNode);
     }
 
     $('.js-media-image-link', node)[0].addEventListener('click', (e) => {
@@ -277,7 +279,10 @@ function thumbnailsFromURLs(urls, node, mediaSize) {
 function addStickerToMessage(stickerObject, node) {
   const url = stickerObject.images.size_1x.url;
   const id = stickerObject.id;
-  const html = `<img src="${url}" class="btd-sticker-message" style="max-width: 72px;" />`;
+  const imgElement = document.createElement('img');
+  imgElement.src = url;
+  imgElement.className = 'btd-sticker-message';
+  imgElement.style = 'max-width: 72px;';
 
   if ($('.btd-sticker-message', node)) {
     return;
@@ -289,7 +294,7 @@ function addStickerToMessage(stickerObject, node) {
     link[0].classList.add('btd-isvishidden');
   }
 
-  $('.tweet-body p, .tweet-text', node)[0].insertAdjacentHTML('afterend', html);
+  $('.tweet-body p, .tweet-text', node)[0].insertAdjacentElement('afterend', imgElement);
 }
 
 /**
@@ -460,7 +465,7 @@ function tweetHandler(tweet, columnKey, parent) {
 
 function closeOpenModal() {
   $('#open-modal')[0].style.display = 'none';
-  $('#open-modal')[0].innerHTML = '';
+  $('#open-modal')[0].firstElementChild.remove();
 }
 
 function setMaxDimensionsOnElement(el) {
@@ -512,7 +517,8 @@ on('BTDC_ready', () => {
       <div class="nbfc padding-ts hide-condensed txt-size--16">BTD Settings</div>
     </a>
   `;
-  $('nav.app-navigator')[0].insertAdjacentHTML('afterbegin', settingsBtn);
+  const settingsBtnNode = secureDomify.parse(settingsBtn);
+  $('nav.app-navigator')[0].insertAdjacentElement('afterbegin', settingsBtnNode);
   $('.btd-settings-btn')[0].addEventListener('click', (e) => {
     e.preventDefault();
     window.open(settingsURL);
@@ -569,9 +575,11 @@ on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
   const { markup, modalHtml, chirp, colKey } = data;
 
   const openModal = $('#open-modal')[0];
-  openModal.innerHTML = modalHtml.replace('<div class="js-med-tweet med-tweet"></div>', `<div class="js-med-tweet med-tweet">${markup}</div>`);
+  const tweetMarkupString = modalHtml.replace('<div class="js-med-tweet med-tweet"></div>', `<div class="js-med-tweet med-tweet">${markup}</div>`);
+  const tweetNode = secureDomify.parse(tweetMarkupString);
+
+  openModal.appendChild(tweetNode);
   openModal.style.display = 'block';
-  // setMaxDimensionsOnModalImg();
   openModal.querySelector('img, iframe').onload = e => e.target.setAttribute('data-btd-loaded', 'true');
 
   if ($('[data-instgrm-version]', openModal)) {
