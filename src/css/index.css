@@ -205,7 +205,3 @@ body :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
     display: none;
   }  
 }
-
-.js-inline-reply {
-  max-height: none;
-}

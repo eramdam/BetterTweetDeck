@@ -277,7 +277,8 @@ const postMessagesListeners = {
 
 
     if (settings.old_replies) {
-      TD.mustaches['compose/reply_info.mustache'] = '<div class="other-replies "> Replying {{#recipients}} to <a href="#" class="js-other-replies-link other-replies-link" data-recipient-ids="{{userIds}}">{{#btd.fullReplyInfo}}{{userIds}}{{/btd.fullReplyInfo}}</a> {{/recipients}} </div>';
+      TD.mustaches['compose/reply_info.mustache'] = TD.mustaches['compose/reply_info.mustache'].replace('txt-ellipsis', '');
+      // TD.mustaches['compose/reply_info.mustache'] = '<div class="other-replies "> Replying {{#recipients}} to <a href="#" class="js-other-replies-link other-replies-link" data-recipient-ids="{{userIds}}">{{#btd.fullReplyInfo}}{{userIds}}{{/btd.fullReplyInfo}}</a> {{/recipients}} </div>';
     }
 
     // Re-adds the RT/Like indicators on single tweets
