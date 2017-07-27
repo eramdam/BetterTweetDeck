@@ -47,6 +47,7 @@
     "del": "3.0.0",
     "domify": "1.4.0",
     "emoji-js": "3.2.2",
+    "escape-html": "^1.0.3",
     "eslint": "4.0.0",
     "eslint-config-airbnb-base": "11.2.0",
     "eslint-plugin-import": "2.3.0",

@@ -1,4 +1,4 @@
-import domify from 'domify';
+import * as secureDomify from '../secureDomify';
 
 export default function ($) {
   return {
@@ -11,8 +11,8 @@ export default function ($) {
       return fetch($.getSafeURL(`${$.getEnpointFor('nicoseiga')}${id}`))
         .then($.statusAndText)
         .then((html) => {
-          const doc = domify(html);
-          const imgUrl = doc.querySelector('img').src.replace('q?', 'l?').replace('http', 'https');
+          const doc = secureDomify.parse(html);
+          const imgUrl = secureDomify.getAttributeFromNode('img', doc, 'src').replace('q?', 'l?').replace('http', 'https');
 
           return {
             type: 'image',

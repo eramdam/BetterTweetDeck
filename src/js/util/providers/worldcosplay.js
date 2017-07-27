@@ -1,4 +1,4 @@
-import domify from 'domify';
+import * as secureDomify from '../secureDomify';
 
 export default function ($) {
   return {
@@ -14,17 +14,17 @@ export default function ($) {
       return fetch($.getSafeURL(url))
         .then($.statusAndText)
         .then((html) => {
-          const doc = domify(html);
+          const doc = secureDomify.parse(html);
           let imgUrl;
           let thumbnailUrl;
           if (type === 'photo') {
-            imgUrl = doc.querySelector('.photo img').src;
-            thumbnailUrl = doc.querySelector('#photoPage').dataset.thumbnailUrl;
+            imgUrl = secureDomify.getAttributeFromNode('.photo img', doc, 'src');
+            thumbnailUrl = secureDomify.getAttributeFromNode('#photoPage', doc, 'data-thumbnail-url');
           } else if (type === 'instants') {
-            imgUrl = doc.querySelector('img.photo').src;
+            imgUrl = secureDomify.getAttributeFromNode('img.photo', doc, 'src');
             thumbnailUrl = imgUrl;
           } else if (type === 'collections') {
-            imgUrl = doc.querySelector('.photo-collection').dataset.coverPhotoUrl;
+            imgUrl = secureDomify.getAttributeFromNode('.photo-collection', doc, 'data-cover-photo-url');
             thumbnailUrl = imgUrl;
           } else {
             return undefined;
