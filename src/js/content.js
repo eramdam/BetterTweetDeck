@@ -148,6 +148,10 @@ function tweakClassesFromVisualSettings() {
     document.body.classList.add('btd__stars');
   }
 
+  if (settings.old_replies) {
+    document.body.classList.add('btd__old_replies');
+  }
+
   if (settings.custom_columns_width.enabled) {
     document.body.classList.add('btd__custom_column_size');
 

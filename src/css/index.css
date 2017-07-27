@@ -199,7 +199,13 @@ body :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
   padding-bottom: 8px;
 }
 
-.quoted-tweet .js-reply-info-container,
-.tweet-body > div > .other-replies {
-  display: none;
+.btd__old_replies {
+  .quoted-tweet .js-reply-info-container,
+  .tweet-body > div > .other-replies {
+    display: none;
+  }  
+}
+
+.js-inline-reply {
+  max-height: none;
 }
