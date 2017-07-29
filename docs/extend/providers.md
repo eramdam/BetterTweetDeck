@@ -41,14 +41,14 @@ These previews are mostly embeds or images, depending on service type.
     ```js
       import fetchPage from '../fetchPage.js';
     ```
-    * To properly work with the document you just loaded, you can import the `domify` module and use it like this:
+    * To properly work with the document you just loaded, you can import the `secureDomify` module and use it like this:
       ```js
-        import domify from 'domify';
+        import * as secureDomify from '../secureDomify';
 
         // data is the fetchPage response
-        const el = domify(data.currentTarget.response);
-        const thumbnail = el.querySelector('[property="twitter:image"]').content;
-        const embedURL = el.querySelector('[property="twitter:player"]').content;
+        const el = secureDomify.parse(data.currentTarget.response);
+        const thumbnail = secureDomify.getAttributeFromNode('[property="twitter:image"]', el, 'content');
+        const embedURL = secureDomify.getAttributeFromNode('[property="twitter:player"]', el, 'content');
       ```
 * Import your provider into [src/js/util/providers/index.js](https://github.com/eramdam/BetterTweetDeck/blob/master/src/js/util/providers/index.js):
   ```js
