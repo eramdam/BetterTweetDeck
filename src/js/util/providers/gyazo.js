@@ -1,4 +1,4 @@
-import domify from 'domify';
+import * as secureDomify from '../secureDomify';
 import fetchPage from '../fetchPage';
 
 export default function ($) {
@@ -33,8 +33,8 @@ export default function ($) {
             return null;
           }
 
-          const el = domify(data.currentTarget.response);
-          const thumbnail = el.querySelector('[name="twitter:image"]').content;
+          const el = secureDomify.parse(data.currentTarget.response);
+          const thumbnail = secureDomify.getAttributeFromNode('[name="twitter:image"]', el, 'content');
 
           return {
             type: 'video',

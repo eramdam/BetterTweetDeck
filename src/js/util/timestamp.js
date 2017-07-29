@@ -62,7 +62,7 @@ function timestampOnElement(element, dateString) {
 
   const d = getDateObject(dateString);
 
-  element.innerHTML = fecha.format(d, getFormat(d, timestampMode));
+  element.textContent = fecha.format(d, getFormat(d, timestampMode));
 }
 
 module.exports = timestampOnElement;

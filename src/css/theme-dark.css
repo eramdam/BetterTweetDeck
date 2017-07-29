@@ -23,9 +23,9 @@
     }
   }
 
-  .dropdown-menu li > *,
+  .dropdown-menu li > a,
   .typeahead.lst :matches(.fullname, .username, p) {
-    color: color(#8899a6 saturation(0%));
+    color: color(#8899a6 saturation(0%)) !important;
   }
 
   .typeahead.lst :matches(.fullname, .username, p) {
