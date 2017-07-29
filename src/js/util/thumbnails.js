@@ -22,6 +22,7 @@ const endpoints = {
   photozou: 'https://api.photozou.jp/rest/',
   googleplus: 'https://picasaweb.google.com/data/feed/api/',
   gyazo: 'https://api.gyazo.com/api/oembed?url=',
+  gfycat: 'https://api.gfycat.com/v1/oembed?url=',
 };
 
 let providersSettings;

@@ -7,11 +7,11 @@ export default function ($) {
     re: /gfycat.com/,
     default: true,
     callback: (url) => {
-      return fetch(`${$.getEnpointFor('noembed')}${url}`)
+      return fetch(`${$.getEnpointFor('gfycat')}${url}`)
         .then($.statusAndJson)
         .then((data) => {
           let tbUrl = data.thumbnail_url;
-          const ID = parseURL(data.url).segments[0];
+          const ID = parseURL(url).segments[0];
 
           if (!data.thumbnail_url) {
             tbUrl = `https://thumbs.gfycat.com/${ID}-poster.jpg`;
