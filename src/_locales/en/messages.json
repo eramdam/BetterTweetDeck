@@ -90,8 +90,8 @@
 
   "favstar_item": { "message": "Add a \"Show in Favstar\" item in tweets' menu"},
   "mute_hashtags": { "message": "Add shortcuts to mute #hashtags in tweets' menu"},
-  "hotlink_item": { "message": "Add shortcut to hotlink all tweet media"},
-  "download_item": { "message": "Add shortcut to download all tweet media"},
+  "hotlink_item": { "message": "Add shortcut to copy the links of all media in a tweet"},
+  "download_item": { "message": "Add shortcut to download all media of a tweet"},
 
   "btd_thx": { "message": "Thanks for installing Better TweetDeck!" },
   "btd_get_started": { "message": "Let's get started!" },

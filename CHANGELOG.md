@@ -1,4 +1,14 @@
-:tada: 3.4 :tada:
+:tada: 3.4.1 :tada:
+===============
+<ul>
+  <li>[Feature] [Bugfix] Rejoice, old replies are back! Due to technical limitations, this only affects the display in columns though.</li>
+  <li data-info-setting="content/hotlink_item">[Feature] You add a shortcut to copy the links of all media in a tweet (thanks to [@EntranceJew](https://github.com/EntranceJew) ([#190](https://github.com/eramdam/BetterTweetDeck/pull/190)))</li>
+  <li data-info-setting="content/download_item">[Feature] You add a shortcut to download all the media in a tweet (thanks to [@EntranceJew](https://github.com/EntranceJew) ([#190](https://github.com/eramdam/BetterTweetDeck/pull/190)))</li>
+  <li>[Bugfix] The dropdown menus in dark theme should be legible again</li>
+  <li>[Improvement] Some changes have been made under the hood to improve performances and security. Kudos to the Mozilla review team for advices!</li>
+</ul>
+
+3.4
 ===============
 <ul>
   <li data-info-setting="content/update_title_on_notifications">[Feature] You can update the title of TweetDeck's tab when there are unread tweets/DMs</li>
