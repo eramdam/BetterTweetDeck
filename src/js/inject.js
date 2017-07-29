@@ -133,6 +133,23 @@ const decorateChirp = (chirp) => {
 
 let bannerID = 1;
 
+TD.services.TwitterStatus.prototype.getOGContext = function getOGContext() {
+  const hasRepliers = this.getReplyingToUsers().length > 0;
+
+  if (!hasRepliers) {
+    return '';
+  }
+
+  const repliers = this.getReplyingToUsers() || [];
+  const filtered = repliers.filter((user) => {
+    const str = `<a href="https://twitter.com/${user.screenName}/"`;
+
+    return this.htmlText.indexOf(str) !== 0;
+  });
+
+  return filtered.map(user => TD.ui.template.render('text/profile_link', { user })).concat('').join(' ');
+};
+
 const postMessagesListeners = {
   BTDC_getOpenModalTweetHTML: (ev, data) => {
     const { tweetKey, colKey, modalHtml } = data;
@@ -190,14 +207,9 @@ const postMessagesListeners = {
     const { settings } = data;
     SETTINGS = settings;
 
-    const tasks = TD.controller.scheduler._tasks;
     // We delete the callback for the timestamp task so the content script can do it itself
     if (settings.ts !== 'relative') {
-      Object.keys(tasks).forEach((key) => {
-        if (tasks[key].period === 30000) {
-          tasks[key].callback = () => false;
-        }
-      });
+      TD.ui.updates.refreshTimestamps = () => false;
     }
 
     if (settings.old_replies) {
@@ -220,6 +232,23 @@ const postMessagesListeners = {
           const val = render ? render(input) : Hogan.compile(input).render(this);
 
           return val.match(/https:\/\/(?:www.|)twitter.com\/(?:@|)([A-Za-z0-9_]+)/) && val.match(/https:\/\/(?:www.|)twitter.com\/(?:@|)([A-Za-z0-9_]+)/)[1];
+        };
+      },
+      fullReplyInfo: function fullReplyInfo() {
+        return function omg(input, render) {
+          const userIds = render ? render(input) : Hogan.compile(input).render(this);
+          const ids = userIds.split(',');
+          const users = ids.reduce((userList, userId) => {
+            const { results } = TD.cache.twitterUsers.getById(userId);
+
+            return [...userList, results[0]];
+          }, []).filter(u => u);
+
+          if (users.length === 0) {
+            return '';
+          }
+
+          return users.map(user => `@${user.screenName}`).join(' ');
         };
       },
     };
@@ -246,9 +275,24 @@ const postMessagesListeners = {
       };
     }
 
-    // Re-adds the RT/Like indicators
+    // Re-adds the RT/Like indicators on single tweets
     TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace('{{>status/tweet_single_footer}} </div>', '{{>status/tweet_single_footer}} <i class="sprite tweet-dogear"></i> </div>');
+
+    // Call the OG reply stuff
+    if (settings.old_replies) {
+      TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace('lang="{{lang}}">{{{htmlText}}}</p>', 'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>');
+    }
+
+    // Re-add the RT/like indicator on detailed tweet
     TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('</footer> {{/getMainTweet}}', '</footer> {{/getMainTweet}} <i class="sprite tweet-dogear"></i>');
+
+    if (settings.old_replies) {
+      TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('lang="{{lang}}">{{{htmlText}}}</p>', 'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>');
+    }
+
+    if (settings.old_replies) {
+      TD.mustaches['status/quoted_tweet.mustache'] = TD.mustaches['status/quoted_tweet.mustache'].replace('with-linebreaks">{{{htmlText}}}', 'with-linebreaks">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}');
+    }
 
     // Inject items into the interaction bar
     if (settings.hotlink_item || settings.download_item) {
@@ -417,10 +461,12 @@ $(document).on('uiColumnUpdateMediaPreview', (ev, data) => {
   proxyEvent('columnMediaSizeUpdated', { id, size: data.value });
 });
 
+$(document).one('dataColumns', () => {
+  proxyEvent('ready');
+});
+
 // We wait for the loading of the columns and we get all the media preview size
 $(document).one('dataColumnsLoaded', () => {
-  proxyEvent('ready');
-
   $('.js-column').each((i, el) => {
     let size = TD.storage.columnController.get($(el).data('column')).getMediaPreviewSize();
 

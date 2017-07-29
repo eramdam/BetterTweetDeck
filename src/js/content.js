@@ -19,23 +19,24 @@ let settings;
  */
 const COLUMNS_MEDIA_SIZES = new Map();
 
+const scripts = [
+  chrome.extension.getURL('js/inject.js'),
+  chrome.extension.getURL('embeds.js'),
+];
+
+scripts.forEach((src) => {
+  const el = document.createElement('script');
+  el.src = src;
+  document.head.appendChild(el);
+});
+
 /**
  * Injecting inject.js in head before doing anything else
  */
 
 sendMessage({ action: 'get_settings' }, (response) => {
   settings = response.settings;
-  const scripts = [
-    chrome.extension.getURL('js/inject.js'),
-    chrome.extension.getURL('embeds.js'),
-  ];
-
-  scripts.forEach((src) => {
-    const el = document.createElement('script');
-    el.src = src;
-    document.head.appendChild(el);
-  });
-
+  sendEvent('settingsReady', { settings });
   const getFontFile = format => chrome.extension.getURL(`fonts/tweetdeck-regular-webfont-old.${format}`);
 
   const style = document.createElement('style');
@@ -130,6 +131,10 @@ function tweakClassesFromVisualSettings() {
 
   if (settings.no_hearts) {
     document.body.classList.add('btd__stars');
+  }
+
+  if (settings.old_replies) {
+    document.body.classList.add('btd__old_replies');
   }
 
   if (settings.custom_columns_width.enabled) {
@@ -501,7 +506,6 @@ window.addEventListener('resize', setMaxDimensionsOnModalImg);
 // Prepare to know when TD is ready
 on('BTDC_ready', () => {
   tweakClassesFromVisualSettings();
-  sendEvent('settingsReady', { settings });
   // Refresh timestamps once and then set the interval
   refreshTimestamps();
   setInterval(refreshTimestamps, TIMESTAMP_INTERVAL);
