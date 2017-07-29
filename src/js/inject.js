@@ -398,11 +398,10 @@ const switchThemeClass = () => {
   document.body.dataset.btdtheme = TD.settings.getTheme();
 };
 
-const handleInsertedNode = (ev) => {
-  const target = ev.target;
+const handleInsertedNode = (element) => {
   // If the target of the event contains mediatable then we are inside the media modal
-  if (target.classList && target.classList.contains('js-mediatable')) {
-    const chirpKey = target.querySelector('[data-key]').getAttribute('data-key');
+  if (element.classList && element.classList.contains('js-mediatable')) {
+    const chirpKey = element.querySelector('[data-key]').getAttribute('data-key');
     const chirpKeyEl = document.querySelector(`[data-column] [data-key="${chirpKey}"]`);
     const colKey = chirpKeyEl && chirpKeyEl.closest('[data-column]').getAttribute('data-column');
 
@@ -420,12 +419,12 @@ const handleInsertedNode = (ev) => {
     return;
   }
 
-  if (!target.hasAttribute || !target.hasAttribute('data-key')) {
+  if (!element.hasAttribute || !element.hasAttribute('data-key')) {
     return;
   }
 
-  const chirpKey = target.getAttribute('data-key');
-  const colKey = target.closest('.js-column').getAttribute('data-column');
+  const chirpKey = element.getAttribute('data-key');
+  const colKey = element.closest('.js-column').getAttribute('data-column');
 
   const chirp = getChirpFromKey(chirpKey, colKey);
 
@@ -436,7 +435,12 @@ const handleInsertedNode = (ev) => {
   proxyEvent('gotChirpForColumn', { chirp: decorateChirp(chirp), colKey });
 };
 
-document.addEventListener('DOMNodeInserted', handleInsertedNode);
+// document.addEventListener('DOMNodeInserted', handleInsertedNode);
+// document.addEventListener('DOMNodeInserted', handleInsertedNode);
+const observer = new MutationObserver(mutations => mutations.forEach((mutation) => {
+  [...mutation.addedNodes].forEach(handleInsertedNode);
+}));
+observer.observe(document, { subtree: true, childList: true });
 
 // TD Events
 $(document).on('dataColumns', (ev, data) => {

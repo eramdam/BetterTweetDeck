@@ -170,7 +170,7 @@ export default function buildEmojiPicker(rebuild = false) {
   emojiHolder.innerHTML = emojiPickerMarkup;
 
   if (!rebuild) {
-    $('.js-add-emojis')[0].insertAdjacentHTML('afterend', emojiHolder.outerHTML);
+    $('.js-add-emojis')[0].insertAdjacentElement('afterend', emojiHolder);
 
     $('.js-add-emojis')[0].addEventListener('click', () => {
       const emojiPop = $('.emoji-popover')[0];

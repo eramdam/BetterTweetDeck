@@ -1,4 +1,4 @@
-import domify from 'domify';
+import * as secureDomify from '../secureDomify';
 import parseURL from '../parseUrl';
 import fetchPage from '../fetchPage';
 
@@ -22,11 +22,11 @@ export default function ($) {
             return null;
           }
 
-          const el = domify(data.currentTarget.response);
-          const tbUrl = el.querySelector('[name="twitter:image"]').content;
-          const embedURL = el.querySelector('[name="twitter:player"]').content;
-          const height = el.querySelector('[name="twitter:player:height"]').content;
-          const width = el.querySelector('[name="twitter:player:width"]').content;
+          const el = secureDomify.parse(data.currentTarget.response);
+          const tbUrl = secureDomify.getAttributeFromNode('[name="twitter:image"]', el, 'content');
+          const embedURL = secureDomify.getAttributeFromNode('[name="twitter:player"]', el, 'content');
+          const height = secureDomify.getAttributeFromNode('[name="twitter:player:height"]', el, 'content');
+          const width = secureDomify.getAttributeFromNode('[name="twitter:player:width"]', el, 'content');
 
           return {
             type: 'video',

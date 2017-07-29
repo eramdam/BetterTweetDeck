@@ -1,5 +1,5 @@
-import domify from 'domify';
 import fetchPage from '../fetchPage';
+import * as secureDomify from '../secureDomify';
 
 export default function ($) {
   return {
@@ -12,11 +12,16 @@ export default function ($) {
         return null;
       }
 
-      const el = domify(data.currentTarget.response);
-      const thumbnail = el.querySelector('[property="twitter:image"]').content;
-      const embedURL = el.querySelector('[property="twitter:player"]').content;
-      const height = el.querySelector('[property="twitter:player:height"]').content;
-      const width = el.querySelector('[property="twitter:player:width"]').content;
+      const el = secureDomify.parse(data.currentTarget.response);
+      let thumbnail = secureDomify.getAttributeFromNode('[property="og:image"]', el, 'content');
+
+      if (!thumbnail) {
+        thumbnail = secureDomify.getAttributeFromNode('[property="twitter:image"]', el, 'content');
+      }
+
+      const embedURL = secureDomify.getAttributeFromNode('[property="twitter:player"]', el, 'content');
+      const height = secureDomify.getAttributeFromNode('[property="twitter:player:height"]', el, 'content');
+      const width = secureDomify.getAttributeFromNode('[property="twitter:player:width"]', el, 'content');
 
       if (!thumbnail || !embedURL) {
         return null;
