@@ -223,7 +223,6 @@ const postMessagesListeners = {
 
     TD.globalRenderOptions.btd = {
       // Use with
-      // <div class="bg-r-white txt-seamful-black">
       // {{#btd.usernameFromURL}}myProfileURL{{/btd.usernameFromURL}}
       usernameFromURL: function usernameFromURL() {
         return function what(input, render) {
@@ -232,23 +231,6 @@ const postMessagesListeners = {
           const val = render ? render(input) : Hogan.compile(input).render(this);
 
           return val.match(/https:\/\/(?:www.|)twitter.com\/(?:@|)([A-Za-z0-9_]+)/) && val.match(/https:\/\/(?:www.|)twitter.com\/(?:@|)([A-Za-z0-9_]+)/)[1];
-        };
-      },
-      fullReplyInfo: function fullReplyInfo() {
-        return function omg(input, render) {
-          const userIds = render ? render(input) : Hogan.compile(input).render(this);
-          const ids = userIds.split(',');
-          const users = ids.reduce((userList, userId) => {
-            const { results } = TD.cache.twitterUsers.getById(userId);
-
-            return [...userList, results[0]];
-          }, []).filter(u => u);
-
-          if (users.length === 0) {
-            return '';
-          }
-
-          return users.map(user => `@${user.screenName}`).join(' ');
         };
       },
     };
@@ -275,24 +257,20 @@ const postMessagesListeners = {
       };
     }
 
-    // Re-adds the RT/Like indicators on single tweets
-    TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace('{{>status/tweet_single_footer}} </div>', '{{>status/tweet_single_footer}} <i class="sprite tweet-dogear"></i> </div>');
-
     // Call the OG reply stuff
     if (settings.old_replies) {
+      // In single tweets
       TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace('lang="{{lang}}">{{{htmlText}}}</p>', 'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>');
+      // In detailed tweets
+      TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('lang="{{lang}}">{{{htmlText}}}</p>', 'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>');
+      // In quote tweets
+      TD.mustaches['status/quoted_tweet.mustache'] = TD.mustaches['status/quoted_tweet.mustache'].replace('with-linebreaks">{{{htmlText}}}', 'with-linebreaks">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}');
     }
 
     // Re-add the RT/like indicator on detailed tweet
     TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('</footer> {{/getMainTweet}}', '</footer> {{/getMainTweet}} <i class="sprite tweet-dogear"></i>');
-
-    if (settings.old_replies) {
-      TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('lang="{{lang}}">{{{htmlText}}}</p>', 'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>');
-    }
-
-    if (settings.old_replies) {
-      TD.mustaches['status/quoted_tweet.mustache'] = TD.mustaches['status/quoted_tweet.mustache'].replace('with-linebreaks">{{{htmlText}}}', 'with-linebreaks">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}');
-    }
+    // Re-adds the RT/Like indicators on single tweets
+    TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace('{{>status/tweet_single_footer}} </div>', '{{>status/tweet_single_footer}} <i class="sprite tweet-dogear"></i> </div>');
 
     // Inject items into the interaction bar
     if (settings.hotlink_item || settings.download_item) {
