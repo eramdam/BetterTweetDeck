@@ -223,7 +223,6 @@ const postMessagesListeners = {
 
     TD.globalRenderOptions.btd = {
       // Use with
-      // <div class="bg-r-white txt-seamful-black">
       // {{#btd.usernameFromURL}}myProfileURL{{/btd.usernameFromURL}}
       usernameFromURL: function usernameFromURL() {
         return function what(input, render) {
@@ -275,16 +274,20 @@ const postMessagesListeners = {
       };
     }
 
-    // Re-adds the RT/Like indicators on single tweets
-    TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace('{{>status/tweet_single_footer}} </div>', '{{>status/tweet_single_footer}} <i class="sprite tweet-dogear"></i> </div>');
-
     // Call the OG reply stuff
     if (settings.old_replies) {
+      // In single tweets
       TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace('lang="{{lang}}">{{{htmlText}}}</p>', 'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>');
+      // In detailed tweets
+      TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('lang="{{lang}}">{{{htmlText}}}</p>', 'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>');
+      // In quote tweets
+      TD.mustaches['status/quoted_tweet.mustache'] = TD.mustaches['status/quoted_tweet.mustache'].replace('with-linebreaks">{{{htmlText}}}', 'with-linebreaks">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}');
     }
 
     // Re-add the RT/like indicator on detailed tweet
     TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('</footer> {{/getMainTweet}}', '</footer> {{/getMainTweet}} <i class="sprite tweet-dogear"></i>');
+    // Re-adds the RT/Like indicators on single tweets
+    TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace('{{>status/tweet_single_footer}} </div>', '{{>status/tweet_single_footer}} <i class="sprite tweet-dogear"></i> </div>');
 
     if (settings.old_replies) {
       TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('lang="{{lang}}">{{{htmlText}}}</p>', 'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>');
