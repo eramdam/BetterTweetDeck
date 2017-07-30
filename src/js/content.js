@@ -141,7 +141,12 @@ function tweakClassesFromVisualSettings() {
     document.body.classList.add('btd__custom_column_size');
 
     const styleTag = document.createElement('style');
-    const safeValue = settings.custom_columns_width.size.replace(/;\{\}/g, '');
+    let safeValue = settings.custom_columns_width.size.replace(/;\{\}/g, '');
+
+    if (!safeValue.includes('px') || !safeValue.includes('em') || !safeValue.includes('%') || !safeValue.includes('vw') || !safeValue.includes('vh') || !safeValue.includes('in') || !safeValue.includes('pt')) {
+      safeValue = `${safeValue}px`;
+    }
+
     styleTag.type = 'text/css';
     styleTag.appendChild(document.createTextNode(`
       body.btd__custom_column_size .column {
