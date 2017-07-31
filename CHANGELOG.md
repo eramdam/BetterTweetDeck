@@ -1,4 +1,4 @@
-:tada: 3.4.1 :tada:
+:tada: 3.4.1/3.4.2 :tada:
 ===============
 <ul>
   <li>[Feature] [Bugfix] Rejoice, old replies are back! Due to technical limitations, this only affects the display in columns though.</li>
@@ -7,6 +7,7 @@
   <li>[Bugfix] The dropdown menus in dark theme should be legible again</li>
   <li>[Bugfix] Gfycat thumbnails now use the official oEmbed endpoint. So they should work correctly now.</li>
   <li>[Improvement] Some changes have been made under the hood to improve performances and security. Kudos to the Mozilla review team for advices!</li>
+  <li>[Bugfix] Removed strict check on the custom column width value</li>
 </ul>
 
 3.4
