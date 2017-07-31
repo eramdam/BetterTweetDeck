@@ -233,23 +233,6 @@ const postMessagesListeners = {
           return val.match(/https:\/\/(?:www.|)twitter.com\/(?:@|)([A-Za-z0-9_]+)/) && val.match(/https:\/\/(?:www.|)twitter.com\/(?:@|)([A-Za-z0-9_]+)/)[1];
         };
       },
-      fullReplyInfo: function fullReplyInfo() {
-        return function omg(input, render) {
-          const userIds = render ? render(input) : Hogan.compile(input).render(this);
-          const ids = userIds.split(',');
-          const users = ids.reduce((userList, userId) => {
-            const { results } = TD.cache.twitterUsers.getById(userId);
-
-            return [...userList, results[0]];
-          }, []).filter(u => u);
-
-          if (users.length === 0) {
-            return '';
-          }
-
-          return users.map(user => `@${user.screenName}`).join(' ');
-        };
-      },
     };
 
     if (settings.regex_filter) {
@@ -464,12 +447,9 @@ $(document).on('uiColumnUpdateMediaPreview', (ev, data) => {
   proxyEvent('columnMediaSizeUpdated', { id, size: data.value });
 });
 
-$(document).one('dataColumns', () => {
-  proxyEvent('ready');
-});
-
 // We wait for the loading of the columns and we get all the media preview size
 $(document).one('dataColumnsLoaded', () => {
+  proxyEvent('ready');
   $('.js-column').each((i, el) => {
     let size = TD.storage.columnController.get($(el).data('column')).getMediaPreviewSize();
 
