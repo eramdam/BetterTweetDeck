@@ -2,10 +2,10 @@
 ===============
 <ul>
   <li>[Feature] [Bugfix] Rejoice, old replies are back! Due to technical limitations, this only affects the display in columns though.</li>
-  <li data-info-setting="content/hotlink_item">[Feature] You add a shortcut to copy the links of all media in a tweet (thanks to [@EntranceJew](https://github.com/EntranceJew) ([#190](https://github.com/eramdam/BetterTweetDeck/pull/190)))</li>
-  <li data-info-setting="content/download_item">[Feature] You add a shortcut to download all the media in a tweet (thanks to [@EntranceJew](https://github.com/EntranceJew) ([#190](https://github.com/eramdam/BetterTweetDeck/pull/190)))</li>
+  <li data-info-setting="content/hotlink_item">[Feature] You can add a shortcut to copy the links of all media in a tweet (thanks to [@EntranceJew](https://github.com/EntranceJew) ([#190](https://github.com/eramdam/BetterTweetDeck/pull/190)))</li>
+  <li data-info-setting="content/download_item">[Feature] You can add a shortcut to download all the media in a tweet (thanks to [@EntranceJew](https://github.com/EntranceJew) ([#190](https://github.com/eramdam/BetterTweetDeck/pull/190)))</li>
   <li>[Bugfix] The dropdown menus in dark theme should be legible again</li>
-  <li>[Bugfix] Gfycat thumbnails now use the officiel oEmbed endpoint. So they should work correctly now.</li>
+  <li>[Bugfix] Gfycat thumbnails now use the official oEmbed endpoint. So they should work correctly now.</li>
   <li>[Improvement] Some changes have been made under the hood to improve performances and security. Kudos to the Mozilla review team for advices!</li>
 </ul>
 
