@@ -18,11 +18,11 @@ export default function ($) {
 
       if (isClip) {
         return fetchPage(url).then((data) => {
-          if (data.currentTarget.status !== 200) {
+          if (data.target.status !== 200) {
             return null;
           }
 
-          const el = secureDomify.parse(data.currentTarget.response);
+          const el = secureDomify.parse(data.target.response);
           const tbUrl = secureDomify.getAttributeFromNode('[name="twitter:image"]', el, 'content');
           const embedURL = secureDomify.getAttributeFromNode('[name="twitter:player"]', el, 'content');
           const height = secureDomify.getAttributeFromNode('[name="twitter:player:height"]', el, 'content');

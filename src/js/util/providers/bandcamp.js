@@ -8,11 +8,11 @@ export default function ($) {
     re: /bandcamp.com\/(?:album|track)/,
     default: true,
     callback: url => fetchPage(url).then((data) => {
-      if (data.currentTarget.status !== 200) {
+      if (data.target.status !== 200) {
         return null;
       }
 
-      const el = secureDomify.parse(data.currentTarget.response);
+      const el = secureDomify.parse(data.target.response);
       let thumbnail = secureDomify.getAttributeFromNode('[property="og:image"]', el, 'content');
 
       if (!thumbnail) {
