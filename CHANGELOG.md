@@ -1,4 +1,10 @@
-:tada: 3.4.1/3.4.2 :tada:
+:tada: 3.4.3 :tada:
+===============
+- [Meta] **PLEASE READ IF YOU USE FIREFOX**: Due to Mozilla's policy on 3rd party code in add-ons I had to remove the Instagram-related code from the Firefox build. It's annoying, but don't blame me. I'll be working on an alternative but it's not as easy as it sounds.
+- [Bugfix] The custom column width setting should work like it did before.
+- [Bugfix] Some thumbnails were not showing on Firefox
+
+3.4.1/3.4.2
 ===============
 <ul>
   <li>[Feature] [Bugfix] Rejoice, old replies are back! Due to technical limitations, this only affects the display in columns though.</li>
