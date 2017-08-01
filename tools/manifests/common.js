@@ -6,7 +6,7 @@ const packageJson = JSON.parse(fs.readFileSync(`${__dirname}/../../package.json`
 module.exports = {
   name: 'Better TweetDeck 3',
   short_name: 'BetterTDeck',
-  version: packageJson.version,
+  version: packageJson.extension_version,
   manifest_version: 2,
   homepage_url: 'https://github.com/eramdam/BetterTweetDeck/',
   content_scripts: [{
