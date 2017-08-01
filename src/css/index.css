@@ -203,6 +203,31 @@ body :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
   .quoted-tweet .js-reply-info-container,
   .tweet-body > div > .other-replies,
   .tweet-detail > div > .other-replies {
+    font-size: 0;
+    height: 0;
+  }
+}
+
+.btd__old_replies .js-stream-item:not(.btd-is-retweet) .js-tweet:not(.txt-mute) .thread ~ .tweet-body {
+  .other-replies:before {
     display: none;
-  }  
+  }
+}
+
+.btd__old_replies .js-stream-item:not(.btd-is-retweet) .js-tweet:not(.txt-mute) .tweet-body {
+  .other-replies {
+    font-size: 0;
+    height: 0;
+  }
+
+  .other-replies:before {
+    content: "\f151";
+    position: absolute;
+    font-family: "tweetdeckregular";
+    left: 29px;
+    font-size: 14px;
+    z-index: 99;
+    color: inherit;
+    top: 60px
+  }
 }
