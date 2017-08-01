@@ -1,6 +1,6 @@
 :tada: 3.4.3 :tada:
 ===============
-- [Meta] **PLEASE READ IF YOU USE FIREFOX**: Due to Mozilla's policy on 3rd party code in add-ons I had to remove the Instagram-related code from the Firefox build. It's annoying, but don't blame me. I'll be working on an alternative but it's not as easy as it sounds.
+- [Meta] **PLEASE READ IF YOU USE FIREFOX**: Due to Mozilla's policy about 3rd party code in add-ons I had to remove the Instagram-related code from the Firefox build. It's annoying, but don't blame me, I'm just following the rules :/. I'll be working on an alternative but it's not as easy as it sounds.
 - [Bugfix] The custom column width setting should work like it did before.
 - [Bugfix] Some thumbnails were not showing on Firefox
 
