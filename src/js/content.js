@@ -143,9 +143,7 @@ function tweakClassesFromVisualSettings() {
     document.body.classList.add('btd__custom_column_size');
 
     const styleTag = document.createElement('style');
-    let safeValue = settings.custom_columns_width.size.replace(/;\{\}/g, '');
-
-    safeValue = `${safeValue}px`;
+    const safeValue = settings.custom_columns_width.size.replace(/;\{\}/g, '');
 
     styleTag.type = 'text/css';
     styleTag.appendChild(document.createTextNode(`
