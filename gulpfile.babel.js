@@ -216,7 +216,7 @@ const stringSrc = (filename, string) => {
 const browserManifest = require(`./tools/manifests/${browser}.js`);
 
 gulp.task('manifest', () => {
-  const manifestJson = JSON.stringify(browserManifest);
+  const manifestJson = JSON.stringify(browserManifest, null, 2);
 
   return stringSrc('manifest.json', manifestJson).pipe(gulp.dest('./dist/'));
 });
