@@ -136,7 +136,7 @@ let bannerID = 1;
 TD.services.TwitterStatus.prototype.getOGContext = function getOGContext() {
   const hasRepliers = this.getReplyingToUsers().length > 0;
 
-  if (!hasRepliers) {
+  if (!hasRepliers || this.user.screenName === this.inReplyToScreenName) {
     return '';
   }
 
