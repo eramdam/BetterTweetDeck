@@ -21,8 +21,11 @@ const COLUMNS_MEDIA_SIZES = new Map();
 
 const scripts = [
   chrome.extension.getURL('js/inject.js'),
-  chrome.extension.getURL('embeds.js'),
 ];
+
+if (!BHelper.isFirefox) {
+  scripts.push(chrome.extension.getURL('embeds.js'));
+}
 
 scripts.forEach((src) => {
   const el = document.createElement('script');

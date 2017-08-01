@@ -180,7 +180,11 @@ gulp.task('lint', () => (
 *
 */
 gulp.task('build', (done) => {
-  const tasks = ['clean', 'manifest', ['js', 'static', 'css', 'css-options'], 'static-news', 'embed_instagram', 'zip'];
+  let tasks = ['clean', 'manifest', ['js', 'static', 'css', 'css-options'], 'static-news', 'embed_instagram', 'zip'];
+
+  if (browser === 'firefox') {
+    tasks = tasks.filter(t => t !== 'embed_instagram');
+  }
 
   runSequence(...tasks, done);
 });
@@ -224,7 +228,11 @@ gulp.task('manifest', () => {
 *
 */
 gulp.task('default', (done) => {
-  const tasks = ['clean', 'manifest', ['css', 'css-options', 'js', 'static'], 'static-news', 'embed_instagram'];
+  const tasks = ['clean', 'manifest', ['css', 'css-options', 'js', 'static'], 'static-news'];
+
+  if (browser !== 'firefox') {
+    tasks.push('embed_instagram');
+  }
 
   runSequence(...tasks, () => {
     gulp.watch(['./src/js/**/*.js', './src/options/*.js'], ['js', 'js-options']);
