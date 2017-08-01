@@ -64,7 +64,7 @@ const browser = gutil.env.browser || 'chrome';
 const buildWithBrowserify = (entry) => {
   return browserify({
     entries: entry,
-    debug: !isProduction(),
+    debug: !isProduction() && browser !== 'firefox',
   })
     .transform('babelify')
     .transform('brfs')
@@ -73,9 +73,9 @@ const buildWithBrowserify = (entry) => {
     .on('error', maybeNotifyErrors())
     .pipe(source(path.basename(entry)))
     .pipe(buffer())
-    .pipe(isProduction() ? gutil.noop() : sourcemaps.init({ loadMaps: true }))
-    .pipe(isProduction() ? uglify() : gutil.noop())
-    .pipe(isProduction() ? gutil.noop() : sourcemaps.write('./'));
+    .pipe(isProduction() || browser === 'firefox' ? gutil.noop() : sourcemaps.init({ loadMaps: true }))
+    .pipe(isProduction() && browser !== 'firefox' ? uglify() : gutil.noop())
+    .pipe(isProduction() || browser === 'firefox' ? gutil.noop() : sourcemaps.write('./'));
 };
 
 /*
