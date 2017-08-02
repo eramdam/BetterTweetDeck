@@ -73,14 +73,14 @@ const getChirpFromKey = (key, colKey) => {
  * Takes a node and fetches the chirp associated with it (useful for debugging)
  */
 const getChirpFromElement = (element) => {
-  const chirp = element.closest('[data-key]');
-  if (!chirp) {
+  const chirpElm = element.closest('[data-key]');
+  if (!chirpElm) {
     throw new Error('Not a chirp');
   }
 
-  const chirpKey = chirp.getAttribute('data-key');
+  const chirpKey = chirpElm.getAttribute('data-key');
 
-  let col = chirp.closest('[data-column]');
+  let col = chirpElm.closest('[data-column]');
   if (!col) {
     col = document.querySelector(`[data-column] [data-key="${chirpKey}"]`);
     if (!col || !col.parentNode) {
@@ -90,7 +90,13 @@ const getChirpFromElement = (element) => {
     }
   }
 
-  return getChirpFromKey(chirpKey, col.getAttribute('data-column'));
+  const colKey = col.getAttribute('data-column');
+  const chirp = getChirpFromKey(chirpKey, colKey);
+  chirp._btd = {
+    chirpKey,
+    columnKey: colKey,
+  };
+  return chirp;
 };
 
 if (config.get('Client.debug')) {
@@ -328,19 +334,24 @@ const postMessagesListeners = {
     }
 
     // Adds the Favstar.fm item in menus and adds mute action for each hashtag
-    TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].replace('{{/chirp}} </ul>', `
-      {{/chirp}}
-      {{#chirp}}
-        ${settings.mute_hashtags ? `{{#entities.hashtags}}
-          <li class="is-selectable">
-            <a href="#" data-btd-action="mute-hashtag" data-btd-hashtag="{{text}}">Mute #{{text}}</a>
-          </li>
-        {{/entities.hashtags}}` : ''}
-        ${settings.favstar_item ? `<li class="drp-h-divider"></li>
+    TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].replace('{{/isOwnChirp}} {{/chirp}} </ul>', `
+      ${settings.edit_item ? `
+      <li class="is-selectable">
+        <a href="#" data-btd-action="edit-tweet">Edit</a>
+      </li>
+      ` : ''}
+      {{/isOwnChirp}}
+      ${settings.mute_hashtags ? `
+      {{#entities.hashtags}}
+      <li class="is-selectable">
+        <a href="#" data-btd-action="mute-hashtag" data-btd-hashtag="{{text}}">Mute #{{text}}</a>
+      </li>
+      {{/entities.hashtags}}` : ''}
+      ${settings.favstar_item ? `
+      <li class="drp-h-divider"></li>
         <li class="btd-action-menu-item is-selectable"><a href="https://favstar.fm/users/{{user.screenName}}/status/{{chirp.id}}" target="_blank" data-action="favstar">{{_i}}Show on Favstar{{/i}}</a></li>` : ''}
       {{/chirp}}
-      </ul>
-    `);
+      </ul>`);
 
     UsernamesTemplates(TD.mustaches, settings.nm_disp);
   },
@@ -607,6 +618,13 @@ const clipboard = new Clipboard('.btd-clipboard', {
   TD.controller.progressIndicator.addMessage(`Failed: Could not copy ${lineCount} link${lineCount > 1 ? 's' : ''}`);
 });
 
+const getMediaUrlParts = (url) => {
+  return {
+    originalExtension: url.replace(/:[a-z]+$/, '').split('.').pop(),
+    originalFile: url.split('/').pop().split('.')[0],
+  };
+};
+
 $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
   ev.preventDefault();
   const chirp = getChirpFromElement(ev.target);
@@ -617,14 +635,37 @@ $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
     fetch(item)
       .then(res => res.blob())
       .then((blob) => {
-        const originalExtension = item.replace(/:[a-z]+$/, '').split('.').pop();
-        const originalFile = item.split('/').pop().split('.')[0];
-        FileSaver.saveAs(blob, `${chirp.user.screenName}-${originalFile}.${originalExtension}`);
+        const url = getMediaUrlParts(item);
+        FileSaver.saveAs(blob, `${chirp.user.screenName}-${url.originalFile}.${url.originalExtension}`);
       }).then(() => {
         TD.controller.progressIndicator.taskComplete(downloadIndicator, `Downloaded file${i + 1 > 1 ? 's' : ''} ${i + 1}/${media.length}`);
       }, (reason) => {
         TD.controller.progressIndicator.taskFailed(downloadIndicator, `Could not download file${i + 1 > 1 ? 's' : ''}  ${i + 1}/${media.length}, ${reason}`);
       });
+  });
+});
+
+$('body').on('click', '[data-btd-action="edit-tweet"]', (ev) => {
+  ev.preventDefault();
+  const chirp = getChirpFromElement(ev.target);
+  const media = getMediaFromChirp(chirp);
+
+  $(document).trigger('uiComposeTweet', {
+    text: chirp.htmlText,
+    from: chirp.creatorAccount,
+    columnKey: chirp._btd.columnKey,
+  });
+
+  Promise.all(media.map(item =>
+    fetch(item)
+      .then(res => res.blob())
+      .then((blob) => {
+        const url = getMediaUrlParts(item);
+        return new File([blob], `${url.originalFile}.${url.originalExtension}`);
+      })),
+  ).then((gotFiles) => {
+    $(document).trigger('uiFilesAdded', { files: gotFiles });
+    chirp.destroy();
   });
 });
 
