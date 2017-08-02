@@ -36,6 +36,10 @@
   padding: 10px;
 }
 
+.emoji-popover .emoji-search {
+  color: #28292b;
+}
+
 .emoji-popover .category-chooser::before {
   content: '';
   position: absolute;
