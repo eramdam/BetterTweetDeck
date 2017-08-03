@@ -208,7 +208,8 @@ body :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
   }
 }
 
-.btd__old_replies .js-stream-item:not(.btd-is-retweet) .js-tweet:not(.txt-mute) .thread ~ .tweet-body {
+.btd__old_replies .js-stream-item:not(.btd-is-retweet) .js-tweet:not(.txt-mute) .thread ~ .tweet-body,
+.btd__old_replies .js-stream-item .quoted-tweet {
   .other-replies:before {
     display: none;
   }
