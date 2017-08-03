@@ -209,7 +209,10 @@ const postMessagesListeners = {
 
     // We delete the callback for the timestamp task so the content script can do it itself
     if (settings.ts !== 'relative') {
-      TD.ui.updates.refreshTimestamps = () => false;
+      const tasks = Object.keys(TD.controller.scheduler._tasks).map(key => TD.controller.scheduler._tasks[key]);
+      const refreshTimestampsTask = tasks.find(t => t.period === 1e3 * 30);
+
+      TD.controller.scheduler.removePeriodicTask(refreshTimestampsTask.id);
     }
 
     if (settings.old_replies) {
