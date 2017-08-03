@@ -6,7 +6,7 @@ export function $(sel, parent = document) {
   return arr.length >= 1 ? arr : null;
 }
 
-export const TIMESTAMP_INTERVAL = 1e3 * 8;
+export const TIMESTAMP_INTERVAL = 1e3 * 30;
 
 export function on(name, cb) {
   listeners[name] = (ev, data) => cb(ev, data);
