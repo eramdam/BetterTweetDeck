@@ -79,6 +79,10 @@
   margin: 5px;
 }
 
+.emoji-popover .btd-skin-tone + .btd-skin-tone {
+  margin-left: 0;
+}
+
 .emoji-popover .btd-skin-tone {
   border-radius: 10px;
 }
