@@ -4,6 +4,7 @@ import reusePromise from 'reuse-promise';
 import { send as sendMessage } from './messaging';
 import Log from './logger';
 import * as Providers from './providers/index';
+import * as BHelper from './browserHelper';
 
 const endpoints = {
   embedly: 'https://api.embed.ly/1/oembed?',
@@ -135,7 +136,6 @@ const schemeWhitelist = [
   Providers.giphy(util),
   Providers.googleplus(util),
   Providers.imgur(util),
-  Providers.instagram(util),
   Providers.mixcloud(util),
   Providers.mobyTo(util),
   Providers.nicoseiga(util),
@@ -155,6 +155,10 @@ const schemeWhitelist = [
   Providers.yfrog(util),
   Providers.universal(util),
 ];
+
+if (!BHelper.isFirefox) {
+  schemeWhitelist.push(Providers.instagram(util));
+}
 
 const validateUrl = (url) => {
   let provider = '';

@@ -64,7 +64,7 @@ const browser = gutil.env.browser || 'chrome';
 const buildWithBrowserify = (entry) => {
   return browserify({
     entries: entry,
-    debug: !isProduction(),
+    debug: !isProduction() && browser !== 'firefox',
   })
     .transform('babelify')
     .transform('brfs')
@@ -73,9 +73,9 @@ const buildWithBrowserify = (entry) => {
     .on('error', maybeNotifyErrors())
     .pipe(source(path.basename(entry)))
     .pipe(buffer())
-    .pipe(isProduction() ? gutil.noop() : sourcemaps.init({ loadMaps: true }))
-    .pipe(isProduction() ? uglify() : gutil.noop())
-    .pipe(isProduction() ? gutil.noop() : sourcemaps.write('./'));
+    .pipe(isProduction() || browser === 'firefox' ? gutil.noop() : sourcemaps.init({ loadMaps: true }))
+    .pipe(isProduction() && browser !== 'firefox' ? uglify() : gutil.noop())
+    .pipe(isProduction() || browser === 'firefox' ? gutil.noop() : sourcemaps.write('./'));
 };
 
 /*
@@ -180,7 +180,11 @@ gulp.task('lint', () => (
 *
 */
 gulp.task('build', (done) => {
-  const tasks = ['clean', 'manifest', ['js', 'static', 'css', 'css-options'], 'static-news', 'embed_instagram', 'zip'];
+  let tasks = ['clean', 'manifest', ['js', 'static', 'css', 'css-options'], 'static-news', 'embed_instagram', 'zip'];
+
+  if (browser === 'firefox') {
+    tasks = tasks.filter(t => t !== 'embed_instagram');
+  }
 
   runSequence(...tasks, done);
 });
@@ -212,7 +216,7 @@ const stringSrc = (filename, string) => {
 const browserManifest = require(`./tools/manifests/${browser}.js`);
 
 gulp.task('manifest', () => {
-  const manifestJson = JSON.stringify(browserManifest);
+  const manifestJson = JSON.stringify(browserManifest, null, 2);
 
   return stringSrc('manifest.json', manifestJson).pipe(gulp.dest('./dist/'));
 });
@@ -224,7 +228,11 @@ gulp.task('manifest', () => {
 *
 */
 gulp.task('default', (done) => {
-  const tasks = ['clean', 'manifest', ['css', 'css-options', 'js', 'static'], 'static-news', 'embed_instagram'];
+  const tasks = ['clean', 'manifest', ['css', 'css-options', 'js', 'static'], 'static-news'];
+
+  if (browser !== 'firefox') {
+    tasks.push('embed_instagram');
+  }
 
   runSequence(...tasks, () => {
     gulp.watch(['./src/js/**/*.js', './src/options/*.js'], ['js', 'js-options']);

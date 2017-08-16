@@ -181,6 +181,14 @@ export default function buildEmojiPicker(rebuild = false) {
         emojiPop.style.display = 'none';
       }
     });
+  } else {
+    const emojiPop = $('.emoji-popover')[0];
+
+    if (emojiPop.style.display === 'none') {
+      emojiPop.style.display = 'block';
+    } else {
+      emojiPop.style.display = 'none';
+    }
   }
 
   $('.emoji-search input')[0].addEventListener('keyup', (ev) => {
@@ -239,6 +247,8 @@ export default function buildEmojiPicker(rebuild = false) {
 
   $('.emoji-popover .btd-skin-tone').forEach((skinToneEl) => {
     skinToneEl.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      ev.stopPropagation();
       const skinTone = ev.target.getAttribute('data-btd-skin-tone');
 
       localStorage['btd-skin-variation'] = skinTone;

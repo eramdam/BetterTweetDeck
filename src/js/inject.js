@@ -134,13 +134,12 @@ const decorateChirp = (chirp) => {
 let bannerID = 1;
 
 TD.services.TwitterStatus.prototype.getOGContext = function getOGContext() {
-  const hasRepliers = this.getReplyingToUsers().length > 0;
+  const repliers = this.getReplyingToUsers() || [];
 
-  if (!hasRepliers) {
+  if (repliers.length === 0 || (this.user.screenName === this.inReplyToScreenName && repliers.length === 1)) {
     return '';
   }
 
-  const repliers = this.getReplyingToUsers() || [];
   const filtered = repliers.filter((user) => {
     const str = `<a href="https://twitter.com/${user.screenName}/"`;
 
@@ -209,7 +208,10 @@ const postMessagesListeners = {
 
     // We delete the callback for the timestamp task so the content script can do it itself
     if (settings.ts !== 'relative') {
-      TD.ui.updates.refreshTimestamps = () => false;
+      const tasks = Object.keys(TD.controller.scheduler._tasks).map(key => TD.controller.scheduler._tasks[key]);
+      const refreshTimestampsTask = tasks.find(t => t.period === 1e3 * 30);
+
+      TD.controller.scheduler.removePeriodicTask(refreshTimestampsTask.id);
     }
 
     if (settings.old_replies) {
@@ -231,23 +233,6 @@ const postMessagesListeners = {
           const val = render ? render(input) : Hogan.compile(input).render(this);
 
           return val.match(/https:\/\/(?:www.|)twitter.com\/(?:@|)([A-Za-z0-9_]+)/) && val.match(/https:\/\/(?:www.|)twitter.com\/(?:@|)([A-Za-z0-9_]+)/)[1];
-        };
-      },
-      fullReplyInfo: function fullReplyInfo() {
-        return function omg(input, render) {
-          const userIds = render ? render(input) : Hogan.compile(input).render(this);
-          const ids = userIds.split(',');
-          const users = ids.reduce((userList, userId) => {
-            const { results } = TD.cache.twitterUsers.getById(userId);
-
-            return [...userList, results[0]];
-          }, []).filter(u => u);
-
-          if (users.length === 0) {
-            return '';
-          }
-
-          return users.map(user => `@${user.screenName}`).join(' ');
         };
       },
     };
@@ -464,12 +449,9 @@ $(document).on('uiColumnUpdateMediaPreview', (ev, data) => {
   proxyEvent('columnMediaSizeUpdated', { id, size: data.value });
 });
 
-$(document).one('dataColumns', () => {
-  proxyEvent('ready');
-});
-
 // We wait for the loading of the columns and we get all the media preview size
 $(document).one('dataColumnsLoaded', () => {
+  proxyEvent('ready');
   $('.js-column').each((i, el) => {
     let size = TD.storage.columnController.get($(el).data('column')).getMediaPreviewSize();
 

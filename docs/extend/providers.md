@@ -46,7 +46,7 @@ These previews are mostly embeds or images, depending on service type.
         import * as secureDomify from '../secureDomify';
 
         // data is the fetchPage response
-        const el = secureDomify.parse(data.currentTarget.response);
+        const el = secureDomify.parse(data.target.response);
         const thumbnail = secureDomify.getAttributeFromNode('[property="twitter:image"]', el, 'content');
         const embedURL = secureDomify.getAttributeFromNode('[property="twitter:player"]', el, 'content');
       ```

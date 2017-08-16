@@ -38,26 +38,6 @@
   background: rgba(0, 0, 0, 0.13);
 }
 
-.btd__minimal_mode .js-stream-item:not(.btd-is-retweet) .tweet-context {
-  .obj-left {
-    margin-top: 60px;
-    margin-right: 0;
-  }
-
-  .icon-small-context {
-    float: left;
-    margin-left: 17px;
-  }
-
-  .icon-reply::before {
-    content: "\f151";
-  }
-
-  .nbfc {
-    display: none;
-  }
-}
-
 .btd__minimal_mode .js-stream-item .activity-header + .txt-mute .tweet-context {
   display: none;
 }

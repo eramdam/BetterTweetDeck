@@ -36,7 +36,7 @@ const getKey = (object, property) => {
 export const isFirefox = getUA().includes('Firefox/');
 const storage = isFirefox ? chrome.storage.local : chrome.storage.sync;
 
-export const getVersion = () => packageJson.version;
+export const getVersion = () => packageJson.extension_version;
 
 export const getMessage = (msg) => {
   const string = chrome.i18n.getMessage(msg);

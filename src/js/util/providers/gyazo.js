@@ -29,11 +29,11 @@ export default function ($) {
             return data;
           }
 
-          if (data.currentTarget.status !== 200) {
+          if (data.target.status !== 200) {
             return null;
           }
 
-          const el = secureDomify.parse(data.currentTarget.response);
+          const el = secureDomify.parse(data.target.response);
           const thumbnail = secureDomify.getAttributeFromNode('[name="twitter:image"]', el, 'content');
 
           return {
