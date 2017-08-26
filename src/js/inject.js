@@ -539,7 +539,11 @@ const handleGifClick = (ev) => {
 
   video.height = chirp.entities.media[0].sizes.large.h;
   video.width = chirp.entities.media[0].sizes.large.w;
-  video.name = `${chirp.user.screenName}-${video.src.split('/').pop().replace('.mp4', '')}`;
+  let postedUser = chirp.user.screenName;
+  if (chirp.retweetedStatus) {
+    postedUser = chirp.retweetedStatus.user.screenName;
+  }
+  video.name = `${postedUser}-${video.src.split('/').pop().replace('.mp4', '')}`;
 
   proxyEvent('clickedOnGif', { tweetKey: chirpKey, colKey, video });
 };
@@ -613,7 +617,11 @@ $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
       .then((blob) => {
         const originalExtension = item.replace(/:[a-z]+$/, '').split('.').pop();
         const originalFile = item.split('/').pop().split('.')[0];
-        FileSaver.saveAs(blob, `${chirp.user.screenName}-${originalFile}.${originalExtension}`);
+        let postedUser = chirp.user.screenName;
+        if (chirp.retweetedStatus) {
+          postedUser = chirp.retweetedStatus.user.screenName;
+        }
+        FileSaver.saveAs(blob, `${postedUser}-${originalFile}.${originalExtension}`);
       });
   });
 });
