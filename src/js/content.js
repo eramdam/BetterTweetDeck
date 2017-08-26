@@ -62,7 +62,7 @@ function saveGif(gifshotObj, name, event, videoEl) {
     .then((blob) => {
       event.target.style.opacity = 1;
       event.target.innerText = 'Download as .GIF';
-      FileSaver.saveAs(blob, `${name}.gif`);
+      FileSaver.saveAs(blob, name);
       videoEl.playbackRate = 1;
     });
 }
