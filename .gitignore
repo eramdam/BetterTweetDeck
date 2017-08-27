@@ -1,10 +1,4 @@
 node_modules
-build/
-dist/*
-reverse/
+dist/
+artifacts/*
 config/*.js
-events.js
-backup
-*.crx
-*.nex
-*.zip
