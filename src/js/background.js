@@ -58,6 +58,7 @@ const defaultSettings = {
   hotlink_item: false,
   download_item: false,
   download_filename_format: '{{postedUser}}-{{fileName}}.{{fileExtension}}',
+  ctrl_changes_interactions: false,
   update_title_on_notifications: true,
   thumbnails: {},
 };
