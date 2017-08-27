@@ -622,19 +622,19 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
   '[data-btd-action="hotlink-media"], ' +
   '[data-btd-action="download-media"]', (ev) => {
   if (!SETTINGS || !SETTINGS.ctrl_changes_interactions) {
-    return
+    return;
   }
 
   // todo: find a better way to listen to favorites globally
   // primary candidates are ui*Favorite or TD.services.TwitterStatus.prototype.setFavorite
 
-  const chirp = getChirpFromElement(ev.target)
+  const chirp = getChirpFromElement(ev.target);
 
-  let user = chirp.retweetedStatus ? chirp.retweetedStatus.user : chirp.user
+  const user = chirp.retweetedStatus ? chirp.retweetedStatus.user : chirp.user;
   if (!user.following) {
-    user.follow(chirp.account, null, null, true)
+    user.follow(chirp.account, null, null, true);
   }
-})
+});
 
 $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
   ev.preventDefault();
