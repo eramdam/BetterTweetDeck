@@ -539,7 +539,11 @@ const handleGifClick = (ev) => {
 
   video.height = chirp.entities.media[0].sizes.large.h;
   video.width = chirp.entities.media[0].sizes.large.w;
-  video.name = `${chirp.user.screenName}-${video.src.split('/').pop().replace('.mp4', '')}`;
+  let postedUser = chirp.user.screenName;
+  if (chirp.retweetedStatus) {
+    postedUser = chirp.retweetedStatus.user.screenName;
+  }
+  video.name = `${postedUser}-${video.src.split('/').pop().replace('.mp4', '')}`;
 
   proxyEvent('clickedOnGif', { tweetKey: chirpKey, colKey, video });
 };
@@ -600,32 +604,24 @@ const getMediaFromChirp = (chirp) => {
 const clipboard = new Clipboard('.btd-clipboard', {
   text: (trigger) => {
     return getMediaFromChirp(getChirpFromElement(trigger)).join('\n');
-  },
-}).on('success', (e) => {
-  const lineCount = e.text.split('\n').length;
-  TD.controller.progressIndicator.addMessage(`Success: Copied ${lineCount} link${lineCount > 1 ? 's' : ''}`);
-}).on('error', (e) => {
-  const lineCount = e.text.split('\n').length;
-  TD.controller.progressIndicator.addMessage(`Failed: Could not copy ${lineCount} link${lineCount > 1 ? 's' : ''}`);
-});
+  } });
 
 $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
   ev.preventDefault();
   const chirp = getChirpFromElement(ev.target);
   const media = getMediaFromChirp(chirp);
 
-  media.forEach((item, i) => {
-    const downloadIndicator = TD.controller.progressIndicator.addTask(`Downloading ${media.length} file${media.length > 1 ? 's' : ''}`);
+  media.forEach((item) => {
     fetch(item)
       .then(res => res.blob())
       .then((blob) => {
         const originalExtension = item.replace(/:[a-z]+$/, '').split('.').pop();
         const originalFile = item.split('/').pop().split('.')[0];
-        FileSaver.saveAs(blob, `${chirp.user.screenName}-${originalFile}.${originalExtension}`);
-      }).then(() => {
-        TD.controller.progressIndicator.taskComplete(downloadIndicator, `Downloaded file${i + 1 > 1 ? 's' : ''} ${i + 1}/${media.length}`);
-      }, (reason) => {
-        TD.controller.progressIndicator.taskFailed(downloadIndicator, `Could not download file${i + 1 > 1 ? 's' : ''}  ${i + 1}/${media.length}, ${reason}`);
+        let postedUser = chirp.user.screenName;
+        if (chirp.retweetedStatus) {
+          postedUser = chirp.retweetedStatus.user.screenName;
+        }
+        FileSaver.saveAs(blob, `${postedUser}-${originalFile}.${originalExtension}`);
       });
   });
 });
