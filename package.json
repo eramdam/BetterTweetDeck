@@ -54,7 +54,7 @@
     "eslint-plugin-import": "2.3.0",
     "fecha": ">=1.0.0",
     "file-saver": "1.3.3",
-    "gifshot": "0.3.2",
+    "gifshot": "git://github.com/yahoo/gifshot.git#0.4.4",
     "gulp": ">=3.9.0",
     "gulp-eslint": "4.0.0",
     "gulp-notify": "3.0.0",
