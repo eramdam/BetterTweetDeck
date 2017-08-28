@@ -4,6 +4,16 @@ import Clipboard from 'clipboard';
 import Log from './util/logger';
 import UsernamesTemplates from './util/username_templates';
 
+TD.mustaches['column/column_header.mustache'] = TD.mustaches['column/column_header.mustache']
+  // wrap everyting with an ul
+  .replace('{{/withEditableTitle}}', '{{/withEditableTitle}} <ul class="btd-column-buttons-better">')
+  .replace('{{/isTemporary}} </header>', '{{/isTemporary}} </ul> </header>')
+  // shove in buttons we care about
+  .replace('{{/withMarkAllRead}}  {{^isTemporary}}', '{{/withMarkAllRead}}  {{^isTemporary}} <a class="js-action-header-button column-header-link btd-column-minimize-link" href="#" data-action="minimize-column"> <i class="icon icon-minus"></i> </a> ')
+  // wrap all the <a>s with <li>s
+  .replace(/<\/i> <\/a>/g, '</i> </a> </li>')
+  .replace(/<a class="js-action-header-button/g, '<li class="btd-column-buttons-better"> <a class="js-action-header-button');
+
 let SETTINGS;
 
 const deciderOverride = {
@@ -650,6 +660,29 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
   if (!user.following) {
     user.follow(chirp.account, null, null, true);
   }
+});
+
+$(document).on('click', '#column-navigator .column-nav-item', (ev) => {
+  ev.preventDefault();
+
+  const thisNav = $(ev.target.closest('li[data-column]'));
+  const columnKey = thisNav.data('column');
+
+  if (thisNav.data('btd-column-minimized')) {
+    thisNav.data('btd-column-minimized', false);
+    $(`section.column[data-column="${columnKey}"]`).show();
+  }
+});
+
+$(document).on('click', '.column-panel header .column-header-link[data-action="minimize-column"]', (ev) => {
+  ev.preventDefault();
+
+  const thisColumn = ev.target.closest('[data-column]');
+  const columnKey = thisColumn.getAttribute('data-column');
+  const columnNav = $(`#column-navigator .column-nav-item[data-column="${columnKey}"]`);
+
+  columnNav.data('btd-column-minimized', true);
+  $(thisColumn).hide();
 });
 
 $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
