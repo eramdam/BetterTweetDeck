@@ -157,12 +157,8 @@ body :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
   }
 }
 
-.stream-item .tweet-body .reverse-image-search {
-  position: absolute !important;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(1px, 1px, 1px, 1px);
+.stream-item .reverse-image-search {
+  pointer-events: none;
 }
 
 [data-action-id^="btd-banner"] {
