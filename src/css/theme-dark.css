@@ -24,6 +24,7 @@
   }
 
   .dropdown-menu li > a,
+  .dropdown-menu li > b,
   .typeahead.lst :matches(.fullname, .username, p) {
     color: color(#8899a6 saturation(0%)) !important;
   }
