@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="No Dist" pattern="!file[BetterTweetDeck]:artifacts//*&amp;&amp;!file[BetterTweetDeck]:dist//*" />
+</component>
