@@ -93,9 +93,6 @@
   }
 }
 
-[data-btdtheme] .btd-has-poll .tweet-detail .media-badge {
-  display: none;
-}
 
 .column-navigator-overflow {
   bottom: 267px !important;
