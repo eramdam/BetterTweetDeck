@@ -665,24 +665,27 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
 $(document).on('click', '#column-navigator .column-nav-item', (ev) => {
   ev.preventDefault();
 
+  const dataBoy = $('nav#column-navigator').parent();
+
   const thisNav = $(ev.target.closest('li[data-column]'));
   const columnKey = thisNav.data('column');
 
-  if (thisNav.data('btd-column-minimized')) {
-    thisNav.data('btd-column-minimized', false);
-    $(`section.column[data-column="${columnKey}"]`).show();
+  if (dataBoy.data(`minimized-columns-${columnKey}`)) {
+    dataBoy.data(`minimized-columns-${columnKey}`, false);
+    $(`section.column[data-column="${columnKey}"]`).removeClass('btd-column-collapsed');
   }
 });
 
 $(document).on('click', '.column-panel header .column-header-link[data-action="minimize-column"]', (ev) => {
   ev.preventDefault();
 
+  const dataBoy = $('nav#column-navigator').parent();
+
   const thisColumn = ev.target.closest('[data-column]');
   const columnKey = thisColumn.getAttribute('data-column');
-  const columnNav = $(`#column-navigator .column-nav-item[data-column="${columnKey}"]`);
 
-  columnNav.data('btd-column-minimized', true);
-  $(thisColumn).hide();
+  dataBoy.data(`minimized-columns-${columnKey}`, true);
+  $(thisColumn).addClass('btd-column-collapsed');
 });
 
 $('body').on('click', '[data-btd-action="download-media"]', (ev) => {

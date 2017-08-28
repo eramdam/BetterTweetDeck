@@ -187,6 +187,41 @@ body :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
   content: "\F186";
 }
 
+/* collapsed column states */
+.btd-column-collapsed .js-column-header {
+  transform-origin: 0% 100%;
+  transform: rotate(90deg) !important;
+  width: 100vh !important;
+  top: -50px !important;
+}
+
+.btd-column-collapsed .js-action-header-button {
+  transform-origin: 50% 50%;
+  transform: rotate(-90deg) !important;
+}
+
+.btd-column-collapsed i.column-type-icon {
+  transform-origin: 50% 100%;
+  transform: rotate(-90deg) !important;
+  position: relative !important;
+  left: 12px !important;
+  bottom: 0px !important;
+}
+
+.btd-column-collapsed i.column-type-icon:before {
+  position: relative !important;
+  top: -14px !important;
+}
+
+section.btd-column-collapsed.column {
+  width: 52px !important;
+}
+
+.btd-column-collapsed .js-column-content,
+.btd-column-collapsed .js-add-to-customtimeline {
+  display: none !important;
+}
+
 .btd-column-buttons-better {
   /* move .column-header-link styles to here */
   float: right;
