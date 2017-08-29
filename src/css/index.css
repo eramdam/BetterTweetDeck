@@ -217,6 +217,11 @@ section.btd-column-collapsed.column {
   width: 52px !important;
 }
 
+/* uiColumnTitleRefreshed forces us to change this class (mustache recalc), or we could cheat */
+.btd-column-collapsed .icon-minus:before {
+  content: "\f183" !important;
+}
+
 .btd-column-collapsed .js-column-content,
 .btd-column-collapsed .js-add-to-customtimeline {
   display: none !important;

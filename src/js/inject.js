@@ -9,7 +9,7 @@ TD.mustaches['column/column_header.mustache'] = TD.mustaches['column/column_head
   .replace('{{/withEditableTitle}}', '{{/withEditableTitle}} <ul class="btd-column-buttons-better">')
   .replace('{{/isTemporary}} </header>', '{{/isTemporary}} </ul> </header>')
   // shove in buttons we care about
-  .replace('{{/withMarkAllRead}}  {{^isTemporary}}', '{{/withMarkAllRead}}  {{^isTemporary}} <a class="js-action-header-button column-header-link btd-column-minimize-link" href="#" data-action="minimize-column"> <i class="icon icon-minus"></i> </a> ')
+  .replace('{{/withMarkAllRead}}  {{^isTemporary}}', '{{/withMarkAllRead}}  {{^isTemporary}} <a class="js-action-header-button column-header-link btd-toggle-minimize-column-link" href="#" data-action="toggle-minimize-column"> <i class="icon icon-minus"></i> </a> ')
   // wrap all the <a>s with <li>s
   .replace(/<\/i> <\/a>/g, '</i> </a> </li>')
   .replace(/<a class="js-action-header-button/g, '<li class="btd-column-buttons-better"> <a class="js-action-header-button');
@@ -228,6 +228,10 @@ const postMessagesListeners = {
   BTDC_settingsReady: (ev, data) => {
     const { settings } = data;
     SETTINGS = settings;
+
+    if (!window.localStorage.getItem('btd_minimized_columns')) {
+      window.localStorage.setItem('btd_minimized_columns', JSON.stringify({}));
+    }
 
     // We delete the callback for the timestamp task so the content script can do it itself
     if (settings.ts !== 'relative') {
@@ -495,6 +499,20 @@ $(document).one('dataColumnsLoaded', () => {
     $(el).attr('data-media-size', size);
   });
 
+  // Set all columns to minimize if desired.
+  const minimizedColumns = window.localStorage.getItem('btd_minimized_columns');
+  let columnSettings;
+  if (!window.localStorage.getItem('btd_minimized_columns')) {
+    window.localStorage.setItem('btd_minimized_columns', JSON.stringify({}));
+  } else {
+    columnSettings = JSON.parse(minimizedColumns);
+    Object.keys(columnSettings).map((key) => {
+      const column = TD.controller.columnManager.getByApiid(key);
+      column.btdToggleMinimize(!(columnSettings[key] && column));
+      return column;
+    });
+  }
+
   switchThemeClass();
 });
 
@@ -662,30 +680,56 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
   }
 });
 
+
+TD.vo.Column.prototype.btdIsMinimized = function btdIsMinimized() {
+  return this._btdIsMinimized || false;
+};
+TD.vo.Column.prototype.btdToggleMinimize = function btdToggleMinimize(state = false) {
+  if (this._btdIsMinimized || state) {
+    this.btdMaximize();
+  } else {
+    this.btdMinimize();
+  }
+};
+TD.vo.Column.prototype.btdMaximize = function btdMaximize() {
+  const dataBoy = JSON.parse(window.localStorage.getItem('btd_minimized_columns'));
+
+  if (dataBoy[this.model.privateState.apiid]) {
+    const columnKey = this.model.privateState.key;
+    const theColumn = $(`section.column[data-column="${columnKey}"]`);
+    theColumn.removeClass('btd-column-collapsed');
+
+    delete dataBoy[this.model.privateState.apiid];
+    this._btdIsMinimized = false;
+    window.localStorage.setItem('btd_minimized_columns', JSON.stringify(dataBoy));
+  }
+};
+TD.vo.Column.prototype.btdMinimize = function btdMinimize() {
+  const dataBoy = JSON.parse(window.localStorage.getItem('btd_minimized_columns'));
+
+  const columnKey = this.model.privateState.key;
+  const theColumn = $(`section.column[data-column="${columnKey}"]`);
+  theColumn.addClass('btd-column-collapsed');
+
+  dataBoy[this.model.privateState.apiid] = true;
+  this._btdIsMinimized = true;
+  window.localStorage.setItem('btd_minimized_columns', JSON.stringify(dataBoy));
+};
+
 $(document).on('click', '#column-navigator .column-nav-item', (ev) => {
   ev.preventDefault();
 
-  const dataBoy = $('nav#column-navigator').parent();
-
   const thisNav = $(ev.target.closest('li[data-column]'));
   const columnKey = thisNav.data('column');
-
-  if (dataBoy.data(`minimized-columns-${columnKey}`)) {
-    dataBoy.data(`minimized-columns-${columnKey}`, false);
-    $(`section.column[data-column="${columnKey}"]`).removeClass('btd-column-collapsed');
-  }
+  TD.controller.columnManager.get(columnKey).btdMaximize();
 });
 
-$(document).on('click', '.column-panel header .column-header-link[data-action="minimize-column"]', (ev) => {
+$(document).on('click', '.column-panel header.column-header .btd-toggle-minimize-column-link', (ev) => {
   ev.preventDefault();
-
-  const dataBoy = $('nav#column-navigator').parent();
 
   const thisColumn = ev.target.closest('[data-column]');
   const columnKey = thisColumn.getAttribute('data-column');
-
-  dataBoy.data(`minimized-columns-${columnKey}`, true);
-  $(thisColumn).addClass('btd-column-collapsed');
+  TD.controller.columnManager.get(columnKey).btdToggleMinimize();
 });
 
 $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
