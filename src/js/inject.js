@@ -508,7 +508,7 @@ $(document).one('dataColumnsLoaded', () => {
     columnSettings = JSON.parse(minimizedColumns);
     Object.keys(columnSettings).map((key) => {
       const column = TD.controller.columnManager.getByApiid(key);
-      column.btdToggleMinimize(!(columnSettings[key] && column));
+      column._btd.toggleMinimize(!(columnSettings[key] && column));
       return column;
     });
   }
@@ -680,48 +680,60 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
   }
 });
 
+((originalColumn) => {
+  TD.vo.Column = class Column extends originalColumn {
+    constructor(executor) {
+      super(executor);
 
-TD.vo.Column.prototype.btdIsMinimized = function btdIsMinimized() {
-  return this._btdIsMinimized || false;
-};
-TD.vo.Column.prototype.btdToggleMinimize = function btdToggleMinimize(state = false) {
-  if (this._btdIsMinimized || state) {
-    this.btdMaximize();
-  } else {
-    this.btdMinimize();
-  }
-};
-TD.vo.Column.prototype.btdMaximize = function btdMaximize() {
-  const dataBoy = JSON.parse(window.localStorage.getItem('btd_minimized_columns'));
+      const _parent = this;
+      this._btd = {
+        _parent,
+        _isMinimized: false,
+        isMinimized() {
+          return this._isMinimized || false;
+        },
+        minimize() {
+          const dataBoy = JSON.parse(window.localStorage.getItem('btd_minimized_columns'));
 
-  if (dataBoy[this.model.privateState.apiid]) {
-    const columnKey = this.model.privateState.key;
-    const theColumn = $(`section.column[data-column="${columnKey}"]`);
-    theColumn.removeClass('btd-column-collapsed');
+          const columnKey = this._parent.model.privateState.key;
+          const theColumn = $(`section.column[data-column="${columnKey}"]`);
+          theColumn.addClass('btd-column-collapsed');
 
-    delete dataBoy[this.model.privateState.apiid];
-    this._btdIsMinimized = false;
-    window.localStorage.setItem('btd_minimized_columns', JSON.stringify(dataBoy));
-  }
-};
-TD.vo.Column.prototype.btdMinimize = function btdMinimize() {
-  const dataBoy = JSON.parse(window.localStorage.getItem('btd_minimized_columns'));
+          dataBoy[this._parent.model.privateState.apiid] = true;
+          this._isMinimized = true;
+          window.localStorage.setItem('btd_minimized_columns', JSON.stringify(dataBoy));
+        },
+        maximize() {
+          const dataBoy = JSON.parse(window.localStorage.getItem('btd_minimized_columns'));
 
-  const columnKey = this.model.privateState.key;
-  const theColumn = $(`section.column[data-column="${columnKey}"]`);
-  theColumn.addClass('btd-column-collapsed');
+          if (dataBoy[this._parent.model.privateState.apiid]) {
+            const columnKey = this._parent.model.privateState.key;
+            const theColumn = $(`section.column[data-column="${columnKey}"]`);
+            theColumn.removeClass('btd-column-collapsed');
 
-  dataBoy[this.model.privateState.apiid] = true;
-  this._btdIsMinimized = true;
-  window.localStorage.setItem('btd_minimized_columns', JSON.stringify(dataBoy));
-};
+            delete dataBoy[this._parent.model.privateState.apiid];
+            this._isMinimized = false;
+            window.localStorage.setItem('btd_minimized_columns', JSON.stringify(dataBoy));
+          }
+        },
+        toggleMinimize(state = false) {
+          if (this._isMinimized || state) {
+            this.maximize();
+          } else {
+            this.minimize();
+          }
+        },
+      };
+    }
+  };
+})(TD.vo.Column);
 
 $(document).on('click', '#column-navigator .column-nav-item', (ev) => {
   ev.preventDefault();
 
   const thisNav = $(ev.target.closest('li[data-column]'));
   const columnKey = thisNav.data('column');
-  TD.controller.columnManager.get(columnKey).btdMaximize();
+  TD.controller.columnManager.get(columnKey)._btd.maximize();
 });
 
 $(document).on('click', '.column-panel header.column-header .btd-toggle-minimize-column-link', (ev) => {
@@ -729,7 +741,7 @@ $(document).on('click', '.column-panel header.column-header .btd-toggle-minimize
 
   const thisColumn = ev.target.closest('[data-column]');
   const columnKey = thisColumn.getAttribute('data-column');
-  TD.controller.columnManager.get(columnKey).btdToggleMinimize();
+  TD.controller.columnManager.get(columnKey)._btd.toggleMinimize();
 });
 
 $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
