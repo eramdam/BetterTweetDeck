@@ -10,6 +10,14 @@ const deciderOverride = {
   simplified_replies: false,
 };
 
+const getMediaParts = (chirp, url) => {
+  return {
+    fileExtension: url.replace(/:[a-z]+$/, '').split('.').pop(),
+    fileName: url.split('/').pop().split('.')[0],
+    postedUser: (chirp.retweetedStatus ? chirp.retweetedStatus.user.screenName : chirp.user.screenName),
+  };
+};
+
 const getChirpFromKey = (key, colKey) => {
   const column = TD.controller.columnManager.get(colKey);
 
@@ -258,6 +266,9 @@ const postMessagesListeners = {
         return !this.positive;
       };
     }
+
+    // Embed custom mustaches.
+    TD.mustaches['btd/download_filename_format.mustache'] = settings.download_filename_format;
 
     // Call the OG reply stuff
     if (settings.old_replies) {
@@ -542,11 +553,8 @@ const handleGifClick = (ev) => {
 
   video.height = chirp.entities.media[0].sizes.large.h;
   video.width = chirp.entities.media[0].sizes.large.w;
-  let postedUser = chirp.user.screenName;
-  if (chirp.retweetedStatus) {
-    postedUser = chirp.retweetedStatus.user.screenName;
-  }
-  video.name = `${postedUser}-${video.src.split('/').pop().replace('.mp4', '')}`;
+
+  video.name = TD.ui.template.render('btd/download_filename_format', getMediaParts(chirp, video.src.replace(/\.mp4$/, '.gif')));
 
   proxyEvent('clickedOnGif', { tweetKey: chirpKey, colKey, video });
 };
@@ -618,13 +626,7 @@ $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
     fetch(item)
       .then(res => res.blob())
       .then((blob) => {
-        const originalExtension = item.replace(/:[a-z]+$/, '').split('.').pop();
-        const originalFile = item.split('/').pop().split('.')[0];
-        let postedUser = chirp.user.screenName;
-        if (chirp.retweetedStatus) {
-          postedUser = chirp.retweetedStatus.user.screenName;
-        }
-        FileSaver.saveAs(blob, `${postedUser}-${originalFile}.${originalExtension}`);
+        FileSaver.saveAs(blob, TD.ui.template.render('btd/download_filename_format', getMediaParts(chirp, item)));
       });
   });
 });
