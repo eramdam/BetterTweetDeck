@@ -82,11 +82,11 @@ const getChirpFromElement = (element) => {
 
   let col = chirp.closest('[data-column]');
   if (!col) {
-    col = document.querySelector(`[data-column] [data-key="${chirpKey}"]`);
-    if (!col || !col.parentNode) {
-      throw new Error('Chirp has no column');
+    const chirpElm = document.querySelector(`[data-column] [data-key="${chirpKey}"]`);
+    if (!chirpElm) {
+      throw new Error('Could not locate chirp in any column.');
     } else {
-      col = col.parentNode;
+      col = chirpElm.closest('[data-column]');
     }
   }
 
