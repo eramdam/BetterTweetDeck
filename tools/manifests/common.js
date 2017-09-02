@@ -1,12 +1,31 @@
 const fs = require('fs');
 
 const packageJson = JSON.parse(fs.readFileSync(`${__dirname}/../../package.json`, 'utf8'));
+const isBeta = process.env.BTD_BETA === 'true';
+
+const icons = {
+  16: 'icons/icon-16.png',
+  48: 'icons/icon-48.png',
+  128: 'icons/icon-128.png',
+};
+
+const betaIcons = {
+  16: 'icons/icon-beta-16.png',
+  48: 'icons/icon-beta-48.png',
+  128: 'icons/icon-beta-128.png',
+};
+
+const betaVersion = () => {
+  const d = new Date();
+
+  return `${packageJson.extension_version}.${d.getMonth() + 1}${d.getDate()}${d.getHours()}`;
+};
 
 /* eslint quotes: 0 */
 module.exports = {
-  name: 'Better TweetDeck 3',
-  short_name: 'BetterTDeck',
-  version: packageJson.extension_version,
+  name: `${isBeta ? 'βeta' : ''} TweetDeck`.trim(),
+  short_name: `${isBeta ? 'βeta ' : 'Better'}TDeck`,
+  version: isBeta ? betaVersion() : packageJson.extension_version,
   manifest_version: 2,
   homepage_url: 'https://github.com/eramdam/BetterTweetDeck/',
   content_scripts: [{
@@ -17,11 +36,7 @@ module.exports = {
   background: {
     scripts: ['js/background.js'],
   },
-  icons: {
-    16: 'icons/icon-16.png',
-    48: 'icons/icon-48.png',
-    128: 'icons/icon-128.png',
-  },
+  icons: isBeta ? betaIcons : icons,
   permissions: [
     'storage',
     'https://api.embed.ly/1/*',
