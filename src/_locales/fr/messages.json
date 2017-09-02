@@ -93,6 +93,9 @@
   "mute_source": { "message": "Ajouter des raccourcis pour filter la source d'un tweet dans son menu"},
   "hotlink_item": { "message": "Ajouter un raccourci copiant les liens de tous les médias d'un tweet"},
   "download_item": { "message": "Ajouter un raccourci pour télécharger tous les médias d'un tweet"},
+  "download_filename_format": { "message": "Format du nom des fichiers téléchargés"},
+  "download_filename_format_parameters": { "message": "Vous pouvez utiliser les variables suivantes: <code>{{postedUser}} {{fileName}} {{fileExtension}}</code>"},
+  "ctrl_changes_interactions": { "message": "Tenir <kbd>Ctrl/Cmd</kbd> et cliquer like / retweet / download / hotlink permet de suivre l'auteur du tweet depuis le compte appartenant à la colonne."},
 
   "btd_thx": { "message": "Merci d'avoir installé Better TweetDeck !" },
   "btd_get_started": { "message": "C'est parti !" },
