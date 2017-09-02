@@ -12,6 +12,7 @@
 @import './features/hide-context.css';
 @import './features/hide-scrollbars.css';
 @import './features/hide-url-thumb.css';
+@import './features/collapse-columns.css';
 @import './features/no-col-icns.css';
 @import './features/no-bg-modal.css';
 @import './features/no-play-btn.css';
@@ -185,73 +186,6 @@ body :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
 
 .icon-download::before {
   content: "\F186";
-}
-
-/* collapsed column states */
-.btd-column-collapsed .js-column-header {
-  transform-origin: 0% 100%;
-  transform: rotate(90deg) !important;
-  width: 100vh !important;
-  top: -50px !important;
-}
-
-.btd-column-collapsed .js-action-header-button {
-  transform-origin: 50% 50%;
-  transform: rotate(-90deg) !important;
-}
-
-.btd-column-collapsed i.column-type-icon {
-  transform-origin: 50% 100%;
-  transform: rotate(-90deg) !important;
-  position: relative !important;
-  left: 12px !important;
-  bottom: 0px !important;
-}
-
-.btd-column-collapsed i.column-type-icon:before {
-  position: relative !important;
-  top: -14px !important;
-}
-
-section.btd-column-collapsed.column {
-  width: 52px !important;
-}
-
-/* uiColumnTitleRefreshed forces us to change this class (mustache recalc), or we could cheat */
-.btd-column-collapsed .icon-minus:before {
-  content: "\f183" !important;
-}
-
-.btd-column-collapsed .js-column-content,
-.btd-column-collapsed .js-add-to-customtimeline {
-  display: none !important;
-}
-
-.btd-column-buttons-better {
-  /* move .column-header-link styles to here */
-  float: right;
-  width: auto;
-  margin: 0px;
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  bottom: -1px;
-  padding: 0 4px;
-}
-
-.btd-column-buttons-better li {
-  /* undo the .column-header-link styles for the children */
-  position: relative !important;
-  margin: 0 !important;
-  float: left !important;
-}
-
-.btd-column-buttons-better li a.column-header-link {
-  margin: 0 !important;
-  top: 0px !important;
-  right: 0px !important;
-  position: inherit !important;
-  display: block !important;
 }
 
 .tweet-detail-actions.tweet-detail-actions {

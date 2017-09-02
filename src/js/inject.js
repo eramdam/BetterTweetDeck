@@ -6,13 +6,13 @@ import UsernamesTemplates from './util/username_templates';
 
 TD.mustaches['column/column_header.mustache'] = TD.mustaches['column/column_header.mustache']
   // wrap everyting with an ul
-  .replace('{{/withEditableTitle}}', '{{/withEditableTitle}} <ul class="btd-column-buttons-better">')
+  .replace('{{/withEditableTitle}}', '{{/withEditableTitle}} <ul class="btd-column-buttons">')
   .replace('{{/isTemporary}} </header>', '{{/isTemporary}} </ul> </header>')
   // shove in buttons we care about
-  .replace('{{/withMarkAllRead}}  {{^isTemporary}}', '{{/withMarkAllRead}}  {{^isTemporary}} <a class="js-action-header-button column-header-link btd-toggle-minimize-column-link" href="#" data-action="toggle-minimize-column"> <i class="icon icon-minus"></i> </a> ')
+  .replace('{{/withMarkAllRead}}  {{^isTemporary}}', '{{/withMarkAllRead}}  {{^isTemporary}} <a class="js-action-header-button column-header-link btd-toggle-collapse-column-link" href="#" data-action="toggle-collapse-column"> <i class="icon icon-minus"></i> </a> ')
   // wrap all the <a>s with <li>s
   .replace(/<\/i> <\/a>/g, '</i> </a> </li>')
-  .replace(/<a class="js-action-header-button/g, '<li class="btd-column-buttons-better"> <a class="js-action-header-button');
+  .replace(/<a class="js-action-header-button/g, '<li> <a class="js-action-header-button');
 
 let SETTINGS;
 
@@ -229,8 +229,8 @@ const postMessagesListeners = {
     const { settings } = data;
     SETTINGS = settings;
 
-    if (!window.localStorage.getItem('btd_minimized_columns')) {
-      window.localStorage.setItem('btd_minimized_columns', JSON.stringify({}));
+    if (!window.localStorage.getItem('btd_collapsed_columns')) {
+      window.localStorage.setItem('btd_collapsed_columns', JSON.stringify({}));
     }
 
     // We delete the callback for the timestamp task so the content script can do it itself
@@ -499,16 +499,16 @@ $(document).one('dataColumnsLoaded', () => {
     $(el).attr('data-media-size', size);
   });
 
-  // Set all columns to minimize if desired.
-  const minimizedColumns = window.localStorage.getItem('btd_minimized_columns');
-  let columnSettings;
-  if (!window.localStorage.getItem('btd_minimized_columns')) {
-    window.localStorage.setItem('btd_minimized_columns', JSON.stringify({}));
+  // collapse all the columns that need to be.
+  const collapsedColumns = window.localStorage.getItem('btd_collapsed_columns');
+
+  if (!collapsedColumns) {
+    window.localStorage.setItem('btd_collapsed_columns', JSON.stringify({}));
   } else {
-    columnSettings = JSON.parse(minimizedColumns);
+    const columnSettings = JSON.parse(collapsedColumns);
     Object.keys(columnSettings).map((key) => {
       const column = TD.controller.columnManager.getByApiid(key);
-      column._btd.toggleMinimize(!(columnSettings[key] && column));
+      column._btd.toggleCollapse(!(columnSettings[key] && column));
       return column;
     });
   }
@@ -688,23 +688,23 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
       const _parent = this;
       this._btd = {
         _parent,
-        _isMinimized: false,
-        isMinimized() {
-          return this._isMinimized || false;
+        _isCollapsed: false,
+        isCollapsed() {
+          return this._isCollapsed || false;
         },
-        minimize() {
-          const dataBoy = JSON.parse(window.localStorage.getItem('btd_minimized_columns'));
+        collapse() {
+          const dataBoy = JSON.parse(window.localStorage.getItem('btd_collapsed_columns'));
 
           const columnKey = this._parent.model.privateState.key;
           const theColumn = $(`section.column[data-column="${columnKey}"]`);
           theColumn.addClass('btd-column-collapsed');
 
           dataBoy[this._parent.model.privateState.apiid] = true;
-          this._isMinimized = true;
-          window.localStorage.setItem('btd_minimized_columns', JSON.stringify(dataBoy));
+          this._isCollapsed = true;
+          window.localStorage.setItem('btd_collapsed_columns', JSON.stringify(dataBoy));
         },
-        maximize() {
-          const dataBoy = JSON.parse(window.localStorage.getItem('btd_minimized_columns'));
+        uncollapse() {
+          const dataBoy = JSON.parse(window.localStorage.getItem('btd_collapsed_columns'));
 
           if (dataBoy[this._parent.model.privateState.apiid]) {
             const columnKey = this._parent.model.privateState.key;
@@ -712,15 +712,15 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
             theColumn.removeClass('btd-column-collapsed');
 
             delete dataBoy[this._parent.model.privateState.apiid];
-            this._isMinimized = false;
-            window.localStorage.setItem('btd_minimized_columns', JSON.stringify(dataBoy));
+            this._isCollapsed = false;
+            window.localStorage.setItem('btd_collapsed_columns', JSON.stringify(dataBoy));
           }
         },
-        toggleMinimize(state = false) {
-          if (this._isMinimized || state) {
-            this.maximize();
+        toggleCollapse(state = false) {
+          if (this._isCollapsed || state) {
+            this.uncollapse();
           } else {
-            this.minimize();
+            this.collapse();
           }
         },
       };
@@ -733,15 +733,15 @@ $(document).on('click', '#column-navigator .column-nav-item', (ev) => {
 
   const thisNav = $(ev.target.closest('li[data-column]'));
   const columnKey = thisNav.data('column');
-  TD.controller.columnManager.get(columnKey)._btd.maximize();
+  TD.controller.columnManager.get(columnKey)._btd.uncollapse();
 });
 
-$(document).on('click', '.column-panel header.column-header .btd-toggle-minimize-column-link', (ev) => {
+$(document).on('click', '.column-panel header.column-header .btd-toggle-collapse-column-link', (ev) => {
   ev.preventDefault();
 
   const thisColumn = ev.target.closest('[data-column]');
   const columnKey = thisColumn.getAttribute('data-column');
-  TD.controller.columnManager.get(columnKey)._btd.toggleMinimize();
+  TD.controller.columnManager.get(columnKey)._btd.toggleCollapse();
 });
 
 $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
