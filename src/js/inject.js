@@ -621,9 +621,15 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
   '.tweet-action[rel="retweet"], .tweet-detail-action[rel="retweet"], ' +
   '[data-btd-action="hotlink-media"], ' +
   '[data-btd-action="download-media"]', (ev) => {
+  if (!ev.ctrlKey && !ev.metaKey) {
+    return;
+  }
+
   if (!SETTINGS || !SETTINGS.ctrl_changes_interactions) {
     return;
   }
+
+  ev.preventDefault();
 
   // todo: find a better way to listen to favorites globally
   // primary candidates are ui*Favorite or TD.services.TwitterStatus.prototype.setFavorite
