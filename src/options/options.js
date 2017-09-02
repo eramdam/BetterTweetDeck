@@ -172,7 +172,7 @@ BHelper.settings.getAll((settings) => {
 
       if (_.isBoolean(val)) {
         $(`input[name="${name}"]`).prop('checked', val);
-      } else if (_.isString(val) ) {
+      } else if (_.isString(val) && name !== 'ts') {
         $(`input[name="${name}"]`).val(settings[name]);
       } else {
         $(`input[name="${name}"]#${val}`).prop('checked', true);
