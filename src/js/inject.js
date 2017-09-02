@@ -344,9 +344,9 @@ const postMessagesListeners = {
     TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].replace('{{/chirp}} </ul>', `
       {{/chirp}}
       {{#chirp}}
-        <li class="is-selectable">
+        ${settings.mute_source ? `<li class="is-selectable">
           <a href="#" data-btd-action="mute-source" data-btd-source="{{sourceNoHTML}}">Mute "{{sourceNoHTML}}"</a>
-        </li>
+        </li>` : ''}
         ${settings.mute_hashtags ? `{{#entities.hashtags}}
           <li class="is-selectable">
             <a href="#" data-btd-action="mute-hashtag" data-btd-hashtag="{{text}}">Mute #{{text}}</a>
