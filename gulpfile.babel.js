@@ -73,9 +73,9 @@ const buildWithBrowserify = (entry) => {
     .on('error', maybeNotifyErrors())
     .pipe(source(path.basename(entry)))
     .pipe(buffer())
-    .pipe(isProduction() || browser === 'firefox' ? gutil.noop() : sourcemaps.init({ loadMaps: true }))
+    .pipe(browser === 'firefox' ? gutil.noop() : sourcemaps.init({ loadMaps: true }))
     .pipe(isProduction() && browser !== 'firefox' ? uglify() : gutil.noop())
-    .pipe(isProduction() || browser === 'firefox' ? gutil.noop() : sourcemaps.write('./'));
+    .pipe(browser === 'firefox' ? gutil.noop() : sourcemaps.write('./'));
 };
 
 /*
