@@ -155,7 +155,8 @@ body :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
 }
 
 .stream-item .is-video .reverse-image-search {
-  pointer-events: none;
+  pointer-events: none !important;
+  display: none !important;
 }
 
 [data-action-id^="btd-banner"] {
