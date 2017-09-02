@@ -617,6 +617,25 @@ const clipboard = new Clipboard('.btd-clipboard', {
     return getMediaFromChirp(getChirpFromElement(trigger)).join('\n');
   } });
 
+$('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="favorite"]' +
+  '.tweet-action[rel="retweet"], .tweet-detail-action[rel="retweet"], ' +
+  '[data-btd-action="hotlink-media"], ' +
+  '[data-btd-action="download-media"]', (ev) => {
+  if (!SETTINGS || !SETTINGS.ctrl_changes_interactions) {
+    return;
+  }
+
+  // todo: find a better way to listen to favorites globally
+  // primary candidates are ui*Favorite or TD.services.TwitterStatus.prototype.setFavorite
+
+  const chirp = getChirpFromElement(ev.target);
+
+  const user = chirp.retweetedStatus ? chirp.retweetedStatus.user : chirp.user;
+  if (!user.following) {
+    user.follow(chirp.account, null, null, true);
+  }
+});
+
 $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
   ev.preventDefault();
   const chirp = getChirpFromElement(ev.target);
