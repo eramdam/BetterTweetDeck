@@ -695,7 +695,7 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
           return this._isCollapsed || false;
         },
         collapse() {
-          if (SETTINGS.collapse_columns) {
+          if (!SETTINGS.collapse_columns) {
             return;
           }
           const dataBoy = JSON.parse(window.localStorage.getItem('btd_collapsed_columns'));
@@ -709,7 +709,7 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
           window.localStorage.setItem('btd_collapsed_columns', JSON.stringify(dataBoy));
         },
         uncollapse() {
-          if (SETTINGS.collapse_columns) {
+          if (!SETTINGS.collapse_columns) {
             return;
           }
           const dataBoy = JSON.parse(window.localStorage.getItem('btd_collapsed_columns'));
@@ -725,9 +725,12 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
           }
         },
         toggleCollapse(state = false) {
+          Log('wat do');
           if (this._isCollapsed || state) {
+            Log('uncollapse');
             this.uncollapse();
           } else {
+            Log('collapse');
             this.collapse();
           }
         },
@@ -736,9 +739,9 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
   };
 })(TD.vo.Column);
 
-$(document).on('click', '#column-navigator .column-nav-item', (ev) => {
+$('body').on('click', '#column-navigator .column-nav-item', (ev) => {
   ev.preventDefault();
-  if (SETTINGS.collapse_columns) {
+  if (!SETTINGS.collapse_columns) {
     return;
   }
 
@@ -747,9 +750,9 @@ $(document).on('click', '#column-navigator .column-nav-item', (ev) => {
   TD.controller.columnManager.get(columnKey)._btd.uncollapse();
 });
 
-$(document).on('click', '.column-panel header.column-header .btd-toggle-collapse-column-link', (ev) => {
+$('body').on('click', '.column-panel header.column-header .btd-toggle-collapse-column-link', (ev) => {
   ev.preventDefault();
-  if (SETTINGS.collapse_columns) {
+  if (!SETTINGS.collapse_columns) {
     return;
   }
 
