@@ -722,6 +722,7 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
             delete dataBoy[this._parent.model.privateState.apiid];
             this._isCollapsed = false;
             window.localStorage.setItem('btd_collapsed_columns', JSON.stringify(dataBoy));
+            TD.controller.columnManager.showColumn(columnKey);
           }
         },
         toggleCollapse(state = false) {
