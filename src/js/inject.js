@@ -725,12 +725,9 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
           }
         },
         toggleCollapse(state = false) {
-          Log('wat do');
           if (this._isCollapsed || state) {
-            Log('uncollapse');
             this.uncollapse();
           } else {
-            Log('collapse');
             this.collapse();
           }
         },
@@ -750,7 +747,7 @@ $('body').on('click', '#column-navigator .column-nav-item', (ev) => {
   TD.controller.columnManager.get(columnKey)._btd.uncollapse();
 });
 
-$('body').on('click', '.column-panel header.column-header .btd-toggle-collapse-column-link', (ev) => {
+$('body').on('mousedown', '.column-panel header.column-header .btd-toggle-collapse-column-link', (ev) => {
   ev.preventDefault();
   if (!SETTINGS.collapse_columns) {
     return;
