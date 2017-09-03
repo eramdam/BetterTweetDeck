@@ -148,7 +148,7 @@ function tweakClassesFromVisualSettings() {
 
     styleTag.type = 'text/css';
     styleTag.appendChild(document.createTextNode(`
-      body.btd__custom_column_size .column {
+      .column {
         width: ${safeValue} !important;
       }
     `));

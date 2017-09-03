@@ -749,7 +749,7 @@ $('body').on('click', '#column-navigator .column-nav-item', (ev) => {
 
 $('body').on('mousedown', '.column-panel header.column-header .btd-toggle-collapse-column-link', (ev) => {
   ev.preventDefault();
-  if (!SETTINGS.collapse_columns) {
+  if (!SETTINGS.collapse_columns || ev.which !== 1) {
     return;
   }
 

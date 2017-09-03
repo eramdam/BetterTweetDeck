@@ -9,6 +9,9 @@ section.btd-column-collapsed {
     transform: rotate(90deg);
     width: 100vh;
     top: -50px;
+
+    display: flex;
+    flex-direction: row;
   }
 
   i.column-type-icon {
@@ -17,6 +20,27 @@ section.btd-column-collapsed {
     position: relative;
     left: 12px;
     bottom: 0;
+
+    order: 1;
+  }
+
+  .column-title {
+    order: 2;
+    margin-left: 4px;
+  }
+
+  ul.btd-column-buttons {
+    order: 0;
+    position: relative;
+    margin-left: 10px;
+  }
+
+  &.column-type-message ul.btd-column-buttons {
+    flex-direction: row-reverse;
+  }
+
+  &.column-type-message ul.btd-column-buttons li:nth-child(3) {
+    order: 1;
   }
 
   i.column-type-icon:before {
@@ -44,12 +68,13 @@ ul.btd-column-buttons {
   right: 5px;
   bottom: -1px;
   padding: 0 4px;
+  display: flex;
+  flex-direction: row;
 
   li {
     /* undo the .column-header-link styles for the children */
     position: relative;
     margin: 0;
-    float: left;
 
     a.column-header-link {
       margin: 0;
