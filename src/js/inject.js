@@ -684,8 +684,8 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
 
 ((originalColumn) => {
   TD.vo.Column = class Column extends originalColumn {
-    constructor(executor) {
-      super(executor);
+    constructor(...args) {
+      super(...args);
 
       const _parent = this;
       this._btd = {
