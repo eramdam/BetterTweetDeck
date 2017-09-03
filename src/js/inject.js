@@ -4,16 +4,6 @@ import Clipboard from 'clipboard';
 import Log from './util/logger';
 import UsernamesTemplates from './util/username_templates';
 
-TD.mustaches['column/column_header.mustache'] = TD.mustaches['column/column_header.mustache']
-  // wrap everyting with an ul
-  .replace('{{/withEditableTitle}}', '{{/withEditableTitle}} <ul class="btd-column-buttons">')
-  .replace('{{/isTemporary}} </header>', '{{/isTemporary}} </ul> </header>')
-  // shove in buttons we care about
-  .replace('{{/withMarkAllRead}}  {{^isTemporary}}', '{{/withMarkAllRead}}  {{^isTemporary}} <a class="js-action-header-button column-header-link btd-toggle-collapse-column-link" href="#" data-action="toggle-collapse-column"> <i class="icon icon-minus"></i> </a> ')
-  // wrap all the <a>s with <li>s
-  .replace(/<\/i> <\/a>/g, '</i> </a> </li>')
-  .replace(/<a class="js-action-header-button/g, '<li> <a class="js-action-header-button');
-
 let SETTINGS;
 
 const deciderOverride = {
@@ -229,8 +219,20 @@ const postMessagesListeners = {
     const { settings } = data;
     SETTINGS = settings;
 
-    if (!window.localStorage.getItem('btd_collapsed_columns')) {
-      window.localStorage.setItem('btd_collapsed_columns', JSON.stringify({}));
+    if (settings.collapse_columns) {
+      if (!window.localStorage.getItem('btd_collapsed_columns')) {
+        window.localStorage.setItem('btd_collapsed_columns', JSON.stringify({}));
+      }
+
+      TD.mustaches['column/column_header.mustache'] = TD.mustaches['column/column_header.mustache']
+      // wrap everyting with an ul
+        .replace('{{/withEditableTitle}}', '{{/withEditableTitle}} <ul class="btd-column-buttons">')
+        .replace('{{/isTemporary}} </header>', '{{/isTemporary}} </ul> </header>')
+        // shove in buttons we care about
+        .replace('{{/withMarkAllRead}}  {{^isTemporary}}', '{{/withMarkAllRead}}  {{^isTemporary}} <a class="js-action-header-button column-header-link btd-toggle-collapse-column-link" href="#" data-action="toggle-collapse-column"> <i class="icon icon-minus"></i> </a> ')
+        // wrap all the <a>s with <li>s
+        .replace(/<\/i> <\/a>/g, '</i> </a> </li>')
+        .replace(/<a class="js-action-header-button/g, '<li> <a class="js-action-header-button');
     }
 
     // We delete the callback for the timestamp task so the content script can do it itself
@@ -693,6 +695,9 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
           return this._isCollapsed || false;
         },
         collapse() {
+          if (SETTINGS.collapse_columns) {
+            return;
+          }
           const dataBoy = JSON.parse(window.localStorage.getItem('btd_collapsed_columns'));
 
           const columnKey = this._parent.model.privateState.key;
@@ -704,6 +709,9 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
           window.localStorage.setItem('btd_collapsed_columns', JSON.stringify(dataBoy));
         },
         uncollapse() {
+          if (SETTINGS.collapse_columns) {
+            return;
+          }
           const dataBoy = JSON.parse(window.localStorage.getItem('btd_collapsed_columns'));
 
           if (dataBoy[this._parent.model.privateState.apiid]) {
@@ -730,6 +738,9 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
 
 $(document).on('click', '#column-navigator .column-nav-item', (ev) => {
   ev.preventDefault();
+  if (SETTINGS.collapse_columns) {
+    return;
+  }
 
   const thisNav = $(ev.target.closest('li[data-column]'));
   const columnKey = thisNav.data('column');
@@ -738,6 +749,9 @@ $(document).on('click', '#column-navigator .column-nav-item', (ev) => {
 
 $(document).on('click', '.column-panel header.column-header .btd-toggle-collapse-column-link', (ev) => {
   ev.preventDefault();
+  if (SETTINGS.collapse_columns) {
+    return;
+  }
 
   const thisColumn = ev.target.closest('[data-column]');
   const columnKey = thisColumn.getAttribute('data-column');
