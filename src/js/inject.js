@@ -175,7 +175,12 @@ const postMessagesListeners = {
       markup = chirp.targetTweet.renderInMediaGallery();
     }
 
-    proxyEvent('gotMediaGalleryChirpHTML', { markup, chirp: decorateChirp(chirp), modalHtml, colKey });
+    proxyEvent('gotMediaGalleryChirpHTML', {
+      markup,
+      chirp: decorateChirp(chirp),
+      modalHtml,
+      colKey,
+    });
   },
   BTDC_getChirpFromColumn: (ev, data) => {
     const { chirpKey, colKey } = data;
@@ -296,7 +301,8 @@ const postMessagesListeners = {
     // Inject items into the interaction bar
     if (settings.hotlink_item || settings.download_item) {
       TD.mustaches['status/tweet_single_actions.mustache'] = TD.mustaches['status/tweet_single_actions.mustache']
-        .replace('{{_i}}Like{{/i}} </span> </a> </li>',
+        .replace(
+          '{{_i}}Like{{/i}} </span> </a> </li>',
           `{{_i}}Like{{/i}} </span> </a> </li>
            {{#tweet.entities.media.length}}
            ${settings.hotlink_item ? `
@@ -315,10 +321,12 @@ const postMessagesListeners = {
                <span class="is-vishidden"> {{_i}}Download media{{/i}} </span>
              </a>
            </li>` : ''}
-           {{/tweet.entities.media.length}}`);
+           {{/tweet.entities.media.length}}`,
+        );
 
       TD.mustaches['status/tweet_detail_actions.mustache'] = TD.mustaches['status/tweet_detail_actions.mustache']
-        .replace('{{_i}}Like{{/i}} </span> </a> {{/account}} </li>',
+        .replace(
+          '{{_i}}Like{{/i}} </span> </a> {{/account}} </li>',
           `{{_i}}Like{{/i}} </span> </a> {{/account}} </li>
            {{#getMainTweet}}{{#entities.media.length}}
            ${settings.hotlink_item ? `
@@ -337,7 +345,8 @@ const postMessagesListeners = {
                <span class="is-vishidden"> {{_i}}Download media{{/i}} </span>
              </a>
            </li>` : ''}
-           {{/entities.media.length}}{{/getMainTweet}}`);
+           {{/entities.media.length}}{{/getMainTweet}}`,
+        );
     }
 
     // Adds the Favstar.fm item in menus and adds mute action for each hashtag
@@ -615,7 +624,8 @@ const getMediaFromChirp = (chirp) => {
 const clipboard = new Clipboard('.btd-clipboard', {
   text: (trigger) => {
     return getMediaFromChirp(getChirpFromElement(trigger)).join('\n');
-  } });
+  },
+});
 
 $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="favorite"]' +
   '.tweet-action[rel="retweet"], .tweet-detail-action[rel="retweet"], ' +

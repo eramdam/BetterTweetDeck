@@ -120,7 +120,15 @@ const noEmbedVideoCB = (url) => {
 };
 
 // We export a few useful functions for providers
-const util = { getKeyFor, statusAndJson, statusAndText, getEnpointFor, getSafeURL, noEmbedVideoCB, noEmbedImgCB };
+const util = {
+  getKeyFor,
+  statusAndJson,
+  statusAndText,
+  getEnpointFor,
+  getSafeURL,
+  noEmbedVideoCB,
+  noEmbedImgCB,
+};
 
 const schemeWhitelist = [
   Providers.fivehundredpx(util),
@@ -205,4 +213,9 @@ function thumbnailForFetch(url) {
 // We use reuse-promise so we don't have to fetch the same URL twice
 const thumbnailFor = reusePromise(thumbnailForFetch);
 
-module.exports = { validateUrl, thumbnailFor, schemeWhitelist, getSafeURL };
+module.exports = {
+  validateUrl,
+  thumbnailFor,
+  schemeWhitelist,
+  getSafeURL,
+};

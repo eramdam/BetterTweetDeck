@@ -1,5 +1,5 @@
 import Mustache from 'mustache';
-/* eslint max-len: 0*/
+/* eslint max-len: 0 */
 const templates = {
   preview: `
   <div class="js-media media-preview position-rel btd-media-thumbnail">
@@ -75,7 +75,13 @@ const defaultData = {
   },
 };
 
-const previewTemplate = ({ mediaPreviewSrc, sourceLink, size, type = 'picture', provider = 'default' }) => {
+const previewTemplate = ({
+  mediaPreviewSrc,
+  sourceLink,
+  size,
+  type = 'picture',
+  provider = 'default',
+}) => {
   const safeURL = mediaPreviewSrc;
 
   if (type === 'image' && !mediaPreviewSrc.includes('imgur.com') && mediaPreviewSrc) {
@@ -100,7 +106,14 @@ const previewTemplate = ({ mediaPreviewSrc, sourceLink, size, type = 'picture', 
   }));
 };
 
-const modalTemplate = ({ imageUrl, originalUrl, type, videoEmbed = null, provider = 'default', hasGIFDownload = false }) => {
+const modalTemplate = ({
+  imageUrl,
+  originalUrl,
+  type,
+  videoEmbed = null,
+  provider = 'default',
+  hasGIFDownload = false,
+}) => {
   if (type === 'image') {
     const parsed = new URL(imageUrl);
     imageUrl = parsed.searchParams.get('url');

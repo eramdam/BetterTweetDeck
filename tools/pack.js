@@ -1,6 +1,7 @@
 const chalk = require('chalk');
 const config = require('config');
 
+// eslint-disable-next-line no-console
 const clog = (color, ...args) => console.log(chalk[color](...args));
 const fs = require('fs');
 const path = require('path');

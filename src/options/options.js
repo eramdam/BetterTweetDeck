@@ -367,8 +367,8 @@ $('body').on('click', '[data-info-setting]', (ev) => {
 });
 
 // Open a specific section when needed
-if (Object.keys(queryString.parse(location.search)).length > 0) {
-  const QS = queryString.parse(location.search);
+if (Object.keys(queryString.parse(window.location.search)).length > 0) {
+  const QS = queryString.parse(window.location.search);
 
   if (QS.on === 'install') {
     switchSettingPage('onInstall');

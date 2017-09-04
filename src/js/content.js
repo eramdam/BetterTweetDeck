@@ -579,7 +579,12 @@ on('BTDC_gotChirpInMediaModal', (ev, data) => {
 });
 
 on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
-  const { markup, modalHtml, chirp, colKey } = data;
+  const {
+    markup,
+    modalHtml,
+    chirp,
+    colKey,
+  } = data;
 
   const openModal = $('#open-modal')[0];
   const tweetMarkupString = modalHtml.replace('<div class="js-med-tweet med-tweet"></div>', `<div class="js-med-tweet med-tweet">${markup}</div>`);
