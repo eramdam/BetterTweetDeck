@@ -9,7 +9,6 @@ section.btd-column-collapsed {
     transform: rotate(90deg);
     width: 100vh;
     top: -50px;
-
     display: flex;
     flex-direction: row;
   }
@@ -20,7 +19,6 @@ section.btd-column-collapsed {
     position: relative;
     left: 12px;
     bottom: 0;
-
     order: 1;
   }
 
@@ -43,13 +41,13 @@ section.btd-column-collapsed {
     order: 1;
   }
 
-  i.column-type-icon:before {
+  i.column-type-icon::before {
     position: relative;
     top: -14px;
   }
 
   /* uiColumnTitleRefreshed forces us to change this class (mustache recalc), or we could cheat */
-  .icon-minus:before {
+  .icon-minus::before {
     content: "\f183";
   }
 
