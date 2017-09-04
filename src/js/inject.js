@@ -787,6 +787,33 @@ $('body').on('click', '[data-btd-action="mute-source"]', (ev) => {
   TD.controller.filterManager.addFilter('source', source);
 });
 
+$('body').on({
+  mouseenter: (ev) => {
+    if (SETTINGS && !SETTINGS.pause_scroll_on_hover) {
+      return;
+    }
+    const thisColumn = ev.target.closest('[data-column]');
+    const columnKey = thisColumn.getAttribute('data-column');
+    const column = TD.controller.columnManager.get(columnKey);
+    const scroller = column.ui.getChirpScroller();
+    if (scroller.scrollTop() === 0) {
+      column.ui.pause();
+    }
+  },
+  mouseleave: (ev) => {
+    if (SETTINGS && !SETTINGS.pause_scroll_on_hover) {
+      return;
+    }
+    const thisColumn = ev.target.closest('[data-column]');
+    const columnKey = thisColumn.getAttribute('data-column');
+    const column = TD.controller.columnManager.get(columnKey);
+    const scroller = column.ui.getChirpScroller();
+    if (scroller.scrollTop() === 1) {
+      column.ui.unpause();
+    }
+  },
+}, 'section.column');
+
 const defaultTitle = 'TweetDeck';
 const unreadTitle = '[*] TweetDeck';
 const countTitle = count => `[${count}] TweetDeck`;
