@@ -17,7 +17,8 @@ export default function (templates, settingValue) {
 
     // "<name> added you" in a group conversation
     replaceWrapper('status/conversation_join_preview', '{{sender.name}}', '@{{sender.screenName}}');
-    replaceWrapper('status/conversation_join',
+    replaceWrapper(
+      'status/conversation_join',
       '<a href="{{profileURL}}" rel="user" target="_blank">{{name}}</a>',
       '<a href="{{profileURL}}" rel="user" target="_blank">@{{#btd.usernameFromURL}}{{profileURL}}{{/btd.usernameFromURL}}</a>',
     );
