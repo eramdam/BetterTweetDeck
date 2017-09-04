@@ -9,8 +9,7 @@ import notify from 'gulp-notify';
 // JS
 import browserify from 'browserify';
 import source from 'vinyl-source-stream';
-import buffer from 'vinyl-buffer';
-import eslint from 'gulp-eslint';
+import vinylBuffer from 'vinyl-buffer';
 import uglify from 'gulp-uglify';
 import zip from 'gulp-zip';
 import sourcemaps from 'gulp-sourcemaps';
@@ -35,11 +34,6 @@ const staticFiles = [
   'options/img/*',
   '_locales/**/*',
 ].map(i => path.resolve('src/', i));
-
-const toLintFiles = [
-  'src/js/**/*.js',
-  '*.js',
-];
 
 const postCssPlugins = [
   cssimport,
@@ -72,7 +66,7 @@ const buildWithBrowserify = (entry) => {
     .bundle()
     .on('error', maybeNotifyErrors())
     .pipe(source(path.basename(entry)))
-    .pipe(buffer())
+    .pipe(vinylBuffer())
     .pipe(browser === 'firefox' ? gutil.noop() : sourcemaps.init({ loadMaps: true }))
     .pipe(isProduction() && browser !== 'firefox' ? uglify() : gutil.noop())
     .pipe(browser === 'firefox' ? gutil.noop() : sourcemaps.write('./'));
@@ -162,17 +156,6 @@ gulp.task('css-options', () => (
     .pipe(gulp.dest('./dist/options/css'))
 ));
 
-/**
- * `gulp lint`
- * Lint the JS files (Gulpfile as well)
- */
-gulp.task('lint', () => (
-  gulp.src(toLintFiles)
-    .pipe(eslint())
-    .pipe(eslint.format())
-    .pipe(eslint.failAfterError())
-));
-
 /*
 *
 * `gulp build`
@@ -205,7 +188,7 @@ const stringSrc = (filename, string) => {
       cwd: '',
       base: '',
       path: filename,
-      contents: new Buffer(string),
+      contents: Buffer.from(string),
     }));
     this.push(null);
   };

@@ -26,7 +26,8 @@
     "release": "npm run build:chrome:prod && cross-env NODE_ENV=prod npm run pack:chrome && npm run build:firefox:prod && npm run pack:firefox",
     "release:firefox": "npm run build:firefox:prod && npm run pack:firefox && rimraf artifacts/dist-firefox.zip",
     "release:chrome": "npm run build:chrome:prod && cross-env NODE_ENV=prod npm run pack:chrome",
-    "test": "gulp lint && npm run release",
+    "lint": "eslint .",
+    "test": "npm run lint && npm run release",
     "update_emojis": "node tools/update_emojis.js"
   },
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
@@ -49,9 +50,6 @@
     "domify": "1.4.0",
     "emoji-js": "3.2.2",
     "escape-html": "^1.0.3",
-    "eslint": "4.0.0",
-    "eslint-config-airbnb-base": "11.2.0",
-    "eslint-plugin-import": "2.3.0",
     "fecha": ">=1.0.0",
     "file-saver": "1.3.3",
     "gifshot": "git://github.com/yahoo/gifshot.git#0.4.4",
@@ -86,5 +84,10 @@
     "vinyl-transform": "1.0.0",
     "web-ext": "1.9.1",
     "xml-js": "1.3.2"
+  },
+  "devDependencies": {
+    "eslint": "^4.6.1",
+    "eslint-config-airbnb-base": "^12.0.0",
+    "eslint-plugin-import": "^2.7.0"
   }
 }
