@@ -1,4 +1,5 @@
 tools/**/*.json
 src/emojis/emojis.js
 !.eslintrc.js
-dist/
+dist/*
+artifacts/
