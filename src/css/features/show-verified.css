@@ -18,7 +18,6 @@ General style setup
     height: 1em;
     font-size: 18px;
     z-index: 9;
-
     background-image: radial-gradient(circle 11px, white 50%, color(white a(0)) 51%);
   }
 }
@@ -37,6 +36,7 @@ General style setup
     right: -3px;
   }
 }
+
 /*
  small avatar on activities ("Bob liked", "Alice retweeted", "Damien added you to a list", etc)
  */

@@ -75,7 +75,7 @@
   }
 
   .scroll-conversation {
-    background: color(#292F33 saturation(0%));
+    background: color(#292f33 saturation(0%));
   }
 
   .account-bio {
@@ -99,10 +99,10 @@
   }
 
   .with-column-divider-bottom {
-    border-bottom-color: color(#292F33 saturation(0%));
+    border-bottom-color: color(#292f33 saturation(0%));
   }
 
   .column-message {
-    background-color: color(#2E2E2E saturation(0%));
+    background-color: color(#2e2e2e saturation(0%));
   }
 }

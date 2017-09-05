@@ -24,10 +24,10 @@
   }
 
   .sprite {
-      display: inline-block;
-      vertical-align: text-top;
-      background-image: url('../../img/td_sprite_sheet_2013_@1x.png');
-      background-repeat: no-repeat
+    display: inline-block;
+    vertical-align: text-top;
+    background-image: url('../../img/td_sprite_sheet_2013_@1x.png');
+    background-repeat: no-repeat
   }
 
   .heart-anim {
@@ -46,10 +46,10 @@
   }
 
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
-      .sprite {
-          background-image: url('../../img/td_sprite_sheet_2013_@2x.png');
-          background-size: 240px 160px;
-          background-repeat: no-repeat
-      }
+    .sprite {
+      background-image: url('../../img/td_sprite_sheet_2013_@2x.png');
+      background-size: 240px 160px;
+      background-repeat: no-repeat
+    }
   }
 }

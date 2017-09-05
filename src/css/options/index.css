@@ -1,6 +1,5 @@
 @import "normalize.css";
 @import "../../../node_modules/prismjs/themes/prism-solarizedlight.css";
-
 @import "./save-bar.css";
 @import "./sidebar.css";
 @import "./tokens.css";
@@ -46,7 +45,6 @@ body.-browser-firefox [data-hidden-firefox] {
   flex: 1;
   background: white;
   position: relative;
-
   color: #383838;
 }
 
@@ -59,7 +57,6 @@ body.-browser-firefox [data-hidden-firefox] {
   background: white;
   overflow: auto;
   padding: 20px;
-
   visibility: hidden;
   transition: opacity 300ms ease;
   transform: translate(-100%, -100%);
@@ -80,7 +77,7 @@ body.-browser-firefox [data-hidden-firefox] {
   margin: 0;
   font-weight: 400;
   padding-bottom: 5px;
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid #eee;
 }
 
 .settings-section {
@@ -186,59 +183,58 @@ body.-browser-firefox [data-hidden-firefox] {
 }
 
 span.emoji {
-	display: -moz-inline-box;
-	-moz-box-orient: vertical;
-	display: inline-block;
-	vertical-align: baseline;
-	*vertical-align: auto;
-	*zoom: 1;
-	*display: inline;
-	width: 1em;
-	height: 1em;
-	background-size: 1em;
-	background-repeat: no-repeat;
-	text-indent: -9999px;
-	background-position: 50%, 50%;
-	background-size: contain;
+  display: -moz-inline-box;
+  -moz-box-orient: vertical;
+  display: inline-block;
+  vertical-align: baseline;
+  *vertical-align: auto;
+  *zoom: 1;
+  *display: inline;
+  width: 1em;
+  height: 1em;
+  background-size: 1em;
+  background-repeat: no-repeat;
+  text-indent: -9999px;
+  background-position: 50%, 50%;
+  background-size: contain;
 }
 
 span.emoji-sizer {
-	line-height: 0.81em;
-	font-size: 1em;
- 	margin: -2px 0;
+  line-height: 0.81em;
+  font-size: 1em;
+  margin: -2px 0;
 }
 
 span.emoji-outer {
-	display: -moz-inline-box;
-	display: inline-block;
-	*display: inline;
-	height: 1em;
-	width: 1em;
+  display: -moz-inline-box;
+  display: inline-block;
+  *display: inline;
+  height: 1em;
+  width: 1em;
 }
 
 span.emoji-inner {
-	display: -moz-inline-box;
-	display: inline-block;
-	text-indent: -9999px;
-	width: 100%;
-	height: 100%;
-	vertical-align: baseline;
-	*vertical-align: auto;
-	*zoom: 1;
+  display: -moz-inline-box;
+  display: inline-block;
+  text-indent: -9999px;
+  width: 100%;
+  height: 100%;
+  vertical-align: baseline;
+  *vertical-align: auto;
+  *zoom: 1;
 }
 
 img.emoji {
-	width: 1em;
-	height: 1em;
+  width: 1em;
+  height: 1em;
 }
 
 button.plain-button {
   outline: none;
   border: none;
-
   font-size: 14px;
   border-radius: 4px;
-  color: #3B3B3B;
+  color: #3b3b3b;
   font-weight: 500;
   padding: 5px 13px 6px 13px;
   border: 1px solid #b1b1b1;
@@ -246,13 +242,13 @@ button.plain-button {
   -webkit-font-smoothing: antialiased;
   
   &:hover {
-    background: linear-gradient(#ffffff, #f1f1f1);
+    background: linear-gradient(#fff, #f1f1f1);
     border: 1px solid #b1b1b1;
   }
   
   &, &[disabled]:hover {
     border: 1px solid #cecece;
-    background: linear-gradient(#ffffff, #e8e8e8);
+    background: linear-gradient(#fff, #e8e8e8);
   }
   
   &[disabled] {
@@ -263,8 +259,8 @@ button.plain-button {
 }
 
 @keyframes flashSetting {
-	from { background-color: rgba(255, 255, 0, 0.7); }
-	to { background-color: rgba(255, 255, 0, 0); }
+  from { background-color: rgba(255, 255, 0, 0.7); }
+  to { background-color: rgba(255, 255, 0, 0); }
 }
 
 .flash-setting {
@@ -284,11 +280,9 @@ button.plain-button {
     top: 56%;
     left: 0;
     transform: translate(-100%, -50%);
-
     text-align: center;
     color: black;
     opacity: .4;
-    
     display: flex;
     flex-direction: column;
     justify-content: center;

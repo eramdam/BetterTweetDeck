@@ -40,7 +40,7 @@
   /* Light */
   --compose-btn-bg-light: #707375;
   --compose-btn-bg-light-hover: color(var(--compose-btn-bg-light) shade(20%));
-  --main-bg-white: #ffffff;
+  --main-bg-white: #fff;
 }
 
 
@@ -164,12 +164,12 @@ body :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
 }
 
 .dropdown-menu .typeahead-item, .dropdown-menu [data-btd-action] {
-    display: block;
-    padding: 5px 20px;
-    color: #292F33;
-    text-shadow: none;
-    cursor: pointer;
-    text-decoration: none;
+  display: block;
+  padding: 5px 20px;
+  color: #292f33;
+  text-shadow: none;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .dropdown-menu .is-selected [data-btd-action] {
