@@ -1,10 +1,10 @@
 .btd__stars {
   .icon-favorite::before,
-  .icon-heart-filled:before {
+  .icon-heart-filled::before {
     content: "\f007";
     font-family: "old_tweetdeckregular";
   }
-  
+
   .tweet-action:hover .icon-favorite,
   .tweet-detail-action:hover .icon-favorite,
   .dm-action:hover .icon-favorite,
@@ -27,14 +27,19 @@
     display: inline-block;
     vertical-align: text-top;
     background-image: url('../../img/td_sprite_sheet_2013_@1x.png');
-    background-repeat: no-repeat
+    background-repeat: no-repeat;
   }
 
   .heart-anim {
     display: none;
   }
-  
-  .tweet-action .icon, .tweet-detail-action .icon, .dm-action .icon, .tweet-action .Icon, .tweet-detail-action .Icon, .dm-action .Icon {
+
+  .tweet-action .icon,
+  .tweet-detail-action .icon,
+  .dm-action .icon,
+  .tweet-action .Icon,
+  .tweet-detail-action .Icon,
+  .dm-action .Icon {
     &.icon-favorite,
     &.icon-favorite-toggle {
       margin-top: 1px;
@@ -49,7 +54,7 @@
     .sprite {
       background-image: url('../../img/td_sprite_sheet_2013_@2x.png');
       background-size: 240px 160px;
-      background-repeat: no-repeat
+      background-repeat: no-repeat;
     }
   }
 }

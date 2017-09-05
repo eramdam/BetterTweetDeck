@@ -69,7 +69,6 @@ body.-browser-firefox [data-hidden-firefox] {
   opacity: 1;
 }
 
-
 /*
   Content's style
  */
@@ -100,7 +99,8 @@ body.-browser-firefox [data-hidden-firefox] {
     color: color(var(--link-color) shade(20%));
   }
 
-  a:hover, a:active {
+  a:hover,
+  a:active {
     color: color(var(--link-color) shade(50%));
   }
 
@@ -113,21 +113,23 @@ body.-browser-firefox [data-hidden-firefox] {
     list-style: none;
   }
 
-  ul, ol {
-    padding-left: .7em;
+  ul,
+  ol {
+    padding-left: 0.7em;
     font-size: 14px;
 
-    ul, ol {
+    ul,
+    ol {
       padding-left: 1.4em;
     }
 
     li {
       line-height: 1.8;
-      margin: .6em 0;
+      margin: 0.6em 0;
     }
 
     input + label {
-      margin-left: .5em;
+      margin-left: 0.5em;
     }
 
     img.favicon-icon {
@@ -135,7 +137,7 @@ body.-browser-firefox [data-hidden-firefox] {
     }
 
     label.left-label {
-      margin-right: .4em;
+      margin-right: 0.4em;
       min-width: 50px;
       text-align: right;
       display: inline-block;
@@ -145,7 +147,7 @@ body.-browser-firefox [data-hidden-firefox] {
       position: relative;
     }
 
-    label[data-new-feat]:after {
+    label[data-new-feat]::after {
       content: 'New';
       text-transform: uppercase;
       display: inline-block;
@@ -157,12 +159,12 @@ body.-browser-firefox [data-hidden-firefox] {
       border-radius: 4px;
       color: white;
       top: 50%;
-      transform: translate(0%,-50%);
+      transform: translate(0%, -50%);
     }
 
     label small,
     li small {
-      margin-left: .4em;
+      margin-left: 0.4em;
       color: #a0a0a0;
       font-size: 80%;
       font-style: normal;
@@ -175,7 +177,8 @@ body.-browser-firefox [data-hidden-firefox] {
         color: color(var(--link-color) saturation(0) shade(20%));
       }
 
-      a:hover, a:active {
+      a:hover,
+      a:active {
         color: color(var(--link-color) saturation(0) shade(50%));
       }
     }
@@ -183,16 +186,10 @@ body.-browser-firefox [data-hidden-firefox] {
 }
 
 span.emoji {
-  display: -moz-inline-box;
-  -moz-box-orient: vertical;
   display: inline-block;
   vertical-align: baseline;
-  *vertical-align: auto;
-  *zoom: 1;
-  *display: inline;
   width: 1em;
   height: 1em;
-  background-size: 1em;
   background-repeat: no-repeat;
   text-indent: -9999px;
   background-position: 50%, 50%;
@@ -236,25 +233,25 @@ button.plain-button {
   border-radius: 4px;
   color: #3b3b3b;
   font-weight: 500;
-  padding: 5px 13px 6px 13px;
-  border: 1px solid #b1b1b1;
+  padding: 5px 13px 6px;
   cursor: pointer;
   -webkit-font-smoothing: antialiased;
-  
+
   &:hover {
     background: linear-gradient(#fff, #f1f1f1);
     border: 1px solid #b1b1b1;
   }
-  
-  &, &[disabled]:hover {
+
+  &,
+  &[disabled]:hover {
     border: 1px solid #cecece;
     background: linear-gradient(#fff, #e8e8e8);
   }
-  
+
   &[disabled] {
     pointer-events: none;
     background-color: transparent;
-    opacity: .8;
+    opacity: 0.8;
   }
 }
 
@@ -270,7 +267,7 @@ button.plain-button {
 .settings-section.changelog [data-info-setting] {
   position: relative;
   cursor: pointer;
-  
+
   &::before {
     content: '\2197';
     position: absolute;
@@ -282,17 +279,17 @@ button.plain-button {
     transform: translate(-100%, -50%);
     text-align: center;
     color: black;
-    opacity: .4;
+    opacity: 0.4;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
-  
+
   &:hover::before {
     color: #1586ce;
     text-decoration: underline;
-    opacity: 1;    
+    opacity: 1;
   }
 }
 

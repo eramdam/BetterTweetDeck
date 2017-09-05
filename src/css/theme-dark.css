@@ -39,7 +39,7 @@
 
   .dropdown-menu .drp-h-divider,
   .typeahead.lst li {
-    border-bottom: 1px solid hsla(210,6%,18%,1);
+    border-bottom: 1px solid hsla(210, 6%, 18%, 1);
   }
 
   .dropdown-menu .is-selected,
@@ -61,7 +61,7 @@
   .tweet-action:not(:hover):not(:focus),
   .tweet-detail-action,
   .dm-action {
-    color: color(#8899a6 saturation(0%))
+    color: color(#8899a6 saturation(0%));
   }
 
   .js-reply-info-container .txt-mute {
@@ -86,8 +86,9 @@
     background-color: var(--compose-btn-bg-dark-hover);
   }
 
-  .drawer .compose, .inline-reply {
-    background-color: var(--compose-btn-bg-dark-hover)
+  .drawer .compose,
+  .inline-reply {
+    background-color: var(--compose-btn-bg-dark-hover);
   }
 
   .reply-triangle {
@@ -95,7 +96,7 @@
   }
 
   .media-caret {
-    border-color: #222426 transparent transparent transparent;
+    border-color: #222426 transparent transparent;
   }
 
   .with-column-divider-bottom {

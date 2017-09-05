@@ -2,7 +2,7 @@
   position: relative;
 }
 
-.btd__show_provider_indicator .js-media-preview-container[data-btd-provider]:after {
+.btd__show_provider_indicator .js-media-preview-container[data-btd-provider]::after {
   content: attr(data-btd-provider);
   position: absolute;
   bottom: 10px;
@@ -11,7 +11,7 @@
   font-size: 9px;
   color: white;
   font-weight: bold;
-  padding: 3px 4px 2px 4px;
+  padding: 3px 4px 2px;
   background-color: color(black a(40%));
   line-height: normal;
   text-transform: uppercase;
