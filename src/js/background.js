@@ -1,3 +1,4 @@
+import config from 'config';
 import gifshot from 'gifshot';
 import { defaultsDeep } from 'lodash';
 
@@ -76,6 +77,36 @@ chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => 
   }
   return false;
 });
+
+if (config.get('Client.debug')) {
+  const shouldShowTab = () => {
+    chrome.tabs.query({ active: true, url: '*://tweetdeck.twitter.com/*', currentWindow: true }, (tabs) => {
+      tabs.forEach((tab) => {
+        chrome.pageAction.show(tab.id);
+        chrome.pageAction.setTitle({ title: 'Reload BTD', tabId: tab.id });
+      });
+    });
+  };
+
+  chrome.tabs.onActivated.addListener(shouldShowTab);
+  chrome.tabs.onUpdated.addListener(shouldShowTab);
+  chrome.pageAction.onClicked.addListener(() => {
+    localStorage.setItem('btd_developer_refresh', true);
+    chrome.runtime.reload();
+  });
+
+  // find all the BTD tabs and reload them
+  if (localStorage.getItem('btd_developer_refresh') !== null) {
+    chrome.tabs.query({ active: true, url: '*://tweetdeck.twitter.com/*', currentWindow: true }, (tabs) => {
+      tabs.forEach((tab) => {
+        chrome.tabs.reload(tab.id, { bypassCache: true }, () => {
+          Log('Reloaded extension');
+        });
+      });
+    });
+    localStorage.removeItem('btd_developer_refresh');
+  }
+}
 
 function openWelcomePage() {
   chrome.tabs.create({
