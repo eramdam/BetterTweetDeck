@@ -5,6 +5,7 @@ import runSequence from 'run-sequence';
 import del from 'del';
 import plumber from 'gulp-plumber';
 import notify from 'gulp-notify';
+import ws from 'ws';
 
 // JS
 import browserify from 'browserify';
@@ -204,6 +205,21 @@ gulp.task('manifest', () => {
   return stringSrc('manifest.json', manifestJson).pipe(gulp.dest('./dist/'));
 });
 
+const wss = new ws.Server({ port: 9191 });
+
+/*
+*
+* `reload`
+* Reloads the extension and all pages
+*
+*/
+gulp.task('reload', ['js', 'js-options', 'css', 'css-options', 'static-news', 'manifest'], () => {
+  gutil.log('Reloading extension');
+  wss.clients.forEach((client) => {
+    client.send('reload');
+  });
+});
+
 /*
 *
 * `gulp`
@@ -218,10 +234,10 @@ gulp.task('default', (done) => {
   }
 
   runSequence(...tasks, () => {
-    gulp.watch(['./src/js/**/*.js', './src/options/*.js'], ['js', 'js-options']);
-    gulp.watch(['./src/css/**/*.css'], ['css', 'css-options']);
-    gulp.watch(staticFiles, ['static', 'static-news']);
-    gulp.watch('./CHANGELOG.md', ['static-news']);
+    gulp.watch(['./src/js/**/*.js', './src/options/*.js'], ['js', 'js-options', 'reload']);
+    gulp.watch(['./src/css/**/*.css'], ['css', 'css-options', 'reload']);
+    gulp.watch(staticFiles, ['static', 'static-news', 'reload']);
+    gulp.watch('./CHANGELOG.md', ['static-news', 'reload']);
     done();
   });
 });

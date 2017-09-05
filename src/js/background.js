@@ -78,7 +78,19 @@ chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => 
   return false;
 });
 
+function reloadBTD() {
+  localStorage.setItem('btd_developer_refresh', true);
+  chrome.runtime.reload();
+}
+
 if (config.get('Client.debug')) {
+  const socket = new WebSocket('ws://localhost:9191');
+  socket.onmessage = (message) => {
+    if (message.data === 'reload') {
+      reloadBTD();
+    }
+  };
+
   const shouldShowTab = () => {
     chrome.tabs.query({ active: true, url: '*://tweetdeck.twitter.com/*', currentWindow: true }, (tabs) => {
       tabs.forEach((tab) => {
@@ -90,10 +102,7 @@ if (config.get('Client.debug')) {
 
   chrome.tabs.onActivated.addListener(shouldShowTab);
   chrome.tabs.onUpdated.addListener(shouldShowTab);
-  chrome.pageAction.onClicked.addListener(() => {
-    localStorage.setItem('btd_developer_refresh', true);
-    chrome.runtime.reload();
-  });
+  chrome.pageAction.onClicked.addListener(reloadBTD);
 
   // find all the BTD tabs and reload them
   if (localStorage.getItem('btd_developer_refresh') !== null) {
