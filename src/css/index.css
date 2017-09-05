@@ -32,7 +32,7 @@
 @import './embeds.css';
 
 :root {
-  /* Dark*/
+  /* Dark */
   --compose-btn-bg-dark: #373839;
   --compose-btn-bg-dark-hover: color(var(--compose-btn-bg-dark) shade(20%));
   --main-bg-dark: #1d1e21;
@@ -40,9 +40,8 @@
   /* Light */
   --compose-btn-bg-light: #707375;
   --compose-btn-bg-light-hover: color(var(--compose-btn-bg-light) shade(20%));
-  --main-bg-white: #ffffff;
+  --main-bg-white: #fff;
 }
-
 
 [data-btdtheme] .dropdown-menu {
   z-index: 20;
@@ -80,19 +79,18 @@
     z-index: 9;
     width: 40px;
     height: 40px;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
   }
 
   &::before {
     z-index: 10;
     width: calc(40px * 80 / 100);
     height: calc(40px * 80 / 100);
-    opacity: .8;
-    transform: translate(-45%,-50%);
+    opacity: 0.8;
+    transform: translate(-45%, -50%);
     background-image: url('../icons/controller-play.svg');
   }
 }
-
 
 .column-navigator-overflow {
   bottom: 267px !important;
@@ -132,7 +130,7 @@ article video.js-media-gif {
 }
 
 .is-retweet.is-favorite .tweet-dogear {
-  background-position: -200px -10px
+  background-position: -200px -10px;
 }
 
 div.youtube-player:matches(.-gfycat) {
@@ -163,13 +161,14 @@ body :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
   background-color: color(black alpha(30%)) !important;
 }
 
-.dropdown-menu .typeahead-item, .dropdown-menu [data-btd-action] {
-    display: block;
-    padding: 5px 20px;
-    color: #292F33;
-    text-shadow: none;
-    cursor: pointer;
-    text-decoration: none;
+.dropdown-menu .typeahead-item,
+.dropdown-menu [data-btd-action] {
+  display: block;
+  padding: 5px 20px;
+  color: #292f33;
+  text-shadow: none;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .dropdown-menu .is-selected [data-btd-action] {
@@ -184,7 +183,7 @@ body :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
   display: none;
 }
 
-.icon-download:before {
+.icon-download::before {
   content: "\F186";
 }
 
@@ -204,7 +203,7 @@ body :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
 
 .btd__old_replies .js-stream-item:not(.btd-is-retweet) .js-tweet:not(.txt-mute) .thread ~ .tweet-body,
 .btd__old_replies .js-stream-item .quoted-tweet {
-  .other-replies:before {
+  .other-replies::before {
     display: none;
   }
 }
@@ -215,7 +214,7 @@ body :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
     height: 0;
   }
 
-  .other-replies:before {
+  .other-replies::before {
     content: "\f151";
     position: absolute;
     font-family: "tweetdeckregular";
@@ -223,6 +222,6 @@ body :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
     font-size: 14px;
     z-index: 99;
     color: inherit;
-    top: 60px
+    top: 60px;
   }
 }

@@ -9,22 +9,22 @@
 }
 
 .btd__collapse_dms .tweet-message .tweet-img.btd-is-verified::before {
-  transform: scale(.8);
+  transform: scale(0.8);
   bottom: -8px !important;
 }
-  
+
 .btd__collapse_dms .is-unread .tweet-message .l-table {
   display: table !important;
   vertical-align: middle;
 }
-  
+
 .btd__collapse_dms .tweet-message .conversation-indicator {
   display: none;
 }
 
 .btd__collapse_dms .tweet-message .nbfc {
   margin-left: -25px;
-  line-height: 1.6em; 	
+  line-height: 1.6em;
 }
 
 .btd__collapse_dms .tweet-message .nbfc .account-link {
@@ -36,5 +36,5 @@
 }
 
 .btd__collapse_dms .tweet-message .tweet-text {
-  margin-left: -24px;	
+  margin-left: -24px;
 }

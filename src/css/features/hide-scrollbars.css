@@ -1,9 +1,10 @@
 .btd__no_scrollbars {
   .js-column-scroller {
-    overflow-y:hidden;
+    overflow-y: hidden;
   }
+
   .js-detail-container {
-    overflow-y:hidden;
+    overflow-y: hidden;
   }
 }
 

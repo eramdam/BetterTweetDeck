@@ -26,7 +26,7 @@
     "release": "npm run build:chrome:prod && cross-env NODE_ENV=prod npm run pack:chrome && npm run build:firefox:prod && npm run pack:firefox",
     "release:firefox": "npm run build:firefox:prod && npm run pack:firefox && rimraf artifacts/dist-firefox.zip",
     "release:chrome": "npm run build:chrome:prod && cross-env NODE_ENV=prod npm run pack:chrome",
-    "lint": "eslint .",
+    "lint": "eslint . && stylelint src/**/*.css",
     "test": "npm run lint && npm run release",
     "update_emojis": "node tools/update_emojis.js"
   },
@@ -88,6 +88,8 @@
   "devDependencies": {
     "eslint": "^4.6.1",
     "eslint-config-airbnb-base": "^12.0.0",
-    "eslint-plugin-import": "^2.7.0"
+    "eslint-plugin-import": "^2.7.0",
+    "stylelint": "^8.1.0",
+    "stylelint-config-standard": "^17.0.0"
   }
 }

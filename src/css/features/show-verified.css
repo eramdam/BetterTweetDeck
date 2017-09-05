@@ -4,7 +4,7 @@ General style setup
 .btd__show_verified .js-stream-item.btd-is-from-verified:not(.btd-is-from-verified-mini) > .js-stream-item-content > .js-tweet > .tweet-header .item-img.tweet-img,
 .btd__show_verified .js-stream-item.btd-is-from-verified-mini > .js-stream-item-content > .activity-header > .item-img {
   position: absolute;
-  
+
   &::before {
     content: "\f099";
     font-family: "tweetdeckregular";
@@ -18,7 +18,6 @@ General style setup
     height: 1em;
     font-size: 18px;
     z-index: 9;
-
     background-image: radial-gradient(circle 11px, white 50%, color(white a(0)) 51%);
   }
 }
@@ -27,29 +26,30 @@ General style setup
 .btd__show_verified .js-stream-item.btd-is-from-verified:not(.btd-is-from-verified-mini) > .js-stream-item-content > .js-tweet > .tweet-header .item-img.tweet-img {
   /* Allows */
   position: absolute;
-  
+
   /* Helps with the positioning of the pseudo-element */
   height: 48px;
   width: 48px;
-  
-  &:before {
+
+  &::before {
     bottom: -3px;
     right: -3px;
   }
 }
+
 /*
  small avatar on activities ("Bob liked", "Alice retweeted", "Damien added you to a list", etc)
  */
 .btd__show_verified .js-stream-item.btd-is-from-verified-mini > .js-stream-item-content > .activity-header > .item-img {
   position: relative;
-  
+
   &::before {
     bottom: -10px;
     right: -3px;
     transform-origin: bottom right;
-    transform: scale(.8);
+    transform: scale(0.8);
     background-image: radial-gradient(20px, rgb(255, 255, 255) 30%, rgba(255, 255, 255, 0) 31%);
-    background-position: 0px 1px;
+    background-position: 0 1px;
   }
 }
 
@@ -57,4 +57,3 @@ General style setup
 .btd__show_verified .stream-item .js-tweet:not(.txt-mute) > header .sprite-verified-mini {
   display: none;
 }
-
