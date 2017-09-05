@@ -197,9 +197,14 @@ const stringSrc = (filename, string) => {
   return src;
 };
 
-const browserManifest = require(`./tools/manifests/${browser}.js`);
-
 gulp.task('manifest', () => {
+  if (require.cache[require.resolve(`./tools/manifests/${browser}.js`)]) {
+    delete require.cache[require.resolve('./tools/manifests/common.js')];
+    delete require.cache[require.resolve(`./tools/manifests/${browser}.js`)];
+  }
+
+  // eslint-disable-next-line global-require
+  const browserManifest = require(`./tools/manifests/${browser}.js`);
   const manifestJson = JSON.stringify(browserManifest, null, 2);
 
   return stringSrc('manifest.json', manifestJson).pipe(gulp.dest('./dist/'));
@@ -236,6 +241,7 @@ gulp.task('default', (done) => {
   runSequence(...tasks, () => {
     gulp.watch(['./src/js/**/*.js', './src/options/*.js'], ['js', 'js-options', 'reload']);
     gulp.watch(['./src/css/**/*.css'], ['css', 'css-options', 'reload']);
+    gulp.watch(['./tools/manifests/**/*.js'], ['manifest', 'reload']);
     gulp.watch(staticFiles, ['static', 'static-news', 'reload']);
     gulp.watch('./CHANGELOG.md', ['static-news', 'reload']);
     done();
