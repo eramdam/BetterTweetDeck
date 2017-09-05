@@ -84,6 +84,7 @@
 
   "custom_width_columns": { "message": "Largeur personnalisée pour les colonnes:" },
   "custom_width_size": { "message": "Largeur (doit être valide en CSS)" },
+  "css_warning": { "message": "Soyez sûr de ce que vous entrez. Ne collez pas du code que vous ne comprenez pas!" },
   
   "regex_filter": { "message": "Activer le support des expressions régulières dans les filtres."},
   "regex_filter_notice_text": { "message": "De part la manière dont fonctionne TweetDeck, les expressions régulières ne tiennent PAS compte de la casse!" },

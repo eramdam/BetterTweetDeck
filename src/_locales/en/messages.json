@@ -84,6 +84,7 @@
 
   "custom_width_columns": { "message": "Apply a custom width for columns:" },
   "custom_width_size": { "message": "Width (any valid CSS value)" },
+  "css_warning": { "message": "Be sure of what you're typing here, don't paste something you don't understand!)" },
   
   "regex_filter": { "message": "Enable regular expression support in Mute filters"},
   "regex_filter_notice_text": { "message": "Due to the way TweetDeck's filtering works, expressions are NOT case sensitive!" },
