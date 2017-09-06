@@ -34,6 +34,18 @@ const getKey = (object, property) => {
 };
 
 export const isFirefox = getUA().includes('Firefox/');
+export const isChrome = getUA().includes('Chrome/');
+
+export const getBrowser = () => {
+  if (isFirefox) {
+    return 'firefox';
+  } else if (isChrome) {
+    return 'chrome';
+  }
+  // TODO: make sure we're right, else, return false
+  return 'opera';
+};
+
 const storage = isFirefox ? chrome.storage.local : chrome.storage.sync;
 
 export const getVersion = () => packageJson.extension_version;

@@ -68,6 +68,15 @@ const defaultSettings = {
   thumbnails: {},
 };
 
+// We want to know if there are any other versions of BTD out there.
+chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => {
+  if (message && message.action && message.action === 'version' && sender.id !== chrome.runtime.id && message.key !== BHelper.getVersion()) {
+    sendResponse({ action: 'badVersion', key: true });
+    return true;
+  }
+  return false;
+});
+
 function openWelcomePage() {
   chrome.tabs.create({
     url: 'options/options.html?on=install',

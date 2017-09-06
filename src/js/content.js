@@ -1,6 +1,7 @@
 import gifshot from 'gifshot';
 import FileSaver from 'file-saver';
 import each from 'promise-each';
+import config from 'config';
 import timestampOnElement from './util/timestamp';
 import { send as sendMessage, on as onMessage } from './util/messaging';
 import * as secureDomify from './util/secureDomify';
@@ -563,6 +564,40 @@ on('BTDC_ready', () => {
         },
       });
     }, 1000);
+  }
+
+  // Tell any potential versions of BTD that they are not alone, and alert the user if they respond.
+  const browser = BHelper.getBrowser();
+  if (browser) {
+    const extensions = config.get(`extension_ids.${browser}`);
+    Object.values(extensions).forEach((extensionID) => {
+      chrome.runtime.sendMessage(
+        extensionID, { action: 'version', key: BHelper.getVersion() }, {},
+        (response) => {
+          if (response) {
+            if (response.action === 'badVersion' && response.key) {
+              sendEvent('showTDBanner', {
+                banner: {
+                  bg: '#fba214',
+                  fg: '#4c3500',
+                  action: 'trigger-event',
+                  // TODO: is there a universal way to open the extension management dialog?
+                  // there's `chrome://extensions/?id=${extensionID}` but i get nothing anywhere else
+                  event: {
+                    type: 'openBtdSettings',
+                    data: {
+                      url: 'https://youtu.be/CRMcSAgoabw',
+                    },
+                  },
+                  text: 'A different version of Better TweetDeck has been detected. Please disable all other versions!',
+                  label: 'Oooo yeah, caaan doo!',
+                },
+              });
+            }
+          }
+        },
+      );
+    });
   }
 });
 
