@@ -491,11 +491,11 @@ $(document).one('dataColumnsLoaded', () => {
 // Adds search column to the beginning instead of the end, and resets search input for convenience
 $(document).on('uiSearchNoTemporaryColumn', (e, data) => {
   if (data.query && data.searchScope !== 'users' && !data.columnKey) {
-    if (SETTINGS.make_search_columns_first){
-      let order = TD.controller.columnManager._columnOrder;
+    if (SETTINGS.make_search_columns_first) {
+      const order = TD.controller.columnManager._columnOrder;
 
-      if (order.length > 1){
-        let columnKey = order[order.length - 1];
+      if (order.length > 1) {
+        const columnKey = order[order.length - 1];
 
         order.splice(order.length - 1, 1);
         order.splice(1, 0, columnKey);
@@ -503,8 +503,8 @@ $(document).on('uiSearchNoTemporaryColumn', (e, data) => {
       }
     }
 
-    $(".js-app-search-input").val("");
-    $(".js-perform-search").blur();
+    $('.js-app-search-input').val('');
+    $('.js-perform-search').blur();
   }
 });
 
