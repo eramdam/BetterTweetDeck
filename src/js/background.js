@@ -50,6 +50,7 @@ const defaultSettings = {
     enabled: true,
     short_txt: false,
   },
+  make_search_columns_first: false,
   old_replies: false,
   old_search: false,
   regex_filter: false,
