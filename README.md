@@ -18,24 +18,23 @@ The extensions is currently available for the following browsers:
 
 # Features
 
-- You can revert to the old style of replies!
-- You can revert to the old style of search!
+- You can revert to the old style of replies
 - You can hide the RT/Like indicator
 - You can open GIFs in fullscreen
-- You can download GIFs as... .gif files!
+- You can download GIFs as... .gif files
 - Paste images to tweet them!
-- Share any page/link to TweetDeck in a click!
+- Share any page/link to TweetDeck in a click
 - A "minimal" theme.
-- An emoji picker to add them easily to your tweets.
-- Show verified badge on profile pictures in columns.
-- Change hearts back to stars.
-- Customize the format of dates.
-- Customize the format of names in tweets.
-- Remove the t.co redirection on links.
-- Rounded avatars.
-- Make Compose panel a little nicer with smaller buttons.
-- Hide the links like pic.twitter for a more mobile-like experience!
-- Make tweets flash visually in columns when they come in!
+- An emoji picker to add them easily to your tweets
+- Show verified badge on profile pictures in columns
+- Change hearts back to stars
+- Customize the format of dates
+- Customize the format of names in tweets
+- Remove the t.co redirection on links
+- Rounded avatars
+- Make Compose panel a little nicer with smaller buttons
+- Hide the links like pic.twitter for a more mobile-like experience
+- Make tweets flash visually in columns when they come in
 - Hide/move tweet actions in tweets
 - Hide icons in columns header
 - Thumbnails and instant previews for:
