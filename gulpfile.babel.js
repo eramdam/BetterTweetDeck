@@ -73,6 +73,8 @@ const buildWithBrowserify = (entry) => {
     .pipe(browser === 'firefox' ? gutil.noop() : sourcemaps.write('./'));
 };
 
+let wss;
+
 /*
 *
 * `gulp clean`
@@ -210,8 +212,6 @@ gulp.task('manifest', () => {
   return stringSrc('manifest.json', manifestJson).pipe(gulp.dest('./dist/'));
 });
 
-const wss = new ws.Server({ port: 9191 });
-
 /*
 *
 * `reload`
@@ -220,9 +220,11 @@ const wss = new ws.Server({ port: 9191 });
 */
 gulp.task('reload', ['js', 'js-options', 'css', 'css-options', 'static-news', 'manifest'], () => {
   gutil.log('Reloading extension');
-  wss.clients.forEach((client) => {
-    client.send('reload');
-  });
+  if (wss) {
+    wss.clients.forEach((client) => {
+      client.send('reload');
+    });
+  }
 });
 
 /*
@@ -232,6 +234,7 @@ gulp.task('reload', ['js', 'js-options', 'css', 'css-options', 'static-news', 'm
 *
 */
 gulp.task('default', (done) => {
+  wss = new ws.Server({ port: 9191 });
   const tasks = ['clean', 'manifest', ['css', 'css-options', 'js', 'static'], 'static-news'];
 
   if (browser !== 'firefox') {
