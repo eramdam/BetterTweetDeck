@@ -94,6 +94,7 @@
   "favstar_item": { "message": "Add a \"Show in Favstar\" item in tweets' menu"},
   "mute_hashtags": { "message": "Add shortcuts to mute #hashtags in tweets' menu"},
   "mute_source": { "message": "Add a shortcut to mute the source (application) of a tweet in tweets' menu"},
+  "context_item": { "message": "Add shortcut to link all media / quotes of a tweet in order"},
   "hotlink_item": { "message": "Add shortcut to copy the links of all media in a tweet"},
   "download_item": { "message": "Add shortcut to download all media of a tweet"},
   "download_filename_format": { "message": "Download file name format"},
