@@ -86,6 +86,7 @@
   "custom_width_size": { "message": "Width (any valid CSS value)" },
   "css_warning": { "message": "Be sure of what you're typing here, don't paste something you don't understand!)" },
 
+  "clear_column_action": { "message": "Add a column header button to clear a column."},
   "collapse_columns": { "message": "Add a column header button to collapse and uncollapse columns."},
 
   "regex_filter": { "message": "Enable regular expression support in Mute filters"},
