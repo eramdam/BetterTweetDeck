@@ -219,6 +219,22 @@ const postMessagesListeners = {
     const { settings } = data;
     SETTINGS = settings;
 
+    if (settings.collapse_columns) {
+      if (!window.localStorage.getItem('btd_collapsed_columns')) {
+        window.localStorage.setItem('btd_collapsed_columns', JSON.stringify({}));
+      }
+
+      TD.mustaches['column/column_header.mustache'] = TD.mustaches['column/column_header.mustache']
+      // wrap everyting with an ul
+        .replace('{{/withEditableTitle}}', '{{/withEditableTitle}} <ul class="btd-column-buttons">')
+        .replace('{{/isTemporary}} </header>', '{{/isTemporary}} </ul> </header>')
+        // shove in buttons we care about
+        .replace('{{/withMarkAllRead}}  {{^isTemporary}}', '{{/withMarkAllRead}}  {{^isTemporary}} <a class="js-action-header-button column-header-link btd-toggle-collapse-column-link" href="#" data-action="toggle-collapse-column"> <i class="icon icon-minus"></i> </a> ')
+        // wrap all the <a>s with <li>s
+        .replace(/<\/i> <\/a>/g, '</i> </a> </li>')
+        .replace(/<a class="js-action-header-button/g, '<li> <a class="js-action-header-button');
+    }
+
     // We delete the callback for the timestamp task so the content script can do it itself
     if (settings.ts !== 'relative') {
       const tasks = Object.keys(TD.controller.scheduler._tasks).map(key => TD.controller.scheduler._tasks[key]);
@@ -485,6 +501,20 @@ $(document).one('dataColumnsLoaded', () => {
     $(el).attr('data-media-size', size);
   });
 
+  // collapse all the columns that need to be.
+  const collapsedColumns = window.localStorage.getItem('btd_collapsed_columns');
+
+  if (!collapsedColumns) {
+    window.localStorage.setItem('btd_collapsed_columns', JSON.stringify({}));
+  } else {
+    const columnSettings = JSON.parse(collapsedColumns);
+    Object.keys(columnSettings).map((key) => {
+      const column = TD.controller.columnManager.getByApiid(key);
+      column._btd.toggleCollapse(!(columnSettings[key] && column));
+      return column;
+    });
+  }
+
   switchThemeClass();
 });
 
@@ -650,6 +680,83 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
   if (!user.following) {
     user.follow(chirp.account, null, null, true);
   }
+});
+
+((originalColumn) => {
+  TD.vo.Column = class Column extends originalColumn {
+    constructor(...args) {
+      super(...args);
+
+      const _parent = this;
+      this._btd = {
+        _parent,
+        _isCollapsed: false,
+        isCollapsed() {
+          return this._isCollapsed || false;
+        },
+        collapse() {
+          if (!SETTINGS.collapse_columns) {
+            return;
+          }
+          const dataBoy = JSON.parse(window.localStorage.getItem('btd_collapsed_columns'));
+
+          const columnKey = this._parent.model.privateState.key;
+          const theColumn = $(`section.column[data-column="${columnKey}"]`);
+          theColumn.addClass('btd-column-collapsed');
+
+          dataBoy[this._parent.model.privateState.apiid] = true;
+          this._isCollapsed = true;
+          window.localStorage.setItem('btd_collapsed_columns', JSON.stringify(dataBoy));
+        },
+        uncollapse() {
+          if (!SETTINGS.collapse_columns) {
+            return;
+          }
+          const dataBoy = JSON.parse(window.localStorage.getItem('btd_collapsed_columns'));
+
+          if (dataBoy[this._parent.model.privateState.apiid]) {
+            const columnKey = this._parent.model.privateState.key;
+            const theColumn = $(`section.column[data-column="${columnKey}"]`);
+            theColumn.removeClass('btd-column-collapsed');
+
+            delete dataBoy[this._parent.model.privateState.apiid];
+            this._isCollapsed = false;
+            window.localStorage.setItem('btd_collapsed_columns', JSON.stringify(dataBoy));
+            TD.controller.columnManager.showColumn(columnKey);
+          }
+        },
+        toggleCollapse(state = false) {
+          if (this._isCollapsed || state) {
+            this.uncollapse();
+          } else {
+            this.collapse();
+          }
+        },
+      };
+    }
+  };
+})(TD.vo.Column);
+
+$('body').on('click', '#column-navigator .column-nav-item', (ev) => {
+  ev.preventDefault();
+  if (!SETTINGS.collapse_columns) {
+    return;
+  }
+
+  const thisNav = $(ev.target.closest('li[data-column]'));
+  const columnKey = thisNav.data('column');
+  TD.controller.columnManager.get(columnKey)._btd.uncollapse();
+});
+
+$('body').on('mousedown', '.column-panel header.column-header .btd-toggle-collapse-column-link', (ev) => {
+  ev.preventDefault();
+  if (!SETTINGS.collapse_columns || ev.which !== 1) {
+    return;
+  }
+
+  const thisColumn = ev.target.closest('[data-column]');
+  const columnKey = thisColumn.getAttribute('data-column');
+  TD.controller.columnManager.get(columnKey)._btd.toggleCollapse();
 });
 
 $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
