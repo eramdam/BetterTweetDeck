@@ -2,7 +2,7 @@ import domify from 'domify';
 import dompurify from 'dompurify';
 
 export const purifyConfig = {
-  ADD_TAGS: ['iframe'],
+  ADD_TAGS: ['iframe', 'link', 'meta', 'head'],
   ADD_ATTR: ['autoplay', 'frameborder', 'btd-custom-modal'],
 };
 
