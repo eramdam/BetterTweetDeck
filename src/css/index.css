@@ -12,6 +12,7 @@
 @import './features/hide-context.css';
 @import './features/hide-scrollbars.css';
 @import './features/hide-url-thumb.css';
+@import './features/collapse-columns.css';
 @import './features/no-col-icns.css';
 @import './features/no-bg-modal.css';
 @import './features/no-play-btn.css';

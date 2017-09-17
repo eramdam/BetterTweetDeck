@@ -1,0 +1,89 @@
+/* collapsed column states */
+section.btd-column-collapsed {
+  &.column {
+    width: 52px !important;
+  }
+
+  .js-column-header {
+    transform-origin: 0 100%;
+    transform: rotate(90deg);
+    width: 100vh;
+    top: -50px;
+    display: flex;
+    flex-direction: row;
+  }
+
+  i.column-type-icon {
+    transform-origin: 50% 100%;
+    transform: rotate(-90deg);
+    position: relative;
+    left: 12px;
+    bottom: 0;
+    order: 1;
+  }
+
+  .column-title {
+    order: 2;
+    margin-left: 4px;
+  }
+
+  ul.btd-column-buttons {
+    order: 0;
+    position: relative;
+    margin-left: 10px;
+  }
+
+  &.column-type-message ul.btd-column-buttons {
+    flex-direction: row-reverse;
+  }
+
+  &.column-type-message ul.btd-column-buttons li:nth-child(3) {
+    order: 1;
+  }
+
+  i.column-type-icon::before {
+    position: relative;
+    top: -14px;
+  }
+
+  /* uiColumnTitleRefreshed forces us to change this class (mustache recalc), or we could cheat */
+  .icon-minus::before {
+    content: "\f183";
+  }
+
+  .js-column-content,
+  .js-add-to-customtimeline {
+    display: none;
+  }
+}
+
+ul.btd-column-buttons {
+  /* move .column-header-link styles to here */
+  float: right;
+  width: auto;
+  margin: 0;
+  position: absolute;
+  right: 5px;
+  bottom: -1px;
+  padding: 0 4px;
+  display: flex;
+  flex-direction: row;
+
+  li {
+    /* undo the .column-header-link styles for the children */
+    position: relative;
+    margin: 0;
+
+    a.column-header-link {
+      margin: 0;
+      top: 0;
+      right: 0;
+      position: inherit;
+      display: block;
+
+      i {
+        vertical-align: text-bottom;
+      }
+    }
+  }
+}
