@@ -4,7 +4,7 @@ import Clipboard from 'clipboard';
 import Log from './util/logger';
 import UsernamesTemplates from './util/username_templates';
 
-let SETTINGS;
+const SETTINGS = $('[data-btd-settings]').data('btd-settings');
 
 const deciderOverride = {
   simplified_replies: false,
@@ -139,8 +139,6 @@ const decorateChirp = (chirp) => {
   return chirp;
 };
 
-let bannerID = 1;
-
 TD.services.TwitterStatus.prototype.getOGContext = function getOGContext() {
   const repliers = this.getReplyingToUsers() || [];
 
@@ -157,6 +155,198 @@ TD.services.TwitterStatus.prototype.getOGContext = function getOGContext() {
   return filtered.map(user => TD.ui.template.render('text/profile_link', { user })).concat('').join(' ');
 };
 
+if (SETTINGS.collapse_columns) {
+  if (!window.localStorage.getItem('btd_collapsed_columns')) {
+    window.localStorage.setItem('btd_collapsed_columns', JSON.stringify({}));
+  }
+}
+
+// make it so we can use custom column header icons
+TD.mustaches['column/column_header.mustache'] = TD.mustaches['column/column_header.mustache']
+  // wrap everyting with an ul
+  .replace('{{/withEditableTitle}}', '{{/withEditableTitle}} <ul class="btd-column-buttons">')
+  .replace('{{/isTemporary}} </header>', '{{/isTemporary}} </ul> </header>')
+  // shove in buttons we care about
+  // wrap all the <a>s with <li>s
+  .replace(/<\/i> <\/a>/g, '</i> </a> </li>')
+  .replace(/<a class="js-action-header-button/g, '<li> <a class="js-action-header-button');
+
+TD.mustaches['column/column_header.mustache'] = TD.mustaches['column/column_header.mustache']
+  .replace(
+    '{{/withMarkAllRead}}  {{^isTemporary}}',
+    `{{/withMarkAllRead}}  {{^isTemporary}}
+        ${SETTINGS.clear_column_action ? `
+        <li>
+          <a class="js-action-header-button column-header-link btd-clear-column-link" href="#" data-action="clear">
+            <i class="icon icon-clear-timeline"></i>
+          </a>
+        </li>` : ''}
+        ${SETTINGS.collapse_columns ? `
+        <li>
+          <a class="js-action-header-button column-header-link btd-toggle-collapse-column-link" href="#" data-action="toggle-collapse-column">
+            <i class="icon icon-minus"></i>
+          </a>
+        </li>` : ''}`,
+  );
+
+if (SETTINGS.old_replies) {
+  TD.config.decider_overlay = deciderOverride;
+
+  TD.decider.updateForGuestId();
+}
+
+TD.old_mustaches = Object.assign({}, TD.mustaches);
+
+
+TD.globalRenderOptions.btd = {
+  // Use with
+  // {{#btd.usernameFromURL}}myProfileURL{{/btd.usernameFromURL}}
+  usernameFromURL: function usernameFromURL() {
+    return function what(input, render) {
+      // I don't want this function to break horribly the day Twitter closes this issue
+      // https://github.com/twitter/hogan.js/issues/222#issuecomment-106101791
+      const val = render ? render(input) : Hogan.compile(input).render(this);
+
+      return val.match(/https:\/\/(?:www.|)twitter.com\/(?:@|)([A-Za-z0-9_]+)/) && val.match(/https:\/\/(?:www.|)twitter.com\/(?:@|)([A-Za-z0-9_]+)/)[1];
+    };
+  },
+};
+
+if (SETTINGS.regex_filter) {
+  TD.vo.Filter.prototype._testString = function _testString(e) {
+    const regex = new RegExp(this.value, 'g');
+    if (!e || !this.value) {
+      return !0;
+    }
+    if (this.exact) {
+      if (e === this.value) {
+        return this.positive;
+      }
+      if (this.fuzzy && `@${e}` === this.value) {
+        return this.positive;
+      }
+    } else if (e.match(regex) && this.type === 'phrase') {
+      return this.positive;
+    } else if (e.indexOf(this.value) !== -1) {
+      return this.positive;
+    }
+    return !this.positive;
+  };
+}
+
+// Embed custom mustaches.
+TD.mustaches['btd/download_filename_format.mustache'] = SETTINGS.download_filename_format;
+
+// Call the OG reply stuff
+if (SETTINGS.old_replies) {
+  // In single tweets
+  TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace('lang="{{lang}}">{{{htmlText}}}</p>', 'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>');
+  // In detailed tweets
+  TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('lang="{{lang}}">{{{htmlText}}}</p>', 'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>');
+  // In quote tweets
+  TD.mustaches['status/quoted_tweet.mustache'] = TD.mustaches['status/quoted_tweet.mustache'].replace('with-linebreaks">{{{htmlText}}}', 'with-linebreaks">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}');
+}
+
+// Re-add the RT/like indicator on detailed tweet
+TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('</footer> {{/getMainTweet}}', '</footer> {{/getMainTweet}} <i class="sprite tweet-dogear"></i>');
+// Re-adds the RT/Like indicators on single tweets
+TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace('{{>status/tweet_single_footer}} </div>', '{{>status/tweet_single_footer}} <i class="sprite tweet-dogear"></i> </div>');
+
+if (SETTINGS.old_replies) {
+  TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('lang="{{lang}}">{{{htmlText}}}</p>', 'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>');
+}
+
+if (SETTINGS.old_replies) {
+  TD.mustaches['status/quoted_tweet.mustache'] = TD.mustaches['status/quoted_tweet.mustache'].replace('with-linebreaks">{{{htmlText}}}', 'with-linebreaks">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}');
+}
+
+// Inject items into the interaction bar
+if (SETTINGS.context_item || SETTINGS.hotlink_item || SETTINGS.download_item) {
+  TD.mustaches['status/tweet_single_actions.mustache'] = TD.mustaches['status/tweet_single_actions.mustache']
+    .replace(
+      '{{_i}}Like{{/i}} </span> </a> </li>',
+      `{{_i}}Like{{/i}} </span> </a> </li>
+           ${SETTINGS.context_item ? `
+           <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--13 margin-l--1">
+             <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
+               data-btd-action="context-link" rel="context" title="Context link"> 
+               <i class="js-icon icon icon-info txt-center"></i>
+               <span class="is-vishidden"> {{_i}}Context link{{/i}} </span>
+             </a>
+           </li>` : ''}
+           {{#tweet.entities.media.length}}
+           ${SETTINGS.hotlink_item ? `
+           <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--13 margin-l--1">
+             <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
+               data-btd-action="hotlink-media" rel="hotlink" title="Copy links to media"> 
+               <i class="js-icon-attachment icon icon-attachment txt-center"></i>
+               <span class="is-vishidden"> {{_i}}Copy links to media{{/i}} </span>
+             </a>
+           </li>` : ''}
+           ${SETTINGS.download_item ? `
+           <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--13 margin-l--1">
+             <a class="js-show-tip tweet-action btd-tweet-action position-rel" href="#" 
+               data-btd-action="download-media" rel="download" title="Download media"> 
+               <i class="js-icon icon icon-download txt-center"></i>
+               <span class="is-vishidden"> {{_i}}Download media{{/i}} </span>
+             </a>
+           </li>` : ''}
+           {{/tweet.entities.media.length}}`,
+    );
+  TD.mustaches['status/tweet_detail_actions.mustache'] = TD.mustaches['status/tweet_detail_actions.mustache']
+    .replace(
+      '{{_i}}Like{{/i}} </span> </a> {{/account}} </li>',
+      `{{_i}}Like{{/i}} </span> </a> {{/account}} </li>
+           ${SETTINGS.context_item ? `
+           <li class="tweet-detail-action-item btd-tweet-detail-action-item">
+             <a class="js-show-tip tweet-detail-action btd-tweet-detail-action btd-clipboard position-rel" href="#"
+               data-btd-action="context-link" rel="context" title="Context link">
+               <i class="js-icon-attachment icon icon-info txt-center"></i>
+               <span class="is-vishidden"> {{_i}}Context link{{/i}} </span>
+             </a>
+           </li>` : ''}
+           {{#getMainTweet}}{{#entities.media.length}}
+           ${SETTINGS.hotlink_item ? `
+           <li class="tweet-detail-action-item btd-tweet-detail-action-item">
+             <a class="js-show-tip tweet-detail-action btd-tweet-detail-action btd-clipboard position-rel" href="#"
+               data-btd-action="hotlink-media" rel="hotlink" title="Copy links to media">
+               <i class="js-icon-attachment icon icon-attachment txt-center"></i>
+               <span class="is-vishidden"> {{_i}}Copy links to media{{/i}} </span>
+             </a>
+           </li>` : ''}
+           ${SETTINGS.download_item ? `
+           <li class="tweet-detail-action-item btd-tweet-detail-action-item">
+             <a class="js-show-tip tweet-detail-action btd-tweet-detail-action position-rel" href="#"
+               data-btd-action="download-media" rel="download" title="Download media">
+               <i class="js-icon icon icon-download txt-center"></i>
+               <span class="is-vishidden"> {{_i}}Download media{{/i}} </span>
+             </a>
+           </li>` : ''}
+           {{/entities.media.length}}{{/getMainTweet}}`,
+    );
+}
+
+// Adds the Favstar.fm item in menus and adds mute action for each hashtag
+TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].replace('{{/chirp}} </ul>', `
+      {{/chirp}}
+      {{#chirp}}
+        ${SETTINGS.mute_source ? `<li class="is-selectable">
+          <a href="#" data-btd-action="mute-source" data-btd-source="{{sourceNoHTML}}">Mute "{{sourceNoHTML}}"</a>
+        </li>` : ''}
+        ${SETTINGS.mute_hashtags ? `{{#entities.hashtags}}
+          <li class="is-selectable">
+            <a href="#" data-btd-action="mute-hashtag" data-btd-hashtag="{{text}}">Mute #{{text}}</a>
+          </li>
+        {{/entities.hashtags}}` : ''}
+        ${SETTINGS.favstar_item ? `<li class="drp-h-divider"></li>
+        <li class="btd-action-menu-item is-selectable"><a href="https://favstar.fm/users/{{user.screenName}}/status/{{chirp.id}}" target="_blank" data-action="favstar">{{_i}}Show on Favstar{{/i}}</a></li>` : ''}
+      {{/chirp}}
+      </ul>
+    `);
+
+UsernamesTemplates(TD.mustaches, SETTINGS.nm_disp);
+
+let bannerID = 1;
 const postMessagesListeners = {
   BTDC_getOpenModalTweetHTML: (ev, data) => {
     const { tweetKey, colKey, modalHtml } = data;
@@ -214,210 +404,6 @@ const postMessagesListeners = {
   },
   BTDC_renderInstagramEmbed: () => {
     instgrm.Embeds.process();
-  },
-  BTDC_settingsReady: (ev, data) => {
-    const { settings } = data;
-    SETTINGS = settings;
-
-    if (settings.collapse_columns) {
-      if (!window.localStorage.getItem('btd_collapsed_columns')) {
-        window.localStorage.setItem('btd_collapsed_columns', JSON.stringify({}));
-      }
-    }
-
-    // make it so we can use custom column header icons
-    TD.mustaches['column/column_header.mustache'] = TD.mustaches['column/column_header.mustache']
-      // wrap everyting with an ul
-      .replace('{{/withEditableTitle}}', '{{/withEditableTitle}} <ul class="btd-column-buttons">')
-      .replace('{{/isTemporary}} </header>', '{{/isTemporary}} </ul> </header>')
-      // shove in buttons we care about
-      // wrap all the <a>s with <li>s
-      .replace(/<\/i> <\/a>/g, '</i> </a> </li>')
-      .replace(/<a class="js-action-header-button/g, '<li> <a class="js-action-header-button');
-
-    TD.mustaches['column/column_header.mustache'] = TD.mustaches['column/column_header.mustache']
-      .replace(
-        '{{/withMarkAllRead}}  {{^isTemporary}}',
-        `{{/withMarkAllRead}}  {{^isTemporary}}
-        ${settings.clear_column_action ? `
-        <li>
-          <a class="js-action-header-button column-header-link btd-clear-column-link" href="#" data-action="clear">
-            <i class="icon icon-clear-timeline"></i>
-          </a>
-        </li>` : ''}
-        ${settings.collapse_columns ? `
-        <li>
-          <a class="js-action-header-button column-header-link btd-toggle-collapse-column-link" href="#" data-action="toggle-collapse-column">
-            <i class="icon icon-minus"></i>
-          </a>
-        </li>` : ''}`,
-      );
-
-    // We delete the callback for the timestamp task so the content script can do it itself
-    if (settings.ts !== 'relative') {
-      const tasks = Object.keys(TD.controller.scheduler._tasks).map(key => TD.controller.scheduler._tasks[key]);
-      const refreshTimestampsTask = tasks.find(t => t.period === 1e3 * 30);
-
-      TD.controller.scheduler.removePeriodicTask(refreshTimestampsTask.id);
-    }
-
-    if (settings.old_replies) {
-      TD.config.decider_overlay = deciderOverride;
-
-      TD.decider.updateForGuestId();
-    }
-
-    TD.old_mustaches = Object.assign({}, TD.mustaches);
-
-
-    TD.globalRenderOptions.btd = {
-      // Use with
-      // {{#btd.usernameFromURL}}myProfileURL{{/btd.usernameFromURL}}
-      usernameFromURL: function usernameFromURL() {
-        return function what(input, render) {
-          // I don't want this function to break horribly the day Twitter closes this issue
-          // https://github.com/twitter/hogan.js/issues/222#issuecomment-106101791
-          const val = render ? render(input) : Hogan.compile(input).render(this);
-
-          return val.match(/https:\/\/(?:www.|)twitter.com\/(?:@|)([A-Za-z0-9_]+)/) && val.match(/https:\/\/(?:www.|)twitter.com\/(?:@|)([A-Za-z0-9_]+)/)[1];
-        };
-      },
-    };
-
-    if (settings.regex_filter) {
-      TD.vo.Filter.prototype._testString = function _testString(e) {
-        const regex = new RegExp(this.value, 'g');
-        if (!e || !this.value) {
-          return !0;
-        }
-        if (this.exact) {
-          if (e === this.value) {
-            return this.positive;
-          }
-          if (this.fuzzy && `@${e}` === this.value) {
-            return this.positive;
-          }
-        } else if (e.match(regex) && this.type === 'phrase') {
-          return this.positive;
-        } else if (e.indexOf(this.value) !== -1) {
-          return this.positive;
-        }
-        return !this.positive;
-      };
-    }
-
-    // Embed custom mustaches.
-    TD.mustaches['btd/download_filename_format.mustache'] = settings.download_filename_format;
-
-    // Call the OG reply stuff
-    if (settings.old_replies) {
-      // In single tweets
-      TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace('lang="{{lang}}">{{{htmlText}}}</p>', 'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>');
-      // In detailed tweets
-      TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('lang="{{lang}}">{{{htmlText}}}</p>', 'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>');
-      // In quote tweets
-      TD.mustaches['status/quoted_tweet.mustache'] = TD.mustaches['status/quoted_tweet.mustache'].replace('with-linebreaks">{{{htmlText}}}', 'with-linebreaks">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}');
-    }
-
-    // Re-add the RT/like indicator on detailed tweet
-    TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('</footer> {{/getMainTweet}}', '</footer> {{/getMainTweet}} <i class="sprite tweet-dogear"></i>');
-    // Re-adds the RT/Like indicators on single tweets
-    TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace('{{>status/tweet_single_footer}} </div>', '{{>status/tweet_single_footer}} <i class="sprite tweet-dogear"></i> </div>');
-
-    if (settings.old_replies) {
-      TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('lang="{{lang}}">{{{htmlText}}}</p>', 'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>');
-    }
-
-    if (settings.old_replies) {
-      TD.mustaches['status/quoted_tweet.mustache'] = TD.mustaches['status/quoted_tweet.mustache'].replace('with-linebreaks">{{{htmlText}}}', 'with-linebreaks">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}');
-    }
-
-    // Inject items into the interaction bar
-    if (settings.context_item || settings.hotlink_item || settings.download_item) {
-      TD.mustaches['status/tweet_single_actions.mustache'] = TD.mustaches['status/tweet_single_actions.mustache']
-        .replace(
-          '{{_i}}Like{{/i}} </span> </a> </li>',
-          `{{_i}}Like{{/i}} </span> </a> </li>
-           ${settings.context_item ? `
-           <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--13 margin-l--1">
-             <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
-               data-btd-action="context-link" rel="context" title="Context link"> 
-               <i class="js-icon icon icon-info txt-center"></i>
-               <span class="is-vishidden"> {{_i}}Context link{{/i}} </span>
-             </a>
-           </li>` : ''}
-           {{#tweet.entities.media.length}}
-           ${settings.hotlink_item ? `
-           <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--13 margin-l--1">
-             <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
-               data-btd-action="hotlink-media" rel="hotlink" title="Copy links to media"> 
-               <i class="js-icon-attachment icon icon-attachment txt-center"></i>
-               <span class="is-vishidden"> {{_i}}Copy links to media{{/i}} </span>
-             </a>
-           </li>` : ''}
-           ${settings.download_item ? `
-           <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--13 margin-l--1">
-             <a class="js-show-tip tweet-action btd-tweet-action position-rel" href="#" 
-               data-btd-action="download-media" rel="download" title="Download media"> 
-               <i class="js-icon icon icon-download txt-center"></i>
-               <span class="is-vishidden"> {{_i}}Download media{{/i}} </span>
-             </a>
-           </li>` : ''}
-           {{/tweet.entities.media.length}}`,
-        );
-
-      TD.mustaches['status/tweet_detail_actions.mustache'] = TD.mustaches['status/tweet_detail_actions.mustache']
-        .replace(
-          '{{_i}}Like{{/i}} </span> </a> {{/account}} </li>',
-          `{{_i}}Like{{/i}} </span> </a> {{/account}} </li>
-           ${settings.context_item ? `
-           <li class="tweet-detail-action-item btd-tweet-detail-action-item">
-             <a class="js-show-tip tweet-detail-action btd-tweet-detail-action btd-clipboard position-rel" href="#"
-               data-btd-action="context-link" rel="context" title="Context link">
-               <i class="js-icon-attachment icon icon-info txt-center"></i>
-               <span class="is-vishidden"> {{_i}}Context link{{/i}} </span>
-             </a>
-           </li>` : ''}
-           {{#getMainTweet}}{{#entities.media.length}}
-           ${settings.hotlink_item ? `
-           <li class="tweet-detail-action-item btd-tweet-detail-action-item">
-             <a class="js-show-tip tweet-detail-action btd-tweet-detail-action btd-clipboard position-rel" href="#"
-               data-btd-action="hotlink-media" rel="hotlink" title="Copy links to media">
-               <i class="js-icon-attachment icon icon-attachment txt-center"></i>
-               <span class="is-vishidden"> {{_i}}Copy links to media{{/i}} </span>
-             </a>
-           </li>` : ''}
-           ${settings.download_item ? `
-           <li class="tweet-detail-action-item btd-tweet-detail-action-item">
-             <a class="js-show-tip tweet-detail-action btd-tweet-detail-action position-rel" href="#"
-               data-btd-action="download-media" rel="download" title="Download media">
-               <i class="js-icon icon icon-download txt-center"></i>
-               <span class="is-vishidden"> {{_i}}Download media{{/i}} </span>
-             </a>
-           </li>` : ''}
-           {{/entities.media.length}}{{/getMainTweet}}`,
-        );
-    }
-
-    // Adds the Favstar.fm item in menus and adds mute action for each hashtag
-    TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].replace('{{/chirp}} </ul>', `
-      {{/chirp}}
-      {{#chirp}}
-        ${settings.mute_source ? `<li class="is-selectable">
-          <a href="#" data-btd-action="mute-source" data-btd-source="{{sourceNoHTML}}">Mute "{{sourceNoHTML}}"</a>
-        </li>` : ''}
-        ${settings.mute_hashtags ? `{{#entities.hashtags}}
-          <li class="is-selectable">
-            <a href="#" data-btd-action="mute-hashtag" data-btd-hashtag="{{text}}">Mute #{{text}}</a>
-          </li>
-        {{/entities.hashtags}}` : ''}
-        ${settings.favstar_item ? `<li class="drp-h-divider"></li>
-        <li class="btd-action-menu-item is-selectable"><a href="https://favstar.fm/users/{{user.screenName}}/status/{{chirp.id}}" target="_blank" data-action="favstar">{{_i}}Show on Favstar{{/i}}</a></li>` : ''}
-      {{/chirp}}
-      </ul>
-    `);
-
-    UsernamesTemplates(TD.mustaches, settings.nm_disp);
   },
   BTDC_showTDBanner: (ev, data) => {
     const { banner } = data;
@@ -496,8 +482,6 @@ const handleInsertedNode = (element) => {
   proxyEvent('gotChirpForColumn', { chirp: decorateChirp(chirp), colKey });
 };
 
-// document.addEventListener('DOMNodeInserted', handleInsertedNode);
-// document.addEventListener('DOMNodeInserted', handleInsertedNode);
 const observer = new MutationObserver(mutations => mutations.forEach((mutation) => {
   [...mutation.addedNodes].forEach(handleInsertedNode);
 }));
@@ -525,6 +509,17 @@ $(document).on('uiColumnUpdateMediaPreview', (ev, data) => {
 // We wait for the loading of the columns and we get all the media preview size
 $(document).one('dataColumnsLoaded', () => {
   proxyEvent('ready');
+
+  // We delete the callback for the timestamp task so the content script can do it itself
+  if (SETTINGS.ts !== 'relative') {
+    const tasks = Object.keys(TD.controller.scheduler._tasks).map(key => TD.controller.scheduler._tasks[key]);
+    const refreshTimestampsTask = tasks.find(t => t.period === 1e3 * 30);
+
+    if (refreshTimestampsTask) {
+      TD.controller.scheduler.removePeriodicTask(refreshTimestampsTask.id);
+    }
+  }
+
   $('.js-column').each((i, el) => {
     let size = TD.storage.columnController.get($(el).data('column')).getMediaPreviewSize();
 

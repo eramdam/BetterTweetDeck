@@ -32,6 +32,7 @@ module.exports = {
     matches: ['*://tweetdeck.twitter.com/*'],
     js: ['js/content.js'],
     css: ['css/index.css'],
+    run_at: 'document_end',
   }],
   background: {
     scripts: ['js/background.js'],

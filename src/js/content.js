@@ -11,7 +11,7 @@ import Log from './util/logger';
 import * as BHelper from './util/browserHelper';
 import { $, TIMESTAMP_INTERVAL, on, sendEvent } from './util/util';
 
-let settings;
+let SETTINGS;
 
 /**
  * This will contain the sizes of each column
@@ -19,26 +19,27 @@ let settings;
  */
 const COLUMNS_MEDIA_SIZES = new Map();
 
-const scripts = [
-  chrome.extension.getURL('js/inject.js'),
-];
-
-if (!BHelper.isFirefox) {
-  scripts.push(chrome.extension.getURL('embeds.js'));
-}
-
-scripts.forEach((src) => {
-  const el = document.createElement('script');
-  el.src = src;
-  document.head.appendChild(el);
-});
-
 /**
  * Injecting inject.js in head before doing anything else
  */
 
 sendMessage({ action: 'get_settings' }, (response) => {
-  settings = response.settings;
+  SETTINGS = response.settings;
+  const scripts = [
+    chrome.extension.getURL('js/inject.js'),
+  ];
+
+  if (!BHelper.isFirefox) {
+    scripts.push(chrome.extension.getURL('embeds.js'));
+  }
+
+  scripts.forEach((src) => {
+    const el = document.createElement('script');
+    el.src = src;
+    el.setAttribute('data-btd-settings', JSON.stringify(SETTINGS));
+    document.head.appendChild(el);
+  });
+
   const getFontFile = format => chrome.extension.getURL(`fonts/tweetdeck-regular-webfont-old.${format}`);
 
   const style = document.createElement('style');
@@ -114,7 +115,7 @@ function refreshTimestamps() {
 const disabledOnFirefox = ['no_scrollbars', 'slim_scrollbars'];
 
 function tweakClassesFromVisualSettings() {
-  const enabledClasses = Object.keys(settings.css)
+  const enabledClasses = Object.keys(SETTINGS.css)
     .filter((key) => {
       if (BHelper.isFirefox) {
         return !disabledOnFirefox.includes(key);
@@ -122,28 +123,28 @@ function tweakClassesFromVisualSettings() {
 
       return true;
     })
-    .filter(key => settings.css[key])
+    .filter(key => SETTINGS.css[key])
     .map(cl => `btd__${cl}`);
 
   document.body.classList.add(...enabledClasses);
 
-  if (settings.flash_tweets.enabled) {
-    document.body.classList.add(`btd__flash-${settings.flash_tweets.mode}`);
+  if (SETTINGS.flash_tweets.enabled) {
+    document.body.classList.add(`btd__flash-${SETTINGS.flash_tweets.mode}`);
   }
 
-  if (settings.no_hearts) {
+  if (SETTINGS.no_hearts) {
     document.body.classList.add('btd__stars');
   }
 
-  if (settings.old_replies) {
+  if (SETTINGS.old_replies) {
     document.body.classList.add('btd__old_replies');
   }
 
-  if (settings.custom_columns_width.enabled) {
+  if (SETTINGS.custom_columns_width.enabled) {
     document.body.classList.add('btd__custom_column_size');
 
     const styleTag = document.createElement('style');
-    const safeValue = settings.custom_columns_width.size.replace(/;\{\}/g, '');
+    const safeValue = SETTINGS.custom_columns_width.size.replace(/;\{\}/g, '');
 
     styleTag.type = 'text/css';
     styleTag.appendChild(document.createTextNode(`
@@ -224,7 +225,7 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
       return;
     }
 
-    if (settings.css.hide_url_thumb) {
+    if (SETTINGS.css.hide_url_thumb) {
       hideURLVisually(url, node);
     }
 
@@ -364,7 +365,7 @@ function tweetHandler(tweet, columnKey, parent) {
     /**
      * Adding Verified badge if needed
      */
-    if (settings.css.show_verified) {
+    if (SETTINGS.css.show_verified) {
       let userToVerify;
       const classesToAdd = ['btd-is-from-verified'];
 
@@ -418,7 +419,7 @@ function tweetHandler(tweet, columnKey, parent) {
 
     const profilePicture = $('.tweet-avatar[src$=".gif"]', node) && $('.tweet-avatar[src$=".gif"]', node)[0];
 
-    if (profilePicture && settings.no_gif_pp) {
+    if (profilePicture && SETTINGS.no_gif_pp) {
       profilePicture.src = Thumbnails.getSafeURL(profilePicture.src);
     }
 
@@ -446,7 +447,7 @@ function tweetHandler(tweet, columnKey, parent) {
 
     if (urlsToChange.length > 0) {
       // We expand URLs if needed
-      if (settings.no_tco) {
+      if (SETTINGS.no_tco) {
         urlsToChange.forEach(url => expandURL(url, node));
       }
 
@@ -457,7 +458,7 @@ function tweetHandler(tweet, columnKey, parent) {
         urlToHide = mediaURLS.pop();
       }
 
-      if (settings.css.hide_url_thumb && mediaSize !== 'off') {
+      if (SETTINGS.css.hide_url_thumb && mediaSize !== 'off') {
         hideURLVisually(urlToHide, node);
       }
 
@@ -509,7 +510,6 @@ window.addEventListener('resize', setMaxDimensionsOnModalImg);
 // Prepare to know when TD is ready
 on('BTDC_ready', () => {
   tweakClassesFromVisualSettings();
-  sendEvent('settingsReady', { settings });
   // Refresh timestamps once and then set the interval
   refreshTimestamps();
   setInterval(refreshTimestamps, TIMESTAMP_INTERVAL);
@@ -544,7 +544,7 @@ on('BTDC_ready', () => {
     }
   });
 
-  if (settings.need_update_banner) {
+  if (SETTINGS.need_update_banner) {
     sendMessage({ action: 'displayed_update_banner' });
     setTimeout(() => {
       sendEvent('showTDBanner', {

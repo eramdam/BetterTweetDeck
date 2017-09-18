@@ -32,10 +32,10 @@ export default function ($) {
             if (data.data.animated) {
               srcUrl = data.data.link;
               return {
-                type: 'video',
-                thumbnail_url: `https://i.imgur.com/${data.data.id}l.jpg`,
-                url,
-                html: `<video autoplay src="${data.data.mp4}"></video>`,
+                type: 'image',
+                thumbnail_url: $.getSafeURL(data.data.link),
+                html: `<iframe class="imgur-album" frameborder="0" src="https://imgur.com/${imgurID}/embed?pub=true&width=560" style="width: 560px !important;" scrolling="no"></iframe>`,
+                url: $.getSafeURL(url),
               };
             }
 
