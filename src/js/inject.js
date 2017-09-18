@@ -139,8 +139,6 @@ const decorateChirp = (chirp) => {
   return chirp;
 };
 
-let bannerID = 1;
-
 TD.services.TwitterStatus.prototype.getOGContext = function getOGContext() {
   const repliers = this.getReplyingToUsers() || [];
 
@@ -333,6 +331,7 @@ TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].
 
 UsernamesTemplates(TD.mustaches, SETTINGS.nm_disp);
 
+let bannerID = 1;
 const postMessagesListeners = {
   BTDC_getOpenModalTweetHTML: (ev, data) => {
     const { tweetKey, colKey, modalHtml } = data;
