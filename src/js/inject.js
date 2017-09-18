@@ -495,6 +495,17 @@ $(document).on('uiColumnUpdateMediaPreview', (ev, data) => {
 // We wait for the loading of the columns and we get all the media preview size
 $(document).one('dataColumnsLoaded', () => {
   proxyEvent('ready');
+
+  // We delete the callback for the timestamp task so the content script can do it itself
+  if (SETTINGS.ts !== 'relative') {
+    const tasks = Object.keys(TD.controller.scheduler._tasks).map(key => TD.controller.scheduler._tasks[key]);
+    const refreshTimestampsTask = tasks.find(t => t.period === 1e3 * 30);
+
+    if (refreshTimestampsTask) {
+      TD.controller.scheduler.removePeriodicTask(refreshTimestampsTask.id);
+    }
+  }
+
   $('.js-column').each((i, el) => {
     let size = TD.storage.columnController.get($(el).data('column')).getMediaPreviewSize();
 
@@ -845,7 +856,7 @@ const isVisible = (elem) => {
         style.visibility === 'visible' && isCompletelyVisible;
 };
 
-window.addEventListener('focus', (ev) => {
+$(window).on('focus', (ev) => {
   // Don't do anything if we don't focus the window
   if (!(ev.target instanceof Window)) {
     return;
