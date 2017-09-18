@@ -856,7 +856,7 @@ const isVisible = (elem) => {
         style.visibility === 'visible' && isCompletelyVisible;
 };
 
-$(window).on('focus', (ev) => {
+window.addEventListener('focus', (ev) => {
   // Don't do anything if we don't focus the window
   if (!(ev.target instanceof Window)) {
     return;
