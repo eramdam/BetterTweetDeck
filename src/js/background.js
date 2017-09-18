@@ -25,6 +25,7 @@ const defaultSettings = {
     size: '250px',
     enabled: false,
   },
+  clear_column_action: false,
   collapse_columns: false,
   css: {
     round_pic: true,
