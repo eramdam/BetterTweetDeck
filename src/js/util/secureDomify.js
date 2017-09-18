@@ -1,5 +1,10 @@
 import domify from 'domify';
-import escapeHtml from 'escape-html';
+import dompurify from 'dompurify';
+
+export const purifyConfig = {
+  ADD_TAGS: ['iframe', 'link', 'meta', 'head'],
+  ADD_ATTR: ['autoplay', 'frameborder', 'btd-custom-modal'],
+};
 
 export function getAttributeFromNode(selector, node, attribute) {
   const el = node.querySelector(selector);
@@ -14,19 +19,12 @@ export function getAttributeFromNode(selector, node, attribute) {
     return '';
   }
 
-  return escapeHtml(attr);
+  return dompurify.sanitize(attr);
 }
 
-const unsafeElements = ['script', 'style'];
-
 export function parse(html) {
-  const doc = domify(html);
-
-  [...doc.querySelectorAll('*')].forEach((node) => {
-    if (unsafeElements.includes(node.nodeName.toLowerCase())) {
-      node.remove();
-    }
-  });
+  const safe = dompurify.sanitize(html, purifyConfig);
+  const doc = domify(safe);
 
   return doc;
 }
