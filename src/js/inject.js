@@ -223,17 +223,35 @@ const postMessagesListeners = {
       if (!window.localStorage.getItem('btd_collapsed_columns')) {
         window.localStorage.setItem('btd_collapsed_columns', JSON.stringify({}));
       }
-
-      TD.mustaches['column/column_header.mustache'] = TD.mustaches['column/column_header.mustache']
-      // wrap everyting with an ul
-        .replace('{{/withEditableTitle}}', '{{/withEditableTitle}} <ul class="btd-column-buttons">')
-        .replace('{{/isTemporary}} </header>', '{{/isTemporary}} </ul> </header>')
-        // shove in buttons we care about
-        .replace('{{/withMarkAllRead}}  {{^isTemporary}}', '{{/withMarkAllRead}}  {{^isTemporary}} <a class="js-action-header-button column-header-link btd-toggle-collapse-column-link" href="#" data-action="toggle-collapse-column"> <i class="icon icon-minus"></i> </a> ')
-        // wrap all the <a>s with <li>s
-        .replace(/<\/i> <\/a>/g, '</i> </a> </li>')
-        .replace(/<a class="js-action-header-button/g, '<li> <a class="js-action-header-button');
     }
+
+    // make it so we can use custom column header icons
+    TD.mustaches['column/column_header.mustache'] = TD.mustaches['column/column_header.mustache']
+      // wrap everyting with an ul
+      .replace('{{/withEditableTitle}}', '{{/withEditableTitle}} <ul class="btd-column-buttons">')
+      .replace('{{/isTemporary}} </header>', '{{/isTemporary}} </ul> </header>')
+      // shove in buttons we care about
+      // wrap all the <a>s with <li>s
+      .replace(/<\/i> <\/a>/g, '</i> </a> </li>')
+      .replace(/<a class="js-action-header-button/g, '<li> <a class="js-action-header-button');
+
+    TD.mustaches['column/column_header.mustache'] = TD.mustaches['column/column_header.mustache']
+      .replace(
+        '{{/withMarkAllRead}}  {{^isTemporary}}',
+        `{{/withMarkAllRead}}  {{^isTemporary}}
+        ${settings.clear_column_action ? `
+        <li>
+          <a class="js-action-header-button column-header-link btd-clear-column-link" href="#" data-action="clear">
+            <i class="icon icon-clear-timeline"></i>
+          </a>
+        </li>` : ''}
+        ${settings.collapse_columns ? `
+        <li>
+          <a class="js-action-header-button column-header-link btd-toggle-collapse-column-link" href="#" data-action="toggle-collapse-column">
+            <i class="icon icon-minus"></i>
+          </a>
+        </li>` : ''}`,
+      );
 
     // We delete the callback for the timestamp task so the content script can do it itself
     if (settings.ts !== 'relative') {
@@ -787,6 +805,17 @@ $('body').on('click', '#column-navigator .column-nav-item', (ev) => {
   TD.controller.columnManager.get(columnKey)._btd.uncollapse();
 });
 
+$('body').on('mousedown', '.column-panel header.column-header .btd-clear-column-link', (ev) => {
+  ev.preventDefault();
+  if (!SETTINGS.clear_column_action || ev.which !== 1) {
+    return;
+  }
+
+  const thisColumn = ev.target.closest('[data-column]');
+  const columnKey = thisColumn.getAttribute('data-column');
+  TD.controller.columnManager.get(columnKey).clear();
+});
+
 $('body').on('mousedown', '.column-panel header.column-header .btd-toggle-collapse-column-link', (ev) => {
   ev.preventDefault();
   if (!SETTINGS.collapse_columns || ev.which !== 1) {
@@ -825,6 +854,33 @@ $('body').on('click', '[data-btd-action="mute-source"]', (ev) => {
 
   TD.controller.filterManager.addFilter('source', source);
 });
+
+$('body').on({
+  mouseenter: (ev) => {
+    if (SETTINGS && !SETTINGS.pause_scroll_on_hover) {
+      return;
+    }
+    const thisColumn = ev.target.closest('[data-column]');
+    const columnKey = thisColumn.getAttribute('data-column');
+    const column = TD.controller.columnManager.get(columnKey);
+    const scroller = column.ui.getChirpScroller();
+    if (scroller.scrollTop() === 0) {
+      column.ui.pause();
+    }
+  },
+  mouseleave: (ev) => {
+    if (SETTINGS && !SETTINGS.pause_scroll_on_hover) {
+      return;
+    }
+    const thisColumn = ev.target.closest('[data-column]');
+    const columnKey = thisColumn.getAttribute('data-column');
+    const column = TD.controller.columnManager.get(columnKey);
+    const scroller = column.ui.getChirpScroller();
+    if (scroller.scrollTop() === 1) {
+      column.ui.unpause();
+    }
+  },
+}, 'section.column');
 
 const defaultTitle = 'TweetDeck';
 const unreadTitle = '[*] TweetDeck';

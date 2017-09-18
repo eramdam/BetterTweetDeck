@@ -25,6 +25,7 @@ const defaultSettings = {
     size: '250px',
     enabled: false,
   },
+  clear_column_action: false,
   collapse_columns: false,
   css: {
     round_pic: true,
@@ -47,6 +48,7 @@ const defaultSettings = {
     hide_like_rt_indicators: false,
     system_fonts: false,
   },
+  pause_scroll_on_hover: false,
   share_item: {
     enabled: true,
     short_txt: false,
