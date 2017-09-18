@@ -175,8 +175,8 @@ TD.mustaches['column/column_header.mustache'] = TD.mustaches['column/column_head
 
 TD.mustaches['column/column_header.mustache'] = TD.mustaches['column/column_header.mustache']
   .replace(
-  '{{/withMarkAllRead}}  {{^isTemporary}}',
-  `{{/withMarkAllRead}}  {{^isTemporary}}
+    '{{/withMarkAllRead}}  {{^isTemporary}}',
+    `{{/withMarkAllRead}}  {{^isTemporary}}
         ${SETTINGS.clear_column_action ? `
         <li>
           <a class="js-action-header-button column-header-link btd-clear-column-link" href="#" data-action="clear">
@@ -189,7 +189,7 @@ TD.mustaches['column/column_header.mustache'] = TD.mustaches['column/column_head
             <i class="icon icon-minus"></i>
           </a>
         </li>` : ''}`,
-);
+  );
 
 if (SETTINGS.old_replies) {
   TD.config.decider_overlay = deciderOverride;
@@ -475,7 +475,6 @@ observer.observe(document, { subtree: true, childList: true });
 
 // TD Events
 $(document).on('dataColumns', (ev, data) => {
-  console.log(data);
   const cols = data.columns.filter(col => col.model.state.settings).map(col => ({
     id: col.model.privateState.key,
     mediaSize: col.model.state.settings.media_preview_size,
