@@ -39,7 +39,6 @@ scripts.forEach((src) => {
 
 sendMessage({ action: 'get_settings' }, (response) => {
   settings = response.settings;
-  sendEvent('settingsReady', { settings });
   const getFontFile = format => chrome.extension.getURL(`fonts/tweetdeck-regular-webfont-old.${format}`);
 
   const style = document.createElement('style');
@@ -510,6 +509,7 @@ window.addEventListener('resize', setMaxDimensionsOnModalImg);
 // Prepare to know when TD is ready
 on('BTDC_ready', () => {
   tweakClassesFromVisualSettings();
+  sendEvent('settingsReady', { settings });
   // Refresh timestamps once and then set the interval
   refreshTimestamps();
   setInterval(refreshTimestamps, TIMESTAMP_INTERVAL);
