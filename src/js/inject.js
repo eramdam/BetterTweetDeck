@@ -260,12 +260,20 @@ if (SETTINGS.old_replies) {
   TD.mustaches['status/quoted_tweet.mustache'] = TD.mustaches['status/quoted_tweet.mustache'].replace('with-linebreaks">{{{htmlText}}}', 'with-linebreaks">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}');
 }
 
-// Inject items into the interaction bar
-if (SETTINGS.hotlink_item || SETTINGS.download_item) {
-  TD.mustaches['status/tweet_single_actions.mustache'] = TD.mustaches['status/tweet_single_actions.mustache']
-    .replace(
-      '{{_i}}Like{{/i}} </span> </a> </li>',
-      `{{_i}}Like{{/i}} </span> </a> </li>
+    // Inject items into the interaction bar
+    if (SETTINGS.context_item || SETTINGS.hotlink_item || SETTINGS.download_item) {
+      TD.mustaches['status/tweet_single_actions.mustache'] = TD.mustaches['status/tweet_single_actions.mustache']
+        .replace(
+          '{{_i}}Like{{/i}} </span> </a> </li>',
+          `{{_i}}Like{{/i}} </span> </a> </li>
+           ${SETTINGS.context_item ? `
+           <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--13 margin-l--1">
+             <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
+               data-btd-action="context-link" rel="context" title="Context link"> 
+               <i class="js-icon icon icon-info txt-center"></i>
+               <span class="is-vishidden"> {{_i}}Context link{{/i}} </span>
+             </a>
+           </li>` : ''}
            {{#tweet.entities.media.length}}
            ${SETTINGS.hotlink_item ? `
            <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--13 margin-l--1">
@@ -285,11 +293,18 @@ if (SETTINGS.hotlink_item || SETTINGS.download_item) {
            </li>` : ''}
            {{/tweet.entities.media.length}}`,
     );
-
-  TD.mustaches['status/tweet_detail_actions.mustache'] = TD.mustaches['status/tweet_detail_actions.mustache']
-    .replace(
-      '{{_i}}Like{{/i}} </span> </a> {{/account}} </li>',
-      `{{_i}}Like{{/i}} </span> </a> {{/account}} </li>
+      TD.mustaches['status/tweet_detail_actions.mustache'] = TD.mustaches['status/tweet_detail_actions.mustache']
+        .replace(
+          '{{_i}}Like{{/i}} </span> </a> {{/account}} </li>',
+          `{{_i}}Like{{/i}} </span> </a> {{/account}} </li>
+           ${SETTINGS.context_item ? `
+           <li class="tweet-detail-action-item btd-tweet-detail-action-item">
+             <a class="js-show-tip tweet-detail-action btd-tweet-detail-action btd-clipboard position-rel" href="#"
+               data-btd-action="context-link" rel="context" title="Context link">
+               <i class="js-icon-attachment icon icon-info txt-center"></i>
+               <span class="is-vishidden"> {{_i}}Context link{{/i}} </span>
+             </a>
+           </li>` : ''}
            {{#getMainTweet}}{{#entities.media.length}}
            ${SETTINGS.hotlink_item ? `
            <li class="tweet-detail-action-item btd-tweet-detail-action-item">
@@ -663,11 +678,34 @@ const getMediaFromChirp = (chirp) => {
   return urls;
 };
 
+const getContextFromChirp = (chirp) => {
+  const urls = [];
+
+  if (chirp.quotedTweet && !chirp.quotedTweetMissing) {
+    urls.push(...getContextFromChirp(chirp.quotedTweet));
+  }
+
+  urls.push(chirp.getChirpURL());
+  if (chirp.entities.media.length > 1) {
+    urls.push(...(getMediaFromChirp(chirp).slice(1)));
+  }
+
+  return urls;
+};
+
 // Disable eslint so that we can keep a copy of the clipboard around.
 // eslint-disable-next-line
 const clipboard = new Clipboard('.btd-clipboard', {
   text: (trigger) => {
-    return getMediaFromChirp(getChirpFromElement(trigger)).join('\n');
+    const chirp = getChirpFromElement(trigger);
+    switch ($(trigger).attr('rel')) {
+      case 'hotlink':
+        return getMediaFromChirp(chirp).join('\n');
+      case 'context':
+        return getContextFromChirp(chirp).join('\n');
+      default:
+        return false;
+    }
   },
 });
 
