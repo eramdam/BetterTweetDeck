@@ -547,7 +547,7 @@ on('BTDC_ready', () => {
   // Tell any potential versions of BTD that they are not alone, and alert the user if they respond.
   const browser = BHelper.getBrowser();
   if (browser) {
-    const extensions = config.get(`extension_ids.${browser}`);
+    const extensions = config.get(`Client.extension_ids.${browser}`);
     Object.values(extensions || {}).forEach((extensionID) => {
       chrome.runtime.sendMessage(
         extensionID, { action: 'version', key: BHelper.getVersion() }, {},
