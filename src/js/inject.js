@@ -25,10 +25,6 @@ if (SETTINGS.no_tco) {
   };
 }
 
-const deciderOverride = {
-  simplified_replies: false,
-};
-
 const getMediaParts = (chirp, url) => {
   return {
     fileExtension: url.replace(/:[a-z]+$/, '').split('.').pop(),
@@ -207,12 +203,6 @@ TD.mustaches['column/column_header.mustache'] = TD.mustaches['column/column_head
           </a>
         </li>` : ''}`,
   );
-
-if (SETTINGS.old_replies) {
-  TD.config.decider_overlay = deciderOverride;
-
-  TD.decider.updateForGuestId();
-}
 
 TD.old_mustaches = Object.assign({}, TD.mustaches);
 

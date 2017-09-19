@@ -1,13 +1,14 @@
-:tada: 3.4.4 :tada:
+:tada: 3.4.5 :tada:
 ===============
 <ul>
   <li data-info-setting="content/mute_source">[Feature] You can add a `Mute <source>` item in tweets menu. Useful to mute tweets from specific apps!</li>
-  <li data-info-setting="content/download_filename_format">[Feature] You can specify the format of the filename when downloading a GIF/image. (thanks [@EntranceJew](https://github.com/EntranceJew)</li> [#204](https://github.com/eramdam/BetterTweetDeck/pull/204))</li>
-  <li data-info-setting="content/ctrl_changes_interactions">[Feature] You can make it so holding <kbd>Ctrl</kbd> (or <kbd>Cmd</kbd> on Mac) while interacting with a tweet (liking, retweeting, download/hotliking its media) makes you follow the author of said tweet. (thanks [@EntranceJew](https://github.com/EntranceJew)</li> [#206](https://github.com/eramdam/BetterTweetDeck/pull/206))</li>
-  <li>[Improvement] [Bugfix] I've tweaked the way the old replies are displayed in tweets, this should be more on-par with the old behavior.</li>
-  <li>[Improvement] [Bugfix] Timestamps should work more reliably and be less heavy on resources.</li>
-  <li>[Improvement] [Bugfix] GIFs downloaded off a retweet should have the proper username in their filename (thanks [@EntranceJew](https://github.com/EntranceJew)</li> [#203](https://github.com/eramdam/BetterTweetDeck/pull/203))
-  <li>[Bugfix] Fixed the bug that would make the content of the emoji picker's input white under certain conditions.</li>
+  <li data-info-setting="interface/clear_column_action">[Feature] You can add a clear button ( :droplet: )  in columns' header (thanks [@EntranceJew](https://github.com/EntranceJew) [#224](https://github.com/eramdam/BetterTweetDeck/pull/224))</li>
+  <li data-info-setting="interface/collapse_columns">[Feature] You can add a "collapse" button ( :heavy_minus_sign: )  in columns' header (thanks [@EntranceJew](https://github.com/EntranceJew) [#208](https://github.com/eramdam/BetterTweetDeck/pull/208))</li>
+  <li data-info-setting="content/download_filename_format">[Feature] You can specify the format of the filename when downloading a GIF/image. (thanks [@EntranceJew](https://github.com/EntranceJew) [#204](https://github.com/eramdam/BetterTweetDeck/pull/204))</li>
+  <li data-info-setting="content/ctrl_changes_interactions">[Feature] You can make it so holding <kbd>Ctrl</kbd> (or <kbd>Cmd</kbd> on Mac) while interacting with a tweet (liking, retweeting, download/hotliking its media) makes you follow the author of said tweet. (thanks [@EntranceJew](https://github.com/EntranceJew) [#206](https://github.com/eramdam/BetterTweetDeck/pull/206))</li>
+  <li>[Improvement] Some internal changes have been made so Better TweetDeck is (hopefully) more reliable and fast. Are concerned: timestamps, removal of the t.co redirection among others.</li>
+  <li>[Improvement] I've tweaked the way the old replies are displayed in tweets, this should be more on-par with the old behavior.</li>
+  <li>[Improvement] GIFs downloaded off a retweet should have the proper username in their filename (thanks [@EntranceJew](https://github.com/EntranceJew) [#203](https://github.com/eramdam/BetterTweetDeck/pull/203))</li>
   <li>[Bugfix] A few visual bugs have been fixed.</li>
 </ul>
 
