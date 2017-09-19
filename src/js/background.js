@@ -62,6 +62,7 @@ const defaultSettings = {
   regex_filter: false,
   edit_item: true,
   favstar_item: true,
+  archive_item: false,
   mute_hashtags: true,
   mute_source: true,
   hotlink_item: false,

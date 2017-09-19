@@ -353,8 +353,15 @@ TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].
             <a href="#" data-btd-action="mute-hashtag" data-btd-hashtag="{{text}}">Mute #{{text}}</a>
           </li>
         {{/entities.hashtags}}` : ''}
-        ${SETTINGS.favstar_item ? `<li class="drp-h-divider"></li>
-        <li class="btd-action-menu-item is-selectable"><a href="https://favstar.fm/users/{{user.screenName}}/status/{{chirp.id}}" target="_blank" data-action="favstar">{{_i}}Show on Favstar{{/i}}</a></li>` : ''}
+        ${SETTINGS.favstar_item || SETTINGS.archive_item ? '<li class="drp-h-divider"></li>' : ''}
+        ${SETTINGS.favstar_item ? `
+        <li class="btd-action-menu-item is-selectable">
+          <a href="https://favstar.fm/users/{{user.screenName}}/status/{{chirp.id}}" target="_blank" data-action="favstar">{{_i}}Show on Favstar{{/i}}</a>
+        </li>` : ''}
+        ${SETTINGS.archive_item ? `
+        <li class="btd-action-menu-item is-selectable">
+          <a href="https://archive.today/?run=1&url=https%3A%2F%2Ftwitter.com%2F{{user.screenName}}%2Fstatus%2F{{chirp.id}}" target="_blank" data-action="archive">{{_i}}Archive Tweet{{/i}}</a>
+        </li>` : ''}
       {{/chirp}}
       </ul>
     `);
