@@ -42,10 +42,6 @@ const common = {
   background: {
     scripts: ['js/background.js'],
   },
-  page_action: {
-    default_icon: isBeta ? betaIcons : icons,
-    default_title: 'Reload BTD',
-  },
   icons: isBeta ? betaIcons : icons,
   permissions: [
     'storage',
@@ -98,6 +94,10 @@ if (process.env.NODE_ENV === 'dev') {
     },
   };
   common.permissions.push('management');
+  common.page_action = {
+    default_icon: isBeta ? betaIcons : icons,
+    default_title: 'Reload BTD',
+  };
 }
 
 module.exports = common;
