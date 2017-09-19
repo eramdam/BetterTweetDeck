@@ -156,6 +156,16 @@ BHelper.settings.getAll((settings) => {
           $(`input[name="flash_tweets.mode"]#${settings.flash_tweets.mode}`).prop('checked', settings.flash_tweets.enabled && true);
         }
 
+        if (key === 'ctrl_changes_interactions') {
+          if (settings.ctrl_changes_interactions.enabled) {
+            $('input[name="ctrl_changes_interactions.enabled"]').prop('checked', settings.ctrl_changes_interactions.enabled);
+            $('input[name="ctrl_changes_interactions.enabled"] ~ select').removeAttr('disabled');
+          }
+
+          $('select[name="ctrl_changes_interactions.mode"]').prop('disabled', !settings.ctrl_changes_interactions.enabled);
+          $('select[name="ctrl_changes_interactions.mode"]').val(settings.ctrl_changes_interactions.mode);
+        }
+
         if (key === 'custom_columns_width') {
           if (settings.custom_columns_width) {
             $('input[name="custom_columns_width.enabled"]').prop('checked', settings.custom_columns_width.enabled);
@@ -209,7 +219,7 @@ BHelper.settings.getAll((settings) => {
    * Updating the settings when inputs change
    */
 
-  $('input[name]').on('change input', (e) => {
+  $('input[name], select[name]').on('change input', (e) => {
     $('.save-button').text(chrome.i18n.getMessage('save_save')).removeAttr('disabled');
 
     if (e.target.type === 'radio' && e.target.name === 'ts') {
@@ -223,7 +233,7 @@ BHelper.settings.getAll((settings) => {
     }
 
     if (e.target.type === 'checkbox' && e.target.hasAttribute('data-ghost')) {
-      const els = $(`[data-ghost][name="${e.target.name}"] ~ ul input`);
+      const els = $(`[data-ghost][name="${e.target.name}"] ~ ul input, [data-ghost][name="${e.target.name}"] ~ select`);
 
       if (e.target.checked) {
         els.removeAttr('disabled');
@@ -258,9 +268,9 @@ BHelper.settings.getAll((settings) => {
   $('button.save-button').click(() => {
     const newSettings = {};
 
-    $('input[name]').each((i, el) => {
+    $('input[name],select[name]').each((i, el) => {
       const input = el;
-      const type = input.getAttribute('type').toLowerCase();
+      const type = input.nodeName === 'SELECT' ? null : input.getAttribute('type').toLowerCase();
       const name = input.getAttribute('name');
       const nameArr = name.split('.');
       const isChecked = $(el).is(':checked');
@@ -274,7 +284,7 @@ BHelper.settings.getAll((settings) => {
           newSettings[nameArr[0]][nameArr[1]] = input.getAttribute('id');
         } else if (type === 'checkbox') {
           newSettings[nameArr[0]][nameArr[1]] = isChecked;
-        } else if (type === 'text' || type === 'number') {
+        } else if (type === 'text' || type === 'number' || input.nodeName === 'SELECT') {
           newSettings[nameArr[0]][nameArr[1]] = input.value;
         }
       } else if (type === 'radio' && isChecked) {

@@ -735,7 +735,7 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
     return;
   }
 
-  if (!SETTINGS || !SETTINGS.ctrl_changes_interactions) {
+  if (!SETTINGS || !SETTINGS.ctrl_changes_interactions.enabled) {
     return;
   }
 
@@ -747,8 +747,17 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
   const chirp = getChirpFromElement(ev.target);
 
   const user = chirp.retweetedStatus ? chirp.retweetedStatus.user : chirp.user;
-  if (!user.following) {
-    user.follow(chirp.account, null, null, true);
+
+  switch (SETTINGS.ctrl_changes_interactions.mode) {
+    case 'prompt':
+      $(document).trigger('uiShowFollowFromOptions', { userToFollow: user });
+      break;
+    case 'owner':
+    default:
+      if (!user.following) {
+        user.follow(chirp.account, null, null, true);
+      }
+      break;
   }
 });
 

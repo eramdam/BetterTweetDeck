@@ -101,7 +101,9 @@
   "download_item": { "message": "Add shortcut to download all media of a tweet"},
   "download_filename_format": { "message": "Download file name format"},
   "download_filename_format_parameters": { "message": "You can use the following variables: <code>{{postedUser}} {{fileName}} {{fileExtension}}</code>"},
-  "ctrl_changes_interactions": { "message": "Holding <kbd>ctrl</kbd> while clicking: favorite / retweet / download / hotlink will follow the user from the column's owner."},
+  "ctrl_changes_interactions__enabled": { "message": "Holding <kbd>ctrl</kbd> while clicking: favorite / retweet / download / hotlink will allow you to follow from the"},
+  "ctrl_changes_interactions__mode__owner": { "message": "column's owner"},
+  "ctrl_changes_interactions__mode__dialog": { "message": "follow dialog"},
 
   "btd_thx": { "message": "Thanks for installing Better TweetDeck!" },
   "btd_get_started": { "message": "Let's get started!" },
