@@ -854,21 +854,24 @@ const getMediaUrlParts = (url) => {
   };
 };
 
+// control characters can't appear in tweets, so we can use them to pad strings out
+// source: https://shkspr.mobi/blog/2015/11/twitters-weird-control-character-handling/
+const loudencer = (str, start, end) => {
+  return str.slice(0, start) + ('\x07').repeat(str.slice(start, end).length) + str.slice(end);
+};
+
 $('body').on('click', '[data-btd-action="edit-tweet"]', (ev) => {
   ev.preventDefault();
-  Log('do the DANCE');
   const chirp = getChirpFromElement(ev.target);
   const media = getMediaFromChirp(chirp);
-
-  Log('tweet has this media', media);
 
   const composeData = {
     type: chirp.chirpType,
     text: chirp.text,
     from: [TD.storage.Account.generateKeyFor('twitter', chirp.creatorAccount.getUserID())],
   };
-  Log('after init', 'it now says', composeData.text);
 
+  // @TODO: this doesn't work in DMs yet because DMs use attachments sometimes, i don't understand
   // @TODO: in what circumstances do we use MESSAGE_THREAD? regular MESSAGE has conversationId
   // @TODO: in what circumstances do we use messageRecipients? no chirps have them.
 
@@ -876,7 +879,43 @@ $('body').on('click', '[data-btd-action="edit-tweet"]', (ev) => {
     composeData.conversationId = chirp.conversationId;
   }
 
-  // override to make replies into better replies
+  // == get the original text back
+  // if we have media, remove the link from the text
+  if (chirp.entities.media.length) {
+    const firstMedia = chirp.entities.media[0];
+    composeData.text = loudencer(composeData.text, ...firstMedia.indices);
+  }
+
+  // remove usernames from tweet
+  chirp.entities.user_mentions.forEach((mention) => {
+    if (mention.isImplicitMention) {
+      composeData.text = loudencer(composeData.text, ...mention.indices);
+    }
+  });
+
+  // replace quotes in a tweet
+  chirp.entities.urls.forEach((url) => {
+    if (chirp.isQuoteStatus && !chirp.quotedTweetMissing && url.expanded_url === chirp.quotedTweet.getChirpURL()) {
+      composeData.text = loudencer(composeData.text, ...url.indices);
+      composeData.quotedTweet = chirp.quotedTweet;
+    }
+  });
+
+  // make the chirp quieter
+  composeData.text = composeData.text.replace(/\u0007/gi, '');
+
+  // expand original urls for tweets
+  chirp.entities.urls.forEach((url) => {
+    composeData.text = composeData.text.replace(url.url, url.expanded_url);
+  });
+
+  // trim in case we picked up any whitespace
+  composeData.text = composeData.text.trim();
+
+  // compose in advance because the reply composer doesn't transfer text for reasons unknown
+  $(document).trigger('uiComposeTweet', composeData);
+
+  // == handle replies
   if (chirp.inReplyToID) {
     const mainChirp = chirp.getMainTweet();
     composeData.type = 'reply';
@@ -891,8 +930,7 @@ $('body').on('click', '[data-btd-action="edit-tweet"]', (ev) => {
       },
     };
 
-    // TD.controller.clients.getClient(TD.storage.Account.generateKeyFor("twitter", g.account.getUserID())).show("909977913532997633", )
-
+    // == find that user, if at all possible
     const column = TD.controller.columnManager.get(chirp._btd.columnKey);
     const replyEl = column.ui.getChirpById(chirp.inReplyToID);
     if (replyEl.length) {
@@ -915,72 +953,40 @@ $('body').on('click', '[data-btd-action="edit-tweet"]', (ev) => {
     } else {
       Log('reply did not have an existing chirp in its original column');
     }
-  }
 
-  // replace urls in tweet
-  chirp.entities.urls.forEach((url) => {
-    // if we know this tweet has a quote, and we know it's url, then get rid of it and attach it differently
-    if (chirp.isQuoteStatus && !chirp.quotedTweetMissing && url.expanded_url === chirp.quotedTweet.getChirpURL()) {
-      composeData.text = composeData.text.slice(0, url.indices[0]) + composeData.text.slice(url.indices[1]);
-      composeData.quotedTweet = chirp.quotedTweet;
-    } else {
-      composeData.text = composeData.text.slice(0, url.indices[0]) + url.expanded_url + composeData.text.slice(url.indices[1]);
-    }
-  });
-  Log('after urls', 'it now says', composeData.text);
-
-  // remove usernames from tweet
-  chirp.entities.user_mentions.forEach((mention) => {
-    if (mention.isImplicitMention) {
-      composeData.text = composeData.text.slice(0, mention.indices[0]) + composeData.text.slice(mention.indices[1]);
-    }
-  });
-  Log('after users', 'it now says', composeData.text);
-
-  // if we have media, remove the link from the text
-  if (chirp.entities.media.length) {
-    const firstMedia = chirp.entities.media[0];
-    composeData.text = composeData.text.slice(0, firstMedia.indices[0]) + composeData.text.slice(firstMedia.indices[1]);
-  }
-  Log('after media', 'it now says', composeData.text);
-
-  // trim in case we get whitespace from username removal
-  composeData.text = composeData.text.trim();
-  Log('after trim', 'it now says', composeData.text);
-
-  /*
-  // maybe use this for video
-  var i = this.withMediaUploaderUpload({
-            files: [e],
-            accountKey: t
-        }, {
-   */
-
-  // re-upload all the files we had
-  Promise.all(media.map(item =>
-    fetch(item)
-      .then(res => res.blob())
-      .then((blob) => {
-        const url = getMediaUrlParts(item);
-        const options = {};
-        switch (url.originalExtension.toLowerCase()) {
-          case 'mp4':
-            options.type = 'video/mp4';
-            break;
-          case 'gif':
-            options.type = 'image/gif';
-            break;
-          default:
-            break;
-        }
-        return new File([blob], `${url.originalFile}.${url.originalExtension}`, options);
-      }))).then((gotFiles) => {
-    Log('pulling the trigger with', composeData);
+    // now that the reply information is filled, we have to push this compose on top of the one with text
     $(document).trigger('uiComposeTweet', composeData);
-    $(document).trigger('uiComposeFilesAdded', { files: gotFiles });
-    chirp.destroy();
-    Log('that is how you make it right');
-  });
+  }
+
+  // == re-upload all the files we had, if any
+  if (media.length) {
+    Promise.all(media.map(item =>
+      fetch(item)
+        .then(res => res.blob())
+        .then((blob) => {
+          const url = getMediaUrlParts(item);
+          const options = {};
+          switch (url.originalExtension.toLowerCase()) {
+            case 'mp4':
+              options.type = 'video/mp4';
+              break;
+            case 'gif':
+              options.type = 'image/gif';
+              break;
+            default:
+              break;
+          }
+          return new File([blob], `${url.originalFile}.${url.originalExtension}`, options);
+        }))).then((gotFiles) => {
+      $(document).trigger('uiComposeFilesAdded', { files: gotFiles });
+    });
+  }
+
+  // send one last compose event, for good luck
+  $(document).trigger('uiComposeTweet', composeData);
+
+  // it is now safe to remove the tweet
+  chirp.destroy();
 });
 
 $('body').on('click', '[data-btd-action="mute-hashtag"]', (ev) => {
