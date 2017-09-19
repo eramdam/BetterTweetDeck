@@ -6,6 +6,18 @@ import UsernamesTemplates from './util/username_templates';
 
 const SETTINGS = $('[data-btd-settings]').data('btd-settings');
 
+if (SETTINGS.no_tco) {
+  const originalCreateUrlAnchor = TD.util.createUrlAnchor;
+
+  TD.util.createUrlAnchor = (e) => {
+    if (e.expanded_url) {
+      e.url = e.expanded_url;
+    }
+
+    return originalCreateUrlAnchor(e);
+  };
+}
+
 const deciderOverride = {
   simplified_replies: false,
 };

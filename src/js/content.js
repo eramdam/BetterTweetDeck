@@ -348,8 +348,6 @@ function tweetHandler(tweet, columnKey, parent) {
   }
 
   nodes.forEach((node) => {
-    let urlsToChange = [];
-
     if (tweet.retweetedStatus) {
       node.classList.add('btd-is-retweet');
     }
@@ -424,18 +422,19 @@ function tweetHandler(tweet, columnKey, parent) {
       profilePicture.src = Thumbnails.getSafeURL(profilePicture.src);
     }
 
+    let chirpURLs = [];
 
     // Urls:
     // If it got entities, it's a tweet
     if (tweet.entities) {
-      urlsToChange = [...tweet.entities.urls, ...tweet.entities.media];
+      chirpURLs = [...tweet.entities.urls, ...tweet.entities.media];
     } else if (tweet.targetTweet && tweet.targetTweet.entities) {
       // If it got targetTweet it's an activity on a tweet
-      urlsToChange = [...tweet.targetTweet.entities.urls, ...tweet.targetTweet.entities.media];
+      chirpURLs = [...tweet.targetTweet.entities.urls, ...tweet.targetTweet.entities.media];
     } else if (tweet.retweet && tweet.retweet.entities) {
-      urlsToChange = [...tweet.retweet.entities.urls, ...tweet.retweet.entities.media];
+      chirpURLs = [...tweet.retweet.entities.urls, ...tweet.retweet.entities.media];
     } else if (tweet.retweetedStatus && tweet.retweetedStatus.entities) {
-      urlsToChange = [...tweet.retweetedStatus.entities.urls, ...tweet.retweetedStatus.entities.media];
+      chirpURLs = [...tweet.retweetedStatus.entities.urls, ...tweet.retweetedStatus.entities.media];
     }
 
     setTimeout(() => {
@@ -444,23 +443,13 @@ function tweetHandler(tweet, columnKey, parent) {
       }
     }, 0);
 
-    const mediaURLS = urlsToChange.filter(url => url.type || url.display_url.startsWith('youtube.com/watch?v=') || url.display_url.startsWith('vine.co/v/'));
+    const mediaURLs = chirpURLs.filter(url => url.type || url.display_url.startsWith('youtube.com/watch?v=') || url.display_url.startsWith('vine.co/v/'));
 
-    if (urlsToChange.length > 0) {
-      // We expand URLs if needed
-      if (SETTINGS.no_tco) {
-        urlsToChange.forEach(url => expandURL(url, node));
-      }
+    if (chirpURLs.length > 0) {
+      const urlForThumbnail = chirpURLs.filter(url => !url.id).pop();
 
-      const urlForThumbnail = urlsToChange.filter(url => !url.id).pop();
-      let urlToHide;
-
-      if (mediaURLS.length > 0) {
-        urlToHide = mediaURLS.pop();
-      }
-
-      if (SETTINGS.css.hide_url_thumb && mediaSize !== 'off') {
-        hideURLVisually(urlToHide, node);
+      if (mediaURLs.length > 0 && SETTINGS.css.hide_url_thumb && mediaSize !== 'off') {
+        hideURLVisually(mediaURLs.pop(), node);
       }
 
       // Maybe we could have a gallery or something when we have different URLs
