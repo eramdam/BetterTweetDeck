@@ -11,7 +11,19 @@ if (SETTINGS.no_tco) {
 
   TD.util.createUrlAnchor = (e) => {
     if (e.expanded_url) {
-      e.url = e.expanded_url;
+      // URLs in entities have multiple types:
+      // - video
+      // - animated_gif
+      // - photo
+      // If we don't have any type, then we have a "simple" URL
+      // URL that we can safely alter
+      //
+      // isUrlForAttachment determines whether or not the URL is linked
+      // to an "attachment". In TweetDeck's case it most likely means
+      // a quoted tweet
+      if (!e.type && !e.isUrlForAttachment) {
+        e.url = e.expanded_url;
+      }
     }
 
     return originalCreateUrlAnchor(e);
