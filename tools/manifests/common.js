@@ -28,7 +28,7 @@ const betaVersionName = () => {
 };
 
 /* eslint quotes: 0 */
-module.exports = {
+const common = {
   name: `${isBeta ? 'βeta' : ''} TweetDeck`.trim(),
   short_name: `${isBeta ? 'βeta ' : 'Better'}TDeck`,
   version: isBeta ? betaVersion() : packageJson.extension_version,
@@ -86,3 +86,20 @@ module.exports = {
   ],
   content_security_policy: `img-src https: data: 'self' *; default-src; connect-src * https:; style-src 'unsafe-inline'`,
 };
+
+if (process.env.NODE_ENV === 'dev') {
+  common.commands = {
+    _execute_page_action: {
+      suggested_key: {
+        default: "Ctrl+Shift+E",
+      },
+    },
+  };
+  common.permissions.push('management');
+  common.page_action = {
+    default_icon: isBeta ? betaIcons : icons,
+    default_title: 'Reload BTD',
+  };
+}
+
+module.exports = common;

@@ -93,6 +93,7 @@
     "eslint-plugin-import": "^2.7.0",
     "husky": "^0.14.3",
     "stylelint": "^8.1.0",
-    "stylelint-config-standard": "^17.0.0"
+    "stylelint-config-standard": "^17.0.0",
+    "ws": "^3.1.0"
   }
 }
