@@ -157,17 +157,6 @@ function tweakClassesFromVisualSettings() {
   }
 }
 
-
-function expandURL(url, node) {
-  const anchors = $(`a[href="${url.url}"]`, node);
-
-  if (!anchors) {
-    return;
-  }
-
-  anchors.forEach(anchor => anchor.setAttribute('href', url.expanded_url));
-}
-
 function hideURLVisually(url, node) {
   if (!url) {
     return;
