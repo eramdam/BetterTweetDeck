@@ -559,7 +559,7 @@ on('BTDC_ready', () => {
   const browser = BHelper.getBrowser();
   if (browser) {
     const extensions = config.get(`extension_ids.${browser}`);
-    Object.values(extensions).forEach((extensionID) => {
+    Object.values(extensions || {}).forEach((extensionID) => {
       chrome.runtime.sendMessage(
         extensionID, { action: 'version', key: BHelper.getVersion() }, {},
         (response) => {
