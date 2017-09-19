@@ -7,26 +7,21 @@ import UsernamesTemplates from './util/username_templates';
 const SETTINGS = $('[data-btd-settings]').data('btd-settings');
 
 if (SETTINGS.no_tco) {
+  const dummyEl = document.createElement('span');
   const originalCreateUrlAnchor = TD.util.createUrlAnchor;
 
   TD.util.createUrlAnchor = (e) => {
-    if (e.expanded_url) {
-      // URLs in entities have multiple types:
-      // - video
-      // - animated_gif
-      // - photo
-      // If we don't have any type, then we have a "simple" URL
-      // URL that we can safely alter
-      //
-      // isUrlForAttachment determines whether or not the URL is linked
-      // to an "attachment". In TweetDeck's case it most likely means
-      // a quoted tweet
-      if (!e.type && !e.isUrlForAttachment) {
-        e.url = e.expanded_url;
-      }
+    let result = originalCreateUrlAnchor(e);
+    // this never touches the final DOM ever so it's fine
+    dummyEl.innerHTML = result;
+    const anchor = dummyEl.querySelector('a');
+
+    if (anchor) {
+      anchor.href = anchor.dataset.fullUrl;
+      result = anchor.outerHTML;
     }
 
-    return originalCreateUrlAnchor(e);
+    return result;
   };
 }
 
