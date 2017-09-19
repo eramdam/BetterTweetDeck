@@ -60,7 +60,6 @@ const defaultSettings = {
   favstar_item: true,
   mute_hashtags: true,
   mute_source: true,
-  context_item: false,
   hotlink_item: false,
   download_item: false,
   download_filename_format: '{{postedUser}}-{{fileName}}.{{fileExtension}}',

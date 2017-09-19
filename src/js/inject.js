@@ -270,19 +270,11 @@ if (SETTINGS.old_replies) {
 }
 
 // Inject items into the interaction bar
-if (SETTINGS.context_item || SETTINGS.hotlink_item || SETTINGS.download_item) {
+if (SETTINGS.hotlink_item || SETTINGS.download_item) {
   TD.mustaches['status/tweet_single_actions.mustache'] = TD.mustaches['status/tweet_single_actions.mustache']
     .replace(
       '{{_i}}Like{{/i}} </span> </a> </li>',
       `{{_i}}Like{{/i}} </span> </a> </li>
-           ${SETTINGS.context_item ? `
-           <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--13 margin-l--1">
-             <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
-               data-btd-action="context-link" rel="context" title="Context link"> 
-               <i class="js-icon icon icon-info txt-center"></i>
-               <span class="is-vishidden"> {{_i}}Context link{{/i}} </span>
-             </a>
-           </li>` : ''}
            {{#tweet.entities.media.length}}
            ${SETTINGS.hotlink_item ? `
            <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--13 margin-l--1">
@@ -306,14 +298,6 @@ if (SETTINGS.context_item || SETTINGS.hotlink_item || SETTINGS.download_item) {
     .replace(
       '{{_i}}Like{{/i}} </span> </a> {{/account}} </li>',
       `{{_i}}Like{{/i}} </span> </a> {{/account}} </li>
-           ${SETTINGS.context_item ? `
-           <li class="tweet-detail-action-item btd-tweet-detail-action-item">
-             <a class="js-show-tip tweet-detail-action btd-tweet-detail-action btd-clipboard position-rel" href="#"
-               data-btd-action="context-link" rel="context" title="Context link">
-               <i class="js-icon-attachment icon icon-info txt-center"></i>
-               <span class="is-vishidden"> {{_i}}Context link{{/i}} </span>
-             </a>
-           </li>` : ''}
            {{#getMainTweet}}{{#entities.media.length}}
            ${SETTINGS.hotlink_item ? `
            <li class="tweet-detail-action-item btd-tweet-detail-action-item">
@@ -702,6 +686,14 @@ const getContextFromChirp = (chirp) => {
   return urls;
 };
 
+const KeyboardModifiers = {
+  alt: false,
+};
+
+window.addEventListener('keydown', (e) => {
+  KeyboardModifiers.alt = e.altKey;
+});
+
 // Disable eslint so that we can keep a copy of the clipboard around.
 // eslint-disable-next-line
 const clipboard = new Clipboard('.btd-clipboard', {
@@ -709,9 +701,11 @@ const clipboard = new Clipboard('.btd-clipboard', {
     const chirp = getChirpFromElement(trigger);
     switch ($(trigger).attr('rel')) {
       case 'hotlink':
+        if (KeyboardModifiers.alt) {
+          return getContextFromChirp(chirp).join('\n');
+        }
+
         return getMediaFromChirp(chirp).join('\n');
-      case 'context':
-        return getContextFromChirp(chirp).join('\n');
       default:
         return false;
     }
