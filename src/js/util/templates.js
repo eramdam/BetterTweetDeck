@@ -1,4 +1,7 @@
 import Mustache from 'mustache';
+import dompurify from 'dompurify';
+import { purifyConfig } from '../util/secureDomify';
+
 /* eslint max-len: 0 */
 const templates = {
   preview: `
@@ -121,7 +124,7 @@ const modalTemplate = ({
 
   return Mustache.render(type === 'image' ? templates.imageModal : templates.videoModal, Object.assign(defaultData.modal, {
     imageUrl,
-    videoEmbed,
+    videoEmbed: dompurify.sanitize(videoEmbed, purifyConfig),
     originalUrl,
     isVideo: type !== 'image',
     provider: (provider || '').toLowerCase(),

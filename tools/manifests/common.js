@@ -17,8 +17,13 @@ const betaIcons = {
 
 const betaVersion = () => {
   const d = new Date();
+  let lastDigit = `${d.getMonth() + 1}${d.getDate()}${d.getHours()}`;
 
-  return `${packageJson.extension_version}.${d.getMonth() + 1}${d.getDate()}${d.getHours()}`;
+  if (String(lastDigit).length > 4) {
+    lastDigit = String(lastDigit).substr(0, 4);
+  }
+
+  return `${packageJson.extension_version}.${lastDigit}`;
 };
 
 /* eslint quotes: 0 */
@@ -32,6 +37,7 @@ module.exports = {
     matches: ['*://tweetdeck.twitter.com/*'],
     js: ['js/content.js'],
     css: ['css/index.css'],
+    run_at: 'document_end',
   }],
   background: {
     scripts: ['js/background.js'],

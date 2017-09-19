@@ -222,6 +222,10 @@
             <input type="checkbox" name="mute_source" id="mute_source">
             <label for="mute_source" data-lang="mute_source" data-new-feat>Add a shortcut to mute the source (application) of a tweet in tweets' menu</label>
           </li>
+          <li data-setting-name="context_item">
+            <input type="checkbox" name="context_item" id="context_item">
+            <label for="context_item" data-lang="context_item" data-new-feat>Add shortcut to link all media / quotes of a tweet in order</label>
+          </li>
           <li data-setting-name="hotlink_item">
             <input type="checkbox" name="hotlink_item" id="hotlink_item">
             <label for="hotlink_item" data-lang="hotlink_item" data-new-feat>Add shortcut to hotlink all tweet media</label>
@@ -251,21 +255,21 @@
       </div>
       <button class="save-button" disabled data-lang="save_no">No changes</button>
     </section>
-    
+
     <section class="content-block" id="share">
       <h2 class="section-title" data-lang="shared_btd_h1">Sharing</h2>
-      
+
       <div class="settings-section" data-require-permission>
         <p data-lang="share_btd_p1" data-hidden-firefox>In order to use the "Share on TweetDeck" feature, you'll need to approve certain permissions which you can do so by clicking below</p>
-        
+
         <p data-hidden-firefox>
           <button class="plain-button" data-lang="share_request" data-ask-permissions>Request tabs reading permissions</button>
         </p>
 
         <p data-lang="share_btd_p2">Better TweetDeck can <strong>NOT</strong> read or track the contents of any open tabs.</p>
-        
+
         <p data-lang="share_btd_p3">Feel free to read <a href="https://developer.chrome.com/extensions/tabs">Chrome's documentation</a> about this permission for more details.</p>
-        
+
         <p><strong data-lang="share_btd_p4">Any modification on this page will be applied after a browser restart</strong></p>
 
         <ul>
@@ -312,6 +316,10 @@
             <input type="checkbox" name="css.slim_scrollbars" id="slim_scrollbars">
             <label for="slim_scrollbars" data-lang="css_slim_scrollbars">Thinner scrollbars</label>
           </li>
+          <li data-setting-name="pause_scroll_on_hover">
+            <input type="checkbox" name="pause_scroll_on_hover" id="pause_scroll_on_hover">
+            <label for="pause_scroll_on_hover" data-lang="pause_scroll_on_hover" data-new-feat>Pause column scrolling on hover</label>
+          </li>
           <li data-setting-name="no_bg_modal">
             <input type="checkbox" name="css.no_bg_modal" id="no_bg_modal">
             <label for="no_bg_modal" data-lang="css_no_bg_modal">Hide background behind fullscreen previews</label>
@@ -344,6 +352,14 @@
                 <input disabled type="text" name="custom_columns_width.size" id="column_size"><label for="column_size" data-lang="custom_width_size">Width (in pixels)</label>
               </li>
             </ul>
+          </li>
+          <li data-setting-name="clear_column_action">
+            <input type="checkbox" name="clear_column_action" id="clear_column_action">
+            <label for="clear_column_action" data-lang="clear_column_action" data-new-feat>Add a column header button to clear a column.</label>
+          </li>
+          <li data-setting-name="collapse_columns">
+            <input type="checkbox" name="collapse_columns" id="collapse_columns">
+            <label for="collapse_columns" data-lang="collapse_columns" data-new-feat>Add a column header button to collapse and uncollapse columns.</label>
           </li>
         </ul>
       </div>
@@ -399,7 +415,7 @@
       <h2 class="section-title">Donate</h2>
       <div class="settings-section">
         <h5>If you're in the US, I'd rather have you donate to one of those charities instead.</h5>
-        
+
         <ul>
           <li><a href="https://secure3.convio.net/cfrr/site/Donation2;jsessionid=97A4C7A9488B5DDF3450546DE1123DB2.app347a?1380.donation=form1&df_id=1380&web&_ga=1.145398384.513337705.1476995534">Center for Reproductive Rights</a></li>
           <li><a href="https://www.lambdalegal.org/donate">Lambda Legal</a></li>

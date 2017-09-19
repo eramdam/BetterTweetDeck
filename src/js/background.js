@@ -25,6 +25,8 @@ const defaultSettings = {
     size: '250px',
     enabled: false,
   },
+  clear_column_action: false,
+  collapse_columns: false,
   css: {
     round_pic: true,
     bigger_emojis: true,
@@ -46,6 +48,7 @@ const defaultSettings = {
     hide_like_rt_indicators: false,
     system_fonts: false,
   },
+  pause_scroll_on_hover: false,
   share_item: {
     enabled: true,
     short_txt: false,
@@ -57,6 +60,7 @@ const defaultSettings = {
   favstar_item: true,
   mute_hashtags: true,
   mute_source: true,
+  context_item: false,
   hotlink_item: false,
   download_item: false,
   download_filename_format: '{{postedUser}}-{{fileName}}.{{fileExtension}}',
@@ -64,6 +68,15 @@ const defaultSettings = {
   update_title_on_notifications: true,
   thumbnails: {},
 };
+
+// We want to know if there are any other versions of BTD out there.
+chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => {
+  if (message && message.action && message.action === 'version' && sender.id !== chrome.runtime.id && message.key !== BHelper.getVersion()) {
+    sendResponse({ action: 'badVersion', key: true });
+    return true;
+  }
+  return false;
+});
 
 function openWelcomePage() {
   chrome.tabs.create({

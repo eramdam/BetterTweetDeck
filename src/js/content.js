@@ -1,6 +1,7 @@
 import gifshot from 'gifshot';
 import FileSaver from 'file-saver';
 import each from 'promise-each';
+import config from 'config';
 import timestampOnElement from './util/timestamp';
 import { send as sendMessage, on as onMessage } from './util/messaging';
 import * as secureDomify from './util/secureDomify';
@@ -11,7 +12,7 @@ import Log from './util/logger';
 import * as BHelper from './util/browserHelper';
 import { $, TIMESTAMP_INTERVAL, on, sendEvent } from './util/util';
 
-let settings;
+let SETTINGS;
 
 /**
  * This will contain the sizes of each column
@@ -19,26 +20,27 @@ let settings;
  */
 const COLUMNS_MEDIA_SIZES = new Map();
 
-const scripts = [
-  chrome.extension.getURL('js/inject.js'),
-];
-
-if (!BHelper.isFirefox) {
-  scripts.push(chrome.extension.getURL('embeds.js'));
-}
-
-scripts.forEach((src) => {
-  const el = document.createElement('script');
-  el.src = src;
-  document.head.appendChild(el);
-});
-
 /**
  * Injecting inject.js in head before doing anything else
  */
 
 sendMessage({ action: 'get_settings' }, (response) => {
-  settings = response.settings;
+  SETTINGS = response.settings;
+  const scripts = [
+    chrome.extension.getURL('js/inject.js'),
+  ];
+
+  if (!BHelper.isFirefox) {
+    scripts.push(chrome.extension.getURL('embeds.js'));
+  }
+
+  scripts.forEach((src) => {
+    const el = document.createElement('script');
+    el.src = src;
+    el.setAttribute('data-btd-settings', JSON.stringify(SETTINGS));
+    document.head.appendChild(el);
+  });
+
   const getFontFile = format => chrome.extension.getURL(`fonts/tweetdeck-regular-webfont-old.${format}`);
 
   const style = document.createElement('style');
@@ -114,7 +116,7 @@ function refreshTimestamps() {
 const disabledOnFirefox = ['no_scrollbars', 'slim_scrollbars'];
 
 function tweakClassesFromVisualSettings() {
-  const enabledClasses = Object.keys(settings.css)
+  const enabledClasses = Object.keys(SETTINGS.css)
     .filter((key) => {
       if (BHelper.isFirefox) {
         return !disabledOnFirefox.includes(key);
@@ -122,48 +124,37 @@ function tweakClassesFromVisualSettings() {
 
       return true;
     })
-    .filter(key => settings.css[key])
+    .filter(key => SETTINGS.css[key])
     .map(cl => `btd__${cl}`);
 
   document.body.classList.add(...enabledClasses);
 
-  if (settings.flash_tweets.enabled) {
-    document.body.classList.add(`btd__flash-${settings.flash_tweets.mode}`);
+  if (SETTINGS.flash_tweets.enabled) {
+    document.body.classList.add(`btd__flash-${SETTINGS.flash_tweets.mode}`);
   }
 
-  if (settings.no_hearts) {
+  if (SETTINGS.no_hearts) {
     document.body.classList.add('btd__stars');
   }
 
-  if (settings.old_replies) {
+  if (SETTINGS.old_replies) {
     document.body.classList.add('btd__old_replies');
   }
 
-  if (settings.custom_columns_width.enabled) {
+  if (SETTINGS.custom_columns_width.enabled) {
     document.body.classList.add('btd__custom_column_size');
 
     const styleTag = document.createElement('style');
-    const safeValue = settings.custom_columns_width.size.replace(/;\{\}/g, '');
+    const safeValue = SETTINGS.custom_columns_width.size.replace(/;\{\}/g, '');
 
     styleTag.type = 'text/css';
     styleTag.appendChild(document.createTextNode(`
-      body.btd__custom_column_size .column {
+      .column {
         width: ${safeValue} !important;
       }
     `));
     document.head.appendChild(styleTag);
   }
-}
-
-
-function expandURL(url, node) {
-  const anchors = $(`a[href="${url.url}"]`, node);
-
-  if (!anchors) {
-    return;
-  }
-
-  anchors.forEach(anchor => anchor.setAttribute('href', url.expanded_url));
 }
 
 function hideURLVisually(url, node) {
@@ -224,7 +215,7 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
       return;
     }
 
-    if (settings.css.hide_url_thumb) {
+    if (SETTINGS.css.hide_url_thumb) {
       hideURLVisually(url, node);
     }
 
@@ -346,8 +337,6 @@ function tweetHandler(tweet, columnKey, parent) {
   }
 
   nodes.forEach((node) => {
-    let urlsToChange = [];
-
     if (tweet.retweetedStatus) {
       node.classList.add('btd-is-retweet');
     }
@@ -364,7 +353,7 @@ function tweetHandler(tweet, columnKey, parent) {
     /**
      * Adding Verified badge if needed
      */
-    if (settings.css.show_verified) {
+    if (SETTINGS.css.show_verified) {
       let userToVerify;
       const classesToAdd = ['btd-is-from-verified'];
 
@@ -418,22 +407,23 @@ function tweetHandler(tweet, columnKey, parent) {
 
     const profilePicture = $('.tweet-avatar[src$=".gif"]', node) && $('.tweet-avatar[src$=".gif"]', node)[0];
 
-    if (profilePicture && settings.no_gif_pp) {
+    if (profilePicture && SETTINGS.no_gif_pp) {
       profilePicture.src = Thumbnails.getSafeURL(profilePicture.src);
     }
 
+    let chirpURLs = [];
 
     // Urls:
     // If it got entities, it's a tweet
     if (tweet.entities) {
-      urlsToChange = [...tweet.entities.urls, ...tweet.entities.media];
+      chirpURLs = [...tweet.entities.urls, ...tweet.entities.media];
     } else if (tweet.targetTweet && tweet.targetTweet.entities) {
       // If it got targetTweet it's an activity on a tweet
-      urlsToChange = [...tweet.targetTweet.entities.urls, ...tweet.targetTweet.entities.media];
+      chirpURLs = [...tweet.targetTweet.entities.urls, ...tweet.targetTweet.entities.media];
     } else if (tweet.retweet && tweet.retweet.entities) {
-      urlsToChange = [...tweet.retweet.entities.urls, ...tweet.retweet.entities.media];
+      chirpURLs = [...tweet.retweet.entities.urls, ...tweet.retweet.entities.media];
     } else if (tweet.retweetedStatus && tweet.retweetedStatus.entities) {
-      urlsToChange = [...tweet.retweetedStatus.entities.urls, ...tweet.retweetedStatus.entities.media];
+      chirpURLs = [...tweet.retweetedStatus.entities.urls, ...tweet.retweetedStatus.entities.media];
     }
 
     setTimeout(() => {
@@ -442,23 +432,13 @@ function tweetHandler(tweet, columnKey, parent) {
       }
     }, 0);
 
-    const mediaURLS = urlsToChange.filter(url => url.type || url.display_url.startsWith('youtube.com/watch?v=') || url.display_url.startsWith('vine.co/v/'));
+    const mediaURLs = chirpURLs.filter(url => url.type || url.display_url.startsWith('youtube.com/watch?v=') || url.display_url.startsWith('vine.co/v/'));
 
-    if (urlsToChange.length > 0) {
-      // We expand URLs if needed
-      if (settings.no_tco) {
-        urlsToChange.forEach(url => expandURL(url, node));
-      }
+    if (chirpURLs.length > 0) {
+      const urlForThumbnail = chirpURLs.filter(url => !url.id).pop();
 
-      const urlForThumbnail = urlsToChange.filter(url => !url.id).pop();
-      let urlToHide;
-
-      if (mediaURLS.length > 0) {
-        urlToHide = mediaURLS.pop();
-      }
-
-      if (settings.css.hide_url_thumb && mediaSize !== 'off') {
-        hideURLVisually(urlToHide, node);
+      if (mediaURLs.length > 0 && SETTINGS.css.hide_url_thumb && mediaSize !== 'off') {
+        hideURLVisually(mediaURLs.pop(), node);
       }
 
       // Maybe we could have a gallery or something when we have different URLs
@@ -509,7 +489,6 @@ window.addEventListener('resize', setMaxDimensionsOnModalImg);
 // Prepare to know when TD is ready
 on('BTDC_ready', () => {
   tweakClassesFromVisualSettings();
-  sendEvent('settingsReady', { settings });
   // Refresh timestamps once and then set the interval
   refreshTimestamps();
   setInterval(refreshTimestamps, TIMESTAMP_INTERVAL);
@@ -544,7 +523,7 @@ on('BTDC_ready', () => {
     }
   });
 
-  if (settings.need_update_banner) {
+  if (SETTINGS.need_update_banner) {
     sendMessage({ action: 'displayed_update_banner' });
     setTimeout(() => {
       sendEvent('showTDBanner', {
@@ -563,6 +542,40 @@ on('BTDC_ready', () => {
         },
       });
     }, 1000);
+  }
+
+  // Tell any potential versions of BTD that they are not alone, and alert the user if they respond.
+  const browser = BHelper.getBrowser();
+  if (browser) {
+    const extensions = config.get(`extension_ids.${browser}`);
+    Object.values(extensions || {}).forEach((extensionID) => {
+      chrome.runtime.sendMessage(
+        extensionID, { action: 'version', key: BHelper.getVersion() }, {},
+        (response) => {
+          if (response) {
+            if (response.action === 'badVersion' && response.key) {
+              sendEvent('showTDBanner', {
+                banner: {
+                  bg: '#fba214',
+                  fg: '#4c3500',
+                  action: 'trigger-event',
+                  // TODO: is there a universal way to open the extension management dialog?
+                  // there's `chrome://extensions/?id=${extensionID}` but i get nothing anywhere else
+                  event: {
+                    type: 'openBtdSettings',
+                    data: {
+                      url: 'https://youtu.be/CRMcSAgoabw',
+                    },
+                  },
+                  text: 'A different version of Better TweetDeck has been detected. Please disable all other versions!',
+                  label: 'Oooo yeah, caaan doo!',
+                },
+              });
+            }
+          }
+        },
+      );
+    });
   }
 });
 
