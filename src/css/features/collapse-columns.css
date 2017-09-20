@@ -68,7 +68,6 @@ section.btd-column-collapsed {
   flex-shrink: 1;
 }
 
-
 ul.btd-column-buttons {
   /* move .column-header-link styles to here */
   width: auto;

@@ -50,6 +50,7 @@
   "css_actions_on_hover": { "message": "Afficher les actions de tweets au survol" },
   "css_no_bg_modal": { "message": "Masquer le fond des aperçus en plein écran" },
   "css_slim_scrollbars": { "message": "Barres de défilement plus fines" },
+  "pause_scroll_on_hover": { "message": "Arrêter le défilement des colonnes lors du survol" },
   "css_show_provider_indicator": { "message": "Montrer la source des miniatures en sur-impression" },
   "css_hide_like_rt_indicators": { "message": "Masquer l'indicateur de Like/RT au dessus des tweets" },
   "no_hearts": { "message": "Afficher des étoiles au lieu des coeurs" },
@@ -85,6 +86,9 @@
   "custom_width_columns": { "message": "Largeur personnalisée pour les colonnes:" },
   "custom_width_size": { "message": "Largeur (doit être valide en CSS)" },
   "css_warning": { "message": "Soyez sûr de ce que vous entrez. Ne collez pas du code que vous ne comprenez pas!" },
+
+  "clear_column_action": { "message": "Ajouter un bouton permettant de vider les colonnes." },
+  "collapse_columns": { "message": "Ajouter un bouton permettant de minimiser les colonnes." },
   
   "regex_filter": { "message": "Activer le support des expressions régulières dans les filtres."},
   "regex_filter_notice_text": { "message": "De part la manière dont fonctionne TweetDeck, les expressions régulières ne tiennent PAS compte de la casse!" },
@@ -97,6 +101,9 @@
   "download_filename_format": { "message": "Format du nom des fichiers téléchargés"},
   "download_filename_format_parameters": { "message": "Vous pouvez utiliser les variables suivantes: <code>{{postedUser}} {{fileName}} {{fileExtension}}</code>"},
   "ctrl_changes_interactions": { "message": "Tenir <kbd>Ctrl/Cmd</kbd> et cliquer like / retweet / download / hotlink permet de suivre l'auteur du tweet depuis le compte appartenant à la colonne."},
+  "ctrl_changes_interactions__enabled": { "message": "Maintenir <kbd>Ctrl/Cmd</kbd> et cliquer sur like / retweet / download / hotlink permet de suivre l'auteur/autrice du tweet depuis" },
+  "ctrl_changes_interactions__mode__owner": { "message": "le compte relié à la colonne" },
+  "ctrl_changes_interactions__mode__dialog": { "message": "le dialogue de suivi d'un compte" },
 
   "btd_thx": { "message": "Merci d'avoir installé Better TweetDeck !" },
   "btd_get_started": { "message": "C'est parti !" },
