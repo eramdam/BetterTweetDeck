@@ -401,8 +401,10 @@ if (Object.keys(queryString.parse(window.location.search)).length > 0) {
 
 // Write UA/version infos
 $('.topbar-version-number').text(`v${BHelper.getVersion()}`);
+$('.topbar-ext-name').text(`${BHelper.getName()}`);
 $('.settings-version-number').text(BHelper.getVersion());
 $('.settings-user-agent').text(BHelper.getUA());
+$('.topbar-icon').attr('src', BHelper.getIcons()['48']);
 
 // Get GitHub infos
 fetch('https://api.github.com/repos/eramdam/BetterTweetDeck/contributors').then((res) => {
