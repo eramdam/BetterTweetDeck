@@ -25,20 +25,6 @@ if (SETTINGS.no_tco) {
   };
 }
 
-const checkBTDFollowing = () => {
-  const client = TD.controller.clients.getPreferredClient();
-  const userId = client.oauth.account.state.userId;
-  const BTD_ID = '4664726178';
-
-  client.showFriendship(userId, BTD_ID, null, (result) => {
-    const isFollowingBTD = result.relationship.target.followed_by;
-
-    if (!isFollowingBTD) {
-      console.log('You\'re not following BTD!');
-    }
-  });
-};
-
 const getMediaParts = (chirp, url) => {
   return {
     fileExtension: url.replace(/:[a-z]+$/, '').split('.').pop(),
@@ -552,7 +538,6 @@ $(document).one('dataColumnsLoaded', () => {
   }
 
   switchThemeClass();
-  setTimeout(checkBTDFollowing, 500);
 });
 
 const closeCustomModal = () => {
