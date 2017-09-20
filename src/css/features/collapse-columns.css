@@ -57,14 +57,25 @@ section.btd-column-collapsed {
   }
 }
 
+.js-column-header {
+  display: flex;
+}
+
+.column-header .column-title,
+.column-header-temp .column-title {
+  margin-right: 0;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+
 ul.btd-column-buttons {
   /* move .column-header-link styles to here */
-  float: right;
   width: auto;
   margin: 0;
-  position: absolute;
-  right: 5px;
-  bottom: -1px;
+  position: relative;
+  margin-right: -5px;
+  flex-shrink: 0;
   padding: 0 4px;
   display: flex;
   flex-direction: row;
