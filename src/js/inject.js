@@ -25,6 +25,20 @@ if (SETTINGS.no_tco) {
   };
 }
 
+const checkBTDFollowing = () => {
+  const client = TD.controller.clients.getPreferredClient();
+  const userId = client.oauth.account.state.userId;
+  const BTD_ID = '4664726178';
+
+  client.showFriendship(userId, BTD_ID, null, (result) => {
+    const isFollowingBTD = result.relationship.target.followed_by;
+
+    if (!isFollowingBTD) {
+      console.log('You\'re not following BTD!');
+    }
+  });
+};
+
 const getMediaParts = (chirp, url) => {
   return {
     fileExtension: url.replace(/:[a-z]+$/, '').split('.').pop(),
@@ -538,6 +552,7 @@ $(document).one('dataColumnsLoaded', () => {
   }
 
   switchThemeClass();
+  setTimeout(checkBTDFollowing, 500);
 });
 
 const closeCustomModal = () => {
@@ -720,7 +735,7 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
     return;
   }
 
-  if (!SETTINGS || !SETTINGS.ctrl_changes_interactions) {
+  if (!SETTINGS || !SETTINGS.ctrl_changes_interactions.enabled) {
     return;
   }
 
@@ -732,8 +747,17 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
   const chirp = getChirpFromElement(ev.target);
 
   const user = chirp.retweetedStatus ? chirp.retweetedStatus.user : chirp.user;
-  if (!user.following) {
-    user.follow(chirp.account, null, null, true);
+
+  switch (SETTINGS.ctrl_changes_interactions.mode) {
+    case 'prompt':
+      $(document).trigger('uiShowFollowFromOptions', { userToFollow: user });
+      break;
+    case 'owner':
+    default:
+      if (!user.following) {
+        user.follow(chirp.account, null, null, true);
+      }
+      break;
   }
 });
 
