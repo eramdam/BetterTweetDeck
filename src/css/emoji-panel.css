@@ -132,8 +132,6 @@
     width: 100%;
     height: 100%;
     vertical-align: baseline;
-    *vertical-align: auto;
-    *zoom: 1;
   }
 
   img.emoji {
