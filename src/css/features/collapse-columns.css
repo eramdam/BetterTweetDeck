@@ -63,7 +63,7 @@ section.btd-column-collapsed {
 
 .column-header .column-title,
 .column-header-temp .column-title {
-  margin-right: 0;
+  margin-right: 0 !important;
   flex-grow: 1;
   flex-shrink: 1;
 }
