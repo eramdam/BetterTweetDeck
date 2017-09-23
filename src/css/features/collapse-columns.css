@@ -68,6 +68,15 @@ section.btd-column-collapsed {
   flex-shrink: 1;
 }
 
+.column-header .column-title-editable {
+  display: flex;
+  align-items: center;
+}
+
+.column-header .column-title-editable img {
+  display: none;
+}
+
 ul.btd-column-buttons {
   /* move .column-header-link styles to here */
   width: auto;
