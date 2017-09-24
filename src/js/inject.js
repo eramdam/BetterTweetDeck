@@ -686,14 +686,6 @@ const getContextFromChirp = (chirp) => {
   return urls;
 };
 
-const KeyboardModifiers = {
-  alt: false,
-};
-
-window.addEventListener('keydown', (e) => {
-  KeyboardModifiers.alt = e.altKey;
-});
-
 // Disable eslint so that we can keep a copy of the clipboard around.
 // eslint-disable-next-line
 const clipboard = new Clipboard('.btd-clipboard', {
@@ -701,10 +693,6 @@ const clipboard = new Clipboard('.btd-clipboard', {
     const chirp = getChirpFromElement(trigger);
     switch ($(trigger).attr('rel')) {
       case 'hotlink':
-        if (KeyboardModifiers.alt) {
-          return getContextFromChirp(chirp).join('\n');
-        }
-
         return getMediaFromChirp(chirp).join('\n');
       default:
         return false;
