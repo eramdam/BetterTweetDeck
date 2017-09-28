@@ -8,10 +8,10 @@
 <body>
 <div class="save-bar">
   <div class="topbar-logo">
-    <img src="img/icon-sidebar.png" alt="" class="topbar-icon">
+    <img alt="" class="topbar-icon">
     <span class="topbar-name">
-      Better TweetDeck <br>
-      <small class="topbar-version-number">v3.0.0</small>
+      <span class="topbar-ext-name">Better TweetDeck</span>
+      <small class="topbar-version-number"></small>
     </span>
   </div>
   <div class="save-wrap">
@@ -232,12 +232,12 @@
           </li>
           <li data-setting-name="download_filename_format">
             <input type="text" name="download_filename_format" id="download_filename_format"><label for="download_filename_format" data-lang="download_filename_format" data-new-feat>Download file name format</label>
-            </br>
+            <br />
             <small data-lang="download_filename_format_parameters">You can use the following variables: <code>{{postedUser}} {{fileName}} {{fileExtension}}</code></small>
           </li>
           <li data-setting-name="ctrl_changes_interactions">
-            <input type="checkbox" name="ctrl_changes_interactions" id="ctrl_changes_interactions">
-            <label for="ctrl_changes_interactions" data-lang="ctrl_changes_interactions" data-new-feat>Holding <kbd>ctrl</kbd> while clicking: favorite / retweet / download / hotlink will follow the user from the column's owner.</label>
+            <input type="checkbox" name="ctrl_changes_interactions.enabled" id="ctrl_changes_interactions.enabled" data-ghost>
+            <label for="ctrl_changes_interactions.enabled" data-lang="ctrl_changes_interactions__enabled">Holding <kbd>ctrl</kbd> while clicking: favorite / retweet / download / hotlink will allow you to follow from the</label> <select name="ctrl_changes_interactions.mode" id="ctrl_changes_interactions.mode" disabled data-new-feat><option value="owner" data-lang="ctrl_changes_interactions__mode__owner">column's owner</option><option value="prompt" data-lang="ctrl_changes_interactions__mode__dialog">follow dialog</option></select></label>
           </li>
         </ul>
       </div>

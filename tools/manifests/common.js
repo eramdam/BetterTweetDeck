@@ -29,7 +29,7 @@ const betaVersionName = () => {
 
 /* eslint quotes: 0 */
 const common = {
-  name: `${isBeta ? 'βeta' : ''} TweetDeck`.trim(),
+  name: `${isBeta ? 'βeta' : 'Better'} TweetDeck`.trim(),
   short_name: `${isBeta ? 'βeta ' : 'Better'}TDeck`,
   version: isBeta ? betaVersion() : packageJson.extension_version,
   version_name: isBeta ? betaVersionName() : packageJson.extension_version,

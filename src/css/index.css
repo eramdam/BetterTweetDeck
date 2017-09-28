@@ -93,7 +93,8 @@
   }
 }
 
-.column-navigator-overflow {
+.column-navigator-overflow,
+.column-navigator {
   bottom: 267px !important;
 }
 

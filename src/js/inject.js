@@ -701,14 +701,6 @@ const getContextFromChirp = (chirp) => {
   return urls;
 };
 
-const KeyboardModifiers = {
-  alt: false,
-};
-
-window.addEventListener('keydown', (e) => {
-  KeyboardModifiers.alt = e.altKey;
-});
-
 // Disable eslint so that we can keep a copy of the clipboard around.
 // eslint-disable-next-line
 const clipboard = new Clipboard('.btd-clipboard', {
@@ -716,10 +708,6 @@ const clipboard = new Clipboard('.btd-clipboard', {
     const chirp = getChirpFromElement(trigger);
     switch ($(trigger).attr('rel')) {
       case 'hotlink':
-        if (KeyboardModifiers.alt) {
-          return getContextFromChirp(chirp).join('\n');
-        }
-
         return getMediaFromChirp(chirp).join('\n');
       default:
         return false;
@@ -735,7 +723,7 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
     return;
   }
 
-  if (!SETTINGS || !SETTINGS.ctrl_changes_interactions) {
+  if (!SETTINGS || !SETTINGS.ctrl_changes_interactions.enabled) {
     return;
   }
 
@@ -747,8 +735,17 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
   const chirp = getChirpFromElement(ev.target);
 
   const user = chirp.retweetedStatus ? chirp.retweetedStatus.user : chirp.user;
-  if (!user.following) {
-    user.follow(chirp.account, null, null, true);
+
+  switch (SETTINGS.ctrl_changes_interactions.mode) {
+    case 'prompt':
+      $(document).trigger('uiShowFollowFromOptions', { userToFollow: user });
+      break;
+    case 'owner':
+    default:
+      if (!user.following) {
+        user.follow(chirp.account, null, null, true);
+      }
+      break;
   }
 });
 

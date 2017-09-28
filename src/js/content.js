@@ -27,11 +27,11 @@ const COLUMNS_MEDIA_SIZES = new Map();
 sendMessage({ action: 'get_settings' }, (response) => {
   SETTINGS = response.settings;
   const scripts = [
-    chrome.extension.getURL('js/inject.js'),
+    BHelper.getExtensionUrl('js/inject.js'),
   ];
 
   if (!BHelper.isFirefox) {
-    scripts.push(chrome.extension.getURL('embeds.js'));
+    scripts.push(BHelper.getExtensionUrl('embeds.js'));
   }
 
   scripts.forEach((src) => {
@@ -41,7 +41,7 @@ sendMessage({ action: 'get_settings' }, (response) => {
     document.head.appendChild(el);
   });
 
-  const getFontFile = format => chrome.extension.getURL(`fonts/tweetdeck-regular-webfont-old.${format}`);
+  const getFontFile = format => BHelper.getExtensionUrl(`fonts/tweetdeck-regular-webfont-old.${format}`);
 
   const style = document.createElement('style');
   style.type = 'text/css';
@@ -494,7 +494,7 @@ on('BTDC_ready', () => {
   setInterval(refreshTimestamps, TIMESTAMP_INTERVAL);
   Emojis();
 
-  const settingsURL = chrome.extension.getURL('options/options.html');
+  const settingsURL = BHelper.getExtensionUrl('options/options.html');
   const settingsBtn = `
     <a class="btd-settings-btn js-header-action link-clean cf app-nav-link padding-h--10 with-nav-border-t" data-title="BTD Settings">
       <div class="obj-left margin-l--2">
@@ -534,7 +534,7 @@ on('BTDC_ready', () => {
           event: {
             type: 'openBtdSettings',
             data: {
-              url: chrome.extension.getURL('options/options.html?on=update'),
+              url: BHelper.getExtensionUrl('options/options.html?on=update'),
             },
           },
           text: `Better TweetDeck has been updated to ${BHelper.getVersion()}!`,
@@ -547,7 +547,7 @@ on('BTDC_ready', () => {
   // Tell any potential versions of BTD that they are not alone, and alert the user if they respond.
   const browser = BHelper.getBrowser();
   if (browser) {
-    const extensions = config.get(`extension_ids.${browser}`);
+    const extensions = config.get(`Client.extension_ids.${browser}`);
     Object.values(extensions || {}).forEach((extensionID) => {
       chrome.runtime.sendMessage(
         extensionID, { action: 'version', key: BHelper.getVersion() }, {},

@@ -1,4 +1,4 @@
-:tada: 3.4.5 :tada:
+:tada: 3.4.6 :tada:
 ===============
 <ul>
   <li data-info-setting="content/mute_source">[Feature] You can add a `Mute <source>` item in tweets menu. Useful to mute tweets from specific apps!</li>
