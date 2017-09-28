@@ -25,20 +25,6 @@ if (SETTINGS.no_tco) {
   };
 }
 
-const checkBTDFollowing = () => {
-  const client = TD.controller.clients.getPreferredClient();
-  const userId = client.oauth.account.state.userId;
-  const BTD_ID = '4664726178';
-
-  client.showFriendship(userId, BTD_ID, null, (result) => {
-    const isFollowingBTD = result.relationship.target.followed_by;
-
-    if (!isFollowingBTD) {
-      console.log('You\'re not following BTD!');
-    }
-  });
-};
-
 const getMediaParts = (chirp, url) => {
   return {
     fileExtension: url.replace(/:[a-z]+$/, '').split('.').pop(),
@@ -436,6 +422,40 @@ const postMessagesListeners = {
   },
 };
 
+const isFollowing = (client, targetUserId) => new Promise((resolve, reject) => {
+  client.showFriendship(client.oauth.account.state.userId, targetUserId, null, (result) => {
+    return result.relationship.target.followed_by ? resolve(true) : reject(new Error('not following'));
+  });
+});
+
+const checkBTDFollowing = () => {
+  if (window.localStorage.getItem('btd_disable_prompt_follow_twitter') || SETTINGS.need_update_banner) {
+    return;
+  }
+
+  const BTD_ID = '4664726178';
+
+  const followingPromises = TD.controller.clients.getClientsByService('twitter').map((client) => {
+    return isFollowing(client, BTD_ID);
+  });
+
+  Promise.all(followingPromises).then(() => {}).catch(() => {
+    window.localStorage.setItem('btd_disable_prompt_follow_twitter', true);
+    postMessagesListeners.BTDC_showTDBanner({}, {
+      banner: {
+        text: 'Do you want to follow Better TweetDeck on Twitter for news, support and tips?',
+        action: 'trigger-event',
+        event: {
+          type: 'openBtdProfile',
+        },
+        label: 'Sure!',
+        bg: '#3daafb',
+        fg: '#07214c',
+      },
+    });
+  });
+};
+
 window.addEventListener('message', (ev) => {
   if (ev.origin.indexOf('tweetdeck.') === -1) {
     return false;
@@ -552,7 +572,7 @@ $(document).one('dataColumnsLoaded', () => {
   }
 
   switchThemeClass();
-  setTimeout(checkBTDFollowing, 500);
+  setTimeout(checkBTDFollowing, 2000);
 });
 
 const closeCustomModal = () => {
@@ -568,6 +588,12 @@ $(document).keydown((ev) => {
 
 $(document).on('openBtdSettings', (ev, data) => {
   window.open(data.url);
+});
+
+$(document).on('openBtdProfile', () => {
+  $(document).trigger('uiShowProfile', {
+    id: 'BetterTDeck',
+  });
 });
 
 document.addEventListener('paste', (ev) => {
