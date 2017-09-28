@@ -89,6 +89,8 @@
 
   "clear_column_action": { "message": "Add a column header button to clear a column"},
   "collapse_columns": { "message": "Add a column header button to collapse and uncollapse columns"},
+  "collapse_columns_pause": { "message": "When you collapse a column, it will pause the feed it so that it can light up when its contents change while collapsed and it stays where you last saw it."},
+  "uncollapse_columns_unpause": { "message": "When you uncollapse a column, it will unpause the feed it so that it automatically scrolls back to the top instead of staying where you left it."},
 
   "regex_filter": { "message": "Enable regular expression support in Mute filters"},
   "regex_filter_notice_text": { "message": "Due to the way TweetDeck's filtering works, expressions are NOT case sensitive!" },

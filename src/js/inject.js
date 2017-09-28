@@ -750,7 +750,15 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
           if (!SETTINGS.collapse_columns) {
             return;
           }
+
           const dataBoy = JSON.parse(window.localStorage.getItem('btd_collapsed_columns'));
+
+          if (SETTINGS.collapse_columns_pause) {
+            const scroller = this._parent.ui.getChirpScroller();
+            if (scroller.scrollTop() === 0) {
+              this._parent.ui.pause();
+            }
+          }
 
           const columnKey = this._parent.model.privateState.key;
           const theColumn = $(`section.column[data-column="${columnKey}"]`);
@@ -767,6 +775,13 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
           const dataBoy = JSON.parse(window.localStorage.getItem('btd_collapsed_columns'));
 
           if (dataBoy[this._parent.model.privateState.apiid]) {
+            if (SETTINGS.uncollapse_columns_unpause) {
+              const scroller = this._parent.ui.getChirpScroller();
+              if (scroller.scrollTop() !== 0) {
+                this._parent.ui.unpause();
+              }
+            }
+
             const columnKey = this._parent.model.privateState.key;
             const theColumn = $(`section.column[data-column="${columnKey}"]`);
             theColumn.removeClass('btd-column-collapsed');
