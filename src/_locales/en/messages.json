@@ -60,7 +60,7 @@
   "flash_tweets_mentions": { "message": "Mentions columns" },
   "flash_tweets_all": { "message": "Every column" },
 
-  "update_title_on_notifications": { "message": "Display an unread tweets/DMs indicator in TweetDeck's tab's title." },
+  "update_title_on_notifications": { "message": "Display an unread tweets/DMs indicator in TweetDeck's tab's title" },
 
   "share_request": { "message": "Request tabs reading permissions" },
   "share_granted": { "message": "Permissions granted" },
@@ -87,8 +87,8 @@
   "custom_width_size": { "message": "Width (any valid CSS value)" },
   "css_warning": { "message": "Be sure of what you're typing here, don't paste something you don't understand!" },
 
-  "clear_column_action": { "message": "Add a column header button to clear a column."},
-  "collapse_columns": { "message": "Add a column header button to collapse and uncollapse columns."},
+  "clear_column_action": { "message": "Add a column header button to clear a column"},
+  "collapse_columns": { "message": "Add a column header button to collapse and uncollapse columns"},
 
   "regex_filter": { "message": "Enable regular expression support in Mute filters"},
   "regex_filter_notice_text": { "message": "Due to the way TweetDeck's filtering works, expressions are NOT case sensitive!" },

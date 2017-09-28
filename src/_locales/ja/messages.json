@@ -60,7 +60,7 @@
   "flash_tweets_mentions": { "message": "メンションコラムのみ" },
   "flash_tweets_all": { "message": "全てのカラム" },
 
-  "update_title_on_notifications": { "message": "未読のツイートまたは DM の件数を TweetDeck のタブタイトルに表示する。" },
+  "update_title_on_notifications": { "message": "未読のツイート/DM の件数を TweetDeck のタブタイトルに表示する" },
 
   "share_request": { "message": "タブの読み込み権限のリクエスト" },
   "share_granted": { "message": "権限が与えられました" },
@@ -87,8 +87,8 @@
   "custom_width_size": { "message": "(CSS のプロパティとして有効な任意の値)" },
   "css_warning": { "message": "自分が入力しようとしているテキストの意味が理解できない場合は、何も入力しないでください！" },
 
-  "clear_column_action": { "message": "カラムのヘッダーにカラムをクリアするボタンを追加する。"},
-  "collapse_columns": { "message": "カラムのヘッダーにカラムの折りたたみを切り替えるボタンを追加する。"},
+  "clear_column_action": { "message": "カラムのヘッダーにカラムをクリアするボタンを追加する"},
+  "collapse_columns": { "message": "カラムのヘッダーにカラムの折りたたみを切り替えるボタンを追加する"},
 
   "regex_filter": { "message": "ミュートフィルタで正規表現を有効にする"},
   "regex_filter_notice_text": { "message": "TweetDeck の単語のフィルタリング方法の制限により、正規表現の大文字・小文字は区別されないことに注意してください！" },
