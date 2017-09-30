@@ -2,7 +2,6 @@ const config = require('config');
 
 /* eslint quotes: 0 */
 module.exports = Object.assign(require('./common.js'), {
-  name: '__MSG_appName__',
   description: '__MSG_appDesc__',
   default_locale: 'en',
   applications: {

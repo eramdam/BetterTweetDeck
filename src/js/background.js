@@ -61,11 +61,13 @@ const defaultSettings = {
   favstar_item: true,
   mute_hashtags: true,
   mute_source: true,
-  context_item: false,
   hotlink_item: false,
   download_item: false,
   download_filename_format: '{{postedUser}}-{{fileName}}.{{fileExtension}}',
-  ctrl_changes_interactions: false,
+  ctrl_changes_interactions: {
+    enabled: false,
+    mode: 'owner',
+  },
   update_title_on_notifications: true,
   thumbnails: {},
 };

@@ -1,7 +1,3 @@
-const fs = require('fs');
-
-const packageJson = JSON.parse(fs.readFileSync(`${__dirname}/../../../package.json`, 'utf8'));
-
 export const getUA = () => window.navigator.userAgent;
 
 export const setClipboard = (text) => {
@@ -33,6 +29,7 @@ const getKey = (object, property) => {
   return getKey(value, elems.slice(1));
 };
 
+export const getExtensionUrl = (...args) => chrome.extension.getURL(...args);
 export const isFirefox = getUA().includes('Firefox/');
 export const isChrome = getUA().includes('Chrome/');
 
@@ -48,7 +45,16 @@ export const getBrowser = () => {
 
 const storage = isFirefox ? chrome.storage.local : chrome.storage.sync;
 
-export const getVersion = () => packageJson.extension_version;
+export const getVersion = () => chrome.runtime.getManifest().version_name;
+export const getName = () => chrome.runtime.getManifest().name;
+export const getIcons = () => {
+  const icons = chrome.runtime.getManifest().icons;
+  Object.keys(icons).forEach((key) => {
+    icons[key] = getExtensionUrl(icons[key]);
+  });
+
+  return icons;
+};
 
 export const getMessage = (msg) => {
   const string = chrome.i18n.getMessage(msg);
