@@ -3,8 +3,10 @@ import FileSaver from 'file-saver';
 import Clipboard from 'clipboard';
 import Log from './util/logger';
 import UsernamesTemplates from './util/username_templates';
+import wc from './util/webcrack';
 
 const SETTINGS = $('[data-btd-settings]').data('btd-settings');
+window.BTD = {};
 
 if (SETTINGS.no_tco) {
   const dummyEl = document.createElement('span');
@@ -117,11 +119,12 @@ const getChirpFromElement = (element) => {
 };
 
 if (config.get('Client.debug')) {
-  window._BTDinspectChirp = getChirpFromElement;
-
-  window._BTDGetChirp = getChirpFromKey;
-
-  window._BTDFindMustache = content => Object.keys(TD.mustaches).filter(i => TD.mustaches[i].toLowerCase().includes(content.toLowerCase()));
+  window.BTD.debug = {
+    wc,
+    getChirpFromElement,
+    getChirpFromKey,
+    findMustache: content => Object.keys(TD.mustaches).filter(i => TD.mustaches[i].toLowerCase().includes(content.toLowerCase())),
+  };
 }
 
 /**
