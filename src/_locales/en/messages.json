@@ -54,6 +54,7 @@
   "pause_scroll_on_hover": { "message": "Pause column scrolling on hover" },
   "css_show_provider_indicator": { "message": "Show thumbnails' source on top of them" },
   "css_hide_like_rt_indicators": { "message": "Hide Like/RT indicators on top of tweets" },
+  "make_search_columns_first": { "message": "Add search columns in front of first column" },
   "no_hearts": { "message": "Show stars instead of hearts" },
   "rtl_text_style": { "message": "Detect and apply RTL style when needed" },
   "flash_tweets": { "message": "Make tweets flash in:" },
