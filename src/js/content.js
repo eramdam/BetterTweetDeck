@@ -603,6 +603,8 @@ on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
   const tweetMarkupString = modalHtml.replace('<div class="js-med-tweet med-tweet"></div>', `<div class="js-med-tweet med-tweet">${markup}</div>`);
   const tweetNode = secureDomify.parse(tweetMarkupString);
 
+  closeOpenModal();
+
   openModal.appendChild(tweetNode);
   openModal.style.display = 'block';
   openModal.querySelector('img, iframe').onload = e => e.target.setAttribute('data-btd-loaded', 'true');
