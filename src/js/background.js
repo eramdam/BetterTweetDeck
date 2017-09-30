@@ -28,6 +28,8 @@ const defaultSettings = {
   },
   clear_column_action: false,
   collapse_columns: false,
+  collapse_columns_pause: true,
+  uncollapse_columns_unpause: false,
   css: {
     round_pic: true,
     bigger_emojis: true,
