@@ -40,7 +40,6 @@
 
   "title_avatars": { "message": "Avatars & details" },
   "old_replies": { "message": "Revert to the old replies style (pre 03/30/2017)" },
-  "old_search": { "message": "Revert to the old search system (no columns for searches!)"},
   "css_round_pic": { "message": "Make avatars rounded" },
   "css_bigger_emojis": { "message": "Make emojis bigger in tweets" },
   "css_collapse_dms": { "message": "Collapse read direct messages" },

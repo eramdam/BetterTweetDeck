@@ -40,7 +40,6 @@
 
   "title_avatars": { "message": "アイコンと詳細設定" },
   "old_replies": { "message": "リプライの表示を昔 (2017/03/30 以前) のスタイルに戻す" },
-  "old_search": { "message": "検索システムを以前の状態に戻す (検索をしても新規コラムが追加されなくなります！)"},
   "css_round_pic": { "message": "アイコンを円形表示する" },
   "css_bigger_emojis": { "message": "ツイート内の絵文字を大きくする" },
   "css_collapse_dms": { "message": "ダイレクトメッセージの本文を折りたたむ" },
