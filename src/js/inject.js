@@ -443,11 +443,16 @@ const postMessagesListeners = {
   },
 };
 
-const isFollowing = (client, targetUserId) => new Promise((resolve, reject) => {
-  client.showFriendship(client.oauth.account.state.userId, targetUserId, null, (result) => {
-    return result.relationship.target.followed_by ? resolve(true) : reject(new Error('not following'));
+const followStatus = (client, targetUserId) => {
+  return new Promise((resolve) => {
+    client.showFriendship(client.oauth.account.state.userId, targetUserId, null, (result) => {
+      return resolve({
+        id: client.oauth.account.state.userId,
+        following: result.relationship.target.followed_by,
+      });
+    });
   });
-});
+};
 
 const checkBTDFollowing = () => {
   if (window.localStorage.getItem('btd_disable_prompt_follow_twitter') || SETTINGS.need_update_banner) {
@@ -457,11 +462,18 @@ const checkBTDFollowing = () => {
   const BTD_ID = '4664726178';
 
   const followingPromises = TD.controller.clients.getClientsByService('twitter').map((client) => {
-    return isFollowing(client, BTD_ID);
+    return followStatus(client, BTD_ID);
   });
 
-  Promise.all(followingPromises).then(() => {}).catch(() => {
+  Promise.all(followingPromises).then((values) => {
     window.localStorage.setItem('btd_disable_prompt_follow_twitter', true);
+
+    const showBanner = values.every(user => !user.following);
+
+    if (!showBanner) {
+      return;
+    }
+
     postMessagesListeners.BTDC_showTDBanner({}, {
       banner: {
         text: 'Do you want to follow Better TweetDeck on Twitter for news, support and tips?',
@@ -475,6 +487,22 @@ const checkBTDFollowing = () => {
       },
     });
   });
+
+  // Promise.all(followingPromises).then(() => {}).catch(() => {
+  //   window.localStorage.setItem('btd_disable_prompt_follow_twitter', true);
+  //   postMessagesListeners.BTDC_showTDBanner({}, {
+  //     banner: {
+  //       text: 'Do you want to follow Better TweetDeck on Twitter for news, support and tips?',
+  //       action: 'trigger-event',
+  //       event: {
+  //         type: 'openBtdProfile',
+  //       },
+  //       label: 'Sure!',
+  //       bg: '#3daafb',
+  //       fg: '#07214c',
+  //     },
+  //   });
+  // });
 };
 
 window.addEventListener('message', (ev) => {
