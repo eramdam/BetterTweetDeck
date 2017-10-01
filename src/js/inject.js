@@ -165,11 +165,20 @@ const decorateChirp = (chirp) => {
 
 TD.services.TwitterStatus.prototype.getOGContext = function getOGContext() {
   const repliers = this.getReplyingToUsers() || [];
+  const replyingToThemselves = this.user.screenName === this.inReplyToScreenName;
 
-  if (!repliers.length > 0 || (this.user.screenName === this.inReplyToScreenName && repliers.length === 1)) {
+  if (repliers.length === 0 || (replyingToThemselves && repliers.length === 1)) {
     return '';
   }
+
   const filtered = repliers.filter((user) => {
+    // When user are replying to themselves are replying to ppl as well (them + other ppl)
+    if (replyingToThemselves && repliers.length > 1) {
+      return user.screenName !== this.user.screenName;
+    }
+
+    return true;
+  }).filter((user) => {
     const str = `<a href="https://twitter.com/${user.screenName}/"`;
 
     return this.htmlText.indexOf(str) !== 0;
