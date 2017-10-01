@@ -164,13 +164,11 @@ const decorateChirp = (chirp) => {
 };
 
 TD.services.TwitterStatus.prototype.getOGContext = function getOGContext() {
-  const hasRepliers = this.getReplyingToUsers().length > 0;
+  const repliers = this.getReplyingToUsers() || [];
 
-  if (!hasRepliers || this.user.screenName === this.inReplyToScreenName) {
+  if (!repliers.length > 0 || (this.user.screenName === this.inReplyToScreenName && repliers.length === 1)) {
     return '';
   }
-
-  const repliers = this.getReplyingToUsers() || [];
   const filtered = repliers.filter((user) => {
     const str = `<a href="https://twitter.com/${user.screenName}/"`;
 
