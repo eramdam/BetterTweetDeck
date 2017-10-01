@@ -59,6 +59,7 @@ const defaultSettings = {
   make_search_columns_first: false,
   old_replies: false,
   regex_filter: false,
+  edit_item: true,
   favstar_item: true,
   mute_hashtags: true,
   mute_source: true,
