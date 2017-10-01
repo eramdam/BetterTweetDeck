@@ -3,8 +3,10 @@ import FileSaver from 'file-saver';
 import Clipboard from 'clipboard';
 import Log from './util/logger';
 import UsernamesTemplates from './util/username_templates';
+import wc from './util/webcrack';
 
 const SETTINGS = $('[data-btd-settings]').data('btd-settings');
+window.BTD = {};
 
 if (SETTINGS.no_tco) {
   const dummyEl = document.createElement('span');
@@ -117,11 +119,12 @@ const getChirpFromElement = (element) => {
 };
 
 if (config.get('Client.debug')) {
-  window._BTDinspectChirp = getChirpFromElement;
-
-  window._BTDGetChirp = getChirpFromKey;
-
-  window._BTDFindMustache = content => Object.keys(TD.mustaches).filter(i => TD.mustaches[i].toLowerCase().includes(content.toLowerCase()));
+  window.BTD.debug = {
+    wc,
+    getChirpFromElement,
+    getChirpFromKey,
+    findMustache: content => Object.keys(TD.mustaches).filter(i => TD.mustaches[i].toLowerCase().includes(content.toLowerCase())),
+  };
 }
 
 /**
@@ -575,6 +578,26 @@ $(document).one('dataColumnsLoaded', () => {
   setTimeout(checkBTDFollowing, 2000);
 });
 
+// Adds search column to the beginning instead of the end, and resets search input for convenience
+$(document).on('uiSearchNoTemporaryColumn', (e, data) => {
+  if (data.query && data.searchScope !== 'users' && !data.columnKey) {
+    if (SETTINGS.make_search_columns_first) {
+      const order = TD.controller.columnManager._columnOrder;
+
+      if (order.length > 1) {
+        const columnKey = order[order.length - 1];
+
+        order.splice(order.length - 1, 1);
+        order.splice(1, 0, columnKey);
+        TD.controller.columnManager.move(columnKey, 'left'); // syncs new column order & scrolls to the column
+      }
+    }
+
+    $('.js-app-search-input').val('');
+    $('.js-perform-search').blur();
+  }
+});
+
 const closeCustomModal = () => {
   $('#open-modal').css('display', 'none');
   $('#open-modal').empty();
@@ -791,7 +814,15 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
           if (!SETTINGS.collapse_columns) {
             return;
           }
+
           const dataBoy = JSON.parse(window.localStorage.getItem('btd_collapsed_columns'));
+
+          if (SETTINGS.collapse_columns_pause) {
+            const scroller = this._parent.ui.getChirpScroller();
+            if (scroller.scrollTop() === 0) {
+              this._parent.ui.pause();
+            }
+          }
 
           const columnKey = this._parent.model.privateState.key;
           const theColumn = $(`section.column[data-column="${columnKey}"]`);
@@ -808,6 +839,13 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
           const dataBoy = JSON.parse(window.localStorage.getItem('btd_collapsed_columns'));
 
           if (dataBoy[this._parent.model.privateState.apiid]) {
+            if (SETTINGS.uncollapse_columns_unpause) {
+              const scroller = this._parent.ui.getChirpScroller();
+              if (scroller.scrollTop() !== 0) {
+                this._parent.ui.unpause();
+              }
+            }
+
             const columnKey = this._parent.model.privateState.key;
             const theColumn = $(`section.column[data-column="${columnKey}"]`);
             theColumn.removeClass('btd-column-collapsed');

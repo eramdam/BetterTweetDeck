@@ -336,6 +336,10 @@
             <input type="checkbox" name="css.system_fonts" id="system_fonts">
             <label for="system_fonts" data-lang="css_system_fonts" data-new-feat>Use the system font in the UI</label>
           </li data-setting-name="column_width">
+          <li data-setting-name="make_search_columns_first">
+            <input type="checkbox" name="make_search_columns_first" id="make_search_columns_first">
+            <label for="make_search_columns_first" data-lang="make_search_columns_first" data-new-feat>Add search columns in front of first column</label>
+          </li>
           <li>
             <input type="checkbox" name="custom_columns_width.enabled" id="column_width" data-ghost><label for="column_width" data-lang="custom_width_columns">Custom width for columns:</label>
             <small data-lang="css_warning">Be sure of what you're typing here, don't paste something you don't understand!</small>
@@ -352,6 +356,14 @@
           <li data-setting-name="collapse_columns">
             <input type="checkbox" name="collapse_columns" id="collapse_columns">
             <label for="collapse_columns" data-lang="collapse_columns" data-new-feat>Add a column header button to collapse and uncollapse columns.</label>
+          </li>
+          <li data-setting-name="collapse_columns_pause">
+            <input type="checkbox" name="collapse_columns_pause" id="collapse_columns_pause">
+            <label for="collapse_columns_pause" data-lang="collapse_columns_pause" data-new-feat>When you collapse a column, it will pause the feed it so that it can light up when its contents change while collapsed and it stays where you last saw it.</label>
+          </li>
+          <li data-setting-name="uncollapse_columns_unpause">
+            <input type="checkbox" name="uncollapse_columns_unpause" id="uncollapse_columns_unpause">
+            <label for="uncollapse_columns_unpause" data-lang="uncollapse_columns_unpause" data-new-feat>When you uncollapse a column, it will unpause the feed it so that it automatically scrolls back to the top instead of staying where you left it.</label>
           </li>
         </ul>
       </div>

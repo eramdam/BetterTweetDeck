@@ -1,5 +1,5 @@
 module.exports = {
-  FirefoxId: '',
+  FirefoxId: 'mycoolextension@mycoolextension.com',
   opera_key: '',
   Client: {
     debug: false,

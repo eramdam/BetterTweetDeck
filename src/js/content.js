@@ -452,7 +452,9 @@ function tweetHandler(tweet, columnKey, parent) {
 
 function closeOpenModal() {
   $('#open-modal')[0].style.display = 'none';
-  $('#open-modal')[0].firstElementChild.remove();
+  if ($('#open-modal')[0].firstElementChild) {
+    $('#open-modal')[0].firstElementChild.remove();
+  }
 }
 
 function setMaxDimensionsOnElement(el) {

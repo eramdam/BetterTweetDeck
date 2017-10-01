@@ -54,6 +54,7 @@
   "pause_scroll_on_hover": { "message": "Pause column scrolling on hover" },
   "css_show_provider_indicator": { "message": "Show thumbnails' source on top of them" },
   "css_hide_like_rt_indicators": { "message": "Hide Like/RT indicators on top of tweets" },
+  "make_search_columns_first": { "message": "Add search columns in front of first column" },
   "no_hearts": { "message": "Show stars instead of hearts" },
   "rtl_text_style": { "message": "Detect and apply RTL style when needed" },
   "flash_tweets": { "message": "Make tweets flash in:" },
@@ -89,6 +90,8 @@
 
   "clear_column_action": { "message": "Add a column header button to clear a column"},
   "collapse_columns": { "message": "Add a column header button to collapse and uncollapse columns"},
+  "collapse_columns_pause": { "message": "When you collapse a column, it will pause the feed it so that it can light up when its contents change while collapsed and it stays where you last saw it."},
+  "uncollapse_columns_unpause": { "message": "When you uncollapse a column, it will unpause the feed it so that it automatically scrolls back to the top instead of staying where you left it."},
 
   "regex_filter": { "message": "Enable regular expression support in Mute filters"},
   "regex_filter_notice_text": { "message": "Due to the way TweetDeck's filtering works, expressions are NOT case sensitive!" },
