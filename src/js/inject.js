@@ -98,24 +98,30 @@ const getChirpFromKey = (key, colKey) => {
  * Takes a node and fetches the chirp associated with it (useful for debugging)
  */
 const getChirpFromElement = (element) => {
-  const chirp = element.closest('[data-key]');
-  if (!chirp) {
+  const chirpElm = element.closest('[data-key]');
+  if (!chirpElm) {
     throw new Error('Not a chirp');
   }
 
-  const chirpKey = chirp.getAttribute('data-key');
+  const chirpKey = chirpElm.getAttribute('data-key');
 
-  let col = chirp.closest('[data-column]');
+  let col = chirpElm.closest('[data-column]');
   if (!col) {
-    const chirpElm = document.querySelector(`[data-column] [data-key="${chirpKey}"]`);
-    if (!chirpElm) {
-      throw new Error('Could not locate chirp in any column.');
+    col = document.querySelector(`[data-column] [data-key="${chirpKey}"]`);
+    if (!col || !col.parentNode) {
+      throw new Error('Chirp has no column');
     } else {
-      col = chirpElm.closest('[data-column]');
+      col = col.parentNode;
     }
   }
 
-  return getChirpFromKey(chirpKey, col.getAttribute('data-column'));
+  const colKey = col.getAttribute('data-column');
+  const chirp = getChirpFromKey(chirpKey, colKey);
+  chirp._btd = {
+    chirpKey,
+    columnKey: colKey,
+  };
+  return chirp;
 };
 
 if (config.get('Client.debug')) {
@@ -158,12 +164,13 @@ const decorateChirp = (chirp) => {
 };
 
 TD.services.TwitterStatus.prototype.getOGContext = function getOGContext() {
-  const repliers = this.getReplyingToUsers() || [];
+  const hasRepliers = this.getReplyingToUsers().length > 0;
 
-  if (repliers.length === 0 || (this.user.screenName === this.inReplyToScreenName && repliers.length === 1)) {
+  if (!hasRepliers || this.user.screenName === this.inReplyToScreenName) {
     return '';
   }
 
+  const repliers = this.getReplyingToUsers() || [];
   const filtered = repliers.filter((user) => {
     const str = `<a href="https://twitter.com/${user.screenName}/"`;
 
@@ -323,9 +330,13 @@ if (SETTINGS.hotlink_item || SETTINGS.download_item) {
 }
 
 // Adds the Favstar.fm item in menus and adds mute action for each hashtag
-TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].replace('{{/chirp}} </ul>', `
-      {{/chirp}}
-      {{#chirp}}
+TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].replace('{{/isOwnChirp}} {{/chirp}} </ul>', `
+      ${SETTINGS.edit_item ? `  
+        <li class="is-selectable">
+          <a href="#" data-btd-action="edit-tweet">{{_i}}Edit{{/i}}</a>
+        </li>
+        ` : ''}
+        {{/isOwnChirp}}
         ${SETTINGS.mute_source ? `<li class="is-selectable">
           <a href="#" data-btd-action="mute-source" data-btd-source="{{sourceNoHTML}}">Mute "{{sourceNoHTML}}"</a>
         </li>` : ''}
@@ -913,6 +924,148 @@ $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
         FileSaver.saveAs(blob, TD.ui.template.render('btd/download_filename_format', getMediaParts(chirp, item)));
       });
   });
+});
+
+const getMediaUrlParts = (url) => {
+  return {
+    originalExtension: url.replace(/:[a-z]+$/, '').split('.').pop(),
+    originalFile: url.split('/').pop().split('.')[0],
+  };
+};
+
+// control characters can't appear in tweets, so we can use them to pad strings out
+// source: https://shkspr.mobi/blog/2015/11/twitters-weird-control-character-handling/
+const loudencer = (str, start, end) => {
+  return str.slice(0, start) + ('\x07').repeat(str.slice(start, end).length) + str.slice(end);
+};
+
+$('body').on('click', '[data-btd-action="edit-tweet"]', (ev) => {
+  ev.preventDefault();
+  const chirp = getChirpFromElement(ev.target);
+  const media = getMediaFromChirp(chirp);
+
+  const composeData = {
+    type: chirp.chirpType,
+    text: chirp.text,
+    from: [TD.storage.Account.generateKeyFor('twitter', chirp.creatorAccount.getUserID())],
+  };
+
+  // @TODO: this doesn't work in DMs yet because DMs use attachments sometimes, i don't understand
+  // @TODO: in what circumstances do we use MESSAGE_THREAD? regular MESSAGE has conversationId
+  // @TODO: in what circumstances do we use messageRecipients? no chirps have them.
+
+  if (chirp.chirpType === TD.services.ChirpBase.MESSAGE) {
+    composeData.conversationId = chirp.conversationId;
+  }
+
+  // == get the original text back
+  // if we have media, remove the link from the text
+  if (chirp.entities.media.length) {
+    const firstMedia = chirp.entities.media[0];
+    composeData.text = loudencer(composeData.text, ...firstMedia.indices);
+  }
+
+  // remove usernames from tweet
+  chirp.entities.user_mentions.forEach((mention) => {
+    if (mention.isImplicitMention) {
+      composeData.text = loudencer(composeData.text, ...mention.indices);
+    }
+  });
+
+  // replace quotes in a tweet
+  chirp.entities.urls.forEach((url) => {
+    if (chirp.isQuoteStatus && !chirp.quotedTweetMissing && url.expanded_url === chirp.quotedTweet.getChirpURL()) {
+      composeData.text = loudencer(composeData.text, ...url.indices);
+      composeData.quotedTweet = chirp.quotedTweet;
+    }
+  });
+
+  // make the chirp quieter
+  composeData.text = composeData.text.replace(/\u0007/gi, '');
+
+  // expand original urls for tweets
+  chirp.entities.urls.forEach((url) => {
+    composeData.text = composeData.text.replace(url.url, url.expanded_url);
+  });
+
+  // trim in case we picked up any whitespace
+  composeData.text = composeData.text.trim();
+
+  // compose in advance because the reply composer doesn't transfer text for reasons unknown
+  $(document).trigger('uiComposeTweet', composeData);
+
+  // == handle replies
+  if (chirp.inReplyToID) {
+    const mainChirp = chirp.getMainTweet();
+    composeData.type = 'reply';
+    composeData.mentions = chirp.getReplyingToUsers();
+    composeData.inReplyTo = {
+      id: chirp.id,
+      htmlText: mainChirp.htmlText,
+      user: {
+        screenName: mainChirp.user.screenName,
+        name: mainChirp.user.name,
+        profileImageURL: mainChirp.user.profileImageURL,
+      },
+    };
+
+    // == find that user, if at all possible
+    const column = TD.controller.columnManager.get(chirp._btd.columnKey);
+    const replyEl = column.ui.getChirpById(chirp.inReplyToID);
+    if (replyEl.length) {
+      composeData.element = replyEl[0];
+      const replyChirp = getChirpFromElement(replyEl[0]);
+      if (replyChirp) {
+        composeData.mentions = replyChirp.getReplyUsers();
+        composeData.inReplyTo = {
+          id: replyChirp.id,
+          htmlText: replyChirp.htmlText,
+          user: {
+            screenName: replyChirp.user.screenName,
+            name: replyChirp.user.name,
+            profileImageURL: replyChirp.user.profileImageURL,
+          },
+        };
+      } else {
+        Log('reply did not have an element for some reason');
+      }
+    } else {
+      Log('reply did not have an existing chirp in its original column');
+    }
+
+    // now that the reply information is filled, we have to push this compose on top of the one with text
+    $(document).trigger('uiComposeTweet', composeData);
+  }
+
+  // == re-upload all the files we had, if any
+  if (media.length) {
+    Promise.all(media.map(item =>
+      fetch(item)
+        .then(res => res.blob())
+        .then((blob) => {
+          const url = getMediaUrlParts(item);
+          const options = {};
+          switch (url.originalExtension.toLowerCase()) {
+            case 'mp4':
+              options.type = 'video/mp4';
+              break;
+            case 'gif':
+              options.type = 'image/gif';
+              break;
+            default:
+              break;
+          }
+          return new File([blob], `${url.originalFile}.${url.originalExtension}`, options);
+        }))).then((gotFiles) => {
+      $(document).trigger('uiComposeFilesAdded', { files: gotFiles });
+    });
+  }
+
+  // send one last compose event, for good luck
+  $(document).trigger('uiComposeTweet', composeData);
+
+  // it is now safe to remove the tweet
+  chirp.destroy();
 });
 
 $('body').on('click', '[data-btd-action="mute-hashtag"]', (ev) => {
