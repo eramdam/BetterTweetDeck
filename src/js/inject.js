@@ -287,8 +287,8 @@ if (SETTINGS.old_replies) {
   TD.mustaches['status/quoted_tweet.mustache'] = TD.mustaches['status/quoted_tweet.mustache'].replace('with-linebreaks">{{{htmlText}}}', 'with-linebreaks">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}');
 }
 
-    // Inject items into the interaction bar
-if (settings.context_item || settings.hotlink_item || settings.download_item) {
+// Inject items into the interaction bar
+if (SETTINGS.context_item || SETTINGS.hotlink_item || SETTINGS.download_item) {
   TD.mustaches['status/tweet_single_actions.mustache'] = TD.mustaches['status/tweet_single_actions.mustache']
     .replace(
       '{{_i}}Like{{/i}} </span> </a> </li>',
@@ -883,6 +883,8 @@ const clipboard = new Clipboard('.btd-clipboard', {
     }
   },
 });
+
+// time.tweet-timestamp, .js-tweet-detail .margin-tl.txt-mute.txt-small a[rel="url"]
 
 $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="favorite"]' +
   '.tweet-action[rel="retweet"], .tweet-detail-action[rel="retweet"], ' +
