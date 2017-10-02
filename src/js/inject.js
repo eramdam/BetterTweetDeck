@@ -663,12 +663,13 @@ $(document).keydown((ev) => {
   modified, from: https://gist.github.com/Zemnmez/ffb5449d873d5407c7172534b762ae46/
 */
 let moreTweetsEnabled = false;
+const noop = () => {};
 
 const twoEightZero = () => {
   if (SETTINGS.two_eight_zero_chars && !moreTweetsEnabled) {
-    TD.services.TwitterClient.prototype.makeTwitterCall = function (e, t, i, n, s, r, o) {
-      s = s || function () {};
-      r = r || function () {};
+    TD.services.TwitterClient.prototype.makeTwitterCall = function makeTwitterCall(e, t, i, n, s, r, o) {
+      s = s || noop;
+      r = r || noop;
 
       const a = this.request(e, {
         method: i,
