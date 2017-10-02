@@ -18,7 +18,7 @@ const betaIcons = {
 const betaVersion = () => {
   const d = new Date();
 
-  return `${d.getFullYear()}.${d.getDate()}.${d.getHours()}.${d.getMinutes()}${d.getSeconds()}`;
+  return `${d.getFullYear()}.${d.getMonth() + d.getDate() + 30}.${d.getHours()}.${d.getMinutes()}${d.getSeconds()}`;
 };
 
 const betaVersionName = () => {
