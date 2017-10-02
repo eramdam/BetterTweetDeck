@@ -17,14 +17,9 @@ const betaIcons = {
 
 const betaVersion = () => {
   const d = new Date();
+  const arr = String(Math.floor(Date.now() / 1000)).match(/.{1,4}/g).map(Number);
 
-  return `${d.getFullYear()}.${d.getMonth() + d.getDate() + 30}.${d.getHours()}.${d.getMinutes()}${d.getSeconds()}`;
-};
-
-const betaVersionName = () => {
-  const d = new Date();
-
-  return `${packageJson.extension_version} @ ${d.toLocaleString()}`;
+  return `${d.getFullYear()}.${arr.join('.')}`;
 };
 
 /* eslint quotes: 0 */
@@ -32,7 +27,7 @@ const common = {
   name: `${isBeta ? 'βeta' : 'Better'} TweetDeck`.trim(),
   short_name: `${isBeta ? 'βeta ' : 'Better'}TDeck`,
   version: isBeta ? betaVersion() : packageJson.extension_version,
-  version_name: isBeta ? betaVersionName() : packageJson.extension_version,
+  version_name: isBeta ? betaVersion() : packageJson.extension_version,
   manifest_version: 2,
   homepage_url: 'https://github.com/eramdam/BetterTweetDeck/',
   content_scripts: [{
