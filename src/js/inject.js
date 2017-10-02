@@ -655,6 +655,55 @@ $(document).keydown((ev) => {
   }
 });
 
+/*
+  This snippet is essentially the same as being in the Twitter longer tweets test, for TweetDeck
+  The Tweet length counter is fixed by tricking TweetDeck into counting up to 140 characters, twice, so you'll see 140
+  instead of 280 in the counter but going over 140 will give you another set of 140 characters.
+
+  modified, from: https://gist.github.com/Zemnmez/ffb5449d873d5407c7172534b762ae46/
+*/
+let moreTweetsEnabled = false;
+
+const twoEightZero = () => {
+  if (SETTINGS.two_eight_zero_chars && !moreTweetsEnabled) {
+    TD.services.TwitterClient.prototype.makeTwitterCall = function (e, t, i, n, s, r, o) {
+      s = s || function () {};
+      r = r || function () {};
+
+      const a = this.request(e, {
+        method: i,
+        params: Object.assign(t, {
+          weighted_character_count: !0,
+        }),
+        processor: n,
+        feedType: o,
+      });
+      a.addCallbacks((_e) => {
+        s(_e.data);
+      }, (_e) => {
+        r(_e.req, '', _e.msg, _e.req.errors);
+      });
+      return a;
+    };
+    window.twttrTxt = Object.assign({}, window.twttr.txt, {
+      isInvalidTweet() {
+        return !1;
+      },
+      getTweetLength(x) {
+        // eslint-disable-next-line prefer-rest-params
+        x = window.twttr.txt.getTweetLength.apply(this, arguments);
+        return x <= 140 ? x : x - 140;
+      },
+    });
+    moreTweetsEnabled = true;
+  }
+};
+
+if (SETTINGS.two_eight_zero_chars) {
+  $(document).one('uiDockedComposeTweet', twoEightZero);
+  $(document).one('uiComposeTweet', twoEightZero);
+}
+
 $(document).on('openBtdSettings', (ev, data) => {
   window.open(data.url);
 });
