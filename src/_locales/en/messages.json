@@ -108,7 +108,7 @@
   "ctrl_changes_interactions__mode__dialog": { "message": "follow dialog"},
 
   "two_eight_zero_chars": { "message": "Switch the characters limit to 280 <strong>EXPERIMENTAL, USE AT YOUR OWN RISK</strong>"},
-  "two_eight_zero_note": { "message": "This works by tricking TweetDeck into counting up to 140 characters, twice, so you'll see 140 instead of 280 in the counter but going over 140 will give you another set of 140 characters."},
+  "two_eight_zero_note": { "message": "This works by tricking TweetDeck into counting up to 140 characters, twice, so you'll see 140 instead of 280 in the counter but going over 140 will give you another set of 140 characters. The scheduler still works, but not with tweets over 140 characters due to API restrictions."},
 
   "btd_thx": { "message": "Thanks for installing Better TweetDeck!" },
   "btd_get_started": { "message": "Let's get started!" },
