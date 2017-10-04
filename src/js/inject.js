@@ -667,29 +667,28 @@ const noop = () => {};
 
 const twoEightZero = () => {
   if (SETTINGS.two_eight_zero_chars && !moreTweetsEnabled) {
-    const OGTwitterCall = TD.services.TwitterClient.prototype.makeTwitterCall;
+    TD.services.TwitterClient.prototype.OGTwitterCall = TD.services.TwitterClient.prototype.makeTwitterCall;
     TD.services.TwitterClient.prototype.makeTwitterCall = function makeTwitterCall(path, t, method, n, s, r, o) {
-      if (path.includes('/retweet/')) {
-        return OGTwitterCall(path, t, method, n, s, r, o);
+      if (path.endsWith('dm/new.json') || path.endsWith('statuses/update.json')) {
+        s = s || noop;
+        r = r || noop;
+
+        const a = this.request(path, {
+          method,
+          params: Object.assign(t, {
+            weighted_character_count: !0,
+          }),
+          processor: n,
+          feedType: o,
+        });
+        a.addCallbacks((_e) => {
+          s(_e.data);
+        }, (_e) => {
+          r(_e.req, '', _e.msg, _e.req.errors);
+        });
+        return a;
       }
-
-      s = s || noop;
-      r = r || noop;
-
-      const a = this.request(path, {
-        method,
-        params: Object.assign(t, {
-          weighted_character_count: !0,
-        }),
-        processor: n,
-        feedType: o,
-      });
-      a.addCallbacks((_e) => {
-        s(_e.data);
-      }, (_e) => {
-        r(_e.req, '', _e.msg, _e.req.errors);
-      });
-      return a;
+      return this.OGTwitterCall(path, t, method, n, s, r, o);
     };
     window.twttrTxt = Object.assign({}, window.twttr.txt, {
       isInvalidTweet() {
