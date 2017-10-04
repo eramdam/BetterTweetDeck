@@ -668,17 +668,16 @@ const noop = () => {};
 const twoEightZero = () => {
   if (SETTINGS.two_eight_zero_chars && !moreTweetsEnabled) {
     const OGTwitterCall = TD.services.TwitterClient.prototype.makeTwitterCall;
-    TD.services.TwitterClient.prototype.makeTwitterCall = function makeTwitterCall(e, t, i, n, s, r, o) {
-      // e is the request path made to Twitter's API
-      if (e.includes('/retweet/')) {
-        return OGTwitterCall(e, t, i, n, s, r, o);
+    TD.services.TwitterClient.prototype.makeTwitterCall = function makeTwitterCall(path, t, method, n, s, r, o) {
+      if (path.includes('/retweet/')) {
+        return OGTwitterCall(path, t, method, n, s, r, o);
       }
 
       s = s || noop;
       r = r || noop;
 
-      const a = this.request(e, {
-        method: i,
+      const a = this.request(path, {
+        method,
         params: Object.assign(t, {
           weighted_character_count: !0,
         }),
