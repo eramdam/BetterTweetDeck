@@ -667,7 +667,12 @@ const noop = () => {};
 
 const twoEightZero = () => {
   if (SETTINGS.two_eight_zero_chars && !moreTweetsEnabled) {
+    const OGTwitterCall = TD.services.TwitterClient.prototype.makeTwitterCall;
     TD.services.TwitterClient.prototype.makeTwitterCall = function makeTwitterCall(e, t, i, n, s, r, o) {
+      if (e.includes('retweet')) {
+        return OGTwitterCall(e, t, i, n, s, r, o);
+      }
+
       s = s || noop;
       r = r || noop;
 
