@@ -1077,6 +1077,12 @@ $('body').on('click', '[data-btd-action="edit-tweet"]', (ev) => {
     composeData.text = composeData.text.replace(url.url, url.expanded_url);
   });
 
+  // remove html entities, from: https://stackoverflow.com/a/1395954
+  // @TODO: please replace this with DOMParse, DOMPurify, something
+  const textArea = document.createElement('textarea');
+  textArea.innerHTML = composeData.text;
+  composeData.text = textArea.value;
+
   // trim in case we picked up any whitespace
   composeData.text = composeData.text.trim();
 
