@@ -669,7 +669,7 @@ const twoEightZero = () => {
   if (SETTINGS.two_eight_zero_chars && !moreTweetsEnabled) {
     TD.services.TwitterClient.prototype.OGTwitterCall = TD.services.TwitterClient.prototype.makeTwitterCall;
     TD.services.TwitterClient.prototype.makeTwitterCall = function makeTwitterCall(path, t, method, n, s, r, o) {
-      if (path.endsWith('dm/new.json') || path.endsWith('statuses/update.json')) {
+      if (path.endsWith('statuses/update.json')) {
         s = s || noop;
         r = r || noop;
 
