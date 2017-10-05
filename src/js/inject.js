@@ -1,6 +1,7 @@
 import config from 'config';
 import FileSaver from 'file-saver';
 import Clipboard from 'clipboard';
+import { unescape } from 'lodash/string';
 import Log from './util/logger';
 import UsernamesTemplates from './util/username_templates';
 import wc from './util/webcrack';
@@ -1076,6 +1077,9 @@ $('body').on('click', '[data-btd-action="edit-tweet"]', (ev) => {
   chirp.entities.urls.forEach((url) => {
     composeData.text = composeData.text.replace(url.url, url.expanded_url);
   });
+
+  // ensure no html entities remain
+  composeData.text = unescape(composeData.text);
 
   // trim in case we picked up any whitespace
   composeData.text = composeData.text.trim();

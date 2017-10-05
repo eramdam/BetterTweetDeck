@@ -96,6 +96,7 @@
   "regex_filter_notice_text": { "message": "Due to the way TweetDeck's filtering works, expressions are NOT case sensitive!" },
 
   "edit_item": { "message": "Add an edit item in tweets' menu"},
+  "edit_item_note": { "message": "You cannot use this to edit tweets without deleting them! This immediately move a tweet to the composer dock and delete it along with any likes or retweets it received!"},
   "favstar_item": { "message": "Add a \"Show in Favstar\" item in tweets' menu"},
   "mute_hashtags": { "message": "Add shortcuts to mute #hashtags in tweets' menu"},
   "mute_source": { "message": "Add a shortcut to mute the source (application) of a tweet in tweets' menu"},
