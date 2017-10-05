@@ -884,8 +884,6 @@ const clipboard = new Clipboard('.btd-clipboard', {
   },
 });
 
-// time.tweet-timestamp, .js-tweet-detail .margin-tl.txt-mute.txt-small a[rel="url"]
-
 $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="favorite"]' +
   '.tweet-action[rel="retweet"], .tweet-detail-action[rel="retweet"], ' +
   '[data-btd-action="hotlink-media"], ' +
