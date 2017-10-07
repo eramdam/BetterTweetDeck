@@ -26,7 +26,6 @@ const defaultSettings = {
     size: '250px',
     enabled: false,
   },
-  two_eight_zero_chars: false,
   clear_column_action: false,
   collapse_columns: false,
   collapse_columns_pause: true,
