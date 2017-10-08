@@ -615,20 +615,32 @@ on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
     sendEvent('renderInstagramEmbed');
   }
 
-  $('[rel="favorite"]', openModal)[0].addEventListener('click', () => {
-    sendEvent('likeChirp', { chirpKey: chirp.id, colKey });
-  });
+  if ($('[rel="favorite"]', openModal)) {
+    $('[rel="favorite"]', openModal)[0].addEventListener('click', () => {
+      sendEvent('likeChirp', {
+        chirpKey: chirp.id,
+        colKey,
+      });
+    });
+  }
 
-  $('[rel="retweet"]', openModal)[0].addEventListener('click', () => {
-    sendEvent('retweetChirp', { chirpKey: chirp.id, colKey });
-  });
+  if ($('[rel="retweet"]', openModal)) {
+    $('[rel="retweet"]', openModal)[0].addEventListener('click', () => {
+      sendEvent('retweetChirp', {
+        chirpKey: chirp.id,
+        colKey,
+      });
+    });
+  }
 
-  $('[rel="reply"]', openModal)[0].addEventListener('click', () => {
-    setTimeout(() => {
-      $(`[data-column="${colKey}"] [data-key="${chirp.id}"] [rel="reply"]`)[0].click();
-      closeOpenModal();
-    }, 0);
-  });
+  if ($('[rel="reply"]', openModal)) {
+    $('[rel="reply"]', openModal)[0].addEventListener('click', () => {
+      setTimeout(() => {
+        $(`[data-column="${colKey}"] [data-key="${chirp.id}"] [rel="reply"]`)[0].click();
+        closeOpenModal();
+      }, 0);
+    });
+  }
 
   $('#open-modal a[rel="dismiss"]')[0].addEventListener('click', closeOpenModal);
 
