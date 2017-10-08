@@ -25,8 +25,9 @@
 
   .dropdown-menu li > a,
   .dropdown-menu li > b,
+  .js-typeahead-dropdown :matches(.fullname, .username, p),
   .typeahead.lst :matches(.fullname, .username, p) {
-    color: color(#8899a6 saturation(0%)) !important;
+    color: #969696 !important;
   }
 
   .typeahead.lst :matches(.fullname, .username, p) {
