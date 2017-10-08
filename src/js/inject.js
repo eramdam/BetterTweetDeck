@@ -548,7 +548,13 @@ const handleInsertedNode = (element) => {
   }
 
   const chirpKey = element.getAttribute('data-key');
-  const colKey = element.closest('.js-column').getAttribute('data-column');
+  const closestColumn = element.closest('.js-column');
+
+  if (!closestColumn) {
+    return;
+  }
+
+  const colKey = closestColumn.getAttribute('data-column');
 
   const chirp = getChirpFromKey(chirpKey, colKey);
 
