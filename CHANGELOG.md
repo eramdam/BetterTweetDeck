@@ -1,14 +1,14 @@
 :tada: 3.4.7 :tada:
 ===============
 <ul>
-  <li data-info-setting="content/edit_item">[Feature] You can enable an "Edit" butto (thanks <a href="https://github.com/EntranceJew">@EntranceJew</a> <a href="https://github.com/eramdam/BetterTweetDeck/pull/230">#230</a>)</li>
+  <li data-info-setting="content/edit_item">[Feature] You can enable an "Edit" item in tweets' menu (see the settings for specifics) (thanks <a href="https://github.com/EntranceJew">@EntranceJew</a> <a href="https://github.com/eramdam/BetterTweetDeck/pull/230">#230</a>)</li>
   <li data-info-setting="interface/pause_scroll_on_hover">[Feature] You can pause the scrolling of columns when hovering them (thanks <a href="https://github.com/EntranceJew">@EntranceJew</a> <a href="https://github.com/eramdam/BetterTweetDeck/pull/212">#212</a>)</li>
   <li data-info-setting="interface/collapse_columns_pause">[Feature] You can configure the feed behaviour when collapsing columns (thanks <a href="https://github.com/EntranceJew">@EntranceJew</a> <a href="https://github.com/eramdam/BetterTweetDeck/pull/239">#239</a>)</li>
   <li data-info-setting="interface/make_search_columns_first">[Feature] You can put the search columns **before** the first column (thanks <a href="https://github.com/chylex">@chylex</a> <a href="https://github.com/eramdam/BetterTweetDeck/pull/219">#219</a>)</li>
   <li>[Meta] The Japanese translation has been updated (thanks <a href="https://github.com/shuuji3">@shuuji3</a> <a href="https://github.com/eramdam/BetterTweetDeck/pull/236">#236</a>)</li>
 </ul>
 
-:tada: 3.4.6 :tada:
+3.4.6
 ===============
 <ul>
   <li data-info-setting="content/mute_source">[Feature] You can add a `Mute <source>` item in tweets menu. Useful to mute tweets from specific apps!</li>
