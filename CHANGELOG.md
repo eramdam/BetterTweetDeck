@@ -6,6 +6,7 @@
   <li data-info-setting="interface/collapse_columns_pause">[Feature] You can configure the feed behaviour when collapsing columns (thanks <a href="https://github.com/EntranceJew">@EntranceJew</a> <a href="https://github.com/eramdam/BetterTweetDeck/pull/239">#239</a>)</li>
   <li data-info-setting="interface/make_search_columns_first">[Feature] You can put the search columns **before** the first column (thanks <a href="https://github.com/chylex">@chylex</a> <a href="https://github.com/eramdam/BetterTweetDeck/pull/219">#219</a>)</li>
   <li>[Meta] The Japanese translation has been updated (thanks <a href="https://github.com/shuuji3">@shuuji3</a> <a href="https://github.com/eramdam/BetterTweetDeck/pull/236">#236</a>)</li>
+  <li>[Bugfix] Minor bugfixes</li>
 </ul>
 
 3.4.6
