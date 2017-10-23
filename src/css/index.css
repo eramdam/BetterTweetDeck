@@ -222,7 +222,7 @@ body :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
     font-family: "tweetdeckregular";
     left: 29px;
     font-size: 14px;
-    z-index: 99;
+    z-index: 19;
     color: inherit;
     top: 60px;
   }
