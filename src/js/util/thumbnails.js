@@ -37,7 +37,7 @@ sendMessage({ action: 'get', key: 'thumbnails' }, (response) => {
  * @param  {String} url url of image
  * @return {String}     safe url
  */
-const getSafeURL = (url) => {
+export const getSafeURL = (url) => {
   if (!url) {
     return '';
   }
@@ -130,7 +130,7 @@ const util = {
   noEmbedImgCB,
 };
 
-const schemeWhitelist = [
+export const schemeWhitelist = [
   Providers.fivehundredpx(util),
   Providers.bandcamp(util),
   Providers.cloudapp(util),
@@ -168,7 +168,7 @@ if (!BHelper.isFirefox) {
   schemeWhitelist.push(Providers.instagram(util));
 }
 
-const validateUrl = (url) => {
+export const validateUrl = (url) => {
   let provider = '';
   let cb;
 
@@ -211,11 +211,4 @@ function thumbnailForFetch(url) {
 }
 
 // We use reuse-promise so we don't have to fetch the same URL twice
-const thumbnailFor = reusePromise(thumbnailForFetch);
-
-module.exports = {
-  validateUrl,
-  thumbnailFor,
-  schemeWhitelist,
-  getSafeURL,
-};
+export const thumbnailFor = reusePromise(thumbnailForFetch);

@@ -65,4 +65,4 @@ function timestampOnElement(element, dateString) {
   element.textContent = fecha.format(d, getFormat(d, timestampMode));
 }
 
-module.exports = timestampOnElement;
+export default timestampOnElement;

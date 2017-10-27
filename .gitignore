@@ -21,3 +21,5 @@ config/prod.js
 .idea/**/sqlDataSources.xml
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
+
+output/*
