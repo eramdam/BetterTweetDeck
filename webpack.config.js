@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const GenerateJsonPlugin = require('generate-json-webpack-plugin');
@@ -92,6 +93,9 @@ module.exports = (env) => {
       new CleanWebpackPlugin(['output']),
       new CopyWebpackPlugin(staticFiles),
       new GenerateJsonPlugin('manifest.json', getManifest(), null, 2),
+      new UglifyJSPlugin({
+        parallel: true,
+      }),
     ],
   };
 };
