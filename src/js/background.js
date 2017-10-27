@@ -88,7 +88,7 @@ function reloadBTD() {
   chrome.runtime.reload();
 }
 
-if (config.get('Client.debug')) {
+if (config.Client.debug) {
   const socket = new WebSocket('ws://localhost:9191');
   socket.onmessage = (message) => {
     if (message.data === 'reload') {

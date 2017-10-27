@@ -61,7 +61,7 @@ const getEnpointFor = service => endpoints[service];
  * @param  {String} service Name of service
  * @return {String}         API key of service
  */
-const getKeyFor = service => config.get(`Client.APIs.${service}`);
+const getKeyFor = service => config.Client.APIs[service];
 
 /**
  * Function to use in promise that will return the json output of a request

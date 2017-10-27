@@ -125,7 +125,7 @@ const getChirpFromElement = (element) => {
   return chirp;
 };
 
-if (config.get('Client.debug')) {
+if (config.Client.debug) {
   window.BTD.debug = {
     wc,
     getChirpFromElement,

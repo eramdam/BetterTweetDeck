@@ -3,7 +3,6 @@ const path = require('path');
 const fs = require('fs');
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const GenerateJsonPlugin = require('generate-json-webpack-plugin');
@@ -54,9 +53,9 @@ module.exports = (env) => {
 
   return {
     entry: {
-      inject: './src/js/inject.js',
-      background: './src/js/background.js',
-      content: './src/js/content.js',
+      'js/inject': './src/js/inject.js',
+      'js/background': './src/js/background.js',
+      'js/content': './src/js/content.js',
       'options/options': './src/options/options.js',
     },
     output: {
@@ -88,7 +87,6 @@ module.exports = (env) => {
       },
     },
     plugins: [
-      new ProgressBarPlugin(),
       extractContent,
       extractOptions,
       new CleanWebpackPlugin(['output']),
