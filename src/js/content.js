@@ -11,6 +11,7 @@ import Emojis from './util/emojis';
 import Log from './util/logger';
 import * as BHelper from './util/browserHelper';
 import { $, TIMESTAMP_INTERVAL, on, sendEvent } from './util/util';
+import '../css/index.css';
 
 let SETTINGS;
 

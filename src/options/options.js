@@ -5,6 +5,7 @@ import marked from 'marked';
 import queryString from 'query-string';
 import fecha from 'fecha';
 import jsEmoji from 'emoji-js';
+import '../css/options/index.css';
 import * as BHelper from '../js/util/browserHelper';
 import { schemeWhitelist } from '../js/util/thumbnails';
 

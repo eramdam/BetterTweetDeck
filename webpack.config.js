@@ -3,11 +3,16 @@ const path = require('path');
 const fs = require('fs');
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const GenerateJsonPlugin = require('generate-json-webpack-plugin');
 const config = require('config');
 
 fs.writeFileSync(path.resolve(__dirname, 'dist/config.json'), JSON.stringify(config));
+
+const extractContent = new ExtractTextPlugin('css/index.css');
+const extractOptions = new ExtractTextPlugin('options/css/index.css');
 
 const staticFiles = [
   'icons/*.png',
@@ -21,6 +26,23 @@ const staticFiles = [
   from: i,
   context: './src/',
 }));
+
+const cssLoaders = {
+  fallback: 'style-loader',
+  use: [
+    {
+      loader: 'css-loader',
+      options: {
+        importLoaders: 1,
+        minimize: false,
+        sourceMap: true,
+      },
+    },
+    {
+      loader: 'postcss-loader',
+    },
+  ],
+};
 
 module.exports = (env) => {
   if (!env || !env.browser) {
@@ -48,6 +70,16 @@ module.exports = (env) => {
           exclude: /node_modules/,
           loader: 'babel-loader',
         },
+        {
+          test: /\.css$/,
+          exclude: path.resolve(__dirname, 'src/css/options'),
+          use: extractContent.extract(cssLoaders),
+        },
+        {
+          test: /\.css$/,
+          include: path.resolve(__dirname, 'src/css/options'),
+          use: extractOptions.extract(cssLoaders),
+        },
       ],
     },
     resolve: {
@@ -56,6 +88,9 @@ module.exports = (env) => {
       },
     },
     plugins: [
+      new ProgressBarPlugin(),
+      extractContent,
+      extractOptions,
       new CleanWebpackPlugin(['output']),
       new CopyWebpackPlugin(staticFiles),
       new GenerateJsonPlugin('manifest.json', getManifest(), null, 2),
