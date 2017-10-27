@@ -1,3 +1,16 @@
 {
-  "presets": ["es2015"],
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": [
+            "last 2 Chrome versions",
+            "last 3 Firefox versions",
+            "last 3 Opera versions"
+          ]
+        }
+      }
+    ]
+  ]
 }

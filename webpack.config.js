@@ -15,6 +15,15 @@ module.exports = {
     filename: '[name].js',
     path: `${__dirname}/output`,
   },
+  module: {
+    rules: [
+      {
+        test: /.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+      },
+    ],
+  },
   resolve: {
     alias: {
       config: path.resolve(__dirname, 'dist/config.json'),
