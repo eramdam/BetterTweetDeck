@@ -28,7 +28,7 @@
     "release:chrome": "npm run build:chrome:prod && cross-env NODE_ENV=prod npm run pack:chrome",
     "run:firefox": "web-ext run -s dist",
     "lint": "eslint \"src/**/*.js\" \"tools/**/*.js\" \"config/**/*.js\" gulpfile.babel.js && stylelint \"src/**/*.css\"",
-    "test": "npm run lint && npm run release",
+    "test": "npm run lint",
     "update_emojis": "node tools/update_emojis.js",
     "prepush": "npm run lint"
   },
