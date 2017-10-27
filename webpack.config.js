@@ -10,6 +10,7 @@ module.exports = {
     inject: './src/js/inject.js',
     background: './src/js/background.js',
     content: './src/js/content.js',
+    'options/options': './src/options/options.js',
   },
   output: {
     filename: '[name].js',
