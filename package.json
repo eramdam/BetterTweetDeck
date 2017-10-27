@@ -47,6 +47,7 @@
     "clipboard": "^1.7.1",
     "config": "1.26.1",
     "config-browserify": "1.0.5",
+    "copy-webpack-plugin": "^4.2.0",
     "cross-env": "5.0.1",
     "crx": "3.2.1",
     "cssnano": "3.10.0",
