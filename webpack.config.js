@@ -15,6 +15,8 @@ fs.writeFileSync(path.resolve(__dirname, 'dist/config.json'), JSON.stringify(con
 const extractContent = new ExtractTextPlugin('css/index.css');
 const extractOptions = new ExtractTextPlugin('options/css/index.css');
 
+const DIST_FOLDER = 'output';
+
 const staticFiles = [
   'icons/*.png',
   'fonts/*',
@@ -62,7 +64,7 @@ module.exports = (env) => {
     },
     output: {
       filename: '[name].js',
-      path: `${__dirname}/output`,
+      path: `${__dirname}/${DIST_FOLDER}`,
     },
     module: {
       rules: [
@@ -91,7 +93,7 @@ module.exports = (env) => {
     plugins: [
       extractContent,
       extractOptions,
-      new CleanWebpackPlugin(['output']),
+      new CleanWebpackPlugin([DIST_FOLDER]),
       new CopyWebpackPlugin(staticFiles),
       new GenerateJsonPlugin('manifest.json', getManifest(), null, 2),
       new UglifyJSPlugin({
