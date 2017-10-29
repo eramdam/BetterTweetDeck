@@ -10,12 +10,8 @@ const GenerateJsonPlugin = require('generate-json-webpack-plugin');
 const ZipPlugin = require('zip-webpack-plugin');
 const config = require('config');
 
-fs.writeFileSync(path.resolve(__dirname, 'dist/config.json'), JSON.stringify(config));
-
 const extractContent = new ExtractTextPlugin('css/index.css');
 const extractOptions = new ExtractTextPlugin('options/css/index.css');
-
-const DIST_FOLDER = 'output';
 
 const staticFiles = [
   {
@@ -64,6 +60,7 @@ const cssLoaders = {
   ],
 };
 
+const DIST_FOLDER = 'dist';
 const POSSIBLE_BROWSERS = ['chrome', 'firefox'];
 
 module.exports = (env) => {
@@ -75,6 +72,8 @@ module.exports = (env) => {
 
   const getManifest = () => require(`./tools/manifests/${env.browser}.js`);
   const isProduction = process.env.NODE_ENV !== 'dev';
+
+  fs.writeFileSync(path.resolve(__dirname, 'config/config.json'), JSON.stringify(config));
 
   return {
     entry: {
@@ -109,17 +108,18 @@ module.exports = (env) => {
     },
     resolve: {
       alias: {
-        config: path.resolve(__dirname, 'dist/config.json'),
+        config: path.resolve(__dirname, 'config/config.json'),
       },
     },
     plugins: [
       extractContent,
       extractOptions,
-      new CleanWebpackPlugin([DIST_FOLDER, 'artifacts/*']),
+      new CleanWebpackPlugin([DIST_FOLDER]),
       new CopyWebpackPlugin(staticFiles),
       new GenerateJsonPlugin('manifest.json', getManifest(), null, 2),
-      new UglifyJSPlugin({
+      isProduction ? new UglifyJSPlugin({
         parallel: true,
+      }) : () => {},
       new ZipPlugin({
         path: path.resolve(__dirname, 'artifacts'),
         filename: `dist-${env.browser}`,
