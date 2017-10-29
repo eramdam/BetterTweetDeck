@@ -18,17 +18,34 @@ const extractOptions = new ExtractTextPlugin('options/css/index.css');
 const DIST_FOLDER = 'output';
 
 const staticFiles = [
-  'icons/*.png',
-  'fonts/*',
-  'emojis/*.png',
-  'options/**/*.html',
-  'options/ui/*',
-  'options/img/*',
-  '_locales/**/*',
-].map(i => ({
-  from: i,
+  {
+    from: 'icons/*.png',
+  },
+  {
+    from: 'fonts/*',
+  },
+  {
+    from: 'emojis/*.png',
+  },
+  {
+    from: 'options/**/*.html',
+  },
+  {
+    from: 'options/ui/*',
+  },
+  {
+    from: 'options/img/*',
+  },
+  {
+    from: '_locales/**/*',
+  },
+  {
+    from: '../CHANGELOG.md',
+    to: 'options/',
+  },
+].map(i => (Object.assign(i, {
   context: './src/',
-}));
+})));
 
 const cssLoaders = {
   fallback: 'style-loader',
