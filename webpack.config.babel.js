@@ -46,6 +46,10 @@ const staticFiles = [
   context: './src/',
 })));
 
+const DIST_FOLDER = 'dist';
+const IS_PRODUCTION = process.env.NODE_ENV !== 'dev';
+const POSSIBLE_BROWSERS = ['chrome', 'firefox'];
+
 const cssLoaders = {
   fallback: 'style-loader',
   use: [
@@ -53,8 +57,8 @@ const cssLoaders = {
       loader: 'css-loader',
       options: {
         importLoaders: 1,
-        minimize: false,
-        sourceMap: true,
+        minimize: IS_PRODUCTION,
+        sourceMap: !IS_PRODUCTION,
       },
     },
     {
@@ -62,9 +66,6 @@ const cssLoaders = {
     },
   ],
 };
-
-const DIST_FOLDER = 'dist';
-const POSSIBLE_BROWSERS = ['chrome', 'firefox'];
 
 module.exports = (env) => {
   if (!env || !env.browser || !POSSIBLE_BROWSERS.includes(env.browser)) {
@@ -74,7 +75,6 @@ module.exports = (env) => {
   }
 
   const getManifest = () => require(`./tools/manifests/${env.browser}.js`);
-  const isProduction = process.env.NODE_ENV !== 'dev';
 
   fs.writeFileSync(path.resolve(__dirname, 'config/config.json'), JSON.stringify(config));
 
@@ -89,7 +89,7 @@ module.exports = (env) => {
       filename: '[name].js',
       path: `${__dirname}/${DIST_FOLDER}`,
     },
-    devtool: isProduction ? 'source-map' : 'cheap-source-map',
+    devtool: 'source-map',
     module: {
       rules: [
         {
@@ -120,13 +120,13 @@ module.exports = (env) => {
       new CleanWebpackPlugin([DIST_FOLDER]),
       new CopyWebpackPlugin(staticFiles),
       new GenerateJsonPlugin('manifest.json', getManifest(), null, 2),
-      isProduction ? new UglifyJSPlugin({
+      IS_PRODUCTION ? new UglifyJSPlugin({
         parallel: true,
-      }) : () => {},
-      new ZipPlugin({
+      }) : () => null,
+      IS_PRODUCTION ? new ZipPlugin({
         path: path.resolve(__dirname, 'artifacts'),
         filename: `dist-${env.browser}`,
-      }),
+      }) : () => null,
     ],
   };
 };
