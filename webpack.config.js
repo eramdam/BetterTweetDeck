@@ -47,9 +47,12 @@ const cssLoaders = {
   ],
 };
 
+const POSSIBLE_BROWSERS = ['chrome', 'firefox'];
+
 module.exports = (env) => {
-  if (!env || !env.browser) {
+  if (!env || !env.browser || !POSSIBLE_BROWSERS.includes(env.browser)) {
     throw new Error(`Please provide a browser!
+    webpack --env.browser=BROWSER
     Possible values: chrome, firefox`);
   }
 
