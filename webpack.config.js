@@ -57,6 +57,7 @@ module.exports = (env) => {
   }
 
   const getManifest = () => require(`./tools/manifests/${env.browser}.js`);
+  const isProduction = process.env.NODE_ENV !== 'dev';
 
   return {
     entry: {
@@ -69,6 +70,7 @@ module.exports = (env) => {
       filename: '[name].js',
       path: `${__dirname}/${DIST_FOLDER}`,
     },
+    devtool: isProduction ? 'source-map' : 'cheap-source-map',
     module: {
       rules: [
         {
