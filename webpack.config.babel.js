@@ -36,6 +36,9 @@ const staticFiles = [
     from: '_locales/**/*',
   },
   {
+    from: '../tools/embeds.js',
+  },
+  {
     from: '../CHANGELOG.md',
     to: 'options/',
   },
