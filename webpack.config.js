@@ -115,7 +115,7 @@ module.exports = (env) => {
     plugins: [
       extractContent,
       extractOptions,
-      new CleanWebpackPlugin([DIST_FOLDER]),
+      new CleanWebpackPlugin([DIST_FOLDER, 'artifacts/*']),
       new CopyWebpackPlugin(staticFiles),
       new GenerateJsonPlugin('manifest.json', getManifest(), null, 2),
       new UglifyJSPlugin({
