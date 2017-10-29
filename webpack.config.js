@@ -17,7 +17,7 @@ const extractOptions = new ExtractTextPlugin('options/css/index.css');
 const staticFiles = [
   'icons/*.png',
   'fonts/*',
-  'emojis/sheet_twitter_64.png',
+  'emojis/*.png',
   'options/**/*.html',
   'options/ui/*',
   'options/img/*',
