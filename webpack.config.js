@@ -7,6 +7,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const GenerateJsonPlugin = require('generate-json-webpack-plugin');
+const ZipPlugin = require('zip-webpack-plugin');
 const config = require('config');
 
 fs.writeFileSync(path.resolve(__dirname, 'dist/config.json'), JSON.stringify(config));
@@ -95,6 +96,9 @@ module.exports = (env) => {
       new GenerateJsonPlugin('manifest.json', getManifest(), null, 2),
       new UglifyJSPlugin({
         parallel: true,
+      new ZipPlugin({
+        path: path.resolve(__dirname, 'artifacts'),
+        filename: `dist-${env.browser}`,
       }),
     ],
   };
