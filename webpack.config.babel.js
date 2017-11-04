@@ -3,6 +3,7 @@ import path from 'path';
 import fs from 'fs';
 
 import CopyWebpackPlugin from 'copy-webpack-plugin';
+import LodashModuleReplacementPlugin from 'lodash-webpack-plugin';
 import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
@@ -115,6 +116,7 @@ module.exports = (env) => {
       },
     },
     plugins: [
+      new LodashModuleReplacementPlugin(),
       extractContent,
       extractOptions,
       new CleanWebpackPlugin([DIST_FOLDER]),
