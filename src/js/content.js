@@ -1,6 +1,6 @@
 import gifshot from 'gifshot';
 import FileSaver from 'file-saver';
-import each from 'promise-each';
+import PromiseEach from 'promise-each';
 import config from 'config';
 import timestampOnElement from './util/timestamp';
 import { send as sendMessage, on as onMessage } from './util/messaging';
@@ -265,7 +265,7 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
 
 // Will call thumbnailFromSingleURL on a given set of urls + node + media size
 function thumbnailsFromURLs(urls, node, mediaSize) {
-  return Promise.resolve(urls).then(each((url) => {
+  return Promise.resolve(urls).then(PromiseEach((url) => {
     // If the url is in fact an entity object from TweetDeck OR is not supported then we don't process it
     if (url.type || url.sizes || !Thumbnails.validateUrl(url.expanded_url).matches) {
       return false;
