@@ -11,6 +11,8 @@ import GenerateJsonPlugin from 'generate-json-webpack-plugin';
 import ZipPlugin from 'zip-webpack-plugin';
 import config from 'config';
 
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 const extractContent = new ExtractTextPlugin('css/index.css');
 const extractOptions = new ExtractTextPlugin('options/css/index.css');
 
@@ -116,6 +118,7 @@ module.exports = (env) => {
       },
     },
     plugins: [
+      // new BundleAnalyzerPlugin(),
       new LodashModuleReplacementPlugin(),
       extractContent,
       extractOptions,
