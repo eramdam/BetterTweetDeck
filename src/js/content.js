@@ -11,6 +11,7 @@ import Emojis from './util/emojis';
 import Log from './util/logger';
 import * as BHelper from './util/browserHelper';
 import { $, TIMESTAMP_INTERVAL, on, sendEvent } from './util/util';
+import '../css/index.css';
 
 let SETTINGS;
 
@@ -549,7 +550,7 @@ on('BTDC_ready', () => {
   // Tell any potential versions of BTD that they are not alone, and alert the user if they respond.
   const browser = BHelper.getBrowser();
   if (browser) {
-    const extensions = config.get(`Client.extension_ids.${browser}`);
+    const extensions = config.Client.extension_ids[browser];
     Object.values(extensions || {}).forEach((extensionID) => {
       chrome.runtime.sendMessage(
         extensionID, { action: 'version', key: BHelper.getVersion() }, {},

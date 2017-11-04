@@ -78,7 +78,7 @@ const defaultData = {
   },
 };
 
-const previewTemplate = ({
+export const previewTemplate = ({
   mediaPreviewSrc,
   sourceLink,
   size,
@@ -109,7 +109,7 @@ const previewTemplate = ({
   }));
 };
 
-const modalTemplate = ({
+export const modalTemplate = ({
   imageUrl,
   originalUrl,
   type,
@@ -131,5 +131,3 @@ const modalTemplate = ({
     hasGIFDownload,
   }));
 };
-
-module.exports = { modalTemplate, previewTemplate };

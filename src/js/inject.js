@@ -125,7 +125,7 @@ const getChirpFromElement = (element) => {
   return chirp;
 };
 
-if (config.get('Client.debug')) {
+if (config.Client.debug) {
   window.BTD.debug = {
     wc,
     getChirpFromElement,
@@ -523,6 +523,10 @@ const switchThemeClass = () => {
 };
 
 const handleInsertedNode = (element) => {
+  if (element.closest && element.closest('.column-type-message')) {
+    return;
+  }
+
   // If the target of the event contains mediatable then we are inside the media modal
   if (element.classList && element.classList.contains('js-mediatable')) {
     const chirpKey = element.querySelector('[data-key]').getAttribute('data-key');
