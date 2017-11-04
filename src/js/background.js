@@ -1,4 +1,3 @@
-import config from 'config';
 import gifshot from 'gifshot';
 import { defaultsDeep } from 'lodash';
 
@@ -83,10 +82,10 @@ chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => 
   return false;
 });
 
-function reloadBTD() {
-  localStorage.setItem('btd_developer_refresh', true);
-  chrome.runtime.reload();
-}
+// function reloadBTD() {
+//   localStorage.setItem('btd_developer_refresh', true);
+//   chrome.runtime.reload();
+// }
 
 // if (config.Client.debug) {
 //   const socket = new WebSocket('ws://localhost:9191');
