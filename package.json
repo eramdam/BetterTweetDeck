@@ -63,7 +63,6 @@
     "postcss-nested": "2.0.2",
     "postcss-url": "7.0.0",
     "prismjs": "1.6.0",
-    "progress-bar-webpack-plugin": "^1.10.0",
     "promise-each": "2.2.0",
     "query-string": "4.3.4",
     "reuse-promise": "1.1.0",
