@@ -1,5 +1,10 @@
 import $ from 'jquery';
-import _ from 'lodash';
+import {
+  isBoolean,
+  forEach,
+  isObject,
+  isString,
+} from 'lodash';
 import Prism from 'prismjs';
 import marked from 'marked';
 import queryString from 'query-string';
@@ -68,7 +73,7 @@ function refreshPreviews(settings) {
     $('.tweet-preview.-name-time:not(.-display) .date').html(html);
   }
 
-  if (_.isBoolean(settings.no_hearts)) {
+  if (isBoolean(settings.no_hearts)) {
     const el = $('.tweet-preview.-display .heart');
     el.removeClass('-hidden');
 
@@ -81,7 +86,7 @@ function refreshPreviews(settings) {
     return;
   }
 
-  if (_.isBoolean(settings.css.round_pic)) {
+  if (isBoolean(settings.css.round_pic)) {
     const el = $('.tweet-preview.-display .avatar');
     el.removeClass('-rounded');
 
@@ -90,7 +95,7 @@ function refreshPreviews(settings) {
     }
   }
 
-  if (_.isBoolean(settings.css.show_verified)) {
+  if (isBoolean(settings.css.show_verified)) {
     const el = $('.tweet-preview.-display .verified');
     el.addClass('-hidden');
 
@@ -99,7 +104,7 @@ function refreshPreviews(settings) {
     }
   }
 
-  if (_.isBoolean(settings.css.hide_context)) {
+  if (isBoolean(settings.css.hide_context)) {
     const el = $('.tweet-preview.-display .context');
     el.addClass('-hidden');
 
@@ -108,7 +113,7 @@ function refreshPreviews(settings) {
     }
   }
 
-  if (_.isBoolean(settings.css.actions_on_right)) {
+  if (isBoolean(settings.css.actions_on_right)) {
     const el = $('.tweet-preview.-display .actions');
     el.removeClass('-right');
 
@@ -129,9 +134,9 @@ BHelper.settings.getAll((settings) => {
   /**
    * We go through the settings object and check or not the inputs accordingly
    */
-  _.forEach(settings, (val, key) => {
-    if (_.isObject(val)) {
-      _.forEach(val, (value, keyname) => {
+  forEach(settings, (val, key) => {
+    if (isObject(val)) {
+      forEach(val, (value, keyname) => {
         const name = `${key}.${keyname}`;
 
         if (value) {
@@ -181,9 +186,9 @@ BHelper.settings.getAll((settings) => {
     } else {
       const name = key;
 
-      if (_.isBoolean(val)) {
+      if (isBoolean(val)) {
         $(`input[name="${name}"]`).prop('checked', val);
-      } else if (_.isString(val) && name !== 'ts' && name !== 'nm_disp') {
+      } else if (isString(val) && name !== 'ts' && name !== 'nm_disp') {
         $(`input[name="${name}"]`).val(settings[name]);
       } else {
         $(`input[name="${name}"]#${val}`).prop('checked', true);
@@ -203,7 +208,7 @@ BHelper.settings.getAll((settings) => {
    * Special treatment for thumb providers list who gets created from the source directly
    */
   schemeWhitelist.forEach((scheme) => {
-    const isEnabled = _.isBoolean(settings.thumbnails[scheme.setting]) ? settings.thumbnails[scheme.setting] : scheme.default;
+    const isEnabled = isBoolean(settings.thumbnails[scheme.setting]) ? settings.thumbnails[scheme.setting] : scheme.default;
 
     $('.settings-thumbnails-providers-list').append(`
       <li>
