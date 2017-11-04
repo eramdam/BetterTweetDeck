@@ -1,3 +1,4 @@
+import config from 'config';
 import $ from 'jquery';
 import {
   isBoolean,
@@ -19,6 +20,10 @@ Emoji.img_set = 'twitter';
 Emoji.replace_mode = 'css';
 Emoji.supports_css = true;
 Emoji.use_sheet = true;
+
+if (config.Client.debug) {
+  window._BTDSetSettings = obj => BHelper.settings.set(obj);
+}
 
 if (BHelper.isFirefox) {
   document.body.classList.add('-browser-firefox');
