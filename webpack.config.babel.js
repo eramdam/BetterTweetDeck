@@ -1,14 +1,14 @@
 /* eslint global-require: 0 */
-const path = require('path');
-const fs = require('fs');
+import path from 'path';
+import fs from 'fs';
 
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const GenerateJsonPlugin = require('generate-json-webpack-plugin');
-const ZipPlugin = require('zip-webpack-plugin');
-const config = require('config');
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import CleanWebpackPlugin from 'clean-webpack-plugin';
+import GenerateJsonPlugin from 'generate-json-webpack-plugin';
+import ZipPlugin from 'zip-webpack-plugin';
+import config from 'config';
 
 const extractContent = new ExtractTextPlugin('css/index.css');
 const extractOptions = new ExtractTextPlugin('options/css/index.css');
