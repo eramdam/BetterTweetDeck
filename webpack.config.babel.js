@@ -107,7 +107,23 @@ module.exports = (env) => {
         {
           test: /\.css$/,
           include: path.resolve(__dirname, 'src/css/options'),
+          exclude: /options/,
           use: extractOptions.extract(cssLoaders),
+        },
+        {
+          test: /\.js$/,
+          include: path.resolve(__dirname, 'src/options/'),
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['env', 'react'],
+              plugins: [
+                'transform-object-rest-spread',
+                'transform-class-properties',
+                'transform-react-remove-prop-types',
+              ],
+            },
+          },
         },
       ],
     },

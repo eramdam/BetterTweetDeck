@@ -13,7 +13,8 @@ module.exports = {
     TD: false,
     Hogan: false,
   },
-  extends: 'airbnb-base',
+  parser: 'babel-eslint',
+  extends: 'airbnb',
   rules: {
     'import/no-dynamic-require': 0,
     'no-param-reassign': 0,
@@ -21,5 +22,6 @@ module.exports = {
     'arrow-body-style': 0,
     'no-underscore-dangle': 0,
     'prefer-destructuring': 0,
+    'react/jsx-filename-extension': 0,
   },
 };
