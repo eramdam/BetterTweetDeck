@@ -99,14 +99,21 @@ module.exports = (env) => {
         },
         {
           test: /\.css$/,
-          exclude: path.resolve(__dirname, 'src/css/options'),
+          include: path.resolve(__dirname, 'src/css/'),
           use: extractContent.extract(cssLoaders),
         },
         {
           test: /\.css$/,
-          include: path.resolve(__dirname, 'src/css/options'),
-          exclude: /options/,
-          use: extractOptions.extract(cssLoaders),
+          include: path.resolve(__dirname, 'src/options/css'),
+          use: [
+            'style-loader',
+            {
+              loader: 'css-loader',
+            },
+            {
+              loader: 'postcss-loader',
+            },
+          ],
         },
         {
           test: /\.js$/,
