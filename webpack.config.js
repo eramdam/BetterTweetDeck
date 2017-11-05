@@ -85,9 +85,6 @@ module.exports = (env) => {
       'js/content': './src/js/content.js',
       options: './src/options/options.js',
     },
-    chromeExtensionBoilerplate: {
-      notHotReload: ['js/content'],
-    },
     output: {
       filename: '[name].js',
       path: `${__dirname}/${DIST_FOLDER}`,

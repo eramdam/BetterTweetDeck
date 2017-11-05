@@ -4,8 +4,7 @@ const webpack = require('webpack');
 const config = require('../webpack.config')({ browser: 'chrome' });
 const path = require('path');
 
-const options = (config.chromeExtensionBoilerplate || {});
-const excludeEntriesToHotReload = (options.notHotReload || []);
+const excludeEntriesToHotReload = ['js/content'];
 
 Object.keys(config.entry).forEach((entryName) => {
   if (excludeEntriesToHotReload.indexOf(entryName) === -1) {
