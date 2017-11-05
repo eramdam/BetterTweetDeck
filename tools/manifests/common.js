@@ -68,16 +68,13 @@ const common = {
     'notifications',
   ],
   optional_permissions: ['tabs'],
-  options_ui: {
-    page: 'options/ui/ui.html',
-    chrome_style: false,
-  },
+  options_page: 'options.html',
   web_accessible_resources: [
     'embeds.js',
     'emojis/sheet_twitter_64.png',
     'fonts/*.*',
     'js/inject.js',
-    'options/options.html',
+    'options.html',
   ],
   content_security_policy: `img-src https: data: 'self' *; default-src; connect-src * https:; style-src 'unsafe-inline'`,
 };

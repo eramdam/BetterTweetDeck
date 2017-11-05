@@ -1,14 +1,15 @@
 /* eslint global-require: 0 */
-import path from 'path';
-import fs from 'fs';
+const path = require('path');
+const fs = require('fs');
 
-import CopyWebpackPlugin from 'copy-webpack-plugin';
-import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import CleanWebpackPlugin from 'clean-webpack-plugin';
-import GenerateJsonPlugin from 'generate-json-webpack-plugin';
-import ZipPlugin from 'zip-webpack-plugin';
-import config from 'config';
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const GenerateJsonPlugin = require('generate-json-webpack-plugin');
+const ZipPlugin = require('zip-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const config = require('config');
 
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
@@ -24,9 +25,6 @@ const staticFiles = [
   },
   {
     from: 'emojis/*.png',
-  },
-  {
-    from: 'options/**/*.html',
   },
   {
     from: 'options/ui/*',
@@ -85,7 +83,10 @@ module.exports = (env) => {
       'js/inject': './src/js/inject.js',
       'js/background': './src/js/background.js',
       'js/content': './src/js/content.js',
-      'options/options': './src/options/options.js',
+      options: './src/options/options.js',
+    },
+    chromeExtensionBoilerplate: {
+      notHotReload: ['js/content'],
     },
     output: {
       filename: '[name].js',
@@ -139,6 +140,11 @@ module.exports = (env) => {
       new CleanWebpackPlugin([DIST_FOLDER]),
       new CopyWebpackPlugin(staticFiles),
       new GenerateJsonPlugin('manifest.json', getManifest(), null, 2),
+      new HtmlWebpackPlugin({
+        template: path.join(__dirname, 'src', 'options', 'options.html'),
+        filename: 'options.html',
+        chunks: ['options'],
+      }),
       IS_PRODUCTION ? new UglifyJSPlugin({
         parallel: true,
       }) : () => null,

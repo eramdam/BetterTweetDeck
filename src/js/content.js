@@ -497,7 +497,7 @@ on('BTDC_ready', () => {
   setInterval(refreshTimestamps, TIMESTAMP_INTERVAL);
   Emojis();
 
-  const settingsURL = BHelper.getExtensionUrl('options/options.html');
+  const settingsURL = BHelper.getExtensionUrl('options.html');
   const settingsBtn = `
     <a class="btd-settings-btn js-header-action link-clean cf app-nav-link padding-h--10 with-nav-border-t" data-title="BTD Settings">
       <div class="obj-left margin-l--2">
