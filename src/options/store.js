@@ -11,10 +11,14 @@ class Store {
       foo: 'bar',
       _settings: {},
       get settings() {
-        return Object.assign({}, this._settings);
+        return this._settings;
       },
       set settings(obj) {
         this._settings = obj;
+      },
+      saveSettings() {
+        console.log('saveSettings');
+        settings.set(this._settings);
       },
     });
   }
