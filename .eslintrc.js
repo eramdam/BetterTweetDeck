@@ -23,5 +23,9 @@ module.exports = {
     'no-underscore-dangle': 0,
     'prefer-destructuring': 0,
     'react/jsx-filename-extension': 0,
+    'react/prop-types': [2, {
+      ignore: ['store'],
+    }],
+    'react/forbid-prop-types': [2, { forbid: ['any'] }],
   },
 };
