@@ -44,7 +44,6 @@ const defaultSettings = {
     show_verified: true,
     actions_on_right: true,
     actions_on_hover: true,
-    hide_url_thumb: true,
     no_bg_modal: true,
     show_provider_indicator: false,
     hide_like_rt_indicators: false,
