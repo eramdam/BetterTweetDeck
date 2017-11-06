@@ -23,8 +23,7 @@ export function getAttributeFromNode(selector, node, attribute) {
 }
 
 export function parse(html) {
-  const safe = dompurify.sanitize(html, purifyConfig);
-  const doc = domify(safe);
+  const doc = domify(html);
 
   return doc;
 }
