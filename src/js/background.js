@@ -32,6 +32,7 @@ const defaultSettings = {
   css: {
     round_pic: true,
     bigger_emojis: true,
+    character_count: false,
     collapse_dms: false,
     no_col_icns: false,
     gray_icns_notifs: false,

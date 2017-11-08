@@ -42,6 +42,7 @@
   "old_replies": { "message": "Revert to the old replies style (pre 03/30/2017)" },
   "css_round_pic": { "message": "Make avatars rounded" },
   "css_bigger_emojis": { "message": "Make emojis bigger in tweets" },
+  "css_character_count": { "message": "Always show the character count instead of the circular progress bar" },
   "css_collapse_dms": { "message": "Collapse read direct messages" },
   "css_system_fonts": { "message": "Use the system font in the UI" },
   "css_show_verified": { "message": "Show 'verified' badges on top of avatars" },
