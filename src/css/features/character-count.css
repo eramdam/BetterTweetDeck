@@ -1,0 +1,7 @@
+.btd__character_count .js-character-count {
+  display: inline !important;
+}
+
+.btd__character_count .js-character-count ~ svg {
+  display: none !important;
+}
