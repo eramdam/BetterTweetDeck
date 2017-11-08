@@ -341,7 +341,7 @@ if (SETTINGS.hotlink_item || SETTINGS.download_item) {
 TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].replace('{{/isOwnChirp}} {{/chirp}} </ul>', `
       ${SETTINGS.edit_item ? `  
         <li class="is-selectable">
-          <a href="#" data-btd-action="edit-tweet">{{_i}}Edit{{/i}}</a>
+          <a href="#" data-btd-action="edit-tweet">{{_i}}"Edit"{{/i}}</a>
         </li>
         ` : ''}
         {{/isOwnChirp}}
