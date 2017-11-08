@@ -42,6 +42,7 @@
   "old_replies": { "message": "Revenir à l'ancien style de mentions (pré-30/03/2017)" },
   "css_round_pic": { "message": "Rendre les avatars ronds" },
   "css_bigger_emojis": { "message": "Afficher les emojis plus gros dans les tweets" },
+  "css_character_count": { "message": "Afficher le nombre de caractères restants sous forme de chiffre au lieu d'un cercle de progression" },
   "css_collapse_dms": { "message": "Masquer les DMs lus" },
   "css_show_verified": { "message": "Afficher les badges des comptes vérifiés au dessus des avatars" },
   "css_hide_context": { "message": "Masquer 'in reply to' sur les mentions" },
