@@ -3,7 +3,7 @@
 		"message": "絵文字、サムネイルの表示など、https://tweetdeck.twitter.com にさまざまな機能を追加する拡張機能です！"
 	},
 	"appName": {
-		"message": "BetterTweetDeck 3"
+		"message": "BetterTweetDeck"
 	},
   "shareOnTD": { "message": "TweetDeck で共有" },
   "settingsTitle": { "message": "Better TweetDeck 設定" },
