@@ -10,12 +10,15 @@ html.btd-on {
     flex: 1;
     overflow-y: scroll;
     overflow-x: hidden;
+
     &::-webkit-scrollbar {
       width: 2px;
     }
+
     &::-webkit-scrollbar-track {
       background: white;
     }
+
     &::-webkit-scrollbar-thumb {
       background: color(black a(20%));
     }
@@ -46,7 +49,7 @@ html.btd-on {
     top: -5px;
   }
 
-  .emoji-popover .category-chooser>button {
+  .emoji-popover .category-chooser > button {
     appearance: none;
     flex: 1;
     background: transparent;
@@ -76,7 +79,7 @@ html.btd-on {
     margin: 5px;
   }
 
-  .emoji-popover .btd-skin-tone+.btd-skin-tone {
+  .emoji-popover .btd-skin-tone + .btd-skin-tone {
     margin-left: 0;
   }
 
@@ -84,13 +87,14 @@ html.btd-on {
     border-radius: 10px;
   }
 
-  .emoji-popover .btd-emoji .emoji-outer+.emoji-outer {
+  .emoji-popover .btd-emoji .emoji-outer + .emoji-outer {
     display: none;
   }
 
   .btd__small_icns_compose {
     .emoji-popover {
       margin-top: 50px;
+
       .caret {
         left: 9%;
       }
@@ -108,11 +112,13 @@ html.btd-on {
       background-position: 50%, 50%;
       background-size: contain;
     }
+
     span.emoji-sizer {
       line-height: 0.81em;
       font-size: 1em;
       margin: -2px 0;
     }
+
     span.emoji-outer {
       display: -moz-inline-box;
       display: inline-block;
@@ -120,6 +126,7 @@ html.btd-on {
       height: 1em;
       width: 1em;
     }
+
     span.emoji-inner {
       display: -moz-inline-box;
       display: inline-block;
@@ -128,11 +135,10 @@ html.btd-on {
       height: 100%;
       vertical-align: baseline;
     }
+
     img.emoji {
       width: 1em;
       height: 1em;
     }
   }
-
-
 }

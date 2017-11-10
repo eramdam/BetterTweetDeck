@@ -9,6 +9,7 @@ html.btd-on {
   .btd__no_bg_modal :matches(.mdl-media-prev, .mdl-media-next) {
     background: transparent;
     z-index: 10;
+
     .icon {
       background: color(#151515 a(60%));
       border-radius: 50%;
@@ -17,6 +18,7 @@ html.btd-on {
       margin-left: -21px;
       margin-top: -21px;
     }
+
     .icon::before {
       position: absolute;
       left: 45%;

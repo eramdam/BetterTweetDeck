@@ -36,7 +36,6 @@
 
 @import './embeds.css';
 
-
 html.btd-on {
   [data-btdtheme] .dropdown-menu {
     z-index: 20;
@@ -178,7 +177,7 @@ html.btd-on {
     color: #009cf0;
   }
 
-  .tweet-detail .js-media.btd-media-thumbnail~.js-card-container {
+  .tweet-detail .js-media.btd-media-thumbnail ~ .js-card-container {
     display: none;
   }
 
@@ -193,14 +192,14 @@ html.btd-on {
 
   .btd__old_replies {
     .quoted-tweet .js-reply-info-container,
-    .tweet-body>div>.other-replies,
-    .tweet-detail>div>.other-replies {
+    .tweet-body > div > .other-replies,
+    .tweet-detail > div > .other-replies {
       font-size: 0;
       height: 0;
     }
   }
 
-  .btd__old_replies .js-stream-item:not(.btd-is-retweet) .js-tweet:not(.txt-mute) .thread~.tweet-body,
+  .btd__old_replies .js-stream-item:not(.btd-is-retweet) .js-tweet:not(.txt-mute) .thread ~ .tweet-body,
   .btd__old_replies .js-stream-item .quoted-tweet {
     .other-replies::before {
       display: none;

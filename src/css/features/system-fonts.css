@@ -1,7 +1,7 @@
 html.btd-on {
   .btd__system_fonts {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-    
+
     .is-inverted-dark {
       font-family: inherit;
     }

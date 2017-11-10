@@ -3,6 +3,7 @@ html.btd-on {
     .js-column-scroller {
       overflow-y: hidden;
     }
+
     .js-detail-container {
       overflow-y: hidden;
     }
@@ -13,9 +14,11 @@ html.btd-on {
     .scroll-styled-h::-webkit-scrollbar-track {
       border-left: 0;
     }
+
     .scroll-styled-h::-webkit-scrollbar {
       height: 0;
     }
+
     .needs-scroll-bottom-offset.scroll-styled-h {
       bottom: 0;
     }

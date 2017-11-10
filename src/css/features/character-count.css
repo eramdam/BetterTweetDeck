@@ -3,7 +3,7 @@ html.btd-on {
     display: inline !important;
   }
 
-  .btd__character_count .js-character-count~svg {
+  .btd__character_count .js-character-count ~ svg {
     display: none !important;
   }
 }

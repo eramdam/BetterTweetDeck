@@ -11,6 +11,7 @@ html.btd-on {
   .btd__minimal_mode .column {
     margin-right: 2px !important;
   }
+
   /**
  * Transparent bg for items in navbar so we can change its bg easily
  */
@@ -28,6 +29,7 @@ html.btd-on {
   .btd__minimal_mode .dropdown-menu .is-selected {
     background-color: color(#55acee saturation(0%));
   }
+
   /**
  * No border betweet tweets + lighter divider between translation and original tweet
  */
@@ -40,7 +42,7 @@ html.btd-on {
     background: rgba(0, 0, 0, 0.13);
   }
 
-  .btd__minimal_mode .js-stream-item .activity-header+.txt-mute .tweet-context {
+  .btd__minimal_mode .js-stream-item .activity-header + .txt-mute .tweet-context {
     display: none;
   }
 

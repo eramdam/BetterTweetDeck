@@ -1,10 +1,10 @@
 html.btd-on {
-  .noembed-embed-inner>div,
+  .noembed-embed-inner > div,
   .streamable-embed-container {
     min-width: 750px;
   }
 
-  .streamable-embed-container>iframe {
+  .streamable-embed-container > iframe {
     left: 0;
   }
 
@@ -71,6 +71,4 @@ html.btd-on {
     max-height: 100% !important;
     object-fit: contain;
   }
-
-
 }
