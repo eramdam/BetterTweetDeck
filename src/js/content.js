@@ -128,6 +128,7 @@ function tweakClassesFromVisualSettings() {
     .filter(key => SETTINGS.css[key])
     .map(cl => `btd__${cl}`);
 
+  document.querySelector('html').classList.add('btd-on');
   document.body.classList.add(...enabledClasses);
 
   if (SETTINGS.flash_tweets.enabled) {

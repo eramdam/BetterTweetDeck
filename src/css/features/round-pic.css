@@ -1,3 +1,5 @@
-.btd__round_pic :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
-  border-radius: 50% !important;
+html.btd-on {
+  .btd__round_pic :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
+    border-radius: 50% !important;
+  }
 }

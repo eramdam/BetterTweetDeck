@@ -1,111 +1,102 @@
-/* collapsed column states */
-section.btd-column-collapsed {
-  &.column {
-    width: 52px !important;
+html.btd-on {
+  /* collapsed column states */
+
+  section.btd-column-collapsed {
+    &.column {
+      width: 52px !important;
+    }
+    .js-column-header {
+      transform-origin: 0 100%;
+      transform: rotate(90deg);
+      width: 100vh;
+      top: -50px;
+      display: flex;
+      flex-direction: row;
+    }
+    i.column-type-icon {
+      transform-origin: 50% 100%;
+      transform: rotate(-90deg);
+      position: relative;
+      left: 12px;
+      bottom: 0;
+      order: 1;
+    }
+    .column-title {
+      order: 2;
+      margin-left: 4px;
+    }
+    ul.btd-column-buttons {
+      order: 0;
+      position: relative;
+      margin-left: 10px;
+    }
+    &.column-type-message ul.btd-column-buttons {
+      flex-direction: row-reverse;
+    }
+    &.column-type-message ul.btd-column-buttons li:nth-child(3) {
+      order: 1;
+    }
+    i.column-type-icon::before {
+      position: relative;
+      top: -14px;
+    }
+    /* uiColumnTitleRefreshed forces us to change this class (mustache recalc), or we could cheat */
+    .icon-minus::before {
+      content: "\f183";
+    }
+    .js-column-content,
+    .js-add-to-customtimeline {
+      display: none;
+    }
   }
 
   .js-column-header {
-    transform-origin: 0 100%;
-    transform: rotate(90deg);
-    width: 100vh;
-    top: -50px;
     display: flex;
-    flex-direction: row;
   }
 
-  i.column-type-icon {
-    transform-origin: 50% 100%;
-    transform: rotate(-90deg);
-    position: relative;
-    left: 12px;
-    bottom: 0;
-    order: 1;
+  .column-header .column-title,
+  .column-header-temp .column-title {
+    margin-right: 0 !important;
+    flex-grow: 1;
+    flex-shrink: 1;
   }
 
-  .column-title {
-    order: 2;
-    margin-left: 4px;
+  .column-header .column-title-editable {
+    display: flex;
+    align-items: center;
+  }
+
+  .column-header .column-title-editable img {
+    display: none;
+  }
+
+  section.js-column.column.column-type-search .btd-column-buttons {
+    width: 100%;
   }
 
   ul.btd-column-buttons {
-    order: 0;
-    position: relative;
-    margin-left: 10px;
-  }
-
-  &.column-type-message ul.btd-column-buttons {
-    flex-direction: row-reverse;
-  }
-
-  &.column-type-message ul.btd-column-buttons li:nth-child(3) {
-    order: 1;
-  }
-
-  i.column-type-icon::before {
-    position: relative;
-    top: -14px;
-  }
-
-  /* uiColumnTitleRefreshed forces us to change this class (mustache recalc), or we could cheat */
-  .icon-minus::before {
-    content: "\f183";
-  }
-
-  .js-column-content,
-  .js-add-to-customtimeline {
-    display: none;
-  }
-}
-
-.js-column-header {
-  display: flex;
-}
-
-.column-header .column-title,
-.column-header-temp .column-title {
-  margin-right: 0 !important;
-  flex-grow: 1;
-  flex-shrink: 1;
-}
-
-.column-header .column-title-editable {
-  display: flex;
-  align-items: center;
-}
-
-.column-header .column-title-editable img {
-  display: none;
-}
-
-section.js-column.column.column-type-search .btd-column-buttons {
-  width: 100%;
-}
-
-ul.btd-column-buttons {
-  /* move .column-header-link styles to here */
-  width: auto;
-  margin: 0;
-  position: relative;
-  margin-right: -5px;
-  flex-shrink: 0;
-  padding: 0 4px;
-  display: flex;
-  flex-direction: row;
-
-  li {
-    /* undo the .column-header-link styles for the children */
-    position: relative;
+    /* move .column-header-link styles to here */
+    width: auto;
     margin: 0;
-
-    a.column-header-link {
+    position: relative;
+    margin-right: -5px;
+    flex-shrink: 0;
+    padding: 0 4px;
+    display: flex;
+    flex-direction: row;
+    li {
+      /* undo the .column-header-link styles for the children */
+      position: relative;
       margin: 0;
-      top: 0;
-      right: 0;
-      position: inherit;
-      display: block;
-
-      i {
-        vertical-align: text-bottom;
+      a.column-header-link {
+        margin: 0;
+        top: 0;
+        right: 0;
+        position: inherit;
+        display: block;
+        i {
+          vertical-align: text-bottom;
+        }
       }
     }
   }
