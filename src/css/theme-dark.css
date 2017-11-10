@@ -7,6 +7,14 @@
     }
   }
 
+  .drawer .compose .btn-on-blue {
+    background-color: color(white alpha(15%));
+
+    &:hover {
+      background-color: color(white alpha(10%));
+    }
+  }
+
   .app-columns-container {
     background-color: #151515;
   }
