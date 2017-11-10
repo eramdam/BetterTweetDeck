@@ -32,10 +32,9 @@ const defaultSettings = {
   css: {
     round_pic: true,
     bigger_emojis: true,
-    character_count: false,
+    character_count: true,
     collapse_dms: false,
     no_col_icns: false,
-    gray_icns_notifs: false,
     minimal_mode: false,
     small_icns_compose: true,
     usrname_only_typeahead: true,

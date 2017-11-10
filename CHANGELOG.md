@@ -1,4 +1,9 @@
-:tada: 3.4.9 :tada:
+:tada: 3.4.10 :tada:
+===============
+- [Bugfix] The "icons in compose panel are smaller" was not properly fixed after 3.4.9. Should be good now.
+- That's all (again)
+
+3.4.9
 ===============
 - [Bugfix] All of the CSS tweaks should work properly (minimal theme, modal background, verified icon, stars, etc..)
 - That's all folks ¯\(ツ)/¯
