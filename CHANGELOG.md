@@ -1,8 +1,14 @@
-:tada: 3.4.8 :tada:
+:tada: 3.4.9 :tada:
+===============
+- [Bugfix] All of the CSS tweaks should work properly (minimal theme, modal background, verified icon, stars, etc..)
+- That's all folks ¯\(ツ)/¯
+
+
+3.4.8
 ===============
 <ul>
   <li data-info-setting="interface/character_count">[Feature] You can display the character count as a number again instead of the circle-loading-thing (thanks <a href="https://github.com/pixeldesu">@pixeldesu</a> <a href="https://github.com/eramdam/BetterTweetDeck/pull/263">#263</a>)</li>
-  <li>[Improvement] [Bug] Due to performance reasons, Better TweetDeck will NOT change timestamps, load thumbnails and stickers inside DMs anymore as it was slowing down the DM conversations too much.</li>
+  <li>[Improvement] [Bugfix] Due to performance reasons, Better TweetDeck will NOT change timestamps, load thumbnails and stickers inside DMs anymore as it was slowing down the DM conversations too much.</li>
   <li>[Bugfix] Fixes to the French translations (thanks <a href="https://github.com/viki53">@viki53</a> <a href="https://github.com/eramdam/BetterTweetDeck/pull/252">#252</a>)</li>
   <li>[Improvement] The Japanese translation has been updated (thanks <a href="https://github.com/shuuji3">@shuuji3</a> <a href="https://github.com/eramdam/BetterTweetDeck/pull/259">#259</a>)</li>
 </ul>
