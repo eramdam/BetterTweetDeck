@@ -223,4 +223,8 @@ html.btd-on {
       top: 60px;
     }
   }
+
+  .js-modal.open-modal div.js-right-column.scroll-v {
+    overflow-x: hidden;
+  }
 }
