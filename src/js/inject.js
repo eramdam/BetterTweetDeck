@@ -1,10 +1,17 @@
 import config from 'config';
 import FileSaver from 'file-saver';
 import Clipboard from 'clipboard';
-import { unescape } from 'lodash/string';
+import { unescape, debounce } from 'lodash';
+import GiphyAPI from 'giphy-api';
 import Log from './util/logger';
 import UsernamesTemplates from './util/username_templates';
 import wc from './util/webcrack';
+import { giphySearch, giphyBlock } from './util/templates';
+
+const GiphyClient = GiphyAPI({
+  apiKey: config.Client.APIs.giphy,
+  https: true,
+});
 
 const SETTINGS = $('[data-btd-settings]').data('btd-settings');
 window.BTD = {};
@@ -633,6 +640,84 @@ $(document).one('dataColumnsLoaded', () => {
 
   switchThemeClass();
   setTimeout(checkBTDFollowing, 2000);
+
+  const giphyZone = document.createElement('div');
+  giphyZone.className = 'btd-giphy-zone compose padding-h--15 scroll-v scroll-styled-v';
+  giphyZone.innerHTML = giphySearch();
+
+  const giphyButton = `
+  <button class="js-giphy-btn js-show-tip needsclick btn btn-on-blue full-width txt-left margin-b--12 padding-v--9"
+  data-original-title="" tabindex="">
+    <i class="icon icon-gif-badge"></i>
+    <span class="js-add-image-button-label label padding-ls">Giphy</span>
+  </button>
+`;
+
+  $('.js-add-image-button')[0].insertAdjacentHTML('beforebegin', giphyButton);
+
+  $('.js-app')[0].insertAdjacentElement('beforeend', giphyZone);
+});
+
+$(document).on('click', '.js-giphy-btn', (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  $('.btd-giphy-zone').addClass('-visible');
+
+  GiphyClient.trending().then((res) => {
+    const gifs = res.data.map(i => ({
+      preview: i.images.preview_gif,
+      url: i.images.original.url,
+    }));
+
+    $('.btd-giphy-zone .giphy-content').html(gifs.map(giphyBlock).join(''));
+  });
+});
+
+const closeGiphyZone = (ev) => {
+  ev.stopPropagation();
+  ev.preventDefault();
+  $('.btd-giphy-zone').removeClass('-visible');
+  $('.btd-giphy-zone .giphy-content > *').remove();
+  $('.giphy-search-input').val('');
+};
+
+$(document).on('input', '.giphy-search-input', debounce((ev) => {
+  const query = ev.target.value;
+
+  GiphyClient.search({
+    q: query,
+  }).then((res) => {
+    const gifs = res.data.map(i => ({
+      preview: i.images.preview_gif,
+      url: i.images.original.url,
+    }));
+    const markup = gifs.map(giphyBlock).join('');
+    $('.btd-giphy-zone .giphy-content').html(markup);
+  });
+}, 500));
+
+$(document).on('click', '.btd-giphy-close', closeGiphyZone);
+
+$(document).on('click', '.btd-giphy-block', (ev) => {
+  const gifRequest = new XMLHttpRequest();
+  gifRequest.open('GET', ev.target.dataset.btdUrl);
+  gifRequest.responseType = 'blob';
+
+  gifRequest.onload = (event) => {
+    const blob = event.target.response;
+
+    const myFile = new File([blob], 'awesome-gif.gif');
+    $(document).trigger('uiFilesAdded', {
+      files: [myFile],
+    });
+    closeGiphyZone(ev);
+  };
+
+  gifRequest.onprogress = (event) => {
+    console.log('progress', event);
+  };
+
+  gifRequest.send();
 });
 
 // Adds search column to the beginning instead of the end, and resets search input for convenience

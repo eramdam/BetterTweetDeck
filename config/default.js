@@ -9,6 +9,7 @@ module.exports = {
       imgur: '',
       twitch: '',
       tinami: '',
+      giphy: '',
     },
     extension_ids: {
       chrome: {

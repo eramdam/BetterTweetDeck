@@ -1,0 +1,42 @@
+.btd-giphy-zone {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  z-index: 210;
+  left: 50px;
+  display: block;
+  color: white;
+  width: 270px;
+  height: 100%;
+  transform: translateX(-2px);
+  pointer-events: none;
+  opacity: 0;
+  transition-property: opacity, transform;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+}
+
+.btd-giphy-zone.-visible {
+  pointer-events: all;
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.btd-giphy-zone .giphy-content {
+  column-count: 2;
+  column-gap: 0;
+  font-size: 0;
+  margin-left: -15px;
+  margin-right: -15px;
+  margin-top: 10px;
+}
+
+.btd-giphy-zone .giphy-content .btd-giphy-block {
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
+.btd-giphy-zone .giphy-content .btd-giphy-block:hover {
+  opacity: 0.6;
+}
