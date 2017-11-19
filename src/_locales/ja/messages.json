@@ -42,6 +42,7 @@
   "old_replies": { "message": "リプライの表示を昔 (2017/03/30 以前) のスタイルに戻す" },
   "css_round_pic": { "message": "アイコンを円形表示する" },
   "css_bigger_emojis": { "message": "ツイート内の絵文字を大きくする" },
+  "css_character_count": { "message": "円形のプログレスバーの代わりに、常に残り文字数を表示する" },
   "css_collapse_dms": { "message": "ダイレクトメッセージの本文を折りたたむ" },
   "css_system_fonts": { "message": "UI にシステムフォントを使用する" },
   "css_show_verified": { "message": "アイコン上に認証バッジを表示する" },
