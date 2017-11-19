@@ -8,7 +8,6 @@ import {
 class Store {
   constructor() {
     extendObservable(this, {
-      foo: 'bar',
       _settings: {},
       get settings() {
         return this._settings;
@@ -17,7 +16,6 @@ class Store {
         this._settings = obj;
       },
       saveSettings() {
-        console.log('saveSettings');
         settings.set(this._settings);
       },
     });

@@ -3,3 +3,10 @@
 body {
   font-family: system-ui;
 }
+
+.header {
+  background-image: linear-gradient(-45deg, #00A0FB 47%, #00CBFC 100%);
+  height: 20px;
+  width: 100%;
+  font-family: "PT Sans", system-ui;
+}

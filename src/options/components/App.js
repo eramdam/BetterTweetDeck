@@ -1,26 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { observer } from 'mobx-react';
+import Helmet from 'react-helmet';
 
-const App = (props) => {
-  return (
-    <div>
-      Hello world
-      <button onClick={() => {
-        props.store.saveSettings();
-      }}
-      >
-        Save
-      </button>
-      <pre>
-        {JSON.stringify(props.store.settings, null, 2)}
-      </pre>
-    </div>
-  );
+const App = () => {
+  return [
+    <div className="header">
+      Better Tweetdeck
+    </div>,
+  ];
 };
 
-App.propTypes = {
-  store: PropTypes.object.isRequired,
-};
-
-export default observer(App);
+export default App;
