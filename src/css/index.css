@@ -1,11 +1,14 @@
 /* Minimal themes + variations */
+
 @import './minimal.css';
 @import './theme-dark.css';
 @import './theme-light.css';
 
 /* Visual Features */
+
 @import './features/actions.css';
 @import './features/bigger-emojis.css';
+@import './features/character-count.css';
 @import './features/collapse-dms.css';
 @import './features/flash-tweets.css';
 @import './features/gray-notif-icns.css';
@@ -15,7 +18,6 @@
 @import './features/collapse-columns.css';
 @import './features/no-col-icns.css';
 @import './features/no-bg-modal.css';
-@import './features/no-play-btn.css';
 @import './features/round-pic.css';
 @import './features/show-verified.css';
 @import './features/small-icns.css';
@@ -27,203 +29,206 @@
 @import './features/hide-like-rt-indicators.css';
 
 /* Emoji Panel */
+
 @import './emoji-panel.css';
 
 /* Embed/modals */
+
 @import './embeds.css';
 
-:root {
-  /* Dark */
-  --compose-btn-bg-dark: #373839;
-  --compose-btn-bg-dark-hover: color(var(--compose-btn-bg-dark) shade(20%));
-  --main-bg-dark: #1d1e21;
-
-  /* Light */
-  --compose-btn-bg-light: #707375;
-  --compose-btn-bg-light-hover: color(var(--compose-btn-bg-light) shade(20%));
-  --main-bg-white: #fff;
-}
-
-[data-btdtheme] .dropdown-menu {
-  z-index: 20;
-}
-
-[data-btdtheme] .js-media-image-link {
-  /* Future loading bg image */
-}
-
-[data-btdtheme] .video-overlay {
-  display: none;
-}
-
-[data-btdtheme] .js-media[data-key] .js-media-image-link {
-  background-color: white;
-}
-
-[data-btdtheme] .js-modal-panel .js-media-image-link {
-  background-color: transparent;
-}
-
-[data-btdtheme] .js-media-preview-container.is-video a {
-  &::after,
-  &::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
+html.btd-on {
+  [data-btdtheme] .dropdown-menu {
+    z-index: 20;
   }
 
-  &::after {
-    background-color: black;
-    border-radius: 50%;
-    opacity: 0.75;
-    z-index: 9;
-    width: 40px;
-    height: 40px;
-    transform: translate(-50%, -50%);
+  [data-btdtheme] .js-media-image-link {
+    /* Future loading bg image */
   }
 
-  &::before {
-    z-index: 10;
-    width: calc(40px * 80 / 100);
-    height: calc(40px * 80 / 100);
-    opacity: 0.8;
-    transform: translate(-45%, -50%);
-    background-image: url('../icons/controller-play.svg');
-  }
-}
-
-.column-navigator-overflow,
-.column-navigator {
-  bottom: 267px !important;
-}
-
-.app-navigator .with-nav-border-t:not(:first-of-type)::before {
-  display: none;
-}
-
-.js-add-emojis .btd-emoji-icon::before {
-  content: "\f438";
-}
-
-.js-media-image-link,
-article video.js-media-gif {
-  cursor: zoom-in !important;
-}
-
-.tweet-dogear {
-  position: absolute;
-  top: 0;
-  right: 0;
-  visibility: hidden;
-  width: 24px;
-  height: 24px;
-  z-index: 9;
-}
-
-.is-retweet .tweet-dogear {
-  visibility: visible;
-  background-position: -170px -10px;
-}
-
-.is-favorite .tweet-dogear {
-  visibility: visible;
-  background-position: -140px -10px;
-}
-
-.is-retweet.is-favorite .tweet-dogear {
-  background-position: -200px -10px;
-}
-
-div.youtube-player:matches(.-gfycat) {
-  min-width: 700px;
-}
-
-iframe.imgur-album {
-  max-height: 650px !important;
-}
-
-body :matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
-  border-radius: 10% !important;
-}
-
-@media (max-height: 720px) {
-  [data-btdtheme] .med-embeditem {
-    top: 30px;
-    bottom: 130px;
-  }
-}
-
-.stream-item .is-video .reverse-image-search {
-  pointer-events: none !important;
-  display: none !important;
-}
-
-[data-action-id^="btd-banner"] {
-  background-color: color(black alpha(30%)) !important;
-}
-
-.dropdown-menu .typeahead-item,
-.dropdown-menu [data-btd-action] {
-  display: block;
-  padding: 5px 20px;
-  color: #292f33;
-  text-shadow: none;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.dropdown-menu .is-selected [data-btd-action] {
-  color: #fff;
-}
-
-.btd-settings-btn .icon {
-  color: #009cf0;
-}
-
-.tweet-detail .js-media.btd-media-thumbnail ~ .js-card-container {
-  display: none;
-}
-
-.icon-download::before {
-  content: "\F186";
-}
-
-.tweet-detail-actions.tweet-detail-actions {
-  display: flex;
-  padding-bottom: 8px;
-}
-
-.btd__old_replies {
-  .quoted-tweet .js-reply-info-container,
-  .tweet-body > div > .other-replies,
-  .tweet-detail > div > .other-replies {
-    font-size: 0;
-    height: 0;
-  }
-}
-
-.btd__old_replies .js-stream-item:not(.btd-is-retweet) .js-tweet:not(.txt-mute) .thread ~ .tweet-body,
-.btd__old_replies .js-stream-item .quoted-tweet {
-  .other-replies::before {
+  [data-btdtheme] .video-overlay {
     display: none;
   }
-}
 
-.btd__old_replies .js-stream-item:not(.btd-is-retweet) .js-tweet:not(.txt-mute) .tweet-body {
-  .other-replies {
-    font-size: 0;
-    height: 0;
+  [data-btdtheme] .js-media[data-key] .js-media-image-link {
+    background-color: white;
   }
 
-  .other-replies::before {
-    content: "\f151";
+  [data-btdtheme] .js-modal-panel .js-media-image-link {
+    background-color: transparent;
+  }
+
+  [data-btdtheme] .js-media-preview-container.is-video a {
+    &::after,
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+    }
+
+    &::after {
+      background-color: black;
+      border-radius: 50%;
+      opacity: 0.75;
+      z-index: 9;
+      width: 40px;
+      height: 40px;
+      transform: translate(-50%, -50%);
+    }
+
+    &::before {
+      z-index: 10;
+      width: calc(40px * 80 / 100);
+      height: calc(40px * 80 / 100);
+      opacity: 0.8;
+      transform: translate(-45%, -50%);
+      background-image: url('../icons/controller-play.svg');
+    }
+  }
+
+  .column-navigator-overflow,
+  .column-navigator {
+    bottom: 267px !important;
+  }
+
+  .app-navigator .with-nav-border-t:not(:first-of-type)::before {
+    display: none;
+  }
+
+  .js-add-emojis .btd-emoji-icon::before {
+    content: "\f438";
+  }
+
+  .js-media-image-link,
+  article video.js-media-gif {
+    cursor: zoom-in !important;
+  }
+
+  .tweet-dogear {
     position: absolute;
-    font-family: "tweetdeckregular";
-    left: 29px;
-    font-size: 14px;
-    z-index: 19;
-    color: inherit;
-    top: 60px;
+    top: 0;
+    right: 0;
+    visibility: hidden;
+    width: 24px;
+    height: 24px;
+    z-index: 9;
+  }
+
+  .is-retweet .tweet-dogear {
+    visibility: visible;
+    background-position: -170px -10px;
+  }
+
+  .is-favorite .tweet-dogear {
+    visibility: visible;
+    background-position: -140px -10px;
+  }
+
+  .is-retweet.is-favorite .tweet-dogear {
+    background-position: -200px -10px;
+  }
+
+  div.youtube-player:matches(.-gfycat) {
+    min-width: 700px;
+  }
+
+  iframe.imgur-album {
+    max-height: 650px !important;
+  }
+
+  body :matches(.tweet-avatar,
+.prf-img,
+.avatar,
+.compose-account) {
+    border-radius: 10% !important;
+  }
+
+  @media (max-height: 720px) {
+    [data-btdtheme] .med-embeditem {
+      top: 30px;
+      bottom: 130px;
+    }
+  }
+
+  .stream-item .is-video .reverse-image-search {
+    pointer-events: none !important;
+    display: none !important;
+  }
+
+  [data-action-id^="btd-banner"] {
+    background-color: color(black alpha(30%)) !important;
+  }
+
+  .dropdown-menu .typeahead-item,
+  .dropdown-menu [data-btd-action] {
+    display: block;
+    padding: 5px 20px;
+    color: #292f33;
+    text-shadow: none;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .dropdown-menu .is-selected [data-btd-action] {
+    color: #fff;
+  }
+
+  .btd-settings-btn .icon {
+    color: #009cf0;
+  }
+
+  .tweet-detail .js-media.btd-media-thumbnail ~ .js-card-container {
+    display: none;
+  }
+
+  .icon-download::before {
+    content: "\F186";
+  }
+
+  .tweet-detail-actions.tweet-detail-actions {
+    display: flex;
+    padding-bottom: 8px;
+  }
+
+  .btd__old_replies {
+    .quoted-tweet .js-reply-info-container,
+    .tweet-body > div > .other-replies,
+    .tweet-detail > div > .other-replies {
+      font-size: 0;
+      height: 0;
+    }
+  }
+
+  .btd__old_replies .js-stream-item:not(.btd-is-retweet) .js-tweet:not(.txt-mute) .thread ~ .tweet-body,
+  .btd__old_replies .js-stream-item .quoted-tweet {
+    .other-replies::before {
+      display: none;
+    }
+  }
+
+  .btd__old_replies .js-stream-item:not(.btd-is-retweet) .js-tweet:not(.txt-mute) .tweet-body {
+    .other-replies {
+      font-size: 0;
+      height: 0;
+    }
+
+    .other-replies::before {
+      content: "\f151";
+      position: absolute;
+      font-family: "tweetdeckregular";
+      left: 29px;
+      font-size: 14px;
+      z-index: 19;
+      color: inherit;
+      top: 60px;
+    }
+  }
+
+  .js-modal.open-modal div.js-right-column.scroll-v {
+    overflow-x: hidden;
+  }
+
+  .icon::before {
+    -moz-osx-font-smoothing: grayscale;
   }
 }

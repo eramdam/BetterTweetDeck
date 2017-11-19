@@ -1,9 +1,23 @@
-[data-btdtheme="dark"].btd__minimal_mode {
+:root {
+  --compose-btn-bg-dark: #373839;
+  --compose-btn-bg-dark-hover: color(var(--compose-btn-bg-dark) shade(20%));
+  --main-bg-dark: #1d1e21;
+}
+
+html.btd-on [data-btdtheme="dark"].btd__minimal_mode {
   .btn-compose {
     background-color: var(--compose-btn-bg-dark);
 
     &:hover {
       background-color: var(--compose-btn-bg-dark-hover);
+    }
+  }
+
+  .drawer .compose .btn-on-blue {
+    background-color: color(white alpha(15%));
+
+    &:hover {
+      background-color: color(white alpha(10%));
     }
   }
 

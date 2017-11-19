@@ -1,8 +1,10 @@
-.btd__bigger_emojis {
-  p > .emoji {
-    width: 1.3em !important;
-    height: 1.3em !important;
-    padding: 0.2em 0.05em 0 0.1em !important;
-    vertical-align: text-bottom !important;
+html.btd-on {
+  .btd__bigger_emojis {
+    p > .emoji {
+      width: 1.3em !important;
+      height: 1.3em !important;
+      padding: 0.2em 0.05em 0 0.1em !important;
+      vertical-align: text-bottom !important;
+    }
   }
 }

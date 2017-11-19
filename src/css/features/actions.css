@@ -1,12 +1,14 @@
-.btd__actions_on_right .js-stream-item .js-tweet-actions {
-  float: right !important;
-  width: auto !important;
-}
+html.btd-on {
+  .btd__actions_on_right .js-stream-item .js-tweet-actions {
+    float: right !important;
+    width: auto !important;
+  }
 
-.btd__actions_on_hover .js-stream-item .js-tweet-actions a.tweet-action {
-  opacity: 0 !important;
-}
+  .btd__actions_on_hover .js-stream-item .js-tweet-actions a.tweet-action {
+    opacity: 0 !important;
+  }
 
-.btd__actions_on_hover .js-stream-item:hover .js-tweet-actions a.tweet-action {
-  opacity: 1 !important;
+  .btd__actions_on_hover .js-stream-item:hover .js-tweet-actions a.tweet-action {
+    opacity: 1 !important;
+  }
 }

@@ -1,59 +1,65 @@
-/*
+html.btd-on {
+  /*
 General style setup
  */
-.btd__show_verified .js-stream-item.btd-is-from-verified:not(.btd-is-from-verified-mini) > .js-stream-item-content > .js-tweet > .tweet-header .item-img.tweet-img,
-.btd__show_verified .js-stream-item.btd-is-from-verified-mini > .js-stream-item-content > .activity-header > .item-img {
-  position: absolute;
 
-  &::before {
-    content: "\f099";
-    font-family: "tweetdeckregular";
-    font-weight: normal;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    line-height: 1;
+  .btd__show_verified .js-stream-item.btd-is-from-verified:not(.btd-is-from-verified-mini) > .js-stream-item-content > .js-tweet > .tweet-header .item-img.tweet-img,
+  .btd__show_verified .js-stream-item.btd-is-from-verified-mini > .js-stream-item-content > .activity-header > .item-img {
     position: absolute;
-    color: #55acee;
-    width: 1em;
-    height: 1em;
-    font-size: 18px;
-    z-index: 9;
-    background-image: radial-gradient(circle 11px, white 50%, color(white a(0)) 51%);
+
+    &::before {
+      content: "\f099";
+      font-family: "tweetdeckregular";
+      font-weight: normal;
+      font-style: normal;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1;
+      position: absolute;
+      color: #55acee;
+      width: 1em;
+      height: 1em;
+      font-size: 18px;
+      z-index: 9;
+      background-image: radial-gradient(circle 11px, white 50%, color(white a(0)) 51%);
+    }
   }
-}
 
-/* General style */
-.btd__show_verified .js-stream-item.btd-is-from-verified:not(.btd-is-from-verified-mini) > .js-stream-item-content > .js-tweet > .tweet-header .item-img.tweet-img {
-  /* Allows */
-  position: absolute;
+  /* General style */
 
-  /* Helps with the positioning of the pseudo-element */
-  height: 48px;
-  width: 48px;
+  .btd__show_verified .js-stream-item.btd-is-from-verified:not(.btd-is-from-verified-mini) > .js-stream-item-content > .js-tweet > .tweet-header .item-img.tweet-img {
+    /* Allows */
+    position: absolute;
 
-  &::before {
-    bottom: -3px;
-    right: -3px;
+    /* Helps with the positioning of the pseudo-element */
+    height: 48px;
+    width: 48px;
+
+    &::before {
+      bottom: -3px;
+      right: -3px;
+    }
   }
-}
 
-/*
+  /*
  small avatar on activities ("Bob liked", "Alice retweeted", "Damien added you to a list", etc)
  */
-.btd__show_verified .js-stream-item.btd-is-from-verified-mini > .js-stream-item-content > .activity-header > .item-img {
-  position: relative;
 
-  &::before {
-    bottom: -10px;
-    right: -3px;
-    transform-origin: bottom right;
-    transform: scale(0.8);
-    background-image: radial-gradient(20px, rgb(255, 255, 255) 30%, rgba(255, 255, 255, 0) 31%);
-    background-position: 0 1px;
+  .btd__show_verified .js-stream-item.btd-is-from-verified-mini > .js-stream-item-content > .activity-header > .item-img {
+    position: relative;
+
+    &::before {
+      bottom: -10px;
+      right: -3px;
+      transform-origin: bottom right;
+      transform: scale(0.8);
+      background-image: radial-gradient(20px, rgb(255, 255, 255) 30%, rgba(255, 255, 255, 0) 31%);
+      background-position: 0 1px;
+    }
   }
-}
 
-/* Hide the vanilla verified badge in columns */
-.btd__show_verified .stream-item .js-tweet:not(.txt-mute) > header .sprite-verified-mini {
-  display: none;
+  /* Hide the vanilla verified badge in columns */
+
+  .btd__show_verified .stream-item .js-tweet:not(.txt-mute) > header .sprite-verified-mini {
+    display: none;
+  }
 }

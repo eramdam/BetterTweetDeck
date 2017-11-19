@@ -1,3 +1,5 @@
-.btd__hide_like_rt_indicators .js-tweet i.sprite.tweet-dogear {
-  display: none;
+html.btd-on {
+  .btd__hide_like_rt_indicators .js-tweet i.sprite.tweet-dogear {
+    display: none;
+  }
 }

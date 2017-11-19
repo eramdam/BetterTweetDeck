@@ -32,9 +32,9 @@ const defaultSettings = {
   css: {
     round_pic: true,
     bigger_emojis: true,
+    character_count: true,
     collapse_dms: false,
     no_col_icns: false,
-    gray_icns_notifs: false,
     minimal_mode: false,
     small_icns_compose: true,
     usrname_only_typeahead: true,
@@ -44,7 +44,6 @@ const defaultSettings = {
     show_verified: true,
     actions_on_right: true,
     actions_on_hover: true,
-    hide_url_thumb: true,
     no_bg_modal: true,
     show_provider_indicator: false,
     hide_like_rt_indicators: false,
@@ -130,9 +129,10 @@ function openWelcomePage() {
 function contextMenuHandler(info, tab, settings) {
   const urlToShare = info.linkUrl || info.srcUrl || info.pageUrl;
   let textToShare = info.selectionText || tab.title;
+  console.log({ textToShare });
 
   if (settings.share_item.short_txt) {
-    textToShare = textToShare.substr(0, 110);
+    textToShare = textToShare.substr(0, 255);
   }
 
   /**
