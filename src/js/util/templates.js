@@ -134,7 +134,9 @@ export const modalTemplate = ({
 
 export const giphyBlock = ({ preview, url }) => {
   return Mustache.render(`
-  <img src="{{{previewUrl}}}" class="btd-giphy-block" height="{{height}}" width="{{width}}" data-btd-url="{{{url}}}" />
+  <div class="btd-giphy-block-wrapper">
+    <img src="{{{previewUrl}}}" class="btd-giphy-block" height="{{height}}" width="{{width}}" data-btd-url="{{{url}}}" />
+  </div>
 `, {
       previewUrl: preview.url,
       width: preview.width,

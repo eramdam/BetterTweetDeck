@@ -656,6 +656,7 @@ $(document).one('dataColumnsLoaded', () => {
   $('.js-add-image-button')[0].insertAdjacentHTML('beforebegin', giphyButton);
 
   $('.js-app')[0].insertAdjacentElement('beforeend', giphyZone);
+  $('.js-character-count').parent().append('<span class="btd-gif-indicator txt-line-height--20 txt-size--12 txt-twitter-dark-gray"></span>');
 });
 
 $(document).on('click', '.js-giphy-btn', (e) => {
@@ -706,18 +707,23 @@ $(document).on('click', '.btd-giphy-block', (ev) => {
   gifRequest.onload = (event) => {
     const blob = event.target.response;
 
-    const myFile = new File([blob], 'awesome-gif.gif');
+    const myFile = new File([blob], 'awesome-gif.gif', {
+      type: 'image/gif',
+    });
     $(document).trigger('uiFilesAdded', {
       files: [myFile],
     });
-    closeGiphyZone(ev);
+    $('.btd-gif-indicator').removeClass('-visible');
   };
 
   gifRequest.onprogress = (event) => {
-    console.log('progress', event);
+    const { loaded, total } = event;
+    $('.btd-gif-indicator').text(`Adding GIF (${((loaded / total) * 100).toFixed(2)}%)`);
   };
 
   gifRequest.send();
+  $('.btd-gif-indicator').addClass('-visible');
+  closeGiphyZone(ev);
 });
 
 // Adds search column to the beginning instead of the end, and resets search input for convenience

@@ -37,6 +37,23 @@
   cursor: pointer;
 }
 
-.btd-giphy-zone .giphy-content .btd-giphy-block:hover {
+.btd-giphy-zone .giphy-content .btd-giphy-block-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.btd-giphy-zone .giphy-content .btd-giphy-block-wrapper:hover {
   opacity: 0.6;
+}
+
+.btd-gif-indicator {
+  float: left;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: all 300ms ease;
+}
+
+.btd-gif-indicator.-visible {
+  opacity: 1;
+  transform: translateX(0);
 }
