@@ -94,7 +94,6 @@
   opacity: 0;
   transition-property: color, opacity;
 
-
   &.-visible {
     opacity: 1;
   }
