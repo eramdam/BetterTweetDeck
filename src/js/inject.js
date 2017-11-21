@@ -646,8 +646,13 @@ $(document).one('dataColumnsLoaded', () => {
   giphyZone.innerHTML = giphySearch();
 
   $('.js-app')[0].insertAdjacentElement('beforeend', giphyZone);
+
+  const d = new Date();
+  const fool = d.getDate() === 1 && d.getMonth() === 3;
+  const GIFText = fool ? 'JIF' : 'GIF';
+
   $('.js-character-count').parent().append(`
-    <span class="btd-gif-button -visible txt-twitter-dark-gray">GIF</span>
+    <span class="btd-gif-button -visible txt-twitter-dark-gray">${GIFText}</span>
     <span class="btd-gif-indicator txt-line-height--20 txt-size--12 txt-twitter-dark-gray"></span>
   `);
 });
