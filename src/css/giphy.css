@@ -47,13 +47,59 @@
 }
 
 .btd-gif-indicator {
-  float: left;
   transform: translateY(100%);
   opacity: 0;
-  transition: all 300ms ease;
 }
 
-.btd-gif-indicator.-visible {
-  opacity: 1;
-  transform: translateX(0);
+.btd-gif-button,
+.btd-gif-indicator {
+  float: left;
+
+  &.-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes gradientSlide {
+  from {
+    background-position-x: 0;
+  }
+
+  to {
+    /* 40px is the width of our rainbow bg */
+    background-position-x: 40px;
+  }
+}
+
+.btd-gif-button,
+.btd-gif-indicator {
+  transition-property: transform, opacity;
+  transition-duration: 300ms;
+  transition-timing-function: ease;
+}
+
+.btd-gif-button {
+  font-weight: bold;
+  font-size: 10px;
+  border-radius: 3px;
+  padding: 2px 6px;
+  border: 1px solid currentColor;
+  cursor: pointer;
+  overflow: hidden;
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  z-index: 0;
+  opacity: 0;
+  transition-property: color, opacity;
+
+
+  &.-visible {
+    opacity: 1;
+  }
+}
+
+.btd-gif-button.btd-gif-button:hover {
+  color: #616161;
 }

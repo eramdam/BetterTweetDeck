@@ -645,21 +645,14 @@ $(document).one('dataColumnsLoaded', () => {
   giphyZone.className = 'btd-giphy-zone compose padding-h--15 scroll-v scroll-styled-v';
   giphyZone.innerHTML = giphySearch();
 
-  const giphyButton = `
-  <button class="js-giphy-btn js-show-tip needsclick btn btn-on-blue full-width txt-left margin-b--12 padding-v--9"
-  data-original-title="" tabindex="">
-    <i class="icon icon-gif-badge"></i>
-    <span class="js-add-image-button-label label padding-ls">Giphy</span>
-  </button>
-`;
-
-  $('.js-add-image-button')[0].insertAdjacentHTML('beforebegin', giphyButton);
-
   $('.js-app')[0].insertAdjacentElement('beforeend', giphyZone);
-  $('.js-character-count').parent().append('<span class="btd-gif-indicator txt-line-height--20 txt-size--12 txt-twitter-dark-gray"></span>');
+  $('.js-character-count').parent().append(`
+    <span class="btd-gif-button -visible txt-twitter-dark-gray">GIF</span>
+    <span class="btd-gif-indicator txt-line-height--20 txt-size--12 txt-twitter-dark-gray"></span>
+  `);
 });
 
-$(document).on('click', '.js-giphy-btn', (e) => {
+$(document).on('click', '.btd-gif-button', (e) => {
   e.preventDefault();
   e.stopPropagation();
   $('.btd-giphy-zone').addClass('-visible');
@@ -714,6 +707,7 @@ $(document).on('click', '.btd-giphy-block', (ev) => {
       files: [myFile],
     });
     $('.btd-gif-indicator').removeClass('-visible');
+    $('.btd-gif-button').addClass('-visible');
   };
 
   gifRequest.onprogress = (event) => {
@@ -722,6 +716,7 @@ $(document).on('click', '.btd-giphy-block', (ev) => {
   };
 
   gifRequest.send();
+  $('.btd-gif-button').removeClass('-visible');
   $('.btd-gif-indicator').addClass('-visible');
   closeGiphyZone(ev);
 });
