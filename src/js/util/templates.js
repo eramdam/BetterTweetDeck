@@ -148,12 +148,15 @@ export const giphyBlock = ({ preview, url }) => {
 export const giphySearch = () => Mustache.render(`
     <header class="js-compose-header compose-header">
       <div class="position-rel compose-title inline-block">
-        <h1 class="js-compose-title compose-title-text txt-ellipsis inline-block">The Giphy Zone</h1>
+        <h1 class="js-compose-title compose-title-text txt-ellipsis inline-block">Add a GIF</h1>
       </div>
       <i class="btd-giphy-close is-actionable icon icon-close margin-vm pull-right"></i>
     </header>
     <div class="giphy-searchbox">
-      <input type="search" class="giphy-search-input" placeholder="Search on Giphy..." />
+      <input type="search" class="giphy-search-input" placeholder="Search..." />
     </div>
-    <div class="giphy-content"></div>
+    <div class="giphy-wrapper scroll-v scroll-styled-v">
+      <div class="giphy-content"></div>
+    </div>
+    <div class="giphy-zone-logo"></div>
   `);

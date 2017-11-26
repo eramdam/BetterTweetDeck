@@ -642,7 +642,7 @@ $(document).one('dataColumnsLoaded', () => {
   setTimeout(checkBTDFollowing, 2000);
 
   const giphyZone = document.createElement('div');
-  giphyZone.className = 'btd-giphy-zone compose padding-h--15 scroll-v scroll-styled-v';
+  giphyZone.className = 'btd-giphy-zone compose padding-h--15';
   giphyZone.innerHTML = giphySearch();
 
   $('.js-app')[0].insertAdjacentElement('beforeend', giphyZone);

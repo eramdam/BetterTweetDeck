@@ -4,7 +4,6 @@
   top: 0;
   z-index: 210;
   left: 50px;
-  display: block;
   color: white;
   width: 270px;
   height: 100%;
@@ -14,6 +13,8 @@
   transition-property: opacity, transform;
   transition-duration: 200ms;
   transition-timing-function: ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .btd-giphy-zone.-visible {
@@ -22,27 +23,31 @@
   opacity: 1;
 }
 
-.btd-giphy-zone .giphy-content {
-  column-count: 2;
-  column-gap: 0;
+.btd-giphy-zone .giphy-wrapper {
+  flex: 1;
+  flex-shrink: 1;
   font-size: 0;
   margin-left: -15px;
   margin-right: -15px;
   margin-top: 10px;
 }
 
-.btd-giphy-zone .giphy-content .btd-giphy-block {
+.btd-giphy-zone .giphy-wrapper .giphy-content {
+  column-count: 2;
+  column-gap: 0;
+}
+
+.btd-giphy-zone .giphy-wrapper .btd-giphy-block {
   width: 100%;
   height: auto;
   cursor: pointer;
 }
 
-.btd-giphy-zone .giphy-content .btd-giphy-block-wrapper {
-  position: relative;
+.btd-giphy-zone .giphy-wrapper .btd-giphy-block-wrapper {
   overflow: hidden;
 }
 
-.btd-giphy-zone .giphy-content .btd-giphy-block-wrapper:hover {
+.btd-giphy-zone .giphy-wrapper .btd-giphy-block-wrapper:hover {
   opacity: 0.6;
 }
 
@@ -99,6 +104,23 @@
   }
 }
 
+input.giphy-search-input {
+  box-sizing: border-box !important;
+}
+
 .btd-gif-button.btd-gif-button:hover {
   color: #616161;
+}
+
+.btd-giphy-zone .giphy-zone-logo {
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 40px;
+  margin-left: -20px;
+  margin-right: -20px;
+  background-size: auto 15px;
+}
+
+.giphy-zone-logo {
+  background-image: url('../img/giphy-logo-dark.png');
 }
