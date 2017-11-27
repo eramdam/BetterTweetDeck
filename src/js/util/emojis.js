@@ -3,6 +3,7 @@ import emojis from '../../emojis/emojis';
 import { $ } from './util';
 
 const Emoji = new jsEmoji.EmojiConvertor();
+const emojiSheet = chrome.extension.getURL('emojis/sheet_twitter_64.png');
 Emoji.img_set = 'twitter';
 
 const catOrder = {
@@ -79,7 +80,7 @@ function getImage(emoji, skinVariation = '') {
   Emoji.supports_css = true;
   Emoji.use_sheet = true;
 
-  return Emoji.replace_colons(`:${emoji.s}:${skinVariation}`).replace('/emoji-data/sheet_twitter_64.png', chrome.extension.getURL('emojis/sheet_twitter_64.png'));
+  return Emoji.replace_colons(`:${emoji.s}:${skinVariation}`).replace('/emoji-data/sheet_twitter_64.png', emojiSheet);
 }
 
 function getEmojiElement(emoji, skinVariation = '') {
