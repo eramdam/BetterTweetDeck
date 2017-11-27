@@ -2,8 +2,6 @@ import jsEmoji from 'emoji-js';
 import emojis from '../../emojis/emojis';
 import { $ } from './util';
 
-window.__EMOJIS = emojis;
-
 const Emoji = new jsEmoji.EmojiConvertor();
 const emojiSheet = chrome.extension.getURL('emojis/sheet_twitter_64.png');
 Emoji.img_set = 'twitter';
@@ -43,20 +41,57 @@ function clickedOutsideElement(elSelector) {
 
 
 // From http://stackoverflow.com/questions/1064089/inserting-a-text-where-cursor-is-using-javascript-jquery
-function insertAtCursor(myField, myValue) {
+function insertAtCursor(input, value) {
   // IE support
   if (document.selection) {
-    myField.focus();
+    input.focus();
     const sel = document.selection.createRange();
-    sel.text = myValue;
+    sel.text = value;
   // MOZILLA and others
-  } else if (myField.selectionStart || myField.selectionStart === '0') {
-    const startPos = myField.selectionStart;
-    const endPos = myField.selectionEnd;
-    myField.value = myField.value.substring(0, startPos) + myValue + myField.value.substring(endPos, myField.value.length);
+  } else if (input.selectionStart || input.selectionStart === '0') {
+    const startPos = input.selectionStart;
+    const endPos = input.selectionEnd;
+    input.value = input.value.substring(0, startPos) + value + input.value.substring(endPos, input.value.length);
   } else {
-    myField.value += myValue;
+    input.value += value;
   }
+}
+
+function getTweetCompose() {
+  return $('textarea.js-compose-text')[0];
+}
+
+function getEmojiTypeaheadHolder() {
+  return $('.btd-emoji-typeahead')[0];
+}
+
+function valueAtCursor(input) {
+  const selection = {
+    start: input.selectionStart,
+    end: input.selectionEnd,
+  };
+
+  const lookStart = selection.start === selection.end ? 0 : selection.start;
+
+  const beforeCursor = input.value.substr(lookStart, selection.end);
+
+  return {
+    value: beforeCursor,
+    index: selection.end,
+  };
+}
+
+function getSkinVariation() {
+  const skinVariation = Number(localStorage['btd-skin-variation']) || 1;
+  let skinV;
+
+  if (skinVariation === 1) {
+    skinV = '';
+  } else {
+    skinV = `:skin-tone-${skinVariation}:`;
+  }
+
+  return skinV;
 }
 
 function getUnified(emoji, skinVariation) {
@@ -140,7 +175,7 @@ let emojiDropdownItems = [];
 let emojiDropdownItemSelected = null;
 
 function updateEmojiDropdown(items, skinVariation = '') {
-  const holder = $('.btd-emoji-typeahead')[0];
+  const holder = getEmojiTypeaheadHolder();
   holder.style.display = 'block';
 
   emojiDropdownItems = items;
@@ -169,12 +204,12 @@ function updateEmojiDropdown(items, skinVariation = '') {
 }
 
 function hideEmojiDropdown() {
-  const holder = $('.btd-emoji-typeahead')[0];
+  const holder = getEmojiTypeaheadHolder();
   holder.style.display = 'none';
 }
 
 function isEmojiDropdownOpened() {
-  return emojiDropdownItems.length > 1 && $('.btd-emoji-typeahead')[0].style.display !== 'none';
+  return emojiDropdownItems.length > 0 && getEmojiTypeaheadHolder().style.display !== 'none';
 }
 
 function moveSelection(offset) {
@@ -187,13 +222,37 @@ function moveSelection(offset) {
 
   emojiDropdownItemSelected = emojiDropdownItems[newSelectedIndex];
 
-  const holder = $('.btd-emoji-typeahead')[0];
+  const holder = getEmojiTypeaheadHolder();
   holder.querySelectorAll('li.typeahead-item').forEach(e => e.classList.remove('s-selected'));
   holder.querySelector(`li:nth-child(${newSelectedIndex + 1})`).classList.add('s-selected');
 }
 
+function replaceAt(string, index, target, replacement) {
+  const firstPart = string.substr(0, index);
+  const secondPart = string.substr(index + target.length);
+
+  return firstPart + replacement + secondPart;
+}
+
+function selectTypeaheadEmoji() {
+  const atCursor = valueAtCursor(getTweetCompose());
+  const toReplace = atCursor.value.match(colonRegex);
+
+  const newValue = replaceAt(getTweetCompose().value, toReplace.index, toReplace[0], getUnified(emojiDropdownItemSelected, getSkinVariation()));
+  console.log({ atCursor, newValue });
+
+  getTweetCompose().value = newValue;
+  hideEmojiDropdown();
+}
+
 function keypressHandler(event) {
   const key = event.key;
+
+  console.log({ dropdownOpened: isEmojiDropdownOpened(), key });
+
+  if (!isEmojiDropdownOpened()) {
+    return;
+  }
 
   switch (key.toLowerCase()) {
     case 'arrowdown':
@@ -211,43 +270,25 @@ function keypressHandler(event) {
     case 'enter':
       event.preventDefault();
       event.stopPropagation();
-      console.log(emojiDropdownItemSelected);
+      selectTypeaheadEmoji();
       break;
 
     default:
       break;
   }
-  // if (isEmojiDropdownOpened()) {
-  //   console.log('dropdown opened', event);
-  // }
 }
 
 function emojiMatcherOnInput(event) {
-  const skinVariation = Number(localStorage['btd-skin-variation']) || 1;
-  let skinV;
+  const skinVariation = getSkinVariation();
 
-  if (skinVariation === 1) {
-    skinV = '';
-  } else {
-    skinV = `:skin-tone-${skinVariation}:`;
-  }
-
-  const input = event.target;
-  const selection = {
-    start: input.selectionStart,
-    end: input.selectionEnd,
-  };
-
-  const lookStart = selection.start === selection.end ? 0 : selection.start;
-
-  const beforeCursor = input.value.substr(lookStart, selection.end);
+  const beforeCursor = valueAtCursor(event.target).value;
   const colonMatch = beforeCursor.match(colonRegex);
 
   if (colonMatch && colonMatch[1]) {
     const emojiMatches = findEmoji(colonMatch[1]).slice(0, 8);
 
     if (emojiMatches.length > 0) {
-      updateEmojiDropdown(emojiMatches, skinV);
+      updateEmojiDropdown(emojiMatches, skinVariation);
     } else {
       hideEmojiDropdown();
     }
@@ -259,15 +300,8 @@ function emojiMatcherOnInput(event) {
 let eventsBound = false;
 export default function buildEmojiPicker(rebuild = false) {
   let emojiContent = '';
-  let skinV;
 
-  const skinVariation = Number(localStorage['btd-skin-variation']) || 1;
-
-  if (skinVariation === 1) {
-    skinV = '';
-  } else {
-    skinV = `:skin-tone-${skinVariation}:`;
-  }
+  const skinVariation = getSkinVariation();
 
   Object.keys(catOrder).forEach((cat) => {
     emojiContent += `
@@ -276,7 +310,7 @@ export default function buildEmojiPicker(rebuild = false) {
     `;
 
     emojis.filter(emoji => emoji.cat === cat).forEach((emoji) => {
-      emojiContent += getEmojiElement(emoji, emoji.hs ? skinV : undefined);
+      emojiContent += getEmojiElement(emoji, emoji.hs ? skinVariation : undefined);
     });
 
     emojiContent += '</div>';
@@ -366,7 +400,7 @@ export default function buildEmojiPicker(rebuild = false) {
     });
   });
 
-  const tweetCompose = $('textarea.js-compose-text')[0];
+  const tweetCompose = getTweetCompose();
   $('.emoji-popover')[0].addEventListener('click', (ev) => {
     let emoji;
 
@@ -377,7 +411,7 @@ export default function buildEmojiPicker(rebuild = false) {
     }
 
     const hasVariation = emoji.getAttribute('data-btd-has-variation') === 'true';
-    const unified = getUnified({ s: emoji.getAttribute('data-btd-shortcode'), hs: hasVariation }, skinV);
+    const unified = getUnified({ s: emoji.getAttribute('data-btd-shortcode'), hs: hasVariation }, skinVariation);
 
     insertAtCursor(tweetCompose, unified);
     tweetCompose.dispatchEvent(new Event('change'));
