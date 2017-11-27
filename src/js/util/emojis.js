@@ -2,6 +2,8 @@ import jsEmoji from 'emoji-js';
 import emojis from '../../emojis/emojis';
 import { $ } from './util';
 
+window.__EMOJIS = emojis;
+
 const Emoji = new jsEmoji.EmojiConvertor();
 const emojiSheet = chrome.extension.getURL('emojis/sheet_twitter_64.png');
 Emoji.img_set = 'twitter';
@@ -128,6 +130,133 @@ function getEmojiPickerMarkup(emojiContent) {
   `;
 }
 
+const colonRegex = /:([a-z0-9_-]+):?:?([a-z0-9_-]+)?:?$/;
+
+function findEmoji(query) {
+  return emojis.filter(emoji => emoji.s.indexOf(query) > -1);
+}
+
+let emojiDropdownItems = [];
+let emojiDropdownItemSelected = null;
+
+function updateEmojiDropdown(items, skinVariation = '') {
+  const holder = $('.btd-emoji-typeahead')[0];
+  holder.style.display = 'block';
+
+  emojiDropdownItems = items;
+  emojiDropdownItemSelected = items[0];
+
+  // const string = `<img src="{{pic}}" class="avatar obj-left size24">`
+
+  const template = (emoji, index) => {
+    const isSelected = index === 0;
+
+    return `
+  <li class="typeahead-item padding-am cf is-actionable ${isSelected ? 's-selected' : ''}" data-btd-shortcode=":${emoji.s}:" data-btd-skin-variatio="${skinVariation}">
+    <p class="js-hashtag txt-ellipsis">
+      <span class="btd-emoji">
+      ${getImage(emoji)}
+      </span>
+      ${emoji.s}
+    </p>
+  </li>
+  `;
+  };
+
+  const markup = items.map(template);
+
+  holder.innerHTML = markup.join('\n');
+}
+
+function hideEmojiDropdown() {
+  const holder = $('.btd-emoji-typeahead')[0];
+  holder.style.display = 'none';
+}
+
+function isEmojiDropdownOpened() {
+  return emojiDropdownItems.length > 1 && $('.btd-emoji-typeahead')[0].style.display !== 'none';
+}
+
+function moveSelection(offset) {
+  const currentSelected = emojiDropdownItems.indexOf(emojiDropdownItemSelected);
+  let newSelectedIndex = (currentSelected + offset) % emojiDropdownItems.length;
+
+  if (newSelectedIndex < 0) {
+    newSelectedIndex = emojiDropdownItems.length - 1;
+  }
+
+  emojiDropdownItemSelected = emojiDropdownItems[newSelectedIndex];
+
+  const holder = $('.btd-emoji-typeahead')[0];
+  holder.querySelectorAll('li.typeahead-item').forEach(e => e.classList.remove('s-selected'));
+  holder.querySelector(`li:nth-child(${newSelectedIndex + 1})`).classList.add('s-selected');
+}
+
+function keypressHandler(event) {
+  const key = event.key;
+
+  switch (key.toLowerCase()) {
+    case 'arrowdown':
+      event.preventDefault();
+      event.stopPropagation();
+      moveSelection(1);
+      break;
+
+    case 'arrowup':
+      event.preventDefault();
+      event.stopPropagation();
+      moveSelection(-1);
+      break;
+
+    case 'enter':
+      event.preventDefault();
+      event.stopPropagation();
+      console.log(emojiDropdownItemSelected);
+      break;
+
+    default:
+      break;
+  }
+  // if (isEmojiDropdownOpened()) {
+  //   console.log('dropdown opened', event);
+  // }
+}
+
+function emojiMatcherOnInput(event) {
+  const skinVariation = Number(localStorage['btd-skin-variation']) || 1;
+  let skinV;
+
+  if (skinVariation === 1) {
+    skinV = '';
+  } else {
+    skinV = `:skin-tone-${skinVariation}:`;
+  }
+
+  const input = event.target;
+  const selection = {
+    start: input.selectionStart,
+    end: input.selectionEnd,
+  };
+
+  const lookStart = selection.start === selection.end ? 0 : selection.start;
+
+  const beforeCursor = input.value.substr(lookStart, selection.end);
+  const colonMatch = beforeCursor.match(colonRegex);
+
+  if (colonMatch && colonMatch[1]) {
+    const emojiMatches = findEmoji(colonMatch[1]).slice(0, 8);
+
+    if (emojiMatches.length > 0) {
+      updateEmojiDropdown(emojiMatches, skinV);
+    } else {
+      hideEmojiDropdown();
+    }
+  } else {
+    hideEmojiDropdown();
+  }
+}
+
+let eventsBound = false;
 export default function buildEmojiPicker(rebuild = false) {
   let emojiContent = '';
   let skinV;
@@ -192,6 +321,16 @@ export default function buildEmojiPicker(rebuild = false) {
     }
   }
 
+  if (eventsBound) {
+    return;
+  }
+
+  const dropdownHolder = document.createElement('ul');
+  dropdownHolder.className = 'lst lst-modal typeahead btd-emoji-typeahead';
+  dropdownHolder.style.display = 'none';
+
+  $('.lst.lst-modal.typeahead')[0].insertAdjacentElement('afterend', dropdownHolder);
+
   $('.emoji-search input')[0].addEventListener('keyup', (ev) => {
     const val = String(ev.target.value);
     $('.emoji-container [title]').forEach((el) => {
@@ -228,22 +367,20 @@ export default function buildEmojiPicker(rebuild = false) {
   });
 
   const tweetCompose = $('textarea.js-compose-text')[0];
-  $('.emoji-popover .btd-emoji').forEach((emojiEl) => {
-    emojiEl.addEventListener('click', (ev) => {
-      let emoji;
+  $('.emoji-popover')[0].addEventListener('click', (ev) => {
+    let emoji;
 
-      if (ev.target.hasAttribute('data-btd-shortcode')) {
-        emoji = emoji.target;
-      } else {
-        emoji = ev.target.closest('[data-btd-shortcode]');
-      }
+    if (ev.target.hasAttribute('data-btd-shortcode')) {
+      emoji = ev.target;
+    } else {
+      emoji = ev.target.closest('[data-btd-shortcode]');
+    }
 
-      const hasVariation = emoji.getAttribute('data-btd-has-variation') === 'true';
-      const unified = getUnified({ s: emoji.getAttribute('data-btd-shortcode'), hs: hasVariation }, skinV);
+    const hasVariation = emoji.getAttribute('data-btd-has-variation') === 'true';
+    const unified = getUnified({ s: emoji.getAttribute('data-btd-shortcode'), hs: hasVariation }, skinV);
 
-      insertAtCursor(tweetCompose, unified);
-      tweetCompose.dispatchEvent(new Event('change'));
-    });
+    insertAtCursor(tweetCompose, unified);
+    tweetCompose.dispatchEvent(new Event('change'));
   });
 
   $('.emoji-popover .btd-skin-tone').forEach((skinToneEl) => {
@@ -257,6 +394,9 @@ export default function buildEmojiPicker(rebuild = false) {
     });
   });
 
+  tweetCompose.addEventListener('input', emojiMatcherOnInput);
+  tweetCompose.addEventListener('keydown', keypressHandler);
+
   const emojiPicker = $('.emoji-popover')[0];
 
   document.addEventListener('click', () => {
@@ -268,4 +408,6 @@ export default function buildEmojiPicker(rebuild = false) {
       });
     }
   });
+
+  eventsBound = true;
 }

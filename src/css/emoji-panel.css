@@ -71,12 +71,19 @@ html.btd-on {
   }
 
   .emoji-popover .btd-emoji,
+  .btd-emoji-typeahead .btd-emoji,
   .emoji-popover .btd-skin-tone {
     font-size: 20px;
     display: inline-block;
     width: 1em;
     height: 1em;
     margin: 5px;
+  }
+
+  .btd-emoji-typeahead .btd-emoji {
+    font-size: 16px;
+    margin: 0 5px;
+    vertical-align: sub;
   }
 
   .emoji-popover .btd-skin-tone + .btd-skin-tone {
@@ -101,7 +108,8 @@ html.btd-on {
     }
   }
 
-  .emoji-popover {
+  .emoji-popover,
+  .btd-emoji-typeahead {
     span.emoji {
       display: inline-block;
       vertical-align: baseline;
