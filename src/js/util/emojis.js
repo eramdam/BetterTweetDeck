@@ -189,7 +189,7 @@ function updateEmojiDropdown(items, skinVariation = '') {
   <li class="typeahead-item padding-am cf is-actionable ${isSelected ? 's-selected' : ''}" data-btd-shortcode=":${emoji.s}:" data-btd-skin-variatio="${skinVariation}">
     <p class="js-hashtag txt-ellipsis">
       <span class="btd-emoji">
-      ${getImage(emoji)}
+      ${getImage(emoji, skinVariation)}
       </span>
       ${emoji.s}
     </p>
