@@ -1,6 +1,7 @@
 import jsEmoji from 'emoji-js';
 import emojis from '../../emojis/emojis';
 import { $ } from './util';
+import { sortBy } from 'lodash';
 
 const Emoji = new jsEmoji.EmojiConvertor();
 const emojiSheet = chrome.extension.getURL('emojis/sheet_twitter_64.png');
@@ -167,7 +168,19 @@ function getEmojiPickerMarkup(emojiContent) {
 const colonRegex = /:([a-z0-9_-]+):?:?([a-z0-9_-]+)?:?$/;
 
 function findEmoji(query) {
-  return emojis.filter(emoji => emoji.s.indexOf(query) > -1);
+  return sortBy(emojis.filter((emoji) => {
+    return emoji.s.startsWith(query) || emoji.s.indexOf(`_${query}`) > -1 || emoji.s.indexOf(`${query}_`) > -1;
+  }), (emojiMatch) => {
+    if (emojiMatch.s === query) {
+      return -1;
+    }
+
+    if (emojiMatch.s.startsWith(query)) {
+      return 0;
+    }
+
+    return 1;
+  });
 }
 
 let emojiDropdownItems = [];
