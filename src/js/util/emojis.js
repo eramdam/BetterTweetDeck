@@ -193,8 +193,6 @@ function updateEmojiDropdown(items, skinVariation = '') {
   emojiDropdownItems = items;
   emojiDropdownItemSelected = items[0];
 
-  // const string = `<img src="{{pic}}" class="avatar obj-left size24">`
-
   const template = (emoji, index) => {
     const isSelected = index === 0;
 
