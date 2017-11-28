@@ -283,6 +283,12 @@ function keypressHandler(event) {
       selectTypeaheadEmoji();
       break;
 
+    case 'escape':
+      event.preventDefault();
+      event.stopPropagation();
+      hideEmojiDropdown();
+      break;
+
     default:
       break;
   }
@@ -440,6 +446,7 @@ export default function buildEmojiPicker(rebuild = false) {
 
   tweetCompose.addEventListener('input', emojiMatcherOnInput);
   tweetCompose.addEventListener('keydown', keypressHandler);
+  tweetCompose.addEventListener('blur', hideEmojiDropdown);
 
   const emojiPicker = $('.emoji-popover')[0];
 
