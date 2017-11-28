@@ -1,7 +1,7 @@
 import jsEmoji from 'emoji-js';
+import { sortBy } from 'lodash';
 import emojis from '../../emojis/emojis';
 import { $ } from './util';
-import { sortBy } from 'lodash';
 
 const Emoji = new jsEmoji.EmojiConvertor();
 const emojiSheet = chrome.extension.getURL('emojis/sheet_twitter_64.png');
