@@ -39,7 +39,6 @@ function clickedOutsideElement(elSelector) {
   return true;
 }
 
-
 // From http://stackoverflow.com/questions/1064089/inserting-a-text-where-cursor-is-using-javascript-jquery
 function insertAtCursor(input, value) {
   // IE support
@@ -237,18 +236,18 @@ function replaceAt(string, index, target, replacement) {
 function selectTypeaheadEmoji() {
   const atCursor = valueAtCursor(getTweetCompose());
   const toReplace = atCursor.value.match(colonRegex);
+  const unifiedEmoji = getUnified(emojiDropdownItemSelected, getSkinVariation());
 
   const newValue = replaceAt(getTweetCompose().value, toReplace.index, toReplace[0], getUnified(emojiDropdownItemSelected, getSkinVariation()));
-  console.log({ atCursor, newValue });
 
   getTweetCompose().value = newValue;
+  getTweetCompose().selectionStart = toReplace.index + unifiedEmoji.length;
+  getTweetCompose().selectionEnd = toReplace.index + unifiedEmoji.length;
   hideEmojiDropdown();
 }
 
 function keypressHandler(event) {
   const key = event.key;
-
-  console.log({ dropdownOpened: isEmojiDropdownOpened(), key });
 
   if (!isEmojiDropdownOpened()) {
     return;
