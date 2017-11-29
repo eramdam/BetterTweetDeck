@@ -10,7 +10,6 @@ html.btd-on {
     overflow: hidden;
   }
 
-
   .emoji-popover .emoji-container {
     flex: 1;
     overflow-y: scroll;
@@ -50,7 +49,6 @@ html.btd-on {
   .emoji-popover .emoji-preview.-visible {
     transform: translateY(0);
   }
-
 
   .emoji-popover .emoji-preview .emoji-current-img {
     font-size: 20px;
