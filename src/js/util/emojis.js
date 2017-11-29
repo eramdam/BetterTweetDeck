@@ -141,16 +141,11 @@ function getEmojiPickerMarkup(emojiContent) {
           <input type="text" placeholder="Search emojis" autofocus/>
         </div>
         <div class="emoji-container">
-        <h3 class="emoji-category-title">Skin tone</h3>
-        <div class="emoji-category">
-          <a href="#" class="btd-skin-tone" data-btd-skin-tone="1" title style="background-color: #f9cd37;"></a>
-          <a href="#" class="btd-skin-tone" data-btd-skin-tone="2" title style="background-color: #f4dfce;"></a>
-          <a href="#" class="btd-skin-tone" data-btd-skin-tone="3" title style="background-color: #f0d3a0;"></a>
-          <a href="#" class="btd-skin-tone" data-btd-skin-tone="4" title style="background-color: #d1ad86;"></a>
-          <a href="#" class="btd-skin-tone" data-btd-skin-tone="5" title style="background-color: #ab7f52;"></a>
-          <a href="#" class="btd-skin-tone" data-btd-skin-tone="6" title style="background-color: #78523a;"></a>
-        </div>
         ${emojiContent}
+        </div>
+        <div class="emoji-preview">
+          <span class="emoji-current-img">${getImage({ s: 'ok_hand' })}</span>
+          <span class="emoji-current-name">:ok_hand:</span>
         </div>
         <div class="category-chooser">
           <button title="People" data-btd-emoji-cat="People" class="-active">${getImage({ s: 'ok_hand' })}</button>
@@ -342,26 +337,52 @@ function eventInsideTweetBox(event) {
   }
 }
 
-let eventsBound = false;
-export default function buildEmojiPicker(rebuild = false) {
-  let emojiContent = '';
+let defaultEmojiContent = '';
 
-  const skinVariation = getSkinVariation();
+function getEmojiList(query) {
+  if (query) {
+    const emojiMatches = findEmoji(query);
+    const skinVariation = getSkinVariation();
+
+    return `
+      <div class="emoji-category">
+      ${emojiMatches.map(emoji => getEmojiElement(emoji, emoji.hs ? skinVariation : undefined)).join('')}
+      </div>
+    `;
+  }
+
+  if (defaultEmojiContent) {
+    return defaultEmojiContent;
+  }
 
   Object.keys(catOrder).forEach((cat) => {
-    emojiContent += `
+    defaultEmojiContent += `
+    <h3 class="emoji-category-title">Skin tone</h3>
+    <div class="emoji-category">
+      <a href="#" class="btd-skin-tone" data-btd-skin-tone="1" title style="background-color: #f9cd37;"></a>
+      <a href="#" class="btd-skin-tone" data-btd-skin-tone="2" title style="background-color: #f4dfce;"></a>
+      <a href="#" class="btd-skin-tone" data-btd-skin-tone="3" title style="background-color: #f0d3a0;"></a>
+      <a href="#" class="btd-skin-tone" data-btd-skin-tone="4" title style="background-color: #d1ad86;"></a>
+      <a href="#" class="btd-skin-tone" data-btd-skin-tone="5" title style="background-color: #ab7f52;"></a>
+      <a href="#" class="btd-skin-tone" data-btd-skin-tone="6" title style="background-color: #78523a;"></a>
+    </div>
     <h3 class="emoji-category-title" data-btd-emoji-cat="${cat}">${cat}</h3>
     <div class="emoji-category" data-btd-emoji-cat="${cat}">
     `;
 
     emojis.filter(emoji => emoji.cat === cat).forEach((emoji) => {
-      emojiContent += getEmojiElement(emoji, emoji.hs ? skinVariation : undefined);
+      defaultEmojiContent += getEmojiElement(emoji, emoji.hs ? getSkinVariation() : undefined);
     });
 
-    emojiContent += '</div>';
+    defaultEmojiContent += '</div>';
   });
 
-  const emojiPickerMarkup = getEmojiPickerMarkup(emojiContent);
+  return defaultEmojiContent;
+}
+
+let eventsBound = false;
+export default function buildEmojiPicker(rebuild = false) {
+  const emojiPickerMarkup = getEmojiPickerMarkup(getEmojiList());
 
   if (!rebuild) {
     const emojiComposerButton = `
@@ -412,19 +433,8 @@ export default function buildEmojiPicker(rebuild = false) {
 
   $('.emoji-search input')[0].addEventListener('keyup', (ev) => {
     const val = String(ev.target.value);
-    $('.emoji-container [title]').forEach((el) => {
-      el.style.display = 'inline-block';
-    });
 
-    if (val.length < 1 || /^\s$/.test(val)) {
-      return;
-    }
-
-    const emojisToHide = $(`.emoji-container .btd-emoji:not([title*="${val}"])`);
-
-    emojisToHide.forEach((el) => {
-      el.style.display = 'none';
-    });
+    $('.emoji-popover .emoji-container')[0].innerHTML = getEmojiList(val);
   });
 
   $('.category-chooser button').forEach((catButton) => {
@@ -446,6 +456,35 @@ export default function buildEmojiPicker(rebuild = false) {
   });
 
   const tweetCompose = $('textarea.js-compose-text')[0];
+  let timeoutId;
+  $('.emoji-popover')[0].addEventListener('mouseover', (ev) => {
+    let emoji;
+
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+
+    if (ev.target.hasAttribute('data-btd-shortcode')) {
+      emoji = ev.target;
+    } else {
+      emoji = ev.target.closest('[data-btd-shortcode]');
+    }
+
+    if (!emoji) {
+      timeoutId = setTimeout(() => {
+        $('.emoji-popover .emoji-preview')[0].classList.remove('-visible');
+      }, 150);
+      return;
+    }
+
+    const hasVariation = emoji.getAttribute('data-btd-has-variation') === 'true';
+    const shortcode = emoji.getAttribute('data-btd-shortcode');
+    const image = getEmojiElement({ s: emoji.getAttribute('data-btd-shortcode') }, hasVariation ? getSkinVariation() : undefined);
+
+    $('.emoji-popover .emoji-preview')[0].classList.add('-visible');
+    $('.emoji-popover .emoji-preview .emoji-current-img')[0].innerHTML = image;
+    $('.emoji-popover .emoji-preview .emoji-current-name')[0].innerText = `:${shortcode}:`;
+  });
   $('.emoji-popover')[0].addEventListener('click', (ev) => {
     let emoji;
 
@@ -455,8 +494,12 @@ export default function buildEmojiPicker(rebuild = false) {
       emoji = ev.target.closest('[data-btd-shortcode]');
     }
 
+    if (!emoji) {
+      return;
+    }
+
     const hasVariation = emoji.getAttribute('data-btd-has-variation') === 'true';
-    const unified = getUnified({ s: emoji.getAttribute('data-btd-shortcode'), hs: hasVariation }, skinVariation);
+    const unified = getUnified({ s: emoji.getAttribute('data-btd-shortcode'), hs: hasVariation }, getSkinVariation());
 
     insertAtCursor(tweetCompose, unified);
     tweetCompose.dispatchEvent(new Event('change'));
@@ -483,9 +526,7 @@ export default function buildEmojiPicker(rebuild = false) {
     if (clickedOutsideElement('.emoji-popover') && clickedOutsideElement('.js-add-emojis') && emojiPicker.style.display === 'block') {
       emojiPicker.style.display = 'none';
       $('.emoji-search input')[0].value = '';
-      $('.emoji-container [title]').forEach((el) => {
-        el.style.display = 'inline-block';
-      });
+      $('.emoji-popover .emoji-container')[0].innerHTML = getEmojiList();
     }
   });
 
