@@ -57,12 +57,14 @@ function insertAtCursor(input, value) {
   }
 }
 
-function getTweetCompose() {
-  return $('textarea.js-compose-text')[0];
-}
+function getEmojiTypeaheadHolder(event) {
+  const parent = event.target.parentElement;
 
-function getEmojiTypeaheadHolder() {
-  return $('.btd-emoji-typeahead')[0];
+  if (!parent) {
+    return null;
+  }
+
+  return $('.btd-emoji-typeahead', event.target.parentElement)[0];
 }
 
 function valueAtCursor(input) {
@@ -169,7 +171,7 @@ const colonRegex = /:([a-z0-9_-]+):?:?([a-z0-9_-]+)?:?$/;
 
 function findEmoji(query) {
   return sortBy(emojis.filter((emoji) => {
-    return emoji.s.startsWith(query) || emoji.s.indexOf(`_${query}`) > -1 || emoji.s.indexOf(`${query}_`) > -1;
+    return new RegExp(`(?:_|)${query}(?:_|)`).exec(emoji.s);
   }), (emojiMatch) => {
     if (emojiMatch.s === query) {
       return -1;
@@ -186,8 +188,8 @@ function findEmoji(query) {
 let emojiDropdownItems = [];
 let emojiDropdownItemSelected = null;
 
-function updateEmojiDropdown(items, skinVariation = '') {
-  const holder = getEmojiTypeaheadHolder();
+function updateEmojiDropdown(event, items, skinVariation = '') {
+  const holder = getEmojiTypeaheadHolder(event);
   holder.style.display = 'block';
 
   emojiDropdownItems = items;
@@ -197,10 +199,10 @@ function updateEmojiDropdown(items, skinVariation = '') {
     const isSelected = index === 0;
 
     return `
-  <li class="typeahead-item padding-am cf is-actionable ${isSelected ? 's-selected' : ''}" data-btd-shortcode=":${emoji.s}:" data-btd-skin-variatio="${skinVariation}">
+  <li class="typeahead-item padding-am cf is-actionable ${isSelected ? 's-selected' : ''}">
     <p class="js-hashtag txt-ellipsis">
       <span class="btd-emoji">
-      ${getImage(emoji, skinVariation)}
+      ${emoji.hs ? getImage(emoji, skinVariation) : getImage(emoji)}
       </span>
       ${emoji.s}
     </p>
@@ -213,16 +215,16 @@ function updateEmojiDropdown(items, skinVariation = '') {
   holder.innerHTML = markup.join('\n');
 }
 
-function hideEmojiDropdown() {
-  const holder = getEmojiTypeaheadHolder();
+function hideEmojiDropdown(event) {
+  const holder = getEmojiTypeaheadHolder(event);
   holder.style.display = 'none';
 }
 
-function isEmojiDropdownOpened() {
-  return emojiDropdownItems.length > 0 && getEmojiTypeaheadHolder().style.display !== 'none';
+function isEmojiDropdownOpened(event) {
+  return emojiDropdownItems.length > 0 && getEmojiTypeaheadHolder(event).style.display !== 'none';
 }
 
-function moveSelection(offset) {
+function moveSelection(event, offset) {
   const currentSelected = emojiDropdownItems.indexOf(emojiDropdownItemSelected);
   let newSelectedIndex = (currentSelected + offset) % emojiDropdownItems.length;
 
@@ -232,7 +234,7 @@ function moveSelection(offset) {
 
   emojiDropdownItemSelected = emojiDropdownItems[newSelectedIndex];
 
-  const holder = getEmojiTypeaheadHolder();
+  const holder = getEmojiTypeaheadHolder(event);
   holder.querySelectorAll('li.typeahead-item').forEach(e => e.classList.remove('s-selected'));
   holder.querySelector(`li:nth-child(${newSelectedIndex + 1})`).classList.add('s-selected');
 }
@@ -244,23 +246,24 @@ function replaceAt(string, index, target, replacement) {
   return firstPart + replacement + secondPart;
 }
 
-function selectTypeaheadEmoji() {
-  const atCursor = valueAtCursor(getTweetCompose());
+function selectTypeaheadEmoji(event) {
+  const composeBox = event.target;
+  const atCursor = valueAtCursor(composeBox);
   const toReplace = atCursor.value.match(colonRegex);
   const unifiedEmoji = getUnified(emojiDropdownItemSelected, getSkinVariation());
 
-  const newValue = replaceAt(getTweetCompose().value, toReplace.index, toReplace[0], getUnified(emojiDropdownItemSelected, getSkinVariation()));
+  const newValue = replaceAt(composeBox.value, toReplace.index, toReplace[0], getUnified(emojiDropdownItemSelected, getSkinVariation()));
 
-  getTweetCompose().value = newValue;
-  getTweetCompose().selectionStart = toReplace.index + unifiedEmoji.length;
-  getTweetCompose().selectionEnd = toReplace.index + unifiedEmoji.length;
-  hideEmojiDropdown();
+  composeBox.value = newValue;
+  composeBox.selectionStart = toReplace.index + unifiedEmoji.length;
+  composeBox.selectionEnd = toReplace.index + unifiedEmoji.length;
+  hideEmojiDropdown(event);
 }
 
 function keypressHandler(event) {
   const key = event.key;
 
-  if (!isEmojiDropdownOpened()) {
+  if (!isEmojiDropdownOpened(event)) {
     return;
   }
 
@@ -268,25 +271,25 @@ function keypressHandler(event) {
     case 'arrowdown':
       event.preventDefault();
       event.stopPropagation();
-      moveSelection(1);
+      moveSelection(event, 1);
       break;
 
     case 'arrowup':
       event.preventDefault();
       event.stopPropagation();
-      moveSelection(-1);
+      moveSelection(event, -1);
       break;
 
     case 'enter':
       event.preventDefault();
       event.stopPropagation();
-      selectTypeaheadEmoji();
+      selectTypeaheadEmoji(event);
       break;
 
     case 'escape':
       event.preventDefault();
       event.stopPropagation();
-      hideEmojiDropdown();
+      hideEmojiDropdown(event);
       break;
 
     default:
@@ -300,16 +303,42 @@ function emojiMatcherOnInput(event) {
   const beforeCursor = valueAtCursor(event.target).value;
   const colonMatch = beforeCursor.match(colonRegex);
 
-  if (colonMatch && colonMatch[1]) {
+  if (colonMatch && colonMatch[1] && colonMatch[1].length >= 2) {
     const emojiMatches = findEmoji(colonMatch[1]).slice(0, 8);
 
     if (emojiMatches.length > 0) {
-      updateEmojiDropdown(emojiMatches, skinVariation);
+      updateEmojiDropdown(event, emojiMatches, skinVariation);
     } else {
-      hideEmojiDropdown();
+      hideEmojiDropdown(event);
     }
   } else {
-    hideEmojiDropdown();
+    hideEmojiDropdown(event);
+  }
+}
+
+// Poor man's event delegation
+function eventInsideTweetBox(event) {
+  if (!event.target.matches('.js-compose-text')) {
+    return;
+  }
+
+  const { type } = event;
+
+  switch (type) {
+    case 'input':
+      emojiMatcherOnInput(event);
+      break;
+
+    case 'keydown':
+      keypressHandler(event);
+      break;
+
+    case 'blur':
+      hideEmojiDropdown(event);
+      break;
+
+    default:
+      break;
   }
 }
 
@@ -416,7 +445,7 @@ export default function buildEmojiPicker(rebuild = false) {
     });
   });
 
-  const tweetCompose = getTweetCompose();
+  const tweetCompose = $('textarea.js-compose-text')[0];
   $('.emoji-popover')[0].addEventListener('click', (ev) => {
     let emoji;
 
@@ -444,9 +473,9 @@ export default function buildEmojiPicker(rebuild = false) {
     });
   });
 
-  tweetCompose.addEventListener('input', emojiMatcherOnInput);
-  tweetCompose.addEventListener('keydown', keypressHandler);
-  tweetCompose.addEventListener('blur', hideEmojiDropdown);
+  document.body.addEventListener('input', eventInsideTweetBox);
+  document.body.addEventListener('keydown', eventInsideTweetBox);
+  document.body.addEventListener('blur', eventInsideTweetBox);
 
   const emojiPicker = $('.emoji-popover')[0];
 
