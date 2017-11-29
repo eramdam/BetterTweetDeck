@@ -252,6 +252,7 @@ function selectTypeaheadEmoji(event) {
   composeBox.value = newValue;
   composeBox.selectionStart = toReplace.index + unifiedEmoji.length;
   composeBox.selectionEnd = toReplace.index + unifiedEmoji.length;
+  composeBox.dispatchEvent(new Event('change'));
   hideEmojiDropdown(event);
 }
 
