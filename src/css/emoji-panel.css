@@ -17,7 +17,7 @@ html.btd-on {
     padding-bottom: 40px;
 
     &::-webkit-scrollbar {
-      width: 2px;
+      width: 8px;
     }
 
     &::-webkit-scrollbar-track {
@@ -109,10 +109,14 @@ html.btd-on {
     color: #28292b;
   }
 
+  .emoji-popover .emoji-category {
+    padding: 0 7px;
+  }
+
   .emoji-popover .btd-emoji,
   .btd-emoji-typeahead .btd-emoji,
   .emoji-popover .btd-skin-tone {
-    font-size: 20px;
+    font-size: 18px;
     display: inline-block;
     width: 1em;
     height: 1em;
@@ -125,16 +129,16 @@ html.btd-on {
     vertical-align: sub;
   }
 
+  .emoji-popover .emoji-category .btd-emoji {
+    margin: 5px 2px;
+  }
+
   .emoji-popover .btd-skin-tone + .btd-skin-tone {
     margin-left: 0;
   }
 
   .emoji-popover .btd-skin-tone {
     border-radius: 10px;
-  }
-
-  .emoji-popover .btd-emoji .emoji-outer + .emoji-outer {
-    display: none;
   }
 
   .btd__small_icns_compose {
