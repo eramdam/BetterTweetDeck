@@ -43,11 +43,13 @@ html.btd-on {
     display: flex;
     align-items: center;
     transition: transform 300ms ease;
-    transform: translateY(100%);
+    transform: scaleY(0) translateY(100%);
+    transform-origin: bottom center;
+    pointer-events: none;
   }
 
   .emoji-popover .emoji-preview.-visible {
-    transform: translateY(0);
+    transform: scaleY(1) translateY(0);
   }
 
   .emoji-popover .emoji-preview .emoji-current-img {
@@ -59,6 +61,7 @@ html.btd-on {
 
   .emoji-popover .emoji-preview .emoji-current-img .btd-emoji {
     font-size: inherit;
+    margin: 0;
   }
 
   .emoji-popover .emoji-preview .emoji-current-name {
