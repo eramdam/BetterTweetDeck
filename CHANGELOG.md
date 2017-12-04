@@ -1,4 +1,12 @@
-:tada: 3.4.10 :tada:
+🎉 3.5 🎉
+===============
+- [Feature] You can now add GIFs directly from [Giphy](https://giphy.com/) from the composer. Click the `GIF` button in there and 💥
+- [Feature] You can now add emojis even faster using `:shortcodes:` like on Discord/Slack/GitHub.
+- [Improvement] The emoji picker should have slightly better performances
+- [Improvement] The emoji picker now has a larger scrollbar and displays more emoji in the same space
+- [Feature] The emoji picker now displays a small preview of the emoji currently hovered, showing it's `:shortcode:`
+
+3.4.10
 ===============
 - [Bugfix] The "icons in compose panel are smaller" was not properly fixed after 3.4.9. Should be good now.
 - That's all (again)
