@@ -456,54 +456,37 @@ const followStatus = (client, targetUserId) => {
 };
 
 const checkBTDFollowing = () => {
-  if (window.localStorage.getItem('btd_disable_prompt_follow_twitter') || SETTINGS.need_update_banner) {
-    return;
-  }
+  if (!window.localStorage.getItem('btd_disable_prompt_follow_twitter') && !SETTINGS.need_update_banner) {
+    const BTD_ID = '4664726178';
 
-  const BTD_ID = '4664726178';
-
-  const followingPromises = TD.controller.clients.getClientsByService('twitter').map((client) => {
-    return followStatus(client, BTD_ID);
-  });
-
-  Promise.all(followingPromises).then((values) => {
-    window.localStorage.setItem('btd_disable_prompt_follow_twitter', true);
-
-    const showBanner = values.every(user => !user.following);
-
-    if (!showBanner) {
-      return;
-    }
-
-    postMessagesListeners.BTDC_showTDBanner({}, {
-      banner: {
-        text: 'Do you want to follow Better TweetDeck on Twitter for news, support and tips?',
-        action: 'trigger-event',
-        event: {
-          type: 'openBtdProfile',
-        },
-        label: 'Sure!',
-        bg: '#3daafb',
-        fg: '#07214c',
-      },
+    const followingPromises = TD.controller.clients.getClientsByService('twitter').map((client) => {
+      return followStatus(client, BTD_ID);
     });
-  });
 
-  // Promise.all(followingPromises).then(() => {}).catch(() => {
-  //   window.localStorage.setItem('btd_disable_prompt_follow_twitter', true);
-  //   postMessagesListeners.BTDC_showTDBanner({}, {
-  //     banner: {
-  //       text: 'Do you want to follow Better TweetDeck on Twitter for news, support and tips?',
-  //       action: 'trigger-event',
-  //       event: {
-  //         type: 'openBtdProfile',
-  //       },
-  //       label: 'Sure!',
-  //       bg: '#3daafb',
-  //       fg: '#07214c',
-  //     },
-  //   });
-  // });
+    Promise.all(followingPromises).then((values) => {
+      console.log({ values });
+      window.localStorage.setItem('btd_disable_prompt_follow_twitter', true);
+
+      const showBanner = values.every(user => user.following === false);
+
+      if (!showBanner) {
+        return;
+      }
+
+      postMessagesListeners.BTDC_showTDBanner({}, {
+        banner: {
+          text: 'Do you want to follow Better TweetDeck on Twitter for news, support and tips?',
+          action: 'trigger-event',
+          event: {
+            type: 'openBtdProfile',
+          },
+          label: 'Sure!',
+          bg: '#3daafb',
+          fg: '#07214c',
+        },
+      });
+    });
+  }
 };
 
 window.addEventListener('message', (ev) => {
@@ -593,6 +576,11 @@ $(document).on('uiColumnUpdateMediaPreview', (ev, data) => {
   proxyEvent('columnMediaSizeUpdated', { id, size: data.value });
 });
 
+$(document).on('dataClientsUpdated', () => {
+  setTimeout(checkBTDFollowing, 2000);
+});
+
+
 // We wait for the loading of the columns and we get all the media preview size
 $(document).one('dataColumnsLoaded', () => {
   proxyEvent('ready');
@@ -632,7 +620,6 @@ $(document).one('dataColumnsLoaded', () => {
   }
 
   switchThemeClass();
-  setTimeout(checkBTDFollowing, 2000);
 });
 
 // Adds search column to the beginning instead of the end, and resets search input for convenience
