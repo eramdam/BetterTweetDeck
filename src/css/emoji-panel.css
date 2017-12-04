@@ -6,13 +6,18 @@ html.btd-on {
     flex-direction: column;
   }
 
+  .emoji-popover {
+    overflow: hidden;
+  }
+
   .emoji-popover .emoji-container {
     flex: 1;
     overflow-y: scroll;
     overflow-x: hidden;
+    padding-bottom: 40px;
 
     &::-webkit-scrollbar {
-      width: 2px;
+      width: 8px;
     }
 
     &::-webkit-scrollbar-track {
@@ -24,11 +29,58 @@ html.btd-on {
     }
   }
 
+  .emoji-popover .emoji-preview {
+    position: absolute;
+    box-sizing: border-box;
+    bottom: 30px;
+    width: 100%;
+    z-index: 0;
+    padding: 6px 5px;
+    background: #f9f9f9;
+    color: #28292b;
+    border-top: 1px solid #e4e4e4;
+    border-bottom: 1px solid #e4e4e4;
+    display: flex;
+    align-items: center;
+    transition: transform 300ms ease;
+    transform: scaleY(0) translateY(100%);
+    transform-origin: bottom center;
+    pointer-events: none;
+  }
+
+  .emoji-popover .emoji-preview.-visible {
+    transform: scaleY(1) translateY(0);
+  }
+
+  .emoji-popover .emoji-preview .emoji-current-img {
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .emoji-popover .emoji-preview .emoji-current-img .btd-emoji {
+    font-size: inherit;
+    margin: 0;
+  }
+
+  .emoji-popover .emoji-preview .emoji-current-name {
+    padding-left: 6px;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 12px;
+  }
+
   .emoji-popover .category-chooser {
     height: 30px;
     display: flex;
     flex-direction: row;
+    background: white;
+    z-index: 1;
     position: relative;
+    border-radius: 0 0 8px 8px;
   }
 
   .emoji-popover .emoji-search {
@@ -37,16 +89,6 @@ html.btd-on {
 
   .emoji-popover .emoji-search {
     color: #28292b;
-  }
-
-  .emoji-popover .category-chooser::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 5px;
-    background: linear-gradient(transparent, white);
-    box-shadow: 0 1px 0 color(black a(10%));
-    top: -5px;
   }
 
   .emoji-popover .category-chooser > button {
@@ -70,13 +112,28 @@ html.btd-on {
     color: #28292b;
   }
 
+  .emoji-popover .emoji-category {
+    padding: 0 7px;
+  }
+
   .emoji-popover .btd-emoji,
+  .btd-emoji-typeahead .btd-emoji,
   .emoji-popover .btd-skin-tone {
-    font-size: 20px;
+    font-size: 18px;
     display: inline-block;
     width: 1em;
     height: 1em;
     margin: 5px;
+  }
+
+  .btd-emoji-typeahead .btd-emoji {
+    font-size: 16px;
+    margin: 0 5px;
+    vertical-align: sub;
+  }
+
+  .emoji-popover .emoji-category .btd-emoji {
+    margin: 5px 2px;
   }
 
   .emoji-popover .btd-skin-tone + .btd-skin-tone {
@@ -85,10 +142,6 @@ html.btd-on {
 
   .emoji-popover .btd-skin-tone {
     border-radius: 10px;
-  }
-
-  .emoji-popover .btd-emoji .emoji-outer + .emoji-outer {
-    display: none;
   }
 
   .btd__small_icns_compose {
@@ -101,7 +154,8 @@ html.btd-on {
     }
   }
 
-  .emoji-popover {
+  .emoji-popover,
+  .btd-emoji-typeahead {
     span.emoji {
       display: inline-block;
       vertical-align: baseline;
