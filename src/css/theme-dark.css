@@ -102,6 +102,7 @@ html.btd-on [data-btdtheme="dark"].btd__minimal_mode {
   }
 
   .drawer .compose,
+  .btd-giphy-zone,
   .inline-reply {
     background-color: var(--compose-btn-bg-dark-hover);
   }

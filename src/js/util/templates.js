@@ -131,3 +131,32 @@ export const modalTemplate = ({
     hasGIFDownload,
   }));
 };
+
+export const giphyBlock = ({ preview, url }) => {
+  return Mustache.render(`
+  <div class="btd-giphy-block-wrapper">
+    <img src="{{{previewUrl}}}" class="btd-giphy-block" height="{{height}}" width="{{width}}" data-btd-url="{{{url}}}" />
+  </div>
+`, {
+      previewUrl: preview.url,
+      width: preview.width,
+      height: preview.height,
+      url,
+    });
+};
+
+export const giphySearch = () => Mustache.render(`
+    <header class="js-compose-header compose-header">
+      <div class="position-rel compose-title inline-block">
+        <h1 class="js-compose-title compose-title-text txt-ellipsis inline-block">Add a GIF</h1>
+      </div>
+      <i class="btd-giphy-close is-actionable icon icon-close margin-vm pull-right"></i>
+    </header>
+    <div class="giphy-searchbox">
+      <input type="search" class="giphy-search-input" placeholder="Search..." />
+    </div>
+    <div class="giphy-wrapper scroll-v scroll-styled-v">
+      <div class="giphy-content"></div>
+    </div>
+    <div class="giphy-zone-logo"></div>
+  `);
