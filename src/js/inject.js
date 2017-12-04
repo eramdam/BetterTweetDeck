@@ -201,6 +201,8 @@ if (SETTINGS.collapse_columns) {
   }
 }
 
+TD.mustaches['compose/compose_inline_reply.mustache'] = TD.mustaches['compose/compose_inline_reply.mustache'].replace('</textarea> {{>', '</textarea> <ul class="lst lst-modal typeahead btd-emoji-typeahead"></ul> {{>');
+
 // make it so we can use custom column header icons
 TD.mustaches['column/column_header.mustache'] = TD.mustaches['column/column_header.mustache']
   // wrap everyting with an ul
