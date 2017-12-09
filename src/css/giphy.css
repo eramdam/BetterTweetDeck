@@ -110,6 +110,7 @@
 
 input.giphy-search-input {
   box-sizing: border-box !important;
+  color: #111;
 }
 
 .btd-gif-button.btd-gif-button:hover {
