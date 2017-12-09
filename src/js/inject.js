@@ -895,6 +895,19 @@ $(document).on('paste', (ev) => {
   }
 });
 
+$(document).on('uiComposeTweet', (ev, data) => {
+  if (data && data.quotedTweet) {
+    $('.btd-gif-button').css('display', 'none');
+  } else {
+    $('.btd-gif-button').css('display', 'block');
+  }
+});
+
+$(document).on('uiRemoveQuotedTweet', (ev) => {
+  $('.btd-gif-button').css('display', 'block');
+});
+
+
 $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="favorite"]' +
   '.tweet-action[rel="retweet"], .tweet-detail-action[rel="retweet"], ' +
   '[data-btd-action="hotlink-media"], ' +
