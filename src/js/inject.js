@@ -561,10 +561,113 @@ const handleInsertedNode = (element) => {
   proxyEvent('gotChirpForColumn', { chirp: decorateChirp(chirp), colKey });
 };
 
+const closeCustomModal = () => {
+  $('#open-modal').css('display', 'none');
+  $('#open-modal').empty();
+};
+
+
 const observer = new MutationObserver(mutations => mutations.forEach((mutation) => {
   [...mutation.addedNodes].forEach(handleInsertedNode);
 }));
 observer.observe(document, { subtree: true, childList: true });
+
+const handleGifClick = (ev) => {
+  ev.preventDefault();
+  ev.stopPropagation();
+
+  const chirpKey = ev.target.closest('[data-key]').getAttribute('data-key');
+  const colKey = ev.target.closest('.js-column').getAttribute('data-column');
+  const video = {
+    src: ev.target.src,
+  };
+
+  const chirp = getChirpFromKey(chirpKey, colKey);
+
+  if (!chirp) {
+    return;
+  }
+
+  video.height = chirp.entities.media[0].sizes.large.h;
+  video.width = chirp.entities.media[0].sizes.large.w;
+
+  video.name = TD.ui.template.render('btd/download_filename_format', getMediaParts(chirp, video.src.replace(/\.mp4$/, '.gif')));
+
+  proxyEvent('clickedOnGif', {
+    tweetKey: chirpKey,
+    colKey,
+    video,
+  });
+};
+
+const findBiggestBitrate = (videos) => {
+  return videos.reduce((max, x) => {
+    return (x.bitrate || -1) > (max.bitrate || -1) ? x : max;
+  });
+};
+
+const getMediaFromChirp = (chirp) => {
+  const urls = [];
+
+  chirp.entities.media.forEach((item) => {
+    switch (item.type) {
+      case 'video':
+      case 'animated_gif':
+        urls.push(findBiggestBitrate(item.video_info.variants).url);
+        break;
+      case 'photo':
+        urls.push(`${item.media_url_https}:orig`);
+        break;
+      default:
+        throw new Error(`unsupported media type: ${item.type}`);
+    }
+  });
+
+  return urls;
+};
+
+const getContextFromChirp = (chirp) => {
+  const urls = [];
+
+  if (chirp.quotedTweet && !chirp.quotedTweetMissing) {
+    urls.push(...getContextFromChirp(chirp.quotedTweet));
+  }
+
+  urls.push(chirp.getChirpURL());
+  if (chirp.entities.media.length > 1) {
+    urls.push(...(getMediaFromChirp(chirp).slice(1)));
+  }
+
+  return urls;
+};
+
+// Disable eslint so that we can keep a copy of the clipboard around.
+// eslint-disable-next-line
+const clipboard = new Clipboard('.btd-clipboard', {
+  text: (trigger) => {
+    const chirp = getChirpFromElement(trigger);
+    switch ($(trigger).attr('rel')) {
+      case 'hotlink':
+        return getMediaFromChirp(chirp).join('\n');
+      default:
+        return false;
+    }
+  },
+});
+
+const getMediaUrlParts = (url) => {
+  return {
+    originalExtension: url.replace(/:[a-z]+$/, '').split('.').pop(),
+    originalFile: url.split('/').pop().split('.')[0],
+  };
+};
+
+// control characters can't appear in tweets, so we can use them to pad strings out
+// source: https://shkspr.mobi/blog/2015/11/twitters-weird-control-character-handling/
+const loudencer = (str, start, end) => {
+  return str.slice(0, start) + ('\x07').repeat(str.slice(start, end).length) + str.slice(end);
+};
+
 
 // TD Events
 $(document).on('dataColumns', (ev, data) => {
@@ -588,7 +691,6 @@ $(document).on('uiColumnUpdateMediaPreview', (ev, data) => {
 $(document).on('dataClientsUpdated', () => {
   setTimeout(checkBTDFollowing, 2000);
 });
-
 
 // We wait for the loading of the columns and we get all the media preview size
 $(document).one('dataColumnsLoaded', () => {
@@ -736,11 +838,6 @@ $(document).on('uiSearchNoTemporaryColumn', (e, data) => {
   }
 });
 
-const closeCustomModal = () => {
-  $('#open-modal').css('display', 'none');
-  $('#open-modal').empty();
-};
-
 $(document).keydown((ev) => {
   if ($('#open-modal [btd-custom-modal]').length && ev.keyCode === 27) {
     closeCustomModal();
@@ -757,7 +854,7 @@ $(document).on('openBtdProfile', () => {
   });
 });
 
-document.addEventListener('paste', (ev) => {
+$(document).on('paste', (ev) => {
   if (ev.clipboardData) {
     const items = ev.clipboardData.items;
 
@@ -796,110 +893,6 @@ document.addEventListener('paste', (ev) => {
       files,
     });
   }
-});
-
-const handleGifClick = (ev) => {
-  ev.preventDefault();
-  ev.stopPropagation();
-
-  const chirpKey = ev.target.closest('[data-key]').getAttribute('data-key');
-  const colKey = ev.target.closest('.js-column').getAttribute('data-column');
-  const video = {
-    src: ev.target.src,
-  };
-
-  const chirp = getChirpFromKey(chirpKey, colKey);
-
-  if (!chirp) {
-    return;
-  }
-
-  video.height = chirp.entities.media[0].sizes.large.h;
-  video.width = chirp.entities.media[0].sizes.large.w;
-
-  video.name = TD.ui.template.render('btd/download_filename_format', getMediaParts(chirp, video.src.replace(/\.mp4$/, '.gif')));
-
-  proxyEvent('clickedOnGif', { tweetKey: chirpKey, colKey, video });
-};
-
-$('body').on('click', 'article video.js-media-gif', handleGifClick);
-
-$('body').on('click', '#open-modal', (ev) => {
-  const isMediaModal = document.querySelector('.js-modal-panel .js-media-preview-container, .js-modal-panel iframe, .js-modal-panel .btd-embed-container');
-
-  if (!SETTINGS.css.no_bg_modal ||
-  !isMediaModal) {
-    return;
-  }
-
-  if (!ev.target.closest('.med-tray')
-   && !ev.target.closest('.mdl-btn-media') && $('a[rel="dismiss"]')[0]
-   && !ev.target.closest('.med-tweet')) {
-    ev.preventDefault();
-    ev.stopPropagation();
-
-    if ($('#open-modal [btd-custom-modal]').length) {
-      closeCustomModal();
-      return;
-    }
-
-    $('a[rel="dismiss"]').click();
-  }
-});
-
-const findBiggestBitrate = (videos) => {
-  return videos.reduce((max, x) => {
-    return (x.bitrate || -1) > (max.bitrate || -1) ? x : max;
-  });
-};
-
-const getMediaFromChirp = (chirp) => {
-  const urls = [];
-
-  chirp.entities.media.forEach((item) => {
-    switch (item.type) {
-      case 'video':
-      case 'animated_gif':
-        urls.push(findBiggestBitrate(item.video_info.variants).url);
-        break;
-      case 'photo':
-        urls.push(`${item.media_url_https}:orig`);
-        break;
-      default:
-        throw new Error(`unsupported media type: ${item.type}`);
-    }
-  });
-
-  return urls;
-};
-
-const getContextFromChirp = (chirp) => {
-  const urls = [];
-
-  if (chirp.quotedTweet && !chirp.quotedTweetMissing) {
-    urls.push(...getContextFromChirp(chirp.quotedTweet));
-  }
-
-  urls.push(chirp.getChirpURL());
-  if (chirp.entities.media.length > 1) {
-    urls.push(...(getMediaFromChirp(chirp).slice(1)));
-  }
-
-  return urls;
-};
-
-// Disable eslint so that we can keep a copy of the clipboard around.
-// eslint-disable-next-line
-const clipboard = new Clipboard('.btd-clipboard', {
-  text: (trigger) => {
-    const chirp = getChirpFromElement(trigger);
-    switch ($(trigger).attr('rel')) {
-      case 'hotlink':
-        return getMediaFromChirp(chirp).join('\n');
-      default:
-        return false;
-    }
-  },
 });
 
 $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="favorite"]' +
@@ -1053,18 +1046,30 @@ $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
   });
 });
 
-const getMediaUrlParts = (url) => {
-  return {
-    originalExtension: url.replace(/:[a-z]+$/, '').split('.').pop(),
-    originalFile: url.split('/').pop().split('.')[0],
-  };
-};
+$('body').on('click', 'article video.js-media-gif', handleGifClick);
 
-// control characters can't appear in tweets, so we can use them to pad strings out
-// source: https://shkspr.mobi/blog/2015/11/twitters-weird-control-character-handling/
-const loudencer = (str, start, end) => {
-  return str.slice(0, start) + ('\x07').repeat(str.slice(start, end).length) + str.slice(end);
-};
+$('body').on('click', '#open-modal', (ev) => {
+  const isMediaModal = document.querySelector('.js-modal-panel .js-media-preview-container, .js-modal-panel iframe, .js-modal-panel .btd-embed-container');
+
+  if (!SETTINGS.css.no_bg_modal ||
+    !isMediaModal) {
+    return;
+  }
+
+  if (!ev.target.closest('.med-tray') &&
+    !ev.target.closest('.mdl-btn-media') && $('a[rel="dismiss"]')[0] &&
+    !ev.target.closest('.med-tweet')) {
+    ev.preventDefault();
+    ev.stopPropagation();
+
+    if ($('#open-modal [btd-custom-modal]').length) {
+      closeCustomModal();
+      return;
+    }
+
+    $('a[rel="dismiss"]').click();
+  }
+});
 
 $('body').on('click', '[data-btd-action="edit-tweet"]', (ev) => {
   ev.preventDefault();
@@ -1282,7 +1287,7 @@ const isVisible = (elem) => {
         style.visibility === 'visible' && isCompletelyVisible;
 };
 
-window.addEventListener('focus', (ev) => {
+$(window).on('focus', (ev) => {
   // Don't do anything if we don't focus the window
   if (!(ev.target instanceof Window)) {
     return;
@@ -1298,4 +1303,4 @@ window.addEventListener('focus', (ev) => {
   if (widget) {
     widget.focus();
   }
-}, true);
+});
