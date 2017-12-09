@@ -14,9 +14,9 @@
   },
   "scripts": {
     "prerelease": "rimraf artifacts/*",
-    "start": "cross-env NODE_ENV=dev webpack --hide-modules --watch --env.browser",
-    "build": "cross-env NODE_ENV=dev webpack --hide-modules --env.browser",
-    "build:prod": "cross-env NODE_ENV=prod webpack --hide-modules --env.browser",
+    "start": "cross-env NODE_ENV=dev webpack --progress --hide-modules --watch --env.browser",
+    "build": "cross-env NODE_ENV=dev webpack --progress --hide-modules --env.browser",
+    "build:prod": "cross-env NODE_ENV=prod webpack --progress --hide-modules --env.browser",
     "run:firefox": "web-ext run -s dist",
     "lint": "eslint {src,tools,config}/**/*.js webpack.config.js && stylelint src/**/*.css",
     "test": "npm run lint",
