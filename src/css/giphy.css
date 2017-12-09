@@ -2,8 +2,8 @@
   box-sizing: border-box;
   position: absolute;
   top: 0;
-  z-index: 210;
-  left: 50px;
+  z-index: 19;
+  left: 200px;
   color: white;
   width: 270px;
   height: 100%;
@@ -15,6 +15,10 @@
   transition-timing-function: ease;
   display: flex;
   flex-direction: column;
+}
+
+.application.is-condensed .btd-giphy-zone {
+  left: 50px;
 }
 
 .btd-giphy-zone.-visible {
