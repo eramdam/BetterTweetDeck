@@ -129,7 +129,6 @@ function openWelcomePage() {
 function contextMenuHandler(info, tab, settings) {
   const urlToShare = info.linkUrl || info.srcUrl || info.pageUrl;
   let textToShare = info.selectionText || tab.title;
-  console.log({ textToShare });
 
   if (settings.share_item.short_txt) {
     textToShare = textToShare.substr(0, 255);

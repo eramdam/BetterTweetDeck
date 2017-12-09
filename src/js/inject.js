@@ -473,7 +473,6 @@ const checkBTDFollowing = () => {
     });
 
     Promise.all(followingPromises).then((values) => {
-      console.log({ values });
       window.localStorage.setItem('btd_disable_prompt_follow_twitter', true);
 
       const showBanner = values.every(user => user.following === false);
@@ -903,7 +902,7 @@ $(document).on('uiComposeTweet', (ev, data) => {
   }
 });
 
-$(document).on('uiRemoveQuotedTweet', (ev) => {
+$(document).on('uiRemoveQuotedTweet', () => {
   $('.btd-gif-button').css('display', 'block');
 });
 
