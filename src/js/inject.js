@@ -577,9 +577,6 @@ const handleGifClick = (ev) => {
 
   const chirpKey = ev.target.closest('[data-key]').getAttribute('data-key');
   const colKey = ev.target.closest('.js-column').getAttribute('data-column');
-  const video = {
-    src: ev.target.src,
-  };
 
   const chirp = getChirpFromKey(chirpKey, colKey);
 
@@ -587,8 +584,11 @@ const handleGifClick = (ev) => {
     return;
   }
 
-  video.height = chirp.entities.media[0].sizes.large.h;
-  video.width = chirp.entities.media[0].sizes.large.w;
+  const video = {
+    src: chirp.entities.media[0].video_info.variants[0].url,
+    height: chirp.entities.media[0].sizes.large.h,
+    width: chirp.entities.media[0].sizes.large.w,
+  };
 
   video.name = TD.ui.template.render('btd/download_filename_format', getMediaParts(chirp, video.src.replace(/\.mp4$/, '.gif')));
 
