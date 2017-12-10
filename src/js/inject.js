@@ -853,7 +853,7 @@ $(document).on('openBtdProfile', () => {
   });
 });
 
-$(document).on('paste', (ev) => {
+document.addEventListener('paste', (ev) => {
   if (ev.clipboardData) {
     const items = ev.clipboardData.items;
 
