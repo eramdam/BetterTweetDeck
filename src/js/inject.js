@@ -2,19 +2,13 @@ import config from 'config';
 import FileSaver from 'file-saver';
 import Clipboard from 'clipboard';
 import { unescape, debounce } from 'lodash';
-import GiphyAPI from 'giphy-api';
 import Log from './util/logger';
+import * as GIFS from './util/gifs';
 import UsernamesTemplates from './util/username_templates';
 import wc from './util/webcrack';
 import { giphySearch, giphyBlock } from './util/templates';
 
-const GiphyClient = GiphyAPI({
-  apiKey: config.Client.APIs.giphy,
-  https: true,
-});
-
 const SETTINGS = $('[data-btd-settings]').data('btd-settings');
-window.BTD = {};
 
 if (SETTINGS.no_tco) {
   const dummyEl = document.createElement('span');
@@ -133,6 +127,7 @@ const getChirpFromElement = (element) => {
 };
 
 if (config.Client.debug) {
+  window.BTD = {};
   window.BTD.debug = {
     wc,
     getChirpFromElement,
@@ -746,6 +741,12 @@ $(document).one('dataColumnsLoaded', () => {
     <span class="btd-gif-button -visible txt-twitter-dark-gray">${GIFText}</span>
     <span class="btd-gif-indicator txt-line-height--20 txt-size--12 txt-twitter-dark-gray"></span>
   `);
+
+  $('.js-media-added').after(`
+    <span
+      class="txt-line-height--12 txt-size--12 txt-twitter-dark-gray btd-gif-source-indicator"
+    ></span>
+  `);
 });
 
 $(document).on('click', '.btd-gif-button', (e) => {
@@ -753,12 +754,7 @@ $(document).on('click', '.btd-gif-button', (e) => {
   e.stopPropagation();
   $('.btd-giphy-zone').addClass('-visible');
 
-  GiphyClient.trending().then((res) => {
-    const gifs = res.data.map(i => ({
-      preview: i.images.preview_gif,
-      url: i.images.original.url,
-    }));
-
+  GIFS.trending().then((gifs) => {
     $('.btd-giphy-zone .giphy-content').html(gifs.map(giphyBlock).join(''));
   });
 });
@@ -774,13 +770,7 @@ const closeGiphyZone = (ev) => {
 $(document).on('input', '.giphy-search-input', debounce((ev) => {
   const query = ev.target.value;
 
-  GiphyClient.search({
-    q: query,
-  }).then((res) => {
-    const gifs = res.data.map(i => ({
-      preview: i.images.preview_gif,
-      url: i.images.original.url,
-    }));
+  GIFS.search(query).then((gifs) => {
     const markup = gifs.map(giphyBlock).join('');
     $('.btd-giphy-zone .giphy-content').html(markup);
   });
@@ -801,9 +791,9 @@ $(document).on('click', '.btd-giphy-block', (ev) => {
     });
     $(document).trigger('uiFilesAdded', {
       files: [myFile],
+      source: ev.target.dataset.btdSource,
     });
     $('.btd-gif-indicator').removeClass('-visible');
-    $('.btd-gif-button').addClass('-visible');
   };
 
   gifRequest.onprogress = (event) => {
@@ -815,6 +805,24 @@ $(document).on('click', '.btd-giphy-block', (ev) => {
   $('.btd-gif-button').removeClass('-visible');
   $('.btd-gif-indicator').addClass('-visible');
   closeGiphyZone(ev);
+});
+
+const gifSourceMap = {
+  tenor: 'Tenor',
+  giphy: 'GIPHY',
+};
+
+$(document).on('uiResetImageUpload', () => {
+  $('.btd-gif-button').addClass('-visible');
+});
+
+$(document).on('uiFilesAdded', (ev, data) => {
+  if (!data.source) {
+    $('.btd-gif-source-indicator').html('');
+    return;
+  }
+
+  $('.btd-gif-source-indicator').html(`GIF via <span class="gif-provider ${data.source}"></span> ${gifSourceMap[data.source]}`);
 });
 
 // Adds search column to the beginning instead of the end, and resets search input for convenience
