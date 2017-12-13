@@ -132,16 +132,17 @@ export const modalTemplate = ({
   }));
 };
 
-export const giphyBlock = ({ preview, url }) => {
+export const giphyBlock = ({ preview, url, source }) => {
   return Mustache.render(`
   <div class="btd-giphy-block-wrapper">
-    <img src="{{{previewUrl}}}" class="btd-giphy-block" height="{{height}}" width="{{width}}" data-btd-url="{{{url}}}" />
+    <img src="{{{previewUrl}}}" class="btd-giphy-block" height="{{height}}" width="{{width}}" data-btd-url="{{{url}}}" data-btd-source="{{source}}" />
   </div>
 `, {
       previewUrl: preview.url,
       width: preview.width,
       height: preview.height,
       url,
+      source,
     });
 };
 
@@ -158,5 +159,4 @@ export const giphySearch = () => Mustache.render(`
     <div class="giphy-wrapper scroll-v scroll-styled-v">
       <div class="giphy-content"></div>
     </div>
-    <div class="giphy-zone-logo"></div>
   `);

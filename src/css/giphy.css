@@ -129,3 +129,33 @@ input.giphy-search-input {
 .giphy-zone-logo {
   background-image: url('../img/giphy-logo-dark.png');
 }
+
+.js-media-added.is-hidden ~ .btd-gif-source-indicator {
+  display: none;
+}
+
+.btd-gif-source-indicator {
+  padding: 10px;
+  padding-top: 4px;
+  margin-top: -4px;
+  border-radius: 0 0 4px 4px;
+  background: white;
+  display: flex;
+  align-items: center;
+}
+
+.btd-gif-source-indicator .gif-provider {
+  border-radius: 4px;
+  width: 20px;
+  height: 20px;
+  background-size: 100%;
+  margin: 0 0.2em 0 0.3em;
+
+  &.giphy {
+    background-image: url('../img/giphy-logo.png');
+  }
+
+  &.tenor {
+    background-image: url('../img/tenor-logo.png');
+  }
+}

@@ -10,6 +10,7 @@ module.exports = {
       twitch: '',
       tinami: '',
       giphy: '',
+      tenor: '',
     },
     extension_ids: {
       chrome: {
