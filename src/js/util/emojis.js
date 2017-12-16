@@ -338,8 +338,6 @@ function eventInsideTweetBox(event) {
   }
 }
 
-let defaultEmojiContent = '';
-
 function getEmojiList(query) {
   if (query) {
     const emojiMatches = findEmoji(query);
@@ -352,9 +350,7 @@ function getEmojiList(query) {
     `;
   }
 
-  if (defaultEmojiContent) {
-    return defaultEmojiContent;
-  }
+  let defaultEmojiContent = '';
 
   defaultEmojiContent = `
     <h3 class="emoji-category-title">Skin tone</h3>
@@ -383,8 +379,22 @@ function getEmojiList(query) {
   return defaultEmojiContent;
 }
 
+function skinToneHandler(event) {
+  if (!event.target.matches('.btd-skin-tone')) {
+    return false;
+  }
+
+  event.preventDefault();
+  event.stopPropagation();
+  const skinTone = event.target.getAttribute('data-btd-skin-tone');
+
+  localStorage['btd-skin-variation'] = skinTone;
+  return true;
+}
+
 let eventsBound = false;
-export default function buildEmojiPicker(rebuild = false) {
+
+function buildEmojiPicker(rebuild = false) {
   const emojiPickerMarkup = getEmojiPickerMarkup(getEmojiList());
 
   if (!rebuild) {
@@ -434,33 +444,37 @@ export default function buildEmojiPicker(rebuild = false) {
 
   $('.lst.lst-modal.typeahead')[0].insertAdjacentElement('afterend', dropdownHolder);
 
-  $('.emoji-search input')[0].addEventListener('keyup', (ev) => {
-    const val = String(ev.target.value);
+  $('.js-emoji-holder')[0].addEventListener('keyup', (ev) => {
+    if (!ev.target.matches('.emoji-search input')) {
+      return;
+    }
 
+    const val = String(ev.target.value);
     $('.emoji-popover .emoji-container')[0].innerHTML = getEmojiList(val);
   });
 
-  $('.category-chooser button').forEach((catButton) => {
-    catButton.addEventListener('click', (ev) => {
-      let emojiCat;
+  $('.js-emoji-holder')[0].addEventListener('click', (ev) => {
+    if (!ev.target.matches('.category-chooser button') && !ev.target.closest('[data-btd-emoji-cat]')) {
+      return;
+    }
+    let emojiCat;
 
-      if (ev.target.hasAttribute('data-btd-emoji-cat')) {
-        emojiCat = ev.target;
-      } else {
-        emojiCat = ev.target.closest('[data-btd-emoji-cat]');
-      }
+    if (ev.target.hasAttribute('data-btd-emoji-cat')) {
+      emojiCat = ev.target;
+    } else {
+      emojiCat = ev.target.closest('[data-btd-emoji-cat]');
+    }
 
-      const emojiCatName = emojiCat.getAttribute('data-btd-emoji-cat');
+    const emojiCatName = emojiCat.getAttribute('data-btd-emoji-cat');
 
-      const emojiCatEl = $(`.emoji-popover h3[data-btd-emoji-cat="${emojiCatName}"]`)[0];
+    const emojiCatEl = $(`.emoji-popover h3[data-btd-emoji-cat="${emojiCatName}"]`)[0];
 
-      emojiCatEl.scrollIntoView({ block: 'start', behavior: 'smooth' });
-    });
+    emojiCatEl.scrollIntoView({ block: 'start', behavior: 'smooth' });
   });
 
   const tweetCompose = $('textarea.js-compose-text')[0];
   let timeoutId;
-  $('.emoji-popover')[0].addEventListener('mouseover', (ev) => {
+  $('.js-emoji-holder')[0].addEventListener('mouseover', (ev) => {
     let emoji;
 
     if (timeoutId) {
@@ -488,7 +502,7 @@ export default function buildEmojiPicker(rebuild = false) {
     $('.emoji-popover .emoji-preview .emoji-current-img')[0].innerHTML = image;
     $('.emoji-popover .emoji-preview .emoji-current-name')[0].innerText = `:${shortcode}:`;
   });
-  $('.emoji-popover')[0].addEventListener('click', (ev) => {
+  $('.js-emoji-holder')[0].addEventListener('click', (ev) => {
     let emoji;
 
     if (ev.target.hasAttribute('data-btd-shortcode')) {
@@ -508,26 +522,20 @@ export default function buildEmojiPicker(rebuild = false) {
     tweetCompose.dispatchEvent(new Event('change'));
   });
 
-  $('.emoji-popover .btd-skin-tone').forEach((skinToneEl) => {
-    skinToneEl.addEventListener('click', (ev) => {
-      ev.preventDefault();
-      ev.stopPropagation();
-      const skinTone = ev.target.getAttribute('data-btd-skin-tone');
-
-      localStorage['btd-skin-variation'] = skinTone;
+  $('.js-emoji-holder')[0].addEventListener('click', (ev) => {
+    const caught = skinToneHandler(ev);
+    if (caught) {
       buildEmojiPicker(true);
-    });
+    }
   });
 
   document.body.addEventListener('input', eventInsideTweetBox);
   document.body.addEventListener('keydown', eventInsideTweetBox);
   document.body.addEventListener('blur', eventInsideTweetBox);
 
-  const emojiPicker = $('.emoji-popover')[0];
-
   document.addEventListener('click', () => {
-    if (clickedOutsideElement('.emoji-popover') && clickedOutsideElement('.js-add-emojis') && emojiPicker.style.display === 'block') {
-      emojiPicker.style.display = 'none';
+    if (clickedOutsideElement('.emoji-popover') && clickedOutsideElement('.js-add-emojis') && $('.emoji-popover')[0].style.display === 'block') {
+      $('.emoji-popover')[0].style.display = 'none';
       $('.emoji-search input')[0].value = '';
       $('.emoji-popover .emoji-container')[0].innerHTML = getEmojiList();
     }
@@ -535,3 +543,5 @@ export default function buildEmojiPicker(rebuild = false) {
 
   eventsBound = true;
 }
+
+export default buildEmojiPicker;
