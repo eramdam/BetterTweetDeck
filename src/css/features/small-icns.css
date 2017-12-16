@@ -7,10 +7,18 @@ html.btd-on {
       width: auto !important;
       float: left !important;
       margin-right: 4px;
-      
+
       .label {
         display: none;
       }
+    }
+  }
+
+  .js-schedule-datapicker-holder > .popover {
+    margin-top: 51px;
+
+    .caret {
+      left: calc(50% - 5px);
     }
   }
 }
