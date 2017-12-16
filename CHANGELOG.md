@@ -1,10 +1,13 @@
 🎉 3.5 🎉
 ===============
-- [Feature] You can now add GIFs directly from [Giphy](https://giphy.com/) from the composer. Click the `GIF` button in there and 💥
-- [Feature] You can now add emojis even faster using `:shortcodes:` like on Discord/Slack/GitHub.
+- [Feature] You can now add GIFs directly from [Giphy](https://giphy.com/) and [Tenor](https://tenor.com) from the composer. Click the `GIF` button in there and 💥
+- [Feature] You can now add emojis in the composer even more easily using `:shortcodes:` like on Discord/Slack/GitHub.
+- [Feature] The emoji picker now displays a small preview of the emoji currently hovered, showing it's `:shortcode:`
 - [Improvement] The emoji picker should have slightly better performances
 - [Improvement] The emoji picker now has a larger scrollbar and displays more emoji in the same space
-- [Feature] The emoji picker now displays a small preview of the emoji currently hovered, showing it's `:shortcode:`
+- [Bugfix] Instagram embeds should work again
+- [Bugfix] GIFs were not opening in fullscreen properly when they were in quoted tweets. That should work now.
+- [Bugfix] When truncating the text for sharing, BTD now takes account of the new character limit
 
 3.4.10
 ===============
