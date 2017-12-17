@@ -163,7 +163,7 @@ function getEmojiPickerMarkup(emojiContent) {
   `;
 }
 
-const colonRegex = /:([a-z0-9_\-\+]+):?:?([a-z0-9_-]+)?:?$/;
+const colonRegex = /:([a-z0-9_\-+]+):?:?([a-z0-9_-]+)?:?$/;
 
 function findEmoji(query) {
   const filteredEmojis = emojis.filter((emoji) => {
