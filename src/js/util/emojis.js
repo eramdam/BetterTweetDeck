@@ -457,7 +457,7 @@ function buildEmojiPicker(rebuild = false) {
   });
 
   $('.js-emoji-holder')[0].addEventListener('click', (ev) => {
-    if (!ev.target.matches('.category-chooser button') && !ev.target.closest('[data-btd-emoji-cat]')) {
+    if (!ev.target.matches('.category-chooser button') && !ev.target.closest('button[data-btd-emoji-cat]')) {
       return;
     }
     let emojiCat;
@@ -519,7 +519,7 @@ function buildEmojiPicker(rebuild = false) {
     }
 
     const hasVariation = emoji.getAttribute('data-btd-has-variation') === 'true';
-    const unified = getUnified({ s: emoji.getAttribute('data-btd-shortcode'), hs: hasVariation }, getSkinVariation());
+    const unified = getUnified({ s: [emoji.getAttribute('data-btd-shortcode')], hs: hasVariation }, getSkinVariation());
 
     insertAtCursor(tweetCompose, unified);
     tweetCompose.dispatchEvent(new Event('change'));
