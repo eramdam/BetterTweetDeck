@@ -8,15 +8,16 @@ const emojiSheet = chrome.extension.getURL('emojis/sheet_twitter_64.png');
 Emoji.img_set = 'twitter';
 
 const catOrder = {
-  People: -80,
-  Nature: -70,
-  Foods: -60,
-  Activity: -50,
-  Places: -40,
+  'Smileys & People': -80,
+  'Animals & Nature': -70,
+  'Food & Drink': -60,
+  Activities: -50,
+  'Travel & Places': -40,
   Objects: -30,
   Symbols: -20,
   Flags: -10,
 };
+
 
 function getEventTarget(evt) {
   let targ = (evt.target) ? evt.target : evt.srcElement;
@@ -99,7 +100,7 @@ function getSkinVariation() {
 function getUnified(emoji, skinVariation) {
   Emoji.replace_mode = 'unified';
 
-  let str = `:${emoji.s}:`;
+  let str = `:${emoji.s[0]}:`;
 
   if (emoji.hs) {
     str += skinVariation;
@@ -107,7 +108,7 @@ function getUnified(emoji, skinVariation) {
 
   const converted = Emoji.replace_colons(str);
 
-  if (converted !== `:${emoji.s}:` && !converted.startsWith('<img')) {
+  if (converted !== `:${emoji.s[0]}:` && !converted.startsWith('<img')) {
     return converted;
   }
 
@@ -119,14 +120,14 @@ function getImage(emoji, skinVariation = '') {
   Emoji.supports_css = true;
   Emoji.use_sheet = true;
 
-  return Emoji.replace_colons(`:${emoji.s}:${skinVariation}`).replace('/emoji-data/sheet_twitter_64.png', emojiSheet);
+  return Emoji.replace_colons(`:${emoji.s[0]}:${skinVariation}`).replace('/emoji-data/sheet_twitter_64.png', emojiSheet);
 }
 
 function getEmojiElement(emoji, skinVariation = '') {
-  let title = emoji.n || emoji.s;
+  let title = emoji.n || emoji.s[0];
   title = title.replace(/_-/g, ' ');
 
-  return `<a href="#" title="${title.toLowerCase()}" data-btd-has-variation="${emoji.hs}" data-btd-shortcode="${emoji.s}" class="btd-emoji">${getImage(emoji, skinVariation)}</a>`;
+  return `<a href="#" title="${title.toLowerCase()}" data-btd-has-variation="${emoji.hs}" data-btd-shortcode="${emoji.s[0]}" class="btd-emoji">${getImage(emoji, skinVariation)}</a>`;
 }
 
 function getEmojiPickerMarkup(emojiContent) {
@@ -144,18 +145,18 @@ function getEmojiPickerMarkup(emojiContent) {
         ${emojiContent}
         </div>
         <div class="emoji-preview">
-          <span class="emoji-current-img">${getImage({ s: 'ok_hand' })}</span>
+          <span class="emoji-current-img">${getImage({ s: ['ok_hand'] })}</span>
           <span class="emoji-current-name">:ok_hand:</span>
         </div>
         <div class="category-chooser">
-          <button title="People" data-btd-emoji-cat="People" class="-active">${getImage({ s: 'ok_hand' })}</button>
-          <button title="Nature" data-btd-emoji-cat="Nature" class="-active">${getImage({ s: 'cat' })}</button>
-          <button title="Foods" data-btd-emoji-cat="Foods" class="-active">${getImage({ s: 'pizza' })}</button>
-          <button title="Activity" data-btd-emoji-cat="Activity" class="-active">${getImage({ s: 'soccer' })}</button>
-          <button title="Places" data-btd-emoji-cat="Places" class="-active">${getImage({ s: 'rocket' })}</button>
-          <button title="Objects" data-btd-emoji-cat="Objects" class="-active">${getImage({ s: 'bulb' })}</button>
-          <button title="Symbols" data-btd-emoji-cat="Symbols" class="-active">${getImage({ s: '100' })}</button>
-          <button title="Flags" data-btd-emoji-cat="Flags" class="-active">${getImage({ s: 'fr' })}</button>
+          <button title="People" data-btd-emoji-cat="People" class="-active">${getImage({ s: ['ok_hand'] })}</button>
+          <button title="Nature" data-btd-emoji-cat="Nature" class="-active">${getImage({ s: ['cat'] })}</button>
+          <button title="Foods" data-btd-emoji-cat="Foods" class="-active">${getImage({ s: ['pizza'] })}</button>
+          <button title="Activity" data-btd-emoji-cat="Activity" class="-active">${getImage({ s: ['soccer'] })}</button>
+          <button title="Places" data-btd-emoji-cat="Places" class="-active">${getImage({ s: ['rocket'] })}</button>
+          <button title="Objects" data-btd-emoji-cat="Objects" class="-active">${getImage({ s: ['bulb'] })}</button>
+          <button title="Symbols" data-btd-emoji-cat="Symbols" class="-active">${getImage({ s: ['100'] })}</button>
+          <button title="Flags" data-btd-emoji-cat="Flags" class="-active">${getImage({ s: ['fr'] })}</button>
         </div>
       </div>
     </div>
@@ -165,14 +166,16 @@ function getEmojiPickerMarkup(emojiContent) {
 const colonRegex = /:([a-z0-9_-]+):?:?([a-z0-9_-]+)?:?$/;
 
 function findEmoji(query) {
-  return sortBy(emojis.filter((emoji) => {
-    return new RegExp(`(?:_|)${query}(?:_|)`).exec(emoji.s);
-  }), (emojiMatch) => {
-    if (emojiMatch.s === query) {
+  const filteredEmojis = emojis.filter((emoji) => {
+    return emoji.s.some(shortcode => new RegExp(`(?:_|)${query}(?:_|)`).exec(shortcode));
+  });
+
+  return sortBy(filteredEmojis, (emojiMatch) => {
+    if (emojiMatch.s.includes(query)) {
       return -1;
     }
 
-    if (emojiMatch.s.startsWith(query)) {
+    if (emojiMatch.s.some(shortcode => shortcode.startsWith(query))) {
       return 0;
     }
 
@@ -199,7 +202,7 @@ function updateEmojiDropdown(event, items, skinVariation = '') {
       <span class="btd-emoji">
       ${emoji.hs ? getImage(emoji, skinVariation) : getImage(emoji)}
       </span>
-      ${emoji.s}
+      ${emoji.s[0]}
     </p>
   </li>
   `;
@@ -496,7 +499,7 @@ function buildEmojiPicker(rebuild = false) {
 
     const hasVariation = emoji.getAttribute('data-btd-has-variation') === 'true';
     const shortcode = emoji.getAttribute('data-btd-shortcode');
-    const image = getEmojiElement({ s: emoji.getAttribute('data-btd-shortcode') }, hasVariation ? getSkinVariation() : undefined);
+    const image = getEmojiElement({ s: [emoji.getAttribute('data-btd-shortcode')] }, hasVariation ? getSkinVariation() : undefined);
 
     $('.emoji-popover .emoji-preview')[0].classList.add('-visible');
     $('.emoji-popover .emoji-preview .emoji-current-img')[0].innerHTML = image;

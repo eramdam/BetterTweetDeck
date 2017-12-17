@@ -11,19 +11,20 @@ function getUnified(emoji) {
 
   const converted = Emoji.replace_colons(`:${emoji.s[0]}:`);
 
-  if (converted !== `:${emoji.s}:` && !converted.startsWith('<img')) {
+  if (!converted.startsWith(':') && !converted.startsWith('<img')) {
     return converted;
   }
 
   return null;
 }
 
+// https://raw.githubusercontent.com/iamcal/emoji-data/master/categories.json
 const catOrder = {
-  People: -80,
-  Nature: -70,
-  Foods: -60,
-  Activity: -50,
-  Places: -40,
+  'Smileys & People': -80,
+  'Animals & Nature': -70,
+  'Food & Drink': -60,
+  Activities: -50,
+  'Travel & Places': -40,
   Objects: -30,
   Symbols: -20,
   Flags: -10,
@@ -41,7 +42,7 @@ const getMissingCategory = (shortName) => {
   return null;
 };
 
-needle.get('https://raw.githubusercontent.com/iamcal/emoji-data/master/emoji.json', (err, res) => {
+needle.get('https://raw.githubusercontent.com/iamcal/emoji-data/340e3b897f71ca985ceccbd6b753e37776734f26/emoji.json', (err, res) => {
   const emojiArr = JSON.parse(res.body);
 
   const final = _.chain(emojiArr)
