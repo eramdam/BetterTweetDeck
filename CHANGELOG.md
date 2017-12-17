@@ -2,7 +2,7 @@
 ===============
 - [Feature] You can now add GIFs directly from [Giphy](https://giphy.com/) and [Tenor](https://tenor.com) from the composer. Click the `GIF` button in there and 💥
 - [Feature] You can now add emojis in the composer even more easily using `:shortcodes:` like on Discord/Slack/GitHub.
-- [Feature] The emoji picker now displays a small preview of the emoji currently hovered, showing it's `:shortcode:`
+- [Feature] The emoji picker now displays a small preview of the emoji currently hovered, showing its `:shortcode:`
 - [Improvement] The emoji picker should have slightly better performances
 - [Improvement] The emoji picker now has a larger scrollbar and displays more emoji in the same space
 - [Bugfix] Instagram embeds should work again
