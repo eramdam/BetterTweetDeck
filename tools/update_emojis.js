@@ -9,7 +9,7 @@ Emoji.img_set = 'twitter';
 function getUnified(emoji) {
   Emoji.replace_mode = 'unified';
 
-  const converted = Emoji.replace_colons(`:${emoji.s}:`);
+  const converted = Emoji.replace_colons(`:${emoji.s[0]}:`);
 
   if (converted !== `:${emoji.s}:` && !converted.startsWith('<img')) {
     return converted;
@@ -50,7 +50,7 @@ needle.get('https://raw.githubusercontent.com/iamcal/emoji-data/master/emoji.jso
     .sortBy(emoji => catOrder[emoji.category])
     .map((emoji) => {
       return {
-        s: emoji.short_name,
+        s: emoji.short_names,
         n: emoji.name,
         hs: Boolean(emoji.skin_variations),
         cat: emoji.category || getMissingCategory(emoji.short_name),
@@ -61,5 +61,5 @@ needle.get('https://raw.githubusercontent.com/iamcal/emoji-data/master/emoji.jso
   const finalForTemplate = final.filter(emoji => getUnified(emoji));
   const outStr = `module.exports = ${JSON.stringify(finalForTemplate)}`;
 
-  fs.writeFileSync('./src/emojis/emojis.js', outStr, 'utf8');
+  fs.writeFileSync('./emojis.js', outStr, 'utf8');
 });
