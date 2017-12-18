@@ -7,6 +7,7 @@ import * as GIFS from './util/gifs';
 import UsernamesTemplates from './util/username_templates';
 import wc from './util/webcrack';
 import { giphySearch, giphyBlock } from './util/templates';
+import AdvancedMuteEngine from './util/ame';
 
 const SETTINGS = $('[data-btd-settings]').data('btd-settings');
 
@@ -363,6 +364,7 @@ TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].
       </ul>
     `);
 
+AdvancedMuteEngine();
 UsernamesTemplates(TD.mustaches, SETTINGS.nm_disp);
 
 let bannerID = 1;
