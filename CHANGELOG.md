@@ -1,4 +1,8 @@
-🎉 3.5 🎉
+:tada: 3.5.1 :tada:
+===============
+- [Bugfix] Some categories buttons were not working in the emoji picker. This should be fixed.
+
+3.5
 ===============
 - [Feature] You can now add GIFs directly from [Giphy](https://giphy.com/) and [Tenor](https://tenor.com) from the composer. Click the `GIF` button in there and 💥
 - [Feature] You can now add emojis in the composer even more easily using `:shortcodes:` like on Discord/Slack/GitHub.
