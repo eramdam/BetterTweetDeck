@@ -23,7 +23,6 @@ export { default as universal } from './universal';
 export { default as vimeo } from './vimeo';
 export { default as yfrog } from './yfrog';
 export { default as youtube } from './youtu_be';
-export { default as twipple } from './twipple';
 export { default as tinami } from './tinami';
 export { default as nicoseiga } from './nicoseiga';
 export { default as photozou } from './photozou';
