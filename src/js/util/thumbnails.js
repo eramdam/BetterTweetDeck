@@ -155,7 +155,6 @@ export const schemeWhitelist = [
   Providers.ted(util),
   Providers.tinami(util),
   Providers.tumblr(util),
-  Providers.twipple(util),
   Providers.twitch(util),
   Providers.vimeo(util),
   Providers.worldcosplay(util),
