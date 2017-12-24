@@ -144,6 +144,7 @@ export const schemeWhitelist = [
   Providers.giphy(util),
   Providers.googleplus(util),
   Providers.imgur(util),
+  Providers.miil(util),
   Providers.mixcloud(util),
   Providers.mobyTo(util),
   Providers.nicoseiga(util),
