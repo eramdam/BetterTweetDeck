@@ -246,7 +246,8 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
     });
 
     if (mediaSize === 'large') {
-      $('.tweet.js-tweet', node)[0].insertAdjacentElement('afterend', previewNode);
+      const insertNode = $('.js-tweet.tweet-detail', node) ? $('.js-tweet-text', node) : $('.js-tweet.tweet', node);
+      insertNode[0].insertAdjacentElement('afterend', previewNode);
     } else {
       $('.tweet-body p, .tweet-text', node)[0].insertAdjacentElement('afterend', previewNode);
     }
