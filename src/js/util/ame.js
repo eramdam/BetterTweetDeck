@@ -41,6 +41,16 @@ export default function () {
         return !(e.user.description.toLowerCase().includes(t.value));
       },
     },
+    BTD_default_avatars: {
+      dropdown: true,
+      name: 'Default Profile Pictures',
+      descriptor: 'users having a default profile picture',
+      function(t, e) {
+        if (!e.user) return true;
+
+        return !(e.user.profileImageURL.includes('default'));
+      },
+    },
   };
 
   // Custom pass function to apply our filters
