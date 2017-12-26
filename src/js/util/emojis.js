@@ -18,6 +18,8 @@ const catOrder = {
   Flags: -10,
 };
 
+const catNames = Object.keys(catOrder);
+
 
 function getEventTarget(evt) {
   let targ = (evt.target) ? evt.target : evt.srcElement;
@@ -149,14 +151,14 @@ function getEmojiPickerMarkup(emojiContent) {
           <span class="emoji-current-name">:ok_hand:</span>
         </div>
         <div class="category-chooser">
-          <button title="People" data-btd-emoji-cat="People" class="-active">${getImage({ s: ['ok_hand'] })}</button>
-          <button title="Nature" data-btd-emoji-cat="Nature" class="-active">${getImage({ s: ['cat'] })}</button>
-          <button title="Foods" data-btd-emoji-cat="Foods" class="-active">${getImage({ s: ['pizza'] })}</button>
-          <button title="Activity" data-btd-emoji-cat="Activity" class="-active">${getImage({ s: ['soccer'] })}</button>
-          <button title="Places" data-btd-emoji-cat="Places" class="-active">${getImage({ s: ['rocket'] })}</button>
-          <button title="Objects" data-btd-emoji-cat="Objects" class="-active">${getImage({ s: ['bulb'] })}</button>
-          <button title="Symbols" data-btd-emoji-cat="Symbols" class="-active">${getImage({ s: ['100'] })}</button>
-          <button title="Flags" data-btd-emoji-cat="Flags" class="-active">${getImage({ s: ['fr'] })}</button>
+          <button title="${catNames[0]}" data-btd-emoji-cat="${catNames[0]}" class="-active">${getImage({ s: ['ok_hand'] })}</button>
+          <button title="${catNames[1]}" data-btd-emoji-cat="${catNames[1]}" class="-active">${getImage({ s: ['cat'] })}</button>
+          <button title="${catNames[2]}" data-btd-emoji-cat="${catNames[2]}" class="-active">${getImage({ s: ['pizza'] })}</button>
+          <button title="${catNames[3]}" data-btd-emoji-cat="${catNames[3]}" class="-active">${getImage({ s: ['soccer'] })}</button>
+          <button title="${catNames[4]}" data-btd-emoji-cat="${catNames[4]}" class="-active">${getImage({ s: ['rocket'] })}</button>
+          <button title="${catNames[5]}" data-btd-emoji-cat="${catNames[5]}" class="-active">${getImage({ s: ['bulb'] })}</button>
+          <button title="${catNames[6]}" data-btd-emoji-cat="${catNames[6]}" class="-active">${getImage({ s: ['100'] })}</button>
+          <button title="${catNames[7]}" data-btd-emoji-cat="${catNames[7]}" class="-active">${getImage({ s: ['fr'] })}</button>
         </div>
       </div>
     </div>

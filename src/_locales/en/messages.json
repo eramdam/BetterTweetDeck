@@ -97,7 +97,7 @@
   "regex_filter_notice_text": { "message": "Due to the way TweetDeck's filtering works, expressions are NOT case sensitive!" },
 
   "edit_item": { "message": "Add an edit item in tweets' menu"},
-  "edit_item_note": { "message": "You cannot use this to edit tweets without deleting them! This immediately move a tweet to the composer dock and delete it along with any likes or retweets it received!"},
+  "edit_item_note": { "message": "You cannot use this to edit tweets without deleting them! This immediately moves a tweet to the composer dock and deletes it along with any likes or retweets it received!"},
   "favstar_item": { "message": "Add a \"Show in Favstar\" item in tweets' menu"},
   "mute_hashtags": { "message": "Add shortcuts to mute #hashtags in tweets' menu"},
   "mute_source": { "message": "Add a shortcut to mute the source (application) of a tweet in tweets' menu"},
@@ -123,7 +123,7 @@
 
   "credits_author":  { "message": "Author" },
   "credits_contribs":  { "message": "Contributors" },
-  "credits_rsrc":  { "message": "Ressources used" },
+  "credits_rsrc":  { "message": "Resources used" },
   "credits_links":  { "message": "Links" },
   "credits_twitter":  { "message": "Better TweetDeck on Twitter" },
   "credits_bugs":  { "message": "Bugs or suggestions" },
