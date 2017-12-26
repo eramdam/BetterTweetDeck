@@ -51,6 +51,16 @@ export default function () {
         return !(e.user.profileImageURL.includes('default'));
       },
     },
+    BTD_follower_count: {
+      dropdown: true,
+      name: 'Follower count less than',
+      descriptor: 'users having less followers than',
+      function(t, e) {
+        if (!e.user) return true;
+
+        return !(e.user.followersCount < parseInt(t.value, 10));
+      },
+    },
   };
 
   // Custom pass function to apply our filters
