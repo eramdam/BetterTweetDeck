@@ -26,7 +26,7 @@ export default function () {
         const filter = t.value.split('|');
         const user = filter[0];
         const keyword = filter[1];
-        if (e.user === undefined) return true;
+        if (!e.user) return true;
 
         return !(e.text.toLowerCase().includes(keyword) && (user === e.user.screenName.toLowerCase()));
       },
@@ -36,7 +36,7 @@ export default function () {
       name: 'Biography',
       descriptor: 'users having biographies containing',
       function(t, e) {
-        if (e.user === undefined) return true;
+        if (!e.user) return true;
 
         return !(e.user.description.toLowerCase().includes(t.value));
       },
