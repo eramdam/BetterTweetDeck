@@ -18,6 +18,19 @@ export default function () {
         return !(e.isRetweetedStatus() && (t.value === e.user.screenName.toLowerCase()));
       },
     },
+    BTD_mute_user_keyword: {
+      dropdown: true,
+      name: 'Keyword from user (@user|keyword)',
+      descriptor: 'user|keyword: ',
+      function(t, e) {
+        const filter = t.value.split('|');
+        const user = filter[0];
+        const keyword = filter[1];
+        if (e.user === undefined) return true;
+
+        return !(e.text.toLowerCase().includes(keyword) && (user === e.user.screenName.toLowerCase()));
+      },
+    },
   };
 
   // Custom pass function to apply our filters
