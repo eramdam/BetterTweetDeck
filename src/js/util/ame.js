@@ -31,6 +31,16 @@ export default function () {
         return !(e.text.toLowerCase().includes(keyword) && (user === e.user.screenName.toLowerCase()));
       },
     },
+    BTD_user_biographies: {
+      dropdown: true,
+      name: 'Biography',
+      descriptor: 'users having biographies containing',
+      function(t, e) {
+        if (e.user === undefined) return true;
+
+        return !(e.user.description.toLowerCase().includes(t.value));
+      },
+    },
   };
 
   // Custom pass function to apply our filters
