@@ -3,6 +3,14 @@
 Mute Filters are used by TweetDeck to hide unwanted content. BetterTweetDeck adds an advanced mute engine which enables developers/contributors to
 add their own filters to the client.
 
+## How Filters work in TweetDeck
+
+Every displayable object in TweetDeck runs through every filter that is set active globally or for specific columns. In order that a tweet/interaction
+is shown, it needs to `pass` filters. If a tweet passes, it's shown. Simple as that.
+
+So, in the function of your custom filter, you need to return `false` (or `t.positive` as an alternative) if something matches your filter. If your filter
+returns `true` it's assumed that this tweet doesn't match the current filter and is shown.
+
 ## Steps
 
 * You can find the advanced mute engine in `src/js/util/ame.js`
