@@ -255,9 +255,9 @@ function selectTypeaheadEmoji(event) {
   const newValue = replaceAt(composeBox.value, toReplace.index, toReplace[0], getUnified(emojiDropdownItemSelected, getSkinVariation()));
 
   composeBox.value = newValue;
+  composeBox.dispatchEvent(new Event('change'));
   composeBox.selectionStart = toReplace.index + unifiedEmoji.length;
   composeBox.selectionEnd = toReplace.index + unifiedEmoji.length;
-  composeBox.dispatchEvent(new Event('change'));
   hideEmojiDropdown(event);
 }
 
