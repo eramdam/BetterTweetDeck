@@ -8,7 +8,7 @@ export function $(sel, parent = document) {
 
 export const TIMESTAMP_INTERVAL = 1e3 * 8;
 
-export function on(name, cb) {
+export function onEvent(name, cb) {
   listeners[name] = (ev, data) => cb(ev, data);
 }
 
