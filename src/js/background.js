@@ -259,6 +259,7 @@ if (chrome.permissions) {
       urls: [
         'https://twitter.com/i/videos/*',
         'https://syndication.twitter.com/i/jot*',
+        'https://cdn.*.twimg.com/*',
       ],
     }, ['responseHeaders', 'blocking']);
   });

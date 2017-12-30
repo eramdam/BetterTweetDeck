@@ -38,6 +38,7 @@ module.exports = Object.assign(require('./common.js'), {
     'notifications',
     'https://twitter.com/i/videos/*',
     'https://syndication.twitter.com/i/jot*',
+    'https://cdn.*.twimg.com/*',
     'webRequest',
     'webRequestBlocking',
     'tabs',
