@@ -244,10 +244,13 @@ if (chrome.permissions) {
       const cspHeaderIdx = newHeaders.findIndex(h => h.name === 'content-security-policy');
 
       if (cspHeaderIdx === -1) {
-        return null;
+        newHeaders.push({
+          name: 'content-security-policy',
+          value: ' ',
+        });
+      } else {
+        newHeaders[cspHeaderIdx].value = ' ';
       }
-
-      newHeaders[cspHeaderIdx].value = ' ';
 
       return {
         responseHeaders: newHeaders,
