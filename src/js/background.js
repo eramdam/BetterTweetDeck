@@ -225,3 +225,36 @@ Messages.on((message, sender, sendResponse) => {
       return false;
   }
 });
+
+
+if (chrome.permissions) {
+  chrome.permissions.contains({
+    permissions: ['webRequest', 'webRequestBlocking'],
+  }, (hasWR) => {
+    if (!hasWR) {
+      return;
+    }
+
+    chrome.webRequest.onHeadersReceived.addListener((e) => {
+      if (!e.responseHeaders) {
+        return null;
+      }
+
+      const newHeaders = [...e.responseHeaders];
+      const cspHeaderIdx = newHeaders.findIndex(h => h.name === 'content-security-policy');
+
+      if (cspHeaderIdx === -1) {
+        return null;
+      }
+
+      newHeaders[cspHeaderIdx].value = ' ';
+
+      return {
+        responseHeaders: newHeaders,
+      };
+    }, {
+      urls: ['https://twitter.com/i/videos/tweet/*'],
+    }, ['responseHeaders', 'blocking']);
+  });
+}
+
