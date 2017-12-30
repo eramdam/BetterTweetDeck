@@ -583,7 +583,11 @@ onEvent('BTDC_ready', () => {
   }
 });
 
-on('BTDC_gotChirpForColumn', (ev, data) => {
+onEvent('BTDC_showed_follow_banner', () => {
+  sendMessage({ action: 'displayed_follow_banner' });
+});
+
+onEvent('BTDC_gotChirpForColumn', (ev, data) => {
   const { chirp, colKey } = data;
 
   tweetHandler(chirp, colKey);
