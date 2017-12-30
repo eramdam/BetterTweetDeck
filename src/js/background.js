@@ -256,7 +256,10 @@ if (chrome.permissions) {
         responseHeaders: newHeaders,
       };
     }, {
-      urls: ['https://twitter.com/i/videos/tweet/*'],
+      urls: [
+        'https://twitter.com/i/videos/*',
+        'https://syndication.twitter.com/i/jot*',
+      ],
     }, ['responseHeaders', 'blocking']);
   });
 }
