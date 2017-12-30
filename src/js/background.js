@@ -225,3 +225,43 @@ Messages.on((message, sender, sendResponse) => {
       return false;
   }
 });
+
+
+if (chrome.permissions) {
+  chrome.permissions.contains({
+    permissions: ['webRequest', 'webRequestBlocking'],
+  }, (hasWR) => {
+    if (!hasWR) {
+      return;
+    }
+
+    chrome.webRequest.onHeadersReceived.addListener((e) => {
+      if (!e.responseHeaders) {
+        return null;
+      }
+
+      const newHeaders = [...e.responseHeaders];
+      const cspHeaderIdx = newHeaders.findIndex(h => h.name === 'content-security-policy');
+
+      if (cspHeaderIdx === -1) {
+        newHeaders.push({
+          name: 'content-security-policy',
+          value: ' ',
+        });
+      } else {
+        newHeaders[cspHeaderIdx].value = ' ';
+      }
+
+      return {
+        responseHeaders: newHeaders,
+      };
+    }, {
+      urls: [
+        'https://twitter.com/i/videos/*',
+        'https://syndication.twitter.com/i/jot*',
+        'https://cdn.*.twimg.com/*',
+      ],
+    }, ['responseHeaders', 'blocking']);
+  });
+}
+
