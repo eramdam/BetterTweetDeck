@@ -30,3 +30,4 @@ export { default as worldcosplay } from './worldcosplay';
 export { default as googleplus } from './googleplus';
 export { default as gyazo } from './gyazo';
 export { default as miil } from './miil';
+export { default as pixiv } from './pixiv';
