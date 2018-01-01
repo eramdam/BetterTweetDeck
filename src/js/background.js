@@ -64,7 +64,7 @@ const defaultSettings = {
   mute_source: true,
   hotlink_item: false,
   download_item: false,
-  download_filename_format: '{{postedUser}}-{{fileName}}.{{fileExtension}}',
+  download_filename_format: '{{postedUser}}-{{tweetId}}-{{fileName}}.{{fileExtension}}',
   ctrl_changes_interactions: {
     enabled: false,
     mode: 'owner',

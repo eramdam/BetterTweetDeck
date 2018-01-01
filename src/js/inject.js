@@ -34,6 +34,7 @@ const getMediaParts = (chirp, url) => {
     fileExtension: url.replace(/:[a-z]+$/, '').split('.').pop(),
     fileName: url.split('/').pop().split('.')[0],
     postedUser: (chirp.retweetedStatus ? chirp.retweetedStatus.user.screenName : chirp.user.screenName),
+    tweetId: chirp.id,
   };
 };
 
