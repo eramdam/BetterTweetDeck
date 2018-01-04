@@ -2,6 +2,7 @@ module.exports = {
   FirefoxId: 'mycoolextension@mycoolextension.com',
   opera_key: '',
   Client: {
+    github_token: '',
     debug: false,
     remote_inst: true,
     APIs: {
