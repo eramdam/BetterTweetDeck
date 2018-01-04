@@ -3,6 +3,7 @@ const config = require('config');
 /* eslint quotes: 0 */
 module.exports = Object.assign(require('./common.js'), {
   description: '__MSG_appDesc__',
+  version_name: undefined,
   default_locale: 'en',
   applications: {
     gecko: {
