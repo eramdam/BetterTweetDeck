@@ -460,7 +460,7 @@ const followStatus = (client, targetUserId) => {
 };
 
 const checkBTDFollowing = () => {
-  if (!window.localStorage.getItem('btd_disable_prompt_follow_twitter') && !SETTINGS.need_update_banner) {
+  if (!window.localStorage.getItem('btd_disable_prompt_follow_twitter') && !SETTINGS.need_update_banner && SETTINGS.need_follow_banner) {
     const BTD_ID = '4664726178';
 
     const followingPromises = TD.controller.clients.getClientsByService('twitter').map((client) => {
@@ -469,6 +469,7 @@ const checkBTDFollowing = () => {
 
     Promise.all(followingPromises).then((values) => {
       window.localStorage.setItem('btd_disable_prompt_follow_twitter', true);
+      proxyEvent('showed_follow_banner');
 
       const showBanner = values.every(user => user.following === false);
 
@@ -682,10 +683,6 @@ $(document).on('uiColumnUpdateMediaPreview', (ev, data) => {
   proxyEvent('columnMediaSizeUpdated', { id, size: data.value });
 });
 
-$(document).on('dataClientsUpdated', () => {
-  setTimeout(checkBTDFollowing, 2000);
-});
-
 // We wait for the loading of the columns and we get all the media preview size
 $(document).one('dataColumnsLoaded', () => {
   proxyEvent('ready');
@@ -725,7 +722,6 @@ $(document).one('dataColumnsLoaded', () => {
   }
 
   switchThemeClass();
-  setTimeout(checkBTDFollowing, 2000);
 
   const giphyZone = document.createElement('div');
   giphyZone.className = 'btd-giphy-zone compose padding-h--15';
@@ -747,6 +743,7 @@ $(document).one('dataColumnsLoaded', () => {
       class="txt-line-height--12 txt-size--12 txt-twitter-dark-gray btd-gif-source-indicator"
     ></span>
   `);
+  setTimeout(checkBTDFollowing, 2000);
 });
 
 $(document).on('click', '.btd-gif-button', (e) => {

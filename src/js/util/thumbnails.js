@@ -7,7 +7,6 @@ import * as Providers from './providers/index';
 import * as BHelper from './browserHelper';
 
 const endpoints = {
-  embedly: 'https://api.embed.ly/1/oembed?',
   '500px': 'https://500px.com/oembed?format=json&url=',
   dailymotion: 'https://api.dailymotion.com/video/',
   deviantart: 'https://backend.deviantart.com/oembed?',
