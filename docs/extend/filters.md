@@ -11,6 +11,11 @@ is shown, it needs to `pass` filters. If a tweet passes, it's shown. Simple as t
 So, in the function of your custom filter, you need to return `false` (or `t.positive` as an alternative) if something matches your filter. If your filter
 returns `true` it's assumed that this tweet doesn't match the current filter and is shown.
 
+Due to the nature of filters (being applied to all visible objects in TweetDeck) it is recommended to keep filter functions as simple as possible, since they
+are run several times a second and are, as mentioned above, responsible for even showing posts in your timelines.
+
+As a general rule of thumb: If everything disappears, there's something wrong with your filter.
+
 ## Steps
 
 * You can find the advanced mute engine in `src/js/util/ame.js`
