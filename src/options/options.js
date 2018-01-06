@@ -1,18 +1,64 @@
+import config from 'config';
+import { createApolloFetch } from 'apollo-fetch';
 import $ from 'jquery';
-import _ from 'lodash';
+import {
+  isBoolean,
+  forEach,
+  isObject,
+  isString,
+} from 'lodash';
 import Prism from 'prismjs';
 import marked from 'marked';
 import queryString from 'query-string';
 import fecha from 'fecha';
-import jsEmoji from 'emoji-js';
+import '../css/options/index.css';
 import * as BHelper from '../js/util/browserHelper';
 import { schemeWhitelist } from '../js/util/thumbnails';
 
-const Emoji = new jsEmoji.EmojiConvertor();
-Emoji.img_set = 'twitter';
-Emoji.replace_mode = 'css';
-Emoji.supports_css = true;
-Emoji.use_sheet = true;
+const GITHUB_URI = 'https://api.github.com/graphql';
+const GITHUB_RELEASES_QUERY = `
+query BTDReleases {
+  viewer {
+    repository(name: "BetterTweetDeck") {
+      id
+      releases(last: 100, orderBy: {field: CREATED_AT, direction: DESC}) {
+        edges {
+          node {
+            id
+            name
+            isDraft
+            createdAt
+            description
+            url
+            tag {
+              name
+            }
+          }
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+      }
+    }
+  }
+}`;
+
+const githubApolloFetch = createApolloFetch({ uri: GITHUB_URI });
+
+githubApolloFetch.use(({ options }, next) => {
+  if (!options.headers) {
+    options.headers = {}; // Create the headers object if needed.
+  }
+  options.headers.authorization = `bearer ${config.Client.github_token}`;
+
+  next();
+});
+
+
+if (config.Client.debug) {
+  window._BTDSetSettings = obj => BHelper.settings.set(obj);
+}
 
 if (BHelper.isFirefox) {
   document.body.classList.add('-browser-firefox');
@@ -67,7 +113,7 @@ function refreshPreviews(settings) {
     $('.tweet-preview.-name-time:not(.-display) .date').html(html);
   }
 
-  if (_.isBoolean(settings.no_hearts)) {
+  if (isBoolean(settings.no_hearts)) {
     const el = $('.tweet-preview.-display .heart');
     el.removeClass('-hidden');
 
@@ -80,7 +126,7 @@ function refreshPreviews(settings) {
     return;
   }
 
-  if (_.isBoolean(settings.css.round_pic)) {
+  if (isBoolean(settings.css.round_pic)) {
     const el = $('.tweet-preview.-display .avatar');
     el.removeClass('-rounded');
 
@@ -89,7 +135,7 @@ function refreshPreviews(settings) {
     }
   }
 
-  if (_.isBoolean(settings.css.show_verified)) {
+  if (isBoolean(settings.css.show_verified)) {
     const el = $('.tweet-preview.-display .verified');
     el.addClass('-hidden');
 
@@ -98,7 +144,7 @@ function refreshPreviews(settings) {
     }
   }
 
-  if (_.isBoolean(settings.css.hide_context)) {
+  if (isBoolean(settings.css.hide_context)) {
     const el = $('.tweet-preview.-display .context');
     el.addClass('-hidden');
 
@@ -107,7 +153,7 @@ function refreshPreviews(settings) {
     }
   }
 
-  if (_.isBoolean(settings.css.actions_on_right)) {
+  if (isBoolean(settings.css.actions_on_right)) {
     const el = $('.tweet-preview.-display .actions');
     el.removeClass('-right');
 
@@ -128,9 +174,9 @@ BHelper.settings.getAll((settings) => {
   /**
    * We go through the settings object and check or not the inputs accordingly
    */
-  _.forEach(settings, (val, key) => {
-    if (_.isObject(val)) {
-      _.forEach(val, (value, keyname) => {
+  forEach(settings, (val, key) => {
+    if (isObject(val)) {
+      forEach(val, (value, keyname) => {
         const name = `${key}.${keyname}`;
 
         if (value) {
@@ -180,9 +226,9 @@ BHelper.settings.getAll((settings) => {
     } else {
       const name = key;
 
-      if (_.isBoolean(val)) {
+      if (isBoolean(val)) {
         $(`input[name="${name}"]`).prop('checked', val);
-      } else if (_.isString(val) && name !== 'ts' && name !== 'nm_disp') {
+      } else if (isString(val) && name !== 'ts' && name !== 'nm_disp') {
         $(`input[name="${name}"]`).val(settings[name]);
       } else {
         $(`input[name="${name}"]#${val}`).prop('checked', true);
@@ -202,7 +248,7 @@ BHelper.settings.getAll((settings) => {
    * Special treatment for thumb providers list who gets created from the source directly
    */
   schemeWhitelist.forEach((scheme) => {
-    const isEnabled = _.isBoolean(settings.thumbnails[scheme.setting]) ? settings.thumbnails[scheme.setting] : scheme.default;
+    const isEnabled = isBoolean(settings.thumbnails[scheme.setting]) ? settings.thumbnails[scheme.setting] : scheme.default;
 
     $('.settings-thumbnails-providers-list').append(`
       <li>
@@ -426,22 +472,36 @@ fetch('https://api.github.com/repos/eramdam/BetterTweetDeck/contributors').then(
   });
 });
 
-const labels = ['Feature', 'Bugfix', 'Improvement', 'Meta'];
+const makeReleaseMarkup = (release) => {
+  const GITHUB_USERNAME_RE = /([^>])@([a-z0-9-_]+)([^<])/gi;
+  const GITHUB_ISSUES_RE = /([^>])#([0-9]+)([^<])/g;
+  const string = release.description
+    .replace(GITHUB_ISSUES_RE, '$1<a href="https://github.com/eramdam/BetterTweetDeck/issues/$2">#$2</a>$3')
+    .replace(GITHUB_USERNAME_RE, '$1<a class="test" href="https://github.com/$2">@$2</a>$3');
 
-fetch(chrome.extension.getURL('options/CHANGELOG.md')).then(res => res.text()).then((body) => {
-  const changelogMarkup =
-    Emoji.replace_colons(marked(body))
-      .replace(/\/emoji-data\/sheet_twitter_64.png/g, chrome.extension.getURL('emojis/sheet_twitter_64.png'))
-      .replace(new RegExp(`(\\[(${labels.join('|')})\\])`, 'gi'), (match, p1, p2) => {
-        return `
-        <span class="token -${p2.toLowerCase()}">${p2}</span>
-      `;
-      });
+  return marked(string);
+};
 
-  // console.log(changelogMarkup.match(new RegExp(`(\\[(${labels.join('|')})\\])`, 'gi')));
+githubApolloFetch({ query: GITHUB_RELEASES_QUERY })
+  .then(({ data }) => data.viewer.repository.releases.edges.filter(e => !e.node.isDraft).map(e => e.node))
+  .then((releases) => {
+    const changelogMarkup = releases.map((release, index) => {
+      let str = '';
 
-  $('.settings-section.changelog')[0].innerHTML = changelogMarkup;
-});
+      if (index === 0) {
+        str = `<h1>🎉 ${release.name || release.tag.name} 🎉</h1>`;
+      } else {
+        str = `<h1>${release.name || release.tag.name}</h1>`;
+      }
+
+      str += `<div>${makeReleaseMarkup(release)}</div>`;
+
+      return str;
+    }).join('');
+
+    $('.settings-section.changelog')[0].innerHTML = changelogMarkup;
+  });
+
 
 // Because nobody got time to write that HTML by hand, right?
 const usedDeps = [

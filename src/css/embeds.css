@@ -1,72 +1,73 @@
-.noembed-embed-inner > div,
-.streamable-embed-container {
-  min-width: 750px;
-}
+html.btd-on {
+  .noembed-embed-inner > div,
+  .streamable-embed-container {
+    min-width: 750px;
+  }
 
-.streamable-embed-container > iframe {
-  left: 0;
-}
+  .streamable-embed-container > iframe {
+    left: 0;
+  }
 
-.btd-embed-container {
-  display: flex;
-  flex-direction: column;
-}
+  .btd-embed-container {
+    display: flex;
+    flex-direction: column;
+  }
 
-.btd-embed-container .btd-embed-and-links {
-  display: inline-flex;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-}
-
-.btd-embed-container .btd-embed-and-links img {
-  max-height: 100%;
-  object-fit: contain;
-}
-
-.btd-embed-panel {
-  display: flex !important;
-  flex-direction: column;
-}
-
-.btd-embed-panel .med-tweet {
-  width: 100%;
-  right: 0;
-  left: 0;
-  position: relative;
-  bottom: 0;
-  margin-top: 20px;
-}
-
-.btd-embed-panel .med-tweet .item-box {
-  width: 50%;
-  margin: 0 auto;
-}
-
-.btd-embed-container.-video {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-top: 40px;
-}
-
-[data-btd-provider="gyazo"],
-[data-btd-provider="bandcamp"],
-[data-btd-provider="ted"],
-[data-btd-provider="vimeo"],
-[data-btd-provider="dailymotion"],
-[data-btd-provider="youtube"],
-[data-btd-provider="imgur"],
-[data-btd-provider="spotify"] {
-  .btd-embed-container.-video {
+  .btd-embed-container .btd-embed-and-links {
+    display: inline-flex;
+    flex: 1;
+    justify-content: center;
     align-items: center;
   }
-}
 
-.btd-embed-container.-video iframe,
-.btd-embed-container.-video video {
-  max-width: 100% !important;
-  max-height: 100% !important;
-  object-fit: contain;
+  .btd-embed-container .btd-embed-and-links img {
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  .btd-embed-panel {
+    display: flex !important;
+    flex-direction: column;
+  }
+
+  .btd-embed-panel .med-tweet {
+    width: 100%;
+    right: 0;
+    left: 0;
+    position: relative;
+    margin-top: 20px;
+  }
+
+  .btd-embed-panel .med-tweet .item-box {
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  .btd-embed-container.-video {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 40px;
+  }
+
+  [data-btd-provider="gyazo"],
+  [data-btd-provider="bandcamp"],
+  [data-btd-provider="ted"],
+  [data-btd-provider="vimeo"],
+  [data-btd-provider="dailymotion"],
+  [data-btd-provider="youtube"],
+  [data-btd-provider="imgur"],
+  [data-btd-provider="spotify"] {
+    .btd-embed-container.-video {
+      align-items: center;
+    }
+  }
+
+  .btd-embed-container.-video iframe,
+  .btd-embed-container.-video video {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain;
+  }
 }

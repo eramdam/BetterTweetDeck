@@ -4,32 +4,26 @@
 
 The following is a set of guidelines to contribute to Better TweetDeck so the project can stay clean and focused
 
-
-#### Table Of Contents
-<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
-
-- [Table Of Contents](#table-of-contents)
+**Table of Contents**
 - [What should I know before?](#what-should-i-know-before)
-	- [Background](#background)
-	- [Focus of the project](#focus-of-the-project)
-	- [Project structure](#project-structure)
-		- [Files and folders](#files-and-folders)
-		- [Rundown of `src/`](#rundown-of-src)
+  - [Background](#background)
+  - [Focus of the project](#focus-of-the-project)
+  - [Project structure](#project-structure)
+        - [Files and folders](#files-and-folders)
+        - [Rundown of `src/`](#rundown-of-src)
 - [How Can I Contribute?](#how-can-i-contribute)
-	- [Contributing by actually coding](#contributing-by-actually-coding)
-		- [Setup](#setup)
-		- [Getting started](#getting-started)
-			- [The npm scripts](#the-npm-scripts)
-			- [Actually building the project](#actually-building-the-project)
-		- [About the config](#about-the-config)
-		- [Ok I'm done, what do I do now?](#ok-im-done-what-do-i-do-now)
-	- [Reporting Bugs](#reporting-bugs)
-			- [Before Submitting A Bug Report](#before-submitting-a-bug-report)
-			- [How Do I Submit A (Good) Bug Report?](#how-do-i-submit-a-good-bug-report)
+  - [Contributing by actually coding](#contributing-by-actually-coding)
+    - [Setup](#setup)
+    - [Getting started](#getting-started)
+      - [The npm scripts](#the-npm-scripts)
+      - [Actually building the project](#actually-building-the-project)
+    - [About the config](#about-the-config)
+    - [Ok I'm done, what do I do now?](#ok-im-done-what-do-i-do-now)
+  - [Reporting Bugs](#reporting-bugs)
+      - [Before Submitting A Bug Report](#before-submitting-a-bug-report)
+      - [How Do I Submit A (Good) Bug Report?](#how-do-i-submit-a-good-bug-report)
 
-<!-- /TOC -->
 # What should I know before?
-
 ## Background
 
 I started Better TweetDeck as a little side project for myself then decided to release it to the world and it has now a whooping 20K+ users! On a technical standpoint the project went through a lof of iterations but version 3 marked a huge progress in terms of "good practices" and "cleanliness" of the project's code.
@@ -61,7 +55,7 @@ Better TweetDeck **is not** made to:
 - `.eslint*`: [ESLint](http://eslint.org/) configuration files
 - `CHANGELOG.md`: self-explanatory
 - `CONTRIBUTING.md`: YOU ARE HERE !
-- `gulpfile.babel.js`: [Gulp](http://gulpjs.com/) build script
+- `webpack.config.babel.js`: [Webpack](https://webpack.js.org/) configuration
 - `LICENSE`: license file
 - `package.json`: package info, dependencies
 - `README.md`: self-explanatory
@@ -99,23 +93,23 @@ You will need [NodeJS](https://nodejs.org/en/) (**7.x at most**). Fire up your f
 
 The [package.json](https://github.com/eramdam/BetterTweetDeck/blob/master/package.json) file contains various scripts.
 
-Some scripts have `<browser>` in their name. As of now, two browsers (or rather three actually) are supported:
+Some scripts have `<browser>` in their name or arguments. As of now, two browsers (or rather three actually) are supported:
 
 - Google Chrome / Opera, by using the **`chrome`** target
 - Firefox by using the **`firefox`** target
 
 Here is a run-down of all the scripts:
 
-- `start` is a shortcut for `start:chrome`
-- `start:<target>`: builds up the project once, then watches for modifications while using the **`dev`** config and the defined target (see above)
+- `start` is a shortcut for `start -- chrome`
+- `start -- <browser>`: builds up the project once, then watches for modifications while using the **`dev`** config and the defined target (see above)
 - `build` is a shortcut for `build:chrome`
-- `build:<target>` builds the extension in **`dev`** mode against the defined target
-- `build:<target>:prod`: builds the extension in **`prod`** mode against the defined target
-- `pack:<target>` packages the extension for the given target:
+- `build -- <browser>` builds the extension in **`dev`** mode against the defined target
+- `build:prod -- <browser>`: builds the extension in **`prod`** mode against the defined target
+- `pack:<browser>` packages the extension for the given target:
 	- `chrome` will make a `.crx` and a `.nex` file with a private key
 	- `firefox` will use `web-ext` to make a zip file that has to be submitted to Mozilla Add-ons
 - `release` builds and packages the extension for **all** the targets
-- `release:<target>` builds and packages the extension for the given target
+- `release -- <browser>` builds and packages the extension for the given target
 - `test` Runs the link task from the Gulpfile and tries to run `release`. This is run on [Travis](https://travis-ci.org/eramdam/BetterTweetDeck) at every push and on every pull requests. If a given pull request doesn't pass this task, it won't be accepted.
 
 #### Actually building the project

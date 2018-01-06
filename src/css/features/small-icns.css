@@ -1,14 +1,24 @@
-.btd__small_icns_compose {
-  .js-add-image-button,
-  .js-schedule-button,
-  .js-add-emojis,
-  .js-tweet-type-button > button {
-    width: auto !important;
-    float: left !important;
-    margin-right: 4px;
+html.btd-on {
+  .btd__small_icns_compose {
+    .js-add-image-button,
+    .js-schedule-button,
+    .js-add-emojis,
+    .js-tweet-type-button>button {
+      width: auto !important;
+      float: left !important;
+      margin-right: 4px;
 
-    .label {
-      display: none;
+      .label {
+        display: none;
+      }
+    }
+  }
+
+  .js-schedule-datapicker-holder > .popover {
+    margin-top: 51px;
+
+    .caret {
+      left: calc(50% - 5px);
     }
   }
 }

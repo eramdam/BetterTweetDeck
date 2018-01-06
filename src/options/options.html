@@ -25,7 +25,7 @@
       <nav class="sidebar-nav">
         <a href="#tweets" class="nav-item -selected" data-lang="sec_tweetsName">Tweets: name & time</a>
         <a href="#tweetsDisplay" class="nav-item" data-lang="sec_tweetsDisplay">Tweets: display</a>
-        <a href="#visual" class="nav-item" data-lang="sec_interface">Interface</a>
+        <a href="#interface" class="nav-item" data-lang="sec_interface">Interface</a>
         <a href="#content" class="nav-item" data-lang="sec_content">Content</a>
         <a href="#share" class="nav-item" data-lang="shared_btd_h1">Sharing</a>
       </nav>
@@ -248,11 +248,6 @@
             <input type="checkbox" name="ctrl_changes_interactions.enabled" id="ctrl_changes_interactions.enabled" data-ghost>
             <label for="ctrl_changes_interactions.enabled" data-lang="ctrl_changes_interactions__enabled">Holding <kbd>ctrl</kbd> while clicking: favorite / retweet / download / hotlink will allow you to follow from the</label> <select name="ctrl_changes_interactions.mode" id="ctrl_changes_interactions.mode" disabled data-new-feat><option value="owner" data-lang="ctrl_changes_interactions__mode__owner">column's owner</option><option value="prompt" data-lang="ctrl_changes_interactions__mode__dialog">follow dialog</option></select></label>
           </li>
-          <li data-setting-name="two_eight_zero_chars">
-            <input type="checkbox" name="two_eight_zero_chars" id="two_eight_zero_chars">
-            <label for="two_eight_zero_chars" data-lang="two_eight_zero_chars" data-new-feat>Switch the characters limit to 280 <strong>EXPERIMENTAL, USE AT YOUR OWN RISK</strong></label><br>
-            <small data-lang="two_eight_zero_note">This works by tricking TweetDeck into counting up to 140 characters, twice, so you'll see 140 instead of 280 in the counter but going over 140 will give you another set of 140 characters.  The scheduler still works, but not with tweets over 140 characters due to API restrictions.</small>
-          </li>
         </ul>
       </div>
 
@@ -295,7 +290,7 @@
       </div>
     </section>
 
-    <section class="content-block" id="visual">
+    <section class="content-block" id="interface">
       <h2 class="section-title" data-lang="sec_interface">Interface</h2>
 
       <div class="settings-section">
@@ -309,10 +304,6 @@
           <li data-setting-name="minimal_mode">
             <input type="checkbox" name="css.minimal_mode" id="minimal_mode">
             <label for="minimal_mode" data-lang="css_minimal_mode">Enable the "Minimal" theme</label>
-          </li>
-          <li data-setting-name="hide_url_thumb">
-            <input type="checkbox" name="css.hide_url_thumb" id="hide_url_thumb">
-            <label for="hide_url_thumb" data-lang="css_hide_url_thumb">Hide link related to thumbnails in tweet (à la Twitter mobile)</label>
           </li>
           <li data-setting-name="no_col_icns">
             <input type="checkbox" name="css.no_col_icns" id="no_col_icns">
@@ -338,9 +329,9 @@
             <input type="checkbox" name="css.small_icns_compose" id="small_icns_compose">
             <label for="small_icns_compose" data-lang="css_small_icns_compose">Make buttons smaller in the Compose panel</label>
           </li>
-          <li data-setting-name="gray_icns_notifs">
-            <input type="checkbox" name="css.gray_icns_notifs" id="gray_icns_notifs">
-            <label for="gray_icns_notifs" data-lang="css_gray_icns_notifs">Notifications icons are in grayscale</label>
+          <li data-setting-name="character_count">
+            <input type="checkbox" name="css.character_count" id="character_count">
+            <label for="character_count" data-lang="css_character_count" data-new-feat>Always show the character count instead of the circular progress bar</label>
           </li>
           <li data-setting-name="collapse_dms">
             <input type="checkbox" name="css.collapse_dms" id="collapse_dms">
@@ -469,11 +460,7 @@
         <ul class="settings-contributors">
           <li>
             <a href="https://github.com/no-boot-device" target="_blank">no-boot-device</a>
-            <small>That Old Replies Trick using deciders</small>
-          </li>
-          <li>
-            <a href="https://github.com/Zemnmez/" target="_blank">Zemnmez</a>
-            <small>Base for the 280-characters limit code</small>
+            <small>That Old Replies Trick using deciders and <a href="https://gist.github.com/no-boot-device/cb63762000e606e50690911cac1bcead">webcrack</a></small>
           </li>
         </ul>
 

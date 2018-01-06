@@ -1,3 +1,9 @@
+/* :root {
+  --compose-btn-bg-light: #707375;
+  --compose-btn-bg-light-hover: color(var(--compose-btn-bg-light) shade(20%));
+  --main-bg-white: #fff;
+} */
+
 /*
 [data-btdtheme="light"].btd__minimal_mode {
   .btn-compose {

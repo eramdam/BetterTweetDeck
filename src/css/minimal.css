@@ -1,49 +1,53 @@
 /**
  * Closer columns
  */
-.btd__minimal_mode .app-columns {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  padding-left: 0 !important;
-}
+html.btd-on {
+  .btd__minimal_mode .app-columns {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    padding-left: 0 !important;
+  }
 
-.btd__minimal_mode .column {
-  margin-right: 2px !important;
-}
+  .btd__minimal_mode .column {
+    margin-right: 2px !important;
+  }
 
-/**
+  /**
  * Transparent bg for items in navbar so we can change its bg easily
  */
-.btd__minimal_mode .app-navigator,
-.btd__minimal_mode .app-title {
-  background-color: transparent;
-}
 
-.btd__minimal_mode .app-header,
-.btd__minimal_mode .column-nav-item {
-  background-color: color(#292f33 saturation(0%));
-}
+  .btd__minimal_mode .app-navigator,
+  .btd__minimal_mode .app-title {
+    background-color: transparent;
+  }
 
-.btd__minimal_mode .dropdown-menu .is-selected {
-  background-color: color(#55acee saturation(0%));
-}
+  .btd__minimal_mode .app-header,
+  .btd__minimal_mode .column-nav-item {
+    background-color: color(#292f33 saturation(0%));
+  }
 
-/**
+  .btd__minimal_mode .dropdown-menu .is-selected {
+    background-color: color(#55acee saturation(0%));
+  }
+
+  /**
  * No border betweet tweets + lighter divider between translation and original tweet
  */
-.btd__minimal_mode :matches(.stream-item, .tweet-detail-reply .stream-item, .compose-header) {
-  border-bottom: 0;
-}
 
-.btd__minimal_mode .in-tweet-divider::before {
-  background: rgba(0, 0, 0, 0.13);
-}
+  .btd__minimal_mode :matches(.stream-item, .tweet-detail-reply .stream-item, .compose-header) {
+    border-bottom: 0;
+  }
 
-.btd__minimal_mode .js-stream-item .activity-header + .txt-mute .tweet-context {
-  display: none;
-}
+  .btd__minimal_mode .in-tweet-divider::before {
+    background: rgba(0, 0, 0, 0.13);
+  }
 
-.btd__minimal_mode .column-header,
-.btd__minimal_mode .column-header-temp {
-  background-color: transparent;
+  .btd__minimal_mode .js-stream-item .activity-header + .txt-mute .tweet-context {
+    display: none;
+  }
+
+  .btd__minimal_mode .column-header,
+  .btd__minimal_mode .column-header-temp {
+    background-color: transparent;
+  }
 }

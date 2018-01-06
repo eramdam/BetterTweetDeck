@@ -1,9 +1,9 @@
 {
   "appDesc": {
-		"message": "絵文字、サムネイルの表示など、http://tweetdeck.twitter.com にさまざまな機能を追加する拡張機能です！"
+		"message": "絵文字、サムネイルの表示など、https://tweetdeck.twitter.com にさまざまな機能を追加する拡張機能です！"
 	},
 	"appName": {
-		"message": "BetterTweetDeck 3"
+		"message": "BetterTweetDeck"
 	},
   "shareOnTD": { "message": "TweetDeck で共有" },
   "settingsTitle": { "message": "Better TweetDeck 設定" },
@@ -42,6 +42,7 @@
   "old_replies": { "message": "リプライの表示を昔 (2017/03/30 以前) のスタイルに戻す" },
   "css_round_pic": { "message": "アイコンを円形表示する" },
   "css_bigger_emojis": { "message": "ツイート内の絵文字を大きくする" },
+  "css_character_count": { "message": "円形のプログレスバーの代わりに、常に残り文字数を表示する" },
   "css_collapse_dms": { "message": "ダイレクトメッセージの本文を折りたたむ" },
   "css_system_fonts": { "message": "UI にシステムフォントを使用する" },
   "css_show_verified": { "message": "アイコン上に認証バッジを表示する" },
@@ -51,8 +52,9 @@
   "css_no_bg_modal": { "message": "フルスクリーンのプレビュー時にバックグラウンドを非表示にする" },
   "css_slim_scrollbars": { "message": "スクロールバーを細くする" },
   "pause_scroll_on_hover": { "message": "マウスカーソルがあるカラムの自動スクロールを一時停止する" },
-  "css_show_provider_indicator": { "message": "サムネイルの上部にソースを表示する" },
+  "css_show_provider_indicator": { "message": "サムネイルの上にソースを表すラベルを表示する" },
   "css_hide_like_rt_indicators": { "message": "ツイート上部の いいね/RT 表示を非表示にする" },
+  "make_search_columns_first": { "message": "新しい検索結果のカラムを一番左に挿入する" },
   "no_hearts": { "message": "ハートの代わりにスターを表示する" },
   "rtl_text_style": { "message": "必要に応じて RTL スタイル (アラビア語などの右から左に書くスタイル) を検出して、自動的に適用する" },
   "flash_tweets": { "message": "新しいツイートをフラッシュする" },
@@ -88,20 +90,24 @@
 
   "clear_column_action": { "message": "カラムのヘッダーにカラムをクリアするボタンを追加する"},
   "collapse_columns": { "message": "カラムのヘッダーにカラムの折りたたみを切り替えるボタンを追加する"},
+  "collapse_columns_pause": { "message": "カラムの折りたたんでいる間、フィードの更新を一時停止する。これにより、コンテンツの更新により起こるカラムのフラッシュを防ぐことができます"},
+  "uncollapse_columns_unpause": { "message": "カラムの折りたたみを展開したとき、最新のツイートが表示されるようにフィードを最上部までスクロールする"},
 
   "regex_filter": { "message": "ミュートフィルタで正規表現を有効にする"},
   "regex_filter_notice_text": { "message": "TweetDeck の単語のフィルタリング方法の制限により、正規表現の大文字・小文字は区別されないことに注意してください！" },
 
+  "edit_item": { "message": "ツイートメニューに「ツイートの編集」を追加する"},
+  "edit_item_note": { "message": "ツイートの編集機能は、一度ツイートの削除を行うことに注意してください！ その結果、元のツイート内容がテキストボックスに移動し、すでに受け取ったいいねやリツイートは無効となります！"},
   "favstar_item": { "message": "ツイートメニューに \"Show in Favstar\"(Favstar で表示) 項目を表示する"},
   "mute_hashtags": { "message": "ツイートメニューに #ハッシュタグ をミュートするショートカットを追加する"},
   "mute_source": { "message": "ツイートメニューにツイートのソース (アプリ) をミュートするショートカットを追加する"},
   "hotlink_item": { "message": "ツイートに含まれるすべてのメディアへのリンクをコピーするショートカットを追加する"},
   "download_item": { "message": "ツイートに含まれるすべてのメディアをダウンロードするショートカットを追加する"},
   "download_filename_format": { "message": "ダウンロードするファイル名のフォーマット"},
-  "download_filename_format_parameters": { "message": "次の変数が利用できます: <code>{{postedUser}} {{fileName}} {{fileExtension}}</code> (それぞれ、ツイートユーザー名、ファイル名、ファイルの拡張子に置換されます)"},
+  "download_filename_format_parameters": { "message": "次の変数が利用できます: <code>{{postedUser}}/{{fileName}}/{{fileExtension}}</code> (それぞれ、ツイートユーザー名/ファイル名/ファイルの拡張子に置換されます)"},
   "ctrl_changes_interactions__enabled": { "message": "<kbd>Ctrl</kbd> (MacOS では <kbd>Cmd</kbd>) を押しながら、いいね/リツイート/ダウンロードボタンをクリックすることで、ツイート元のアカウントを次の方法でフォローできるようにする: "},
-  "ctrl_changes_interactions__mode__owner": { "message": "カラムのオーナーからフォロー"},
-  "ctrl_changes_interactions__mode__dialog": { "message": "フォローダイアログからフォロー"},
+  "ctrl_changes_interactions__mode__owner": { "message": "カラムのオーナーからフォローする"},
+  "ctrl_changes_interactions__mode__dialog": { "message": "フォローダイアログからアカウントを選択する"},
 
   "btd_thx": { "message": "Better TweetDeck をインストールしていただき、ありがとうございます！" },
   "btd_get_started": { "message": "はじめに" },
