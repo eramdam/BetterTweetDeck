@@ -54,7 +54,7 @@
     "jquery": "3.2.1",
     "lodash": "4.17.4",
     "lodash-webpack-plugin": "^0.11.4",
-    "marked": "0.3.6",
+    "marked": "0.3.9",
     "mustache": "2.3.0",
     "needle": "1.6.0",
     "normalize.css": "7.0.0",
