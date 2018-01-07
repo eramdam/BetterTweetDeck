@@ -34,7 +34,7 @@ const defaultSettings = {
     bigger_emojis: true,
     character_count: true,
     collapse_dms: false,
-    dark_mode: false,
+    night_mode: false,
     no_col_icns: false,
     minimal_mode: false,
     small_icns_compose: true,
