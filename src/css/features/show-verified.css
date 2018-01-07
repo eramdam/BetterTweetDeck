@@ -8,19 +8,15 @@ General style setup
     position: absolute;
 
     &::before {
-      content: "\f099";
-      font-family: "tweetdeckregular";
-      font-weight: normal;
-      font-style: normal;
-      -webkit-font-smoothing: antialiased;
+      content: '';
       line-height: 1;
       position: absolute;
-      color: #55acee;
       width: 1em;
       height: 1em;
+      background-size: 100% 100%;
+      background-image: url('../../img/verified-icon.svg');
       font-size: 18px;
       z-index: 9;
-      background-image: radial-gradient(circle 11px, white 50%, color(white a(0)) 51%);
     }
   }
 
@@ -52,8 +48,6 @@ General style setup
       right: -3px;
       transform-origin: bottom right;
       transform: scale(0.8);
-      background-image: radial-gradient(20px, rgb(255, 255, 255) 30%, rgba(255, 255, 255, 0) 31%);
-      background-position: 0 1px;
     }
   }
 

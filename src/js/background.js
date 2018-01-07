@@ -6,6 +6,7 @@ import * as Messages from './util/messaging';
 import Log from './util/logger';
 
 const defaultSettings = {
+  need_follow_banner: true,
   installed_version: BHelper.getVersion(),
   ts: 'relative',
   custom_ts: {
@@ -196,6 +197,13 @@ Messages.on((message, sender, sendResponse) => {
         installed_version: String(BHelper.getVersion()),
       });
       return false;
+
+    case 'displayed_follow_banner':
+      BHelper.settings.set({
+        need_follow_banner: false,
+      });
+      return false;
+
     case 'get_settings':
       BHelper.settings.getAll(settings => sendResponse({ settings }));
       return true;

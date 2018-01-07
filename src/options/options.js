@@ -1,4 +1,5 @@
 import config from 'config';
+import { createApolloFetch } from 'apollo-fetch';
 import $ from 'jquery';
 import {
   isBoolean,
@@ -10,16 +11,50 @@ import Prism from 'prismjs';
 import marked from 'marked';
 import queryString from 'query-string';
 import fecha from 'fecha';
-import jsEmoji from 'emoji-js';
 import '../css/options/index.css';
 import * as BHelper from '../js/util/browserHelper';
 import { schemeWhitelist } from '../js/util/thumbnails';
 
-const Emoji = new jsEmoji.EmojiConvertor();
-Emoji.img_set = 'twitter';
-Emoji.replace_mode = 'css';
-Emoji.supports_css = true;
-Emoji.use_sheet = true;
+const GITHUB_URI = 'https://api.github.com/graphql';
+const GITHUB_RELEASES_QUERY = `
+query BTDReleases {
+  viewer {
+    repository(name: "BetterTweetDeck") {
+      id
+      releases(last: 100, orderBy: {field: CREATED_AT, direction: DESC}) {
+        edges {
+          node {
+            id
+            name
+            isDraft
+            createdAt
+            description
+            url
+            tag {
+              name
+            }
+          }
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+      }
+    }
+  }
+}`;
+
+const githubApolloFetch = createApolloFetch({ uri: GITHUB_URI });
+
+githubApolloFetch.use(({ options }, next) => {
+  if (!options.headers) {
+    options.headers = {}; // Create the headers object if needed.
+  }
+  options.headers.authorization = `bearer ${config.Client.github_token}`;
+
+  next();
+});
+
 
 if (config.Client.debug) {
   window._BTDSetSettings = obj => BHelper.settings.set(obj);
@@ -437,22 +472,36 @@ fetch('https://api.github.com/repos/eramdam/BetterTweetDeck/contributors').then(
   });
 });
 
-const labels = ['Feature', 'Bugfix', 'Improvement', 'Meta'];
+const makeReleaseMarkup = (release) => {
+  const GITHUB_USERNAME_RE = /([^>])@([a-z0-9-_]+)([^<])/gi;
+  const GITHUB_ISSUES_RE = /([^>])#([0-9]+)([^<])/g;
+  const string = release.description
+    .replace(GITHUB_ISSUES_RE, '$1<a href="https://github.com/eramdam/BetterTweetDeck/issues/$2">#$2</a>$3')
+    .replace(GITHUB_USERNAME_RE, '$1<a class="test" href="https://github.com/$2">@$2</a>$3');
 
-fetch(chrome.extension.getURL('options/CHANGELOG.md')).then(res => res.text()).then((body) => {
-  const changelogMarkup =
-    Emoji.replace_colons(marked(body))
-      .replace(/\/emoji-data\/sheet_twitter_64.png/g, chrome.extension.getURL('emojis/sheet_twitter_64.png'))
-      .replace(new RegExp(`(\\[(${labels.join('|')})\\])`, 'gi'), (match, p1, p2) => {
-        return `
-        <span class="token -${p2.toLowerCase()}">${p2}</span>
-      `;
-      });
+  return marked(string);
+};
 
-  // console.log(changelogMarkup.match(new RegExp(`(\\[(${labels.join('|')})\\])`, 'gi')));
+githubApolloFetch({ query: GITHUB_RELEASES_QUERY })
+  .then(({ data }) => data.viewer.repository.releases.edges.filter(e => !e.node.isDraft).map(e => e.node))
+  .then((releases) => {
+    const changelogMarkup = releases.map((release, index) => {
+      let str = '';
 
-  $('.settings-section.changelog')[0].innerHTML = changelogMarkup;
-});
+      if (index === 0) {
+        str = `<h1>🎉 ${release.name || release.tag.name} 🎉</h1>`;
+      } else {
+        str = `<h1>${release.name || release.tag.name}</h1>`;
+      }
+
+      str += `<div>${makeReleaseMarkup(release)}</div>`;
+
+      return str;
+    }).join('');
+
+    $('.settings-section.changelog')[0].innerHTML = changelogMarkup;
+  });
+
 
 // Because nobody got time to write that HTML by hand, right?
 const usedDeps = [

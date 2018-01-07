@@ -10,7 +10,7 @@ import * as Templates from './util/templates';
 import Emojis from './util/emojis';
 import Log from './util/logger';
 import * as BHelper from './util/browserHelper';
-import { $, TIMESTAMP_INTERVAL, on, sendEvent } from './util/util';
+import { $, TIMESTAMP_INTERVAL, onEvent, sendEvent } from './util/util';
 import '../css/index.css';
 
 let SETTINGS;
@@ -246,7 +246,8 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
     });
 
     if (mediaSize === 'large') {
-      $('.tweet.js-tweet', node)[0].insertAdjacentElement('afterend', previewNode);
+      const insertNode = $('.js-tweet.tweet-detail', node) ? $('.js-tweet-text', node) : $('.js-tweet.tweet', node);
+      insertNode[0].insertAdjacentElement('afterend', previewNode);
     } else {
       $('.tweet-body p, .tweet-text', node)[0].insertAdjacentElement('afterend', previewNode);
     }
@@ -491,7 +492,7 @@ function setMaxDimensionsOnModalImg() {
 window.addEventListener('resize', setMaxDimensionsOnModalImg);
 
 // Prepare to know when TD is ready
-on('BTDC_ready', () => {
+onEvent('BTDC_ready', () => {
   tweakClassesFromVisualSettings();
   // Refresh timestamps once and then set the interval
   refreshTimestamps();
@@ -583,19 +584,23 @@ on('BTDC_ready', () => {
   }
 });
 
-on('BTDC_gotChirpForColumn', (ev, data) => {
+onEvent('BTDC_showed_follow_banner', () => {
+  sendMessage({ action: 'displayed_follow_banner' });
+});
+
+onEvent('BTDC_gotChirpForColumn', (ev, data) => {
   const { chirp, colKey } = data;
 
   tweetHandler(chirp, colKey);
 });
 
-on('BTDC_gotChirpInMediaModal', (ev, data) => {
+onEvent('BTDC_gotChirpInMediaModal', (ev, data) => {
   const { chirp } = data;
 
   tweetHandler(chirp, null, $('.js-mediatable')[0]);
 });
 
-on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
+onEvent('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
   const {
     markup,
     modalHtml,
@@ -703,13 +708,13 @@ on('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
   }
 });
 
-on('BTDC_columnMediaSizeUpdated', (ev, data) => {
+onEvent('BTDC_columnMediaSizeUpdated', (ev, data) => {
   const { id, size } = data;
 
   COLUMNS_MEDIA_SIZES.set(id, size);
 });
 
-on('BTDC_columnsChanged', (ev, data) => {
+onEvent('BTDC_columnsChanged', (ev, data) => {
   const colsArray = data;
 
   if (COLUMNS_MEDIA_SIZES.size !== colsArray.length) {
@@ -722,7 +727,7 @@ on('BTDC_columnsChanged', (ev, data) => {
     });
 });
 
-on('BTDC_clickedOnGif', (ev, data) => {
+onEvent('BTDC_clickedOnGif', (ev, data) => {
   const { tweetKey, colKey, video } = data;
 
   const modalHtml = Templates.modalTemplate({
