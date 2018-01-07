@@ -128,6 +128,7 @@ html.dark.btd-on .btd__night_mode {
 
   .social-proof-container {
     background-color: var(--darker-blue);
+    color: var(--dimmed-gray);
   }
 
   .mdl {
