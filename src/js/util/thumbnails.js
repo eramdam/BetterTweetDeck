@@ -7,7 +7,6 @@ import * as Providers from './providers/index';
 import * as BHelper from './browserHelper';
 
 const endpoints = {
-  embedly: 'https://api.embed.ly/1/oembed?',
   '500px': 'https://500px.com/oembed?format=json&url=',
   dailymotion: 'https://api.dailymotion.com/video/',
   deviantart: 'https://backend.deviantart.com/oembed?',
@@ -144,6 +143,7 @@ export const schemeWhitelist = [
   Providers.giphy(util),
   Providers.googleplus(util),
   Providers.imgur(util),
+  Providers.miil(util),
   Providers.mixcloud(util),
   Providers.mobyTo(util),
   Providers.nicoseiga(util),
@@ -155,7 +155,6 @@ export const schemeWhitelist = [
   Providers.ted(util),
   Providers.tinami(util),
   Providers.tumblr(util),
-  Providers.twipple(util),
   Providers.twitch(util),
   Providers.vimeo(util),
   Providers.worldcosplay(util),

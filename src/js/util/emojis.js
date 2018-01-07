@@ -18,6 +18,8 @@ const catOrder = {
   Flags: -10,
 };
 
+const catNames = Object.keys(catOrder);
+
 
 function getEventTarget(evt) {
   let targ = (evt.target) ? evt.target : evt.srcElement;
@@ -59,13 +61,13 @@ function insertAtCursor(input, value) {
 }
 
 function getEmojiTypeaheadHolder(event) {
-  const parent = event.target.parentElement;
+  const parent = event.target.closest('.compose-text-container');
 
   if (!parent) {
     return null;
   }
 
-  return $('.btd-emoji-typeahead', event.target.parentElement)[0];
+  return $('.btd-emoji-typeahead', parent)[0];
 }
 
 function valueAtCursor(input) {
@@ -149,14 +151,14 @@ function getEmojiPickerMarkup(emojiContent) {
           <span class="emoji-current-name">:ok_hand:</span>
         </div>
         <div class="category-chooser">
-          <button title="People" data-btd-emoji-cat="People" class="-active">${getImage({ s: ['ok_hand'] })}</button>
-          <button title="Nature" data-btd-emoji-cat="Nature" class="-active">${getImage({ s: ['cat'] })}</button>
-          <button title="Foods" data-btd-emoji-cat="Foods" class="-active">${getImage({ s: ['pizza'] })}</button>
-          <button title="Activity" data-btd-emoji-cat="Activity" class="-active">${getImage({ s: ['soccer'] })}</button>
-          <button title="Places" data-btd-emoji-cat="Places" class="-active">${getImage({ s: ['rocket'] })}</button>
-          <button title="Objects" data-btd-emoji-cat="Objects" class="-active">${getImage({ s: ['bulb'] })}</button>
-          <button title="Symbols" data-btd-emoji-cat="Symbols" class="-active">${getImage({ s: ['100'] })}</button>
-          <button title="Flags" data-btd-emoji-cat="Flags" class="-active">${getImage({ s: ['fr'] })}</button>
+          <button title="${catNames[0]}" data-btd-emoji-cat="${catNames[0]}" class="-active">${getImage({ s: ['ok_hand'] })}</button>
+          <button title="${catNames[1]}" data-btd-emoji-cat="${catNames[1]}" class="-active">${getImage({ s: ['cat'] })}</button>
+          <button title="${catNames[2]}" data-btd-emoji-cat="${catNames[2]}" class="-active">${getImage({ s: ['pizza'] })}</button>
+          <button title="${catNames[3]}" data-btd-emoji-cat="${catNames[3]}" class="-active">${getImage({ s: ['soccer'] })}</button>
+          <button title="${catNames[4]}" data-btd-emoji-cat="${catNames[4]}" class="-active">${getImage({ s: ['rocket'] })}</button>
+          <button title="${catNames[5]}" data-btd-emoji-cat="${catNames[5]}" class="-active">${getImage({ s: ['bulb'] })}</button>
+          <button title="${catNames[6]}" data-btd-emoji-cat="${catNames[6]}" class="-active">${getImage({ s: ['100'] })}</button>
+          <button title="${catNames[7]}" data-btd-emoji-cat="${catNames[7]}" class="-active">${getImage({ s: ['fr'] })}</button>
         </div>
       </div>
     </div>
@@ -197,7 +199,7 @@ function updateEmojiDropdown(event, items, skinVariation = '') {
     const isSelected = index === 0;
 
     return `
-  <li class="typeahead-item padding-am cf is-actionable ${isSelected ? 's-selected' : ''}">
+  <li class="typeahead-item padding-am cf is-actionable ${isSelected ? 's-selected' : ''}" data-btd-emoji-index="${index}">
     <p class="js-hashtag txt-ellipsis">
       <span class="btd-emoji">
       ${emoji.hs ? getImage(emoji, skinVariation) : getImage(emoji)}
@@ -237,6 +239,19 @@ function moveSelection(event, offset) {
   holder.querySelector(`li:nth-child(${newSelectedIndex + 1})`).classList.add('s-selected');
 }
 
+function setSelection(event, position) {
+  let newSelectedIndex = (position) % emojiDropdownItems.length;
+
+  if (newSelectedIndex < 0) {
+    newSelectedIndex = emojiDropdownItems.length - 1;
+  }
+
+  emojiDropdownItemSelected = emojiDropdownItems[newSelectedIndex];
+  const holder = getEmojiTypeaheadHolder(event);
+  holder.querySelectorAll('li.typeahead-item').forEach(e => e.classList.remove('s-selected'));
+  holder.querySelector(`li:nth-child(${newSelectedIndex + 1})`).classList.add('s-selected');
+}
+
 function replaceAt(string, index, target, replacement) {
   const firstPart = string.substr(0, index);
   const secondPart = string.substr(index + target.length);
@@ -244,8 +259,8 @@ function replaceAt(string, index, target, replacement) {
   return firstPart + replacement + secondPart;
 }
 
-function selectTypeaheadEmoji(event) {
-  const composeBox = event.target;
+function selectTypeaheadEmoji(event, composeBoxNode) {
+  const composeBox = composeBoxNode || event.target;
   const atCursor = valueAtCursor(composeBox);
   const toReplace = atCursor.value.match(colonRegex);
   const unifiedEmoji = getUnified(emojiDropdownItemSelected, getSkinVariation());
@@ -253,9 +268,9 @@ function selectTypeaheadEmoji(event) {
   const newValue = replaceAt(composeBox.value, toReplace.index, toReplace[0], getUnified(emojiDropdownItemSelected, getSkinVariation()));
 
   composeBox.value = newValue;
+  composeBox.dispatchEvent(new Event('change'));
   composeBox.selectionStart = toReplace.index + unifiedEmoji.length;
   composeBox.selectionEnd = toReplace.index + unifiedEmoji.length;
-  composeBox.dispatchEvent(new Event('change'));
   hideEmojiDropdown(event);
 }
 
@@ -312,6 +327,28 @@ function emojiMatcherOnInput(event) {
     }
   } else {
     hideEmojiDropdown(event);
+  }
+}
+
+function eventInsideEmojiDropdown(event) {
+  if (!event.target.closest('.btd-emoji-typeahead li')) {
+    return;
+  }
+
+  const { type } = event;
+  const dropdownListItem = event.target.closest('.btd-emoji-typeahead li');
+  const composeBox = event.target.closest('.compose-text-container').querySelector('.js-compose-text');
+
+  switch (type) {
+    case 'mouseover':
+      setSelection(event, Number(dropdownListItem.dataset.btdEmojiIndex));
+      break;
+    case 'click':
+      setSelection(event, Number(dropdownListItem.dataset.btdEmojiIndex));
+      selectTypeaheadEmoji(event, composeBox);
+      break;
+    default:
+      break;
   }
 }
 
@@ -535,6 +572,8 @@ function buildEmojiPicker(rebuild = false) {
   document.body.addEventListener('input', eventInsideTweetBox);
   document.body.addEventListener('keydown', eventInsideTweetBox);
   document.body.addEventListener('blur', eventInsideTweetBox);
+  document.body.addEventListener('mouseover', eventInsideEmojiDropdown);
+  document.body.addEventListener('click', eventInsideEmojiDropdown);
 
   document.addEventListener('click', () => {
     if (clickedOutsideElement('.emoji-popover') && clickedOutsideElement('.js-add-emojis') && $('.emoji-popover')[0].style.display === 'block') {
