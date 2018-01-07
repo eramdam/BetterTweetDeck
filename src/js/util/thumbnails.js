@@ -22,6 +22,7 @@ const endpoints = {
   googleplus: 'https://picasaweb.google.com/data/feed/api/',
   gyazo: 'https://api.gyazo.com/api/oembed?url=',
   gfycat: 'https://api.gfycat.com/v1/oembed?url=',
+  nicovideo: 'https://ext.nicovideo.jp/api/getthumbinfo/',
 };
 
 let providersSettings;
@@ -146,6 +147,7 @@ export const schemeWhitelist = [
   Providers.mixcloud(util),
   Providers.mobyTo(util),
   Providers.nicoseiga(util),
+  Providers.nicovideo(util),
   Providers.photozou(util),
   Providers.pixiv(util),
   Providers.skitch(util),
