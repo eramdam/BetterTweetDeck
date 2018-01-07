@@ -200,6 +200,11 @@ if (SETTINGS.collapse_columns) {
 
 if (SETTINGS.css.night_mode) {
   findMustache(' is-inverted-dark').forEach((mustacheKey) => {
+    if (mustacheKey === 'settings/account_settings.mustache') {
+      return;
+    }
+
+    console.log('removing inserted-dark in', mustacheKey);
     TD.mustaches[mustacheKey] = TD.mustaches[mustacheKey].replace(' is-inverted-dark', '');
   });
 }
