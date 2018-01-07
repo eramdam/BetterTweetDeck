@@ -1,5 +1,15 @@
 /* test */
-html.dark.btd-on .btd__dark_mode {
+:root {
+  --dark-gray: #141d26;
+  --border-color: #000;
+  --gray: #1b2836;
+  --link-color: #1b95e0;
+  --dimmed-gray: #8899a6;
+  --dark-blue: #1b3247;
+  --darker-blue: #182430;
+}
+
+html.dark.btd-on .btd__night_mode {
   color: #fff;
 
   .app-content,
@@ -11,56 +21,62 @@ html.dark.btd-on .btd__dark_mode {
   .scroll-styled-v::-webkit-scrollbar-thumb:hover,
   .scroll-styled-h::-webkit-scrollbar-thumb:hover,
   .is-options-open .column-settings-link {
-    background-color: #141d26;
+    background-color: var(--dark-gray);
   }
 
   .column,
   .column-header,
   .scroll-conversation,
   .stream-item {
-    background-color: #1b2836;
+    background-color: var(--gray);
   }
 
   .is-new .column-type-icon,
   .facet-subtitle,
   .is-options-open .column-settings-link {
-    color: #1b95e0;
+    color: var(--link-color);
   }
 
-  .stream-item {
-    border-bottom: 1px solid #000;
+  &:not(.btd__minimal_mode) .stream-item {
+    border-bottom: 1px solid var(--border-color);
   }
 
   .quoted-tweet {
-    border-color: #000;
-    color: #8899a6;
+    border-color: var(--border-color);
   }
 
   .btn-compose {
-    background-color: #1da1f2;
+    background-color: var(--link-color);
   }
 
   .compose,
   .attach-compose-buttons .tweet-button {
-    background-color: #1b3247;
+    background-color: var(--dark-blue);
   }
 
-  .btn-on-blue,
-  .btn-on-blue:hover {
-    background-color: #1b7fbe;
+  .btn-on-blue {
+    background-color: transparent;
+    border: 0;
+    box-shadow: inset 0 0 0 1px currentColor;
+    color: color(var(--dimmed-gray) shade(10));
+
   }
+
+  .btn-on-blue:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
 
   .app-header,
   .column-nav-item,
   .app-title,
   .app-navigator {
-    background-color: #182430;
+    background-color: var(--darker-blue);
   }
 
-  a,
-  a:focus,
-  a:active,
-  a:hover,
+  .tweet-text a:any-link,
+  .tweet-text a:active,
+  .tweet-text a:hover,
   .med-origlink:hover,
   .med-flaglink:hover,
   .med-flaglink,
@@ -68,7 +84,7 @@ html.dark.btd-on .btd__dark_mode {
   .btn-neutral-positive,
   .btn-neutral-positive:hover,
   .column-nav-updates {
-    color: #1b95e0;
+    color: var(--link-color);
   }
 
   a.account-link {
