@@ -20,7 +20,7 @@ module.exports = [
   'https://www.tinami.com/api/*',
   'https://gyazo.com/*',
   'https://picasaweb.google.com/*',
-  'http://ext.seiga.nicovideo.jp/thumb/*',
+  'https://*.nicovideo.jp/*',
   'https://api.photozou.jp/rest/*',
   'https://noembed.com/embed*',
   'http://embed.pixiv.net/*',
