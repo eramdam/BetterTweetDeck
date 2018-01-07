@@ -61,13 +61,13 @@ function insertAtCursor(input, value) {
 }
 
 function getEmojiTypeaheadHolder(event) {
-  const parent = event.target.parentElement;
+  const parent = event.target.closest('.compose-text-container');
 
   if (!parent) {
     return null;
   }
 
-  return $('.btd-emoji-typeahead', event.target.parentElement)[0];
+  return $('.btd-emoji-typeahead', parent)[0];
 }
 
 function valueAtCursor(input) {
@@ -199,7 +199,7 @@ function updateEmojiDropdown(event, items, skinVariation = '') {
     const isSelected = index === 0;
 
     return `
-  <li class="typeahead-item padding-am cf is-actionable ${isSelected ? 's-selected' : ''}">
+  <li class="typeahead-item padding-am cf is-actionable ${isSelected ? 's-selected' : ''}" data-btd-emoji-index="${index}">
     <p class="js-hashtag txt-ellipsis">
       <span class="btd-emoji">
       ${emoji.hs ? getImage(emoji, skinVariation) : getImage(emoji)}
@@ -239,6 +239,19 @@ function moveSelection(event, offset) {
   holder.querySelector(`li:nth-child(${newSelectedIndex + 1})`).classList.add('s-selected');
 }
 
+function setSelection(event, position) {
+  let newSelectedIndex = (position) % emojiDropdownItems.length;
+
+  if (newSelectedIndex < 0) {
+    newSelectedIndex = emojiDropdownItems.length - 1;
+  }
+
+  emojiDropdownItemSelected = emojiDropdownItems[newSelectedIndex];
+  const holder = getEmojiTypeaheadHolder(event);
+  holder.querySelectorAll('li.typeahead-item').forEach(e => e.classList.remove('s-selected'));
+  holder.querySelector(`li:nth-child(${newSelectedIndex + 1})`).classList.add('s-selected');
+}
+
 function replaceAt(string, index, target, replacement) {
   const firstPart = string.substr(0, index);
   const secondPart = string.substr(index + target.length);
@@ -246,8 +259,8 @@ function replaceAt(string, index, target, replacement) {
   return firstPart + replacement + secondPart;
 }
 
-function selectTypeaheadEmoji(event) {
-  const composeBox = event.target;
+function selectTypeaheadEmoji(event, composeBoxNode) {
+  const composeBox = composeBoxNode || event.target;
   const atCursor = valueAtCursor(composeBox);
   const toReplace = atCursor.value.match(colonRegex);
   const unifiedEmoji = getUnified(emojiDropdownItemSelected, getSkinVariation());
@@ -255,9 +268,9 @@ function selectTypeaheadEmoji(event) {
   const newValue = replaceAt(composeBox.value, toReplace.index, toReplace[0], getUnified(emojiDropdownItemSelected, getSkinVariation()));
 
   composeBox.value = newValue;
+  composeBox.dispatchEvent(new Event('change'));
   composeBox.selectionStart = toReplace.index + unifiedEmoji.length;
   composeBox.selectionEnd = toReplace.index + unifiedEmoji.length;
-  composeBox.dispatchEvent(new Event('change'));
   hideEmojiDropdown(event);
 }
 
@@ -314,6 +327,28 @@ function emojiMatcherOnInput(event) {
     }
   } else {
     hideEmojiDropdown(event);
+  }
+}
+
+function eventInsideEmojiDropdown(event) {
+  if (!event.target.closest('.btd-emoji-typeahead li')) {
+    return;
+  }
+
+  const { type } = event;
+  const dropdownListItem = event.target.closest('.btd-emoji-typeahead li');
+  const composeBox = event.target.closest('.compose-text-container').querySelector('.js-compose-text');
+
+  switch (type) {
+    case 'mouseover':
+      setSelection(event, Number(dropdownListItem.dataset.btdEmojiIndex));
+      break;
+    case 'click':
+      setSelection(event, Number(dropdownListItem.dataset.btdEmojiIndex));
+      selectTypeaheadEmoji(event, composeBox);
+      break;
+    default:
+      break;
   }
 }
 
@@ -537,6 +572,8 @@ function buildEmojiPicker(rebuild = false) {
   document.body.addEventListener('input', eventInsideTweetBox);
   document.body.addEventListener('keydown', eventInsideTweetBox);
   document.body.addEventListener('blur', eventInsideTweetBox);
+  document.body.addEventListener('mouseover', eventInsideEmojiDropdown);
+  document.body.addEventListener('click', eventInsideEmojiDropdown);
 
   document.addEventListener('click', () => {
     if (clickedOutsideElement('.emoji-popover') && clickedOutsideElement('.js-add-emojis') && $('.emoji-popover')[0].style.display === 'block') {

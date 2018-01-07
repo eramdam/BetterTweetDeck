@@ -40,10 +40,6 @@ const staticFiles = [
   {
     from: '../tools/embeds.js',
   },
-  {
-    from: '../CHANGELOG.md',
-    to: 'options/',
-  },
 ].map(i => (Object.assign(i, {
   context: './src/',
 })));
