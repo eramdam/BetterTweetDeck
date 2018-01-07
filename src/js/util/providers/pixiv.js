@@ -7,7 +7,7 @@ export default function ($) {
     re: /pixiv\.net\/(?:member_illust\.php|novel\/|i\/|n\/)/,
     default: true,
     callback: (url) => {
-      return fetch($.getSafeURL(url))
+      return fetch(url)
         .then($.statusAndText)
         .then((html) => {
           // Only domify <head> part to prevent from making requests for i.pximg.net
