@@ -134,6 +134,10 @@ html.dark.btd-on .btd__night_mode {
     background-color: var(--dark-blue);
   }
 
+  &.btd__no_bg_modal .js-mediatable .mdl {
+    background: transparent;
+  }
+
   .prf .lst-profile a {
     border-right: 0;
   }
