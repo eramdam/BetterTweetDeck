@@ -1,0 +1,85 @@
+html.dark.btd-on .btd__dark_mode {
+  color: #fff;
+
+  .app-content,
+  .social-proof-for-tweet-title,
+  .column-options,
+  .column-options .button-tray,
+  .scroll-styled-v::-webkit-scrollbar-thumb,
+  .scroll-styled-h::-webkit-scrollbar-thumb,
+  .scroll-styled-v::-webkit-scrollbar-thumb:hover,
+  .scroll-styled-h::-webkit-scrollbar-thumb:hover,
+  .is-options-open .column-settings-link {
+    background-color: #141d26;
+  }
+
+  .column,
+  .column-header,
+  .scroll-conversation,
+  .stream-item {
+    background-color: #1b2836;
+  }
+
+  .is-new .column-type-icon,
+  .facet-subtitle,
+  .is-options-open .column-settings-link {
+    color: #1b95e0;
+  }
+
+  .stream-item {
+    border-bottom: 1px solid #000;
+  }
+
+  .quoted-tweet {
+    border-color: #000;
+    color: #8899a6;
+  }
+
+  .btn-compose {
+    background-color: #1da1f2;
+  }
+
+  .compose,
+  .attach-compose-buttons .tweet-button {
+    background-color: #1b3247;
+  }
+
+  .btn-on-blue,
+  .btn-on-blue:hover {
+    background-color: #1b7fbe;
+  }
+
+  .app-header,
+  .column-nav-item,
+  .app-title,
+  .app-navigator {
+    background-color: #182430;
+  }
+
+  a,
+  a:focus,
+  a:active,
+  a:hover,
+  .med-origlink:hover,
+  .med-flaglink:hover,
+  .med-flaglink,
+  .med-origlink,
+  .btn-neutral-positive,
+  .btn-neutral-positive:hover,
+  .column-nav-updates {
+    color: #1b95e0;
+  }
+
+  a.account-link {
+    color: #fff;
+  }
+
+  .more-tweets-glow {
+    background: radial-gradient(ellipse farthest-corner at 50% 100%, #1b95e0 0%, #1b95e0 25%, rgba(255, 255, 255, 0) 75%);
+  }
+
+  .scroll-styled-v::-webkit-scrollbar-track,
+  .scroll-styled-h::-webkit-scrollbar-track {
+    border-left: 1px solid #000;
+  }
+}
