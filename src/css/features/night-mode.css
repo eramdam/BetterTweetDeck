@@ -2,6 +2,7 @@
 :root {
   --dark-gray: #141d26;
   --border-color: #000;
+  --dimmed-black: #111922;
   --gray: #1b2836;
   --link-color: #1b95e0;
   --dimmed-gray: #8899a6;
@@ -27,7 +28,8 @@ html.dark.btd-on .btd__night_mode {
   .column,
   .column-header,
   .scroll-conversation,
-  .stream-item {
+  .stream-item,
+  .mdl-column-rhs {
     background-color: var(--gray);
   }
 
@@ -41,7 +43,11 @@ html.dark.btd-on .btd__night_mode {
     border-bottom: 1px solid var(--border-color);
   }
 
-  .quoted-tweet {
+  .quoted-tweet,
+  .mdl-content,
+  .mdl-column-rhs,
+  .column-header-temp,
+  .s-minimal .mdl-header {
     border-color: var(--border-color);
   }
 
@@ -54,18 +60,21 @@ html.dark.btd-on .btd__night_mode {
     background-color: var(--dark-blue);
   }
 
-  .btn-on-blue {
-    background-color: transparent;
-    border: 0;
-    box-shadow: inset 0 0 0 1px currentColor;
-    color: color(var(--dimmed-gray) shade(10));
-
+  .btn-on-blue,
+  .btn-on-blue:hover {
+    background-color: var(--dimmed-gray);
+    color: white;
   }
 
-  .btn-on-blue:hover {
+  .btn:not(.tweet-button, .btn-positive):hover,
+  .follow-btn:hover,
+  .js-user-actions-menu:hover {
     background-color: rgba(0, 0, 0, 0.2);
   }
 
+  .compose-header {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
 
   .app-header,
   .column-nav-item,
@@ -99,4 +108,108 @@ html.dark.btd-on .btd__night_mode {
   .scroll-styled-h::-webkit-scrollbar-track {
     border-left: 1px solid #000;
   }
+
+  .prf-meta {
+    border-top: 0;
+    background-color: var(--dark-blue);
+  }
+
+  .prf-stats li + li a {
+    border-left: 0;
+  }
+
+  .prf-stats a strong {
+    color: var(--link-color);
+  }
+
+  .prf-stats a:hover {
+    color: var(--link-color);
+  }
+
+  .social-proof-container {
+    background-color: var(--darker-blue);
+  }
+
+  .mdl {
+    background-color: var(--dark-blue);
+  }
+
+  .prf .lst-profile a {
+    border-right: 0;
+  }
+
+  .prf .lst-profile span,
+  .prf .lst-profile i {
+    color: currentColor;
+  }
+
+  .lst-profile a {
+    color: var(--dimmed-gray);
+  }
+
+  .lst-profile a:hover,
+  .lst-profile a:focus,
+  .lst-profile a:active {
+    color: var(--link-color);
+  }
+
+  .mdl-column-med {
+    background-color: var(--darker-blue);
+  }
+
+  .list-account,
+  .list-account:hover {
+    color: var(--dimmed-gray);
+    text-shadow: none;
+  }
+
+  .list-account .fullname {
+    color: inherit;
+  }
+
+  .list-link:hover:hover,
+  .list-twitter-list:hover:hover,
+  .list-subtitle:hover:hover,
+  .list-account:hover:hover,
+  .list-listmember:hover:hover,
+  .list-link:hover:focus,
+  .list-twitter-list:hover:focus,
+  .list-subtitle:hover:focus,
+  .list-account:hover:focus,
+  .list-listmember:hover:focus,
+  .list-link:hover:active,
+  .list-twitter-list:hover:active,
+  .list-subtitle:hover:active,
+  .list-account:hover:active,
+  .list-listmember:hover:active,
+  .list-account:hover:hover,
+  .list-account:hover:focus,
+  .list-account:hover:active,
+  .list-listaccount:hover:hover,
+  .list-listaccount:hover:focus,
+  .list-listaccount:hover:active,
+  .list-subtitle:hover:hover,
+  .list-subtitle:hover:focus,
+  .list-subtitle:hover:active {
+    background-color: var(--dark-gray);
+  }
+
+  .lst-launcher a:hover,
+  .lst-launcher a:focus,
+  .lst-launcher a:active,
+  .lst-launcher .top-row {
+    border-color: var(--border-color);
+  }
+
+  .lst-launcher .is-disabled a,
+  .lst-launcher .is-disabled a:hover,
+  .lst-launcher .is-disabled a:focus,
+  .lst-launcher .is-disabled a:active {
+    background: unset;
+  }
+
+  .lst-launcher a span {
+    color: white;
+  }
+
 }
