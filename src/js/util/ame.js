@@ -38,8 +38,9 @@ export default function () {
   // Custom filters
   BTD.Filters = {
     BTD_is_retweet_from: {
-      dropdown: true,
-      name: 'Retweets from User (without @)',
+      dropdown: false,
+      userDropdown: true,
+      name: 'Retweets from User',
       descriptor: 'retweets from',
       placeholder: 'e.g. tweetdeck',
       function(t, e) {
@@ -61,7 +62,8 @@ export default function () {
       },
     },
     BTD_mute_quotes: {
-      dropdown: true,
+      dropdown: false,
+      userDropdown: true,
       name: 'Quotes from User',
       descriptor: 'quotes from',
       placeholder: 'e.g. tweetdeck',
@@ -140,6 +142,25 @@ export default function () {
     return filterString;
   };
 
+  // Helper function to build <li>s for the actions dropdown
+  BTD.userDropdown = function userDropdown() {
+    const filters = Object.keys(BTD.Filters);
+    let filterString = '';
+
+    filters.forEach((filter) => {
+      const fil = BTD.Filters[filter];
+      if (fil.userDropdown) {
+        filterString += `
+          <li class="is-selectable">
+            <a href="#" data-btd-filter="${filter}" data-btd-value="{{screenName}}">{{_i}}Mute ${fil.name}{{/i}}</a>
+          </li>
+        `;
+      }
+    });
+
+    return filterString;
+  };
+
   $(document).on('change', '.js-filter-types', (e) => {
     e.preventDefault();
 
@@ -151,10 +172,25 @@ export default function () {
     }
   });
 
+  $('body').on('click', '[data-btd-filter]', (ev) => {
+    ev.preventDefault();
+    const filter = $(ev.target).data('btd-filter');
+    const value = $(ev.target).data('btd-value');
+
+    TD.controller.filterManager.addFilter(filter, value);
+  });
+
   // Add our custom filters to the filter dropdown
   TD.mustaches['settings/global_setting_filter.mustache'] = TD.mustaches['settings/global_setting_filter.mustache']
     .replace(
       '</select>',
       `${BTD.filterDropdown()}</select>`,
+    );
+
+  // Add our custom filters to the actions dropdown
+  TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache']
+    .replace(
+      '{{/isMuted}}  ',
+      `{{/isMuted}}  {{#user}} {{^isMe}} ${BTD.userDropdown()} {{/isMe}} {{/user}}`,
     );
 }
