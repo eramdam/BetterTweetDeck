@@ -60,6 +60,17 @@ export default function () {
         return !(e.text.toLowerCase().includes(keyword) && (user === e.user.screenName.toLowerCase()));
       },
     },
+    BTD_mute_quotes: {
+      dropdown: true,
+      name: 'Quotes from User',
+      descriptor: 'quotes from',
+      placeholder: 'e.g. tweetdeck',
+      function(t, e) {
+        if (!e.user) return true;
+
+        return !(e.isQuoteStatus && (t.value === e.user.screenName.toLowerCase()));
+      },
+    },
     BTD_user_biographies: {
       dropdown: true,
       name: 'Biography',
