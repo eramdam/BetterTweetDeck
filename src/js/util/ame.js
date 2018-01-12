@@ -150,11 +150,9 @@ export default function () {
     filters.forEach((filter) => {
       const fil = BTD.Filters[filter];
       if (fil.userDropdown) {
-        filterString += `
-          <li class="is-selectable">
+        filterString += `<li class="is-selectable">
             <a href="#" data-btd-filter="${filter}" data-btd-value="{{screenName}}">{{_i}}Mute ${fil.name}{{/i}}</a>
-          </li>
-        `;
+          </li>`;
       }
     });
 
