@@ -61,6 +61,18 @@ export default function () {
         return !(e.text.toLowerCase().includes(keyword) && (user === e.user.screenName.toLowerCase()));
       },
     },
+    BTD_regex: {
+      dropdown: true,
+      userDropdown: false,
+      name: 'Regular Expression',
+      descriptor: 'tweets matching',
+      placeholder: 'Enter a regular expression',
+      function(t, e) {
+        const regex = new RegExp(t.value, 'g');
+
+        return !e.getFilterableText().match(regex);
+      },
+    },
     BTD_mute_quotes: {
       dropdown: false,
       userDropdown: true,
