@@ -38,8 +38,9 @@ export default function () {
   // Custom filters
   BTD.Filters = {
     BTD_is_retweet_from: {
-      dropdown: false,
-      userDropdown: true,
+      display: {
+        actions: true,
+      },
       name: 'Retweets from User',
       descriptor: 'retweets from',
       placeholder: 'e.g. tweetdeck',
@@ -48,7 +49,9 @@ export default function () {
       },
     },
     BTD_mute_user_keyword: {
-      dropdown: true,
+      display: {
+        global: true,
+      },
       name: 'Keyword from User (user|keyword)',
       descriptor: 'user|keyword: ',
       placeholder: 'e.g. tweetdeck|feature',
@@ -62,8 +65,9 @@ export default function () {
       },
     },
     BTD_regex: {
-      dropdown: true,
-      userDropdown: false,
+      display: {
+        global: true,
+      },
       name: 'Regular Expression',
       descriptor: 'tweets matching',
       placeholder: 'Enter a regular expression',
@@ -74,8 +78,9 @@ export default function () {
       },
     },
     BTD_mute_quotes: {
-      dropdown: false,
-      userDropdown: true,
+      display: {
+        actions: true,
+      },
       name: 'Quotes from User',
       descriptor: 'quotes from',
       placeholder: 'e.g. tweetdeck',
@@ -86,7 +91,9 @@ export default function () {
       },
     },
     BTD_user_biographies: {
-      dropdown: true,
+      display: {
+        global: true,
+      },
       name: 'Biography',
       descriptor: 'users whose bio contains',
       placeholder: 'Enter a keyword or phrase',
@@ -97,7 +104,9 @@ export default function () {
       },
     },
     BTD_default_avatars: {
-      dropdown: true,
+      display: {
+        global: true,
+      },
       name: 'Default Profile Pictures',
       descriptor: 'users having a default profile picture',
       placeholder: 'Write something random here',
@@ -108,7 +117,9 @@ export default function () {
       },
     },
     BTD_follower_count: {
-      dropdown: true,
+      display: {
+        global: true,
+      },
       name: 'Follower count less than',
       descriptor: 'users having less followers than',
       placeholder: 'Enter a number',
@@ -146,7 +157,7 @@ export default function () {
 
     filters.forEach((filter) => {
       const fil = BTD.Filters[filter];
-      if (fil.dropdown) {
+      if (fil.display.global) {
         filterString += `<option value="${filter}">{{_i}}${fil.name}{{/i}}</option>`;
       }
     });
@@ -161,9 +172,11 @@ export default function () {
 
     filters.forEach((filter) => {
       const fil = BTD.Filters[filter];
-      if (fil.userDropdown) {
+      if (fil.display.actions) {
+        const templateString = (fil.options && fil.options.templateString) ? fil.options.templateString : '{{screenName}}';
+
         filterString += `<li class="is-selectable">
-            <a href="#" data-btd-filter="${filter}" data-btd-value="{{screenName}}">{{_i}}Mute ${fil.name}{{/i}}</a>
+            <a href="#" data-btd-filter="${filter}" data-btd-value="${templateString}">{{_i}}Mute ${fil.name}{{/i}}</a>
           </li>`;
       }
     });
