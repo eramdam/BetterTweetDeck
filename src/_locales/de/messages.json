@@ -105,8 +105,7 @@
   "download_item": { "message": "Füge eine Option zum Herunterladen aller Medien eines Tweets zum Tweetmenü hinzu" },
   "download_filename_format": { "message": "Format des Dateinamens von Downloads" },
   "download_filename_format_parameters": { "message": "Du kannst die folgenden Variablen verwenden: <code>{{postedUser}} {{fileName}} {{fileExtension}}</code>" },
-  "ctrl_changes_interactions__enabled": { "message": ""
-      "<kbd>Strg</kbd> (oder <kbd>Cmd</kbd> auf macOS) gedrückt halten beim Anklicken von Gefällt mir/Retweet/Download erlaubt es dir zu folgen von:"},
+  "ctrl_changes_interactions__enabled": { "message": "<kbd>Strg</kbd> (oder <kbd>Cmd</kbd> auf macOS) gedrückt halten beim Anklicken von Gefällt mir/Retweet/Download erlaubt es dir zu folgen von:"},
   "ctrl_changes_interactions__mode__owner": { "message": "dem der Spalte zugehörigen Account" },
   "ctrl_changes_interactions__mode__dialog": { "message": "Folgen-Dialog" },
 
