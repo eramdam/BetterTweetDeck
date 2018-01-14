@@ -7,6 +7,7 @@ import * as GIFS from './util/gifs';
 import UsernamesTemplates from './util/username_templates';
 import wc from './util/webcrack';
 import { giphySearch, giphyBlock } from './util/templates';
+import AdvancedMuteEngine from './util/ame';
 
 const SETTINGS = $('[data-btd-settings]').data('btd-settings');
 
@@ -243,28 +244,6 @@ TD.globalRenderOptions.btd = {
   },
 };
 
-if (SETTINGS.regex_filter) {
-  TD.vo.Filter.prototype._testString = function _testString(e) {
-    const regex = new RegExp(this.value, 'g');
-    if (!e || !this.value) {
-      return !0;
-    }
-    if (this.exact) {
-      if (e === this.value) {
-        return this.positive;
-      }
-      if (this.fuzzy && `@${e}` === this.value) {
-        return this.positive;
-      }
-    } else if (e.match(regex) && this.type === 'phrase') {
-      return this.positive;
-    } else if (e.indexOf(this.value) !== -1) {
-      return this.positive;
-    }
-    return !this.positive;
-  };
-}
-
 // Embed custom mustaches.
 TD.mustaches['btd/download_filename_format.mustache'] = SETTINGS.download_filename_format;
 
@@ -363,6 +342,7 @@ TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].
       </ul>
     `);
 
+AdvancedMuteEngine();
 UsernamesTemplates(TD.mustaches, SETTINGS.nm_disp);
 
 let bannerID = 1;

@@ -11,6 +11,7 @@ module.exports = {
     chrome: false,
     instgrm: false,
     TD: false,
+    BTD: false,
     Hogan: false,
   },
   extends: 'airbnb-base',
