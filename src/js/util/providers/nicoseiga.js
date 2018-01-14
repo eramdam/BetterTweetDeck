@@ -12,7 +12,8 @@ export default function ($) {
         .then($.statusAndText)
         .then((html) => {
           const doc = secureDomify.parse(html);
-          const imgUrl = secureDomify.getAttributeFromNode('img', doc, 'src').replace('q?', 'l?').replace('http', 'https');
+          const imgUrl = secureDomify.getAttributeFromNode('img', doc, 'src')
+            .replace('q?', 'l?').replace('http:', 'https:');
 
           return {
             type: 'image',
