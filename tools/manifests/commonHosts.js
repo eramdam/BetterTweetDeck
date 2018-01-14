@@ -23,7 +23,7 @@ module.exports = [
   'https://*.nicovideo.jp/*',
   'https://api.photozou.jp/rest/*',
   'https://noembed.com/embed*',
-  'http://embed.pixiv.net/*',
+  'http://*.pixiv.net/*',
   'https://api.gfycat.com/',
   'https://raw.githubusercontent.com/eramdam/BetterTweetDeck/master/*',
   '*://tweetdeck.twitter.com/*',
