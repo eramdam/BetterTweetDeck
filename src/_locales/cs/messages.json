@@ -101,7 +101,7 @@
   "hotlink_item": { "message": "Přidat zkratku pro zkopírování adres všech médií v tweetu"},
   "download_item": { "message": "Přidat zkratku pro stažení všech médií v tweetu"},
   "download_filename_format": { "message": "Formát názvu stažených souborů"},
-  "download_filename_format_parameters": { "message": "Můžete použít následující proměnné: <code>{{postedUser}} {{fileName}} {{fileExtension}}</code>"},
+  "download_filename_format_parameters": { "message": "Můžete použít následující proměnné: <code>{{postedUser}} {{tweetId}} {{fileName}} {{fileExtension}}</code>"},
   "ctrl_changes_interactions__enabled": { "message": "Podržení <kbd>Ctrl</kbd> (nebo <kbd>Cmd</kbd> na Mac) při kliknutí na: ikonu lajku / retweetu / stažení vám umožní sledovat účet z"},
   "ctrl_changes_interactions__mode__owner": { "message": "účtu, jemuž patří sloupec"},
   "ctrl_changes_interactions__mode__dialog": { "message": "okénka, z něhož se účet vybere"},

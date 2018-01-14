@@ -101,7 +101,7 @@
   "hotlink_item": { "message": "ツイートに含まれるすべてのメディアへのリンクをコピーするショートカットを追加する"},
   "download_item": { "message": "ツイートに含まれるすべてのメディアをダウンロードするショートカットを追加する"},
   "download_filename_format": { "message": "ダウンロードするファイル名のフォーマット"},
-  "download_filename_format_parameters": { "message": "次の変数が利用できます: <code>{{postedUser}}/{{fileName}}/{{fileExtension}}</code> (それぞれ、ツイートユーザー名/ファイル名/ファイルの拡張子に置換されます)"},
+  "download_filename_format_parameters": { "message": "次の変数が利用できます: <code>{{postedUser}}/{{tweetId}}/{{fileName}}/{{fileExtension}}</code> (それぞれ、ツイートユーザー名/ツイートID/ファイル名/ファイルの拡張子に置換されます)"},
   "ctrl_changes_interactions__enabled": { "message": "<kbd>Ctrl</kbd> (MacOS では <kbd>Cmd</kbd>) を押しながら、いいね/リツイート/ダウンロードボタンをクリックすることで、ツイート元のアカウントを次の方法でフォローできるようにする: "},
   "ctrl_changes_interactions__mode__owner": { "message": "カラムのオーナーからフォローする"},
   "ctrl_changes_interactions__mode__dialog": { "message": "フォローダイアログからアカウントを選択する"},

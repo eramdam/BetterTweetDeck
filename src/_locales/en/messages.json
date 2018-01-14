@@ -101,7 +101,7 @@
   "hotlink_item": { "message": "Add shortcut to copy the links of all media in a tweet"},
   "download_item": { "message": "Add shortcut to download all media of a tweet"},
   "download_filename_format": { "message": "Download file name format"},
-  "download_filename_format_parameters": { "message": "You can use the following variables: <code>{{postedUser}} {{fileName}} {{fileExtension}}</code>"},
+  "download_filename_format_parameters": { "message": "You can use the following variables: <code>{{postedUser}} {{tweetId}} {{fileName}} {{fileExtension}}</code>"},
   "ctrl_changes_interactions__enabled": { "message": "Holding <kbd>Ctrl</kbd> (or <kbd>Cmd</kbd> on Mac) while clicking: favorite / retweet / download will allow you to follow from the"},
   "ctrl_changes_interactions__mode__owner": { "message": "column's owner"},
   "ctrl_changes_interactions__mode__dialog": { "message": "follow dialog"},
