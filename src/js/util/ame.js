@@ -121,7 +121,7 @@ export default function () {
         global: true,
       },
       name: 'Follower count less than',
-      descriptor: 'users having less followers than',
+      descriptor: 'users with less followers than',
       placeholder: 'Enter a number',
       function(t, e) {
         if (!e.user) return true;
