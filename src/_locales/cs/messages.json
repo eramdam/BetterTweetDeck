@@ -93,9 +93,6 @@
   "collapse_columns_pause": { "message": "Při sbalení sloupce je časová osa zmražena, zasvítí při změně obsahu sloupce, a zůstane tam, kde jste ji naposledy zanechali"},
   "uncollapse_columns_unpause": { "message": "Při rozbalení sloupce je časova osa rozmražena, a automaticky se posune na nejnovější tweet"},
 
-  "regex_filter": { "message": "Povolit podporu pro regulární výrazy (RegExp) ve filtru skrytí účtů"},
-  "regex_filter_notice_text": { "message": "Kvůli způsobu jakým pracují filtry TweetDecku regulární výrazy NEROZLIŠUJÍ mezi velkými a malými písmeny!" },
-
   "edit_item": { "message": "Přidat úpravu tweetů k možnostem tweetu"},
   "edit_item_note": { "message": "Toto nelze použít pro úpravu tweetů, aniž by se smazaly! Tweet se vrací do prostoru na psaní a původní se maže i se všemi lajky a retweety." },
   "mute_hashtags": { "message": "Přidat zkratku pro skrytí #hashtagů k možnostem tweetu."},
