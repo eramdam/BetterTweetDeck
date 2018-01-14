@@ -93,9 +93,6 @@
   "collapse_columns_pause": { "message": "When you collapse a column, it will pause the feed it so that it can light up when its contents change while collapsed and it stays where you last saw it"},
   "uncollapse_columns_unpause": { "message": "When you uncollapse a column, it will unpause the feed it so that it automatically scrolls back to the top instead of staying where you left it"},
 
-  "regex_filter": { "message": "Enable regular expression support in Mute filters"},
-  "regex_filter_notice_text": { "message": "Due to the way TweetDeck's filtering works, expressions are NOT case sensitive!" },
-
   "edit_item": { "message": "Add an edit item in tweets' menu"},
   "edit_item_note": { "message": "You cannot use this to edit tweets without deleting them! This immediately moves a tweet to the composer dock and deletes it along with any likes or retweets it received!"},
   "favstar_item": { "message": "Add a \"Show in Favstar\" item in tweets' menu"},
