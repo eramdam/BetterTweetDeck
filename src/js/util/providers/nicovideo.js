@@ -10,7 +10,7 @@ export default function ($) {
       const match = /(?:nico.ms|nicovideo.jp)\/(?:\w+\/)?((?:sm|nm|so|\d{2})[^/?]+)/.exec(url);
       if (match === null) return undefined;
       const id = match[1];
-      return fetch($.getSafeURL(`${$.getEnpointFor('nicovideo')}${id}`))
+      return fetch(`${$.getEnpointFor('nicovideo')}${id}`)
         .then($.statusAndText)
         .then(xml => convert.xml2js(xml, { compact: true }))
         .then((json) => {
