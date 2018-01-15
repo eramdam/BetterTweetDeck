@@ -294,6 +294,7 @@ function keypressHandler(event) {
       moveSelection(event, -1);
       break;
 
+    case 'tab':
     case 'enter':
       event.preventDefault();
       event.stopPropagation();
