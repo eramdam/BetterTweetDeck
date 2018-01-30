@@ -52,7 +52,7 @@ export default function () {
       display: {
         global: true,
       },
-      name: 'Keyword from User (user|keyword)',
+      name: 'Keyword from User',
       descriptor: 'user|keyword: ',
       placeholder: 'e.g. tweetdeck|feature',
       function(t, e) {
