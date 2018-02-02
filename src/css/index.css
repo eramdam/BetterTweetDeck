@@ -241,3 +241,10 @@ html.btd-on {
     margin-bottom: 0 !important;
   }
 }
+
+.inline-reply .btn-square,
+.rpl-actions .btn-square {
+  /* remove effects from buttons under reply input... this keeps happening for some stupid reason */
+  background: transparent !important;
+  box-shadow: none !important;
+}
