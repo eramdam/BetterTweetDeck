@@ -27,6 +27,7 @@
 @import './features/system-fonts.css';
 @import './features/show-provider-name.css';
 @import './features/hide-like-rt-indicators.css';
+@import './features/dark-revert.css';
 
 /* Emoji Panel */
 @import './emoji-panel.css';

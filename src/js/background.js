@@ -49,6 +49,7 @@ const defaultSettings = {
     show_provider_indicator: false,
     hide_like_rt_indicators: false,
     system_fonts: false,
+    og_dark_theme: false,
   },
   pause_scroll_on_hover: false,
   share_item: {

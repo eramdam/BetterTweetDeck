@@ -143,6 +143,10 @@ function tweakClassesFromVisualSettings() {
     document.body.classList.add('btd__old_replies');
   }
 
+  if (SETTINGS.css.og_dark_theme) {
+    document.querySelector('html').classList.add('btd-og-dark');
+  }
+
   if (SETTINGS.custom_columns_width.enabled) {
     document.body.classList.add('btd__custom_column_size');
 
