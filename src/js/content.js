@@ -144,7 +144,10 @@ function tweakClassesFromVisualSettings() {
   }
 
   if (SETTINGS.css.og_dark_theme) {
-    document.querySelector('html').classList.add('btd-og-dark');
+    const linkRevert = document.createElement('link');
+    linkRevert.rel = 'stylesheet';
+    linkRevert.href = BHelper.getExtensionUrl('revert-dark-theme.css');
+    document.head.appendChild(linkRevert);
   }
 
   if (SETTINGS.custom_columns_width.enabled) {

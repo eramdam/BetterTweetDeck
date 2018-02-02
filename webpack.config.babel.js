@@ -17,6 +17,9 @@ const extractOptions = new ExtractTextPlugin('options/css/index.css');
 
 const staticFiles = [
   {
+    from: 'revert-dark-theme.css',
+  },
+  {
     from: 'icons/*.png',
   },
   {
