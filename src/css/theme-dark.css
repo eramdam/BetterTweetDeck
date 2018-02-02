@@ -1,18 +1,9 @@
 :root {
   --compose-btn-bg-dark: #373839;
   --compose-btn-bg-dark-hover: color(var(--compose-btn-bg-dark) shade(20%));
-  --main-bg-dark: #1d1e21;
 }
 
 html.btd-on [data-btdtheme="dark"].btd__minimal_mode {
-  .btn-compose {
-    background-color: var(--compose-btn-bg-dark);
-
-    &:hover {
-      background-color: var(--compose-btn-bg-dark-hover);
-    }
-  }
-
   .drawer .compose .btn-on-blue {
     background-color: color(white alpha(15%));
 
@@ -21,19 +12,15 @@ html.btd-on [data-btdtheme="dark"].btd__minimal_mode {
     }
   }
 
-  .app-columns-container {
-    background-color: #151515;
-  }
-
   .dropdown-menu {
-    border: 1px solid #151515;
+    border: 1px solid hsl(210, 34%, 4%);
 
     .caret-outer {
-      border-bottom: 7px solid rgb(21, 21, 21);
+      border-bottom: 7px solid hsl(210, 34%, 4%);
     }
 
     .caret-inner {
-      border-bottom: 6px solid #222426;
+      border-bottom: 6px solid hsl(210, 34%, 16%);
     }
   }
 
@@ -41,11 +28,7 @@ html.btd-on [data-btdtheme="dark"].btd__minimal_mode {
   .dropdown-menu li > b,
   .js-typeahead-dropdown :matches(.fullname, .username, p),
   .typeahead.lst :matches(.fullname, .username, p) {
-    color: #969696 !important;
-  }
-
-  .typeahead.lst :matches(.fullname, .username, p) {
-    color: rgb(193, 193, 193);
+    color: rgb(193, 193, 193) !important;
   }
 
   .lst-modal.typeahead {
@@ -59,67 +42,19 @@ html.btd-on [data-btdtheme="dark"].btd__minimal_mode {
 
   .dropdown-menu .is-selected,
   .typeahead.lst .s-selected {
-    background-color: #151515;
+    background-color: hsl(210, 34%, 10%);
   }
 
   .dropdown-menu,
   .typeahead {
-    background-color: #222426;
+    background-color: hsl(210, 34%, 16%);
   }
 
   .typeahead {
     border: 0;
   }
 
-  .txt-mute,
-  .txt-mute a:not(:hover):not(:focus),
-  .tweet-action:not(:hover):not(:focus),
-  .tweet-detail-action,
-  .dm-action {
-    color: color(#8899a6 saturation(0%));
-  }
-
-  .js-reply-info-container .txt-mute {
-    color: color(#8899a6 saturation(0%) shade(20%));
-  }
-
   .js-app-columns-container .js-column .tweet-timestamp > a {
-    background-color: #222426;
     z-index: 1;
-    box-shadow: -4px 0 3px #222426;
-  }
-
-  .scroll-conversation {
-    background: color(#292f33 saturation(0%));
-  }
-
-  .account-bio {
-    color: color(#8899a6 saturation(0%));
-  }
-
-  .attach-compose-buttons .tweet-button {
-    background-color: var(--compose-btn-bg-dark-hover);
-  }
-
-  .drawer .compose,
-  .btd-giphy-zone,
-  .inline-reply {
-    background-color: var(--compose-btn-bg-dark-hover);
-  }
-
-  .reply-triangle {
-    border-color: transparent transparent var(--compose-btn-bg-dark-hover) transparent;
-  }
-
-  .media-caret {
-    border-color: #222426 transparent transparent;
-  }
-
-  .with-column-divider-bottom {
-    border-bottom-color: color(#292f33 saturation(0%));
-  }
-
-  .column-message {
-    background-color: color(#2e2e2e saturation(0%));
   }
 }
