@@ -128,13 +128,15 @@ const getChirpFromElement = (element) => {
   return chirp;
 };
 
+const findMustache = content => Object.keys(TD.mustaches).filter(i => TD.mustaches[i].toLowerCase().includes(content.toLowerCase()));
+
 if (config.Client.debug) {
   window.BTD = {};
   window.BTD.debug = {
     wc,
     getChirpFromElement,
     getChirpFromKey,
-    findMustache: content => Object.keys(TD.mustaches).filter(i => TD.mustaches[i].toLowerCase().includes(content.toLowerCase())),
+    findMustache,
   };
 }
 
@@ -196,6 +198,17 @@ if (SETTINGS.collapse_columns) {
   if (!window.localStorage.getItem('btd_collapsed_columns')) {
     window.localStorage.setItem('btd_collapsed_columns', JSON.stringify({}));
   }
+}
+
+if (SETTINGS.css.night_mode) {
+  findMustache(' is-inverted-dark').forEach((mustacheKey) => {
+    if (mustacheKey === 'settings/account_settings.mustache') {
+      return;
+    }
+
+    console.log('removing inserted-dark in', mustacheKey);
+    TD.mustaches[mustacheKey] = TD.mustaches[mustacheKey].replace(' is-inverted-dark', '');
+  });
 }
 
 TD.mustaches['compose/compose_inline_reply.mustache'] = TD.mustaches['compose/compose_inline_reply.mustache'].replace('</textarea> {{>', '</textarea> <ul class="lst lst-modal typeahead btd-emoji-typeahead"></ul> {{>');

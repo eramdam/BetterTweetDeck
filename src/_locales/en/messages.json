@@ -44,6 +44,7 @@
   "css_bigger_emojis": { "message": "Make emojis bigger in tweets" },
   "css_character_count": { "message": "Always show the character count instead of the circular progress bar" },
   "css_collapse_dms": { "message": "Collapse read direct messages" },
+  "css_night_mode": { "message": "Enable a dark theme style similar to Twitter's Night Mode" },
   "css_system_fonts": { "message": "Use the system font in the UI" },
   "css_show_verified": { "message": "Show 'verified' badges on top of avatars" },
   "css_hide_context": { "message": "Hide 'In reply to' label on mentions" },

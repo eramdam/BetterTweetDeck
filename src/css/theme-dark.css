@@ -4,7 +4,7 @@
   --main-bg-dark: #1d1e21;
 }
 
-html.btd-on [data-btdtheme="dark"].btd__minimal_mode {
+html.btd-on [data-btdtheme="dark"].btd__minimal_mode:not(.btd__night_mode) {
   .btn-compose {
     background-color: var(--compose-btn-bg-dark);
 

@@ -21,12 +21,12 @@ html.btd-on {
     background-color: transparent;
   }
 
-  .btd__minimal_mode .app-header,
-  .btd__minimal_mode .column-nav-item {
+  .btd__minimal_mode:not(.btd__night_mode) .app-header,
+  .btd__minimal_mode:not(.btd__night_mode) .column-nav-item {
     background-color: color(#292f33 saturation(0%));
   }
 
-  .btd__minimal_mode .dropdown-menu .is-selected {
+  .btd__minimal_mode:not(.btd__night_mode) .dropdown-menu .is-selected {
     background-color: color(#55acee saturation(0%));
   }
 
@@ -38,7 +38,7 @@ html.btd-on {
     border-bottom: 0;
   }
 
-  .btd__minimal_mode .in-tweet-divider::before {
+  .btd__minimal_mode:not(.btd__night_mode) .in-tweet-divider::before {
     background: rgba(0, 0, 0, 0.13);
   }
 
