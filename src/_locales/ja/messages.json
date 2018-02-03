@@ -77,6 +77,8 @@
   "thumbnails_from": { "message": "次のサービスのサムネイル画像を表示する" },
 
   "css_minimal_mode": { "message": "「ミニマル」モードを有効にする" },
+  "css_og_dark_theme": { "message": "Dark テーマを以前のスタイルに元に戻す (2018年2月より前のスタイル)" },
+  "css_experimental_warning": { "message": "これは実験的な機能です！ 将来の更新で壊れてしまう可能性があります。" },
   "css_no_play_btn": { "message": "動画のサムネイルの再生ボタンを非表示にする" },
   "css_hide_url_thumb": { "message": "サムネイル画像に関連するリンクを非表示にする (iOS/Android の公式 Twitter クライアントと同様)" },
   "css_no_col_icns": { "message": "カラムのヘッダーアイコンを非表示にする" },
