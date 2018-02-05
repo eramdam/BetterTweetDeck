@@ -2,11 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './css/index.css';
 import App from './components/App';
-import store from './store';
 
 const render = () => {
   ReactDOM.render(
-    <App store={store} />,
+    <App />,
     document.getElementById('app'),
   );
 };

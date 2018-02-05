@@ -1048,9 +1048,16 @@ $('body').on('click', 'article video.js-media-gif', handleGifClick);
 
 $('body').on('click', '#open-modal', (ev) => {
   const isMediaModal = document.querySelector('.js-modal-panel .js-media-preview-container, .js-modal-panel iframe, .js-modal-panel .btd-embed-container');
+  const isCustomModal = $('#open-modal [btd-custom-modal]').length > 0;
+  const isSettingsModal = $('#open-modal [btd-settings-modal]').length > 0;
+
+  if (isSettingsModal) {
+    closeCustomModal();
+    return;
+  }
 
   if (!SETTINGS.css.no_bg_modal ||
-    !isMediaModal) {
+    (!isMediaModal && !isCustomModal)) {
     return;
   }
 
@@ -1060,7 +1067,7 @@ $('body').on('click', '#open-modal', (ev) => {
     ev.preventDefault();
     ev.stopPropagation();
 
-    if ($('#open-modal [btd-custom-modal]').length) {
+    if (isCustomModal) {
       closeCustomModal();
       return;
     }

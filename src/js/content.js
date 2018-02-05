@@ -519,7 +519,28 @@ onEvent('BTDC_ready', () => {
   $('nav.app-navigator')[0].insertAdjacentElement('afterbegin', settingsBtnNode);
   $('.btd-settings-btn')[0].addEventListener('click', (e) => {
     e.preventDefault();
-    window.open(settingsURL);
+    const openModal = $('#open-modal')[0];
+    const iframe = document.createElement('iframe');
+    iframe.src = settingsURL;
+    iframe.frameBorder = 0;
+    openModal.style.display = 'block';
+    const wrapper = document.createElement('div');
+    wrapper.setAttribute('btd-custom-modal', '');
+    wrapper.setAttribute('btd-settings-modal', '');
+    wrapper.appendChild(iframe);
+    wrapper.style = `
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    `;
+
+    openModal.appendChild(wrapper);
   });
 
   onMessage((details) => {

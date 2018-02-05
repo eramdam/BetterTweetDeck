@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 
 const App = () => {
-  return [
+  return (
     <div className="header">
       Better Tweetdeck
-    </div>,
-  ];
+    </div>
+  );
 };
 
 export default App;
