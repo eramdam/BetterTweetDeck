@@ -77,6 +77,8 @@
   "thumbnails_from": { "message": "Display thumbnails from:" },
 
   "css_minimal_mode": { "message": "Enable the 'Minimal' theme" },
+  "css_og_dark_theme": { "message": "Re-enable the Dark theme (pre February 2018)" },
+  "css_experimental_warning": { "message": "This is experimental and can break at any point!" },
   "css_no_play_btn": { "message": "Hide the play button on video thumbnails" },
   "css_hide_url_thumb": { "message": "Hide the link related to thumbnails in tweets (à la Twitter iOS/Android)" },
   "css_no_col_icns": { "message": "Hide icons in columns headers" },
