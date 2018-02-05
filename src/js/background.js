@@ -6,6 +6,7 @@ import * as Messages from './util/messaging';
 import Log from './util/logger';
 
 const defaultSettings = {
+  need_follow_banner: true,
   installed_version: BHelper.getVersion(),
   ts: 'relative',
   custom_ts: {
@@ -48,6 +49,7 @@ const defaultSettings = {
     show_provider_indicator: false,
     hide_like_rt_indicators: false,
     system_fonts: false,
+    og_dark_theme: false,
   },
   pause_scroll_on_hover: false,
   share_item: {
@@ -56,14 +58,13 @@ const defaultSettings = {
   },
   make_search_columns_first: false,
   old_replies: false,
-  regex_filter: false,
   edit_item: true,
   favstar_item: true,
   mute_hashtags: true,
   mute_source: true,
   hotlink_item: false,
   download_item: false,
-  download_filename_format: '{{postedUser}}-{{fileName}}.{{fileExtension}}',
+  download_filename_format: '{{postedUser}}-{{tweetId}}-{{fileName}}.{{fileExtension}}',
   ctrl_changes_interactions: {
     enabled: false,
     mode: 'owner',
@@ -81,45 +82,6 @@ chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => 
   return false;
 });
 
-// function reloadBTD() {
-//   localStorage.setItem('btd_developer_refresh', true);
-//   chrome.runtime.reload();
-// }
-
-// if (config.Client.debug) {
-//   const socket = new WebSocket('ws://localhost:9191');
-//   socket.onmessage = (message) => {
-//     if (message.data === 'reload') {
-//       reloadBTD();
-//     }
-//   };
-
-//   const shouldShowTab = () => {
-//     chrome.tabs.query({ active: true, url: '*://tweetdeck.twitter.com/*', currentWindow: true }, (tabs) => {
-//       tabs.forEach((tab) => {
-//         chrome.pageAction.show(tab.id);
-//         chrome.pageAction.setTitle({ title: 'Reload BTD', tabId: tab.id });
-//       });
-//     });
-//   };
-
-//   chrome.tabs.onActivated.addListener(shouldShowTab);
-//   chrome.tabs.onUpdated.addListener(shouldShowTab);
-//   chrome.pageAction.onClicked.addListener(reloadBTD);
-
-//   // find all the BTD tabs and reload them
-//   if (localStorage.getItem('btd_developer_refresh') !== null) {
-//     chrome.tabs.query({ active: true, url: '*://tweetdeck.twitter.com/*', currentWindow: true }, (tabs) => {
-//       tabs.forEach((tab) => {
-//         chrome.tabs.reload(tab.id, { bypassCache: true }, () => {
-//           Log('Reloaded extension');
-//         });
-//       });
-//     });
-//     localStorage.removeItem('btd_developer_refresh');
-//   }
-// }
-
 function openWelcomePage() {
   chrome.tabs.create({
     url: 'options/options.html?on=install',
@@ -129,7 +91,6 @@ function openWelcomePage() {
 function contextMenuHandler(info, tab, settings) {
   const urlToShare = info.linkUrl || info.srcUrl || info.pageUrl;
   let textToShare = info.selectionText || tab.title;
-  console.log({ textToShare });
 
   if (settings.share_item.short_txt) {
     textToShare = textToShare.substr(0, 255);
@@ -235,6 +196,13 @@ Messages.on((message, sender, sendResponse) => {
         installed_version: String(BHelper.getVersion()),
       });
       return false;
+
+    case 'displayed_follow_banner':
+      BHelper.settings.set({
+        need_follow_banner: false,
+      });
+      return false;
+
     case 'get_settings':
       BHelper.settings.getAll(settings => sendResponse({ settings }));
       return true;

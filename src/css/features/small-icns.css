@@ -3,14 +3,22 @@ html.btd-on {
     .js-add-image-button,
     .js-schedule-button,
     .js-add-emojis,
-    .js-tweet-type-button>button {
+    .js-tweet-type-button > button {
       width: auto !important;
       float: left !important;
       margin-right: 4px;
-      
+
       .label {
         display: none;
       }
+    }
+  }
+
+  .js-schedule-datapicker-holder > .popover {
+    margin-top: 51px;
+
+    .caret {
+      left: calc(50% - 5px);
     }
   }
 }

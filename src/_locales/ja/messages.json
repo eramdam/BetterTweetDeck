@@ -77,6 +77,8 @@
   "thumbnails_from": { "message": "次のサービスのサムネイル画像を表示する" },
 
   "css_minimal_mode": { "message": "「ミニマル」モードを有効にする" },
+  "css_og_dark_theme": { "message": "Dark テーマを以前のスタイルに元に戻す (2018年2月より前のスタイル)" },
+  "css_experimental_warning": { "message": "これは実験的な機能です！ 将来の更新で壊れてしまう可能性があります。" },
   "css_no_play_btn": { "message": "動画のサムネイルの再生ボタンを非表示にする" },
   "css_hide_url_thumb": { "message": "サムネイル画像に関連するリンクを非表示にする (iOS/Android の公式 Twitter クライアントと同様)" },
   "css_no_col_icns": { "message": "カラムのヘッダーアイコンを非表示にする" },
@@ -93,9 +95,6 @@
   "collapse_columns_pause": { "message": "カラムの折りたたんでいる間、フィードの更新を一時停止する。これにより、コンテンツの更新により起こるカラムのフラッシュを防ぐことができます"},
   "uncollapse_columns_unpause": { "message": "カラムの折りたたみを展開したとき、最新のツイートが表示されるようにフィードを最上部までスクロールする"},
 
-  "regex_filter": { "message": "ミュートフィルタで正規表現を有効にする"},
-  "regex_filter_notice_text": { "message": "TweetDeck の単語のフィルタリング方法の制限により、正規表現の大文字・小文字は区別されないことに注意してください！" },
-
   "edit_item": { "message": "ツイートメニューに「ツイートの編集」を追加する"},
   "edit_item_note": { "message": "ツイートの編集機能は、一度ツイートの削除を行うことに注意してください！ その結果、元のツイート内容がテキストボックスに移動し、すでに受け取ったいいねやリツイートは無効となります！"},
   "favstar_item": { "message": "ツイートメニューに \"Show in Favstar\"(Favstar で表示) 項目を表示する"},
@@ -104,7 +103,7 @@
   "hotlink_item": { "message": "ツイートに含まれるすべてのメディアへのリンクをコピーするショートカットを追加する"},
   "download_item": { "message": "ツイートに含まれるすべてのメディアをダウンロードするショートカットを追加する"},
   "download_filename_format": { "message": "ダウンロードするファイル名のフォーマット"},
-  "download_filename_format_parameters": { "message": "次の変数が利用できます: <code>{{postedUser}}/{{fileName}}/{{fileExtension}}</code> (それぞれ、ツイートユーザー名/ファイル名/ファイルの拡張子に置換されます)"},
+  "download_filename_format_parameters": { "message": "次の変数が利用できます: <code>{{postedUser}}/{{tweetId}}/{{fileName}}/{{fileExtension}}</code> (それぞれ、ツイートユーザー名/ツイートID/ファイル名/ファイルの拡張子に置換されます)"},
   "ctrl_changes_interactions__enabled": { "message": "<kbd>Ctrl</kbd> (MacOS では <kbd>Cmd</kbd>) を押しながら、いいね/リツイート/ダウンロードボタンをクリックすることで、ツイート元のアカウントを次の方法でフォローできるようにする: "},
   "ctrl_changes_interactions__mode__owner": { "message": "カラムのオーナーからフォローする"},
   "ctrl_changes_interactions__mode__dialog": { "message": "フォローダイアログからアカウントを選択する"},

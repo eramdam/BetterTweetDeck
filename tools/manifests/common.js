@@ -22,6 +22,8 @@ const betaVersion = () => {
   return `${d.getFullYear()}.${arr.join('.')}`;
 };
 
+const urls = require('./commonHosts');
+
 /* eslint quotes: 0 */
 const common = {
   name: `${isBeta ? 'βeta' : 'Better'} TweetDeck`.trim(),
@@ -42,41 +44,21 @@ const common = {
   icons: isBeta ? betaIcons : icons,
   permissions: [
     'storage',
-    'https://api.embed.ly/1/*',
-    'https://backend.deviantart.com/*',
-    'https://500px.com/oembed*',
-    'https://api.dailymotion.com/video/*',
-    'https://api.dribbble.com/v1/shots/*',
-    'https://*.imgur.com/*',
-    'https://*.instagram.com/*',
-    'https://images4-focus-opensocial.googleusercontent.com/gadgets/proxy*',
-    'http://erambert.me/*',
-    'https://embed.spotify.com/oembed/*',
-    'https://open.spotify.com/oembed/*',
-    'https://api.streamable.com/*',
-    'https://api.twitch.tv/kraken/*',
-    'https://clips.twitch.tv/*',
-    'https://*.bandcamp.com/*',
-    'https://cl.ly/*',
-    'https://giphy.com/services/oembed*',
-    'https://api.gyazo.com/api/*',
-    'https://www.tinami.com/api/*',
-    'https://gyazo.com/*',
-    'https://raw.githubusercontent.com/eramdam/BetterTweetDeck/master/*',
-    '*://tweetdeck.twitter.com/*',
     'contextMenus',
     'notifications',
+    ...urls,
   ],
   optional_permissions: ['tabs'],
   options_page: 'options.html',
   web_accessible_resources: [
     'embeds.js',
+    'revert-dark-theme.css',
     'emojis/sheet_twitter_64.png',
     'fonts/*.*',
     'js/inject.js',
     'options.html',
   ],
-  content_security_policy: `img-src https: data: 'self' *; default-src; connect-src * https:; style-src 'unsafe-inline'`,
+  content_security_policy: `img-src https: data: 'self' *; default-src; connect-src * https:; style-src 'unsafe-inline'; script-src 'self';`,
 };
 
 if (process.env.NODE_ENV === 'dev') {

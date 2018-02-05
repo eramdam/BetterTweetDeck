@@ -23,7 +23,7 @@ html.btd-on {
 
   .btd__minimal_mode .app-header,
   .btd__minimal_mode .column-nav-item {
-    background-color: color(#292f33 saturation(0%));
+    background-color: #141d27;
   }
 
   .btd__minimal_mode .dropdown-menu .is-selected {

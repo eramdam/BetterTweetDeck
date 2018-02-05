@@ -18,6 +18,9 @@ const extractOptions = new ExtractTextPlugin('options/css/index.css');
 
 const staticFiles = [
   {
+    from: 'revert-dark-theme.css',
+  },
+  {
     from: 'icons/*.png',
   },
   {
@@ -35,16 +38,7 @@ const staticFiles = [
   {
     from: '_locales/**/*',
   },
-  {
-    from: '../tools/embeds.js',
-  },
-  {
-    from: '../CHANGELOG.md',
-    to: 'options/',
-  },
-].map(i => (Object.assign(i, {
-  context: './src/',
-})));
+];
 
 const DIST_FOLDER = 'dist';
 const IS_PRODUCTION = process.env.NODE_ENV !== 'dev';
@@ -73,6 +67,17 @@ module.exports = (env) => {
     webpack --env.browser=BROWSER
     Possible values: chrome, firefox`);
   }
+
+  if (env.browser !== 'firefox') {
+    staticFiles.push({
+      from: '../tools/embeds.js',
+    });
+  }
+
+  const staticFilesPath = staticFiles.map(i => (Object.assign(i, {
+    context: './src/',
+  })));
+
 
   const getManifest = () => require(`./tools/manifests/${env.browser}.js`);
 
@@ -142,7 +147,7 @@ module.exports = (env) => {
       extractContent,
       extractOptions,
       new CleanWebpackPlugin([DIST_FOLDER]),
-      new CopyWebpackPlugin(staticFiles),
+      new CopyWebpackPlugin(staticFilesPath),
       new GenerateJsonPlugin('manifest.json', getManifest(), null, 2),
       new HtmlWebpackPlugin({
         template: path.join(__dirname, 'src', 'options', 'options.html'),

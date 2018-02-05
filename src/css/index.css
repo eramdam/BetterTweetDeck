@@ -29,8 +29,10 @@
 @import './features/hide-like-rt-indicators.css';
 
 /* Emoji Panel */
-
 @import './emoji-panel.css';
+
+/* G I P H Y */
+@import './giphy.css';
 
 /* Embed/modals */
 
@@ -160,7 +162,8 @@ html.btd-on {
   }
 
   .dropdown-menu .typeahead-item,
-  .dropdown-menu [data-btd-action] {
+  .dropdown-menu [data-btd-action],
+  .dropdown-menu [data-btd-filter] {
     display: block;
     padding: 5px 20px;
     color: #292f33;
@@ -169,7 +172,8 @@ html.btd-on {
     text-decoration: none;
   }
 
-  .dropdown-menu .is-selected [data-btd-action] {
+  .dropdown-menu .is-selected [data-btd-action],
+  .dropdown-menu .is-selected [data-btd-filter] {
     color: #fff;
   }
 
@@ -231,4 +235,16 @@ html.btd-on {
   .icon::before {
     -moz-osx-font-smoothing: grayscale;
   }
+
+  .compose .compose-header .icon-close {
+    margin-top: 14px !important;
+    margin-bottom: 0 !important;
+  }
+}
+
+.inline-reply .btn-square,
+.rpl-actions .btn-square {
+  /* remove effects from buttons under reply input... this keeps happening for some stupid reason */
+  background: transparent !important;
+  box-shadow: none !important;
 }

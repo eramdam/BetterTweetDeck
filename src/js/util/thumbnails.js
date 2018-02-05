@@ -7,7 +7,6 @@ import * as Providers from './providers/index';
 import * as BHelper from './browserHelper';
 
 const endpoints = {
-  embedly: 'https://api.embed.ly/1/oembed?',
   '500px': 'https://500px.com/oembed?format=json&url=',
   dailymotion: 'https://api.dailymotion.com/video/',
   deviantart: 'https://backend.deviantart.com/oembed?',
@@ -17,13 +16,13 @@ const endpoints = {
   instagram: 'https://api.instagram.com/oembed?omitscript=true&url=',
   twitch: 'https://api.twitch.tv/kraken/',
   giphy: 'https://giphy.com/services/oembed?url=',
-  pixiv: 'http://embed.pixiv.net/embed_json.php?callback=callback&size=medium&id=',
   tinami: 'https://www.tinami.com/api/content/info?',
   nicoseiga: 'http://ext.seiga.nicovideo.jp/thumb/',
   photozou: 'https://api.photozou.jp/rest/',
   googleplus: 'https://picasaweb.google.com/data/feed/api/',
   gyazo: 'https://api.gyazo.com/api/oembed?url=',
   gfycat: 'https://api.gfycat.com/v1/oembed?url=',
+  nicovideo: 'https://ext.nicovideo.jp/api/getthumbinfo/',
 };
 
 let providersSettings;
@@ -144,10 +143,13 @@ export const schemeWhitelist = [
   Providers.giphy(util),
   Providers.googleplus(util),
   Providers.imgur(util),
+  Providers.miil(util),
   Providers.mixcloud(util),
   Providers.mobyTo(util),
   Providers.nicoseiga(util),
+  Providers.nicovideo(util),
   Providers.photozou(util),
+  Providers.pixiv(util),
   Providers.skitch(util),
   Providers.soundcloud(util),
   Providers.spotify(util),
@@ -155,7 +157,6 @@ export const schemeWhitelist = [
   Providers.ted(util),
   Providers.tinami(util),
   Providers.tumblr(util),
-  Providers.twipple(util),
   Providers.twitch(util),
   Providers.vimeo(util),
   Providers.worldcosplay(util),
