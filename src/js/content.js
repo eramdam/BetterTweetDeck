@@ -38,7 +38,11 @@ sendMessage({ action: 'get_settings' }, (response) => {
   scripts.forEach((src) => {
     const el = document.createElement('script');
     el.src = src;
-    el.setAttribute('data-btd-settings', JSON.stringify(SETTINGS));
+
+    if (src.includes('inject.js')) {
+      el.setAttribute('data-btd-settings', JSON.stringify(SETTINGS));
+    }
+
     document.head.appendChild(el);
   });
 
