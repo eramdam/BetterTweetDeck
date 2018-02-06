@@ -212,6 +212,10 @@ Messages.on((message, sender, sendResponse) => {
       BHelper.settings.get(message.key, val => sendResponse({ val }));
       return true;
 
+    case 'get_local':
+      BHelper.settings.get(message.key, val => sendResponse({ val }));
+      return true;
+
     case 'download_gif':
       message.options.progressCallback = (progress) => {
         sendToCurrentTab({ action: 'progress_gif', progress });

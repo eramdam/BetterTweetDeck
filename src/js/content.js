@@ -59,6 +59,15 @@ sendMessage({ action: 'get_settings' }, (response) => {
   document.head.appendChild(style);
 });
 
+sendMessage({ action: 'get_local', key: 'custom_css_style' }, (css) => {
+  const styleTag = document.createElement('style');
+
+  styleTag.id = 'btd-custom-css';
+  styleTag.type = 'text/css';
+  styleTag.appendChild(document.createTextNode(css));
+  document.head.appendChild(styleTag);
+});
+
 function saveGif(gifshotObj, name, event, videoEl) {
   return fetch(gifshotObj.image)
     .then(res => res.blob())
@@ -162,14 +171,6 @@ function tweakClassesFromVisualSettings() {
         width: ${safeValue} !important;
       }
     `));
-    document.head.appendChild(styleTag);
-  }
-
-  if (SETTINGS.custom_css_style) {
-    const styleTag = document.createElement('style');
-
-    styleTag.type = 'text/css';
-    styleTag.appendChild(document.createTextNode(SETTINGS.custom_css_style));
     document.head.appendChild(styleTag);
   }
 }
