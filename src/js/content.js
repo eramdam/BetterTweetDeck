@@ -164,6 +164,14 @@ function tweakClassesFromVisualSettings() {
     `));
     document.head.appendChild(styleTag);
   }
+
+  if (SETTINGS.custom_css_style) {
+    const styleTag = document.createElement('style');
+
+    styleTag.type = 'text/css';
+    styleTag.appendChild(document.createTextNode(SETTINGS.custom_css_style));
+    document.head.appendChild(styleTag);
+  }
 }
 
 function hideURLVisually(url, node) {

@@ -175,6 +175,10 @@ BHelper.settings.getAll((settings) => {
    * We go through the settings object and check or not the inputs accordingly
    */
   forEach(settings, (val, key) => {
+    if (key === 'custom_css_style') {
+      $(`[name="${key}"]`).val(settings[key]);
+    }
+
     if (isObject(val)) {
       forEach(val, (value, keyname) => {
         const name = `${key}.${keyname}`;
@@ -265,7 +269,7 @@ BHelper.settings.getAll((settings) => {
    * Updating the settings when inputs change
    */
 
-  $('input[name], select[name]').on('change input', (e) => {
+  $('input[name], select[name], textarea[name]').on('change input', (e) => {
     $('.save-button').text(chrome.i18n.getMessage('save_save')).removeAttr('disabled');
 
     if (e.target.type === 'radio' && e.target.name === 'ts') {
@@ -341,6 +345,8 @@ BHelper.settings.getAll((settings) => {
         newSettings[name] = input.value;
       }
     });
+
+    newSettings.custom_css_style = $('textarea[name="custom_css_style"]').val();
 
 
     BHelper.settings.set(newSettings);
