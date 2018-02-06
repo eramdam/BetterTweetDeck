@@ -26,7 +26,6 @@ html.btd-on [data-btdtheme="dark"].btd__minimal_mode {
 
   .dropdown-menu li > a,
   .dropdown-menu li > b,
-  .js-typeahead-dropdown :matches(.fullname, .username, p),
   .typeahead.lst :matches(.fullname, .username, p) {
     color: rgb(193, 193, 193) !important;
   }
