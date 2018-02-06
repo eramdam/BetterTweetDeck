@@ -1,4 +1,7 @@
 import config from 'config';
+import * as ace from 'brace';
+import 'brace/mode/css';
+import 'brace/theme/solarized_light';
 import { createApolloFetch } from 'apollo-fetch';
 import $ from 'jquery';
 import {
@@ -14,6 +17,10 @@ import fecha from 'fecha';
 import '../css/options/index.css';
 import * as BHelper from '../js/util/browserHelper';
 import { schemeWhitelist } from '../js/util/thumbnails';
+
+const CSS_EDITOR = ace.edit('custom-css-editor');
+CSS_EDITOR.getSession().setMode('ace/mode/css');
+CSS_EDITOR.setTheme('ace/theme/solarized_light');
 
 const GITHUB_URI = 'https://api.github.com/graphql';
 const GITHUB_RELEASES_QUERY = `
@@ -166,6 +173,7 @@ function refreshPreviews(settings) {
 /**
  * When got the settings we initialise the view
  */
+
 BHelper.settings.getAll((settings) => {
   const settingsStr = JSON.stringify(settings, null, 2);
 
@@ -175,10 +183,6 @@ BHelper.settings.getAll((settings) => {
    * We go through the settings object and check or not the inputs accordingly
    */
   forEach(settings, (val, key) => {
-    if (key === 'custom_css_style') {
-      $(`[name="${key}"]`).val(settings[key]);
-    }
-
     if (isObject(val)) {
       forEach(val, (value, keyname) => {
         const name = `${key}.${keyname}`;
@@ -269,7 +273,7 @@ BHelper.settings.getAll((settings) => {
    * Updating the settings when inputs change
    */
 
-  $('input[name], select[name], textarea[name]').on('change input', (e) => {
+  $('input[name], select[name]').on('change input', (e) => {
     $('.save-button').text(chrome.i18n.getMessage('save_save')).removeAttr('disabled');
 
     if (e.target.type === 'radio' && e.target.name === 'ts') {
@@ -315,6 +319,19 @@ BHelper.settings.getAll((settings) => {
     }
   });
 
+  CSS_EDITOR.getSession().on('change', (e, session) => {
+    const annotations = session.getAnnotations();
+    const hasErrors = annotations.find(a => a.type === 'error');
+    const saveBtn = $('.save-button');
+    saveBtn.text(chrome.i18n.getMessage('save_save'));
+
+    if (hasErrors) {
+      saveBtn.prop('disabled', true);
+    } else {
+      saveBtn.removeAttr('disabled');
+    }
+  });
+
   $('button.save-button').click(() => {
     const newSettings = {};
 
@@ -346,13 +363,16 @@ BHelper.settings.getAll((settings) => {
       }
     });
 
-    newSettings.custom_css_style = $('textarea[name="custom_css_style"]').val();
-
-
+    newSettings.custom_css_style = CSS_EDITOR.getValue();
     BHelper.settings.set(newSettings);
+    BHelper.settings.set(newSettings, null, true);
     $('.save-button').text(chrome.i18n.getMessage('save_no')).attr('disabled', '');
   });
 });
+
+BHelper.settings.get('custom_css_style', (css) => {
+  CSS_EDITOR.setValue(css);
+}, true);
 
 if (chrome.permissions) {
   chrome.permissions.contains({
