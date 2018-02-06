@@ -4,7 +4,7 @@ General style setup
  */
 
   .btd__show_verified .js-stream-item.btd-is-from-verified:not(.btd-is-from-verified-mini) > .js-stream-item-content > .js-tweet > .tweet-header .item-img.tweet-img,
-  .btd__show_verified .js-stream-item.btd-is-from-verified-mini > .js-stream-item-content > .activity-header > .item-img {
+  .btd__show_verified .js-stream-item.btd-is-from-verified-mini > .js-stream-item-content > .activity-header > .nbfc {
     position: absolute;
 
     &::before {
@@ -27,8 +27,8 @@ General style setup
     position: absolute;
 
     /* Helps with the positioning of the pseudo-element */
-    height: 48px;
-    width: 48px;
+    height: 36px;
+    width: 36px;
 
     &::before {
       bottom: -3px;
@@ -40,14 +40,14 @@ General style setup
  small avatar on activities ("Bob liked", "Alice retweeted", "Damien added you to a list", etc)
  */
 
-  .btd__show_verified .js-stream-item.btd-is-from-verified-mini > .js-stream-item-content > .activity-header > .item-img {
+  .btd__show_verified .js-stream-item.btd-is-from-verified-mini > .js-stream-item-content > .activity-header > .nbfc {
     position: relative;
 
     &::before {
-      bottom: -10px;
-      right: -3px;
+      bottom: 0;
+      left: 8px;
       transform-origin: bottom right;
-      transform: scale(0.8);
+      transform: scale(0.7);
     }
   }
 

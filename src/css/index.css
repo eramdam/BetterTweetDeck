@@ -220,11 +220,11 @@ html.btd-on {
       content: "\f151";
       position: absolute;
       font-family: "tweetdeckregular";
-      left: 29px;
+      left: 20px;
       font-size: 14px;
       z-index: 19;
       color: inherit;
-      top: 60px;
+      top: 47px;
     }
   }
 
