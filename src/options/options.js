@@ -372,6 +372,7 @@ BHelper.settings.getAll((settings) => {
 
 BHelper.settings.get('custom_css_style', (css) => {
   CSS_EDITOR.setValue(css);
+  CSS_EDITOR.clearSelection();
 }, true);
 
 if (chrome.permissions) {
