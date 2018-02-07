@@ -321,6 +321,8 @@ BHelper.settings.getAll((settings) => {
 
   CSS_EDITOR.getSession().on('change', (e, session) => {
     const annotations = session.getAnnotations();
+  const changeCssEditor = () => {
+    const annotations = CSS_EDITOR.getSession().getAnnotations();
     const hasErrors = annotations.find(a => a.type === 'error');
     const saveBtn = $('.save-button');
     saveBtn.text(chrome.i18n.getMessage('save_save'));
@@ -330,7 +332,10 @@ BHelper.settings.getAll((settings) => {
     } else {
       saveBtn.removeAttr('disabled');
     }
-  });
+  };
+
+  CSS_EDITOR.getSession().on('change', changeCssEditor);
+  CSS_EDITOR.getSession().on('changeAnnotations', changeCssEditor);
 
   $('button.save-button').click(() => {
     const newSettings = {};
