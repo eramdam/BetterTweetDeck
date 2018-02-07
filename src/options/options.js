@@ -319,8 +319,6 @@ BHelper.settings.getAll((settings) => {
     }
   });
 
-  CSS_EDITOR.getSession().on('change', (e, session) => {
-    const annotations = session.getAnnotations();
   const changeCssEditor = () => {
     const annotations = CSS_EDITOR.getSession().getAnnotations();
     const hasErrors = annotations.find(a => a.type === 'error');
