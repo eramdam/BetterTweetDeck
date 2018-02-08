@@ -1,4 +1,5 @@
 import PromiseEach from 'promise-each';
+import qs from 'query-string';
 import config from 'config';
 import timestampOnElement from './util/timestamp';
 import { send as sendMessage, on as onMessage } from './util/messaging';
@@ -81,11 +82,33 @@ sendMessage({ action: 'get_local', key: 'custom_css_style' }, (css) => {
   document.head.appendChild(styleTag);
 });
 
+function triggerGifDownload(gifshotOptions) {
+  if (document.querySelectorAll('iframe[btd-gif-iframe]').length === 0) {
+    const iframe = document.createElement('iframe');
+    iframe.setAttribute('btd-gif-iframe', '');
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+  }
+
+  const gifIframe = document.querySelectorAll('iframe[btd-gif-iframe]')[0];
+
+  gifIframe.src = `https://better.tw/gif?${qs.stringify(gifshotOptions)}`;
+}
+
 function updateGifProgress(element, progress) {
   if (progress > 0.99) {
     element.innerText = 'Converting to GIF... (Finalizing)';
   } else {
     element.innerText = `Converting to GIF... (${Number(progress * 100).toFixed(1)}%)`;
+  }
+}
+
+function gifComplete(element) {
+  element.style.opacity = 1;
+  element.innerText = 'Download as .GIF';
+
+  if (document.querySelectorAll('iframe[btd-gif-iframe]').length > 0) {
+    document.querySelectorAll('iframe[btd-gif-iframe]')[0].removeAttribute('src');
   }
 }
 
@@ -535,9 +558,6 @@ onEvent('BTDC_ready', () => {
 
   onMessage((details) => {
     switch (details.action) {
-      case 'progress_gif':
-        updateGifProgress($('[data-btd-dl-gif]')[0], details.progress);
-        break;
       default:
         document.dispatchEvent(new CustomEvent('uiComposeTweet'));
         $('textarea.js-compose-text')[0].value = `${details.text} ${details.url}`;
@@ -698,7 +718,7 @@ onEvent('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
         sampleInterval: 10,
       };
 
-      sendEvent('downloadGif', gifshotOptions);
+      triggerGifDownload(gifshotOptions);
     });
   }
 });
@@ -745,13 +765,23 @@ window.addEventListener('message', (ev) => {
   let data;
 
   try {
-    data = ev.data && JSON.parse(ev.data);
+    if (typeof data === 'string') {
+      data = ev.data && JSON.parse(ev.data);
+    } else {
+      data = ev.data;
+    }
   } catch (e) {
     // lolnope
   }
 
   if (data) {
     switch (data.message) {
+      case 'progress_gif':
+        updateGifProgress($('[data-btd-dl-gif]')[0], data.progress);
+        break;
+      case 'complete_gif':
+        gifComplete($('[data-btd-dl-gif]')[0]);
+        break;
       case 'resize_imgur':
         $(`iframe[src="${data.href}"]`)[0].style.height = `${data.height}px`;
         break;
