@@ -1,4 +1,5 @@
 import config from 'config';
+import gifshot from 'gifshot';
 import FileSaver from 'file-saver';
 import Clipboard from 'clipboard';
 import { unescape, debounce } from 'lodash';
@@ -166,6 +167,49 @@ const decorateChirp = (chirp) => {
   chirp.chirpType = chirp.chirpType;
   chirp.action = chirp.action;
   return chirp;
+};
+
+// https://stackoverflow.com/a/12300351
+const dataURItoBlob = (dataURI) => {
+  // convert base64 to raw binary data held in a string
+  // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+  const byteString = atob(dataURI.split(',')[1]);
+
+  // separate out the mime component
+  const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+  // write the bytes of the string to an ArrayBuffer
+  const ab = new ArrayBuffer(byteString.length);
+
+  // create a view into the buffer
+  const ia = new Uint8Array(ab);
+
+  // set the bytes of the buffer to the correct values
+  for (let i = 0; i < byteString.length; i += 1) {
+    ia[i] = byteString.charCodeAt(i);
+  }
+
+  // write the ArrayBuffer to a blob, and you're done
+  const blob = new Blob([ab], { type: mimeString });
+  return blob;
+};
+
+const saveGif = (gifshotObj, name, link) => {
+  console.log(gifshotObj);
+  const blob = dataURItoBlob(gifshotObj.image);
+  link.style.opacity = 1;
+  link.innerText = 'Download as .GIF';
+  console.log('finalized');
+  FileSaver.saveAs(blob, name);
+};
+
+const updateGifProgress = (element, progress) => {
+  console.log({ progress });
+  if (progress > 0.99) {
+    element.innerText = 'Converting to GIF... (Finalizing)';
+  } else {
+    element.innerText = `Converting to GIF... (${Number(progress * 100).toFixed(1)}%)`;
+  }
 };
 
 TD.services.TwitterStatus.prototype.getOGContext = function getOGContext() {
@@ -425,6 +469,16 @@ const postMessagesListeners = {
           event: banner.event ? banner.event : undefined,
         }],
       },
+    });
+  },
+  BTDC_downloadGif: (ev, gifshotOptions) => {
+    const gifDownloadLink = $('[data-btd-dl-gif]')[0];
+
+    gifshot.createGIF(Object.assign(gifshotOptions, {
+      progressCallback: progress => updateGifProgress(gifDownloadLink, progress),
+    }), (obj) => {
+      console.log('callback', obj);
+      saveGif(obj, gifshotOptions.name, gifDownloadLink);
     });
   },
 };

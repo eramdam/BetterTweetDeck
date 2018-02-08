@@ -1,5 +1,3 @@
-import gifshot from 'gifshot';
-import FileSaver from 'file-saver';
 import PromiseEach from 'promise-each';
 import config from 'config';
 import timestampOnElement from './util/timestamp';
@@ -82,17 +80,6 @@ sendMessage({ action: 'get_local', key: 'custom_css_style' }, (css) => {
   styleTag.appendChild(document.createTextNode(css));
   document.head.appendChild(styleTag);
 });
-
-function saveGif(gifshotObj, name, event, videoEl) {
-  return fetch(gifshotObj.image)
-    .then(res => res.blob())
-    .then((blob) => {
-      event.target.style.opacity = 1;
-      event.target.innerText = 'Download as .GIF';
-      FileSaver.saveAs(blob, name);
-      videoEl.playbackRate = 1;
-    });
-}
 
 function updateGifProgress(element, progress) {
   if (progress > 0.99) {
@@ -711,30 +698,7 @@ onEvent('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
         sampleInterval: 10,
       };
 
-
-      const gifshotCb = (obj) => {
-        if (obj.error) {
-          return;
-        }
-
-        saveGif(obj, gifshotOptions.name, e, videoEl);
-      };
-
-      // Firefox doesn't support Web Workers from content scripts so we have to run it in the background
-      // ...
-      // ...
-      // Yes, it's hacky but we have no choice ¯\(ツ)/¯
-      if (BHelper.isFirefox) {
-        e.target.innerText = 'Converting to GIF... (in progress)';
-        return sendMessage({
-          action: 'download_gif',
-          options: gifshotOptions,
-        }, response => gifshotCb(response.obj));
-      }
-
-      return gifshot.createGIF(Object.assign(gifshotOptions, {
-        progressCallback: progress => updateGifProgress(e.target, progress),
-      }), gifshotCb);
+      sendEvent('downloadGif', gifshotOptions);
     });
   }
 });
