@@ -87,7 +87,11 @@ function triggerGifDownload(gifshotOptions) {
   if (document.querySelectorAll('iframe[btd-gif-iframe]').length === 0) {
     const iframe = document.createElement('iframe');
     iframe.setAttribute('btd-gif-iframe', '');
-    iframe.style.opacity = 0;
+    iframe.style = `
+      opacity: 0;
+      z-index: -99999;
+      position: absolute;
+    `;
     document.body.appendChild(iframe);
   }
 
