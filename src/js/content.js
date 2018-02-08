@@ -1,4 +1,5 @@
 import PromiseEach from 'promise-each';
+import FileSaver from 'file-saver';
 import qs from 'query-string';
 import config from 'config';
 import timestampOnElement from './util/timestamp';
@@ -86,7 +87,7 @@ function triggerGifDownload(gifshotOptions) {
   if (document.querySelectorAll('iframe[btd-gif-iframe]').length === 0) {
     const iframe = document.createElement('iframe');
     iframe.setAttribute('btd-gif-iframe', '');
-    iframe.style.display = 'none';
+    iframe.style.opacity = 0;
     document.body.appendChild(iframe);
   }
 
@@ -103,7 +104,32 @@ function updateGifProgress(element, progress) {
   }
 }
 
-function gifComplete(element) {
+const dataURItoBlob = (dataURI) => {
+  // convert base64 to raw binary data held in a string
+  // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+  const byteString = atob(dataURI.split(',')[1]);
+
+  // separate out the mime component
+  const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+  // write the bytes of the string to an ArrayBuffer
+  const ab = new ArrayBuffer(byteString.length);
+
+  // create a view into the buffer
+  const ia = new Uint8Array(ab);
+
+  // set the bytes of the buffer to the correct values
+  for (let i = 0; i < byteString.length; i += 1) {
+    ia[i] = byteString.charCodeAt(i);
+  }
+
+  // write the ArrayBuffer to a blob, and you're done
+  const blob = new Blob([ab], { type: mimeString });
+  return blob;
+};
+
+function gifComplete(element, data) {
+  FileSaver.saveAs(dataURItoBlob(data.img), data.name);
   element.style.opacity = 1;
   element.innerText = 'Download as .GIF';
 
@@ -780,7 +806,7 @@ window.addEventListener('message', (ev) => {
         updateGifProgress($('[data-btd-dl-gif]')[0], data.progress);
         break;
       case 'complete_gif':
-        gifComplete($('[data-btd-dl-gif]')[0]);
+        gifComplete($('[data-btd-dl-gif]')[0], data);
         break;
       case 'resize_imgur':
         $(`iframe[src="${data.href}"]`)[0].style.height = `${data.height}px`;
