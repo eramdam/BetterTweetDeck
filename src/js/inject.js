@@ -748,13 +748,13 @@ $(document).one('dataColumnsLoaded', () => {
   const GIFText = fool ? 'JIF' : 'GIF';
 
   $('.js-character-count').parent().append(`
-    <span class="btd-gif-button -visible txt-twitter-dark-gray">${GIFText}</span>
-    <span class="btd-gif-indicator txt-line-height--20 txt-size--12 txt-twitter-dark-gray"></span>
+    <span class="btd-gif-button -visible color-twitter-dark-gray">${GIFText}</span>
+    <span class="btd-gif-indicator txt-line-height--20 txt-size--12 color-twitter-dark-gray"></span>
   `);
 
   $('.js-media-added').after(`
     <span
-      class="txt-line-height--12 txt-size--12 txt-twitter-dark-gray btd-gif-source-indicator"
+      class="txt-line-height--12 txt-size--12 color-twitter-dark-gray btd-gif-source-indicator"
     ></span>
   `);
   setTimeout(checkBTDFollowing, 2000);
