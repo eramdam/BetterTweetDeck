@@ -84,28 +84,16 @@ sendMessage({ action: 'get_local', key: 'custom_css_style' }, (css) => {
 });
 
 function triggerGifDownload(gifshotOptions) {
-  if (document.querySelectorAll('iframe[btd-gif-iframe]').length === 0) {
-    const iframe = document.createElement('iframe');
-    iframe.setAttribute('btd-gif-iframe', '');
-    iframe.style = `
+  const iframe = document.createElement('iframe');
+  iframe.setAttribute('btd-gif-iframe', '');
+  iframe.setAttribute('btd-gif-name', gifshotOptions.name);
+  iframe.src = `https://better.tw/gif?${qs.stringify(gifshotOptions)}`;
+  iframe.style = `
       opacity: 0;
       z-index: -99999;
       position: absolute;
     `;
-    document.body.appendChild(iframe);
-  }
-
-  const gifIframe = document.querySelectorAll('iframe[btd-gif-iframe]')[0];
-
-  gifIframe.src = `https://better.tw/gif?${qs.stringify(gifshotOptions)}`;
-}
-
-function updateGifProgress(element, progress) {
-  if (progress > 0.99) {
-    element.innerText = 'Converting to GIF... (Finalizing)';
-  } else {
-    element.innerText = `Converting to GIF... (${Number(progress * 100).toFixed(1)}%)`;
-  }
+  document.body.appendChild(iframe);
 }
 
 const dataURItoBlob = (dataURI) => {
@@ -132,13 +120,14 @@ const dataURItoBlob = (dataURI) => {
   return blob;
 };
 
-function gifComplete(element, data) {
-  FileSaver.saveAs(dataURItoBlob(data.img), data.name);
-  element.style.opacity = 1;
-  element.innerText = 'Download as .GIF';
+function markGifDlComplete(element, name) {
+  if (element) {
+    element.style.opacity = 1;
+    element.innerText = 'Download as .GIF';
+  }
 
-  if (document.querySelectorAll('iframe[btd-gif-iframe]').length > 0) {
-    document.querySelectorAll('iframe[btd-gif-iframe]')[0].removeAttribute('src');
+  if (document.querySelectorAll(`iframe[btd-gif-iframe][btd-gif-name="${name}"]`).length > 0) {
+    document.querySelector(`iframe[btd-gif-iframe][btd-gif-name="${name}"]`).remove();
   }
 }
 
@@ -737,6 +726,7 @@ onEvent('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
     $('[data-btd-dl-gif]', openModal)[0].addEventListener('click', (e) => {
       e.preventDefault();
       e.target.style.opacity = 0.8;
+      e.target.innerText = 'Loading...';
 
       const gifshotOptions = {
         gifWidth: videoEl.getAttribute('data-btd-width'),
@@ -806,11 +796,9 @@ window.addEventListener('message', (ev) => {
 
   if (data) {
     switch (data.message) {
-      case 'progress_gif':
-        updateGifProgress($('[data-btd-dl-gif]')[0], data.progress);
-        break;
       case 'complete_gif':
-        gifComplete($('[data-btd-dl-gif]')[0], data);
+        FileSaver.saveAs(dataURItoBlob(data.img), data.name);
+        markGifDlComplete($('[data-btd-dl-gif]') && $('[data-btd-dl-gif]')[0], data.name);
         break;
       case 'resize_imgur':
         $(`iframe[src="${data.href}"]`)[0].style.height = `${data.height}px`;
