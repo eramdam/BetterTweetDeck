@@ -138,12 +138,12 @@ export const giphyBlock = ({ preview, url, source }) => {
     <img src="{{{previewUrl}}}" class="btd-giphy-block" height="{{height}}" width="{{width}}" data-btd-url="{{{url}}}" data-btd-source="{{source}}" />
   </div>
 `, {
-      previewUrl: preview.url,
-      width: preview.width,
-      height: preview.height,
-      url,
-      source,
-    });
+    previewUrl: preview.url,
+    width: preview.width,
+    height: preview.height,
+    url,
+    source,
+  });
 };
 
 export const giphySearch = () => Mustache.render(`
