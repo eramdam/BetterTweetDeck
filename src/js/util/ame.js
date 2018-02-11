@@ -173,7 +173,7 @@ export default function ({ enableMuteTweet }) {
 
     filters.forEach((filter) => {
       const fil = BTD.Filters[filter];
-      if (fil.display.global) {
+      if (fil.display && fil.display.global) {
         filterString += `<option value="${filter}">{{_i}}${fil.name}{{/i}}</option>`;
       }
     });
@@ -188,7 +188,7 @@ export default function ({ enableMuteTweet }) {
 
     filters.forEach((filter) => {
       const fil = BTD.Filters[filter];
-      if (fil.display.actions) {
+      if (fil.display && fil.display.actions) {
         const templateString = (fil.options && fil.options.templateString) ? fil.options.templateString : '{{screenName}}';
         const name = (fil.options && fil.options.nameInDropdown ? fil.options.nameInDropdown : `Mute ${fil.name}`);
 
