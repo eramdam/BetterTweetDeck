@@ -343,7 +343,9 @@ TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].
       </ul>
     `);
 
-AdvancedMuteEngine();
+AdvancedMuteEngine({
+  enableMuteTweet: SETTINGS.mute_specific_tweet,
+});
 UsernamesTemplates(TD.mustaches, SETTINGS.nm_disp);
 
 let bannerID = 1;
