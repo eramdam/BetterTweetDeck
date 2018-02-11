@@ -37,6 +37,25 @@ export default function () {
 
   // Custom filters
   BTD.Filters = {
+    BTD_specific_tweet: {
+      display: {
+        actions: true,
+      },
+      name: 'Specific tweet',
+      descriptor: 'specific tweet',
+      placeholder: 'ID of tweet',
+      options: {
+        templateString: '{{chirp.id}}',
+        nameInDropdown: 'Mute this tweet',
+      },
+      function(t, e) {
+        if (e.id === t.value) {
+          return false;
+        }
+
+        return true;
+      },
+    },
     BTD_is_retweet_from: {
       display: {
         actions: true,
@@ -174,9 +193,10 @@ export default function () {
       const fil = BTD.Filters[filter];
       if (fil.display.actions) {
         const templateString = (fil.options && fil.options.templateString) ? fil.options.templateString : '{{screenName}}';
+        const name = (fil.options && fil.options.nameInDropdown ? fil.options.nameInDropdown : `Mute ${fil.name}`);
 
         filterString += `<li class="is-selectable">
-            <a href="#" data-btd-filter="${filter}" data-btd-value="${templateString}">{{_i}}Mute ${fil.name}{{/i}}</a>
+            <a href="#" data-btd-filter="${filter}" data-btd-value="${templateString}">{{_i}}${name}{{/i}}</a>
           </li>`;
       }
     });
