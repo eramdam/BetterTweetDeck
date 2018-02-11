@@ -345,6 +345,7 @@ function eventInsideEmojiDropdown(event) {
       setSelection(event, Number(dropdownListItem.dataset.btdEmojiIndex));
       break;
     case 'click':
+    case 'mousedown':
       setSelection(event, Number(dropdownListItem.dataset.btdEmojiIndex));
       selectTypeaheadEmoji(event, composeBox);
       break;
@@ -574,7 +575,7 @@ function buildEmojiPicker(rebuild = false) {
   document.body.addEventListener('keydown', eventInsideTweetBox);
   document.body.addEventListener('blur', eventInsideTweetBox);
   document.body.addEventListener('mouseover', eventInsideEmojiDropdown);
-  document.body.addEventListener('click', eventInsideEmojiDropdown);
+  document.body.addEventListener('mousedown', eventInsideEmojiDropdown);
 
   document.addEventListener('click', () => {
     if (clickedOutsideElement('.emoji-popover') && clickedOutsideElement('.js-add-emojis') && $('.emoji-popover')[0].style.display === 'block') {
