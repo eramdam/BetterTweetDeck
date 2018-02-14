@@ -18,12 +18,14 @@
  * Thanks :)
  */
 
-.js-add-emojis {
-  padding: 6px 12px !important;
+.js-add-emojis.padding-v--9.js-add-emojis {
+  padding-top: 6px !important;
+  padding-left: 12px !important;
+  padding-right: 12px !important;
   padding-bottom: 5px !important;
 }
 
-.js-add-emojis .btd-emoji-icon {
+.js-add-emojis.padding-v--9.js-add-emojis .btd-emoji-icon {
   font-size: 18px !important;
   transform: translateY(-2px);
 }
