@@ -17,3 +17,13 @@
  *
  * Thanks :)
  */
+
+.js-add-emojis {
+  padding: 6px 12px !important;
+  padding-bottom: 5px !important;
+}
+
+.js-add-emojis .btd-emoji-icon {
+  font-size: 18px !important;
+  transform: translateY(-2px);
+}
