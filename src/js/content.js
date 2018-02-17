@@ -7,6 +7,7 @@ import { send as sendMessage, on as onMessage } from './util/messaging';
 import * as secureDomify from './util/secureDomify';
 import * as Thumbnails from './util/thumbnails';
 import * as Templates from './util/templates';
+import keepHashtags from './util/keepHashtags';
 import Emojis from './util/emojis';
 import Log from './util/logger';
 import * as BHelper from './util/browserHelper';
@@ -557,6 +558,7 @@ onEvent('BTDC_ready', () => {
   // Refresh timestamps once and then set the interval
   refreshTimestamps();
   setInterval(refreshTimestamps, TIMESTAMP_INTERVAL);
+  keepHashtags();
   Emojis();
 
   const settingsURL = BHelper.getExtensionUrl('options/options.html');
