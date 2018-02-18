@@ -107,6 +107,7 @@
   "ctrl_changes_interactions__enabled": { "message": "Holding <kbd>Ctrl</kbd> (or <kbd>Cmd</kbd> on Mac) while clicking: favorite / retweet / download will allow you to follow from the"},
   "ctrl_changes_interactions__mode__owner": { "message": "column's owner"},
   "ctrl_changes_interactions__mode__dialog": { "message": "follow dialog"},
+  "keep_hashtags": { "message": "keep tweeted hashtags" },
 
   "btd_thx": { "message": "Thanks for installing Better TweetDeck!" },
   "btd_get_started": { "message": "Let's get started!" },

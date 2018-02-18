@@ -107,6 +107,7 @@
   "ctrl_changes_interactions__enabled": { "message": "<kbd>Ctrl</kbd> (MacOS では <kbd>Cmd</kbd>) を押しながら、いいね/リツイート/ダウンロードボタンをクリックすることで、ツイート元のアカウントを次の方法でフォローできるようにする: "},
   "ctrl_changes_interactions__mode__owner": { "message": "カラムのオーナーからフォローする"},
   "ctrl_changes_interactions__mode__dialog": { "message": "フォローダイアログからアカウントを選択する"},
+  "keep_hashtags": { "message": "ツイートされたハッシュタグを保持" },
 
   "btd_thx": { "message": "Better TweetDeck をインストールしていただき、ありがとうございます！" },
   "btd_get_started": { "message": "はじめに" },

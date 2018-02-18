@@ -558,7 +558,6 @@ onEvent('BTDC_ready', () => {
   // Refresh timestamps once and then set the interval
   refreshTimestamps();
   setInterval(refreshTimestamps, TIMESTAMP_INTERVAL);
-  keepHashtags();
   Emojis();
 
   const settingsURL = BHelper.getExtensionUrl('options/options.html');
@@ -606,6 +605,9 @@ onEvent('BTDC_ready', () => {
         },
       });
     }, 1000);
+  }
+  if (SETTINGS.keep_hashtags) {
+    keepHashtags();
   }
 
   // Tell any potential versions of BTD that they are not alone, and alert the user if they respond.
