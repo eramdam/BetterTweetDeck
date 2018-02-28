@@ -23,6 +23,7 @@ const endpoints = {
   gyazo: 'https://api.gyazo.com/api/oembed?url=',
   gfycat: 'https://api.gfycat.com/v1/oembed?url=',
   nicovideo: 'https://ext.nicovideo.jp/api/getthumbinfo/',
+  corkboard: 'https://i.ppn.pw/api/preview.php?m=',
 };
 
 let providersSettings;
@@ -133,6 +134,7 @@ export const schemeWhitelist = [
   Providers.fivehundredpx(util),
   Providers.bandcamp(util),
   Providers.cloudapp(util),
+  Providers.corkboard(util),
   Providers.dailymotion(util),
   Providers.deviantart(util),
   Providers.dribbble(util),
