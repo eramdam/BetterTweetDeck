@@ -5,10 +5,6 @@ function keepHashtags() {
     if (tweetTextArea.disabled) {
       const tweetText = tweetTextArea.value;
       const tweetedHashtags = window.twttrTxt.extractHashtags(tweetText);
-      if (!tweetedHashtags) {
-        hashtags = [];
-        return;
-      }
       hashtags = tweetedHashtags;
     } else {
       if (hashtags.length !== 0) {
