@@ -607,7 +607,9 @@ onEvent('BTDC_ready', () => {
     }, 1000);
   }
   if (SETTINGS.keep_hashtags) {
-    keepHashtags();
+    const script = document.createElement('script');
+    script.appendChild(document.createTextNode(`(${keepHashtags.toString()})()`));
+    document.body.appendChild(script);
   }
 
   // Tell any potential versions of BTD that they are not alone, and alert the user if they respond.

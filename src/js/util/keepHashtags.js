@@ -1,20 +1,18 @@
-const keepHashtags = () => {
+function keepHashtags() {
   const tweetTextArea = document.querySelector('textarea.js-compose-text');
   let hashtags = [];
   const tweetObserver = new MutationObserver(() => {
     if (tweetTextArea.disabled) {
-      const tweetedHashtags = tweetTextArea.value.match(/[\s][#＃][Ａ-Ｚａ-ｚA-Za-z一-鿆0-9０-９ぁ-ヶｦ-ﾟー_]+/g);
+      const tweetText = tweetTextArea.value;
+      const tweetedHashtags = window.twttrTxt.extractHashtags(tweetText);
       if (!tweetedHashtags) {
         hashtags = [];
         return;
       }
-      for (let i = 0; i < tweetedHashtags.length; i += 1) {
-        tweetedHashtags[i] = tweetedHashtags[i].substr(1);
-      }
       hashtags = tweetedHashtags;
     } else {
       if (hashtags.length !== 0) {
-        tweetTextArea.value = ` ${hashtags.join(' ')}`;
+        tweetTextArea.value = ` ${hashtags.map(t => `#${t}`).join(' ')}`;
       }
       tweetTextArea.selectionStart = 0;
       tweetTextArea.selectionEnd = 0;
@@ -25,5 +23,5 @@ const keepHashtags = () => {
     attributes: true,
     attributeFilter: ['disabled'],
   });
-};
+}
 export default keepHashtags;
