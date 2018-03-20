@@ -96,7 +96,7 @@ module.exports = (env) => {
       filename: '[name].js',
       path: `${__dirname}/${DIST_FOLDER}`,
     },
-    devtool: 'source-map',
+    devtool: !IS_PRODUCTION && 'source-map',
     module: {
       rules: [
         {
