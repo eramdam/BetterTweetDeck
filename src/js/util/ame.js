@@ -25,7 +25,7 @@
  *
  */
 
-export default function ({ enableMuteTweet }) {
+export default function () {
   // Save references of original functions
   TD.vo.Filter.prototype._getDisplayType = TD.vo.Filter.prototype.getDisplayType;
   TD.vo.Filter.prototype._pass = TD.vo.Filter.prototype.pass;
@@ -234,18 +234,12 @@ export default function ({ enableMuteTweet }) {
       `{{/isMuted}}  {{#user}} {{^isMe}} ${BTD.userDropdown()} {{/isMe}} {{/user}}`,
     );
 
-  if (enableMuteTweet) {
-    const filterKey = 'BTD_specific_tweet';
-    const filter = BTD.filters[filterKey];
+  const filterKey = 'BTD_specific_tweet';
+  const filter = BTD.Filters[filterKey];
 
-    TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache']
-      .replace(
-        '{{/isOwnChirp}}',
-        `{{/isOwnChirp}}
+  TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].replace('{{/isOwnChirp}}', `{{/isOwnChirp}}
           <li class="is-selectable">
-            <a href="#" data-btd-action="${filterKey}" data-btd-source="${filter.options.templateString}">${filter.options.nameInDropdown}</a>
+            <a href="#" action="_" data-btd-filter="${filterKey}" data-btd-value="${filter.options.templateString}">${filter.options.nameInDropdown}</a>
           </li>
-        `,
-      );
-  }
+        `);
 }
