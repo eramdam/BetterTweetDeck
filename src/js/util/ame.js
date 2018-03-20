@@ -43,7 +43,7 @@ export default function () {
       placeholder: 'ID of tweet',
       options: {
         templateString: '{{chirp.id}}',
-        nameInDropdown: 'Mute this tweet',
+        nameInDropdown: 'Hide this tweet',
       },
       function(t, e) {
         if (e.id === t.value) {
