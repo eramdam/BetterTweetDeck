@@ -4,7 +4,7 @@ export default function ($) {
   return {
     name: 'Pixiv',
     setting: 'pixiv_net',
-    re: /pixiv\.net\/(?:member_illust\.php|novel\/|i\/|n\/)/,
+    re: /pixiv\.net\/(?:member_illust\.php\?.*(?:mode=)|novel\/|i\/|n\/)/,
     default: true,
     callback: (url) => {
       return fetch(url.replace('http:', 'https:'))

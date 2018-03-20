@@ -135,7 +135,7 @@
 
   "donate_title":  { "message": "Hilf mir, Better TweetDeck weiterzuentwickeln!" },
   "donate_p3":  { "message": "Danke dafür, dass du Better TweetDeck verwendest und dabei hilfst, es am Leben zu halten!" },
-  "donate_p2":  { "message": "Wenn du es dir leisten kannst und großzügig bist, wäre es <strong>wunderbar</strong>, wenn du auf <a href='https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK9SQ6ZDE9UF2&lc=US&item_name=Damien%20Erambert&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'>Paypal spenden</a> oder mich auf <a href='https://patreon.com/eramdam'>Patreon unterstützen</a> würdest (du kannst Zugriff auf Alpha/Beta-Versionen von zukünftigen Versionen erhalten!)<br><br>Selbst ein kleiner Beitrag hilft!" },
+  "donate_p2":  { "message": "Wenn du es dir leisten kannst und großzügig bist, wäre es <strong>wunderbar</strong>, wenn du auf <a href='https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK9SQ6ZDE9UF2&lc=US&item_name=Damien%20Erambert&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'>Paypal spenden</a>.<br><br>Selbst ein kleiner Beitrag hilft!" },
   "donate_p1": { "message": "Better TweetDeck ist und wird immer <strong>kostenlos</strong> bleiben, aber es zu entwickeln, kostet Zeit und Geld!" },
 
   "notification_title":  { "message": "Better TweetDeck Update" },
