@@ -134,7 +134,7 @@
 
   "donate_title":  { "message": "Better TweetDeck 開発援助のお願い" },
   "donate_p3":  { "message": "Better TweetDeck を使っていただき、本当にありがとうございます！ ご支援を頂けると幸いです。" },
-  "donate_p2":  { "message": "そこで、もしあなたに余裕があるようでしたら、<a href='https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK9SQ6ZDE9UF2&lc=US&item_name=Damien%20Erambert&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'>Paypal で寄付</a>するか、<a href='https://patreon.com/eramdam'>Patreon で支援</a>して頂けるとありがたく思います。支援して頂いた方には、将来のバージョンのα版およびβ版へのアクセス権を差し上げます。<br><br>僅かでも構いませんので、どうぞよろしくお願いします。" },
+  "donate_p2":  { "message": "そこで、もしあなたに余裕があるようでしたら、<a href='https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK9SQ6ZDE9UF2&lc=US&item_name=Damien%20Erambert&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'>Paypal で寄付</a>するか<br><br>僅かでも構いませんので、どうぞよろしくお願いします。" },
   "donate_p1": { "message": "Better TweetDeck は現在も将来もずっと<strong>無料で</strong>提供します。ただ、開発を継続するためには、時間と費用が必要になります！"},
 
   "notification_title":  { "message": "Better TweetDeck の更新" },
