@@ -1,14 +1,16 @@
 import config from 'config';
 import FileSaver from 'file-saver';
 import Clipboard from 'clipboard';
+import moduleRaid from 'moduleraid';
 import { unescape, debounce } from 'lodash';
 import Log from './util/logger';
 import * as GIFS from './util/gifs';
 import UsernamesTemplates from './util/username_templates';
-import wc from './util/webcrack';
 import { giphySearch, giphyBlock } from './util/templates';
+import AdvancedMuteEngine from './util/ame';
 
 const SETTINGS = $('[data-btd-settings]').data('btd-settings');
+const mR = moduleRaid();
 
 if (SETTINGS.no_tco) {
   const dummyEl = document.createElement('span');
@@ -34,6 +36,7 @@ const getMediaParts = (chirp, url) => {
     fileExtension: url.replace(/:[a-z]+$/, '').split('.').pop(),
     fileName: url.split('/').pop().split('.')[0],
     postedUser: (chirp.retweetedStatus ? chirp.retweetedStatus.user.screenName : chirp.user.screenName),
+    tweetId: (chirp.retweetedStatus ? chirp.retweetedStatus.id : chirp.id),
   };
 };
 
@@ -129,7 +132,6 @@ const getChirpFromElement = (element) => {
 if (config.Client.debug) {
   window.BTD = {};
   window.BTD.debug = {
-    wc,
     getChirpFromElement,
     getChirpFromKey,
     findMustache: content => Object.keys(TD.mustaches).filter(i => TD.mustaches[i].toLowerCase().includes(content.toLowerCase())),
@@ -243,28 +245,6 @@ TD.globalRenderOptions.btd = {
   },
 };
 
-if (SETTINGS.regex_filter) {
-  TD.vo.Filter.prototype._testString = function _testString(e) {
-    const regex = new RegExp(this.value, 'g');
-    if (!e || !this.value) {
-      return !0;
-    }
-    if (this.exact) {
-      if (e === this.value) {
-        return this.positive;
-      }
-      if (this.fuzzy && `@${e}` === this.value) {
-        return this.positive;
-      }
-    } else if (e.match(regex) && this.type === 'phrase') {
-      return this.positive;
-    } else if (e.indexOf(this.value) !== -1) {
-      return this.positive;
-    }
-    return !this.positive;
-  };
-}
-
 // Embed custom mustaches.
 TD.mustaches['btd/download_filename_format.mustache'] = SETTINGS.download_filename_format;
 
@@ -370,6 +350,7 @@ TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].
       </ul>
     `);
 
+AdvancedMuteEngine();
 UsernamesTemplates(TD.mustaches, SETTINGS.nm_disp);
 
 let bannerID = 1;
@@ -500,16 +481,49 @@ const checkBTDFollowing = () => {
   }
 };
 
+const currentProgressNotifications = {};
+const TDNotifications = mR.findModule('showNotification') && mR.findModule('showNotification')[0];
+
 window.addEventListener('message', (ev) => {
-  if (ev.origin.indexOf('tweetdeck.') === -1) {
+  const { origin, data } = ev;
+  if (!origin.includes('tweetdeck.') && !origin.includes('better.tw')) {
     return false;
   }
 
-  if (!ev.data.name || !ev.data.name.startsWith('BTDC_') || !postMessagesListeners[ev.data.name]) {
+  if (TDNotifications && TDNotifications.showNotification && TDNotifications.updateNotification) {
+    if (data.message && data.message === 'progress_gif') {
+      if (!currentProgressNotifications[data.name]) {
+        currentProgressNotifications[data.name] = TDNotifications.showNotification({
+          timeoutDelayMs: 2000,
+          message: `Converting to GIF... (${Number(data.progress * 100).toFixed(1)}%)`,
+        });
+      } else if (data.progress > 0.99) {
+        TDNotifications.showNotification({
+          message: 'Finalizing GIF conversion...',
+          timeoutDelayMs: 4000,
+        });
+      } else {
+        TDNotifications.updateNotification({
+          notification: currentProgressNotifications[data.name],
+          message: `Converting to GIF... (${Number(data.progress * 100).toFixed(1)}%)`,
+        });
+      }
+    }
+
+    if (data.message && data.message === 'complete_gif' && currentProgressNotifications[data.name]) {
+      TDNotifications.showNotification({
+        message: 'Conversion finished! Download starting...',
+      });
+
+      delete currentProgressNotifications[data.name];
+    }
+  }
+
+  if (!data.name || !data.name.startsWith('BTDC_') || !postMessagesListeners[data.name]) {
     return false;
   }
 
-  return postMessagesListeners[ev.data.name](ev, ev.data.detail);
+  return postMessagesListeners[data.name](ev, data.detail);
 });
 
 const switchThemeClass = () => {
@@ -741,13 +755,13 @@ $(document).one('dataColumnsLoaded', () => {
   const GIFText = fool ? 'JIF' : 'GIF';
 
   $('.js-character-count').parent().append(`
-    <span class="btd-gif-button -visible txt-twitter-dark-gray">${GIFText}</span>
-    <span class="btd-gif-indicator txt-line-height--20 txt-size--12 txt-twitter-dark-gray"></span>
+    <span class="btd-gif-button -visible color-twitter-dark-gray">${GIFText}</span>
+    <span class="btd-gif-indicator txt-line-height--20 txt-size--12 color-twitter-dark-gray"></span>
   `);
 
   $('.js-media-added').after(`
     <span
-      class="txt-line-height--12 txt-size--12 txt-twitter-dark-gray btd-gif-source-indicator"
+      class="txt-line-height--12 txt-size--12 color-twitter-dark-gray btd-gif-source-indicator"
     ></span>
   `);
   setTimeout(checkBTDFollowing, 2000);

@@ -1,6 +1,6 @@
-import gifshot from 'gifshot';
-import FileSaver from 'file-saver';
 import PromiseEach from 'promise-each';
+import FileSaver from 'file-saver';
+import qs from 'query-string';
 import config from 'config';
 import timestampOnElement from './util/timestamp';
 import { send as sendMessage, on as onMessage } from './util/messaging';
@@ -59,22 +59,75 @@ sendMessage({ action: 'get_settings' }, (response) => {
   document.head.appendChild(style);
 });
 
-function saveGif(gifshotObj, name, event, videoEl) {
-  return fetch(gifshotObj.image)
-    .then(res => res.blob())
-    .then((blob) => {
-      event.target.style.opacity = 1;
-      event.target.innerText = 'Download as .GIF';
-      FileSaver.saveAs(blob, name);
-      videoEl.playbackRate = 1;
-    });
+fetch('https://raw.githubusercontent.com/eramdam/BetterTweetDeck/master/meta/hotfixes.css').then((res) => {
+  if (res.status >= 200 && res.status < 300) {
+    return res.text();
+  }
+
+  return Promise.reject(new Error(res.statusText));
+}).then((text) => {
+  const style = document.createElement('style');
+  style.type = 'text/css';
+  style.textContent = text;
+
+  Log('apply CSS hotfixes');
+  document.head.appendChild(style);
+});
+
+sendMessage({ action: 'get_local', key: 'custom_css_style' }, (css) => {
+  const styleTag = document.createElement('style');
+
+  styleTag.id = 'btd-custom-css';
+  styleTag.type = 'text/css';
+  styleTag.appendChild(document.createTextNode(css));
+  document.head.appendChild(styleTag);
+});
+
+function triggerGifDownload(gifshotOptions) {
+  const iframe = document.createElement('iframe');
+  iframe.setAttribute('btd-gif-iframe', '');
+  iframe.setAttribute('btd-gif-name', gifshotOptions.name);
+  iframe.src = `https://better.tw/gif?${qs.stringify(gifshotOptions)}`;
+  iframe.style = `
+      opacity: 0;
+      z-index: -99999;
+      position: absolute;
+    `;
+  document.body.appendChild(iframe);
 }
 
-function updateGifProgress(element, progress) {
-  if (progress > 0.99) {
-    element.innerText = 'Converting to GIF... (Finalizing)';
-  } else {
-    element.innerText = `Converting to GIF... (${Number(progress * 100).toFixed(1)}%)`;
+const dataURItoBlob = (dataURI) => {
+  // convert base64 to raw binary data held in a string
+  // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+  const byteString = atob(dataURI.split(',')[1]);
+
+  // separate out the mime component
+  const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+  // write the bytes of the string to an ArrayBuffer
+  const ab = new ArrayBuffer(byteString.length);
+
+  // create a view into the buffer
+  const ia = new Uint8Array(ab);
+
+  // set the bytes of the buffer to the correct values
+  for (let i = 0; i < byteString.length; i += 1) {
+    ia[i] = byteString.charCodeAt(i);
+  }
+
+  // write the ArrayBuffer to a blob, and you're done
+  const blob = new Blob([ab], { type: mimeString });
+  return blob;
+};
+
+function markGifDlComplete(element, name) {
+  if (element) {
+    element.style.opacity = 1;
+    element.innerText = 'Download as .GIF';
+  }
+
+  if (document.querySelectorAll(`iframe[btd-gif-iframe][btd-gif-name="${name}"]`).length > 0) {
+    document.querySelector(`iframe[btd-gif-iframe][btd-gif-name="${name}"]`).remove();
   }
 }
 
@@ -141,6 +194,13 @@ function tweakClassesFromVisualSettings() {
 
   if (SETTINGS.old_replies) {
     document.body.classList.add('btd__old_replies');
+  }
+
+  if (SETTINGS.css.og_dark_theme) {
+    const linkRevert = document.createElement('link');
+    linkRevert.rel = 'stylesheet';
+    linkRevert.href = BHelper.getExtensionUrl('revert-dark-theme.css');
+    document.head.appendChild(linkRevert);
   }
 
   if (SETTINGS.custom_columns_width.enabled) {
@@ -517,9 +577,6 @@ onEvent('BTDC_ready', () => {
 
   onMessage((details) => {
     switch (details.action) {
-      case 'progress_gif':
-        updateGifProgress($('[data-btd-dl-gif]')[0], details.progress);
-        break;
       default:
         document.dispatchEvent(new CustomEvent('uiComposeTweet'));
         $('textarea.js-compose-text')[0].value = `${details.text} ${details.url}`;
@@ -669,6 +726,7 @@ onEvent('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
     $('[data-btd-dl-gif]', openModal)[0].addEventListener('click', (e) => {
       e.preventDefault();
       e.target.style.opacity = 0.8;
+      e.target.innerText = 'Loading...';
 
       const gifshotOptions = {
         gifWidth: videoEl.getAttribute('data-btd-width'),
@@ -680,30 +738,7 @@ onEvent('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
         sampleInterval: 10,
       };
 
-
-      const gifshotCb = (obj) => {
-        if (obj.error) {
-          return;
-        }
-
-        saveGif(obj, gifshotOptions.name, e, videoEl);
-      };
-
-      // Firefox doesn't support Web Workers from content scripts so we have to run it in the background
-      // ...
-      // ...
-      // Yes, it's hacky but we have no choice ¯\(ツ)/¯
-      if (BHelper.isFirefox) {
-        e.target.innerText = 'Converting to GIF... (in progress)';
-        return sendMessage({
-          action: 'download_gif',
-          options: gifshotOptions,
-        }, response => gifshotCb(response.obj));
-      }
-
-      return gifshot.createGIF(Object.assign(gifshotOptions, {
-        progressCallback: progress => updateGifProgress(e.target, progress),
-      }), gifshotCb);
+      triggerGifDownload(gifshotOptions);
     });
   }
 });
@@ -750,13 +785,21 @@ window.addEventListener('message', (ev) => {
   let data;
 
   try {
-    data = ev.data && JSON.parse(ev.data);
+    if (typeof data === 'string') {
+      data = ev.data && JSON.parse(ev.data);
+    } else {
+      data = ev.data;
+    }
   } catch (e) {
     // lolnope
   }
 
   if (data) {
     switch (data.message) {
+      case 'complete_gif':
+        FileSaver.saveAs(dataURItoBlob(data.img), data.name);
+        markGifDlComplete($('[data-btd-dl-gif]') && $('[data-btd-dl-gif]')[0], data.name);
+        break;
       case 'resize_imgur':
         $(`iframe[src="${data.href}"]`)[0].style.height = `${data.height}px`;
         break;

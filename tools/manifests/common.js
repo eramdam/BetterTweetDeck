@@ -31,7 +31,7 @@ const common = {
   version: isBeta ? betaVersion() : packageJson.extension_version,
   version_name: isBeta ? betaVersion() : packageJson.extension_version,
   manifest_version: 2,
-  homepage_url: 'https://github.com/eramdam/BetterTweetDeck/',
+  homepage_url: 'https://better.tw',
   content_scripts: [{
     matches: ['*://tweetdeck.twitter.com/*'],
     js: ['js/content.js'],
@@ -55,6 +55,7 @@ const common = {
   },
   web_accessible_resources: [
     'embeds.js',
+    'revert-dark-theme.css',
     'emojis/sheet_twitter_64.png',
     'fonts/*.*',
     'js/inject.js',

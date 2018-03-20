@@ -93,9 +93,6 @@
   "collapse_columns_pause": { "message": "Při sbalení sloupce je časová osa zmražena, zasvítí při změně obsahu sloupce, a zůstane tam, kde jste ji naposledy zanechali"},
   "uncollapse_columns_unpause": { "message": "Při rozbalení sloupce je časova osa rozmražena, a automaticky se posune na nejnovější tweet"},
 
-  "regex_filter": { "message": "Povolit podporu pro regulární výrazy (RegExp) ve filtru skrytí účtů"},
-  "regex_filter_notice_text": { "message": "Kvůli způsobu jakým pracují filtry TweetDecku regulární výrazy NEROZLIŠUJÍ mezi velkými a malými písmeny!" },
-
   "edit_item": { "message": "Přidat úpravu tweetů k možnostem tweetu"},
   "edit_item_note": { "message": "Toto nelze použít pro úpravu tweetů, aniž by se smazaly! Tweet se vrací do prostoru na psaní a původní se maže i se všemi lajky a retweety." },
   "mute_hashtags": { "message": "Přidat zkratku pro skrytí #hashtagů k možnostem tweetu."},
@@ -104,7 +101,7 @@
   "hotlink_item": { "message": "Přidat zkratku pro zkopírování adres všech médií v tweetu"},
   "download_item": { "message": "Přidat zkratku pro stažení všech médií v tweetu"},
   "download_filename_format": { "message": "Formát názvu stažených souborů"},
-  "download_filename_format_parameters": { "message": "Můžete použít následující proměnné: <code>{{postedUser}} {{fileName}} {{fileExtension}}</code>"},
+  "download_filename_format_parameters": { "message": "Můžete použít následující proměnné: <code>{{postedUser}} {{tweetId}} {{fileName}} {{fileExtension}}</code>"},
   "ctrl_changes_interactions__enabled": { "message": "Podržení <kbd>Ctrl</kbd> (nebo <kbd>Cmd</kbd> na Mac) při kliknutí na: ikonu lajku / retweetu / stažení vám umožní sledovat účet z"},
   "ctrl_changes_interactions__mode__owner": { "message": "účtu, jemuž patří sloupec"},
   "ctrl_changes_interactions__mode__dialog": { "message": "okénka, z něhož se účet vybere"},
@@ -135,7 +132,7 @@
 
   "donate_title":  { "message": "Pomožte mi udržovat Better TweetDeck!" },
   "donate_p3":  { "message": "Děkuji mockrát, že používáte Better TweetDeck a pomáháte mu přežívat!" },
-  "donate_p2":  { "message": "Pokud si to můžete dovolit a cítíte se štědrými, bylo by <strong>úžasné</strong> pokud byste mohli <a href='https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK9SQ6ZDE9UF2&lc=US&item_name=Damien%20Erambert&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'>přispět na PayPalu</a> nebo <a href='https://patreon.com/eramdam'>mne podpořit na Patreonu</a> (Dostanete se k alfa/beta testům dalších verzí!).<br><br>I ten nejmenší příspěvek pomáhá!" },
+  "donate_p2":  { "message": "Pokud si to můžete dovolit a cítíte se štědrými, bylo by <strong>úžasné</strong> pokud byste mohli <a href='https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK9SQ6ZDE9UF2&lc=US&item_name=Damien%20Erambert&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'>přispět na PayPalu</a>.<br><br>I ten nejmenší příspěvek pomáhá!" },
   "donate_p1": { "message": "Better TweetDeck je a vždy bude <strong>bezplatný</strong>, ale jeho vývoj stojí čas a udržování ho při životě stojí peníze!"},
 
   "notification_title":  { "message": "Better TweetDeck Aktualizace" },

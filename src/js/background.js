@@ -1,4 +1,3 @@
-import gifshot from 'gifshot';
 import { defaultsDeep } from 'lodash';
 
 import * as BHelper from './util/browserHelper';
@@ -49,6 +48,7 @@ const defaultSettings = {
     show_provider_indicator: false,
     hide_like_rt_indicators: false,
     system_fonts: false,
+    og_dark_theme: false,
   },
   pause_scroll_on_hover: false,
   share_item: {
@@ -57,7 +57,6 @@ const defaultSettings = {
   },
   make_search_columns_first: false,
   old_replies: false,
-  regex_filter: false,
   edit_item: true,
   favstar_item: true,
   archive_item: false,
@@ -65,7 +64,7 @@ const defaultSettings = {
   mute_source: true,
   hotlink_item: false,
   download_item: false,
-  download_filename_format: '{{postedUser}}-{{fileName}}.{{fileExtension}}',
+  download_filename_format: '{{postedUser}}-{{tweetId}}-{{fileName}}.{{fileExtension}}',
   ctrl_changes_interactions: {
     enabled: false,
     mode: 'owner',
@@ -182,12 +181,6 @@ BHelper.settings.getAll((settings) => {
   });
 });
 
-const sendToCurrentTab = (message) => {
-  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    chrome.tabs.sendMessage(tabs[0].id, message);
-  });
-};
-
 // Simple interface to get settings
 Messages.on((message, sender, sendResponse) => {
   switch (message.action) {
@@ -210,16 +203,6 @@ Messages.on((message, sender, sendResponse) => {
 
     case 'get':
       BHelper.settings.get(message.key, val => sendResponse({ val }));
-      return true;
-
-    case 'download_gif':
-      message.options.progressCallback = (progress) => {
-        sendToCurrentTab({ action: 'progress_gif', progress });
-      };
-
-      gifshot.createGIF(message.options, (obj) => {
-        sendResponse({ obj });
-      });
       return true;
 
     default:

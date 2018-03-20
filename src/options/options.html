@@ -43,6 +43,7 @@
       <nav class="sidebar-nav">
         <a href="https://twitter.com/BetterTDeck" class="nav-item">@BetterTDeck</a>
         <a href="https://github.com/eramdam/BetterTweetDeck" class="nav-item">GitHub</a>
+        <a href="https://better.tw" class="nav-item">Website</a>
       </nav>
     </div>
   </aside>
@@ -205,11 +206,6 @@
             <input type="checkbox" name="css.show_provider_indicator" id="show_provider_indicator">
             <label for="show_provider_indicator" data-lang="css_show_provider_indicator">Show thumbnails source on top of them</label>
           </li>
-          <li data-setting-name="regex_filter">
-            <input type="checkbox" name="regex_filter" id="regex_filter">
-            <label for="regex_filter" data-lang="regex_filter" data-new-feat>Enable regular expression support in Mute filters</label>
-            <br /><small data-lang="regex_filter_notice_text">Due to the way TweetDeck's filtering works, expressions are not case sensitive!</small>
-          </li>
           <li data-setting-name="edit_item">
             <input type="checkbox" name="edit_item" id="edit_item">
             <label for="edit_item" data-lang="edit_item" data-new-feat>Add an edit item in tweets' menu</label>
@@ -242,7 +238,7 @@
           <li data-setting-name="download_filename_format">
             <input type="text" name="download_filename_format" id="download_filename_format"><label for="download_filename_format" data-lang="download_filename_format" data-new-feat>Download file name format</label>
             <br />
-            <small data-lang="download_filename_format_parameters">You can use the following variables: <code>{{postedUser}} {{fileName}} {{fileExtension}}</code></small>
+            <small data-lang="download_filename_format_parameters">You can use the following variables: <code>{{postedUser}} {{tweetId}} {{fileName}} {{fileExtension}}</code></small>
           </li>
           <li data-setting-name="ctrl_changes_interactions">
             <input type="checkbox" name="ctrl_changes_interactions.enabled" id="ctrl_changes_interactions.enabled" data-ghost>
@@ -304,6 +300,11 @@
           <li data-setting-name="minimal_mode">
             <input type="checkbox" name="css.minimal_mode" id="minimal_mode">
             <label for="minimal_mode" data-lang="css_minimal_mode">Enable the "Minimal" theme</label>
+          </li>
+          <li data-setting-name="og_dark_theme">
+            <input type="checkbox" name="css.og_dark_theme" id="og_dark_theme">
+            <label for="og_dark_theme" data-lang="css_og_dark_theme">Re-enable the Dark theme (pre February 2018)</label>
+            <small data-lang="css_experimental_warning">This is experimental and can break at any point!</small>
           </li>
           <li data-setting-name="no_col_icns">
             <input type="checkbox" name="css.no_col_icns" id="no_col_icns">

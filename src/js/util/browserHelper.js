@@ -45,7 +45,7 @@ export const getBrowser = () => {
 
 const storage = isFirefox ? chrome.storage.local : chrome.storage.sync;
 
-export const getVersion = () => chrome.runtime.getManifest().version_name;
+export const getVersion = () => chrome.runtime.getManifest().version_name || chrome.runtime.getManifest().version;
 export const getName = () => chrome.runtime.getManifest().name;
 export const getIcons = () => {
   const icons = chrome.runtime.getManifest().icons;

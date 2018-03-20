@@ -162,7 +162,8 @@ html.btd-on {
   }
 
   .dropdown-menu .typeahead-item,
-  .dropdown-menu [data-btd-action] {
+  .dropdown-menu [data-btd-action],
+  .dropdown-menu [data-btd-filter] {
     display: block;
     padding: 5px 20px;
     color: #292f33;
@@ -171,7 +172,8 @@ html.btd-on {
     text-decoration: none;
   }
 
-  .dropdown-menu .is-selected [data-btd-action] {
+  .dropdown-menu .is-selected [data-btd-action],
+  .dropdown-menu .is-selected [data-btd-filter] {
     color: #fff;
   }
 
@@ -218,11 +220,11 @@ html.btd-on {
       content: "\f151";
       position: absolute;
       font-family: "tweetdeckregular";
-      left: 29px;
+      left: 20px;
       font-size: 14px;
       z-index: 19;
       color: inherit;
-      top: 60px;
+      top: 47px;
     }
   }
 
@@ -238,4 +240,11 @@ html.btd-on {
     margin-top: 14px !important;
     margin-bottom: 0 !important;
   }
+}
+
+.inline-reply .btn-square,
+.rpl-actions .btn-square {
+  /* remove effects from buttons under reply input... this keeps happening for some stupid reason */
+  background: transparent !important;
+  box-shadow: none !important;
 }

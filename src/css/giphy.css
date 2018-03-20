@@ -60,16 +60,6 @@
   opacity: 0;
 }
 
-.btd-gif-button,
-.btd-gif-indicator {
-  float: left;
-
-  &.-visible {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
 @keyframes gradientSlide {
   from {
     background-position-x: 0;
@@ -86,6 +76,12 @@
   transition-property: transform, opacity;
   transition-duration: 300ms;
   transition-timing-function: ease;
+  float: left;
+
+  &.-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .btd-gif-button {

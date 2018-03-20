@@ -77,6 +77,8 @@
   "thumbnails_from": { "message": "Display thumbnails from:" },
 
   "css_minimal_mode": { "message": "Enable the 'Minimal' theme" },
+  "css_og_dark_theme": { "message": "Re-enable the Dark theme (pre February 2018)" },
+  "css_experimental_warning": { "message": "This is experimental and can break at any point!" },
   "css_no_play_btn": { "message": "Hide the play button on video thumbnails" },
   "css_hide_url_thumb": { "message": "Hide the link related to thumbnails in tweets (à la Twitter iOS/Android)" },
   "css_no_col_icns": { "message": "Hide icons in columns headers" },
@@ -93,9 +95,6 @@
   "collapse_columns_pause": { "message": "When you collapse a column, it will pause the feed it so that it can light up when its contents change while collapsed and it stays where you last saw it"},
   "uncollapse_columns_unpause": { "message": "When you uncollapse a column, it will unpause the feed it so that it automatically scrolls back to the top instead of staying where you left it"},
 
-  "regex_filter": { "message": "Enable regular expression support in Mute filters"},
-  "regex_filter_notice_text": { "message": "Due to the way TweetDeck's filtering works, expressions are NOT case sensitive!" },
-
   "edit_item": { "message": "Add an edit item in tweets' menu"},
   "edit_item_note": { "message": "You cannot use this to edit tweets without deleting them! This immediately moves a tweet to the composer dock and deletes it along with any likes or retweets it received!"},
   "favstar_item": { "message": "Add a \"Show in Favstar\" item in tweets' menu"},
@@ -104,7 +103,7 @@
   "hotlink_item": { "message": "Add shortcut to copy the links of all media in a tweet"},
   "download_item": { "message": "Add shortcut to download all media of a tweet"},
   "download_filename_format": { "message": "Download file name format"},
-  "download_filename_format_parameters": { "message": "You can use the following variables: <code>{{postedUser}} {{fileName}} {{fileExtension}}</code>"},
+  "download_filename_format_parameters": { "message": "You can use the following variables: <code>{{postedUser}} {{tweetId}} {{fileName}} {{fileExtension}}</code>"},
   "ctrl_changes_interactions__enabled": { "message": "Holding <kbd>Ctrl</kbd> (or <kbd>Cmd</kbd> on Mac) while clicking: favorite / retweet / download will allow you to follow from the"},
   "ctrl_changes_interactions__mode__owner": { "message": "column's owner"},
   "ctrl_changes_interactions__mode__dialog": { "message": "follow dialog"},
@@ -135,7 +134,7 @@
 
   "donate_title":  { "message": "Help me to maintain Better TweetDeck!" },
   "donate_p3":  { "message": "Thanks a bunch for using Better TweetDeck and helping it live!" },
-  "donate_p2":  { "message": "If you can afford it and feel generous, it would be <strong>wonderful</strong> if you could <a href='https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK9SQ6ZDE9UF2&lc=US&item_name=Damien%20Erambert&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'>donate on Paypal</a> or <a href='https://patreon.com/eramdam'>support me on Patreon</a> (you can have access to alpha/beta testing of future versions!).<br><br>Even the smallest contribution is helping!" },
+  "donate_p2":  { "message": "If you can afford it and feel generous, it would be <strong>wonderful</strong> if you could <a href='https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK9SQ6ZDE9UF2&lc=US&item_name=Damien%20Erambert&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'>donate on Paypal</a>.<br><br>Even the smallest contribution is helping!" },
   "donate_p1": { "message": "Better TweetDeck is and always will be <strong>free of charge</strong> but developing it takes time and keeping it live costs money!"},
 
   "notification_title":  { "message": "Better TweetDeck Upgrade" },
