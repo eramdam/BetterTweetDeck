@@ -44,7 +44,7 @@ General style setup
     position: relative;
 
     &::before {
-      bottom: 0;
+      top: 7px;
       left: 8px;
       transform-origin: bottom right;
       transform: scale(0.7);
