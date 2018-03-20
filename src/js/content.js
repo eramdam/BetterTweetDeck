@@ -78,12 +78,12 @@ fetch('https://raw.githubusercontent.com/eramdam/BetterTweetDeck/master/meta/hot
   document.head.appendChild(style);
 });
 
-sendMessage({ action: 'get_local', key: 'custom_css_style' }, (css) => {
+sendMessage({ action: 'get_local', key: 'custom_css_style' }, ({ val }) => {
   const styleTag = document.createElement('style');
 
   styleTag.id = 'btd-custom-css';
   styleTag.type = 'text/css';
-  styleTag.appendChild(document.createTextNode(css));
+  styleTag.appendChild(document.createTextNode(val));
   document.head.appendChild(styleTag);
 });
 
