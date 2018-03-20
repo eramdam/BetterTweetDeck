@@ -37,6 +37,22 @@ export default function () {
 
   // Custom filters
   BTD.Filters = {
+    BTD_specific_tweet: {
+      name: 'Specific tweet',
+      descriptor: 'specific tweet',
+      placeholder: 'ID of tweet',
+      options: {
+        templateString: '{{chirp.id}}',
+        nameInDropdown: 'Hide this tweet',
+      },
+      function(t, e) {
+        if (e.id === t.value) {
+          return false;
+        }
+
+        return true;
+      },
+    },
     BTD_is_retweet_from: {
       display: {
         actions: true,
@@ -157,7 +173,7 @@ export default function () {
 
     filters.forEach((filter) => {
       const fil = BTD.Filters[filter];
-      if (fil.display.global) {
+      if (fil.display && fil.display.global) {
         filterString += `<option value="${filter}">{{_i}}${fil.name}{{/i}}</option>`;
       }
     });
@@ -172,11 +188,12 @@ export default function () {
 
     filters.forEach((filter) => {
       const fil = BTD.Filters[filter];
-      if (fil.display.actions) {
+      if (fil.display && fil.display.actions) {
         const templateString = (fil.options && fil.options.templateString) ? fil.options.templateString : '{{screenName}}';
+        const name = (fil.options && fil.options.nameInDropdown ? fil.options.nameInDropdown : `Mute ${fil.name}`);
 
         filterString += `<li class="is-selectable">
-            <a href="#" data-btd-filter="${filter}" data-btd-value="${templateString}">{{_i}}Mute ${fil.name}{{/i}}</a>
+            <a href="#" data-btd-filter="${filter}" data-btd-value="${templateString}">{{_i}}${name}{{/i}}</a>
           </li>`;
       }
     });
@@ -216,4 +233,13 @@ export default function () {
       '{{/isMuted}}  ',
       `{{/isMuted}}  {{#user}} {{^isMe}} ${BTD.userDropdown()} {{/isMe}} {{/user}}`,
     );
+
+  const filterKey = 'BTD_specific_tweet';
+  const filter = BTD.Filters[filterKey];
+
+  TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].replace('{{/isOwnChirp}}', `{{/isOwnChirp}}
+          <li class="is-selectable">
+            <a href="#" action="_" data-btd-filter="${filterKey}" data-btd-value="${filter.options.templateString}">${filter.options.nameInDropdown}</a>
+          </li>
+        `);
 }

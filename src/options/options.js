@@ -1,4 +1,7 @@
 import config from 'config';
+import * as ace from 'brace';
+import 'brace/mode/css';
+import 'brace/theme/solarized_light';
 import { createApolloFetch } from 'apollo-fetch';
 import $ from 'jquery';
 import {
@@ -14,6 +17,10 @@ import fecha from 'fecha';
 import '../css/options/index.css';
 import * as BHelper from '../js/util/browserHelper';
 import { schemeWhitelist } from '../js/util/thumbnails';
+
+const CSS_EDITOR = ace.edit('custom-css-editor');
+CSS_EDITOR.getSession().setMode('ace/mode/css');
+CSS_EDITOR.setTheme('ace/theme/solarized_light');
 
 const GITHUB_URI = 'https://api.github.com/graphql';
 const GITHUB_RELEASES_QUERY = `
@@ -166,6 +173,7 @@ function refreshPreviews(settings) {
 /**
  * When got the settings we initialise the view
  */
+
 BHelper.settings.getAll((settings) => {
   const settingsStr = JSON.stringify(settings, null, 2);
 
@@ -311,6 +319,22 @@ BHelper.settings.getAll((settings) => {
     }
   });
 
+  const changeCssEditor = () => {
+    const annotations = CSS_EDITOR.getSession().getAnnotations();
+    const hasErrors = annotations.find(a => a.type === 'error');
+    const saveBtn = $('.save-button');
+    saveBtn.text(chrome.i18n.getMessage('save_save'));
+
+    if (hasErrors) {
+      saveBtn.prop('disabled', true);
+    } else {
+      saveBtn.removeAttr('disabled');
+    }
+  };
+
+  CSS_EDITOR.getSession().on('change', changeCssEditor);
+  CSS_EDITOR.getSession().on('changeAnnotations', changeCssEditor);
+
   $('button.save-button').click(() => {
     const newSettings = {};
 
@@ -342,11 +366,18 @@ BHelper.settings.getAll((settings) => {
       }
     });
 
-
+    newSettings.custom_css_style = CSS_EDITOR.getValue();
     BHelper.settings.set(newSettings);
+    BHelper.settings.set(newSettings, null, true);
     $('.save-button').text(chrome.i18n.getMessage('save_no')).attr('disabled', '');
   });
 });
+
+BHelper.settings.get('custom_css_style', (css) => {
+  CSS_EDITOR.setValue(css);
+  CSS_EDITOR.clearSelection();
+  $('.save-button').attr('disabled', '');
+}, true);
 
 if (chrome.permissions) {
   chrome.permissions.contains({
