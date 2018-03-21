@@ -7,7 +7,6 @@ import { send as sendMessage, on as onMessage } from './util/messaging';
 import * as secureDomify from './util/secureDomify';
 import * as Thumbnails from './util/thumbnails';
 import * as Templates from './util/templates';
-import keepHashtags from './util/keepHashtags';
 import Emojis from './util/emojis';
 import Log from './util/logger';
 import * as BHelper from './util/browserHelper';
@@ -609,11 +608,6 @@ onEvent('BTDC_ready', () => {
         },
       });
     }, 1000);
-  }
-  if (SETTINGS.keep_hashtags) {
-    const script = document.createElement('script');
-    script.appendChild(document.createTextNode(`(${keepHashtags.toString()})()`));
-    document.body.appendChild(script);
   }
 
   // Tell any potential versions of BTD that they are not alone, and alert the user if they respond.

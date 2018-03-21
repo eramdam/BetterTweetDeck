@@ -8,6 +8,7 @@ import * as GIFS from './util/gifs';
 import UsernamesTemplates from './util/username_templates';
 import { giphySearch, giphyBlock } from './util/templates';
 import AdvancedMuteEngine from './util/ame';
+import keepHashtags from './util/keepHashtags';
 
 const SETTINGS = $('[data-btd-settings]').data('btd-settings');
 const mR = moduleRaid();
@@ -758,6 +759,10 @@ $(document).one('dataColumnsLoaded', () => {
     ></span>
   `);
   setTimeout(checkBTDFollowing, 2000);
+
+  if (SETTINGS.keep_hashtags) {
+    keepHashtags();
+  }
 });
 
 $(document).on('click', '.btd-gif-button', (e) => {
