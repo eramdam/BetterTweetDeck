@@ -70,6 +70,7 @@ const defaultSettings = {
   },
   update_title_on_notifications: true,
   thumbnails: {},
+  custom_css_style: '',
 };
 
 // We want to know if there are any other versions of BTD out there.
@@ -201,6 +202,10 @@ Messages.on((message, sender, sendResponse) => {
       return true;
 
     case 'get':
+      BHelper.settings.get(message.key, val => sendResponse({ val }));
+      return true;
+
+    case 'get_local':
       BHelper.settings.get(message.key, val => sendResponse({ val }));
       return true;
 

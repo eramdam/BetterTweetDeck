@@ -68,24 +68,24 @@ export const getMessage = (msg) => {
 export const getUpgradeMessage = () => getMessage('notification_upgrade').replace('{{version}}', getVersion());
 
 export const settings = {
-  get(property, cb) {
+  get(property, cb, local) {
     return this.getAll((settingsVal) => {
       cb(getKey(settingsVal, property));
-    });
+    }, local);
   },
-  set(obj, cb) {
+  set(obj, cb, local) {
     this.getAll((currSettings) => {
-      storage.set(Object.assign(currSettings, obj), () => {
+      (local ? chrome.storage.local : storage).set(Object.assign(currSettings, obj), () => {
         if (cb) {
           return this.getAll(cb);
         }
 
         return false;
       });
-    });
+    }, local);
   },
-  getAll(done) {
-    storage.get(null, (obj) => {
+  getAll(done, local) {
+    (local ? chrome.storage.local : storage).get(null, (obj) => {
       done(obj);
     });
   },
