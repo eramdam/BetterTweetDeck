@@ -25,7 +25,7 @@
     "pack:firefox": "cross-env NODE_ENV=dev web-ext build -s dist -a artifacts",
     "update_emojis": "node tools/update_emojis.js",
     "precommit": "lint-staged",
-    "fix": "prettier-eslint --list-different --write '**/*.{js,jsx}' && prettier-stylelint --write"
+    "fix": "prettier-eslint --list-different --write '**/*.{js,jsx}' && prettier-stylelint --write -q"
   },
   "lint-staged": {
     "*.css": ["prettier-stylelint --write", "git add"],
