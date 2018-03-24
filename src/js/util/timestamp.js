@@ -29,7 +29,7 @@ const formatMaps = {
 };
 
 function lessThan24(d) {
-  return (new Date().getTime() - d.getTime()) <= 60 * 60 * 24000;
+  return new Date().getTime() - d.getTime() <= 60 * 60 * 24000;
 }
 
 function getFormat(dateObject, mode) {

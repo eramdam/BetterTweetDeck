@@ -42,25 +42,28 @@ const getMissingCategory = (shortName) => {
   return null;
 };
 
-needle.get('https://raw.githubusercontent.com/iamcal/emoji-data/340e3b897f71ca985ceccbd6b753e37776734f26/emoji.json', (err, res) => {
-  const emojiArr = JSON.parse(res.body);
+needle.get(
+  'https://raw.githubusercontent.com/iamcal/emoji-data/340e3b897f71ca985ceccbd6b753e37776734f26/emoji.json',
+  (err, res) => {
+    const emojiArr = JSON.parse(res.body);
 
-  const final = _.chain(emojiArr)
-    .filter(emoji => emoji.category)
-    .sortBy(emoji => emoji.sort_order)
-    .sortBy(emoji => catOrder[emoji.category])
-    .map((emoji) => {
-      return {
-        s: [...emoji.short_names, emoji.short_name],
-        n: emoji.name,
-        hs: Boolean(emoji.skin_variations),
-        cat: emoji.category || getMissingCategory(emoji.short_name),
-      };
-    })
-    .value();
+    const final = _.chain(emojiArr)
+      .filter(emoji => emoji.category)
+      .sortBy(emoji => emoji.sort_order)
+      .sortBy(emoji => catOrder[emoji.category])
+      .map((emoji) => {
+        return {
+          s: [...emoji.short_names, emoji.short_name],
+          n: emoji.name,
+          hs: Boolean(emoji.skin_variations),
+          cat: emoji.category || getMissingCategory(emoji.short_name),
+        };
+      })
+      .value();
 
-  const finalForTemplate = final.filter(emoji => getUnified(emoji));
-  const outStr = `module.exports = ${JSON.stringify(finalForTemplate)}`;
+    const finalForTemplate = final.filter(emoji => getUnified(emoji));
+    const outStr = `module.exports = ${JSON.stringify(finalForTemplate)}`;
 
-  fs.writeFileSync('./emojis.js', outStr, 'utf8');
-});
+    fs.writeFileSync('./emojis.js', outStr, 'utf8');
+  },
+);

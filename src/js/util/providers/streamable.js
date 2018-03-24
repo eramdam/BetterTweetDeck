@@ -5,7 +5,8 @@ export default function ($) {
     re: /streamable.com/,
     default: true,
     callback: (url) => {
-      return fetch(`https://api.streamable.com/oembed.json?url=${url}`).then($.statusAndJson)
+      return fetch(`https://api.streamable.com/oembed.json?url=${url}`)
+        .then($.statusAndJson)
         .then((data) => {
           return {
             type: 'video',

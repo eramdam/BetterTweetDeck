@@ -4,10 +4,11 @@ export default function ($) {
     setting: 'tumblr',
     re: /tumblr.com\/.+.(?:gif|png|jpg)$/,
     default: true,
-    callback: url => Promise.resolve({
-      type: 'image',
-      thumbnail_url: $.getSafeURL(url),
-      url: $.getSafeURL(url),
-    }),
+    callback: url =>
+      Promise.resolve({
+        type: 'image',
+        thumbnail_url: $.getSafeURL(url),
+        url: $.getSafeURL(url),
+      }),
   };
 }

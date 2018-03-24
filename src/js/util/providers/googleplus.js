@@ -34,10 +34,14 @@ export default function ($) {
         .then((json) => {
           let thumbnailUrl;
           if (type === 'photo') {
-            const media = json.feed['media:group']['media:content'][0] || json.feed['media:group']['media:content'];
+            const media =
+              json.feed['media:group']['media:content'][0] ||
+              json.feed['media:group']['media:content'];
             thumbnailUrl = media._attributes.url;
           } else {
-            thumbnailUrl = json.feed.entry[0]['media:group']['media:content']._attributes.url;
+            thumbnailUrl =
+              json.feed.entry[0]['media:group']['media:content']._attributes
+                .url;
           }
           const imgUrl = thumbnailUrl.replace(/[^/]+$/, 's1152/$&');
           return {

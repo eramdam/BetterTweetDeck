@@ -34,7 +34,8 @@ html.btd-on {
  * No border betweet tweets + lighter divider between translation and original tweet
  */
 
-  .btd__minimal_mode :matches(.stream-item, .tweet-detail-reply .stream-item, .compose-header) {
+  .btd__minimal_mode
+  :matches(.stream-item, .tweet-detail-reply .stream-item, .compose-header) {
     border-bottom: 0;
   }
 
@@ -42,7 +43,11 @@ html.btd-on {
     background: rgba(0, 0, 0, 0.13);
   }
 
-  .btd__minimal_mode .js-stream-item .activity-header + .txt-mute .tweet-context {
+  .btd__minimal_mode
+  .js-stream-item
+  .activity-header
+  + .txt-mute
+  .tweet-context {
     display: none;
   }
 

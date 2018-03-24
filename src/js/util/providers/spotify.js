@@ -5,7 +5,8 @@ export default function ($) {
     re: /(?:open.spotify.com|play.spotify.com|spoti.fi)/,
     default: true,
     callback: (url) => {
-      return fetch(`https://embed.spotify.com/oembed?url=${url}`).then($.statusAndJson)
+      return fetch(`https://embed.spotify.com/oembed?url=${url}`)
+        .then($.statusAndJson)
         .then((data) => {
           return {
             type: 'audio',

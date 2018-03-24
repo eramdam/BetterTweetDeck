@@ -76,14 +76,17 @@ module.exports = (env) => {
     });
   }
 
-  const staticFilesPath = staticFiles.map(i => (Object.assign(i, {
-    context: './src/',
-  })));
-
+  const staticFilesPath = staticFiles.map(i =>
+    Object.assign(i, {
+      context: './src/',
+    }));
 
   const getManifest = () => require(`./tools/manifests/${env.browser}.js`);
 
-  fs.writeFileSync(path.resolve(__dirname, 'config/config.json'), JSON.stringify(config));
+  fs.writeFileSync(
+    path.resolve(__dirname, 'config/config.json'),
+    JSON.stringify(config),
+  );
 
   return {
     entry: {
@@ -128,13 +131,17 @@ module.exports = (env) => {
       new CleanWebpackPlugin([DIST_FOLDER]),
       new CopyWebpackPlugin(staticFilesPath),
       new GenerateJsonPlugin('manifest.json', getManifest(), null, 2),
-      IS_PRODUCTION && env.browser !== 'firefox' ? new UglifyJSPlugin({
-        parallel: true,
-      }) : () => null,
-      IS_PRODUCTION ? new ZipPlugin({
-        path: path.resolve(__dirname, 'artifacts'),
-        filename: `dist-${env.browser}`,
-      }) : () => null,
+      IS_PRODUCTION && env.browser !== 'firefox'
+        ? new UglifyJSPlugin({
+          parallel: true,
+        })
+        : () => null,
+      IS_PRODUCTION
+        ? new ZipPlugin({
+          path: path.resolve(__dirname, 'artifacts'),
+          filename: `dist-${env.browser}`,
+        })
+        : () => null,
     ],
   };
 };

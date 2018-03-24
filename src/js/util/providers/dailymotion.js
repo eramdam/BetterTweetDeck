@@ -11,7 +11,8 @@ export default function ($) {
       const ID = parseURL(url).segments[1];
 
       return fetch(`${$.getEnpointFor('dailymotion')}/${ID}?${qs.stringify({
-        fields: 'thumbnail_240_url,thumbnail_360_url,thumbnail_180_url,embed_html',
+        fields:
+            'thumbnail_240_url,thumbnail_360_url,thumbnail_180_url,embed_html',
       })}`)
         .then($.statusAndJson)
         .then((data) => {

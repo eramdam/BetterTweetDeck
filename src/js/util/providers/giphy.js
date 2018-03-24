@@ -5,7 +5,8 @@ export default function ($) {
     re: /(?:giphy.com\/gifs\/|gph.is\/)/,
     default: true,
     callback: (url) => {
-      return fetch(`${$.getEnpointFor('giphy')}${url}`).then($.statusAndJson)
+      return fetch(`${$.getEnpointFor('giphy')}${url}`)
+        .then($.statusAndJson)
         .then((data) => {
           const gifUrl = $.getSafeURL(data.image || data.url);
 

@@ -18,13 +18,25 @@ export default function ($) {
           let imgUrl;
           let thumbnailUrl;
           if (type === 'photo') {
-            imgUrl = secureDomify.getAttributeFromNode('.photo img', doc, 'src');
-            thumbnailUrl = secureDomify.getAttributeFromNode('#photoPage', doc, 'data-thumbnail-url');
+            imgUrl = secureDomify.getAttributeFromNode(
+              '.photo img',
+              doc,
+              'src',
+            );
+            thumbnailUrl = secureDomify.getAttributeFromNode(
+              '#photoPage',
+              doc,
+              'data-thumbnail-url',
+            );
           } else if (type === 'instants') {
             imgUrl = secureDomify.getAttributeFromNode('img.photo', doc, 'src');
             thumbnailUrl = imgUrl;
           } else if (type === 'collections') {
-            imgUrl = secureDomify.getAttributeFromNode('.photo-collection', doc, 'data-cover-photo-url');
+            imgUrl = secureDomify.getAttributeFromNode(
+              '.photo-collection',
+              doc,
+              'data-cover-photo-url',
+            );
             thumbnailUrl = imgUrl;
           } else {
             return undefined;

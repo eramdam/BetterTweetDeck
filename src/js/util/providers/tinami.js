@@ -17,16 +17,22 @@ export default function ($) {
         .then(xml => convert.xml2js(xml, { compact: true }))
         .then((json) => {
           // Quit if there is non-public image or no image
-          if (json.rsp._attributes.stat !== 'ok' ||
-              json.rsp.content._attributes.type === 'novel') {
+          if (
+            json.rsp._attributes.stat !== 'ok' ||
+            json.rsp.content._attributes.type === 'novel'
+          ) {
             return undefined;
           }
 
-          const image = json.rsp.content.image ||
-                json.rsp.content.images.image[0] ||
-                json.rsp.content.images.image;
+          const image =
+            json.rsp.content.image ||
+            json.rsp.content.images.image[0] ||
+            json.rsp.content.images.image;
 
-          const imgUrl = $.getSafeURL(image.url._text.replace('http://api.tinami.com/', 'https://www.tinami.com/api/'));
+          const imgUrl = $.getSafeURL(image.url._text.replace(
+            'http://api.tinami.com/',
+            'https://www.tinami.com/api/',
+          ));
 
           return Promise.resolve({
             type: 'image',

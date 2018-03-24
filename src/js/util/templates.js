@@ -87,7 +87,11 @@ export const previewTemplate = ({
 }) => {
   const safeURL = mediaPreviewSrc;
 
-  if (type === 'image' && !mediaPreviewSrc.includes('imgur.com') && mediaPreviewSrc) {
+  if (
+    type === 'image' &&
+    !mediaPreviewSrc.includes('imgur.com') &&
+    mediaPreviewSrc
+  ) {
     const parsed = new URL(mediaPreviewSrc);
     mediaPreviewSrc = parsed.searchParams.get('url');
 
@@ -96,17 +100,20 @@ export const previewTemplate = ({
     }
   }
 
-  return Mustache.render(templates.preview, Object.assign(defaultData.preview, {
-    url: sourceLink,
-    mediaPreviewSrc,
-    isVideo: type !== 'image',
-    isMediaPreviewLarge: size === 'large',
-    isMediaPreviewCompact: size === 'medium',
-    isMediaPreviewSmall: size === 'small',
-    thumbSizeClass: `media-size-${size || 'medium'}`,
-    needsProvider: !['default', 'universal'].includes(provider),
-    provider: (provider || '').toLowerCase(),
-  }));
+  return Mustache.render(
+    templates.preview,
+    Object.assign(defaultData.preview, {
+      url: sourceLink,
+      mediaPreviewSrc,
+      isVideo: type !== 'image',
+      isMediaPreviewLarge: size === 'large',
+      isMediaPreviewCompact: size === 'medium',
+      isMediaPreviewSmall: size === 'small',
+      thumbSizeClass: `media-size-${size || 'medium'}`,
+      needsProvider: !['default', 'universal'].includes(provider),
+      provider: (provider || '').toLowerCase(),
+    }),
+  );
 };
 
 export const modalTemplate = ({
@@ -122,31 +129,38 @@ export const modalTemplate = ({
     imageUrl = parsed.searchParams.get('url');
   }
 
-  return Mustache.render(type === 'image' ? templates.imageModal : templates.videoModal, Object.assign(defaultData.modal, {
-    imageUrl,
-    videoEmbed: dompurify.sanitize(videoEmbed, purifyConfig),
-    originalUrl,
-    isVideo: type !== 'image',
-    provider: (provider || '').toLowerCase(),
-    hasGIFDownload,
-  }));
+  return Mustache.render(
+    type === 'image' ? templates.imageModal : templates.videoModal,
+    Object.assign(defaultData.modal, {
+      imageUrl,
+      videoEmbed: dompurify.sanitize(videoEmbed, purifyConfig),
+      originalUrl,
+      isVideo: type !== 'image',
+      provider: (provider || '').toLowerCase(),
+      hasGIFDownload,
+    }),
+  );
 };
 
 export const giphyBlock = ({ preview, url, source }) => {
-  return Mustache.render(`
+  return Mustache.render(
+    `
   <div class="btd-giphy-block-wrapper">
     <img src="{{{previewUrl}}}" class="btd-giphy-block" height="{{height}}" width="{{width}}" data-btd-url="{{{url}}}" data-btd-source="{{source}}" />
   </div>
-`, {
-    previewUrl: preview.url,
-    width: preview.width,
-    height: preview.height,
-    url,
-    source,
-  });
+`,
+    {
+      previewUrl: preview.url,
+      width: preview.width,
+      height: preview.height,
+      url,
+      source,
+    },
+  );
 };
 
-export const giphySearch = () => Mustache.render(`
+export const giphySearch = () =>
+  Mustache.render(`
     <header class="js-compose-header compose-header">
       <div class="position-rel compose-title inline-block">
         <h1 class="js-compose-title compose-title-text txt-ellipsis inline-block">Add a GIF</h1>

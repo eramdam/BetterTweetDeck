@@ -3,18 +3,27 @@ html.btd-on {
 General style setup
  */
 
-  .btd__show_verified .js-stream-item.btd-is-from-verified:not(.btd-is-from-verified-mini) > .js-stream-item-content > .js-tweet > .tweet-header .item-img.tweet-img,
-  .btd__show_verified .js-stream-item.btd-is-from-verified-mini > .js-stream-item-content > .activity-header > .nbfc {
+  .btd__show_verified
+  .js-stream-item.btd-is-from-verified:not(.btd-is-from-verified-mini)
+  > .js-stream-item-content
+  > .js-tweet
+  > .tweet-header
+  .item-img.tweet-img,
+  .btd__show_verified
+  .js-stream-item.btd-is-from-verified-mini
+  > .js-stream-item-content
+  > .activity-header
+  > .nbfc {
     position: absolute;
 
     &::before {
-      content: '';
+      content: "";
       line-height: 1;
       position: absolute;
       width: 1em;
       height: 1em;
       background-size: 100% 100%;
-      background-image: url('../../img/verified-icon.svg');
+      background-image: url("../../img/verified-icon.svg");
       font-size: 18px;
       z-index: 9;
     }
@@ -22,7 +31,12 @@ General style setup
 
   /* General style */
 
-  .btd__show_verified .js-stream-item.btd-is-from-verified:not(.btd-is-from-verified-mini) > .js-stream-item-content > .js-tweet > .tweet-header .item-img.tweet-img {
+  .btd__show_verified
+  .js-stream-item.btd-is-from-verified:not(.btd-is-from-verified-mini)
+  > .js-stream-item-content
+  > .js-tweet
+  > .tweet-header
+  .item-img.tweet-img {
     /* Allows */
     position: absolute;
 
@@ -40,7 +54,11 @@ General style setup
  small avatar on activities ("Bob liked", "Alice retweeted", "Damien added you to a list", etc)
  */
 
-  .btd__show_verified .js-stream-item.btd-is-from-verified-mini > .js-stream-item-content > .activity-header > .nbfc {
+  .btd__show_verified
+  .js-stream-item.btd-is-from-verified-mini
+  > .js-stream-item-content
+  > .activity-header
+  > .nbfc {
     position: relative;
 
     &::before {
@@ -53,7 +71,11 @@ General style setup
 
   /* Hide the vanilla verified badge in columns */
 
-  .btd__show_verified .stream-item .js-tweet:not(.txt-mute) > header .sprite-verified-mini {
+  .btd__show_verified
+  .stream-item
+  .js-tweet:not(.txt-mute)
+  > header
+  .sprite-verified-mini {
     display: none;
   }
 }

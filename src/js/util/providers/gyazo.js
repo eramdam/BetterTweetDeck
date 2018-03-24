@@ -34,7 +34,11 @@ export default function ($) {
           }
 
           const el = secureDomify.parse(data.target.response);
-          const thumbnail = secureDomify.getAttributeFromNode('[name="twitter:image"]', el, 'content');
+          const thumbnail = secureDomify.getAttributeFromNode(
+            '[name="twitter:image"]',
+            el,
+            'content',
+          );
 
           return {
             type: 'video',

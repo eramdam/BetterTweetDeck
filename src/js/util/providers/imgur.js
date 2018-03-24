@@ -13,7 +13,8 @@ export default function ($) {
       if (url.includes('imgur.com/a/')) {
         const imgurID = parseURL(url).segments[1];
 
-        return fetch(`${$.getEnpointFor('imgur')}album/${imgurID}`, { headers }).then($.statusAndJson)
+        return fetch(`${$.getEnpointFor('imgur')}album/${imgurID}`, { headers })
+          .then($.statusAndJson)
           .then((data) => {
             return {
               type: 'image',
@@ -25,7 +26,10 @@ export default function ($) {
       } else if (url.includes('imgur.com/gallery')) {
         const imgurID = parseURL(url).segments[1];
 
-        return fetch(`${$.getEnpointFor('imgur')}gallery/image/${imgurID}`, { headers }).then($.statusAndJson)
+        return fetch(`${$.getEnpointFor('imgur')}gallery/image/${imgurID}`, {
+          headers,
+        })
+          .then($.statusAndJson)
           .then((data) => {
             let srcUrl;
 
