@@ -24,8 +24,12 @@
     "pack:chrome": "cross-env NODE_ENV=dev node tools/pack.js",
     "pack:firefox": "cross-env NODE_ENV=dev web-ext build -s dist -a artifacts",
     "update_emojis": "node tools/update_emojis.js",
-    "prepush": "npm run lint",
-    "fix": "prettier-eslint --list-different --write '**/*.{js,jsx}'"
+    "precommit": "lint-staged",
+    "fix": "prettier-eslint --list-different --write '**/*.{js,jsx}' && prettier-stylelint --write"
+  },
+  "lint-staged": {
+    "*.css": ["prettier-stylelint --write", "git add"],
+    "*.{js,jsx}": ["prettier-eslint --write", "eslint", "git add"]
   },
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
   "dependencies": {
