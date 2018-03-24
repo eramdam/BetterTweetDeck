@@ -1,4 +1,3 @@
-import gifshot from 'gifshot';
 import { defaultsDeep } from 'lodash';
 
 import * as BHelper from './util/browserHelper';
@@ -71,6 +70,7 @@ const defaultSettings = {
   },
   update_title_on_notifications: true,
   thumbnails: {},
+  custom_css_style: '',
 };
 
 // We want to know if there are any other versions of BTD out there.
@@ -181,12 +181,6 @@ BHelper.settings.getAll((settings) => {
   });
 });
 
-const sendToCurrentTab = (message) => {
-  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    chrome.tabs.sendMessage(tabs[0].id, message);
-  });
-};
-
 // Simple interface to get settings
 Messages.on((message, sender, sendResponse) => {
   switch (message.action) {
@@ -211,14 +205,8 @@ Messages.on((message, sender, sendResponse) => {
       BHelper.settings.get(message.key, val => sendResponse({ val }));
       return true;
 
-    case 'download_gif':
-      message.options.progressCallback = (progress) => {
-        sendToCurrentTab({ action: 'progress_gif', progress });
-      };
-
-      gifshot.createGIF(message.options, (obj) => {
-        sendResponse({ obj });
-      });
+    case 'get_local':
+      BHelper.settings.get(message.key, val => sendResponse({ val }));
       return true;
 
     default:

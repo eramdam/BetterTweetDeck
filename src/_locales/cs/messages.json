@@ -132,7 +132,7 @@
 
   "donate_title":  { "message": "Pomožte mi udržovat Better TweetDeck!" },
   "donate_p3":  { "message": "Děkuji mockrát, že používáte Better TweetDeck a pomáháte mu přežívat!" },
-  "donate_p2":  { "message": "Pokud si to můžete dovolit a cítíte se štědrými, bylo by <strong>úžasné</strong> pokud byste mohli <a href='https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK9SQ6ZDE9UF2&lc=US&item_name=Damien%20Erambert&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'>přispět na PayPalu</a> nebo <a href='https://patreon.com/eramdam'>mne podpořit na Patreonu</a> (Dostanete se k alfa/beta testům dalších verzí!).<br><br>I ten nejmenší příspěvek pomáhá!" },
+  "donate_p2":  { "message": "Pokud si to můžete dovolit a cítíte se štědrými, bylo by <strong>úžasné</strong> pokud byste mohli <a href='https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK9SQ6ZDE9UF2&lc=US&item_name=Damien%20Erambert&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'>přispět na PayPalu</a>.<br><br>I ten nejmenší příspěvek pomáhá!" },
   "donate_p1": { "message": "Better TweetDeck je a vždy bude <strong>bezplatný</strong>, ale jeho vývoj stojí čas a udržování ho při životě stojí peníze!"},
 
   "notification_title":  { "message": "Better TweetDeck Aktualizace" },

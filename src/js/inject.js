@@ -1,15 +1,17 @@
 import config from 'config';
 import FileSaver from 'file-saver';
 import Clipboard from 'clipboard';
+import moduleRaid from 'moduleraid';
 import { unescape, debounce } from 'lodash';
 import Log from './util/logger';
 import * as GIFS from './util/gifs';
 import UsernamesTemplates from './util/username_templates';
-import wc from './util/webcrack';
 import { giphySearch, giphyBlock } from './util/templates';
 import AdvancedMuteEngine from './util/ame';
+import keepHashtags from './util/keepHashtags';
 
 const SETTINGS = $('[data-btd-settings]').data('btd-settings');
+const mR = moduleRaid();
 
 if (SETTINGS.no_tco) {
   const dummyEl = document.createElement('span');
@@ -131,7 +133,6 @@ const getChirpFromElement = (element) => {
 if (config.Client.debug) {
   window.BTD = {};
   window.BTD.debug = {
-    wc,
     getChirpFromElement,
     getChirpFromKey,
     findMustache: content => Object.keys(TD.mustaches).filter(i => TD.mustaches[i].toLowerCase().includes(content.toLowerCase())),
@@ -474,16 +475,49 @@ const checkBTDFollowing = () => {
   }
 };
 
+const currentProgressNotifications = {};
+const TDNotifications = mR.findModule('showNotification') && mR.findModule('showNotification')[0];
+
 window.addEventListener('message', (ev) => {
-  if (ev.origin.indexOf('tweetdeck.') === -1) {
+  const { origin, data } = ev;
+  if (!origin.includes('tweetdeck.') && !origin.includes('better.tw')) {
     return false;
   }
 
-  if (!ev.data.name || !ev.data.name.startsWith('BTDC_') || !postMessagesListeners[ev.data.name]) {
+  if (TDNotifications && TDNotifications.showNotification && TDNotifications.updateNotification) {
+    if (data.message && data.message === 'progress_gif') {
+      if (!currentProgressNotifications[data.name]) {
+        currentProgressNotifications[data.name] = TDNotifications.showNotification({
+          timeoutDelayMs: 2000,
+          message: `Converting to GIF... (${Number(data.progress * 100).toFixed(1)}%)`,
+        });
+      } else if (data.progress > 0.99) {
+        TDNotifications.showNotification({
+          message: 'Finalizing GIF conversion...',
+          timeoutDelayMs: 4000,
+        });
+      } else {
+        TDNotifications.updateNotification({
+          notification: currentProgressNotifications[data.name],
+          message: `Converting to GIF... (${Number(data.progress * 100).toFixed(1)}%)`,
+        });
+      }
+    }
+
+    if (data.message && data.message === 'complete_gif' && currentProgressNotifications[data.name]) {
+      TDNotifications.showNotification({
+        message: 'Conversion finished! Download starting...',
+      });
+
+      delete currentProgressNotifications[data.name];
+    }
+  }
+
+  if (!data.name || !data.name.startsWith('BTDC_') || !postMessagesListeners[data.name]) {
     return false;
   }
 
-  return postMessagesListeners[ev.data.name](ev, ev.data.detail);
+  return postMessagesListeners[data.name](ev, data.detail);
 });
 
 const switchThemeClass = () => {
@@ -715,16 +749,20 @@ $(document).one('dataColumnsLoaded', () => {
   const GIFText = fool ? 'JIF' : 'GIF';
 
   $('.js-character-count').parent().append(`
-    <span class="btd-gif-button -visible txt-twitter-dark-gray">${GIFText}</span>
-    <span class="btd-gif-indicator txt-line-height--20 txt-size--12 txt-twitter-dark-gray"></span>
+    <span class="btd-gif-button -visible color-twitter-dark-gray">${GIFText}</span>
+    <span class="btd-gif-indicator txt-line-height--20 txt-size--12 color-twitter-dark-gray"></span>
   `);
 
   $('.js-media-added').after(`
     <span
-      class="txt-line-height--12 txt-size--12 txt-twitter-dark-gray btd-gif-source-indicator"
+      class="txt-line-height--12 txt-size--12 color-twitter-dark-gray btd-gif-source-indicator"
     ></span>
   `);
   setTimeout(checkBTDFollowing, 2000);
+
+  if (SETTINGS.keep_hashtags) {
+    keepHashtags();
+  }
 });
 
 $(document).on('click', '.btd-gif-button', (e) => {

@@ -84,11 +84,8 @@ html.btd-on {
   }
 
   .emoji-popover .emoji-search {
-    padding: 10px;
-  }
-
-  .emoji-popover .emoji-search {
     color: #28292b;
+    padding: 10px;
   }
 
   .emoji-popover .category-chooser > button {
