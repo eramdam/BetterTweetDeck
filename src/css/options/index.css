@@ -81,9 +81,7 @@ body.-browser-firefox [data-hidden-firefox] {
 
 .settings-section {
   margin: 2em 1em;
-}
 
-.settings-section {
   h5 {
     margin: 0;
   }

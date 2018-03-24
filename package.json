@@ -28,8 +28,15 @@
     "fix": "prettier-eslint --list-different --write '**/*.{js,jsx}' && prettier-stylelint --write -q"
   },
   "lint-staged": {
-    "*.css": ["prettier-stylelint --write", "git add"],
-    "*.{js,jsx}": ["prettier-eslint --write", "eslint", "git add"]
+    "*.css": [
+      "prettier-stylelint --write",
+      "git add"
+    ],
+    "*.{js,jsx}": [
+      "prettier-eslint --write",
+      "eslint",
+      "git add"
+    ]
   },
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
   "dependencies": {
