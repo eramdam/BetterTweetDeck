@@ -81,11 +81,11 @@ Better TweetDeck **is not** made to:
 
 ### Setup
 
-You will need [NodeJS](https://nodejs.org/en/) (**7.x at most**). Fire up your favorite Terminal emulator and do the followings: 
+You will need [NodeJS](https://nodejs.org/en/) (**The more recent the better**). Fire up your favorite Terminal emulator and do the followings: 
 
 - **[Fork](https://github.com/eramdam/BetterTweetDeck/fork)** this repository
 - Clone the project
-- Run `npm install -g gulp && npm install`
+- Run `npm install`
 
 ### Getting started
 
@@ -100,17 +100,16 @@ Some scripts have `<browser>` in their name or arguments. As of now, two browser
 
 Here is a run-down of all the scripts:
 
-- `start` is a shortcut for `start -- chrome`
 - `start -- <browser>`: builds up the project once, then watches for modifications while using the **`dev`** config and the defined target (see above)
-- `build` is a shortcut for `build:chrome`
 - `build -- <browser>` builds the extension in **`dev`** mode against the defined target
 - `build:prod -- <browser>`: builds the extension in **`prod`** mode against the defined target
 - `pack:<browser>` packages the extension for the given target:
 	- `chrome` will make a `.crx` and a `.nex` file with a private key
 	- `firefox` will use `web-ext` to make a zip file that has to be submitted to Mozilla Add-ons
 - `release` builds and packages the extension for **all** the targets
-- `release -- <browser>` builds and packages the extension for the given target
 - `test` Runs the link task from the Gulpfile and tries to run `release`. This is run on [Travis](https://travis-ci.org/eramdam/BetterTweetDeck) at every push and on every pull requests. If a given pull request doesn't pass this task, it won't be accepted.
+- `fix` Will run [prettier-eslint](https://github.com/prettier/prettier-eslint) and [prettier-stylelint](https://github.com/hugomrdias/prettier-stylelint) over the whole repository. **You should not need to run this as the precommit hook will do that for you**
+- `precommit` Runs [lint-staged](https://github.com/okonet/lint-staged) over the files to be committed. The `lint-staged` configuration currentlys runs `prettyer-stylelint` on CSS files and `prettier-eslint + eslint` over JS files.
 
 #### Actually building the project
 
