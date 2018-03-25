@@ -1,15 +1,13 @@
-<center>
-  ![](meta/bettertw-logo.png)
+<p align="center">
+  ![](meta/better.tw_.png)
+</p>
 
-  <br>
-  [![Travis][travis-ci-badge]][travis-ci]
-  [![Chrome Web Store][chrome-badge]][chrome] [![Chrome Web Store][chrome-badge-users]][chrome]
-  [![Mozilla Add-ons][firefox-badge]][firefox] [![Mozilla Add-ons][firefox-badge-users]][firefox]
-  [![Follow on Twitter][twitter-badge]][twitter] [![][paypal-badge]][paypal]
-</center>
+<h1 align="center">Better TweetDeck</h1>
+<p align="center">
+[![Travis][travis-ci-badge]][travis-ci] [![Chrome Web Store][chrome-badge]][chrome] [![Chrome Web Store][chrome-badge-users]][chrome] [![Mozilla Add-ons][firefox-badge]][firefox] [![Mozilla Add-ons][firefox-badge-users]][firefox] [![Follow on Twitter][twitter-badge]][twitter] [![][paypal-badge]][paypal]
+</p>
 
-
-# Better TweetDeck
+# Intro
 
 Adds some nice options on [TweetDeck](http://tweetdeck.twitter.com) to provide a better experience on the webapp when used on Chrome, Opera and Firefox!
 
