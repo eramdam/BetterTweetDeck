@@ -27,7 +27,8 @@
 
 export default function () {
   // Save references of original functions
-  TD.vo.Filter.prototype._getDisplayType = TD.vo.Filter.prototype.getDisplayType;
+  TD.vo.Filter.prototype._getDisplayType =
+    TD.vo.Filter.prototype.getDisplayType;
   TD.vo.Filter.prototype._pass = TD.vo.Filter.prototype.pass;
 
   // If we're running in debug mode, this already exists
@@ -61,7 +62,9 @@ export default function () {
       descriptor: 'retweets from',
       placeholder: 'e.g. tweetdeck',
       function(t, e) {
-        return !(e.isRetweetedStatus() && (t.value === e.user.screenName.toLowerCase()));
+        return !(
+          e.isRetweetedStatus() && t.value === e.user.screenName.toLowerCase()
+        );
       },
     },
     BTD_mute_user_keyword: {
@@ -77,7 +80,10 @@ export default function () {
         const user = filter[0];
         const keyword = filter[1];
 
-        return !(e.text.toLowerCase().includes(keyword) && (user === e.user.screenName.toLowerCase()));
+        return !(
+          e.text.toLowerCase().includes(keyword) &&
+          user === e.user.screenName.toLowerCase()
+        );
       },
     },
     BTD_regex: {
@@ -103,7 +109,9 @@ export default function () {
       function(t, e) {
         if (!e.user) return true;
 
-        return !(e.isQuoteStatus && (t.value === e.user.screenName.toLowerCase()));
+        return !(
+          e.isQuoteStatus && t.value === e.user.screenName.toLowerCase()
+        );
       },
     },
     BTD_user_biographies: {
@@ -116,7 +124,7 @@ export default function () {
       function(t, e) {
         if (!e.user) return true;
 
-        return !(e.user.description.toLowerCase().includes(t.value));
+        return !e.user.description.toLowerCase().includes(t.value);
       },
     },
     BTD_default_avatars: {
@@ -129,7 +137,7 @@ export default function () {
       function(t, e) {
         if (!e.user) return true;
 
-        return !(e.user.profileImageURL.includes('default'));
+        return !e.user.profileImageURL.includes('default');
       },
     },
     BTD_follower_count: {
@@ -174,7 +182,9 @@ export default function () {
     filters.forEach((filter) => {
       const fil = BTD.Filters[filter];
       if (fil.display && fil.display.global) {
-        filterString += `<option value="${filter}">{{_i}}${fil.name}{{/i}}</option>`;
+        filterString += `<option value="${filter}">{{_i}}${
+          fil.name
+        }{{/i}}</option>`;
       }
     });
 
@@ -189,8 +199,14 @@ export default function () {
     filters.forEach((filter) => {
       const fil = BTD.Filters[filter];
       if (fil.display && fil.display.actions) {
-        const templateString = (fil.options && fil.options.templateString) ? fil.options.templateString : '{{screenName}}';
-        const name = (fil.options && fil.options.nameInDropdown ? fil.options.nameInDropdown : `Mute ${fil.name}`);
+        const templateString =
+          fil.options && fil.options.templateString
+            ? fil.options.templateString
+            : '{{screenName}}';
+        const name =
+          fil.options && fil.options.nameInDropdown
+            ? fil.options.nameInDropdown
+            : `Mute ${fil.name}`;
 
         filterString += `<li class="is-selectable">
             <a href="#" data-btd-filter="${filter}" data-btd-value="${templateString}">{{_i}}${name}{{/i}}</a>
@@ -208,7 +224,10 @@ export default function () {
     const filter = e.target.options[options.selectedIndex].value;
 
     if (filter.startsWith('BTD')) {
-      $('.js-filter-input').attr('placeholder', BTD.Filters[filter].placeholder);
+      $('.js-filter-input').attr(
+        'placeholder',
+        BTD.Filters[filter].placeholder,
+      );
     }
   });
 
@@ -221,25 +240,31 @@ export default function () {
   });
 
   // Add our custom filters to the filter dropdown
-  TD.mustaches['settings/global_setting_filter.mustache'] = TD.mustaches['settings/global_setting_filter.mustache']
-    .replace(
-      '</select>',
-      `${BTD.filterDropdown()}</select>`,
-    );
+  TD.mustaches['settings/global_setting_filter.mustache'] = TD.mustaches[
+    'settings/global_setting_filter.mustache'
+  ].replace('</select>', `${BTD.filterDropdown()}</select>`);
 
   // Add our custom filters to the actions dropdown
-  TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache']
-    .replace(
-      '{{/isMuted}}  ',
-      `{{/isMuted}}  {{#user}} {{^isMe}} ${BTD.userDropdown()} {{/isMe}} {{/user}}`,
-    );
+  TD.mustaches['menus/actions.mustache'] = TD.mustaches[
+    'menus/actions.mustache'
+  ].replace(
+    '{{/isMuted}}  ',
+    `{{/isMuted}}  {{#user}} {{^isMe}} ${BTD.userDropdown()} {{/isMe}} {{/user}}`,
+  );
 
   const filterKey = 'BTD_specific_tweet';
   const filter = BTD.Filters[filterKey];
 
-  TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].replace('{{/isOwnChirp}}', `{{/isOwnChirp}}
+  TD.mustaches['menus/actions.mustache'] = TD.mustaches[
+    'menus/actions.mustache'
+  ].replace(
+    '{{/isOwnChirp}}',
+    `{{/isOwnChirp}}
           <li class="is-selectable">
-            <a href="#" action="_" data-btd-filter="${filterKey}" data-btd-value="${filter.options.templateString}">${filter.options.nameInDropdown}</a>
+            <a href="#" action="_" data-btd-filter="${filterKey}" data-btd-value="${
+  filter.options.templateString
+}">${filter.options.nameInDropdown}</a>
           </li>
-        `);
+        `,
+  );
 }

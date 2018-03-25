@@ -29,6 +29,8 @@
   font-size: 18px !important;
 }
 
-.btd__small_icns_compose .js-add-emojis.padding-v--9.js-add-emojis .btd-emoji-icon {
+.btd__small_icns_compose
+.js-add-emojis.padding-v--9.js-add-emojis
+.btd-emoji-icon {
   transform: translateY(-2px);
 }

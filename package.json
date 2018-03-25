@@ -24,7 +24,19 @@
     "pack:chrome": "cross-env NODE_ENV=dev node tools/pack.js",
     "pack:firefox": "cross-env NODE_ENV=dev web-ext build -s dist -a artifacts",
     "update_emojis": "node tools/update_emojis.js",
-    "prepush": "npm run lint"
+    "precommit": "lint-staged",
+    "fix": "prettier-eslint --list-different --write '**/*.{js,jsx}' && prettier-stylelint --write -q"
+  },
+  "lint-staged": {
+    "*.css": [
+      "prettier-stylelint --write",
+      "git add"
+    ],
+    "*.{js,jsx}": [
+      "prettier-eslint --write",
+      "eslint",
+      "git add"
+    ]
   },
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
   "dependencies": {
@@ -52,6 +64,7 @@
     "file-saver": "1.3.3",
     "generate-json-webpack-plugin": "^0.2.2",
     "jquery": "^3.3.1",
+    "lint-staged": "^7.0.0",
     "lodash": "^4.17.5",
     "lodash-webpack-plugin": "^0.11.4",
     "marked": "^0.3.12",
@@ -64,6 +77,9 @@
     "postcss-loader": "^2.1.0",
     "postcss-nested": "^3.0.0",
     "postcss-url": "^7.3.0",
+    "prettier": "^1.11.1",
+    "prettier-eslint-cli": "^4.7.1",
+    "prettier-stylelint": "^0.4.2",
     "prismjs": "^1.11.0",
     "promise-each": "2.2.0",
     "query-string": "^5.1.0",
@@ -77,13 +93,14 @@
     "xml-js": "^1.6.2",
     "zip-webpack-plugin": "^2.0.0"
   },
+  "prettier": {},
   "devDependencies": {
     "eslint": "^4.17.0",
     "eslint-config-airbnb-base": "^12.0.0",
     "eslint-plugin-import": "^2.7.0",
     "husky": "^0.14.3",
-    "stylelint": "^8.4.0",
-    "stylelint-config-standard": "^18.0.0",
+    "stylelint": "^9.1.3",
+    "stylelint-config-standard": "^18.2.0",
     "ws": "^4.0.0"
   }
 }

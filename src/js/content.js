@@ -27,9 +27,7 @@ const COLUMNS_MEDIA_SIZES = new Map();
 
 sendMessage({ action: 'get_settings' }, (response) => {
   SETTINGS = response.settings;
-  const scripts = [
-    BHelper.getExtensionUrl('js/inject.js'),
-  ];
+  const scripts = [BHelper.getExtensionUrl('js/inject.js')];
 
   if (!BHelper.isFirefox) {
     scripts.push(BHelper.getExtensionUrl('embeds.js'));
@@ -46,7 +44,8 @@ sendMessage({ action: 'get_settings' }, (response) => {
     document.head.appendChild(el);
   });
 
-  const getFontFile = format => BHelper.getExtensionUrl(`fonts/tweetdeck-regular-webfont-old.${format}`);
+  const getFontFile = format =>
+    BHelper.getExtensionUrl(`fonts/tweetdeck-regular-webfont-old.${format}`);
 
   const style = document.createElement('style');
   style.type = 'text/css';
@@ -63,20 +62,22 @@ sendMessage({ action: 'get_settings' }, (response) => {
   document.head.appendChild(style);
 });
 
-fetch('https://raw.githubusercontent.com/eramdam/BetterTweetDeck/master/meta/hotfixes.css').then((res) => {
-  if (res.status >= 200 && res.status < 300) {
-    return res.text();
-  }
+fetch('https://raw.githubusercontent.com/eramdam/BetterTweetDeck/master/meta/hotfixes.css')
+  .then((res) => {
+    if (res.status >= 200 && res.status < 300) {
+      return res.text();
+    }
 
-  return Promise.reject(new Error(res.statusText));
-}).then((text) => {
-  const style = document.createElement('style');
-  style.type = 'text/css';
-  style.textContent = text;
+    return Promise.reject(new Error(res.statusText));
+  })
+  .then((text) => {
+    const style = document.createElement('style');
+    style.type = 'text/css';
+    style.textContent = text;
 
-  Log('apply CSS hotfixes');
-  document.head.appendChild(style);
-});
+    Log('apply CSS hotfixes');
+    document.head.appendChild(style);
+  });
 
 sendMessage({ action: 'get_local', key: 'custom_css_style' }, ({ val }) => {
   const styleTag = document.createElement('style');
@@ -106,7 +107,10 @@ const dataURItoBlob = (dataURI) => {
   const byteString = atob(dataURI.split(',')[1]);
 
   // separate out the mime component
-  const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+  const mimeString = dataURI
+    .split(',')[0]
+    .split(':')[1]
+    .split(';')[0];
 
   // write the bytes of the string to an ArrayBuffer
   const ab = new ArrayBuffer(byteString.length);
@@ -130,11 +134,15 @@ function markGifDlComplete(element, name) {
     element.innerText = 'Download as .GIF';
   }
 
-  if (document.querySelectorAll(`iframe[btd-gif-iframe][btd-gif-name="${name}"]`).length > 0) {
-    document.querySelector(`iframe[btd-gif-iframe][btd-gif-name="${name}"]`).remove();
+  if (
+    document.querySelectorAll(`iframe[btd-gif-iframe][btd-gif-name="${name}"]`)
+      .length > 0
+  ) {
+    document
+      .querySelector(`iframe[btd-gif-iframe][btd-gif-name="${name}"]`)
+      .remove();
   }
 }
-
 
 /**
  * Since this function wil be called every ~3sec we have to check if we actually
@@ -146,7 +154,6 @@ function refreshTimestamps() {
   if (!timestamps) {
     return;
   }
-
 
   timestamps.forEach((jsTimstp) => {
     const d = jsTimstp.getAttribute('data-time');
@@ -265,7 +272,10 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
 
   const anchor = anchors[0];
 
-  if (anchor.getAttribute('data-url-scanned') === 'true' || $('.js-media', node)) {
+  if (
+    anchor.getAttribute('data-url-scanned') === 'true' ||
+    $('.js-media', node)
+  ) {
     return Promise.resolve('Media preview already added');
   }
 
@@ -310,10 +320,15 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
     });
 
     if (mediaSize === 'large') {
-      const insertNode = $('.js-tweet.tweet-detail', node) ? $('.js-tweet-text', node) : $('.js-tweet.tweet', node);
+      const insertNode = $('.js-tweet.tweet-detail', node)
+        ? $('.js-tweet-text', node)
+        : $('.js-tweet.tweet', node);
       insertNode[0].insertAdjacentElement('afterend', previewNode);
     } else {
-      $('.tweet-body p, .tweet-text', node)[0].insertAdjacentElement('afterend', previewNode);
+      $('.tweet-body p, .tweet-text', node)[0].insertAdjacentElement(
+        'afterend',
+        previewNode,
+      );
     }
 
     $('.js-media-image-link', node)[0].addEventListener('click', (e) => {
@@ -333,7 +348,11 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
 function thumbnailsFromURLs(urls, node, mediaSize) {
   return Promise.resolve(urls).then(PromiseEach((url) => {
     // If the url is in fact an entity object from TweetDeck OR is not supported then we don't process it
-    if (url.type || url.sizes || !Thumbnails.validateUrl(url.expanded_url).matches) {
+    if (
+      url.type ||
+        url.sizes ||
+        !Thumbnails.validateUrl(url.expanded_url).matches
+    ) {
       return false;
     }
 
@@ -359,7 +378,10 @@ function addStickerToMessage(stickerObject, node) {
     link[0].classList.add('btd-isvishidden');
   }
 
-  $('.tweet-body p, .tweet-text', node)[0].insertAdjacentElement('afterend', imgElement);
+  $('.tweet-body p, .tweet-text', node)[0].insertAdjacentElement(
+    'afterend',
+    imgElement,
+  );
 }
 
 /**
@@ -456,7 +478,9 @@ function tweetHandler(tweet, columnKey, parent) {
           break;
 
         case 'tweet':
-          userToVerify = tweet.retweetedStatus ? tweet.retweetedStatus.user : tweet.user;
+          userToVerify = tweet.retweetedStatus
+            ? tweet.retweetedStatus.user
+            : tweet.user;
           break;
 
         default:
@@ -472,7 +496,9 @@ function tweetHandler(tweet, columnKey, parent) {
       }
     }
 
-    const profilePicture = $('.tweet-avatar[src$=".gif"]', node) && $('.tweet-avatar[src$=".gif"]', node)[0];
+    const profilePicture =
+      $('.tweet-avatar[src$=".gif"]', node) &&
+      $('.tweet-avatar[src$=".gif"]', node)[0];
 
     if (profilePicture && SETTINGS.no_gif_pp) {
       profilePicture.src = Thumbnails.getSafeURL(profilePicture.src);
@@ -486,11 +512,20 @@ function tweetHandler(tweet, columnKey, parent) {
       chirpURLs = [...tweet.entities.urls, ...tweet.entities.media];
     } else if (tweet.targetTweet && tweet.targetTweet.entities) {
       // If it got targetTweet it's an activity on a tweet
-      chirpURLs = [...tweet.targetTweet.entities.urls, ...tweet.targetTweet.entities.media];
+      chirpURLs = [
+        ...tweet.targetTweet.entities.urls,
+        ...tweet.targetTweet.entities.media,
+      ];
     } else if (tweet.retweet && tweet.retweet.entities) {
-      chirpURLs = [...tweet.retweet.entities.urls, ...tweet.retweet.entities.media];
+      chirpURLs = [
+        ...tweet.retweet.entities.urls,
+        ...tweet.retweet.entities.media,
+      ];
     } else if (tweet.retweetedStatus && tweet.retweetedStatus.entities) {
-      chirpURLs = [...tweet.retweetedStatus.entities.urls, ...tweet.retweetedStatus.entities.media];
+      chirpURLs = [
+        ...tweet.retweetedStatus.entities.urls,
+        ...tweet.retweetedStatus.entities.media,
+      ];
     }
 
     setTimeout(() => {
@@ -499,12 +534,19 @@ function tweetHandler(tweet, columnKey, parent) {
       }
     }, 0);
 
-    const mediaURLs = chirpURLs.filter(url => url.type || url.display_url.startsWith('youtube.com/watch?v=') || url.display_url.startsWith('vine.co/v/'));
+    const mediaURLs = chirpURLs.filter(url =>
+      url.type ||
+        url.display_url.startsWith('youtube.com/watch?v=') ||
+        url.display_url.startsWith('vine.co/v/'));
 
     if (chirpURLs.length > 0) {
       const urlForThumbnail = chirpURLs.filter(url => !url.id).pop();
 
-      if (mediaURLs.length > 0 && SETTINGS.css.hide_url_thumb && mediaSize !== 'off') {
+      if (
+        mediaURLs.length > 0 &&
+        SETTINGS.css.hide_url_thumb &&
+        mediaSize !== 'off'
+      ) {
         hideURLVisually(mediaURLs.pop(), node);
       }
 
@@ -528,15 +570,25 @@ function setMaxDimensionsOnElement(el) {
   const rect = $('#open-modal [btd-custom-modal] .js-embeditem')[0].getBoundingClientRect();
   const src = el.src;
 
-  if (src.includes('gfycat.') || src.includes('imgur.') || src.includes('bandcamp.')) {
+  if (
+    src.includes('gfycat.') ||
+    src.includes('imgur.') ||
+    src.includes('bandcamp.')
+  ) {
     return;
   }
 
-  el.setAttribute('style', `max-width: ${rect.width}px; max-height: ${rect.height}px`);
+  el.setAttribute(
+    'style',
+    `max-width: ${rect.width}px; max-height: ${rect.height}px`,
+  );
 }
 
 function setMaxDimensionsOnModalImg() {
-  if ($('#open-modal [btd-custom-modal]') && $('#open-modal [btd-custom-modal]').length) {
+  if (
+    $('#open-modal [btd-custom-modal]') &&
+    $('#open-modal [btd-custom-modal]').length
+  ) {
     const loadableEls = $('#open-modal [btd-custom-modal] .js-embeditem [data-btdsetmax], #open-modal [btd-custom-modal] .js-embeditem iframe, #open-modal [btd-custom-modal] .js-embeditem video');
 
     if (!loadableEls) {
@@ -544,8 +596,10 @@ function setMaxDimensionsOnModalImg() {
     }
 
     const loadable = loadableEls[0];
-    loadable.addEventListener('load', ev => setMaxDimensionsOnElement(ev.target));
-    loadable.addEventListener('loadstart', ev => setMaxDimensionsOnElement(ev.target));
+    loadable.addEventListener('load', ev =>
+      setMaxDimensionsOnElement(ev.target));
+    loadable.addEventListener('loadstart', ev =>
+      setMaxDimensionsOnElement(ev.target));
 
     if (loadable.hasAttribute('data-btd-loaded') || loadable.readyState === 4) {
       setMaxDimensionsOnElement(loadable);
@@ -573,7 +627,10 @@ onEvent('BTDC_ready', () => {
     </a>
   `;
   const settingsBtnNode = secureDomify.parse(settingsBtn);
-  $('nav.app-navigator')[0].insertAdjacentElement('afterbegin', settingsBtnNode);
+  $('nav.app-navigator')[0].insertAdjacentElement(
+    'afterbegin',
+    settingsBtnNode,
+  );
   $('.btd-settings-btn')[0].addEventListener('click', (e) => {
     e.preventDefault();
     window.open(settingsURL);
@@ -583,7 +640,9 @@ onEvent('BTDC_ready', () => {
     switch (details.action) {
       default:
         document.dispatchEvent(new CustomEvent('uiComposeTweet'));
-        $('textarea.js-compose-text')[0].value = `${details.text} ${details.url}`;
+        $('textarea.js-compose-text')[0].value = `${details.text} ${
+          details.url
+        }`;
         $('textarea.js-compose-text')[0].dispatchEvent(new Event('change'));
         break;
     }
@@ -616,7 +675,9 @@ onEvent('BTDC_ready', () => {
     const extensions = config.Client.extension_ids[browser];
     Object.values(extensions || {}).forEach((extensionID) => {
       chrome.runtime.sendMessage(
-        extensionID, { action: 'version', key: BHelper.getVersion() }, {},
+        extensionID,
+        { action: 'version', key: BHelper.getVersion() },
+        {},
         (response) => {
           if (response) {
             if (response.action === 'badVersion' && response.key) {
@@ -633,7 +694,8 @@ onEvent('BTDC_ready', () => {
                       url: 'https://youtu.be/CRMcSAgoabw',
                     },
                   },
-                  text: 'A different version of Better TweetDeck has been detected. Please disable all other versions!',
+                  text:
+                    'A different version of Better TweetDeck has been detected. Please disable all other versions!',
                   label: 'Oooo yeah, caaan doo!',
                 },
               });
@@ -663,21 +725,22 @@ onEvent('BTDC_gotChirpInMediaModal', (ev, data) => {
 
 onEvent('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
   const {
-    markup,
-    modalHtml,
-    chirp,
-    colKey,
+    markup, modalHtml, chirp, colKey,
   } = data;
 
   const openModal = $('#open-modal')[0];
-  const tweetMarkupString = modalHtml.replace('<div class="js-med-tweet med-tweet"></div>', `<div class="js-med-tweet med-tweet">${markup}</div>`);
+  const tweetMarkupString = modalHtml.replace(
+    '<div class="js-med-tweet med-tweet"></div>',
+    `<div class="js-med-tweet med-tweet">${markup}</div>`,
+  );
   const tweetNode = secureDomify.parse(tweetMarkupString);
 
   closeOpenModal();
 
   openModal.appendChild(tweetNode);
   openModal.style.display = 'block';
-  openModal.querySelector('img, iframe').onload = e => e.target.setAttribute('data-btd-loaded', 'true');
+  openModal.querySelector('img, iframe').onload = e =>
+    e.target.setAttribute('data-btd-loaded', 'true');
 
   if ($('[data-instgrm-version]', openModal)) {
     sendEvent('renderInstagramEmbed');
@@ -710,17 +773,26 @@ onEvent('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
     });
   }
 
-  $('#open-modal a[rel="dismiss"]')[0].addEventListener('click', closeOpenModal);
+  $('#open-modal a[rel="dismiss"]')[0].addEventListener(
+    'click',
+    closeOpenModal,
+  );
 
   $('[rel="actionsMenu"]', openModal)[0].addEventListener('click', () => {
     setTimeout(() => {
-      $(`[data-column="${colKey}"] [data-key="${chirp.id}"] [rel="actionsMenu"]`)[0].click();
+      $(`[data-column="${colKey}"] [data-key="${
+        chirp.id
+      }"] [rel="actionsMenu"]`)[0].click();
     }, 0);
     setTimeout(() => {
       const originalMenu = document.querySelector(`[data-column="${colKey}"] [data-key="${chirp.id}"] .dropdown-menu`);
       originalMenu.classList.add('pos-t');
-      $('[rel="actionsMenu"]', openModal)[0].insertAdjacentElement('afterEnd', originalMenu);
-      $('#open-modal .dropdown-menu').forEach(el => el.addEventListener('click', closeOpenModal));
+      $('[rel="actionsMenu"]', openModal)[0].insertAdjacentElement(
+        'afterEnd',
+        originalMenu,
+      );
+      $('#open-modal .dropdown-menu').forEach(el =>
+        el.addEventListener('click', closeOpenModal));
     }, 0);
   });
 
@@ -760,10 +832,9 @@ onEvent('BTDC_columnsChanged', (ev, data) => {
     COLUMNS_MEDIA_SIZES.clear();
   }
 
-  colsArray.filter(col => col.id)
-    .forEach((col) => {
-      COLUMNS_MEDIA_SIZES.set(col.id, col.mediaSize || 'medium');
-    });
+  colsArray.filter(col => col.id).forEach((col) => {
+    COLUMNS_MEDIA_SIZES.set(col.id, col.mediaSize || 'medium');
+  });
 });
 
 onEvent('BTDC_clickedOnGif', (ev, data) => {
@@ -774,7 +845,9 @@ onEvent('BTDC_clickedOnGif', (ev, data) => {
     originalUrl: '',
     type: 'video',
     videoEmbed: `
-      <video autoplay loop src="${video.src}" data-btd-name="${video.name}" data-btd-height="${video.height}" data-btd-width="${video.width}">
+      <video autoplay loop src="${video.src}" data-btd-name="${
+  video.name
+}" data-btd-height="${video.height}" data-btd-width="${video.width}">
         <source video-src="${video.src}" type="video/mp4" src="${video.src}">
       </video>
     `,
@@ -802,7 +875,10 @@ window.addEventListener('message', (ev) => {
     switch (data.message) {
       case 'complete_gif':
         FileSaver.saveAs(dataURItoBlob(data.img), data.name);
-        markGifDlComplete($('[data-btd-dl-gif]') && $('[data-btd-dl-gif]')[0], data.name);
+        markGifDlComplete(
+          $('[data-btd-dl-gif]') && $('[data-btd-dl-gif]')[0],
+          data.name,
+        );
         break;
       case 'resize_imgur':
         $(`iframe[src="${data.href}"]`)[0].style.height = `${data.height}px`;

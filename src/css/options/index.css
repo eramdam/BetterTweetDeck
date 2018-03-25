@@ -19,7 +19,7 @@
 }
 
 body {
-  font-family: BlinkMacSystemFont, "Segoe UI", 'Helvetica Neue', 'Helvetica';
+  font-family: BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", "Helvetica";
   font-size: 16px;
   line-height: 1.4;
 }
@@ -81,9 +81,7 @@ body.-browser-firefox [data-hidden-firefox] {
 
 .settings-section {
   margin: 2em 1em;
-}
 
-.settings-section {
   h5 {
     margin: 0;
   }
@@ -147,7 +145,7 @@ body.-browser-firefox [data-hidden-firefox] {
     }
 
     label[data-new-feat]::after {
-      content: 'New';
+      content: "New";
       text-transform: uppercase;
       display: inline-block;
       background: #00a2ee;
@@ -253,8 +251,13 @@ button.plain-button {
 }
 
 @keyframes flashSetting {
-  from { background-color: rgba(255, 255, 0, 0.7); }
-  to { background-color: rgba(255, 255, 0, 0); }
+  from {
+    background-color: rgba(255, 255, 0, 0.7);
+  }
+
+  to {
+    background-color: rgba(255, 255, 0, 0);
+  }
 }
 
 .flash-setting {
@@ -266,7 +269,7 @@ button.plain-button {
   cursor: pointer;
 
   &::before {
-    content: '\2197';
+    content: "\2197";
     position: absolute;
     height: 1.3em;
     width: 1.3em;

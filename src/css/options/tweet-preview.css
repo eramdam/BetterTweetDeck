@@ -7,7 +7,7 @@
 }
 
 .tweet-preview.-name-time {
-  background-image: url('/options/img/name-time-bg.png');
+  background-image: url("/options/img/name-time-bg.png");
   font-family: Helvetica, Arial, Verdana, sans-serif;
   background-repeat: no-repeat;
   background-color: #1d1f21;
@@ -40,7 +40,7 @@
 .tweet-preview.-display {
   width: 352px;
   overflow: hidden;
-  background-image: url('/options/img/display-bg.png');
+  background-image: url("/options/img/display-bg.png");
   background-repeat: no-repeat;
   background-color: #1d1f21;
 
@@ -57,7 +57,7 @@
     position: absolute;
     width: 48px;
     height: 48px;
-    background-image: url('/options/img/name-time-avatar.png');
+    background-image: url("/options/img/name-time-avatar.png");
     top: 32px;
     left: 11px;
 
@@ -71,12 +71,12 @@
     height: 30px;
     display: block;
     position: absolute;
-    background-image: url('/options/img/name-time-actions-left.png');
+    background-image: url("/options/img/name-time-actions-left.png");
     bottom: 0;
     left: 62px;
 
     &.-right {
-      background-image: url('/options/img/name-time-actions-right.png');
+      background-image: url("/options/img/name-time-actions-right.png");
 
       .heart {
         left: auto;
@@ -101,7 +101,7 @@
   .heart {
     display: block;
     position: absolute;
-    background-image: url('/options/img/heart.png');
+    background-image: url("/options/img/heart.png");
     width: 19px;
     height: 18px;
     top: 3px;

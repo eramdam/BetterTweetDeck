@@ -45,7 +45,9 @@ export const getBrowser = () => {
 
 const storage = isFirefox ? chrome.storage.local : chrome.storage.sync;
 
-export const getVersion = () => chrome.runtime.getManifest().version_name || chrome.runtime.getManifest().version;
+export const getVersion = () =>
+  chrome.runtime.getManifest().version_name ||
+  chrome.runtime.getManifest().version;
 export const getName = () => chrome.runtime.getManifest().name;
 export const getIcons = () => {
   const icons = chrome.runtime.getManifest().icons;
@@ -65,7 +67,8 @@ export const getMessage = (msg) => {
 
   return string;
 };
-export const getUpgradeMessage = () => getMessage('notification_upgrade').replace('{{version}}', getVersion());
+export const getUpgradeMessage = () =>
+  getMessage('notification_upgrade').replace('{{version}}', getVersion());
 
 export const settings = {
   get(property, cb, local) {
@@ -75,13 +78,16 @@ export const settings = {
   },
   set(obj, cb, local) {
     this.getAll((currSettings) => {
-      (local ? chrome.storage.local : storage).set(Object.assign(currSettings, obj), () => {
-        if (cb) {
-          return this.getAll(cb);
-        }
+      (local ? chrome.storage.local : storage).set(
+        Object.assign(currSettings, obj),
+        () => {
+          if (cb) {
+            return this.getAll(cb);
+          }
 
-        return false;
-      });
+          return false;
+        },
+      );
     }, local);
   },
   getAll(done, local) {

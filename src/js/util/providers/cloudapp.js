@@ -8,7 +8,8 @@ export default function ($) {
       const headers = new Headers();
       headers.append('Accept', 'application/json');
 
-      return fetch(url, { headers }).then($.statusAndJson)
+      return fetch(url, { headers })
+        .then($.statusAndJson)
         .then((data) => {
           if (data.item_type !== 'image') {
             return null;
