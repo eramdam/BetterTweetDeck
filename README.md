@@ -1,10 +1,28 @@
-<p align="center">
-  ![](meta/better.tw_.png)
-</p>
+![](https://raw.githubusercontent.com/eramdam/BetterTweetDeck/master/meta/better.tw_.png)
 
 <h1 align="center">Better TweetDeck</h1>
 <p align="center">
-[![Travis][travis-ci-badge]][travis-ci] [![Chrome Web Store][chrome-badge]][chrome] [![Chrome Web Store][chrome-badge-users]][chrome] [![Mozilla Add-ons][firefox-badge]][firefox] [![Mozilla Add-ons][firefox-badge-users]][firefox] [![Follow on Twitter][twitter-badge]][twitter] [![][paypal-badge]][paypal]
+<a href="https://travis-ci.org/eramdam/BetterTweetDeck/">
+  <img src="https://img.shields.io/travis/eramdam/BetterTweetDeck.svg" alt="Travis CI">
+</a>
+<a href="https://better.tw/chrome">
+  <img src="https://img.shields.io/chrome-web-store/v/micblkellenpbfapmcpcfhcoeohhnpob.svg" alt="Chrome Store Version">
+</a>
+<a href="https://better.tw/chrome">
+  <img src="https://img.shields.io/chrome-web-store/d/micblkellenpbfapmcpcfhcoeohhnpob.svg" alt="Chrome Store Users">
+</a>
+<a href="https://better.tw/firefox">
+  <img src="https://img.shields.io/amo/v/better-tweetdeck-17.svg" alt="Mozilla Add-ons Version">
+</a>
+<a href="https://better.tw/firefox">
+  <img src="https://img.shields.io/amo/users/better-tweetdeck-17.svg" alt="Mozille Add-ons Users">
+</a>
+<a href="https://twitter.com/@BetterTDeck">
+  <img src="https://img.shields.io/badge/twitter-%40BetterTDeck-blue.svg" alt="Follow on Twitter">
+</a>
+<a href="https://paypal.me/eramdam">
+<img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="Donate on PayPal">
+</a>
 </p>
 
 # Intro
