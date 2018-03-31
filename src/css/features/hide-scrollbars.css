@@ -1,4 +1,4 @@
-html.btd-on {
+html.btd-on.is-blink {
   .btd__no_scrollbars {
     .js-column-scroller {
       overflow-y: hidden;
@@ -23,4 +23,10 @@ html.btd-on {
       bottom: 0;
     }
   }
+}
+
+html.btd-on.is-firefox .btd__no_scrollbars .column-scroller {
+  overflow-y: scroll !important;
+  margin-right: -17px !important;
+  padding-right: 10px !important;
 }

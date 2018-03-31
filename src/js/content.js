@@ -178,7 +178,7 @@ function refreshTimestamps() {
  * and then add/remove classes on the body
  */
 
-const disabledOnFirefox = ['no_scrollbars', 'slim_scrollbars'];
+const disabledOnFirefox = ['slim_scrollbars'];
 
 function tweakClassesFromVisualSettings() {
   const enabledClasses = Object.keys(SETTINGS.css)
@@ -191,6 +191,12 @@ function tweakClassesFromVisualSettings() {
     })
     .filter(key => SETTINGS.css[key])
     .map(cl => `btd__${cl}`);
+
+  if (BHelper.isFirefox) {
+    document.querySelector('html').classList.add('is-firefox');
+  } else {
+    document.querySelector('html').classList.add('is-blink');
+  }
 
   document.querySelector('html').classList.add('btd-on');
   document.body.classList.add(...enabledClasses);
