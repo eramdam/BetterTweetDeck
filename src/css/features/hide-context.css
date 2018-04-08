@@ -1,5 +1,0 @@
-html.btd-on {
-  .btd__hide_context .js-stream-item:not(.btd-is-retweet) .tweet-context {
-    display: none;
-  }
-}
