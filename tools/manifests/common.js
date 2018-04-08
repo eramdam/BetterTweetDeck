@@ -38,44 +38,12 @@ const common = {
     {
       matches: ['*://tweetdeck.twitter.com/*'],
       js: ['js/content.js'],
-      css: ['css/index.css'],
       run_at: 'document_end',
     },
   ],
-  background: {
-    scripts: ['js/background.js'],
-  },
-  icons: isBeta ? betaIcons : icons,
   permissions: ['storage', 'contextMenus', 'notifications', ...urls],
   optional_permissions: ['tabs'],
-  options_ui: {
-    page: 'options/ui/ui.html',
-    chrome_style: false,
-  },
-  web_accessible_resources: [
-    'embeds.js',
-    'revert-dark-theme.css',
-    'emojis/sheet_twitter_64.png',
-    'fonts/*.*',
-    'js/inject.js',
-    'options/options.html',
-  ],
   content_security_policy: `img-src https: data: 'self' *; default-src; connect-src * https:; style-src 'unsafe-inline'; script-src 'self';`,
 };
-
-if (process.env.NODE_ENV === 'dev') {
-  common.commands = {
-    _execute_page_action: {
-      suggested_key: {
-        default: 'Ctrl+Shift+E',
-      },
-    },
-  };
-  common.permissions.push('management');
-  common.page_action = {
-    default_icon: isBeta ? betaIcons : icons,
-    default_title: 'Reload BTD',
-  };
-}
 
 module.exports = common;
