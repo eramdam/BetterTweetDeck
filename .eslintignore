@@ -1,6 +1,0 @@
-tools/**/*.json
-tools/embeds.js
-src/emojis/emojis.js
-!.eslintrc.js
-dist/*
-artifacts/
