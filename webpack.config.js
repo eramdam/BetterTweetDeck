@@ -1,18 +1,35 @@
-const GenerateJsonPlugin = require("generate-json-webpack-plugin");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
+/* eslint import/no-dynamic-require: 0 */
+/* eslint global-require: 0 */
+const GenerateJsonPlugin = require('generate-json-webpack-plugin');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
-module.exports = env => {
+module.exports = (env) => {
   const getManifest = () => require(`./tools/manifests/${env.browser}.js`);
 
   return {
     mode: 'development',
+    devtool: 'cheap-source-map',
     entry: {
-      'js/content': "./src/js/content.js",
-      'js/inject': "./src/js/inject.js",
-      'js/background': "./src/js/background.js",
+      'js/content': './src/js/content.js',
+      'js/inject': './src/js/inject.js',
+      'js/background': './src/js/background.js',
     },
     plugins: [
       new CleanWebpackPlugin(['dist']),
-      new GenerateJsonPlugin("manifest.json", getManifest(), null, 2)]
+      new LodashModuleReplacementPlugin(),
+      new GenerateJsonPlugin('manifest.json', getManifest(), null, 2)],
+    module: {
+      rules: [{
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: [{
+          loader: 'babel-loader',
+          options: {
+            plugins: ['lodash', 'transform-class-properties'],
+          },
+        }],
+      }],
+    },
   };
 };
