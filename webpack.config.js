@@ -5,7 +5,12 @@ module.exports = env => {
   const getManifest = () => require(`./tools/manifests/${env.browser}.js`);
 
   return {
-    entry: { 'js/content': "./src/js/content.js" },
+    mode: 'development',
+    entry: {
+      'js/content': "./src/js/content.js",
+      'js/inject': "./src/js/inject.js",
+      'js/background': "./src/js/background.js",
+    },
     plugins: [
       new CleanWebpackPlugin(['dist']),
       new GenerateJsonPlugin("manifest.json", getManifest(), null, 2)]
