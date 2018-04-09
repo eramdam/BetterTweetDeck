@@ -13,7 +13,7 @@
     "url": "https://github.com/eramdam/BetterTweetDeck/issues"
   },
   "scripts": {
-    "fix": "prettier-eslint --write --list-different **/*.{js,jsx}"
+    "fix": "prettier-eslint --write --list-different {src,tools}/**/*.{js,jsx}"
   },
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
   "dependencies": {
