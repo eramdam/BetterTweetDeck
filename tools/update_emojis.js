@@ -51,14 +51,12 @@ needle.get(
       .filter(emoji => emoji.category)
       .sortBy(emoji => emoji.sort_order)
       .sortBy(emoji => catOrder[emoji.category])
-      .map((emoji) => {
-        return {
-          s: [...emoji.short_names, emoji.short_name],
-          n: emoji.name,
-          hs: Boolean(emoji.skin_variations),
-          cat: emoji.category || getMissingCategory(emoji.short_name),
-        };
-      })
+      .map(emoji => ({
+        s: [...emoji.short_names, emoji.short_name],
+        n: emoji.name,
+        hs: Boolean(emoji.skin_variations),
+        cat: emoji.category || getMissingCategory(emoji.short_name),
+      }))
       .value();
 
     const finalForTemplate = final.filter(emoji => getUnified(emoji));

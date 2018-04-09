@@ -19,10 +19,7 @@ const crx = new ChromeExtension({
   privateKey: fs.readFileSync(privateKeyPath),
 });
 
-clog(
-  'blue',
-  `Loading extension from ${extensionPath} with key from ${privateKeyPath}`,
-);
+clog('blue', `Loading extension from ${extensionPath} with key from ${privateKeyPath}`);
 
 crx.load(extensionPath).then(
   (d) => {
