@@ -1,8 +1,8 @@
 /* global TD */
-import { Time } from './util/time';
+import { Time } from './components/time';
 
 const BTD_SETTINGS = $('[data-btd-settings]').data('btd-settings');
-const BTDTime = new Time(BTD_SETTINGS);
+const BTDTime = new Time(BTD_SETTINGS, TD);
 
 /*
  * If the user chose so, we override the timestamp function called by TweetDeck

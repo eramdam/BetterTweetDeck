@@ -1,6 +1,6 @@
 import format from 'date-fns/format';
 
-import { BTDComponent } from './btdClass';
+import { BTDComponent } from '../util/btdClass';
 
 const formatMaps = {
   absolute_us: {
