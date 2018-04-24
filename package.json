@@ -13,7 +13,7 @@
     "url": "https://github.com/eramdam/BetterTweetDeck/issues"
   },
   "scripts": {
-    "start": "webpack --watch --progress --env.browser",
+    "start": "cross-env NODE_ENV=development webpack --watch --progress --env.browser",
     "fix": "prettier-eslint --write --list-different {src,tools}/**/*.{js,jsx}"
   },
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
@@ -24,8 +24,10 @@
     "babel-plugin-lodash": "^3.3.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "clean-webpack-plugin": "^0.1.19",
+    "comlinkjs": "^2.3.5",
     "config": "^1.30.0",
     "copy-webpack-plugin": "^4.5.1",
+    "cross-env": "^5.1.4",
     "date-fns": "^1.29.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
