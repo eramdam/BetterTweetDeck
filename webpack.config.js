@@ -3,6 +3,7 @@
 const GenerateJsonPlugin = require('generate-json-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const Stylish = require('webpack-stylish');
 
 module.exports = (env) => {
   const getManifest = () => require(`./tools/manifests/${env.browser}.js`);
@@ -15,7 +16,9 @@ module.exports = (env) => {
       'js/inject': './src/js/inject.js',
       'js/background': './src/js/background.js',
     },
+    stats: 'none',
     plugins: [
+      new Stylish(),
       new CleanWebpackPlugin(['dist']),
       new LodashModuleReplacementPlugin(),
       new GenerateJsonPlugin('manifest.json', getManifest(), null, 2)],
