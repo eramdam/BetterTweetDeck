@@ -14,3 +14,17 @@ import { getExtensionUrl, settings as extensionSettings } from './util/browserHe
   injected.dataset.btdSettings = JSON.stringify(settings);
   document.head.appendChild(injected);
 })();
+
+window.addEventListener('message', (ev) => {
+  if (ev.origin !== 'https://tweetdeck.twitter.com' || ev.data.origin !== 'BTD_INJECT') {
+    return;
+  }
+
+  console.log('in content', ev.data);
+
+  window.postMessage(Object.assign(ev.data, {
+    msg: 'Hello from content',
+    origin: 'BTD_CONTENT',
+  }), 'https://tweetdeck.twitter.com');
+});
+
