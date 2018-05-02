@@ -613,6 +613,18 @@ function setMaxDimensionsOnModalImg() {
   }
 }
 
+function sendWithEnter() {
+  if (!SETTINGS.send_with_enter) {
+    return;
+  }
+
+  $('.compose-text')[0].addEventListener('keypress', (ev) => {
+    if (ev.which === 13 && !ev.shiftKey) {
+      $('.js-send-button')[0].click();
+    }
+  });
+}
+
 window.addEventListener('resize', setMaxDimensionsOnModalImg);
 
 // Prepare to know when TD is ready
@@ -622,6 +634,7 @@ onEvent('BTDC_ready', () => {
   refreshTimestamps();
   setInterval(refreshTimestamps, TIMESTAMP_INTERVAL);
   Emojis();
+  sendWithEnter();
 
   const settingsURL = BHelper.getExtensionUrl('options/options.html');
   const settingsBtn = `
