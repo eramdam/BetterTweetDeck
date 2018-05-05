@@ -34,3 +34,7 @@
 .btd-emoji-icon {
   transform: translateY(-2px);
 }
+
+.btd-on .btd-column-collapsed ul.btd-column-buttons.btd-column-buttons {
+  width: unset !important;
+}
