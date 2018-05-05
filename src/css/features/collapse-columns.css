@@ -30,6 +30,7 @@ html.btd-on {
     }
 
     ul.btd-column-buttons {
+      width: 100% !important;
       order: 0;
       position: relative;
       margin-left: 10px;
