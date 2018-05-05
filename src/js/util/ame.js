@@ -248,8 +248,8 @@ export default function () {
   TD.mustaches['menus/actions.mustache'] = TD.mustaches[
     'menus/actions.mustache'
   ].replace(
-    '{{/isMuted}}  ',
-    `{{/isMuted}}  {{#user}} {{^isMe}} ${BTD.userDropdown()} {{/isMe}} {{/user}}`,
+    '{{/isMuted}} ',
+    `{{/isMuted}} {{#user}} {{^isMe}} ${BTD.userDropdown()} {{/isMe}} {{/user}}`,
   );
 
   const filterKey = 'BTD_specific_tweet';
