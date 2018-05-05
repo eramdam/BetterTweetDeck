@@ -152,11 +152,9 @@ body.-browser-firefox [data-hidden-firefox] {
       font-size: 10px;
       margin-left: 0.6em;
       padding: 0.12em 0.45em;
-      position: absolute;
+      position: relative;
       border-radius: 4px;
       color: white;
-      top: 50%;
-      transform: translate(0%, -50%);
     }
 
     label small,
