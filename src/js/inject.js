@@ -252,8 +252,8 @@ TD.mustaches['column/column_header.mustache'] = TD.mustaches[
 TD.mustaches['column/column_header.mustache'] = TD.mustaches[
   'column/column_header.mustache'
 ].replace(
-  '{{/withMarkAllRead}}  {{^isTemporary}}',
-  `{{/withMarkAllRead}}  {{^isTemporary}}
+  '{{/withMarkAllRead}} {{^isTemporary}}',
+  `{{/withMarkAllRead}} {{^isTemporary}}
         ${
   SETTINGS.clear_column_action
     ? `
