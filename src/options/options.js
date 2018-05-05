@@ -260,14 +260,7 @@ BHelper.settings.getAll((settings) => {
   });
 
   function getFaviconURL(scheme) {
-    if (scheme.setting.includes('_')) {
-      return `https://plus.google.com/_/favicon?domain=${scheme.setting.replace(
-        '_',
-        '.',
-      )}`;
-    }
-
-    return `https://plus.google.com/_/favicon?domain=${scheme.setting}.com`;
+    return `img/favicons/${scheme.setting}.png`;
   }
 
   /**
