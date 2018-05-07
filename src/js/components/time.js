@@ -13,7 +13,7 @@ const formatMaps = {
   },
 };
 
-export class Time extends BTDComponent {
+export class Timestamp extends BTDComponent {
   /** Computes whether or not the passed Date object is less than 24h old or not */
   lessThan24 = d => new Date().getTime() - d.getTime() <= 60 * 60 * 24000;
 

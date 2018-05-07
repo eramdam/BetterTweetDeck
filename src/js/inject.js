@@ -1,12 +1,12 @@
 /* global TD */
-import { Time } from './components/time';
+import { Timestamp } from './components/time';
 import { BTDDebug } from './components/btdDebug';
 import { RemoveRedirection } from './components/removeRedirection';
 
 
 (async () => {
   const BTD_SETTINGS = $('[data-btd-settings]').data('btd-settings');
-  const BTDTime = new Time(BTD_SETTINGS, TD);
+  const BTDTime = new Timestamp(BTD_SETTINGS, TD);
 
   new BTDDebug(BTD_SETTINGS, TD).attach();
 
