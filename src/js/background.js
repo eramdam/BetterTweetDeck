@@ -4,6 +4,7 @@ import { settings } from './util/browserHelpers';
 const DEFAULT_SETTINGS = {
   ts: 'absolute_us',
   full_after_24: true,
+  no_tco: true,
 };
 
 console.log({ DEFAULT_SETTINGS });
