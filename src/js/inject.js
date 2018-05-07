@@ -2,6 +2,7 @@
 import { Timestamp } from './components/time';
 import { BTDDebug } from './components/btdDebug';
 import { RemoveRedirection } from './components/removeRedirection';
+// import { msgToContent } from './util/messaging';
 
 
 (async () => {
