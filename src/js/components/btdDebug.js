@@ -1,7 +1,6 @@
-/* eslint no-underscore-dangle: 0 */
 import { BTDComponent } from '../util/btdClass';
 
-export class BTDDebug extends BTDComponent {
+export class BTDUtils extends BTDComponent {
   getChirpFromKey = (key, colKey) => {
     const column = this.TD.controller.columnManager.get(colKey);
 
@@ -60,7 +59,7 @@ export class BTDDebug extends BTDComponent {
     const chirp = chirpsArray.find(c => c.id === String(key));
 
     if (!chirp) {
-      Log(`did not find chirp ${key} within ${colKey}`);
+      console.log(`did not find chirp ${key} within ${colKey}`);
       return null;
     }
 
