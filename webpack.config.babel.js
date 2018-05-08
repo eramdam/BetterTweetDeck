@@ -32,7 +32,7 @@ const staticFiles = [
     from: 'options/ui/*',
   },
   {
-    from: 'options/img/*',
+    from: 'options/img/**/*',
   },
   {
     from: '_locales/**/*',

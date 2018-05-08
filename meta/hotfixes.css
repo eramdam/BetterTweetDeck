@@ -34,3 +34,18 @@
 .btd-emoji-icon {
   transform: translateY(-2px);
 }
+
+/* Unset the width of the btd-column-buttons when the column is collapsed */
+.btd-on .btd-column-collapsed ul.btd-column-buttons.btd-column-buttons {
+  width: unset !important;
+}
+
+/* Properly set the width of the buttons on a search column
+  in that case span.column-number is right before ul.btd-column-buttons so it works okay
+*/
+.btd-on
+.js-column.column:not(.btd-column-collapsed)
+span.column-number
++ ul.btd-column-buttons.btd-column-buttons {
+  width: 100% !important;
+}

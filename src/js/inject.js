@@ -252,8 +252,8 @@ TD.mustaches['column/column_header.mustache'] = TD.mustaches[
 TD.mustaches['column/column_header.mustache'] = TD.mustaches[
   'column/column_header.mustache'
 ].replace(
-  '{{/withMarkAllRead}}  {{^isTemporary}}',
-  `{{/withMarkAllRead}}  {{^isTemporary}}
+  '{{/withMarkAllRead}} {{^isTemporary}}',
+  `{{/withMarkAllRead}} {{^isTemporary}}
         ${
   SETTINGS.clear_column_action
     ? `
@@ -904,11 +904,17 @@ $(document).one('dataColumnsLoaded', () => {
   if (!collapsedColumns) {
     window.localStorage.setItem('btd_collapsed_columns', JSON.stringify({}));
   } else {
-    const columnSettings = JSON.parse(collapsedColumns);
-    Object.keys(columnSettings).map((key) => {
-      const column = TD.controller.columnManager.getByApiid(key);
-      column._btd.toggleCollapse(!(columnSettings[key] && column));
-      return column;
+    const columnsSettings = JSON.parse(collapsedColumns);
+    const collapsedColumnsKeys = Object.keys(columnsSettings);
+
+    $(document).on('uiColumnRendered', (ev, data) => {
+      const { column } = data;
+
+      const columnApiId = column.model.privateState.apiid;
+
+      if (collapsedColumnsKeys.includes(columnApiId)) {
+        column._btd.toggleCollapse(!(columnsSettings[columnApiId] && column));
+      }
     });
   }
 
