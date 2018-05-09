@@ -49,3 +49,13 @@ span.column-number
 + ul.btd-column-buttons.btd-column-buttons {
   width: 100% !important;
 }
+
+
+/**
+ * Another TD update that breaks the styling of buttons in columns (May 9th 2018)
+ */
+
+.btd-on .js-column .btd-column-buttons .column-header-link[data-action="options"] {
+  position: relative !important;
+  right: 0 !important;
+ }
