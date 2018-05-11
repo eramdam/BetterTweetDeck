@@ -2,7 +2,8 @@
   "name": "BetterTweetDeck",
   "version": "3.7.1",
   "extension_version": "3.7.1",
-  "description": "Adds some nice options on TweetDeck to provide a better experience on the webapp when used on Chrome.",
+  "description":
+    "Adds some nice options on TweetDeck to provide a better experience on the webapp when used on Chrome.",
   "repository": {
     "type": "git",
     "url": "https://github.com/eramdam/BetterTweetDeck.git"
@@ -14,29 +15,27 @@
   },
   "scripts": {
     "prerelease": "rimraf artifacts/*",
-    "start": "cross-env NODE_ENV=dev webpack --hide-modules --watch --env.browser",
+    "start":
+      "cross-env NODE_ENV=dev webpack --hide-modules --watch --env.browser",
     "build": "cross-env NODE_ENV=dev webpack --hide-modules --env.browser",
-    "build:prod": "cross-env NODE_ENV=prod webpack --hide-modules --env.browser",
+    "build:prod":
+      "cross-env NODE_ENV=prod webpack --hide-modules --env.browser",
     "run:firefox": "web-ext run -s dist",
-    "lint": "eslint {src,tools,config}/**/*.js webpack.config.js && stylelint src/**/*.css",
+    "lint":
+      "eslint {src,tools,config}/**/*.js webpack.config.js && stylelint src/**/*.css",
     "test": "npm run lint",
-    "release": "npm run build:prod -- chrome && npm run pack:chrome && npm run build:prod -- firefox && npm run pack:firefox",
+    "release":
+      "npm run build:prod -- chrome && npm run pack:chrome && npm run build:prod -- firefox && npm run pack:firefox",
     "pack:chrome": "cross-env NODE_ENV=dev node tools/pack.js",
     "pack:firefox": "cross-env NODE_ENV=dev web-ext build -s dist -a artifacts",
     "update_emojis": "node tools/update_emojis.js",
     "precommit": "lint-staged",
-    "fix": "prettier-eslint --list-different --write '**/*.{js,jsx}' && prettier-stylelint --write -q"
+    "fix":
+      "prettier-eslint --list-different --write '**/*.{js,jsx}' && prettier-stylelint --write -q"
   },
   "lint-staged": {
-    "*.css": [
-      "prettier-stylelint --write",
-      "git add"
-    ],
-    "*.{js,jsx}": [
-      "prettier-eslint --write",
-      "eslint",
-      "git add"
-    ]
+    "*.css": ["prettier-stylelint --write", "git add"],
+    "*.{js,jsx}": ["prettier-eslint --write", "eslint", "git add"]
   },
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
   "dependencies": {

@@ -1,9 +1,9 @@
-export default function ($) {
+export default function($) {
   return {
-    name: 'TED',
-    setting: 'ted',
+    name: "TED",
+    setting: "ted",
     re: /ted.com\/talks/,
     default: true,
-    callback: $.noEmbedVideoCB,
+    callback: $.noEmbedVideoCB
   };
 }

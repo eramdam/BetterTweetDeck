@@ -38,45 +38,47 @@ window.webpackJsonp(
       // no idea why modCache is a object since it only has sequential number keys (correct me if i'm wrong)
       wc.mCar = [];
 
-      Object.keys(wc.mCac).forEach((x) => {
+      Object.keys(wc.mCac).forEach(x => {
         wc.mCar[x] = wc.mCac[x];
       });
       wc.findFunc = function findFunc(s) {
         const results = [];
-        if (typeof s === 'string') {
+        if (typeof s === "string") {
           wc.mArr.forEach((r, t) => {
             if (r.toString().indexOf(s) !== -1) {
               results.push(wc.mCac[t]);
             }
           });
-        } else if (typeof s === 'function') {
+        } else if (typeof s === "function") {
           wc.mArr.forEach((r, e) => {
             if (s(r)) {
               results.push(wc.mCac[e]);
             }
           });
         } else {
-          throw new TypeError(`findFunc can only find via string and function, ${typeof s} was passed`);
+          throw new TypeError(
+            `findFunc can only find via string and function, ${typeof s} was passed`
+          );
         }
         return results;
       };
       wc.findCache = function findCache(s) {
         const results = [];
-        if (typeof s === 'function') {
-          wc.mCar.forEach((r) => {
+        if (typeof s === "function") {
+          wc.mCar.forEach(r => {
             if (s(r)) {
               results.push(r);
             }
           });
-        } else if (typeof s === 'string') {
-          wc.mCar.forEach((r) => {
-            if (typeof r.exports === 'object') {
+        } else if (typeof s === "string") {
+          wc.mCar.forEach(r => {
+            if (typeof r.exports === "object") {
               // eslint-disable-next-line
               for (let p in r.exports) {
                 if (p === s) {
                   results.push(r);
                 }
-                if (p === 'default' && typeof r.exports.default === 'object') {
+                if (p === "default" && typeof r.exports.default === "object") {
                   // eslint-disable-next-line
                   for (let q in r.exports.default) {
                     if (q === s) {
@@ -88,12 +90,14 @@ window.webpackJsonp(
             }
           });
         } else {
-          throw new TypeError(`findCache can only find via function or string, ${typeof s} was passed`);
+          throw new TypeError(
+            `findCache can only find via function or string, ${typeof s} was passed`
+          );
         }
         return results;
       };
-    },
-  ],
+    }
+  ]
 );
 
 export default wc;

@@ -1,31 +1,31 @@
-import parseURL from '../parseUrl';
+import parseURL from "../parseUrl";
 
-export default function ($) {
+export default function($) {
   return {
-    name: 'Dribbble',
-    setting: 'dribbble',
+    name: "Dribbble",
+    setting: "dribbble",
     re: /(?:dribbble.com\/shots|drbl.in)/,
     default: true,
-    callback: (url) => {
+    callback: url => {
       const dribbbleID = parseURL(url)
-        .file.split('-')
+        .file.split("-")
         .shift();
       const headers = new Headers();
-      headers.append('Authorization', `Bearer ${$.getKeyFor('dribbble')}`);
+      headers.append("Authorization", `Bearer ${$.getKeyFor("dribbble")}`);
 
-      return fetch(`${$.getEnpointFor('dribbble')}${dribbbleID}`, {
-        headers,
+      return fetch(`${$.getEnpointFor("dribbble")}${dribbbleID}`, {
+        headers
       })
         .then($.statusAndJson)
-        .then((data) => {
+        .then(data => {
           const obj = {
-            type: 'image',
+            type: "image",
             thumbnail_url: $.getSafeURL(data.images.teaser),
-            url: $.getSafeURL(data.images.hidpi || data.images.normal),
+            url: $.getSafeURL(data.images.hidpi || data.images.normal)
           };
 
           return obj;
         });
-    },
+    }
   };
 }

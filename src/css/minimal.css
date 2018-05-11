@@ -35,7 +35,7 @@ html.btd-on {
  */
 
   .btd__minimal_mode
-  :matches(.stream-item, .tweet-detail-reply .stream-item, .compose-header) {
+    :matches(.stream-item, .tweet-detail-reply .stream-item, .compose-header) {
     border-bottom: 0;
   }
 
@@ -44,10 +44,10 @@ html.btd-on {
   }
 
   .btd__minimal_mode
-  .js-stream-item
-  .activity-header
-  + .txt-mute
-  .tweet-context {
+    .js-stream-item
+    .activity-header
+    + .txt-mute
+    .tweet-context {
     display: none;
   }
 

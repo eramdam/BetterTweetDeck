@@ -1,26 +1,26 @@
-export default function ($) {
+export default function($) {
   return {
-    name: 'Soundcloud',
-    setting: 'soundcloud',
+    name: "Soundcloud",
+    setting: "soundcloud",
     re: /soundcloud.com/,
     default: true,
-    callback: (url) => {
-      return fetch(`${$.getEnpointFor('noembed')}${url}`)
+    callback: url => {
+      return fetch(`${$.getEnpointFor("noembed")}${url}`)
         .then($.statusAndJson)
-        .then((data) => {
+        .then(data => {
           if (!data.thumbnail_url) {
             return undefined;
           }
 
           const obj = {
-            type: 'audio',
+            type: "audio",
             thumbnail_url: $.getSafeURL(data.thumbnail_url),
             html: data.html,
-            url,
+            url
           };
 
           return obj;
         });
-    },
+    }
   };
 }

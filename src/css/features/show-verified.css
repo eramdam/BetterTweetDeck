@@ -4,16 +4,16 @@ General style setup
  */
 
   .btd__show_verified
-  .js-stream-item.btd-is-from-verified:not(.btd-is-from-verified-mini)
-  > .js-stream-item-content
-  > .js-tweet
-  > .tweet-header
-  .item-img.tweet-img,
+    .js-stream-item.btd-is-from-verified:not(.btd-is-from-verified-mini)
+    > .js-stream-item-content
+    > .js-tweet
+    > .tweet-header
+    .item-img.tweet-img,
   .btd__show_verified
-  .js-stream-item.btd-is-from-verified-mini
-  > .js-stream-item-content
-  > .activity-header
-  > .nbfc {
+    .js-stream-item.btd-is-from-verified-mini
+    > .js-stream-item-content
+    > .activity-header
+    > .nbfc {
     position: absolute;
 
     &::before {
@@ -32,11 +32,11 @@ General style setup
   /* General style */
 
   .btd__show_verified
-  .js-stream-item.btd-is-from-verified:not(.btd-is-from-verified-mini)
-  > .js-stream-item-content
-  > .js-tweet
-  > .tweet-header
-  .item-img.tweet-img {
+    .js-stream-item.btd-is-from-verified:not(.btd-is-from-verified-mini)
+    > .js-stream-item-content
+    > .js-tweet
+    > .tweet-header
+    .item-img.tweet-img {
     /* Allows */
     position: absolute;
 
@@ -55,10 +55,10 @@ General style setup
  */
 
   .btd__show_verified
-  .js-stream-item.btd-is-from-verified-mini
-  > .js-stream-item-content
-  > .activity-header
-  > .nbfc {
+    .js-stream-item.btd-is-from-verified-mini
+    > .js-stream-item-content
+    > .activity-header
+    > .nbfc {
     position: relative;
 
     &::before {
@@ -72,10 +72,10 @@ General style setup
   /* Hide the vanilla verified badge in columns */
 
   .btd__show_verified
-  .stream-item
-  .js-tweet:not(.txt-mute)
-  > header
-  .sprite-verified-mini {
+    .stream-item
+    .js-tweet:not(.txt-mute)
+    > header
+    .sprite-verified-mini {
     display: none;
   }
 }

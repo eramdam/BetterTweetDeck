@@ -1,31 +1,31 @@
 module.exports = {
-  FirefoxId: 'mycoolextension@mycoolextension.com',
-  opera_key: '',
+  FirefoxId: "mycoolextension@mycoolextension.com",
+  opera_key: "",
   Client: {
-    github_token: '',
+    github_token: "",
     debug: false,
     remote_inst: true,
     APIs: {
-      dribbble: '',
-      imgur: '',
-      twitch: '',
-      tinami: '',
-      giphy: '',
-      tenor: '',
+      dribbble: "",
+      imgur: "",
+      twitch: "",
+      tinami: "",
+      giphy: "",
+      tenor: ""
     },
     extension_ids: {
       chrome: {
-        release: '',
-        beta: '',
+        release: "",
+        beta: ""
       },
       firefox: {
-        release: '',
-        beta: '',
+        release: "",
+        beta: ""
       },
       opera: {
-        release: '',
-        beta: '',
-      },
-    },
-  },
+        release: "",
+        beta: ""
+      }
+    }
+  }
 };

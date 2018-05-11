@@ -21,7 +21,7 @@ As a general rule of thumb: If everything disappears, there's something wrong wi
 * You can find the advanced mute engine in `src/js/util/ame.js`
 * There's an object `BTD.Filters` inside, which contains all custom filters
 * Add a new key/value to this object to add more custom filters
-  * You can use following template for a new custom filter:  
+  * You can use following template for a new custom filter:
     ```js
     BTD_filter_key: {
       display: {

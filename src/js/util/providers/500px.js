@@ -1,21 +1,21 @@
-export default function ($) {
+export default function($) {
   return {
-    name: '500px',
-    setting: '500px',
+    name: "500px",
+    setting: "500px",
     re: /500px.com/,
     default: true,
-    callback: (url) => {
-      return fetch(`${$.getEnpointFor('500px')}${url}`)
+    callback: url => {
+      return fetch(`${$.getEnpointFor("500px")}${url}`)
         .then($.statusAndJson)
-        .then((data) => {
+        .then(data => {
           const obj = {
-            type: 'image',
+            type: "image",
             thumbnail_url: $.getSafeURL(data.thumbnail_url),
-            url: $.getSafeURL(data.url),
+            url: $.getSafeURL(data.url)
           };
 
           return obj;
         });
-    },
+    }
   };
 }

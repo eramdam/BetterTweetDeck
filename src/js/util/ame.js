@@ -25,7 +25,7 @@
  *
  */
 
-export default function () {
+export default function() {
   // Save references of original functions
   TD.vo.Filter.prototype._getDisplayType =
     TD.vo.Filter.prototype.getDisplayType;
@@ -39,12 +39,12 @@ export default function () {
   // Custom filters
   BTD.Filters = {
     BTD_specific_tweet: {
-      name: 'Specific tweet',
-      descriptor: 'specific tweet',
-      placeholder: 'ID of tweet',
+      name: "Specific tweet",
+      descriptor: "specific tweet",
+      placeholder: "ID of tweet",
       options: {
-        templateString: '{{chirp.id}}',
-        nameInDropdown: 'Hide this tweet',
+        templateString: "{{chirp.id}}",
+        nameInDropdown: "Hide this tweet"
       },
       function(t, e) {
         if (e.id === t.value) {
@@ -52,31 +52,31 @@ export default function () {
         }
 
         return true;
-      },
+      }
     },
     BTD_is_retweet_from: {
       display: {
-        actions: true,
+        actions: true
       },
-      name: 'Retweets from User',
-      descriptor: 'retweets from',
-      placeholder: 'e.g. tweetdeck',
+      name: "Retweets from User",
+      descriptor: "retweets from",
+      placeholder: "e.g. tweetdeck",
       function(t, e) {
         return !(
           e.isRetweetedStatus() && t.value === e.user.screenName.toLowerCase()
         );
-      },
+      }
     },
     BTD_mute_user_keyword: {
       display: {
-        global: true,
+        global: true
       },
-      name: 'Keyword from User',
-      descriptor: 'user|keyword: ',
-      placeholder: 'e.g. tweetdeck|feature',
+      name: "Keyword from User",
+      descriptor: "user|keyword: ",
+      placeholder: "e.g. tweetdeck|feature",
       function(t, e) {
         if (!e.user) return true;
-        const filter = t.value.split('|');
+        const filter = t.value.split("|");
         const user = filter[0];
         const keyword = filter[1];
 
@@ -84,80 +84,80 @@ export default function () {
           e.text.toLowerCase().includes(keyword) &&
           user === e.user.screenName.toLowerCase()
         );
-      },
+      }
     },
     BTD_regex: {
       display: {
-        global: true,
+        global: true
       },
-      name: 'Regular Expression',
-      descriptor: 'tweets matching',
-      placeholder: 'Enter a regular expression',
+      name: "Regular Expression",
+      descriptor: "tweets matching",
+      placeholder: "Enter a regular expression",
       function(t, e) {
-        const regex = new RegExp(t.value, 'g');
+        const regex = new RegExp(t.value, "g");
 
         return !e.getFilterableText().match(regex);
-      },
+      }
     },
     BTD_mute_quotes: {
       display: {
-        actions: true,
+        actions: true
       },
-      name: 'Quotes from User',
-      descriptor: 'quotes from',
-      placeholder: 'e.g. tweetdeck',
+      name: "Quotes from User",
+      descriptor: "quotes from",
+      placeholder: "e.g. tweetdeck",
       function(t, e) {
         if (!e.user) return true;
 
         return !(
           e.isQuoteStatus && t.value === e.user.screenName.toLowerCase()
         );
-      },
+      }
     },
     BTD_user_biographies: {
       display: {
-        global: true,
+        global: true
       },
-      name: 'Biography',
-      descriptor: 'users whose bio contains',
-      placeholder: 'Enter a keyword or phrase',
+      name: "Biography",
+      descriptor: "users whose bio contains",
+      placeholder: "Enter a keyword or phrase",
       function(t, e) {
         if (!e.user) return true;
 
         return !e.user.description.toLowerCase().includes(t.value);
-      },
+      }
     },
     BTD_default_avatars: {
       display: {
-        global: true,
+        global: true
       },
-      name: 'Default Profile Pictures',
-      descriptor: 'users having a default profile picture',
-      placeholder: 'Write something random here',
+      name: "Default Profile Pictures",
+      descriptor: "users having a default profile picture",
+      placeholder: "Write something random here",
       function(t, e) {
         if (!e.user) return true;
 
-        return !e.user.profileImageURL.includes('default');
-      },
+        return !e.user.profileImageURL.includes("default");
+      }
     },
     BTD_follower_count: {
       display: {
-        global: true,
+        global: true
       },
-      name: 'Follower count less than',
-      descriptor: 'users with less followers than',
-      placeholder: 'Enter a number',
+      name: "Follower count less than",
+      descriptor: "users with less followers than",
+      placeholder: "Enter a number",
       function(t, e) {
         if (!e.user) return true;
 
         return !(e.user.followersCount < parseInt(t.value, 10));
-      },
-    },
+      }
+    }
   };
 
   // Custom pass function to apply our filters
   TD.vo.Filter.prototype.pass = function pass(e) {
-    if (this.type.startsWith('BTD')) {
+    if (this.type.startsWith("BTD")) {
       const t = this;
       e = this._getFilterTarget(e);
 
@@ -177,9 +177,9 @@ export default function () {
   // Helper function to build <option>s for the custom filters
   BTD.filterDropdown = function filterDropdown() {
     const filters = Object.keys(BTD.Filters);
-    let filterString = '';
+    let filterString = "";
 
-    filters.forEach((filter) => {
+    filters.forEach(filter => {
       const fil = BTD.Filters[filter];
       if (fil.display && fil.display.global) {
         filterString += `<option value="${filter}">{{_i}}${
@@ -194,15 +194,15 @@ export default function () {
   // Helper function to build <li>s for the actions dropdown
   BTD.userDropdown = function userDropdown() {
     const filters = Object.keys(BTD.Filters);
-    let filterString = '';
+    let filterString = "";
 
-    filters.forEach((filter) => {
+    filters.forEach(filter => {
       const fil = BTD.Filters[filter];
       if (fil.display && fil.display.actions) {
         const templateString =
           fil.options && fil.options.templateString
             ? fil.options.templateString
-            : '{{screenName}}';
+            : "{{screenName}}";
         const name =
           fil.options && fil.options.nameInDropdown
             ? fil.options.nameInDropdown
@@ -217,54 +217,54 @@ export default function () {
     return filterString;
   };
 
-  $(document).on('change', '.js-filter-types', (e) => {
+  $(document).on("change", ".js-filter-types", e => {
     e.preventDefault();
 
     const options = e.target.options;
     const filter = e.target.options[options.selectedIndex].value;
 
-    if (filter.startsWith('BTD')) {
-      $('.js-filter-input').attr(
-        'placeholder',
-        BTD.Filters[filter].placeholder,
+    if (filter.startsWith("BTD")) {
+      $(".js-filter-input").attr(
+        "placeholder",
+        BTD.Filters[filter].placeholder
       );
     }
   });
 
-  $('body').on('click', '[data-btd-filter]', (ev) => {
+  $("body").on("click", "[data-btd-filter]", ev => {
     ev.preventDefault();
-    const filter = $(ev.target).data('btd-filter');
-    const value = $(ev.target).data('btd-value');
+    const filter = $(ev.target).data("btd-filter");
+    const value = $(ev.target).data("btd-value");
 
     TD.controller.filterManager.addFilter(filter, value);
   });
 
   // Add our custom filters to the filter dropdown
-  TD.mustaches['settings/global_setting_filter.mustache'] = TD.mustaches[
-    'settings/global_setting_filter.mustache'
-  ].replace('</select>', `${BTD.filterDropdown()}</select>`);
+  TD.mustaches["settings/global_setting_filter.mustache"] = TD.mustaches[
+    "settings/global_setting_filter.mustache"
+  ].replace("</select>", `${BTD.filterDropdown()}</select>`);
 
   // Add our custom filters to the actions dropdown
-  TD.mustaches['menus/actions.mustache'] = TD.mustaches[
-    'menus/actions.mustache'
+  TD.mustaches["menus/actions.mustache"] = TD.mustaches[
+    "menus/actions.mustache"
   ].replace(
-    '{{/isMuted}} ',
-    `{{/isMuted}} {{#user}} {{^isMe}} ${BTD.userDropdown()} {{/isMe}} {{/user}}`,
+    "{{/isMuted}} ",
+    `{{/isMuted}} {{#user}} {{^isMe}} ${BTD.userDropdown()} {{/isMe}} {{/user}}`
   );
 
-  const filterKey = 'BTD_specific_tweet';
+  const filterKey = "BTD_specific_tweet";
   const filter = BTD.Filters[filterKey];
 
-  TD.mustaches['menus/actions.mustache'] = TD.mustaches[
-    'menus/actions.mustache'
+  TD.mustaches["menus/actions.mustache"] = TD.mustaches[
+    "menus/actions.mustache"
   ].replace(
-    '{{/isOwnChirp}}',
+    "{{/isOwnChirp}}",
     `{{/isOwnChirp}}
           <li class="is-selectable">
             <a href="#" action="_" data-btd-filter="${filterKey}" data-btd-value="${
-  filter.options.templateString
-}">${filter.options.nameInDropdown}</a>
+      filter.options.templateString
+    }">${filter.options.nameInDropdown}</a>
           </li>
-        `,
+        `
   );
 }

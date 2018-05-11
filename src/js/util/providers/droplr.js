@@ -1,17 +1,17 @@
-export default function ($) {
+export default function($) {
   return {
-    name: 'Droplr',
-    setting: 'droplr',
+    name: "Droplr",
+    setting: "droplr",
     re: /d.pr\/i/,
     default: true,
-    callback: (url) => {
-      const dpUrl = $.getSafeURL(`${url.replace(/\/$/, '')}/medium`);
+    callback: url => {
+      const dpUrl = $.getSafeURL(`${url.replace(/\/$/, "")}/medium`);
 
       return Promise.resolve({
-        type: 'image',
+        type: "image",
         thumbnail_url: dpUrl,
-        url: dpUrl,
+        url: dpUrl
       });
-    },
+    }
   };
 }

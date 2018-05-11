@@ -26,7 +26,7 @@ your own extension!
         <label for="{your feature key}" data-lang="{your feature language key}" data-new-feat >Description of my cool new feature</label>
       </li>
     ```
-* Add a locale for your feature description to [src/_locales/en/messages.json](https://github.com/eramdam/BetterTweetDeck/blob/master/src/_locales/en/messages.json)
+* Add a locale for your feature description to [src/\_locales/en/messages.json](https://github.com/eramdam/BetterTweetDeck/blob/master/src/_locales/en/messages.json)
   * Use following markup:
     ```
       "css_{your feature key}": { "message": "Description of my cool new feature" }
