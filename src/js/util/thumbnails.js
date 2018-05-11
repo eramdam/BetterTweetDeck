@@ -1,33 +1,33 @@
-import config from 'config';
-import reusePromise from 'reuse-promise';
+import config from "config";
+import reusePromise from "reuse-promise";
 
-import { send as sendMessage } from './messaging';
-import Log from './logger';
-import * as Providers from './providers/index';
-import * as BHelper from './browserHelper';
+import { send as sendMessage } from "./messaging";
+import Log from "./logger";
+import * as Providers from "./providers/index";
+import * as BHelper from "./browserHelper";
 
 const endpoints = {
-  '500px': 'https://500px.com/oembed?format=json&url=',
-  dailymotion: 'https://api.dailymotion.com/video/',
-  deviantart: 'https://backend.deviantart.com/oembed?',
-  dribbble: 'https://api.dribbble.com/v1/shots/',
-  noembed: 'https://noembed.com/embed?nowrap=on&url=',
-  imgur: 'https://api.imgur.com/3/',
-  instagram: 'https://api.instagram.com/oembed?omitscript=true&url=',
-  twitch: 'https://api.twitch.tv/kraken/',
-  giphy: 'https://giphy.com/services/oembed?url=',
-  tinami: 'https://www.tinami.com/api/content/info?',
-  nicoseiga: 'http://ext.seiga.nicovideo.jp/thumb/',
-  photozou: 'https://api.photozou.jp/rest/',
-  googleplus: 'https://picasaweb.google.com/data/feed/api/',
-  gyazo: 'https://api.gyazo.com/api/oembed?url=',
-  gfycat: 'https://api.gfycat.com/v1/oembed?url=',
-  nicovideo: 'https://ext.nicovideo.jp/api/getthumbinfo/',
+  "500px": "https://500px.com/oembed?format=json&url=",
+  dailymotion: "https://api.dailymotion.com/video/",
+  deviantart: "https://backend.deviantart.com/oembed?",
+  dribbble: "https://api.dribbble.com/v1/shots/",
+  noembed: "https://noembed.com/embed?nowrap=on&url=",
+  imgur: "https://api.imgur.com/3/",
+  instagram: "https://api.instagram.com/oembed?omitscript=true&url=",
+  twitch: "https://api.twitch.tv/kraken/",
+  giphy: "https://giphy.com/services/oembed?url=",
+  tinami: "https://www.tinami.com/api/content/info?",
+  nicoseiga: "http://ext.seiga.nicovideo.jp/thumb/",
+  photozou: "https://api.photozou.jp/rest/",
+  googleplus: "https://picasaweb.google.com/data/feed/api/",
+  gyazo: "https://api.gyazo.com/api/oembed?url=",
+  gfycat: "https://api.gfycat.com/v1/oembed?url=",
+  nicovideo: "https://ext.nicovideo.jp/api/getthumbinfo/"
 };
 
 let providersSettings;
 
-sendMessage({ action: 'get', key: 'thumbnails' }, (response) => {
+sendMessage({ action: "get", key: "thumbnails" }, response => {
   providersSettings = response.val;
 });
 
@@ -36,16 +36,18 @@ sendMessage({ action: 'get', key: 'thumbnails' }, (response) => {
  * @param  {String} url url of image
  * @return {String}     safe url
  */
-export const getSafeURL = (url) => {
+export const getSafeURL = url => {
   if (!url) {
-    return '';
+    return "";
   }
 
-  if (url.startsWith('//')) {
+  if (url.startsWith("//")) {
     url = `https:${url}`;
   }
 
-  return `https://images4-focus-opensocial.googleusercontent.com/gadgets/proxy?url=${encodeURIComponent(url)}&container=focus&resize_w=720&refresh=86400`;
+  return `https://images4-focus-opensocial.googleusercontent.com/gadgets/proxy?url=${encodeURIComponent(
+    url
+  )}&container=focus&resize_w=720&refresh=86400`;
 };
 
 /**
@@ -65,7 +67,7 @@ const getKeyFor = service => config.Client.APIs[service];
 /**
  * Function to use in promise that will return the json output of a request
  */
-const statusAndJson = (res) => {
+const statusAndJson = res => {
   if (res.status >= 200 && res.status < 300) {
     return res.json();
   }
@@ -76,7 +78,7 @@ const statusAndJson = (res) => {
 /**
  * Function to use in promise that will return the text output of a request
  */
-const statusAndText = (res) => {
+const statusAndText = res => {
   if (res.status >= 200 && res.status < 300) {
     return res.text();
   }
@@ -86,14 +88,14 @@ const statusAndText = (res) => {
 /**
  * Returns a promise with image data from noembed
  */
-const noEmbedImgCB = (url) => {
-  return fetch(`${getEnpointFor('noembed')}${url}`)
+const noEmbedImgCB = url => {
+  return fetch(`${getEnpointFor("noembed")}${url}`)
     .then(statusAndJson)
-    .then((data) => {
+    .then(data => {
       const obj = {
-        type: 'image',
+        type: "image",
         thumbnail_url: getSafeURL(data.media_url),
-        url: getSafeURL(data.media_url),
+        url: getSafeURL(data.media_url)
       };
 
       return obj;
@@ -103,15 +105,15 @@ const noEmbedImgCB = (url) => {
 /**
  * Returns a promise with video data from noembed
  */
-const noEmbedVideoCB = (url) => {
-  return fetch(`${getEnpointFor('noembed')}${url}`)
+const noEmbedVideoCB = url => {
+  return fetch(`${getEnpointFor("noembed")}${url}`)
     .then(statusAndJson)
-    .then((data) => {
+    .then(data => {
       const obj = {
-        type: 'video',
+        type: "video",
         thumbnail_url: getSafeURL(data.thumbnail_url),
         html: data.html,
-        url,
+        url
       };
 
       return obj;
@@ -126,7 +128,7 @@ const util = {
   getEnpointFor,
   getSafeURL,
   noEmbedVideoCB,
-  noEmbedImgCB,
+  noEmbedImgCB
 };
 
 export const schemeWhitelist = [
@@ -162,19 +164,19 @@ export const schemeWhitelist = [
   Providers.worldcosplay(util),
   Providers.youtube(util),
   Providers.yfrog(util),
-  Providers.universal(util),
+  Providers.universal(util)
 ];
 
 if (!BHelper.isFirefox) {
   schemeWhitelist.push(Providers.instagram(util));
 }
 
-export const validateUrl = (url) => {
-  let provider = '';
+export const validateUrl = url => {
+  let provider = "";
   let cb;
 
   // We test every scheme to see if the url matches one of them
-  const some = schemeWhitelist.some((scheme) => {
+  const some = schemeWhitelist.some(scheme => {
     if (scheme.re.test(url)) {
       if (providersSettings[scheme.setting] === false) {
         return false;
@@ -198,8 +200,8 @@ function thumbnailForFetch(url) {
   const validationObj = validateUrl(url);
   const cleanUrl = new URL(url);
   // Pixiv requires url parameters
-  if (cleanUrl && !cleanUrl.hostname.includes('pixiv.')) {
-    cleanUrl.search = '';
+  if (cleanUrl && !cleanUrl.hostname.includes("pixiv.")) {
+    cleanUrl.search = "";
   }
   url = cleanUrl.toString();
 

@@ -211,9 +211,9 @@ html.dark .is-inverted-dark .txt-mute a:not(:hover):not(:focus) {
 
 html.dark .is-inverted-dark .stream-item:not(.conversation-event),
 html.dark
-.is-inverted-dark
-.conversation-event
-+ .stream-item:not(.conversation-event) {
+  .is-inverted-dark
+  .conversation-event
+  + .stream-item:not(.conversation-event) {
   border-color: #eaeaea;
 }
 
@@ -1278,68 +1278,68 @@ html.dark .is-selected.dm-action .icon-favorite {
 }
 
 html.dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.tweet-action,
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .tweet-action,
 html.dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.tweet-detail-action,
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .tweet-detail-action,
 html.dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.dm-action {
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .dm-action {
   color: #657786;
 }
 
 html.dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.tweet-action:hover,
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .tweet-action:hover,
 html.dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.tweet-detail-action:hover,
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .tweet-detail-action:hover,
 html.dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.dm-action:hover,
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .dm-action:hover,
 html.dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.tweet-action:focus,
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .tweet-action:focus,
 html.dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.tweet-detail-action:focus,
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .tweet-detail-action:focus,
 html.dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.dm-action:focus,
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .dm-action:focus,
 html.dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.tweet-action:active,
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .tweet-action:active,
 html.dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.tweet-detail-action:active,
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .tweet-detail-action:active,
 html.dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.dm-action:active,
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .dm-action:active,
 html.dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.tweet-action.is-selected,
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .tweet-action.is-selected,
 html.dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.is-selected.tweet-detail-action,
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .is-selected.tweet-detail-action,
 html.dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.is-selected.dm-action {
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .is-selected.dm-action {
   color: #8899a6;
 }
 
@@ -1347,20 +1347,20 @@ html.dark .is-inverted-dark .tweet-action,
 html.dark .is-inverted-dark .tweet-detail-action,
 html.dark .is-inverted-dark .dm-action,
 html.dark
-.is-inverted-dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.tweet-action,
+  .is-inverted-dark
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .tweet-action,
 html.dark
-.is-inverted-dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.tweet-detail-action,
+  .is-inverted-dark
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .tweet-detail-action,
 html.dark
-.is-inverted-dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.dm-action {
+  .is-inverted-dark
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .dm-action {
   color: #8899a6;
 }
 
@@ -1377,65 +1377,65 @@ html.dark .is-inverted-dark .tweet-action.is-selected,
 html.dark .is-inverted-dark .is-selected.tweet-detail-action,
 html.dark .is-inverted-dark .is-selected.dm-action,
 html.dark
-.is-inverted-dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.tweet-action:hover,
+  .is-inverted-dark
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .tweet-action:hover,
 html.dark
-.is-inverted-dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.tweet-detail-action:hover,
+  .is-inverted-dark
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .tweet-detail-action:hover,
 html.dark
-.is-inverted-dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.dm-action:hover,
+  .is-inverted-dark
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .dm-action:hover,
 html.dark
-.is-inverted-dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.tweet-action:focus,
+  .is-inverted-dark
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .tweet-action:focus,
 html.dark
-.is-inverted-dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.tweet-detail-action:focus,
+  .is-inverted-dark
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .tweet-detail-action:focus,
 html.dark
-.is-inverted-dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.dm-action:focus,
+  .is-inverted-dark
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .dm-action:focus,
 html.dark
-.is-inverted-dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.tweet-action:active,
+  .is-inverted-dark
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .tweet-action:active,
 html.dark
-.is-inverted-dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.tweet-detail-action:active,
+  .is-inverted-dark
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .tweet-detail-action:active,
 html.dark
-.is-inverted-dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.dm-action:active,
+  .is-inverted-dark
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .dm-action:active,
 html.dark
-.is-inverted-dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.tweet-action.is-selected,
+  .is-inverted-dark
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .tweet-action.is-selected,
 html.dark
-.is-inverted-dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.is-selected.tweet-detail-action,
+  .is-inverted-dark
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .is-selected.tweet-detail-action,
 html.dark
-.is-inverted-dark
-.chirp-container
-.stream-item:not(:hover):not(.is-selected-tweet)
-.is-selected.dm-action {
+  .is-inverted-dark
+  .chirp-container
+  .stream-item:not(:hover):not(.is-selected-tweet)
+  .is-selected.dm-action {
   color: #111;
 }
 
@@ -3234,14 +3234,14 @@ html.dark .DatePicker--withPendingRange .DatePicker-calendarDay.is-rangeEnd {
 }
 
 html.dark
-.DatePicker--withPendingRange
-.DatePicker-calendarDay.is-withinRange.is-adjacentMonth,
+  .DatePicker--withPendingRange
+  .DatePicker-calendarDay.is-withinRange.is-adjacentMonth,
 html.dark
-.DatePicker--withPendingRange
-.DatePicker-calendarDay.is-rangeStart.is-adjacentMonth,
+  .DatePicker--withPendingRange
+  .DatePicker-calendarDay.is-rangeStart.is-adjacentMonth,
 html.dark
-.DatePicker--withPendingRange
-.DatePicker-calendarDay.is-rangeEnd.is-adjacentMonth {
+  .DatePicker--withPendingRange
+  .DatePicker-calendarDay.is-rangeEnd.is-adjacentMonth {
   color: #657786;
 }
 
@@ -3355,9 +3355,9 @@ html.dark .ButtonGroup--tertiary > .Button.is-selected:active,
 html.dark .ButtonGroup--tertiary > .ButtonGroup > .Button.is-selected:active,
 html.dark .ButtonGroup--tertiary > .Button.is-selected.is-active,
 html.dark
-.ButtonGroup--tertiary
-> .ButtonGroup
-> .Button.is-selected.is-active {
+  .ButtonGroup--tertiary
+  > .ButtonGroup
+  > .Button.is-selected.is-active {
   box-shadow: 0 0 0 2px white, 0 0 0 4px #aab8c2;
   background-color: #657786;
   border-color: #657786;
@@ -3367,15 +3367,15 @@ html.dark .ButtonGroup--tertiary > .Button.is-selected[disabled],
 html.dark .ButtonGroup--tertiary > .ButtonGroup > .Button.is-selected[disabled],
 html.dark .ButtonGroup--tertiary > .Button.is-selected.is-disabled,
 html.dark
-.ButtonGroup--tertiary
-> .ButtonGroup
-> .Button.is-selected.is-disabled,
+  .ButtonGroup--tertiary
+  > .ButtonGroup
+  > .Button.is-selected.is-disabled,
 html.dark fieldset[disabled] .ButtonGroup--tertiary > .Button.is-selected,
 html.dark
-fieldset[disabled]
-.ButtonGroup--tertiary
-> .ButtonGroup
-> .Button.is-selected {
+  fieldset[disabled]
+  .ButtonGroup--tertiary
+  > .ButtonGroup
+  > .Button.is-selected {
   background-color: #657786;
   border-color: #657786;
 }
@@ -3928,9 +3928,9 @@ html.dark .DateRange:not([dir="rtl"]) .DateRange-presets {
 }
 
 html.dark
-.DateRange:not([dir="rtl"])
-.DateRange-pickersRow:first-child
-.DateRange-pickerWrapper:last-child {
+  .DateRange:not([dir="rtl"])
+  .DateRange-pickersRow:first-child
+  .DateRange-pickerWrapper:last-child {
   border-left: 1px solid #ccd6dd;
 }
 
@@ -3939,9 +3939,9 @@ html.dark .DateRange[dir="rtl"] .DateRange-presets {
 }
 
 html.dark
-.DateRange[dir="rtl"]
-.DateRange-pickersRow:first-child
-.DateRange-pickerWrapper:last-child {
+  .DateRange[dir="rtl"]
+  .DateRange-pickersRow:first-child
+  .DateRange-pickerWrapper:last-child {
   border-right: 1px solid #ccd6dd;
 }
 
@@ -4063,21 +4063,21 @@ html.dark .FormInputWrapper-absoluteEndAdornment .Icon--caretDown {
 }
 
 html.dark
-.FormInputWrapper.is-disabled
-.FormInputWrapper-absoluteStartAdornment
-.Icon--caretDown,
+  .FormInputWrapper.is-disabled
+  .FormInputWrapper-absoluteStartAdornment
+  .Icon--caretDown,
 html.dark
-.FormInputWrapper.is-disabled
-.FormInputWrapper-absoluteEndAdornment
-.Icon--caretDown,
+  .FormInputWrapper.is-disabled
+  .FormInputWrapper-absoluteEndAdornment
+  .Icon--caretDown,
 html.dark
-fieldset[disabled]
-.FormInputWrapper-absoluteStartAdornment
-.Icon--caretDown,
+  fieldset[disabled]
+  .FormInputWrapper-absoluteStartAdornment
+  .Icon--caretDown,
 html.dark
-fieldset[disabled]
-.FormInputWrapper-absoluteEndAdornment
-.Icon--caretDown {
+  fieldset[disabled]
+  .FormInputWrapper-absoluteEndAdornment
+  .Icon--caretDown {
   color: #657786;
 }
 
@@ -4104,35 +4104,35 @@ html.dark .Token-checkbox input[type="checkbox"]:focus + .Icon {
 
 html.dark .Token--small .Token-trigger input[type="checkbox"]:focus + .Icon,
 html.dark
-.TokenGroup--small
-> .Token
-.Token-trigger
-input[type="checkbox"]:focus
-+ .Icon,
+  .TokenGroup--small
+  > .Token
+  .Token-trigger
+  input[type="checkbox"]:focus
+  + .Icon,
 html.dark
-.TokenGroup--small
-> .TokenGroup
-> .Token
-.Token-trigger
-input[type="checkbox"]:focus
-+ .Icon {
+  .TokenGroup--small
+  > .TokenGroup
+  > .Token
+  .Token-trigger
+  input[type="checkbox"]:focus
+  + .Icon {
   box-shadow: 0 0 0 3px white, 0 0 0 5px #71c9f8;
 }
 
 html.dark .Token--xsmall .Token-trigger input[type="checkbox"]:focus + .Icon,
 html.dark
-.TokenGroup--xsmall
-> .Token
-.Token-trigger
-input[type="checkbox"]:focus
-+ .Icon,
+  .TokenGroup--xsmall
+  > .Token
+  .Token-trigger
+  input[type="checkbox"]:focus
+  + .Icon,
 html.dark
-.TokenGroup--xsmall
-> .TokenGroup
-> .Token
-.Token-trigger
-input[type="checkbox"]:focus
-+ .Icon {
+  .TokenGroup--xsmall
+  > .TokenGroup
+  > .Token
+  .Token-trigger
+  input[type="checkbox"]:focus
+  + .Icon {
   box-shadow: 0 0 0 0 white, 0 0 0 2px #71c9f8;
 }
 

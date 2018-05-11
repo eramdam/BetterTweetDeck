@@ -1,15 +1,15 @@
-import parseURL from '../parseUrl';
+import parseURL from "../parseUrl";
 
-export default function ($) {
+export default function($) {
   return {
-    name: 'Gfycat',
-    setting: 'gfycat',
+    name: "Gfycat",
+    setting: "gfycat",
     re: /gfycat.com/,
     default: true,
-    callback: (url) => {
-      return fetch(`${$.getEnpointFor('gfycat')}${url}`)
+    callback: url => {
+      return fetch(`${$.getEnpointFor("gfycat")}${url}`)
         .then($.statusAndJson)
-        .then((data) => {
+        .then(data => {
           let tbUrl = data.thumbnail_url;
           const ID = parseURL(url).segments[0];
 
@@ -18,14 +18,14 @@ export default function ($) {
           }
 
           const obj = {
-            type: 'video',
+            type: "video",
             thumbnail_url: $.getSafeURL(tbUrl),
             html: data.html,
-            url,
+            url
           };
 
           return obj;
         });
-    },
+    }
   };
 }

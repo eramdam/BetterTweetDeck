@@ -32,14 +32,14 @@ Adds some nice options on [TweetDeck](http://tweetdeck.twitter.com) to provide a
 # Installation
 
 The extensions is currently available for the following browsers:
-- [Chrome](https://chrome.google.com/webstore/detail/bettertweetdeck-3/micblkellenpbfapmcpcfhcoeohhnpob)
-- [Opera](https://addons.opera.com/en/extensions/details/bettertweetdeck/)
-- [Firefox](https://addons.mozilla.org/en-US/firefox/addon/better-tweetdeck-17/)
+
+* [Chrome](https://chrome.google.com/webstore/detail/bettertweetdeck-3/micblkellenpbfapmcpcfhcoeohhnpob)
+* [Opera](https://addons.opera.com/en/extensions/details/bettertweetdeck/)
+* [Firefox](https://addons.mozilla.org/en-US/firefox/addon/better-tweetdeck-17/)
 
 # Features
 
 Find the complete list of features on [https://better.tw/#features-list](https://better.tw/#features-list)
-
 
 # Contributing & helping
 

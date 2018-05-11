@@ -14,18 +14,18 @@ export function onEvent(name, cb) {
 
 export function sendEvent(name, detail) {
   name = `BTDC_${name}`;
-  window.postMessage({ name, detail }, 'https://tweetdeck.twitter.com');
+  window.postMessage({ name, detail }, "https://tweetdeck.twitter.com");
 }
 
 function initPostMessageListener() {
-  window.addEventListener('message', (ev) => {
-    if (ev.origin.indexOf('tweetdeck.') === -1) {
+  window.addEventListener("message", ev => {
+    if (ev.origin.indexOf("tweetdeck.") === -1) {
       return false;
     }
 
     if (
       !ev.data.name ||
-      !ev.data.name.startsWith('BTDC_') ||
+      !ev.data.name.startsWith("BTDC_") ||
       !listeners[ev.data.name]
     ) {
       return false;
@@ -38,7 +38,7 @@ function initPostMessageListener() {
 initPostMessageListener();
 
 // element-closest | CC0-1.0 | github.com/jonathantneal/closest
-if (typeof Element.prototype.matches !== 'function') {
+if (typeof Element.prototype.matches !== "function") {
   Element.prototype.matches =
     Element.prototype.msMatchesSelector ||
     Element.prototype.mozMatchesSelector ||
@@ -58,7 +58,7 @@ if (typeof Element.prototype.matches !== 'function') {
     };
 }
 
-if (typeof Element.prototype.closest !== 'function') {
+if (typeof Element.prototype.closest !== "function") {
   Element.prototype.closest = function closest(selector) {
     let element = this;
 

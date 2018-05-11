@@ -1,31 +1,31 @@
-import * as secureDomify from '../secureDomify';
-import fetchPage from '../fetchPage';
+import * as secureDomify from "../secureDomify";
+import fetchPage from "../fetchPage";
 
-export default function ($) {
+export default function($) {
   return {
-    name: 'Gyazo',
-    setting: 'gyazo',
+    name: "Gyazo",
+    setting: "gyazo",
     re: /gyazo.com/,
     default: true,
-    callback: (url) => {
+    callback: url => {
       let gyazoData = {};
 
-      return fetch($.getSafeURL(`${$.getEnpointFor('gyazo')}${url}`))
+      return fetch($.getSafeURL(`${$.getEnpointFor("gyazo")}${url}`))
         .then($.statusAndJson)
-        .then((data) => {
-          if (data.type === 'photo') {
+        .then(data => {
+          if (data.type === "photo") {
             return {
-              type: 'image',
+              type: "image",
               thumbnail_url: $.getSafeURL(data.url),
-              url: $.getSafeURL(data.url),
+              url: $.getSafeURL(data.url)
             };
           }
 
           gyazoData = data;
           return fetchPage(url);
         })
-        .then((data) => {
-          if (data.type === 'image') {
+        .then(data => {
+          if (data.type === "image") {
             return data;
           }
 
@@ -37,16 +37,16 @@ export default function ($) {
           const thumbnail = secureDomify.getAttributeFromNode(
             '[name="twitter:image"]',
             el,
-            'content',
+            "content"
           );
 
           return {
-            type: 'video',
+            type: "video",
             thumbnail_url: $.getSafeURL(thumbnail),
             html: gyazoData.html,
-            url,
+            url
           };
         });
-    },
+    }
   };
 }

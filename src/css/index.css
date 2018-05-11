@@ -201,10 +201,10 @@ html.btd-on {
   }
 
   .btd__old_replies
-  .js-stream-item:not(.btd-is-retweet)
-  .js-tweet:not(.txt-mute)
-  .thread
-  ~ .tweet-body,
+    .js-stream-item:not(.btd-is-retweet)
+    .js-tweet:not(.txt-mute)
+    .thread
+    ~ .tweet-body,
   .btd__old_replies .js-stream-item .quoted-tweet {
     .other-replies::before {
       display: none;
@@ -212,9 +212,9 @@ html.btd-on {
   }
 
   .btd__old_replies
-  .js-stream-item:not(.btd-is-retweet)
-  .js-tweet:not(.txt-mute)
-  .tweet-body {
+    .js-stream-item:not(.btd-is-retweet)
+    .js-tweet:not(.txt-mute)
+    .tweet-body {
     .other-replies {
       font-size: 0;
       height: 0;

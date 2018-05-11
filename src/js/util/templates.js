@@ -1,6 +1,6 @@
-import Mustache from 'mustache';
-import dompurify from 'dompurify';
-import { purifyConfig } from '../util/secureDomify';
+import Mustache from "mustache";
+import dompurify from "dompurify";
+import { purifyConfig } from "../util/secureDomify";
 
 /* eslint max-len: 0 */
 const templates = {
@@ -49,7 +49,7 @@ const templates = {
         <div class="js-med-tweet med-tweet">{{&tweetEmbed}}</div>
       </div>
     </div>
-  </div>`,
+  </div>`
 };
 
 const defaultData = {
@@ -65,37 +65,37 @@ const defaultData = {
     isPossiblySensitive: false,
     isVideo: false,
     mediaId: 0,
-    mediaPreviewSrc: 'foo',
+    mediaPreviewSrc: "foo",
     needsSecureUrl: false,
-    thumbSizeClass: 'HUGE',
-    url: 'apple.com',
+    thumbSizeClass: "HUGE",
+    url: "apple.com"
   },
   modal: {
     imageUrl: undefined,
     isVideo: true,
     originalUrl: undefined,
-    videoEmbed: undefined,
-  },
+    videoEmbed: undefined
+  }
 };
 
 export const previewTemplate = ({
   mediaPreviewSrc,
   sourceLink,
   size,
-  type = 'picture',
-  provider = 'default',
+  type = "picture",
+  provider = "default"
 }) => {
   const safeURL = mediaPreviewSrc;
 
   if (
-    type === 'image' &&
-    !mediaPreviewSrc.includes('imgur.com') &&
+    type === "image" &&
+    !mediaPreviewSrc.includes("imgur.com") &&
     mediaPreviewSrc
   ) {
     const parsed = new URL(mediaPreviewSrc);
-    mediaPreviewSrc = parsed.searchParams.get('url');
+    mediaPreviewSrc = parsed.searchParams.get("url");
 
-    if (!mediaPreviewSrc.includes('https')) {
+    if (!mediaPreviewSrc.includes("https")) {
       mediaPreviewSrc = safeURL;
     }
   }
@@ -105,14 +105,14 @@ export const previewTemplate = ({
     Object.assign(defaultData.preview, {
       url: sourceLink,
       mediaPreviewSrc,
-      isVideo: type !== 'image',
-      isMediaPreviewLarge: size === 'large',
-      isMediaPreviewCompact: size === 'medium',
-      isMediaPreviewSmall: size === 'small',
-      thumbSizeClass: `media-size-${size || 'medium'}`,
-      needsProvider: !['default', 'universal'].includes(provider),
-      provider: (provider || '').toLowerCase(),
-    }),
+      isVideo: type !== "image",
+      isMediaPreviewLarge: size === "large",
+      isMediaPreviewCompact: size === "medium",
+      isMediaPreviewSmall: size === "small",
+      thumbSizeClass: `media-size-${size || "medium"}`,
+      needsProvider: !["default", "universal"].includes(provider),
+      provider: (provider || "").toLowerCase()
+    })
   );
 };
 
@@ -121,24 +121,24 @@ export const modalTemplate = ({
   originalUrl,
   type,
   videoEmbed = null,
-  provider = 'default',
-  hasGIFDownload = false,
+  provider = "default",
+  hasGIFDownload = false
 }) => {
-  if (type === 'image') {
+  if (type === "image") {
     const parsed = new URL(imageUrl);
-    imageUrl = parsed.searchParams.get('url');
+    imageUrl = parsed.searchParams.get("url");
   }
 
   return Mustache.render(
-    type === 'image' ? templates.imageModal : templates.videoModal,
+    type === "image" ? templates.imageModal : templates.videoModal,
     Object.assign(defaultData.modal, {
       imageUrl,
       videoEmbed: dompurify.sanitize(videoEmbed, purifyConfig),
       originalUrl,
-      isVideo: type !== 'image',
-      provider: (provider || '').toLowerCase(),
-      hasGIFDownload,
-    }),
+      isVideo: type !== "image",
+      provider: (provider || "").toLowerCase(),
+      hasGIFDownload
+    })
   );
 };
 
@@ -154,8 +154,8 @@ export const giphyBlock = ({ preview, url, source }) => {
       width: preview.width,
       height: preview.height,
       url,
-      source,
-    },
+      source
+    }
   );
 };
 

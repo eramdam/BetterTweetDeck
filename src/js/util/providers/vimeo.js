@@ -1,9 +1,9 @@
-export default function ($) {
+export default function($) {
   return {
-    name: 'Vimeo',
-    setting: 'vimeo',
+    name: "Vimeo",
+    setting: "vimeo",
     re: /vimeo.com\/[0-9]*$/,
     default: true,
-    callback: $.noEmbedVideoCB,
+    callback: $.noEmbedVideoCB
   };
 }

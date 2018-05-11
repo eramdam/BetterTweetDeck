@@ -1,31 +1,31 @@
-import fecha from 'fecha';
-import { send as sendMessage } from './messaging';
+import fecha from "fecha";
+import { send as sendMessage } from "./messaging";
 
 let timestampMode;
 let customMode;
 let fullAfter24;
 
-sendMessage({ action: 'get', key: 'ts' }, (response) => {
+sendMessage({ action: "get", key: "ts" }, response => {
   timestampMode = response.val;
 });
 
-sendMessage({ action: 'get', key: 'full_aft_24' }, (response) => {
+sendMessage({ action: "get", key: "full_aft_24" }, response => {
   fullAfter24 = response.val;
 });
 
-sendMessage({ action: 'get', key: 'custom_ts' }, (response) => {
+sendMessage({ action: "get", key: "custom_ts" }, response => {
   customMode = response.val;
 });
 
 const formatMaps = {
   absolute_us: {
-    full: 'MM/DD/YY hh:mm a',
-    short: 'hh:mm a',
+    full: "MM/DD/YY hh:mm a",
+    short: "hh:mm a"
   },
   absolute_metric: {
-    full: 'DD/MM/YY HH:mm',
-    short: 'HH:mm',
-  },
+    full: "DD/MM/YY HH:mm",
+    short: "HH:mm"
+  }
 };
 
 function lessThan24(d) {
@@ -33,7 +33,7 @@ function lessThan24(d) {
 }
 
 function getFormat(dateObject, mode) {
-  if (mode === 'custom') {
+  if (mode === "custom") {
     if (fullAfter24 && lessThan24(dateObject)) {
       return customMode.short;
     }
@@ -56,7 +56,7 @@ function getDateObject(dateString) {
 }
 
 function timestampOnElement(element, dateString) {
-  if (timestampMode === 'relative') {
+  if (timestampMode === "relative") {
     return;
   }
 

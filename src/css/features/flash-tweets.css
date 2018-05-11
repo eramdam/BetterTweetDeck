@@ -10,17 +10,17 @@
 
 html.btd-on {
   .btd__flash-mentions
-  :matches(.column-type-interactions, .column-type-mention)
-  .js-chirp-container
-  > article:first-of-type {
+    :matches(.column-type-interactions, .column-type-mention)
+    .js-chirp-container
+    > article:first-of-type {
     animation-duration: 2s;
     animation-name: tweetEnter;
   }
 
   .btd__flash-all
-  [class*="column-type"]
-  .js-chirp-container
-  > article:first-of-type {
+    [class*="column-type"]
+    .js-chirp-container
+    > article:first-of-type {
     animation-duration: 2s;
     animation-name: tweetEnter;
   }

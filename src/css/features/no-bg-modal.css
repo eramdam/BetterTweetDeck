@@ -28,7 +28,7 @@ html.btd-on {
   }
 
   .btd__no_bg_modal
-  :matches(.mdl-btn-media, .is-inverted-light .mdl-btn-media) {
+    :matches(.mdl-btn-media, .is-inverted-light .mdl-btn-media) {
     opacity: 1;
   }
 

@@ -30,8 +30,8 @@
 }
 
 .btd__small_icns_compose
-.js-add-emojis.padding-v--9.js-add-emojis
-.btd-emoji-icon {
+  .js-add-emojis.padding-v--9.js-add-emojis
+  .btd-emoji-icon {
   transform: translateY(-2px);
 }
 
@@ -44,18 +44,20 @@
   in that case span.column-number is right before ul.btd-column-buttons so it works okay
 */
 .btd-on
-.js-column.column:not(.btd-column-collapsed)
-span.column-number
-+ ul.btd-column-buttons.btd-column-buttons {
+  .js-column.column:not(.btd-column-collapsed)
+  span.column-number
+  + ul.btd-column-buttons.btd-column-buttons {
   width: 100% !important;
 }
-
 
 /**
  * Another TD update that breaks the styling of buttons in columns (May 9th 2018)
  */
 
-.btd-on .js-column .btd-column-buttons .column-header-link[data-action="options"] {
+.btd-on
+  .js-column
+  .btd-column-buttons
+  .column-header-link[data-action="options"] {
   position: relative !important;
   right: 0 !important;
- }
+}

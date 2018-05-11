@@ -1,14 +1,14 @@
-import fetchPage from '../fetchPage';
-import * as secureDomify from '../secureDomify';
+import fetchPage from "../fetchPage";
+import * as secureDomify from "../secureDomify";
 
-export default function ($) {
+export default function($) {
   return {
-    name: 'Bandcamp',
-    setting: 'bandcamp',
+    name: "Bandcamp",
+    setting: "bandcamp",
     re: /bandcamp.com\/(?:album|track)/,
     default: true,
     callback: url =>
-      fetchPage(url).then((data) => {
+      fetchPage(url).then(data => {
         if (data.target.status !== 200) {
           return null;
         }
@@ -17,31 +17,31 @@ export default function ($) {
         let thumbnail = secureDomify.getAttributeFromNode(
           '[property="og:image"]',
           el,
-          'content',
+          "content"
         );
 
         if (!thumbnail) {
           thumbnail = secureDomify.getAttributeFromNode(
             '[property="twitter:image"]',
             el,
-            'content',
+            "content"
           );
         }
 
         const embedURL = secureDomify.getAttributeFromNode(
           '[property="twitter:player"]',
           el,
-          'content',
+          "content"
         );
         const height = secureDomify.getAttributeFromNode(
           '[property="twitter:player:height"]',
           el,
-          'content',
+          "content"
         );
         const width = secureDomify.getAttributeFromNode(
           '[property="twitter:player:width"]',
           el,
-          'content',
+          "content"
         );
 
         if (!thumbnail || !embedURL) {
@@ -49,11 +49,11 @@ export default function ($) {
         }
 
         return {
-          type: 'audio',
+          type: "audio",
           thumbnail_url: $.getSafeURL(thumbnail),
           html: `<iframe style="border: 0; width: ${width}px; height: ${height}px;" src="${embedURL}" seamless></iframe>`,
-          url,
+          url
         };
-      }),
+      })
   };
 }

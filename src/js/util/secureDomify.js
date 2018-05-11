@@ -1,22 +1,22 @@
-import domify from 'domify';
-import dompurify from 'dompurify';
+import domify from "domify";
+import dompurify from "dompurify";
 
 export const purifyConfig = {
-  ADD_TAGS: ['iframe', 'link', 'meta', 'head'],
-  ADD_ATTR: ['autoplay', 'frameborder', 'btd-custom-modal'],
+  ADD_TAGS: ["iframe", "link", "meta", "head"],
+  ADD_ATTR: ["autoplay", "frameborder", "btd-custom-modal"]
 };
 
 export function getAttributeFromNode(selector, node, attribute) {
   const el = node.querySelector(selector);
 
   if (!el) {
-    return '';
+    return "";
   }
 
   const attr = el.getAttribute(attribute);
 
   if (!attr) {
-    return '';
+    return "";
   }
 
   return dompurify.sanitize(attr);

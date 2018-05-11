@@ -1,60 +1,68 @@
-import { shuffle } from 'lodash';
-import { Client } from 'config';
-import qs from 'query-string';
+import { shuffle } from "lodash";
+import { Client } from "config";
+import qs from "query-string";
 
 const formatTenorResults = res =>
   res.results.map(result => ({
     preview: {
       url: result.media[0].tinygif.url,
       width: result.media[0].tinygif.dims[0],
-      height: result.media[0].tinygif.dims[1],
+      height: result.media[0].tinygif.dims[1]
     },
     url: result.media[0].gif.url,
-    source: 'tenor',
+    source: "tenor"
   }));
 
 const formatGiphyResults = res =>
   res.data.map(i => ({
     preview: i.images.preview_gif,
     url: i.images.original.url,
-    source: 'giphy',
+    source: "giphy"
   }));
 
 const tenor = (endpoint, params = {}) => {
   if (!endpoint) {
-    throw new Error('specify a endpoint!');
+    throw new Error("specify a endpoint!");
   }
 
-  const querystring = qs.stringify(Object.assign(
-    {
-      key: Client.APIs.tenor,
-    },
-    params,
-  ));
+  const querystring = qs.stringify(
+    Object.assign(
+      {
+        key: Client.APIs.tenor
+      },
+      params
+    )
+  );
 
-  return fetch(`https://api.tenor.com/v1/${endpoint}?${querystring}`).then(res => res.json());
+  return fetch(`https://api.tenor.com/v1/${endpoint}?${querystring}`).then(
+    res => res.json()
+  );
 };
 
 const giphy = (endpoint, params = {}) => {
   if (!endpoint) {
-    throw new Error('specify a endpoint!');
+    throw new Error("specify a endpoint!");
   }
 
-  const querystring = qs.stringify(Object.assign(
-    {
-      api_key: Client.APIs.giphy,
-    },
-    params,
-  ));
+  const querystring = qs.stringify(
+    Object.assign(
+      {
+        api_key: Client.APIs.giphy
+      },
+      params
+    )
+  );
 
-  return fetch(`https://api.giphy.com/v1/gifs/${endpoint}?${querystring}`).then(res => res.json());
+  return fetch(`https://api.giphy.com/v1/gifs/${endpoint}?${querystring}`).then(
+    res => res.json()
+  );
 };
 
 export function trending() {
   return Promise.all([
-    tenor('trending', { limit: 10 }),
-    giphy('trending', { limit: 10 }),
-  ]).then((values) => {
+    tenor("trending", { limit: 10 }),
+    giphy("trending", { limit: 10 })
+  ]).then(values => {
     const tenorResults = formatTenorResults(values[0]);
     const giphyResults = formatGiphyResults(values[1]);
 
@@ -64,9 +72,9 @@ export function trending() {
 
 export function search(query) {
   return Promise.all([
-    tenor('search', { limit: 10, q: query }),
-    giphy('search', { limit: 10, q: query }),
-  ]).then((values) => {
+    tenor("search", { limit: 10, q: query }),
+    giphy("search", { limit: 10, q: query })
+  ]).then(values => {
     const tenorResults = formatTenorResults(values[0]);
     const giphyResults = formatGiphyResults(values[1]);
 
@@ -76,15 +84,19 @@ export function search(query) {
 
 export default function tenorR(endpoint, params = {}) {
   if (!endpoint) {
-    throw new Error('specify a endpoint!');
+    throw new Error("specify a endpoint!");
   }
 
-  const querystring = qs.stringify(Object.assign(
-    {
-      key: Client.APIs.tenor,
-    },
-    params,
-  ));
+  const querystring = qs.stringify(
+    Object.assign(
+      {
+        key: Client.APIs.tenor
+      },
+      params
+    )
+  );
 
-  return fetch(`https://api.tenor.com/v1/${endpoint}?${querystring}`).then(res => res.json());
+  return fetch(`https://api.tenor.com/v1/${endpoint}?${querystring}`).then(
+    res => res.json()
+  );
 }

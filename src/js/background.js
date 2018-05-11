@@ -1,29 +1,29 @@
-import { defaultsDeep } from 'lodash';
+import { defaultsDeep } from "lodash";
 
-import * as BHelper from './util/browserHelper';
-import * as Messages from './util/messaging';
-import Log from './util/logger';
+import * as BHelper from "./util/browserHelper";
+import * as Messages from "./util/messaging";
+import Log from "./util/logger";
 
 const defaultSettings = {
   need_follow_banner: true,
   installed_version: BHelper.getVersion(),
-  ts: 'relative',
+  ts: "relative",
   custom_ts: {
-    short: '',
-    full: '',
+    short: "",
+    full: ""
   },
   full_aft_24: true,
-  nm_disp: 'inverted',
+  nm_disp: "inverted",
   no_hearts: false,
   no_tco: true,
   flash_tweets: {
-    mode: 'mentions',
-    enabled: true,
+    mode: "mentions",
+    enabled: true
   },
   no_gif_pp: false,
   custom_columns_width: {
-    size: '250px',
-    enabled: false,
+    size: "250px",
+    enabled: false
   },
   clear_column_action: false,
   collapse_columns: false,
@@ -48,12 +48,12 @@ const defaultSettings = {
     show_provider_indicator: false,
     hide_like_rt_indicators: false,
     system_fonts: false,
-    og_dark_theme: false,
+    og_dark_theme: false
   },
   pause_scroll_on_hover: false,
   share_item: {
     enabled: true,
-    short_txt: false,
+    short_txt: false
   },
   make_search_columns_first: false,
   old_replies: false,
@@ -64,34 +64,36 @@ const defaultSettings = {
   hotlink_item: false,
   download_item: false,
   download_filename_format:
-    '{{postedUser}}-{{tweetId}}-{{fileName}}.{{fileExtension}}',
+    "{{postedUser}}-{{tweetId}}-{{fileName}}.{{fileExtension}}",
   ctrl_changes_interactions: {
     enabled: false,
-    mode: 'owner',
+    mode: "owner"
   },
   update_title_on_notifications: true,
   thumbnails: {},
-  custom_css_style: '',
+  custom_css_style: ""
 };
 
 // We want to know if there are any other versions of BTD out there.
-chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => {
-  if (
-    message &&
+chrome.runtime.onMessageExternal.addListener(
+  (message, sender, sendResponse) => {
+    if (
+      message &&
       message.action &&
-      message.action === 'version' &&
+      message.action === "version" &&
       sender.id !== chrome.runtime.id &&
       message.key !== BHelper.getVersion()
-  ) {
-    sendResponse({ action: 'badVersion', key: true });
-    return true;
+    ) {
+      sendResponse({ action: "badVersion", key: true });
+      return true;
+    }
+    return false;
   }
-  return false;
-});
+);
 
 function openWelcomePage() {
   chrome.tabs.create({
-    url: 'options/options.html?on=install',
+    url: "options/options.html?on=install"
   });
 }
 
@@ -108,9 +110,9 @@ function contextMenuHandler(info, tab, settings) {
    */
   chrome.tabs.query(
     {
-      url: '*://tweetdeck.twitter.com/*',
+      url: "*://tweetdeck.twitter.com/*"
     },
-    (tabs) => {
+    tabs => {
       if (tabs.length === 0) {
         return;
       }
@@ -123,37 +125,37 @@ function contextMenuHandler(info, tab, settings) {
       chrome.windows.update(
         TDTab.windowId,
         {
-          focused: true,
+          focused: true
         },
         () => {
           chrome.tabs.update(
             TDTab.id,
             {
-              active: true,
+              active: true
             },
             () => {
               chrome.tabs.sendMessage(TDTab.id, {
-                action: 'share',
+                action: "share",
                 text: textToShare,
-                url: urlToShare,
+                url: urlToShare
               });
-            },
+            }
           );
-        },
+        }
       );
-    },
+    }
   );
 }
 
-const createMenuItem = (newSettings) => {
+const createMenuItem = newSettings => {
   chrome.contextMenus.create({
-    title: BHelper.getMessage('shareOnTD'),
-    contexts: ['page', 'selection', 'image', 'link'],
-    onclick: (info, tab) => contextMenuHandler(info, tab, newSettings),
+    title: BHelper.getMessage("shareOnTD"),
+    contexts: ["page", "selection", "image", "link"],
+    onclick: (info, tab) => contextMenuHandler(info, tab, newSettings)
   });
 };
 
-BHelper.settings.getAll((settings) => {
+BHelper.settings.getAll(settings => {
   let curSettings = settings;
 
   if (curSettings.BTDSettings) {
@@ -164,25 +166,25 @@ BHelper.settings.getAll((settings) => {
 
   BHelper.settings.set(
     defaultsDeep(curSettings, defaultSettings),
-    (newSettings) => {
+    newSettings => {
       Log(newSettings);
       if (!newSettings.installed_date) {
         openWelcomePage();
         BHelper.settings.set({ installed_date: new Date().getTime() });
       }
 
-      const oldVersion = (curSettings.installed_version || '').replace(
+      const oldVersion = (curSettings.installed_version || "").replace(
         /\./g,
-        '',
+        ""
       );
-      const newVersion = BHelper.getVersion().replace(/\./g, '');
+      const newVersion = BHelper.getVersion().replace(/\./g, "");
 
-      Log('version', BHelper.getVersion());
+      Log("version", BHelper.getVersion());
       BHelper.settings.set({ installed_version: String(BHelper.getVersion()) });
 
       if (!oldVersion || Number(oldVersion) !== Number(newVersion)) {
         BHelper.settings.set({
-          need_update_banner: true,
+          need_update_banner: true
         });
       }
 
@@ -191,48 +193,48 @@ BHelper.settings.getAll((settings) => {
         if (chrome.permissions) {
           chrome.permissions.contains(
             {
-              permissions: ['tabs'],
+              permissions: ["tabs"]
             },
-            (hasTabs) => {
+            hasTabs => {
               if (!hasTabs) {
                 return;
               }
               createMenuItem(newSettings);
-            },
+            }
           );
         } else {
           createMenuItem(newSettings);
         }
       }
-    },
+    }
   );
 });
 
 // Simple interface to get settings
 Messages.on((message, sender, sendResponse) => {
   switch (message.action) {
-    case 'displayed_update_banner':
+    case "displayed_update_banner":
       BHelper.settings.set({
         need_update_banner: false,
-        installed_version: String(BHelper.getVersion()),
+        installed_version: String(BHelper.getVersion())
       });
       return false;
 
-    case 'displayed_follow_banner':
+    case "displayed_follow_banner":
       BHelper.settings.set({
-        need_follow_banner: false,
+        need_follow_banner: false
       });
       return false;
 
-    case 'get_settings':
+    case "get_settings":
       BHelper.settings.getAll(settings => sendResponse({ settings }));
       return true;
 
-    case 'get':
+    case "get":
       BHelper.settings.get(message.key, val => sendResponse({ val }));
       return true;
 
-    case 'get_local':
+    case "get_local":
       BHelper.settings.get(message.key, val => sendResponse({ val }));
       return true;
 
