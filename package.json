@@ -1,8 +1,9 @@
 {
   "name": "BetterTweetDeck",
-  "version": "3.7.1",
-  "extension_version": "3.7.1",
-  "description": "Adds some nice options on TweetDeck to provide a better experience on the webapp when used on Chrome.",
+  "version": "3.7.2",
+  "extension_version": "3.7.2",
+  "description":
+    "Adds some nice options on TweetDeck to provide a better experience on the webapp when used on Chrome.",
   "repository": {
     "type": "git",
     "url": "https://github.com/eramdam/BetterTweetDeck.git"
