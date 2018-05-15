@@ -252,3 +252,11 @@ html.btd-on {
   background: transparent !important;
   box-shadow: none !important;
 }
+
+.js-column-header .column-header-title.width-p--85.column-header-title {
+  width: auto !important;
+}
+
+.js-column-header .column-header-links {
+  max-width: none !important;
+}

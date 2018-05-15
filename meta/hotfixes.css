@@ -34,28 +34,3 @@
 .btd-emoji-icon {
   transform: translateY(-2px);
 }
-
-/* Unset the width of the btd-column-buttons when the column is collapsed */
-.btd-on .btd-column-collapsed ul.btd-column-buttons.btd-column-buttons {
-  width: unset !important;
-}
-
-/* Properly set the width of the buttons on a search column
-  in that case span.column-number is right before ul.btd-column-buttons so it works okay
-*/
-.btd-on
-.js-column.column:not(.btd-column-collapsed)
-span.column-number
-+ ul.btd-column-buttons.btd-column-buttons {
-  width: 100% !important;
-}
-
-
-/**
- * Another TD update that breaks the styling of buttons in columns (May 9th 2018)
- */
-
-.btd-on .js-column .btd-column-buttons .column-header-link[data-action="options"] {
-  position: relative !important;
-  right: 0 !important;
- }
