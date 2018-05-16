@@ -234,44 +234,23 @@ TD.mustaches['compose/compose_inline_reply.mustache'] = TD.mustaches[
 // make it so we can use custom column header icons
 TD.mustaches['column/column_header.mustache'] = TD.mustaches[
   'column/column_header.mustache'
-]
-  // wrap everyting with an ul
-  .replace(
-    '{{/withEditableTitle}}',
-    '{{/withEditableTitle}} <ul class="btd-column-buttons">',
-  )
-  .replace('{{/isTemporary}} </header>', '{{/isTemporary}} </ul> </header>')
-  // shove in buttons we care about
-  // wrap all the <a>s with <li>s
-  .replace(/<\/i> <\/a>/g, '</i> </a> </li>')
-  .replace(
-    /<a class="js-action-header-button/g,
-    '<li> <a class="js-action-header-button',
-  );
-
-TD.mustaches['column/column_header.mustache'] = TD.mustaches[
-  'column/column_header.mustache'
 ].replace(
   '{{/withMarkAllRead}} {{^isTemporary}}',
   `{{/withMarkAllRead}} {{^isTemporary}}
         ${
   SETTINGS.clear_column_action
     ? `
-        <li>
           <a class="js-action-header-button column-header-link btd-clear-column-link" href="#" data-action="clear">
             <i class="icon icon-clear-timeline"></i>
-          </a>
-        </li>`
+          </a>`
     : ''
 }
         ${
   SETTINGS.collapse_columns
     ? `
-        <li>
-          <a class="js-action-header-button column-header-link btd-toggle-collapse-column-link" href="#" data-action="toggle-collapse-column">
-            <i class="icon icon-minus"></i>
-          </a>
-        </li>`
+        <a class="js-action-header-button column-header-link btd-toggle-collapse-column-link" href="#" data-action="toggle-collapse-column">
+          <i class="icon icon-minus"></i>
+        </a>`
     : ''
 }`,
 );
