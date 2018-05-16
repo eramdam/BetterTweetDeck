@@ -34,3 +34,13 @@
 .btd-emoji-icon {
   transform: translateY(-2px);
 }
+
+html.btd-on section.btd-column-collapsed 
+.column-title {
+  flex-grow: 0;
+}
+
+html.btd-on section.btd-column-collapsed 
+.column-header-links {
+  margin-left: 16px;
+}
