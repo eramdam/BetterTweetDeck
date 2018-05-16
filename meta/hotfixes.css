@@ -46,3 +46,13 @@ html.btd-on section.btd-column-collapsed .column-header-links {
 .js-column-header .column-header-links {
   flex-shrink: 0 !important;
 }
+
+.js-column-header .column-header-title.width-p--85.column-header-title {
+  width: auto !important;
+  flex-shrink: 1 !important;
+  overflow: hidden !important;
+}
+
+.btd__no_col_icns .js-column .column-title {
+  margin-left: 10px !important;
+}
