@@ -35,12 +35,14 @@
   transform: translateY(-2px);
 }
 
-html.btd-on section.btd-column-collapsed 
-.column-title {
+html.btd-on section.btd-column-collapsed .column-title {
   flex-grow: 0;
 }
 
-html.btd-on section.btd-column-collapsed 
-.column-header-links {
+html.btd-on section.btd-column-collapsed .column-header-links {
   margin-left: 16px;
+}
+
+.js-column-header .column-header-links {
+  flex-shrink: 0 !important;
 }
