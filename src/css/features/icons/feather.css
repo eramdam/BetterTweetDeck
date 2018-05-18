@@ -8,209 +8,209 @@ html.btd-on {
         .icon-compose:before,
         .icon-compose-dm:before {
             font-family: 'icons_feather';
-            content: "\e867";
+            content: '\e867';
         }
     
         /* Search */
         .icon-search:before {
             font-family: 'icons_feather';
-            content: "\e8bd";
+            content: '\e8bd';
         }
     
         /* Home */
         .icon-home:before {
             font-family: 'icons_feather';
-            content: "\e87a";
+            content: '\e87a';
         }
     
         /* Notification Bell */
         .icon-notifications:before {
             font-family: 'icons_feather';
-            content: "\e836";
+            content: '\e836';
         }
     
         /* Activity */
         .icon-activity:before {
             font-family: 'icons_feather';
-            content: "\e81d";
+            content: '\e81d';
         }
     
         /* User */
         .icon-user:before,
         .icon-user-dd:before {
             font-family: 'icons_feather';
-            content: "\e8e9";
+            content: '\e8e9';
         }
     
         /* Users */
         .icon-user-switch:before {
             font-family: 'icons_feather';
-            content: "\e8ea";
+            content: '\e8ea';
         }
     
         /* Add User */
         .icon-follow:before {
         font-family: 'icons_feather';
-            content: "\e8e7";
+            content: '\e8e7';
         }
     
         /* Message */
         .icon-message:before {
             font-family: 'icons_feather';
-            content: "\e891";
+            content: '\e891';
         }
     
         /* Right Chevron */
         .icon-arrow-r-double:before,
         .icon-arrow-r:before {
             font-family: 'icons_feather';
-            content: "\e844";
+            content: '\e844';
         }
     
         /* Left Chevron */
         .icon-arrow-l-double:before,
         .icon-arrow-l:before {
             font-family: 'icons_feather';
-            content: "\e843";
+            content: '\e843';
         }
     
         /* Settings */
         .icon-settings:before {
             font-family: 'icons_feather';
-            content: "\e8c3";
+            content: '\e8c3';
         }
     
         /* Settings Slider */
         .icon-sliders:before {
             font-family: 'icons_feather';
-            content: "\e89a";
+            content: '\e89a';
         }
     
         /* Add */
         .icon-plus:before {
             font-family: 'icons_feather';
-            content: "\e8b1";
+            content: '\e8b1';
         }
     
         /* Minus */
         .icon-minus:before {
             font-family: 'icons_feather';
-            content: "\e897";
+            content: '\e897';
         }
     
         /* X (Close) */
         .icon-close:before {
         font-family: 'icons_feather';
-            content: "\e8f6";
+            content: '\e8f6';
         }
     
         /* Info */
         .icon-info:before {
         font-family: 'icons_feather';
-            content: "\e87f";
+            content: '\e87f';
         }
     
         /* Images */
         .icon-image:before {
         font-family: 'icons_feather';
-            content: "\e87c";
+            content: '\e87c';
         }
     
         /* Camera */
         .icon-camera:before {
         font-family: 'icons_feather';
-            content: "\e83d";
+            content: '\e83d';
         }
     
         /* Trending */
         .icon-trending:before {
         font-family: 'icons_feather';
-            content: "\e8dc";
+            content: '\e8dc';
         }
         
         /* Copy | Collections */
         .icon-custom-timeline:before {
         font-family: 'icons_feather';
-            content: "\e855";
+            content: '\e855';
         }
     
         /* List */
         .icon-list:before {
         font-family: 'icons_feather';
-            content: "\e886";
+            content: '\e886';
         }
     
         /* Schedule | Clock */
         .icon-schedule:before {
         font-family: 'icons_feather';
-            content: "\e84d";
+            content: '\e84d';
         }
     
         /* Clear | Trash */
         .icon-clear-timeline:before {
         font-family: 'icons_feather';
-            content: "\e8da";
+            content: '\e8da';
         }
     
         /* Check | Tick */
         .icon-check:before,
         .icon-mark-read:before {
         font-family: 'icons_feather';
-            content: "\e83f";
+            content: '\e83f';
         }
     
         /* External Link | Open in new tab */
         .icon-popout:before {
             font-family: 'icons_feather';
-            content: "\e869";
+            content: '\e869';
         }
     
         /* Mention */
         .icon-mention:before {
             font-family: 'icons_feather';
-            content: "\e830";
+            content: '\e830';
         }
     
         /* Video Play Button */
         .icon-play-video:before {
         font-family: 'icons_feather';
-            content: "\e8ad";
+            content: '\e8ad';
         }
     
         /* Lock | Protected */
         .icon-protected:before {
         font-family: 'icons_feather';
-            content: "\e8e4";
+            content: '\e8e4';
         }
     
         /* Share button */
         .icon-share:before {
         font-family: 'icons_feather';
-            content: "\e8c1";
+            content: '\e8c1';
         }
     
         /* Reply */
         .icon-reply:before {
             font-family: 'icons_feather';
-            content: "\e85b";
+            content: '\e85b';
         }
     
         /* Retweet */
         .icon-retweet:before {
             font-family: 'icons_feather';
-            content: "\e8b6";
+            content: '\e8b6';
         }
     
         /* Favourite */
         .icon-favorite:before {
             font-family: 'icons_feather';
-            content: "\e879";
+            content: '\e879';
         }
     
         /* More - Horizontal */
         .icon-more:before {
             font-family: 'icons_feather';
-            content: "\e89b";
+            content: '\e89b';
         }
     }
 }

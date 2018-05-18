@@ -8,210 +8,210 @@ html.btd-on {
         .icon-compose:before,
         .icon-compose-dm:before {
             font-family: 'icons_material';
-            content: "edit";
+            content: 'edit';
         }
 
         /* Search */
         .icon-search:before {
             font-family: 'icons_material';
-            content: "search";
+            content: 'search';
         }
 
         /* Home */
         .icon-home:before {
             font-family: 'icons_material';
-            content: "home";
+            content: 'home';
         }
 
         /* Notification Bell */
         .icon-notifications:before {
             font-family: 'icons_material';
-            content: "notifications";
+            content: 'notifications';
         }
 
         /* Activity */
         .icon-activity:before {
             font-family: 'icons_material';
-            content: "rss_feed";
+            content: 'rss_feed';
         }
 
         /* User */
         .icon-user:before,
         .icon-user-dd:before {
             font-family: 'icons_material';
-            content: "person";
+            content: 'person';
         }
 
         /* Users */
         .icon-user-switch:before {
             font-family: 'icons_material';
-            content: "supervisor_account";
+            content: 'supervisor_account';
         }
 
         /* Add User */
         .icon-follow:before {
         font-family: 'icons_material';
-            content: "person_add";
+            content: 'person_add';
         }
 
         /* Message */
         .icon-message:before {
             font-family: 'icons_material';
-            content: "forum";
+            content: 'forum';
         }
 
         /* Right Chevron */
         .icon-arrow-r-double:before,
         .icon-arrow-r:before {
             font-family: 'icons_material';
-            content: "chevron_right";
+            content: 'chevron_right';
         }
 
         /* Left Chevron */
         .icon-arrow-l-double:before,
         .icon-arrow-l:before {
             font-family: 'icons_material';
-            content: "chevron_left";
+            content: 'chevron_left';
         }
 
         /* Settings */
         .icon-settings:before {
             font-family: 'icons_material';
-            content: "settings";
+            content: 'settings';
         }
 
         /* Settings Slider */
         .icon-sliders:before {
             font-family: 'icons_material';
-            content: "more_vert";
+            content: 'more_vert';
         }
 
         /* Add */
         .icon-plus:before {
             font-family: 'icons_material';
-            content: "add";
+            content: 'add';
         }
 
         /* Minus */
         .icon-minus:before {
             font-family: 'icons_material';
-            content: "minimize";
+            content: 'remove';
         }
 
         /* X (Close) */
         .icon-close:before {
         font-family: 'icons_material';
-            content: "close";
+            content: 'close';
         }
 
         /* Info */
         .icon-info:before {
         font-family: 'icons_material';
-            content: "info";
+            content: 'info';
         }
 
         /* Images */
         .icon-image:before {
         font-family: 'icons_material';
-            content: "insert_photo";
+            content: 'insert_photo';
         }
 
         /* Camera */
         .icon-camera:before {
         font-family: 'icons_material';
-            content: "add_a_photo";
+            content: 'add_a_photo';
         }
 
         /* Trending */
         .icon-trending:before {
         font-family: 'icons_material';
-            content: "whatshot";
+            content: 'whatshot';
         }
 
         /* Copy | Collections */
         .icon-custom-timeline:before {
         font-family: 'icons_material';
-            content: "collections";
+            content: 'collections';
         }
 
         /* List */
         .icon-list:before {
         font-family: 'icons_material';
-            content: "list";
+            content: 'list';
         }
 
         /* Schedule | Clock */
         .icon-schedule:before {
         font-family: 'icons_material';
-            content: "access_time";
+            content: 'access_time';
         }
 
         /* Clear | Trash */
         .icon-clear-timeline:before {
         font-family: 'icons_material';
-            content: "clear_all";
+            content: 'clear_all';
         }
 
         /* Check | Tick */
         .icon-check:before,
         .icon-mark-read:before {
         font-family: 'icons_material';
-            content: "check";
+            content: 'check';
         }
 
         /* External Link | Open in new tab */
         .icon-popout:before {
             font-family: 'icons_material';
-            content: "open_in_new";
+            content: 'open_in_new';
         }
 
         /* Mention */
         /* '@' icon only available via newest material icons lib version */
         /* .icon-mention:before {
             font-family: 'icons_material';
-            content: "alternate_email";
+            content: 'alternate_email';
         } */
 
         /* Video Play Button */
         .icon-play-video:before {
         font-family: 'icons_material';
-            content: "play_circle_filled";
+            content: 'play_circle_filled';
         }
 
         /* Lock | Protected */
         .icon-protected:before {
         font-family: 'icons_material';
-            content: "lock";
+            content: 'lock';
         }
 
         /* Share button */
         .icon-share:before {
         font-family: 'icons_material';
-            content: "share";
+            content: 'share';
         }
 
         /* Reply */
         .icon-reply:before {
             font-family: 'icons_material';
-            content: "reply";
+            content: 'reply';
         }
 
         /* Retweet */
         .icon-retweet:before {
             font-family: 'icons_material';
-            content: "repeat";
+            content: 'repeat';
         }
 
         /* Favourite */
         .icon-favorite:before {
             font-family: 'icons_material';
-            content: "favorite";
+            content: 'favorite';
         }
 
         /* More - Horizontal */
         .icon-more:before {
             font-family: 'icons_material';
-            content: "more_horiz";
+            content: 'more_horiz';
         }
     }
 }
