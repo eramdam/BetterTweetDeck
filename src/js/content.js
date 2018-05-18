@@ -234,6 +234,11 @@ function tweakClassesFromVisualSettings() {
     `));
     document.head.appendChild(styleTag);
   }
+
+  if (SETTINGS.custom_icons.enabled) {
+    document.body.classList.add(`btd__custom_icons`);
+    document.body.classList.add(`btd__custom_icons_${SETTINGS.custom_icons.mode}`);
+  }
 }
 
 function hideURLVisually(url, node) {

@@ -1,15 +1,14 @@
 /* Minimal themes + variations */
-
 @import "./minimal.css";
 @import "./theme-dark.css";
 @import "./theme-light.css";
 
 /* Visual Features */
-
 @import "./features/actions.css";
 @import "./features/bigger-emojis.css";
 @import "./features/character-count.css";
 @import "./features/collapse-dms.css";
+@import "./features/custom-icons.css";
 @import "./features/flash-tweets.css";
 @import "./features/gray-notif-icns.css";
 @import "./features/hide-context.css";
@@ -35,7 +34,6 @@
 @import "./giphy.css";
 
 /* Embed/modals */
-
 @import "./embeds.css";
 
 html.btd-on {

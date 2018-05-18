@@ -372,6 +372,17 @@
             <input type="checkbox" name="uncollapse_columns_unpause" id="uncollapse_columns_unpause">
             <label for="uncollapse_columns_unpause" data-lang="uncollapse_columns_unpause" data-new-feat>When you uncollapse a column, it will unpause the feed it so that it automatically scrolls back to the top instead of staying where you left it.</label>
           </li>
+          <li>
+            <input type="checkbox" name="custom_icons.enabled" id="icons" data-ghost><label for="icons" data-lang="custom_icons">Custom Icons:</label>
+            <ul data-setting-name="feather">
+              <li>
+                <input disabled type="radio" name="custom_icons.mode" id="feather"><label for="feather" data-lang="custom_icons_feather">Feather Icons</label>
+              </li data-setting-name="material">
+              <li>
+                <input disabled type="radio" name="custom_icons.mode" id="material"><label for="material" data-lang="custom_icons_material">Material Icons</label>
+              </li>
+            </ul>
+          </li>
         </ul>
       </div>
       <button class="save-button" disabled data-lang="save_no">No changes</button>

@@ -1,0 +1,31 @@
+@import './icons/feather.css';
+@import './icons/material.css';
+
+@font-face {
+    font-family: 'icons_feather';
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/icons_feather.woff') format('woff'),
+        url('chrome-extension://__MSG_@@extension_id__/fonts/icons_feather.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'icons_material';
+    font-style: normal;
+    font-weight: 400;
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/icons_material_regular.eot'),
+        url('chrome-extension://__MSG_@@extension_id__/fonts/icons_material_regular.woff2') format('woff2'),
+        url('chrome-extension://__MSG_@@extension_id__/fonts/icons_material_regular.woff') format('woff'),
+        url('chrome-extension://__MSG_@@extension_id__/fonts/icons_material_regular.ttf') format('truetype');
+}
+
+html.btn-on {
+    .btd__custom_icons {
+        .icon {
+            letter-spacing: normal!important;
+            text-transform: none!important;
+            display: inline-block!important;
+            white-space: nowrap!important;
+            word-wrap: normal!important;
+            direction: ltr!important;
+        }
+    }
+}
