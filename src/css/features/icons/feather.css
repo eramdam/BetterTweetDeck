@@ -12,6 +12,18 @@ html.btd-on {
             font-family: 'icons_feather'!important;
             content: '\e866'!important;
         }
+
+        /* Compose column avatar - Grid */
+        .icon-compose-minigrid:before {
+            font-family: 'icons_feather'!important;
+            content: '\e878'!important;
+        }
+
+        /* Compose column avatar - single */
+        .icon-compose-grid:before {
+            font-family: 'icons_feather'!important;
+            content: '\e8cb'!important;
+        }
     
         /* Search */
         .icon-search:before {
@@ -138,7 +150,8 @@ html.btd-on {
     
         /* List */
         .icon-list:before, 
-        .icon-content:before {
+        .icon-content:before,
+        .icon-compose-list:before {
             font-family: 'icons_feather'!important;
             content: '\e886'!important;
         }

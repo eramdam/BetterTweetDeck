@@ -4,7 +4,6 @@ html.btd-on {
             font-family: 'icons_material'!important;
             letter-spacing: normal!important;
             text-transform: none!important;
-            display: inline-block!important;
             white-space: nowrap!important;
             word-wrap: normal!important;
             direction: ltr!important;
@@ -17,6 +16,18 @@ html.btd-on {
         .icon-compose-dm:before {
             font-family: 'icons_material'!important;
             content: 'edit'!important;
+        }
+
+        /* Compose column avatar - Grid */
+        .icon-compose-minigrid:before {
+            font-family: 'icons_material'!important;
+            content: 'view_module'!important;
+        }
+
+        /* Compose column avatar - single */
+        .icon-compose-grid:before {
+            font-family: 'icons_material'!important;
+            content: 'account_circle'!important;
         }
 
         /* Search */
@@ -144,7 +155,8 @@ html.btd-on {
 
         /* List */
         .icon-list:before,
-        .icon-content:before {
+        .icon-content:before,
+        .icon-compose-list:before {
             font-family: 'icons_material'!important;
             content: 'list'!important;
         }
