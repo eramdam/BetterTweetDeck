@@ -1,217 +1,226 @@
 html.btd-on {
     .btd__custom_icons_material {
         .icon {
-            font-family: 'icons_material';
+            font-family: 'icons_material'!important;
+            letter-spacing: normal!important;
+            text-transform: none!important;
+            display: inline-block!important;
+            white-space: nowrap!important;
+            word-wrap: normal!important;
+            direction: ltr!important;
+            -webkit-font-feature-settings: 'liga'!important;
+            -webkit-font-smoothing: antialiased!important;
         }
 
         /* Compose tweet/message */
         .icon-compose:before,
         .icon-compose-dm:before {
-            font-family: 'icons_material';
-            content: 'edit';
+            font-family: 'icons_material'!important;
+            content: 'edit'!important;
         }
 
         /* Search */
         .icon-search:before {
-            font-family: 'icons_material';
-            content: 'search';
+            font-family: 'icons_material'!important;
+            content: 'search'!important;
         }
 
         /* Home */
         .icon-home:before {
-            font-family: 'icons_material';
-            content: 'home';
+            font-family: 'icons_material'!important;
+            content: 'home'!important;
         }
 
         /* Notification Bell */
         .icon-notifications:before {
-            font-family: 'icons_material';
-            content: 'notifications';
+            font-family: 'icons_material'!important;
+            content: 'notifications'!important;
         }
 
         /* Activity */
         .icon-activity:before {
-            font-family: 'icons_material';
-            content: 'rss_feed';
+            font-family: 'icons_material'!important;
+            content: 'rss_feed'!important;
         }
 
         /* User */
         .icon-user:before,
         .icon-user-dd:before {
-            font-family: 'icons_material';
-            content: 'person';
+            font-family: 'icons_material'!important;
+            content: 'person'!important;
         }
 
         /* Users */
         .icon-user-switch:before {
-            font-family: 'icons_material';
-            content: 'supervisor_account';
+            font-family: 'icons_material'!important;
+            content: 'supervisor_account'!important;
         }
 
         /* Add User */
         .icon-follow:before {
-            font-family: 'icons_material';
-            content: 'person_add';
+            font-family: 'icons_material'!important;
+            content: 'person_add'!important;
         }
 
         /* Message */
         .icon-message:before {
-            font-family: 'icons_material';
-            content: 'forum';
+            font-family: 'icons_material'!important;
+            content: 'forum'!important;
         }
 
         /* Right Chevron */
         .icon-arrow-r-double:before,
         .icon-arrow-r:before {
-            font-family: 'icons_material';
-            content: 'chevron_right';
+            font-family: 'icons_material'!important;
+            content: 'chevron_right'!important;
         }
 
         /* Left Chevron */
         .icon-arrow-l-double:before,
         .icon-arrow-l:before {
-            font-family: 'icons_material';
-            content: 'chevron_left';
+            font-family: 'icons_material'!important;
+            content: 'chevron_left'!important;
         }
 
         /* Settings */
         .icon-settings:before {
-            font-family: 'icons_material';
-            content: 'settings';
+            font-family: 'icons_material'!important;
+            content: 'settings'!important;
         }
 
         /* Settings Slider */
         .icon-sliders:before {
-            font-family: 'icons_material';
-            content: 'more_vert';
+            font-family: 'icons_material'!important;
+            content: 'more_vert'!important;
         }
 
         /* Add */
         .icon-plus:before {
-            font-family: 'icons_material';
-            content: 'add';
+            font-family: 'icons_material'!important;
+            content: 'add'!important;
         }
 
         /* Minus */
         .icon-minus:before {
-            font-family: 'icons_material';
-            content: 'remove';
+            font-family: 'icons_material'!important;
+            content: 'remove'!important;
         }
 
         /* X (Close) */
         .icon-close:before {
-            font-family: 'icons_material';
-            content: 'close';
+            font-family: 'icons_material'!important;
+            content: 'close'!important;
         }
 
         /* Info */
         .icon-info:before {
-            font-family: 'icons_material';
-            content: 'info';
+            font-family: 'icons_material'!important;
+            content: 'info'!important;
         }
 
         /* Images */
         .icon-image:before {
-            font-family: 'icons_material';
-            content: 'insert_photo';
+            font-family: 'icons_material'!important;
+            content: 'insert_photo'!important;
         }
 
         /* Camera */
         .icon-camera:before {
-            font-family: 'icons_material';
-            content: 'add_a_photo';
+            font-family: 'icons_material'!important;
+            content: 'add_a_photo'!important;
         }
 
         /* Trending */
         .icon-trending:before {
-            font-family: 'icons_material';
-            content: 'whatshot';
+            font-family: 'icons_material'!important;
+            content: 'whatshot'!important;
         }
 
         /* Copy | Collections */
         .icon-custom-timeline:before {
-            font-family: 'icons_material';
-            content: 'collections';
+            font-family: 'icons_material'!important;
+            content: 'collections'!important;
         }
 
         /* List */
-        .icon-list:before {
-            font-family: 'icons_material';
-            content: 'list';
+        .icon-list:before,
+        .icon-content:before {
+            font-family: 'icons_material'!important;
+            content: 'list'!important;
         }
 
         /* Schedule | Clock */
         .icon-schedule:before {
-            font-family: 'icons_material';
-            content: 'access_time';
+            font-family: 'icons_material'!important;
+            content: 'access_time'!important;
         }
 
         /* Clear | Trash */
         .icon-clear-timeline:before {
-            font-family: 'icons_material';
-            content: 'clear_all';
+            font-family: 'icons_material'!important;
+            content: 'clear_all'!important;
         }
 
         /* Check | Tick */
         .icon-check:before,
         .icon-mark-read:before {
-            font-family: 'icons_material';
-            content: 'check';
+            font-family: 'icons_material'!important;
+            content: 'check'!important;
         }
 
         /* External Link | Open in new tab */
         .icon-popout:before {
-            font-family: 'icons_material';
-            content: 'open_in_new';
+            font-family: 'icons_material'!important;
+            content: 'open_in_new'!important;
         }
 
         /* Mention */
         /* '@' icon only available via newest material icons lib version */
         /* .icon-mention:before {
-            font-family: 'icons_material';
-            content: 'alternate_email';
+            font-family: 'icons_material'!important;
+            content: 'alternate_email'!important;
         } */
 
         /* Video Play Button */
         .icon-play-video:before {
-            font-family: 'icons_material';
-            content: 'play_circle_filled';
+            font-family: 'icons_material'!important;
+            content: 'play_circle_filled'!important;
         }
 
         /* Lock | Protected */
         .icon-protected:before {
-            font-family: 'icons_material';
-            content: 'lock';
+            font-family: 'icons_material'!important;
+            content: 'lock'!important;
         }
 
         /* Share button */
         .icon-share:before {
-            font-family: 'icons_material';
-            content: 'share';
+            font-family: 'icons_material'!important;
+            content: 'share'!important;
         }
 
         /* Reply */
         .icon-reply:before {
-            font-family: 'icons_material';
-            content: 'reply';
+            font-family: 'icons_material'!important;
+            content: 'reply'!important;
         }
 
         /* Retweet */
         .icon-retweet:before {
-            font-family: 'icons_material';
-            content: 'repeat';
+            font-family: 'icons_material'!important;
+            content: 'repeat'!important;
         }
 
         /* Favourite */
         .icon-favorite:before {
-            font-family: 'icons_material';
-            content: 'favorite';
+            font-family: 'icons_material'!important;
+            content: 'favorite'!important;
         }
 
         /* More - Horizontal */
         .icon-more:before {
-            font-family: 'icons_material';
-            content: 'more_horiz';
+            font-family: 'icons_material'!important;
+            content: 'more_horiz'!important;
         }
     }
 }
