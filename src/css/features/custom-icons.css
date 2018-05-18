@@ -3,7 +3,8 @@
 
 @font-face {
     font-family: 'icons_feather';
-    src: url('chrome-extension://__MSG_@@extension_id__/fonts/icons_feather.woff') format('woff'),
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/icons_feather.eot') format('eot'),
+        url('chrome-extension://__MSG_@@extension_id__/fonts/icons_feather.woff') format('woff'),
         url('chrome-extension://__MSG_@@extension_id__/fonts/icons_feather.ttf') format('truetype');
 }
 
