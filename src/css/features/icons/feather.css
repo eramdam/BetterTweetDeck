@@ -100,62 +100,62 @@ html.btd-on {
     
         /* X (Close) */
         .icon-close:before {
-        font-family: 'icons_feather';
+            font-family: 'icons_feather';
             content: '\e8f6';
         }
     
         /* Info */
         .icon-info:before {
-        font-family: 'icons_feather';
+            font-family: 'icons_feather';
             content: '\e87f';
         }
     
         /* Images */
         .icon-image:before {
-        font-family: 'icons_feather';
+            font-family: 'icons_feather';
             content: '\e87c';
         }
     
         /* Camera */
         .icon-camera:before {
-        font-family: 'icons_feather';
+            font-family: 'icons_feather';
             content: '\e83d';
         }
     
         /* Trending */
         .icon-trending:before {
-        font-family: 'icons_feather';
+            font-family: 'icons_feather';
             content: '\e8dc';
         }
         
         /* Copy | Collections */
         .icon-custom-timeline:before {
-        font-family: 'icons_feather';
+            font-family: 'icons_feather';
             content: '\e855';
         }
     
         /* List */
         .icon-list:before {
-        font-family: 'icons_feather';
+            font-family: 'icons_feather';
             content: '\e886';
         }
     
         /* Schedule | Clock */
         .icon-schedule:before {
-        font-family: 'icons_feather';
+            font-family: 'icons_feather';
             content: '\e84d';
         }
     
         /* Clear | Trash */
         .icon-clear-timeline:before {
-        font-family: 'icons_feather';
+            font-family: 'icons_feather';
             content: '\e8da';
         }
     
         /* Check | Tick */
         .icon-check:before,
         .icon-mark-read:before {
-        font-family: 'icons_feather';
+            font-family: 'icons_feather';
             content: '\e83f';
         }
     
@@ -173,19 +173,19 @@ html.btd-on {
     
         /* Video Play Button */
         .icon-play-video:before {
-        font-family: 'icons_feather';
+            font-family: 'icons_feather';
             content: '\e8ad';
         }
     
         /* Lock | Protected */
         .icon-protected:before {
-        font-family: 'icons_feather';
+            font-family: 'icons_feather';
             content: '\e8e4';
         }
     
         /* Share button */
         .icon-share:before {
-        font-family: 'icons_feather';
+            font-family: 'icons_feather';
             content: '\e8c1';
         }
     

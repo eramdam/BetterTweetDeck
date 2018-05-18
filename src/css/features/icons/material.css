@@ -50,7 +50,7 @@ html.btd-on {
 
         /* Add User */
         .icon-follow:before {
-        font-family: 'icons_material';
+            font-family: 'icons_material';
             content: 'person_add';
         }
 
@@ -100,62 +100,62 @@ html.btd-on {
 
         /* X (Close) */
         .icon-close:before {
-        font-family: 'icons_material';
+            font-family: 'icons_material';
             content: 'close';
         }
 
         /* Info */
         .icon-info:before {
-        font-family: 'icons_material';
+            font-family: 'icons_material';
             content: 'info';
         }
 
         /* Images */
         .icon-image:before {
-        font-family: 'icons_material';
+            font-family: 'icons_material';
             content: 'insert_photo';
         }
 
         /* Camera */
         .icon-camera:before {
-        font-family: 'icons_material';
+            font-family: 'icons_material';
             content: 'add_a_photo';
         }
 
         /* Trending */
         .icon-trending:before {
-        font-family: 'icons_material';
+            font-family: 'icons_material';
             content: 'whatshot';
         }
 
         /* Copy | Collections */
         .icon-custom-timeline:before {
-        font-family: 'icons_material';
+            font-family: 'icons_material';
             content: 'collections';
         }
 
         /* List */
         .icon-list:before {
-        font-family: 'icons_material';
+            font-family: 'icons_material';
             content: 'list';
         }
 
         /* Schedule | Clock */
         .icon-schedule:before {
-        font-family: 'icons_material';
+            font-family: 'icons_material';
             content: 'access_time';
         }
 
         /* Clear | Trash */
         .icon-clear-timeline:before {
-        font-family: 'icons_material';
+            font-family: 'icons_material';
             content: 'clear_all';
         }
 
         /* Check | Tick */
         .icon-check:before,
         .icon-mark-read:before {
-        font-family: 'icons_material';
+            font-family: 'icons_material';
             content: 'check';
         }
 
@@ -174,19 +174,19 @@ html.btd-on {
 
         /* Video Play Button */
         .icon-play-video:before {
-        font-family: 'icons_material';
+            font-family: 'icons_material';
             content: 'play_circle_filled';
         }
 
         /* Lock | Protected */
         .icon-protected:before {
-        font-family: 'icons_material';
+            font-family: 'icons_material';
             content: 'lock';
         }
 
         /* Share button */
         .icon-share:before {
-        font-family: 'icons_material';
+            font-family: 'icons_material';
             content: 'share';
         }
 
