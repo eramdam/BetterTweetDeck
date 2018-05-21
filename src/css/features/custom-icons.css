@@ -1,4 +1,5 @@
 @import './icons/feather.css';
+@import './icons/font-awesome.css';
 @import './icons/material.css';
 
 @font-face {
@@ -6,6 +7,17 @@
     src: url('chrome-extension://__MSG_@@extension_id__/fonts/icons_feather.eot') format('eot'),
         url('chrome-extension://__MSG_@@extension_id__/fonts/icons_feather.woff') format('woff'),
         url('chrome-extension://__MSG_@@extension_id__/fonts/icons_feather.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'icons_font_awesome';
+    font-style: normal;
+    font-weight: 900;
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/icons_fa_solid.eot'),
+        url('chrome-extension://__MSG_@@extension_id__/fonts/icons_fa_solid.woff2') format('woff2'),
+        url('chrome-extension://__MSG_@@extension_id__/fonts/icons_fa_solid.woff') format('woff'),
+        url('chrome-extension://__MSG_@@extension_id__/fonts/icons_fa_solid.ttf') format('truetype'),
+        url('chrome-extension://__MSG_@@extension_id__/fonts/icons_fa_solid.svg') format('svg');
 }
 
 @font-face {
