@@ -69,7 +69,7 @@
   "share_btd_p1": { "message": "「TweetDeck で共有」機能を使用するには、下のボタンをクリックして、必要な権限を許可する必要があります。" },
   "share_btd_p2": { "message": "Better TweetDeck は、タブ内のコンテンツを読み込んだり、トラッキングしたりすることは <strong>絶対に</strong> ありません。" },
   "share_btd_p3": { "message": "この権限について詳しく知りたい場合は、<a href=\"https://developer.chrome.com/extensions/tabs\">Google のドキュメント</a> をお読みください。" },
-  "share_btd_p4": { "message": "このページで行った修正は、ブラウザの再起動後に適用されます。" },
+  "share_btd_p4": { "message": "このページで行った変更は、ブラウザの再起動後に適用されます。" },
   "share_btd_item": { "message": "コンテキストメニューに「TweetDeck で共有」アクションを追加する <small>再起動後に適用されます</small>" },
   "share_short_txt": { "message": "「TweetDeck で共有」アクション実行時に、選択していたテキストを短くする <small>再起動後に適用されます</small>" },
   "no_tco": { "message": "t.co リンクのリダイレクトを除去する" },
@@ -92,7 +92,7 @@
 
   "clear_column_action": { "message": "カラムのヘッダーにカラムをクリアするボタンを追加する"},
   "collapse_columns": { "message": "カラムのヘッダーにカラムの折りたたみを切り替えるボタンを追加する"},
-  "collapse_columns_pause": { "message": "カラムの折りたたんでいる間、フィードの更新を一時停止する。これにより、コンテンツの更新により起こるカラムのフラッシュを防ぐことができます"},
+  "collapse_columns_pause": { "message": "カラムを折りたたんでいる間、フィードの更新を一時停止する。これにより、コンテンツの更新により起こるカラムのフラッシュを防ぐことができます"},
   "uncollapse_columns_unpause": { "message": "カラムの折りたたみを展開したとき、最新のツイートが表示されるようにフィードを最上部までスクロールする"},
 
   "edit_item": { "message": "ツイートメニューに「ツイートの編集」を追加する"},
