@@ -1,0 +1,239 @@
+html.btd-on {
+    .btd__custom_icons_ionic {
+        .icon {
+            font-family: 'icons_ionic'!important;
+            -webkit-font-smoothing: antialiased!important;
+            -moz-osx-font-smoothing: grayscale!important;
+        }
+    
+        /* Compose tweet/message */
+        .icon-compose:before,
+        .icon-compose-dm:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f132'!important;
+        }
+
+        /* Compose column avatar - Grid */
+        .icon-compose-minigrid:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f18c'!important;
+        }
+
+        /* Compose column avatar - single */
+        .icon-compose-grid:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f41a'!important;
+        }
+    
+        /* Search */
+        .icon-search:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f4a5'!important;
+        }
+    
+        /* Home */
+        .icon-home:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f448'!important;
+        }
+    
+        /* Notification Bell */
+        .icon-notifications:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f1d3'!important;
+        }
+    
+        /* Activity */
+        .icon-activity:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f248'!important;
+        }
+    
+        /* User */
+        .icon-user:before,
+        .icon-user-dd:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f47e'!important;
+        }
+    
+        /* Users */
+        .icon-user-switch:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f161'!important;
+        }
+    
+        /* Add User */
+        .icon-follow:before {
+        font-family: 'icons_ionic'!important;
+            content: '\f1e1'!important;
+        }
+    
+        /* Message */
+        .icon-message:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f146'!important;
+        }
+    
+        /* Right Chevron */
+        .icon-arrow-r-double:before,
+        .icon-arrow-r:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f287'!important;
+        }
+    
+        /* Left Chevron */
+        .icon-arrow-l-double:before,
+        .icon-arrow-l:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f3cf'!important;
+        }
+    
+        /* Settings */
+        .icon-settings:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f4a7'!important;
+        }
+    
+        /* Settings Slider */
+        .icon-sliders:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f1d9'!important;
+        }
+    
+        /* Add */
+        .icon-plus:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f102'!important;
+        }
+    
+        /* Minus */
+        .icon-minus:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f1fc'!important;
+        }
+    
+        /* X (Close) */
+        .icon-close:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f406'!important;
+        }
+    
+        /* Info */
+        .icon-info:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f19f'!important;
+        }
+    
+        /* Images */
+        .icon-image:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f19e'!important;
+        }
+    
+        /* Camera */
+        .icon-camera:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f3f6'!important;
+        }
+    
+        /* Trending */
+        .icon-trending:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f42f'!important;
+        }
+        
+        /* Copy | Collections */
+        .icon-custom-timeline:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f10a'!important;
+        }
+    
+        /* List */
+        .icon-list:before, 
+        .icon-content:before,
+        .icon-compose-list:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f454'!important;
+        }
+
+        /* Twitter bird/logo */
+        .icon-twitter-bird:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f2b0'!important;
+        }
+    
+        /* Schedule | Clock */
+        .icon-schedule:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f4bf'!important;
+        }
+    
+        /* Clear | Trash */
+        .icon-clear-timeline:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f4c5'!important;
+        }
+    
+        /* Check | Tick */
+        .icon-check:before,
+        .icon-mark-read:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f3ff'!important;
+        }
+    
+        /* External Link | Open in new tab */
+        .icon-popout:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f1d7'!important;
+        }
+    
+        /* Mention */
+        .icon-mention:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f3da'!important;
+        }
+    
+        /* Video Play Button */
+        .icon-play-video:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f113'!important;
+        }
+    
+        /* Lock | Protected */
+        .icon-protected:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f1b0'!important;
+        }
+    
+        /* Share button */
+        .icon-share:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f211'!important;
+        }
+    
+        /* Reply */
+        .icon-reply:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f4c7'!important;
+        }
+    
+        /* Retweet */
+        .icon-retweet:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f1fe'!important;
+        }
+    
+        /* Favourite */
+        .icon-favorite:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f443'!important;
+        }
+    
+        /* More - Horizontal */
+        .icon-more:before {
+            font-family: 'icons_ionic'!important;
+            content: '\f1c8'!important;
+        }
+    }
+}
+  

@@ -1,5 +1,6 @@
 @import './icons/feather.css';
 @import './icons/font-awesome.css';
+@import './icons/ionic.css';
 @import './icons/material.css';
 
 @font-face {
@@ -18,6 +19,16 @@
         url('chrome-extension://__MSG_@@extension_id__/fonts/icons_fa_solid.woff') format('woff'),
         url('chrome-extension://__MSG_@@extension_id__/fonts/icons_fa_solid.ttf') format('truetype'),
         url('chrome-extension://__MSG_@@extension_id__/fonts/icons_fa_solid.svg') format('svg');
+}
+
+@font-face {
+    font-family: 'icons_ionic';
+    font-style: normal;
+    font-weight: 400;
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/icons_ionic.eot'),
+        url('chrome-extension://__MSG_@@extension_id__/fonts/icons_ionic.woff2') format('woff2'),
+        url('chrome-extension://__MSG_@@extension_id__/fonts/icons_ionic.woff') format('woff'),
+        url('chrome-extension://__MSG_@@extension_id__/fonts/icons_ionic.ttf') format('truetype');
 }
 
 @font-face {
