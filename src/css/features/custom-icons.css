@@ -40,16 +40,3 @@
         url('chrome-extension://__MSG_@@extension_id__/fonts/icons_material_regular.woff') format('woff'),
         url('chrome-extension://__MSG_@@extension_id__/fonts/icons_material_regular.ttf') format('truetype');
 }
-
-html.btn-on {
-    .btd__custom_icons {
-        .icon {
-            letter-spacing: normal!important;
-            text-transform: none!important;
-            display: inline-block!important;
-            white-space: nowrap!important;
-            word-wrap: normal!important;
-            direction: ltr!important;
-        }
-    }
-}
