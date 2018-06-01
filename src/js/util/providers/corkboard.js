@@ -6,19 +6,23 @@ export default function ($) {
     default: true,
     callback: (url) => {
       const id = /\w+$/.exec(url);
-      if (id === null) return undefined;
+      if (id === null) {
+        return undefined;
+      }
 
       return fetch(`${$.getEnpointFor('corkboard')}${id}`)
         .then($.statusAndText)
         .then((json) => {
           json = JSON.parse(json);
-          if (json.status !== 'OK') return undefined;
+          if (json.id === null) {
+            return undefined;
+          }
 
-          const contentUrl = $.getSafeURL(`https://storage.ppn.pw/cc/img/${json.user}/${json.src}`);
-          const thumbnailUrl = $.getSafeURL(`https://storage.ppn.pw/cc/thumb/${json.thumbnail}`);
+          const contentUrl = $.getSafeURL(`https://storage.arkjp.net/cc/img/${json.uid}/${json.img}`);
+          const thumbnailUrl = $.getSafeURL(`https://storage.arkjp.net/cc/thumb/${json.thum}`);
 
-          switch (json.type) {
-            case '0':
+          switch (json.video) {
+            case 0:
               return {
                 type: 'image',
                 thumbnail_url: thumbnailUrl,
@@ -31,4 +35,3 @@ export default function ($) {
     },
   };
 }
-

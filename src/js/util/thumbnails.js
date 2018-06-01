@@ -23,7 +23,7 @@ const endpoints = {
   gyazo: 'https://api.gyazo.com/api/oembed?url=',
   gfycat: 'https://api.gfycat.com/v1/oembed?url=',
   nicovideo: 'https://ext.nicovideo.jp/api/getthumbinfo/',
-  corkboard: 'https://i.ppn.pw/api/preview.php?m=',
+  corkboard: 'https://i.ppn.pw/n/api/preview.php?i=',
 };
 
 let providersSettings;
