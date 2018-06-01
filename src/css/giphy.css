@@ -60,16 +60,6 @@
   opacity: 0;
 }
 
-.btd-gif-button,
-.btd-gif-indicator {
-  float: left;
-
-  &.-visible {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
 @keyframes gradientSlide {
   from {
     background-position-x: 0;
@@ -86,6 +76,12 @@
   transition-property: transform, opacity;
   transition-duration: 300ms;
   transition-timing-function: ease;
+  float: left;
+
+  &.-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .btd-gif-button {
@@ -127,7 +123,7 @@ input.giphy-search-input {
 }
 
 .giphy-zone-logo {
-  background-image: url('../img/giphy-logo-dark.png');
+  background-image: url("../img/giphy-logo-dark.png");
 }
 
 .js-media-added.is-hidden ~ .btd-gif-source-indicator {
@@ -152,10 +148,10 @@ input.giphy-search-input {
   margin: 0 0.2em 0 0.3em;
 
   &.giphy {
-    background-image: url('../img/giphy-logo.png');
+    background-image: url("../img/giphy-logo.png");
   }
 
   &.tenor {
-    background-image: url('../img/tenor-logo.png');
+    background-image: url("../img/tenor-logo.png");
   }
 }

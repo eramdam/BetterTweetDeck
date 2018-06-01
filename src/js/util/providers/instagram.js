@@ -9,7 +9,8 @@ export default function ($) {
         url += '/';
       }
 
-      return fetch(`${$.getEnpointFor('instagram')}${url}`).then($.statusAndJson)
+      return fetch(`${$.getEnpointFor('instagram')}${url}`)
+        .then($.statusAndJson)
         .then((data) => {
           // Instagram didn't update their API yet to take account of posts with multiple medias
           // so the `thumbnail_url` can give us an empty grey image in those cases.

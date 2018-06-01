@@ -1,6 +1,6 @@
-import gifshot from 'gifshot';
-import FileSaver from 'file-saver';
 import PromiseEach from 'promise-each';
+import FileSaver from 'file-saver';
+import qs from 'query-string';
 import config from 'config';
 import timestampOnElement from './util/timestamp';
 import { send as sendMessage, on as onMessage } from './util/messaging';
@@ -27,9 +27,7 @@ const COLUMNS_MEDIA_SIZES = new Map();
 
 sendMessage({ action: 'get_settings' }, (response) => {
   SETTINGS = response.settings;
-  const scripts = [
-    BHelper.getExtensionUrl('js/inject.js'),
-  ];
+  const scripts = [BHelper.getExtensionUrl('js/inject.js')];
 
   if (!BHelper.isFirefox) {
     scripts.push(BHelper.getExtensionUrl('embeds.js'));
@@ -38,11 +36,16 @@ sendMessage({ action: 'get_settings' }, (response) => {
   scripts.forEach((src) => {
     const el = document.createElement('script');
     el.src = src;
-    el.setAttribute('data-btd-settings', JSON.stringify(SETTINGS));
+
+    if (src.includes('inject.js')) {
+      el.setAttribute('data-btd-settings', JSON.stringify(SETTINGS));
+    }
+
     document.head.appendChild(el);
   });
 
-  const getFontFile = format => BHelper.getExtensionUrl(`fonts/tweetdeck-regular-webfont-old.${format}`);
+  const getFontFile = format =>
+    BHelper.getExtensionUrl(`fonts/tweetdeck-regular-webfont-old.${format}`);
 
   const style = document.createElement('style');
   style.type = 'text/css';
@@ -59,25 +62,87 @@ sendMessage({ action: 'get_settings' }, (response) => {
   document.head.appendChild(style);
 });
 
-function saveGif(gifshotObj, name, event, videoEl) {
-  return fetch(gifshotObj.image)
-    .then(res => res.blob())
-    .then((blob) => {
-      event.target.style.opacity = 1;
-      event.target.innerText = 'Download as .GIF';
-      FileSaver.saveAs(blob, name);
-      videoEl.playbackRate = 1;
-    });
+fetch('https://raw.githubusercontent.com/eramdam/BetterTweetDeck/master/meta/hotfixes.css')
+  .then((res) => {
+    if (res.status >= 200 && res.status < 300) {
+      return res.text();
+    }
+
+    return Promise.reject(new Error(res.statusText));
+  })
+  .then((text) => {
+    const style = document.createElement('style');
+    style.type = 'text/css';
+    style.textContent = text;
+
+    Log('apply CSS hotfixes');
+    document.head.appendChild(style);
+  });
+
+sendMessage({ action: 'get_local', key: 'custom_css_style' }, ({ val }) => {
+  const styleTag = document.createElement('style');
+
+  styleTag.id = 'btd-custom-css';
+  styleTag.type = 'text/css';
+  styleTag.appendChild(document.createTextNode(val));
+  document.head.appendChild(styleTag);
+});
+
+function triggerGifDownload(gifshotOptions) {
+  const iframe = document.createElement('iframe');
+  iframe.setAttribute('btd-gif-iframe', '');
+  iframe.setAttribute('btd-gif-name', gifshotOptions.name);
+  iframe.src = `https://better.tw/gif?${qs.stringify(gifshotOptions)}`;
+  iframe.style = `
+      opacity: 0;
+      z-index: -99999;
+      position: absolute;
+    `;
+  document.body.appendChild(iframe);
 }
 
-function updateGifProgress(element, progress) {
-  if (progress > 0.99) {
-    element.innerText = 'Converting to GIF... (Finalizing)';
-  } else {
-    element.innerText = `Converting to GIF... (${Number(progress * 100).toFixed(1)}%)`;
+const dataURItoBlob = (dataURI) => {
+  // convert base64 to raw binary data held in a string
+  // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+  const byteString = atob(dataURI.split(',')[1]);
+
+  // separate out the mime component
+  const mimeString = dataURI
+    .split(',')[0]
+    .split(':')[1]
+    .split(';')[0];
+
+  // write the bytes of the string to an ArrayBuffer
+  const ab = new ArrayBuffer(byteString.length);
+
+  // create a view into the buffer
+  const ia = new Uint8Array(ab);
+
+  // set the bytes of the buffer to the correct values
+  for (let i = 0; i < byteString.length; i += 1) {
+    ia[i] = byteString.charCodeAt(i);
+  }
+
+  // write the ArrayBuffer to a blob, and you're done
+  const blob = new Blob([ab], { type: mimeString });
+  return blob;
+};
+
+function markGifDlComplete(element, name) {
+  if (element) {
+    element.style.opacity = 1;
+    element.innerText = 'Download as .GIF';
+  }
+
+  if (
+    document.querySelectorAll(`iframe[btd-gif-iframe][btd-gif-name="${name}"]`)
+      .length > 0
+  ) {
+    document
+      .querySelector(`iframe[btd-gif-iframe][btd-gif-name="${name}"]`)
+      .remove();
   }
 }
-
 
 /**
  * Since this function wil be called every ~3sec we have to check if we actually
@@ -89,7 +154,6 @@ function refreshTimestamps() {
   if (!timestamps) {
     return;
   }
-
 
   timestamps.forEach((jsTimstp) => {
     const d = jsTimstp.getAttribute('data-time');
@@ -114,7 +178,7 @@ function refreshTimestamps() {
  * and then add/remove classes on the body
  */
 
-const disabledOnFirefox = ['no_scrollbars', 'slim_scrollbars'];
+const disabledOnFirefox = ['slim_scrollbars'];
 
 function tweakClassesFromVisualSettings() {
   const enabledClasses = Object.keys(SETTINGS.css)
@@ -127,6 +191,12 @@ function tweakClassesFromVisualSettings() {
     })
     .filter(key => SETTINGS.css[key])
     .map(cl => `btd__${cl}`);
+
+  if (BHelper.isFirefox) {
+    document.querySelector('html').classList.add('is-firefox');
+  } else {
+    document.querySelector('html').classList.add('is-blink');
+  }
 
   document.querySelector('html').classList.add('btd-on');
   document.body.classList.add(...enabledClasses);
@@ -208,7 +278,10 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
 
   const anchor = anchors[0];
 
-  if (anchor.getAttribute('data-url-scanned') === 'true' || $('.js-media', node)) {
+  if (
+    anchor.getAttribute('data-url-scanned') === 'true' ||
+    $('.js-media', node)
+  ) {
     return Promise.resolve('Media preview already added');
   }
 
@@ -253,10 +326,15 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
     });
 
     if (mediaSize === 'large') {
-      const insertNode = $('.js-tweet.tweet-detail', node) ? $('.js-tweet-text', node) : $('.js-tweet.tweet', node);
+      const insertNode = $('.js-tweet.tweet-detail', node)
+        ? $('.js-tweet-text', node)
+        : $('.js-tweet.tweet', node);
       insertNode[0].insertAdjacentElement('afterend', previewNode);
     } else {
-      $('.tweet-body p, .tweet-text', node)[0].insertAdjacentElement('afterend', previewNode);
+      $('.tweet-body p, .tweet-text', node)[0].insertAdjacentElement(
+        'afterend',
+        previewNode,
+      );
     }
 
     $('.js-media-image-link', node)[0].addEventListener('click', (e) => {
@@ -276,7 +354,11 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
 function thumbnailsFromURLs(urls, node, mediaSize) {
   return Promise.resolve(urls).then(PromiseEach((url) => {
     // If the url is in fact an entity object from TweetDeck OR is not supported then we don't process it
-    if (url.type || url.sizes || !Thumbnails.validateUrl(url.expanded_url).matches) {
+    if (
+      url.type ||
+        url.sizes ||
+        !Thumbnails.validateUrl(url.expanded_url).matches
+    ) {
       return false;
     }
 
@@ -302,7 +384,10 @@ function addStickerToMessage(stickerObject, node) {
     link[0].classList.add('btd-isvishidden');
   }
 
-  $('.tweet-body p, .tweet-text', node)[0].insertAdjacentElement('afterend', imgElement);
+  $('.tweet-body p, .tweet-text', node)[0].insertAdjacentElement(
+    'afterend',
+    imgElement,
+  );
 }
 
 /**
@@ -399,7 +484,9 @@ function tweetHandler(tweet, columnKey, parent) {
           break;
 
         case 'tweet':
-          userToVerify = tweet.retweetedStatus ? tweet.retweetedStatus.user : tweet.user;
+          userToVerify = tweet.retweetedStatus
+            ? tweet.retweetedStatus.user
+            : tweet.user;
           break;
 
         default:
@@ -415,7 +502,9 @@ function tweetHandler(tweet, columnKey, parent) {
       }
     }
 
-    const profilePicture = $('.tweet-avatar[src$=".gif"]', node) && $('.tweet-avatar[src$=".gif"]', node)[0];
+    const profilePicture =
+      $('.tweet-avatar[src$=".gif"]', node) &&
+      $('.tweet-avatar[src$=".gif"]', node)[0];
 
     if (profilePicture && SETTINGS.no_gif_pp) {
       profilePicture.src = Thumbnails.getSafeURL(profilePicture.src);
@@ -429,11 +518,20 @@ function tweetHandler(tweet, columnKey, parent) {
       chirpURLs = [...tweet.entities.urls, ...tweet.entities.media];
     } else if (tweet.targetTweet && tweet.targetTweet.entities) {
       // If it got targetTweet it's an activity on a tweet
-      chirpURLs = [...tweet.targetTweet.entities.urls, ...tweet.targetTweet.entities.media];
+      chirpURLs = [
+        ...tweet.targetTweet.entities.urls,
+        ...tweet.targetTweet.entities.media,
+      ];
     } else if (tweet.retweet && tweet.retweet.entities) {
-      chirpURLs = [...tweet.retweet.entities.urls, ...tweet.retweet.entities.media];
+      chirpURLs = [
+        ...tweet.retweet.entities.urls,
+        ...tweet.retweet.entities.media,
+      ];
     } else if (tweet.retweetedStatus && tweet.retweetedStatus.entities) {
-      chirpURLs = [...tweet.retweetedStatus.entities.urls, ...tweet.retweetedStatus.entities.media];
+      chirpURLs = [
+        ...tweet.retweetedStatus.entities.urls,
+        ...tweet.retweetedStatus.entities.media,
+      ];
     }
 
     setTimeout(() => {
@@ -442,12 +540,19 @@ function tweetHandler(tweet, columnKey, parent) {
       }
     }, 0);
 
-    const mediaURLs = chirpURLs.filter(url => url.type || url.display_url.startsWith('youtube.com/watch?v=') || url.display_url.startsWith('vine.co/v/'));
+    const mediaURLs = chirpURLs.filter(url =>
+      url.type ||
+        url.display_url.startsWith('youtube.com/watch?v=') ||
+        url.display_url.startsWith('vine.co/v/'));
 
     if (chirpURLs.length > 0) {
       const urlForThumbnail = chirpURLs.filter(url => !url.id).pop();
 
-      if (mediaURLs.length > 0 && SETTINGS.css.hide_url_thumb && mediaSize !== 'off') {
+      if (
+        mediaURLs.length > 0 &&
+        SETTINGS.css.hide_url_thumb &&
+        mediaSize !== 'off'
+      ) {
         hideURLVisually(mediaURLs.pop(), node);
       }
 
@@ -471,15 +576,25 @@ function setMaxDimensionsOnElement(el) {
   const rect = $('#open-modal [btd-custom-modal] .js-embeditem')[0].getBoundingClientRect();
   const src = el.src;
 
-  if (src.includes('gfycat.') || src.includes('imgur.') || src.includes('bandcamp.')) {
+  if (
+    src.includes('gfycat.') ||
+    src.includes('imgur.') ||
+    src.includes('bandcamp.')
+  ) {
     return;
   }
 
-  el.setAttribute('style', `max-width: ${rect.width}px; max-height: ${rect.height}px`);
+  el.setAttribute(
+    'style',
+    `max-width: ${rect.width}px; max-height: ${rect.height}px`,
+  );
 }
 
 function setMaxDimensionsOnModalImg() {
-  if ($('#open-modal [btd-custom-modal]') && $('#open-modal [btd-custom-modal]').length) {
+  if (
+    $('#open-modal [btd-custom-modal]') &&
+    $('#open-modal [btd-custom-modal]').length
+  ) {
     const loadableEls = $('#open-modal [btd-custom-modal] .js-embeditem [data-btdsetmax], #open-modal [btd-custom-modal] .js-embeditem iframe, #open-modal [btd-custom-modal] .js-embeditem video');
 
     if (!loadableEls) {
@@ -487,8 +602,10 @@ function setMaxDimensionsOnModalImg() {
     }
 
     const loadable = loadableEls[0];
-    loadable.addEventListener('load', ev => setMaxDimensionsOnElement(ev.target));
-    loadable.addEventListener('loadstart', ev => setMaxDimensionsOnElement(ev.target));
+    loadable.addEventListener('load', ev =>
+      setMaxDimensionsOnElement(ev.target));
+    loadable.addEventListener('loadstart', ev =>
+      setMaxDimensionsOnElement(ev.target));
 
     if (loadable.hasAttribute('data-btd-loaded') || loadable.readyState === 4) {
       setMaxDimensionsOnElement(loadable);
@@ -516,7 +633,10 @@ onEvent('BTDC_ready', () => {
     </a>
   `;
   const settingsBtnNode = secureDomify.parse(settingsBtn);
-  $('nav.app-navigator')[0].insertAdjacentElement('afterbegin', settingsBtnNode);
+  $('nav.app-navigator')[0].insertAdjacentElement(
+    'afterbegin',
+    settingsBtnNode,
+  );
   $('.btd-settings-btn')[0].addEventListener('click', (e) => {
     e.preventDefault();
     window.open(settingsURL);
@@ -524,12 +644,11 @@ onEvent('BTDC_ready', () => {
 
   onMessage((details) => {
     switch (details.action) {
-      case 'progress_gif':
-        updateGifProgress($('[data-btd-dl-gif]')[0], details.progress);
-        break;
       default:
         document.dispatchEvent(new CustomEvent('uiComposeTweet'));
-        $('textarea.js-compose-text')[0].value = `${details.text} ${details.url}`;
+        $('textarea.js-compose-text')[0].value = `${details.text} ${
+          details.url
+        }`;
         $('textarea.js-compose-text')[0].dispatchEvent(new Event('change'));
         break;
     }
@@ -562,7 +681,9 @@ onEvent('BTDC_ready', () => {
     const extensions = config.Client.extension_ids[browser];
     Object.values(extensions || {}).forEach((extensionID) => {
       chrome.runtime.sendMessage(
-        extensionID, { action: 'version', key: BHelper.getVersion() }, {},
+        extensionID,
+        { action: 'version', key: BHelper.getVersion() },
+        {},
         (response) => {
           if (response) {
             if (response.action === 'badVersion' && response.key) {
@@ -579,7 +700,8 @@ onEvent('BTDC_ready', () => {
                       url: 'https://youtu.be/CRMcSAgoabw',
                     },
                   },
-                  text: 'A different version of Better TweetDeck has been detected. Please disable all other versions!',
+                  text:
+                    'A different version of Better TweetDeck has been detected. Please disable all other versions!',
                   label: 'Oooo yeah, caaan doo!',
                 },
               });
@@ -609,21 +731,22 @@ onEvent('BTDC_gotChirpInMediaModal', (ev, data) => {
 
 onEvent('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
   const {
-    markup,
-    modalHtml,
-    chirp,
-    colKey,
+    markup, modalHtml, chirp, colKey,
   } = data;
 
   const openModal = $('#open-modal')[0];
-  const tweetMarkupString = modalHtml.replace('<div class="js-med-tweet med-tweet"></div>', `<div class="js-med-tweet med-tweet">${markup}</div>`);
+  const tweetMarkupString = modalHtml.replace(
+    '<div class="js-med-tweet med-tweet"></div>',
+    `<div class="js-med-tweet med-tweet">${markup}</div>`,
+  );
   const tweetNode = secureDomify.parse(tweetMarkupString);
 
   closeOpenModal();
 
   openModal.appendChild(tweetNode);
   openModal.style.display = 'block';
-  openModal.querySelector('img, iframe').onload = e => e.target.setAttribute('data-btd-loaded', 'true');
+  openModal.querySelector('img, iframe').onload = e =>
+    e.target.setAttribute('data-btd-loaded', 'true');
 
   if ($('[data-instgrm-version]', openModal)) {
     sendEvent('renderInstagramEmbed');
@@ -656,17 +779,26 @@ onEvent('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
     });
   }
 
-  $('#open-modal a[rel="dismiss"]')[0].addEventListener('click', closeOpenModal);
+  $('#open-modal a[rel="dismiss"]')[0].addEventListener(
+    'click',
+    closeOpenModal,
+  );
 
   $('[rel="actionsMenu"]', openModal)[0].addEventListener('click', () => {
     setTimeout(() => {
-      $(`[data-column="${colKey}"] [data-key="${chirp.id}"] [rel="actionsMenu"]`)[0].click();
+      $(`[data-column="${colKey}"] [data-key="${
+        chirp.id
+      }"] [rel="actionsMenu"]`)[0].click();
     }, 0);
     setTimeout(() => {
       const originalMenu = document.querySelector(`[data-column="${colKey}"] [data-key="${chirp.id}"] .dropdown-menu`);
       originalMenu.classList.add('pos-t');
-      $('[rel="actionsMenu"]', openModal)[0].insertAdjacentElement('afterEnd', originalMenu);
-      $('#open-modal .dropdown-menu').forEach(el => el.addEventListener('click', closeOpenModal));
+      $('[rel="actionsMenu"]', openModal)[0].insertAdjacentElement(
+        'afterEnd',
+        originalMenu,
+      );
+      $('#open-modal .dropdown-menu').forEach(el =>
+        el.addEventListener('click', closeOpenModal));
     }, 0);
   });
 
@@ -676,6 +808,7 @@ onEvent('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
     $('[data-btd-dl-gif]', openModal)[0].addEventListener('click', (e) => {
       e.preventDefault();
       e.target.style.opacity = 0.8;
+      e.target.innerText = 'Loading...';
 
       const gifshotOptions = {
         gifWidth: videoEl.getAttribute('data-btd-width'),
@@ -687,30 +820,7 @@ onEvent('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
         sampleInterval: 10,
       };
 
-
-      const gifshotCb = (obj) => {
-        if (obj.error) {
-          return;
-        }
-
-        saveGif(obj, gifshotOptions.name, e, videoEl);
-      };
-
-      // Firefox doesn't support Web Workers from content scripts so we have to run it in the background
-      // ...
-      // ...
-      // Yes, it's hacky but we have no choice ¯\(ツ)/¯
-      if (BHelper.isFirefox) {
-        e.target.innerText = 'Converting to GIF... (in progress)';
-        return sendMessage({
-          action: 'download_gif',
-          options: gifshotOptions,
-        }, response => gifshotCb(response.obj));
-      }
-
-      return gifshot.createGIF(Object.assign(gifshotOptions, {
-        progressCallback: progress => updateGifProgress(e.target, progress),
-      }), gifshotCb);
+      triggerGifDownload(gifshotOptions);
     });
   }
 });
@@ -728,10 +838,9 @@ onEvent('BTDC_columnsChanged', (ev, data) => {
     COLUMNS_MEDIA_SIZES.clear();
   }
 
-  colsArray.filter(col => col.id)
-    .forEach((col) => {
-      COLUMNS_MEDIA_SIZES.set(col.id, col.mediaSize || 'medium');
-    });
+  colsArray.filter(col => col.id).forEach((col) => {
+    COLUMNS_MEDIA_SIZES.set(col.id, col.mediaSize || 'medium');
+  });
 });
 
 onEvent('BTDC_clickedOnGif', (ev, data) => {
@@ -742,7 +851,9 @@ onEvent('BTDC_clickedOnGif', (ev, data) => {
     originalUrl: '',
     type: 'video',
     videoEmbed: `
-      <video autoplay loop src="${video.src}" data-btd-name="${video.name}" data-btd-height="${video.height}" data-btd-width="${video.width}">
+      <video autoplay loop src="${video.src}" data-btd-name="${
+  video.name
+}" data-btd-height="${video.height}" data-btd-width="${video.width}">
         <source video-src="${video.src}" type="video/mp4" src="${video.src}">
       </video>
     `,
@@ -757,13 +868,24 @@ window.addEventListener('message', (ev) => {
   let data;
 
   try {
-    data = ev.data && JSON.parse(ev.data);
+    if (typeof data === 'string') {
+      data = ev.data && JSON.parse(ev.data);
+    } else {
+      data = ev.data;
+    }
   } catch (e) {
     // lolnope
   }
 
   if (data) {
     switch (data.message) {
+      case 'complete_gif':
+        FileSaver.saveAs(dataURItoBlob(data.img), data.name);
+        markGifDlComplete(
+          $('[data-btd-dl-gif]') && $('[data-btd-dl-gif]')[0],
+          data.name,
+        );
+        break;
       case 'resize_imgur':
         $(`iframe[src="${data.href}"]`)[0].style.height = `${data.height}px`;
         break;

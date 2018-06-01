@@ -1,13 +1,33 @@
-[![Travis](https://img.shields.io/travis/eramdam/BetterTweetDeck.svg)](https://travis-ci.org/eramdam/BetterTweetDeck/)
+![](https://raw.githubusercontent.com/eramdam/BetterTweetDeck/master/meta/better.tw_.png)
 
-[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/micblkellenpbfapmcpcfhcoeohhnpob.svg)](https://chrome.google.com/webstore/detail/bettertweetdeck-3/micblkellenpbfapmcpcfhcoeohhnpob) [![Chrome Web Store](https://img.shields.io/chrome-web-store/d/micblkellenpbfapmcpcfhcoeohhnpob.svg)](https://chrome.google.com/webstore/detail/bettertweetdeck-3/micblkellenpbfapmcpcfhcoeohhnpob)
+<h1 align="center">Better TweetDeck</h1>
+<p align="center">
+<a href="https://travis-ci.org/eramdam/BetterTweetDeck/">
+  <img src="https://img.shields.io/travis/eramdam/BetterTweetDeck.svg" alt="Travis CI">
+</a>
+<a href="https://better.tw/chrome">
+  <img src="https://img.shields.io/chrome-web-store/v/micblkellenpbfapmcpcfhcoeohhnpob.svg" alt="Chrome Store Version">
+</a>
+<a href="https://better.tw/chrome">
+  <img src="https://img.shields.io/chrome-web-store/d/micblkellenpbfapmcpcfhcoeohhnpob.svg" alt="Chrome Store Users">
+</a>
+<a href="https://better.tw/firefox">
+  <img src="https://img.shields.io/amo/v/better-tweetdeck-17.svg" alt="Mozilla Add-ons Version">
+</a>
+<a href="https://better.tw/firefox">
+  <img src="https://img.shields.io/amo/users/better-tweetdeck-17.svg" alt="Mozille Add-ons Users">
+</a>
+<a href="https://twitter.com/@BetterTDeck">
+  <img src="https://img.shields.io/badge/twitter-%40BetterTDeck-blue.svg" alt="Follow on Twitter">
+</a>
+<a href="https://paypal.me/eramdam">
+<img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="Donate on PayPal">
+</a>
+</p>
 
-![](https://img.shields.io/twitter/follow/bettertdeck.svg?style=social&label=Follow) [![](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK9SQ6ZDE9UF2&lc=US&item_name=Damien%20Erambert&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted)
+# Intro
 
-
-# Better TweetDeck 3
-
-Adds some nice options on [TweetDeck](http://tweetdeck.twitter.com) to provide a better experience on the webapp when used on Chrome, Opera and soon Firefox/Edge!
+Adds some nice options on [TweetDeck](http://tweetdeck.twitter.com) to provide a better experience on the webapp when used on Chrome, Opera and Firefox!
 
 # Installation
 
@@ -18,57 +38,22 @@ The extensions is currently available for the following browsers:
 
 # Features
 
-- You can revert to the old style of replies
-- You can hide the RT/Like indicator
-- You can open GIFs in fullscreen
-- You can download GIFs as... .gif files
-- Paste images to tweet them!
-- Share any page/link to TweetDeck in a click
-- A "minimal" theme.
-- An emoji picker to add them easily to your tweets
-- Show verified badge on profile pictures in columns
-- Change hearts back to stars
-- Customize the format of dates
-- Customize the format of names in tweets
-- Remove the t.co redirection on links
-- Rounded avatars
-- Make Compose panel a little nicer with smaller buttons
-- Hide the links like pic.twitter for a more mobile-like experience
-- Make tweets flash visually in columns when they come in
-- Hide/move tweet actions in tweets
-- Hide icons in columns header
-- Thumbnails and instant previews for:
-  - 500px
-  - Bandcamp
-  - CloudApp
-  - Dailymotion
-  - DeviantArt
-  - Dribbble
-  - Droplr
-  - Flickr
-  - Gfycat
-  - Giphy
-  - Imgur
-  - Instagram
-  - Mixcloud
-  - Nicoseiga
-  - Skitch
-  - Soundcloud
-  - Spotify
-  - Streamable
-  - TED
-  - Tinami
-  - TinyGrab
-  - Tumblr
-  - Twitch
-  - Vidme
-  - Vimeo
-  - Youtu.be
-  - img.ly
-  - moby.to
-  - yfrog
+Find the complete list of features on [https://better.tw/#features-list](https://better.tw/#features-list)
 
 
 # Contributing & helping
 
 Feel free to read the [CONTRIBUTING](./CONTRIBUTING.md) documentation to know how to help and contribute!
+
+[travis-ci-badge]: https://img.shields.io/travis/eramdam/BetterTweetDeck.svg
+[travis-ci]: https://travis-ci.org/eramdam/BetterTweetDeck/
+[chrome-badge]: https://img.shields.io/chrome-web-store/v/micblkellenpbfapmcpcfhcoeohhnpob.svg
+[chrome-badge-users]: https://img.shields.io/chrome-web-store/d/micblkellenpbfapmcpcfhcoeohhnpob.svg
+[chrome]: https://better.tw/chrome
+[firefox-badge]: https://img.shields.io/amo/v/better-tweetdeck-17.svg
+[firefox-badge-users]: https://img.shields.io/amo/users/better-tweetdeck-17.svg
+[firefox]: https://better.tw/chrome
+[twitter]: https://twitter.com/@BetterTDeck
+[twitter-badge]: https://img.shields.io/badge/twitter-%40BetterTDeck-blue.svg
+[paypal-badge]: https://img.shields.io/badge/paypal-donate-yellow.svg
+[paypal]: https://paypal.me/eramdam

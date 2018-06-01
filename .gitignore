@@ -1,7 +1,7 @@
 node_modules
 dist/
 artifacts/*
-config/dev.js
+config/development.js
 config/prod.js
 config/*.json
 

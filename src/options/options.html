@@ -28,6 +28,7 @@
         <a href="#interface" class="nav-item" data-lang="sec_interface">Interface</a>
         <a href="#content" class="nav-item" data-lang="sec_content">Content</a>
         <a href="#share" class="nav-item" data-lang="shared_btd_h1">Sharing</a>
+        <a href="#custom-css" class="nav-item">Custom CSS</a>
       </nav>
 
       <h3 class="sidebar-title">Meta</h3>
@@ -43,6 +44,7 @@
       <nav class="sidebar-nav">
         <a href="https://twitter.com/BetterTDeck" class="nav-item">@BetterTDeck</a>
         <a href="https://github.com/eramdam/BetterTweetDeck" class="nav-item">GitHub</a>
+        <a href="https://better.tw" class="nav-item">Website</a>
       </nav>
     </div>
   </aside>
@@ -235,6 +237,10 @@
             <br />
             <small data-lang="download_filename_format_parameters">You can use the following variables: <code>{{postedUser}} {{tweetId}} {{fileName}} {{fileExtension}}</code></small>
           </li>
+          <li data-setting-name="keep_hashtags">
+            <input type="checkbox" name="keep_hashtags" id="keep_hashtags">
+            <label for="keep_hashtags" data-lang="keep_hashtags" data-new-feat>Keep tweeted hashtags</label>
+          </li>
           <li data-setting-name="ctrl_changes_interactions">
             <input type="checkbox" name="ctrl_changes_interactions.enabled" id="ctrl_changes_interactions.enabled" data-ghost>
             <label for="ctrl_changes_interactions.enabled" data-lang="ctrl_changes_interactions__enabled">Holding <kbd>ctrl</kbd> while clicking: favorite / retweet / download / hotlink will allow you to follow from the</label> <select name="ctrl_changes_interactions.mode" id="ctrl_changes_interactions.mode" disabled data-new-feat><option value="owner" data-lang="ctrl_changes_interactions__mode__owner">column's owner</option><option value="prompt" data-lang="ctrl_changes_interactions__mode__dialog">follow dialog</option></select></label>
@@ -299,13 +305,13 @@
           <li data-setting-name="og_dark_theme">
             <input type="checkbox" name="css.og_dark_theme" id="og_dark_theme">
             <label for="og_dark_theme" data-lang="css_og_dark_theme">Re-enable the Dark theme (pre February 2018)</label>
-            <small>This is experimental and can break at any point!</small>
+            <small data-lang="css_experimental_warning">This is experimental and can break at any point!</small>
           </li>
           <li data-setting-name="no_col_icns">
             <input type="checkbox" name="css.no_col_icns" id="no_col_icns">
             <label for="no_col_icns" data-lang="css_no_col_icns">Hide icons in columns headers</label>
           </li>
-          <li data-hidden-firefox data-setting-name="no_scrollbars">
+          <li data-setting-name="no_scrollbars">
             <input type="checkbox" name="css.no_scrollbars" id="no_scrollbars">
             <label for="no_scrollbars" data-lang="css_no_scrollbars">Hide scrollbars</label>
           </li>
@@ -483,6 +489,16 @@
           </li>
         </ul>
       </div>
+    </section>
+
+    <section class="content-block" id="custom-css">
+      <h2>Custom CSS</h2>
+
+      <p>
+        ⚠️ Pasting unknown code in this editor can lead to weird issues if you don't know what you're doing ⚠️
+      </p>
+      
+      <div name="custom_css_style" id="custom-css-editor"></div>
     </section>
   </main>
 </div>

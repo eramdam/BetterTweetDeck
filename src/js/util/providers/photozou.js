@@ -14,8 +14,9 @@ export default function ($) {
       if (type === 'show' || type === 'photo_only') {
         requestUrl = `${$.getEnpointFor('photozou')}photo_info.json?photo_id=${id}`;
       } else {
-        requestUrl = `${$.getEnpointFor('photozou')}photo_list_public.json`
-          + `?type=album&user_id=${userId}&album_id=${id}&limit=1`;
+        requestUrl =
+          `${$.getEnpointFor('photozou')}photo_list_public.json` +
+          `?type=album&user_id=${userId}&album_id=${id}&limit=1`;
       }
 
       return fetch($.getSafeURL(requestUrl))

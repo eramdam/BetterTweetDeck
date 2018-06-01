@@ -14,7 +14,9 @@ export default function ($) {
         .then($.statusAndText)
         .then(xml => convert.xml2js(xml, { compact: true }))
         .then((json) => {
-          if (json.nicovideo_thumb_response.thumb === undefined) return undefined;
+          if (json.nicovideo_thumb_response.thumb === undefined) {
+            return undefined;
+          }
           return {
             type: 'video',
             thumbnail_url: $.getSafeURL(`${json.nicovideo_thumb_response.thumb.thumbnail_url._text}`),

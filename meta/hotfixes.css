@@ -17,3 +17,42 @@
  *
  * Thanks :)
  */
+
+.js-add-emojis.padding-v--9.js-add-emojis {
+  padding-top: 6px !important;
+  padding-left: 12px !important;
+  padding-right: 12px !important;
+  padding-bottom: 5px !important;
+}
+
+.js-add-emojis.padding-v--9.js-add-emojis .btd-emoji-icon {
+  font-size: 18px !important;
+}
+
+.btd__small_icns_compose
+.js-add-emojis.padding-v--9.js-add-emojis
+.btd-emoji-icon {
+  transform: translateY(-2px);
+}
+
+html.btd-on section.btd-column-collapsed .column-title {
+  flex-grow: 0;
+}
+
+html.btd-on section.btd-column-collapsed .column-header-links {
+  margin-left: 16px;
+}
+
+.js-column-header .column-header-links {
+  flex-shrink: 0 !important;
+}
+
+.js-column-header .column-header-title.width-p--85.column-header-title {
+  width: auto !important;
+  flex-shrink: 1 !important;
+  overflow: hidden !important;
+}
+
+.btd__no_col_icns .js-column .column-title {
+  margin-left: 10px !important;
+}

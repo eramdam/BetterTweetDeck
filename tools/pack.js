@@ -19,32 +19,44 @@ const crx = new ChromeExtension({
   privateKey: fs.readFileSync(privateKeyPath),
 });
 
+clog(
+  'blue',
+  `Loading extension from ${extensionPath} with key from ${privateKeyPath}`,
+);
 
-clog('blue', `Loading extension from ${extensionPath} with key from ${privateKeyPath}`);
-
-crx.load(extensionPath)
-  .then((d) => {
+crx.load(extensionPath).then(
+  (d) => {
     clog('blue', 'Loaded', d.manifest.short_name, d.manifest.version);
 
     return crx.pack().then((buffer) => {
-      fs.writeFile(path.resolve(__dirname, '../artifacts/', 'better-tweetdeck.crx'), buffer, (err) => {
-        if (err) {
-          clog('red', err);
-        }
+      fs.writeFile(
+        path.resolve(__dirname, '../artifacts/', 'better-tweetdeck.crx'),
+        buffer,
+        (err) => {
+          if (err) {
+            clog('red', err);
+          }
 
-        clog('green', 'Saved better-tweetdeck.crx');
-      });
-      fs.writeFile(path.resolve(__dirname, '../artifacts/', 'better-tweetdeck.nex'), buffer, (err) => {
-        if (err) {
-          clog('red', err);
-        }
+          clog('green', 'Saved better-tweetdeck.crx');
+        },
+      );
+      fs.writeFile(
+        path.resolve(__dirname, '../artifacts/', 'better-tweetdeck.nex'),
+        buffer,
+        (err) => {
+          if (err) {
+            clog('red', err);
+          }
 
-        clog('green', 'Saved better-tweetdeck.nex');
-      });
+          clog('green', 'Saved better-tweetdeck.nex');
+        },
+      );
     });
-  }, (err) => {
+  },
+  (err) => {
     if (err) {
       clog('red', err);
       clog('blue', 'Try to run `npm run build` before executing this script');
     }
-  });
+  },
+);

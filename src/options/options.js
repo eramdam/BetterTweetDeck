@@ -1,12 +1,10 @@
 import config from 'config';
+import * as ace from 'brace';
+import 'brace/mode/css';
+import 'brace/theme/solarized_light';
 import { createApolloFetch } from 'apollo-fetch';
 import $ from 'jquery';
-import {
-  isBoolean,
-  forEach,
-  isObject,
-  isString,
-} from 'lodash';
+import { isBoolean, forEach, isObject, isString } from 'lodash';
 import Prism from 'prismjs';
 import marked from 'marked';
 import queryString from 'query-string';
@@ -14,6 +12,10 @@ import fecha from 'fecha';
 import '../css/options/index.css';
 import * as BHelper from '../js/util/browserHelper';
 import { schemeWhitelist } from '../js/util/thumbnails';
+
+const CSS_EDITOR = ace.edit('custom-css-editor');
+CSS_EDITOR.getSession().setMode('ace/mode/css');
+CSS_EDITOR.setTheme('ace/theme/solarized_light');
 
 const GITHUB_URI = 'https://api.github.com/graphql';
 const GITHUB_RELEASES_QUERY = `
@@ -54,7 +56,6 @@ githubApolloFetch.use(({ options }, next) => {
 
   next();
 });
-
 
 if (config.Client.debug) {
   window._BTDSetSettings = obj => BHelper.settings.set(obj);
@@ -166,6 +167,7 @@ function refreshPreviews(settings) {
 /**
  * When got the settings we initialise the view
  */
+
 BHelper.settings.getAll((settings) => {
   const settingsStr = JSON.stringify(settings, null, 2);
 
@@ -193,34 +195,55 @@ BHelper.settings.getAll((settings) => {
 
         if (key === 'flash_tweets') {
           if (settings.flash_tweets) {
-            $('input[name="flash_tweets.enabled"]').prop('checked', settings.flash_tweets.enabled);
+            $('input[name="flash_tweets.enabled"]').prop(
+              'checked',
+              settings.flash_tweets.enabled,
+            );
             $('input[name="flash_tweets.enabled"] ~ ul input').removeAttr('disabled');
           }
 
           $('input[name="flash_tweets.mode"]').removeAttr('checked');
-          $('input[name="flash_tweets.mode"]').prop('disabled', !settings.flash_tweets.enabled);
+          $('input[name="flash_tweets.mode"]').prop(
+            'disabled',
+            !settings.flash_tweets.enabled,
+          );
           $(`input[name="flash_tweets.mode"]#${settings.flash_tweets.mode}`).prop('checked', settings.flash_tweets.enabled && true);
         }
 
         if (key === 'ctrl_changes_interactions') {
           if (settings.ctrl_changes_interactions.enabled) {
-            $('input[name="ctrl_changes_interactions.enabled"]').prop('checked', settings.ctrl_changes_interactions.enabled);
+            $('input[name="ctrl_changes_interactions.enabled"]').prop(
+              'checked',
+              settings.ctrl_changes_interactions.enabled,
+            );
             $('input[name="ctrl_changes_interactions.enabled"] ~ select').removeAttr('disabled');
           }
 
-          $('select[name="ctrl_changes_interactions.mode"]').prop('disabled', !settings.ctrl_changes_interactions.enabled);
+          $('select[name="ctrl_changes_interactions.mode"]').prop(
+            'disabled',
+            !settings.ctrl_changes_interactions.enabled,
+          );
           $('select[name="ctrl_changes_interactions.mode"]').val(settings.ctrl_changes_interactions.mode);
         }
 
         if (key === 'custom_columns_width') {
           if (settings.custom_columns_width) {
-            $('input[name="custom_columns_width.enabled"]').prop('checked', settings.custom_columns_width.enabled);
+            $('input[name="custom_columns_width.enabled"]').prop(
+              'checked',
+              settings.custom_columns_width.enabled,
+            );
             $('input[name="custom_columns_width.enabled"] ~ ul input').removeAttr('disabled');
           }
 
           $('input[name="custom_columns_width.size"]').removeAttr('checked');
-          $('input[name="custom_columns_width.size"]').prop('disabled', !settings.custom_columns_width.enabled);
-          $('input[name="custom_columns_width.size"]').prop('value', settings.custom_columns_width.size);
+          $('input[name="custom_columns_width.size"]').prop(
+            'disabled',
+            !settings.custom_columns_width.enabled,
+          );
+          $('input[name="custom_columns_width.size"]').prop(
+            'value',
+            settings.custom_columns_width.size,
+          );
         }
       });
     } else {
@@ -237,22 +260,22 @@ BHelper.settings.getAll((settings) => {
   });
 
   function getFaviconURL(scheme) {
-    if (scheme.setting.includes('_')) {
-      return `https://plus.google.com/_/favicon?domain=${scheme.setting.replace('_', '.')}`;
-    }
-
-    return `https://plus.google.com/_/favicon?domain=${scheme.setting}.com`;
+    return `img/favicons/${scheme.setting}.png`;
   }
 
   /**
    * Special treatment for thumb providers list who gets created from the source directly
    */
   schemeWhitelist.forEach((scheme) => {
-    const isEnabled = isBoolean(settings.thumbnails[scheme.setting]) ? settings.thumbnails[scheme.setting] : scheme.default;
+    const isEnabled = isBoolean(settings.thumbnails[scheme.setting])
+      ? settings.thumbnails[scheme.setting]
+      : scheme.default;
 
     $('.settings-thumbnails-providers-list').append(`
       <li>
-        <input type="checkbox" name="thumbnails.${scheme.setting}" id="${scheme.setting}" ${isEnabled ? 'checked' : ''}>
+        <input type="checkbox" name="thumbnails.${scheme.setting}" id="${
+  scheme.setting
+}" ${isEnabled ? 'checked' : ''}>
         <img src="${getFaviconURL(scheme)}" class="favicon-icon" />
         <label for="${scheme.setting}">${scheme.name}</label>
       </li>
@@ -266,11 +289,14 @@ BHelper.settings.getAll((settings) => {
    */
 
   $('input[name], select[name]').on('change input', (e) => {
-    $('.save-button').text(chrome.i18n.getMessage('save_save')).removeAttr('disabled');
+    $('.save-button')
+      .text(chrome.i18n.getMessage('save_save'))
+      .removeAttr('disabled');
 
     if (e.target.type === 'radio' && e.target.name === 'ts') {
       if (e.target.hasAttribute('data-ghost')) {
-        $(e.target).parent()
+        $(e.target)
+          .parent()
           .find('ul input')
           .removeAttr('disabled');
       } else {
@@ -279,7 +305,9 @@ BHelper.settings.getAll((settings) => {
     }
 
     if (e.target.type === 'checkbox' && e.target.hasAttribute('data-ghost')) {
-      const els = $(`[data-ghost][name="${e.target.name}"] ~ ul input, [data-ghost][name="${e.target.name}"] ~ select`);
+      const els = $(`[data-ghost][name="${e.target.name}"] ~ ul input, [data-ghost][name="${
+        e.target.name
+      }"] ~ select`);
 
       if (e.target.checked) {
         els.removeAttr('disabled');
@@ -311,12 +339,31 @@ BHelper.settings.getAll((settings) => {
     }
   });
 
+  const changeCssEditor = () => {
+    const annotations = CSS_EDITOR.getSession().getAnnotations();
+    const hasErrors = annotations.find(a => a.type === 'error');
+    const saveBtn = $('.save-button');
+    saveBtn.text(chrome.i18n.getMessage('save_save'));
+
+    if (hasErrors) {
+      saveBtn.prop('disabled', true);
+    } else {
+      saveBtn.removeAttr('disabled');
+    }
+  };
+
+  CSS_EDITOR.getSession().on('change', changeCssEditor);
+  CSS_EDITOR.getSession().on('changeAnnotations', changeCssEditor);
+
   $('button.save-button').click(() => {
     const newSettings = {};
 
     $('input[name],select[name]').each((i, el) => {
       const input = el;
-      const type = input.nodeName === 'SELECT' ? null : input.getAttribute('type').toLowerCase();
+      const type =
+        input.nodeName === 'SELECT'
+          ? null
+          : input.getAttribute('type').toLowerCase();
       const name = input.getAttribute('name');
       const nameArr = name.split('.');
       const isChecked = $(el).is(':checked');
@@ -330,7 +377,11 @@ BHelper.settings.getAll((settings) => {
           newSettings[nameArr[0]][nameArr[1]] = input.getAttribute('id');
         } else if (type === 'checkbox') {
           newSettings[nameArr[0]][nameArr[1]] = isChecked;
-        } else if (type === 'text' || type === 'number' || input.nodeName === 'SELECT') {
+        } else if (
+          type === 'text' ||
+          type === 'number' ||
+          input.nodeName === 'SELECT'
+        ) {
           newSettings[nameArr[0]][nameArr[1]] = input.value;
         }
       } else if (type === 'radio' && isChecked) {
@@ -342,35 +393,56 @@ BHelper.settings.getAll((settings) => {
       }
     });
 
-
+    newSettings.custom_css_style = CSS_EDITOR.getValue();
     BHelper.settings.set(newSettings);
-    $('.save-button').text(chrome.i18n.getMessage('save_no')).attr('disabled', '');
+    BHelper.settings.set(newSettings, null, true);
+    $('.save-button')
+      .text(chrome.i18n.getMessage('save_no'))
+      .attr('disabled', '');
   });
 });
 
+BHelper.settings.get(
+  'custom_css_style',
+  (css) => {
+    CSS_EDITOR.setValue(css);
+    CSS_EDITOR.clearSelection();
+    $('.save-button').attr('disabled', '');
+  },
+  true,
+);
+
 if (chrome.permissions) {
-  chrome.permissions.contains({
-    permissions: ['tabs'],
-  }, (hasTabs) => {
-    if (!hasTabs) {
-      $('[data-require-permission] input').each((i, el) => $(el).prop('disabled', true));
-    } else {
-      $('[data-ask-permissions]').prop('disabled', true);
-      $('[data-ask-permissions]').text(BHelper.getMessage('share_granted'));
-    }
-  });
+  chrome.permissions.contains(
+    {
+      permissions: ['tabs'],
+    },
+    (hasTabs) => {
+      if (!hasTabs) {
+        $('[data-require-permission] input').each((i, el) =>
+          $(el).prop('disabled', true));
+      } else {
+        $('[data-ask-permissions]').prop('disabled', true);
+        $('[data-ask-permissions]').text(BHelper.getMessage('share_granted'));
+      }
+    },
+  );
 
   $('[data-ask-permissions]').on('click', (ev) => {
     ev.preventDefault();
-    chrome.permissions.request({
-      permissions: ['tabs'],
-    }, (granted) => {
-      if (granted) {
-        $('[data-require-permission] input').each((i, el) => $(el).prop('disabled', false));
-        $(ev.target).prop('disabled', true);
-        $(ev.target).text(BHelper.getMessage('share_granted'));
-      }
-    });
+    chrome.permissions.request(
+      {
+        permissions: ['tabs'],
+      },
+      (granted) => {
+        if (granted) {
+          $('[data-require-permission] input').each((i, el) =>
+            $(el).prop('disabled', false));
+          $(ev.target).prop('disabled', true);
+          $(ev.target).text(BHelper.getMessage('share_granted'));
+        }
+      },
+    );
   });
 }
 
@@ -378,7 +450,8 @@ if (chrome.permissions) {
 $('.sidebar-nav:first-child a:first-child, .content-block:first-child').addClass('-selected');
 
 // Automatically add target=_blank on external links
-$('.sidebar-nav a:not([href^="#"])').each((i, el) => el.setAttribute('target', '_blank'));
+$('.sidebar-nav a:not([href^="#"])').each((i, el) =>
+  el.setAttribute('target', '_blank'));
 
 // "Animation" logic
 $('.sidebar-nav a[href^="#"]').on('click', (ev) => {
@@ -434,7 +507,10 @@ if (Object.keys(queryString.parse(window.location.search)).length > 0) {
     switchSettingPage('changelog');
   }
 
-  const navItemsHrefs = [...$('.nav-flex .nav-item')].map(i => i.getAttribute('href')).filter(i => i.startsWith('#')).map(i => i.slice(1));
+  const navItemsHrefs = [...$('.nav-flex .nav-item')]
+    .map(i => i.getAttribute('href'))
+    .filter(i => i.startsWith('#'))
+    .map(i => i.slice(1));
 
   if (navItemsHrefs.includes(QS.on)) {
     switchSettingPage(QS.on);
@@ -460,12 +536,18 @@ fetch('https://api.github.com/repos/eramdam/BetterTweetDeck/contributors').then(
         return;
       }
 
-      const commitsLinks = `https://github.com/eramdam/BetterTweetDeck/commits?author=${contributor.login}`;
+      const commitsLinks = `https://github.com/eramdam/BetterTweetDeck/commits?author=${
+        contributor.login
+      }`;
 
       $('.settings-contributors').append(`
         <li>
-          <a href="${contributor.html_url}" target="_blank">${contributor.login}</a>
-          <small><a href="${commitsLinks}" target="_blank">${contributor.contributions} commit(s)</a></small>
+          <a href="${contributor.html_url}" target="_blank">${
+  contributor.login
+}</a>
+          <small><a href="${commitsLinks}" target="_blank">${
+  contributor.contributions
+} commit(s)</a></small>
         </li>
       `);
     });
@@ -476,32 +558,42 @@ const makeReleaseMarkup = (release) => {
   const GITHUB_USERNAME_RE = /([^>])@([a-z0-9-_]+)([^<])/gi;
   const GITHUB_ISSUES_RE = /([^>])#([0-9]+)([^<])/g;
   const string = release.description
-    .replace(GITHUB_ISSUES_RE, '$1<a href="https://github.com/eramdam/BetterTweetDeck/issues/$2">#$2</a>$3')
-    .replace(GITHUB_USERNAME_RE, '$1<a class="test" href="https://github.com/$2">@$2</a>$3');
+    .replace(
+      GITHUB_ISSUES_RE,
+      '$1<a href="https://github.com/eramdam/BetterTweetDeck/issues/$2">#$2</a>$3',
+    )
+    .replace(
+      GITHUB_USERNAME_RE,
+      '$1<a class="test" href="https://github.com/$2">@$2</a>$3',
+    );
 
   return marked(string);
 };
 
 githubApolloFetch({ query: GITHUB_RELEASES_QUERY })
-  .then(({ data }) => data.viewer.repository.releases.edges.filter(e => !e.node.isDraft).map(e => e.node))
+  .then(({ data }) =>
+    data.viewer.repository.releases.edges
+      .filter(e => !e.node.isDraft)
+      .map(e => e.node))
   .then((releases) => {
-    const changelogMarkup = releases.map((release, index) => {
-      let str = '';
+    const changelogMarkup = releases
+      .map((release, index) => {
+        let str = '';
 
-      if (index === 0) {
-        str = `<h1>🎉 ${release.name || release.tag.name} 🎉</h1>`;
-      } else {
-        str = `<h1>${release.name || release.tag.name}</h1>`;
-      }
+        if (index === 0) {
+          str = `<h1>🎉 ${release.name || release.tag.name} 🎉</h1>`;
+        } else {
+          str = `<h1>${release.name || release.tag.name}</h1>`;
+        }
 
-      str += `<div>${makeReleaseMarkup(release)}</div>`;
+        str += `<div>${makeReleaseMarkup(release)}</div>`;
 
-      return str;
-    }).join('');
+        return str;
+      })
+      .join('');
 
     $('.settings-section.changelog')[0].innerHTML = changelogMarkup;
   });
-
 
 // Because nobody got time to write that HTML by hand, right?
 const usedDeps = [
@@ -510,7 +602,10 @@ const usedDeps = [
   { name: 'Gulp', url: 'http://gulpjs.com/' },
   { name: 'jQuery', url: 'http://jquery.com/' },
   { name: 'PostCSS', url: 'http://postcss.org/' },
-  { name: 'See other dependencies', url: 'https://github.com/eramdam/BetterTweetDeck/blob/master/package.json' },
+  {
+    name: 'See other dependencies',
+    url: 'https://github.com/eramdam/BetterTweetDeck/blob/master/package.json',
+  },
 ];
 
 usedDeps.forEach((dep) => {
@@ -526,7 +621,6 @@ usedDeps.forEach((dep) => {
   const msg = el.getAttribute('data-lang');
   el.innerHTML = BHelper.getMessage(msg);
 });
-
 
 // Add the "Are you sure you wanna leave?" alert when the save button isn't clicked
 window.onbeforeunload = () => {

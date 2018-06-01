@@ -20,9 +20,8 @@ const catOrder = {
 
 const catNames = Object.keys(catOrder);
 
-
 function getEventTarget(evt) {
-  let targ = (evt.target) ? evt.target : evt.srcElement;
+  let targ = evt.target ? evt.target : evt.srcElement;
   if (targ != null) {
     if (targ.nodeType === 3) {
       targ = targ.parentNode;
@@ -50,11 +49,14 @@ function insertAtCursor(input, value) {
     input.focus();
     const sel = document.selection.createRange();
     sel.text = value;
-  // MOZILLA and others
+    // MOZILLA and others
   } else if (input.selectionStart || input.selectionStart === '0') {
     const startPos = input.selectionStart;
     const endPos = input.selectionEnd;
-    input.value = input.value.substring(0, startPos) + value + input.value.substring(endPos, input.value.length);
+    input.value =
+      input.value.substring(0, startPos) +
+      value +
+      input.value.substring(endPos, input.value.length);
   } else {
     input.value += value;
   }
@@ -122,14 +124,22 @@ function getImage(emoji, skinVariation = '') {
   Emoji.supports_css = true;
   Emoji.use_sheet = true;
 
-  return Emoji.replace_colons(`:${emoji.s[0]}:${skinVariation}`).replace('/emoji-data/sheet_twitter_64.png', emojiSheet);
+  return Emoji.replace_colons(`:${emoji.s[0]}:${skinVariation}`).replace(
+    '/emoji-data/sheet_twitter_64.png',
+    emojiSheet,
+  );
 }
 
 function getEmojiElement(emoji, skinVariation = '') {
   let title = emoji.n || emoji.s[0];
   title = title.replace(/_-/g, ' ');
 
-  return `<a href="#" title="${title.toLowerCase()}" data-btd-has-variation="${emoji.hs}" data-btd-shortcode="${emoji.s[0]}" class="btd-emoji">${getImage(emoji, skinVariation)}</a>`;
+  return `<a href="#" title="${title.toLowerCase()}" data-btd-has-variation="${
+    emoji.hs
+  }" data-btd-shortcode="${emoji.s[0]}" class="btd-emoji">${getImage(
+    emoji,
+    skinVariation,
+  )}</a>`;
 }
 
 function getEmojiPickerMarkup(emojiContent) {
@@ -151,14 +161,30 @@ function getEmojiPickerMarkup(emojiContent) {
           <span class="emoji-current-name">:ok_hand:</span>
         </div>
         <div class="category-chooser">
-          <button title="${catNames[0]}" data-btd-emoji-cat="${catNames[0]}" class="-active">${getImage({ s: ['ok_hand'] })}</button>
-          <button title="${catNames[1]}" data-btd-emoji-cat="${catNames[1]}" class="-active">${getImage({ s: ['cat'] })}</button>
-          <button title="${catNames[2]}" data-btd-emoji-cat="${catNames[2]}" class="-active">${getImage({ s: ['pizza'] })}</button>
-          <button title="${catNames[3]}" data-btd-emoji-cat="${catNames[3]}" class="-active">${getImage({ s: ['soccer'] })}</button>
-          <button title="${catNames[4]}" data-btd-emoji-cat="${catNames[4]}" class="-active">${getImage({ s: ['rocket'] })}</button>
-          <button title="${catNames[5]}" data-btd-emoji-cat="${catNames[5]}" class="-active">${getImage({ s: ['bulb'] })}</button>
-          <button title="${catNames[6]}" data-btd-emoji-cat="${catNames[6]}" class="-active">${getImage({ s: ['100'] })}</button>
-          <button title="${catNames[7]}" data-btd-emoji-cat="${catNames[7]}" class="-active">${getImage({ s: ['fr'] })}</button>
+          <button title="${catNames[0]}" data-btd-emoji-cat="${
+  catNames[0]
+}" class="-active">${getImage({ s: ['ok_hand'] })}</button>
+          <button title="${catNames[1]}" data-btd-emoji-cat="${
+  catNames[1]
+}" class="-active">${getImage({ s: ['cat'] })}</button>
+          <button title="${catNames[2]}" data-btd-emoji-cat="${
+  catNames[2]
+}" class="-active">${getImage({ s: ['pizza'] })}</button>
+          <button title="${catNames[3]}" data-btd-emoji-cat="${
+  catNames[3]
+}" class="-active">${getImage({ s: ['soccer'] })}</button>
+          <button title="${catNames[4]}" data-btd-emoji-cat="${
+  catNames[4]
+}" class="-active">${getImage({ s: ['rocket'] })}</button>
+          <button title="${catNames[5]}" data-btd-emoji-cat="${
+  catNames[5]
+}" class="-active">${getImage({ s: ['bulb'] })}</button>
+          <button title="${catNames[6]}" data-btd-emoji-cat="${
+  catNames[6]
+}" class="-active">${getImage({ s: ['100'] })}</button>
+          <button title="${catNames[7]}" data-btd-emoji-cat="${
+  catNames[7]
+}" class="-active">${getImage({ s: ['fr'] })}</button>
         </div>
       </div>
     </div>
@@ -169,7 +195,8 @@ const colonRegex = /:([a-z0-9_\-+]+):?:?([a-z0-9_-]+)?:?$/;
 
 function findEmoji(query) {
   const filteredEmojis = emojis.filter((emoji) => {
-    return emoji.s.some(shortcode => new RegExp(`(?:_|)${query}(?:_|)`).exec(shortcode));
+    return emoji.s.some(shortcode =>
+      new RegExp(`(?:_|)${query}(?:_|)`).exec(shortcode));
   });
 
   return sortBy(filteredEmojis, (emojiMatch) => {
@@ -199,7 +226,9 @@ function updateEmojiDropdown(event, items, skinVariation = '') {
     const isSelected = index === 0;
 
     return `
-  <li class="typeahead-item padding-am cf is-actionable ${isSelected ? 's-selected' : ''}" data-btd-emoji-index="${index}">
+  <li class="typeahead-item padding-am cf is-actionable ${
+  isSelected ? 's-selected' : ''
+}" data-btd-emoji-index="${index}">
     <p class="js-hashtag txt-ellipsis">
       <span class="btd-emoji">
       ${emoji.hs ? getImage(emoji, skinVariation) : getImage(emoji)}
@@ -221,7 +250,10 @@ function hideEmojiDropdown(event) {
 }
 
 function isEmojiDropdownOpened(event) {
-  return emojiDropdownItems.length > 0 && getEmojiTypeaheadHolder(event).style.display !== 'none';
+  return (
+    emojiDropdownItems.length > 0 &&
+    getEmojiTypeaheadHolder(event).style.display !== 'none'
+  );
 }
 
 function moveSelection(event, offset) {
@@ -235,12 +267,16 @@ function moveSelection(event, offset) {
   emojiDropdownItemSelected = emojiDropdownItems[newSelectedIndex];
 
   const holder = getEmojiTypeaheadHolder(event);
-  holder.querySelectorAll('li.typeahead-item').forEach(e => e.classList.remove('s-selected'));
-  holder.querySelector(`li:nth-child(${newSelectedIndex + 1})`).classList.add('s-selected');
+  holder
+    .querySelectorAll('li.typeahead-item')
+    .forEach(e => e.classList.remove('s-selected'));
+  holder
+    .querySelector(`li:nth-child(${newSelectedIndex + 1})`)
+    .classList.add('s-selected');
 }
 
 function setSelection(event, position) {
-  let newSelectedIndex = (position) % emojiDropdownItems.length;
+  let newSelectedIndex = position % emojiDropdownItems.length;
 
   if (newSelectedIndex < 0) {
     newSelectedIndex = emojiDropdownItems.length - 1;
@@ -248,8 +284,12 @@ function setSelection(event, position) {
 
   emojiDropdownItemSelected = emojiDropdownItems[newSelectedIndex];
   const holder = getEmojiTypeaheadHolder(event);
-  holder.querySelectorAll('li.typeahead-item').forEach(e => e.classList.remove('s-selected'));
-  holder.querySelector(`li:nth-child(${newSelectedIndex + 1})`).classList.add('s-selected');
+  holder
+    .querySelectorAll('li.typeahead-item')
+    .forEach(e => e.classList.remove('s-selected'));
+  holder
+    .querySelector(`li:nth-child(${newSelectedIndex + 1})`)
+    .classList.add('s-selected');
 }
 
 function replaceAt(string, index, target, replacement) {
@@ -263,9 +303,17 @@ function selectTypeaheadEmoji(event, composeBoxNode) {
   const composeBox = composeBoxNode || event.target;
   const atCursor = valueAtCursor(composeBox);
   const toReplace = atCursor.value.match(colonRegex);
-  const unifiedEmoji = getUnified(emojiDropdownItemSelected, getSkinVariation());
+  const unifiedEmoji = getUnified(
+    emojiDropdownItemSelected,
+    getSkinVariation(),
+  );
 
-  const newValue = replaceAt(composeBox.value, toReplace.index, toReplace[0], getUnified(emojiDropdownItemSelected, getSkinVariation()));
+  const newValue = replaceAt(
+    composeBox.value,
+    toReplace.index,
+    toReplace[0],
+    getUnified(emojiDropdownItemSelected, getSkinVariation()),
+  );
 
   composeBox.value = newValue;
   composeBox.dispatchEvent(new Event('change'));
@@ -338,13 +386,16 @@ function eventInsideEmojiDropdown(event) {
 
   const { type } = event;
   const dropdownListItem = event.target.closest('.btd-emoji-typeahead li');
-  const composeBox = event.target.closest('.compose-text-container').querySelector('.js-compose-text');
+  const composeBox = event.target
+    .closest('.compose-text-container')
+    .querySelector('.js-compose-text');
 
   switch (type) {
     case 'mouseover':
       setSelection(event, Number(dropdownListItem.dataset.btdEmojiIndex));
       break;
     case 'click':
+    case 'mousedown':
       setSelection(event, Number(dropdownListItem.dataset.btdEmojiIndex));
       selectTypeaheadEmoji(event, composeBox);
       break;
@@ -386,7 +437,10 @@ function getEmojiList(query) {
 
     return `
       <div class="emoji-category">
-      ${emojiMatches.map(emoji => getEmojiElement(emoji, emoji.hs ? skinVariation : undefined)).join('')}
+      ${emojiMatches
+    .map(emoji =>
+      getEmojiElement(emoji, emoji.hs ? skinVariation : undefined))
+    .join('')}
       </div>
     `;
   }
@@ -411,7 +465,10 @@ function getEmojiList(query) {
     `;
 
     emojis.filter(emoji => emoji.cat === cat).forEach((emoji) => {
-      defaultEmojiContent += getEmojiElement(emoji, emoji.hs ? getSkinVariation() : undefined);
+      defaultEmojiContent += getEmojiElement(
+        emoji,
+        emoji.hs ? getSkinVariation() : undefined,
+      );
     });
 
     defaultEmojiContent += '</div>';
@@ -442,10 +499,15 @@ function buildEmojiPicker(rebuild = false) {
     const emojiComposerButton = `
     <button class="js-add-emojis js-show-tip needsclick btn btn-on-blue full-width txt-left margin-b--12 padding-v--9" data-original-title="" tabindex=""> <i class="icon btd-emoji-icon"></i> <span class="js-add-image-button-label label padding-ls">Emojis</span> </button>`;
 
-    $('.js-add-image-button')[0].insertAdjacentHTML('beforebegin', emojiComposerButton);
+    $('.js-add-image-button')[0].insertAdjacentHTML(
+      'beforebegin',
+      emojiComposerButton,
+    );
   }
 
-  const emojiHolder = rebuild ? $('.js-emoji-holder')[0] : document.createElement('span');
+  const emojiHolder = rebuild
+    ? $('.js-emoji-holder')[0]
+    : document.createElement('span');
 
   if (!rebuild) {
     emojiHolder.className = 'js-emoji-holder';
@@ -483,7 +545,10 @@ function buildEmojiPicker(rebuild = false) {
   dropdownHolder.className = 'lst lst-modal typeahead btd-emoji-typeahead';
   dropdownHolder.style.display = 'none';
 
-  $('.lst.lst-modal.typeahead')[0].insertAdjacentElement('afterend', dropdownHolder);
+  $('.lst.lst-modal.typeahead')[0].insertAdjacentElement(
+    'afterend',
+    dropdownHolder,
+  );
 
   $('.js-emoji-holder')[0].addEventListener('keyup', (ev) => {
     if (!ev.target.matches('.emoji-search input')) {
@@ -495,7 +560,10 @@ function buildEmojiPicker(rebuild = false) {
   });
 
   $('.js-emoji-holder')[0].addEventListener('click', (ev) => {
-    if (!ev.target.matches('.category-chooser button') && !ev.target.closest('button[data-btd-emoji-cat]')) {
+    if (
+      !ev.target.matches('.category-chooser button') &&
+      !ev.target.closest('button[data-btd-emoji-cat]')
+    ) {
       return;
     }
     let emojiCat;
@@ -535,9 +603,13 @@ function buildEmojiPicker(rebuild = false) {
       return;
     }
 
-    const hasVariation = emoji.getAttribute('data-btd-has-variation') === 'true';
+    const hasVariation =
+      emoji.getAttribute('data-btd-has-variation') === 'true';
     const shortcode = emoji.getAttribute('data-btd-shortcode');
-    const image = getEmojiElement({ s: [emoji.getAttribute('data-btd-shortcode')] }, hasVariation ? getSkinVariation() : undefined);
+    const image = getEmojiElement(
+      { s: [emoji.getAttribute('data-btd-shortcode')] },
+      hasVariation ? getSkinVariation() : undefined,
+    );
 
     $('.emoji-popover .emoji-preview')[0].classList.add('-visible');
     $('.emoji-popover .emoji-preview .emoji-current-img')[0].innerHTML = image;
@@ -556,8 +628,12 @@ function buildEmojiPicker(rebuild = false) {
       return;
     }
 
-    const hasVariation = emoji.getAttribute('data-btd-has-variation') === 'true';
-    const unified = getUnified({ s: [emoji.getAttribute('data-btd-shortcode')], hs: hasVariation }, getSkinVariation());
+    const hasVariation =
+      emoji.getAttribute('data-btd-has-variation') === 'true';
+    const unified = getUnified(
+      { s: [emoji.getAttribute('data-btd-shortcode')], hs: hasVariation },
+      getSkinVariation(),
+    );
 
     insertAtCursor(tweetCompose, unified);
     tweetCompose.dispatchEvent(new Event('change'));
@@ -574,10 +650,14 @@ function buildEmojiPicker(rebuild = false) {
   document.body.addEventListener('keydown', eventInsideTweetBox);
   document.body.addEventListener('blur', eventInsideTweetBox);
   document.body.addEventListener('mouseover', eventInsideEmojiDropdown);
-  document.body.addEventListener('click', eventInsideEmojiDropdown);
+  document.body.addEventListener('mousedown', eventInsideEmojiDropdown);
 
   document.addEventListener('click', () => {
-    if (clickedOutsideElement('.emoji-popover') && clickedOutsideElement('.js-add-emojis') && $('.emoji-popover')[0].style.display === 'block') {
+    if (
+      clickedOutsideElement('.emoji-popover') &&
+      clickedOutsideElement('.js-add-emojis') &&
+      $('.emoji-popover')[0].style.display === 'block'
+    ) {
       $('.emoji-popover')[0].style.display = 'none';
       $('.emoji-search input')[0].value = '';
       $('.emoji-popover .emoji-container')[0].innerHTML = getEmojiList();

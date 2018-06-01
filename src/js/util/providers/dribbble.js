@@ -7,7 +7,9 @@ export default function ($) {
     re: /(?:dribbble.com\/shots|drbl.in)/,
     default: true,
     callback: (url) => {
-      const dribbbleID = parseURL(url).file.split('-').shift();
+      const dribbbleID = parseURL(url)
+        .file.split('-')
+        .shift();
       const headers = new Headers();
       headers.append('Authorization', `Bearer ${$.getKeyFor('dribbble')}`);
 

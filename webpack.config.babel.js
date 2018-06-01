@@ -3,14 +3,11 @@ import path from 'path';
 import fs from 'fs';
 
 import CopyWebpackPlugin from 'copy-webpack-plugin';
-import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import GenerateJsonPlugin from 'generate-json-webpack-plugin';
 import ZipPlugin from 'zip-webpack-plugin';
 import config from 'config';
-
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const extractContent = new ExtractTextPlugin('css/index.css');
 const extractOptions = new ExtractTextPlugin('options/css/index.css');
@@ -35,7 +32,7 @@ const staticFiles = [
     from: 'options/ui/*',
   },
   {
-    from: 'options/img/*',
+    from: 'options/img/**/*',
   },
   {
     from: '_locales/**/*',
@@ -76,14 +73,17 @@ module.exports = (env) => {
     });
   }
 
-  const staticFilesPath = staticFiles.map(i => (Object.assign(i, {
-    context: './src/',
-  })));
-
+  const staticFilesPath = staticFiles.map(i =>
+    Object.assign(i, {
+      context: './src/',
+    }));
 
   const getManifest = () => require(`./tools/manifests/${env.browser}.js`);
 
-  fs.writeFileSync(path.resolve(__dirname, 'config/config.json'), JSON.stringify(config));
+  fs.writeFileSync(
+    path.resolve(__dirname, 'config/config.json'),
+    JSON.stringify(config),
+  );
 
   return {
     entry: {
@@ -96,7 +96,8 @@ module.exports = (env) => {
       filename: '[name].js',
       path: `${__dirname}/${DIST_FOLDER}`,
     },
-    devtool: 'source-map',
+    mode: IS_PRODUCTION ? 'production' : 'development',
+    devtool: !IS_PRODUCTION && 'source-map',
     module: {
       rules: [
         {
@@ -122,19 +123,17 @@ module.exports = (env) => {
       },
     },
     plugins: [
-      // new BundleAnalyzerPlugin(),
       extractContent,
       extractOptions,
       new CleanWebpackPlugin([DIST_FOLDER]),
       new CopyWebpackPlugin(staticFilesPath),
       new GenerateJsonPlugin('manifest.json', getManifest(), null, 2),
-      IS_PRODUCTION && env.browser !== 'firefox' ? new UglifyJSPlugin({
-        parallel: true,
-      }) : () => null,
-      IS_PRODUCTION ? new ZipPlugin({
-        path: path.resolve(__dirname, 'artifacts'),
-        filename: `dist-${env.browser}`,
-      }) : () => null,
+      IS_PRODUCTION
+        ? new ZipPlugin({
+          path: path.resolve(__dirname, 'artifacts'),
+          filename: `dist-${env.browser}`,
+        })
+        : () => null,
     ],
   };
 };

@@ -27,9 +27,15 @@ html.btd-on {
     .column-title {
       order: 2;
       margin-left: 4px;
+      flex-grow: 0; 
+    } 
+ 
+    .column-header-links { 
+      margin-left: 16px; 
     }
 
     ul.btd-column-buttons {
+      width: auto;
       order: 0;
       position: relative;
       margin-left: 10px;

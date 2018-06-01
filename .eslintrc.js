@@ -22,5 +22,7 @@ module.exports = {
     'arrow-body-style': 0,
     'no-underscore-dangle': 0,
     'prefer-destructuring': 0,
+    'no-control-regex': 0,
+    'no-mixed-operators': 0,
   },
 };

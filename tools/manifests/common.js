@@ -17,7 +17,9 @@ const betaIcons = {
 
 const betaVersion = () => {
   const d = new Date();
-  const arr = String(Math.floor(Date.now() / 1000)).match(/.{1,4}/g).map(Number);
+  const arr = String(Math.floor(Date.now() / 1000))
+    .match(/.{1,4}/g)
+    .map(Number);
 
   return `${d.getFullYear()}.${arr.join('.')}`;
 };
@@ -31,23 +33,20 @@ const common = {
   version: isBeta ? betaVersion() : packageJson.extension_version,
   version_name: isBeta ? betaVersion() : packageJson.extension_version,
   manifest_version: 2,
-  homepage_url: 'https://github.com/eramdam/BetterTweetDeck/',
-  content_scripts: [{
-    matches: ['*://tweetdeck.twitter.com/*'],
-    js: ['js/content.js'],
-    css: ['css/index.css'],
-    run_at: 'document_end',
-  }],
+  homepage_url: 'https://better.tw',
+  content_scripts: [
+    {
+      matches: ['*://tweetdeck.twitter.com/*'],
+      js: ['js/content.js'],
+      css: ['css/index.css'],
+      run_at: 'document_end',
+    },
+  ],
   background: {
     scripts: ['js/background.js'],
   },
   icons: isBeta ? betaIcons : icons,
-  permissions: [
-    'storage',
-    'contextMenus',
-    'notifications',
-    ...urls,
-  ],
+  permissions: ['storage', 'contextMenus', 'notifications', ...urls],
   optional_permissions: ['tabs'],
   options_ui: {
     page: 'options/ui/ui.html',
@@ -68,7 +67,7 @@ if (process.env.NODE_ENV === 'dev') {
   common.commands = {
     _execute_page_action: {
       suggested_key: {
-        default: "Ctrl+Shift+E",
+        default: 'Ctrl+Shift+E',
       },
     },
   };

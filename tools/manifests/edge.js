@@ -7,7 +7,8 @@ module.exports = {
   name: common.name,
   version: common.extension_version,
   minimum_edge_version: '38.14393.0.0',
-  description: 'Emojis, thumbnails and advanced features for http://tweetdeck.twitter.com !',
+  description:
+    'Emojis, thumbnails and advanced features for http://tweetdeck.twitter.com !',
   author: 'Damien Erambert',
   background: Object.assign(common.background, {
     persistent: true,

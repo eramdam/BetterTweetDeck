@@ -1,15 +1,17 @@
 import config from 'config';
 import FileSaver from 'file-saver';
 import Clipboard from 'clipboard';
+import moduleRaid from 'moduleraid';
 import { unescape, debounce } from 'lodash';
 import Log from './util/logger';
 import * as GIFS from './util/gifs';
 import UsernamesTemplates from './util/username_templates';
-import wc from './util/webcrack';
 import { giphySearch, giphyBlock } from './util/templates';
 import AdvancedMuteEngine from './util/ame';
+import keepHashtags from './util/keepHashtags';
 
 const SETTINGS = $('[data-btd-settings]').data('btd-settings');
+const mR = moduleRaid();
 
 if (SETTINGS.no_tco) {
   const dummyEl = document.createElement('span');
@@ -32,10 +34,18 @@ if (SETTINGS.no_tco) {
 
 const getMediaParts = (chirp, url) => {
   return {
-    fileExtension: url.replace(/:[a-z]+$/, '').split('.').pop(),
-    fileName: url.split('/').pop().split('.')[0],
-    postedUser: (chirp.retweetedStatus ? chirp.retweetedStatus.user.screenName : chirp.user.screenName),
-    tweetId: (chirp.retweetedStatus ? chirp.retweetedStatus.id : chirp.id),
+    fileExtension: url
+      .replace(/:[a-z]+$/, '')
+      .split('.')
+      .pop(),
+    fileName: url
+      .split('/')
+      .pop()
+      .split('.')[0],
+    postedUser: chirp.retweetedStatus
+      ? chirp.retweetedStatus.user.screenName
+      : chirp.user.screenName,
+    tweetId: chirp.retweetedStatus ? chirp.retweetedStatus.id : chirp.id,
   };
 };
 
@@ -79,11 +89,17 @@ const getChirpFromKey = (key, colKey) => {
       chirpsArray.push(column.detailViewComponent.mainChirp);
     }
 
-    if (column.detailViewComponent.repliesTo && column.detailViewComponent.repliesTo.repliesTo) {
+    if (
+      column.detailViewComponent.repliesTo &&
+      column.detailViewComponent.repliesTo.repliesTo
+    ) {
       chirpsArray.push(...column.detailViewComponent.repliesTo.repliesTo);
     }
 
-    if (column.detailViewComponent.replies && column.detailViewComponent.replies.replies) {
+    if (
+      column.detailViewComponent.replies &&
+      column.detailViewComponent.replies.replies
+    ) {
       chirpsArray.push(...column.detailViewComponent.replies.replies);
     }
   }
@@ -131,10 +147,11 @@ const getChirpFromElement = (element) => {
 if (config.Client.debug) {
   window.BTD = {};
   window.BTD.debug = {
-    wc,
     getChirpFromElement,
     getChirpFromKey,
-    findMustache: content => Object.keys(TD.mustaches).filter(i => TD.mustaches[i].toLowerCase().includes(content.toLowerCase())),
+    findMustache: content =>
+      Object.keys(TD.mustaches).filter(i =>
+        TD.mustaches[i].toLowerCase().includes(content.toLowerCase())),
   };
 }
 
@@ -170,26 +187,35 @@ const decorateChirp = (chirp) => {
 
 TD.services.TwitterStatus.prototype.getOGContext = function getOGContext() {
   const repliers = this.getReplyingToUsers() || [];
-  const replyingToThemselves = this.user.screenName === this.inReplyToScreenName;
+  const replyingToThemselves =
+    this.user.screenName === this.inReplyToScreenName;
 
-  if (repliers.length === 0 || (replyingToThemselves && repliers.length === 1)) {
+  if (
+    repliers.length === 0 ||
+    (replyingToThemselves && repliers.length === 1)
+  ) {
     return '';
   }
 
-  const filtered = repliers.filter((user) => {
-    // When user are replying to themselves are replying to ppl as well (them + other ppl)
-    if (replyingToThemselves && repliers.length > 1) {
-      return user.screenName !== this.user.screenName;
-    }
+  const filtered = repliers
+    .filter((user) => {
+      // When user are replying to themselves are replying to ppl as well (them + other ppl)
+      if (replyingToThemselves && repliers.length > 1) {
+        return user.screenName !== this.user.screenName;
+      }
 
-    return true;
-  }).filter((user) => {
-    const str = `<a href="https://twitter.com/${user.screenName}/"`;
+      return true;
+    })
+    .filter((user) => {
+      const str = `<a href="https://twitter.com/${user.screenName}/"`;
 
-    return this.htmlText.indexOf(str) !== 0;
-  });
+      return this.htmlText.indexOf(str) !== 0;
+    });
 
-  return filtered.map(user => TD.ui.template.render('text/profile_link', { user })).concat('').join(' ');
+  return filtered
+    .map(user => TD.ui.template.render('text/profile_link', { user }))
+    .concat('')
+    .join(' ');
 };
 
 if (SETTINGS.collapse_columns) {
@@ -198,38 +224,38 @@ if (SETTINGS.collapse_columns) {
   }
 }
 
-TD.mustaches['compose/compose_inline_reply.mustache'] = TD.mustaches['compose/compose_inline_reply.mustache'].replace('</textarea> {{>', '</textarea> <ul class="lst lst-modal typeahead btd-emoji-typeahead"></ul> {{>');
+TD.mustaches['compose/compose_inline_reply.mustache'] = TD.mustaches[
+  'compose/compose_inline_reply.mustache'
+].replace(
+  '</textarea> {{>',
+  '</textarea> <ul class="lst lst-modal typeahead btd-emoji-typeahead"></ul> {{>',
+);
 
 // make it so we can use custom column header icons
-TD.mustaches['column/column_header.mustache'] = TD.mustaches['column/column_header.mustache']
-  // wrap everyting with an ul
-  .replace('{{/withEditableTitle}}', '{{/withEditableTitle}} <ul class="btd-column-buttons">')
-  .replace('{{/isTemporary}} </header>', '{{/isTemporary}} </ul> </header>')
-  // shove in buttons we care about
-  // wrap all the <a>s with <li>s
-  .replace(/<\/i> <\/a>/g, '</i> </a> </li>')
-  .replace(/<a class="js-action-header-button/g, '<li> <a class="js-action-header-button');
-
-TD.mustaches['column/column_header.mustache'] = TD.mustaches['column/column_header.mustache']
-  .replace(
-    '{{/withMarkAllRead}}  {{^isTemporary}}',
-    `{{/withMarkAllRead}}  {{^isTemporary}}
-        ${SETTINGS.clear_column_action ? `
-        <li>
+TD.mustaches['column/column_header.mustache'] = TD.mustaches[
+  'column/column_header.mustache'
+].replace(
+  '{{/withMarkAllRead}} {{^isTemporary}}',
+  `{{/withMarkAllRead}} {{^isTemporary}}
+        ${
+  SETTINGS.clear_column_action
+    ? `
           <a class="js-action-header-button column-header-link btd-clear-column-link" href="#" data-action="clear">
             <i class="icon icon-clear-timeline"></i>
-          </a>
-        </li>` : ''}
-        ${SETTINGS.collapse_columns ? `
-        <li>
-          <a class="js-action-header-button column-header-link btd-toggle-collapse-column-link" href="#" data-action="toggle-collapse-column">
-            <i class="icon icon-minus"></i>
-          </a>
-        </li>` : ''}`,
-  );
+          </a>`
+    : ''
+}
+        ${
+  SETTINGS.collapse_columns
+    ? `
+        <a class="js-action-header-button column-header-link btd-toggle-collapse-column-link" href="#" data-action="toggle-collapse-column">
+          <i class="icon icon-minus"></i>
+        </a>`
+    : ''
+}`,
+);
 
 TD.old_mustaches = Object.assign({}, TD.mustaches);
-
 
 TD.globalRenderOptions.btd = {
   // Use with
@@ -240,108 +266,186 @@ TD.globalRenderOptions.btd = {
       // https://github.com/twitter/hogan.js/issues/222#issuecomment-106101791
       const val = render ? render(input) : Hogan.compile(input).render(this);
 
-      return val.match(/https:\/\/(?:www.|)twitter.com\/(?:@|)([A-Za-z0-9_]+)/) && val.match(/https:\/\/(?:www.|)twitter.com\/(?:@|)([A-Za-z0-9_]+)/)[1];
+      return (
+        val.match(/https:\/\/(?:www.|)twitter.com\/(?:@|)([A-Za-z0-9_]+)/) &&
+        val.match(/https:\/\/(?:www.|)twitter.com\/(?:@|)([A-Za-z0-9_]+)/)[1]
+      );
     };
   },
 };
 
 // Embed custom mustaches.
-TD.mustaches['btd/download_filename_format.mustache'] = SETTINGS.download_filename_format;
+TD.mustaches['btd/download_filename_format.mustache'] =
+  SETTINGS.download_filename_format;
 
 // Call the OG reply stuff
 if (SETTINGS.old_replies) {
   // In single tweets
-  TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace('lang="{{lang}}">{{{htmlText}}}</p>', 'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>');
+  TD.mustaches['status/tweet_single.mustache'] = TD.mustaches[
+    'status/tweet_single.mustache'
+  ].replace(
+    'lang="{{lang}}">{{{htmlText}}}</p>',
+    'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>',
+  );
   // In detailed tweets
-  TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('lang="{{lang}}">{{{htmlText}}}</p>', 'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>');
+  TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches[
+    'status/tweet_detail.mustache'
+  ].replace(
+    'lang="{{lang}}">{{{htmlText}}}</p>',
+    'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>',
+  );
   // In quote tweets
-  TD.mustaches['status/quoted_tweet.mustache'] = TD.mustaches['status/quoted_tweet.mustache'].replace('with-linebreaks">{{{htmlText}}}', 'with-linebreaks">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}');
+  TD.mustaches['status/quoted_tweet.mustache'] = TD.mustaches[
+    'status/quoted_tweet.mustache'
+  ].replace(
+    'with-linebreaks">{{{htmlText}}}',
+    'with-linebreaks">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}',
+  );
 }
 
 // Re-add the RT/like indicator on detailed tweet
-TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('</footer> {{/getMainTweet}}', '</footer> {{/getMainTweet}} <i class="sprite tweet-dogear"></i>');
+TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches[
+  'status/tweet_detail.mustache'
+].replace(
+  '</footer> {{/getMainTweet}}',
+  '</footer> {{/getMainTweet}} <i class="sprite tweet-dogear"></i>',
+);
 // Re-adds the RT/Like indicators on single tweets
-TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace('{{>status/tweet_single_footer}} </div>', '{{>status/tweet_single_footer}} <i class="sprite tweet-dogear"></i> </div>');
+TD.mustaches['status/tweet_single.mustache'] = TD.mustaches[
+  'status/tweet_single.mustache'
+].replace(
+  '{{>status/tweet_single_footer}} </div>',
+  '{{>status/tweet_single_footer}} <i class="sprite tweet-dogear"></i> </div>',
+);
 
 if (SETTINGS.old_replies) {
-  TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace('lang="{{lang}}">{{{htmlText}}}</p>', 'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>');
+  TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches[
+    'status/tweet_detail.mustache'
+  ].replace(
+    'lang="{{lang}}">{{{htmlText}}}</p>',
+    'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>',
+  );
 }
 
 if (SETTINGS.old_replies) {
-  TD.mustaches['status/quoted_tweet.mustache'] = TD.mustaches['status/quoted_tweet.mustache'].replace('with-linebreaks">{{{htmlText}}}', 'with-linebreaks">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}');
+  TD.mustaches['status/quoted_tweet.mustache'] = TD.mustaches[
+    'status/quoted_tweet.mustache'
+  ].replace(
+    'with-linebreaks">{{{htmlText}}}',
+    'with-linebreaks">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}',
+  );
 }
 
 // Inject items into the interaction bar
 if (SETTINGS.hotlink_item || SETTINGS.download_item) {
-  TD.mustaches['status/tweet_single_actions.mustache'] = TD.mustaches['status/tweet_single_actions.mustache']
-    .replace(
-      '{{_i}}Like{{/i}} </span> </a> </li>',
-      `{{_i}}Like{{/i}} </span> </a> </li>
+  TD.mustaches['status/tweet_single_actions.mustache'] = TD.mustaches[
+    'status/tweet_single_actions.mustache'
+  ].replace(
+    '{{_i}}Like{{/i}} </span> </a> </li>',
+    `{{_i}}Like{{/i}} </span> </a> </li>
            {{#tweet.entities.media.length}}
-           ${SETTINGS.hotlink_item ? `
+           ${
+  SETTINGS.hotlink_item
+    ? `
            <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--13 margin-l--1">
              <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
                data-btd-action="hotlink-media" rel="hotlink" title="Copy links to media"> 
                <i class="js-icon-attachment icon icon-attachment txt-center"></i>
                <span class="is-vishidden"> {{_i}}Copy links to media{{/i}} </span>
              </a>
-           </li>` : ''}
-           ${SETTINGS.download_item ? `
+           </li>`
+    : ''
+}
+           ${
+  SETTINGS.download_item
+    ? `
            <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--13 margin-l--1">
              <a class="js-show-tip tweet-action btd-tweet-action position-rel" href="#" 
                data-btd-action="download-media" rel="download" title="Download media"> 
                <i class="js-icon icon icon-download txt-center"></i>
                <span class="is-vishidden"> {{_i}}Download media{{/i}} </span>
              </a>
-           </li>` : ''}
+           </li>`
+    : ''
+}
            {{/tweet.entities.media.length}}`,
-    );
-  TD.mustaches['status/tweet_detail_actions.mustache'] = TD.mustaches['status/tweet_detail_actions.mustache']
-    .replace(
-      '{{_i}}Like{{/i}} </span> </a> {{/account}} </li>',
-      `{{_i}}Like{{/i}} </span> </a> {{/account}} </li>
+  );
+  TD.mustaches['status/tweet_detail_actions.mustache'] = TD.mustaches[
+    'status/tweet_detail_actions.mustache'
+  ].replace(
+    '{{_i}}Like{{/i}} </span> </a> {{/account}} </li>',
+    `{{_i}}Like{{/i}} </span> </a> {{/account}} </li>
            {{#getMainTweet}}{{#entities.media.length}}
-           ${SETTINGS.hotlink_item ? `
+           ${
+  SETTINGS.hotlink_item
+    ? `
            <li class="tweet-detail-action-item btd-tweet-detail-action-item">
              <a class="js-show-tip tweet-detail-action btd-tweet-detail-action btd-clipboard position-rel" href="#"
                data-btd-action="hotlink-media" rel="hotlink" title="Copy links to media">
                <i class="js-icon-attachment icon icon-attachment txt-center"></i>
                <span class="is-vishidden"> {{_i}}Copy links to media{{/i}} </span>
              </a>
-           </li>` : ''}
-           ${SETTINGS.download_item ? `
+           </li>`
+    : ''
+}
+           ${
+  SETTINGS.download_item
+    ? `
            <li class="tweet-detail-action-item btd-tweet-detail-action-item">
              <a class="js-show-tip tweet-detail-action btd-tweet-detail-action position-rel" href="#"
                data-btd-action="download-media" rel="download" title="Download media">
                <i class="js-icon icon icon-download txt-center"></i>
                <span class="is-vishidden"> {{_i}}Download media{{/i}} </span>
              </a>
-           </li>` : ''}
+           </li>`
+    : ''
+}
            {{/entities.media.length}}{{/getMainTweet}}`,
-    );
+  );
 }
 
 // Adds the Favstar.fm item in menus and adds mute action for each hashtag
-TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].replace('{{/isOwnChirp}} {{/chirp}} </ul>', `
-      ${SETTINGS.edit_item ? `  
+TD.mustaches['menus/actions.mustache'] = TD.mustaches[
+  'menus/actions.mustache'
+].replace(
+  '{{/isOwnChirp}} {{/chirp}} </ul>',
+  `
+      ${
+  SETTINGS.edit_item
+    ? `  
         <li class="is-selectable">
           <a href="#" data-btd-action="edit-tweet">{{_i}}"Edit"{{/i}}</a>
         </li>
-        ` : ''}
+        `
+    : ''
+}
         {{/isOwnChirp}}
-        ${SETTINGS.mute_source ? `<li class="is-selectable">
+        ${
+  SETTINGS.mute_source
+    ? `<li class="is-selectable">
           <a href="#" data-btd-action="mute-source" data-btd-source="{{sourceNoHTML}}">Mute "{{sourceNoHTML}}"</a>
-        </li>` : ''}
-        ${SETTINGS.mute_hashtags ? `{{#entities.hashtags}}
+        </li>`
+    : ''
+}
+        ${
+  SETTINGS.mute_hashtags
+    ? `{{#entities.hashtags}}
           <li class="is-selectable">
             <a href="#" data-btd-action="mute-hashtag" data-btd-hashtag="{{text}}">Mute #{{text}}</a>
           </li>
-        {{/entities.hashtags}}` : ''}
-        ${SETTINGS.favstar_item ? `<li class="drp-h-divider"></li>
-        <li class="btd-action-menu-item is-selectable"><a href="https://favstar.fm/users/{{user.screenName}}/status/{{chirp.id}}" target="_blank" data-action="favstar">{{_i}}Show on Favstar{{/i}}</a></li>` : ''}
+        {{/entities.hashtags}}`
+    : ''
+}
+        ${
+  SETTINGS.favstar_item
+    ? `<li class="drp-h-divider"></li>
+        <li class="btd-action-menu-item is-selectable"><a href="https://favstar.fm/users/{{user.screenName}}/status/{{chirp.id}}" target="_blank" data-action="favstar">{{_i}}Show on Favstar{{/i}}</a></li>`
+    : ''
+}
       {{/chirp}}
       </ul>
-    `);
+    `,
+);
 
 AdvancedMuteEngine();
 UsernamesTemplates(TD.mustaches, SETTINGS.nm_disp);
@@ -417,13 +521,15 @@ const postMessagesListeners = {
           background: banner.bg || '#b2d5ed',
           foreground: banner.fg || '#555',
         },
-        actions: [{
-          id: `btd-banner-${bannerID}`,
-          action: banner.action || 'url-ext',
-          label: TD.i(banner.label),
-          url: banner.url,
-          event: banner.event ? banner.event : undefined,
-        }],
+        actions: [
+          {
+            id: `btd-banner-${bannerID}`,
+            action: banner.action || 'url-ext',
+            label: TD.i(banner.label),
+            url: banner.url,
+            event: banner.event ? banner.event : undefined,
+          },
+        ],
       },
     });
   },
@@ -431,22 +537,33 @@ const postMessagesListeners = {
 
 const followStatus = (client, targetUserId) => {
   return new Promise((resolve) => {
-    client.showFriendship(client.oauth.account.state.userId, targetUserId, null, (result) => {
-      return resolve({
-        id: client.oauth.account.state.userId,
-        following: result.relationship.target.followed_by,
-      });
-    });
+    client.showFriendship(
+      client.oauth.account.state.userId,
+      targetUserId,
+      null,
+      (result) => {
+        return resolve({
+          id: client.oauth.account.state.userId,
+          following: result.relationship.target.followed_by,
+        });
+      },
+    );
   });
 };
 
 const checkBTDFollowing = () => {
-  if (!window.localStorage.getItem('btd_disable_prompt_follow_twitter') && !SETTINGS.need_update_banner && SETTINGS.need_follow_banner) {
+  if (
+    !window.localStorage.getItem('btd_disable_prompt_follow_twitter') &&
+    !SETTINGS.need_update_banner &&
+    SETTINGS.need_follow_banner
+  ) {
     const BTD_ID = '4664726178';
 
-    const followingPromises = TD.controller.clients.getClientsByService('twitter').map((client) => {
-      return followStatus(client, BTD_ID);
-    });
+    const followingPromises = TD.controller.clients
+      .getClientsByService('twitter')
+      .map((client) => {
+        return followStatus(client, BTD_ID);
+      });
 
     Promise.all(followingPromises).then((values) => {
       window.localStorage.setItem('btd_disable_prompt_follow_twitter', true);
@@ -458,32 +575,84 @@ const checkBTDFollowing = () => {
         return;
       }
 
-      postMessagesListeners.BTDC_showTDBanner({}, {
-        banner: {
-          text: 'Do you want to follow Better TweetDeck on Twitter for news, support and tips?',
-          action: 'trigger-event',
-          event: {
-            type: 'openBtdProfile',
+      postMessagesListeners.BTDC_showTDBanner(
+        {},
+        {
+          banner: {
+            text:
+              'Do you want to follow Better TweetDeck on Twitter for news, support and tips?',
+            action: 'trigger-event',
+            event: {
+              type: 'openBtdProfile',
+            },
+            label: 'Sure!',
+            bg: '#3daafb',
+            fg: '#07214c',
           },
-          label: 'Sure!',
-          bg: '#3daafb',
-          fg: '#07214c',
         },
-      });
+      );
     });
   }
 };
 
+const currentProgressNotifications = {};
+const TDNotifications =
+  mR.findModule('showNotification') && mR.findModule('showNotification')[0];
+
 window.addEventListener('message', (ev) => {
-  if (ev.origin.indexOf('tweetdeck.') === -1) {
+  const { origin, data } = ev;
+  if (!origin.includes('tweetdeck.') && !origin.includes('better.tw')) {
     return false;
   }
 
-  if (!ev.data.name || !ev.data.name.startsWith('BTDC_') || !postMessagesListeners[ev.data.name]) {
+  if (
+    TDNotifications &&
+    TDNotifications.showNotification &&
+    TDNotifications.updateNotification
+  ) {
+    if (data.message && data.message === 'progress_gif') {
+      if (!currentProgressNotifications[data.name]) {
+        currentProgressNotifications[
+          data.name
+        ] = TDNotifications.showNotification({
+          timeoutDelayMs: 2000,
+          message: `Converting to GIF... (${Number(data.progress * 100).toFixed(1)}%)`,
+        });
+      } else if (data.progress > 0.99) {
+        TDNotifications.showNotification({
+          message: 'Finalizing GIF conversion...',
+          timeoutDelayMs: 4000,
+        });
+      } else {
+        TDNotifications.updateNotification({
+          notification: currentProgressNotifications[data.name],
+          message: `Converting to GIF... (${Number(data.progress * 100).toFixed(1)}%)`,
+        });
+      }
+    }
+
+    if (
+      data.message &&
+      data.message === 'complete_gif' &&
+      currentProgressNotifications[data.name]
+    ) {
+      TDNotifications.showNotification({
+        message: 'Conversion finished! Download starting...',
+      });
+
+      delete currentProgressNotifications[data.name];
+    }
+  }
+
+  if (
+    !data.name ||
+    !data.name.startsWith('BTDC_') ||
+    !postMessagesListeners[data.name]
+  ) {
     return false;
   }
 
-  return postMessagesListeners[ev.data.name](ev, ev.data.detail);
+  return postMessagesListeners[data.name](ev, data.detail);
 });
 
 const switchThemeClass = () => {
@@ -497,9 +666,13 @@ const handleInsertedNode = (element) => {
 
   // If the target of the event contains mediatable then we are inside the media modal
   if (element.classList && element.classList.contains('js-mediatable')) {
-    const chirpKey = element.querySelector('[data-key]').getAttribute('data-key');
+    const chirpKey = element
+      .querySelector('[data-key]')
+      .getAttribute('data-key');
     const chirpKeyEl = document.querySelector(`[data-column] [data-key="${chirpKey}"]`);
-    const colKey = chirpKeyEl && chirpKeyEl.closest('[data-column]').getAttribute('data-column');
+    const colKey =
+      chirpKeyEl &&
+      chirpKeyEl.closest('[data-column]').getAttribute('data-column');
 
     if (!colKey) {
       return;
@@ -542,10 +715,10 @@ const closeCustomModal = () => {
   $('#open-modal').empty();
 };
 
-
-const observer = new MutationObserver(mutations => mutations.forEach((mutation) => {
-  [...mutation.addedNodes].forEach(handleInsertedNode);
-}));
+const observer = new MutationObserver(mutations =>
+  mutations.forEach((mutation) => {
+    [...mutation.addedNodes].forEach(handleInsertedNode);
+  }));
 observer.observe(document, { subtree: true, childList: true });
 
 const handleGifClick = (ev) => {
@@ -567,7 +740,10 @@ const handleGifClick = (ev) => {
     width: chirp.entities.media[0].sizes.large.w,
   };
 
-  video.name = TD.ui.template.render('btd/download_filename_format', getMediaParts(chirp, video.src.replace(/\.mp4$/, '.gif')));
+  video.name = TD.ui.template.render(
+    'btd/download_filename_format',
+    getMediaParts(chirp, video.src.replace(/\.mp4$/, '.gif')),
+  );
 
   proxyEvent('clickedOnGif', {
     tweetKey: chirpKey,
@@ -611,7 +787,7 @@ const getContextFromChirp = (chirp) => {
 
   urls.push(chirp.getChirpURL());
   if (chirp.entities.media.length > 1) {
-    urls.push(...(getMediaFromChirp(chirp).slice(1)));
+    urls.push(...getMediaFromChirp(chirp).slice(1));
   }
 
   return urls;
@@ -633,24 +809,35 @@ const clipboard = new Clipboard('.btd-clipboard', {
 
 const getMediaUrlParts = (url) => {
   return {
-    originalExtension: url.replace(/:[a-z]+$/, '').split('.').pop(),
-    originalFile: url.split('/').pop().split('.')[0],
+    originalExtension: url
+      .replace(/:[a-z]+$/, '')
+      .split('.')
+      .pop(),
+    originalFile: url
+      .split('/')
+      .pop()
+      .split('.')[0],
   };
 };
 
 // control characters can't appear in tweets, so we can use them to pad strings out
 // source: https://shkspr.mobi/blog/2015/11/twitters-weird-control-character-handling/
 const loudencer = (str, start, end) => {
-  return str.slice(0, start) + ('\x07').repeat(str.slice(start, end).length) + str.slice(end);
+  return (
+    str.slice(0, start) +
+    '\x07'.repeat(str.slice(start, end).length) +
+    str.slice(end)
+  );
 };
-
 
 // TD Events
 $(document).on('dataColumns', (ev, data) => {
-  const cols = data.columns.filter(col => col.model.state.settings).map(col => ({
-    id: col.model.privateState.key,
-    mediaSize: col.model.state.settings.media_preview_size,
-  }));
+  const cols = data.columns
+    .filter(col => col.model.state.settings)
+    .map(col => ({
+      id: col.model.privateState.key,
+      mediaSize: col.model.state.settings.media_preview_size,
+    }));
 
   proxyEvent('columnsChanged', cols);
 });
@@ -679,7 +866,9 @@ $(document).one('dataColumnsLoaded', () => {
   }
 
   $('.js-column').each((i, el) => {
-    let size = TD.storage.columnController.get($(el).data('column')).getMediaPreviewSize();
+    let size = TD.storage.columnController
+      .get($(el).data('column'))
+      .getMediaPreviewSize();
 
     if (!size) {
       size = 'medium';
@@ -694,11 +883,17 @@ $(document).one('dataColumnsLoaded', () => {
   if (!collapsedColumns) {
     window.localStorage.setItem('btd_collapsed_columns', JSON.stringify({}));
   } else {
-    const columnSettings = JSON.parse(collapsedColumns);
-    Object.keys(columnSettings).map((key) => {
-      const column = TD.controller.columnManager.getByApiid(key);
-      column._btd.toggleCollapse(!(columnSettings[key] && column));
-      return column;
+    const columnsSettings = JSON.parse(collapsedColumns);
+    const collapsedColumnsKeys = Object.keys(columnsSettings);
+
+    $(document).on('uiColumnRendered', (ev, data) => {
+      const { column } = data;
+
+      const columnApiId = column.model.privateState.apiid;
+
+      if (collapsedColumnsKeys.includes(columnApiId)) {
+        column._btd.toggleCollapse(!(columnsSettings[columnApiId] && column));
+      }
     });
   }
 
@@ -715,16 +910,20 @@ $(document).one('dataColumnsLoaded', () => {
   const GIFText = fool ? 'JIF' : 'GIF';
 
   $('.js-character-count').parent().append(`
-    <span class="btd-gif-button -visible txt-twitter-dark-gray">${GIFText}</span>
-    <span class="btd-gif-indicator txt-line-height--20 txt-size--12 txt-twitter-dark-gray"></span>
+    <span class="btd-gif-button -visible color-twitter-dark-gray">${GIFText}</span>
+    <span class="btd-gif-indicator txt-line-height--20 txt-size--12 color-twitter-dark-gray"></span>
   `);
 
   $('.js-media-added').after(`
     <span
-      class="txt-line-height--12 txt-size--12 txt-twitter-dark-gray btd-gif-source-indicator"
+      class="txt-line-height--12 txt-size--12 color-twitter-dark-gray btd-gif-source-indicator"
     ></span>
   `);
   setTimeout(checkBTDFollowing, 2000);
+
+  if (SETTINGS.keep_hashtags) {
+    keepHashtags();
+  }
 });
 
 $(document).on('click', '.btd-gif-button', (e) => {
@@ -745,14 +944,18 @@ const closeGiphyZone = (ev) => {
   $('.giphy-search-input').val('');
 };
 
-$(document).on('input', '.giphy-search-input', debounce((ev) => {
-  const query = ev.target.value;
+$(document).on(
+  'input',
+  '.giphy-search-input',
+  debounce((ev) => {
+    const query = ev.target.value;
 
-  GIFS.search(query).then((gifs) => {
-    const markup = gifs.map(giphyBlock).join('');
-    $('.btd-giphy-zone .giphy-content').html(markup);
-  });
-}, 500));
+    GIFS.search(query).then((gifs) => {
+      const markup = gifs.map(giphyBlock).join('');
+      $('.btd-giphy-zone .giphy-content').html(markup);
+    });
+  }, 500),
+);
 
 $(document).on('click', '.btd-giphy-close', closeGiphyZone);
 
@@ -776,7 +979,7 @@ $(document).on('click', '.btd-giphy-block', (ev) => {
 
   gifRequest.onprogress = (event) => {
     const { loaded, total } = event;
-    $('.btd-gif-indicator').text(`Adding GIF (${((loaded / total) * 100).toFixed(2)}%)`);
+    $('.btd-gif-indicator').text(`Adding GIF (${(loaded / total * 100).toFixed(2)}%)`);
   };
 
   gifRequest.send();
@@ -800,7 +1003,9 @@ $(document).on('uiFilesAdded', (ev, data) => {
     return;
   }
 
-  $('.btd-gif-source-indicator').html(`GIF via <span class="gif-provider ${data.source}"></span> ${gifSourceMap[data.source]}`);
+  $('.btd-gif-source-indicator').html(`GIF via <span class="gif-provider ${data.source}"></span> ${
+    gifSourceMap[data.source]
+  }`);
 });
 
 // Adds search column to the beginning instead of the end, and resets search input for convenience
@@ -862,10 +1067,14 @@ document.addEventListener('paste', (ev) => {
       return;
     }
 
-    const canPopout = $('.js-inline-compose-pop, .js-reply-popout').length > 0 && !$('.js-app-content').hasClass('is-open');
+    const canPopout =
+      $('.js-inline-compose-pop, .js-reply-popout').length > 0 &&
+      !$('.js-app-content').hasClass('is-open');
 
     if (canPopout) {
-      $('.js-inline-compose-pop, .js-reply-popout').first().trigger('click');
+      $('.js-inline-compose-pop, .js-reply-popout')
+        .first()
+        .trigger('click');
       setTimeout(() => {
         $(document).trigger('uiFilesAdded', {
           files,
@@ -892,40 +1101,45 @@ $(document).on('uiRemoveQuotedTweet', () => {
   $('.btd-gif-button').css('display', 'block');
 });
 
+$('body').on(
+  'click',
+  '.tweet-action[rel="favorite"], .tweet-detail-action[rel="favorite"]' +
+    '.tweet-action[rel="retweet"], .tweet-detail-action[rel="retweet"], ' +
+    '[data-btd-action="hotlink-media"], ' +
+    '[data-btd-action="download-media"]',
+  (ev) => {
+    if (!ev.ctrlKey && !ev.metaKey) {
+      return;
+    }
 
-$('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="favorite"]' +
-  '.tweet-action[rel="retweet"], .tweet-detail-action[rel="retweet"], ' +
-  '[data-btd-action="hotlink-media"], ' +
-  '[data-btd-action="download-media"]', (ev) => {
-  if (!ev.ctrlKey && !ev.metaKey) {
-    return;
-  }
+    if (!SETTINGS || !SETTINGS.ctrl_changes_interactions.enabled) {
+      return;
+    }
 
-  if (!SETTINGS || !SETTINGS.ctrl_changes_interactions.enabled) {
-    return;
-  }
+    ev.preventDefault();
 
-  ev.preventDefault();
+    // todo: find a better way to listen to favorites globally
+    // primary candidates are ui*Favorite or TD.services.TwitterStatus.prototype.setFavorite
 
-  // todo: find a better way to listen to favorites globally
-  // primary candidates are ui*Favorite or TD.services.TwitterStatus.prototype.setFavorite
+    const chirp = getChirpFromElement(ev.target);
 
-  const chirp = getChirpFromElement(ev.target);
+    const user = chirp.retweetedStatus
+      ? chirp.retweetedStatus.user
+      : chirp.user;
 
-  const user = chirp.retweetedStatus ? chirp.retweetedStatus.user : chirp.user;
-
-  switch (SETTINGS.ctrl_changes_interactions.mode) {
-    case 'prompt':
-      $(document).trigger('uiShowFollowFromOptions', { userToFollow: user });
-      break;
-    case 'owner':
-    default:
-      if (!user.following) {
-        user.follow(chirp.account, null, null, true);
-      }
-      break;
-  }
-});
+    switch (SETTINGS.ctrl_changes_interactions.mode) {
+      case 'prompt':
+        $(document).trigger('uiShowFollowFromOptions', { userToFollow: user });
+        break;
+      case 'owner':
+      default:
+        if (!user.following) {
+          user.follow(chirp.account, null, null, true);
+        }
+        break;
+    }
+  },
+);
 
 ((originalColumn) => {
   TD.vo.Column = class Column extends originalColumn {
@@ -959,7 +1173,10 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
 
           dataBoy[this._parent.model.privateState.apiid] = true;
           this._isCollapsed = true;
-          window.localStorage.setItem('btd_collapsed_columns', JSON.stringify(dataBoy));
+          window.localStorage.setItem(
+            'btd_collapsed_columns',
+            JSON.stringify(dataBoy),
+          );
         },
         uncollapse() {
           if (!SETTINGS.collapse_columns) {
@@ -981,7 +1198,10 @@ $('body').on('click', '.tweet-action[rel="favorite"], .tweet-detail-action[rel="
 
             delete dataBoy[this._parent.model.privateState.apiid];
             this._isCollapsed = false;
-            window.localStorage.setItem('btd_collapsed_columns', JSON.stringify(dataBoy));
+            window.localStorage.setItem(
+              'btd_collapsed_columns',
+              JSON.stringify(dataBoy),
+            );
             TD.controller.columnManager.showColumn(columnKey);
           }
         },
@@ -1008,27 +1228,35 @@ $('body').on('click', '#column-navigator .column-nav-item', (ev) => {
   TD.controller.columnManager.get(columnKey)._btd.uncollapse();
 });
 
-$('body').on('mousedown', '.column-panel header.column-header .btd-clear-column-link', (ev) => {
-  ev.preventDefault();
-  if (!SETTINGS.clear_column_action || ev.which !== 1) {
-    return;
-  }
+$('body').on(
+  'mousedown',
+  '.column-panel header.column-header .btd-clear-column-link',
+  (ev) => {
+    ev.preventDefault();
+    if (!SETTINGS.clear_column_action || ev.which !== 1) {
+      return;
+    }
 
-  const thisColumn = ev.target.closest('[data-column]');
-  const columnKey = thisColumn.getAttribute('data-column');
-  TD.controller.columnManager.get(columnKey).clear();
-});
+    const thisColumn = ev.target.closest('[data-column]');
+    const columnKey = thisColumn.getAttribute('data-column');
+    TD.controller.columnManager.get(columnKey).clear();
+  },
+);
 
-$('body').on('mousedown', '.column-panel header.column-header .btd-toggle-collapse-column-link', (ev) => {
-  ev.preventDefault();
-  if (!SETTINGS.collapse_columns || ev.which !== 1) {
-    return;
-  }
+$('body').on(
+  'mousedown',
+  '.column-panel header.column-header .btd-toggle-collapse-column-link',
+  (ev) => {
+    ev.preventDefault();
+    if (!SETTINGS.collapse_columns || ev.which !== 1) {
+      return;
+    }
 
-  const thisColumn = ev.target.closest('[data-column]');
-  const columnKey = thisColumn.getAttribute('data-column');
-  TD.controller.columnManager.get(columnKey)._btd.toggleCollapse();
-});
+    const thisColumn = ev.target.closest('[data-column]');
+    const columnKey = thisColumn.getAttribute('data-column');
+    TD.controller.columnManager.get(columnKey)._btd.toggleCollapse();
+  },
+);
 
 $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
   ev.preventDefault();
@@ -1039,7 +1267,13 @@ $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
     fetch(item)
       .then(res => res.blob())
       .then((blob) => {
-        FileSaver.saveAs(blob, TD.ui.template.render('btd/download_filename_format', getMediaParts(chirp, item)));
+        FileSaver.saveAs(
+          blob,
+          TD.ui.template.render(
+            'btd/download_filename_format',
+            getMediaParts(chirp, item),
+          ),
+        );
       });
   });
 });
@@ -1049,14 +1283,16 @@ $('body').on('click', 'article video.js-media-gif', handleGifClick);
 $('body').on('click', '#open-modal', (ev) => {
   const isMediaModal = document.querySelector('.js-modal-panel .js-media-preview-container, .js-modal-panel iframe, .js-modal-panel .btd-embed-container');
 
-  if (!SETTINGS.css.no_bg_modal ||
-    !isMediaModal) {
+  if (!SETTINGS.css.no_bg_modal || !isMediaModal) {
     return;
   }
 
-  if (!ev.target.closest('.med-tray') &&
-    !ev.target.closest('.mdl-btn-media') && $('a[rel="dismiss"]')[0] &&
-    !ev.target.closest('.med-tweet')) {
+  if (
+    !ev.target.closest('.med-tray') &&
+    !ev.target.closest('.mdl-btn-media') &&
+    $('a[rel="dismiss"]')[0] &&
+    !ev.target.closest('.med-tweet')
+  ) {
     ev.preventDefault();
     ev.stopPropagation();
 
@@ -1077,7 +1313,12 @@ $('body').on('click', '[data-btd-action="edit-tweet"]', (ev) => {
   const composeData = {
     type: chirp.chirpType,
     text: chirp.text,
-    from: [TD.storage.Account.generateKeyFor('twitter', chirp.creatorAccount.getUserID())],
+    from: [
+      TD.storage.Account.generateKeyFor(
+        'twitter',
+        chirp.creatorAccount.getUserID(),
+      ),
+    ],
   };
 
   // @TODO: this doesn't work in DMs yet because DMs use attachments sometimes, i don't understand
@@ -1104,7 +1345,11 @@ $('body').on('click', '[data-btd-action="edit-tweet"]', (ev) => {
 
   // replace quotes in a tweet
   chirp.entities.urls.forEach((url) => {
-    if (chirp.isQuoteStatus && !chirp.quotedTweetMissing && url.expanded_url === chirp.quotedTweet.getChirpURL()) {
+    if (
+      chirp.isQuoteStatus &&
+      !chirp.quotedTweetMissing &&
+      url.expanded_url === chirp.quotedTweet.getChirpURL()
+    ) {
       composeData.text = loudencer(composeData.text, ...url.indices);
       composeData.quotedTweet = chirp.quotedTweet;
     }
@@ -1188,7 +1433,11 @@ $('body').on('click', '[data-btd-action="edit-tweet"]', (ev) => {
             default:
               break;
           }
-          return new File([blob], `${url.originalFile}.${url.originalExtension}`, options);
+          return new File(
+            [blob],
+            `${url.originalFile}.${url.originalExtension}`,
+            options,
+          );
         }))).then((gotFiles) => {
       $(document).trigger('uiComposeFilesAdded', { files: gotFiles });
     });
@@ -1215,32 +1464,35 @@ $('body').on('click', '[data-btd-action="mute-source"]', (ev) => {
   TD.controller.filterManager.addFilter('source', source);
 });
 
-$('body').on({
-  mouseenter: (ev) => {
-    if (SETTINGS && !SETTINGS.pause_scroll_on_hover) {
-      return;
-    }
-    const thisColumn = ev.target.closest('[data-column]');
-    const columnKey = thisColumn.getAttribute('data-column');
-    const column = TD.controller.columnManager.get(columnKey);
-    const scroller = column.ui.getChirpScroller();
-    if (scroller.scrollTop() === 0) {
-      column.ui.pause();
-    }
+$('body').on(
+  {
+    mouseenter: (ev) => {
+      if (SETTINGS && !SETTINGS.pause_scroll_on_hover) {
+        return;
+      }
+      const thisColumn = ev.target.closest('[data-column]');
+      const columnKey = thisColumn.getAttribute('data-column');
+      const column = TD.controller.columnManager.get(columnKey);
+      const scroller = column.ui.getChirpScroller();
+      if (scroller.scrollTop() === 0) {
+        column.ui.pause();
+      }
+    },
+    mouseleave: (ev) => {
+      if (SETTINGS && !SETTINGS.pause_scroll_on_hover) {
+        return;
+      }
+      const thisColumn = ev.target.closest('[data-column]');
+      const columnKey = thisColumn.getAttribute('data-column');
+      const column = TD.controller.columnManager.get(columnKey);
+      const scroller = column.ui.getChirpScroller();
+      if (scroller.scrollTop() === 1) {
+        column.ui.unpause();
+      }
+    },
   },
-  mouseleave: (ev) => {
-    if (SETTINGS && !SETTINGS.pause_scroll_on_hover) {
-      return;
-    }
-    const thisColumn = ev.target.closest('[data-column]');
-    const columnKey = thisColumn.getAttribute('data-column');
-    const column = TD.controller.columnManager.get(columnKey);
-    const scroller = column.ui.getChirpScroller();
-    if (scroller.scrollTop() === 1) {
-      column.ui.unpause();
-    }
-  },
-}, 'section.column');
+  'section.column',
+);
 
 const defaultTitle = 'TweetDeck';
 const unreadTitle = '[*] TweetDeck';
@@ -1257,7 +1509,11 @@ $(document).on('uiReadStateChange uiMessageUnreadCount', (ev, data) => {
 
   const { read, count } = data;
 
-  if (Number(count) > 0 && document.title === defaultTitle && document.title !== countTitle(count)) {
+  if (
+    Number(count) > 0 &&
+    document.title === defaultTitle &&
+    document.title !== countTitle(count)
+  ) {
     document.title = countTitle(count);
   }
 
@@ -1265,7 +1521,10 @@ $(document).on('uiReadStateChange uiMessageUnreadCount', (ev, data) => {
     document.title = unreadTitle;
   }
 
-  if (document.title !== defaultTitle && $('.is-new, .js-unread-count.is-visible').length === 0) {
+  if (
+    document.title !== defaultTitle &&
+    $('.is-new, .js-unread-count.is-visible').length === 0
+  ) {
     document.title = defaultTitle;
   }
 });
@@ -1281,8 +1540,11 @@ const isVisible = (elem) => {
   // If a single top/bottom/left/right value is negative then the element is partially out of the window
   const isCompletelyVisible = ['left', 'right', 'top', 'bottom'].every(i => boundRect[i] > 0);
 
-  return style.display !== 'none' &&
-        style.visibility === 'visible' && isCompletelyVisible;
+  return (
+    style.display !== 'none' &&
+    style.visibility === 'visible' &&
+    isCompletelyVisible
+  );
 };
 
 $(window).on('focus', (ev) => {
@@ -1295,9 +1557,7 @@ $(window).on('focus', (ev) => {
   if (active && (active.tagName === 'TEXTAREA' || active.tagName === 'INPUT')) {
     return;
   }
-  const widget = [
-    document.querySelector('textarea.compose-text'),
-  ].find(elem => elem && isVisible(elem));
+  const widget = [document.querySelector('textarea.compose-text')].find(elem => elem && isVisible(elem));
   if (widget) {
     widget.focus();
   }

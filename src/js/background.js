@@ -1,4 +1,3 @@
-import gifshot from 'gifshot';
 import { defaultsDeep } from 'lodash';
 
 import * as BHelper from './util/browserHelper';
@@ -64,18 +63,26 @@ const defaultSettings = {
   mute_source: true,
   hotlink_item: false,
   download_item: false,
-  download_filename_format: '{{postedUser}}-{{tweetId}}-{{fileName}}.{{fileExtension}}',
+  download_filename_format:
+    '{{postedUser}}-{{tweetId}}-{{fileName}}.{{fileExtension}}',
   ctrl_changes_interactions: {
     enabled: false,
     mode: 'owner',
   },
   update_title_on_notifications: true,
   thumbnails: {},
+  custom_css_style: '',
 };
 
 // We want to know if there are any other versions of BTD out there.
 chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => {
-  if (message && message.action && message.action === 'version' && sender.id !== chrome.runtime.id && message.key !== BHelper.getVersion()) {
+  if (
+    message &&
+      message.action &&
+      message.action === 'version' &&
+      sender.id !== chrome.runtime.id &&
+      message.key !== BHelper.getVersion()
+  ) {
     sendResponse({ action: 'badVersion', key: true });
     return true;
   }
@@ -99,32 +106,43 @@ function contextMenuHandler(info, tab, settings) {
   /**
    * We query a tab with TweetDeck opened in it
    */
-  chrome.tabs.query({
-    url: '*://tweetdeck.twitter.com/*',
-  }, (tabs) => {
-    if (tabs.length === 0) {
-      return;
-    }
+  chrome.tabs.query(
+    {
+      url: '*://tweetdeck.twitter.com/*',
+    },
+    (tabs) => {
+      if (tabs.length === 0) {
+        return;
+      }
 
-    const TDTab = tabs[0];
+      const TDTab = tabs[0];
 
-    /**
-     * We take the first tab we find, focus/select it and send a message to it
-     */
-    chrome.windows.update(TDTab.windowId, {
-      focused: true,
-    }, () => {
-      chrome.tabs.update(TDTab.id, {
-        active: true,
-      }, () => {
-        chrome.tabs.sendMessage(TDTab.id, {
-          action: 'share',
-          text: textToShare,
-          url: urlToShare,
-        });
-      });
-    });
-  });
+      /**
+       * We take the first tab we find, focus/select it and send a message to it
+       */
+      chrome.windows.update(
+        TDTab.windowId,
+        {
+          focused: true,
+        },
+        () => {
+          chrome.tabs.update(
+            TDTab.id,
+            {
+              active: true,
+            },
+            () => {
+              chrome.tabs.sendMessage(TDTab.id, {
+                action: 'share',
+                text: textToShare,
+                url: urlToShare,
+              });
+            },
+          );
+        },
+      );
+    },
+  );
 }
 
 const createMenuItem = (newSettings) => {
@@ -144,48 +162,51 @@ BHelper.settings.getAll((settings) => {
     chrome.storage.sync.clear();
   }
 
-  BHelper.settings.set(defaultsDeep(curSettings, defaultSettings), (newSettings) => {
-    Log(newSettings);
-    if (!newSettings.installed_date) {
-      openWelcomePage();
-      BHelper.settings.set({ installed_date: new Date().getTime() });
-    }
-
-    const oldVersion = (curSettings.installed_version || '').replace(/\./g, '');
-    const newVersion = BHelper.getVersion().replace(/\./g, '');
-
-    Log('version', BHelper.getVersion());
-    BHelper.settings.set({ installed_version: String(BHelper.getVersion()) });
-
-    if (!oldVersion || Number(oldVersion) !== Number(newVersion)) {
-      BHelper.settings.set({
-        need_update_banner: true,
-      });
-    }
-
-    // We create the context menu item
-    if (newSettings.share_item && newSettings.share_item.enabled) {
-      if (chrome.permissions) {
-        chrome.permissions.contains({
-          permissions: ['tabs'],
-        }, (hasTabs) => {
-          if (!hasTabs) {
-            return;
-          }
-          createMenuItem(newSettings);
-        });
-      } else {
-        createMenuItem(newSettings);
+  BHelper.settings.set(
+    defaultsDeep(curSettings, defaultSettings),
+    (newSettings) => {
+      Log(newSettings);
+      if (!newSettings.installed_date) {
+        openWelcomePage();
+        BHelper.settings.set({ installed_date: new Date().getTime() });
       }
-    }
-  });
-});
 
-const sendToCurrentTab = (message) => {
-  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    chrome.tabs.sendMessage(tabs[0].id, message);
-  });
-};
+      const oldVersion = (curSettings.installed_version || '').replace(
+        /\./g,
+        '',
+      );
+      const newVersion = BHelper.getVersion().replace(/\./g, '');
+
+      Log('version', BHelper.getVersion());
+      BHelper.settings.set({ installed_version: String(BHelper.getVersion()) });
+
+      if (!oldVersion || Number(oldVersion) !== Number(newVersion)) {
+        BHelper.settings.set({
+          need_update_banner: true,
+        });
+      }
+
+      // We create the context menu item
+      if (newSettings.share_item && newSettings.share_item.enabled) {
+        if (chrome.permissions) {
+          chrome.permissions.contains(
+            {
+              permissions: ['tabs'],
+            },
+            (hasTabs) => {
+              if (!hasTabs) {
+                return;
+              }
+              createMenuItem(newSettings);
+            },
+          );
+        } else {
+          createMenuItem(newSettings);
+        }
+      }
+    },
+  );
+});
 
 // Simple interface to get settings
 Messages.on((message, sender, sendResponse) => {
@@ -211,14 +232,8 @@ Messages.on((message, sender, sendResponse) => {
       BHelper.settings.get(message.key, val => sendResponse({ val }));
       return true;
 
-    case 'download_gif':
-      message.options.progressCallback = (progress) => {
-        sendToCurrentTab({ action: 'progress_gif', progress });
-      };
-
-      gifshot.createGIF(message.options, (obj) => {
-        sendResponse({ obj });
-      });
+    case 'get_local':
+      BHelper.settings.get(message.key, val => sendResponse({ val }));
       return true;
 
     default:
