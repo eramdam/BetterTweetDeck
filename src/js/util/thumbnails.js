@@ -133,6 +133,7 @@ export const schemeWhitelist = [
   Providers.fivehundredpx(util),
   Providers.bandcamp(util),
   Providers.cloudapp(util),
+  Providers.crypko(util),
   Providers.dailymotion(util),
   Providers.deviantart(util),
   Providers.dribbble(util),

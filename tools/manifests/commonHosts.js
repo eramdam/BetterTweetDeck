@@ -27,4 +27,5 @@ module.exports = [
   'https://api.gfycat.com/',
   'https://raw.githubusercontent.com/eramdam/BetterTweetDeck/master/*',
   '*://tweetdeck.twitter.com/*',
+  'https://s.crypko.ai/*',
 ];

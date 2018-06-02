@@ -32,3 +32,4 @@ export { default as gyazo } from './gyazo';
 export { default as miil } from './miil';
 export { default as nicovideo } from './nicovideo';
 export { default as pixiv } from './pixiv';
+export { default as crypko } from './crypko';
