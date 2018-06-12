@@ -404,7 +404,7 @@ if (SETTINGS.hotlink_item || SETTINGS.download_item) {
   );
 }
 
-// Adds the Favstar.fm item in menus and adds mute action for each hashtag
+// Adds the edit, mute source and mure hashtag items
 TD.mustaches['menus/actions.mustache'] = TD.mustaches[
   'menus/actions.mustache'
 ].replace(
@@ -434,12 +434,6 @@ TD.mustaches['menus/actions.mustache'] = TD.mustaches[
             <a href="#" data-btd-action="mute-hashtag" data-btd-hashtag="{{text}}">Mute #{{text}}</a>
           </li>
         {{/entities.hashtags}}`
-    : ''
-}
-        ${
-  SETTINGS.favstar_item
-    ? `<li class="drp-h-divider"></li>
-        <li class="btd-action-menu-item is-selectable"><a href="https://favstar.fm/users/{{user.screenName}}/status/{{chirp.id}}" target="_blank" data-action="favstar">{{_i}}Show on Favstar{{/i}}</a></li>`
     : ''
 }
       {{/chirp}}

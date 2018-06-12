@@ -1,10 +1,11 @@
 {
   "appDesc": {
-		"message": "絵文字、サムネイルの表示など、https://tweetdeck.twitter.com にさまざまな機能を追加する拡張機能です！"
-	},
-	"appName": {
-		"message": "BetterTweetDeck"
-	},
+    "message":
+      "絵文字、サムネイルの表示など、https://tweetdeck.twitter.com にさまざまな機能を追加する拡張機能です！"
+  },
+  "appName": {
+    "message": "BetterTweetDeck"
+  },
   "shareOnTD": { "message": "TweetDeck で共有" },
   "settingsTitle": { "message": "Better TweetDeck 設定" },
   "settings": { "message": "設定" },
@@ -21,14 +22,20 @@
   "sec_preview": { "message": "プレビュー" },
   "sec_general": { "message": "一般の設定" },
 
-  "title_timeDisplay": { "message": "時刻の表示スタイル"},
+  "title_timeDisplay": { "message": "時刻の表示スタイル" },
   "time_relative": { "message": "相対表示" },
   "time_absolute": { "message": "絶対表示" },
   "time_absolute_us": { "message": "絶対表示 (US スタイル)" },
-  "time_custom": { "message": "カスタム (<a target='_blank' href='https://github.com/shuuji3/fecha/blob/master/README-ja.md#フォーマットトークン'>時刻のフォーマットはこちらを参照</a>)" },
+  "time_custom": {
+    "message":
+      "カスタム (<a target='_blank' href='https://github.com/shuuji3/fecha/blob/master/README-ja.md#フォーマットトークン'>時刻のフォーマットはこちらを参照</a>)"
+  },
   "time_short": { "message": "ショート表示" },
   "time_full": { "message": "フル表示" },
-  "time_full24": { "message": "24時間以上経過したツイートをフル表示にする <small>相対表示を除く</small>" },
+  "time_full24": {
+    "message":
+      "24時間以上経過したツイートをフル表示にする <small>相対表示を除く</small>"
+  },
 
   "title_nameDisplay": { "message": "名前の表示スタイル" },
 
@@ -39,105 +46,223 @@
   "name_typeahead": { "message": "自動補完の時に「@ユーザー名」のみ表示する" },
 
   "title_avatars": { "message": "アイコンと詳細設定" },
-  "old_replies": { "message": "リプライの表示を昔 (2017/03/30 以前) のスタイルに戻す" },
+  "old_replies": {
+    "message": "リプライの表示を昔 (2017/03/30 以前) のスタイルに戻す"
+  },
   "css_round_pic": { "message": "アイコンを円形表示する" },
   "css_bigger_emojis": { "message": "ツイート内の絵文字を大きくする" },
-  "css_character_count": { "message": "円形のプログレスバーの代わりに、常に残り文字数を表示する" },
+  "css_character_count": {
+    "message": "円形のプログレスバーの代わりに、常に残り文字数を表示する"
+  },
   "css_collapse_dms": { "message": "ダイレクトメッセージの本文を折りたたむ" },
   "css_system_fonts": { "message": "UI にシステムフォントを使用する" },
   "css_show_verified": { "message": "アイコン上に認証バッジを表示する" },
-  "css_hide_context": { "message": "リプライツイートの 'In reply to' というラベルを非表示にする" },
+  "css_hide_context": {
+    "message": "リプライツイートの 'In reply to' というラベルを非表示にする"
+  },
   "css_actions_on_right": { "message": "ツイートアクションを右寄せにする" },
-  "css_actions_on_hover": { "message": "ツイートからカーソルを外した時に、ツイートアクションを非表示にする" },
-  "css_no_bg_modal": { "message": "フルスクリーンのプレビュー時にバックグラウンドを非表示にする" },
+  "css_actions_on_hover": {
+    "message":
+      "ツイートからカーソルを外した時に、ツイートアクションを非表示にする"
+  },
+  "css_no_bg_modal": {
+    "message": "フルスクリーンのプレビュー時にバックグラウンドを非表示にする"
+  },
   "css_slim_scrollbars": { "message": "スクロールバーを細くする" },
-  "pause_scroll_on_hover": { "message": "マウスカーソルがあるカラムの自動スクロールを一時停止する" },
-  "css_show_provider_indicator": { "message": "サムネイルの上にソースを表すラベルを表示する" },
-  "css_hide_like_rt_indicators": { "message": "ツイート上部の いいね/RT 表示を非表示にする" },
-  "make_search_columns_first": { "message": "新しい検索結果のカラムを一番左に挿入する" },
+  "pause_scroll_on_hover": {
+    "message": "マウスカーソルがあるカラムの自動スクロールを一時停止する"
+  },
+  "css_show_provider_indicator": {
+    "message": "サムネイルの上にソースを表すラベルを表示する"
+  },
+  "css_hide_like_rt_indicators": {
+    "message": "ツイート上部の いいね/RT 表示を非表示にする"
+  },
+  "make_search_columns_first": {
+    "message": "新しい検索結果のカラムを一番左に挿入する"
+  },
   "no_hearts": { "message": "ハートの代わりにスターを表示する" },
-  "rtl_text_style": { "message": "必要に応じて RTL スタイル (アラビア語などの右から左に書くスタイル) を検出して、自動的に適用する" },
+  "rtl_text_style": {
+    "message":
+      "必要に応じて RTL スタイル (アラビア語などの右から左に書くスタイル) を検出して、自動的に適用する"
+  },
   "flash_tweets": { "message": "新しいツイートをフラッシュする" },
   "flash_tweets_mentions": { "message": "メンションコラムのみ" },
   "flash_tweets_all": { "message": "全てのカラム" },
 
-  "update_title_on_notifications": { "message": "未読のツイート/DM の件数を TweetDeck のタブタイトルに表示する" },
+  "update_title_on_notifications": {
+    "message": "未読のツイート/DM の件数を TweetDeck のタブタイトルに表示する"
+  },
 
   "share_request": { "message": "タブの読み込み権限のリクエスト" },
   "share_granted": { "message": "権限が与えられました" },
   "shared_btd_h1": { "message": "共有" },
-  "share_btd_p1": { "message": "「TweetDeck で共有」機能を使用するには、下のボタンをクリックして、必要な権限を許可する必要があります。" },
-  "share_btd_p2": { "message": "Better TweetDeck は、タブ内のコンテンツを読み込んだり、トラッキングしたりすることは <strong>絶対に</strong> ありません。" },
-  "share_btd_p3": { "message": "この権限について詳しく知りたい場合は、<a href=\"https://developer.chrome.com/extensions/tabs\">Google のドキュメント</a> をお読みください。" },
-  "share_btd_p4": { "message": "このページで行った変更は、ブラウザの再起動後に適用されます。" },
-  "share_btd_item": { "message": "コンテキストメニューに「TweetDeck で共有」アクションを追加する <small>再起動後に適用されます</small>" },
-  "share_short_txt": { "message": "「TweetDeck で共有」アクション実行時に、選択していたテキストを短くする <small>再起動後に適用されます</small>" },
+  "share_btd_p1": {
+    "message":
+      "「TweetDeck で共有」機能を使用するには、下のボタンをクリックして、必要な権限を許可する必要があります。"
+  },
+  "share_btd_p2": {
+    "message":
+      "Better TweetDeck は、タブ内のコンテンツを読み込んだり、トラッキングしたりすることは <strong>絶対に</strong> ありません。"
+  },
+  "share_btd_p3": {
+    "message":
+      "この権限について詳しく知りたい場合は、<a href=\"https://developer.chrome.com/extensions/tabs\">Google のドキュメント</a> をお読みください。"
+  },
+  "share_btd_p4": {
+    "message": "このページで行った変更は、ブラウザの再起動後に適用されます。"
+  },
+  "share_btd_item": {
+    "message":
+      "コンテキストメニューに「TweetDeck で共有」アクションを追加する <small>再起動後に適用されます</small>"
+  },
+  "share_short_txt": {
+    "message":
+      "「TweetDeck で共有」アクション実行時に、選択していたテキストを短くする <small>再起動後に適用されます</small>"
+  },
   "no_tco": { "message": "t.co リンクのリダイレクトを除去する" },
   "no_gif_pp": { "message": "ユーザーアイコンの GIF の自動再生を停止する" },
   "thumbnails_from": { "message": "次のサービスのサムネイル画像を表示する" },
 
   "css_minimal_mode": { "message": "「ミニマル」モードを有効にする" },
-  "css_og_dark_theme": { "message": "Dark テーマを以前のスタイルに元に戻す (2018年2月より前のスタイル)" },
-  "css_experimental_warning": { "message": "これは実験的な機能です！ 将来の更新で壊れてしまう可能性があります。" },
-  "css_no_play_btn": { "message": "動画のサムネイルの再生ボタンを非表示にする" },
-  "css_hide_url_thumb": { "message": "サムネイル画像に関連するリンクを非表示にする (iOS/Android の公式 Twitter クライアントと同様)" },
+  "css_og_dark_theme": {
+    "message":
+      "Dark テーマを以前のスタイルに元に戻す (2018年2月より前のスタイル)"
+  },
+  "css_experimental_warning": {
+    "message":
+      "これは実験的な機能です！ 将来の更新で壊れてしまう可能性があります。"
+  },
+  "css_no_play_btn": {
+    "message": "動画のサムネイルの再生ボタンを非表示にする"
+  },
+  "css_hide_url_thumb": {
+    "message":
+      "サムネイル画像に関連するリンクを非表示にする (iOS/Android の公式 Twitter クライアントと同様)"
+  },
   "css_no_col_icns": { "message": "カラムのヘッダーアイコンを非表示にする" },
-  "css_small_icns_compose": { "message": "ツイートパネルのアイコンをコンパクトにする" },
+  "css_small_icns_compose": {
+    "message": "ツイートパネルのアイコンをコンパクトにする"
+  },
   "css_no_scrollbars": { "message": "スクロールバーを非表示にする" },
   "css_gray_icns_notifs": { "message": "通知アイコンをグレースケールにする" },
 
   "custom_width_columns": { "message": "カラム幅のカスタマイズ:" },
   "custom_width_size": { "message": "(CSS のプロパティとして有効な任意の値)" },
-  "css_warning": { "message": "自分が入力しようとしているテキストの意味が理解できない場合は、何も入力しないでください！" },
+  "css_warning": {
+    "message":
+      "自分が入力しようとしているテキストの意味が理解できない場合は、何も入力しないでください！"
+  },
 
-  "clear_column_action": { "message": "カラムのヘッダーにカラムをクリアするボタンを追加する"},
-  "collapse_columns": { "message": "カラムのヘッダーにカラムの折りたたみを切り替えるボタンを追加する"},
-  "collapse_columns_pause": { "message": "カラムを折りたたんでいる間、フィードの更新を一時停止する。これにより、コンテンツの更新により起こるカラムのフラッシュを防ぐことができます"},
-  "uncollapse_columns_unpause": { "message": "カラムの折りたたみを展開したとき、最新のツイートが表示されるようにフィードを最上部までスクロールする"},
+  "clear_column_action": {
+    "message": "カラムのヘッダーにカラムをクリアするボタンを追加する"
+  },
+  "collapse_columns": {
+    "message":
+      "カラムのヘッダーにカラムの折りたたみを切り替えるボタンを追加する"
+  },
+  "collapse_columns_pause": {
+    "message":
+      "カラムを折りたたんでいる間、フィードの更新を一時停止する。これにより、コンテンツの更新により起こるカラムのフラッシュを防ぐことができます"
+  },
+  "uncollapse_columns_unpause": {
+    "message":
+      "カラムの折りたたみを展開したとき、最新のツイートが表示されるようにフィードを最上部までスクロールする"
+  },
 
-  "edit_item": { "message": "ツイートメニューに「ツイートの編集」を追加する"},
-  "edit_item_note": { "message": "ツイートの編集機能は、一度ツイートの削除を行うことに注意してください！ その結果、元のツイート内容がテキストボックスに移動し、すでに受け取ったいいねやリツイートは無効となります！"},
-  "favstar_item": { "message": "ツイートメニューに \"Show in Favstar\"(Favstar で表示) 項目を表示する"},
-  "mute_hashtags": { "message": "ツイートメニューに #ハッシュタグ をミュートするショートカットを追加する"},
-  "mute_source": { "message": "ツイートメニューにツイートのソース (アプリ) をミュートするショートカットを追加する"},
-  "hotlink_item": { "message": "ツイートに含まれるすべてのメディアへのリンクをコピーするショートカットを追加する"},
-  "download_item": { "message": "ツイートに含まれるすべてのメディアをダウンロードするショートカットを追加する"},
-  "download_filename_format": { "message": "ダウンロードするファイル名のフォーマット"},
-  "download_filename_format_parameters": { "message": "次の変数が利用できます: <code>{{postedUser}}/{{tweetId}}/{{fileName}}/{{fileExtension}}</code> (それぞれ、ツイートユーザー名/ツイートID/ファイル名/ファイルの拡張子に置換されます)"},
-  "ctrl_changes_interactions__enabled": { "message": "<kbd>Ctrl</kbd> (MacOS では <kbd>Cmd</kbd>) を押しながら、いいね/リツイート/ダウンロードボタンをクリックすることで、ツイート元のアカウントを次の方法でフォローできるようにする: "},
-  "ctrl_changes_interactions__mode__owner": { "message": "カラムのオーナーからフォローする"},
-  "ctrl_changes_interactions__mode__dialog": { "message": "フォローダイアログからアカウントを選択する"},
+  "edit_item": { "message": "ツイートメニューに「ツイートの編集」を追加する" },
+  "edit_item_note": {
+    "message":
+      "ツイートの編集機能は、一度ツイートの削除を行うことに注意してください！ その結果、元のツイート内容がテキストボックスに移動し、すでに受け取ったいいねやリツイートは無効となります！"
+  },
+  "mute_hashtags": {
+    "message":
+      "ツイートメニューに #ハッシュタグ をミュートするショートカットを追加する"
+  },
+  "mute_source": {
+    "message":
+      "ツイートメニューにツイートのソース (アプリ) をミュートするショートカットを追加する"
+  },
+  "hotlink_item": {
+    "message":
+      "ツイートに含まれるすべてのメディアへのリンクをコピーするショートカットを追加する"
+  },
+  "download_item": {
+    "message":
+      "ツイートに含まれるすべてのメディアをダウンロードするショートカットを追加する"
+  },
+  "download_filename_format": {
+    "message": "ダウンロードするファイル名のフォーマット"
+  },
+  "download_filename_format_parameters": {
+    "message":
+      "次の変数が利用できます: <code>{{postedUser}}/{{tweetId}}/{{fileName}}/{{fileExtension}}</code> (それぞれ、ツイートユーザー名/ツイートID/ファイル名/ファイルの拡張子に置換されます)"
+  },
+  "ctrl_changes_interactions__enabled": {
+    "message":
+      "<kbd>Ctrl</kbd> (MacOS では <kbd>Cmd</kbd>) を押しながら、いいね/リツイート/ダウンロードボタンをクリックすることで、ツイート元のアカウントを次の方法でフォローできるようにする: "
+  },
+  "ctrl_changes_interactions__mode__owner": {
+    "message": "カラムのオーナーからフォローする"
+  },
+  "ctrl_changes_interactions__mode__dialog": {
+    "message": "フォローダイアログからアカウントを選択する"
+  },
   "keep_hashtags": { "message": "ツイートされたハッシュタグを保持" },
 
-  "btd_thx": { "message": "Better TweetDeck をインストールしていただき、ありがとうございます！" },
+  "btd_thx": {
+    "message":
+      "Better TweetDeck をインストールしていただき、ありがとうございます！"
+  },
   "btd_get_started": { "message": "はじめに" },
-  "btd_whatsBTD": { "message": "Better TweetDeck は、<a href='https://tweetdeck.twitter.com'>tweetdeck.twitter.com</a> を使いやすくするために作られました。" },
-  "btd_default": { "message": "現在はデフォルトの設定が適用されていますが、ぜひ自分好みに自由に設定を調整してみてください！" },
+  "btd_whatsBTD": {
+    "message":
+      "Better TweetDeck は、<a href='https://tweetdeck.twitter.com'>tweetdeck.twitter.com</a> を使いやすくするために作られました。"
+  },
+  "btd_default": {
+    "message":
+      "現在はデフォルトの設定が適用されていますが、ぜひ自分好みに自由に設定を調整してみてください！"
+  },
   "btd_then": { "message": "その後は？" },
-  "btd_follow": { "message": "私たちの Twitter アカウント <a href='https://twitter.com/BetterTDeck'>@BetterTDeck</a> をフォローすることをおすすめします。Better TweetDeck に関する新着情報やサポート、使いかたのヒントなどをお知らせします！" },
+  "btd_follow": {
+    "message":
+      "私たちの Twitter アカウント <a href='https://twitter.com/BetterTDeck'>@BetterTDeck</a> をフォローすることをおすすめします。Better TweetDeck に関する新着情報やサポート、使いかたのヒントなどをお知らせします！"
+  },
 
   "sec_infos": { "message": "情報" },
   "debug_version": { "message": "バージョン" },
   "debug_ua": { "message": "User-Agent" },
   "sec_settings": { "message": "設定の dump" },
 
-  "credits_author":  { "message": "作者" },
-  "credits_contribs":  { "message": "協力者" },
-  "credits_rsrc":  { "message": "使用したリソース" },
-  "credits_links":  { "message": "リンク" },
-  "credits_twitter":  { "message": "Better TweetDeck の Twitter アカウント" },
-  "credits_bugs":  { "message": "バグ報告 / 提案" },
-  "credits_source":  { "message": "GitHub 上のソースコード" },
-  "credits_author_website":  { "message": "作者のウェブサイト" },
+  "credits_author": { "message": "作者" },
+  "credits_contribs": { "message": "協力者" },
+  "credits_rsrc": { "message": "使用したリソース" },
+  "credits_links": { "message": "リンク" },
+  "credits_twitter": { "message": "Better TweetDeck の Twitter アカウント" },
+  "credits_bugs": { "message": "バグ報告 / 提案" },
+  "credits_source": { "message": "GitHub 上のソースコード" },
+  "credits_author_website": { "message": "作者のウェブサイト" },
 
-  "save_no":  { "message": "変更なし" },
-  "save_save":  { "message": "変更を保存する" },
+  "save_no": { "message": "変更なし" },
+  "save_save": { "message": "変更を保存する" },
 
-  "donate_title":  { "message": "Better TweetDeck 開発援助のお願い" },
-  "donate_p3":  { "message": "Better TweetDeck を使っていただき、本当にありがとうございます！ ご支援を頂けると幸いです。" },
-  "donate_p2":  { "message": "そこで、もしあなたに余裕があるようでしたら、<a href='https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK9SQ6ZDE9UF2&lc=US&item_name=Damien%20Erambert&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'>Paypal で寄付</a>するか<br><br>僅かでも構いませんので、どうぞよろしくお願いします。" },
-  "donate_p1": { "message": "Better TweetDeck は現在も将来もずっと<strong>無料で</strong>提供します。ただ、開発を継続するためには、時間と費用が必要になります！"},
+  "donate_title": { "message": "Better TweetDeck 開発援助のお願い" },
+  "donate_p3": {
+    "message":
+      "Better TweetDeck を使っていただき、本当にありがとうございます！ ご支援を頂けると幸いです。"
+  },
+  "donate_p2": {
+    "message":
+      "そこで、もしあなたに余裕があるようでしたら、<a href='https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK9SQ6ZDE9UF2&lc=US&item_name=Damien%20Erambert&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'>Paypal で寄付</a>するか<br><br>僅かでも構いませんので、どうぞよろしくお願いします。"
+  },
+  "donate_p1": {
+    "message":
+      "Better TweetDeck は現在も将来もずっと<strong>無料で</strong>提供します。ただ、開発を継続するためには、時間と費用が必要になります！"
+  },
 
-  "notification_title":  { "message": "Better TweetDeck の更新" },
-  "notification_upgrade":  { "message": "Better TweetDeck は、バージョン v{{version}} に更新されました。詳細についてはこちらをクリックしてください。" }
+  "notification_title": { "message": "Better TweetDeck の更新" },
+  "notification_upgrade": {
+    "message":
+      "Better TweetDeck は、バージョン v{{version}} に更新されました。詳細についてはこちらをクリックしてください。"
+  }
 }

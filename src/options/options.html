@@ -1,507 +1,575 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title data-lang="settingsTitle">Better TweetDeck Options</title>
   <link rel="stylesheet" href="css/index.css">
 </head>
+
 <body>
-<div class="save-bar">
-  <div class="topbar-logo">
-    <img alt="" class="topbar-icon">
-    <span class="topbar-name">
-      <span class="topbar-ext-name">Better TweetDeck</span>
-      <small class="topbar-version-number"></small>
-    </span>
-  </div>
-  <div class="save-wrap">
-    <button class="save-button" disabled data-lang="save_no">No changes</button>
-  </div>
-</div>
-<div id="container">
-  <aside class="sidebar">
-    <div class="nav-flex">
-      <h3 class="sidebar-title" data-lang="settings">Settings</h3>
-      <nav class="sidebar-nav">
-        <a href="#tweets" class="nav-item -selected" data-lang="sec_tweetsName">Tweets: name & time</a>
-        <a href="#tweetsDisplay" class="nav-item" data-lang="sec_tweetsDisplay">Tweets: display</a>
-        <a href="#interface" class="nav-item" data-lang="sec_interface">Interface</a>
-        <a href="#content" class="nav-item" data-lang="sec_content">Content</a>
-        <a href="#share" class="nav-item" data-lang="shared_btd_h1">Sharing</a>
-        <a href="#custom-css" class="nav-item">Custom CSS</a>
-      </nav>
-
-      <h3 class="sidebar-title">Meta</h3>
-      <nav class="sidebar-nav">
-        <a href="#onInstall" class="nav-item" data-lang="sec_welcome">Welcome</a>
-        <a href="#credits" class="nav-item" data-lang="sec_credits">Credits / About</a>
-        <a href="#changelog" class="nav-item" data-lang="sec_changelog">Changelog</a>
-        <a href="#donate" class="nav-item" data-lang="sec_donate">Donate</a>
-        <a href="#debug" class="nav-item" data-lang="sec_debug">Debug Infos</a>
-      </nav>
-
-      <h3 class="sidebar-title" data-lang="sec_links">Links</h3>
-      <nav class="sidebar-nav">
-        <a href="https://twitter.com/BetterTDeck" class="nav-item">@BetterTDeck</a>
-        <a href="https://github.com/eramdam/BetterTweetDeck" class="nav-item">GitHub</a>
-        <a href="https://better.tw" class="nav-item">Website</a>
-      </nav>
+  <div class="save-bar">
+    <div class="topbar-logo">
+      <img alt="" class="topbar-icon">
+      <span class="topbar-name">
+        <span class="topbar-ext-name">Better TweetDeck</span>
+        <small class="topbar-version-number"></small>
+      </span>
     </div>
-  </aside>
-  <main class="content">
-    <section class="content-block" id="tweets">
-      <h2 class="section-title" data-lang="sec_tweetsName">Tweets: name & time</h2>
+    <div class="save-wrap">
+      <button class="save-button" disabled data-lang="save_no">No changes</button>
+    </div>
+  </div>
+  <div id="container">
+    <aside class="sidebar">
+      <div class="nav-flex">
+        <h3 class="sidebar-title" data-lang="settings">Settings</h3>
+        <nav class="sidebar-nav">
+          <a href="#tweets" class="nav-item -selected" data-lang="sec_tweetsName">Tweets: name & time</a>
+          <a href="#tweetsDisplay" class="nav-item" data-lang="sec_tweetsDisplay">Tweets: display</a>
+          <a href="#interface" class="nav-item" data-lang="sec_interface">Interface</a>
+          <a href="#content" class="nav-item" data-lang="sec_content">Content</a>
+          <a href="#share" class="nav-item" data-lang="shared_btd_h1">Sharing</a>
+          <a href="#custom-css" class="nav-item">Custom CSS</a>
+        </nav>
 
-      <div class="settings-section">
-        <h5 data-lang="title_timeDisplay">Time display style</h5>
+        <h3 class="sidebar-title">Meta</h3>
+        <nav class="sidebar-nav">
+          <a href="#onInstall" class="nav-item" data-lang="sec_welcome">Welcome</a>
+          <a href="#credits" class="nav-item" data-lang="sec_credits">Credits / About</a>
+          <a href="#changelog" class="nav-item" data-lang="sec_changelog">Changelog</a>
+          <a href="#donate" class="nav-item" data-lang="sec_donate">Donate</a>
+          <a href="#debug" class="nav-item" data-lang="sec_debug">Debug Infos</a>
+        </nav>
 
-        <ul>
-          <li>
-            <input type="radio" name="ts" id="relative"><label data-lang="time_relative" for="relative">Relative <small>1m, 2h, 3d</small></label>
-          </li>
-          <li>
-            <input type="radio" name="ts" id="absolute_metric"><label data-lang="time_absolute" for="absolute_metric">Absolute<small>dd/mm/yy hh:mm</small></label>
-          </li>
-          <li>
-            <input type="radio" name="ts" id="absolute_us"><label data-lang="time_absolute_us" for="absolute_us">Absolute US Style<small>mm/dd/yy hh:mm</small></label>
-          </li>
-          <li>
-            <input type="radio" name="ts" data-ghost id="custom"><label data-lang="time_custom" for="custom">Custom format (<a target="_blank" href="https://github.com/taylorhakes/fecha#formatting-tokens">Formatting help</a>)</label>
-            <ul>
-              <li>
-                <label class="left-label" for="custom_ts.short" data-lang="time_short">Short</label> <input disabled type="text" name="custom_ts.short">
-              </li>
-              <li>
-                <label class="left-label" for="custom_ts.full" data-lang="time_full">Full</label> <input disabled type="text" name="custom_ts.full">
-              </li>
-            </ul>
-          </li>
-
-          <li>
-            <input type="checkbox" name="full_aft_24" id="full_aft_24"><label data-lang="time_full24" for="full_aft_24">Display full date after 24h <small>Applies only for non-relative timestamps</small></label>
-          </li>
-        </ul>
+        <h3 class="sidebar-title" data-lang="sec_links">Links</h3>
+        <nav class="sidebar-nav">
+          <a href="https://twitter.com/BetterTDeck" class="nav-item">@BetterTDeck</a>
+          <a href="https://github.com/eramdam/BetterTweetDeck" class="nav-item">GitHub</a>
+          <a href="https://better.tw" class="nav-item">Website</a>
+        </nav>
       </div>
+    </aside>
+    <main class="content">
+      <section class="content-block" id="tweets">
+        <h2 class="section-title" data-lang="sec_tweetsName">Tweets: name & time</h2>
 
-      <div class="settings-section">
-        <h5 data-lang="title_nameDisplay">Name display style</h5>
+        <div class="settings-section">
+          <h5 data-lang="title_timeDisplay">Time display style</h5>
 
-        <ul>
-          <li>
-            <input type="radio" name="nm_disp" id="both"><label data-lang="name_full_user" for="both">Full name @Username</label>
-          </li data-setting-name="inverted">
-          <li>
-            <input type="radio" name="nm_disp" id="inverted"><label for="inverted" data-lang="name_inverted">@Username Full name</label>
-          </li data-setting-name="username">
-          <li>
-            <input type="radio" name="nm_disp" id="username"><label for="username" data-lang="name_username">@Username</label>
-          </li>
-          <li>
-            <input type="radio" name="nm_disp" id="fullname"><label data-lang="name_full" for="fullname">Full name</label>
-          </li data-setting-name="usrname_only_typeahead">
-          <li>
-            <input type="checkbox" name="css.usrname_only_typeahead" id="usrname_only_typeahead"><label for="usrname_only_typeahead" data-lang="name_typeahead">The auto-completion displays only usernames</label>
-          </li>
-        </ul>
-      </div>
+          <ul>
+            <li>
+              <input type="radio" name="ts" id="relative">
+              <label data-lang="time_relative" for="relative">Relative
+                <small>1m, 2h, 3d</small>
+              </label>
+            </li>
+            <li>
+              <input type="radio" name="ts" id="absolute_metric">
+              <label data-lang="time_absolute" for="absolute_metric">Absolute
+                <small>dd/mm/yy hh:mm</small>
+              </label>
+            </li>
+            <li>
+              <input type="radio" name="ts" id="absolute_us">
+              <label data-lang="time_absolute_us" for="absolute_us">Absolute US Style
+                <small>mm/dd/yy hh:mm</small>
+              </label>
+            </li>
+            <li>
+              <input type="radio" name="ts" data-ghost id="custom">
+              <label data-lang="time_custom" for="custom">Custom format (
+                <a target="_blank" href="https://github.com/taylorhakes/fecha#formatting-tokens">Formatting help</a>)</label>
+              <ul>
+                <li>
+                  <label class="left-label" for="custom_ts.short" data-lang="time_short">Short</label>
+                  <input disabled type="text" name="custom_ts.short">
+                </li>
+                <li>
+                  <label class="left-label" for="custom_ts.full" data-lang="time_full">Full</label>
+                  <input disabled type="text" name="custom_ts.full">
+                </li>
+              </ul>
+            </li>
 
-      <div class="settings-section">
-        <h5 data-lang="sec_preview">Preview</h5>
-
-        <div class="tweet-preview -name-time">
-          <span class="username">BetterTDeck <em>Better TweetDeck</em></span>
-          <span class="date">01:41 pm</span>
+            <li>
+              <input type="checkbox" name="full_aft_24" id="full_aft_24">
+              <label data-lang="time_full24" for="full_aft_24">Display full date after 24h
+                <small>Applies only for non-relative timestamps</small>
+              </label>
+            </li>
+          </ul>
         </div>
-      </div>
-      <button class="save-button" disabled data-lang="save_no">No changes</button>
-    </section>
 
-    <section class="content-block" id="tweetsDisplay">
-      <h2 class="section-title" data-lang="sec_tweetsDisplay">Tweets: display</h2>
+        <div class="settings-section">
+          <h5 data-lang="title_nameDisplay">Name display style</h5>
 
-      <div class="settings-section">
-        <h5 data-lang="title_avatars">Avatars & details</h5>
-
-        <ul>
-          <li data-setting-name="bigger_emojis">
-            <input type="checkbox" name="css.bigger_emojis" id="bigger_emojis">
-            <label for="bigger_emojis" data-lang="css_bigger_emojis">Bigger emojis in tweets</label>
-          </li>
-          <li data-setting-name="round_pic">
-            <input type="checkbox" name="css.round_pic" id="round_pic">
-            <label for="round_pic" data-lang="css_round_pic">Rounded avatars</label>
-          </li>
-          <li data-setting-name="show_verified">
-            <input type="checkbox" name="css.show_verified" id="show_verified">
-            <label for="show_verified" data-lang="css_show_verified">Show "verified" badge on top of avatars</label>
-          </li>
-          <li data-setting-name="hide_context">
-            <input type="checkbox" name="css.hide_context" id="hide_context">
-            <label for="hide_context" data-lang="css_hide_context">Hide "In reply to" label on mentions</label>
-          </li>
-          <li data-setting-name="actions_on_right">
-            <input type="checkbox" name="css.actions_on_right" id="actions_on_right">
-            <label for="actions_on_right" data-lang="css_actions_on_right">Show tweet actions on the right</label>
-          </li>
-          <li data-setting-name="actions_on_hover">
-            <input type="checkbox" name="css.actions_on_hover" id="actions_on_hover">
-            <label for="actions_on_hover" data-lang="css_actions_on_hover">Show tweet actions on hover</label>
-          </li>
-          <li data-setting-name="no_hearts">
-            <input type="checkbox" name="no_hearts" id="no_hearts">
-            <label for="no_hearts" data-lang="no_hearts">Show stars instead of hearts</label>
-          </li>
-          <li data-setting-name="hide_like_rt_indicators">
-            <input type="checkbox" name="css.hide_like_rt_indicators" id="hide_like_rt_indicators">
-            <label for="hide_like_rt_indicators" data-lang="css_hide_like_rt_indicators">Hide Like/RT indicators on top of tweets</label>
-          </li data-setting-name="flash">
-          <li>
-            <input type="checkbox" name="flash_tweets.enabled" id="flash" data-ghost><label for="flash" data-lang="flash_tweets">Make tweets flash in:</label>
-            <ul data-setting-name="mentions">
-              <li>
-                <input disabled type="radio" name="flash_tweets.mode" id="mentions"><label for="mentions" data-lang="flash_tweets_mentions">Mentions columns</label>
-              </li data-setting-name="all">
-              <li>
-                <input disabled type="radio" name="flash_tweets.mode" id="all"><label for="all" data-lang="flash_tweets_all">In every columns</label>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-
-      <div class="settings-section">
-        <h5 data-lang="sec_preview">Preview</h5>
-
-        <div class="tweet-preview -display -name-time">
-          <span class="username">BetterTDeck <em>Better TweetDeck</em></span>
-          <span class="date">01:41 pm</span>
-          <span class="avatar"></span>
-          <span class="actions">
-            <span class="heart"></span>
-          </span>
-          <span class="context -hidden"></span>
-          <span class="verified -hidden"></span>
+          <ul>
+            <li>
+              <input type="radio" name="nm_disp" id="both">
+              <label data-lang="name_full_user" for="both">Full name @Username</label>
+            </li data-setting-name="inverted">
+            <li>
+              <input type="radio" name="nm_disp" id="inverted">
+              <label for="inverted" data-lang="name_inverted">@Username Full name</label>
+            </li data-setting-name="username">
+            <li>
+              <input type="radio" name="nm_disp" id="username">
+              <label for="username" data-lang="name_username">@Username</label>
+            </li>
+            <li>
+              <input type="radio" name="nm_disp" id="fullname">
+              <label data-lang="name_full" for="fullname">Full name</label>
+            </li data-setting-name="usrname_only_typeahead">
+            <li>
+              <input type="checkbox" name="css.usrname_only_typeahead" id="usrname_only_typeahead">
+              <label for="usrname_only_typeahead" data-lang="name_typeahead">The auto-completion displays only usernames</label>
+            </li>
+          </ul>
         </div>
-      </div>
-      <button class="save-button" disabled data-lang="save_no">No changes</button>
-    </section>
 
-    <section class="content-block" id="content">
-      <h2 class="section-title" data-lang="sec_content">Content</h2>
+        <div class="settings-section">
+          <h5 data-lang="sec_preview">Preview</h5>
 
-      <div class="settings-section">
-        <ul>
-          <li data-setting-name="update_title_on_notifications">
-            <input type="checkbox" name="update_title_on_notifications" id="update_title_on_notifications">
-            <label for="update_title_on_notifications" data-lang="update_title_on_notifications" data-new-feat>Change TweetDeck's tab's title when a new tweet/message is unread</label>
-          </li>
-          <li data-setting-name="no_tco">
-            <input type="checkbox" name="no_tco" id="no_tco">
-            <label for="no_tco" data-lang="no_tco">Remove t.co redirection on links</label>
-          </li>
-          <li data-setting-name="no_gif_pp">
-            <input type="checkbox" name="no_gif_pp" id="no_gif_pp">
-            <label for="no_gif_pp" data-lang="no_gif_pp">No GIFs in profile pictures in columns</label>
-          </li>
-          <li data-setting-name="show_provider_indicator">
-            <input type="checkbox" name="css.show_provider_indicator" id="show_provider_indicator">
-            <label for="show_provider_indicator" data-lang="css_show_provider_indicator">Show thumbnails source on top of them</label>
-          </li>
-          <li data-setting-name="edit_item">
-            <input type="checkbox" name="edit_item" id="edit_item">
-            <label for="edit_item" data-lang="edit_item" data-new-feat>Add an edit item in tweets' menu</label>
-            <br /><small data-lang="edit_item_note">You cannot use this to edit tweets without deleting them! This immediately move a tweet to the composer dock and delete it along with any likes or retweets it received!</small>
-          </li>
-          <li data-setting-name="favstar_item">
-            <input type="checkbox" name="favstar_item" id="favstar_item">
-            <label for="favstar_item" data-lang="favstar_item" data-new-feat>Add a "Show in Favstar" item in tweets' menu</label>
-          </li>
-          <li data-setting-name="mute_hashtags">
-            <input type="checkbox" name="mute_hashtags" id="mute_hashtags">
-            <label for="mute_hashtags" data-lang="mute_hashtags" data-new-feat>Add shortcuts to mute #hashtags in tweets' menu</label>
-          </li>
-          <li data-setting-name="mute_source">
-            <input type="checkbox" name="mute_source" id="mute_source">
-            <label for="mute_source" data-lang="mute_source" data-new-feat>Add a shortcut to mute the source (application) of a tweet in tweets' menu</label>
-          </li>
-          <li data-setting-name="hotlink_item">
-            <input type="checkbox" name="hotlink_item" id="hotlink_item">
-            <label for="hotlink_item" data-lang="hotlink_item" data-new-feat>Add shortcut to hotlink all tweet media</label>
-          </li>
-          <li data-setting-name="download_item">
-            <input type="checkbox" name="download_item" id="download_item">
-            <label for="download_item" data-lang="download_item" data-new-feat>Add shortcut to download all tweet media</label>
-          </li>
-          <li data-setting-name="download_filename_format">
-            <input type="text" name="download_filename_format" id="download_filename_format"><label for="download_filename_format" data-lang="download_filename_format" data-new-feat>Download file name format</label>
-            <br />
-            <small data-lang="download_filename_format_parameters">You can use the following variables: <code>{{postedUser}} {{tweetId}} {{fileName}} {{fileExtension}}</code></small>
-          </li>
-          <li data-setting-name="keep_hashtags">
-            <input type="checkbox" name="keep_hashtags" id="keep_hashtags">
-            <label for="keep_hashtags" data-lang="keep_hashtags" data-new-feat>Keep tweeted hashtags</label>
-          </li>
-          <li data-setting-name="ctrl_changes_interactions">
-            <input type="checkbox" name="ctrl_changes_interactions.enabled" id="ctrl_changes_interactions.enabled" data-ghost>
-            <label for="ctrl_changes_interactions.enabled" data-lang="ctrl_changes_interactions__enabled">Holding <kbd>ctrl</kbd> while clicking: favorite / retweet / download / hotlink will allow you to follow from the</label> <select name="ctrl_changes_interactions.mode" id="ctrl_changes_interactions.mode" disabled data-new-feat><option value="owner" data-lang="ctrl_changes_interactions__mode__owner">column's owner</option><option value="prompt" data-lang="ctrl_changes_interactions__mode__dialog">follow dialog</option></select></label>
-          </li>
-        </ul>
-      </div>
+          <div class="tweet-preview -name-time">
+            <span class="username">BetterTDeck
+              <em>Better TweetDeck</em>
+            </span>
+            <span class="date">01:41 pm</span>
+          </div>
+        </div>
+        <button class="save-button" disabled data-lang="save_no">No changes</button>
+      </section>
 
-      <div class="settings-section">
-        <h5 data-lang="thumbnails_from">Display thumbnails from:</h5>
+      <section class="content-block" id="tweetsDisplay">
+        <h2 class="section-title" data-lang="sec_tweetsDisplay">Tweets: display</h2>
 
-        <ul class="settings-thumbnails-providers-list">
-          <!-- Will be populated by JS -->
-        </ul>
-      </div>
-      <button class="save-button" disabled data-lang="save_no">No changes</button>
-    </section>
+        <div class="settings-section">
+          <h5 data-lang="title_avatars">Avatars & details</h5>
 
-    <section class="content-block" id="share">
-      <h2 class="section-title" data-lang="shared_btd_h1">Sharing</h2>
+          <ul>
+            <li data-setting-name="bigger_emojis">
+              <input type="checkbox" name="css.bigger_emojis" id="bigger_emojis">
+              <label for="bigger_emojis" data-lang="css_bigger_emojis">Bigger emojis in tweets</label>
+            </li>
+            <li data-setting-name="round_pic">
+              <input type="checkbox" name="css.round_pic" id="round_pic">
+              <label for="round_pic" data-lang="css_round_pic">Rounded avatars</label>
+            </li>
+            <li data-setting-name="show_verified">
+              <input type="checkbox" name="css.show_verified" id="show_verified">
+              <label for="show_verified" data-lang="css_show_verified">Show "verified" badge on top of avatars</label>
+            </li>
+            <li data-setting-name="hide_context">
+              <input type="checkbox" name="css.hide_context" id="hide_context">
+              <label for="hide_context" data-lang="css_hide_context">Hide "In reply to" label on mentions</label>
+            </li>
+            <li data-setting-name="actions_on_right">
+              <input type="checkbox" name="css.actions_on_right" id="actions_on_right">
+              <label for="actions_on_right" data-lang="css_actions_on_right">Show tweet actions on the right</label>
+            </li>
+            <li data-setting-name="actions_on_hover">
+              <input type="checkbox" name="css.actions_on_hover" id="actions_on_hover">
+              <label for="actions_on_hover" data-lang="css_actions_on_hover">Show tweet actions on hover</label>
+            </li>
+            <li data-setting-name="no_hearts">
+              <input type="checkbox" name="no_hearts" id="no_hearts">
+              <label for="no_hearts" data-lang="no_hearts">Show stars instead of hearts</label>
+            </li>
+            <li data-setting-name="hide_like_rt_indicators">
+              <input type="checkbox" name="css.hide_like_rt_indicators" id="hide_like_rt_indicators">
+              <label for="hide_like_rt_indicators" data-lang="css_hide_like_rt_indicators">Hide Like/RT indicators on top of tweets</label>
+            </li data-setting-name="flash">
+            <li>
+              <input type="checkbox" name="flash_tweets.enabled" id="flash" data-ghost>
+              <label for="flash" data-lang="flash_tweets">Make tweets flash in:</label>
+              <ul data-setting-name="mentions">
+                <li>
+                  <input disabled type="radio" name="flash_tweets.mode" id="mentions">
+                  <label for="mentions" data-lang="flash_tweets_mentions">Mentions columns</label>
+                </li data-setting-name="all">
+                <li>
+                  <input disabled type="radio" name="flash_tweets.mode" id="all">
+                  <label for="all" data-lang="flash_tweets_all">In every columns</label>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
 
-      <div class="settings-section" data-require-permission>
-        <p data-lang="share_btd_p1" data-hidden-firefox>In order to use the "Share on TweetDeck" feature, you'll need to approve certain permissions which you can do so by clicking below</p>
+        <div class="settings-section">
+          <h5 data-lang="sec_preview">Preview</h5>
 
-        <p data-hidden-firefox>
-          <button class="plain-button" data-lang="share_request" data-ask-permissions>Request tabs reading permissions</button>
+          <div class="tweet-preview -display -name-time">
+            <span class="username">BetterTDeck
+              <em>Better TweetDeck</em>
+            </span>
+            <span class="date">01:41 pm</span>
+            <span class="avatar"></span>
+            <span class="actions">
+              <span class="heart"></span>
+            </span>
+            <span class="context -hidden"></span>
+            <span class="verified -hidden"></span>
+          </div>
+        </div>
+        <button class="save-button" disabled data-lang="save_no">No changes</button>
+      </section>
+
+      <section class="content-block" id="content">
+        <h2 class="section-title" data-lang="sec_content">Content</h2>
+
+        <div class="settings-section">
+          <ul>
+            <li data-setting-name="update_title_on_notifications">
+              <input type="checkbox" name="update_title_on_notifications" id="update_title_on_notifications">
+              <label for="update_title_on_notifications" data-lang="update_title_on_notifications" data-new-feat>Change TweetDeck's tab's title when a new tweet/message is unread</label>
+            </li>
+            <li data-setting-name="no_tco">
+              <input type="checkbox" name="no_tco" id="no_tco">
+              <label for="no_tco" data-lang="no_tco">Remove t.co redirection on links</label>
+            </li>
+            <li data-setting-name="no_gif_pp">
+              <input type="checkbox" name="no_gif_pp" id="no_gif_pp">
+              <label for="no_gif_pp" data-lang="no_gif_pp">No GIFs in profile pictures in columns</label>
+            </li>
+            <li data-setting-name="show_provider_indicator">
+              <input type="checkbox" name="css.show_provider_indicator" id="show_provider_indicator">
+              <label for="show_provider_indicator" data-lang="css_show_provider_indicator">Show thumbnails source on top of them</label>
+            </li>
+            <li data-setting-name="edit_item">
+              <input type="checkbox" name="edit_item" id="edit_item">
+              <label for="edit_item" data-lang="edit_item" data-new-feat>Add an edit item in tweets' menu</label>
+              <br />
+              <small data-lang="edit_item_note">You cannot use this to edit tweets without deleting them! This immediately move a tweet to the composer dock
+                and delete it along with any likes or retweets it received!</small>
+            </li>
+            <li data-setting-name="mute_hashtags">
+              <input type="checkbox" name="mute_hashtags" id="mute_hashtags">
+              <label for="mute_hashtags" data-lang="mute_hashtags" data-new-feat>Add shortcuts to mute #hashtags in tweets' menu</label>
+            </li>
+            <li data-setting-name="mute_source">
+              <input type="checkbox" name="mute_source" id="mute_source">
+              <label for="mute_source" data-lang="mute_source" data-new-feat>Add a shortcut to mute the source (application) of a tweet in tweets' menu</label>
+            </li>
+            <li data-setting-name="hotlink_item">
+              <input type="checkbox" name="hotlink_item" id="hotlink_item">
+              <label for="hotlink_item" data-lang="hotlink_item" data-new-feat>Add shortcut to hotlink all tweet media</label>
+            </li>
+            <li data-setting-name="download_item">
+              <input type="checkbox" name="download_item" id="download_item">
+              <label for="download_item" data-lang="download_item" data-new-feat>Add shortcut to download all tweet media</label>
+            </li>
+            <li data-setting-name="download_filename_format">
+              <input type="text" name="download_filename_format" id="download_filename_format">
+              <label for="download_filename_format" data-lang="download_filename_format" data-new-feat>Download file name format</label>
+              <br />
+              <small data-lang="download_filename_format_parameters">You can use the following variables:
+                <code>{{postedUser}} {{tweetId}} {{fileName}} {{fileExtension}}</code>
+              </small>
+            </li>
+            <li data-setting-name="keep_hashtags">
+              <input type="checkbox" name="keep_hashtags" id="keep_hashtags">
+              <label for="keep_hashtags" data-lang="keep_hashtags" data-new-feat>Keep tweeted hashtags</label>
+            </li>
+            <li data-setting-name="ctrl_changes_interactions">
+              <input type="checkbox" name="ctrl_changes_interactions.enabled" id="ctrl_changes_interactions.enabled" data-ghost>
+              <label for="ctrl_changes_interactions.enabled" data-lang="ctrl_changes_interactions__enabled">Holding
+                <kbd>ctrl</kbd> while clicking: favorite / retweet / download / hotlink will allow you to follow from the</label>
+              <select name="ctrl_changes_interactions.mode" id="ctrl_changes_interactions.mode" disabled data-new-feat>
+                <option value="owner" data-lang="ctrl_changes_interactions__mode__owner">column's owner</option>
+                <option value="prompt" data-lang="ctrl_changes_interactions__mode__dialog">follow dialog</option>
+              </select>
+              </label>
+            </li>
+          </ul>
+        </div>
+
+        <div class="settings-section">
+          <h5 data-lang="thumbnails_from">Display thumbnails from:</h5>
+
+          <ul class="settings-thumbnails-providers-list">
+            <!-- Will be populated by JS -->
+          </ul>
+        </div>
+        <button class="save-button" disabled data-lang="save_no">No changes</button>
+      </section>
+
+      <section class="content-block" id="share">
+        <h2 class="section-title" data-lang="shared_btd_h1">Sharing</h2>
+
+        <div class="settings-section" data-require-permission>
+          <p data-lang="share_btd_p1" data-hidden-firefox>In order to use the "Share on TweetDeck" feature, you'll need to approve certain permissions which you can do so
+            by clicking below</p>
+
+          <p data-hidden-firefox>
+            <button class="plain-button" data-lang="share_request" data-ask-permissions>Request tabs reading permissions</button>
+          </p>
+
+          <p data-lang="share_btd_p2">Better TweetDeck can
+            <strong>NOT</strong> read or track the contents of any open tabs.</p>
+
+          <p data-lang="share_btd_p3">Feel free to read
+            <a href="https://developer.chrome.com/extensions/tabs">Chrome's documentation</a> about this permission for more details.</p>
+
+          <p>
+            <strong data-lang="share_btd_p4">Any modification on this page will be applied after a browser restart</strong>
+          </p>
+
+          <ul>
+            <li data-setting-name="enabled">
+              <input type="checkbox" name="share_item.enabled" id="enabled">
+              <label for="enabled" data-lang="share_btd_item">Add the "Share on Better TweetDeck" action on contextual menu</label>
+            </li>
+            <li data-setting-name="short_txt">
+              <input type="checkbox" name="share_item.short_txt" id="short_txt">
+              <label for="short_txt" data-lang="share_short_txt">Shorten the selected text while using the "Share on Better TweetDeck" action</label>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="content-block" id="interface">
+        <h2 class="section-title" data-lang="sec_interface">Interface</h2>
+
+        <div class="settings-section">
+          <h5 data-lang="sec_general">General</h5>
+
+          <ul>
+            <li data-setting-name="old_replies">
+              <input type="checkbox" name="old_replies" id="old_replies">
+              <label for="old_replies" data-lang="old_replies">Revert to the old replies style (pre 03/30/2017)</label>
+            </li>
+            <li data-setting-name="minimal_mode">
+              <input type="checkbox" name="css.minimal_mode" id="minimal_mode">
+              <label for="minimal_mode" data-lang="css_minimal_mode">Enable the "Minimal" theme</label>
+            </li>
+            <li data-setting-name="og_dark_theme">
+              <input type="checkbox" name="css.og_dark_theme" id="og_dark_theme">
+              <label for="og_dark_theme" data-lang="css_og_dark_theme">Re-enable the Dark theme (pre February 2018)</label>
+              <small data-lang="css_experimental_warning">This is experimental and can break at any point!</small>
+            </li>
+            <li data-setting-name="no_col_icns">
+              <input type="checkbox" name="css.no_col_icns" id="no_col_icns">
+              <label for="no_col_icns" data-lang="css_no_col_icns">Hide icons in columns headers</label>
+            </li>
+            <li data-setting-name="no_scrollbars">
+              <input type="checkbox" name="css.no_scrollbars" id="no_scrollbars">
+              <label for="no_scrollbars" data-lang="css_no_scrollbars">Hide scrollbars</label>
+            </li>
+            <li data-hidden-firefox data-setting-name="slim_scrollbars">
+              <input type="checkbox" name="css.slim_scrollbars" id="slim_scrollbars">
+              <label for="slim_scrollbars" data-lang="css_slim_scrollbars">Thinner scrollbars</label>
+            </li>
+            <li data-setting-name="pause_scroll_on_hover">
+              <input type="checkbox" name="pause_scroll_on_hover" id="pause_scroll_on_hover">
+              <label for="pause_scroll_on_hover" data-lang="pause_scroll_on_hover" data-new-feat>Pause column scrolling on hover</label>
+            </li>
+            <li data-setting-name="no_bg_modal">
+              <input type="checkbox" name="css.no_bg_modal" id="no_bg_modal">
+              <label for="no_bg_modal" data-lang="css_no_bg_modal">Hide background behind fullscreen previews</label>
+            </li>
+            <li data-setting-name="small_icns_compose">
+              <input type="checkbox" name="css.small_icns_compose" id="small_icns_compose">
+              <label for="small_icns_compose" data-lang="css_small_icns_compose">Make buttons smaller in the Compose panel</label>
+            </li>
+            <li data-setting-name="character_count">
+              <input type="checkbox" name="css.character_count" id="character_count">
+              <label for="character_count" data-lang="css_character_count" data-new-feat>Always show the character count instead of the circular progress bar</label>
+            </li>
+            <li data-setting-name="collapse_dms">
+              <input type="checkbox" name="css.collapse_dms" id="collapse_dms">
+              <label for="collapse_dms" data-lang="css_collapse_dms">Collapse read direct messages</label>
+            </li>
+            <li data-setting-name="system_fonts">
+              <input type="checkbox" name="css.system_fonts" id="system_fonts">
+              <label for="system_fonts" data-lang="css_system_fonts" data-new-feat>Use the system font in the UI</label>
+            </li data-setting-name="column_width">
+            <li data-setting-name="make_search_columns_first">
+              <input type="checkbox" name="make_search_columns_first" id="make_search_columns_first">
+              <label for="make_search_columns_first" data-lang="make_search_columns_first" data-new-feat>Add search columns in front of first column</label>
+            </li>
+            <li>
+              <input type="checkbox" name="custom_columns_width.enabled" id="column_width" data-ghost>
+              <label for="column_width" data-lang="custom_width_columns">Custom width for columns:</label>
+              <small data-lang="css_warning">Be sure of what you're typing here, don't paste something you don't understand!</small>
+              <ul data-setting-name="column_size">
+                <li>
+                  <input disabled type="text" name="custom_columns_width.size" id="column_size">
+                  <label for="column_size" data-lang="custom_width_size">Width (in pixels)</label>
+                </li>
+              </ul>
+            </li>
+            <li data-setting-name="clear_column_action">
+              <input type="checkbox" name="clear_column_action" id="clear_column_action">
+              <label for="clear_column_action" data-lang="clear_column_action" data-new-feat>Add a column header button to clear a column.</label>
+            </li>
+            <li data-setting-name="collapse_columns">
+              <input type="checkbox" name="collapse_columns" id="collapse_columns">
+              <label for="collapse_columns" data-lang="collapse_columns" data-new-feat>Add a column header button to collapse and uncollapse columns.</label>
+            </li>
+            <li data-setting-name="collapse_columns_pause">
+              <input type="checkbox" name="collapse_columns_pause" id="collapse_columns_pause">
+              <label for="collapse_columns_pause" data-lang="collapse_columns_pause" data-new-feat>When you collapse a column, it will pause the feed it so that it can light up when its contents change while
+                collapsed and it stays where you last saw it.</label>
+            </li>
+            <li data-setting-name="uncollapse_columns_unpause">
+              <input type="checkbox" name="uncollapse_columns_unpause" id="uncollapse_columns_unpause">
+              <label for="uncollapse_columns_unpause" data-lang="uncollapse_columns_unpause" data-new-feat>When you uncollapse a column, it will unpause the feed it so that it automatically scrolls back to the top
+                instead of staying where you left it.</label>
+            </li>
+          </ul>
+        </div>
+        <button class="save-button" disabled data-lang="save_no">No changes</button>
+      </section>
+
+      <section class="content-block" id="onInstall">
+        <h2 class="section-title" data-lang="btd_thx">Thanks for installing Better TweetDeck!</h2>
+
+        <div class="settings-section">
+          <h5 data-lang="btd_get_started">Let's get started!</h5>
+
+          <p data-lang="btd_whatsBTD">Better TweetDeck is made to improve your experience on
+            <a href="https://tweetdeck.twitter.com">tweetdeck.twitter.com</a>!</p>
+
+          <p data-lang="btd_default">
+            The default settings have been applied, feel free to modify them to your liking!
+          </p>
+
+          <h5 data-lang="btd_then">Then?</h5>
+
+          <p data-lang="btd_follow">You should follow
+            <a href="https://twitter.com/BetterTDeck">@BetterTDeck</a> on Twitter for support, news and trivia about Better TweetDeck!</p>
+        </div>
+      </section>
+
+      <section class="content-block" id="debug">
+        <h2 class="section-title" data-lang="sec_debug">Debug Infos</h2>
+
+        <div class="settings-section">
+          <h5 data-lang="sec_infos">Informations</h5>
+
+          <ul>
+            <li>
+              <span data-lang="debug_version">Version</span>:
+              <span class="settings-version-number"></span>
+            </li>
+            <li>
+              <span data-lang="debug_ua">User-Agent</span>:
+              <span class="settings-user-agent"></span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="settings-section">
+          <h5 data-lang="sec_settings">Settings dump</h5>
+
+          <pre class="settings-pre"><code class="settings-dump language-json"></code></pre>
+        </div>
+      </section>
+
+      <section class="content-block" id="changelog">
+        <h2 class="section-title" data-lang="sec_changelog">Changelog</h2>
+
+        <div class="settings-section changelog">
+
+        </div>
+      </section>
+
+      <section class="content-block" id="donate">
+        <h2 class="section-title">Donate</h2>
+        <div class="settings-section">
+          <h5>If you're in the US, I'd rather have you donate to one of those charities instead.</h5>
+
+          <ul>
+            <li>
+              <a href="https://secure3.convio.net/cfrr/site/Donation2;jsessionid=97A4C7A9488B5DDF3450546DE1123DB2.app347a?1380.donation=form1&df_id=1380&web&_ga=1.145398384.513337705.1476995534">Center for Reproductive Rights</a>
+            </li>
+            <li>
+              <a href="https://www.lambdalegal.org/donate">Lambda Legal</a>
+            </li>
+            <li>
+              <a href="https://secure.ppaction.org/site/Donation2?df_id=12913&12913.donation=form1&_ga=1.38484843.997121566.1477408976">Planned Parenthood</a>
+            </li>
+            <li>
+              <a href="https://jezebel.com/a-list-of-pro-women-pro-immigrant-pro-earth-anti-big-1788752078">And many more</a>
+            </li>
+          </ul>
+
+          <h5 data-lang="donate_title">Help me maintain Better TweetDeck!</h5>
+
+          <p data-lang="donate_p1"></p>
+          <p data-lang="donate_p2"></p>
+          <p data-lang="donate_p3"></p>
+          <ul>
+            <li>
+              <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK9SQ6ZDE9UF2&lc=US&item_name=Damien%20Erambert&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"
+                data-lang="sec_donate">Paypal</a>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="content-block" id="credits">
+        <h2 class="section-title" data-lang="sec_credits">Credits / About</h2>
+
+        <div class="settings-section">
+          <h5 data-lang="credits_author">Author</h5>
+
+          <ul>
+            <li>Damien Erambert</li>
+          </ul>
+
+          <h5 data-lang="credits_contribs">Contributors</h5>
+
+          <ul class="settings-contributors">
+            <li>
+              <a href="https://github.com/no-boot-device" target="_blank">no-boot-device</a>
+              <small>That Old Replies Trick using deciders and
+                <a href="https://gist.github.com/no-boot-device/cb63762000e606e50690911cac1bcead">webcrack</a>
+              </small>
+            </li>
+          </ul>
+
+          <h5 data-lang="credits_rsrc">Ressources used</h5>
+
+          <ul class="settings-deps">
+          </ul>
+
+          <h5 data-lang="credits_links">Links</h5>
+
+          <ul>
+            <li>
+              <a href="https://chrome.google.com/webstore/detail/bettertweetdeck/micblkellenpbfapmcpcfhcoeohhnpob">Chrome Web Store</a>
+            </li>
+            <li>
+              <a href="https://twitter.com/BetterTDeck/" data-lang="credits_twitter">Better TweetDeck on Twitter</a>
+            </li>
+            <li>
+              <a href="https://github.com/eramdam/BetterTweetDeck/issues" data-lang="credits_bugs">Bugs or suggestions</a>
+            </li>
+            <li>
+              <a href="https://github.com/eramdam/BetterTweetDeck" data-lang="credits_source">Source code on GitHub</a>
+            </li>
+            <li>
+              <a href="http://erambert.me/" data-lang="credits_author_website">Author's website</a>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="content-block" id="custom-css">
+        <h2>Custom CSS</h2>
+
+        <p>
+          ⚠️ Pasting unknown code in this editor can lead to weird issues if you don't know what you're doing ⚠️
         </p>
 
-        <p data-lang="share_btd_p2">Better TweetDeck can <strong>NOT</strong> read or track the contents of any open tabs.</p>
-
-        <p data-lang="share_btd_p3">Feel free to read <a href="https://developer.chrome.com/extensions/tabs">Chrome's documentation</a> about this permission for more details.</p>
-
-        <p><strong data-lang="share_btd_p4">Any modification on this page will be applied after a browser restart</strong></p>
-
-        <ul>
-          <li data-setting-name="enabled">
-            <input type="checkbox" name="share_item.enabled" id="enabled">
-            <label for="enabled" data-lang="share_btd_item">Add the "Share on Better TweetDeck" action on contextual menu</label>
-          </li>
-          <li data-setting-name="short_txt">
-            <input type="checkbox" name="share_item.short_txt" id="short_txt">
-            <label for="short_txt" data-lang="share_short_txt">Shorten the selected text while using the "Share on Better TweetDeck" action</label>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="content-block" id="interface">
-      <h2 class="section-title" data-lang="sec_interface">Interface</h2>
-
-      <div class="settings-section">
-        <h5 data-lang="sec_general">General</h5>
-
-        <ul>
-          <li data-setting-name="old_replies">
-            <input type="checkbox" name="old_replies" id="old_replies">
-            <label for="old_replies" data-lang="old_replies">Revert to the old replies style (pre 03/30/2017)</label>
-          </li>
-          <li data-setting-name="minimal_mode">
-            <input type="checkbox" name="css.minimal_mode" id="minimal_mode">
-            <label for="minimal_mode" data-lang="css_minimal_mode">Enable the "Minimal" theme</label>
-          </li>
-          <li data-setting-name="og_dark_theme">
-            <input type="checkbox" name="css.og_dark_theme" id="og_dark_theme">
-            <label for="og_dark_theme" data-lang="css_og_dark_theme">Re-enable the Dark theme (pre February 2018)</label>
-            <small data-lang="css_experimental_warning">This is experimental and can break at any point!</small>
-          </li>
-          <li data-setting-name="no_col_icns">
-            <input type="checkbox" name="css.no_col_icns" id="no_col_icns">
-            <label for="no_col_icns" data-lang="css_no_col_icns">Hide icons in columns headers</label>
-          </li>
-          <li data-setting-name="no_scrollbars">
-            <input type="checkbox" name="css.no_scrollbars" id="no_scrollbars">
-            <label for="no_scrollbars" data-lang="css_no_scrollbars">Hide scrollbars</label>
-          </li>
-          <li data-hidden-firefox data-setting-name="slim_scrollbars">
-            <input type="checkbox" name="css.slim_scrollbars" id="slim_scrollbars">
-            <label for="slim_scrollbars" data-lang="css_slim_scrollbars">Thinner scrollbars</label>
-          </li>
-          <li data-setting-name="pause_scroll_on_hover">
-            <input type="checkbox" name="pause_scroll_on_hover" id="pause_scroll_on_hover">
-            <label for="pause_scroll_on_hover" data-lang="pause_scroll_on_hover" data-new-feat>Pause column scrolling on hover</label>
-          </li>
-          <li data-setting-name="no_bg_modal">
-            <input type="checkbox" name="css.no_bg_modal" id="no_bg_modal">
-            <label for="no_bg_modal" data-lang="css_no_bg_modal">Hide background behind fullscreen previews</label>
-          </li>
-          <li data-setting-name="small_icns_compose">
-            <input type="checkbox" name="css.small_icns_compose" id="small_icns_compose">
-            <label for="small_icns_compose" data-lang="css_small_icns_compose">Make buttons smaller in the Compose panel</label>
-          </li>
-          <li data-setting-name="character_count">
-            <input type="checkbox" name="css.character_count" id="character_count">
-            <label for="character_count" data-lang="css_character_count" data-new-feat>Always show the character count instead of the circular progress bar</label>
-          </li>
-          <li data-setting-name="collapse_dms">
-            <input type="checkbox" name="css.collapse_dms" id="collapse_dms">
-            <label for="collapse_dms" data-lang="css_collapse_dms">Collapse read direct messages</label>
-          </li>
-          <li data-setting-name="system_fonts">
-            <input type="checkbox" name="css.system_fonts" id="system_fonts">
-            <label for="system_fonts" data-lang="css_system_fonts" data-new-feat>Use the system font in the UI</label>
-          </li data-setting-name="column_width">
-          <li data-setting-name="make_search_columns_first">
-            <input type="checkbox" name="make_search_columns_first" id="make_search_columns_first">
-            <label for="make_search_columns_first" data-lang="make_search_columns_first" data-new-feat>Add search columns in front of first column</label>
-          </li>
-          <li>
-            <input type="checkbox" name="custom_columns_width.enabled" id="column_width" data-ghost><label for="column_width" data-lang="custom_width_columns">Custom width for columns:</label>
-            <small data-lang="css_warning">Be sure of what you're typing here, don't paste something you don't understand!</small>
-            <ul data-setting-name="column_size">
-              <li>
-                <input disabled type="text" name="custom_columns_width.size" id="column_size"><label for="column_size" data-lang="custom_width_size">Width (in pixels)</label>
-              </li>
-            </ul>
-          </li>
-          <li data-setting-name="clear_column_action">
-            <input type="checkbox" name="clear_column_action" id="clear_column_action">
-            <label for="clear_column_action" data-lang="clear_column_action" data-new-feat>Add a column header button to clear a column.</label>
-          </li>
-          <li data-setting-name="collapse_columns">
-            <input type="checkbox" name="collapse_columns" id="collapse_columns">
-            <label for="collapse_columns" data-lang="collapse_columns" data-new-feat>Add a column header button to collapse and uncollapse columns.</label>
-          </li>
-          <li data-setting-name="collapse_columns_pause">
-            <input type="checkbox" name="collapse_columns_pause" id="collapse_columns_pause">
-            <label for="collapse_columns_pause" data-lang="collapse_columns_pause" data-new-feat>When you collapse a column, it will pause the feed it so that it can light up when its contents change while collapsed and it stays where you last saw it.</label>
-          </li>
-          <li data-setting-name="uncollapse_columns_unpause">
-            <input type="checkbox" name="uncollapse_columns_unpause" id="uncollapse_columns_unpause">
-            <label for="uncollapse_columns_unpause" data-lang="uncollapse_columns_unpause" data-new-feat>When you uncollapse a column, it will unpause the feed it so that it automatically scrolls back to the top instead of staying where you left it.</label>
-          </li>
-        </ul>
-      </div>
-      <button class="save-button" disabled data-lang="save_no">No changes</button>
-    </section>
-
-    <section class="content-block" id="onInstall">
-      <h2 class="section-title" data-lang="btd_thx">Thanks for installing Better TweetDeck!</h2>
-
-      <div class="settings-section">
-        <h5 data-lang="btd_get_started">Let's get started!</h5>
-
-        <p data-lang="btd_whatsBTD">Better TweetDeck is made to improve your experience on <a href="https://tweetdeck.twitter.com">tweetdeck.twitter.com</a>!</p>
-
-        <p data-lang="btd_default">
-          The default settings have been applied, feel free to modify them to your liking!
-        </p>
-
-        <h5 data-lang="btd_then">Then?</h5>
-
-        <p data-lang="btd_follow">You should follow <a href="https://twitter.com/BetterTDeck">@BetterTDeck</a> on Twitter for support, news and trivia about Better TweetDeck!</p>
-      </div>
-    </section>
-
-    <section class="content-block" id="debug">
-      <h2 class="section-title" data-lang="sec_debug">Debug Infos</h2>
-
-      <div class="settings-section">
-        <h5 data-lang="sec_infos">Informations</h5>
-
-        <ul>
-          <li><span data-lang="debug_version">Version</span>: <span class="settings-version-number"></span></li>
-          <li><span data-lang="debug_ua">User-Agent</span>: <span class="settings-user-agent"></span></li>
-        </ul>
-      </div>
-
-      <div class="settings-section">
-        <h5 data-lang="sec_settings">Settings dump</h5>
-
-        <pre class="settings-pre"><code class="settings-dump language-json"></code></pre>
-      </div>
-    </section>
-
-    <section class="content-block" id="changelog">
-      <h2 class="section-title" data-lang="sec_changelog">Changelog</h2>
-
-      <div class="settings-section changelog">
-
-      </div>
-    </section>
-
-    <section class="content-block" id="donate">
-      <h2 class="section-title">Donate</h2>
-      <div class="settings-section">
-        <h5>If you're in the US, I'd rather have you donate to one of those charities instead.</h5>
-
-        <ul>
-          <li><a href="https://secure3.convio.net/cfrr/site/Donation2;jsessionid=97A4C7A9488B5DDF3450546DE1123DB2.app347a?1380.donation=form1&df_id=1380&web&_ga=1.145398384.513337705.1476995534">Center for Reproductive Rights</a></li>
-          <li><a href="https://www.lambdalegal.org/donate">Lambda Legal</a></li>
-          <li><a href="https://secure.ppaction.org/site/Donation2?df_id=12913&12913.donation=form1&_ga=1.38484843.997121566.1477408976">Planned Parenthood</a></li>
-          <li><a href="https://jezebel.com/a-list-of-pro-women-pro-immigrant-pro-earth-anti-big-1788752078">And many more</a></li>
-        </ul>
-
-        <h5 data-lang="donate_title">Help me maintain Better TweetDeck!</h5>
-
-        <p data-lang="donate_p1"></p>
-        <p data-lang="donate_p2"></p>
-        <p data-lang="donate_p3"></p>
-        <ul>
-          <li>
-            <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK9SQ6ZDE9UF2&lc=US&item_name=Damien%20Erambert&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted" data-lang="sec_donate">Paypal</a>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="content-block" id="credits">
-      <h2 class="section-title" data-lang="sec_credits">Credits / About</h2>
-
-      <div class="settings-section">
-        <h5 data-lang="credits_author">Author</h5>
-
-        <ul>
-          <li>Damien Erambert</li>
-        </ul>
-
-        <h5 data-lang="credits_contribs">Contributors</h5>
-
-        <ul class="settings-contributors">
-          <li>
-            <a href="https://github.com/no-boot-device" target="_blank">no-boot-device</a>
-            <small>That Old Replies Trick using deciders and <a href="https://gist.github.com/no-boot-device/cb63762000e606e50690911cac1bcead">webcrack</a></small>
-          </li>
-        </ul>
-
-        <h5 data-lang="credits_rsrc">Ressources used</h5>
-
-        <ul class="settings-deps">
-        </ul>
-
-        <h5 data-lang="credits_links">Links</h5>
-
-        <ul>
-          <li><a href="https://chrome.google.com/webstore/detail/bettertweetdeck/micblkellenpbfapmcpcfhcoeohhnpob">Chrome Web Store</a></li>
-          <li>
-            <a href="https://twitter.com/BetterTDeck/" data-lang="credits_twitter">Better TweetDeck on Twitter</a>
-          </li>
-          <li>
-            <a href="https://github.com/eramdam/BetterTweetDeck/issues" data-lang="credits_bugs">Bugs or suggestions</a>
-          </li>
-          <li>
-            <a href="https://github.com/eramdam/BetterTweetDeck" data-lang="credits_source">Source code on GitHub</a>
-          </li>
-          <li>
-            <a href="http://erambert.me/" data-lang="credits_author_website">Author's website</a>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="content-block" id="custom-css">
-      <h2>Custom CSS</h2>
-
-      <p>
-        ⚠️ Pasting unknown code in this editor can lead to weird issues if you don't know what you're doing ⚠️
-      </p>
-      
-      <div name="custom_css_style" id="custom-css-editor"></div>
-    </section>
-  </main>
-</div>
-<script src="options.js"></script>
+        <div name="custom_css_style" id="custom-css-editor"></div>
+      </section>
+    </main>
+  </div>
+  <script src="options.js"></script>
 </body>
+
 </html>
