@@ -11,7 +11,12 @@ import AdvancedMuteEngine from './util/ame';
 import keepHashtags from './util/keepHashtags';
 
 const SETTINGS = $('[data-btd-settings]').data('btd-settings');
-const mR = moduleRaid();
+let mR;
+try {
+  mR = moduleRaid();
+} catch (e) {
+  //
+}
 
 if (SETTINGS.no_tco) {
   const dummyEl = document.createElement('span');
@@ -591,7 +596,9 @@ const checkBTDFollowing = () => {
 
 const currentProgressNotifications = {};
 const TDNotifications =
-  mR.findModule('showNotification') && mR.findModule('showNotification')[0];
+  mR &&
+  mR.findModule('showNotification') &&
+  mR.findModule('showNotification')[0];
 
 window.addEventListener('message', (ev) => {
   const { origin, data } = ev;
