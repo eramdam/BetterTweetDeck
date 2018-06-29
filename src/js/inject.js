@@ -600,6 +600,10 @@ const TDNotifications =
   mR.findModule('showNotification') &&
   mR.findModule('showNotification')[0];
 
+if (window.$ === undefined) {
+  window.$ = mR && mR.findFunction('jQuery') && mR.findFunction('jQuery')[1];
+}
+
 window.addEventListener('message', (ev) => {
   const { origin, data } = ev;
   if (!origin.includes('tweetdeck.') && !origin.includes('better.tw')) {
