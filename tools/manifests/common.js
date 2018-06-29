@@ -57,6 +57,7 @@ const common = {
     'revert-dark-theme.css',
     'emojis/sheet_twitter_64.png',
     'fonts/*.*',
+    'jquery.js',
     'js/inject.js',
     'options/options.html',
   ],

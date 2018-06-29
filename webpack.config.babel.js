@@ -17,6 +17,9 @@ const staticFiles = [
     from: 'revert-dark-theme.css',
   },
   {
+    from: '../tools/jquery.js',
+  },
+  {
     from: 'icons/*.png',
   },
   {

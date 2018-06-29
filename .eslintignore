@@ -1,5 +1,6 @@
 tools/**/*.json
 tools/embeds.js
+tools/jquery.js
 src/emojis/emojis.js
 !.eslintrc.js
 dist/*

@@ -27,7 +27,10 @@ const COLUMNS_MEDIA_SIZES = new Map();
 
 sendMessage({ action: 'get_settings' }, (response) => {
   SETTINGS = response.settings;
-  const scripts = [BHelper.getExtensionUrl('js/inject.js')];
+  const scripts = [
+    // BHelper.getExtensionUrl('jquery.js'),
+    BHelper.getExtensionUrl('js/inject.js'),
+  ];
 
   if (!BHelper.isFirefox) {
     scripts.push(BHelper.getExtensionUrl('embeds.js'));

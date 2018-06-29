@@ -854,6 +854,7 @@ $(document).on('uiColumnUpdateMediaPreview', (ev, data) => {
 
 // We wait for the loading of the columns and we get all the media preview size
 $(document).one('dataColumnsLoaded', () => {
+  console.log('dataColumnsLoaded');
   proxyEvent('ready');
 
   // We delete the callback for the timestamp task so the content script can do it itself
