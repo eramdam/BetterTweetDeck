@@ -18,6 +18,8 @@ try {
   //
 }
 
+window.$ = mR && mR.findFunction('jQuery') && mR.findFunction('jQuery')[1];
+
 if (SETTINGS.no_tco) {
   const dummyEl = document.createElement('span');
   const originalCreateUrlAnchor = TD.util.createUrlAnchor;
@@ -599,10 +601,6 @@ const TDNotifications =
   mR &&
   mR.findModule('showNotification') &&
   mR.findModule('showNotification')[0];
-
-if (window.$ === undefined) {
-  window.$ = mR && mR.findFunction('jQuery') && mR.findFunction('jQuery')[1];
-}
 
 window.addEventListener('message', (ev) => {
   const { origin, data } = ev;
