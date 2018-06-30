@@ -157,6 +157,10 @@ html.btd-on {
   [data-action-id^="btd-banner"] {
     background-color: transparent;
     cursor: pointer;
+  }
+
+  [data-action-id^="btd-banner"],
+  [data-action-id^="btd-banner"] a:hover {
     color: white;
   }
 
