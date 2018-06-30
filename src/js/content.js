@@ -213,6 +213,10 @@ function tweakClassesFromVisualSettings() {
     document.body.classList.add('btd__old_replies');
   }
 
+  if (SETTINGS.btd_logo) {
+    document.body.classList.add('btd__replace_logo');
+  }
+
   if (SETTINGS.css.og_dark_theme) {
     const linkRevert = document.createElement('link');
     linkRevert.rel = 'stylesheet';
