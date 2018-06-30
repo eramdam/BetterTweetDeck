@@ -14,7 +14,7 @@
   },
   "scripts": {
     "prerelease": "rimraf artifacts/*",
-    "start": "cross-env NODE_ENV=development webpack --hide-modules --watch --env.browser",
+    "start": "cross-env NODE_ENV=development webpack --hide-modules --progress --watch --env.browser",
     "build": "cross-env NODE_ENV=development webpack --hide-modules --env.browser",
     "build:prod": "cross-env NODE_ENV=production webpack --hide-modules --env.browser",
     "run:firefox": "web-ext run -s dist",
