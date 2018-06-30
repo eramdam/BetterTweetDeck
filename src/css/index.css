@@ -266,21 +266,3 @@ html.btd-on {
 .js-message-banner:not(.is-hidden) {
   padding: 6px 0;
 }
-
-.btd__replace_logo {
-  .application .app-title .sprite-logo-badge {
-    background-image: url("../icons/icon-48.png");
-    background-size: 24px;
-    background-position: center;
-  }
-
-  .application .app-title .sprite-logo {
-    width: 100%;
-    left: 0 !important;
-    height: 34px;
-    top: 5px !important;
-    background-size: contain;
-    background-position: center;
-    background-image: url("../img/btd-logo-title.png");
-  }
-}
