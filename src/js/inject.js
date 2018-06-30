@@ -10,13 +10,15 @@ import { giphySearch, giphyBlock } from './util/templates';
 import AdvancedMuteEngine from './util/ame';
 import keepHashtags from './util/keepHashtags';
 
-const SETTINGS = $('[data-btd-settings]').data('btd-settings');
+const SETTINGS = JSON.parse(document.querySelector('[data-btd-settings]').dataset.btdSettings);
 let mR;
 try {
   mR = moduleRaid();
 } catch (e) {
   //
 }
+
+window.$ = mR && mR.findFunction('jQuery') && mR.findFunction('jQuery')[1];
 
 if (SETTINGS.no_tco) {
   const dummyEl = document.createElement('span');
@@ -525,8 +527,8 @@ const postMessagesListeners = {
             id: `btd-banner-${bannerID}`,
             action: banner.action || 'url-ext',
             label: TD.i(banner.label),
+            class: 'Button--primary',
             url: banner.url,
-            event: banner.event ? banner.event : undefined,
           },
         ],
       },
@@ -766,7 +768,7 @@ const getMediaFromChirp = (chirp) => {
     switch (item.type) {
       case 'video':
       case 'animated_gif':
-        urls.push(findBiggestBitrate(item.video_info.variants).url);
+        urls.push(findBiggestBitrate(item.video_info.variants).url.split('?')[0]);
         break;
       case 'photo':
         urls.push(`${item.media_url_https}:orig`);
@@ -980,7 +982,7 @@ $(document).on('click', '.btd-giphy-block', (ev) => {
 
   gifRequest.onprogress = (event) => {
     const { loaded, total } = event;
-    $('.btd-gif-indicator').text(`Adding GIF (${(loaded / total * 100).toFixed(2)}%)`);
+    $('.btd-gif-indicator').text(`Adding GIF (${((loaded / total) * 100).toFixed(2)}%)`);
   };
 
   gifRequest.send();

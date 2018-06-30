@@ -71,6 +71,7 @@ const defaultSettings = {
   update_title_on_notifications: true,
   thumbnails: {},
   custom_css_style: '',
+  btd_logo: true,
 };
 
 // We want to know if there are any other versions of BTD out there.
