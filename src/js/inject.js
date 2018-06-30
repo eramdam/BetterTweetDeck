@@ -768,7 +768,7 @@ const getMediaFromChirp = (chirp) => {
     switch (item.type) {
       case 'video':
       case 'animated_gif':
-        urls.push(findBiggestBitrate(item.video_info.variants).url);
+        urls.push(findBiggestBitrate(item.video_info.variants).url.split('?')[0]);
         break;
       case 'photo':
         urls.push(`${item.media_url_https}:orig`);
