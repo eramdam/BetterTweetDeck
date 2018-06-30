@@ -982,7 +982,7 @@ $(document).on('click', '.btd-giphy-block', (ev) => {
 
   gifRequest.onprogress = (event) => {
     const { loaded, total } = event;
-    $('.btd-gif-indicator').text(`Adding GIF (${(loaded / total * 100).toFixed(2)}%)`);
+    $('.btd-gif-indicator').text(`Adding GIF (${((loaded / total) * 100).toFixed(2)}%)`);
   };
 
   gifRequest.send();
