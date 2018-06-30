@@ -10,7 +10,7 @@ import { giphySearch, giphyBlock } from './util/templates';
 import AdvancedMuteEngine from './util/ame';
 import keepHashtags from './util/keepHashtags';
 
-const SETTINGS = $('[data-btd-settings]').data('btd-settings');
+const SETTINGS = JSON.parse(document.querySelector('[data-btd-settings]').dataset.btdSettings);
 let mR;
 try {
   mR = moduleRaid();
