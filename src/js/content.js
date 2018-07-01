@@ -62,8 +62,7 @@ sendMessage({ action: 'get_settings' }, (response) => {
   document.head.appendChild(style);
 });
 
-fetch(`https://raw.githubusercontent.com/eramdam/BetterTweetDeck/master/meta/hotfixes.css?v=${
-  Date.now()}`)
+fetch(`https://raw.githubusercontent.com/eramdam/BetterTweetDeck/master/meta/hotfixes.css?v=${Date.now()}`)
   .then((res) => {
     if (res.status >= 200 && res.status < 300) {
       return res.text();
