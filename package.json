@@ -1,9 +1,8 @@
 {
   "name": "BetterTweetDeck",
-  "version": "3.7.2",
-  "extension_version": "3.7.2",
-  "description":
-    "Adds some nice options on TweetDeck to provide a better experience on the webapp when used on Chrome.",
+  "version": "3.7.6",
+  "extension_version": "3.7.6",
+  "description": "Adds some nice options on TweetDeck to provide a better experience on the webapp when used on Chrome.",
   "repository": {
     "type": "git",
     "url": "https://github.com/eramdam/BetterTweetDeck.git"
@@ -15,29 +14,18 @@
   },
   "scripts": {
     "prerelease": "rimraf artifacts/*",
-    "start": "cross-env NODE_ENV=dev webpack --hide-modules --watch --env.browser",
-    "build": "cross-env NODE_ENV=dev webpack --hide-modules --env.browser",
-    "build:prod": "cross-env NODE_ENV=prod webpack --hide-modules --env.browser",
+    "start": "cross-env NODE_ENV=development webpack --hide-modules --progress --watch --env.browser",
+    "build": "cross-env NODE_ENV=development webpack --hide-modules --env.browser",
+    "build:prod": "cross-env NODE_ENV=production webpack --hide-modules --env.browser",
     "run:firefox": "web-ext run -s dist",
     "lint": "eslint {src,tools,config}/**/*.js webpack.config.js && stylelint src/**/*.css",
     "test": "npm run lint",
     "release": "npm run build:prod -- chrome && npm run pack:chrome && npm run build:prod -- firefox && npm run pack:firefox",
-    "pack:chrome": "cross-env NODE_ENV=dev node tools/pack.js",
-    "pack:firefox": "cross-env NODE_ENV=dev web-ext build -s dist -a artifacts",
+    "pack:chrome": "cross-env NODE_ENV=development node tools/pack.js",
+    "pack:firefox": "cross-env NODE_ENV=development web-ext build -s dist -a artifacts",
     "update_emojis": "node tools/update_emojis.js",
-    "precommit": "lint-staged",
+    "prepush": "npm run lint",
     "fix": "prettier-eslint --list-different --write '**/*.{js,jsx}' && prettier-stylelint --write -q"
-  },
-  "lint-staged": {
-    "*.css": [
-      "prettier-stylelint --write",
-      "git add"
-    ],
-    "*.{js,jsx}": [
-      "prettier-eslint --write",
-      "eslint",
-      "git add"
-    ]
   },
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
   "dependencies": {
@@ -53,11 +41,11 @@
     "config": "^1.30.0",
     "copy-webpack-plugin": "^4.5.1",
     "cross-env": "^5.1.4",
-    "crx": "3.2.1",
+    "crx": "^3.2.1",
     "css-loader": "^0.28.11",
     "cssnano": "3.10.0",
-    "del": "3.0.0",
-    "domify": "1.4.0",
+    "del": "^3.0.0",
+    "domify": "^1.4.0",
     "dompurify": "^1.0.2",
     "emoji-js": "3.4.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
@@ -65,12 +53,11 @@
     "file-saver": "^1.3.8",
     "generate-json-webpack-plugin": "^0.3.1",
     "jquery": "^3.3.1",
-    "lint-staged": "^7.0.5",
-    "lodash": "^4.17.5",
+    "lodash": "^4.17.10",
     "lodash-webpack-plugin": "^0.11.4",
     "marked": "^0.3.19",
-    "moduleraid": "^3.1.0",
-    "mustache": "2.3.0",
+    "moduleraid": "^3.3.0",
+    "mustache": "^2.3.0",
     "needle": "^2.2.0",
     "normalize.css": "^8.0.0",
     "postcss-cssnext": "^3.1.0",
@@ -78,7 +65,7 @@
     "postcss-loader": "^2.1.3",
     "postcss-nested": "^3.0.0",
     "postcss-url": "^7.3.2",
-    "prettier": "^1.11.1",
+    "prettier": "^1.13.7",
     "prettier-eslint-cli": "^4.7.1",
     "prettier-stylelint": "^0.4.2",
     "prismjs": "^1.13.0",
@@ -88,7 +75,7 @@
     "rimraf": "^2.6.2",
     "style-loader": "^0.20.3",
     "uglifyjs-webpack-plugin": "^1.2.4",
-    "web-ext": "^2.6.0",
+    "web-ext": "^2.7.0",
     "webpack": "^4.5.0",
     "webpack-bundle-analyzer": "^2.11.1",
     "webpack-cli": "^2.0.14",

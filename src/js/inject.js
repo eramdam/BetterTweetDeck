@@ -10,8 +10,15 @@ import { giphySearch, giphyBlock } from './util/templates';
 import AdvancedMuteEngine from './util/ame';
 import keepHashtags from './util/keepHashtags';
 
-const SETTINGS = $('[data-btd-settings]').data('btd-settings');
-const mR = moduleRaid();
+const SETTINGS = JSON.parse(document.querySelector('[data-btd-settings]').dataset.btdSettings);
+let mR;
+try {
+  mR = moduleRaid();
+} catch (e) {
+  //
+}
+
+window.$ = mR && mR.findFunction('jQuery') && mR.findFunction('jQuery')[1];
 
 if (SETTINGS.no_tco) {
   const dummyEl = document.createElement('span');
@@ -404,7 +411,7 @@ if (SETTINGS.hotlink_item || SETTINGS.download_item) {
   );
 }
 
-// Adds the Favstar.fm item in menus and adds mute action for each hashtag
+// Adds the edit, mute source and mure hashtag items
 TD.mustaches['menus/actions.mustache'] = TD.mustaches[
   'menus/actions.mustache'
 ].replace(
@@ -434,12 +441,6 @@ TD.mustaches['menus/actions.mustache'] = TD.mustaches[
             <a href="#" data-btd-action="mute-hashtag" data-btd-hashtag="{{text}}">Mute #{{text}}</a>
           </li>
         {{/entities.hashtags}}`
-    : ''
-}
-        ${
-  SETTINGS.favstar_item
-    ? `<li class="drp-h-divider"></li>
-        <li class="btd-action-menu-item is-selectable"><a href="https://favstar.fm/users/{{user.screenName}}/status/{{chirp.id}}" target="_blank" data-action="favstar">{{_i}}Show on Favstar{{/i}}</a></li>`
     : ''
 }
       {{/chirp}}
@@ -526,8 +527,8 @@ const postMessagesListeners = {
             id: `btd-banner-${bannerID}`,
             action: banner.action || 'url-ext',
             label: TD.i(banner.label),
+            class: 'Button--primary',
             url: banner.url,
-            event: banner.event ? banner.event : undefined,
           },
         ],
       },
@@ -597,7 +598,9 @@ const checkBTDFollowing = () => {
 
 const currentProgressNotifications = {};
 const TDNotifications =
-  mR.findModule('showNotification') && mR.findModule('showNotification')[0];
+  mR &&
+  mR.findModule('showNotification') &&
+  mR.findModule('showNotification')[0];
 
 window.addEventListener('message', (ev) => {
   const { origin, data } = ev;
@@ -765,7 +768,7 @@ const getMediaFromChirp = (chirp) => {
     switch (item.type) {
       case 'video':
       case 'animated_gif':
-        urls.push(findBiggestBitrate(item.video_info.variants).url);
+        urls.push(findBiggestBitrate(item.video_info.variants).url.split('?')[0]);
         break;
       case 'photo':
         urls.push(`${item.media_url_https}:orig`);
@@ -979,7 +982,7 @@ $(document).on('click', '.btd-giphy-block', (ev) => {
 
   gifRequest.onprogress = (event) => {
     const { loaded, total } = event;
-    $('.btd-gif-indicator').text(`Adding GIF (${(loaded / total * 100).toFixed(2)}%)`);
+    $('.btd-gif-indicator').text(`Adding GIF (${((loaded / total) * 100).toFixed(2)}%)`);
   };
 
   gifRequest.send();

@@ -58,7 +58,6 @@ const defaultSettings = {
   make_search_columns_first: false,
   old_replies: false,
   edit_item: true,
-  favstar_item: true,
   mute_hashtags: true,
   mute_source: true,
   hotlink_item: false,
@@ -72,6 +71,7 @@ const defaultSettings = {
   update_title_on_notifications: true,
   thumbnails: {},
   custom_css_style: '',
+  btd_logo: true,
 };
 
 // We want to know if there are any other versions of BTD out there.

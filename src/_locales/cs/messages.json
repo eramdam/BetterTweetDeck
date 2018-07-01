@@ -1,10 +1,11 @@
 {
   "appDesc": {
-		"message": "Emoji, náhledy a pokročilé funkce pro https://tweetdeck.twitter.com !"
-	},
-	"appName": {
-		"message": "BetterTweetDeck"
-	},
+    "message":
+      "Emoji, náhledy a pokročilé funkce pro https://tweetdeck.twitter.com !"
+  },
+  "appName": {
+    "message": "BetterTweetDeck"
+  },
   "shareOnTD": { "message": "Sdílet na TweetDecku" },
   "settingsTitle": { "message": "Nastavení Better TweetDeck" },
   "settings": { "message": "Nastavení" },
@@ -21,14 +22,20 @@
   "sec_preview": { "message": "Náhled" },
   "sec_general": { "message": "Obecné" },
 
-  "title_timeDisplay": { "message": "Zobrazení času"},
+  "title_timeDisplay": { "message": "Zobrazení času" },
   "time_relative": { "message": "Relativní" },
   "time_absolute": { "message": "Absolutní" },
   "time_absolute_us": { "message": "Absolutní americké" },
-  "time_custom": { "message": "Vlastní (<a target='_blank' href='https://github.com/taylorhakes/fecha#formatting-tokens'>Formátování (anglicky)</a>)" },
+  "time_custom": {
+    "message":
+      "Vlastní (<a target='_blank' href='https://github.com/taylorhakes/fecha#formatting-tokens'>Formátování (anglicky)</a>)"
+  },
   "time_short": { "message": "Krátké" },
   "time_full": { "message": "Dlouhé" },
-  "time_full24": { "message": "Dlouhé až po 24 hodinách <small>Neplatí pro relativní zobrazení</small>" },
+  "time_full24": {
+    "message":
+      "Dlouhé až po 24 hodinách <small>Neplatí pro relativní zobrazení</small>"
+  },
 
   "title_nameDisplay": { "message": "Zobrazení jména" },
 
@@ -39,102 +46,212 @@
   "name_typeahead": { "message": "Našeptávač zobrazí jen uživatelská jména" },
 
   "title_avatars": { "message": "Avatary & detaily" },
-  "old_replies": { "message": "Navrátit ke starému stylu odpovědí (před 30.3.2017)" },
+  "old_replies": {
+    "message": "Navrátit ke starému stylu odpovědí (před 30.3.2017)"
+  },
   "css_round_pic": { "message": "Zakulacené profilové avatary" },
   "css_bigger_emojis": { "message": "Zvětšit emoji ve tweetech" },
-  "css_character_count": { "message": "Vždy zobrazovat počet znaků namísto kulatého ukazatele" },
+  "css_character_count": {
+    "message": "Vždy zobrazovat počet znaků namísto kulatého ukazatele"
+  },
   "css_collapse_dms": { "message": "Sbalit přečtené zprávy" },
   "css_system_fonts": { "message": "V rozhraní používat systémové písmo" },
-  "css_show_verified": { "message": "Zobrazovat odznaky ověřených účtů nad avatary" },
+  "css_show_verified": {
+    "message": "Zobrazovat odznaky ověřených účtů nad avatary"
+  },
   "css_hide_context": { "message": "U zmínek skrývat označení adresátů" },
   "css_actions_on_right": { "message": "Zobrazit možnosti tweetu napravo" },
-  "css_actions_on_hover": { "message": "Zobrazit možnosti tweetu pouze při najetí kurzoru" },
-  "css_no_bg_modal": { "message": "Skrývat pozadí za náhledy na celou obrazovku" },
+  "css_actions_on_hover": {
+    "message": "Zobrazit možnosti tweetu pouze při najetí kurzoru"
+  },
+  "css_no_bg_modal": {
+    "message": "Skrývat pozadí za náhledy na celou obrazovku"
+  },
   "css_slim_scrollbars": { "message": "Tenčí posuvníky" },
-  "pause_scroll_on_hover": { "message": "Pozastavit posouvání sloupců při najetí kurzoru" },
-  "css_show_provider_indicator": { "message": "Zobrazovat nad náhledy jejich zdroj" },
-  "css_hide_like_rt_indicators": { "message": "Skrývat značky lajku/retweetu nad tweety" },
-  "make_search_columns_first": { "message": "Přidávat sloupce vyhledávání doleva" },
+  "pause_scroll_on_hover": {
+    "message": "Pozastavit posouvání sloupců při najetí kurzoru"
+  },
+  "css_show_provider_indicator": {
+    "message": "Zobrazovat nad náhledy jejich zdroj"
+  },
+  "css_hide_like_rt_indicators": {
+    "message": "Skrývat značky lajku/retweetu nad tweety"
+  },
+  "make_search_columns_first": {
+    "message": "Přidávat sloupce vyhledávání doleva"
+  },
   "no_hearts": { "message": "Zobrazovat hvězdy místo srdcí" },
-  "rtl_text_style": { "message": "Detekovat a používat směr zprava doleva, je-li třeba" },
+  "rtl_text_style": {
+    "message": "Detekovat a používat směr zprava doleva, je-li třeba"
+  },
   "flash_tweets": { "message": "Nové tweety zasvítí:" },
   "flash_tweets_mentions": { "message": "Ve sloupcích zmínek" },
   "flash_tweets_all": { "message": "Ve všech sloupcích" },
 
-  "update_title_on_notifications": { "message": "Zobrazovat počet nepřečtených tweetů a zpráv v názvu karty/panelu TweetDecku" },
+  "update_title_on_notifications": {
+    "message":
+      "Zobrazovat počet nepřečtených tweetů a zpráv v názvu karty/panelu TweetDecku"
+  },
 
-  "share_request": { "message": "Požádat o povolení ke čtení otevřených karet/panelů" },
+  "share_request": {
+    "message": "Požádat o povolení ke čtení otevřených karet/panelů"
+  },
   "share_granted": { "message": "Povolení uděleno" },
   "shared_btd_h1": { "message": "Sdílení" },
-  "share_btd_p1": { "message": "Abyste mohli používat \"Sdílet na TweetDecku\", musíte udělit aplikaci BetterTweetDeck určitá povolení, což můžete udělat kliknutím níže" },
-  "share_btd_p2": { "message": "Better TweetDeck <strong>nemůže</strong> přečíst obsah vašich karet/panelů a nesleduje ho." },
-  "share_btd_p3": { "message": "Pro více podrobností o tomto povolení si přečtěte <a href=\"https://developer.chrome.com/extensions/tabs\">dokumentaci Googlu (anglicky)</a>." },
-  "share_btd_p4": { "message": "Jakékoliv změny na této stránce budou provedeny až po restartu prohlížeče" },
-  "share_btd_item": { "message": "Přidat možnost 'Sdílet na TweetDecku' do menu pravého tlačítka myši" },
-  "share_short_txt": { "message": "Automaticky zkrátit vybraný text při použití možnosti 'Sdílet na TweetDecku'" },
+  "share_btd_p1": {
+    "message":
+      "Abyste mohli používat \"Sdílet na TweetDecku\", musíte udělit aplikaci BetterTweetDeck určitá povolení, což můžete udělat kliknutím níže"
+  },
+  "share_btd_p2": {
+    "message":
+      "Better TweetDeck <strong>nemůže</strong> přečíst obsah vašich karet/panelů a nesleduje ho."
+  },
+  "share_btd_p3": {
+    "message":
+      "Pro více podrobností o tomto povolení si přečtěte <a href=\"https://developer.chrome.com/extensions/tabs\">dokumentaci Googlu (anglicky)</a>."
+  },
+  "share_btd_p4": {
+    "message":
+      "Jakékoliv změny na této stránce budou provedeny až po restartu prohlížeče"
+  },
+  "share_btd_item": {
+    "message":
+      "Přidat možnost 'Sdílet na TweetDecku' do menu pravého tlačítka myši"
+  },
+  "share_short_txt": {
+    "message":
+      "Automaticky zkrátit vybraný text při použití možnosti 'Sdílet na TweetDecku'"
+  },
   "no_tco": { "message": "Odstranit přesměrování t.co na odkazech" },
   "no_gif_pp": { "message": "Nepřehrávat GIF avatary" },
   "thumbnails_from": { "message": "Zobrazovat náhledy z:" },
 
   "css_minimal_mode": { "message": "Zapnout vzhled 'Minimální'" },
-  "css_no_play_btn": { "message": "Skrývat tlačítko 'přehrát' na náhledech videí" },
-  "css_hide_url_thumb": { "message": "Skrývat odkazy související s náhledem ve tweetech (jako Twitter iOS/Android)" },
+  "css_no_play_btn": {
+    "message": "Skrývat tlačítko 'přehrát' na náhledech videí"
+  },
+  "css_hide_url_thumb": {
+    "message":
+      "Skrývat odkazy související s náhledem ve tweetech (jako Twitter iOS/Android)"
+  },
   "css_no_col_icns": { "message": "Skrýt ikony v záhlaví sloupců" },
-  "css_small_icns_compose": { "message": "Zmenšit tlačítka v panelu psaní tweetu" },
+  "css_small_icns_compose": {
+    "message": "Zmenšit tlačítka v panelu psaní tweetu"
+  },
   "css_no_scrollbars": { "message": "Skrýt posuvníky" },
-  "css_gray_icns_notifs": { "message": "Zobrazovat ikony oznámení v odstínech šedi" },
+  "css_gray_icns_notifs": {
+    "message": "Zobrazovat ikony oznámení v odstínech šedi"
+  },
 
   "custom_width_columns": { "message": "Použít vlastní šířku sloupců:" },
   "custom_width_size": { "message": "Šířka (jakákoliv platná hodnota CSS)" },
-  "css_warning": { "message": "Ujistěte se, že víte, co sem píšete, nevkládejte nic čemu nerozumíte!" },
+  "css_warning": {
+    "message":
+      "Ujistěte se, že víte, co sem píšete, nevkládejte nic čemu nerozumíte!"
+  },
 
-  "clear_column_action": { "message": "Přidat do záhlaví sloupce tlačítko pro vymazání obsahu sloupce"},
-  "collapse_columns": { "message": "Přidat do záhlaví sloupce tlačítko pro sbalení a rozbalení sloupců"},
-  "collapse_columns_pause": { "message": "Při sbalení sloupce je časová osa zmražena, zasvítí při změně obsahu sloupce, a zůstane tam, kde jste ji naposledy zanechali"},
-  "uncollapse_columns_unpause": { "message": "Při rozbalení sloupce je časova osa rozmražena, a automaticky se posune na nejnovější tweet"},
+  "clear_column_action": {
+    "message": "Přidat do záhlaví sloupce tlačítko pro vymazání obsahu sloupce"
+  },
+  "collapse_columns": {
+    "message":
+      "Přidat do záhlaví sloupce tlačítko pro sbalení a rozbalení sloupců"
+  },
+  "collapse_columns_pause": {
+    "message":
+      "Při sbalení sloupce je časová osa zmražena, zasvítí při změně obsahu sloupce, a zůstane tam, kde jste ji naposledy zanechali"
+  },
+  "uncollapse_columns_unpause": {
+    "message":
+      "Při rozbalení sloupce je časova osa rozmražena, a automaticky se posune na nejnovější tweet"
+  },
 
-  "edit_item": { "message": "Přidat úpravu tweetů k možnostem tweetu"},
-  "edit_item_note": { "message": "Toto nelze použít pro úpravu tweetů, aniž by se smazaly! Tweet se vrací do prostoru na psaní a původní se maže i se všemi lajky a retweety." },
-  "mute_hashtags": { "message": "Přidat zkratku pro skrytí #hashtagů k možnostem tweetu."},
-  "favstar_item": { "message": "Přidat \"Zobrazit ve Favstar\" k možnostem tweetu"},
-  "mute_source": { "message": "Přidat zkratku pro skrytí podle aplikace posílající tweet k možnostem tweetu"},
-  "hotlink_item": { "message": "Přidat zkratku pro zkopírování adres všech médií v tweetu"},
-  "download_item": { "message": "Přidat zkratku pro stažení všech médií v tweetu"},
-  "download_filename_format": { "message": "Formát názvu stažených souborů"},
-  "download_filename_format_parameters": { "message": "Můžete použít následující proměnné: <code>{{postedUser}} {{tweetId}} {{fileName}} {{fileExtension}}</code>"},
-  "ctrl_changes_interactions__enabled": { "message": "Podržení <kbd>Ctrl</kbd> (nebo <kbd>Cmd</kbd> na Mac) při kliknutí na: ikonu lajku / retweetu / stažení vám umožní sledovat účet z"},
-  "ctrl_changes_interactions__mode__owner": { "message": "účtu, jemuž patří sloupec"},
-  "ctrl_changes_interactions__mode__dialog": { "message": "okénka, z něhož se účet vybere"},
+  "edit_item": { "message": "Přidat úpravu tweetů k možnostem tweetu" },
+  "edit_item_note": {
+    "message":
+      "Toto nelze použít pro úpravu tweetů, aniž by se smazaly! Tweet se vrací do prostoru na psaní a původní se maže i se všemi lajky a retweety."
+  },
+  "mute_hashtags": {
+    "message": "Přidat zkratku pro skrytí #hashtagů k možnostem tweetu."
+  },
+  "mute_source": {
+    "message":
+      "Přidat zkratku pro skrytí podle aplikace posílající tweet k možnostem tweetu"
+  },
+  "hotlink_item": {
+    "message": "Přidat zkratku pro zkopírování adres všech médií v tweetu"
+  },
+  "download_item": {
+    "message": "Přidat zkratku pro stažení všech médií v tweetu"
+  },
+  "download_filename_format": { "message": "Formát názvu stažených souborů" },
+  "download_filename_format_parameters": {
+    "message":
+      "Můžete použít následující proměnné: <code>{{postedUser}} {{tweetId}} {{fileName}} {{fileExtension}}</code>"
+  },
+  "ctrl_changes_interactions__enabled": {
+    "message":
+      "Podržení <kbd>Ctrl</kbd> (nebo <kbd>Cmd</kbd> na Mac) při kliknutí na: ikonu lajku / retweetu / stažení vám umožní sledovat účet z"
+  },
+  "ctrl_changes_interactions__mode__owner": {
+    "message": "účtu, jemuž patří sloupec"
+  },
+  "ctrl_changes_interactions__mode__dialog": {
+    "message": "okénka, z něhož se účet vybere"
+  },
 
-  "btd_thx": { "message": "Děkujeme, že jste si nainstalovali Better TweetDeck!" },
+  "btd_thx": {
+    "message": "Děkujeme, že jste si nainstalovali Better TweetDeck!"
+  },
   "btd_get_started": { "message": "Pojďme na to!" },
-  "btd_whatsBTD": { "message": "Better TweetDeck byl vytvořen, aby vylepšil prohlížení <a href='https://tweetdeck.twitter.com'>tweetdeck.twitter.com</a>!" },
-  "btd_default": { "message": "Nastavení mají výchozí hodnoty, můžete si je upravit podle sebe!" },
+  "btd_whatsBTD": {
+    "message":
+      "Better TweetDeck byl vytvořen, aby vylepšil prohlížení <a href='https://tweetdeck.twitter.com'>tweetdeck.twitter.com</a>!"
+  },
+  "btd_default": {
+    "message":
+      "Nastavení mají výchozí hodnoty, můžete si je upravit podle sebe!"
+  },
   "btd_then": { "message": "A dál?" },
-  "btd_follow": { "message": "Začněte sledovat <a href='https://twitter.com/BetterTDeck'>@BetterTDeck</a> na Twitteru pro podporu, novinky a maličkosti o Better TweetDeck!" },
+  "btd_follow": {
+    "message":
+      "Začněte sledovat <a href='https://twitter.com/BetterTDeck'>@BetterTDeck</a> na Twitteru pro podporu, novinky a maličkosti o Better TweetDeck!"
+  },
 
   "sec_infos": { "message": "Informace" },
   "debug_version": { "message": "Verze" },
   "debug_ua": { "message": "User-Agent" },
   "sec_settings": { "message": "Dump nastavení" },
 
-  "credits_author":  { "message": "Autor" },
-  "credits_contribs":  { "message": "Přispěvatelé" },
-  "credits_rsrc":  { "message": "Použité zdroje" },
-  "credits_links":  { "message": "Odkazy" },
-  "credits_twitter":  { "message": "Better TweetDeck na Twitteru" },
-  "credits_bugs":  { "message": "Chyby a návrhy" },
-  "credits_source":  { "message": "Zdrojový kód na GitHubu" },
-  "credits_author_website":  { "message": "Stránky autora" },
+  "credits_author": { "message": "Autor" },
+  "credits_contribs": { "message": "Přispěvatelé" },
+  "credits_rsrc": { "message": "Použité zdroje" },
+  "credits_links": { "message": "Odkazy" },
+  "credits_twitter": { "message": "Better TweetDeck na Twitteru" },
+  "credits_bugs": { "message": "Chyby a návrhy" },
+  "credits_source": { "message": "Zdrojový kód na GitHubu" },
+  "credits_author_website": { "message": "Stránky autora" },
 
-  "save_no":  { "message": "Beze změn" },
-  "save_save":  { "message": "Uložit změny" },
+  "save_no": { "message": "Beze změn" },
+  "save_save": { "message": "Uložit změny" },
 
-  "donate_title":  { "message": "Pomožte mi udržovat Better TweetDeck!" },
-  "donate_p3":  { "message": "Děkuji mockrát, že používáte Better TweetDeck a pomáháte mu přežívat!" },
-  "donate_p2":  { "message": "Pokud si to můžete dovolit a cítíte se štědrými, bylo by <strong>úžasné</strong> pokud byste mohli <a href='https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK9SQ6ZDE9UF2&lc=US&item_name=Damien%20Erambert&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'>přispět na PayPalu</a>.<br><br>I ten nejmenší příspěvek pomáhá!" },
-  "donate_p1": { "message": "Better TweetDeck je a vždy bude <strong>bezplatný</strong>, ale jeho vývoj stojí čas a udržování ho při životě stojí peníze!"},
+  "donate_title": { "message": "Pomožte mi udržovat Better TweetDeck!" },
+  "donate_p3": {
+    "message":
+      "Děkuji mockrát, že používáte Better TweetDeck a pomáháte mu přežívat!"
+  },
+  "donate_p2": {
+    "message":
+      "Pokud si to můžete dovolit a cítíte se štědrými, bylo by <strong>úžasné</strong> pokud byste mohli <a href='https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK9SQ6ZDE9UF2&lc=US&item_name=Damien%20Erambert&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'>přispět na PayPalu</a>.<br><br>I ten nejmenší příspěvek pomáhá!"
+  },
+  "donate_p1": {
+    "message":
+      "Better TweetDeck je a vždy bude <strong>bezplatný</strong>, ale jeho vývoj stojí čas a udržování ho při životě stojí peníze!"
+  },
 
-  "notification_title":  { "message": "Better TweetDeck Aktualizace" },
-  "notification_upgrade":  { "message": "Better TweetDeck byl aktualizován na v{{version}}. Klikněte pro více informací." }
+  "notification_title": { "message": "Better TweetDeck Aktualizace" },
+  "notification_upgrade": {
+    "message":
+      "Better TweetDeck byl aktualizován na v{{version}}. Klikněte pro více informací."
+  }
 }
