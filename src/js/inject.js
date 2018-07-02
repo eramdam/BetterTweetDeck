@@ -18,7 +18,7 @@ try {
   //
 }
 
-window.$ = mR && mR.findFunction('jQuery') && mR.findFunction('jQuery')[1];
+window.$ = mR && mR.findFunction('jQuery') && mR.findFunction('jquery:')[0];
 
 if (SETTINGS.no_tco) {
   const dummyEl = document.createElement('span');
