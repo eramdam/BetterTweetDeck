@@ -26,11 +26,11 @@ export class ChirpHandler extends BTDComponent {
       ];
     }
 
-    if (chirpURLs.length === 0) {
-      return;
-    }
+    // if (chirpURLs.length === 0) {
+    //   return;
+    // }
 
-    console.log(chirpURLs, element);
+    // // console.log(chirpURLs, element);
   }
 
  handleInsertedNode = (element) => {

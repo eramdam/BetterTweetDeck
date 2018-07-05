@@ -22,9 +22,9 @@ window.addEventListener('message', (ev) => {
 
   console.log('in content', ev.data);
 
-  window.postMessage(Object.assign(ev.data, {
-    msg: 'Hello from content',
-    origin: 'BTD_CONTENT',
-  }), 'https://tweetdeck.twitter.com');
+  // window.postMessage(Object.assign(ev.data, {
+  //   msg: 'Hello from content',
+  //   origin: 'BTD_CONTENT',
+  // }), 'https://tweetdeck.twitter.com');
 });
 
