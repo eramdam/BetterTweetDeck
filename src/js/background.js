@@ -72,6 +72,7 @@ const defaultSettings = {
   thumbnails: {},
   custom_css_style: '',
   btd_logo: true,
+  conversation_entry_cut: false,
 };
 
 // We want to know if there are any other versions of BTD out there.

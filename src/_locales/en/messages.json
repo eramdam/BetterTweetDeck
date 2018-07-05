@@ -193,6 +193,7 @@
   "ctrl_changes_interactions__mode__owner": { "message": "column's owner" },
   "ctrl_changes_interactions__mode__dialog": { "message": "follow dialog" },
   "keep_hashtags": { "message": "Keep tweeted hashtags in the compose box." },
+  "conversation_entry_cut": { "message": "Reduce amount of loaded direct messages (10 instead of 100 per opening) to save performance" },
 
   "btd_thx": { "message": "Thanks for installing Better TweetDeck!" },
   "btd_get_started": { "message": "Let's get started!" },

@@ -39,6 +39,10 @@ if (SETTINGS.no_tco) {
   };
 }
 
+if (SETTINGS.conversation_entry_cut) {
+  TD.services.TwitterConversation.CONVERSATION_ENTRY_COUNT = 10;
+}
+
 const getMediaParts = (chirp, url) => {
   return {
     fileExtension: url
