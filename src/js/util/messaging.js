@@ -14,7 +14,7 @@ const baseMsgTransit = (sourceKey, destinationKey) => data =>
         return;
       }
 
-      resolve(ev);
+      resolve(ev.data);
       window.removeEventListener('message', currListener);
     });
 

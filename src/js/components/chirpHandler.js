@@ -1,5 +1,6 @@
 import { BTDComponent } from '../util/btdClass';
 import { BTDUtils } from './btdDebug';
+import { msgToContent } from '../util/messaging';
 
 
 export class ChirpHandler extends BTDComponent {
@@ -26,11 +27,7 @@ export class ChirpHandler extends BTDComponent {
       ];
     }
 
-    // if (chirpURLs.length === 0) {
-    //   return;
-    // }
-
-    // // console.log(chirpURLs, element);
+    return chirpURLs;
   }
 
  handleInsertedNode = (element) => {
@@ -40,7 +37,14 @@ export class ChirpHandler extends BTDComponent {
 
    if (element.closest('[data-key]')) {
      const chirp = this.utils.getChirpFromElement(element);
-     this.handleChirpInColumn(element, chirp, chirp._btd.columnKey);
+     const urls = this.handleChirpInColumn(element, chirp, chirp._btd.columnKey);
+
+     if (urls.length > 0) {
+       //  msgToContent({
+       //    msg: 'CHIRP_REQUEST',
+       //  }).then((data) => {
+       //  });
+     }
    }
 
    if (element.classList.contains('js-mediatable')) {

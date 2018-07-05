@@ -68,43 +68,48 @@ export class BTDUtils extends BTDComponent {
   /**
  * Takes a node and fetches the chirp associated with it (useful for debugging)
  */
-getChirpFromElement = (element) => {
-  const chirpElm = element.closest('[data-key]');
-  if (!chirpElm) {
-    throw new Error('Not a chirp');
-  }
-
-  const chirpKey = chirpElm.getAttribute('data-key');
-
-  let col = chirpElm.closest('[data-column]');
-  if (!col) {
-    col = document.querySelector(`[data-column] [data-key="${chirpKey}"]`);
-    if (!col || !col.parentNode) {
-      throw new Error('Chirp has no column');
-    } else {
-      col = col.parentNode;
+  getChirpFromElement = (element) => {
+    const chirpElm = element.closest('[data-key]');
+    if (!chirpElm) {
+      throw new Error('Not a chirp');
     }
+
+    const chirpKey = chirpElm.getAttribute('data-key');
+
+    let col = chirpElm.closest('[data-column]');
+    if (!col) {
+      col = document.querySelector(`[data-column] [data-key="${chirpKey}"]`);
+      if (!col || !col.parentNode) {
+        throw new Error('Chirp has no column');
+      } else {
+        col = col.parentNode;
+      }
+    }
+
+    const colKey = col.getAttribute('data-column');
+    const chirp = this.getChirpFromKey(chirpKey, colKey);
+
+    if (!chirp) {
+      return null;
+    }
+
+    chirp._btd = {
+      chirpKey,
+      columnKey: colKey,
+    };
+    return chirp;
+  };
+
+  findMustache = content => Object.keys(this.TD.mustaches)
+    .filter(i => this.TD.mustaches[i].toLowerCase().includes(content.toLowerCase()))
+
+  attach() {
+    window.BTD = {
+      debug: {
+        getChirpFromElement: this.getChirpFromElement,
+        getChirpFromKey: this.getChirpFromKey,
+        findMustache: this.findMustache,
+      },
+    };
   }
-
-  const colKey = col.getAttribute('data-column');
-  const chirp = this.getChirpFromKey(chirpKey, colKey);
-  chirp._btd = {
-    chirpKey,
-    columnKey: colKey,
-  };
-  return chirp;
-};
-
-findMustache = content => Object.keys(this.TD.mustaches)
-  .filter(i => this.TD.mustaches[i].toLowerCase().includes(content.toLowerCase()))
-
-attach() {
-  window.BTD = {
-    debug: {
-      getChirpFromElement: this.getChirpFromElement,
-      getChirpFromKey: this.getChirpFromKey,
-      findMustache: this.findMustache,
-    },
-  };
-}
 }

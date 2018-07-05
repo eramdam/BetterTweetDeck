@@ -20,11 +20,16 @@ window.addEventListener('message', (ev) => {
     return;
   }
 
-  console.log('in content', ev.data);
+  switch (ev.data.msg) {
+    case 'CHIRP_REQUEST':
+      window.postMessage(Object.assign(ev.data, {
+        msg: 'Hello from content',
+        origin: 'BTD_CONTENT',
+      }), 'https://tweetdeck.twitter.com');
+      break;
 
-  // window.postMessage(Object.assign(ev.data, {
-  //   msg: 'Hello from content',
-  //   origin: 'BTD_CONTENT',
-  // }), 'https://tweetdeck.twitter.com');
+    default:
+      break;
+  }
 });
 

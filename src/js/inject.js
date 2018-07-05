@@ -3,7 +3,6 @@ import moduleRaid from 'moduleraid';
 import { Timestamp } from './components/time';
 import { BTDUtils } from './components/btdDebug';
 import { RemoveRedirection } from './components/removeRedirection';
-import { msgToContent } from './util/messaging';
 import { ChirpHandler as ChirpHandlerClass } from './components/chirpHandler';
 import { monitorMediaSizes } from './util/columnsMediaSizeMonitor';
 
@@ -47,10 +46,5 @@ const ChirpHandler = new ChirpHandlerClass(BTD_SETTINGS, TD, Utils);
 
   $(document).one('dataColumnsLoaded', async () => {
     console.log('ready!');
-    const fromContentResponse = await msgToContent({
-      msg: 'Hellllllllloooooooooo from inject.js',
-    });
-
-    console.log(fromContentResponse);
   });
 })();
