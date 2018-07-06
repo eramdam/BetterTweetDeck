@@ -1,10 +1,9 @@
 import { BTDComponent } from '../util/btdClass';
 import { BTDUtils } from './btdDebug';
-import { msgToContent } from '../util/messaging';
 
 
 export class ChirpHandler extends BTDComponent {
-  handleChirpInColumn = (element, chirp, colKey) => {
+  getURLsForChirpInColumn = (element, chirp, colKey) => {
     let chirpURLs = [];
 
     if (chirp.entities) {
@@ -37,21 +36,29 @@ export class ChirpHandler extends BTDComponent {
 
    if (element.closest('[data-key]')) {
      const chirp = this.utils.getChirpFromElement(element);
-     const urls = this.handleChirpInColumn(element, chirp, chirp._btd.columnKey);
+     const urls = this.getURLsForChirpInColumn(element, chirp, chirp._btd.columnKey);
 
-     if (urls.length > 0) {
-       //  msgToContent({
-       //    msg: 'CHIRP_REQUEST',
-       //  }).then((data) => {
-       //  });
-     }
+     this.onChirpCallback({
+       chirp,
+       urls,
+       columnKey: chirp._btd.columnKey,
+     });
    }
 
    if (element.classList.contains('js-mediatable')) {
      const chirp = this.utils.getChirpFromElement(element.querySelector('[data-key]'));
-     console.log('in modal', chirp);
+     const urls = this.getURLsForChirpInColumn(element, chirp, chirp._btd.columnKey);
+     this.onChirpCallback({
+       chirp,
+       urls,
+       columnKey: undefined,
+     });
    }
  };
+
+ onChirp = (callback) => {
+   this.onChirpCallback = callback;
+ }
 
  constructor(settings, TDObject, utils) {
    super(settings, TDObject);
@@ -61,9 +68,8 @@ export class ChirpHandler extends BTDComponent {
    }
 
    this.utils = utils;
- }
+   this.onChirpCallback = () => {};
 
- monitorChirps = () => {
    new MutationObserver(mutations =>
      mutations.forEach((mutation) => {
        [...mutation.addedNodes].forEach(this.handleInsertedNode);

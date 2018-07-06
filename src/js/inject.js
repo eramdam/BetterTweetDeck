@@ -4,7 +4,8 @@ import { Timestamp } from './components/time';
 import { BTDUtils } from './components/btdDebug';
 import { RemoveRedirection } from './components/removeRedirection';
 import { ChirpHandler as ChirpHandlerClass } from './components/chirpHandler';
-import { monitorMediaSizes } from './util/columnsMediaSizeMonitor';
+import { monitorMediaSizes, columnMediaSizes } from './util/columnsMediaSizeMonitor';
+import { msgToContent } from './util/messaging';
 
 const BTD_SETTINGS = JSON.parse(document.querySelector('[data-btd-settings]').dataset.btdSettings);
 
@@ -18,22 +19,29 @@ try {
 window.$ = mR && mR.findFunction('jQuery') && mR.findFunction('jquery:')[0];
 
 const Utils = new BTDUtils(BTD_SETTINGS, TD);
-const ChirpHandler = new ChirpHandlerClass(BTD_SETTINGS, TD, Utils);
 
 (async () => {
   /* Starts monitoring new chirps */
-  ChirpHandler.monitorChirps();
+  const ChirpHandler = new ChirpHandlerClass(BTD_SETTINGS, TD, Utils);
+  /* Monitor and get called on every chirp in the page */
+  ChirpHandler.onChirp(async (chirpProps) => {
+    if (chirpProps.urls) {
+      const URLResult = await msgToContent({
+        msg: 'CHIRP_REQUEST',
+      });
+      console.log(URLResult);
+    }
+  });
 
   /* init the ColumnsMediaSizeKeeper component */
   monitorMediaSizes();
-
-  /* Init the Timestamp component */
-  const BTDTime = new Timestamp(BTD_SETTINGS, TD);
 
   /*
   * If the user chose so, we override the timestamp function called by TweetDeck
   */
   if (BTD_SETTINGS.ts !== 'relative') {
+    /* Init the Timestamp component */
+    const BTDTime = new Timestamp(BTD_SETTINGS, TD);
     TD.util.prettyDate = d => BTDTime.prettyDate(d);
   }
 
