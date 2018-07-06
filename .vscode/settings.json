@@ -1,0 +1,32 @@
+{
+  "editor.formatOnSave": true,
+  "prettier.eslintIntegration": true,
+  "movets.skipWarning": true,
+  "typescriptHero.imports.organizeOnSave": true,
+  "typescriptHero.imports.multiLineTrailingComma": false,
+  "typescriptHero.imports.insertSpaceBeforeAndAfterImportBraces": false,
+  "typescriptHero.imports.multiLineWrapThreshold": 100,
+  "xmlTools.splitXmlnsOnFormat": false,
+  "files.eol": "\n",
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact", "html"],
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    ".cache-loader": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "typescript": "typescriptreact",
+    "markdown": "javascriptreact"
+  },
+  "emmet.excludeLanguages": [],
+  "beautify.ignore": ["*"]
+}

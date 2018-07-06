@@ -4,6 +4,7 @@ const GenerateJsonPlugin = require('generate-json-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const Stylish = require('webpack-stylish');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 module.exports = (env) => {
   const getManifest = () => require(`./tools/manifests/${env.browser}.js`);
@@ -21,18 +22,31 @@ module.exports = (env) => {
       new Stylish(),
       new CleanWebpackPlugin(['dist']),
       new LodashModuleReplacementPlugin(),
-      new GenerateJsonPlugin('manifest.json', getManifest(), null, 2)],
+      new GenerateJsonPlugin('manifest.json', getManifest(), null, 2),
+      new ForkTsCheckerWebpackPlugin(),
+    ],
+    resolve: {
+      extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    },
     module: {
-      rules: [{
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: [{
-          loader: 'babel-loader',
-          options: {
-            plugins: ['lodash', 'transform-class-properties'],
-          },
-        }],
-      }],
+      rules: [
+        {
+          test: /\.tsx?$/,
+          loader: 'ts-loader',
+        },
+        // {
+        //   test: /\.(js|jsx)$/,
+        //   exclude: /node_modules/,
+        //   use: [
+        //     {
+        //       loader: 'babel-loader',
+        //       options: {
+        //         plugins: ['lodash', 'transform-class-properties'],
+        //       },
+        //     },
+        //   ],
+        // },
+      ],
     },
   };
 };
