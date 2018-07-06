@@ -1,4 +1,10 @@
 import {getExtensionUrl, settings as extensionSettings} from './util/browserHelpers';
+import {
+  BTDMessageOriginsEnum,
+  BTDMessageTypesEnums,
+  msgToInject,
+  onBTDMessage
+} from './util/messaging';
 
 (async () => {
   /**
@@ -15,20 +21,15 @@ import {getExtensionUrl, settings as extensionSettings} from './util/browserHelp
   document.head.appendChild(injected);
 })();
 
-window.addEventListener('message', (ev) => {
-  if (ev.origin !== 'https://tweetdeck.twitter.com' || ev.data.origin !== 'BTD_INJECT') {
-    return;
-  }
-
-  switch (ev.data.msg) {
-    case 'CHIRP_REQUEST':
-      window.postMessage(
-        Object.assign(ev.data, {
-          msg: 'Hello from content',
-          origin: 'BTD_CONTENT',
-        }),
-        'https://tweetdeck.twitter.com',
-      );
+onBTDMessage(BTDMessageOriginsEnum.INJECT, (ev) => {
+  // console.log('onBTDMessage', ev.data);
+  switch (ev.data.type) {
+    case BTDMessageTypesEnums.CHIRP_URLS:
+      msgToInject({
+        hash: ev.data.hash,
+        type: BTDMessageTypesEnums.DEBUG,
+        payload: ev.data.payload
+      });
       break;
 
     default:

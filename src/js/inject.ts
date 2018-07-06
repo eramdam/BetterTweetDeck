@@ -5,9 +5,11 @@ import {BTDUtils} from './components/btdDebug';
 import {ChirpHandler as ChirpHandlerClass} from './components/chirpHandler';
 import {RemoveRedirection} from './components/removeRedirection';
 import {Timestamp} from './components/time';
+import {BTDSettings} from './types';
 import {monitorMediaSizes} from './util/columnsMediaSizeMonitor';
+import {BTDMessageTypesEnums, msgToContent} from './util/messaging';
 
-const BTD_SETTINGS = JSON.parse(document.querySelector('[data-btd-settings]')!.getAttribute('data-btd-settings') || '');
+const BTD_SETTINGS: BTDSettings = JSON.parse(document.querySelector('[data-btd-settings]')!.getAttribute('data-btd-settings') || '');
 const {TD} = window;
 
 let mR;
@@ -26,11 +28,12 @@ const Utils = new BTDUtils(BTD_SETTINGS, TD);
   const ChirpHandler = new ChirpHandlerClass(BTD_SETTINGS, TD, Utils);
   /* Monitor and get called on every chirp in the page */
   ChirpHandler.onChirp(async (chirpProps) => {
-    if (chirpProps.urls) {
-      // const URLResult = await msgToContent({
-      //   msg: 'CHIRP_REQUEST',
-      // });
-      // console.log(URLResult);
+    if (chirpProps.urls.length > 0) {
+      const URLResult = await msgToContent({
+        type: BTDMessageTypesEnums.CHIRP_URLS,
+        payload: chirpProps.urls
+      });
+      // console.log('from content', URLResult, chirpProps.urls);
     }
   });
 
@@ -57,6 +60,10 @@ const Utils = new BTDUtils(BTD_SETTINGS, TD);
     console.log('ready!');
   });
 })();
+
+// onBTDMessage(BTDMessageOriginsEnum.CONTENT, (ev) => {
+//   console.log('to inject', ev.data.type);
+// });
 
 declare global {
   interface Window {

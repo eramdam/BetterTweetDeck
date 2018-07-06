@@ -13,6 +13,7 @@ module.exports = {
     'object-curly-spacing': [2, 'never'],
     'object-curly-newline': 0,
     'import/extensions': 0,
+    'comma-dangle': 0,
     'import/prefer-default-export': 0,
     'max-len': [2, {code: 200}],
   },
