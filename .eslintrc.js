@@ -14,6 +14,7 @@ module.exports = {
     'object-curly-newline': 0,
     'import/extensions': 0,
     'import/prefer-default-export': 0,
+    'max-len': [2, {code: 200}],
   },
   overrides: [
     {
