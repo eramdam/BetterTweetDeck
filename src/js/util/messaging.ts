@@ -1,4 +1,4 @@
-const baseMsgTransit = (sourceKey, destinationKey) => data =>
+const baseMsgTransit = (sourceKey: string, destinationKey: string) => (data: object) =>
   new Promise((resolve) => {
     // We compute a "hash" with performance.now(), should be simple enough for now
     const hash = performance.now();
@@ -18,12 +18,14 @@ const baseMsgTransit = (sourceKey, destinationKey) => data =>
       window.removeEventListener('message', currListener);
     });
 
-    window.postMessage(Object.assign(data, {
-      origin: sourceKey,
-      hash,
-    }), 'https://tweetdeck.twitter.com');
+    window.postMessage(
+      Object.assign(data, {
+        origin: sourceKey,
+        hash,
+      }),
+      'https://tweetdeck.twitter.com',
+    );
   });
-
 
 export const msgToContent = baseMsgTransit('BTD_INJECT', 'BTD_CONTENT');
 export const msgToInject = baseMsgTransit('BTD_CONTENT', 'BTD_INJECT');

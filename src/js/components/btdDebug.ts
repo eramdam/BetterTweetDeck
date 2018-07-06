@@ -1,14 +1,14 @@
-import { BTDComponent } from '../util/btdClass';
+import {BTDComponent} from '../util/btdClass';
 
 export class BTDUtils extends BTDComponent {
-  getChirpFromKey = (key, colKey) => {
+  getChirpFromKey = (key: string, colKey: string) => {
     const column = this.TD.controller.columnManager.get(colKey);
 
     if (!column) {
       return null;
     }
 
-    const chirpsArray = [];
+    const chirpsArray: any[] = [];
     Object.keys(column.updateIndex).forEach((updateKey) => {
       const c = column.updateIndex[updateKey];
       if (c) {
@@ -41,17 +41,11 @@ export class BTDUtils extends BTDComponent {
         chirpsArray.push(column.detailViewComponent.mainChirp);
       }
 
-      if (
-        column.detailViewComponent.repliesTo &&
-      column.detailViewComponent.repliesTo.repliesTo
-      ) {
+      if (column.detailViewComponent.repliesTo && column.detailViewComponent.repliesTo.repliesTo) {
         chirpsArray.push(...column.detailViewComponent.repliesTo.repliesTo);
       }
 
-      if (
-        column.detailViewComponent.replies &&
-      column.detailViewComponent.replies.replies
-      ) {
+      if (column.detailViewComponent.replies && column.detailViewComponent.replies.replies) {
         chirpsArray.push(...column.detailViewComponent.replies.replies);
       }
     }
@@ -66,27 +60,31 @@ export class BTDUtils extends BTDComponent {
     return chirp;
   };
   /**
- * Takes a node and fetches the chirp associated with it (useful for debugging)
- */
-  getChirpFromElement = (element) => {
+   * Takes a node and fetches the chirp associated with it (useful for debugging)
+   */
+  getChirpFromElement = (element: HTMLElement | Element) => {
     const chirpElm = element.closest('[data-key]');
     if (!chirpElm) {
       throw new Error('Not a chirp');
     }
 
-    const chirpKey = chirpElm.getAttribute('data-key');
+    const chirpKey = chirpElm.getAttribute('data-key') as string;
 
-    let col = chirpElm.closest('[data-column]');
+    let col: Element | undefined | null = chirpElm.closest('[data-column]');
     if (!col) {
       col = document.querySelector(`[data-column] [data-key="${chirpKey}"]`);
       if (!col || !col.parentNode) {
         throw new Error('Chirp has no column');
       } else {
-        col = col.parentNode;
+        col = col.parentElement;
       }
     }
 
-    const colKey = col.getAttribute('data-column');
+    if (!col) {
+      return null;
+    }
+
+    const colKey = col.getAttribute('data-column') as string;
     const chirp = this.getChirpFromKey(chirpKey, colKey);
 
     if (!chirp) {
@@ -100,8 +98,9 @@ export class BTDUtils extends BTDComponent {
     return chirp;
   };
 
-  findMustache = content => Object.keys(this.TD.mustaches)
-    .filter(i => this.TD.mustaches[i].toLowerCase().includes(content.toLowerCase()))
+  findMustache = (content: string) =>
+    Object.keys(this.TD.mustaches).filter(i =>
+      this.TD.mustaches[i].toLowerCase().includes(content.toLowerCase()));
 
   attach() {
     window.BTD = {
@@ -110,6 +109,18 @@ export class BTDUtils extends BTDComponent {
         getChirpFromKey: this.getChirpFromKey,
         findMustache: this.findMustache,
       },
+    };
+  }
+}
+
+declare global {
+  interface Window {
+    BTD: {
+      debug: {
+        getChirpFromElement: BTDUtils['getChirpFromElement'];
+        getChirpFromKey: BTDUtils['getChirpFromKey'];
+        findMustache: BTDUtils['findMustache'];
+      };
     };
   }
 }

@@ -1,1 +1,6 @@
 tools/embeds.js
+assets/
+dist/
+package.json
+readme.md
+public/*.html

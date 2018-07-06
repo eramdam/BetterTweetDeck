@@ -1,4 +1,4 @@
-import { getExtensionUrl, settings as extensionSettings } from './util/browserHelpers';
+import {getExtensionUrl, settings as extensionSettings} from './util/browserHelpers';
 
 (async () => {
   /**
@@ -22,14 +22,16 @@ window.addEventListener('message', (ev) => {
 
   switch (ev.data.msg) {
     case 'CHIRP_REQUEST':
-      window.postMessage(Object.assign(ev.data, {
-        msg: 'Hello from content',
-        origin: 'BTD_CONTENT',
-      }), 'https://tweetdeck.twitter.com');
+      window.postMessage(
+        Object.assign(ev.data, {
+          msg: 'Hello from content',
+          origin: 'BTD_CONTENT',
+        }),
+        'https://tweetdeck.twitter.com',
+      );
       break;
 
     default:
       break;
   }
 });
-
