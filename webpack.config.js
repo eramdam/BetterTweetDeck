@@ -13,9 +13,9 @@ module.exports = (env) => {
     mode: 'development',
     devtool: 'cheap-source-map',
     entry: {
-      'js/content': './src/js/content.js',
-      'js/inject': './src/js/inject.js',
-      'js/background': './src/js/background.js',
+      'js/content': './src/js/content.ts',
+      'js/inject': './src/js/inject.ts',
+      'js/background': './src/js/background.ts',
     },
     stats: 'none',
     plugins: [
@@ -33,6 +33,9 @@ module.exports = (env) => {
         {
           test: /\.tsx?$/,
           loader: 'ts-loader',
+          options: {
+            transpileOnly: true,
+          },
         },
         // {
         //   test: /\.(js|jsx)$/,

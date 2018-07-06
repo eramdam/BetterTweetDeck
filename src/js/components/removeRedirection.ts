@@ -1,11 +1,11 @@
-import { BTDComponent } from '../util/btdClass';
+import {BTDComponent} from '../util/btdClass';
 
 export class RemoveRedirection extends BTDComponent {
   init() {
     const dummyEl = document.createElement('span');
     const OGCreateUrlAnchor = this.TD.util.createUrlAnchor;
 
-    this.TD.util.createUrlAnchor = (e) => {
+    this.TD.util.createUrlAnchor = (e: any) => {
       // We run the url through the original function first
       let result = OGCreateUrlAnchor(e);
 
@@ -15,7 +15,7 @@ export class RemoveRedirection extends BTDComponent {
       const anchor = dummyEl.querySelector('a');
 
       if (anchor) {
-        anchor.href = anchor.dataset.fullUrl;
+        anchor.href = anchor.dataset.fullUrl as string;
         result = anchor.outerHTML;
       }
 

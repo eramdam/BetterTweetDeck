@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
   "dependencies": {
+    "@types/date-fns": "^2.6.0",
     "@types/jquery": "^3.3.4",
     "@types/lodash": "^4.14.110",
     "babel-core": "^6.26.3",
