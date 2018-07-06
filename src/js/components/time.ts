@@ -1,6 +1,6 @@
 import {format} from 'date-fns';
 
-import {BTDComponent} from '../util/btdClass';
+import {BTDComponent} from './btdBaseClass';
 
 const formatMaps: {
 [key: string]: {

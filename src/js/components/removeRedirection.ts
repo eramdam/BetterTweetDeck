@@ -1,4 +1,4 @@
-import {BTDComponent} from '../util/btdClass';
+import {BTDComponent} from './btdBaseClass';
 
 export class RemoveRedirection extends BTDComponent {
   init() {

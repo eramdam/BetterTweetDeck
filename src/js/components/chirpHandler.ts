@@ -1,4 +1,4 @@
-import {BTDComponent} from '../util/btdClass';
+import {BTDComponent} from './btdBaseClass';
 import {BTDUtils} from './btdDebug';
 
 interface ChirpCallbackProps {
