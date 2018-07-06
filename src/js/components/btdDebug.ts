@@ -1,6 +1,7 @@
 import {BTDComponent} from './btdBaseClass';
 
 export class BTDUtils extends BTDComponent {
+  /** Returns the TweetDeck chirp object given a key and a column key */
   getChirpFromKey = (key: string, colKey: string) => {
     const column = this.TD.controller.columnManager.get(colKey);
 
@@ -98,10 +99,10 @@ export class BTDUtils extends BTDComponent {
     return chirp;
   };
 
-  findMustache = (content: string) =>
-    Object.keys(this.TD.mustaches).filter(i =>
-      this.TD.mustaches[i].toLowerCase().includes(content.toLowerCase()));
+  /** find a Mustache template given a query */
+  findMustache = (content: string) => Object.keys(this.TD.mustaches).filter(i => this.TD.mustaches[i].toLowerCase().includes(content.toLowerCase()));
 
+  /** Attach the debug tools to the `BTD` variables on the window */
   attach() {
     window.BTD = {
       debug: {

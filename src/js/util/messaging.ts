@@ -6,11 +6,7 @@ const baseMsgTransit = (sourceKey: string, destinationKey: string) => (data: obj
     // We register a listener
     window.addEventListener('message', function currListener(ev) {
       // If the message doesn't come from TD, doesn't come from the content script,
-      if (
-        ev.origin !== 'https://tweetdeck.twitter.com' ||
-        ev.data.origin !== destinationKey ||
-        ev.data.hash !== hash
-      ) {
+      if (ev.origin !== 'https://tweetdeck.twitter.com' || ev.data.origin !== destinationKey || ev.data.hash !== hash) {
         return;
       }
 
@@ -27,5 +23,7 @@ const baseMsgTransit = (sourceKey: string, destinationKey: string) => (data: obj
     );
   });
 
+/** Sends a postMessage event to the content script and returns its response in the promise */
 export const msgToContent = baseMsgTransit('BTD_INJECT', 'BTD_CONTENT');
+/** Sends a postMessage event to the injected script and returns its response in the promise */
 export const msgToInject = baseMsgTransit('BTD_CONTENT', 'BTD_INJECT');

@@ -4,6 +4,7 @@ function isTargetHTMLElement(blob: any): blob is HTMLElement {
   return Boolean(blob.closest);
 }
 
+/** Will listen for columns changes in TweetDeck and update a map (`columnMediaSizes`) as needed */
 export const monitorMediaSizes = () => {
   $(document).on('uiColumnUpdateMediaPreview', (ev, data) => {
     if (!isTargetHTMLElement(ev.target)) {
