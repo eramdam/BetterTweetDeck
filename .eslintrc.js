@@ -1,13 +1,15 @@
 module.exports = {
-  extends: 'airbnb',
+  parser: 'typescript-eslint-parser',
+  plugins: ['typescript'],
+  extends: ['airbnb'],
   env: {
     browser: true,
     node: true,
   },
-  parser: 'babel-eslint',
   rules: {
     'import/prefer-default-export': 0,
     'no-underscore-dangle': 0,
+    'nonblock-statement-body-position': [2, 'below'],
     'object-curly-spacing': [2, 'never'],
     'object-curly-newline': 0,
     'import/extensions': 0,
