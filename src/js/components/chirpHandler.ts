@@ -4,10 +4,11 @@ import {BTDUtils} from './btdDebug';
 interface ChirpCallbackProps {
   (
     opts: {
+    originalNode: HTMLElement;
     chirp: any;
-    urls: string[];
+    urls: object[];
     columnKey?: string;
-    },
+    }
   ): void;
 }
 
@@ -34,6 +35,11 @@ export class ChirpHandler extends BTDComponent {
   getURLsForChirp = (chirp: any) => {
     let chirpURLs = [];
 
+    if (!chirp) {
+      console.log(chirp);
+      return [];
+    }
+
     if (chirp.entities) {
       chirpURLs = [...chirp.entities.urls, ...chirp.entities.media];
     } else if (chirp.targetTweet && chirp.targetTweet.entities) {
@@ -58,9 +64,10 @@ export class ChirpHandler extends BTDComponent {
       const urls = this.getURLsForChirp(chirp);
 
       this.onChirpCB({
+        originalNode: element,
         chirp,
         urls,
-        columnKey: chirp._btd.columnKey,
+        columnKey: chirp._btd.columnKey
       });
     }
 
@@ -68,9 +75,10 @@ export class ChirpHandler extends BTDComponent {
       const chirp = this.utils.getChirpFromElement(element.querySelector('[data-key]') as HTMLElement);
       const urls = this.getURLsForChirp(chirp);
       this.onChirpCB({
+        originalNode: element,
         chirp,
         urls,
-        columnKey: undefined,
+        columnKey: undefined
       });
     }
   };
