@@ -14,19 +14,13 @@ module.exports = (env) => {
     devtool: 'cheap-source-map',
     entry: {
       'js/content': './src/js/content.ts',
-      'js/inject': './src/js/inject.ts',
-      'js/background': './src/js/background.ts',
+      'js/inject': './src/js/inject.tsx',
+      'js/background': './src/js/background.ts'
     },
     stats: 'none',
-    plugins: [
-      new Stylish(),
-      new CleanWebpackPlugin(['dist']),
-      new LodashModuleReplacementPlugin(),
-      new GenerateJsonPlugin('manifest.json', getManifest(), null, 2),
-      new ForkTsCheckerWebpackPlugin(),
-    ],
+    plugins: [new Stylish(), new CleanWebpackPlugin(['dist']), new LodashModuleReplacementPlugin(), new GenerateJsonPlugin('manifest.json', getManifest(), null, 2), new ForkTsCheckerWebpackPlugin()],
     resolve: {
-      extensions: ['.ts', '.tsx', '.js', '.jsx'],
+      extensions: ['.ts', '.tsx', '.js', '.jsx']
     },
     module: {
       rules: [
@@ -34,9 +28,9 @@ module.exports = (env) => {
           test: /\.tsx?$/,
           loader: 'ts-loader',
           options: {
-            transpileOnly: true,
-          },
-        },
+            transpileOnly: true
+          }
+        }
         // {
         //   test: /\.(js|jsx)$/,
         //   exclude: /node_modules/,
@@ -49,7 +43,7 @@ module.exports = (env) => {
         //     },
         //   ],
         // },
-      ],
-    },
+      ]
+    }
   };
 };

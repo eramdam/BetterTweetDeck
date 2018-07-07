@@ -22,6 +22,7 @@ try {
 window.$ = mR && mR.findFunction('jQuery') && mR.findFunction('jquery:')[0];
 
 const Utils = new BTDUtils(BTD_SETTINGS, TD);
+Utils.attach();
 
 (async () => {
   /* Starts monitoring new chirps */
@@ -29,11 +30,10 @@ const Utils = new BTDUtils(BTD_SETTINGS, TD);
   /* Monitor and get called on every chirp in the page */
   ChirpHandler.onChirp(async (chirpProps) => {
     if (chirpProps.urls.length > 0) {
-      const URLResult = await msgToContent({
+      msgToContent({
         type: BTDMessageTypesEnums.CHIRP_URLS,
         payload: chirpProps.urls
-      });
-      // console.log('from content', URLResult, chirpProps.urls);
+      }).then((urlData) => {});
     }
   });
 
