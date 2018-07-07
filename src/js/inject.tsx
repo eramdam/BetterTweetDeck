@@ -1,13 +1,16 @@
 /* global TD */
 import moduleRaid from 'moduleraid';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 import {BTDUtils} from './components/btdDebug';
 import {ChirpHandler as ChirpHandlerClass} from './components/chirpHandler';
 import {RemoveRedirection} from './components/removeRedirection';
 import {Timestamp} from './components/time';
+import {BTDUrlProviderResultTypeEnum} from './thumbnails/types';
 import {BTDSettings} from './types';
 import {monitorMediaSizes} from './util/columnsMediaSizeMonitor';
-import {BTDMessageTypesEnums, msgToContent} from './util/messaging';
+import {BTDMessageTypesEnums, msgToContent, ThumbnailDataMessage} from './util/messaging';
 
 const BTD_SETTINGS: BTDSettings = JSON.parse(document.querySelector('[data-btd-settings]')!.getAttribute('data-btd-settings') || '');
 const {TD} = window;
@@ -30,10 +33,53 @@ Utils.attach();
   /* Monitor and get called on every chirp in the page */
   ChirpHandler.onChirp(async (chirpProps) => {
     if (chirpProps.urls.length > 0) {
-      msgToContent({
+      msgToContent<ThumbnailDataMessage>({
         type: BTDMessageTypesEnums.CHIRP_URLS,
         payload: chirpProps.urls
-      }).then((urlData) => {});
+      }).then((urlData) => {
+        switch (urlData.payload.type) {
+          case BTDUrlProviderResultTypeEnum.IMAGE:
+            if (!chirpProps.originalNode.querySelector('.js-tweet.tweet')) {
+              return;
+            }
+            chirpProps.originalNode.querySelector('.js-tweet.tweet')!.insertAdjacentHTML('afterend', '<div class="js-media position-rel item-box-full-bleed margin-tm" data-btd-custom></div>');
+            console.log(urlData.payload);
+            ReactDOM.render(
+              <div className=" js-media-preview-container media-preview-container position-rel width-p--100     margin-t--20   is-paused ">
+                <div className="media-caret" />
+                <a
+                  className="js-media-image-link block med-link media-item media-size-large   is-zoomable"
+                  href={urlData.payload.url}
+                  target="_blank"
+                  style={{
+                    backgroundImage: `url("${urlData.payload.thumbnailUrl}")`,
+                    color: 'red'
+                  }}
+                  onMouseDown={(ev) => {
+                    ev.preventDefault();
+                    ev.stopPropagation();
+                    console.log('yolo');
+                  }}
+                >
+                  {' '}
+                </a>
+                <a
+                  href="https://images.google.com/searchbyimage?image_url=https://pbs.twimg.com/media/DhfaJJ6U8AARvzh.jpg?format=jpg&amp;name=medium"
+                  target="_blank"
+                  rel="url noopener noreferrer"
+                  className="js-show-tip reverse-image-search is-actionable "
+                  title="Search image on Google"
+                />
+              </div>,
+              chirpProps.originalNode.querySelector('[data-btd-custom]'),
+              console.log
+            );
+            break;
+
+          default:
+            break;
+        }
+      });
     }
   });
 

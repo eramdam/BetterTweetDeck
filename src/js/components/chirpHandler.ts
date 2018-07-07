@@ -1,3 +1,5 @@
+import ReactDOM from 'react-dom';
+
 import {BTDComponent} from './btdBaseClass';
 import {BTDUtils} from './btdDebug';
 
@@ -10,6 +12,10 @@ interface ChirpCallbackProps {
     columnKey?: string;
     }
   ): void;
+}
+
+function isHtmlElement(blob: any): blob is HTMLElement {
+  return blob instanceof HTMLElement === true;
 }
 
 export class ChirpHandler extends BTDComponent {
@@ -27,8 +33,19 @@ export class ChirpHandler extends BTDComponent {
     this.onChirpCB = () => {};
 
     new MutationObserver(mutations =>
-      mutations.forEach((mutation: any) => {
-        [...mutation.addedNodes].forEach(this.handleInsertedNode);
+      mutations.forEach((mutation: MutationRecord) => {
+        Array.from(mutation.addedNodes).forEach(this.handleInsertedNode);
+        Array.from(mutation.removedNodes).forEach((removedNode) => {
+          if (!isHtmlElement(removedNode)) {
+            return;
+          }
+
+          const BTDElements = removedNode.querySelectorAll('[data-btd-custom]');
+          Array.from(BTDElements).forEach((e) => {
+            console.log('removing custom BTD React element!');
+            ReactDOM.unmountComponentAtNode(e);
+          });
+        });
       })).observe(document, {subtree: true, childList: true});
   }
 
@@ -54,8 +71,12 @@ export class ChirpHandler extends BTDComponent {
     return chirpURLs;
   };
 
-  private readonly handleInsertedNode = (element: HTMLElement) => {
-    if (element instanceof HTMLElement === false) {
+  private readonly handleInsertedNode = (element: Node | HTMLElement) => {
+    if (!isHtmlElement(element)) {
+      return;
+    }
+
+    if (element.matches('[data-btd-custom]') || element.closest('[data-btd-custom]')) {
       return;
     }
 
