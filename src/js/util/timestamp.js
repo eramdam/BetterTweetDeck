@@ -6,6 +6,7 @@ import { send as sendMessage } from './messaging';
 let timestampMode;
 let customMode;
 let fullAfter24;
+let parseDateFromSnowFlake;
 
 sendMessage({ action: 'get', key: 'ts' }, (response) => {
   timestampMode = response.val;
@@ -17,6 +18,10 @@ sendMessage({ action: 'get', key: 'full_aft_24' }, (response) => {
 
 sendMessage({ action: 'get', key: 'custom_ts' }, (response) => {
   customMode = response.val;
+});
+
+sendMessage({ action: 'get', key: 'date_from_sf' }, (response) => {
+  parseDateFromSnowFlake = response.val;
 });
 
 const formatMaps = {
@@ -65,7 +70,7 @@ function timestampOnElement(element, dateString) {
     return;
   }
 
-  if (element.tagName === 'A' && element.href && statusURLPattern.test(element.href)) {
+  if (parseDateFromSnowFlake && element.tagName === 'A' && element.href && statusURLPattern.test(element.href)) {
     const preciseDate = parseSnowFlake(parseURL(element.href).file);
     if (preciseDate) d = preciseDate;
   }
