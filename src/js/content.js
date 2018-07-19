@@ -2,8 +2,6 @@ import PromiseEach from 'promise-each';
 import FileSaver from 'file-saver';
 import qs from 'query-string';
 import config from 'config';
-import parseSnowFlake from './util/snowflake';
-import parseURL from './util/parseUrl'
 import timestampOnElement from './util/timestamp';
 import { send as sendMessage, on as onMessage } from './util/messaging';
 import * as secureDomify from './util/secureDomify';
@@ -171,18 +169,7 @@ function refreshTimestamps() {
       return;
     }
 
-    const statusURLPattern = /^https:\/\/twitter.com\/.*\/status\/\d+$/;
-
-    t.forEach(el => {
-      if (el.tagName == 'A' && statusURLPattern.test(el.href)) {
-        const preciseDate = parseSnowFlake(parseURL(el.href).file)
-        if (preciseDate) {
-          timestampOnElement(el, preciseDate.getTime())
-          return;
-        }
-      }
-      timestampOnElement(el, d);
-    });
+    t.forEach(el => timestampOnElement(el, d));
   });
 }
 

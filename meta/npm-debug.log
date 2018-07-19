@@ -1,0 +1,40 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files (x86)\\Nodist\\v-x64\\8.11.1\\node.exe',
+1 verbose cli   'C:\\Program Files (x86)\\Nodist\\npmv\\4.0.5\\bin\\npm-cli.js',
+1 verbose cli   'run',
+1 verbose cli   'start',
+1 verbose cli   '--',
+1 verbose cli   'chrome' ]
+2 info using npm@4.0.5
+3 info using node@v8.11.1
+4 verbose run-script [ 'prestart', 'start', 'poststart' ]
+5 info lifecycle BetterTweetDeck@3.7.8~prestart: BetterTweetDeck@3.7.8
+6 warn lifecycle The node binary used for scripts is C:\Program Files (x86)\Nodist\bin\node.exe but npm is using C:\Program Files (x86)\Nodist\v-x64\8.11.1\node.exe itself. Use the `--scripts-prepend-node-path` option to include the path for the node binary npm was executed with.
+7 silly lifecycle BetterTweetDeck@3.7.8~prestart: no script for prestart, continuing
+8 info lifecycle BetterTweetDeck@3.7.8~start: BetterTweetDeck@3.7.8
+9 verbose lifecycle BetterTweetDeck@3.7.8~start: unsafe-perm in lifecycle true
+10 verbose lifecycle BetterTweetDeck@3.7.8~start: PATH: C:\Program Files (x86)\Nodist\npmv\4.0.5\bin\node-gyp-bin;C:\Users\akikuchi\source\repos\BetterTweetDeck\node_modules\.bin;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Microsoft MPI\Bin\;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\LLVM\bin;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;c:\mingw\bin;C:\Program Files\Git\cmd;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\w32tex\bin;C:\Program Files (x86)\gs\gs9.23\bin;C:\Program Files (x86)\gs\gs9.23\lib;C:\Program Files\MongoDB\Server\3.6\bin;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files\Microsoft SQL Server\140\DTS\Binn\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files (x86)\Nodist\bin;C:\WINDOWS\System32\OpenSSH\;C:\Users\akikuchi\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Microsoft VS Code\bin;c:\mingw\bin;C:\Users\akikuchi\AppData\Local\GitHubDesktop\bin;C:\Users\akikuchi\AppData\Local\Microsoft\WindowsApps;C:\Program Files\heroku\bin
+11 verbose lifecycle BetterTweetDeck@3.7.8~start: CWD: C:\Users\akikuchi\source\repos\BetterTweetDeck
+12 silly lifecycle BetterTweetDeck@3.7.8~start: Args: [ '/d /s /c',
+12 silly lifecycle   'cross-env NODE_ENV=development webpack --hide-modules --progress --watch --env.browser "chrome"' ]
+13 verbose stack Error: kill ENOSYS
+13 verbose stack     at Object._errnoException (util.js:1022:11)
+13 verbose stack     at process.kill (internal/process.js:183:18)
+13 verbose stack     at process.listener (C:\Program Files (x86)\Nodist\npmv\4.0.5\node_modules\npmlog\node_modules\gauge\node_modules\signal-exit\index.js:86:15)
+13 verbose stack     at emitNone (events.js:111:20)
+13 verbose stack     at process.emit (events.js:208:7)
+13 verbose stack     at processEmit (C:\Program Files (x86)\Nodist\npmv\4.0.5\node_modules\npmlog\node_modules\gauge\node_modules\signal-exit\index.js:146:32)
+13 verbose stack     at processEmit (C:\Program Files (x86)\Nodist\npmv\4.0.5\node_modules\npm-registry-client\node_modules\npmlog\node_modules\gauge\node_modules\signal-exit\index.js:146:32)
+13 verbose stack     at Signal.wrap.onsignal (internal/process.js:208:44)
+14 verbose cwd C:\Users\akikuchi\source\repos\BetterTweetDeck\meta
+15 error Windows_NT 10.0.17134
+16 error argv "C:\\Program Files (x86)\\Nodist\\v-x64\\8.11.1\\node.exe" "C:\\Program Files (x86)\\Nodist\\npmv\\4.0.5\\bin\\npm-cli.js" "run" "start" "--" "chrome"
+17 error node v8.11.1
+18 error npm  v4.0.5
+19 error code ENOSYS
+20 error errno ENOSYS
+21 error syscall kill
+22 error kill ENOSYS
+23 error If you need help, you may report this error at:
+23 error     <https://github.com/npm/npm/issues>
+24 verbose exit [ 1, true ]

@@ -1,4 +1,6 @@
 import fecha from 'fecha';
+import parseURL from './parseUrl';
+import parseSnowFlake from './snowflake';
 import { send as sendMessage } from './messaging';
 
 let timestampMode;
@@ -60,7 +62,14 @@ function timestampOnElement(element, dateString) {
     return;
   }
 
-  const d = getDateObject(dateString);
+  const statusURLPattern = /^https:\/\/twitter.com\/.*\/status\/\d+$/;
+
+  var d;
+  if (element.tagName == 'A' && element.href && statusURLPattern.test(element.href)) {
+    const preciseDate = parseSnowFlake(parseURL(element.href).file);
+    if (preciseDate) d = preciseDate;
+  }
+  if(!d) d = getDateObject(dateString);
 
   element.textContent = fecha.format(d, getFormat(d, timestampMode));
 }
