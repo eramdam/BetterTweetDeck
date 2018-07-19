@@ -35,10 +35,6 @@
     "message":
       "Afficher une longue date après 24h <small>appliqué uniquement sur les dates non relatives</small>"
   },
-  "parse_sf": {
-    "message":
-      "Parse date from SnowFlake<small>Time in milliseconds can be displayed</small>"
-  },
 
   "title_nameDisplay": { "message": "Affichage des noms" },
 

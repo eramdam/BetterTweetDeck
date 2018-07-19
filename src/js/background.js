@@ -13,7 +13,6 @@ const defaultSettings = {
     full: '',
   },
   full_aft_24: true,
-  date_from_sf: false,
   nm_disp: 'inverted',
   no_hearts: false,
   no_tco: true,

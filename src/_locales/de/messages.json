@@ -36,10 +36,6 @@
     "message":
       "Zeige volles Datum nach 24 Stunden <small>Trifft nur auf nicht-relative Zeitanzeigen zu</small>"
   },
-  "parse_sf": {
-    "message":
-      "Parse date from SnowFlake<small>Time in milliseconds can be displayed</small>"
-  },
 
   "title_nameDisplay": { "message": "Stil der Namensanzeige" },
 
