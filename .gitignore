@@ -26,3 +26,4 @@ config/*.json
 
 output/*
 res-webpack.config.js
+/.vs
