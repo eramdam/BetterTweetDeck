@@ -2,6 +2,7 @@ import PromiseEach from 'promise-each';
 import FileSaver from 'file-saver';
 import qs from 'query-string';
 import config from 'config';
+import parseSnowFlake from './util/snowflake';
 import timestampOnElement from './util/timestamp';
 import { send as sendMessage, on as onMessage } from './util/messaging';
 import * as secureDomify from './util/secureDomify';
