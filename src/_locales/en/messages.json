@@ -36,6 +36,10 @@
     "message":
       "Display full date after 24h <small>Applies only for non-relative timestamps</small>"
   },
+  "parse_sf": {
+    "message":
+      "Parse date from SnowFlake<small>Time in milliseconds can be displayed</small>"
+  },
 
   "title_nameDisplay": { "message": "Name display style" },
 

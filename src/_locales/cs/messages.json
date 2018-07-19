@@ -36,6 +36,10 @@
     "message":
       "Dlouhé až po 24 hodinách <small>Neplatí pro relativní zobrazení</small>"
   },
+  "parse_sf": {
+    "message":
+      "Parse date from SnowFlake<small>Time in milliseconds can be displayed</small>"
+  },
 
   "title_nameDisplay": { "message": "Zobrazení jména" },
 
