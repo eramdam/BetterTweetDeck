@@ -4,7 +4,7 @@ export const GiphyProvider: BTDUrlProvider = {
   name: 'Giphy',
   settingsKey: 'giphy',
   matchUrl: () => false,
-  fetchData: () => ({
+  fetchData: async () => ({
     type: BTDUrlProviderResultTypeEnum.IMAGE,
     thumbnailUrl: '',
     url: ''
