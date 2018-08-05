@@ -9,6 +9,4 @@ export interface BTDSettings {
   };
 }
 
-export const test = {
-  foo: 'bar'
-};
+export const BTD_CUSTOM_ATTRIBUTE = 'data-btd-custom';

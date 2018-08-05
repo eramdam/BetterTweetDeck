@@ -19,6 +19,7 @@ function isCorrectTweetDeckUrlObject(
 
 /** Fetches the thumbnails data for an array of URL entities coming from a chirp */
 async function onChirpUrls(data: ChirpUrlsMessageData) {
+  // Find one appicable URL
   const validUrl = data.payload
     .filter(url => isCorrectTweetDeckUrlObject(url) && !url.isUrlForAttachment)
     .pop();
@@ -27,16 +28,18 @@ async function onChirpUrls(data: ChirpUrlsMessageData) {
     return;
   }
 
-  if (!validUrl.expanded_url) {
-    return;
-  }
-
+  // Find a possible thumbnail provider for the valid URL
   const provider = findProviderForUrl(validUrl.expanded_url);
+
+  // If no providers matched, nothing to do
   if (!provider) {
     return;
   }
 
+  // Fetch the thumbnail data
   const thumbData = await provider.fetchData(validUrl.expanded_url);
+
+  // Send back that info to inject.js
   msgToInject({
     type: BTDMessageTypesEnums.THUMBNAIL_DATA,
     payload: thumbData,

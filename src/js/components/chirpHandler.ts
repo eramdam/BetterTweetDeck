@@ -1,17 +1,18 @@
 import ReactDOM from 'react-dom';
 
+import {BTD_CUSTOM_ATTRIBUTE} from '../types';
 import {BTDComponent} from './btdBaseClass';
 import {BTDUtils} from './btdDebug';
 
-interface ChirpCallbackProps {
-  (
-    opts: {
-    originalNode: HTMLElement;
-    chirp: any;
-    urls: object[];
-    columnKey?: string;
-    }
-  ): void;
+export interface ChirpProps {
+  originalNode: HTMLElement;
+  chirp: any;
+  urls: object[];
+  columnKey?: string;
+}
+
+export interface ChirpCallbackProps {
+  (opts: ChirpProps): void;
 }
 
 function isHtmlElement(blob: any): blob is HTMLElement {
@@ -20,6 +21,7 @@ function isHtmlElement(blob: any): blob is HTMLElement {
 
 export class ChirpHandler extends BTDComponent {
   private readonly utils: BTDUtils;
+
   private onChirpCB: Function;
 
   constructor(settings: any, TDObject: any, utils: BTDUtils) {
@@ -32,21 +34,20 @@ export class ChirpHandler extends BTDComponent {
     this.utils = utils;
     this.onChirpCB = () => {};
 
-    new MutationObserver(mutations =>
-      mutations.forEach((mutation: MutationRecord) => {
-        Array.from(mutation.addedNodes).forEach(this.handleInsertedNode);
-        Array.from(mutation.removedNodes).forEach((removedNode) => {
-          if (!isHtmlElement(removedNode)) {
-            return;
-          }
+    new MutationObserver(mutations => mutations.forEach((mutation: MutationRecord) => {
+      Array.from(mutation.addedNodes).forEach(this.handleInsertedNode);
+      Array.from(mutation.removedNodes).forEach((removedNode) => {
+        if (!isHtmlElement(removedNode)) {
+          return;
+        }
 
-          const BTDElements = removedNode.querySelectorAll('[data-btd-custom]');
-          Array.from(BTDElements).forEach((e) => {
-            console.log('removing custom BTD React element!');
-            ReactDOM.unmountComponentAtNode(e);
-          });
+        const BTDElements = removedNode.querySelectorAll(`[${BTD_CUSTOM_ATTRIBUTE}]`);
+        Array.from(BTDElements).forEach((e) => {
+          console.log('removing custom BTD React element!');
+          ReactDOM.unmountComponentAtNode(e);
         });
-      })).observe(document, {subtree: true, childList: true});
+      });
+    })).observe(document, {subtree: true, childList: true});
   }
 
   getURLsForChirp = (chirp: any) => {
@@ -93,7 +94,9 @@ export class ChirpHandler extends BTDComponent {
     }
 
     if (element.classList.contains('js-mediatable')) {
-      const chirp = this.utils.getChirpFromElement(element.querySelector('[data-key]') as HTMLElement);
+      const chirp = this.utils.getChirpFromElement(element.querySelector(
+        '[data-key]'
+      ) as HTMLElement);
       const urls = this.getURLsForChirp(chirp);
       this.onChirpCB({
         originalNode: element,
