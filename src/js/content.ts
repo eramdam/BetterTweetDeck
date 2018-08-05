@@ -10,6 +10,7 @@ import {
 
 async function onChirpUrls(data: ChirpUrlsMessageData) {
   const validUrl = data.payload.filter(url => !url.isUrlForAttachment).pop();
+
   if (!validUrl) {
     return;
   }

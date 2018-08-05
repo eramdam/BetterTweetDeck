@@ -45,6 +45,7 @@
     "lodash-es": "^4.17.10",
     "lodash-webpack-plugin": "^0.11.5",
     "moduleraid": "^4.0.1",
+    "prettier": "^1.14.0",
     "prettier-eslint-cli": "^4.7.1",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
