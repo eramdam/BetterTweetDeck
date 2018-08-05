@@ -8,3 +8,7 @@ export interface BTDSettings {
     full: string;
   };
 }
+
+export const test = {
+  foo: 'bar'
+};

@@ -6,13 +6,13 @@ const isBeta = process.env.BTD_BETA === 'true';
 const icons = {
   16: 'icons/icon-16.png',
   48: 'icons/icon-48.png',
-  128: 'icons/icon-128.png',
+  128: 'icons/icon-128.png'
 };
 
 const betaIcons = {
   16: 'icons/icon-beta-16.png',
   48: 'icons/icon-beta-48.png',
-  128: 'icons/icon-beta-128.png',
+  128: 'icons/icon-beta-128.png'
 };
 
 const betaVersion = () => {
@@ -38,16 +38,16 @@ const common = {
     {
       matches: ['*://tweetdeck.twitter.com/*'],
       js: ['js/content.js'],
-      run_at: 'document_end',
-    },
+      run_at: 'document_end'
+    }
   ],
   background: {
-    scripts: ['js/background.js'],
+    scripts: ['js/background.js']
   },
   web_accessible_resources: ['js/inject.js'],
   permissions: ['storage', 'contextMenus', 'notifications', ...urls],
   optional_permissions: ['tabs'],
-  content_security_policy: `img-src https: data: 'self' *; default-src; connect-src * https:; style-src 'unsafe-inline'; script-src 'self';`,
+  content_security_policy: `img-src https: data: 'self' *; default-src; connect-src * https:; style-src 'unsafe-inline'; script-src 'self';`
 };
 
 module.exports = common;

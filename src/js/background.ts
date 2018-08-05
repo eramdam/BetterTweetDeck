@@ -6,7 +6,7 @@ import {settings} from './util/browserHelpers';
 const defaultSettings: BTDSettings = {
   ts: 'absolute_us',
   full_after_24: true,
-  no_tco: true,
+  no_tco: true
 };
 
 console.log(defaultSettings);

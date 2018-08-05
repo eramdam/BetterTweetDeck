@@ -12,7 +12,9 @@ import {BTDSettings} from './types';
 import {monitorMediaSizes} from './util/columnsMediaSizeMonitor';
 import {BTDMessageTypesEnums, msgToContent, ThumbnailDataMessage} from './util/messaging';
 
-const BTD_SETTINGS: BTDSettings = JSON.parse(document.querySelector('[data-btd-settings]')!.getAttribute('data-btd-settings') || '');
+const BTD_SETTINGS: BTDSettings = JSON.parse(
+  document.querySelector('[data-btd-settings]')!.getAttribute('data-btd-settings') || ''
+);
 const {TD} = window;
 
 let mR;
@@ -42,7 +44,12 @@ Utils.attach();
             if (!chirpProps.originalNode.querySelector('.js-tweet.tweet')) {
               return;
             }
-            chirpProps.originalNode.querySelector('.js-tweet.tweet')!.insertAdjacentHTML('afterend', '<div class="js-media position-rel item-box-full-bleed margin-tm" data-btd-custom></div>');
+            chirpProps.originalNode
+              .querySelector('.js-tweet.tweet')!
+              .insertAdjacentHTML(
+                'afterend',
+                '<div class="js-media position-rel item-box-full-bleed margin-tm" data-btd-custom></div>'
+              );
             console.log(urlData.payload);
             ReactDOM.render(
               <div className=" js-media-preview-container media-preview-container position-rel width-p--100     margin-t--20   is-paused ">
