@@ -22,7 +22,7 @@ interface BTDBaseMessageData {
 
 export interface ChirpUrlsMessageData extends BTDBaseMessageData {
   readonly type: BTDMessageTypesEnums.CHIRP_URLS;
-  readonly payload: any[];
+  readonly payload: Array<unknown>;
 }
 
 export interface ThumbnailDataMessage extends BTDBaseMessageData {

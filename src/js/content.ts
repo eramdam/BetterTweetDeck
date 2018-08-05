@@ -8,10 +8,26 @@ import {
   onBTDMessage
 } from './util/messaging';
 
-async function onChirpUrls(data: ChirpUrlsMessageData) {
-  const validUrl = data.payload.filter(url => !url.isUrlForAttachment).pop();
+function isCorrectTweetDeckUrlObject(
+  obj: any
+): obj is {
+  isUrlForAttachment: boolean;
+  expanded_url: string;
+} {
+  return !!obj.isUrlForAttachment && !!obj.expanded_url;
+}
 
-  if (!validUrl) {
+/** Fetches the thumbnails data for an array of URL entities coming from a chirp */
+async function onChirpUrls(data: ChirpUrlsMessageData) {
+  const validUrl = data.payload
+    .filter(url => isCorrectTweetDeckUrlObject(url) && !url.isUrlForAttachment)
+    .pop();
+
+  if (!validUrl || !isCorrectTweetDeckUrlObject(validUrl)) {
+    return;
+  }
+
+  if (!validUrl.expanded_url) {
     return;
   }
 
