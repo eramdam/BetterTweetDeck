@@ -7,7 +7,6 @@ module.exports = {
     node: true,
   },
   rules: {
-    'import/prefer-default-export': 0,
     'no-underscore-dangle': 0,
     'nonblock-statement-body-position': [2, 'below'],
     'object-curly-spacing': [2, 'never'],
@@ -15,9 +14,7 @@ module.exports = {
     'import/extensions': 0,
     'comma-dangle': 0,
     'import/prefer-default-export': 0,
-    'max-len': [2, {
-      code: 200
-    }],
+    'import/order': 0,
     'jsx-a11y/anchor-has-content': 0,
     'react/jsx-no-target-blank': 0
   },
@@ -34,5 +31,5 @@ module.exports = {
       'react/prefer-stateless-function': 0,
       'no-restricted-globals': 0,
     },
-  }, ],
+  }],
 };
