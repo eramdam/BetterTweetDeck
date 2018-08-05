@@ -14,7 +14,7 @@ function isCorrectTweetDeckUrlObject(
   isUrlForAttachment: boolean;
   expanded_url: string;
 } {
-  return !!obj.isUrlForAttachment && !!obj.expanded_url;
+  return !!obj.expanded_url;
 }
 
 /** Fetches the thumbnails data for an array of URL entities coming from a chirp */
