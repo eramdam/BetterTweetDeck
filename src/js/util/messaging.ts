@@ -38,40 +38,52 @@ export type BTDData = DebugMessage | ChirpUrlsMessageData | ThumbnailDataMessage
 
 const MESSAGE_ORIGIN = 'https://tweetdeck.twitter.com';
 
-const baseMsgTransit = (sourceKey: BTDMessageOriginsEnum, destinationKey: BTDMessageOriginsEnum) =>
-  function transert<T = {}>(data: BTDData) {
-    return new Promise<T>((resolve) => {
-      // We compute a "hash" with performance.now(), should be simple enough for now
-      // NOTE: for the whole promise-based system to work, a listener to a given event MUST send back the existing hash
-      const hash = (data.meta && data.meta.hash) || (performance.now() + Math.random()).toString(36);
+const baseMsgTransit = (sourceKey: BTDMessageOriginsEnum, destinationKey: BTDMessageOriginsEnum) => function transfer<T = {}>(data: BTDData) {
+  return new Promise<T>((resolve) => {
+    // We compute a "hash" with performance.now(), should be simple enough for now
+    // NOTE: for the whole promise-based system to work, a listener to a given event MUST send back the existing hash
+    const hash = (data.meta && data.meta.hash) || (performance.now() + Math.random()).toString(36);
 
-      // We register a listener
-      window.addEventListener('message', function currListener(ev) {
-        // If the message doesn't come from TD, doesn't come from the content script,
-        if (!ev || ev.origin !== MESSAGE_ORIGIN || !ev.data || !ev.data.meta || ev.data.meta.origin !== destinationKey || ev.data.meta.hash !== hash) {
-          return;
-        }
+    // We register a listener
+    window.addEventListener('message', function currListener(ev) {
+      // If the message doesn't come from TD, doesn't come from the content script,
+      if (
+        !ev
+          || ev.origin !== MESSAGE_ORIGIN
+          || !ev.data
+          || !ev.data.meta
+          || ev.data.meta.origin !== destinationKey
+          || ev.data.meta.hash !== hash
+      ) {
+        return;
+      }
 
-        resolve(ev.data);
-        window.removeEventListener('message', currListener);
-      });
-
-      window.postMessage(
-        Object.assign(data, {
-          meta: {
-            origin: sourceKey,
-            hash
-          }
-        }),
-        MESSAGE_ORIGIN
-      );
+      resolve(ev.data);
+      window.removeEventListener('message', currListener);
     });
-  };
+
+    window.postMessage(
+      Object.assign(data, {
+        meta: {
+          origin: sourceKey,
+          hash
+        }
+      }),
+      MESSAGE_ORIGIN
+    );
+  });
+};
 
 /** Sends a postMessage event to the content script and returns its response in the promise */
-export const msgToContent = baseMsgTransit(BTDMessageOriginsEnum.INJECT, BTDMessageOriginsEnum.CONTENT);
+export const msgToContent = baseMsgTransit(
+  BTDMessageOriginsEnum.INJECT,
+  BTDMessageOriginsEnum.CONTENT
+);
 /** Sends a postMessage event to the injected script and returns its response in the promise */
-export const msgToInject = baseMsgTransit(BTDMessageOriginsEnum.CONTENT, BTDMessageOriginsEnum.INJECT);
+export const msgToInject = baseMsgTransit(
+  BTDMessageOriginsEnum.CONTENT,
+  BTDMessageOriginsEnum.INJECT
+);
 
 interface BTDMessageEvent extends MessageEvent {
   data: BTDData;
@@ -80,7 +92,11 @@ interface BTDMessageEvent extends MessageEvent {
 const BTDMessageTypesEnumsValues = Object.values(BTDMessageTypesEnums);
 const BTDMessageOriginsEnumValues = Object.values(BTDMessageOriginsEnum);
 function messageIsBTDMessage(message: MessageEvent): message is BTDMessageEvent {
-  if (message.origin !== MESSAGE_ORIGIN || !BTDMessageTypesEnumsValues.includes(message.data.type) || !BTDMessageOriginsEnumValues.includes(message.data.meta.origin)) {
+  if (
+    message.origin !== MESSAGE_ORIGIN
+    || !BTDMessageTypesEnumsValues.includes(message.data.type)
+    || !BTDMessageOriginsEnumValues.includes(message.data.meta.origin)
+  ) {
     return false;
   }
 
