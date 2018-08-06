@@ -1,4 +1,5 @@
 import {statusAndJson} from '../../util/fetchHelpers';
+import {buildURLWithSearchParams} from '../tools';
 import {BTDUrlProvider, BTDUrlProviderResultTypeEnum} from '../types';
 
 export const DeviantArtProvider: BTDUrlProvider = {
@@ -6,12 +7,12 @@ export const DeviantArtProvider: BTDUrlProvider = {
   settingsKey: 'deviantart',
   matchUrl: url => [/^http:\/\/fav.me\//, /^http:\/\/sta.sh\//, /https:\/\/[\w\W]+.deviantart.com/].some(re => re.test(url)),
   fetchData: async (url) => {
-    const requestUrl = new URL('https://backend.deviantart.com/oembed');
-
-    requestUrl.searchParams.set('url', url);
-
     try {
-      const json = await fetch(requestUrl.toString()).then(statusAndJson);
+      const json = await fetch(
+        buildURLWithSearchParams('https://backend.deviantart.com/oembed', {
+          url
+        })
+      ).then(statusAndJson);
 
       return {
         type: BTDUrlProviderResultTypeEnum.IMAGE,

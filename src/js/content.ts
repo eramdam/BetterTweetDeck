@@ -11,7 +11,7 @@ import {
 function isCorrectTweetDeckUrlObject(
   obj: any
 ): obj is {
-  isUrlForAttachment: boolean;
+  isUrlForAttachment: boolean | undefined;
   expanded_url: string;
 } {
   return !!obj.expanded_url;

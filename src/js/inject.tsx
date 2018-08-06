@@ -7,7 +7,7 @@ import {RemoveRedirection} from './components/removeRedirection';
 import {Timestamp} from './components/time';
 import {insertThumbnailOnTweet} from './thumbnails/tools';
 import {BTDSettings} from './types';
-import {monitorMediaSizes} from './util/columnsMediaSizeMonitor';
+import {getSizeForColumnKey, monitorMediaSizes} from './util/columnsMediaSizeMonitor';
 import {BTDMessageTypesEnums, msgToContent, ThumbnailDataMessage} from './util/messaging';
 
 const BTD_SETTINGS: BTDSettings = JSON.parse(
@@ -37,7 +37,7 @@ Utils.attach();
         type: BTDMessageTypesEnums.CHIRP_URLS,
         payload: chirpProps.urls
       }).then((urlData) => {
-        insertThumbnailOnTweet(chirpProps, urlData);
+        insertThumbnailOnTweet(chirpProps, urlData, getSizeForColumnKey(chirpProps.columnKey));
       });
     }
   });
