@@ -8,3 +8,34 @@ html.btd-on {
     }
   }
 }
+
+/* If a tweet consists of nothing but emojis, and if
+   there are four or fewer emojis, then make them quite
+   a lot larger. This is similar to Slack's approach of
+   making a single-emoji response display in a larger
+   font so it's clearer.
+   This CSS is a little convoluted because CSS lacks
+   an adjacent-but-afterwards sibling combinator. It
+   relies on the idea that if you are :nth-last-child(4)
+   and :nth-last-of-type(4) then you know that all the
+   elements following you are the same thing as you, i.e.,
+   all emojis. 
+   This is made conditional on having larger emojis turned
+   on at all. */
+
+html.btd-on {
+  .btd__bigger_emojis {
+    p > .emoji:nth-child(1):nth-of-type(1):nth-last-child(1):nth-last-of-type(1), /* 1 of 1 */
+    p > .emoji:nth-child(1):nth-of-type(1):nth-last-child(2):nth-last-of-type(2), /* 1 of 2 */
+    p > .emoji:nth-child(2):nth-of-type(2):nth-last-child(1):nth-last-of-type(1), /* 2 of 2 */
+    p > .emoji:nth-child(1):nth-of-type(1):nth-last-child(3):nth-last-of-type(3), /* 1 of 3 */
+    p > .emoji:nth-child(2):nth-of-type(2):nth-last-child(2):nth-last-of-type(2), /* 2 of 3 */
+    p > .emoji:nth-child(3):nth-of-type(3):nth-last-child(1):nth-last-of-type(1), /* 3 of 3 */
+    p > .emoji:nth-child(1):nth-of-type(1):nth-last-child(4):nth-last-of-type(4), /* 1 of 4 */
+    p > .emoji:nth-child(2):nth-of-type(2):nth-last-child(3):nth-last-of-type(3), /* 2 of 4 */
+    p > .emoji:nth-child(3):nth-of-type(3):nth-last-child(2):nth-last-of-type(2), /* 3 of 4 */
+    p > .emoji:nth-child(4):nth-of-type(4):nth-last-child(1):nth-last-of-type(1) {/* 4 of 4 */
+      width: 3em; height: 3em;
+    }
+  }
+}
