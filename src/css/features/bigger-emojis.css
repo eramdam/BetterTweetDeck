@@ -35,7 +35,7 @@ html.btd-on {
     p > .emoji:nth-child(2):nth-of-type(2):nth-last-child(3):nth-last-of-type(3), /* 2 of 4 */
     p > .emoji:nth-child(3):nth-of-type(3):nth-last-child(2):nth-last-of-type(2), /* 3 of 4 */
     p > .emoji:nth-child(4):nth-of-type(4):nth-last-child(1):nth-last-of-type(1) {/* 4 of 4 */
-      width: 3em; height: 3em;
+      width: 3em !important; height: 3em !important;
     }
   }
 }
