@@ -6,11 +6,12 @@ export default function ($) {
     default: true,
     callback: (url) => {
       const id = url.match(/mltshp.com\/p\/([^/]+)/)[1];
-      return fetch(`${$.getEnpointFor('mltshp')}${id}`).then(imgUrl => ({
+      const imgUrl = $.getSafeURL(`${$.getEnpointFor('mltshp')}${id}`);
+      return Promise.resolve({
         type: 'image',
         thumbnail_url: imgUrl,
         url: imgUrl,
-      }));
+      });
     },
   };
 }
