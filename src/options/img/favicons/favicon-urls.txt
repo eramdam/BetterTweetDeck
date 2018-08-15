@@ -13,6 +13,7 @@ https://plus.google.com/_/favicon?domain=plus.google.com
 https://plus.google.com/_/favicon?domain=imgur.com
 https://plus.google.com/_/favicon?domain=miil.me
 https://plus.google.com/_/favicon?domain=mixcloud.com
+https://plus.google.com/_/favicon?domain=mltshp.com
 https://plus.google.com/_/favicon?domain=moby.to
 https://plus.google.com/_/favicon?domain=nicoseiga.jp
 https://plus.google.com/_/favicon?domain=nicovideo.jp
