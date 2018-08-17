@@ -89,7 +89,7 @@
       "必要に応じて RTL スタイル (アラビア語などの右から左に書くスタイル) を検出して、自動的に適用する"
   },
   "flash_tweets": { "message": "新しいツイートをフラッシュする" },
-  "flash_tweets_mentions": { "message": "メンションコラムのみ" },
+  "flash_tweets_mentions": { "message": "メンションカラムのみ" },
   "flash_tweets_all": { "message": "全てのカラム" },
 
   "update_title_on_notifications": {
@@ -137,7 +137,7 @@
   "css_minimal_mode": { "message": "「ミニマル」モードを有効にする" },
   "css_og_dark_theme": {
     "message":
-      "Dark テーマを以前のスタイルに元に戻す (2018年2月より前のスタイル)"
+      "Dark テーマを以前のスタイルに戻す (2018年2月より前のスタイル)"
   },
   "css_experimental_warning": {
     "message":
