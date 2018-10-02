@@ -13,7 +13,7 @@ export class ThumbnailModalCoordinator {
 
   private onRemoveThumbnail?: OnRemoveThumbnail;
 
-  setCallbacks({onSetThumbnail, onRemoveThumbnail}: ThumbnailModalCoordinatorOptions) {
+  setCallbacks({onSetThumbnail, onRemoveThumbnail}: Partial<ThumbnailModalCoordinatorOptions>) {
     this.onRemoveThumbnail = onRemoveThumbnail;
     this.onSetThumbnail = onSetThumbnail;
   }

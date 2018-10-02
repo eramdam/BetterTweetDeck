@@ -26,14 +26,22 @@ class ThumbnailModalContainer extends Component<ThumbnailModalContainerProps, Th
         this.setState({
           modalData
         });
-      },
-      onRemoveThumbnail: () => {
-        this.setState({
-          modalData: null
-        });
       }
     });
   }
+
+  private readonly renderModalContent = (data: BTDThumbnailDataResults) => {
+    switch (data.type) {
+      case BTDUrlProviderResultTypeEnum.IMAGE:
+        return <div>{data.url}</div>;
+
+      case BTDUrlProviderResultTypeEnum.VIDEO:
+        return <div>{data.url}</div>;
+
+      default:
+        return null;
+    }
+  };
 
   render() {
     const {modalData} = this.state;
@@ -41,16 +49,21 @@ class ThumbnailModalContainer extends Component<ThumbnailModalContainerProps, Th
       return null;
     }
 
-    switch (modalData.type) {
-      case BTDUrlProviderResultTypeEnum.IMAGE:
-        return <div>{modalData.url}</div>;
-
-      case BTDUrlProviderResultTypeEnum.VIDEO:
-        return <div>{modalData.url}</div>;
-
-      default:
-        return null;
-    }
+    return (
+      <div>
+        <button
+          onClick={() => {
+            this.setState({
+              modalData: null
+            });
+          }}
+          type="button"
+        >
+          close
+        </button>
+        {this.renderModalContent(modalData)}
+      </div>
+    );
   }
 }
 
