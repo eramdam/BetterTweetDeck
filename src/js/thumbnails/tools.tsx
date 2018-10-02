@@ -6,15 +6,16 @@ import {BTD_CUSTOM_ATTRIBUTE} from '../types';
 import {TweetDeckColumnMediaPreviewSizesEnum} from '../util/columnsMediaSizeMonitor';
 import {ThumbnailDataMessage} from '../util/messaging';
 import {BTDTweetThumbnail} from './tweetThumbnail';
-import {BTDUrlProviderResultTypeEnum} from './types';
+import {BTDThumbnailDataResults, BTDUrlProviderResultTypeEnum} from './types';
 
-export function insertThumbnailOnTweet(chirpProps: ChirpProps, urlData: ThumbnailDataMessage, size: TweetDeckColumnMediaPreviewSizesEnum, onThumbnailClick: () => void) {
+export function insertThumbnailOnTweet(chirpProps: ChirpProps, urlData: ThumbnailDataMessage, size: TweetDeckColumnMediaPreviewSizesEnum, onThumbnailClick: (data: BTDThumbnailDataResults) => void) {
   if (size === 'off') {
     return;
   }
 
   switch (urlData.payload.type) {
     case BTDUrlProviderResultTypeEnum.IMAGE:
+    case BTDUrlProviderResultTypeEnum.VIDEO:
       if (!chirpProps.originalNode.querySelector('.js-tweet.tweet')) {
         return;
       }

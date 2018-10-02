@@ -1,6 +1,6 @@
-import {ThumbnailDataMessage} from '../util/messaging';
+import {BTDThumbnailDataResults} from '../thumbnails/types';
 
-type OnSetThumbnail = (payload: ThumbnailDataMessage) => void;
+type OnSetThumbnail = (payload: BTDThumbnailDataResults) => void;
 type OnRemoveThumbnail = () => void;
 
 interface ThumbnailModalCoordinatorOptions {
@@ -18,7 +18,7 @@ export class ThumbnailModalCoordinator {
     this.onSetThumbnail = onSetThumbnail;
   }
 
-  setThumbnail(urlData: ThumbnailDataMessage) {
+  setThumbnail(urlData: BTDThumbnailDataResults) {
     if (this.onSetThumbnail) {
       this.onSetThumbnail(urlData);
     }

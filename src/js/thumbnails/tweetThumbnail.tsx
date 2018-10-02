@@ -3,20 +3,22 @@ import React, {Component} from 'react';
 
 import {TweetDeckColumnMediaPreviewSizesEnum} from '../util/columnsMediaSizeMonitor';
 import {ThumbnailDataMessage} from '../util/messaging';
-import {BTDUrlProviderResultTypeEnum} from './types';
+import {BTDThumbnailDataResults, BTDUrlProviderResultTypeEnum} from './types';
 
 interface BTDTweetThumbnailProps {
   urlData: ThumbnailDataMessage;
   size: TweetDeckColumnMediaPreviewSizesEnum;
-  onThumbnailClick?: () => void;
+  onThumbnailClick?: (data: BTDThumbnailDataResults) => void;
 }
 
 export class BTDTweetThumbnail extends Component<BTDTweetThumbnailProps> {
   render() {
     const {urlData, size} = this.props;
-    if (urlData.payload.type !== BTDUrlProviderResultTypeEnum.IMAGE) {
+    if (urlData.payload.type === BTDUrlProviderResultTypeEnum.ERROR) {
       return null;
     }
+
+    const payloadData = urlData.payload;
 
     const isSizeLarge = size === TweetDeckColumnMediaPreviewSizesEnum.LARGE;
 
@@ -46,7 +48,7 @@ export class BTDTweetThumbnail extends Component<BTDTweetThumbnailProps> {
             ev.stopPropagation();
 
             if (this.props.onThumbnailClick) {
-              this.props.onThumbnailClick();
+              this.props.onThumbnailClick(payloadData);
             }
           }}
         />

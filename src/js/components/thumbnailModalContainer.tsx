@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 
-import {BTDUrlProviderResultTypeEnum} from '../thumbnails/types';
+import {BTDThumbnailDataResults, BTDUrlProviderResultTypeEnum} from '../thumbnails/types';
 import {BTD_CUSTOM_ATTRIBUTE} from '../types';
-import {ThumbnailDataMessage} from '../util/messaging';
 import {ThumbnailModalCoordinator} from './thumbnailModalCoordinator';
 
 interface ThumbnailModalContainerProps {
@@ -11,7 +10,7 @@ interface ThumbnailModalContainerProps {
 }
 
 interface ThumbnailModalContainerState {
-  modalData: ThumbnailDataMessage | null;
+  modalData: BTDThumbnailDataResults | null;
 }
 
 class ThumbnailModalContainer extends Component<ThumbnailModalContainerProps, ThumbnailModalContainerState> {
@@ -42,21 +41,12 @@ class ThumbnailModalContainer extends Component<ThumbnailModalContainerProps, Th
       return null;
     }
 
-    const {payload} = modalData;
-
-    if (!payload) {
-      return null;
-    }
-
-    switch (payload.type) {
-      case BTDUrlProviderResultTypeEnum.ERROR:
-        return null;
-
+    switch (modalData.type) {
       case BTDUrlProviderResultTypeEnum.IMAGE:
-        return <div>{payload.url}</div>;
+        return <div>{modalData.url}</div>;
 
       case BTDUrlProviderResultTypeEnum.VIDEO:
-        return <div>{payload.url}</div>;
+        return <div>{modalData.url}</div>;
 
       default:
         return null;

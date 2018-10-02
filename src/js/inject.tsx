@@ -39,8 +39,8 @@ const modalCoordinator = new ThumbnailModalCoordinator();
         type: BTDMessageTypesEnums.CHIRP_URLS,
         payload: chirpProps.urls
       }).then((urlData) => {
-        insertThumbnailOnTweet(chirpProps, urlData, getSizeForColumnKey(chirpProps.columnKey), () => {
-          modalCoordinator.setThumbnail(urlData);
+        insertThumbnailOnTweet(chirpProps, urlData, getSizeForColumnKey(chirpProps.columnKey), (data) => {
+          modalCoordinator.setThumbnail(data);
         });
       });
     }

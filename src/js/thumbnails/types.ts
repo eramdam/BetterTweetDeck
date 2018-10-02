@@ -8,13 +8,13 @@ interface BTDUrlProviderBaseResult {
   type: string;
 }
 
-interface BTDUrlProviderImageResult extends BTDUrlProviderBaseResult {
+export interface BTDUrlProviderImageResult extends BTDUrlProviderBaseResult {
   type: BTDUrlProviderResultTypeEnum.IMAGE;
   thumbnailUrl: string;
   url: string;
 }
 
-interface BTDUrlProviderVideoResult extends BTDUrlProviderBaseResult {
+export interface BTDUrlProviderVideoResult extends BTDUrlProviderBaseResult {
   type: BTDUrlProviderResultTypeEnum.VIDEO;
   thumbnailUrl: string;
   url: string;
@@ -26,7 +26,8 @@ interface BTDUrlProviderErrorResult extends BTDUrlProviderBaseResult {
   error: Error;
 }
 
-export type BTDFetchResult = BTDUrlProviderImageResult | BTDUrlProviderVideoResult | BTDUrlProviderErrorResult;
+export type BTDThumbnailDataResults = BTDUrlProviderImageResult | BTDUrlProviderVideoResult;
+export type BTDFetchResult = BTDThumbnailDataResults | BTDUrlProviderErrorResult;
 
 export interface BTDUrlProvider {
   readonly name: string;
