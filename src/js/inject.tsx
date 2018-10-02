@@ -10,9 +10,7 @@ import {BTDSettings} from './types';
 import {getSizeForColumnKey, monitorMediaSizes} from './util/columnsMediaSizeMonitor';
 import {BTDMessageTypesEnums, msgToContent, ThumbnailDataMessage} from './util/messaging';
 
-const BTD_SETTINGS: BTDSettings = JSON.parse(
-  document.querySelector('[data-btd-settings]')!.getAttribute('data-btd-settings') || ''
-);
+const BTD_SETTINGS: BTDSettings = JSON.parse(document.querySelector('[data-btd-settings]')!.getAttribute('data-btd-settings') || '');
 const {TD} = window;
 
 let mR;
@@ -62,13 +60,9 @@ Utils.attach();
   }
 
   $(document).one('dataColumnsLoaded', async () => {
-    console.log('ready!');
+    // setUpThumbnailsModals();
   });
 })();
-
-// onBTDMessage(BTDMessageOriginsEnum.CONTENT, (ev) => {
-//   console.log('to inject', ev.data.type);
-// });
 
 declare global {
   interface Window {

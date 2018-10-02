@@ -2,9 +2,27 @@ import classnames from 'classnames';
 import React, {Component} from 'react';
 
 import {TweetDeckColumnMediaPreviewSizesEnum} from '../util/columnsMediaSizeMonitor';
-import {BTDTweetThumbnailBaseProps, BTDUrlProviderResultTypeEnum} from './types';
+import {ThumbnailDataMessage} from '../util/messaging';
+import {BTDUrlProviderResultTypeEnum} from './types';
 
-export class BTDTweetThumbnail extends Component<BTDTweetThumbnailBaseProps> {
+interface BTDTweetThumbnailProps {
+  urlData: ThumbnailDataMessage;
+  size: TweetDeckColumnMediaPreviewSizesEnum;
+}
+
+interface BTDTweetThumbnailState {
+  showModal?: boolean;
+}
+
+export class BTDTweetThumbnail extends Component<BTDTweetThumbnailProps, BTDTweetThumbnailState> {
+  constructor(props: BTDTweetThumbnailProps) {
+    super(props);
+
+    this.state = {
+      showModal: false
+    };
+  }
+
   render() {
     const {urlData, size} = this.props;
     if (urlData.payload.type !== BTDUrlProviderResultTypeEnum.IMAGE) {
@@ -13,22 +31,18 @@ export class BTDTweetThumbnail extends Component<BTDTweetThumbnailBaseProps> {
 
     const isSizeLarge = size === TweetDeckColumnMediaPreviewSizesEnum.LARGE;
 
-    const wrapperClassnames = classnames(
-      'js-media-preview-container media-preview-container position-rel width-p--100',
-      {
-        'margin-t--20': isSizeLarge,
-        'margin-vm': !isSizeLarge
-      }
-    );
+    const wrapperClassnames = classnames('js-media-preview-container media-preview-container position-rel width-p--100', {
+      'margin-t--20': isSizeLarge,
+      'margin-vm': !isSizeLarge
+    });
 
-    const mediaImageClassName = classnames(
-      'js-media-image-link block med-link media-item is-zoomable',
-      {
-        'media-size-large': isSizeLarge,
-        'media-size-medium': size === TweetDeckColumnMediaPreviewSizesEnum.MEDIUM,
-        'media-size-small': size === TweetDeckColumnMediaPreviewSizesEnum.SMALL
-      }
-    );
+    const mediaImageClassName = classnames('js-media-image-link block med-link media-item is-zoomable', {
+      'media-size-large': isSizeLarge,
+      'media-size-medium': size === TweetDeckColumnMediaPreviewSizesEnum.MEDIUM,
+      'media-size-small': size === TweetDeckColumnMediaPreviewSizesEnum.SMALL
+    });
+
+    const {showModal} = this.state;
 
     return (
       <div className={wrapperClassnames}>
@@ -43,7 +57,9 @@ export class BTDTweetThumbnail extends Component<BTDTweetThumbnailBaseProps> {
           onMouseDown={(ev) => {
             ev.preventDefault();
             ev.stopPropagation();
-            console.log('yolo');
+            this.setState({
+              showModal: true
+            });
           }}
         />
       </div>

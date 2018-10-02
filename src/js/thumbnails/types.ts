@@ -1,6 +1,3 @@
-import {TweetDeckColumnMediaPreviewSizesEnum} from '../util/columnsMediaSizeMonitor';
-import {ThumbnailDataMessage} from '../util/messaging';
-
 export enum BTDUrlProviderResultTypeEnum {
   IMAGE = 'image',
   VIDEO = 'video',
@@ -29,18 +26,11 @@ interface BTDUrlProviderErrorResult extends BTDUrlProviderBaseResult {
   error: Error;
 }
 
-export type BTDFetchResult = | BTDUrlProviderImageResult
-  | BTDUrlProviderVideoResult
-  | BTDUrlProviderErrorResult;
+export type BTDFetchResult = BTDUrlProviderImageResult | BTDUrlProviderVideoResult | BTDUrlProviderErrorResult;
 
 export interface BTDUrlProvider {
   readonly name: string;
   readonly settingsKey: string;
   readonly matchUrl: (url: string) => boolean;
   readonly fetchData: (url: string) => Promise<BTDFetchResult>;
-}
-
-export interface BTDTweetThumbnailBaseProps {
-  urlData: ThumbnailDataMessage;
-  size: TweetDeckColumnMediaPreviewSizesEnum;
 }

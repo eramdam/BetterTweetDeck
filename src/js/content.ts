@@ -62,7 +62,7 @@ async function onChirpUrls(data: ChirpUrlsMessageData) {
   const injected = document.createElement('script');
   injected.src = getExtensionUrl('js/inject.js');
   injected.dataset.btdSettings = JSON.stringify(settings);
-  document.head.appendChild(injected);
+  document.head!.appendChild(injected);
 
   onBTDMessage(BTDMessageOriginsEnum.INJECT, (data) => {
     if (!data.meta || !data.meta.hash) {
