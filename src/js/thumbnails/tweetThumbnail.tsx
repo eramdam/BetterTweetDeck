@@ -8,21 +8,10 @@ import {BTDUrlProviderResultTypeEnum} from './types';
 interface BTDTweetThumbnailProps {
   urlData: ThumbnailDataMessage;
   size: TweetDeckColumnMediaPreviewSizesEnum;
+  onThumbnailClick?: () => void;
 }
 
-interface BTDTweetThumbnailState {
-  showModal?: boolean;
-}
-
-export class BTDTweetThumbnail extends Component<BTDTweetThumbnailProps, BTDTweetThumbnailState> {
-  constructor(props: BTDTweetThumbnailProps) {
-    super(props);
-
-    this.state = {
-      showModal: false
-    };
-  }
-
+export class BTDTweetThumbnail extends Component<BTDTweetThumbnailProps> {
   render() {
     const {urlData, size} = this.props;
     if (urlData.payload.type !== BTDUrlProviderResultTypeEnum.IMAGE) {
@@ -42,8 +31,6 @@ export class BTDTweetThumbnail extends Component<BTDTweetThumbnailProps, BTDTwee
       'media-size-small': size === TweetDeckColumnMediaPreviewSizesEnum.SMALL
     });
 
-    const {showModal} = this.state;
-
     return (
       <div className={wrapperClassnames}>
         {isSizeLarge ? <div className="media-caret" /> : null}
@@ -57,9 +44,10 @@ export class BTDTweetThumbnail extends Component<BTDTweetThumbnailProps, BTDTwee
           onMouseDown={(ev) => {
             ev.preventDefault();
             ev.stopPropagation();
-            this.setState({
-              showModal: true
-            });
+
+            if (this.props.onThumbnailClick) {
+              this.props.onThumbnailClick();
+            }
           }}
         />
       </div>

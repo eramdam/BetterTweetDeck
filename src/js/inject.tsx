@@ -4,6 +4,8 @@ import moduleRaid from 'moduleraid';
 import {BTDUtils} from './components/btdDebug';
 import {ChirpHandler as ChirpHandlerClass} from './components/chirpHandler';
 import {RemoveRedirection} from './components/removeRedirection';
+import {setUpThumbnailsModals} from './components/thumbnailModalContainer';
+import {ThumbnailModalCoordinator} from './components/thumbnailModalCoordinator';
 import {Timestamp} from './components/time';
 import {insertThumbnailOnTweet} from './thumbnails/tools';
 import {BTDSettings} from './types';
@@ -25,6 +27,8 @@ window.$ = mR && mR.findFunction('jQuery') && mR.findFunction('jquery:')[0];
 const Utils = new BTDUtils(BTD_SETTINGS, TD);
 Utils.attach();
 
+const modalCoordinator = new ThumbnailModalCoordinator();
+
 (async () => {
   /* Starts monitoring new chirps */
   const ChirpHandler = new ChirpHandlerClass(BTD_SETTINGS, TD, Utils);
@@ -35,7 +39,9 @@ Utils.attach();
         type: BTDMessageTypesEnums.CHIRP_URLS,
         payload: chirpProps.urls
       }).then((urlData) => {
-        insertThumbnailOnTweet(chirpProps, urlData, getSizeForColumnKey(chirpProps.columnKey));
+        insertThumbnailOnTweet(chirpProps, urlData, getSizeForColumnKey(chirpProps.columnKey), () => {
+          modalCoordinator.setThumbnail(urlData);
+        });
       });
     }
   });
@@ -61,6 +67,7 @@ Utils.attach();
 
   $(document).one('dataColumnsLoaded', async () => {
     // setUpThumbnailsModals();
+    setUpThumbnailsModals(modalCoordinator);
   });
 })();
 

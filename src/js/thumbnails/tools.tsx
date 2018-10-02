@@ -8,11 +8,7 @@ import {ThumbnailDataMessage} from '../util/messaging';
 import {BTDTweetThumbnail} from './tweetThumbnail';
 import {BTDUrlProviderResultTypeEnum} from './types';
 
-export function insertThumbnailOnTweet(
-  chirpProps: ChirpProps,
-  urlData: ThumbnailDataMessage,
-  size: TweetDeckColumnMediaPreviewSizesEnum
-) {
+export function insertThumbnailOnTweet(chirpProps: ChirpProps, urlData: ThumbnailDataMessage, size: TweetDeckColumnMediaPreviewSizesEnum, onThumbnailClick: () => void) {
   if (size === 'off') {
     return;
   }
@@ -24,25 +20,12 @@ export function insertThumbnailOnTweet(
       }
 
       if (size === 'large') {
-        chirpProps.originalNode
-          .querySelector('.js-tweet.tweet')!
-          .insertAdjacentHTML(
-            'afterend',
-            `<div class="js-media position-rel item-box-full-bleed margin-tm" ${BTD_CUSTOM_ATTRIBUTE}></div>`
-          );
+        chirpProps.originalNode.querySelector('.js-tweet.tweet')!.insertAdjacentHTML('afterend', `<div class="js-media position-rel item-box-full-bleed margin-tm" ${BTD_CUSTOM_ATTRIBUTE}></div>`);
       } else {
-        chirpProps.originalNode
-          .querySelector('.js-tweet-body')!
-          .insertAdjacentHTML(
-            'beforeend',
-            `<div class="js-media media-preview position-rel" ${BTD_CUSTOM_ATTRIBUTE}></div>`
-          );
+        chirpProps.originalNode.querySelector('.js-tweet-body')!.insertAdjacentHTML('beforeend', `<div class="js-media media-preview position-rel" ${BTD_CUSTOM_ATTRIBUTE}></div>`);
       }
 
-      ReactDOM.render(
-        <BTDTweetThumbnail urlData={urlData} size={size} />,
-        chirpProps.originalNode.querySelector(`[${BTD_CUSTOM_ATTRIBUTE}]`)
-      );
+      ReactDOM.render(<BTDTweetThumbnail urlData={urlData} size={size} onThumbnailClick={onThumbnailClick} />, chirpProps.originalNode.querySelector(`[${BTD_CUSTOM_ATTRIBUTE}]`));
 
       break;
 
