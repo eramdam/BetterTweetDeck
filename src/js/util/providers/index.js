@@ -33,4 +33,5 @@ export { default as miil } from './miil';
 export { default as nicovideo } from './nicovideo';
 export { default as pixiv } from './pixiv';
 export { default as corkboard } from './corkboard';
+export { default as audiomack } from './audiomack';
 export { default as mltshp } from './mltshp';
