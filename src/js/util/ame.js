@@ -157,8 +157,8 @@ export default function () {
       display: {
         global: true,
       },
-      name: 'Follower count greater than',
-      descriptor: 'users with greater followers than',
+      name: 'Follower count more than',
+      descriptor: 'users with more followers than',
       placeholder: 'Enter a number',
       function(t, e) {
         if (!e.user) return true;
