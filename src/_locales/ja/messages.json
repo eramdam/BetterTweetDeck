@@ -13,12 +13,14 @@
   "sec_tweetsDisplay": { "message": "ツイート: 表示" },
   "sec_interface": { "message": "インターフェイス" },
   "sec_content": { "message": "コンテンツ" },
+  "sec_custom_css": { "message": "カスタム CSS" },
   "sec_welcome": { "message": "ようこそ" },
   "sec_credits": { "message": "クレジット / About" },
   "sec_changelog": { "message": "Changelog" },
+  "sec_donate": { "message": "寄付" },
   "sec_debug": { "message": "デバッグ情報" },
   "sec_links": { "message": "リンク" },
-  "sec_donate": { "message": "寄付" },
+  "sec_website": { "message": "ウェブサイト" },
   "sec_preview": { "message": "プレビュー" },
   "sec_general": { "message": "一般の設定" },
 
@@ -87,7 +89,7 @@
       "必要に応じて RTL スタイル (アラビア語などの右から左に書くスタイル) を検出して、自動的に適用する"
   },
   "flash_tweets": { "message": "新しいツイートをフラッシュする" },
-  "flash_tweets_mentions": { "message": "メンションコラムのみ" },
+  "flash_tweets_mentions": { "message": "メンションカラムのみ" },
   "flash_tweets_all": { "message": "全てのカラム" },
 
   "update_title_on_notifications": {
@@ -120,6 +122,14 @@
     "message":
       "「TweetDeck で共有」アクション実行時に、選択していたテキストを短くする <small>再起動後に適用されます</small>"
   },
+
+  "custome_css_title": {
+    "message": "カスタム CSS"
+  },
+  "custome_css_p1": {
+    "message": "⚠️ よくわからないコードをエディタに貼り付けると、さまざまな問題を引き起こす可能性があり、危険です！ ⚠️"
+  },
+
   "no_tco": { "message": "t.co リンクのリダイレクトを除去する" },
   "no_gif_pp": { "message": "ユーザーアイコンの GIF の自動再生を停止する" },
   "thumbnails_from": { "message": "次のサービスのサムネイル画像を表示する" },
@@ -127,7 +137,7 @@
   "css_minimal_mode": { "message": "「ミニマル」モードを有効にする" },
   "css_og_dark_theme": {
     "message":
-      "Dark テーマを以前のスタイルに元に戻す (2018年2月より前のスタイル)"
+      "Dark テーマを以前のスタイルに戻す (2018年2月より前のスタイル)"
   },
   "css_experimental_warning": {
     "message":
@@ -169,6 +179,9 @@
     "message":
       "カラムの折りたたみを展開したとき、最新のツイートが表示されるようにフィードを最上部までスクロールする"
   },
+  "btd_logo": {
+    "message": "左下の TweetDeck ロゴを BetterTweetDeck のロゴに置き換える"
+  },
 
   "edit_item": { "message": "ツイートメニューに「ツイートの編集」を追加する" },
   "edit_item_note": {
@@ -208,7 +221,7 @@
   "ctrl_changes_interactions__mode__dialog": {
     "message": "フォローダイアログからアカウントを選択する"
   },
-  "keep_hashtags": { "message": "ツイートされたハッシュタグを保持" },
+  "keep_hashtags": { "message": "ツイートしたハッシュタグを入力欄に保持する" },
 
   "btd_thx": {
     "message":

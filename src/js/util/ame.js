@@ -140,7 +140,7 @@ export default function () {
         return !e.user.profileImageURL.includes('default');
       },
     },
-    BTD_follower_count: {
+    BTD_follower_count_less_than: {
       display: {
         global: true,
       },
@@ -151,6 +151,19 @@ export default function () {
         if (!e.user) return true;
 
         return !(e.user.followersCount < parseInt(t.value, 10));
+      },
+    },
+    BTD_follower_count_greater_than: {
+      display: {
+        global: true,
+      },
+      name: 'Follower count more than',
+      descriptor: 'users with more followers than',
+      placeholder: 'Enter a number',
+      function(t, e) {
+        if (!e.user) return true;
+
+        return !(e.user.followersCount > parseInt(t.value, 10));
       },
     },
   };
