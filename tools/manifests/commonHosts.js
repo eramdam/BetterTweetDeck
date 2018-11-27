@@ -28,4 +28,5 @@ module.exports = [
   'https://raw.githubusercontent.com/eramdam/BetterTweetDeck/master/*',
   '*://tweetdeck.twitter.com/*',
   'https://i.ppn.pw/n/api/preview.php?i=*',
+  'https://audiomack.com/oembed',
 ];
