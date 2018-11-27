@@ -8,6 +8,7 @@ import * as BHelper from './browserHelper';
 
 const endpoints = {
   '500px': 'https://500px.com/oembed?format=json&url=',
+  audiomack: 'https://audiomack.com/oembed?url=',
   dailymotion: 'https://api.dailymotion.com/video/',
   deviantart: 'https://backend.deviantart.com/oembed?',
   dribbble: 'https://api.dribbble.com/v1/shots/',
@@ -132,6 +133,7 @@ const util = {
 
 export const schemeWhitelist = [
   Providers.fivehundredpx(util),
+  Providers.audiomack(util),
   Providers.bandcamp(util),
   Providers.cloudapp(util),
   Providers.dailymotion(util),
