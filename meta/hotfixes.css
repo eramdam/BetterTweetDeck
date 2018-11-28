@@ -74,3 +74,21 @@ html.btd-on section.btd-column-collapsed .column-header-links {
 .btd__replace_logo .application .app-title .invisible-in-contracted-header img {
   display: none;
 }
+
+/* 11/28 fixes (RT modal on OG dark theme) */
+
+.btd__og_dark_theme[data-btdtheme="dark"] #actions-modal .cmp-replyto {
+  background: white !important;
+}
+
+.btd__og_dark_theme[data-btdtheme="dark"] #actions-modal > div > div.mdl-inner.mdl-accent.padding-h--20.mdl-header-divider {
+  background-color: #f5f8fa !important;
+  border-bottom: 0 !important;
+  color: #10171e !important;
+}
+
+.btd__og_dark_theme[data-btdtheme="dark"] #actions-modal > div > div.js-inreply.cmp-replyto.item-box.cf.padding-a--20 .account-inline,
+.btd__og_dark_theme[data-btdtheme="dark"] #actions-modal > div > div.js-inreply.cmp-replyto.item-box.cf.padding-a--20 .tweet-body {
+  color: #38444d !important;
+}
+
