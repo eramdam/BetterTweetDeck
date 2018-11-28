@@ -722,11 +722,11 @@ const closeCustomModal = () => {
   $('#open-modal').empty();
 };
 
-const observer = new MutationObserver(mutations =>
+const generalMutationObserver = new MutationObserver(mutations =>
   mutations.forEach((mutation) => {
     [...mutation.addedNodes].forEach(handleInsertedNode);
   }));
-observer.observe(document, { subtree: true, childList: true });
+generalMutationObserver.observe(document, { subtree: true, childList: true });
 
 const handleGifClick = (ev) => {
   ev.preventDefault();
@@ -849,7 +849,10 @@ $(document).on('dataColumns', (ev, data) => {
   proxyEvent('columnsChanged', cols);
 });
 
-$(document).on('uiToggleTheme', switchThemeClass);
+const htmlObserver = new MutationObserver((mutations) => {
+  switchThemeClass();
+});
+htmlObserver.observe(document.querySelector('html'), { attributes: true });
 
 // Will ensure we keep the media preview size value even when the user changes it
 $(document).on('uiColumnUpdateMediaPreview', (ev, data) => {
