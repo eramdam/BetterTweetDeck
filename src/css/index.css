@@ -101,6 +101,21 @@ html.btd-on {
     content: "\f438";
   }
 
+  .js-add-emojis.padding-v--9.js-add-emojis {
+    padding-top: 6px !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-bottom: 5px !important;
+  }
+
+  .js-add-emojis.padding-v--9.js-add-emojis .btd-emoji-icon {
+    font-size: 18px !important;
+  }
+  
+  .btd__small_icns_compose .js-add-emojis.padding-v--9.js-add-emojis .btd-emoji-icon {
+    transform: translateY(-2px);
+  }
+
   .js-media-image-link,
   article video.js-media-gif {
     cursor: zoom-in !important;
@@ -259,14 +274,42 @@ html.btd-on {
   box-shadow: none !important;
 }
 
-.js-column-header .column-header-title.width-p--85.column-header-title {
-  width: auto !important;
-}
-
-.js-column-header .column-header-links {
-  max-width: none !important;
-}
 
 .js-message-banner:not(.is-hidden) {
   padding: 6px 0;
+}
+
+.js-column-header .column-header-links {
+  flex-shrink: 0 !important;
+  max-width: none !important;
+}
+
+.js-column-header .column-header-title.width-p--85.column-header-title {
+  width: auto !important;
+  flex-shrink: 1 !important;
+  overflow: hidden !important;
+}
+
+.btd__no_col_icns .js-column .column-title {
+  margin-left: 10px !important;
+}
+
+.btd__replace_logo .application .app-title .visible-in-contracted-header .tweetdeck-logo {
+  background-size: 24px;
+  background-position: 50%;
+  background-image: url('../img/btd-logo-small.png');
+}
+
+.btd__replace_logo .application .app-title .invisible-in-contracted-header {
+  width: 100%;
+  background-repeat: no-repeat;
+  margin-top: 11px;
+  height: 34px;
+  background-size: contain;
+  background-position: center center;
+  background-image: url('../img/btd-logo.png');
+}
+
+.btd__replace_logo .application .app-title .invisible-in-contracted-header img {
+  display: none;
 }
