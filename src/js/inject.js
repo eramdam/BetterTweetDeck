@@ -849,7 +849,7 @@ $(document).on('dataColumns', (ev, data) => {
   proxyEvent('columnsChanged', cols);
 });
 
-const htmlObserver = new MutationObserver((mutations) => {
+const htmlObserver = new MutationObserver(() => {
   switchThemeClass();
 });
 htmlObserver.observe(document.querySelector('html'), { attributes: true });
