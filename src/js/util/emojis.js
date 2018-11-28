@@ -447,17 +447,6 @@ function getEmojiList(query) {
 
   let defaultEmojiContent = '';
 
-  defaultEmojiContent = `
-    <h3 class="emoji-category-title">Skin tone</h3>
-    <div class="emoji-category">
-      <a href="#" class="btd-skin-tone" data-btd-skin-tone="1" title style="background-color: #f9cd37;"></a>
-      <a href="#" class="btd-skin-tone" data-btd-skin-tone="2" title style="background-color: #f4dfce;"></a>
-      <a href="#" class="btd-skin-tone" data-btd-skin-tone="3" title style="background-color: #f0d3a0;"></a>
-      <a href="#" class="btd-skin-tone" data-btd-skin-tone="4" title style="background-color: #d1ad86;"></a>
-      <a href="#" class="btd-skin-tone" data-btd-skin-tone="5" title style="background-color: #ab7f52;"></a>
-      <a href="#" class="btd-skin-tone" data-btd-skin-tone="6" title style="background-color: #78523a;"></a>
-    </div>
-  `;
   Object.keys(catOrder).forEach((cat) => {
     defaultEmojiContent += `
     <h3 class="emoji-category-title" data-btd-emoji-cat="${cat}">${cat}</h3>
@@ -473,6 +462,18 @@ function getEmojiList(query) {
 
     defaultEmojiContent += '</div>';
   });
+
+  defaultEmojiContent += `
+  <h3 class="emoji-category-title">Skin tone</h3>
+  <div class="emoji-category">
+    <a href="#" class="btd-skin-tone" data-btd-skin-tone="1" title style="background-color: #f9cd37;"></a>
+    <a href="#" class="btd-skin-tone" data-btd-skin-tone="2" title style="background-color: #f4dfce;"></a>
+    <a href="#" class="btd-skin-tone" data-btd-skin-tone="3" title style="background-color: #f0d3a0;"></a>
+    <a href="#" class="btd-skin-tone" data-btd-skin-tone="4" title style="background-color: #d1ad86;"></a>
+    <a href="#" class="btd-skin-tone" data-btd-skin-tone="5" title style="background-color: #ab7f52;"></a>
+    <a href="#" class="btd-skin-tone" data-btd-skin-tone="6" title style="background-color: #78523a;"></a>
+  </div>
+`;
 
   return defaultEmojiContent;
 }
