@@ -39,10 +39,6 @@
 @import "./embeds.css";
 
 html.btd-on {
-  [data-btdtheme] .dropdown-menu {
-    z-index: 20;
-  }
-
   [data-btdtheme] .js-media-image-link {
     /* Future loading bg image */
   }

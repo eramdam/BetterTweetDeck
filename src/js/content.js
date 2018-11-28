@@ -222,6 +222,7 @@ function tweakClassesFromVisualSettings() {
     linkRevert.rel = 'stylesheet';
     linkRevert.href = BHelper.getExtensionUrl('revert-dark-theme.css');
     document.head.appendChild(linkRevert);
+    document.body.classList.add('btd__og_dark_theme');
   }
 
   if (SETTINGS.custom_columns_width.enabled) {

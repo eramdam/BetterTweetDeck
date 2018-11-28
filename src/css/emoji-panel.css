@@ -95,7 +95,7 @@ html.btd-on {
     outline: 0;
     border: 0;
     font-size: 0;
-    padding: 5px;
+    padding: 7px 6px;
   }
 
   .emoji-popover .category-chooser .emoji-outer {
@@ -190,6 +190,35 @@ html.btd-on {
     img.emoji {
       width: 1em;
       height: 1em;
+    }
+  }
+
+  /* Fixes for modern dark theme */
+
+  body[data-btdtheme="dark"]:not(.btd__og_dark_theme) {
+    .emoji-popover .emoji-category-title {
+      color: white;
+    }
+
+    .category-chooser {
+      background: #1c2838;
+    }
+
+    .emoji-popover .emoji-preview {
+      background: #1c2838;
+      color: white;
+      border-top: 1px solid #000;
+      border-bottom: 1px solid #000;
+    }
+
+    .emoji-popover .emoji-container {  
+      &::-webkit-scrollbar-track {
+        background: #1c2838;
+      }
+  
+      &::-webkit-scrollbar-thumb {
+        background: color(white a(20%));
+      }
     }
   }
 }

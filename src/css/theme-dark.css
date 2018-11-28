@@ -41,12 +41,12 @@ html.btd-on [data-btdtheme="dark"].btd__minimal_mode {
 
   .dropdown-menu .is-selected,
   .typeahead.lst .s-selected {
-    background-color: hsl(210, 34%, 10%);
+    background-color: hsl(210, 34%, 10%) !important;
   }
 
   .dropdown-menu,
   .typeahead {
-    background-color: hsl(210, 34%, 16%);
+    background-color: hsl(210, 34%, 16%) !important;
   }
 
   .typeahead {
