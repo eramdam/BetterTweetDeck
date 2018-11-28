@@ -310,6 +310,10 @@ if (SETTINGS.old_replies) {
   );
 }
 
+if (SETTINGS.css.og_dark_theme) {
+  TD.mustaches['column.mustache'] = TD.mustaches['column.mustache'].replace('<div class="js-column-holder column-holder">', '<div class="js-column-holder column-holder {{#isTemporary}} is-inverted-dark {{/isTemporary}}">');
+}
+
 // Re-add the RT/like indicator on detailed tweet
 TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches[
   'status/tweet_detail.mustache'
