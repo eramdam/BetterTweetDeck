@@ -1,4 +1,4 @@
-import {BTDSettings, getExtensionUrl} from '../helpers/browserHelpers';
+import {ExtensionSettings, getExtensionUrl} from '../helpers/browserHelpers';
 
 /** Injects (part of) our code to TD's main frame. */
 export async function injectScriptToMainFrame() {
@@ -10,7 +10,7 @@ export async function injectScriptToMainFrame() {
   /**
    * Grab the settings from the browser.
    */
-  const settings = await BTDSettings.get();
+  const settings = await ExtensionSettings.get();
 
   const toInject = document.createElement('script');
   toInject.src = getExtensionUrl('js/inject.js');
