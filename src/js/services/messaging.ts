@@ -1,7 +1,8 @@
-import {ChirpHandlerPayload} from '../modules/chirpHandler';
+import {ChirpHandlerPayload, ChirpRemovedPayload} from '../modules/chirpHandler';
 
 export enum BTDMessageTypesEnums {
   GOT_CHIRP = 'GOT_CHIRP',
+  REMOVED_CHIRP = 'REMOVED_CHIRP',
   THUMBNAIL_DATA = 'THUMBNAIL_DATA',
   DEBUG = '___USE_ONLY_FOR_DEBUG___',
   READY = 'READY'
@@ -25,9 +26,14 @@ export interface ReadyMessage extends BTDBaseMessageData {
   readonly type: BTDMessageTypesEnums.READY;
 }
 
-export interface ChirpPayloadMessageData extends BTDBaseMessageData {
+export interface ChirpAddedMessageData extends BTDBaseMessageData {
   readonly type: BTDMessageTypesEnums.GOT_CHIRP;
   readonly payload: ChirpHandlerPayload;
+}
+
+export interface ChirpRemovedMessageData extends BTDBaseMessageData {
+  readonly type: BTDMessageTypesEnums.REMOVED_CHIRP;
+  readonly payload: ChirpRemovedPayload;
 }
 
 export interface ThumbnailDataMessage extends BTDBaseMessageData {
@@ -39,7 +45,7 @@ interface DebugMessage extends BTDBaseMessageData {
   type: BTDMessageTypesEnums.DEBUG;
 }
 
-export type BTDData = DebugMessage | ChirpPayloadMessageData | ThumbnailDataMessage | ReadyMessage;
+export type BTDData = DebugMessage | ChirpAddedMessageData | ThumbnailDataMessage | ReadyMessage | ChirpRemovedMessageData;
 
 const MESSAGE_ORIGIN = 'https://tweetdeck.twitter.com';
 
@@ -84,16 +90,8 @@ interface BTDMessageEvent extends MessageEvent {
 const BTDMessageTypesEnumsValues = Object.values(BTDMessageTypesEnums);
 const BTDMessageOriginsEnumValues = Object.values(BTDMessageOriginsEnum);
 
-function dataIsBTDDate(data: any): data is BTDData {
-  if (!BTDMessageTypesEnumsValues.includes(data.type) || !BTDMessageOriginsEnumValues.includes(data.meta.origin)) {
-    return false;
-  }
-
-  return true;
-}
-
 function messageIsBTDMessage(message: MessageEvent): message is BTDMessageEvent {
-  if (message.origin !== MESSAGE_ORIGIN || dataIsBTDDate(message.data)) {
+  if (message.origin !== MESSAGE_ORIGIN || !BTDMessageTypesEnumsValues.includes(message.data.type) || !BTDMessageOriginsEnumValues.includes(message.data.meta.origin)) {
     return false;
   }
 
@@ -101,13 +99,13 @@ function messageIsBTDMessage(message: MessageEvent): message is BTDMessageEvent 
 }
 
 /** Runs a callback on every message events sent by Better TweetDeck  */
-export function onBTDMessage<T extends BTDData>(origin: BTDMessageOriginsEnum, cb: (ev: T) => void) {
+export function onBTDMessage<T extends BTDData>(origin: BTDMessageOriginsEnum, messageType: BTDMessageTypesEnums, cb: (ev: T) => void) {
   window.addEventListener('message', (ev) => {
     if (!messageIsBTDMessage(ev) || !ev.data.meta || ev.data.meta.origin !== origin) {
       return;
     }
 
-    if (!dataIsBTDDate(ev.data)) {
+    if (messageType.toString() !== ev.data.type) {
       return;
     }
 

@@ -1,17 +1,23 @@
-import ReactDOM from 'react-dom';
+import {compact} from 'lodash';
 
 import {getRandomString, isHTMLElement} from '../helpers/domHelpers';
 import {getChirpFromElement, getURLsFromChirp} from '../helpers/tweetdeckHelpers';
 import {BTD_CUSTOM_ATTRIBUTE, HandlerOf} from '../types';
 
 export interface ChirpHandlerPayload {
-  selectorToElement: string;
+  uuid: string;
   chirp: any;
   urls: any[];
   columnKey: string;
 }
 
-export const setupChirpHandler: (handler: HandlerOf<ChirpHandlerPayload>) => void = (handler) => {
+export interface ChirpRemovedPayload {
+  uuidArray: string[];
+}
+
+type SetupChirpHandler = (handlerOnAdd: HandlerOf<ChirpHandlerPayload>, handlerOnRemove: HandlerOf<ChirpRemovedPayload>) => void;
+
+export const setupChirpHandler: SetupChirpHandler = (handlerOnAdd, handlerOnRemove) => {
   const observer = new MutationObserver(mutations => mutations.forEach((mutation) => {
     Array.from(mutation.addedNodes).forEach((element) => {
       if (!isHTMLElement(element)) {
@@ -34,8 +40,8 @@ export const setupChirpHandler: (handler: HandlerOf<ChirpHandlerPayload>) => voi
 
         element.setAttribute('data-btd-uuid', uuid);
 
-        handler({
-          selectorToElement: `[data-btd-uuid="${uuid}"]`,
+        handlerOnAdd({
+          uuid,
           chirp: JSON.parse(JSON.stringify(chirp)),
           urls,
           columnKey: chirp._btd.columnKey
@@ -60,8 +66,8 @@ export const setupChirpHandler: (handler: HandlerOf<ChirpHandlerPayload>) => voi
 
         element.setAttribute('data-btd-uuid', uuid);
 
-        handler({
-          selectorToElement: `[data-btd-uuid="${uuid}"]`,
+        handlerOnAdd({
+          uuid,
           chirp: JSON.parse(JSON.stringify(chirp)),
           urls,
           columnKey: chirp._btd.columnKey
@@ -74,11 +80,26 @@ export const setupChirpHandler: (handler: HandlerOf<ChirpHandlerPayload>) => voi
         return;
       }
 
-      const BTDElements = removed.querySelectorAll(`[${BTD_CUSTOM_ATTRIBUTE}]`);
+      const btdNode = removed.closest('[data-btd-uuid]');
+      const btdChildren = removed.querySelectorAll('[data-btd-uuid]') || [];
 
-      Array.from(BTDElements).forEach((e) => {
-        ReactDOM.unmountComponentAtNode(e);
+      if (!btdNode) {
+        return;
+      }
+
+      const nodes = Array.from(btdChildren).concat(btdNode);
+
+      const uuids = compact(nodes.map(n => n.getAttribute('data-btd-uuid')));
+
+      handlerOnRemove({
+        uuidArray: uuids
       });
+
+      // const BTDElements = removed.querySelectorAll(`[${BTD_CUSTOM_ATTRIBUTE}]`);
+
+      // Array.from(BTDElements).forEach((e) => {
+      //   ReactDOM.unmountComponentAtNode(e);
+      // });
     });
   }));
 

@@ -35,12 +35,20 @@ setupMediaSizeMonitor(Settings, window.TD);
 /**
  * "Subscriptions".
  */
-setupChirpHandler((payload) => {
-  msgToContent({
-    type: BTDMessageTypesEnums.DEBUG,
-    payload
-  });
-});
+setupChirpHandler(
+  (payload) => {
+    msgToContent({
+      type: BTDMessageTypesEnums.GOT_CHIRP,
+      payload
+    });
+  },
+  (payload) => {
+    msgToContent({
+      type: BTDMessageTypesEnums.REMOVED_CHIRP,
+      payload
+    });
+  }
+);
 
 $(document).one('dataColumnsLoaded', () => {
   msgToContent({
