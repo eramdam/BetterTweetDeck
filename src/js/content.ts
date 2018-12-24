@@ -1,1 +1,5 @@
-console.log('Hello from content');
+import {injectScriptToMainFrame} from './services/injectToMain';
+import {setupRoot} from './services/setupBTDRoot';
+
+injectScriptToMainFrame();
+setupRoot();
