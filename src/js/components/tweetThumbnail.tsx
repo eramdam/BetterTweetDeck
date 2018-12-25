@@ -1,77 +1,113 @@
-import React, {Component, FC} from 'react';
+import React, {Component} from 'react';
 import {Portal} from 'react-portal';
 
 import {ChirpHandlerPayload} from '../modules/chirpHandler';
 import {TweetDeckColumnMediaPreviewSizesEnum} from '../modules/columnMediaSizes';
-import {LargeThumbnail, MediumThumbnail, SmallThumbnail} from './mediaThumbnails';
+import {findProviderForUrl, getThumbnailData} from '../thumbnails';
+import {BTDThumbnailDataResults, BTDUrlProviderResultTypeEnum} from '../thumbnails/types';
+import {LargeThumbnail, MediumThumbnail, SmallThumbnail, ThumbnailProps} from './mediaThumbnails';
 
 interface TweetThumbnailProps {
   chirpData: ChirpHandlerPayload;
 }
 
 interface TweetThumbnailState {
-  urlData: any;
+  urlData?: BTDThumbnailDataResults;
 }
 
-export class TweetThumbnail extends Component<TweetThumbnailProps> {
-  componentDidMount() {
+export class TweetThumbnail extends Component<TweetThumbnailProps, TweetThumbnailState> {
+  constructor(props: TweetThumbnailProps) {
+    super(props);
+
+    this.state = {};
+  }
+
+  async componentDidMount() {
     const {urls} = this.props.chirpData;
 
+    // Find a suitable URL for thumbnails.
     const urlToConsider = urls.find(u => !u.type && !u.expanded_url.includes('twitter.com'));
 
     if (!urlToConsider) {
       return;
     }
 
-    console.log({urlToConsider});
+    // Find a suitable provider for the URL.
+    const provider = findProviderForUrl(urlToConsider.expanded_url);
+
+    if (!provider) {
+      return;
+    }
+
+    // Fetch the thumbnail data using the provider.
+    const results = await getThumbnailData(urlToConsider.expanded_url, provider);
+
+    if (results.type === BTDUrlProviderResultTypeEnum.ERROR) {
+      return;
+    }
+
+    // Add that data in the state.
+    this.setState({
+      urlData: results
+    });
   }
 
-  render() {
-    return null;
-    // const {chirpData} = this.props;
-    // const {uuid, columnMediaSize} = chirpData;
+  private renderThumbnail(baseNode: Element, urlData: BTDThumbnailDataResults) {
+    const {columnMediaSize, uuid} = this.props.chirpData;
+    const thumbProps: ThumbnailProps = {
+      url: urlData.url,
+      imageUrl: urlData.thumbnailUrl
+    };
 
-    // if (columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.OFF) {
-    //   return null;
-    // }
+    if (columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.LARGE) {
+      const node = document.querySelector(`[data-btd-uuid="${uuid}"] .js-stream-item-content`);
+      if (!node) {
+        return null;
+      }
 
-    // const baseNode = document.querySelector(`[data-btd-uuid="${uuid}"] .js-tweet.tweet .tweet-body`);
+      return (
+        <Portal node={node}>
+          <LargeThumbnail {...thumbProps} />
+        </Portal>
+      );
+    }
 
-    // if (!baseNode) {
-    //   return null;
-    // }
-
-    // return renderThumbnail(this.props, baseNode);
-  }
-}
-
-function renderThumbnail(props: TweetThumbnailProps, baseNode: Element) {
-  const {columnMediaSize, uuid} = props.chirpData;
-
-  if (columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.LARGE) {
-    const node = document.querySelector(`[data-btd-uuid="${uuid}"] .js-stream-item-content`);
-    if (!node) {
-      return null;
+    if (columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.MEDIUM) {
+      return (
+        <Portal node={baseNode}>
+          <MediumThumbnail {...thumbProps} />
+        </Portal>
+      );
     }
 
     return (
-      <Portal node={node}>
-        <LargeThumbnail url="https://better.tw" imageUrl="https://eramdam.github.io/gifs/flatten/bullshit-but-i-believe-it.jpg" />
-      </Portal>
-    );
-  }
-
-  if (columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.MEDIUM) {
-    return (
       <Portal node={baseNode}>
-        <MediumThumbnail url="https://better.tw" imageUrl="https://eramdam.github.io/gifs/flatten/bullshit-but-i-believe-it.jpg" />
+        <SmallThumbnail {...thumbProps} />
       </Portal>
     );
   }
 
-  return (
-    <Portal node={baseNode}>
-      <SmallThumbnail url="https://better.tw" imageUrl="https://eramdam.github.io/gifs/flatten/bullshit-but-i-believe-it.jpg" />
-    </Portal>
-  );
+  render() {
+    const {urlData} = this.state;
+
+    // If we don't have any data (yet), nothing to do.
+    if (!urlData) {
+      return null;
+    }
+
+    const {chirpData} = this.props;
+    const {uuid, columnMediaSize} = chirpData;
+
+    if (columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.OFF) {
+      return null;
+    }
+
+    const baseNode = document.querySelector(`[data-btd-uuid="${uuid}"] .js-tweet.tweet .tweet-body`);
+
+    if (!baseNode) {
+      return null;
+    }
+
+    return this.renderThumbnail(baseNode, urlData);
+  }
 }

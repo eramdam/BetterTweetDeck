@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 
-interface ThumbnailProps {
+export interface ThumbnailProps {
   url: string;
   imageUrl: string;
 }
