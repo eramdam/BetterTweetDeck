@@ -1,55 +1,77 @@
-import React, {FC} from 'react';
+import React, {Component, FC} from 'react';
 import {Portal} from 'react-portal';
 
 import {ChirpHandlerPayload} from '../modules/chirpHandler';
+import {TweetDeckColumnMediaPreviewSizesEnum} from '../modules/columnMediaSizes';
+import {LargeThumbnail, MediumThumbnail, SmallThumbnail} from './mediaThumbnails';
 
 interface TweetThumbnailProps {
   chirpData: ChirpHandlerPayload;
 }
 
-export const TweetThumbnail: FC<TweetThumbnailProps> = ({chirpData}) => {
-  const {uuid} = chirpData;
-  const baseNode = document.querySelector(`[data-btd-uuid="${uuid}"] .js-tweet.tweet .tweet-body`);
+interface TweetThumbnailState {
+  urlData: any;
+}
 
-  if (!baseNode) {
+export class TweetThumbnail extends Component<TweetThumbnailProps> {
+  componentDidMount() {
+    const {urls} = this.props.chirpData;
+
+    const urlToConsider = urls.find(u => !u.type && !u.expanded_url.includes('twitter.com'));
+
+    if (!urlToConsider) {
+      return;
+    }
+
+    console.log({urlToConsider});
+  }
+
+  render() {
     return null;
+    // const {chirpData} = this.props;
+    // const {uuid, columnMediaSize} = chirpData;
+
+    // if (columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.OFF) {
+    //   return null;
+    // }
+
+    // const baseNode = document.querySelector(`[data-btd-uuid="${uuid}"] .js-tweet.tweet .tweet-body`);
+
+    // if (!baseNode) {
+    //   return null;
+    // }
+
+    // return renderThumbnail(this.props, baseNode);
+  }
+}
+
+function renderThumbnail(props: TweetThumbnailProps, baseNode: Element) {
+  const {columnMediaSize, uuid} = props.chirpData;
+
+  if (columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.LARGE) {
+    const node = document.querySelector(`[data-btd-uuid="${uuid}"] .js-stream-item-content`);
+    if (!node) {
+      return null;
+    }
+
+    return (
+      <Portal node={node}>
+        <LargeThumbnail url="https://better.tw" imageUrl="https://eramdam.github.io/gifs/flatten/bullshit-but-i-believe-it.jpg" />
+      </Portal>
+    );
+  }
+
+  if (columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.MEDIUM) {
+    return (
+      <Portal node={baseNode}>
+        <MediumThumbnail url="https://better.tw" imageUrl="https://eramdam.github.io/gifs/flatten/bullshit-but-i-believe-it.jpg" />
+      </Portal>
+    );
   }
 
   return (
     <Portal node={baseNode}>
-      <div className="js-media media-preview position-rel">
-        {' '}
-        <div className=" js-media-preview-container media-preview-container position-rel width-p--100 margin-vm">
-          {' '}
-          <a
-            className="js-media-image-link block med-link media-item media-size-medium is-zoomable"
-            href="https://t.co/2SxulZzPTZ"
-            rel="mediaPreview"
-            target="_blank"
-            style={{
-              backgroundColor: 'red'
-            }}
-            data-media-entity-id="1077419550512099329"
-            title=""
-          >
-            {' '}
-          </a>
-          <a
-            href="https://images.google.com/searchbyimage?image_url=https://pbs.twimg.com/media/DvPDX25VsAEKN4e.jpg?format=jpg&amp;name=small"
-            target="_blank"
-            rel="url noopener noreferrer"
-            className="js-show-tip reverse-image-search is-actionable "
-            title="Search image on Google"
-          />{' '}
-        </div>{' '}
-        <a
-          href="https://images.google.com/searchbyimage?image_url=https://pbs.twimg.com/media/DvPDX25VsAEKN4e.jpg?format=jpg&amp;name=small"
-          target="_blank"
-          rel="url noopener noreferrer"
-          className="js-show-tip reverse-image-search is-actionable "
-          title="Search image on Google"
-        />{' '}
-      </div>
+      <SmallThumbnail url="https://better.tw" imageUrl="https://eramdam.github.io/gifs/flatten/bullshit-but-i-believe-it.jpg" />
     </Portal>
   );
-};
+}

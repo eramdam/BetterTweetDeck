@@ -3,12 +3,13 @@ import {compact} from 'lodash';
 import {getRandomString, isHTMLElement} from '../helpers/domHelpers';
 import {getChirpFromElement, getURLsFromChirp} from '../helpers/tweetdeckHelpers';
 import {BTD_CUSTOM_ATTRIBUTE, HandlerOf} from '../types';
+import {getSizeForColumnKey, TweetDeckColumnMediaPreviewSizesEnum} from './columnMediaSizes';
 
 export interface ChirpHandlerPayload {
   uuid: string;
   chirp: any;
   urls: any[];
-  columnKey: string;
+  columnMediaSize: TweetDeckColumnMediaPreviewSizesEnum;
 }
 
 export interface ChirpRemovedPayload {
@@ -44,7 +45,7 @@ export const setupChirpHandler: SetupChirpHandler = (handlerOnAdd, handlerOnRemo
           uuid,
           chirp: JSON.parse(JSON.stringify(chirp)),
           urls,
-          columnKey: chirp._btd.columnKey
+          columnMediaSize: getSizeForColumnKey(chirp._btd.columnKey)
         });
       }
 

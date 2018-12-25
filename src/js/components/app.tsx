@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import {ChirpHandlerPayload} from '../modules/chirpHandler';
+import {TweetDeckColumnMediaPreviewSizesEnum} from '../modules/columnMediaSizes';
 import {
   BTDMessageOriginsEnum,
   BTDMessageTypesEnums,
@@ -24,6 +25,7 @@ export class App extends Component<{}, AppState> {
   }
 
   componentDidMount() {
+    // @ts-ignore
     window.BTD_APP = this;
     onBTDMessage<ChirpAddedMessageData>(BTDMessageOriginsEnum.INJECT, BTDMessageTypesEnums.GOT_CHIRP, (data) => {
       this.setState(({chirpsPayload}) => {
@@ -50,7 +52,7 @@ export class App extends Component<{}, AppState> {
 
   render() {
     return Array.from(this.state.chirpsPayload.values())
-      .filter(p => p.urls.length)
+      .filter(p => p.urls.length && p.columnMediaSize !== TweetDeckColumnMediaPreviewSizesEnum.OFF)
       .map(p => <TweetThumbnail key={p.uuid} chirpData={p} />);
   }
 }
