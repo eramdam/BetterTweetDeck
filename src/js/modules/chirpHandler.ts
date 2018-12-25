@@ -24,7 +24,7 @@ export const setupChirpHandler: SetupChirpHandler = (handlerOnAdd, handlerOnRemo
         return;
       }
 
-      if (element.matches(`[${BTD_CUSTOM_ATTRIBUTE}]`) || element.closest(`[${BTD_CUSTOM_ATTRIBUTE}]`)) {
+      if (element.matches(`[${BTD_CUSTOM_ATTRIBUTE}]`) || element.closest(`[${BTD_CUSTOM_ATTRIBUTE}]`) || element.closest('[data-btd-uuid]') || element.matches('[data-btd-uuid]')) {
         return;
       }
 
