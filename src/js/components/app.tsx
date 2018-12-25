@@ -8,6 +8,7 @@ import {
   ChirpRemovedMessageData,
   onBTDMessage
 } from '../services/messaging';
+import {TweetThumbnail} from './tweetThumbnail';
 
 interface AppState {
   chirpsPayload: Map<string, ChirpHandlerPayload>;
@@ -24,7 +25,6 @@ export class App extends Component<{}, AppState> {
 
   componentDidMount() {
     window.BTD_APP = this;
-    console.log('componentDidMount');
     onBTDMessage<ChirpAddedMessageData>(BTDMessageOriginsEnum.INJECT, BTDMessageTypesEnums.GOT_CHIRP, (data) => {
       this.setState(({chirpsPayload}) => {
         chirpsPayload.set(data.payload.uuid, data.payload);
@@ -49,6 +49,8 @@ export class App extends Component<{}, AppState> {
   }
 
   render() {
-    return <div>hello world</div>;
+    return Array.from(this.state.chirpsPayload.values())
+      .filter(p => p.urls.length)
+      .map(p => <TweetThumbnail key={p.uuid} chirpData={p} />);
   }
 }
