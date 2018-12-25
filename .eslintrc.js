@@ -23,6 +23,7 @@ module.exports = {
     {
       files: ['*.ts', '*.tsx'],
       rules: {
+        'no-use-before-define': 0,
         'import/no-unresolved': 0,
         'no-unused-vars': 0,
         'no-undef': 0,
