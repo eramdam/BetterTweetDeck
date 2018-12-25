@@ -49,29 +49,23 @@ export const setupChirpHandler: SetupChirpHandler = (handlerOnAdd, handlerOnRemo
       }
 
       if (element.matches('.js-mediatable')) {
-        const insideChirpNode = element.querySelector('[data-key]');
-
-        if (!insideChirpNode) {
-          return;
-        }
-
-        const chirp = getChirpFromElement(insideChirpNode);
-
-        if (!chirp) {
-          return;
-        }
-
-        const urls = getURLsFromChirp(chirp);
-        const uuid = getRandomString();
-
-        element.setAttribute('data-btd-uuid', uuid);
-
-        handlerOnAdd({
-          uuid,
-          chirp: JSON.parse(JSON.stringify(chirp)),
-          urls,
-          columnKey: chirp._btd.columnKey
-        });
+        // const insideChirpNode = element.querySelector('[data-key]');
+        // if (!insideChirpNode) {
+        //   return;
+        // }
+        // const chirp = getChirpFromElement(insideChirpNode);
+        // if (!chirp) {
+        //   return;
+        // }
+        // const urls = getURLsFromChirp(chirp);
+        // const uuid = getRandomString();
+        // element.setAttribute('data-btd-uuid', uuid);
+        // handlerOnAdd({
+        //   uuid,
+        //   chirp: JSON.parse(JSON.stringify(chirp)),
+        //   urls,
+        //   columnKey: chirp._btd.columnKey
+        // });
       }
     });
 
