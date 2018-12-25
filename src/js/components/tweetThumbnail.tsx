@@ -3,6 +3,7 @@ import {Portal} from 'react-portal';
 
 import {ChirpHandlerPayload} from '../modules/chirpHandler';
 import {TweetDeckColumnMediaPreviewSizesEnum} from '../modules/columnMediaSizes';
+import {BTDMessageTypesEnums, msgToInject} from '../services/messaging';
 import {findProviderForUrl, getThumbnailData} from '../thumbnails';
 import {BTDThumbnailDataResults, BTDUrlProviderResultTypeEnum} from '../thumbnails/types';
 import {LargeThumbnail, MediumThumbnail, SmallThumbnail, ThumbnailProps} from './mediaThumbnails';
@@ -52,11 +53,30 @@ export class TweetThumbnail extends Component<TweetThumbnailProps, TweetThumbnai
     });
   }
 
+  private handleOnClick = (ev: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    ev.preventDefault();
+    ev.stopPropagation();
+
+    if (!this.state.urlData) {
+      return;
+    }
+
+    msgToInject({
+      type: BTDMessageTypesEnums.OPEN_FULLSCREEN_PREVIEW,
+      payload: {
+        chirpKey: this.props.chirpData.chirp.id,
+        columnKey: this.props.chirpData.columnKey,
+        urlData: this.state.urlData
+      }
+    });
+  };
+
   private renderThumbnail(baseNode: Element, urlData: BTDThumbnailDataResults) {
     const {columnMediaSize, uuid} = this.props.chirpData;
     const thumbProps: ThumbnailProps = {
       url: urlData.url,
-      imageUrl: urlData.thumbnailUrl
+      imageUrl: urlData.thumbnailUrl,
+      onClick: this.handleOnClick
     };
 
     if (columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.LARGE) {

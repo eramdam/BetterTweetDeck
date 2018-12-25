@@ -5,8 +5,8 @@ import {TweetDeckColumnMediaPreviewSizesEnum} from '../modules/columnMediaSizes'
 import {
   BTDMessageOriginsEnum,
   BTDMessageTypesEnums,
-  ChirpAddedMessageData,
-  ChirpRemovedMessageData,
+  ChirpAddedMessage,
+  ChirpRemovedMessage,
   onBTDMessage
 } from '../services/messaging';
 import {TweetThumbnail} from './tweetThumbnail';
@@ -27,7 +27,7 @@ export class App extends Component<{}, AppState> {
   componentDidMount() {
     // @ts-ignore
     window.BTD_APP = this;
-    onBTDMessage<ChirpAddedMessageData>(BTDMessageOriginsEnum.INJECT, BTDMessageTypesEnums.GOT_CHIRP, (data) => {
+    onBTDMessage<ChirpAddedMessage>(BTDMessageOriginsEnum.INJECT, BTDMessageTypesEnums.GOT_CHIRP, (data) => {
       this.setState(({chirpsPayload}) => {
         chirpsPayload.set(data.payload.uuid, data.payload);
 
@@ -37,7 +37,7 @@ export class App extends Component<{}, AppState> {
       });
     });
 
-    onBTDMessage<ChirpRemovedMessageData>(BTDMessageOriginsEnum.INJECT, BTDMessageTypesEnums.REMOVED_CHIRP, (data) => {
+    onBTDMessage<ChirpRemovedMessage>(BTDMessageOriginsEnum.INJECT, BTDMessageTypesEnums.REMOVED_CHIRP, (data) => {
       this.setState(({chirpsPayload}) => {
         data.payload.uuidArray.forEach((uuid) => {
           chirpsPayload.delete(uuid);

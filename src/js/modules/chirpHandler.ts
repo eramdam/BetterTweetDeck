@@ -10,6 +10,7 @@ export interface ChirpHandlerPayload {
   chirp: any;
   urls: any[];
   columnMediaSize: TweetDeckColumnMediaPreviewSizesEnum;
+  columnKey: string;
 }
 
 export interface ChirpRemovedPayload {
@@ -45,6 +46,7 @@ export const setupChirpHandler: SetupChirpHandler = (handlerOnAdd, handlerOnRemo
           uuid,
           chirp: JSON.parse(JSON.stringify(chirp)),
           urls,
+          columnKey: chirp._btd.columnKey,
           columnMediaSize: getSizeForColumnKey(chirp._btd.columnKey)
         });
       }

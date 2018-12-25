@@ -1,9 +1,11 @@
 import {ChirpHandlerPayload, ChirpRemovedPayload} from '../modules/chirpHandler';
+import {BTDThumbnailDataResults} from '../thumbnails/types';
 
 export enum BTDMessageTypesEnums {
   GOT_CHIRP = 'GOT_CHIRP',
   REMOVED_CHIRP = 'REMOVED_CHIRP',
   THUMBNAIL_DATA = 'THUMBNAIL_DATA',
+  OPEN_FULLSCREEN_PREVIEW = 'OPEN_FULLSCREEN_PREVIEW',
   DEBUG = '___USE_ONLY_FOR_DEBUG___',
   READY = 'READY'
 }
@@ -13,7 +15,7 @@ export enum BTDMessageOriginsEnum {
   CONTENT = 'BTD_CONTENT'
 }
 
-interface BTDBaseMessageData {
+interface BTDBaseMessage {
   readonly type: string;
   readonly payload?: any;
   readonly meta?: {
@@ -22,34 +24,38 @@ interface BTDBaseMessageData {
   };
 }
 
-export interface ReadyMessage extends BTDBaseMessageData {
+export interface ReadyMessage extends BTDBaseMessage {
   readonly type: BTDMessageTypesEnums.READY;
 }
 
-export interface ChirpAddedMessageData extends BTDBaseMessageData {
+export interface ChirpAddedMessage extends BTDBaseMessage {
   readonly type: BTDMessageTypesEnums.GOT_CHIRP;
   readonly payload: ChirpHandlerPayload;
 }
 
-export interface ChirpRemovedMessageData extends BTDBaseMessageData {
+export interface ChirpRemovedMessage extends BTDBaseMessage {
   readonly type: BTDMessageTypesEnums.REMOVED_CHIRP;
   readonly payload: ChirpRemovedPayload;
 }
 
-export interface ThumbnailDataMessage extends BTDBaseMessageData {
-  readonly type: BTDMessageTypesEnums.THUMBNAIL_DATA;
-  readonly payload: {};
+export interface OpenFullscreenPreviewMessage extends BTDBaseMessage {
+  readonly type: BTDMessageTypesEnums.OPEN_FULLSCREEN_PREVIEW;
+  readonly payload: {
+    chirpKey: string;
+    columnKey: string;
+    urlData: BTDThumbnailDataResults;
+  };
 }
 
-interface DebugMessage extends BTDBaseMessageData {
+interface DebugMessage extends BTDBaseMessage {
   type: BTDMessageTypesEnums.DEBUG;
 }
 
-export type BTDData = DebugMessage | ChirpAddedMessageData | ThumbnailDataMessage | ReadyMessage | ChirpRemovedMessageData;
+export type BTDMessage = DebugMessage | ChirpAddedMessage | ReadyMessage | ChirpRemovedMessage | OpenFullscreenPreviewMessage;
 
 const MESSAGE_ORIGIN = 'https://tweetdeck.twitter.com';
 
-const baseMsgTransit = (sourceKey: BTDMessageOriginsEnum, destinationKey: BTDMessageOriginsEnum) => function transfer<T = {}>(data: BTDData) {
+const baseMsgTransit = (sourceKey: BTDMessageOriginsEnum, destinationKey: BTDMessageOriginsEnum) => function transfer<T = {}>(data: BTDMessage) {
   return new Promise<T>((resolve) => {
     // We compute a "hash" with performance.now(), should be simple enough for now
     // NOTE: for the whole promise-based system to work, a listener to a given event MUST send back the existing hash
@@ -84,7 +90,7 @@ export const msgToContent = baseMsgTransit(BTDMessageOriginsEnum.INJECT, BTDMess
 export const msgToInject = baseMsgTransit(BTDMessageOriginsEnum.CONTENT, BTDMessageOriginsEnum.INJECT);
 
 interface BTDMessageEvent extends MessageEvent {
-  data: BTDData;
+  data: BTDMessage;
 }
 
 const BTDMessageTypesEnumsValues = Object.values(BTDMessageTypesEnums);
@@ -99,7 +105,7 @@ function messageIsBTDMessage(message: MessageEvent): message is BTDMessageEvent 
 }
 
 /** Runs a callback on every message events sent by Better TweetDeck  */
-export function onBTDMessage<T extends BTDData>(origin: BTDMessageOriginsEnum, messageType: BTDMessageTypesEnums, cb: (ev: T) => void) {
+export function onBTDMessage<T extends BTDMessage>(origin: BTDMessageOriginsEnum, messageType: BTDMessageTypesEnums, cb: (ev: T) => void) {
   window.addEventListener('message', (ev) => {
     if (!messageIsBTDMessage(ev) || !ev.data.meta || ev.data.meta.origin !== origin) {
       return;

@@ -13,9 +13,9 @@ module.exports = (env) => {
     mode: 'development',
     devtool: 'cheap-source-map',
     entry: {
-      'js/content': './src/js/content.ts',
-      'js/inject': './src/js/inject.tsx',
-      'js/background': './src/js/background.ts'
+      'js/content': './src/js/content',
+      'js/inject': './src/js/inject',
+      'js/background': './src/js/background'
     },
     stats: 'none',
     plugins: [new Stylish(), new CleanWebpackPlugin(['dist']), new LodashModuleReplacementPlugin(), new GenerateJsonPlugin('manifest.json', getManifest(), null, 2), new ForkTsCheckerWebpackPlugin()],
