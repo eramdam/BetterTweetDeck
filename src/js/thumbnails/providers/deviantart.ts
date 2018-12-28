@@ -13,9 +13,18 @@ export const DeviantArtProvider: BTDThumbnailProvider = {
         })
       ).then(statusAndJson);
 
+      const {type} = json;
+
+      if (type !== 'link' && type !== 'photo') {
+        throw new Error('Result is not of the right type.');
+      }
+
+      const fullscreenImageUrl = type === 'link' ? json.fullsize_url : json.url;
+
       return {
         type: BTDUrlProviderResultTypeEnum.IMAGE,
         thumbnailUrl: String(json.thumbnail_url),
+        fullscreenImageUrl: String(fullscreenImageUrl),
         url
       };
     } catch (error) {

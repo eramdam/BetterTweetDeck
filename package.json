@@ -52,6 +52,7 @@
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-portal": "^4.2.0",
+    "ts-key-enum": "^2.0.0",
     "ts-loader": "^5.2.1",
     "typescript": "^3.2.2",
     "typescript-eslint-parser": "^19.0.2",

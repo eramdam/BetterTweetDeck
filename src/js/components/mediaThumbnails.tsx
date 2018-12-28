@@ -15,7 +15,7 @@ export const MediumThumbnail: FC<ThumbnailProps> = ({url, imageUrl, onClick}) =>
         target="_blank"
         onClick={onClick}
         style={{
-          backgroundImage: `url(${imageUrl})`,
+          backgroundImage: `url("${imageUrl}")`,
           backgroundSize: 'cover',
           backgroundPosition: 'center center'
         }}
@@ -33,7 +33,7 @@ export const SmallThumbnail: FC<ThumbnailProps> = ({url, imageUrl, onClick}) => 
         target="_blank"
         onClick={onClick}
         style={{
-          backgroundImage: `url(${imageUrl})`,
+          backgroundImage: `url("${imageUrl}")`,
           backgroundSize: 'cover',
           backgroundPosition: 'center center'
         }}
@@ -52,7 +52,7 @@ export const LargeThumbnail: FC<ThumbnailProps> = ({url, imageUrl, onClick}) => 
         target="_blank"
         onClick={onClick}
         style={{
-          backgroundImage: `url(${imageUrl})`,
+          backgroundImage: `url("${imageUrl}")`,
           backgroundSize: 'cover',
           backgroundPosition: 'center center'
         }}

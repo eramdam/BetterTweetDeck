@@ -1,22 +1,23 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {Portal} from 'react-portal';
 
 import {ChirpHandlerPayload} from '../modules/chirpHandler';
 import {TweetDeckColumnMediaPreviewSizesEnum} from '../modules/columnMediaSizes';
-import {BTDMessageTypesEnums, msgToInject} from '../services/messaging';
 import {findProviderForUrl, getThumbnailData} from '../thumbnails';
 import {BTDThumbnailDataResults, BTDUrlProviderResultTypeEnum} from '../thumbnails/types';
+import {HandlerOf} from '../types';
 import {LargeThumbnail, MediumThumbnail, SmallThumbnail, ThumbnailProps} from './mediaThumbnails';
 
 interface TweetThumbnailProps {
   chirpData: ChirpHandlerPayload;
+  onClick?: HandlerOf<BTDThumbnailDataResults>;
 }
 
 interface TweetThumbnailState {
   urlData?: BTDThumbnailDataResults;
 }
 
-export class TweetThumbnail extends Component<TweetThumbnailProps, TweetThumbnailState> {
+export class TweetThumbnail extends PureComponent<TweetThumbnailProps, TweetThumbnailState> {
   constructor(props: TweetThumbnailProps) {
     super(props);
 
@@ -56,19 +57,14 @@ export class TweetThumbnail extends Component<TweetThumbnailProps, TweetThumbnai
   private handleOnClick = (ev: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     ev.preventDefault();
     ev.stopPropagation();
+    const {onClick} = this.props;
+    const {urlData} = this.state;
 
-    if (!this.state.urlData) {
+    if (!urlData || !onClick) {
       return;
     }
 
-    msgToInject({
-      type: BTDMessageTypesEnums.OPEN_FULLSCREEN_PREVIEW,
-      payload: {
-        chirpKey: this.props.chirpData.chirp.id,
-        columnKey: this.props.chirpData.columnKey,
-        urlData: this.state.urlData
-      }
-    });
+    onClick(urlData);
   };
 
   private renderThumbnail(baseNode: Element, urlData: BTDThumbnailDataResults) {

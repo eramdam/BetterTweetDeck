@@ -11,6 +11,7 @@ interface BTDUrlProviderBaseResult {
 export interface BTDUrlProviderImageResult extends BTDUrlProviderBaseResult {
   type: BTDUrlProviderResultTypeEnum.IMAGE;
   thumbnailUrl: string;
+  fullscreenImageUrl: string;
   url: string;
 }
 

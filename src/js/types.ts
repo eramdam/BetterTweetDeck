@@ -17,7 +17,11 @@ export interface BTDSettings {
   };
 }
 export const BTD_CUSTOM_ATTRIBUTE = 'data-btd-custom';
-export type Handler = () => void;
-export type HandlerOf<T> = (blob: T) => void;
 export type BTDModule = (settings: BTDSettings, TD: any) => void;
 export type BTDModuleWithHandler<T> = (settings: BTDSettings, TD: any, handler: HandlerOf<T>) => void;
+
+/**
+ * Recurring types.
+ */
+export type Handler = () => void;
+export type HandlerOf<T> = (blob: T) => void;

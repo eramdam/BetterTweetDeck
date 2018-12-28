@@ -1,17 +1,10 @@
 import moduleRaid from 'moduleraid';
 
-import {getChirpFromKey} from './helpers/tweetdeckHelpers';
 import {setupChirpHandler} from './modules/chirpHandler';
 import {setupMediaSizeMonitor} from './modules/columnMediaSizes';
 import {maybeAddCustomDate} from './modules/maybePrettyDate';
 import {maybeRemoveTcoRedirections} from './modules/removeRedirection';
-import {
-  BTDMessageOriginsEnum,
-  BTDMessageTypesEnums,
-  msgToContent,
-  onBTDMessage,
-  OpenFullscreenPreviewMessage
-} from './services/messaging';
+import {BTDMessageTypesEnums, msgToContent} from './services/messaging';
 import {BTDSettings} from './types';
 
 declare global {
@@ -56,26 +49,6 @@ setupChirpHandler(
     });
   }
 );
-
-onBTDMessage<OpenFullscreenPreviewMessage>(BTDMessageOriginsEnum.CONTENT, BTDMessageTypesEnums.OPEN_FULLSCREEN_PREVIEW, (ev) => {
-  const {chirpKey, columnKey, urlData} = ev.payload;
-
-  const chirp = getChirpFromKey(chirpKey, columnKey);
-  console.time('markup');
-  const markup = chirp.targetTweet ? chirp.targetTweet.renderInMediaGallery() : chirp.renderInMediaGallery();
-  console.timeEnd('markup');
-
-  console.log({urlData, chirp});
-  if (!chirp) {
-
-  }
-
-  // const modal = $('#open-modal');
-
-  // modal.append(markup);
-
-  // modal.css('display', 'block');
-});
 
 $(document).one('dataColumnsLoaded', () => {
   msgToContent({
