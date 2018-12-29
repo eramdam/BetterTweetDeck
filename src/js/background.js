@@ -72,6 +72,7 @@ const defaultSettings = {
   thumbnails: {},
   custom_css_style: '',
   btd_logo: true,
+  uuid: '',
 };
 
 // We want to know if there are any other versions of BTD out there.
@@ -169,6 +170,12 @@ BHelper.settings.getAll((settings) => {
       if (!newSettings.installed_date) {
         openWelcomePage();
         BHelper.settings.set({ installed_date: new Date().getTime() });
+      }
+
+      if (!newSettings.uuid) {
+        BHelper.settings.set({
+          token: BHelper.getRandomToken(),
+        });
       }
 
       const oldVersion = (curSettings.installed_version || '').replace(
