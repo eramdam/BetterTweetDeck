@@ -37,6 +37,7 @@
         <nav class="sidebar-nav">
           <a href="#onInstall" class="nav-item" data-lang="sec_welcome">Welcome</a>
           <a href="#credits" class="nav-item" data-lang="sec_credits">Credits / About</a>
+          <a href="#data" class="nav-item" data-lang="data_btd_h1">Data & Analytics</a>
           <a href="#changelog" class="nav-item" data-lang="sec_changelog">Changelog</a>
           <a href="#donate" class="nav-item" data-lang="sec_donate">Donate</a>
           <a href="#debug" class="nav-item" data-lang="sec_debug">Debug Infos</a>
@@ -570,6 +571,43 @@
         </p>
 
         <div name="custom_css_style" id="custom-css-editor"></div>
+      </section>
+
+      <section class="content-block" id="data">
+        <h2 class="section-title" data-lang="data_btd_h1">Data & Analytics</h2>
+
+        <data class="settings-section">
+          <h5 data-lang="sec_analytics">Analytics</h5>
+          <p>
+            If you desire you can choose to send informations about what settings you enabled in Better TweetDeck.
+            <br />
+            This will help me know what features to prioritize or not in future development.
+            <br />
+            <br />
+            Note that <strong>no personal information</strong> is being sent. <br /> <br />
+            The only thing that gets sent is a list of settings you enabled and to what values they're set, nothing more, nothing else. <br />
+          </p>
+
+          <ul>
+            <li>
+              <input type="checkbox" name="send_settings_usage" id="send_settings_usage">
+              <label for="send_settings_usage">Send informations about the settings I use in order to help Better TweetDeck's development.</label>
+            </li>
+          </ul>
+
+
+          <h5 data-lang="sec_imports">Settings Import</h5>
+          <ul>
+            <li>
+              <label for="import_settings_input">Import settings file <br></label>
+              <input type="file" id="import_settings_input">
+            </li>
+          </ul>
+          
+          <h5 data-lang="sec_export">Settings Export</h5>
+          <br />
+          <button class="plain-button" id="export_settings_button">Export settings file</button>
+        </data>
       </section>
     </main>
   </div>

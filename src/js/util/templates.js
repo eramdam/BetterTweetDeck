@@ -174,3 +174,34 @@ export const giphySearch = () =>
       <div class="giphy-content"></div>
     </div>
   `);
+
+export const analyticsModal = () => {
+  return Mustache.render(`
+  <div class="js-modal-context js-click-trap  overlay overlay-super scroll-v" btd-analytics-modal>
+  <div class="js-modal-inner mdl margin-v--20 s-fluid s-wide embed-modal">
+    <header class="padding-a--12 no-collapse mdl-header is-movable "><h3 class="mdl-header-title">Better TweetDeck</h3></header>
+    <a href="#" class="js-dismiss mdl-dismiss"><i class="icon icon-close txt-size--18"></i></a>
+    <div class="js-modal-content modal-content  position-rel padding-a--12">
+      <div>
+        <div class="margin-h--15 margin-b--20">
+          <span class="block margin-bl">
+            If you desire you can choose to send informations about what settings you enabled in Better TweetDeck. <br />
+            This will help me know what features to prioritize or not in future development. <br />
+            <br />
+            Note that <strong>no personal information</strong> is being sent. <br /> <br/>
+            The only thing that gets sent is a list of settings you enabled and to what values they're set, nothing more, nothing else. <br /> <br />
+          </span>
+        </div>
+        <footer class="mdl-buttonbar">
+          <span class="pull-right">
+            <button btd-decline-button class="js-edit btn Button--tertiary btn-on-dark margin-r--6">Decline</button>
+            <button btd-accept-button class="js-done Button--primary">Accept</button>
+          </span>
+        </footer>
+      </div>
+    </div>
+  </div>
+</div>
+
+  `);
+};

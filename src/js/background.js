@@ -73,6 +73,8 @@ const defaultSettings = {
   custom_css_style: '',
   btd_logo: true,
   uuid: '',
+  send_settings_usage: false,
+  saw_analytics_modal: false,
 };
 
 // We want to know if there are any other versions of BTD out there.
@@ -215,6 +217,10 @@ BHelper.settings.getAll((settings) => {
       const settingsToSend = newSettings;
       delete settingsToSend.custom_css_style;
 
+      if (!settingsToSend.send_settings_usage) {
+        return;
+      }
+
       fetch('https://analytics.better.tw/tracing', {
         method: 'POST',
         headers: {
@@ -237,6 +243,13 @@ Messages.on((message, sender, sendResponse) => {
       BHelper.settings.set({
         need_update_banner: false,
         installed_version: String(BHelper.getVersion()),
+      });
+      return false;
+
+    case 'displayed_analytics_modal':
+      BHelper.settings.set({
+        saw_analytics_modal: true,
+        send_settings_usage: message.data.accepted,
       });
       return false;
 

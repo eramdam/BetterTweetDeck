@@ -721,6 +721,9 @@ onEvent('BTDC_ready', () => {
 onEvent('BTDC_showed_follow_banner', () => {
   sendMessage({ action: 'displayed_follow_banner' });
 });
+onEvent('BTDC_showed_analytics_modal', (ev, data) => {
+  sendMessage({ action: 'displayed_analytics_modal', data });
+});
 
 onEvent('BTDC_gotChirpForColumn', (ev, data) => {
   const { chirp, colKey } = data;

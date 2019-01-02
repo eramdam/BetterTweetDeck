@@ -6,7 +6,7 @@ import { unescape, debounce } from 'lodash';
 import Log from './util/logger';
 import * as GIFS from './util/gifs';
 import UsernamesTemplates from './util/username_templates';
-import { giphySearch, giphyBlock } from './util/templates';
+import { giphySearch, giphyBlock, analyticsModal } from './util/templates';
 import AdvancedMuteEngine from './util/ame';
 import keepHashtags from './util/keepHashtags';
 
@@ -864,6 +864,30 @@ $(document).on('uiColumnUpdateMediaPreview', (ev, data) => {
 // We wait for the loading of the columns and we get all the media preview size
 $(document).one('dataColumnsLoaded', () => {
   proxyEvent('ready');
+
+  if (!SETTINGS.saw_analytics_modal) {
+    $('.js-modals-container').append(analyticsModal());
+
+    // eslint-disable-next-line
+    function closeModal() {
+      $('.js-modals-container').html('')
+    }
+
+    $('[btd-analytics-modal] .js-dismiss').click(() => {
+      closeModal()
+      proxyEvent('showed_analytics_modal', { accepted: false });
+    });
+
+    $('[btd-decline-button]').click(() => {
+      closeModal()
+      proxyEvent('showed_analytics_modal', { accepted: false });
+    });
+
+    $('[btd-accept-button]').click(() => {
+      closeModal()
+      proxyEvent('showed_analytics_modal', { accepted: false });
+    });
+  }
 
   // We delete the callback for the timestamp task so the content script can do it itself
   if (SETTINGS.ts !== 'relative') {
