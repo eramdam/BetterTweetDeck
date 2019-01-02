@@ -5,6 +5,13 @@ html.btd-on {
       width: 3px;
     }
 
+    .js-column-scroller.scroll-styled-v,
+    .js-dropdown-container.scroll-styled-v,
+    .js-app-columns-container.scroll-styled-h {
+      /* Firefox 64+ specific code. */
+      scrollbar-width: thin;
+    }
+
     .js-app-columns-container.scroll-styled-h::-webkit-scrollbar {
       height: 3px;
     }

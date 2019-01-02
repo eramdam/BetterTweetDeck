@@ -29,7 +29,9 @@
   font-size: 18px !important;
 }
 
-.btd__small_icns_compose .js-add-emojis.padding-v--9.js-add-emojis .btd-emoji-icon {
+.btd__small_icns_compose
+.js-add-emojis.padding-v--9.js-add-emojis
+.btd-emoji-icon {
   transform: translateY(-2px);
 }
 
@@ -55,7 +57,11 @@ html.btd-on section.btd-column-collapsed .column-header-links {
   margin-left: 10px !important;
 }
 
-.btd__replace_logo .application .app-title .visible-in-contracted-header .tweetdeck-logo {
+.btd__replace_logo
+.application
+.app-title
+.visible-in-contracted-header
+.tweetdeck-logo {
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAABUJJREFUaAXtWjGIJEUU/TUzC7qKwWlicioaiCCIGKyioKAip5FmB4LGgpqdoGAiqOnhYXggh4mZYKAgBnfgIaKBgokYmambqHC629O+9+u/muq9ntlZ7J5j4Qqm69f///33fnX1zM7uJtP4rn3YmuYNa9OjZu0JdydcWyUsmVflrIqp3Kqcq2Jp11J70abT9+3B9DVLMMXscvMKrLNQO/F1RzQXSKuLrbJZYGz8JM1tbq/azvRcsm/aR2w+v2gtxDsxLin35c1I0AGXxyRUsU3iE5qYTB6b2V5zBmLyzrsqqJGwolI+BqTWg/nSyVeu4oHxnCHx2PCmOZPsUvOHtXOceRBTWxskbksEZq01e5dccNSY2s5RvwqnWRgP1pjaPgSfJrsza/DA8shQuB+dypaPNUXoApQrd4VhpwUXeWPh2/bEzHU5QRD7VtOm6AM+uopfiyW5JY8Gcvw1PH5mc2daEMDK4wCx7oBmamr9Evm067EZPBoAceGG4f3gonei8kxETH427kfv2uLzHXBREETxbkNUEUgfXmxE8XLGw38N8d1nAHrKuxBVa/cpnINC59ksd4pLj7NL2t4ljM3g0UAQUVzZWSnOOhai5KfYEOom7Br/wTtmv3yPHI7IPXm/2WtvZ5d8nPvwvgl1anDlnVrUBBhHKBL9yMBmrlet/MUFNm8SjoM1a3zTGD5kooAXNNvfB2ZN/BH4+TmQd490zoULZ98ZzjQwyq6ECCbQ57nK8cR8zOp84dmkcJr78JHWrU0nR5c/PwP0dwiRzN2iLr9DVUX6VIs4jRrPuPCeiwvXrLUOngTCH8IfRwiAcoZJTlV+obGI+aLK9TUvla8IhK+UgJMNSoy4DsMr3smvuBDPDzETyxkmq1TETJfcjCnX8wjGkI9ClV/qMI4X/evgC+5w/vw5wLo+AHASv8BTz4xxzRdsfygVd3DcKdhsxkOKcwbmXzzIPmCX2jC5w9MpjR4cAYGv+cNO9sleW44PczlUn4U5PBmzbiXns2+Z/fqDh4s/r9bDM1d1b7/X7PX3hD4SPj7IokPtip9V1Evwd0JYsCff4SrgQtQ1hYUWCYxlEVz8geGaD62A6/AzHWLyQ+xagtXtHFwQxpoEIvIzHRiGRe42L5Ug92mtmc7AsxY3hYNTiDuUHxucG+CRUIFiR0EdG5GV2VmcsytWAgNfGtFas/JYgvwqRZs5kbeMP3RWR0gYAFWbM4tx5mBNFfTb7t4I9Nn0hRCFS/HKr1ruwmUd/jje+CRG5Y7AilMcmilCDT3zstnff9Jz9fjygtlvP3f9t95p9tRLlU8q4drezneAPJW79N7HH0c57kAFrJPrYhW1F77j7trTJb706eIsq97WzWb3PdDF1Cvm6SX/Kv7oLjdAgIgEXuar47W9Dr4vRzX6Yn0+5cdc/TrlQOSYLK83cK1v1LG/A7NRdvDJ02Z/PdctvY13oRHGOA3cdc8IUvtLHvsjdL2B/hu7OS/uQLqyObqhmdKVCb60/DR02Y3Vg3bcgcn5jREOTjQ5n+zbdst+bL7AT3OPD15/zIIpfWUnp09P7KG0Z9vTUzZJH+LLin5tMCb1/6tNjdR64/RZeyLt8yfuxfi4vQ1/9NvBj9b4s1P5mrOI91rpJty9d/H99Zbe8FJn+gdC3gTu96UpdaCFqmS7tjW9bKdTwXQbqAFHsS+0O/hl7ufrNwHxU3vBXpx9dhSavtxhGmDltZsYTjxph2tgrSaGFT98AyubGF78OA30NjGO+PEaqJswuwH/yPD8EA8sy2528MH+aP/UmKT/ARaMGaq6mBSkAAAAAElFTkSuQmCC");
   background-size: 24px;
   background-position: 50%;
@@ -81,14 +87,24 @@ html.btd-on section.btd-column-collapsed .column-header-links {
   background: white !important;
 }
 
-.btd__og_dark_theme[data-btdtheme="dark"] #actions-modal > div > div.mdl-inner.mdl-accent.padding-h--20.mdl-header-divider {
+.btd__og_dark_theme[data-btdtheme="dark"]
+#actions-modal
+> div
+> div.mdl-inner.mdl-accent.padding-h--20.mdl-header-divider {
   background-color: #f5f8fa !important;
   border-bottom: 0 !important;
   color: #10171e !important;
 }
 
-.btd__og_dark_theme[data-btdtheme="dark"] #actions-modal > div > div.js-inreply.cmp-replyto.item-box.cf.padding-a--20 .account-inline,
-.btd__og_dark_theme[data-btdtheme="dark"] #actions-modal > div > div.js-inreply.cmp-replyto.item-box.cf.padding-a--20 .tweet-body {
+.btd__og_dark_theme[data-btdtheme="dark"]
+#actions-modal
+> div
+> div.js-inreply.cmp-replyto.item-box.cf.padding-a--20
+.account-inline,
+.btd__og_dark_theme[data-btdtheme="dark"]
+#actions-modal
+> div
+> div.js-inreply.cmp-replyto.item-box.cf.padding-a--20
+.tweet-body {
   color: #38444d !important;
 }
-

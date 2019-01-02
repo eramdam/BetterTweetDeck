@@ -107,8 +107,10 @@ html.btd-on {
   .js-add-emojis.padding-v--9.js-add-emojis .btd-emoji-icon {
     font-size: 18px !important;
   }
-  
-  .btd__small_icns_compose .js-add-emojis.padding-v--9.js-add-emojis .btd-emoji-icon {
+
+  .btd__small_icns_compose
+  .js-add-emojis.padding-v--9.js-add-emojis
+  .btd-emoji-icon {
     transform: translateY(-2px);
   }
 
@@ -270,7 +272,6 @@ html.btd-on {
   box-shadow: none !important;
 }
 
-
 .js-message-banner:not(.is-hidden) {
   padding: 6px 0;
 }
@@ -290,10 +291,14 @@ html.btd-on {
   margin-left: 10px !important;
 }
 
-.btd__replace_logo .application .app-title .visible-in-contracted-header .tweetdeck-logo {
+.btd__replace_logo
+.application
+.app-title
+.visible-in-contracted-header
+.tweetdeck-logo {
   background-size: 24px;
   background-position: 50%;
-  background-image: url('../img/btd-logo-small.png');
+  background-image: url("../img/btd-logo-small.png");
 }
 
 .btd__replace_logo .application .app-title .invisible-in-contracted-header {
@@ -303,9 +308,19 @@ html.btd-on {
   height: 34px;
   background-size: contain;
   background-position: center center;
-  background-image: url('../img/btd-logo.png');
+  background-image: url("../img/btd-logo.png");
 }
 
 .btd__replace_logo .application .app-title .invisible-in-contracted-header img {
   display: none;
+}
+
+html.dark .scroll-styled-h,
+html.dark .scroll-styled-v {
+  scrollbar-color: #3d5466 transparent;
+}
+
+html:not(.dark) .scroll-styled-h,
+html:not(.dark) .scroll-styled-v {
+  scrollbar-color: #e1e8ed transparent;
 }

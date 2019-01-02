@@ -178,7 +178,7 @@ function refreshTimestamps() {
  * and then add/remove classes on the body
  */
 
-const disabledOnFirefox = ['slim_scrollbars'];
+const disabledOnFirefox = [];
 
 function tweakClassesFromVisualSettings() {
   const enabledClasses = Object.keys(SETTINGS.css)
