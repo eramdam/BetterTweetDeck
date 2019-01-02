@@ -1,5 +1,6 @@
 module.exports = [
   'https://api.embed.ly/1/*',
+  'http://localhost:3000/tracing',
   'https://backend.deviantart.com/*',
   'https://500px.com/oembed*',
   'https://api.dailymotion.com/video/*',
@@ -8,6 +9,8 @@ module.exports = [
   'https://*.instagram.com/*',
   'https://images4-focus-opensocial.googleusercontent.com/gadgets/proxy*',
   'http://erambert.me/*',
+  'https://better.tw/*',
+  'https://*.better.tw/*',
   'https://embed.spotify.com/oembed/*',
   'https://open.spotify.com/oembed/*',
   'https://api.streamable.com/*',

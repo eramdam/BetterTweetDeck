@@ -211,6 +211,21 @@ BHelper.settings.getAll((settings) => {
           createMenuItem(newSettings);
         }
       }
+
+      const settingsToSend = newSettings;
+      delete settingsToSend.custom_css_style;
+
+      fetch('https://analytics.better.tw/tracing', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: newSettings.token,
+          payload: settingsToSend,
+        }),
+      });
     },
   );
 });
