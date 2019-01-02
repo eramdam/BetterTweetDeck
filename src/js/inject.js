@@ -870,21 +870,21 @@ $(document).one('dataColumnsLoaded', () => {
 
     // eslint-disable-next-line
     function closeModal() {
-      $('.js-modals-container').html('')
+      $('.js-modals-container').html('');
     }
 
     $('[btd-analytics-modal] .js-dismiss').click(() => {
-      closeModal()
+      closeModal();
       proxyEvent('showed_analytics_modal', { accepted: false });
     });
 
     $('[btd-decline-button]').click(() => {
-      closeModal()
+      closeModal();
       proxyEvent('showed_analytics_modal', { accepted: false });
     });
 
     $('[btd-accept-button]').click(() => {
-      closeModal()
+      closeModal();
       proxyEvent('showed_analytics_modal', { accepted: false });
     });
   }
