@@ -15,10 +15,12 @@
   transition-timing-function: ease;
   display: flex;
   flex-direction: column;
+
+  padding: 0 15px;
 }
 
 .application.is-condensed .btd-giphy-zone {
-  left: 50px;
+  left: 60px;
 }
 
 .btd-giphy-zone.-visible {

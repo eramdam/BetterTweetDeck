@@ -913,7 +913,7 @@ $(document).one('dataColumnsLoaded', () => {
   switchThemeClass();
 
   const giphyZone = document.createElement('div');
-  giphyZone.className = 'btd-giphy-zone compose padding-h--15';
+  giphyZone.className = 'btd-giphy-zone compose';
   giphyZone.innerHTML = giphySearch();
 
   $('.js-app')[0].insertAdjacentElement('beforeend', giphyZone);
