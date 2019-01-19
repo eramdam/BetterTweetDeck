@@ -328,8 +328,8 @@ TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches[
 TD.mustaches['status/tweet_single.mustache'] = TD.mustaches[
   'status/tweet_single.mustache'
 ].replace(
-  '{{>status/tweet_single_footer}} </div>',
-  '{{>status/tweet_single_footer}} <i class="sprite tweet-dogear"></i> </div>',
+  '{{>status/tweet_single_footer}} ',
+  '{{>status/tweet_single_footer}} <i class="sprite tweet-dogear"></i>',
 );
 
 if (SETTINGS.old_replies) {
