@@ -9,9 +9,6 @@ import GenerateJsonPlugin from 'generate-json-webpack-plugin';
 import ZipPlugin from 'zip-webpack-plugin';
 import config from 'config';
 
-const extractContent = new ExtractTextPlugin('css/index.css');
-const extractOptions = new ExtractTextPlugin('options/css/index.css');
-
 const staticFiles = [
   {
     from: 'revert-dark-theme.css',
@@ -89,8 +86,9 @@ module.exports = (env) => {
     entry: {
       'js/inject': './src/js/inject.js',
       'js/background': './src/js/background.js',
-      'js/content': './src/js/content.js',
-      'options/options': './src/options/options.js',
+      'js/content': ['./src/js/content.js', './src/css/index.css'],
+      'options/options': ['./src/options/options.js', './src/css/options/index.css'],
+      'js/poll': ['./src/js/components/poll/poll.js', './src/js/components/poll/poll.css'],
     },
     output: {
       filename: '[name].js',
@@ -107,13 +105,12 @@ module.exports = (env) => {
         },
         {
           test: /\.css$/,
-          exclude: path.resolve(__dirname, 'src/css/options'),
-          use: extractContent.extract(cssLoaders),
+          exclude: /node_modules/,
+          use: ExtractTextPlugin.extract(cssLoaders),
         },
         {
-          test: /\.css$/,
-          include: path.resolve(__dirname, 'src/css/options'),
-          use: extractOptions.extract(cssLoaders),
+          test: /\.svg$/,
+          loader: 'svg-inline-loader',
         },
       ],
     },
@@ -123,9 +120,15 @@ module.exports = (env) => {
       },
     },
     plugins: [
-      extractContent,
-      extractOptions,
       new CleanWebpackPlugin([DIST_FOLDER]),
+      new ExtractTextPlugin({
+        filename: (getPath) => {
+          if (getPath('[name].css').includes('options')) {
+            return getPath('options/css/index.css');
+          }
+          return getPath('css/[name].css').replace('js/', '');
+        },
+      }),
       new CopyWebpackPlugin(staticFilesPath),
       new GenerateJsonPlugin('manifest.json', getManifest(), null, 2),
       IS_PRODUCTION
