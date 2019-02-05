@@ -38,7 +38,7 @@ const common = {
     {
       matches: ['*://tweetdeck.twitter.com/*'],
       js: ['js/content.js'],
-      css: ['css/index.css'],
+      css: ['css/content.css'],
       run_at: 'document_end',
     },
     {
