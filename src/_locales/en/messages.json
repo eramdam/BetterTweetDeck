@@ -118,6 +118,7 @@
   },
   "no_tco": { "message": "Remove t.co redirection on links" },
   "no_gif_pp": { "message": "Stop GIFs from playing in avatars" },
+  "show_poll_results": { "message": "Display the 'results' button for active polls." },
   "thumbnails_from": { "message": "Display thumbnails from:" },
 
   "css_minimal_mode": { "message": "Enable the 'Minimal' theme" },
