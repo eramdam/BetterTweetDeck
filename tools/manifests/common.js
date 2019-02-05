@@ -41,6 +41,13 @@ const common = {
       css: ['css/index.css'],
       run_at: 'document_end',
     },
+    {
+      matches: ['*://twitter.com/*'],
+      js: ['js/poll.js'],
+      css: ['css/poll.css'],
+      all_frames: true,
+      run_at: 'document_end',
+    },
   ],
   background: {
     scripts: ['js/background.js'],
