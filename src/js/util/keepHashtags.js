@@ -1,5 +1,11 @@
 function keepHashtags() {
   const tweetTextArea = document.querySelector('textarea.js-compose-text');
+
+  if (!tweetTextArea) {
+    setTimeout(() => keepHashtags(), 1000);
+    return;
+  }
+
   let hashtags = [];
   const tweetObserver = new MutationObserver(() => {
     if (tweetTextArea.disabled) {
