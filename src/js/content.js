@@ -651,6 +651,11 @@ onEvent('BTDC_ready', () => {
     switch (details.action) {
       default:
         document.dispatchEvent(new CustomEvent('uiComposeTweet'));
+
+        if (!$('textarea.js-compose-text')) {
+          return;
+        }
+
         $('textarea.js-compose-text')[0].value = `${details.text} ${
           details.url
         }`;

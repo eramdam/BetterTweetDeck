@@ -2,7 +2,6 @@ function keepHashtags() {
   const tweetTextArea = document.querySelector('textarea.js-compose-text');
 
   if (!tweetTextArea) {
-    setTimeout(() => keepHashtags(), 1000);
     return;
   }
 
