@@ -16,6 +16,7 @@ module.exports = {
   },
   extends: 'airbnb-base',
   rules: {
+    'import/prefer-default-export': 0,
     'import/no-dynamic-require': 0,
     'no-param-reassign': 0,
     'max-len': 0,
