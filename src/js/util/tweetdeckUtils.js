@@ -1,5 +1,3 @@
-import { $ } from './util';
-
 // From http://stackoverflow.com/questions/1064089/inserting-a-text-where-cursor-is-using-javascript-jquery
 function insertAtCursor(input, value) {
   // IE support
@@ -21,7 +19,7 @@ function insertAtCursor(input, value) {
 }
 
 export function insertInsideComposer(string) {
-  const tweetCompose = $('textarea.js-compose-text');
+  const tweetCompose = document.querySelector('textarea.js-compose-text');
 
   if (!tweetCompose) {
     console.error('[BTD] No composer present');
@@ -33,17 +31,17 @@ export function insertInsideComposer(string) {
 }
 
 export function onComposerShown(callback) {
+  const drawer = document.querySelector('.drawer[data-drawer="compose"]');
+
   const composerObserver = new MutationObserver(() => {
-    const tweetCompose = $('textarea.js-compose-text');
+    const tweetCompose = drawer.querySelector('textarea.js-compose-text');
 
     if (!tweetCompose) {
-      return;
+      callback(false);
     }
 
-    callback();
+    callback(true);
   });
-
-  const drawer = document.querySelector('.drawer[data-drawer="compose"]');
 
   composerObserver.observe(drawer, {
     childList: true,

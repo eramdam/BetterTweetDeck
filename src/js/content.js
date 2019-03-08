@@ -632,7 +632,11 @@ onEvent('BTDC_ready', () => {
   setInterval(refreshTimestamps, TIMESTAMP_INTERVAL);
   registerEmojiPickerEventsHandlers();
   setupEmojiCompletionEventHandlers();
-  onComposerShown(() => {
+  onComposerShown((isVisible) => {
+    if (!isVisible) {
+      return;
+    }
+
     attachPickerAndButton();
     insertEmojiCompletionDropdownHolder();
   });
