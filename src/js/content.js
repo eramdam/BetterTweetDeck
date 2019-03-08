@@ -6,6 +6,7 @@ import PromiseEach from 'promise-each';
 import qs from 'query-string';
 
 import * as BHelper from './util/browserHelper';
+import { insertEmojiCompletionDropdownHolder, setupEmojiCompletionEventHandlers } from './util/emojis/emojiCompletion';
 import { attachPickerAndButton, registerEmojiPickerEventsHandlers } from './util/emojis/emojiPicker';
 import Log from './util/logger';
 import { on as onMessage, send as sendMessage } from './util/messaging';
@@ -630,8 +631,10 @@ onEvent('BTDC_ready', () => {
   refreshTimestamps();
   setInterval(refreshTimestamps, TIMESTAMP_INTERVAL);
   registerEmojiPickerEventsHandlers();
+  setupEmojiCompletionEventHandlers();
   onComposerShown(() => {
     attachPickerAndButton();
+    insertEmojiCompletionDropdownHolder();
   });
 
   const settingsURL = BHelper.getExtensionUrl('options/options.html');

@@ -45,7 +45,7 @@ function rebuildEmojiPicker() {
 
 export function registerEmojiPickerEventsHandlers() {
   // Click on button.
-  document.addEventListener('click', (ev) => {
+  document.body.addEventListener('click', (ev) => {
     if (
       !(
         ev.target.closest('.js-add-emojis') ||
@@ -69,7 +69,7 @@ export function registerEmojiPickerEventsHandlers() {
   });
 
   // Click outside/inside emoji picker
-  document.addEventListener('click', (ev) => {
+  document.body.addEventListener('click', (ev) => {
     if (
       clickedOutsideElement('.emoji-popover', ev) &&
       clickedOutsideElement('.js-add-emojis', ev) &&
@@ -82,7 +82,7 @@ export function registerEmojiPickerEventsHandlers() {
   });
 
   // Category button on emoji picker
-  document.addEventListener('click', (ev) => {
+  document.body.addEventListener('click', (ev) => {
     if (
       !ev.target.matches('.category-chooser button') &&
       !ev.target.closest('button[data-btd-emoji-cat]')
@@ -107,7 +107,7 @@ export function registerEmojiPickerEventsHandlers() {
 
   // Change preview of emoji on hover
   let timeoutId;
-  document.addEventListener('mouseover', (ev) => {
+  document.body.addEventListener('mouseover', (ev) => {
     if (
       !ev.target.matches('.js-emoji-holder') &&
       !ev.target.closest('.js-emoji-holder')
@@ -148,7 +148,7 @@ export function registerEmojiPickerEventsHandlers() {
   });
 
   // Click on an emoji
-  document.addEventListener('click', (ev) => {
+  document.body.addEventListener('click', (ev) => {
     if (
       !ev.target.matches('.js-emoji-holder') &&
       !ev.target.closest('.js-emoji-holder')
@@ -175,12 +175,10 @@ export function registerEmojiPickerEventsHandlers() {
       getSkinVariation(),
     );
 
-    console.log({ unified });
-
     insertInsideComposer(unified);
   });
 
-  document.addEventListener('click', (ev) => {
+  document.body.addEventListener('click', (ev) => {
     if (!ev.target.matches('.btd-skin-tone')) {
       return;
     }
