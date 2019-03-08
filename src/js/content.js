@@ -1,17 +1,20 @@
-import PromiseEach from 'promise-each';
-import FileSaver from 'file-saver';
-import qs from 'query-string';
-import config from 'config';
-import timestampOnElement from './util/timestamp';
-import { send as sendMessage, on as onMessage } from './util/messaging';
-import * as secureDomify from './util/secureDomify';
-import * as Thumbnails from './util/thumbnails';
-import * as Templates from './util/templates';
-import Emojis from './util/emojis';
-import Log from './util/logger';
-import * as BHelper from './util/browserHelper';
-import { $, TIMESTAMP_INTERVAL, onEvent, sendEvent } from './util/util';
 import '../css/index.css';
+
+import config from 'config';
+import FileSaver from 'file-saver';
+import PromiseEach from 'promise-each';
+import qs from 'query-string';
+
+import * as BHelper from './util/browserHelper';
+import { attachPickerAndButton, registerEmojiPickerEventsHandlers } from './util/emojis/emojiPicker';
+import Log from './util/logger';
+import { on as onMessage, send as sendMessage } from './util/messaging';
+import * as secureDomify from './util/secureDomify';
+import * as Templates from './util/templates';
+import * as Thumbnails from './util/thumbnails';
+import timestampOnElement from './util/timestamp';
+import { onComposerShown } from './util/tweetdeckUtils';
+import { $, onEvent, sendEvent, TIMESTAMP_INTERVAL } from './util/util';
 
 let SETTINGS;
 
@@ -626,7 +629,10 @@ onEvent('BTDC_ready', () => {
   // Refresh timestamps once and then set the interval
   refreshTimestamps();
   setInterval(refreshTimestamps, TIMESTAMP_INTERVAL);
-  Emojis();
+  registerEmojiPickerEventsHandlers();
+  onComposerShown(() => {
+    attachPickerAndButton();
+  });
 
   const settingsURL = BHelper.getExtensionUrl('options/options.html');
   const settingsBtn = `

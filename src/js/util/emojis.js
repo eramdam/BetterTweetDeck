@@ -1,22 +1,12 @@
 import jsEmoji from 'emoji-js';
 import { sortBy } from 'lodash';
+
 import emojis from '../../emojis/emojis';
 import { $ } from './util';
 
 const Emoji = new jsEmoji.EmojiConvertor();
 const emojiSheet = chrome.extension.getURL('emojis/sheet_twitter_64.png');
 Emoji.img_set = 'twitter';
-
-const catOrder = {
-  'Smileys & People': -80,
-  'Animals & Nature': -70,
-  'Food & Drink': -60,
-  Activities: -50,
-  'Travel & Places': -40,
-  Objects: -30,
-  Symbols: -20,
-  Flags: -10,
-};
 
 const catNames = Object.keys(catOrder);
 
@@ -88,19 +78,6 @@ function valueAtCursor(input) {
   };
 }
 
-function getSkinVariation() {
-  const skinVariation = Number(localStorage['btd-skin-variation']) || 1;
-  let skinV;
-
-  if (skinVariation === 1) {
-    skinV = '';
-  } else {
-    skinV = `:skin-tone-${skinVariation}:`;
-  }
-
-  return skinV;
-}
-
 function getUnified(emoji, skinVariation) {
   Emoji.replace_mode = 'unified';
 
@@ -128,18 +105,6 @@ function getImage(emoji, skinVariation = '') {
     '/emoji-data/sheet_twitter_64.png',
     emojiSheet,
   );
-}
-
-function getEmojiElement(emoji, skinVariation = '') {
-  let title = emoji.n || emoji.s[0];
-  title = title.replace(/_-/g, ' ');
-
-  return `<a href="#" title="${title.toLowerCase()}" data-btd-has-variation="${
-    emoji.hs
-  }" data-btd-shortcode="${emoji.s[0]}" class="btd-emoji">${getImage(
-    emoji,
-    skinVariation,
-  )}</a>`;
 }
 
 function getEmojiPickerMarkup(emojiContent) {
