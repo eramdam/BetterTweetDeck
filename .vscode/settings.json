@@ -1,4 +1,6 @@
 {
   "prettier.eslintIntegration": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveTimeout": 5000,
   "typescriptHero.imports.organizeOnSave": true
 }
