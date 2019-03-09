@@ -1,4 +1,10 @@
 {
   "prettier.eslintIntegration": true,
-  "typescriptHero.imports.organizeOnSave": true
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveTimeout": 5000,
+  "typescriptHero.imports.organizeOnSave": true,
+  "[css]": {
+    "editor.formatOnSave": false,
+    "editor.formatOnPaste": false
+  }
 }

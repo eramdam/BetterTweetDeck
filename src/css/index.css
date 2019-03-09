@@ -205,6 +205,10 @@ html.btd-on {
     content: "\F186";
   }
 
+  .icon-muted::before {
+    content: "\F101";
+  }
+
   .tweet-detail-actions.tweet-detail-actions {
     display: flex;
     padding-bottom: 8px;
@@ -328,4 +332,10 @@ html.dark body.btd__og_dark_theme .scroll-styled-v {
 html:not(.dark) .scroll-styled-h,
 html:not(.dark) .scroll-styled-v {
   scrollbar-color: #e1e8ed transparent;
+}
+
+/* Tighter margins on tweet actions */
+
+.tweet-action-item.pull-left.margin-r--10 {
+  margin-right: 7px !important;
 }
