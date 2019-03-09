@@ -109,8 +109,8 @@ html.btd-on {
   }
 
   .btd__small_icns_compose
-  .js-add-emojis.padding-v--9.js-add-emojis
-  .btd-emoji-icon {
+    .js-add-emojis.padding-v--9.js-add-emojis
+    .btd-emoji-icon {
     transform: translateY(-2px);
   }
 
@@ -205,6 +205,10 @@ html.btd-on {
     content: "\F186";
   }
 
+  .icon-muted::before {
+    content: "\F101";
+  }
+
   .tweet-detail-actions.tweet-detail-actions {
     display: flex;
     padding-bottom: 8px;
@@ -220,10 +224,10 @@ html.btd-on {
   }
 
   .btd__old_replies
-  .js-stream-item:not(.btd-is-retweet)
-  .js-tweet:not(.txt-mute)
-  .thread
-  ~ .tweet-body,
+    .js-stream-item:not(.btd-is-retweet)
+    .js-tweet:not(.txt-mute)
+    .thread
+    ~ .tweet-body,
   .btd__old_replies .js-stream-item .quoted-tweet {
     .other-replies::before {
       display: none;
@@ -231,9 +235,9 @@ html.btd-on {
   }
 
   .btd__old_replies
-  .js-stream-item:not(.btd-is-retweet)
-  .js-tweet:not(.txt-mute)
-  .tweet-body {
+    .js-stream-item:not(.btd-is-retweet)
+    .js-tweet:not(.txt-mute)
+    .tweet-body {
     .other-replies {
       font-size: 0;
       height: 0;
@@ -292,10 +296,10 @@ html.btd-on {
 }
 
 .btd__replace_logo
-.application
-.app-title
-.visible-in-contracted-header
-.tweetdeck-logo {
+  .application
+  .app-title
+  .visible-in-contracted-header
+  .tweetdeck-logo {
   background-size: 24px;
   background-position: 50%;
   background-image: url("../img/btd-logo-small.png");

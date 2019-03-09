@@ -202,6 +202,12 @@
     "message":
       "Ajouter un raccourci pour télécharger tous les médias d'un tweet"
   },
+  "mute_item": {
+    "message": "Ajouter un raccourci pour masquer le compte d'un tweet"
+  },
+  "block_item": {
+    "message": "Ajouter un raccourci pour bloquer le compte d'un tweet"
+  },
   "download_filename_format": {
     "message": "Format du nom des fichiers téléchargés"
   },

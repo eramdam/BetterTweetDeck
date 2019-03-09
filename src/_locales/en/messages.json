@@ -181,6 +181,12 @@
   "download_item": {
     "message": "Add shortcut to download all media of a tweet"
   },
+  "mute_item": {
+    "message": "Add shortcut to mute the author of a tweet"
+  },
+  "block_item": {
+    "message": "Add shortcut to block the author of a tweet"
+  },
   "download_filename_format": { "message": "Download file name format" },
   "download_filename_format_parameters": {
     "message":

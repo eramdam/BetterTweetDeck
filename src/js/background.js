@@ -1,8 +1,8 @@
 import { defaultsDeep } from 'lodash';
 
 import * as BHelper from './util/browserHelper';
-import * as Messages from './util/messaging';
 import Log from './util/logger';
+import * as Messages from './util/messaging';
 
 const defaultSettings = {
   need_follow_banner: true,
@@ -61,6 +61,8 @@ const defaultSettings = {
   mute_hashtags: true,
   mute_source: true,
   hotlink_item: false,
+  mute_item: false,
+  block_item: false,
   download_item: false,
   download_filename_format:
     '{{postedUser}}-{{tweetId}}-{{fileName}}.{{fileExtension}}',
