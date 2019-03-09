@@ -26,8 +26,8 @@ export function insertInsideComposer(string) {
     return;
   }
 
-  insertAtCursor(tweetCompose[0], string);
-  tweetCompose[0].dispatchEvent(new Event('change'));
+  insertAtCursor(tweetCompose, string);
+  tweetCompose.dispatchEvent(new Event('change'));
 }
 
 export function onComposerShown(callback) {
