@@ -1,14 +1,16 @@
+import Clipboard from 'clipboard';
 import config from 'config';
 import FileSaver from 'file-saver';
-import Clipboard from 'clipboard';
+import { debounce, unescape } from 'lodash';
 import moduleRaid from 'moduleraid';
-import { unescape, debounce } from 'lodash';
-import Log from './util/logger';
-import * as GIFS from './util/gifs';
-import UsernamesTemplates from './util/username_templates';
-import { giphySearch, giphyBlock } from './util/templates';
+
 import AdvancedMuteEngine from './util/ame';
-import keepHashtags from './util/keepHashtags';
+import * as GIFS from './util/gifs';
+import { keepHashtags } from './util/keepHashtags';
+import Log from './util/logger';
+import { giphyBlock, giphySearch } from './util/templates';
+import { onComposerShown } from './util/tweetdeckUtils';
+import UsernamesTemplates from './util/username_templates';
 
 const SETTINGS = JSON.parse(document.querySelector('[data-btd-settings]').dataset.btdSettings);
 let mR;
@@ -918,25 +920,32 @@ $(document).one('dataColumnsLoaded', () => {
 
   $('.js-app')[0].insertAdjacentElement('beforeend', giphyZone);
 
-  const d = new Date();
-  const fool = d.getDate() === 1 && d.getMonth() === 3;
-  const GIFText = fool ? 'JIF' : 'GIF';
-
-  $('.js-character-count').parent().append(`
-    <span class="btd-gif-button -visible color-twitter-dark-gray">${GIFText}</span>
-    <span class="btd-gif-indicator txt-line-height--20 txt-size--12 color-twitter-dark-gray"></span>
-  `);
-
-  $('.js-media-added').after(`
-    <span
-      class="txt-line-height--12 txt-size--12 color-twitter-dark-gray btd-gif-source-indicator"
-    ></span>
-  `);
   setTimeout(checkBTDFollowing, 2000);
 
   if (SETTINGS.keep_hashtags) {
     keepHashtags();
   }
+
+  onComposerShown((isVisible) => {
+    if (!isVisible) {
+      return;
+    }
+
+    const d = new Date();
+    const fool = d.getDate() === 1 && d.getMonth() === 3;
+    const GIFText = fool ? 'JIF' : 'GIF';
+
+    $('.js-character-count').parent().append(`
+        <span class="btd-gif-button -visible color-twitter-dark-gray">${GIFText}</span>
+        <span class="btd-gif-indicator txt-line-height--20 txt-size--12 color-twitter-dark-gray"></span>
+      `);
+
+    $('.js-media-added').after(`
+        <span
+          class="txt-line-height--12 txt-size--12 color-twitter-dark-gray btd-gif-source-indicator"
+        ></span>
+      `);
+  });
 });
 
 $(document).on('click', '.btd-gif-button', (e) => {
