@@ -334,7 +334,7 @@ html:not(.dark) .scroll-styled-v {
   scrollbar-color: #e1e8ed transparent;
 }
 
-/* Tigther margins on tweet actions */
+/* Tighter margins on tweet actions */
 
 .tweet-action-item.pull-left.margin-r--10 {
   margin-right: 7px !important;
