@@ -13,11 +13,13 @@
   "sec_tweetsDisplay": { "message": "Tweets: display" },
   "sec_interface": { "message": "Interface" },
   "sec_content": { "message": "Content" },
+  "sec_custom_css": { "message": "Custom CSS" },
   "sec_welcome": { "message": "Welcome" },
   "sec_credits": { "message": "Credits / About" },
   "sec_changelog": { "message": "Changelog" },
   "sec_debug": { "message": "Debug Infos" },
   "sec_links": { "message": "Links" },
+  "sec_website": { "message": "Website" },
   "sec_donate": { "message": "Donate" },
   "sec_preview": { "message": "Preview" },
   "sec_general": { "message": "General" },
@@ -120,6 +122,13 @@
   "no_gif_pp": { "message": "Stop GIFs from playing in avatars" },
   "thumbnails_from": { "message": "Display thumbnails from:" },
 
+  "custome_css_title": {
+    "message": "Custom CSS"
+  },
+  "custome_css_p1": {
+    "message": "⚠️ Pasting unknown code in this editor can lead to weird issues if you don't know what you're doing ⚠️️"
+  },
+
   "css_minimal_mode": { "message": "Enable the 'Minimal' theme" },
   "css_og_dark_theme": {
     "message": "Re-enable the Dark theme (pre February 2018)"
@@ -161,6 +170,9 @@
   "uncollapse_columns_unpause": {
     "message":
       "When you uncollapse a column, it will unpause the feed it so that it automatically scrolls back to the top instead of staying where you left it"
+  },
+  "btd_logo": {
+    "message": "Change TweetDeck's logo in the left bottom corner for Better TweetDeck's logo"
   },
 
   "edit_item": { "message": "Add an edit item in tweets' menu" },
