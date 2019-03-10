@@ -1,4 +1,4 @@
-import { onComposerShown } from './tweetdeckUtils';
+import { onComposerDisabledStateChange, onComposerShown } from './tweetdeckUtils';
 
 export function keepHashtags() {
   let hashtags = [];
@@ -18,12 +18,7 @@ export function keepHashtags() {
     true,
   );
 
-  // Re-add hashtags when the composer is back.
-  onComposerShown((isVisible) => {
-    if (!isVisible) {
-      return;
-    }
-
+  function pasteHashtags() {
     const tweetTextArea = document.querySelector('textarea.js-compose-text');
 
     if (!tweetTextArea) {
@@ -38,5 +33,23 @@ export function keepHashtags() {
     tweetTextArea.selectionStart = 0;
     tweetTextArea.selectionEnd = 0;
     tweetTextArea.dispatchEvent(new Event('change'));
+  }
+
+  // Re-instate hashtags when the composer is enabled again.
+  onComposerDisabledStateChange((isDisabled) => {
+    if (isDisabled) {
+      return;
+    }
+
+    pasteHashtags();
+  });
+
+  // Re-add hashtags when the composer is back.
+  onComposerShown((isVisible) => {
+    if (!isVisible) {
+      return;
+    }
+
+    pasteHashtags();
   });
 }

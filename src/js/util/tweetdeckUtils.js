@@ -55,3 +55,28 @@ export function onComposerShown(callback) {
     composerObserver.disconnect();
   };
 }
+
+export function onComposerDisabledStateChange(callback) {
+  const tweetComposerObserver = new MutationObserver(() => {
+    const tweetComposer = document.querySelector('.drawer[data-drawer="compose"] textarea.js-compose-text');
+    callback(tweetComposer.disabled);
+  });
+
+  onComposerShown((isVisible) => {
+    if (!isVisible) {
+      tweetComposerObserver.disconnect();
+      return;
+    }
+
+    const tweetComposer = document.querySelector('.drawer[data-drawer="compose"] textarea.js-compose-text');
+
+    if (!tweetComposer) {
+      return;
+    }
+
+    tweetComposerObserver.observe(tweetComposer, {
+      attributeFilter: ['disabled'],
+      attributes: true,
+    });
+  });
+}
