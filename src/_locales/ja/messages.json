@@ -17,10 +17,10 @@
   "sec_welcome": { "message": "ようこそ" },
   "sec_credits": { "message": "クレジット / About" },
   "sec_changelog": { "message": "Changelog" },
-  "sec_donate": { "message": "寄付" },
   "sec_debug": { "message": "デバッグ情報" },
   "sec_links": { "message": "リンク" },
   "sec_website": { "message": "ウェブサイト" },
+  "sec_donate": { "message": "寄付" },
   "sec_preview": { "message": "プレビュー" },
   "sec_general": { "message": "一般の設定" },
 
@@ -45,7 +45,9 @@
   "name_inverted": { "message": "@Username ユーザー名" },
   "name_username": { "message": "@Username" },
   "name_full": { "message": "ユーザー名" },
-  "name_typeahead": { "message": "自動補完の時に「@ユーザー名」のみ表示する" },
+  "name_typeahead": {
+    "message": "自動補完の時に「@ユーザー名」のみ表示する"
+  },
 
   "title_avatars": { "message": "アイコンと詳細設定" },
   "old_replies": {
@@ -54,26 +56,22 @@
   "css_round_pic": { "message": "アイコンを円形表示する" },
   "css_bigger_emojis": { "message": "ツイート内の絵文字を大きくする" },
   "css_character_count": {
-    "message": "円形のプログレスバーの代わりに、常に残り文字数を表示する"
+    "message":
+      "円形のプログレスバーの代わりに、常に残り文字数を表示する"
   },
   "css_collapse_dms": { "message": "ダイレクトメッセージの本文を折りたたむ" },
   "css_system_fonts": { "message": "UI にシステムフォントを使用する" },
-  "css_show_verified": { "message": "アイコン上に認証バッジを表示する" },
-  "css_hide_context": {
-    "message": "リプライツイートの 'In reply to' というラベルを非表示にする"
+  "css_show_verified": {
+    "message": "アイコン上に認証バッジを表示する"
   },
+  "css_hide_context": { "message": "リプライツイートの 'In reply to' というラベルを非表示にする" },
   "css_actions_on_right": { "message": "ツイートアクションを右寄せにする" },
-  "css_actions_on_hover": {
-    "message":
-      "ツイートからカーソルを外した時に、ツイートアクションを非表示にする"
-  },
+  "css_actions_on_hover": { "message": "ツイートからカーソルを外した時に、ツイートアクションを非表示にする" },
   "css_no_bg_modal": {
     "message": "フルスクリーンのプレビュー時にバックグラウンドを非表示にする"
   },
   "css_slim_scrollbars": { "message": "スクロールバーを細くする" },
-  "pause_scroll_on_hover": {
-    "message": "マウスカーソルがあるカラムの自動スクロールを一時停止する"
-  },
+  "pause_scroll_on_hover": { "message": "マウスカーソルがあるカラムの自動スクロールを一時停止する" },
   "css_show_provider_indicator": {
     "message": "サムネイルの上にソースを表すラベルを表示する"
   },
@@ -84,16 +82,14 @@
     "message": "新しい検索結果のカラムを一番左に挿入する"
   },
   "no_hearts": { "message": "ハートの代わりにスターを表示する" },
-  "rtl_text_style": {
-    "message":
-      "必要に応じて RTL スタイル (アラビア語などの右から左に書くスタイル) を検出して、自動的に適用する"
-  },
+  "rtl_text_style": { "message": "必要に応じて RTL スタイル (アラビア語などの右から左に書くスタイル) を検出して、自動的に適用する" },
   "flash_tweets": { "message": "新しいツイートをフラッシュする" },
   "flash_tweets_mentions": { "message": "メンションカラムのみ" },
   "flash_tweets_all": { "message": "全てのカラム" },
 
   "update_title_on_notifications": {
-    "message": "未読のツイート/DM の件数を TweetDeck のタブタイトルに表示する"
+    "message":
+      "未読のツイート/DM の件数を TweetDeck のタブタイトルに表示する"
   },
 
   "share_request": { "message": "タブの読み込み権限のリクエスト" },
@@ -112,16 +108,19 @@
       "この権限について詳しく知りたい場合は、<a href=\"https://developer.chrome.com/extensions/tabs\">Google のドキュメント</a> をお読みください。"
   },
   "share_btd_p4": {
-    "message": "このページで行った変更は、ブラウザの再起動後に適用されます。"
+    "message":
+      "このページで行った変更は、ブラウザの再起動後に適用されます。"
   },
   "share_btd_item": {
-    "message":
-      "コンテキストメニューに「TweetDeck で共有」アクションを追加する <small>再起動後に適用されます</small>"
+    "message": "コンテキストメニューに「TweetDeck で共有」アクションを追加する <small>再起動後に適用されます</small>"
   },
   "share_short_txt": {
     "message":
       "「TweetDeck で共有」アクション実行時に、選択していたテキストを短くする <small>再起動後に適用されます</small>"
   },
+  "no_tco": { "message": "t.co リンクのリダイレクトを除去する" },
+  "no_gif_pp": { "message": "ユーザーアイコンの GIF の自動再生を停止する" },
+  "thumbnails_from": { "message": "次のサービスのサムネイル画像を表示する" },
 
   "custome_css_title": {
     "message": "カスタム CSS"
@@ -130,22 +129,14 @@
     "message": "⚠️ よくわからないコードをエディタに貼り付けると、さまざまな問題を引き起こす可能性があり、危険です！ ⚠️"
   },
 
-  "no_tco": { "message": "t.co リンクのリダイレクトを除去する" },
-  "no_gif_pp": { "message": "ユーザーアイコンの GIF の自動再生を停止する" },
-  "thumbnails_from": { "message": "次のサービスのサムネイル画像を表示する" },
-
   "css_minimal_mode": { "message": "「ミニマル」モードを有効にする" },
   "css_og_dark_theme": {
-    "message":
-      "Dark テーマを以前のスタイルに戻す (2018年2月より前のスタイル)"
+    "message": "Dark テーマを以前のスタイルに戻す (2018年2月より前のスタイル)"
   },
   "css_experimental_warning": {
-    "message":
-      "これは実験的な機能です！ 将来の更新で壊れてしまう可能性があります。"
+    "message": "これは実験的な機能です！ 将来の更新で壊れてしまう可能性があります。"
   },
-  "css_no_play_btn": {
-    "message": "動画のサムネイルの再生ボタンを非表示にする"
-  },
+  "css_no_play_btn": { "message": "動画のサムネイルの再生ボタンを非表示にする" },
   "css_hide_url_thumb": {
     "message":
       "サムネイル画像に関連するリンクを非表示にする (iOS/Android の公式 Twitter クライアントと同様)"
@@ -155,7 +146,9 @@
     "message": "ツイートパネルのアイコンをコンパクトにする"
   },
   "css_no_scrollbars": { "message": "スクロールバーを非表示にする" },
-  "css_gray_icns_notifs": { "message": "通知アイコンをグレースケールにする" },
+  "css_gray_icns_notifs": {
+    "message": "通知アイコンをグレースケールにする"
+  },
 
   "custom_width_columns": { "message": "カラム幅のカスタマイズ:" },
   "custom_width_size": { "message": "(CSS のプロパティとして有効な任意の値)" },
@@ -168,8 +161,7 @@
     "message": "カラムのヘッダーにカラムをクリアするボタンを追加する"
   },
   "collapse_columns": {
-    "message":
-      "カラムのヘッダーにカラムの折りたたみを切り替えるボタンを追加する"
+    "message": "カラムのヘッダーにカラムの折りたたみを切り替えるボタンを追加する"
   },
   "collapse_columns_pause": {
     "message":
@@ -189,24 +181,25 @@
       "ツイートの編集機能は、一度ツイートの削除を行うことに注意してください！ その結果、元のツイート内容がテキストボックスに移動し、すでに受け取ったいいねやリツイートは無効となります！"
   },
   "mute_hashtags": {
-    "message":
-      "ツイートメニューに #ハッシュタグ をミュートするショートカットを追加する"
+    "message": "ツイートメニューに #ハッシュタグ をミュートするショートカットを追加する"
   },
   "mute_source": {
     "message":
       "ツイートメニューにツイートのソース (アプリ) をミュートするショートカットを追加する"
   },
   "hotlink_item": {
-    "message":
-      "ツイートに含まれるすべてのメディアへのリンクをコピーするショートカットを追加する"
+    "message": "ツイートに含まれるすべてのメディアへのリンクをコピーするショートカットを追加する"
   },
   "download_item": {
-    "message":
-      "ツイートに含まれるすべてのメディアをダウンロードするショートカットを追加する"
+    "message": "ツイートに含まれるすべてのメディアをダウンロードするショートカットを追加する"
   },
-  "download_filename_format": {
-    "message": "ダウンロードするファイル名のフォーマット"
+  "mute_item": {
+    "message": "Add shortcut to mute the author of a tweet"
   },
+  "block_item": {
+    "message": "Add shortcut to block the author of a tweet"
+  },
+  "download_filename_format": { "message": "ダウンロードするファイル名のフォーマット" },
   "download_filename_format_parameters": {
     "message":
       "次の変数が利用できます: <code>{{postedUser}}/{{tweetId}}/{{fileName}}/{{fileExtension}}</code> (それぞれ、ツイートユーザー名/ツイートID/ファイル名/ファイルの拡張子に置換されます)"
@@ -215,18 +208,11 @@
     "message":
       "<kbd>Ctrl</kbd> (MacOS では <kbd>Cmd</kbd>) を押しながら、いいね/リツイート/ダウンロードボタンをクリックすることで、ツイート元のアカウントを次の方法でフォローできるようにする: "
   },
-  "ctrl_changes_interactions__mode__owner": {
-    "message": "カラムのオーナーからフォローする"
-  },
-  "ctrl_changes_interactions__mode__dialog": {
-    "message": "フォローダイアログからアカウントを選択する"
-  },
+  "ctrl_changes_interactions__mode__owner": { "message": "カラムのオーナーからフォローする" },
+  "ctrl_changes_interactions__mode__dialog": { "message": "フォローダイアログからアカウントを選択する" },
   "keep_hashtags": { "message": "ツイートしたハッシュタグを入力欄に保持する" },
 
-  "btd_thx": {
-    "message":
-      "Better TweetDeck をインストールしていただき、ありがとうございます！"
-  },
+  "btd_thx": { "message": "Better TweetDeck をインストールしていただき、ありがとうございます！" },
   "btd_get_started": { "message": "はじめに" },
   "btd_whatsBTD": {
     "message":
@@ -261,8 +247,7 @@
 
   "donate_title": { "message": "Better TweetDeck 開発援助のお願い" },
   "donate_p3": {
-    "message":
-      "Better TweetDeck を使っていただき、本当にありがとうございます！ ご支援を頂けると幸いです。"
+    "message": "Better TweetDeck を使っていただき、本当にありがとうございます！ ご支援を頂けると幸いです。"
   },
   "donate_p2": {
     "message":
