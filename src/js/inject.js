@@ -1362,11 +1362,10 @@ $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
 
 $('body').on('click', '[data-btd-action="mute-account"]', (ev) => {
   ev.preventDefault();
-  const chirp = getChirpFromElement(ev.target);
+  let chirp = getChirpFromElement(ev.target);
+  chirp = chirp.targetTweet ? chirp.targetTweet : chirp;
   const user = chirp.retweetedStatus ? chirp.retweetedStatus.user : chirp.user;
-  const account = chirp.retweetedStatus
-    ? chirp.retweetedStatus.account
-    : chirp.account;
+  const account = chirp.account;
 
   $(document).trigger('uiMuteAction', {
     account,
@@ -1376,11 +1375,10 @@ $('body').on('click', '[data-btd-action="mute-account"]', (ev) => {
 
 $('body').on('click', '[data-btd-action="block-account"]', (ev) => {
   ev.preventDefault();
-  const chirp = getChirpFromElement(ev.target);
+  let chirp = getChirpFromElement(ev.target);
+  chirp = chirp.targetTweet ? chirp.targetTweet : chirp;
   const user = chirp.retweetedStatus ? chirp.retweetedStatus.user : chirp.user;
-  const account = chirp.retweetedStatus
-    ? chirp.retweetedStatus.account
-    : chirp.account;
+  const account = chirp.account;
 
   $(document).trigger('uiBlockAction', {
     account,
