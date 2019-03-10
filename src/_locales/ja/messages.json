@@ -194,10 +194,10 @@
     "message": "ツイートに含まれるすべてのメディアをダウンロードするショートカットを追加する"
   },
   "mute_item": {
-    "message": "Add shortcut to mute the author of a tweet"
+    "message": "ツイートユーザーをミュートするショートカットボタンを追加する"
   },
   "block_item": {
-    "message": "Add shortcut to block the author of a tweet"
+    "message": "ツイートユーザーをブロックするショートカットボタンを追加する"
   },
   "download_filename_format": { "message": "ダウンロードするファイル名のフォーマット" },
   "download_filename_format_parameters": {
