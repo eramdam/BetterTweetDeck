@@ -430,6 +430,20 @@
               <input type="checkbox" name="btd_logo" id="btd_logo">
               <label for="btd_logo" data-lang="btd_logo">Change TweetDeck's logo in the left bottom corner for Better TweetDeck's logo</label>
             </li>
+            <li>
+              <input type="checkbox" name="custom_icons.enabled" id="icons" data-ghost><label for="icons"
+                data-lang="custom_icons" data-new-feat>Custom Icons:</label>
+              <ul data-setting-name="feather">
+                <li>
+                  <input disabled type="radio" name="custom_icons.mode" id="feather"><label for="feather"
+                    data-lang="custom_icons_feather">Feather Icons</label>
+                </li>
+                <li>
+                  <input disabled type="radio" name="custom_icons.mode" id="material"><label for="material"
+                    data-lang="custom_icons_material">Material Icons</label>
+                </li>
+              </ul>
+            </li>
           </ul>
         </div>
         <button class="save-button" disabled data-lang="save_no">No changes</button>

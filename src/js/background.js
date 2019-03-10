@@ -25,6 +25,10 @@ const defaultSettings = {
     size: '250px',
     enabled: false,
   },
+  custom_icons: {
+    set: 'feather',
+    enabled: false,
+  },
   clear_column_action: false,
   collapse_columns: false,
   collapse_columns_pause: true,

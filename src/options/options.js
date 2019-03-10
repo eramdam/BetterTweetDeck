@@ -245,6 +245,23 @@ BHelper.settings.getAll((settings) => {
             settings.custom_columns_width.size,
           );
         }
+
+        if (key === 'custom_icons') {
+          if (settings.custom_icons) {
+            $('input[name="custom_icons.enabled"]').prop(
+              'checked',
+              settings.custom_icons.enabled,
+            );
+            $('input[name="custom_icons.enabled"] ~ ul input').removeAttr('disabled');
+          }
+
+          $('input[name="custom_icons.mode"]').removeAttr('checked');
+          $('input[name="custom_icons.mode"]').prop(
+            'disabled',
+            !settings.custom_icons.enabled,
+          );
+          $(`input[name="custom_icons.mode"]#${settings.custom_icons.mode}`).prop('checked', settings.custom_icons.enabled && true);
+        }
       });
     } else {
       const name = key;
