@@ -584,7 +584,7 @@ const postMessagesListeners = {
     $(document).trigger('dataMessage', {
       message: {
         id: bannerID,
-        text: TD.i(banner.text),
+        text: banner.text,
         colors: {
           background: banner.bg || '#b2d5ed',
           foreground: banner.fg || '#555',
@@ -593,7 +593,9 @@ const postMessagesListeners = {
           {
             id: `btd-banner-${bannerID}`,
             action: banner.action || 'url-ext',
-            label: TD.i(banner.label),
+            actionId: banner.event.type,
+            event: banner.event,
+            label: banner.label,
             class: 'Button--primary',
             url: banner.url,
           },
