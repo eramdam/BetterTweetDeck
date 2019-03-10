@@ -395,9 +395,9 @@ if (
     ? `
               <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--10 margin-l--1">
               <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
-                data-btd-action="mute-account" rel="action" title="Mute this account"> 
+                data-btd-action="mute-account" rel="action" title="Mute {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}"> 
                 <i class="js-icon-attachment icon icon-muted txt-center txt-size--16 margin-t---1"></i>
-                <span class="is-vishidden"> {{_i}}Mute this account{{/i}} </span>
+                <span class="is-vishidden"> {{_i}}Mute {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}{{/i}} </span>
               </a>
             </li>
               `
@@ -408,9 +408,9 @@ ${
     ? `
               <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--10 margin-l--1">
               <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
-                data-btd-action="block-account" rel="action" title="Block this account"> 
+                data-btd-action="block-account" rel="action" title="Block {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}"> 
                 <i class="js-icon-attachment icon icon-blocked txt-center txt-size--16 margin-t---1"></i>
-                <span class="is-vishidden"> {{_i}}Block this account{{/i}} </span>
+                <span class="is-vishidden"> {{_i}}Block {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}{{/i}} </span>
               </a>
             </li>
               `
@@ -455,9 +455,9 @@ ${
     ? `
                                <li class="tweet-detail-action-item btd-tweet-detail-action-item">
                                  <a class="js-show-tip tweet-detail-action btd-tweet-detail-action btd-clipboard position-rel" href="#"
-                                   data-btd-action="hotlink-media" rel="action" title="Mute this account">
+                                   data-btd-action="hotlink-media" rel="action" title="Mute {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}">
                                    <i class="icon icon-muted txt-center"></i>
-                                   <span class="is-vishidden"> {{_i}}Mute this account{{/i}} </span>
+                                   <span class="is-vishidden"> {{_i}}Mute {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}{{/i}} </span>
                                  </a>
                                </li>`
     : ''
@@ -467,9 +467,9 @@ ${
     ? `
                                <li class="tweet-detail-action-item btd-tweet-detail-action-item">
                                  <a class="js-show-tip tweet-detail-action btd-tweet-detail-action btd-clipboard position-rel" href="#"
-                                   data-btd-action="hotlink-media" rel="hotlink" title="Block this account">
+                                   data-btd-action="hotlink-media" rel="hotlink" title="Block {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}">
                                    <i class="icon icon-blocked txt-center"></i>
-                                   <span class="is-vishidden"> {{_i}}Block this account{{/i}} </span>
+                                   <span class="is-vishidden"> {{_i}}Block {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}{{/i}} </span>
                                  </a>
                                </li>`
     : ''
