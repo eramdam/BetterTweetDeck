@@ -182,7 +182,7 @@ BHelper.settings.getAll((settings) => {
       Log('version', BHelper.getVersion());
       BHelper.settings.set({ installed_version: String(BHelper.getVersion()) });
 
-      if (!oldVersion || Number(oldVersion) !== Number(newVersion)) {
+      if (!oldVersion || String(oldVersion) !== String(newVersion)) {
         BHelper.settings.set({
           need_update_banner: true,
         });
