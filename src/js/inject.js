@@ -395,9 +395,9 @@ if (
     ? `
               <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--10 margin-l--1">
               <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
-                data-btd-action="mute-account" rel="action" title="Mute this account"> 
+                data-btd-action="mute-account" rel="action" title="Mute {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}"> 
                 <i class="js-icon-attachment icon icon-muted txt-center txt-size--16 margin-t---1"></i>
-                <span class="is-vishidden"> {{_i}}Mute this account{{/i}} </span>
+                <span class="is-vishidden"> {{_i}}Mute {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}{{/i}} </span>
               </a>
             </li>
               `
@@ -408,9 +408,9 @@ ${
     ? `
               <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--10 margin-l--1">
               <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
-                data-btd-action="block-account" rel="action" title="Block this account"> 
+                data-btd-action="block-account" rel="action" title="Block {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}"> 
                 <i class="js-icon-attachment icon icon-blocked txt-center txt-size--16 margin-t---1"></i>
-                <span class="is-vishidden"> {{_i}}Block this account{{/i}} </span>
+                <span class="is-vishidden"> {{_i}}Block {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}{{/i}} </span>
               </a>
             </li>
               `
@@ -455,9 +455,9 @@ ${
     ? `
                                <li class="tweet-detail-action-item btd-tweet-detail-action-item">
                                  <a class="js-show-tip tweet-detail-action btd-tweet-detail-action btd-clipboard position-rel" href="#"
-                                   data-btd-action="hotlink-media" rel="action" title="Mute this account">
+                                   data-btd-action="hotlink-media" rel="action" title="Mute {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}">
                                    <i class="icon icon-muted txt-center"></i>
-                                   <span class="is-vishidden"> {{_i}}Mute this account{{/i}} </span>
+                                   <span class="is-vishidden"> {{_i}}Mute {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}{{/i}} </span>
                                  </a>
                                </li>`
     : ''
@@ -467,9 +467,9 @@ ${
     ? `
                                <li class="tweet-detail-action-item btd-tweet-detail-action-item">
                                  <a class="js-show-tip tweet-detail-action btd-tweet-detail-action btd-clipboard position-rel" href="#"
-                                   data-btd-action="hotlink-media" rel="hotlink" title="Block this account">
+                                   data-btd-action="hotlink-media" rel="hotlink" title="Block {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}">
                                    <i class="icon icon-blocked txt-center"></i>
-                                   <span class="is-vishidden"> {{_i}}Block this account{{/i}} </span>
+                                   <span class="is-vishidden"> {{_i}}Block {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}{{/i}} </span>
                                  </a>
                                </li>`
     : ''
@@ -584,7 +584,7 @@ const postMessagesListeners = {
     $(document).trigger('dataMessage', {
       message: {
         id: bannerID,
-        text: TD.i(banner.text),
+        text: banner.text,
         colors: {
           background: banner.bg || '#b2d5ed',
           foreground: banner.fg || '#555',
@@ -593,7 +593,9 @@ const postMessagesListeners = {
           {
             id: `btd-banner-${bannerID}`,
             action: banner.action || 'url-ext',
-            label: TD.i(banner.label),
+            actionId: banner.event.type,
+            event: banner.event,
+            label: banner.label,
             class: 'Button--primary',
             url: banner.url,
           },
@@ -1362,11 +1364,10 @@ $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
 
 $('body').on('click', '[data-btd-action="mute-account"]', (ev) => {
   ev.preventDefault();
-  const chirp = getChirpFromElement(ev.target);
+  let chirp = getChirpFromElement(ev.target);
+  chirp = chirp.targetTweet ? chirp.targetTweet : chirp;
   const user = chirp.retweetedStatus ? chirp.retweetedStatus.user : chirp.user;
-  const account = chirp.retweetedStatus
-    ? chirp.retweetedStatus.account
-    : chirp.account;
+  const account = chirp.account;
 
   $(document).trigger('uiMuteAction', {
     account,
@@ -1376,11 +1377,10 @@ $('body').on('click', '[data-btd-action="mute-account"]', (ev) => {
 
 $('body').on('click', '[data-btd-action="block-account"]', (ev) => {
   ev.preventDefault();
-  const chirp = getChirpFromElement(ev.target);
+  let chirp = getChirpFromElement(ev.target);
+  chirp = chirp.targetTweet ? chirp.targetTweet : chirp;
   const user = chirp.retweetedStatus ? chirp.retweetedStatus.user : chirp.user;
-  const account = chirp.retweetedStatus
-    ? chirp.retweetedStatus.account
-    : chirp.account;
+  const account = chirp.account;
 
   $(document).trigger('uiBlockAction', {
     account,

@@ -190,4 +190,13 @@ export function registerEmojiPickerEventsHandlers() {
     localStorage['btd-skin-variation'] = skinTone;
     rebuildEmojiPicker();
   });
+
+  document.body.addEventListener('input', (ev) => {
+    if (!ev.target.matches('.emoji-search input')) {
+      return;
+    }
+
+    const val = String(ev.target.value);
+    $('.emoji-popover .emoji-container')[0].innerHTML = getEmojiListMarkup(val);
+  });
 }
