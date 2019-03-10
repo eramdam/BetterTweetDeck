@@ -33,7 +33,7 @@ export function insertInsideComposer(string) {
 export function onComposerShown(callback) {
   const drawer = document.querySelector('.drawer[data-drawer="compose"]');
 
-  const composerObserver = new MutationObserver(() => {
+  const onChange = () => {
     const tweetCompose = drawer.querySelector('textarea.js-compose-text');
 
     if (!tweetCompose) {
@@ -41,11 +41,15 @@ export function onComposerShown(callback) {
     }
 
     callback(true);
-  });
+  };
+
+  const composerObserver = new MutationObserver(onChange);
 
   composerObserver.observe(drawer, {
     childList: true,
   });
+
+  onChange();
 
   return () => {
     composerObserver.disconnect();
