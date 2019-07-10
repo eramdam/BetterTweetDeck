@@ -1,6 +1,8 @@
-import { shuffle } from 'lodash';
 import { Client } from 'config';
+import { random, shuffle } from 'lodash';
 import qs from 'query-string';
+
+import { proxyEvent, waitForMessageEvent } from '../util/messaging';
 
 const formatTenorResults = res =>
   res.results.map(result => ({
@@ -32,7 +34,14 @@ const tenor = (endpoint, params = {}) => {
     params,
   ));
 
-  return fetch(`https://api.tenor.com/v1/${endpoint}?${querystring}`).then(res => res.json());
+  const requestId = `tenor_${random(0, Date.now()).toString(36)}`;
+
+  proxyEvent('performRequest', {
+    returnName: requestId,
+    url: `https://api.tenor.com/v1/${endpoint}?${querystring}`,
+  });
+
+  return waitForMessageEvent(window, `${requestId}_return`);
 };
 
 const giphy = (endpoint, params = {}) => {
@@ -47,7 +56,14 @@ const giphy = (endpoint, params = {}) => {
     params,
   ));
 
-  return fetch(`https://api.giphy.com/v1/gifs/${endpoint}?${querystring}`).then(res => res.json());
+  const requestId = `giphy_${random(0, Date.now()).toString(36)}`;
+
+  proxyEvent('performRequest', {
+    returnName: requestId,
+    url: `https://api.giphy.com/v1/gifs/${endpoint}?${querystring}`,
+  });
+
+  return waitForMessageEvent(window, `${requestId}_return`);
 };
 
 export function trending() {

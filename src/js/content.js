@@ -898,6 +898,37 @@ onEvent('BTDC_triggerMediaDownload', (ev, data) => {
     .catch(console.error);
 });
 
+onEvent('BTDC_performRequest', (ev, data) => {
+  const { url, returnName, responseType } = data;
+
+  const request = new XMLHttpRequest();
+  request.open('GET', url);
+  request.responseType = responseType || 'json';
+
+  request.onload = (event) => {
+    window.postMessage(
+      { name: `${returnName}_return`, detail: event.target.response },
+      'https://tweetdeck.twitter.com',
+    );
+  };
+
+  request.onprogress = (event) => {
+    const { loaded, total } = event;
+    window.postMessage(
+      {
+        name: `${returnName}_progress`,
+        detail: {
+          loaded,
+          total,
+        },
+      },
+      'https://tweetdeck.twitter.com',
+    );
+  };
+
+  request.send();
+});
+
 window.addEventListener('message', (ev) => {
   let data;
 

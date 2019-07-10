@@ -7,6 +7,7 @@ import AdvancedMuteEngine from './util/ame';
 import * as GIFS from './util/gifs';
 import { keepHashtags } from './util/keepHashtags';
 import Log from './util/logger';
+import { proxyEvent, waitForMessageEvent } from './util/messaging';
 import { giphyBlock, giphySearch } from './util/templates';
 import { onComposerShown } from './util/tweetdeckUtils';
 import UsernamesTemplates from './util/username_templates';
@@ -162,26 +163,6 @@ if (config.Client.debug) {
         TD.mustaches[i].toLowerCase().includes(content.toLowerCase())),
   };
 }
-
-/**
- * Send messages to the content window with BTDC_ prefix
- */
-const proxyEvent = (name, detail = {}) => {
-  name = `BTDC_${name}`;
-  let cache = [];
-  detail = JSON.stringify(detail, (key, val) => {
-    if (typeof val === 'object' && val !== null) {
-      if (cache.indexOf(val) !== -1 && !val.screenName) {
-        return null;
-      }
-      cache.push(val);
-    }
-
-    return val;
-  });
-  cache = null;
-  window.postMessage({ name, detail }, 'https://tweetdeck.twitter.com');
-};
 
 const decorateChirp = (chirp) => {
   if (!chirp) {
@@ -1041,13 +1022,19 @@ $(document).on(
 $(document).on('click', '.btd-giphy-close', closeGiphyZone);
 
 $(document).on('click', '.btd-giphy-block', (ev) => {
-  const gifRequest = new XMLHttpRequest();
-  gifRequest.open('GET', ev.target.dataset.btdUrl);
-  gifRequest.responseType = 'blob';
+  const returnName = 'gif-btd-download-upload';
+  proxyEvent('performRequest', {
+    returnName,
+    url: ev.target.dataset.btdUrl,
+    responseType: 'blob',
+  });
 
-  gifRequest.onload = (event) => {
-    const blob = event.target.response;
+  waitForMessageEvent(window, `${returnName}_progress`).then((detail) => {
+    const { loaded, total } = detail;
+    $('.btd-gif-indicator').text(`Adding GIF (${((loaded / total) * 100).toFixed(2)}%)`);
+  });
 
+  waitForMessageEvent(window, `${returnName}_return`).then((blob) => {
     const myFile = new File([blob], 'awesome-gif.gif', {
       type: 'image/gif',
     });
@@ -1056,14 +1043,8 @@ $(document).on('click', '.btd-giphy-block', (ev) => {
       source: ev.target.dataset.btdSource,
     });
     $('.btd-gif-indicator').removeClass('-visible');
-  };
+  });
 
-  gifRequest.onprogress = (event) => {
-    const { loaded, total } = event;
-    $('.btd-gif-indicator').text(`Adding GIF (${((loaded / total) * 100).toFixed(2)}%)`);
-  };
-
-  gifRequest.send();
   $('.btd-gif-button').removeClass('-visible');
   $('.btd-gif-indicator').addClass('-visible');
   closeGiphyZone(ev);

@@ -29,5 +29,7 @@ module.exports = [
   '*://tweetdeck.twitter.com/*',
   'https://i.ppn.pw/n/api/preview.php?i=*',
   'https://audiomack.com/oembed',
+  'https://*.tenor.com/*',
+  'https://*.giphy.com/*',
   'https://pbs.twimg.com/*',
 ];
