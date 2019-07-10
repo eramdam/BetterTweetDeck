@@ -887,6 +887,17 @@ onEvent('BTDC_clickedOnGif', (ev, data) => {
   sendEvent('getOpenModalTweetHTML', { tweetKey, colKey, modalHtml });
 });
 
+onEvent('BTDC_triggerMediaDownload', (ev, data) => {
+  const { url, filename } = data;
+
+  fetch(url)
+    .then(res => res.blob())
+    .then((blob) => {
+      FileSaver.saveAs(blob, filename);
+    })
+    .catch(console.error);
+});
+
 window.addEventListener('message', (ev) => {
   let data;
 
