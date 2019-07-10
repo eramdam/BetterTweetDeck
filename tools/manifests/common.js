@@ -46,7 +46,14 @@ const common = {
     scripts: ['js/background.js'],
   },
   icons: isBeta ? betaIcons : icons,
-  permissions: ['storage', 'contextMenus', 'notifications', ...urls],
+  permissions: [
+    'storage',
+    'contextMenus',
+    'notifications',
+    'webRequest',
+    'webRequestBlocking',
+    ...urls,
+  ],
   optional_permissions: ['tabs'],
   options_ui: {
     page: 'options/ui/ui.html',

@@ -242,3 +242,41 @@ Messages.on((message, sender, sendResponse) => {
       return false;
   }
 });
+
+chrome.permissions.contains(
+  {
+    // <all_urls> seems to be required to use the webRequest APIs on Firefox (57 at least)
+    // Even though it's not needed in Chrome, definitely sounds like a Firefox bug
+    permissions: ['webRequest', 'webRequestBlocking'],
+  },
+  (hasWR) => {
+    if (!hasWR) {
+      return;
+    }
+
+    chrome.webRequest.onHeadersReceived.addListener(
+      (details) => {
+        if (details.type !== 'main_frame' && details.type !== 'sub_frame') {
+          return undefined;
+        }
+
+        for (let i = 0; i < details.responseHeaders.length; i += 1) {
+          if (
+            typeof details.responseHeaders[i].name !== 'undefined' &&
+            details.responseHeaders[i].name === 'content-security-policy'
+          ) {
+            details.responseHeaders[i].value = '';
+            return { responseHeaders: details.responseHeaders };
+          }
+        }
+      },
+      {
+        urls: [
+          'https://tweetdeck.twitter.com/*',
+          'https://twitter.com/i/cards/*',
+        ],
+      },
+      ['responseHeaders', 'blocking'],
+    );
+  },
+);
