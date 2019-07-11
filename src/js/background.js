@@ -243,10 +243,21 @@ Messages.on((message, sender, sendResponse) => {
   }
 });
 
+function addUrlsToCSP(headerValue, directive, ...values) {
+  return String(headerValue)
+    .split('; ')
+    .map((line) => {
+      const [directiveName, ...patterns] = line.split(' ');
+      const newPatterns =
+        directive === directiveName ? patterns.concat(values) : patterns;
+
+      return [directiveName, ...newPatterns].join(' ');
+    })
+    .join('; ');
+}
+
 chrome.permissions.contains(
   {
-    // <all_urls> seems to be required to use the webRequest APIs on Firefox (57 at least)
-    // Even though it's not needed in Chrome, definitely sounds like a Firefox bug
     permissions: ['webRequest', 'webRequestBlocking'],
   },
   (hasWR) => {
@@ -260,15 +271,24 @@ chrome.permissions.contains(
           return undefined;
         }
 
-        for (let i = 0; i < details.responseHeaders.length; i += 1) {
-          if (
-            typeof details.responseHeaders[i].name !== 'undefined' &&
-            details.responseHeaders[i].name === 'content-security-policy'
-          ) {
-            details.responseHeaders[i].value = '';
-            return { responseHeaders: details.responseHeaders };
-          }
-        }
+        return {
+          responseHeaders: Array.from(details.responseHeaders).map((h) => {
+            if (h.name && h.name === 'content-security-policy') {
+              const mod = Object.assign(h, {
+                value: addUrlsToCSP(
+                  h.value,
+                  'connect-src',
+                  'https://*.tenor.com',
+                  'https://*.giphy.com',
+                  'https://pbs.twimg.com',
+                ),
+              });
+              return mod;
+            }
+
+            return h;
+          }),
+        };
       },
       {
         urls: [
