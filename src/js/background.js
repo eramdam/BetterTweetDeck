@@ -280,7 +280,7 @@ chrome.permissions.contains(
                   'connect-src',
                   'https://*.tenor.com',
                   'https://*.giphy.com',
-                  'https://pbs.twimg.com',
+                  'https://*.twimg.com',
                 ),
               });
               return mod;
