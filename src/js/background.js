@@ -291,10 +291,7 @@ chrome.permissions.contains(
         };
       },
       {
-        urls: [
-          'https://tweetdeck.twitter.com/*',
-          'https://twitter.com/i/cards/*',
-        ],
+        urls: ['https://tweetdeck.twitter.com/*'],
       },
       ['responseHeaders', 'blocking'],
     );
