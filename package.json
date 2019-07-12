@@ -76,9 +76,9 @@
     "style-loader": "^0.20.3",
     "uglifyjs-webpack-plugin": "^1.2.4",
     "web-ext": "^2.7.0",
-    "webpack": "^4.5.0",
-    "webpack-bundle-analyzer": "^2.11.1",
-    "webpack-cli": "^2.0.14",
+    "webpack": "^4.35.3",
+    "webpack-bundle-analyzer": "^3.3.2",
+    "webpack-cli": "^3.3.5",
     "xml-js": "^1.6.2",
     "zip-webpack-plugin": "^3.0.0"
   },
