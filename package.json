@@ -1,7 +1,7 @@
 {
   "name": "BetterTweetDeck",
-  "version": "3.8.1",
-  "extension_version": "3.8.1",
+  "version": "3.9.5",
+  "extension_version": "3.9.5",
   "description": "Adds some nice options on TweetDeck to provide a better experience on the webapp when used on Chrome.",
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
     "pack:firefox": "cross-env NODE_ENV=development web-ext build -s dist -a artifacts",
     "update_emojis": "node tools/update_emojis.js",
     "prepush": "npm run lint",
+    "bump-version": "node tools/bumpVersion.js",
     "fix": "prettier-eslint --list-different --write '**/*.{js,jsx}' && prettier-stylelint --write -q"
   },
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
@@ -73,6 +74,8 @@
     "query-string": "^6.0.0",
     "reuse-promise": "^2.0.0",
     "rimraf": "^2.6.2",
+    "semver": "^5.6.0",
+    "stringify-package": "^1.0.0",
     "style-loader": "^0.20.3",
     "uglifyjs-webpack-plugin": "^1.2.4",
     "web-ext": "^2.7.0",

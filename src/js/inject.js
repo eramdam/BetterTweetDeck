@@ -1,14 +1,16 @@
+import Clipboard from 'clipboard';
 import config from 'config';
 import FileSaver from 'file-saver';
-import Clipboard from 'clipboard';
+import { debounce, unescape } from 'lodash';
 import moduleRaid from 'moduleraid';
-import { unescape, debounce } from 'lodash';
-import Log from './util/logger';
-import * as GIFS from './util/gifs';
-import UsernamesTemplates from './util/username_templates';
-import { giphySearch, giphyBlock } from './util/templates';
+
 import AdvancedMuteEngine from './util/ame';
-import keepHashtags from './util/keepHashtags';
+import * as GIFS from './util/gifs';
+import { keepHashtags } from './util/keepHashtags';
+import Log from './util/logger';
+import { giphyBlock, giphySearch } from './util/templates';
+import { onComposerShown } from './util/tweetdeckUtils';
+import UsernamesTemplates from './util/username_templates';
 
 const SETTINGS = JSON.parse(document.querySelector('[data-btd-settings]').dataset.btdSettings);
 let mR;
@@ -351,7 +353,12 @@ if (SETTINGS.old_replies) {
 }
 
 // Inject items into the interaction bar
-if (SETTINGS.hotlink_item || SETTINGS.download_item) {
+if (
+  SETTINGS.hotlink_item ||
+  SETTINGS.download_item ||
+  SETTINGS.block_item ||
+  SETTINGS.mute_item
+) {
   TD.mustaches['status/tweet_single_actions.mustache'] = TD.mustaches[
     'status/tweet_single_actions.mustache'
   ].replace(
@@ -361,10 +368,10 @@ if (SETTINGS.hotlink_item || SETTINGS.download_item) {
            ${
   SETTINGS.hotlink_item
     ? `
-           <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--13 margin-l--1">
+           <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--10 margin-l--1">
              <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
                data-btd-action="hotlink-media" rel="hotlink" title="Copy links to media"> 
-               <i class="js-icon-attachment icon icon-attachment txt-center"></i>
+               <i class="js-icon-attachment icon icon-attachment txt-center txt-size--16 margin-t---1"></i>
                <span class="is-vishidden"> {{_i}}Copy links to media{{/i}} </span>
              </a>
            </li>`
@@ -373,23 +380,51 @@ if (SETTINGS.hotlink_item || SETTINGS.download_item) {
            ${
   SETTINGS.download_item
     ? `
-           <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--13 margin-l--1">
+           <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--10 margin-l--1">
              <a class="js-show-tip tweet-action btd-tweet-action position-rel" href="#" 
                data-btd-action="download-media" rel="download" title="Download media"> 
-               <i class="js-icon icon icon-download txt-center"></i>
+               <i class="js-icon icon icon-download txt-center txt-size--16 margin-t---1"></i>
                <span class="is-vishidden"> {{_i}}Download media{{/i}} </span>
              </a>
            </li>`
     : ''
 }
-           {{/tweet.entities.media.length}}`,
+           {{/tweet.entities.media.length}}
+              ${
+  SETTINGS.mute_item
+    ? `
+              <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--10 margin-l--1">
+              <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
+                data-btd-action="mute-account" rel="action" title="Mute {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}"> 
+                <i class="js-icon-attachment icon icon-muted txt-center txt-size--16 margin-t---1"></i>
+                <span class="is-vishidden"> {{_i}}Mute {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}{{/i}} </span>
+              </a>
+            </li>
+              `
+    : ''
+}
+${
+  SETTINGS.block_item
+    ? `
+              <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--10 margin-l--1">
+              <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
+                data-btd-action="block-account" rel="action" title="Block {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}"> 
+                <i class="js-icon-attachment icon icon-blocked txt-center txt-size--16 margin-t---1"></i>
+                <span class="is-vishidden"> {{_i}}Block {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}{{/i}} </span>
+              </a>
+            </li>
+              `
+    : ''
+}
+           `,
   );
   TD.mustaches['status/tweet_detail_actions.mustache'] = TD.mustaches[
     'status/tweet_detail_actions.mustache'
   ].replace(
     '{{_i}}Like{{/i}} </span> </a> {{/account}} </li>',
     `{{_i}}Like{{/i}} </span> </a> {{/account}} </li>
-           {{#getMainTweet}}{{#entities.media.length}}
+           {{#getMainTweet}}
+           {{#entities.media.length}}
            ${
   SETTINGS.hotlink_item
     ? `
@@ -414,7 +449,32 @@ if (SETTINGS.hotlink_item || SETTINGS.download_item) {
            </li>`
     : ''
 }
-           {{/entities.media.length}}{{/getMainTweet}}`,
+           {{/entities.media.length}}
+           ${
+  SETTINGS.mute_item
+    ? `
+                               <li class="tweet-detail-action-item btd-tweet-detail-action-item">
+                                 <a class="js-show-tip tweet-detail-action btd-tweet-detail-action btd-clipboard position-rel" href="#"
+                                   data-btd-action="hotlink-media" rel="action" title="Mute {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}">
+                                   <i class="icon icon-muted txt-center"></i>
+                                   <span class="is-vishidden"> {{_i}}Mute {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}{{/i}} </span>
+                                 </a>
+                               </li>`
+    : ''
+}
+                    ${
+  SETTINGS.block_item
+    ? `
+                               <li class="tweet-detail-action-item btd-tweet-detail-action-item">
+                                 <a class="js-show-tip tweet-detail-action btd-tweet-detail-action btd-clipboard position-rel" href="#"
+                                   data-btd-action="hotlink-media" rel="hotlink" title="Block {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}">
+                                   <i class="icon icon-blocked txt-center"></i>
+                                   <span class="is-vishidden"> {{_i}}Block {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}{{/i}} </span>
+                                 </a>
+                               </li>`
+    : ''
+}
+           {{/getMainTweet}}`,
   );
 }
 
@@ -524,7 +584,7 @@ const postMessagesListeners = {
     $(document).trigger('dataMessage', {
       message: {
         id: bannerID,
-        text: TD.i(banner.text),
+        text: banner.text,
         colors: {
           background: banner.bg || '#b2d5ed',
           foreground: banner.fg || '#555',
@@ -533,7 +593,9 @@ const postMessagesListeners = {
           {
             id: `btd-banner-${bannerID}`,
             action: banner.action || 'url-ext',
-            label: TD.i(banner.label),
+            actionId: banner.event.type,
+            event: banner.event,
+            label: banner.label,
             class: 'Button--primary',
             url: banner.url,
           },
@@ -918,25 +980,32 @@ $(document).one('dataColumnsLoaded', () => {
 
   $('.js-app')[0].insertAdjacentElement('beforeend', giphyZone);
 
-  const d = new Date();
-  const fool = d.getDate() === 1 && d.getMonth() === 3;
-  const GIFText = fool ? 'JIF' : 'GIF';
-
-  $('.js-character-count').parent().append(`
-    <span class="btd-gif-button -visible color-twitter-dark-gray">${GIFText}</span>
-    <span class="btd-gif-indicator txt-line-height--20 txt-size--12 color-twitter-dark-gray"></span>
-  `);
-
-  $('.js-media-added').after(`
-    <span
-      class="txt-line-height--12 txt-size--12 color-twitter-dark-gray btd-gif-source-indicator"
-    ></span>
-  `);
   setTimeout(checkBTDFollowing, 2000);
 
   if (SETTINGS.keep_hashtags) {
     keepHashtags();
   }
+
+  onComposerShown((isVisible) => {
+    if (!isVisible) {
+      return;
+    }
+
+    const d = new Date();
+    const fool = d.getDate() === 1 && d.getMonth() === 3;
+    const GIFText = fool ? 'JIF' : 'GIF';
+
+    $('.js-character-count').parent().append(`
+        <span class="btd-gif-button -visible color-twitter-dark-gray">${GIFText}</span>
+        <span class="btd-gif-indicator txt-line-height--20 txt-size--12 color-twitter-dark-gray"></span>
+      `);
+
+    $('.js-media-added').after(`
+        <span
+          class="txt-line-height--12 txt-size--12 color-twitter-dark-gray btd-gif-source-indicator"
+        ></span>
+      `);
+  });
 });
 
 $(document).on('click', '.btd-gif-button', (e) => {
@@ -1116,10 +1185,12 @@ $(document).on('uiRemoveQuotedTweet', () => {
 
 $('body').on(
   'click',
-  '.tweet-action[rel="favorite"], .tweet-detail-action[rel="favorite"]' +
-    '.tweet-action[rel="retweet"], .tweet-detail-action[rel="retweet"], ' +
-    '[data-btd-action="hotlink-media"], ' +
-    '[data-btd-action="download-media"]',
+  `.tweet-action[rel="favorite"],
+  .tweet-detail-action[rel="favorite"],
+  .tweet-action[rel="retweet"],
+  .tweet-detail-action[rel="retweet"],
+  [data-btd-action="hotlink-media"],
+  [data-btd-action="download-media"]`,
   (ev) => {
     if (!ev.ctrlKey && !ev.metaKey) {
       return;
@@ -1288,6 +1359,32 @@ $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
           ),
         );
       });
+  });
+});
+
+$('body').on('click', '[data-btd-action="mute-account"]', (ev) => {
+  ev.preventDefault();
+  let chirp = getChirpFromElement(ev.target);
+  chirp = chirp.targetTweet ? chirp.targetTweet : chirp;
+  const user = chirp.retweetedStatus ? chirp.retweetedStatus.user : chirp.user;
+  const account = chirp.account;
+
+  $(document).trigger('uiMuteAction', {
+    account,
+    twitterUser: user,
+  });
+});
+
+$('body').on('click', '[data-btd-action="block-account"]', (ev) => {
+  ev.preventDefault();
+  let chirp = getChirpFromElement(ev.target);
+  chirp = chirp.targetTweet ? chirp.targetTweet : chirp;
+  const user = chirp.retweetedStatus ? chirp.retweetedStatus.user : chirp.user;
+  const account = chirp.account;
+
+  $(document).trigger('uiBlockAction', {
+    account,
+    twitterUser: user,
   });
 });
 

@@ -1,8 +1,8 @@
 import { defaultsDeep } from 'lodash';
 
 import * as BHelper from './util/browserHelper';
-import * as Messages from './util/messaging';
 import Log from './util/logger';
+import * as Messages from './util/messaging';
 
 const defaultSettings = {
   need_follow_banner: true,
@@ -61,6 +61,8 @@ const defaultSettings = {
   mute_hashtags: true,
   mute_source: true,
   hotlink_item: false,
+  mute_item: false,
+  block_item: false,
   download_item: false,
   download_filename_format:
     '{{postedUser}}-{{tweetId}}-{{fileName}}.{{fileExtension}}',
@@ -180,7 +182,7 @@ BHelper.settings.getAll((settings) => {
       Log('version', BHelper.getVersion());
       BHelper.settings.set({ installed_version: String(BHelper.getVersion()) });
 
-      if (!oldVersion || Number(oldVersion) !== Number(newVersion)) {
+      if (!oldVersion || String(oldVersion) !== String(newVersion)) {
         BHelper.settings.set({
           need_update_banner: true,
         });
@@ -240,3 +242,58 @@ Messages.on((message, sender, sendResponse) => {
       return false;
   }
 });
+
+function addUrlsToCSP(headerValue, directive, ...values) {
+  return String(headerValue)
+    .split('; ')
+    .map((line) => {
+      const [directiveName, ...patterns] = line.split(' ');
+      const newPatterns =
+        directive === directiveName ? patterns.concat(values) : patterns;
+
+      return [directiveName, ...newPatterns].join(' ');
+    })
+    .join('; ');
+}
+
+chrome.permissions.contains(
+  {
+    permissions: ['webRequest', 'webRequestBlocking'],
+  },
+  (hasWR) => {
+    if (!hasWR) {
+      return;
+    }
+
+    chrome.webRequest.onHeadersReceived.addListener(
+      (details) => {
+        if (details.type !== 'main_frame' && details.type !== 'sub_frame') {
+          return undefined;
+        }
+
+        return {
+          responseHeaders: Array.from(details.responseHeaders).map((h) => {
+            if (h.name && h.name === 'content-security-policy') {
+              const mod = Object.assign(h, {
+                value: addUrlsToCSP(
+                  h.value,
+                  'connect-src',
+                  'https://*.tenor.com',
+                  'https://*.giphy.com',
+                  'https://*.twimg.com',
+                ),
+              });
+              return mod;
+            }
+
+            return h;
+          }),
+        };
+      },
+      {
+        urls: ['https://tweetdeck.twitter.com/*'],
+      },
+      ['responseHeaders', 'blocking'],
+    );
+  },
+);

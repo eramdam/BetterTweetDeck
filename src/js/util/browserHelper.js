@@ -1,17 +1,5 @@
 export const getUA = () => window.navigator.userAgent;
 
-export const setClipboard = (text) => {
-  const tc = $('.compose-text-container .js-compose-text');
-  const orig = tc.val();
-  const active = document.activeElement;
-  tc.val(text);
-  tc[0].focus();
-  tc[0].setSelectionRange(0, text.length);
-  document.execCommand('copy');
-  tc.val(orig);
-  active.focus();
-};
-
 // From https://github.com/lorenwest/node-config/blob/master/lib/config.js#L131-L152
 const getKey = (object, property) => {
   const elems = Array.isArray(property) ? property : property.split('.');

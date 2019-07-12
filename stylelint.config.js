@@ -4,6 +4,7 @@ module.exports = {
     './node_modules/prettier-stylelint/config.js',
   ],
   rules: {
+    'property-no-unknown': null,
     'no-descending-specificity': null,
     'font-family-no-missing-generic-family-keyword': null,
     'selector-combinator-space-before': null,
