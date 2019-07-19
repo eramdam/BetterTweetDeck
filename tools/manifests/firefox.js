@@ -21,5 +21,5 @@ module.exports = Object.assign(require('./common.js'), {
     'webRequestBlocking',
     ...urls,
   ],
-  content_security_policy: `img-src https: data: 'self' *; media-src * https:; connect-src * https:; style-src 'unsafe-inline'; object-src 'self'; script-src 'self';`,
+  content_security_policy: `img-src https: data: 'self' *; media-src * https:; connect-src * https:; object-src 'self'; script-src 'self';`,
 });
