@@ -70,7 +70,7 @@ const common = {
   content_security_policy: [
     `img-src https: data: 'self' *`,
     `default-src`,
-    `style-src 'self'`,
+    `style-src 'none'`,
     `connect-src * https:`,
     `script-src 'self'`,
   ].join('; '),
