@@ -67,7 +67,13 @@ const common = {
     'js/inject.js',
     'options/options.html',
   ],
-  content_security_policy: `img-src https: data: 'self' *; default-src; connect-src * https:; script-src 'self';`,
+  content_security_policy: [
+    `img-src https: data: 'self' *`,
+    `default-src`,
+    `style-src 'self'`,
+    `connect-src * https:`,
+    `script-src 'self'`,
+  ].join('; '),
 };
 
 if (process.env.NODE_ENV === 'dev') {
