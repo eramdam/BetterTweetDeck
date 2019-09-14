@@ -47,8 +47,8 @@ These previews are mostly embeds or images, depending on service type.
 
         // data is the fetchPage response
         const el = secureDomify.parse(data.target.response);
-        const thumbnail = secureDomify.getAttributeFromNode('[property="twitter:image"]', el, 'content');
-        const embedURL = secureDomify.getAttributeFromNode('[property="twitter:player"]', el, 'content');
+        const thumbnail = secureDomify.getAttributeFromNode('[data-property="twitter:image"]', el, 'content');
+        const embedURL = secureDomify.getAttributeFromNode('[data-property="twitter:player"]', el, 'content');
       ```
 * Import your provider into [src/js/util/providers/index.js](https://github.com/eramdam/BetterTweetDeck/blob/master/src/js/util/providers/index.js):
   ```js

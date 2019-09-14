@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
   "dependencies": {
+    "@types/dompurify": "0.0.33",
     "apollo-fetch": "^0.7.0",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.4",
@@ -46,8 +47,7 @@
     "css-loader": "^0.28.11",
     "cssnano": "3.10.0",
     "del": "^3.0.0",
-    "domify": "^1.4.0",
-    "dompurify": "^1.0.2",
+    "dompurify": "^2.0.0",
     "emoji-js": "3.4.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "fecha": "^2.3.3",

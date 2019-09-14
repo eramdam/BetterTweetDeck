@@ -762,7 +762,7 @@ onEvent('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
     '<div class="js-med-tweet med-tweet"></div>',
     `<div class="js-med-tweet med-tweet">${markup}</div>`,
   );
-  const tweetNode = secureDomify.parse(tweetMarkupString);
+  const tweetNode = secureDomify.parse(tweetMarkupString, false);
 
   closeOpenModal();
 
