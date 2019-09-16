@@ -1,4 +1,3 @@
-import domify from 'domify';
 import dompurify from 'dompurify';
 
 export const purifyConfig = {
@@ -19,11 +18,22 @@ export function getAttributeFromNode(selector, node, attribute) {
     return '';
   }
 
-  return dompurify.sanitize(attr);
+  return dompurify.sanitize(attr, {
+    FORBID_TAGS: ['link', 'style'],
+  });
 }
 
-export function parse(html) {
-  const doc = domify(html);
+export function parse(html, wholeDocument = true) {
+  const result = dompurify.sanitize(
+    html.replace(/property=/g, 'data-property='),
+    {
+      ADD_TAGS: ['meta', 'head', 'iframe'],
+      FORBID_TAGS: ['body'],
+      ADD_ATTR: [...purifyConfig.ADD_ATTR, 'content'],
+      RETURN_DOM: true,
+      WHOLE_DOCUMENT: wholeDocument,
+    },
+  );
 
-  return doc;
+  return result;
 }

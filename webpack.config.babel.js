@@ -1,13 +1,12 @@
 /* eslint global-require: 0 */
-import path from 'path';
-import fs from 'fs';
-
+import CleanWebpackPlugin from 'clean-webpack-plugin';
+import config from 'config';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import CleanWebpackPlugin from 'clean-webpack-plugin';
+import fs from 'fs';
 import GenerateJsonPlugin from 'generate-json-webpack-plugin';
+import path from 'path';
 import ZipPlugin from 'zip-webpack-plugin';
-import config from 'config';
 
 const extractContent = new ExtractTextPlugin('css/index.css');
 const extractOptions = new ExtractTextPlugin('options/css/index.css');
@@ -40,7 +39,7 @@ const staticFiles = [
 ];
 
 const DIST_FOLDER = 'dist';
-const IS_PRODUCTION = process.env.NODE_ENV !== 'dev';
+const IS_PRODUCTION = process.env.NODE_ENV !== 'development';
 const POSSIBLE_BROWSERS = ['chrome', 'firefox'];
 
 const cssLoaders = {

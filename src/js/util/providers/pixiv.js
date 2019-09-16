@@ -13,7 +13,7 @@ export default function ($) {
           // Only domify <head> part to prevent from making requests for i.pximg.net
           const doc = secureDomify.parse(/<head>[^]+<\/head>/m.exec(html)[0]);
           const imgUrl = secureDomify.getAttributeFromNode(
-            'meta[property="twitter:image"], meta[property="og:image"]',
+            'meta[data-property="twitter:image"], meta[data-property="og:image"]',
             doc,
             'content',
           );

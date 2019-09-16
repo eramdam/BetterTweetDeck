@@ -15,31 +15,31 @@ export default function ($) {
 
         const el = secureDomify.parse(data.target.response);
         let thumbnail = secureDomify.getAttributeFromNode(
-          '[property="og:image"]',
+          '[data-property="og:image"]',
           el,
           'content',
         );
 
         if (!thumbnail) {
           thumbnail = secureDomify.getAttributeFromNode(
-            '[property="twitter:image"]',
+            '[data-property="twitter:image"]',
             el,
             'content',
           );
         }
 
         const embedURL = secureDomify.getAttributeFromNode(
-          '[property="twitter:player"]',
+          '[data-property="twitter:player"]',
           el,
           'content',
         );
         const height = secureDomify.getAttributeFromNode(
-          '[property="twitter:player:height"]',
+          '[data-property="twitter:player:height"]',
           el,
           'content',
         );
         const width = secureDomify.getAttributeFromNode(
-          '[property="twitter:player:width"]',
+          '[data-property="twitter:player:width"]',
           el,
           'content',
         );
