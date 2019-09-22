@@ -27,13 +27,13 @@ export function parse(html, wholeDocument = true) {
   const result = dompurify.sanitize(
     html.replace(/property=/g, 'data-property='),
     {
-      ADD_TAGS: ['meta', 'head', 'iframe'],
-      FORBID_TAGS: ['body'],
+      ADD_TAGS: ['meta', 'head', 'iframe', 'html', 'head', 'body'],
       ADD_ATTR: [...purifyConfig.ADD_ATTR, 'content'],
       RETURN_DOM: true,
+      // FORCE_BODY: true,
       WHOLE_DOCUMENT: wholeDocument,
     },
   );
 
-  return result;
+  return result.querySelector('body > *:first-child');
 }
