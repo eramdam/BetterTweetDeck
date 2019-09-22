@@ -202,7 +202,7 @@
   "download_filename_format": { "message": "Download file name format" },
   "download_filename_format_parameters": {
     "message":
-      "You can use the following variables: <code>{{postedUser}} {{tweetId}} {{fileName}} {{fileExtension}}</code>"
+      "You can use the following variables: <code>{{postedUser}} {{tweetId}} {{fileName}} {{fileExtension}} {{year}} {{month}} {{day}} {{hours}} {{minutes}} {{seconds}}</code>"
   },
   "ctrl_changes_interactions__enabled": {
     "message":

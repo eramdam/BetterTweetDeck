@@ -208,7 +208,7 @@
   },
   "download_filename_format_parameters": {
     "message":
-      "Du kannst die folgenden Variablen verwenden: <code>{{postedUser}} {{fileName}} {{fileExtension}}</code>"
+      "Du kannst die folgenden Variablen verwenden: <code>{{postedUser}} {{fileName}} {{fileExtension}} {{year}} {{month}} {{day}} {{hours}} {{minutes}} {{seconds}}</code>"
   },
   "ctrl_changes_interactions__enabled": {
     "message":

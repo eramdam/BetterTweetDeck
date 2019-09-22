@@ -202,7 +202,7 @@
   "download_filename_format": { "message": "ダウンロードするファイル名のフォーマット" },
   "download_filename_format_parameters": {
     "message":
-      "次の変数が利用できます: <code>{{postedUser}}/{{tweetId}}/{{fileName}}/{{fileExtension}}</code> (それぞれ、ツイートユーザー名/ツイートID/ファイル名/ファイルの拡張子に置換されます)"
+      "次の変数が利用できます: <code>{{postedUser}} {{tweetId}} {{fileName}} {{fileExtension}} {{year}} {{month}} {{day}} {{hours}} {{minutes}} {{seconds}}</code> (それぞれ「ツイートユーザー名」「ツイートID」「ファイル名」「ファイルの拡張子」ツイートした日時の「年」「月」「日」「時」「分」「秒」に置換されます)"
   },
   "ctrl_changes_interactions__enabled": {
     "message":
