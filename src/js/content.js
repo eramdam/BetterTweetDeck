@@ -324,7 +324,7 @@ function thumbnailFromSingleURL(url, node, mediaSize) {
       type,
       provider,
     });
-    const previewNode = secureDomify.parse(html);
+    const previewNode = secureDomify.parse(html, false);
 
     const modalHtml = Templates.modalTemplate({
       imageUrl: origUrl,
@@ -650,7 +650,7 @@ onEvent('BTDC_ready', () => {
       <div class="nbfc padding-ts hide-condensed txt-size--16">BTD Settings</div>
     </a>
   `;
-  const settingsBtnNode = secureDomify.parse(settingsBtn);
+  const settingsBtnNode = secureDomify.parse(settingsBtn, false);
   $('nav.app-navigator')[0].insertAdjacentElement(
     'afterbegin',
     settingsBtnNode,

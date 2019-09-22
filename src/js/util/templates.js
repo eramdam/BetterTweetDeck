@@ -1,5 +1,6 @@
-import Mustache from 'mustache';
 import dompurify from 'dompurify';
+import Mustache from 'mustache';
+
 import { purifyConfig } from '../util/secureDomify';
 
 /* eslint max-len: 0 */
