@@ -30,10 +30,13 @@ export function parse(html, wholeDocument = true) {
       ADD_TAGS: ['meta', 'head', 'iframe', 'html', 'head', 'body'],
       ADD_ATTR: [...purifyConfig.ADD_ATTR, 'content'],
       RETURN_DOM: true,
-      // FORCE_BODY: true,
       WHOLE_DOCUMENT: wholeDocument,
     },
   );
 
-  return result.querySelector('body > *:first-child');
+  if (!wholeDocument) {
+    return result.querySelector('body > *:first-child');
+  }
+
+  return result;
 }
