@@ -65,7 +65,7 @@ const defaultSettings = {
   block_item: false,
   download_item: false,
   download_filename_format:
-    '{{postedUser}}-{{tweetId}}-{{fileName}}.{{fileExtension}}',
+    '{{postedUser}}-{{year}}{{month}}{{day}}-{{hours}}{{minutes}}{{seconds}}-{{tweetId}}-{{fileName}}.{{fileExtension}}',
   ctrl_changes_interactions: {
     enabled: false,
     mode: 'owner',
