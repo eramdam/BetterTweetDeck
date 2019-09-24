@@ -8,9 +8,9 @@ module.exports = Object.assign(require('./common.js'), {
   applications: {
     gecko: {
       id: config.get('FirefoxId'),
-      strict_min_version: '52.0'
-    }
+      strict_min_version: '52.0',
+    },
   },
   permissions: ['storage', 'contextMenus', 'notifications', 'tabs', ...urls],
-  content_security_policy: `img-src https: data: 'self' *; media-src * https:; connect-src * https:; style-src 'unsafe-inline'; object-src 'self'; script-src 'self';`
+  content_security_policy: `img-src https: data: 'self' *; media-src * https:; connect-src * https:; style-src 'unsafe-inline'; object-src 'self'; script-src 'self';`,
 });

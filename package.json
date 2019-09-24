@@ -18,7 +18,23 @@
   },
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
   "dependencies": {
-    "typescript": "^3.6.3"
+    "@types/jquery": "^3.3.31",
+    "@types/lodash": "^4.14.139",
+    "@types/react": "^16.9.2",
+    "@types/react-dom": "^16.9.0",
+    "config": "^3.2.2",
+    "cross-env": "^6.0.0",
+    "generate-json-webpack-plugin": "^0.3.1",
+    "lodash": "^4.17.15",
+    "moduleraid": "^4.0.1",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "ts-loader": "^6.1.2",
+    "typescript": "^3.6.3",
+    "webextension-polyfill": "^0.4.0",
+    "webextension-polyfill-ts": "^0.10.0",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.9"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.3.1",
