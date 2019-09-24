@@ -1,5 +1,5 @@
-import {HandlerOf} from '../types';
-import {TweetDeckColumnMediaPreviewSizesEnum} from './columnMediaSizes';
+import {TweetDeckColumnMediaPreviewSizesEnum} from '../definitions/tweetdeckTypes';
+import {HandlerOf} from '../helpers/typeHelpers';
 
 export interface ChirpHandlerPayload {
   uuid: string;
