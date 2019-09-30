@@ -1,2 +1,3 @@
 dist/
 !.eslintrc.js
+tools/embeds.js
