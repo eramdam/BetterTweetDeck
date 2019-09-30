@@ -5,7 +5,7 @@
   "typescriptHero.imports.organizeOnSave": true,
   "typescriptHero.imports.multiLineTrailingComma": true,
   "typescriptHero.imports.insertSpaceBeforeAndAfterImportBraces": false,
-  "typescriptHero.imports.multiLineWrapThreshold": 100,
+  "typescriptHero.imports.multiLineWrapThreshold": 99999999999999999,
   "xmlTools.splitXmlnsOnFormat": false,
   "files.eol": "\n",
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact", "html"],
