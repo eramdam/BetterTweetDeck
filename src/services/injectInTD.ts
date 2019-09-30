@@ -1,7 +1,4 @@
-import {
-  ExtensionSettings,
-  getExtensionUrl,
-} from '../helpers/webExtensionHelpers';
+import {ExtensionSettings, getExtensionUrl} from '../helpers/webExtensionHelpers';
 
 export async function injectInTD() {
   // If we're already injected, nothing to do.

@@ -19,8 +19,7 @@ try {
 
 // Grab TweetDeck's jQuery from webpack
 const TweetDeck = window.TD;
-const jQuery: JQuery | undefined =
-  mR && mR.findFunction('jQuery') && mR.findFunction('jquery:')[0];
+const jQuery: JQuery | undefined = mR && mR.findFunction('jQuery') && mR.findFunction('jquery:')[0];
 
 if (isObject(TweetDeck)) {
   maybeRemoveRedirection(TweetDeck);

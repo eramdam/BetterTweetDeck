@@ -14,7 +14,7 @@
   },
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack --watch --progress --env.browser",
-    "fix": "eslint --fix ."
+    "fix": "eslint --fix . --ext .jsx,.js,.ts,.tsx"
   },
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
   "dependencies": {

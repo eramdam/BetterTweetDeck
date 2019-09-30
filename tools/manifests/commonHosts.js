@@ -26,5 +26,5 @@ module.exports = [
   '*://*.pixiv.net/*',
   'https://api.gfycat.com/',
   'https://raw.githubusercontent.com/eramdam/BetterTweetDeck/master/*',
-  '*://tweetdeck.twitter.com/*'
+  '*://tweetdeck.twitter.com/*',
 ];

@@ -48,10 +48,10 @@ needle.get(
     const emojiArr = JSON.parse(res.body);
 
     const final = _.chain(emojiArr)
-      .filter(emoji => emoji.category)
-      .sortBy(emoji => emoji.sort_order)
-      .sortBy(emoji => catOrder[emoji.category])
-      .map(emoji => ({
+      .filter((emoji) => emoji.category)
+      .sortBy((emoji) => emoji.sort_order)
+      .sortBy((emoji) => catOrder[emoji.category])
+      .map((emoji) => ({
         s: [...emoji.short_names, emoji.short_name],
         n: emoji.name,
         hs: Boolean(emoji.skin_variations),
@@ -59,9 +59,9 @@ needle.get(
       }))
       .value();
 
-    const finalForTemplate = final.filter(emoji => getUnified(emoji));
+    const finalForTemplate = final.filter((emoji) => getUnified(emoji));
     const outStr = `module.exports = ${JSON.stringify(finalForTemplate)}`;
 
     fs.writeFileSync('./emojis.js', outStr, 'utf8');
-  },
+  }
 );
