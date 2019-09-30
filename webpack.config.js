@@ -1,15 +1,17 @@
 /* eslint-disable global-require */
 const GenerateJsonPlugin = require('generate-json-webpack-plugin');
+const {NodeConfigTSPlugin} = require('node-config-ts/webpack');
+const {join} = require('path');
 
-module.exports = (env) => {
+function WebpackConfig(env) {
   const manifestJson = require(`./tools/manifests2/${env.browser}.js`);
 
-  return {
+  const finalConfig = {
     devtool: 'cheap-source-map',
     entry: {
-      content: './src/content.ts',
-      inject: './src/inject.ts',
-      background: './src/background.ts',
+      content: join(__dirname, 'src/content.ts'),
+      inject: join(__dirname, 'src/inject.ts'),
+      background: join(__dirname, 'src/background.ts'),
     },
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.jsx'],
@@ -28,4 +30,8 @@ module.exports = (env) => {
       ],
     },
   };
-};
+
+  return NodeConfigTSPlugin(finalConfig);
+}
+
+module.exports = WebpackConfig;

@@ -14,12 +14,14 @@
   },
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack --watch --progress --env.browser",
-    "fix": "eslint --fix . --ext .jsx,.js,.ts,.tsx"
+    "fix": "eslint --fix . --ext .jsx,.js,.ts,.tsx",
+    "postinstall": "node-config-ts"
   },
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
   "dependencies": {
     "@types/jquery": "^3.3.31",
     "@types/lodash": "^4.14.139",
+    "@types/node": "^12.7.8",
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.9.0",
     "config": "^3.2.2",
@@ -27,6 +29,7 @@
     "generate-json-webpack-plugin": "^0.3.1",
     "lodash": "^4.17.15",
     "moduleraid": "^4.0.1",
+    "node-config-ts": "^2.2.4",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "ts-loader": "^6.1.2",
