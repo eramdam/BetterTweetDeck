@@ -34,6 +34,7 @@ const common = {
   version_name: isBeta ? betaVersion() : packageJson.extension_version,
   manifest_version: 2,
   homepage_url: 'https://better.tw',
+  icons: isBeta ? betaIcons : icons,
   content_scripts: [
     {
       matches: ['*://tweetdeck.twitter.com/*'],
