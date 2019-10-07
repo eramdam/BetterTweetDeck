@@ -28,5 +28,6 @@
     "markdown": "javascriptreact"
   },
   "emmet.excludeLanguages": [],
+  "typescript.preferences.renameShorthandProperties": false,
   "beautify.ignore": ["*"]
 }
