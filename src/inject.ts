@@ -26,3 +26,5 @@ if (isObject(TweetDeck)) {
   maybeSetupDebugFunctions();
   maybeRemoveRedirection(TweetDeck);
 }
+
+console.log('Hello from inject');
