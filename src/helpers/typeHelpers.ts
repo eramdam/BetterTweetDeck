@@ -8,6 +8,7 @@ export function hasProperty<T, K extends string>(o: T, k: K): o is T & Object & 
 export type HandlerOf<T> = (opt: T) => void;
 
 /** Creates an io-ts type with a default value. */
+/* Taken from https://github.com/gcanti/io-ts/blob/d8382e60685f17414942b1b04826168280c14f2e/test/helpers.ts#L101-L111 */
 export function withDefault<T extends t.Mixed>(
   type: T,
   defaultValue: t.TypeOf<T>
