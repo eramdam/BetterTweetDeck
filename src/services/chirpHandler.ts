@@ -1,4 +1,4 @@
-import {TweetDeckColumnMediaPreviewSizesEnum} from '../definitions/tweetdeckTypes';
+import {TweetDeckColumnMediaPreviewSizesEnum} from '../types/tweetdeckTypes';
 import {HandlerOf} from '../helpers/typeHelpers';
 
 export interface ChirpHandlerPayload {

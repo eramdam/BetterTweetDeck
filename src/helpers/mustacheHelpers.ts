@@ -1,4 +1,4 @@
-import {TweetDeckObject} from '../definitions/tweetdeckTypes';
+import {TweetDeckObject} from '../types/tweetdeckTypes';
 
 type MustacheTransformer = (mustacheString: string) => string;
 

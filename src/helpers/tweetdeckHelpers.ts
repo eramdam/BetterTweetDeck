@@ -1,4 +1,4 @@
-import {TweetDeckObject} from '../definitions/tweetdeckTypes';
+import {TweetDeckObject} from '../types/tweetdeckTypes';
 
 export const findMustache = (TD: TweetDeckObject, content: string) =>
   Object.keys(TD.mustaches).filter((i) =>

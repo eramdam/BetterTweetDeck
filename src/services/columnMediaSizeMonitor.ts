@@ -1,5 +1,5 @@
-import {BTDModule} from '../definitions/BTDTypes';
-import {TweetDeckColumnMediaPreviewSizesEnum} from '../definitions/tweetdeckTypes';
+import {BTDModule} from '../types/BTDTypes';
+import {TweetDeckColumnMediaPreviewSizesEnum} from '../types/tweetdeckTypes';
 
 const columnMediaSizes: Map<string, TweetDeckColumnMediaPreviewSizesEnum> = new Map();
 
