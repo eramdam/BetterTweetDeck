@@ -22,6 +22,23 @@ try {
 
 window.$ = mR && mR.findFunction('jQuery') && mR.findFunction('jquery:')[0];
 
+const OGGetHogan = mR.findModule('getHogan')[0].getHogan;
+
+// Thanks to @pixeldesu for the sick moduleRaid trick
+// As of October 12th 2019 TweetDeck started putting mustache templates into webpack modules
+// meaning modifying them in place in TD.mustaches isn't working anymore, this proxies the calls to the template rendering into TD.mustaches for compatibility.
+// This might break the day TD.mustaches completely disappears but...let's hope it's not too soon.
+mR.findModule('getHogan')[0].getHogan = function getHogan(...args) {
+  const [template] = args;
+  const fqtn = `${template}.mustache`;
+
+  if (TD.mustaches[fqtn]) {
+    return TD.mustaches[fqtn];
+  }
+
+  return OGGetHogan(...args);
+};
+
 if (SETTINGS.no_tco) {
   const dummyEl = document.createElement('span');
   const originalCreateUrlAnchor = TD.util.createUrlAnchor;
