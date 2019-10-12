@@ -21,7 +21,6 @@ try {
 }
 
 window.$ = mR && mR.findFunction('jQuery') && mR.findFunction('jquery:')[0];
-window.mR = mR;
 
 const OGGetHogan = mR.findModule('getHogan')[0].getHogan;
 
