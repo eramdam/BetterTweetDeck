@@ -27,6 +27,7 @@ export function insertInsideComposer(string) {
   }
 
   insertAtCursor(tweetCompose, string);
+  tweetCompose.dispatchEvent(new KeyboardEvent('input'));
   tweetCompose.dispatchEvent(new Event('change'));
 }
 
