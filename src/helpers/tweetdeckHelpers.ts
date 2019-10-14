@@ -1,10 +1,15 @@
 import {TweetDeckObject} from '../types/tweetdeckTypes';
 
-export const findMustache = (TD: TweetDeckObject, content: string) =>
+/**
+ * Finds a mustache template whose content matches the query.
+ * NOTE: as of October 12th 2019, TweetDeck has some of its templates as components so this methods might not find everything.
+ */
+export const findMustache = (TD: TweetDeckObject, query: string) =>
   Object.keys(TD.mustaches).filter((i) =>
-    TD.mustaches[i].toLowerCase().includes(content.toLowerCase())
+    TD.mustaches[i].toLowerCase().includes(query.toLowerCase())
   );
 
+/** Finds a chirp inside TweetDeck given a key and a column key. */
 export const getChirpFromKey = (TD: TweetDeckObject, key: string, colKey: string) => {
   const column = TD.controller.columnManager.get(colKey);
 
@@ -64,6 +69,7 @@ export const getChirpFromKey = (TD: TweetDeckObject, key: string, colKey: string
   return chirp;
 };
 
+/** finds the chirp corresponding to an element in the DOM. */
 export const getChirpFromElement = (TD: TweetDeckObject, element: HTMLElement | Element) => {
   const chirpElm = element.closest('[data-key]');
   if (!chirpElm) {
@@ -101,6 +107,7 @@ export const getChirpFromElement = (TD: TweetDeckObject, element: HTMLElement | 
   return chirp;
 };
 
+/** Finds all the URLs (attachments, links, etc) in a chirp. */
 export const getURLsFromChirp = (chirp: any) => {
   let chirpURLs: string[] = [];
 
@@ -123,5 +130,6 @@ export const getURLsFromChirp = (chirp: any) => {
   return chirpURLs;
 };
 
+// Might not be useful anymore
 export const createSelectorForChirp = (chirp: any, colKey: string) =>
   `[data-column=${colKey}] [data-key="${chirp.id}"]`;

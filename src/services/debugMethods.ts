@@ -8,6 +8,7 @@ declare global {
   }
 }
 
+/** Setup a few helpful debug functions on the global scope if the config asks for it. */
 export function maybeSetupDebugFunctions() {
   if (!config.Client.debug) {
     return;

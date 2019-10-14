@@ -10,6 +10,7 @@ function isTDValid(
   return hasProperty(TD, 'util') && hasProperty(TD.util, 'createUrlAnchor');
 }
 
+/** Removes the t.co redirection on links. */
 export const maybeRemoveRedirection = (TD: object) => {
   const dummyEl = document.createElement('span');
 

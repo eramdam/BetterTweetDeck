@@ -1,3 +1,4 @@
+/** Reverts the tweet display to show @mentions inline. */
 export const maybeRevertToLegacyReplies = (TD: any) => {
   TD.services.TwitterStatus.prototype.getOGContext = function getOGContext() {
     const repliers = this.getReplyingToUsers() || [];

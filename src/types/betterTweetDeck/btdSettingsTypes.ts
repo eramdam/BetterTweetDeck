@@ -1,10 +1,10 @@
 import * as t from 'io-ts';
 
-import {BTDAvatarShapes} from '../features/changeAvatarShape';
-import {BTDScrollbarsMode} from '../features/changeScrollbars';
-import {BTDTweetActionsPosition} from '../features/changeTweetActions';
-import {makeEnumRuntimeType, withDefault} from '../helpers/typeHelpers';
-import {getExtensionVersion} from '../helpers/webExtensionHelpers';
+import {BTDAvatarShapes} from '../../features/changeAvatarShape';
+import {BTDScrollbarsMode} from '../../features/changeScrollbars';
+import {BTDTweetActionsPosition} from '../../features/changeTweetActions';
+import {makeEnumRuntimeType, withDefault} from '../../helpers/typeHelpers';
+import {getExtensionVersion} from '../../helpers/webExtensionHelpers';
 
 export const RBetterTweetDeckSettings = t.type({
   /** Used to show a banner prompting the user to follow @BetterTDeck */
