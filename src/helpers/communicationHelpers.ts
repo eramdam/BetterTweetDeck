@@ -29,7 +29,9 @@ export function isMessageEventAllowed(ev: MessageEvent) {
   return true;
 }
 
-export type BTDMessageEventHandler = (ev: BTDMessageEvent) => BTDMessageEventData | void;
+export type BTDMessageEventHandler = (
+  ev: BTDMessageEvent
+) => BTDMessageEventData | void | never | Promise<any>;
 
 export function listenToInternalBTDMessage(
   name: BTDMessages,

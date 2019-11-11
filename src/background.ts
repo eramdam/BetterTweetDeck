@@ -1,6 +1,8 @@
 import {browser} from 'webextension-polyfill-ts';
 
 import {setupSettingsInBackground} from './services/backgroundSettings';
+import {findProviderForUrl, getThumbnailData} from './thumbnails';
+import {BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
 
 (async () => {
   await setupSettingsInBackground();
@@ -14,8 +16,21 @@ import {setupSettingsInBackground} from './services/backgroundSettings';
       throw new Error('Message not coming from BTD');
     }
 
-    console.log(request);
+    if (request.data.name === BTDMessages.FETCH_THUMBNAIL) {
+      const targetUrl = request.data.payload.url;
+      if (!targetUrl) {
+        return;
+      }
 
-    return 'foo bar';
+      const provider = findProviderForUrl(targetUrl);
+
+      if (!provider) {
+        return;
+      }
+
+      return await getThumbnailData(targetUrl, provider);
+    }
+
+    return undefined;
   });
 })();
