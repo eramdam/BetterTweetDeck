@@ -1,3 +1,5 @@
+const urls = require('./commonHosts');
+
 module.exports = {
   name: 'Better TweetDeck',
   version: '4.0.0',
@@ -13,6 +15,6 @@ module.exports = {
     scripts: ['background.js'],
   },
   web_accessible_resources: ['inject.js'],
-  permissions: ['storage', '*://tweetdeck.twitter.com/*'],
+  permissions: ['storage', ...urls],
   content_security_policy: `img-src https: data: 'self' *; default-src; connect-src * https:; style-src 'unsafe-inline'; script-src 'self';`,
 };
