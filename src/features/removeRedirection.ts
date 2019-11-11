@@ -1,22 +1,12 @@
-import {hasProperty} from '../helpers/typeHelpers';
-
-function isTDValid(
-  TD: unknown
-): TD is {
-  util: {
-    createUrlAnchor: Function;
-  };
-} {
-  return hasProperty(TD, 'util') && hasProperty(TD.util, 'createUrlAnchor');
-}
+import {TweetDeckObject} from '../types/tweetdeckTypes';
 
 /** Removes the t.co redirection on links. */
-export const maybeRemoveRedirection = (TD: object) => {
+export const maybeRemoveRedirection = (TD: TweetDeckObject) => {
   const dummyEl = document.createElement('span');
 
-  const originalMethod = isTDValid(TD) && TD.util.createUrlAnchor;
+  const originalMethod = TD.util.createUrlAnchor;
 
-  if (!isTDValid(TD) || !originalMethod) {
+  if (!originalMethod) {
     return;
   }
 

@@ -109,7 +109,7 @@ export const getChirpFromElement = (TD: TweetDeckObject, element: HTMLElement | 
 
 /** Finds all the URLs (attachments, links, etc) in a chirp. */
 export const getURLsFromChirp = (chirp: any) => {
-  let chirpURLs: string[] = [];
+  let chirpURLs: any[] = [];
 
   if (!chirp) {
     console.log(chirp);

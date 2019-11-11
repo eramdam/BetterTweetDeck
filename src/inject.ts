@@ -1,15 +1,16 @@
 import {isObject} from 'lodash';
 import moduleRaid from 'moduleraid';
 
+import {maybeSetupCustomTimestampFormat} from './features/changeTimestampFormat';
 import {maybeRemoveRedirection} from './features/removeRedirection';
-import {listenToBTDMessage} from './helpers/communicationHelpers';
+import {sendInternalBTDMessage} from './helpers/communicationHelpers';
+import {setupChirpHandler} from './services/chirpHandler';
+import {setupMediaSizeMonitor} from './services/columnMediaSizeMonitor';
 import {maybeSetupDebugFunctions} from './services/debugMethods';
 import {BTDSettingsAttribute} from './types/betterTweetDeck/btdCommonTypes';
-import {
-  BTDMessageOriginsEnum,
-  BTDMessages,
-  BTDThumbnailMessageTypes,
-} from './types/betterTweetDeck/btdMessageTypes';
+import {BTDMessageOriginsEnum, BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
+import {BTDSettings} from './types/betterTweetDeck/btdSettingsTypes';
+import {TweetDeckObject} from './types/tweetdeckTypes';
 
 // Declare typings on the window
 declare global {
@@ -25,9 +26,10 @@ try {
   //
 }
 
-const TweetDeck = window.TD;
+const TweetDeck = window.TD as TweetDeckObject;
 // Grab TweetDeck's jQuery from webpack
-const jQuery: JQuery | undefined = mR && mR.findFunction('jQuery') && mR.findFunction('jquery:')[0];
+const $: JQueryStatic | undefined =
+  mR && mR.findFunction('jQuery') && mR.findFunction('jquery:')[0];
 
 (async () => {
   if (!isObject(TweetDeck)) {
@@ -36,34 +38,45 @@ const jQuery: JQuery | undefined = mR && mR.findFunction('jQuery') && mR.findFun
 
   const settings = getBTDSettings();
 
-  if (!settings) {
+  if (!settings || !$) {
     return;
   }
 
+  setupChirpHandler(TweetDeck, (payload) => {
+    sendInternalBTDMessage({
+      name: BTDMessages.CHIRP_RESULT,
+      origin: BTDMessageOriginsEnum.INJECT,
+      isReponse: false,
+      payload,
+    });
+  });
   markInjectScriptAsReady();
+  setupMediaSizeMonitor(TweetDeck, $);
   maybeSetupDebugFunctions();
   maybeRemoveRedirection(TweetDeck);
 
-  console.log('Hello from inject');
+  $(document).one('dataColumnsLoaded', () => {
+    maybeSetupCustomTimestampFormat(TweetDeck, settings);
+  });
 })();
 
 /**
  * Events shenanigans.
  */
 
-listenToBTDMessage(BTDMessages.FETCH_THUMBNAIL, BTDMessageOriginsEnum.INJECT, (ev) => {
-  return {
-    ...ev.data,
-    name: BTDMessages.THUMBNAIL_RESULT,
-    origin: BTDMessageOriginsEnum.INJECT,
-    payload: {
-      html: 'html',
-      thumbnailUrl: 'url',
-      type: BTDThumbnailMessageTypes.VIDEO,
-      url: ev.data.payload.url,
-    },
-  };
-});
+// listenToBTDMessage(BTDMessages.FETCH_THUMBNAIL, BTDMessageOriginsEnum.INJECT, (ev) => {
+//   return {
+//     ...ev.data,
+//     name: BTDMessages.THUMBNAIL_RESULT,
+//     origin: BTDMessageOriginsEnum.INJECT,
+//     payload: {
+//       html: 'html',
+//       thumbnailUrl: 'url',
+//       type: BTDThumbnailMessageTypes.VIDEO,
+//       url: ev.data.payload.url,
+//     },
+//   };
+// });
 
 /**
 Helpers.
@@ -85,7 +98,8 @@ function getBTDSettings() {
   const settingsAttribute = scriptElement && scriptElement.getAttribute(BTDSettingsAttribute);
 
   try {
-    return settingsAttribute && JSON.parse(settingsAttribute);
+    const raw = settingsAttribute && JSON.parse(settingsAttribute);
+    return raw as BTDSettings;
   } catch (e) {
     return undefined;
   }

@@ -1,5 +1,7 @@
 import {Dictionary} from 'lodash';
 
+import {HandlerOf} from '../helpers/typeHelpers';
+
 /** Maps to the different options for media previews in TweetDeck columns. */
 export enum TweetDeckColumnMediaPreviewSizesEnum {
   OFF = 'off',
@@ -28,9 +30,19 @@ interface TweetDeckObjectColumn {
  */
 export interface TweetDeckObject {
   mustaches: Dictionary<string>;
+  util: {
+    createUrlAnchor: Function;
+  };
   controller: {
     columnManager: {
       get(key: string): TweetDeckObjectColumn;
+    };
+    scheduler: {
+      init: HandlerOf<any>;
+      removePeriodicTask: HandlerOf<string>;
+      _tasks: {
+        [x: string]: {id: string; period: number};
+      };
     };
   };
 }

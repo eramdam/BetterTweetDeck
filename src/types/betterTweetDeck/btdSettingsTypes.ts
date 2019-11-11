@@ -2,6 +2,7 @@ import * as t from 'io-ts';
 
 import {BTDAvatarShapes} from '../../features/changeAvatarShape';
 import {BTDScrollbarsMode} from '../../features/changeScrollbars';
+import {BTDTimestampFormats} from '../../features/changeTimestampFormat';
 import {BTDTweetActionsPosition} from '../../features/changeTweetActions';
 import {makeEnumRuntimeType, withDefault} from '../../helpers/typeHelpers';
 import {getExtensionVersion} from '../../helpers/webExtensionHelpers';
@@ -16,6 +17,10 @@ export const RBetterTweetDeckSettings = t.type({
   /** Alters the timestamp display in tweets */
   timestampShortFormat: withDefault(t.string, ''),
   timestampFullFormat: withDefault(t.string, ''),
+  timestampStyle: withDefault(
+    makeEnumRuntimeType<BTDTimestampFormats>(BTDTimestampFormats),
+    BTDTimestampFormats.RELATIVE
+  ),
 
   /** Switches between the full timestamp in tweets after 24h */
   fullTimestampAfterDay: withDefault(t.boolean, false),

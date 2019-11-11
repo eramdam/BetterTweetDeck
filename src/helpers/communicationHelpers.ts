@@ -29,10 +29,11 @@ export function isMessageEventAllowed(ev: MessageEvent) {
   return true;
 }
 
-export type BTDMessageEventHandler = (ev: BTDMessageEvent) => BTDMessageEventData;
+export type BTDMessageEventHandler = (ev: BTDMessageEvent) => BTDMessageEventData | void;
 
-export function listenToBTDMessage(
+export function listenToInternalBTDMessage(
   name: BTDMessages,
+  /** Location from which you're listening to the message */
   location: BTDMessageOriginsEnum,
   handler: BTDMessageEventHandler
 ) {
@@ -61,6 +62,10 @@ export function listenToBTDMessage(
 
     const replyEvent = handler(ev);
 
+    if (!replyEvent) {
+      return;
+    }
+
     window.postMessage(
       {
         ...replyEvent,
@@ -74,10 +79,10 @@ export function listenToBTDMessage(
   window.addEventListener('message', listener);
 }
 
-export function sendBTDMessage(msg: Omit<BTDMessageEventData, 'requestId'>) {
+export function sendInternalBTDMessage(msg: Omit<BTDMessageEventData, 'requestId'>) {
   const requestId = _.uniqueId('btd-request');
 
-  return new Promise<BTDMessageEvent>((resolve) => {
+  return new Promise<BTDMessageEventData>((resolve) => {
     const listener = (ev: MessageEvent) => {
       if (!isMessageEventAllowed(ev)) {
         return;
@@ -94,7 +99,7 @@ export function sendBTDMessage(msg: Omit<BTDMessageEventData, 'requestId'>) {
       }
 
       window.removeEventListener('message', listener);
-      resolve(ev);
+      resolve(ev.data as BTDMessageEventData);
     };
 
     window.addEventListener('message', listener);
