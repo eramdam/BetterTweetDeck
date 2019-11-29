@@ -213,7 +213,7 @@
   },
   "download_filename_format_parameters": {
     "message":
-      "Vous pouvez utiliser les variables suivantes: <code>{{postedUser}} {{tweetId}} {{fileName}} {{fileExtension}}</code>"
+      "Vous pouvez utiliser les variables suivantes: <code>{{postedUser}} {{tweetId}} {{fileName}} {{fileExtension}} {{year}} {{month}} {{day}} {{hours}} {{minutes}} {{seconds}}</code>"
   },
   "ctrl_changes_interactions": {
     "message":

@@ -187,7 +187,7 @@
   "download_filename_format": { "message": "Formát názvu stažených souborů" },
   "download_filename_format_parameters": {
     "message":
-      "Můžete použít následující proměnné: <code>{{postedUser}} {{tweetId}} {{fileName}} {{fileExtension}}</code>"
+      "Můžete použít následující proměnné: <code>{{postedUser}} {{tweetId}} {{fileName}} {{fileExtension}} {{year}} {{month}} {{day}} {{hours}} {{minutes}} {{seconds}}</code>"
   },
   "ctrl_changes_interactions__enabled": {
     "message":
