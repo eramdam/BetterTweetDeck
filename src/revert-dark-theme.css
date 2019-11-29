@@ -509,7 +509,7 @@ html.dark .lst-group .selected .username,html.dark .lst-group .selected .bytext,
 html.dark .itm-remove{border-top:1px solid #ddd}
 html.dark .caret-outer{border-bottom:7px solid rgba(17,17,17,0.1)}
 html.dark .caret-inner{border-bottom:6px solid #fff}
-html.dark .drp-h-divider{border-bottom:1px solid #ddd}
+html.dark .drp-h-divider{border-bottom:1px solid #292929}
 html.dark .dropdown-menu .typeahead-item,html.dark .dropdown-menu [data-action]{color:#292F33}
 html.dark .dropdown-menu .is-selected{background:#55acee;color:#fff}
 html.dark .dropdown-menu .is-selected [data-action]{color:#fff}
@@ -809,3 +809,11 @@ html.dark .modal-content,html.dark .lst-group{color:#292F33}
 html.dark .lst-launcher a span{color:#657786!important}
 html.dark .social-proof-names a{color:#3b94d9}
 html.dark .is-inverted-dark .column-header-temp{border-bottom:1px solid #ddd; background-color: white;}
+
+
+/* fix text color */
+htm.dark .dropdown-menu .non-selectable-item
+, html.dark .dropdown-menu .js-dropdown-content a:not(:hover):not(:focus)
+, html.dark .dropdown-menu .js-dropdown-content .non-selectable-item { color: #e1e8ed; }
+/* fix background color */
+html.dark .dropdown-menu { background-color: #292F33; }
