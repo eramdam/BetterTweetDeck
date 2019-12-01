@@ -1,6 +1,10 @@
+import {BTDSettings} from '../types/betterTweetDeck/btdSettingsTypes';
+import './changeAvatarShape.css';
+
 export enum BTDAvatarShapes {
   SQUARE = 'square',
   CIRCLE = 'circle',
-  ROUNDED = 'rounded',
 }
-export function changeAvatarsShape() {}
+export function changeAvatarsShape(settings: BTDSettings) {
+  document.body.setAttribute('btd-avatar-shape', settings.avatarsShape);
+}

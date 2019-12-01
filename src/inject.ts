@@ -12,6 +12,7 @@ import {BTDMessageOriginsEnum, BTDMessages} from './types/betterTweetDeck/btdMes
 import {BTDSettings} from './types/betterTweetDeck/btdSettingsTypes';
 import {TweetDeckObject} from './types/tweetdeckTypes';
 import {maybeRevertToLegacyReplies} from './features/revertToLegacyReplies';
+import {changeAvatarsShape} from './features/changeAvatarShape';
 
 // Declare typings on the window
 declare global {
@@ -70,6 +71,7 @@ const $: JQueryStatic | undefined =
   maybeSetupDebugFunctions();
   maybeRemoveRedirection(TweetDeck);
   maybeRevertToLegacyReplies(TweetDeck, settings);
+  changeAvatarsShape(settings);
 
   $(document).one('dataColumnsLoaded', () => {
     maybeSetupCustomTimestampFormat(TweetDeck, settings);
