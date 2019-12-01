@@ -1,0 +1,11 @@
+.quoted-tweet .js-reply-info-container,
+.tweet-body>div>.other-replies,
+.tweet-detail>div>.other-replies {
+  font-size: 0;
+  height: 0;
+}
+
+.js-stream-item .quoted-tweet .other-replies::before,
+.js-stream-item .tweet-body .other-replies::before {
+  display: none;
+}

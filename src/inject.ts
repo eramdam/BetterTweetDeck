@@ -11,6 +11,7 @@ import {BTDSettingsAttribute} from './types/betterTweetDeck/btdCommonTypes';
 import {BTDMessageOriginsEnum, BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
 import {BTDSettings} from './types/betterTweetDeck/btdSettingsTypes';
 import {TweetDeckObject} from './types/tweetdeckTypes';
+import {maybeRevertToLegacyReplies} from './features/revertToLegacyReplies';
 
 // Declare typings on the window
 declare global {
@@ -63,10 +64,12 @@ const $: JQueryStatic | undefined =
       });
     }
   );
+
   markInjectScriptAsReady();
   setupMediaSizeMonitor(TweetDeck, $);
   maybeSetupDebugFunctions();
   maybeRemoveRedirection(TweetDeck);
+  maybeRevertToLegacyReplies(TweetDeck, settings);
 
   $(document).one('dataColumnsLoaded', () => {
     maybeSetupCustomTimestampFormat(TweetDeck, settings);
