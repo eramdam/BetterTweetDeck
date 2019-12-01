@@ -37,3 +37,33 @@
   align-items: center;
   background: pink;
 }
+
+/**
+ * Override TweetDeck's start of last decade modal styles.
+ */
+
+html .btd-loaded .overlay,
+html .btd-loaded .ovl {
+  background: rgba(0, 0, 0, .8);
+}
+
+.js-modal-panel.mdl.s-full.med-fullpanel {
+  background: transparent;
+  pointer-events: none;
+  box-shadow: none;
+}
+
+.js-med-tweet.med-tweet,
+#media-gallery-tray {
+  display: none;
+}
+
+.js-mediatable .js-modal-panel .med-embeditem {
+  top: 0;
+  bottom: 0;
+}
+
+.js-mediatable .js-modal-panel .js-mediaembed,
+.mdl-btn-media {
+  pointer-events: all;
+}

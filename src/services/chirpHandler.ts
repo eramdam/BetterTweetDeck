@@ -50,6 +50,10 @@ export const setupChirpHandler: SetupChirpHandler = (TD, handlerOnAdd, handlerOn
               return;
             }
 
+            if (element.closest('.js-tweet-detail.tweet-detail-wrapper')) {
+              return;
+            }
+
             if (element.closest('[data-key]')) {
               const chirp = getChirpFromElement(TD, element);
 
