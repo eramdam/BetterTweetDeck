@@ -6,6 +6,7 @@ config/dev.js
 config/development.js
 config/prod.js
 config/*.json
+config/env/*.json
 !config/default.json
 
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
