@@ -1,5 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
+import {BtdApp} from '../components/btdApp';
 
 export function setupReactRoot() {
   if (document.querySelector('#btdRoot')) {
@@ -11,5 +12,5 @@ export function setupReactRoot() {
 
   document.body.appendChild(root);
 
-  render(<div />, root);
+  render(<BtdApp />, root);
 }

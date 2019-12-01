@@ -79,6 +79,10 @@ export function listenToInternalBTDMessage(
   };
 
   window.addEventListener('message', listener);
+
+  return () => {
+    window.removeEventListener('message', listener);
+  };
 }
 
 export function sendInternalBTDMessage(msg: Omit<BTDMessageEventData, 'requestId'>) {

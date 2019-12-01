@@ -42,14 +42,27 @@ const $: JQueryStatic | undefined =
     return;
   }
 
-  setupChirpHandler(TweetDeck, (payload) => {
-    sendInternalBTDMessage({
-      name: BTDMessages.CHIRP_RESULT,
-      origin: BTDMessageOriginsEnum.INJECT,
-      isReponse: false,
-      payload,
-    });
-  });
+  setupChirpHandler(
+    TweetDeck,
+    (payload) => {
+      sendInternalBTDMessage({
+        name: BTDMessages.CHIRP_RESULT,
+        origin: BTDMessageOriginsEnum.INJECT,
+        isReponse: false,
+        payload,
+      });
+    },
+    (payload) => {
+      sendInternalBTDMessage({
+        name: BTDMessages.CHIRP_REMOVAL,
+        origin: BTDMessageOriginsEnum.INJECT,
+        isReponse: false,
+        payload: {
+          uuids: payload.uuidArray,
+        },
+      });
+    }
+  );
   markInjectScriptAsReady();
   setupMediaSizeMonitor(TweetDeck, $);
   maybeSetupDebugFunctions();

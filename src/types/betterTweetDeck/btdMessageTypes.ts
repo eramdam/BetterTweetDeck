@@ -9,6 +9,7 @@ export enum BTDMessages {
   THUMBNAIL_RESULT = 'THUMBNAIL_RESULT',
   FETCH_CHIRP = 'FETCH_CHIRP',
   CHIRP_RESULT = 'CHIRP_RESULT',
+  CHIRP_REMOVAL = 'CHIRP_REMOVAL',
 }
 
 /** Locations from which messages can be listened/sent to. */
@@ -35,6 +36,14 @@ const RChirpResult = t.type({
   payload: RChirpHandlerPayload,
 });
 
+const RChirpRemoval = t.type({
+  ...baseMessageEvent,
+  name: t.literal(BTDMessages.CHIRP_REMOVAL),
+  payload: t.type({
+    uuids: t.array(t.string),
+  }),
+});
+
 const RFetchThumbnailEvent = t.type({
   ...baseMessageEvent,
   name: t.literal(BTDMessages.FETCH_THUMBNAIL),
@@ -55,10 +64,16 @@ const RThumbnailResultEvent = t.type({
 });
 
 const RBTDMessageEvent = t.type({
-  data: t.taggedUnion('name', [RFetchThumbnailEvent, RThumbnailResultEvent, RChirpResult]),
+  data: t.taggedUnion('name', [
+    RFetchThumbnailEvent,
+    RThumbnailResultEvent,
+    RChirpResult,
+    RChirpRemoval,
+  ]),
 });
 
 export interface BTDMessageEvent extends t.TypeOf<typeof RBTDMessageEvent> {}
+export interface BTDThumbnailResultEvent extends t.TypeOf<typeof RThumbnailResultEvent> {}
 export type BTDMessageEventData = BTDMessageEvent['data'];
 
 export function isBTDMessage(src: string): src is BTDMessages {

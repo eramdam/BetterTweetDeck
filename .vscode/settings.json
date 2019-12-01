@@ -8,7 +8,19 @@
   "typescriptHero.imports.multiLineWrapThreshold": 100,
   "xmlTools.splitXmlnsOnFormat": false,
   "files.eol": "\n",
-  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact", "html"],
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    {
+      "language": "typescript",
+      "autoFix": true
+    },
+    {
+      "language": "typescriptreact",
+      "autoFix": true
+    },
+    "html"
+  ],
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,

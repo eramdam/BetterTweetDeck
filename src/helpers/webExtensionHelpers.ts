@@ -13,10 +13,11 @@ export const ExtensionSettings = browser.storage.sync;
 /** Returns the version of the extension. */
 export const getExtensionVersion = () => browser.runtime.getManifest().version;
 
-export async function sendMessageToBackground(msg: BTDMessageEvent): Promise<BTDMessageEventData> {
+export async function sendMessageToBackground(
+  msg: BTDMessageEvent
+): Promise<BTDMessageEventData | undefined> {
   if (!browser) {
-    //@ts-ignore
-    return;
+    return undefined;
   }
 
   return browser.runtime.sendMessage(msg);

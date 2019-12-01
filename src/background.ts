@@ -28,7 +28,12 @@ import {BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
         return;
       }
 
-      return await getThumbnailData(targetUrl, provider);
+      const thumbnailData = await getThumbnailData(targetUrl, provider);
+
+      return {
+        name: BTDMessages.THUMBNAIL_RESULT,
+        payload: thumbnailData,
+      };
     }
 
     return undefined;
