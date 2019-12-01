@@ -27,6 +27,10 @@ function WebpackConfig(env) {
             transpileOnly: true,
           },
         },
+        {
+          test: /\.css$/i,
+          use: ['style-loader', 'css-loader'],
+        },
       ],
     },
   };

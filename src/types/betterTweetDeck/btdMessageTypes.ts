@@ -2,6 +2,7 @@ import * as t from 'io-ts';
 
 import {makeEnumRuntimeType} from '../../helpers/typeHelpers';
 import {RChirpHandlerPayload} from '../../services/chirpHandler';
+import {RBTDFetchResult} from '../../thumbnails/types';
 
 /** Different kinds of messages that BTD can send/receive internally. */
 export enum BTDMessages {
@@ -55,12 +56,7 @@ const RFetchThumbnailEvent = t.type({
 const RThumbnailResultEvent = t.type({
   ...baseMessageEvent,
   name: t.literal(BTDMessages.THUMBNAIL_RESULT),
-  payload: t.type({
-    type: makeEnumRuntimeType<BTDThumbnailMessageTypes>(BTDThumbnailMessageTypes),
-    thumbnailUrl: t.string,
-    url: t.string,
-    html: t.union([t.undefined, t.string]),
-  }),
+  payload: RBTDFetchResult,
 });
 
 const RBTDMessageEvent = t.type({
@@ -73,7 +69,8 @@ const RBTDMessageEvent = t.type({
 });
 
 export interface BTDMessageEvent extends t.TypeOf<typeof RBTDMessageEvent> {}
-export interface BTDThumbnailResultEvent extends t.TypeOf<typeof RThumbnailResultEvent> {}
+interface BTDThumbnailResultEvent extends t.TypeOf<typeof RThumbnailResultEvent> {}
+export type BTDThumbnailResultEventPayload = BTDThumbnailResultEvent['payload'];
 export type BTDMessageEventData = BTDMessageEvent['data'];
 
 export function isBTDMessage(src: string): src is BTDMessages {

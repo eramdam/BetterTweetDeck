@@ -1,14 +1,15 @@
-import React, {FC, useState, useEffect, useCallback} from 'react';
-import {
-  BTDThumbnailResultEvent,
-  BTDMessages,
-  BTDMessageOriginsEnum,
-} from '../types/betterTweetDeck/btdMessageTypes';
+import React, {FC, useCallback, useEffect, useState} from 'react';
 import {listenToInternalBTDMessage} from '../helpers/communicationHelpers';
-import {findProviderForUrl} from '../thumbnails';
 import {sendMessageToBackground} from '../helpers/webExtensionHelpers';
+import {findProviderForUrl} from '../thumbnails';
+import {
+  BTDMessageOriginsEnum,
+  BTDMessages,
+  BTDThumbnailResultEventPayload,
+} from '../types/betterTweetDeck/btdMessageTypes';
+import {TweetThumbnail} from './tweetThumbnail';
 
-type MaybeThumbnailData = BTDThumbnailResultEvent['payload'] | undefined;
+type MaybeThumbnailData = BTDThumbnailResultEventPayload | undefined;
 
 export const TweetThumbnailsProvider: FC = () => {
   const [urlResults, setUrlResults] = useState(new Map<string, MaybeThumbnailData>());
@@ -56,8 +57,6 @@ export const TweetThumbnailsProvider: FC = () => {
           return;
         }
 
-        console.log(urlResult);
-
         updateMap(data.payload.uuid, urlResult.payload);
       }
     );
@@ -67,5 +66,15 @@ export const TweetThumbnailsProvider: FC = () => {
     };
   }, [updateMap]);
 
-  return <div></div>;
+  return (
+    <div>
+      {[...urlResults.entries()].map(([key, value]) => {
+        if (!value) {
+          return null;
+        }
+
+        return <TweetThumbnail key={key} uuid={key} thumbnailPayload={value}></TweetThumbnail>;
+      })}
+    </div>
+  );
 };
