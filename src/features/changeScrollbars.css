@@ -1,0 +1,16 @@
+/**
+ * Firefox / standard CSS
+ */
+.btd-loaded[btd-scrollbar-style="hidden"] .column-scroller {
+  scrollbar-width: none;
+}
+
+.btd-loaded[btd-scrollbar-style="slim"] .column-scroller {
+  scrollbar-width: thin;
+}
+
+/**
+ * Webkit / Blink
+ */
+
+/** TODO */
