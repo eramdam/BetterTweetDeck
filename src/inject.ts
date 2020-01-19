@@ -2,6 +2,7 @@ import {isObject} from 'lodash';
 import moduleRaid from 'moduleraid';
 
 import {changeAvatarsShape} from './features/changeAvatarShape';
+import {changeScrollbarStyling} from './features/changeScrollbars';
 import {maybeSetupCustomTimestampFormat} from './features/changeTimestampFormat';
 import {changeTweetActionsStyling} from './features/changeTweetActions';
 import {maybeRemoveRedirection} from './features/removeRedirection';
@@ -74,6 +75,7 @@ const $: JQueryStatic | undefined =
   maybeRevertToLegacyReplies(TweetDeck, settings);
   changeAvatarsShape(settings);
   changeTweetActionsStyling(settings);
+  changeScrollbarStyling(settings);
 
   $(document).one('dataColumnsLoaded', () => {
     maybeSetupCustomTimestampFormat(TweetDeck, settings);
