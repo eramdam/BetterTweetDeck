@@ -13,6 +13,7 @@ export const MediumThumbnail: FC<ThumbnailProps> = ({url, imageUrl, onClick}) =>
         className="js-media-image-link block med-link media-item media-size-medium is-zoomable"
         href={url}
         target="_blank"
+        rel="noopener noreferrer"
         onClick={onClick}
         style={{
           backgroundImage: `url("${imageUrl}")`,
@@ -31,6 +32,7 @@ export const SmallThumbnail: FC<ThumbnailProps> = ({url, imageUrl, onClick}) => 
         className="js-media-image-link block med-link media-item media-size-small is-zoomable"
         href={url}
         target="_blank"
+        rel="noopener noreferrer"
         onClick={onClick}
         style={{
           backgroundImage: `url("${imageUrl}")`,
@@ -50,6 +52,7 @@ export const LargeThumbnail: FC<ThumbnailProps> = ({url, imageUrl, onClick}) => 
         className="js-media-image-link block med-link media-item media-size-large is-zoomable"
         href={url}
         target="_blank"
+        rel="noopener noreferrer"
         onClick={onClick}
         style={{
           backgroundImage: `url("${imageUrl}")`,

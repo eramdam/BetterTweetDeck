@@ -1,5 +1,5 @@
-import {BTDSettings} from '../types/betterTweetDeck/btdSettingsTypes';
 import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
+import {BTDSettings} from '../types/betterTweetDeck/btdSettingsTypes';
 
 /** Reverts the tweet display to show @mentions inline. */
 export const maybeRevertToLegacyReplies = (TD: any, settings: BTDSettings) => {

@@ -1,5 +1,6 @@
 import React, {FC} from 'react';
 import {Portal, PortalWithState} from 'react-portal';
+
 import {BTDFetchResult, BTDUrlProviderResultTypeEnum} from '../thumbnails/types';
 import {FullscreenImageModal} from './fullscreenImageModal';
 import {MediumThumbnail} from './mediaThumbnails';

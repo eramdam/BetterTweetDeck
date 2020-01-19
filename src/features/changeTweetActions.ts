@@ -1,6 +1,6 @@
-import {BTDSettings} from '../types/betterTweetDeck/btdSettingsTypes';
-
 import './changeTweetActions.css';
+
+import {BTDSettings} from '../types/betterTweetDeck/btdSettingsTypes';
 
 export enum BTDTweetActionsPosition {
   LEFT = 'left',

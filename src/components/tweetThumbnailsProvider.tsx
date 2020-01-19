@@ -1,4 +1,5 @@
 import React, {FC, useCallback, useEffect, useState} from 'react';
+
 import {listenToInternalBTDMessage} from '../helpers/communicationHelpers';
 import {sendMessageToBackground} from '../helpers/webExtensionHelpers';
 import {findProviderForUrl} from '../thumbnails';

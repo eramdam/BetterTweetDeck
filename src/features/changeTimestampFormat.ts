@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import {DateTime, Interval} from 'luxon';
+
 import {BTDSettings} from '../types/betterTweetDeck/btdSettingsTypes';
 import {TweetDeckObject} from '../types/tweetdeckTypes';
 

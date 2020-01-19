@@ -1,5 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
+
 import {BtdApp} from '../components/btdApp';
 
 export function setupReactRoot() {

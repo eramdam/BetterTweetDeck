@@ -1,7 +1,7 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'react-hooks', 'unused-imports', 'simple-import-sort'],
-  extends: ['eslint:recommended', 'plugin:prettier/recommended'],
+  extends: ['eslint:recommended', 'plugin:prettier/recommended', 'plugin:react/recommended'],
   parserOptions: {
     ecmaVersion: 2020,
     ecmaFeatures: {
@@ -28,6 +28,7 @@ module.exports = {
     {
       files: ['*.ts', '*.tsx'],
       rules: {
+        'react/prop-types': 0,
         'simple-import-sort/sort': 2,
         'unused-imports/no-unused-imports-ts': 2,
         'no-use-before-define': 0,

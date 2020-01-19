@@ -1,8 +1,11 @@
 import {isObject} from 'lodash';
 import moduleRaid from 'moduleraid';
 
+import {changeAvatarsShape} from './features/changeAvatarShape';
 import {maybeSetupCustomTimestampFormat} from './features/changeTimestampFormat';
+import {changeTweetActionsStyling} from './features/changeTweetActions';
 import {maybeRemoveRedirection} from './features/removeRedirection';
+import {maybeRevertToLegacyReplies} from './features/revertToLegacyReplies';
 import {sendInternalBTDMessage} from './helpers/communicationHelpers';
 import {setupChirpHandler} from './services/chirpHandler';
 import {setupMediaSizeMonitor} from './services/columnMediaSizeMonitor';
@@ -11,9 +14,6 @@ import {BTDSettingsAttribute} from './types/betterTweetDeck/btdCommonTypes';
 import {BTDMessageOriginsEnum, BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
 import {BTDSettings} from './types/betterTweetDeck/btdSettingsTypes';
 import {TweetDeckObject} from './types/tweetdeckTypes';
-import {maybeRevertToLegacyReplies} from './features/revertToLegacyReplies';
-import {changeAvatarsShape} from './features/changeAvatarShape';
-import {changeTweetActionsStyling} from './features/changeTweetActions';
 
 // Declare typings on the window
 declare global {

@@ -1,6 +1,8 @@
-import React, {FC} from 'react';
-import {TweetThumbnailsProvider} from './tweetThumbnailsProvider';
 import './styles/index.css';
+
+import React, {FC} from 'react';
+
+import {TweetThumbnailsProvider} from './tweetThumbnailsProvider';
 
 export const BtdApp: FC = () => {
   return (
