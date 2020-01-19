@@ -30,6 +30,8 @@
     "config": "^3.2.4",
     "cross-env": "^6.0.3",
     "css-loader": "^3.2.0",
+    "eslint-plugin-simple-import-sort": "^5.0.0",
+    "eslint-plugin-unused-imports": "^0.1.2",
     "fp-ts": "^2.1.1",
     "generate-json-webpack-plugin": "^0.3.1",
     "hogan.js": "^3.0.2",

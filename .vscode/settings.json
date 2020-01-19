@@ -1,10 +1,6 @@
 {
   "editor.formatOnSave": true,
   "movets.skipWarning": true,
-  "typescriptHero.imports.organizeOnSave": true,
-  "typescriptHero.imports.multiLineTrailingComma": true,
-  "typescriptHero.imports.insertSpaceBeforeAndAfterImportBraces": false,
-  "typescriptHero.imports.multiLineWrapThreshold": 100,
   "xmlTools.splitXmlnsOnFormat": false,
   "files.eol": "\n",
   "files.exclude": {
