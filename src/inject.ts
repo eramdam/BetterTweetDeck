@@ -81,24 +81,6 @@ const $: JQueryStatic | undefined =
 })();
 
 /**
- * Events shenanigans.
- */
-
-// listenToBTDMessage(BTDMessages.FETCH_THUMBNAIL, BTDMessageOriginsEnum.INJECT, (ev) => {
-//   return {
-//     ...ev.data,
-//     name: BTDMessages.THUMBNAIL_RESULT,
-//     origin: BTDMessageOriginsEnum.INJECT,
-//     payload: {
-//       html: 'html',
-//       thumbnailUrl: 'url',
-//       type: BTDThumbnailMessageTypes.VIDEO,
-//       url: ev.data.payload.url,
-//     },
-//   };
-// });
-
-/**
 Helpers.
  */
 
