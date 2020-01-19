@@ -1,6 +1,5 @@
 {
   "editor.formatOnSave": true,
-  "eslint.autoFixOnSave": true,
   "movets.skipWarning": true,
   "typescriptHero.imports.organizeOnSave": true,
   "typescriptHero.imports.multiLineTrailingComma": true,
@@ -8,19 +7,6 @@
   "typescriptHero.imports.multiLineWrapThreshold": 100,
   "xmlTools.splitXmlnsOnFormat": false,
   "files.eol": "\n",
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    {
-      "language": "typescript",
-      "autoFix": true
-    },
-    {
-      "language": "typescriptreact",
-      "autoFix": true
-    },
-    "html"
-  ],
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,
@@ -41,5 +27,10 @@
   },
   "emmet.excludeLanguages": [],
   "typescript.preferences.renameShorthandProperties": false,
-  "beautify.ignore": ["*"]
+  "beautify.ignore": [
+    "*"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }
