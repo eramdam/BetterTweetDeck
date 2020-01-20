@@ -7,6 +7,7 @@ import {maybeSetupCustomTimestampFormat} from './features/changeTimestampFormat'
 import {changeTweetActionsStyling} from './features/changeTweetActions';
 import {maybeRemoveRedirection} from './features/removeRedirection';
 import {maybeRevertToLegacyReplies} from './features/revertToLegacyReplies';
+import {putBadgesOnTopOfAvatars} from './features/verifiedBadges';
 import {sendInternalBTDMessage} from './helpers/communicationHelpers';
 import {setupChirpHandler} from './services/chirpHandler';
 import {setupMediaSizeMonitor} from './services/columnMediaSizeMonitor';
@@ -49,6 +50,7 @@ const $: JQueryStatic | undefined =
   setupChirpHandler(
     TweetDeck,
     (payload) => {
+      putBadgesOnTopOfAvatars(settings, payload);
       sendInternalBTDMessage({
         name: BTDMessages.CHIRP_RESULT,
         origin: BTDMessageOriginsEnum.INJECT,

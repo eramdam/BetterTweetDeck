@@ -104,6 +104,9 @@ export const getChirpFromElement = (TD: TweetDeckObject, element: HTMLElement | 
     chirpKey,
     columnKey: colKey,
   };
+  // `chirpType` lives on the prototype of `chirp`, so it obviously won't carry on when serialized
+  // eslint-disable-next-line no-self-assign
+  chirp.chirpType = chirp.chirpType;
   return chirp;
 };
 

@@ -39,7 +39,7 @@
 }
 
 /**
- * Override TweetDeck's start of last decade modal styles.
+ * Override TweetDeck's modal styles.
  */
 
 html .btd-loaded .overlay,
@@ -66,4 +66,9 @@ html .btd-loaded .ovl {
 .js-mediatable .js-modal-panel .js-mediaembed,
 .mdl-btn-media {
   pointer-events: all;
+}
+
+/** Fix the default verified badge alignment */
+.badge-verified::before {
+  background-position-y: 48px;
 }
