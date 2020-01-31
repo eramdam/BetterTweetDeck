@@ -7,6 +7,10 @@ module.exports = {
     jquery: true,
     browser: true,
   },
+  parserOptions: {
+    ecmaVersion: 2020,
+    sourceType: 'module',
+  },
   globals: {
     chrome: false,
     instgrm: false,
@@ -14,8 +18,9 @@ module.exports = {
     BTD: false,
     Hogan: false,
   },
-  extends: 'airbnb-base',
+  extends: ['eslint:recommended', 'plugin:prettier/recommended'],
   rules: {
+    'prettier/prettier': 'error',
     'import/first': 0,
     'import/prefer-default-export': 0,
     'import/no-dynamic-require': 0,
