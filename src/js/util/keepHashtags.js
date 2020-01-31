@@ -15,7 +15,7 @@ export function keepHashtags() {
       const tweetedHashtags = window.twttrTxt.extractHashtags(tweetText);
       hashtags = tweetedHashtags;
     },
-    true,
+    true
   );
 
   function pasteHashtags() {
@@ -29,7 +29,7 @@ export function keepHashtags() {
       return;
     }
 
-    tweetTextArea.value = ` ${hashtags.map(t => `#${t}`).join(' ')}`;
+    tweetTextArea.value = ` ${hashtags.map((t) => `#${t}`).join(' ')}`;
     tweetTextArea.selectionStart = 0;
     tweetTextArea.selectionEnd = 0;
     tweetTextArea.dispatchEvent(new Event('change'));

@@ -20,9 +20,7 @@ if (!semver.valid(version)) {
 if (!semver.gt(version, packageJson.version)) {
   clog(
     'red',
-    `The version you passed needs to be higher than the current version. Yours: ${version}, current: ${
-      packageJson.version
-    }`,
+    `The version you passed needs to be higher than the current version. Yours: ${version}, current: ${packageJson.version}`
   );
   process.exit(1);
 }
@@ -36,13 +34,9 @@ const newPackageJson = Object.assign(packageJson, {
 });
 
 clog('blue', `Writing ${path.resolve(__dirname, '../package.json')}`);
-fs.writeFileSync(
-  path.resolve(__dirname, '../package.json'),
-  stringifyPackage(newPackageJson),
-  {
-    encoding: 'utf8',
-  },
-);
+fs.writeFileSync(path.resolve(__dirname, '../package.json'), stringifyPackage(newPackageJson), {
+  encoding: 'utf8',
+});
 clog('green', `Wrote ${path.resolve(__dirname, '../package.json')}`);
 clog('blue', 'Committing changes');
 childProcess.execSync('git add package.json');

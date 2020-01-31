@@ -59,7 +59,9 @@ export function onComposerShown(callback) {
 
 export function onComposerDisabledStateChange(callback) {
   const tweetComposerObserver = new MutationObserver(() => {
-    const tweetComposer = document.querySelector('.drawer[data-drawer="compose"] textarea.js-compose-text');
+    const tweetComposer = document.querySelector(
+      '.drawer[data-drawer="compose"] textarea.js-compose-text'
+    );
     callback(tweetComposer.disabled);
   });
 
@@ -69,7 +71,9 @@ export function onComposerDisabledStateChange(callback) {
       return;
     }
 
-    const tweetComposer = document.querySelector('.drawer[data-drawer="compose"] textarea.js-compose-text');
+    const tweetComposer = document.querySelector(
+      '.drawer[data-drawer="compose"] textarea.js-compose-text'
+    );
 
     if (!tweetComposer) {
       return;

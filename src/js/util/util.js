@@ -23,11 +23,7 @@ function initPostMessageListener() {
       return false;
     }
 
-    if (
-      !ev.data.name ||
-      !ev.data.name.startsWith('BTDC_') ||
-      !listeners[ev.data.name]
-    ) {
+    if (!ev.data.name || !ev.data.name.startsWith('BTDC_') || !listeners[ev.data.name]) {
       return false;
     }
 
@@ -45,9 +41,7 @@ if (typeof Element.prototype.matches !== 'function') {
     Element.prototype.webkitMatchesSelector ||
     function matches(selector) {
       const element = this;
-      const elements = (
-        element.document || element.ownerDocument
-      ).querySelectorAll(selector);
+      const elements = (element.document || element.ownerDocument).querySelectorAll(selector);
       let index = 0;
 
       while (elements[index] && elements[index] !== element) {

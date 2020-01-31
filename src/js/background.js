@@ -80,10 +80,10 @@ const defaultSettings = {
 chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => {
   if (
     message &&
-      message.action &&
-      message.action === 'version' &&
-      sender.id !== chrome.runtime.id &&
-      message.key !== BHelper.getVersion()
+    message.action &&
+    message.action === 'version' &&
+    sender.id !== chrome.runtime.id &&
+    message.key !== BHelper.getVersion()
   ) {
     sendResponse({ action: 'badVersion', key: true });
     return true;
@@ -139,11 +139,11 @@ function contextMenuHandler(info, tab, settings) {
                 text: textToShare,
                 url: urlToShare,
               });
-            },
+            }
           );
-        },
+        }
       );
-    },
+    }
   );
 }
 
@@ -164,50 +164,44 @@ BHelper.settings.getAll((settings) => {
     chrome.storage.sync.clear();
   }
 
-  BHelper.settings.set(
-    defaultsDeep(curSettings, defaultSettings),
-    (newSettings) => {
-      Log(newSettings);
-      if (!newSettings.installed_date) {
-        openWelcomePage();
-        BHelper.settings.set({ installed_date: new Date().getTime() });
+  BHelper.settings.set(defaultsDeep(curSettings, defaultSettings), (newSettings) => {
+    Log(newSettings);
+    if (!newSettings.installed_date) {
+      openWelcomePage();
+      BHelper.settings.set({ installed_date: new Date().getTime() });
+    }
+
+    const oldVersion = (curSettings.installed_version || '').replace(/\./g, '');
+    const newVersion = BHelper.getVersion().replace(/\./g, '');
+
+    Log('version', BHelper.getVersion());
+    BHelper.settings.set({ installed_version: String(BHelper.getVersion()) });
+
+    if (!oldVersion || String(oldVersion) !== String(newVersion)) {
+      BHelper.settings.set({
+        need_update_banner: true,
+      });
+    }
+
+    // We create the context menu item
+    if (newSettings.share_item && newSettings.share_item.enabled) {
+      if (chrome.permissions) {
+        chrome.permissions.contains(
+          {
+            permissions: ['tabs'],
+          },
+          (hasTabs) => {
+            if (!hasTabs) {
+              return;
+            }
+            createMenuItem(newSettings);
+          }
+        );
+      } else {
+        createMenuItem(newSettings);
       }
-
-      const oldVersion = (curSettings.installed_version || '').replace(
-        /\./g,
-        '',
-      );
-      const newVersion = BHelper.getVersion().replace(/\./g, '');
-
-      Log('version', BHelper.getVersion());
-      BHelper.settings.set({ installed_version: String(BHelper.getVersion()) });
-
-      if (!oldVersion || String(oldVersion) !== String(newVersion)) {
-        BHelper.settings.set({
-          need_update_banner: true,
-        });
-      }
-
-      // We create the context menu item
-      if (newSettings.share_item && newSettings.share_item.enabled) {
-        if (chrome.permissions) {
-          chrome.permissions.contains(
-            {
-              permissions: ['tabs'],
-            },
-            (hasTabs) => {
-              if (!hasTabs) {
-                return;
-              }
-              createMenuItem(newSettings);
-            },
-          );
-        } else {
-          createMenuItem(newSettings);
-        }
-      }
-    },
-  );
+    }
+  });
 });
 
 // Simple interface to get settings
@@ -227,15 +221,15 @@ Messages.on((message, sender, sendResponse) => {
       return false;
 
     case 'get_settings':
-      BHelper.settings.getAll(settings => sendResponse({ settings }));
+      BHelper.settings.getAll((settings) => sendResponse({ settings }));
       return true;
 
     case 'get':
-      BHelper.settings.get(message.key, val => sendResponse({ val }));
+      BHelper.settings.get(message.key, (val) => sendResponse({ val }));
       return true;
 
     case 'get_local':
-      BHelper.settings.get(message.key, val => sendResponse({ val }));
+      BHelper.settings.get(message.key, (val) => sendResponse({ val }));
       return true;
 
     default:
@@ -248,8 +242,7 @@ function addUrlsToCSP(headerValue, directive, ...values) {
     .split('; ')
     .map((line) => {
       const [directiveName, ...patterns] = line.split(' ');
-      const newPatterns =
-        directive === directiveName ? patterns.concat(values) : patterns;
+      const newPatterns = directive === directiveName ? patterns.concat(values) : patterns;
 
       return [directiveName, ...newPatterns].join(' ');
     })
@@ -280,7 +273,7 @@ chrome.permissions.contains(
                   'connect-src',
                   'https://*.tenor.com',
                   'https://*.giphy.com',
-                  'https://*.twimg.com',
+                  'https://*.twimg.com'
                 ),
               });
               return mod;
@@ -293,7 +286,7 @@ chrome.permissions.contains(
       {
         urls: ['https://tweetdeck.twitter.com/*'],
       },
-      ['responseHeaders', 'blocking'],
+      ['responseHeaders', 'blocking']
     );
-  },
+  }
 );

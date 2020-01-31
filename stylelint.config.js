@@ -1,8 +1,5 @@
 module.exports = {
-  extends: [
-    'stylelint-config-standard',
-    './node_modules/prettier-stylelint/config.js',
-  ],
+  extends: ['stylelint-config-standard', './node_modules/prettier-stylelint/config.js'],
   rules: {
     'property-no-unknown': null,
     'no-descending-specificity': null,

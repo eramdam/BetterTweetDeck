@@ -1,4 +1,4 @@
-export default function ($) {
+export default function($) {
   return {
     name: '500px',
     setting: '500px',

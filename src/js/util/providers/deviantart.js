@@ -1,6 +1,6 @@
 import qs from 'query-string';
 
-export default function ($) {
+export default function($) {
   return {
     name: 'DeviantArt',
     setting: 'deviantart',
@@ -8,9 +8,11 @@ export default function ($) {
     default: true,
     callback: (url) => {
       const sourceURL = url;
-      return fetch(`${$.getEnpointFor('deviantart')}${qs.stringify({
-        url: sourceURL,
-      })}`)
+      return fetch(
+        `${$.getEnpointFor('deviantart')}${qs.stringify({
+          url: sourceURL,
+        })}`
+      )
         .then($.statusAndJson)
         .then((data) => {
           const obj = {

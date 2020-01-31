@@ -26,7 +26,7 @@
     "update_emojis": "node tools/update_emojis.js",
     "prepush": "npm run lint",
     "bump-version": "node tools/bumpVersion.js",
-    "fix": "eslint --fix '**/*.{js,jsx}'"
+    "fix": "eslint --fix '**/*.{js,jsx}' && prettier --write '**/*.css'"
   },
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
   "dependencies": {

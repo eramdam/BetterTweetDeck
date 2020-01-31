@@ -1,8 +1,8 @@
-import * as secureDomify from '../secureDomify';
-import parseURL from '../parseUrl';
 import fetchPage from '../fetchPage';
+import parseURL from '../parseUrl';
+import * as secureDomify from '../secureDomify';
 
-export default function ($) {
+export default function($) {
   return {
     name: 'Twitch',
     setting: 'twitch_tv',
@@ -13,8 +13,7 @@ export default function ($) {
       const parsed = parseURL(url);
       const channel = parsed.segments[0];
 
-      const isBroadcast =
-        parsed.segments[1] && ['v', 'b'].includes(parsed.segments[1]);
+      const isBroadcast = parsed.segments[1] && ['v', 'b'].includes(parsed.segments[1]);
       const isClip = url.includes('clips.twitch.tv');
 
       if (isClip) {
@@ -24,25 +23,21 @@ export default function ($) {
           }
 
           const el = secureDomify.parse(data.target.response);
-          const tbUrl = secureDomify.getAttributeFromNode(
-            '[name="twitter:image"]',
-            el,
-            'content',
-          );
+          const tbUrl = secureDomify.getAttributeFromNode('[name="twitter:image"]', el, 'content');
           const embedURL = secureDomify.getAttributeFromNode(
             '[name="twitter:player"]',
             el,
-            'content',
+            'content'
           );
           const height = secureDomify.getAttributeFromNode(
             '[name="twitter:player:height"]',
             el,
-            'content',
+            'content'
           );
           const width = secureDomify.getAttributeFromNode(
             '[name="twitter:player:width"]',
             el,
-            'content',
+            'content'
           );
 
           return {
@@ -57,10 +52,14 @@ export default function ($) {
       if (isBroadcast) {
         const broadcastId = parsed.segments[1] + parsed.segments[2];
 
-        return fetch(`${$.getEnpointFor('twitch')}channels/${channel}/videos?broadcasts=true&client_id=${$.getKeyFor('twitch')}`)
+        return fetch(
+          `${$.getEnpointFor(
+            'twitch'
+          )}channels/${channel}/videos?broadcasts=true&client_id=${$.getKeyFor('twitch')}`
+        )
           .then($.statusAndJson)
           .then((data) => {
-            const finalVideo = data.videos.find(video => video._id === broadcastId);
+            const finalVideo = data.videos.find((video) => video._id === broadcastId);
 
             if (!finalVideo) {
               return null;
@@ -75,7 +74,9 @@ export default function ($) {
           });
       }
 
-      return fetch(`${$.getEnpointFor('twitch')}channels/${channel}?client_id=${$.getKeyFor('twitch')}`)
+      return fetch(
+        `${$.getEnpointFor('twitch')}channels/${channel}?client_id=${$.getKeyFor('twitch')}`
+      )
         .then($.statusAndJson)
         .then((data) => {
           return {

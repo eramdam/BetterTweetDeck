@@ -1,4 +1,4 @@
-export default function ($) {
+export default function($) {
   return {
     name: 'CloudApp',
     setting: 'cl_ly',

@@ -1,10 +1,10 @@
 import config from 'config';
 import reusePromise from 'reuse-promise';
 
-import { send as sendMessage } from './messaging';
-import Log from './logger';
-import * as Providers from './providers/index';
 import * as BHelper from './browserHelper';
+import Log from './logger';
+import { send as sendMessage } from './messaging';
+import * as Providers from './providers/index';
 
 const endpoints = {
   '500px': 'https://500px.com/oembed?format=json&url=',
@@ -48,7 +48,9 @@ export const getSafeURL = (url) => {
     url = `https:${url}`;
   }
 
-  return `https://images4-focus-opensocial.googleusercontent.com/gadgets/proxy?url=${encodeURIComponent(url)}&container=focus&resize_w=720&refresh=86400`;
+  return `https://images4-focus-opensocial.googleusercontent.com/gadgets/proxy?url=${encodeURIComponent(
+    url
+  )}&container=focus&resize_w=720&refresh=86400`;
 };
 
 /**
@@ -56,14 +58,14 @@ export const getSafeURL = (url) => {
  * @param  {String} service key of service from `endpoints` object
  * @return {String}         url to fetch
  */
-const getEnpointFor = service => endpoints[service];
+const getEnpointFor = (service) => endpoints[service];
 
 /**
  * Returns API key from config for a given servic3e
  * @param  {String} service Name of service
  * @return {String}         API key of service
  */
-const getKeyFor = service => config.Client.APIs[service];
+const getKeyFor = (service) => config.Client.APIs[service];
 
 /**
  * Function to use in promise that will return the json output of a request

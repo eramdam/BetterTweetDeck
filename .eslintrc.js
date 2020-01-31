@@ -6,6 +6,7 @@ module.exports = {
     node: true,
     jquery: true,
     browser: true,
+    es6: true,
   },
   parserOptions: {
     ecmaVersion: 2020,

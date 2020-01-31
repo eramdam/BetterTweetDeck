@@ -1,4 +1,4 @@
-export default function ($) {
+export default function($) {
   return {
     name: 'Instagram',
     setting: 'instagram',
@@ -20,7 +20,9 @@ export default function ($) {
           if (data.type === 'rich') {
             return {
               type: 'video',
-              thumbnail_url: $.getSafeURL(needNewThumbnail ? `${url}media/?size=t` : data.thumbnail_url),
+              thumbnail_url: $.getSafeURL(
+                needNewThumbnail ? `${url}media/?size=t` : data.thumbnail_url
+              ),
               html: `
               <div style="width: 100%; flex: 1; display: flex; align-items: center; justify-content: center;">
                 <div style="max-width: 450px; flex: 1; max-height: 100%;" btd-instagram-embed>
