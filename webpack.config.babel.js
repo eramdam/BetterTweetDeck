@@ -49,7 +49,6 @@ const cssLoaders = {
       loader: 'css-loader',
       options: {
         importLoaders: 1,
-        minimize: IS_PRODUCTION,
         sourceMap: !IS_PRODUCTION,
       },
     },
