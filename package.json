@@ -18,7 +18,7 @@
     "build": "cross-env NODE_ENV=development webpack --hide-modules --env.browser",
     "build:prod": "cross-env NODE_ENV=production webpack --hide-modules --env.browser",
     "run:firefox": "web-ext run -s dist",
-    "lint": "eslint {src,tools,config}/**/*.js webpack.config.js && stylelint src/**/*.css",
+    "lint": "eslint {src,tools,config}/**/*.js *.js",
     "test": "npm run lint",
     "release": "npm run build:prod -- chrome && npm run pack:chrome && npm run build:prod -- firefox && npm run pack:firefox",
     "pack:chrome": "cross-env NODE_ENV=development node tools/pack.js",
