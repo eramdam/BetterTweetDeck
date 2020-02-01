@@ -1,7 +1,7 @@
-import * as secureDomify from '../secureDomify';
 import fetchPage from '../fetchPage';
+import * as secureDomify from '../secureDomify';
 
-export default function ($) {
+export default function($) {
   return {
     name: 'Gyazo',
     setting: 'gyazo',
@@ -37,7 +37,7 @@ export default function ($) {
           const thumbnail = secureDomify.getAttributeFromNode(
             '[name="twitter:image"]',
             el,
-            'content',
+            'content'
           );
 
           return {

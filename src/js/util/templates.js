@@ -88,11 +88,7 @@ export const previewTemplate = ({
 }) => {
   const safeURL = mediaPreviewSrc;
 
-  if (
-    type === 'image' &&
-    !mediaPreviewSrc.includes('imgur.com') &&
-    mediaPreviewSrc
-  ) {
+  if (type === 'image' && !mediaPreviewSrc.includes('imgur.com') && mediaPreviewSrc) {
     const parsed = new URL(mediaPreviewSrc);
     mediaPreviewSrc = parsed.searchParams.get('url');
 
@@ -113,7 +109,7 @@ export const previewTemplate = ({
       thumbSizeClass: `media-size-${size || 'medium'}`,
       needsProvider: !['default', 'universal'].includes(provider),
       provider: (provider || '').toLowerCase(),
-    }),
+    })
   );
 };
 
@@ -139,7 +135,7 @@ export const modalTemplate = ({
       isVideo: type !== 'image',
       provider: (provider || '').toLowerCase(),
       hasGIFDownload,
-    }),
+    })
   );
 };
 
@@ -156,7 +152,7 @@ export const giphyBlock = ({ preview, url, source }) => {
       height: preview.height,
       url,
       source,
-    },
+    }
   );
 };
 

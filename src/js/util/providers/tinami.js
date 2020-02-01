@@ -1,6 +1,6 @@
 import convert from 'xml-js';
 
-export default function ($) {
+export default function($) {
   return {
     name: 'TINAMI',
     setting: 'tinami',
@@ -12,15 +12,16 @@ export default function ($) {
       if (url.includes('tinami.jp')) {
         imageId = parseInt(imageId, 36);
       }
-      return fetch($.getSafeURL(`${$.getEnpointFor('tinami')}cont_id=${imageId}&api_key=${$.getKeyFor('tinami')}`))
+      return fetch(
+        $.getSafeURL(
+          `${$.getEnpointFor('tinami')}cont_id=${imageId}&api_key=${$.getKeyFor('tinami')}`
+        )
+      )
         .then($.statusAndText)
-        .then(xml => convert.xml2js(xml, { compact: true }))
+        .then((xml) => convert.xml2js(xml, { compact: true }))
         .then((json) => {
           // Quit if there is non-public image or no image
-          if (
-            json.rsp._attributes.stat !== 'ok' ||
-            json.rsp.content._attributes.type === 'novel'
-          ) {
+          if (json.rsp._attributes.stat !== 'ok' || json.rsp.content._attributes.type === 'novel') {
             return undefined;
           }
 
@@ -29,10 +30,9 @@ export default function ($) {
             json.rsp.content.images.image[0] ||
             json.rsp.content.images.image;
 
-          const imgUrl = $.getSafeURL(image.url._text.replace(
-            'http://api.tinami.com/',
-            'https://www.tinami.com/api/',
-          ));
+          const imgUrl = $.getSafeURL(
+            image.url._text.replace('http://api.tinami.com/', 'https://www.tinami.com/api/')
+          );
 
           return Promise.resolve({
             type: 'image',

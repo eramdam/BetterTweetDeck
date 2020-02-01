@@ -14,15 +14,12 @@ function insertEmojiComposerButton() {
   <button class="js-add-emojis js-show-tip needsclick btn btn-on-blue full-width txt-left margin-b--12 padding-v--9" data-original-title="" tabindex=""> <i class="icon btd-emoji-icon"></i> <span class="js-add-image-button-label label padding-ls">Emojis</span> </button>`;
 
   if ($('.js-add-image-button')) {
-    $('.js-add-image-button')[0].insertAdjacentHTML(
-      'beforebegin',
-      emojiComposerButton,
-    );
+    $('.js-add-image-button')[0].insertAdjacentHTML('beforebegin', emojiComposerButton);
     $('.js-add-emojis')[0].insertAdjacentHTML(
       'afterend',
       `
       <span class="js-emoji-holder"></span>
-    `,
+    `
     );
   }
 }
@@ -46,12 +43,7 @@ function rebuildEmojiPicker() {
 export function registerEmojiPickerEventsHandlers() {
   // Click on button.
   document.body.addEventListener('click', (ev) => {
-    if (
-      !(
-        ev.target.closest('.js-add-emojis') ||
-        ev.target.matches('.js-add-emojis')
-      )
-    ) {
+    if (!(ev.target.closest('.js-add-emojis') || ev.target.matches('.js-add-emojis'))) {
       return;
     }
 
@@ -108,10 +100,7 @@ export function registerEmojiPickerEventsHandlers() {
   // Change preview of emoji on hover
   let timeoutId;
   document.body.addEventListener('mouseover', (ev) => {
-    if (
-      !ev.target.matches('.js-emoji-holder') &&
-      !ev.target.closest('.js-emoji-holder')
-    ) {
+    if (!ev.target.matches('.js-emoji-holder') && !ev.target.closest('.js-emoji-holder')) {
       return;
     }
 
@@ -134,12 +123,11 @@ export function registerEmojiPickerEventsHandlers() {
       return;
     }
 
-    const hasVariation =
-      emoji.getAttribute('data-btd-has-variation') === 'true';
+    const hasVariation = emoji.getAttribute('data-btd-has-variation') === 'true';
     const shortcode = emoji.getAttribute('data-btd-shortcode');
     const image = getEmojiElement(
       { s: [emoji.getAttribute('data-btd-shortcode')] },
-      hasVariation ? getSkinVariation() : undefined,
+      hasVariation ? getSkinVariation() : undefined
     );
 
     $('.emoji-popover .emoji-preview')[0].classList.add('-visible');
@@ -149,10 +137,7 @@ export function registerEmojiPickerEventsHandlers() {
 
   // Click on an emoji
   document.body.addEventListener('click', (ev) => {
-    if (
-      !ev.target.matches('.js-emoji-holder') &&
-      !ev.target.closest('.js-emoji-holder')
-    ) {
+    if (!ev.target.matches('.js-emoji-holder') && !ev.target.closest('.js-emoji-holder')) {
       return;
     }
 
@@ -168,11 +153,10 @@ export function registerEmojiPickerEventsHandlers() {
       return;
     }
 
-    const hasVariation =
-      emoji.getAttribute('data-btd-has-variation') === 'true';
+    const hasVariation = emoji.getAttribute('data-btd-has-variation') === 'true';
     const unified = getUnified(
       { s: [emoji.getAttribute('data-btd-shortcode')], hs: hasVariation },
-      getSkinVariation(),
+      getSkinVariation()
     );
 
     insertInsideComposer(unified);

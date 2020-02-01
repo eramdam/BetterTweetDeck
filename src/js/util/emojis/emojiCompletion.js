@@ -49,8 +49,8 @@ function updateEmojiDropdown(ev, items, skinVariation = '') {
 
     return `
   <li class="typeahead-item padding-am cf is-actionable ${
-  isSelected ? 's-selected' : ''
-}" data-btd-emoji-index="${index}">
+    isSelected ? 's-selected' : ''
+  }" data-btd-emoji-index="${index}">
     <p class="js-hashtag txt-ellipsis">
       <span class="btd-emoji">
       ${emoji.hs ? getImage(emoji, skinVariation) : getImage(emoji)}
@@ -72,10 +72,7 @@ function hideEmojiDropdown(event) {
 }
 
 function isEmojiDropdownOpened(event) {
-  return (
-    emojiDropdownItems.length > 0 &&
-    getEmojiTypeaheadHolder(event).style.display !== 'none'
-  );
+  return emojiDropdownItems.length > 0 && getEmojiTypeaheadHolder(event).style.display !== 'none';
 }
 
 function emojiMatcherOnInput(event) {
@@ -108,28 +105,21 @@ function moveSelection(event, offset) {
   emojiDropdownItemSelected = emojiDropdownItems[newSelectedIndex];
 
   const holder = getEmojiTypeaheadHolder(event);
-  holder
-    .querySelectorAll('li.typeahead-item')
-    .forEach(e => e.classList.remove('s-selected'));
-  holder
-    .querySelector(`li:nth-child(${newSelectedIndex + 1})`)
-    .classList.add('s-selected');
+  holder.querySelectorAll('li.typeahead-item').forEach((e) => e.classList.remove('s-selected'));
+  holder.querySelector(`li:nth-child(${newSelectedIndex + 1})`).classList.add('s-selected');
 }
 
 function selectTypeaheadEmoji(event, composeBoxNode) {
   const composeBox = composeBoxNode || event.target;
   const atCursor = valueAtCursor(composeBox);
   const toReplace = atCursor.value.match(colonRegex);
-  const unifiedEmoji = getUnified(
-    emojiDropdownItemSelected,
-    getSkinVariation(),
-  );
+  const unifiedEmoji = getUnified(emojiDropdownItemSelected, getSkinVariation());
 
   const newValue = replaceAt(
     composeBox.value,
     toReplace.index,
     toReplace[0],
-    getUnified(emojiDropdownItemSelected, getSkinVariation()),
+    getUnified(emojiDropdownItemSelected, getSkinVariation())
   );
 
   composeBox.value = newValue;
@@ -211,12 +201,8 @@ function setSelection(event, position) {
 
   emojiDropdownItemSelected = emojiDropdownItems[newSelectedIndex];
   const holder = getEmojiTypeaheadHolder(event);
-  holder
-    .querySelectorAll('li.typeahead-item')
-    .forEach(e => e.classList.remove('s-selected'));
-  holder
-    .querySelector(`li:nth-child(${newSelectedIndex + 1})`)
-    .classList.add('s-selected');
+  holder.querySelectorAll('li.typeahead-item').forEach((e) => e.classList.remove('s-selected'));
+  holder.querySelector(`li:nth-child(${newSelectedIndex + 1})`).classList.add('s-selected');
 }
 
 function eventInsideEmojiDropdown(event) {
@@ -261,8 +247,5 @@ export function insertEmojiCompletionDropdownHolder() {
     return;
   }
 
-  $('.lst.lst-modal.typeahead')[0].insertAdjacentElement(
-    'afterend',
-    dropdownHolder,
-  );
+  $('.lst.lst-modal.typeahead')[0].insertAdjacentElement('afterend', dropdownHolder);
 }

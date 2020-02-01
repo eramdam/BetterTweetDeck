@@ -1,4 +1,4 @@
-export default function ($) {
+export default function($) {
   return {
     name: 'CorkBoard',
     setting: 'i.ppn_pw',
@@ -18,7 +18,9 @@ export default function ($) {
             return undefined;
           }
 
-          const contentUrl = $.getSafeURL(`https://storage.arkjp.net/cc/img/${json.uid}/${json.img}`);
+          const contentUrl = $.getSafeURL(
+            `https://storage.arkjp.net/cc/img/${json.uid}/${json.img}`
+          );
           const thumbnailUrl = $.getSafeURL(`https://storage.arkjp.net/cc/thumb/${json.thum}`);
 
           switch (json.video) {

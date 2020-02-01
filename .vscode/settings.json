@@ -1,10 +1,7 @@
 {
-  "prettier.eslintIntegration": true,
   "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
   "editor.formatOnSaveTimeout": 5000,
-  "typescriptHero.imports.organizeOnSave": true,
-  "[css]": {
-    "editor.formatOnSave": false,
-    "editor.formatOnPaste": false
-  }
 }

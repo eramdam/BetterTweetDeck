@@ -1,6 +1,6 @@
 import * as secureDomify from '../secureDomify';
 
-export default function ($) {
+export default function($) {
   return {
     name: 'Nicoseiga',
     setting: 'nicoseiga_jp',

@@ -1,6 +1,6 @@
 import parseURL from '../parseUrl';
 
-export default function ($) {
+export default function($) {
   return {
     name: 'Dribbble',
     setting: 'dribbble',

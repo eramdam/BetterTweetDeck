@@ -1,3 +1,4 @@
+/* eslint-disable no-self-assign */
 import Clipboard from 'clipboard';
 import config from 'config';
 import FileSaver from 'file-saver';
@@ -74,10 +75,22 @@ const getMediaParts = (chirp, url) => {
     tweetId: chirp.retweetedStatus ? chirp.retweetedStatus.id : chirp.id,
     year: chirp.created.getFullYear(),
     month: (chirp.created.getMonth() + 1).toString().padStart(2, '0'),
-    day: chirp.created.getDate().toString().padStart(2, '0'),
-    hours: chirp.created.getHours().toString().padStart(2, '0'),
-    minutes: chirp.created.getMinutes().toString().padStart(2, '0'),
-    seconds: chirp.created.getSeconds().toString().padStart(2, '0'),
+    day: chirp.created
+      .getDate()
+      .toString()
+      .padStart(2, '0'),
+    hours: chirp.created
+      .getHours()
+      .toString()
+      .padStart(2, '0'),
+    minutes: chirp.created
+      .getMinutes()
+      .toString()
+      .padStart(2, '0'),
+    seconds: chirp.created
+      .getSeconds()
+      .toString()
+      .padStart(2, '0'),
   };
 };
 
@@ -121,22 +134,16 @@ const getChirpFromKey = (key, colKey) => {
       chirpsArray.push(column.detailViewComponent.mainChirp);
     }
 
-    if (
-      column.detailViewComponent.repliesTo &&
-      column.detailViewComponent.repliesTo.repliesTo
-    ) {
+    if (column.detailViewComponent.repliesTo && column.detailViewComponent.repliesTo.repliesTo) {
       chirpsArray.push(...column.detailViewComponent.repliesTo.repliesTo);
     }
 
-    if (
-      column.detailViewComponent.replies &&
-      column.detailViewComponent.replies.replies
-    ) {
+    if (column.detailViewComponent.replies && column.detailViewComponent.replies.replies) {
       chirpsArray.push(...column.detailViewComponent.replies.replies);
     }
   }
 
-  const chirp = chirpsArray.find(c => c.id === String(key));
+  const chirp = chirpsArray.find((c) => c.id === String(key));
 
   if (!chirp) {
     Log(`did not find chirp ${key} within ${colKey}`);
@@ -181,9 +188,10 @@ if (config.Client.debug) {
   window.BTD.debug = {
     getChirpFromElement,
     getChirpFromKey,
-    findMustache: content =>
-      Object.keys(TD.mustaches).filter(i =>
-        TD.mustaches[i].toLowerCase().includes(content.toLowerCase())),
+    findMustache: (content) =>
+      Object.keys(TD.mustaches).filter((i) =>
+        TD.mustaches[i].toLowerCase().includes(content.toLowerCase())
+      ),
   };
 }
 
@@ -219,13 +227,9 @@ const decorateChirp = (chirp) => {
 
 TD.services.TwitterStatus.prototype.getOGContext = function getOGContext() {
   const repliers = this.getReplyingToUsers() || [];
-  const replyingToThemselves =
-    this.user.screenName === this.inReplyToScreenName;
+  const replyingToThemselves = this.user.screenName === this.inReplyToScreenName;
 
-  if (
-    repliers.length === 0 ||
-    (replyingToThemselves && repliers.length === 1)
-  ) {
+  if (repliers.length === 0 || (replyingToThemselves && repliers.length === 1)) {
     return '';
   }
 
@@ -245,7 +249,7 @@ TD.services.TwitterStatus.prototype.getOGContext = function getOGContext() {
     });
 
   return filtered
-    .map(user => TD.ui.template.render('text/profile_link', { user }))
+    .map((user) => TD.ui.template.render('text/profile_link', { user }))
     .concat('')
     .join(' ');
 };
@@ -260,7 +264,7 @@ TD.mustaches['compose/compose_inline_reply.mustache'] = TD.mustaches[
   'compose/compose_inline_reply.mustache'
 ].replace(
   '</textarea> {{>',
-  '</textarea> <ul class="lst lst-modal typeahead btd-emoji-typeahead"></ul> {{>',
+  '</textarea> <ul class="lst lst-modal typeahead btd-emoji-typeahead"></ul> {{>'
 );
 
 // make it so we can use custom column header icons
@@ -270,21 +274,21 @@ TD.mustaches['column/column_header.mustache'] = TD.mustaches[
   '{{/withMarkAllRead}} {{^isTemporary}}',
   `{{/withMarkAllRead}} {{^isTemporary}}
         ${
-  SETTINGS.clear_column_action
-    ? `
+          SETTINGS.clear_column_action
+            ? `
           <a class="js-action-header-button column-header-link btd-clear-column-link" href="#" data-action="clear">
             <i class="icon icon-clear-timeline"></i>
           </a>`
-    : ''
-}
+            : ''
+        }
         ${
-  SETTINGS.collapse_columns
-    ? `
+          SETTINGS.collapse_columns
+            ? `
         <a class="js-action-header-button column-header-link btd-toggle-collapse-column-link" href="#" data-action="toggle-collapse-column">
           <i class="icon icon-minus"></i>
         </a>`
-    : ''
-}`,
+            : ''
+        }`
 );
 
 TD.old_mustaches = Object.assign({}, TD.mustaches);
@@ -307,8 +311,7 @@ TD.globalRenderOptions.btd = {
 };
 
 // Embed custom mustaches.
-TD.mustaches['btd/download_filename_format.mustache'] =
-  SETTINGS.download_filename_format;
+TD.mustaches['btd/download_filename_format.mustache'] = SETTINGS.download_filename_format;
 
 // Call the OG reply stuff
 if (SETTINGS.old_replies) {
@@ -317,44 +320,40 @@ if (SETTINGS.old_replies) {
     'status/tweet_single.mustache'
   ].replace(
     'lang="{{lang}}">{{{htmlText}}}</p>',
-    'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>',
+    'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>'
   );
   // In detailed tweets
   TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches[
     'status/tweet_detail.mustache'
   ].replace(
     'lang="{{lang}}">{{{htmlText}}}</p>',
-    'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>',
+    'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>'
   );
   // In quote tweets
   TD.mustaches['status/quoted_tweet.mustache'] = TD.mustaches[
     'status/quoted_tweet.mustache'
   ].replace(
     'with-linebreaks">{{{htmlText}}}',
-    'with-linebreaks">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}',
+    'with-linebreaks">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}'
   );
 }
 
 if (SETTINGS.css.og_dark_theme) {
   TD.mustaches['column.mustache'] = TD.mustaches['column.mustache'].replace(
     '<div class="js-column-holder column-holder">',
-    '<div class="js-column-holder column-holder {{#isTemporary}} is-inverted-dark {{/isTemporary}}">',
+    '<div class="js-column-holder column-holder {{#isTemporary}} is-inverted-dark {{/isTemporary}}">'
   );
 }
 
 // Re-add the RT/like indicator on detailed tweet
-TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches[
-  'status/tweet_detail.mustache'
-].replace(
+TD.mustaches['status/tweet_detail.mustache'] = TD.mustaches['status/tweet_detail.mustache'].replace(
   '</footer> {{/getMainTweet}}',
-  '</footer> {{/getMainTweet}} <i class="sprite tweet-dogear"></i>',
+  '</footer> {{/getMainTweet}} <i class="sprite tweet-dogear"></i>'
 );
 // Re-adds the RT/Like indicators on single tweets
-TD.mustaches['status/tweet_single.mustache'] = TD.mustaches[
-  'status/tweet_single.mustache'
-].replace(
+TD.mustaches['status/tweet_single.mustache'] = TD.mustaches['status/tweet_single.mustache'].replace(
   '{{>status/tweet_single_footer}} ',
-  '{{>status/tweet_single_footer}} <i class="sprite tweet-dogear"></i>',
+  '{{>status/tweet_single_footer}} <i class="sprite tweet-dogear"></i>'
 );
 
 if (SETTINGS.old_replies) {
@@ -362,7 +361,7 @@ if (SETTINGS.old_replies) {
     'status/tweet_detail.mustache'
   ].replace(
     'lang="{{lang}}">{{{htmlText}}}</p>',
-    'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>',
+    'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>'
   );
 }
 
@@ -371,17 +370,12 @@ if (SETTINGS.old_replies) {
     'status/quoted_tweet.mustache'
   ].replace(
     'with-linebreaks">{{{htmlText}}}',
-    'with-linebreaks">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}',
+    'with-linebreaks">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}'
   );
 }
 
 // Inject items into the interaction bar
-if (
-  SETTINGS.hotlink_item ||
-  SETTINGS.download_item ||
-  SETTINGS.block_item ||
-  SETTINGS.mute_item
-) {
+if (SETTINGS.hotlink_item || SETTINGS.download_item || SETTINGS.block_item || SETTINGS.mute_item) {
   TD.mustaches['status/tweet_single_actions.mustache'] = TD.mustaches[
     'status/tweet_single_actions.mustache'
   ].replace(
@@ -389,8 +383,8 @@ if (
     `{{_i}}Like{{/i}} </span> </a> </li>
            {{#tweet.entities.media.length}}
            ${
-  SETTINGS.hotlink_item
-    ? `
+             SETTINGS.hotlink_item
+               ? `
            <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--10 margin-l--1">
              <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
                data-btd-action="hotlink-media" rel="hotlink" title="Copy links to media"> 
@@ -398,11 +392,11 @@ if (
                <span class="is-vishidden"> {{_i}}Copy links to media{{/i}} </span>
              </a>
            </li>`
-    : ''
-}
+               : ''
+           }
            ${
-  SETTINGS.download_item
-    ? `
+             SETTINGS.download_item
+               ? `
            <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--10 margin-l--1">
              <a class="js-show-tip tweet-action btd-tweet-action position-rel" href="#" 
                data-btd-action="download-media" rel="download" title="Download media"> 
@@ -410,12 +404,12 @@ if (
                <span class="is-vishidden"> {{_i}}Download media{{/i}} </span>
              </a>
            </li>`
-    : ''
-}
+               : ''
+           }
            {{/tweet.entities.media.length}}
               ${
-  SETTINGS.mute_item
-    ? `
+                SETTINGS.mute_item
+                  ? `
               <li class="tweet-action-item btd-tweet-action-item pull-left margin-r--10 margin-l--1">
               <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
                 data-btd-action="mute-account" rel="action" title="Mute {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}"> 
@@ -424,8 +418,8 @@ if (
               </a>
             </li>
               `
-    : ''
-}
+                  : ''
+              }
 ${
   SETTINGS.block_item
     ? `
@@ -439,7 +433,7 @@ ${
               `
     : ''
 }
-           `,
+           `
   );
   TD.mustaches['status/tweet_detail_actions.mustache'] = TD.mustaches[
     'status/tweet_detail_actions.mustache'
@@ -449,8 +443,8 @@ ${
            {{#getMainTweet}}
            {{#entities.media.length}}
            ${
-  SETTINGS.hotlink_item
-    ? `
+             SETTINGS.hotlink_item
+               ? `
            <li class="tweet-detail-action-item btd-tweet-detail-action-item">
              <a class="js-show-tip tweet-detail-action btd-tweet-detail-action btd-clipboard position-rel" href="#"
                data-btd-action="hotlink-media" rel="hotlink" title="Copy links to media">
@@ -458,11 +452,11 @@ ${
                <span class="is-vishidden"> {{_i}}Copy links to media{{/i}} </span>
              </a>
            </li>`
-    : ''
-}
+               : ''
+           }
            ${
-  SETTINGS.download_item
-    ? `
+             SETTINGS.download_item
+               ? `
            <li class="tweet-detail-action-item btd-tweet-detail-action-item">
              <a class="js-show-tip tweet-detail-action btd-tweet-detail-action position-rel" href="#"
                data-btd-action="download-media" rel="download" title="Download media">
@@ -470,12 +464,12 @@ ${
                <span class="is-vishidden"> {{_i}}Download media{{/i}} </span>
              </a>
            </li>`
-    : ''
-}
+               : ''
+           }
            {{/entities.media.length}}
            ${
-  SETTINGS.mute_item
-    ? `
+             SETTINGS.mute_item
+               ? `
                                <li class="tweet-detail-action-item btd-tweet-detail-action-item">
                                  <a class="js-show-tip tweet-detail-action btd-tweet-detail-action btd-clipboard position-rel" href="#"
                                    data-btd-action="hotlink-media" rel="action" title="Mute {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}">
@@ -483,11 +477,11 @@ ${
                                    <span class="is-vishidden"> {{_i}}Mute {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}{{/i}} </span>
                                  </a>
                                </li>`
-    : ''
-}
+               : ''
+           }
                     ${
-  SETTINGS.block_item
-    ? `
+                      SETTINGS.block_item
+                        ? `
                                <li class="tweet-detail-action-item btd-tweet-detail-action-item">
                                  <a class="js-show-tip tweet-detail-action btd-tweet-detail-action btd-clipboard position-rel" href="#"
                                    data-btd-action="hotlink-media" rel="hotlink" title="Block {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}">
@@ -495,47 +489,45 @@ ${
                                    <span class="is-vishidden"> {{_i}}Block {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}{{/i}} </span>
                                  </a>
                                </li>`
-    : ''
-}
-           {{/getMainTweet}}`,
+                        : ''
+                    }
+           {{/getMainTweet}}`
   );
 }
 
 // Adds the edit, mute source and mure hashtag items
-TD.mustaches['menus/actions.mustache'] = TD.mustaches[
-  'menus/actions.mustache'
-].replace(
+TD.mustaches['menus/actions.mustache'] = TD.mustaches['menus/actions.mustache'].replace(
   '{{/isOwnChirp}} {{/chirp}} </ul>',
   `
       ${
-  SETTINGS.edit_item
-    ? `  
+        SETTINGS.edit_item
+          ? `  
         <li class="is-selectable">
           <a href="#" data-btd-action="edit-tweet">{{_i}}"Edit"{{/i}}</a>
         </li>
         `
-    : ''
-}
+          : ''
+      }
         {{/isOwnChirp}}
         ${
-  SETTINGS.mute_source
-    ? `<li class="is-selectable">
+          SETTINGS.mute_source
+            ? `<li class="is-selectable">
           <a href="#" data-btd-action="mute-source" data-btd-source="{{sourceNoHTML}}">Mute "{{sourceNoHTML}}"</a>
         </li>`
-    : ''
-}
+            : ''
+        }
         ${
-  SETTINGS.mute_hashtags
-    ? `{{#entities.hashtags}}
+          SETTINGS.mute_hashtags
+            ? `{{#entities.hashtags}}
           <li class="is-selectable">
             <a href="#" data-btd-action="mute-hashtag" data-btd-hashtag="{{text}}">Mute #{{text}}</a>
           </li>
         {{/entities.hashtags}}`
-    : ''
-}
+            : ''
+        }
       {{/chirp}}
       </ul>
-    `,
+    `
 );
 
 AdvancedMuteEngine();
@@ -630,17 +622,12 @@ const postMessagesListeners = {
 
 const followStatus = (client, targetUserId) => {
   return new Promise((resolve) => {
-    client.showFriendship(
-      client.oauth.account.state.userId,
-      targetUserId,
-      null,
-      (result) => {
-        return resolve({
-          id: client.oauth.account.state.userId,
-          following: result.relationship.target.followed_by,
-        });
-      },
-    );
+    client.showFriendship(client.oauth.account.state.userId, targetUserId, null, (result) => {
+      return resolve({
+        id: client.oauth.account.state.userId,
+        following: result.relationship.target.followed_by,
+      });
+    });
   });
 };
 
@@ -652,17 +639,15 @@ const checkBTDFollowing = () => {
   ) {
     const BTD_ID = '4664726178';
 
-    const followingPromises = TD.controller.clients
-      .getClientsByService('twitter')
-      .map((client) => {
-        return followStatus(client, BTD_ID);
-      });
+    const followingPromises = TD.controller.clients.getClientsByService('twitter').map((client) => {
+      return followStatus(client, BTD_ID);
+    });
 
     Promise.all(followingPromises).then((values) => {
       window.localStorage.setItem('btd_disable_prompt_follow_twitter', true);
       proxyEvent('showed_follow_banner');
 
-      const showBanner = values.every(user => user.following === false);
+      const showBanner = values.every((user) => user.following === false);
 
       if (!showBanner) {
         return;
@@ -672,8 +657,7 @@ const checkBTDFollowing = () => {
         {},
         {
           banner: {
-            text:
-              'Do you want to follow Better TweetDeck on Twitter for news, support and tips?',
+            text: 'Do you want to follow Better TweetDeck on Twitter for news, support and tips?',
             action: 'trigger-event',
             event: {
               type: 'openBtdProfile',
@@ -682,7 +666,7 @@ const checkBTDFollowing = () => {
             bg: '#3daafb',
             fg: '#07214c',
           },
-        },
+        }
       );
     });
   }
@@ -690,9 +674,7 @@ const checkBTDFollowing = () => {
 
 const currentProgressNotifications = {};
 const TDNotifications =
-  mR &&
-  mR.findModule('showNotification') &&
-  mR.findModule('showNotification')[0];
+  mR && mR.findModule('showNotification') && mR.findModule('showNotification')[0];
 
 window.addEventListener('message', (ev) => {
   const { origin, data } = ev;
@@ -700,16 +682,10 @@ window.addEventListener('message', (ev) => {
     return false;
   }
 
-  if (
-    TDNotifications &&
-    TDNotifications.showNotification &&
-    TDNotifications.updateNotification
-  ) {
+  if (TDNotifications && TDNotifications.showNotification && TDNotifications.updateNotification) {
     if (data.message && data.message === 'progress_gif') {
       if (!currentProgressNotifications[data.name]) {
-        currentProgressNotifications[
-          data.name
-        ] = TDNotifications.showNotification({
+        currentProgressNotifications[data.name] = TDNotifications.showNotification({
           timeoutDelayMs: 2000,
           message: `Converting to GIF... (${Number(data.progress * 100).toFixed(1)}%)`,
         });
@@ -739,11 +715,7 @@ window.addEventListener('message', (ev) => {
     }
   }
 
-  if (
-    !data.name ||
-    !data.name.startsWith('BTDC_') ||
-    !postMessagesListeners[data.name]
-  ) {
+  if (!data.name || !data.name.startsWith('BTDC_') || !postMessagesListeners[data.name]) {
     return false;
   }
 
@@ -761,13 +733,9 @@ const handleInsertedNode = (element) => {
 
   // If the target of the event contains mediatable then we are inside the media modal
   if (element.classList && element.classList.contains('js-mediatable')) {
-    const chirpKey = element
-      .querySelector('[data-key]')
-      .getAttribute('data-key');
+    const chirpKey = element.querySelector('[data-key]').getAttribute('data-key');
     const chirpKeyEl = document.querySelector(`[data-column] [data-key="${chirpKey}"]`);
-    const colKey =
-      chirpKeyEl &&
-      chirpKeyEl.closest('[data-column]').getAttribute('data-column');
+    const colKey = chirpKeyEl && chirpKeyEl.closest('[data-column]').getAttribute('data-column');
 
     if (!colKey) {
       return;
@@ -810,10 +778,11 @@ const closeCustomModal = () => {
   $('#open-modal').empty();
 };
 
-const generalMutationObserver = new MutationObserver(mutations =>
+const generalMutationObserver = new MutationObserver((mutations) =>
   mutations.forEach((mutation) => {
     [...mutation.addedNodes].forEach(handleInsertedNode);
-  }));
+  })
+);
 generalMutationObserver.observe(document, { subtree: true, childList: true });
 
 const handleGifClick = (ev) => {
@@ -837,7 +806,7 @@ const handleGifClick = (ev) => {
 
   video.name = TD.ui.template.render(
     'btd/download_filename_format',
-    getMediaParts(chirp, video.src.replace(/\.mp4$/, '.gif')),
+    getMediaParts(chirp, video.src.replace(/\.mp4$/, '.gif'))
   );
 
   proxyEvent('clickedOnGif', {
@@ -873,21 +842,6 @@ const getMediaFromChirp = (chirp) => {
   return urls;
 };
 
-const getContextFromChirp = (chirp) => {
-  const urls = [];
-
-  if (chirp.quotedTweet && !chirp.quotedTweetMissing) {
-    urls.push(...getContextFromChirp(chirp.quotedTweet));
-  }
-
-  urls.push(chirp.getChirpURL());
-  if (chirp.entities.media.length > 1) {
-    urls.push(...getMediaFromChirp(chirp).slice(1));
-  }
-
-  return urls;
-};
-
 // Disable eslint so that we can keep a copy of the clipboard around.
 // eslint-disable-next-line
 const clipboard = new Clipboard('.btd-clipboard', {
@@ -918,18 +872,14 @@ const getMediaUrlParts = (url) => {
 // control characters can't appear in tweets, so we can use them to pad strings out
 // source: https://shkspr.mobi/blog/2015/11/twitters-weird-control-character-handling/
 const loudencer = (str, start, end) => {
-  return (
-    str.slice(0, start) +
-    '\x07'.repeat(str.slice(start, end).length) +
-    str.slice(end)
-  );
+  return str.slice(0, start) + '\x07'.repeat(str.slice(start, end).length) + str.slice(end);
 };
 
 // TD Events
 $(document).on('dataColumns', (ev, data) => {
   const cols = data.columns
-    .filter(col => col.model.state.settings)
-    .map(col => ({
+    .filter((col) => col.model.state.settings)
+    .map((col) => ({
       id: col.model.privateState.key,
       mediaSize: col.model.state.settings.media_preview_size,
     }));
@@ -955,8 +905,10 @@ $(document).one('dataColumnsLoaded', () => {
 
   // We delete the callback for the timestamp task so the content script can do it itself
   if (SETTINGS.ts !== 'relative') {
-    const tasks = Object.keys(TD.controller.scheduler._tasks).map(key => TD.controller.scheduler._tasks[key]);
-    const refreshTimestampsTask = tasks.find(t => t.period === 1e3 * 30);
+    const tasks = Object.keys(TD.controller.scheduler._tasks).map(
+      (key) => TD.controller.scheduler._tasks[key]
+    );
+    const refreshTimestampsTask = tasks.find((t) => t.period === 1e3 * 30);
 
     if (refreshTimestampsTask) {
       TD.controller.scheduler.removePeriodicTask(refreshTimestampsTask.id);
@@ -964,9 +916,7 @@ $(document).one('dataColumnsLoaded', () => {
   }
 
   $('.js-column').each((i, el) => {
-    let size = TD.storage.columnController
-      .get($(el).data('column'))
-      .getMediaPreviewSize();
+    let size = TD.storage.columnController.get($(el).data('column')).getMediaPreviewSize();
 
     if (!size) {
       size = 'medium';
@@ -1059,7 +1009,7 @@ $(document).on(
       const markup = gifs.map(giphyBlock).join('');
       $('.btd-giphy-zone .giphy-content').html(markup);
     });
-  }, 500),
+  }, 500)
 );
 
 $(document).on('click', '.btd-giphy-close', closeGiphyZone);
@@ -1108,9 +1058,9 @@ $(document).on('uiFilesAdded', (ev, data) => {
     return;
   }
 
-  $('.btd-gif-source-indicator').html(`GIF via <span class="gif-provider ${data.source}"></span> ${
-    gifSourceMap[data.source]
-  }`);
+  $('.btd-gif-source-indicator').html(
+    `GIF via <span class="gif-provider ${data.source}"></span> ${gifSourceMap[data.source]}`
+  );
 });
 
 // Adds search column to the beginning instead of the end, and resets search input for convenience
@@ -1230,9 +1180,7 @@ $('body').on(
 
     const chirp = getChirpFromElement(ev.target);
 
-    const user = chirp.retweetedStatus
-      ? chirp.retweetedStatus.user
-      : chirp.user;
+    const user = chirp.retweetedStatus ? chirp.retweetedStatus.user : chirp.user;
 
     switch (SETTINGS.ctrl_changes_interactions.mode) {
       case 'prompt':
@@ -1245,7 +1193,7 @@ $('body').on(
         }
         break;
     }
-  },
+  }
 );
 
 ((originalColumn) => {
@@ -1280,10 +1228,7 @@ $('body').on(
 
           dataBoy[this._parent.model.privateState.apiid] = true;
           this._isCollapsed = true;
-          window.localStorage.setItem(
-            'btd_collapsed_columns',
-            JSON.stringify(dataBoy),
-          );
+          window.localStorage.setItem('btd_collapsed_columns', JSON.stringify(dataBoy));
         },
         uncollapse() {
           if (!SETTINGS.collapse_columns) {
@@ -1305,10 +1250,7 @@ $('body').on(
 
             delete dataBoy[this._parent.model.privateState.apiid];
             this._isCollapsed = false;
-            window.localStorage.setItem(
-              'btd_collapsed_columns',
-              JSON.stringify(dataBoy),
-            );
+            window.localStorage.setItem('btd_collapsed_columns', JSON.stringify(dataBoy));
             TD.controller.columnManager.showColumn(columnKey);
           }
         },
@@ -1335,20 +1277,16 @@ $('body').on('click', '#column-navigator .column-nav-item', (ev) => {
   TD.controller.columnManager.get(columnKey)._btd.uncollapse();
 });
 
-$('body').on(
-  'mousedown',
-  '.column-panel header.column-header .btd-clear-column-link',
-  (ev) => {
-    ev.preventDefault();
-    if (!SETTINGS.clear_column_action || ev.which !== 1) {
-      return;
-    }
+$('body').on('mousedown', '.column-panel header.column-header .btd-clear-column-link', (ev) => {
+  ev.preventDefault();
+  if (!SETTINGS.clear_column_action || ev.which !== 1) {
+    return;
+  }
 
-    const thisColumn = ev.target.closest('[data-column]');
-    const columnKey = thisColumn.getAttribute('data-column');
-    TD.controller.columnManager.get(columnKey).clear();
-  },
-);
+  const thisColumn = ev.target.closest('[data-column]');
+  const columnKey = thisColumn.getAttribute('data-column');
+  TD.controller.columnManager.get(columnKey).clear();
+});
 
 $('body').on(
   'mousedown',
@@ -1362,7 +1300,7 @@ $('body').on(
     const thisColumn = ev.target.closest('[data-column]');
     const columnKey = thisColumn.getAttribute('data-column');
     TD.controller.columnManager.get(columnKey)._btd.toggleCollapse();
-  },
+  }
 );
 
 $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
@@ -1372,14 +1310,11 @@ $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
 
   media.forEach((item) => {
     fetch(item)
-      .then(res => res.blob())
+      .then((res) => res.blob())
       .then((blob) => {
         FileSaver.saveAs(
           blob,
-          TD.ui.template.render(
-            'btd/download_filename_format',
-            getMediaParts(chirp, item),
-          ),
+          TD.ui.template.render('btd/download_filename_format', getMediaParts(chirp, item))
         );
       });
   });
@@ -1414,7 +1349,9 @@ $('body').on('click', '[data-btd-action="block-account"]', (ev) => {
 $('body').on('click', 'article video.js-media-gif', handleGifClick);
 
 $('body').on('click', '#open-modal', (ev) => {
-  const isMediaModal = document.querySelector('.js-modal-panel .js-media-preview-container, .js-modal-panel iframe, .js-modal-panel .btd-embed-container');
+  const isMediaModal = document.querySelector(
+    '.js-modal-panel .js-media-preview-container, .js-modal-panel iframe, .js-modal-panel .btd-embed-container'
+  );
 
   if (!SETTINGS.css.no_bg_modal || !isMediaModal) {
     return;
@@ -1446,12 +1383,7 @@ $('body').on('click', '[data-btd-action="edit-tweet"]', (ev) => {
   const composeData = {
     type: chirp.chirpType,
     text: chirp.text,
-    from: [
-      TD.storage.Account.generateKeyFor(
-        'twitter',
-        chirp.creatorAccount.getUserID(),
-      ),
-    ],
+    from: [TD.storage.Account.generateKeyFor('twitter', chirp.creatorAccount.getUserID())],
   };
 
   // @TODO: this doesn't work in DMs yet because DMs use attachments sometimes, i don't understand
@@ -1550,28 +1482,27 @@ $('body').on('click', '[data-btd-action="edit-tweet"]', (ev) => {
 
   // == re-upload all the files we had, if any
   if (media.length) {
-    Promise.all(media.map(item =>
-      fetch(item)
-        .then(res => res.blob())
-        .then((blob) => {
-          const url = getMediaUrlParts(item);
-          const options = {};
-          switch (url.originalExtension.toLowerCase()) {
-            case 'mp4':
-              options.type = 'video/mp4';
-              break;
-            case 'gif':
-              options.type = 'image/gif';
-              break;
-            default:
-              break;
-          }
-          return new File(
-            [blob],
-            `${url.originalFile}.${url.originalExtension}`,
-            options,
-          );
-        }))).then((gotFiles) => {
+    Promise.all(
+      media.map((item) =>
+        fetch(item)
+          .then((res) => res.blob())
+          .then((blob) => {
+            const url = getMediaUrlParts(item);
+            const options = {};
+            switch (url.originalExtension.toLowerCase()) {
+              case 'mp4':
+                options.type = 'video/mp4';
+                break;
+              case 'gif':
+                options.type = 'image/gif';
+                break;
+              default:
+                break;
+            }
+            return new File([blob], `${url.originalFile}.${url.originalExtension}`, options);
+          })
+      )
+    ).then((gotFiles) => {
       $(document).trigger('uiComposeFilesAdded', { files: gotFiles });
     });
   }
@@ -1624,12 +1555,12 @@ $('body').on(
       }
     },
   },
-  'section.column',
+  'section.column'
 );
 
 const defaultTitle = 'TweetDeck';
 const unreadTitle = '[*] TweetDeck';
-const countTitle = count => `[${count}] TweetDeck`;
+const countTitle = (count) => `[${count}] TweetDeck`;
 
 // This event triggers everytime the "read" change of a column changes in TweetDeck
 $(document).on('uiReadStateChange uiMessageUnreadCount', (ev, data) => {
@@ -1654,10 +1585,7 @@ $(document).on('uiReadStateChange uiMessageUnreadCount', (ev, data) => {
     document.title = unreadTitle;
   }
 
-  if (
-    document.title !== defaultTitle &&
-    $('.is-new, .js-unread-count.is-visible').length === 0
-  ) {
+  if (document.title !== defaultTitle && $('.is-new, .js-unread-count.is-visible').length === 0) {
     document.title = defaultTitle;
   }
 });
@@ -1671,13 +1599,9 @@ const isVisible = (elem) => {
   const boundRect = elem.getBoundingClientRect();
 
   // If a single top/bottom/left/right value is negative then the element is partially out of the window
-  const isCompletelyVisible = ['left', 'right', 'top', 'bottom'].every(i => boundRect[i] > 0);
+  const isCompletelyVisible = ['left', 'right', 'top', 'bottom'].every((i) => boundRect[i] > 0);
 
-  return (
-    style.display !== 'none' &&
-    style.visibility === 'visible' &&
-    isCompletelyVisible
-  );
+  return style.display !== 'none' && style.visibility === 'visible' && isCompletelyVisible;
 };
 
 $(window).on('focus', (ev) => {
@@ -1690,7 +1614,9 @@ $(window).on('focus', (ev) => {
   if (active && (active.tagName === 'TEXTAREA' || active.tagName === 'INPUT')) {
     return;
   }
-  const widget = [document.querySelector('textarea.compose-text')].find(elem => elem && isVisible(elem));
+  const widget = [document.querySelector('textarea.compose-text')].find(
+    (elem) => elem && isVisible(elem)
+  );
   if (widget) {
     widget.focus();
   }

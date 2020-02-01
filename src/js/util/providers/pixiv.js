@@ -1,6 +1,6 @@
 import * as secureDomify from '../secureDomify';
 
-export default function ($) {
+export default function($) {
   return {
     name: 'Pixiv',
     setting: 'pixiv_net',
@@ -15,7 +15,7 @@ export default function ($) {
           const imgUrl = secureDomify.getAttributeFromNode(
             'meta[data-property="twitter:image"], meta[data-property="og:image"]',
             doc,
-            'content',
+            'content'
           );
           if (imgUrl === null || imgUrl.includes('pixiv_logo')) {
             return undefined;

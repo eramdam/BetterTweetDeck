@@ -1,6 +1,6 @@
 import convert from 'xml-js';
 
-export default function ($) {
+export default function($) {
   return {
     name: 'Google+',
     setting: 'plus.google',
@@ -30,7 +30,7 @@ export default function ($) {
 
       return fetch($.getSafeURL(requestUrl))
         .then($.statusAndText)
-        .then(xml => convert.xml2js(xml, { compact: true }))
+        .then((xml) => convert.xml2js(xml, { compact: true }))
         .then((json) => {
           let thumbnailUrl;
           if (type === 'photo') {
@@ -39,9 +39,7 @@ export default function ($) {
               json.feed['media:group']['media:content'];
             thumbnailUrl = media._attributes.url;
           } else {
-            thumbnailUrl =
-              json.feed.entry[0]['media:group']['media:content']._attributes
-                .url;
+            thumbnailUrl = json.feed.entry[0]['media:group']['media:content']._attributes.url;
           }
           const imgUrl = thumbnailUrl.replace(/[^/]+$/, 's1152/$&');
           return {

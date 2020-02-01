@@ -26,8 +26,7 @@ const catNames = Object.keys(catOrder);
 
 export function findEmoji(query) {
   const filteredEmojis = emojis.filter((emoji) => {
-    return emoji.s.some(shortcode =>
-      new RegExp(`(?:_|)${query}(?:_|)`).exec(shortcode));
+    return emoji.s.some((shortcode) => new RegExp(`(?:_|)${query}(?:_|)`).exec(shortcode));
   });
 
   return sortBy(filteredEmojis, (emojiMatch) => {
@@ -35,7 +34,7 @@ export function findEmoji(query) {
       return -1;
     }
 
-    if (emojiMatch.s.some(shortcode => shortcode.startsWith(query))) {
+    if (emojiMatch.s.some((shortcode) => shortcode.startsWith(query))) {
       return 0;
     }
 
@@ -81,7 +80,7 @@ export function getImage(emoji, skinVariation = '') {
 
   return Emoji.replace_colons(`:${emoji.s[0]}:${skinVariation}`).replace(
     '/emoji-data/sheet_twitter_64.png',
-    emojiSheet,
+    emojiSheet
   );
 }
 
@@ -91,10 +90,7 @@ export function getEmojiElement(emoji, skinVariation = '') {
 
   return `<a href="#" title="${title.toLowerCase()}" data-btd-has-variation="${
     emoji.hs
-  }" data-btd-shortcode="${emoji.s[0]}" class="btd-emoji">${getImage(
-    emoji,
-    skinVariation,
-  )}</a>`;
+  }" data-btd-shortcode="${emoji.s[0]}" class="btd-emoji">${getImage(emoji, skinVariation)}</a>`;
 }
 
 export function getEmojiPickerMarkup(emojiContent) {
@@ -117,29 +113,29 @@ export function getEmojiPickerMarkup(emojiContent) {
         </div>
         <div class="category-chooser">
           <button title="${catNames[0]}" data-btd-emoji-cat="${
-  catNames[0]
-}" class="-active">${getImage({ s: ['ok_hand'] })}</button>
+    catNames[0]
+  }" class="-active">${getImage({ s: ['ok_hand'] })}</button>
           <button title="${catNames[1]}" data-btd-emoji-cat="${
-  catNames[1]
-}" class="-active">${getImage({ s: ['cat'] })}</button>
+    catNames[1]
+  }" class="-active">${getImage({ s: ['cat'] })}</button>
           <button title="${catNames[2]}" data-btd-emoji-cat="${
-  catNames[2]
-}" class="-active">${getImage({ s: ['pizza'] })}</button>
+    catNames[2]
+  }" class="-active">${getImage({ s: ['pizza'] })}</button>
           <button title="${catNames[3]}" data-btd-emoji-cat="${
-  catNames[3]
-}" class="-active">${getImage({ s: ['soccer'] })}</button>
+    catNames[3]
+  }" class="-active">${getImage({ s: ['soccer'] })}</button>
           <button title="${catNames[4]}" data-btd-emoji-cat="${
-  catNames[4]
-}" class="-active">${getImage({ s: ['rocket'] })}</button>
+    catNames[4]
+  }" class="-active">${getImage({ s: ['rocket'] })}</button>
           <button title="${catNames[5]}" data-btd-emoji-cat="${
-  catNames[5]
-}" class="-active">${getImage({ s: ['bulb'] })}</button>
+    catNames[5]
+  }" class="-active">${getImage({ s: ['bulb'] })}</button>
           <button title="${catNames[6]}" data-btd-emoji-cat="${
-  catNames[6]
-}" class="-active">${getImage({ s: ['100'] })}</button>
+    catNames[6]
+  }" class="-active">${getImage({ s: ['100'] })}</button>
           <button title="${catNames[7]}" data-btd-emoji-cat="${
-  catNames[7]
-}" class="-active">${getImage({ s: ['fr'] })}</button>
+    catNames[7]
+  }" class="-active">${getImage({ s: ['fr'] })}</button>
         </div>
       </div>
     </div>
@@ -176,9 +172,8 @@ export function getEmojiListMarkup(query) {
     return `
       <div class="emoji-category">
       ${emojiMatches
-    .map(emoji =>
-      getEmojiElement(emoji, emoji.hs ? skinVariation : undefined))
-    .join('')}
+        .map((emoji) => getEmojiElement(emoji, emoji.hs ? skinVariation : undefined))
+        .join('')}
       </div>
     `;
   }
@@ -191,12 +186,11 @@ export function getEmojiListMarkup(query) {
     <div class="emoji-category" data-btd-emoji-cat="${cat}">
     `;
 
-    emojis.filter(emoji => emoji.cat === cat).forEach((emoji) => {
-      defaultEmojiContent += getEmojiElement(
-        emoji,
-        emoji.hs ? getSkinVariation() : undefined,
-      );
-    });
+    emojis
+      .filter((emoji) => emoji.cat === cat)
+      .forEach((emoji) => {
+        defaultEmojiContent += getEmojiElement(emoji, emoji.hs ? getSkinVariation() : undefined);
+      });
 
     defaultEmojiContent += '</div>';
   });

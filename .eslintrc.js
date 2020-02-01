@@ -6,6 +6,11 @@ module.exports = {
     node: true,
     jquery: true,
     browser: true,
+    es6: true,
+  },
+  parserOptions: {
+    ecmaVersion: 2020,
+    sourceType: 'module',
   },
   globals: {
     chrome: false,
@@ -14,8 +19,12 @@ module.exports = {
     BTD: false,
     Hogan: false,
   },
-  extends: 'airbnb-base',
+  plugins: ['unused-imports', 'simple-import-sort'],
+  extends: ['eslint:recommended', 'plugin:prettier/recommended'],
   rules: {
+    'simple-import-sort/sort': 2,
+    'unused-imports/no-unused-imports': 2,
+    'prettier/prettier': 'error',
     'import/first': 0,
     'import/prefer-default-export': 0,
     'import/no-dynamic-require': 0,

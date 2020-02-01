@@ -1,15 +1,17 @@
-import config from 'config';
-import * as ace from 'brace';
 import 'brace/mode/css';
 import 'brace/theme/solarized_light';
-import { createApolloFetch } from 'apollo-fetch';
-import $ from 'jquery';
-import { isBoolean, forEach, isObject, isString } from 'lodash';
-import Prism from 'prismjs';
-import marked from 'marked';
-import queryString from 'query-string';
-import fecha from 'fecha';
 import '../css/options/index.css';
+
+import { createApolloFetch } from 'apollo-fetch';
+import * as ace from 'brace';
+import config from 'config';
+import fecha from 'fecha';
+import $ from 'jquery';
+import { forEach, isBoolean, isObject, isString } from 'lodash';
+import marked from 'marked';
+import Prism from 'prismjs';
+import queryString from 'query-string';
+
 import * as BHelper from '../js/util/browserHelper';
 import { schemeWhitelist } from '../js/util/thumbnails';
 
@@ -58,7 +60,7 @@ githubApolloFetch.use(({ options }, next) => {
 });
 
 if (config.Client.debug) {
-  window._BTDSetSettings = obj => BHelper.settings.set(obj);
+  window._BTDSetSettings = (obj) => BHelper.settings.set(obj);
 }
 
 if (BHelper.isFirefox) {
@@ -195,42 +197,41 @@ BHelper.settings.getAll((settings) => {
 
         if (key === 'flash_tweets') {
           if (settings.flash_tweets) {
-            $('input[name="flash_tweets.enabled"]').prop(
-              'checked',
-              settings.flash_tweets.enabled,
-            );
+            $('input[name="flash_tweets.enabled"]').prop('checked', settings.flash_tweets.enabled);
             $('input[name="flash_tweets.enabled"] ~ ul input').removeAttr('disabled');
           }
 
           $('input[name="flash_tweets.mode"]').removeAttr('checked');
-          $('input[name="flash_tweets.mode"]').prop(
-            'disabled',
-            !settings.flash_tweets.enabled,
+          $('input[name="flash_tweets.mode"]').prop('disabled', !settings.flash_tweets.enabled);
+          $(`input[name="flash_tweets.mode"]#${settings.flash_tweets.mode}`).prop(
+            'checked',
+            settings.flash_tweets.enabled && true
           );
-          $(`input[name="flash_tweets.mode"]#${settings.flash_tweets.mode}`).prop('checked', settings.flash_tweets.enabled && true);
         }
 
         if (key === 'ctrl_changes_interactions') {
           if (settings.ctrl_changes_interactions.enabled) {
             $('input[name="ctrl_changes_interactions.enabled"]').prop(
               'checked',
-              settings.ctrl_changes_interactions.enabled,
+              settings.ctrl_changes_interactions.enabled
             );
             $('input[name="ctrl_changes_interactions.enabled"] ~ select').removeAttr('disabled');
           }
 
           $('select[name="ctrl_changes_interactions.mode"]').prop(
             'disabled',
-            !settings.ctrl_changes_interactions.enabled,
+            !settings.ctrl_changes_interactions.enabled
           );
-          $('select[name="ctrl_changes_interactions.mode"]').val(settings.ctrl_changes_interactions.mode);
+          $('select[name="ctrl_changes_interactions.mode"]').val(
+            settings.ctrl_changes_interactions.mode
+          );
         }
 
         if (key === 'custom_columns_width') {
           if (settings.custom_columns_width) {
             $('input[name="custom_columns_width.enabled"]').prop(
               'checked',
-              settings.custom_columns_width.enabled,
+              settings.custom_columns_width.enabled
             );
             $('input[name="custom_columns_width.enabled"] ~ ul input').removeAttr('disabled');
           }
@@ -238,11 +239,11 @@ BHelper.settings.getAll((settings) => {
           $('input[name="custom_columns_width.size"]').removeAttr('checked');
           $('input[name="custom_columns_width.size"]').prop(
             'disabled',
-            !settings.custom_columns_width.enabled,
+            !settings.custom_columns_width.enabled
           );
           $('input[name="custom_columns_width.size"]').prop(
             'value',
-            settings.custom_columns_width.size,
+            settings.custom_columns_width.size
           );
         }
       });
@@ -273,9 +274,9 @@ BHelper.settings.getAll((settings) => {
 
     $('.settings-thumbnails-providers-list').append(`
       <li>
-        <input type="checkbox" name="thumbnails.${scheme.setting}" id="${
-  scheme.setting
-}" ${isEnabled ? 'checked' : ''}>
+        <input type="checkbox" name="thumbnails.${scheme.setting}" id="${scheme.setting}" ${
+      isEnabled ? 'checked' : ''
+    }>
         <img src="${getFaviconURL(scheme)}" class="favicon-icon" />
         <label for="${scheme.setting}">${scheme.name}</label>
       </li>
@@ -305,9 +306,9 @@ BHelper.settings.getAll((settings) => {
     }
 
     if (e.target.type === 'checkbox' && e.target.hasAttribute('data-ghost')) {
-      const els = $(`[data-ghost][name="${e.target.name}"] ~ ul input, [data-ghost][name="${
-        e.target.name
-      }"] ~ select`);
+      const els = $(
+        `[data-ghost][name="${e.target.name}"] ~ ul input, [data-ghost][name="${e.target.name}"] ~ select`
+      );
 
       if (e.target.checked) {
         els.removeAttr('disabled');
@@ -341,7 +342,7 @@ BHelper.settings.getAll((settings) => {
 
   const changeCssEditor = () => {
     const annotations = CSS_EDITOR.getSession().getAnnotations();
-    const hasErrors = annotations.find(a => a.type === 'error');
+    const hasErrors = annotations.find((a) => a.type === 'error');
     const saveBtn = $('.save-button');
     saveBtn.text(chrome.i18n.getMessage('save_save'));
 
@@ -360,10 +361,7 @@ BHelper.settings.getAll((settings) => {
 
     $('input[name],select[name]').each((i, el) => {
       const input = el;
-      const type =
-        input.nodeName === 'SELECT'
-          ? null
-          : input.getAttribute('type').toLowerCase();
+      const type = input.nodeName === 'SELECT' ? null : input.getAttribute('type').toLowerCase();
       const name = input.getAttribute('name');
       const nameArr = name.split('.');
       const isChecked = $(el).is(':checked');
@@ -377,11 +375,7 @@ BHelper.settings.getAll((settings) => {
           newSettings[nameArr[0]][nameArr[1]] = input.getAttribute('id');
         } else if (type === 'checkbox') {
           newSettings[nameArr[0]][nameArr[1]] = isChecked;
-        } else if (
-          type === 'text' ||
-          type === 'number' ||
-          input.nodeName === 'SELECT'
-        ) {
+        } else if (type === 'text' || type === 'number' || input.nodeName === 'SELECT') {
           newSettings[nameArr[0]][nameArr[1]] = input.value;
         }
       } else if (type === 'radio' && isChecked) {
@@ -409,7 +403,7 @@ BHelper.settings.get(
     CSS_EDITOR.clearSelection();
     $('.save-button').attr('disabled', '');
   },
-  true,
+  true
 );
 
 if (chrome.permissions) {
@@ -419,13 +413,12 @@ if (chrome.permissions) {
     },
     (hasTabs) => {
       if (!hasTabs) {
-        $('[data-require-permission] input').each((i, el) =>
-          $(el).prop('disabled', true));
+        $('[data-require-permission] input').each((i, el) => $(el).prop('disabled', true));
       } else {
         $('[data-ask-permissions]').prop('disabled', true);
         $('[data-ask-permissions]').text(BHelper.getMessage('share_granted'));
       }
-    },
+    }
   );
 
   $('[data-ask-permissions]').on('click', (ev) => {
@@ -436,12 +429,11 @@ if (chrome.permissions) {
       },
       (granted) => {
         if (granted) {
-          $('[data-require-permission] input').each((i, el) =>
-            $(el).prop('disabled', false));
+          $('[data-require-permission] input').each((i, el) => $(el).prop('disabled', false));
           $(ev.target).prop('disabled', true);
           $(ev.target).text(BHelper.getMessage('share_granted'));
         }
-      },
+      }
     );
   });
 }
@@ -450,8 +442,7 @@ if (chrome.permissions) {
 $('.sidebar-nav:first-child a:first-child, .content-block:first-child').addClass('-selected');
 
 // Automatically add target=_blank on external links
-$('.sidebar-nav a:not([href^="#"])').each((i, el) =>
-  el.setAttribute('target', '_blank'));
+$('.sidebar-nav a:not([href^="#"])').each((i, el) => el.setAttribute('target', '_blank'));
 
 // "Animation" logic
 $('.sidebar-nav a[href^="#"]').on('click', (ev) => {
@@ -508,9 +499,9 @@ if (Object.keys(queryString.parse(window.location.search)).length > 0) {
   }
 
   const navItemsHrefs = [...$('.nav-flex .nav-item')]
-    .map(i => i.getAttribute('href'))
-    .filter(i => i.startsWith('#'))
-    .map(i => i.slice(1));
+    .map((i) => i.getAttribute('href'))
+    .filter((i) => i.startsWith('#'))
+    .map((i) => i.slice(1));
 
   if (navItemsHrefs.includes(QS.on)) {
     switchSettingPage(QS.on);
@@ -536,18 +527,12 @@ fetch('https://api.github.com/repos/eramdam/BetterTweetDeck/contributors').then(
         return;
       }
 
-      const commitsLinks = `https://github.com/eramdam/BetterTweetDeck/commits?author=${
-        contributor.login
-      }`;
+      const commitsLinks = `https://github.com/eramdam/BetterTweetDeck/commits?author=${contributor.login}`;
 
       $('.settings-contributors').append(`
         <li>
-          <a href="${contributor.html_url}" target="_blank">${
-  contributor.login
-}</a>
-          <small><a href="${commitsLinks}" target="_blank">${
-  contributor.contributions
-} commit(s)</a></small>
+          <a href="${contributor.html_url}" target="_blank">${contributor.login}</a>
+          <small><a href="${commitsLinks}" target="_blank">${contributor.contributions} commit(s)</a></small>
         </li>
       `);
     });
@@ -560,21 +545,17 @@ const makeReleaseMarkup = (release) => {
   const string = release.description
     .replace(
       GITHUB_ISSUES_RE,
-      '$1<a href="https://github.com/eramdam/BetterTweetDeck/issues/$2">#$2</a>$3',
+      '$1<a href="https://github.com/eramdam/BetterTweetDeck/issues/$2">#$2</a>$3'
     )
-    .replace(
-      GITHUB_USERNAME_RE,
-      '$1<a class="test" href="https://github.com/$2">@$2</a>$3',
-    );
+    .replace(GITHUB_USERNAME_RE, '$1<a class="test" href="https://github.com/$2">@$2</a>$3');
 
   return marked(string);
 };
 
 githubApolloFetch({ query: GITHUB_RELEASES_QUERY })
   .then(({ data }) =>
-    data.viewer.repository.releases.edges
-      .filter(e => !e.node.isDraft)
-      .map(e => e.node))
+    data.viewer.repository.releases.edges.filter((e) => !e.node.isDraft).map((e) => e.node)
+  )
   .then((releases) => {
     const changelogMarkup = releases
       .map((release, index) => {

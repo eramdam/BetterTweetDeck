@@ -1,4 +1,5 @@
 import fecha from 'fecha';
+
 import { send as sendMessage } from './messaging';
 
 let timestampMode;

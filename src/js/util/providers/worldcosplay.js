@@ -1,6 +1,6 @@
 import * as secureDomify from '../secureDomify';
 
-export default function ($) {
+export default function($) {
   return {
     name: 'WorldCosplay',
     setting: 'worldcosplay_net',
@@ -18,15 +18,11 @@ export default function ($) {
           let imgUrl;
           let thumbnailUrl;
           if (type === 'photo') {
-            imgUrl = secureDomify.getAttributeFromNode(
-              '.photo img',
-              doc,
-              'src',
-            );
+            imgUrl = secureDomify.getAttributeFromNode('.photo img', doc, 'src');
             thumbnailUrl = secureDomify.getAttributeFromNode(
               '#photoPage',
               doc,
-              'data-thumbnail-url',
+              'data-thumbnail-url'
             );
           } else if (type === 'instants') {
             imgUrl = secureDomify.getAttributeFromNode('img.photo', doc, 'src');
@@ -35,7 +31,7 @@ export default function ($) {
             imgUrl = secureDomify.getAttributeFromNode(
               '.photo-collection',
               doc,
-              'data-cover-photo-url',
+              'data-cover-photo-url'
             );
             thumbnailUrl = imgUrl;
           } else {

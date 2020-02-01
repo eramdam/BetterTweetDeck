@@ -1,4 +1,4 @@
-export default function ($) {
+export default function($) {
   return {
     name: 'Youtube',
     setting: 'youtu_be',
