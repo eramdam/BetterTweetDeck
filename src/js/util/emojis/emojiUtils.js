@@ -9,7 +9,7 @@ const Emoji = new jsEmoji.EmojiConvertor();
 const emojiSheet = getExtensionUrl('emojis/sheet_twitter_64.png');
 Emoji.img_set = 'twitter';
 
-export const colonRegex = /:([a-z0-9_\-+]+):?:?([a-z0-9_-]+)?:?$/;
+export const colonRegex = /:([a-z0-9_\-+]+):?:?([a-z0-9_-]+)?:?$/i;
 
 const catOrder = {
   'Smileys & People': -80,
@@ -25,6 +25,8 @@ const catOrder = {
 const catNames = Object.keys(catOrder);
 
 export function findEmoji(query) {
+  query = query.toLowerCase();
+
   const filteredEmojis = emojis.filter((emoji) => {
     return emoji.s.some((shortcode) => new RegExp(`(?:_|)${query}(?:_|)`).exec(shortcode));
   });
