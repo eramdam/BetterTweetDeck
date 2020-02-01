@@ -1,9 +1,10 @@
-import 'brace/mode/css';
-import 'brace/theme/solarized_light';
+const ace = require('brace');
+require('brace/mode/css');
+require('brace/theme/solarized_light');
+
 import '../css/options/index.css';
 
 import { createApolloFetch } from 'apollo-fetch';
-import * as ace from 'brace';
 import config from 'config';
 import fecha from 'fecha';
 import $ from 'jquery';
