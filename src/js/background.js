@@ -237,18 +237,6 @@ Messages.on((message, sender, sendResponse) => {
   }
 });
 
-function addUrlsToCSP(headerValue, directive, ...values) {
-  return String(headerValue)
-    .split('; ')
-    .map((line) => {
-      const [directiveName, ...patterns] = line.split(' ');
-      const newPatterns = directive === directiveName ? patterns.concat(values) : patterns;
-
-      return [directiveName, ...newPatterns].join(' ');
-    })
-    .join('; ');
-}
-
 chrome.permissions.contains(
   {
     permissions: ['webRequest', 'webRequestBlocking'],
@@ -265,22 +253,15 @@ chrome.permissions.contains(
         }
 
         return {
-          responseHeaders: Array.from(details.responseHeaders).map((h) => {
-            if (h.name && h.name === 'content-security-policy') {
-              const mod = Object.assign(h, {
-                value: addUrlsToCSP(
-                  h.value,
-                  'connect-src',
-                  'https://*.tenor.com',
-                  'https://*.giphy.com',
-                  'https://*.twimg.com'
-                ),
-              });
-              return mod;
-            }
+          responseHeaders: Array.from(details.responseHeaders)
+            .map((h) => {
+              if (h.name && h.name === 'content-security-policy') {
+                return null;
+              }
 
-            return h;
-          }),
+              return h;
+            })
+            .filter((i) => !!i),
         };
       },
       {
