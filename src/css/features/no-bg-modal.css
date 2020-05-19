@@ -1,22 +1,52 @@
-.btd__no_bg_modal {
-  .overlay,
-  .ovl {
-    background: rgba(0, 0, 0, 0.8) !important;
+html.btd-on {
+  .btd__no_bg_modal {
+    .med-fullpanel {
+      box-shadow: none;
+      background: transparent;
+    }
   }
 
-  .js-modal-panel.mdl.s-full.med-fullpanel {
+  .btd__no_bg_modal :matches(.mdl-media-prev, .mdl-media-next) {
     background: transparent;
-    pointer-events: none;
-    box-shadow: none;
+    z-index: 10;
+
+    .icon {
+      background: color(#151515 a(60%));
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      margin-left: -21px;
+      margin-top: -21px;
+    }
+
+    .icon::before {
+      position: absolute;
+      left: 45%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 
-  .js-mediatable .js-modal-panel .med-embeditem {
-    top: 0;
-    bottom: 0;
+  .btd__no_bg_modal
+  :matches(.mdl-btn-media, .is-inverted-light .mdl-btn-media) {
+    opacity: 1;
   }
 
-  .js-mediatable .js-modal-panel .js-mediaembed,
-  .mdl-btn-media {
-    pointer-events: all;
+  .btd__no_bg_modal .media-img {
+    max-width: 100% !important;
+  }
+
+  .btd__no_bg_modal .med-embeditem {
+    left: 50%;
+    transform: translate(-50%, 0);
+    overflow: hidden;
+  }
+
+  .btd__no_bg_modal .med-tray {
+    z-index: 9;
+  }
+
+  .btd__no_bg_modal :matches(.ovl, .overlay) {
+    background: color(black a(80%));
   }
 }
