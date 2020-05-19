@@ -1,7 +1,6 @@
 import config from 'config';
 import reusePromise from 'reuse-promise';
 
-import * as BHelper from './browserHelper';
 import Log from './logger';
 import { send as sendMessage } from './messaging';
 import * as Providers from './providers/index';
@@ -14,7 +13,6 @@ const endpoints = {
   dribbble: 'https://api.dribbble.com/v1/shots/',
   noembed: 'https://noembed.com/embed?nowrap=on&url=',
   imgur: 'https://api.imgur.com/3/',
-  instagram: 'https://api.instagram.com/oembed?omitscript=true&url=',
   twitch: 'https://api.twitch.tv/kraken/',
   giphy: 'https://giphy.com/services/oembed?url=',
   tinami: 'https://www.tinami.com/api/content/info?',
@@ -172,10 +170,6 @@ export const schemeWhitelist = [
   Providers.yfrog(util),
   Providers.universal(util),
 ];
-
-if (!BHelper.isFirefox) {
-  schemeWhitelist.push(Providers.instagram(util));
-}
 
 export const validateUrl = (url) => {
   let provider = '';

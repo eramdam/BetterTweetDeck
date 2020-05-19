@@ -53,7 +53,6 @@ const common = {
     chrome_style: false,
   },
   web_accessible_resources: [
-    'embeds.js',
     'revert-dark-theme.css',
     'emojis/sheet_twitter_64.png',
     'fonts/*.*',

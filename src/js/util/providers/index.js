@@ -9,7 +9,6 @@ export { default as flickr } from './flickr';
 export { default as gfycat } from './gfycat';
 export { default as imgur } from './imgur';
 export { default as giphy } from './giphy';
-export { default as instagram } from './instagram';
 export { default as mixcloud } from './mixcloud';
 export { default as mobyTo } from './moby_to';
 export { default as skitch } from './skitch';

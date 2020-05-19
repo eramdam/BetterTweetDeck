@@ -39,10 +39,6 @@ sendMessage({ action: 'get_settings' }, (response) => {
   SETTINGS = response.settings;
   const scripts = [BHelper.getExtensionUrl('js/inject.js')];
 
-  if (!BHelper.isFirefox) {
-    scripts.push(BHelper.getExtensionUrl('embeds.js'));
-  }
-
   scripts.forEach((src) => {
     const el = document.createElement('script');
     el.src = src;
@@ -737,10 +733,6 @@ onEvent('BTDC_gotMediaGalleryChirpHTML', (ev, data) => {
   openModal.style.display = 'block';
   openModal.querySelector('img, iframe').onload = (e) =>
     e.target.setAttribute('data-btd-loaded', 'true');
-
-  if ($('[data-instgrm-version]', openModal)) {
-    sendEvent('renderInstagramEmbed');
-  }
 
   if ($('[rel="favorite"]', openModal)) {
     $('[rel="favorite"]', openModal)[0].addEventListener('click', () => {

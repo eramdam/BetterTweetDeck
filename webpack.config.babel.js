@@ -65,12 +65,6 @@ module.exports = (env) => {
     Possible values: chrome, firefox`);
   }
 
-  if (env.browser !== 'firefox') {
-    staticFiles.push({
-      from: '../tools/embeds.js',
-    });
-  }
-
   const staticFilesPath = staticFiles.map((i) =>
     Object.assign(i, {
       context: './src/',
