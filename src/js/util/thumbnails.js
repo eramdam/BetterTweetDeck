@@ -143,7 +143,6 @@ export const schemeWhitelist = [
   Providers.miil(util),
   Providers.mixcloud(util),
   Providers.mltshp(util),
-  Providers.mobyTo(util),
   Providers.nicoseiga(util),
   Providers.nicovideo(util),
   Providers.photozou(util),
