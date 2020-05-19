@@ -8,7 +8,6 @@ import * as Providers from './providers/index';
 const endpoints = {
   audiomack: 'https://audiomack.com/oembed?url=',
   dailymotion: 'https://api.dailymotion.com/video/',
-  deviantart: 'https://backend.deviantart.com/oembed?',
   noembed: 'https://noembed.com/embed?nowrap=on&url=',
   imgur: 'https://api.imgur.com/3/',
   twitch: 'https://api.twitch.tv/kraken/',
@@ -135,7 +134,6 @@ export const schemeWhitelist = [
   Providers.cloudapp(util),
   Providers.corkboard(util),
   Providers.dailymotion(util),
-  Providers.deviantart(util),
   Providers.droplr(util),
   Providers.flickr(util),
   Providers.gyazo(util),
@@ -161,7 +159,6 @@ export const schemeWhitelist = [
   Providers.vimeo(util),
   Providers.worldcosplay(util),
   Providers.youtube(util),
-  Providers.yfrog(util),
   Providers.universal(util),
 ];
 

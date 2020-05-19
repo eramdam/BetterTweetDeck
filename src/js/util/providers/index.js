@@ -1,7 +1,6 @@
 export { default as bandcamp } from './bandcamp';
 export { default as cloudapp } from './cloudapp';
 export { default as dailymotion } from './dailymotion';
-export { default as deviantart } from './deviantart';
 export { default as droplr } from './droplr';
 export { default as flickr } from './flickr';
 export { default as gfycat } from './gfycat';
@@ -18,7 +17,6 @@ export { default as tumblr } from './tumblr';
 export { default as twitch } from './twitch';
 export { default as universal } from './universal';
 export { default as vimeo } from './vimeo';
-export { default as yfrog } from './yfrog';
 export { default as youtube } from './youtu_be';
 export { default as tinami } from './tinami';
 export { default as nicoseiga } from './nicoseiga';

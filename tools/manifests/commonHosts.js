@@ -1,5 +1,4 @@
 module.exports = [
-  'https://backend.deviantart.com/*',
   'https://api.dailymotion.com/video/*',
   'https://*.imgur.com/*',
   'https://images4-focus-opensocial.googleusercontent.com/gadgets/proxy*',
