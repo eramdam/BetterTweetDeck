@@ -56,7 +56,8 @@ html.btd-on {
   }
 
   .js-mediatable .js-modal-panel .js-mediaembed,
-  .mdl-btn-media {
+  .mdl-btn-media,
+  .btd-embed-container > * {
     pointer-events: all;
   }
 }
