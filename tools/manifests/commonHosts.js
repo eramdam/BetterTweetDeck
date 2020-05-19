@@ -1,9 +1,8 @@
 module.exports = [
+  'https://images4-focus-opensocial.googleusercontent.com/gadgets/proxy*',
   'https://api.dailymotion.com/video/*',
   'https://*.imgur.com/*',
-  'https://images4-focus-opensocial.googleusercontent.com/gadgets/proxy*',
   'https://embed.spotify.com/oembed/*',
-  'https://open.spotify.com/oembed/*',
   'https://api.streamable.com/*',
   'https://api.twitch.tv/kraken/*',
   'https://clips.twitch.tv/*',
@@ -12,7 +11,6 @@ module.exports = [
   'https://giphy.com/services/oembed*',
   'https://api.gyazo.com/api/*',
   'https://www.tinami.com/api/*',
-  'https://gyazo.com/*',
   'https://*.nicovideo.jp/*',
   'https://api.photozou.jp/rest/*',
   'https://noembed.com/embed*',
@@ -20,6 +18,5 @@ module.exports = [
   'https://api.gfycat.com/',
   'https://raw.githubusercontent.com/eramdam/BetterTweetDeck/master/*',
   '*://tweetdeck.twitter.com/*',
-  'https://i.ppn.pw/n/api/preview.php?i=*',
   'https://audiomack.com/oembed',
 ];
