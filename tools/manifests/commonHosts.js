@@ -5,7 +5,6 @@ module.exports = [
   'https://api.dribbble.com/v1/shots/*',
   'https://*.imgur.com/*',
   'https://images4-focus-opensocial.googleusercontent.com/gadgets/proxy*',
-  'http://erambert.me/*',
   'https://embed.spotify.com/oembed/*',
   'https://open.spotify.com/oembed/*',
   'https://api.streamable.com/*',
