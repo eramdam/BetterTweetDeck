@@ -6,11 +6,9 @@ import { send as sendMessage } from './messaging';
 import * as Providers from './providers/index';
 
 const endpoints = {
-  '500px': 'https://500px.com/oembed?format=json&url=',
   audiomack: 'https://audiomack.com/oembed?url=',
   dailymotion: 'https://api.dailymotion.com/video/',
   deviantart: 'https://backend.deviantart.com/oembed?',
-  dribbble: 'https://api.dribbble.com/v1/shots/',
   noembed: 'https://noembed.com/embed?nowrap=on&url=',
   imgur: 'https://api.imgur.com/3/',
   twitch: 'https://api.twitch.tv/kraken/',
@@ -18,7 +16,6 @@ const endpoints = {
   tinami: 'https://www.tinami.com/api/content/info?',
   nicoseiga: 'http://ext.seiga.nicovideo.jp/thumb/',
   photozou: 'https://api.photozou.jp/rest/',
-  googleplus: 'https://picasaweb.google.com/data/feed/api/',
   gyazo: 'https://api.gyazo.com/api/oembed?url=',
   gfycat: 'https://api.gfycat.com/v1/oembed?url=',
   nicovideo: 'https://ext.nicovideo.jp/api/getthumbinfo/',
@@ -133,20 +130,17 @@ const util = {
 };
 
 export const schemeWhitelist = [
-  Providers.fivehundredpx(util),
   Providers.audiomack(util),
   Providers.bandcamp(util),
   Providers.cloudapp(util),
   Providers.corkboard(util),
   Providers.dailymotion(util),
   Providers.deviantart(util),
-  Providers.dribbble(util),
   Providers.droplr(util),
   Providers.flickr(util),
   Providers.gyazo(util),
   Providers.gfycat(util),
   Providers.giphy(util),
-  Providers.googleplus(util),
   Providers.imgur(util),
   Providers.miil(util),
   Providers.mixcloud(util),

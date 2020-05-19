@@ -1,8 +1,6 @@
 module.exports = [
   'https://backend.deviantart.com/*',
-  'https://500px.com/oembed*',
   'https://api.dailymotion.com/video/*',
-  'https://api.dribbble.com/v1/shots/*',
   'https://*.imgur.com/*',
   'https://images4-focus-opensocial.googleusercontent.com/gadgets/proxy*',
   'https://embed.spotify.com/oembed/*',
@@ -16,7 +14,6 @@ module.exports = [
   'https://api.gyazo.com/api/*',
   'https://www.tinami.com/api/*',
   'https://gyazo.com/*',
-  'https://picasaweb.google.com/*',
   'https://*.nicovideo.jp/*',
   'https://api.photozou.jp/rest/*',
   'https://noembed.com/embed*',

@@ -1,9 +1,7 @@
-export { default as fivehundredpx } from './500px';
 export { default as bandcamp } from './bandcamp';
 export { default as cloudapp } from './cloudapp';
 export { default as dailymotion } from './dailymotion';
 export { default as deviantart } from './deviantart';
-export { default as dribbble } from './dribbble';
 export { default as droplr } from './droplr';
 export { default as flickr } from './flickr';
 export { default as gfycat } from './gfycat';
@@ -26,7 +24,6 @@ export { default as tinami } from './tinami';
 export { default as nicoseiga } from './nicoseiga';
 export { default as photozou } from './photozou';
 export { default as worldcosplay } from './worldcosplay';
-export { default as googleplus } from './googleplus';
 export { default as gyazo } from './gyazo';
 export { default as miil } from './miil';
 export { default as nicovideo } from './nicovideo';
