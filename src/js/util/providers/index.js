@@ -14,7 +14,6 @@ export { default as streamable } from './streamable';
 export { default as ted } from './ted';
 export { default as tumblr } from './tumblr';
 export { default as twitch } from './twitch';
-export { default as universal } from './universal';
 export { default as vimeo } from './vimeo';
 export { default as youtube } from './youtu_be';
 export { default as tinami } from './tinami';

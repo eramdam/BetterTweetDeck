@@ -158,7 +158,6 @@ export const schemeWhitelist = [
   Providers.vimeo(util),
   Providers.worldcosplay(util),
   Providers.youtube(util),
-  Providers.universal(util),
 ];
 
 export const validateUrl = (url) => {
