@@ -1,5 +1,4 @@
 module.exports = [
-  'https://api.embed.ly/1/*',
   'https://backend.deviantart.com/*',
   'https://500px.com/oembed*',
   'https://api.dailymotion.com/video/*',
