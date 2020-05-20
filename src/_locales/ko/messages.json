@@ -1,0 +1,266 @@
+{
+  "appDesc": {
+    "message":
+      "https://tweetdeck.twitter.com 을 위한 이모지, 섬네일과 같은 확장 기능!"
+  },
+  "appName": {
+    "message": "BetterTweetDeck"
+  },
+  "shareOnTD": { "message": "트윗덱에 공유" },
+  "settingsTitle": { "message": "Better TweetDeck 설정" },
+  "settings": { "message": "설정" },
+  "sec_tweetsName": { "message": "트윗: 이름과 시간" },
+  "sec_tweetsDisplay": { "message": "트윗: 표시" },
+  "sec_interface": { "message": "인터페이스" },
+  "sec_content": { "message": "내용" },
+  "sec_custom_css": { "message": "사용자 정의 CSS" },
+  "sec_welcome": { "message": "어서오세요" },
+  "sec_credits": { "message": "크레딧 / 정보" },
+  "sec_changelog": { "message": "수정 사항" },
+  "sec_debug": { "message": "디버그 정보" },
+  "sec_links": { "message": "링크" },
+  "sec_website": { "message": "웹사이트" },
+  "sec_donate": { "message": "기부" },
+  "sec_preview": { "message": "미리보기" },
+  "sec_general": { "message": "일반" },
+
+  "title_timeDisplay": { "message": "시각 표시 형식" },
+  "time_relative": { "message": "상대 표시" },
+  "time_absolute": { "message": "절대 표시" },
+  "time_absolute_us": { "message": "미국식 절대 표시" },
+  "time_custom": {
+    "message":
+      "사용자 정의(<a target='_blank' href='https://github.com/taylorhakes/fecha#formatting-tokens'>형식 도움말</a>)"
+  },
+  "time_short": { "message": "축약 표기" },
+  "time_full": { "message": "전체 표기" },
+  "time_full24": {
+    "message":
+      "작성된 지 24시간이 지난 트윗은 전체 표시 <small>절대적 타임스탬프 적용</small>"
+  },
+
+  "title_nameDisplay": { "message": "이름 표시 형식" },
+
+  "name_full_user": { "message": "이름 @아이디" },
+  "name_inverted": { "message": "@아이디 이름" },
+  "name_username": { "message": "@아이디" },
+  "name_full": { "message": "이름" },
+  "name_typeahead": {
+    "message": "자동 완성에 @아이디만 표시"
+  },
+
+  "title_avatars": { "message": "프사 및 상세 설정" },
+  "old_replies": {
+    "message": "옛 답변 형식(2017년 3월 30일 이전)으로 되돌리기"
+  },
+  "css_round_pic": { "message": "프사를 둥글게" },
+  "css_bigger_emojis": { "message": "트윗 내 이모지 키우기" },
+  "css_character_count": {
+    "message":
+      "항상 둥근 진행 표시줄 대신 글자 수 띄우기"
+  },
+  "css_collapse_dms": { "message": "읽은 쪽지 축소" },
+  "css_system_fonts": { "message": "UI에 시스템 글꼴 적용" },
+  "css_show_verified": {
+    "message": "‘인증’ 배지를 프사 위로 옮기기"
+  },
+  "css_hide_context": { "message": "멘션에 “~ 님에게 보내는 답글” 레이블 감추기" },
+  "css_actions_on_right": { "message": "트윗 활동을 오른쪽에 띄우기" },
+  "css_actions_on_hover": { "message": "마우스를 올렸을 때에만 트윗 활동 보이기" },
+  "css_no_bg_modal": {
+    "message": "전체 화면으로 미리 볼 때 배경 감추기"
+  },
+  "css_slim_scrollbars": { "message": "가는 스크롤바" },
+  "pause_scroll_on_hover": { "message": "마우스를 올렸을 때 기둥 스크롤을 잠시 멈추기" },
+  "css_show_provider_indicator": {
+    "message": "섬네일 위쪽에 소스 표시"
+  },
+  "css_hide_like_rt_indicators": {
+    "message": "트윗 상단에 마음/리트윗 표시 감추기"
+  },
+  "make_search_columns_first": {
+    "message": "검색 기둥을 맨 앞쪽에 추가"
+  },
+  "no_hearts": { "message": "하트 대신 별 표시" },
+  "rtl_text_style": { "message": "필요한 경우 우횡서 감지 및 적용" },
+  "flash_tweets": { "message": "새 트윗을 강조할 기둥:" },
+  "flash_tweets_mentions": { "message": "멘션 기둥" },
+  "flash_tweets_all": { "message": "모든 기둥" },
+
+  "update_title_on_notifications": {
+    "message":
+      "읽지 않은 트윗/쪽지 수를 트윗덱 탭 제목으로 띄우기"
+  },
+
+  "share_request": { "message": "탭 읽기 권한 요청" },
+  "share_granted": { "message": "요청 승인" },
+  "shared_btd_h1": { "message": "공유" },
+  "share_btd_p1": {
+    "message":
+      " “트윗덱에 공유” 기능을 사용하려면, 아래를 클릭하여 특정 권한을 위임하십시오"
+  },
+  "share_btd_p2": {
+    "message":
+      "Better TweetDeck은 다른 탭의 내용을 <strong>절대</strong> 읽고 추적할 수 없습니다."
+  },
+  "share_btd_p3": {
+    "message":
+      "이 권한에 대해 자세한 사항은 <a href=\"https://developer.chrome.com/extensions/tabs\">구글의 문서</a>를 참고하시기 바랍니다."
+  },
+  "share_btd_p4": {
+    "message":
+      "이 페이지의 모든 변경 사항은 브라우저 재시작 후 적용"
+  },
+  "share_btd_item": {
+    "message": "‘트윗덱에 공유’ 항목을 컨텍스트 메뉴에 추가"
+  },
+  "share_short_txt": {
+    "message":
+      "‘트윗덱에 공유’ 시 분량을 초과한 텍스트 자르기"
+  },
+  "no_tco": { "message": "링크의 t.co 리다이렉트 제거" },
+  "no_gif_pp": { "message": "움직이는 프사 멈추기" },
+  "thumbnails_from": { "message": "섬네일 표시:" },
+
+  "custome_css_title": {
+    "message": "사용자 정의 CSS"
+  },
+  "custome_css_p1": {
+    "message": "⚠️ 제대로 모르면서 코드를 붙여넣으면 큰일 납니다 ⚠️️"
+  },
+
+  "css_minimal_mode": { "message": "‘간소화’ 테마 사용" },
+  "css_og_dark_theme": {
+    "message": "어두운 테마(2018년 2월 이전) 다시 쓰기"
+  },
+  "css_experimental_warning": {
+    "message": "언제 망가질지 모르는 실험 기능입니다!"
+  },
+  "css_no_play_btn": { "message": "비디오 섬네일의 재생 단추 감추기" },
+  "css_hide_url_thumb": {
+    "message":
+      "(트위터 공식 모바일 애플리케이션처럼) 트윗 내 섬네일과 연관된 링크 감추기"
+  },
+  "css_no_col_icns": { "message": "기둥머리에 아이콘 감추기" },
+  "css_small_icns_compose": {
+    "message": "작성틀의 단추를 작게 줄이기"
+  },
+  "css_no_scrollbars": { "message": "스크롤바 감추기" },
+  "css_gray_icns_notifs": {
+    "message": "알림 아이콘을 회색조로 표시"
+  },
+
+  "custom_width_columns": { "message": "사용자 지정 기둥 너비:" },
+  "custom_width_size": { "message": "너비(유효한 CSS 값)" },
+  "css_warning": {
+    "message":
+      "확실히 아는 것만 입력하고, 모르는 코드를 붙여넣지 마시오!"
+  },
+
+  "clear_column_action": {
+    "message": "기둥머리에 비우기 단추 추가"
+  },
+  "collapse_columns": {
+    "message": "기둥머리에 펼치고 접는 단추 추가"
+  },
+  "collapse_columns_pause": {
+    "message":
+      "기둥을 접으면, 해당 기둥은 알림이 뜨지 않으며 갱신이 중단됩니다"
+  },
+  "uncollapse_columns_unpause": {
+    "message":
+      "기둥을 펼치면, 갱신이 재개되며 최상단으로 자동 스크롤됩니다"
+  },
+  "btd_logo": {
+    "message": "좌측 하단 구석의 트윗덱 로고를 Better TweetDeck 로고로 바꾸기"
+  },
+
+  "edit_item": { "message": "트윗 메뉴에 ‘편집’ 항목 추가" },
+  "edit_item_note": {
+    "message":
+      "트윗을 지우지 않고서는 수정하실 수 없습니다! 트윗 내용을 작성틀에 옮겨서 지우고 새로 트윗하므로, 받았던 마음과 리트윗 또한 사라집니다!"
+  },
+  "mute_hashtags": {
+    "message": "트윗 메뉴에 ‘#해시태그 뮤트하기’ 항목 추가"
+  },
+  "mute_source": {
+    "message":
+      "트윗 메뉴에 ‘소스(애플리케이션) 뮤트하기’ 항목 추가"
+  },
+  "hotlink_item": {
+    "message": "트윗 내 ‘모든 미디어 링크 복사’ 아이콘 추가"
+  },
+  "download_item": {
+    "message": "트윗 내 ‘모든 미디어 내려받기’ 아이콘 추가"
+  },
+  "mute_item": {
+    "message": "트윗 내 ‘작성자 뮤트하기’ 아이콘 추가"
+  },
+  "block_item": {
+    "message": "트윗 내 ‘작성자 차단하기’ 아이콘 추가"
+  },
+  "download_filename_format": { "message": "내려받을 파일 이름 형식" },
+  "download_filename_format_parameters": {
+    "message":
+      "이용 가능한 변수: <code>{{postedUser}} {{tweetId}} {{fileName}} {{fileExtension}} {{year}} {{month}} {{day}} {{hours}} {{minutes}} {{seconds}}</code>(각각 ‘작성자 이름’, ‘작성자 아이디’, ‘파일명’, ‘파일 확장자’, ‘년’, ‘월’, ‘일’, ‘시’, ‘분’, ‘초’를 뜻합니다.)"
+  },
+  "ctrl_changes_interactions__enabled": {
+    "message":
+      "<kbd>Ctrl</kbd> (맥에서는 <kbd>Cmd</kbd>)을 누르고 관심글/리트윗/다운로드를 클릭하여"
+  },
+  "ctrl_changes_interactions__mode__owner": { "message": "트윗 작성자를 팔로우하기" },
+  "ctrl_changes_interactions__mode__dialog": { "message": "팔로우 대화상자 띄우기" },
+  "keep_hashtags": { "message": "사용한 해시태그를 트윗 작성란에 보관합니다." },
+
+  "btd_thx": { "message": "Better TweetDeck을 깔아 주셔서 감사합니다!" },
+  "btd_get_started": { "message": "시작해 볼까요!" },
+  "btd_whatsBTD": {
+    "message":
+      "Better TweetDeck은 <a href='https://tweetdeck.twitter.com'>tweetdeck.twitter.com</a>을 더욱 편리하게 만들어 줍니다!"
+  },
+  "btd_default": {
+    "message":
+      "기본 설정은 이미 적용돼 있고, 취향에 따라 자유롭게 수정하실 수 있습니다!"
+  },
+  "btd_then": { "message": "그게 다인가요?" },
+  "btd_follow": {
+    "message":
+      "트위터에서 <a href='https://twitter.com/BetterTDeck'>@BetterTDeck</a>을 팔로우하셔서 Better TweetDeck에 대한 지원도 받고, 소식도 듣고, 꿀팁도 챙겨가세요!"
+  },
+
+  "sec_infos": { "message": "정보" },
+  "debug_version": { "message": "버전" },
+  "debug_ua": { "message": "사용자 에이전트" },
+  "sec_settings": { "message": "Settings dump" },
+
+  "credits_author": { "message": "제작자" },
+  "credits_contribs": { "message": "기여자" },
+  "credits_rsrc": { "message": "사용한 리소스" },
+  "credits_links": { "message": "링크" },
+  "credits_twitter": { "message": "트위터 Better TweetDeck 계정" },
+  "credits_bugs": { "message": "버그 제보 및 제안" },
+  "credits_source": { "message": "GitHub 소스" },
+  "credits_author_website": { "message": "제작자 웹사이트" },
+
+  "save_no": { "message": "변경 사항 없음" },
+  "save_save": { "message": "변경 사항 저장" },
+
+  "donate_title": { "message": "Better TweetDeck을 유지하게끔 도와주세요!" },
+  "donate_p3": {
+    "message": "Better TweetDeck을 이용해 주시고 지원해 주셔서 대단히 감사합니다!"
+  },
+  "donate_p2": {
+    "message":
+      "써보시니 만족하시고 금전적 여유도 있다면, <a href='https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK9SQ6ZDE9UF2&lc=US&item_name=Damien%20Erambert&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'>Paypal로 기부</a>하셔서 <strong>소중한</strong> 보탬이 되어 주세요.<br><br>푼돈이라도 감사히 받겠습니다!"
+  },
+  "donate_p1": {
+    "message":
+      "Better TweetDeck은 앞으로도 <strong>완전 무료</strong>입니다. 하지만 개발하는 데 시간이 들고, 유지하려면 돈이 듭니다!"
+  },
+
+  "notification_title": { "message": "Better TweetDeck 업그레이드" },
+  "notification_upgrade": {
+    "message":
+      "Better TweetDeck은 v{{version}}(으)로 업그레이드 되었습니다. 클릭하여 자세한 내용을 보실 수 있습니다."
+  }
+}
