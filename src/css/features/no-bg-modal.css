@@ -57,7 +57,8 @@ html.btd-on {
 
   .js-mediatable .js-modal-panel .js-mediaembed,
   .mdl-btn-media,
-  .btd-embed-container > * {
+  .btd-embed-container > *,
+  .med-tweet {
     pointer-events: all;
   }
 }
