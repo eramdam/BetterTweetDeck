@@ -4,8 +4,6 @@ module.exports = [
   'https://*.imgur.com/*',
   'https://embed.spotify.com/oembed/*',
   'https://api.streamable.com/*',
-  'https://api.twitch.tv/kraken/*',
-  'https://clips.twitch.tv/*',
   'https://*.bandcamp.com/*',
   'https://cl.ly/*',
   'https://giphy.com/services/oembed*',
