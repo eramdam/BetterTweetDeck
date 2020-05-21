@@ -107,7 +107,7 @@ export const previewTemplate = ({
       isMediaPreviewCompact: size === 'medium',
       isMediaPreviewSmall: size === 'small',
       thumbSizeClass: `media-size-${size || 'medium'}`,
-      needsProvider: !['default', 'universal'].includes(provider),
+      needsProvider: !['default'].includes(provider),
       provider: (provider || '').toLowerCase(),
     })
   );

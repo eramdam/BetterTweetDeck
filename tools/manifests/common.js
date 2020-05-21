@@ -46,21 +46,13 @@ const common = {
     scripts: ['js/background.js'],
   },
   icons: isBeta ? betaIcons : icons,
-  permissions: [
-    'storage',
-    'contextMenus',
-    'notifications',
-    'webRequest',
-    'webRequestBlocking',
-    ...urls,
-  ],
+  permissions: ['storage', 'contextMenus', 'webRequest', 'webRequestBlocking', ...urls],
   optional_permissions: ['tabs'],
   options_ui: {
     page: 'options/ui/ui.html',
     chrome_style: false,
   },
   web_accessible_resources: [
-    'embeds.js',
     'revert-dark-theme.css',
     'emojis/sheet_twitter_64.png',
     'fonts/*.*',

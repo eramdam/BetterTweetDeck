@@ -18,6 +18,7 @@ html.btd-on {
     flex: 1;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
   }
 
   .btd-embed-container .btd-embed-and-links img {
@@ -51,15 +52,15 @@ html.btd-on {
     padding-top: 40px;
   }
 
-  [data-btd-provider="gyazo"],
-  [data-btd-provider="bandcamp"],
-  [data-btd-provider="ted"],
-  [data-btd-provider="audiomack"],
-  [data-btd-provider="vimeo"],
-  [data-btd-provider="dailymotion"],
-  [data-btd-provider="youtube"],
-  [data-btd-provider="imgur"],
-  [data-btd-provider="spotify"] {
+  [data-btd-provider='gyazo'],
+  [data-btd-provider='bandcamp'],
+  [data-btd-provider='ted'],
+  [data-btd-provider='audiomack'],
+  [data-btd-provider='vimeo'],
+  [data-btd-provider='dailymotion'],
+  [data-btd-provider='youtube'],
+  [data-btd-provider='imgur'],
+  [data-btd-provider='spotify'] {
     .btd-embed-container.-video {
       align-items: center;
     }
