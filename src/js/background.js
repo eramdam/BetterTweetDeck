@@ -185,21 +185,7 @@ BHelper.settings.getAll((settings) => {
 
     // We create the context menu item
     if (newSettings.share_item && newSettings.share_item.enabled) {
-      if (chrome.permissions) {
-        chrome.permissions.contains(
-          {
-            permissions: ['tabs'],
-          },
-          (hasTabs) => {
-            if (!hasTabs) {
-              return;
-            }
-            createMenuItem(newSettings);
-          }
-        );
-      } else {
-        createMenuItem(newSettings);
-      }
+      createMenuItem(newSettings);
     }
   });
 });
