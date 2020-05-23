@@ -5,9 +5,10 @@ export default function($) {
     re: /(?:open.spotify.com|play.spotify.com|spoti.fi)/,
     default: true,
     callback: (url) => {
-      return fetch(`https://embed.spotify.com/oembed?url=${url}`)
+      return fetch(`https://open.spotify.com/oembed?url=${url}`)
         .then($.statusAndJson)
         .then((data) => {
+          console.log({ data });
           return {
             type: 'audio',
             html: data.html,

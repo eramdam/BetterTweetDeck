@@ -407,38 +407,6 @@ BHelper.settings.get(
   true
 );
 
-if (chrome.permissions) {
-  chrome.permissions.contains(
-    {
-      permissions: ['tabs'],
-    },
-    (hasTabs) => {
-      if (!hasTabs) {
-        $('[data-require-permission] input').each((i, el) => $(el).prop('disabled', true));
-      } else {
-        $('[data-ask-permissions]').prop('disabled', true);
-        $('[data-ask-permissions]').text(BHelper.getMessage('share_granted'));
-      }
-    }
-  );
-
-  $('[data-ask-permissions]').on('click', (ev) => {
-    ev.preventDefault();
-    chrome.permissions.request(
-      {
-        permissions: ['tabs'],
-      },
-      (granted) => {
-        if (granted) {
-          $('[data-require-permission] input').each((i, el) => $(el).prop('disabled', false));
-          $(ev.target).prop('disabled', true);
-          $(ev.target).text(BHelper.getMessage('share_granted'));
-        }
-      }
-    );
-  });
-}
-
 // Auto-select sidebar items
 $('.sidebar-nav:first-child a:first-child, .content-block:first-child').addClass('-selected');
 
