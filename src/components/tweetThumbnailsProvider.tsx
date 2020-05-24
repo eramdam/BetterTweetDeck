@@ -3,6 +3,7 @@ import React, {FC, useCallback, useEffect, useState} from 'react';
 import {listenToInternalBTDMessage} from '../helpers/communicationHelpers';
 import {sendMessageToBackground} from '../helpers/webExtensionHelpers';
 import {findProviderForUrl} from '../thumbnails';
+import {makeBtdUuidSelector} from '../types/betterTweetDeck/btdCommonTypes';
 import {
   BTDMessageOriginsEnum,
   BTDMessages,
@@ -28,6 +29,20 @@ export const TweetThumbnailsProvider: FC = () => {
       BTDMessageOriginsEnum.CONTENT,
       async ({data}) => {
         if (data.name !== BTDMessages.CHIRP_RESULT) {
+          return;
+        }
+
+        const {uuid} = data.payload;
+
+        const tweetNode = document.querySelector(makeBtdUuidSelector('data-btd-uuid', uuid));
+
+        if (!tweetNode) {
+          return;
+        }
+
+        const thumbnailNode = tweetNode.querySelector('.js-media');
+
+        if (thumbnailNode) {
           return;
         }
 
