@@ -1,18 +1,15 @@
 import {isObject} from 'lodash';
 import moduleRaid from 'moduleraid';
 
-import {changeAvatarsShape} from './features/changeAvatarShape';
-import {changeScrollbarStyling} from './features/changeScrollbars';
 import {maybeSetupCustomTimestampFormat} from './features/changeTimestampFormat';
-import {changeTweetActionsStyling} from './features/changeTweetActions';
 import {maybeRemoveRedirection} from './features/removeRedirection';
 import {maybeRevertToLegacyReplies} from './features/revertToLegacyReplies';
 import {putBadgesOnTopOfAvatars} from './features/verifiedBadges';
 import {sendInternalBTDMessage} from './helpers/communicationHelpers';
-import {monitorBtdModal} from './inject/monitorBtdModal';
 import {setupChirpHandler} from './services/chirpHandler';
 import {setupMediaSizeMonitor} from './services/columnMediaSizeMonitor';
 import {maybeSetupDebugFunctions} from './services/debugMethods';
+import {monitorBtdModal} from './services/monitorBtdModal';
 import {BTDSettingsAttribute} from './types/betterTweetDeck/btdCommonTypes';
 import {BTDMessageOriginsEnum, BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
 import {BTDSettings} from './types/betterTweetDeck/btdSettingsTypes';
@@ -28,7 +25,6 @@ declare global {
 let mR;
 try {
   mR = moduleRaid();
-  window.moduleRaid = mR;
 } catch (e) {
   //
 }
@@ -73,14 +69,11 @@ const $: JQueryStatic | undefined =
   );
 
   markInjectScriptAsReady();
-  setupMediaSizeMonitor(TweetDeck, $);
+  setupMediaSizeMonitor({TD: TweetDeck, $});
   maybeSetupDebugFunctions();
   maybeRemoveRedirection(TweetDeck);
   maybeRevertToLegacyReplies(TweetDeck, settings);
-  changeAvatarsShape(settings);
-  changeTweetActionsStyling(settings);
-  changeScrollbarStyling(settings);
-  monitorBtdModal(TweetDeck, $);
+  monitorBtdModal({TD: TweetDeck, $});
 
   $(document).one('dataColumnsLoaded', () => {
     maybeSetupCustomTimestampFormat(TweetDeck, settings);
