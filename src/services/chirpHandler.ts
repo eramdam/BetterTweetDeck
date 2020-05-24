@@ -4,6 +4,7 @@ import _, {compact} from 'lodash';
 import {getRandomString, isHTMLElement} from '../helpers/domHelpers';
 import {getChirpFromElement, getURLsFromChirp} from '../helpers/tweetdeckHelpers';
 import {HandlerOf, makeEnumRuntimeType} from '../helpers/typeHelpers';
+import {BTDModalUuidAttribute, BTDUuidAttribute} from '../types/betterTweetDeck/btdCommonTypes';
 import {TweetDeckColumnMediaPreviewSizesEnum, TweetDeckObject} from '../types/tweetdeckTypes';
 import {getSizeForColumnKey} from './columnMediaSizeMonitor';
 
@@ -37,8 +38,10 @@ export const setupChirpHandler: SetupChirpHandler = (TD, handlerOnAdd, handlerOn
           .filter((addedEl) => {
             if (
               !isHTMLElement(addedEl) ||
-              addedEl.closest('[data-btd-uuid]') ||
-              addedEl.matches('[data-btd-uuid]')
+              addedEl.closest('[' + BTDUuidAttribute + ']') ||
+              addedEl.matches('[' + BTDUuidAttribute + ']') ||
+              addedEl.closest('[' + BTDModalUuidAttribute + ']') ||
+              addedEl.matches('[' + BTDModalUuidAttribute + ']')
             ) {
               return false;
             }
@@ -64,7 +67,7 @@ export const setupChirpHandler: SetupChirpHandler = (TD, handlerOnAdd, handlerOn
               const urls = getURLsFromChirp(chirp);
               const uuid = getRandomString();
 
-              element.setAttribute('data-btd-uuid', uuid);
+              element.setAttribute(BTDUuidAttribute, uuid);
 
               handlerOnAdd({
                 uuid,
@@ -84,7 +87,7 @@ export const setupChirpHandler: SetupChirpHandler = (TD, handlerOnAdd, handlerOn
               return false;
             }
 
-            const btdNode = removedEl.closest('[data-btd-uuid]');
+            const btdNode = removedEl.closest('[' + BTDUuidAttribute + ']');
 
             if (!btdNode) {
               return false;
@@ -98,11 +101,11 @@ export const setupChirpHandler: SetupChirpHandler = (TD, handlerOnAdd, handlerOn
               return;
             }
 
-            const btdNode = removedEl.closest('[data-btd-uuid]') as Element;
-            const btdChildren = removedEl.querySelectorAll('[data-btd-uuid]') || [];
+            const btdNode = removedEl.closest('[' + BTDUuidAttribute + ']') as Element;
+            const btdChildren = removedEl.querySelectorAll('[' + BTDUuidAttribute + ']') || [];
             const nodes = Array.from(btdChildren).concat(btdNode);
 
-            const uuids = compact(nodes.map((n) => n.getAttribute('data-btd-uuid')));
+            const uuids = compact(nodes.map((n) => n.getAttribute(BTDUuidAttribute)));
 
             handlerOnRemove({
               uuidArray: uuids,

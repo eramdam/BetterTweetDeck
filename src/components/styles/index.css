@@ -4,7 +4,7 @@
  *
  */
 #btd-fullscreen-portal-root {
-  background: rgba(0, 0, 0, .8);
+  background: rgba(0, 0, 0, 0.8);
   color: white;
   position: fixed;
   width: 100%;
@@ -44,7 +44,7 @@
 
 html .btd-loaded .overlay,
 html .btd-loaded .ovl {
-  background: rgba(0, 0, 0, .8);
+  background: rgba(0, 0, 0, 0.8);
 }
 
 .js-modal-panel.mdl.s-full.med-fullpanel {
@@ -53,17 +53,8 @@ html .btd-loaded .ovl {
   box-shadow: none;
 }
 
-.js-med-tweet.med-tweet,
-#media-gallery-tray {
-  display: none;
-}
-
-.js-mediatable .js-modal-panel .med-embeditem {
-  top: 0;
-  bottom: 0;
-}
-
 .js-mediatable .js-modal-panel .js-mediaembed,
+.med-tweet,
 .mdl-btn-media {
   pointer-events: all;
 }

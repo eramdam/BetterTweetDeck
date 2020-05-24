@@ -1,6 +1,7 @@
 import './verifiedBadges.css';
 
 import {ChirpHandlerPayload} from '../services/chirpHandler';
+import {makeBtdUuidSelector} from '../types/betterTweetDeck/btdCommonTypes';
 import {BTDSettings} from '../types/betterTweetDeck/btdSettingsTypes';
 
 export function putBadgesOnTopOfAvatars(settings: BTDSettings, addedChirp: ChirpHandlerPayload) {
@@ -14,7 +15,7 @@ export function putBadgesOnTopOfAvatars(settings: BTDSettings, addedChirp: Chirp
   const actionOrType = chirp.action || chirp.chirpType;
   let userToVerify;
   const classesToAdd = ['btd-is-from-verified'];
-  const chirpNode = document.querySelector(`[data-btd-uuid="${addedChirp.uuid}"]`);
+  const chirpNode = document.querySelector(makeBtdUuidSelector('data-btd-uuid', addedChirp.uuid));
 
   if (!chirpNode) {
     return;

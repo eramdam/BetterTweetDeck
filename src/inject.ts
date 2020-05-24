@@ -9,6 +9,7 @@ import {maybeRemoveRedirection} from './features/removeRedirection';
 import {maybeRevertToLegacyReplies} from './features/revertToLegacyReplies';
 import {putBadgesOnTopOfAvatars} from './features/verifiedBadges';
 import {sendInternalBTDMessage} from './helpers/communicationHelpers';
+import {monitorBtdModal} from './inject/monitorBtdModal';
 import {setupChirpHandler} from './services/chirpHandler';
 import {setupMediaSizeMonitor} from './services/columnMediaSizeMonitor';
 import {maybeSetupDebugFunctions} from './services/debugMethods';
@@ -27,6 +28,7 @@ declare global {
 let mR;
 try {
   mR = moduleRaid();
+  window.moduleRaid = mR;
 } catch (e) {
   //
 }
@@ -78,6 +80,7 @@ const $: JQueryStatic | undefined =
   changeAvatarsShape(settings);
   changeTweetActionsStyling(settings);
   changeScrollbarStyling(settings);
+  monitorBtdModal(TweetDeck, $);
 
   $(document).one('dataColumnsLoaded', () => {
     maybeSetupCustomTimestampFormat(TweetDeck, settings);

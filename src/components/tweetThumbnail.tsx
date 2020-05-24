@@ -2,6 +2,7 @@ import React, {FC} from 'react';
 import {Portal, PortalWithState} from 'react-portal';
 
 import {BTDFetchResult, BTDUrlProviderResultTypeEnum} from '../thumbnails/types';
+import {BTDModalUuidAttribute, BTDUuidAttribute} from '../types/betterTweetDeck/btdCommonTypes';
 import {FullscreenImageModal} from './fullscreenImageModal';
 import {MediumThumbnail} from './mediaThumbnails';
 
@@ -19,7 +20,7 @@ function maybeDoOnNode(node: Element | null, cb: (node: Element) => void) {
 
 export const TweetThumbnail: FC<TweetThumbnailProps> = ({uuid, thumbnailPayload}) => {
   const thumbnailNode = document.querySelector(
-    `[data-btd-uuid="${uuid}"] .js-tweet.tweet .tweet-body`
+    `.column article[${BTDUuidAttribute}="${uuid}"] .js-tweet.tweet .tweet-body`
   );
   const fullscreenNodeRoot = document.getElementById('btd-fullscreen-portal-root');
   const fullscreenNode = document.getElementById('btd-fullscreen-portal-target');
@@ -39,10 +40,16 @@ export const TweetThumbnail: FC<TweetThumbnailProps> = ({uuid, thumbnailPayload}
       closeOnEsc
       closeOnOutsideClick
       onOpen={() => {
-        return maybeDoOnNode(fullscreenNodeRoot, (node) => node.classList.add('open'));
+        return maybeDoOnNode(fullscreenNodeRoot, (node) => {
+          node.classList.add('open');
+          node.setAttribute(BTDModalUuidAttribute, uuid);
+        });
       }}
       onClose={() => {
-        return maybeDoOnNode(fullscreenNodeRoot, (node) => node.classList.remove('open'));
+        return maybeDoOnNode(fullscreenNodeRoot, (node) => {
+          node.classList.remove('open');
+          node.removeAttribute(BTDModalUuidAttribute);
+        });
       }}>
       {({openPortal, portal}) => (
         <>

@@ -9,8 +9,16 @@ export const findMustache = (TD: TweetDeckObject, query: string) =>
     TD.mustaches[i].toLowerCase().includes(query.toLowerCase())
   );
 
+interface Chirp {
+  [x: string]: any;
+  renderInMediaGallery: () => string;
+  targetTweet?: Chirp;
+  favorite: () => void;
+  retweet: () => void;
+}
+
 /** Finds a chirp inside TweetDeck given a key and a column key. */
-export const getChirpFromKey = (TD: TweetDeckObject, key: string, colKey: string) => {
+export const getChirpFromKey = (TD: TweetDeckObject, key: string, colKey: string): Chirp | null => {
   const column = TD.controller.columnManager.get(colKey);
 
   if (!column) {
@@ -70,7 +78,10 @@ export const getChirpFromKey = (TD: TweetDeckObject, key: string, colKey: string
 };
 
 /** finds the chirp corresponding to an element in the DOM. */
-export const getChirpFromElement = (TD: TweetDeckObject, element: HTMLElement | Element) => {
+export const getChirpFromElement = (
+  TD: TweetDeckObject,
+  element: HTMLElement | Element
+): Chirp | null => {
   const chirpElm = element.closest('[data-key]');
   if (!chirpElm) {
     throw new Error('Not a chirp');

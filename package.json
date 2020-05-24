@@ -15,7 +15,8 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack --watch --progress --env.browser",
     "fix": "eslint --fix . --ext .jsx,.js,.ts,.tsx",
-    "postinstall": "node-config-ts"
+    "postinstall": "node-config-ts",
+    "run:firefox": "web-ext run -s dist"
   },
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
   "dependencies": {
@@ -50,6 +51,7 @@
     "ts-node": "^8.10.1",
     "typescript": "^3.9.3",
     "url-loader": "^4.1.0",
+    "use-resize-observer": "^6.1.0-alpha.3",
     "web-ext": "^4.2.0",
     "webextension-polyfill": "^0.6.0",
     "webextension-polyfill-ts": "^0.16.0",

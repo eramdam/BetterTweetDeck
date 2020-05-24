@@ -4,14 +4,16 @@ import {render} from 'react-dom';
 import {BtdApp} from '../components/btdApp';
 
 export function setupReactRoot() {
-  if (document.querySelector('#btdRoot')) {
-    return;
-  }
+  return new Promise((resolve) => {
+    if (document.querySelector('#btdRoot')) {
+      return;
+    }
 
-  const root = document.createElement('div');
-  root.id = 'btdRoot';
+    const root = document.createElement('div');
+    root.id = 'btdRoot';
 
-  document.body.appendChild(root);
+    document.body.appendChild(root);
 
-  render(<BtdApp />, root);
+    render(<BtdApp />, root, resolve);
+  });
 }
