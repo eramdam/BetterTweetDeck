@@ -5,7 +5,7 @@ import {
   makeBtdUuidSelector,
 } from '../types/betterTweetDeck/btdCommonTypes';
 
-export const monitorBtdModal: BTDModule = (TD, $) => {
+export const monitorBtdModal: BTDModule = ({TD, $}) => {
   const btdPortalTarget = document.querySelector('#btd-fullscreen-portal-target');
 
   if (!btdPortalTarget) {

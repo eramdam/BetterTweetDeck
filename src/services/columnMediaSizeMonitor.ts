@@ -9,7 +9,7 @@ export function getSizeForColumnKey(columnKey = '') {
 }
 
 /** Sets up a Map that stores the media size of TweetDeck columns for easy and quick access (without having to go through the state) */
-export const setupMediaSizeMonitor: BTDModule = (_TD, $) => {
+export const setupMediaSizeMonitor: BTDModule = ({$}) => {
   $(document).on('uiColumnUpdateMediaPreview', (ev, data) => {
     if (!ev.target) {
       return;

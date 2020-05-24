@@ -1,6 +1,12 @@
 import {TweetDeckObject} from '../tweetdeckTypes';
+import {BTDSettings} from './btdSettingsTypes';
 
-export type BTDModule = (TD: TweetDeckObject, $: JQueryStatic) => void;
+export type BTDModule = (opts: {TD: TweetDeckObject; $: JQueryStatic}) => void;
+export type BTDModuleWithSettings = (opts: {
+  TD: TweetDeckObject;
+  $: JQueryStatic;
+  settings: BTDSettings;
+}) => void;
 
 export const BTDSettingsAttribute = 'data-btd-settings';
 export const BTDUuidAttribute = 'data-btd-uuid';

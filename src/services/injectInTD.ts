@@ -10,7 +10,7 @@ export async function injectInTD() {
   // Get the settings from the browser.
   const settings = await ExtensionSettings.get();
 
-  // Otherwise, inject.
+  // Inject.
   const toInject = document.createElement('script');
   toInject.src = getExtensionUrl('inject.js');
   toInject.setAttribute(BTDSettingsAttribute, JSON.stringify(settings));

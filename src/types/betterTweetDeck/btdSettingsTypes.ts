@@ -84,7 +84,7 @@ export const RBetterTweetDeckSettings = t.type({
   addMuteSourceMenuItem: withDefault(t.boolean, false),
 
   /** Adds a items to mute the hashtags of the tweet */
-  addmuteHashtagsMenuItems: withDefault(t.boolean, false),
+  addMuteHashtagsMenuItems: withDefault(t.boolean, false),
 
   /** Show legacy replies in columns */
   showLegacyReplies: withDefault(t.boolean, false),

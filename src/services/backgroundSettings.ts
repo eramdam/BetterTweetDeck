@@ -2,12 +2,13 @@ import {isRight} from 'fp-ts/lib/Either';
 import {PathReporter} from 'io-ts/lib/PathReporter';
 
 import {ExtensionSettings} from '../helpers/webExtensionHelpers';
-import {RBetterTweetDeckSettings} from '../types/betterTweetDeck/btdSettingsTypes';
+import {BTDSettings, RBetterTweetDeckSettings} from '../types/betterTweetDeck/btdSettingsTypes';
 
-const defaultSettings = RBetterTweetDeckSettings.decode({});
+// @ts-ignore
+const defaultSettings = RBetterTweetDeckSettings.decode({}) as BTDSettings;
 
 /** Returns the currently saved settings, validated against the schema. */
-async function getValidatedSettings() {
+export async function getValidatedSettings(): Promise<BTDSettings> {
   const currentSettings = await ExtensionSettings.get();
   const settingsWithDefault = RBetterTweetDeckSettings.decode(currentSettings);
 
