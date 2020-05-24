@@ -22,6 +22,11 @@ export const TweetThumbnail: FC<TweetThumbnailProps> = ({uuid, thumbnailPayload}
   const thumbnailNode = document.querySelector(
     `.column article[${BTDUuidAttribute}="${uuid}"] .js-tweet.tweet .tweet-body`
   );
+
+  if (!thumbnailNode) {
+    return null;
+  }
+
   const fullscreenNodeRoot = document.getElementById('btd-fullscreen-portal-root');
   const fullscreenNode = document.getElementById('btd-fullscreen-portal-target');
 
