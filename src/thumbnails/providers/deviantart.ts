@@ -9,6 +9,12 @@ export const DeviantArtProvider: BTDThumbnailProvider = {
       re.test(url)
     ),
   fetchData: async (url) => {
+    if (url.startsWith('https://www.deviantart.com/') && !url.includes('/art/')) {
+      return {
+        type: BTDUrlProviderResultTypeEnum.ERROR,
+        error: undefined,
+      };
+    }
     try {
       const json = await fetch(
         buildURLWithSearchParams('https://backend.deviantart.com/oembed', {
