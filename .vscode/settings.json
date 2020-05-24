@@ -22,7 +22,8 @@
     "markdown": "javascriptreact"
   },
   "emmet.excludeLanguages": [],
-  "typescript.preferences.renameShorthandProperties": false,
+  "typescript.preferences.useAliasesForRenames": false,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
   "beautify.ignore": [
     "*"
   ],
