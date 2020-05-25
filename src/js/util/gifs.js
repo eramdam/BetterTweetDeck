@@ -115,8 +115,6 @@ function makeGifRequester(url) {
         return;
       }
 
-      console.log(data);
-
       resolve(data.detail.res);
       this.window.removeEventListener('message', this);
     });
