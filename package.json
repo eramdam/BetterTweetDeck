@@ -31,6 +31,7 @@
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
   "dependencies": {
     "@types/dompurify": "0.0.33",
+    "@types/lodash": "^4.14.152",
     "apollo-fetch": "^0.7.0",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.4",

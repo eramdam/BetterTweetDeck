@@ -2,7 +2,7 @@
 import Clipboard from 'clipboard';
 import config from 'config';
 import FileSaver from 'file-saver';
-import { debounce, unescape } from 'lodash';
+import { debounce, unescape, uniqueId } from 'lodash';
 import moduleRaid from 'moduleraid';
 
 import AdvancedMuteEngine from './util/ame';
@@ -198,7 +198,7 @@ if (config.Client.debug) {
 /**
  * Send messages to the content window with BTDC_ prefix
  */
-const proxyEvent = (name, detail = {}) => {
+export const proxyEvent = (name, detail = {}) => {
   name = `BTDC_${name}`;
   let cache = [];
   detail = JSON.stringify(detail, (key, val) => {
@@ -618,6 +618,15 @@ const postMessagesListeners = {
       },
     });
   },
+  BTDC_gotDownloadedGif: (ev, data) => {
+    const { file, source } = data;
+
+    $(document).trigger('uiFilesAdded', {
+      files: [file],
+      source: source,
+    });
+    $('.btd-gif-indicator').removeClass('-visible');
+  },
 };
 
 const followStatus = (client, targetUserId) => {
@@ -1015,29 +1024,7 @@ $(document).on(
 $(document).on('click', '.btd-giphy-close', closeGiphyZone);
 
 $(document).on('click', '.btd-giphy-block', (ev) => {
-  const gifRequest = new XMLHttpRequest();
-  gifRequest.open('GET', ev.target.dataset.btdUrl);
-  gifRequest.responseType = 'blob';
-
-  gifRequest.onload = (event) => {
-    const blob = event.target.response;
-
-    const myFile = new File([blob], 'awesome-gif.gif', {
-      type: 'image/gif',
-    });
-    $(document).trigger('uiFilesAdded', {
-      files: [myFile],
-      source: ev.target.dataset.btdSource,
-    });
-    $('.btd-gif-indicator').removeClass('-visible');
-  };
-
-  gifRequest.onprogress = (event) => {
-    const { loaded, total } = event;
-    $('.btd-gif-indicator').text(`Adding GIF (${((loaded / total) * 100).toFixed(2)}%)`);
-  };
-
-  gifRequest.send();
+  proxyEvent('downloadGif', { url: ev.target.dataset.btdUrl, source: ev.target.dataset.btdSource });
   $('.btd-gif-button').removeClass('-visible');
   $('.btd-gif-indicator').addClass('-visible');
   closeGiphyZone(ev);
@@ -1482,27 +1469,7 @@ $('body').on('click', '[data-btd-action="edit-tweet"]', (ev) => {
 
   // == re-upload all the files we had, if any
   if (media.length) {
-    Promise.all(
-      media.map((item) =>
-        fetch(item)
-          .then((res) => res.blob())
-          .then((blob) => {
-            const url = getMediaUrlParts(item);
-            const options = {};
-            switch (url.originalExtension.toLowerCase()) {
-              case 'mp4':
-                options.type = 'video/mp4';
-                break;
-              case 'gif':
-                options.type = 'image/gif';
-                break;
-              default:
-                break;
-            }
-            return new File([blob], `${url.originalFile}.${url.originalExtension}`, options);
-          })
-      )
-    ).then((gotFiles) => {
+    Promise.all(media.map((item) => requestMediaItem(item))).then((gotFiles) => {
       $(document).trigger('uiComposeFilesAdded', { files: gotFiles });
     });
   }
@@ -1621,3 +1588,44 @@ $(window).on('focus', (ev) => {
     widget.focus();
   }
 });
+
+function requestMediaItem(item) {
+  return new Promise((resolve) => {
+    const requestUuid = uniqueId('media_req_');
+    const mediaUrlParts = getMediaUrlParts(item);
+    const options = {};
+
+    switch (mediaUrlParts.originalExtension.toLowerCase()) {
+      case 'mp4':
+        options.type = 'video/mp4';
+        break;
+      case 'gif':
+        options.type = 'image/gif';
+        break;
+      default:
+        break;
+    }
+
+    proxyEvent('downloadMedia', {
+      url: item,
+      type: options.type,
+      fileName: `${mediaUrlParts.originalFile}.${mediaUrlParts.originalExtension}`,
+      uuid: requestUuid,
+    });
+
+    window.addEventListener('message', function handler(ev) {
+      const { origin, data } = ev;
+
+      if (!origin.includes('tweetdeck.') && !origin.includes('better.tw')) {
+        return false;
+      }
+
+      if (data.name !== 'BTDC_gotMediaFile' || data.detail.uuid !== requestUuid) {
+        return;
+      }
+
+      resolve(data.detail.file);
+      this.window.removeEventListener('message', this);
+    });
+  });
+}

@@ -236,38 +236,3 @@ Messages.on((message, sender, sendResponse) => {
       return false;
   }
 });
-
-chrome.permissions.contains(
-  {
-    permissions: ['webRequest', 'webRequestBlocking'],
-  },
-  (hasWR) => {
-    if (!hasWR) {
-      return;
-    }
-
-    chrome.webRequest.onHeadersReceived.addListener(
-      (details) => {
-        if (details.type !== 'main_frame' && details.type !== 'sub_frame') {
-          return undefined;
-        }
-
-        return {
-          responseHeaders: Array.from(details.responseHeaders)
-            .map((h) => {
-              if (h.name && h.name === 'content-security-policy') {
-                return null;
-              }
-
-              return h;
-            })
-            .filter((i) => !!i),
-        };
-      },
-      {
-        urls: ['https://tweetdeck.twitter.com/*'],
-      },
-      ['responseHeaders', 'blocking']
-    );
-  }
-);
