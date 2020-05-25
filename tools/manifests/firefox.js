@@ -12,14 +12,6 @@ module.exports = Object.assign(require('./common.js'), {
       strict_min_version: '48.0',
     },
   },
-  permissions: [
-    'storage',
-    'contextMenus',
-    'notifications',
-    'tabs',
-    'webRequest',
-    'webRequestBlocking',
-    ...urls,
-  ],
+  permissions: ['storage', 'contextMenus', 'webRequest', 'webRequestBlocking', 'tabs', ...urls],
   content_security_policy: `img-src https: data: 'self' *; media-src * https:; connect-src * https:; style-src 'unsafe-inline'; object-src 'self'; script-src 'self';`,
 });
