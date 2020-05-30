@@ -16,6 +16,12 @@ export default function contentWarningHandler(node, tweet) {
 
     const summary = document.createElement('summary');
     summary.innerHTML = warning;
+
+    // Stopping event propagation because everything inside tweets opens the detail view
+    summary.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+
     details.appendChild(summary);
 
     if (text) {
@@ -24,11 +30,6 @@ export default function contentWarningHandler(node, tweet) {
       tweetText.innerHTML = text.trim();
       details.appendChild(tweetText);
     }
-
-    // Stopping event propagation because everything inside tweets opens the detail view
-    details.addEventListener('click', (e) => {
-      e.stopPropagation();
-    });
 
     node.querySelector('.tweet-text').replaceWith(details);
   }
