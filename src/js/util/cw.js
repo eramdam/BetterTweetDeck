@@ -4,7 +4,7 @@ export default function contentWarningHandler(node, tweet) {
     return false;
   }
 
-  const cwRegex = /^[[]?(?:cw|tw|cn)(?:\W+)?\s([^\n|\]]+)[\]]?(?:\n+)?(.+)?$/gi;
+  const cwRegex = /^[[(]?(?:cw|tw|cn)(?:\W+)?\s?([^\n|\]|)|…]+)[\])…]?(?:\n+)?((?:.+)?\n?)+$/gi;
   const matches = [...tweet.htmlText.matchAll(cwRegex)];
 
   if (matches.length > 0) {
