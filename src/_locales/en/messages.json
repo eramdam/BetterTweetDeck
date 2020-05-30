@@ -171,6 +171,12 @@
     "message":
       "When you uncollapse a column, it will unpause the feed it so that it automatically scrolls back to the top instead of staying where you left it"
   },
+  "content_warnings": {
+    "message": "Show content warnings for appropriately marked tweets"
+  },
+  "content_warnings_hint": {
+    "message": "We'll check tweets for containing commonly used cw/tw/cn warnings to display these!"
+  },
   "btd_logo": {
     "message": "Change TweetDeck's logo in the left bottom corner for Better TweetDeck's logo"
   },

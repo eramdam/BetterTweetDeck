@@ -172,6 +172,12 @@
     "message":
       "Wenn du eine Spalte ausklappst, wird der Feed fortgesetzt und scrollt automatisch zurück nach oben, anstatt dort stehenzubleiben, wo du sie das letzte Mal gesehen hast"
   },
+  "content_warnings": {
+    "message": "Zeige Inhaltswarnungen für gekennzeichnete Tweets"
+  },
+  "content_warnings_hint": {
+    "message": "Wir prüfen Tweets nach häufig genutzten 'cw/tw/cn'-Warnungen um diese anzuzeigen"
+  },
 
   "regex_filter": {
     "message":

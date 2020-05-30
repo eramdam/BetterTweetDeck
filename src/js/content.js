@@ -6,6 +6,7 @@ import PromiseEach from 'promise-each';
 import qs from 'query-string';
 
 import * as BHelper from './util/browserHelper';
+import contentWarningHandler from './util/cw';
 import {
   insertEmojiCompletionDropdownHolder,
   setupEmojiCompletionEventHandlers,
@@ -435,6 +436,10 @@ function tweetHandler(tweet, columnKey, parent) {
   }
 
   nodes.forEach((node) => {
+    if (SETTINGS.content_warnings) {
+      contentWarningHandler(node, tweet);
+    }
+
     if (tweet.retweetedStatus) {
       node.classList.add('btd-is-retweet');
     }
