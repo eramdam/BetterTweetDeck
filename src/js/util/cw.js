@@ -5,7 +5,7 @@ export default function contentWarningHandler(node, tweet) {
   }
 
   const cwRegex = /^[[(]?(?:cw|tw|cn)(?:\W+)?\s([^\n|\]|)|…]+)[\])…]?(?:\n+)?((?:.+)?\n?)+$/gi;
-  const matches = [...tweet.htmlText.matchAll(cwRegex)];
+  const matches = [...tweet.text.matchAll(cwRegex)];
 
   if (matches.length > 0) {
     const warning = matches[0][1];
@@ -15,7 +15,7 @@ export default function contentWarningHandler(node, tweet) {
     details.classList.add('btd-content-warning', 'is-actionable');
 
     const summary = document.createElement('summary');
-    summary.innerHTML = warning;
+    summary.innerHTML = TD.util.transform(warning);
 
     // Stopping event propagation because everything inside tweets opens the detail view
     summary.addEventListener('click', (e) => {
@@ -27,7 +27,7 @@ export default function contentWarningHandler(node, tweet) {
     if (text) {
       const tweetText = document.createElement('p');
       tweetText.classList.add('tweet-text', 'js-tweet-text', 'with-linebreaks');
-      tweetText.innerHTML = text.trim();
+      tweetText.innerHTML = TD.util.transform(text.trim());
       details.appendChild(tweetText);
     }
 
