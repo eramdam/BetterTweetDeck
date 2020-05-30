@@ -6,6 +6,7 @@ import { debounce, unescape } from 'lodash';
 import moduleRaid from 'moduleraid';
 
 import AdvancedMuteEngine from './util/ame';
+import contentWarningHandler from './util/cw';
 import * as GIFS from './util/gifs';
 import { keepHashtags } from './util/keepHashtags';
 import Log from './util/logger';
@@ -768,6 +769,10 @@ const handleInsertedNode = (element) => {
 
   if (!chirp) {
     return;
+  }
+
+  if (SETTINGS.content_warnings) {
+    contentWarningHandler(element, decorateChirp(chirp));
   }
 
   proxyEvent('gotChirpForColumn', { chirp: decorateChirp(chirp), colKey });
