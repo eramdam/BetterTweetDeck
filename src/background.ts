@@ -1,6 +1,6 @@
 import {browser} from 'webextension-polyfill-ts';
 
-import {setupSettingsInBackground} from './services/backgroundSettings';
+import {getValidatedSettings, setupSettingsInBackground} from './services/backgroundSettings';
 import {findProviderForUrl, getThumbnailData} from './thumbnails';
 import {BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
 
@@ -40,39 +40,45 @@ import {BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
   });
 
   // // Get the settings from the browser.
-  // const settings = await getValidatedSettings();
+  const settings = await getValidatedSettings();
+  const textLimitWithLink = 254;
 
-  browser.contextMenus.create({
-    title: 'Share on BTD',
-    contexts: ['page', 'selection', 'image', 'link'],
-    onclick: async (info, tab) => {
-      const urlToShare = info.linkUrl || info.srcUrl || info.pageUrl;
-      const textToShare = info.selectionText || tab.title;
+  if (settings.enableShareItem) {
+    browser.contextMenus.create({
+      title: 'Share on BTD',
+      contexts: ['page', 'selection', 'image', 'link'],
+      onclick: async (info, tab) => {
+        const urlToShare = info.linkUrl || info.srcUrl || info.pageUrl;
+        const baseText = info.selectionText || tab.title || '';
+        const textToShare = !settings.shouldShortenSharedText
+          ? baseText
+          : baseText.slice(0, textLimitWithLink) + '…';
 
-      const tabs = await browser.tabs.query({
-        url: '*://tweetdeck.twitter.com/*',
-      });
+        const tabs = await browser.tabs.query({
+          url: '*://tweetdeck.twitter.com/*',
+        });
 
-      if (tabs.length === 0) {
-        return;
-      }
+        if (tabs.length === 0) {
+          return;
+        }
 
-      const TweetDeckTab = tabs[0];
+        const TweetDeckTab = tabs[0];
 
-      if (!TweetDeckTab.id || !TweetDeckTab.windowId) {
-        return;
-      }
+        if (!TweetDeckTab.id || !TweetDeckTab.windowId) {
+          return;
+        }
 
-      await browser.windows.update(TweetDeckTab.windowId, {
-        focused: true,
-      });
+        await browser.windows.update(TweetDeckTab.windowId, {
+          focused: true,
+        });
 
-      await browser.tabs.update(TweetDeckTab.id, {active: true});
-      browser.tabs.sendMessage(TweetDeckTab.id, {
-        action: 'share',
-        text: textToShare,
-        url: urlToShare,
-      });
-    },
-  });
+        await browser.tabs.update(TweetDeckTab.id, {active: true});
+        browser.tabs.sendMessage(TweetDeckTab.id, {
+          action: 'share',
+          text: textToShare,
+          url: urlToShare,
+        });
+      },
+    });
+  }
 })();

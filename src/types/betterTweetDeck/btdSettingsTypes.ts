@@ -108,6 +108,9 @@ export const RBetterTweetDeckSettings = t.type({
   // I like this one...but maybe i'm the only who cares?
   showLikeRTDogears: withDefault(t.boolean, false),
 
+  enableShareItem: withDefault(t.boolean, true),
+  shouldShortenSharedText: withDefault(t.boolean, true),
+
   legacy: withDefault(
     t.partial({
       // Legacy / Not sure what to do with those

@@ -1,3 +1,5 @@
+import {browser} from 'webextension-polyfill-ts';
+
 import {changeAvatarsShape} from './features/changeAvatarShape';
 import {changeScrollbarStyling} from './features/changeScrollbars';
 import {changeTweetActionsStyling} from './features/changeTweetActions';
@@ -19,3 +21,20 @@ import {setupReactRoot} from './services/setupBTDRoot';
   changeTweetActionsStyling({settings});
   changeScrollbarStyling({settings});
 })();
+
+browser.runtime.onMessage.addListener((details) => {
+  switch (details.action) {
+    case 'share': {
+      document.dispatchEvent(new CustomEvent('uiComposeTweet'));
+      const composer = document.querySelector<HTMLTextAreaElement>('textarea.js-compose-text');
+
+      if (!composer) {
+        return;
+      }
+
+      composer.value = `${details.text} ${details.url}`;
+      composer.dispatchEvent(new Event('change'));
+      break;
+    }
+  }
+});
