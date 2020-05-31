@@ -4,6 +4,7 @@ import {BTDAvatarShapes} from '../../features/changeAvatarShape';
 import {BTDScrollbarsMode} from '../../features/changeScrollbars';
 import {BTDTimestampFormats} from '../../features/changeTimestampFormat';
 import {BTDTweetActionsPosition} from '../../features/changeTweetActions';
+import {BTDUsernameFormat} from '../../features/usernameDisplay';
 import {makeEnumRuntimeType, withDefault} from '../../helpers/typeHelpers';
 import {getExtensionVersion} from '../../helpers/webExtensionHelpers';
 
@@ -73,6 +74,12 @@ export const RBetterTweetDeckSettings = t.type({
 
   /** Shows a block icon to block the author of a tweet quickly. */
   addBlockAction: withDefault(t.boolean, false),
+
+  /** Change the display of usernames in columns. */
+  usernamesFormat: withDefault(
+    makeEnumRuntimeType<BTDUsernameFormat>(BTDUsernameFormat),
+    BTDUsernameFormat.DEFAULT
+  ),
 
   /** Adds more actions in tweet menus
    * TODO(damien): maybe put a BTD separator to make them more obvious in the UI.

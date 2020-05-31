@@ -4,6 +4,7 @@ import moduleRaid from 'moduleraid';
 import {maybeSetupCustomTimestampFormat} from './features/changeTimestampFormat';
 import {maybeRemoveRedirection} from './features/removeRedirection';
 import {maybeRevertToLegacyReplies} from './features/revertToLegacyReplies';
+import {BTDUsernameFormat, maybeChangeUsernameFormat} from './features/usernameDisplay';
 import {putBadgesOnTopOfAvatars} from './features/verifiedBadges';
 import {sendInternalBTDMessage} from './helpers/communicationHelpers';
 import {setupChirpHandler} from './services/chirpHandler';
@@ -29,13 +30,13 @@ try {
   //
 }
 
-const TweetDeck = window.TD as TweetDeckObject;
+const TD = window.TD as TweetDeckObject;
 // Grab TweetDeck's jQuery from webpack
 const $: JQueryStatic | undefined =
   mR && mR.findFunction('jQuery') && mR.findFunction('jquery:')[0];
 
 (async () => {
-  if (!isObject(TweetDeck)) {
+  if (!isObject(TD)) {
     return;
   }
 
@@ -46,7 +47,7 @@ const $: JQueryStatic | undefined =
   }
 
   setupChirpHandler(
-    TweetDeck,
+    TD,
     (payload) => {
       putBadgesOnTopOfAvatars(
         {
@@ -75,21 +76,28 @@ const $: JQueryStatic | undefined =
   );
 
   markInjectScriptAsReady();
-  setupMediaSizeMonitor({TD: TweetDeck, $});
+  setupMediaSizeMonitor({TD, $});
   maybeSetupDebugFunctions();
-  maybeRemoveRedirection(TweetDeck);
+  maybeRemoveRedirection({TD});
+  maybeChangeUsernameFormat({
+    TD,
+    settings: {
+      ...settings,
+      usernamesFormat: BTDUsernameFormat.USER,
+    },
+  });
   maybeRevertToLegacyReplies({
     $,
-    TD: TweetDeck,
+    TD,
     settings: {
       ...settings,
       showLegacyReplies: true,
     },
   });
-  monitorBtdModal({TD: TweetDeck, $});
+  monitorBtdModal({TD, $});
 
   $(document).one('dataColumnsLoaded', () => {
-    maybeSetupCustomTimestampFormat({TD: TweetDeck, settings});
+    maybeSetupCustomTimestampFormat({TD, settings});
   });
 })();
 

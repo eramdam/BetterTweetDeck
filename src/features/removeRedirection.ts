@@ -1,7 +1,7 @@
-import {TweetDeckObject} from '../types/tweetdeckTypes';
+import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 
 /** Removes the t.co redirection on links. */
-export const maybeRemoveRedirection = (TD: TweetDeckObject) => {
+export const maybeRemoveRedirection = makeBTDModule(({TD}) => {
   const dummyEl = document.createElement('span');
 
   const originalMethod = TD.util.createUrlAnchor;
@@ -26,4 +26,4 @@ export const maybeRemoveRedirection = (TD: TweetDeckObject) => {
 
     return result;
   };
-};
+});

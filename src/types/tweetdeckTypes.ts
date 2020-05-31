@@ -41,6 +41,11 @@ export interface TweetDeckObject {
   services: {
     TwitterStatus: any;
   };
+  globalRenderOptions: {
+    [k: string]: {
+      [k: string]: () => (input: string, render: Function) => string;
+    };
+  };
   controller: {
     columnManager: {
       get(key: string): TweetDeckObjectColumn;
