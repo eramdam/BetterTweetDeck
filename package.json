@@ -19,6 +19,11 @@
     "postinstall": "node-config-ts",
     "run:firefox": "web-ext run -s dist"
   },
+  "browserslist": [
+    "last 2 chrome versions",
+    "last 2 firefox versions",
+    "last 2 edge versions"
+  ],
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
   "dependencies": {
     "@types/hogan.js": "^3.0.0",
@@ -44,6 +49,8 @@
     "luxon": "^1.24.1",
     "moduleraid": "^4.0.1",
     "node-config-ts": "^3.0.4",
+    "postcss-loader": "^3.0.0",
+    "postcss-preset-env": "^6.7.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-portal": "^4.2.1",
