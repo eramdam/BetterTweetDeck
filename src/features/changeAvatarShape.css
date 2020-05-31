@@ -2,14 +2,14 @@
   --btd-avatar-radius: 50%;
 }
 
-:-moz-any(.tweet-avatar, .prf-img, .avatar, .compose-account) {
+:matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
   border-radius: var(--btd-avatar-radius) !important;
 }
 
-:-webkit-any(.tweet-avatar, .prf-img, .avatar, .compose-account) {
+:matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
   border-radius: var(--btd-avatar-radius) !important;
 }
 
-.btd-loaded[btd-avatar-shape="square"] {
+.btd-loaded[btd-avatar-shape='square'] {
   --btd-avatar-radius: 4px;
 }
