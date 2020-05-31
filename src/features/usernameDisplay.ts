@@ -24,9 +24,15 @@ const replaceInTemplate = (
   );
 };
 
-const Hogan = window.Hogan as {
-  compile: compile;
-};
+declare global {
+  interface Window {
+    Hogan: {
+      compile: typeof compile;
+    };
+  }
+}
+
+const Hogan = window.Hogan;
 
 export const maybeChangeUsernameFormat = makeBTDModule(({settings, TD}) => {
   const {usernamesFormat} = settings;
