@@ -4,7 +4,7 @@ import moduleRaid from 'moduleraid';
 import {maybeSetupCustomTimestampFormat} from './features/changeTimestampFormat';
 import {maybeRemoveRedirection} from './features/removeRedirection';
 import {maybeRevertToLegacyReplies} from './features/revertToLegacyReplies';
-import {BTDUsernameFormat, maybeChangeUsernameFormat} from './features/usernameDisplay';
+import {maybeChangeUsernameFormat} from './features/usernameDisplay';
 import {putBadgesOnTopOfAvatars} from './features/verifiedBadges';
 import {sendInternalBTDMessage} from './helpers/communicationHelpers';
 import {setupChirpHandler} from './services/chirpHandler';
@@ -49,13 +49,7 @@ const $: JQueryStatic | undefined =
   setupChirpHandler(
     TD,
     (payload) => {
-      putBadgesOnTopOfAvatars(
-        {
-          ...settings,
-          badgesOnTopOfAvatars: true,
-        },
-        payload
-      );
+      putBadgesOnTopOfAvatars(settings, payload);
       sendInternalBTDMessage({
         name: BTDMessages.CHIRP_RESULT,
         origin: BTDMessageOriginsEnum.INJECT,
@@ -81,18 +75,12 @@ const $: JQueryStatic | undefined =
   maybeRemoveRedirection({TD});
   maybeChangeUsernameFormat({
     TD,
-    settings: {
-      ...settings,
-      usernamesFormat: BTDUsernameFormat.USER,
-    },
+    settings,
   });
   maybeRevertToLegacyReplies({
     $,
     TD,
-    settings: {
-      ...settings,
-      showLegacyReplies: true,
-    },
+    settings,
   });
   monitorBtdModal({TD, $});
 

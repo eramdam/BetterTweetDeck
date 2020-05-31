@@ -44,6 +44,7 @@ export const maybeChangeUsernameFormat = makeBTDModule(({settings, TD}) => {
       return function what(input, render) {
         // I don't want this function to break horribly the day Twitter closes this issue
         // https://github.com/twitter/hogan.js/issues/222#issuecomment-106101791
+        // @ts-ignore
         const val = render ? render(input) : Hogan.compile(input).render(this);
 
         return (

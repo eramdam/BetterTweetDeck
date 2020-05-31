@@ -38,4 +38,41 @@ import {BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
 
     return undefined;
   });
+
+  // // Get the settings from the browser.
+  // const settings = await getValidatedSettings();
+
+  browser.contextMenus.create({
+    title: 'Share on BTD',
+    contexts: ['page', 'selection', 'image', 'link'],
+    onclick: async (info, tab) => {
+      const urlToShare = info.linkUrl || info.srcUrl || info.pageUrl;
+      const textToShare = info.selectionText || tab.title;
+
+      const tabs = await browser.tabs.query({
+        url: '*://tweetdeck.twitter.com/*',
+      });
+
+      if (tabs.length === 0) {
+        return;
+      }
+
+      const TweetDeckTab = tabs[0];
+
+      if (!TweetDeckTab.id || !TweetDeckTab.windowId) {
+        return;
+      }
+
+      await browser.windows.update(TweetDeckTab.windowId, {
+        focused: true,
+      });
+
+      await browser.tabs.update(TweetDeckTab.id, {active: true});
+      browser.tabs.sendMessage(TweetDeckTab.id, {
+        action: 'share',
+        text: textToShare,
+        url: urlToShare,
+      });
+    },
+  });
 })();
