@@ -1,0 +1,19 @@
+.btd-loaded[btd-small-compose-icns='true'] {
+  & :matches(.js-add-image-button, .js-schedule-button, .js-add-emojis, .js-tweet-type-button > button) {
+    width: auto !important;
+    float: left !important;
+    margin-right: 4px;
+
+    & .label {
+      display: none;
+    }
+  }
+
+  & .js-schedule-datepicker-holder > .popover {
+    margin-top: 50px;
+
+    & .caret {
+      display: none;
+    }
+  }
+}
