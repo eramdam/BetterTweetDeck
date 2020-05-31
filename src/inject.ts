@@ -7,11 +7,11 @@ import {maybeRevertToLegacyReplies} from './features/revertToLegacyReplies';
 import {maybeChangeUsernameFormat} from './features/usernameDisplay';
 import {putBadgesOnTopOfAvatars} from './features/verifiedBadges';
 import {sendInternalBTDMessage} from './helpers/communicationHelpers';
-import {allowImagePaste} from './services/allowImagePaste';
-import {setupChirpHandler} from './services/chirpHandler';
-import {setupMediaSizeMonitor} from './services/columnMediaSizeMonitor';
-import {maybeSetupDebugFunctions} from './services/debugMethods';
-import {monitorBtdModal} from './services/monitorBtdModal';
+import {allowImagePaste} from './inject/allowImagePaste';
+import {setupChirpHandler} from './inject/chirpHandler';
+import {setupMediaSizeMonitor} from './inject/columnMediaSizeMonitor';
+import {maybeSetupDebugFunctions} from './inject/debugMethods';
+import {monitorBtdModal} from './inject/monitorBtdModal';
 import {BTDSettingsAttribute} from './types/betterTweetDeck/btdCommonTypes';
 import {BTDMessageOriginsEnum, BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
 import {BTDSettings} from './types/betterTweetDeck/btdSettingsTypes';
@@ -35,6 +35,8 @@ const TD = window.TD as TweetDeckObject;
 // Grab TweetDeck's jQuery from webpack
 const $: JQueryStatic | undefined =
   mR && mR.findFunction('jQuery') && mR.findFunction('jquery:')[0];
+
+window.$ = $;
 
 (async () => {
   if (!isObject(TD)) {

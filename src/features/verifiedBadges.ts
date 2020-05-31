@@ -1,6 +1,6 @@
 import './verifiedBadges.css';
 
-import {ChirpHandlerPayload} from '../services/chirpHandler';
+import {ChirpHandlerPayload} from '../inject/chirpHandler';
 import {makeBtdUuidSelector} from '../types/betterTweetDeck/btdCommonTypes';
 import {BTDSettings} from '../types/betterTweetDeck/btdSettingsTypes';
 
