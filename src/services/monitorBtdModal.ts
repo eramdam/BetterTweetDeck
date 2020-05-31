@@ -1,11 +1,11 @@
 import {getChirpFromElement} from '../helpers/tweetdeckHelpers';
 import {
   BTDModalUuidAttribute,
-  BTDModule,
+  makeBTDModule,
   makeBtdUuidSelector,
 } from '../types/betterTweetDeck/btdCommonTypes';
 
-export const monitorBtdModal: BTDModule = ({TD, $}) => {
+export const monitorBtdModal = makeBTDModule(({TD}) => {
   const btdPortalTarget = document.querySelector('#btd-fullscreen-portal-target');
 
   if (!btdPortalTarget) {
@@ -55,4 +55,4 @@ export const monitorBtdModal: BTDModule = ({TD, $}) => {
     childList: true,
     subtree: true,
   });
-};
+});

@@ -15,7 +15,7 @@ import {setupReactRoot} from './services/setupBTDRoot';
 
   // Get the settings from the browser.
   const settings = await getValidatedSettings();
-  changeAvatarsShape(settings);
-  changeTweetActionsStyling(settings);
-  changeScrollbarStyling(settings);
+  changeAvatarsShape({settings});
+  changeTweetActionsStyling({settings});
+  changeScrollbarStyling({settings});
 })();

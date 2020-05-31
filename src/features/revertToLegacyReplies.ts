@@ -1,8 +1,8 @@
 import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
-import {BTDSettings} from '../types/betterTweetDeck/btdSettingsTypes';
+import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 
 /** Reverts the tweet display to show @mentions inline. */
-export const maybeRevertToLegacyReplies = (TD: any, settings: BTDSettings) => {
+export const maybeRevertToLegacyReplies = makeBTDModule(({TD, settings}) => {
   if (!settings.showLegacyReplies) {
     return;
   }
@@ -72,4 +72,4 @@ export const maybeRevertToLegacyReplies = (TD: any, settings: BTDSettings) => {
       'lang="{{lang}}">{{#getMainTweet}}{{{getOGContext}}}{{/getMainTweet}}{{{htmlText}}}</p>'
     )
   );
-};
+});

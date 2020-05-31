@@ -33,6 +33,14 @@ export interface TweetDeckObject {
   util: {
     createUrlAnchor: Function;
   };
+  ui: {
+    template: {
+      render: (template: string, args: any) => string;
+    };
+  };
+  services: {
+    TwitterStatus: any;
+  };
   controller: {
     columnManager: {
       get(key: string): TweetDeckObjectColumn;

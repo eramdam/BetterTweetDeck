@@ -1,6 +1,6 @@
 import './changeScrollbars.css';
 
-import {BTDSettings} from '../types/betterTweetDeck/btdSettingsTypes';
+import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 
 export enum BTDScrollbarsMode {
   DEFAULT = 'default',
@@ -8,6 +8,6 @@ export enum BTDScrollbarsMode {
   HIDDEN = 'hidden',
 }
 
-export function changeScrollbarStyling(settings: BTDSettings) {
+export const changeScrollbarStyling = makeBTDModule(({settings}) => {
   document.body.setAttribute('btd-scrollbar-style', settings.scrollbarsMode);
-}
+});

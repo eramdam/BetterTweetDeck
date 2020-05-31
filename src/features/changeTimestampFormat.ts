@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import {DateTime, Interval} from 'luxon';
 
+import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 import {BTDSettings} from '../types/betterTweetDeck/btdSettingsTypes';
-import {TweetDeckObject} from '../types/tweetdeckTypes';
 
 export enum BTDTimestampFormats {
   RELATIVE = 'relative',
@@ -50,7 +50,7 @@ function refreshTimestamps(settings: BTDSettings) {
   });
 }
 
-export function maybeSetupCustomTimestampFormat(TD: TweetDeckObject, settings: BTDSettings) {
+export const maybeSetupCustomTimestampFormat = makeBTDModule(({TD, settings}) => {
   const {timestampStyle} = settings;
   if (timestampStyle === BTDTimestampFormats.RELATIVE) {
     return;
@@ -78,4 +78,4 @@ export function maybeSetupCustomTimestampFormat(TD: TweetDeckObject, settings: B
   TD.controller.scheduler.removePeriodicTask(taskIdToRemove);
   refreshTimestamps(settings);
   setInterval(() => refreshTimestamps(settings), TIMESTAMP_INTERVAL);
-}
+});

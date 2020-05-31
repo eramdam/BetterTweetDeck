@@ -1,3 +1,3 @@
-import {BTDModuleWithSettings} from '../types/betterTweetDeck/btdCommonTypes';
+import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 
-export const addButtonsToColumns: BTDModuleWithSettings = () => {};
+export const addButtonsToColumns = makeBTDModule(() => {});

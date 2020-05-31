@@ -1,4 +1,4 @@
-import {BTDModule} from '../types/betterTweetDeck/btdCommonTypes';
+import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 import {TweetDeckColumnMediaPreviewSizesEnum} from '../types/tweetdeckTypes';
 
 const columnMediaSizes: Map<string, TweetDeckColumnMediaPreviewSizesEnum> = new Map();
@@ -9,7 +9,7 @@ export function getSizeForColumnKey(columnKey = '') {
 }
 
 /** Sets up a Map that stores the media size of TweetDeck columns for easy and quick access (without having to go through the state) */
-export const setupMediaSizeMonitor: BTDModule = ({$}) => {
+export const setupMediaSizeMonitor = makeBTDModule(({$}) => {
   $(document).on('uiColumnUpdateMediaPreview', (ev, data) => {
     if (!ev.target) {
       return;
@@ -44,4 +44,4 @@ export const setupMediaSizeMonitor: BTDModule = ({$}) => {
         columnMediaSizes.set(col.id, col.mediaSize || 'medium');
       });
   });
-};
+});

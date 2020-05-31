@@ -48,7 +48,13 @@ const $: JQueryStatic | undefined =
   setupChirpHandler(
     TweetDeck,
     (payload) => {
-      putBadgesOnTopOfAvatars(settings, payload);
+      putBadgesOnTopOfAvatars(
+        {
+          ...settings,
+          badgesOnTopOfAvatars: true,
+        },
+        payload
+      );
       sendInternalBTDMessage({
         name: BTDMessages.CHIRP_RESULT,
         origin: BTDMessageOriginsEnum.INJECT,
@@ -72,11 +78,18 @@ const $: JQueryStatic | undefined =
   setupMediaSizeMonitor({TD: TweetDeck, $});
   maybeSetupDebugFunctions();
   maybeRemoveRedirection(TweetDeck);
-  maybeRevertToLegacyReplies(TweetDeck, settings);
+  maybeRevertToLegacyReplies({
+    $,
+    TD: TweetDeck,
+    settings: {
+      ...settings,
+      showLegacyReplies: true,
+    },
+  });
   monitorBtdModal({TD: TweetDeck, $});
 
   $(document).one('dataColumnsLoaded', () => {
-    maybeSetupCustomTimestampFormat(TweetDeck, settings);
+    maybeSetupCustomTimestampFormat({TD: TweetDeck, settings});
   });
 })();
 
