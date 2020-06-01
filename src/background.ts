@@ -82,3 +82,24 @@ import {BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
     });
   }
 })();
+
+browser.webRequest.onHeadersReceived.addListener(
+  (details) => {
+    if (
+      (details.type !== 'main_frame' && details.type !== 'sub_frame') ||
+      !details.responseHeaders
+    ) {
+      return undefined;
+    }
+
+    return {
+      responseHeaders: Array.from(details.responseHeaders).filter((h) => {
+        return h.name && h.name !== 'content-security-policy';
+      }),
+    };
+  },
+  {
+    urls: ['https://tweetdeck.twitter.com/*'],
+  },
+  ['responseHeaders', 'blocking']
+);

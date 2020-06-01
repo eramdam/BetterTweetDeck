@@ -56,7 +56,7 @@ export const TweetThumbnail: FC<TweetThumbnailProps> = ({uuid, thumbnailPayload}
           node.removeAttribute(BTDModalUuidAttribute);
         });
       }}>
-      {({openPortal, portal}) => (
+      {({openPortal, portal, closePortal}) => (
         <>
           <Portal node={thumbnailNode}>
             <MediumThumbnail
@@ -64,7 +64,11 @@ export const TweetThumbnail: FC<TweetThumbnailProps> = ({uuid, thumbnailPayload}
               url={thumbnailPayload.url}
               onClick={openPortal}></MediumThumbnail>
           </Portal>
-          {portal(<FullscreenImageModal url={fullscreenImageUrl}></FullscreenImageModal>)}
+          {portal(
+            <FullscreenImageModal
+              onClose={closePortal}
+              url={fullscreenImageUrl}></FullscreenImageModal>
+          )}
         </>
       )}
     </PortalWithState>

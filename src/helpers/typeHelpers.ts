@@ -6,6 +6,7 @@ export function hasProperty<T, K extends string>(o: T, k: K): o is T & Object & 
   return isObject(o) && k in o;
 }
 
+export type Handler = () => void;
 export type HandlerOf<T> = (opt: T) => void;
 export type RendererOf<T> = (props: T) => React.ReactNode;
 

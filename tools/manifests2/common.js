@@ -15,6 +15,6 @@ module.exports = {
     scripts: ['background.js'],
   },
   web_accessible_resources: ['inject.js'],
-  permissions: ['storage', 'contextMenus', ...urls],
-  content_security_policy: `img-src https: data: 'self' *; default-src; connect-src * https:; style-src 'unsafe-inline'; script-src 'self';`,
+  permissions: ['webRequest', 'webRequestBlocking', 'storage', 'contextMenus', ...urls],
+  content_security_policy: `img-src https: data: 'self' *; default-src; connect-src * https: ws: localhost; style-src 'unsafe-inline'; script-src 'self';`,
 };
