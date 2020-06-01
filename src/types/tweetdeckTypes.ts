@@ -12,6 +12,7 @@ export enum TweetDeckColumnMediaPreviewSizesEnum {
 
 interface TweetDeckObjectColumn {
   updateIndex: Dictionary<any>;
+  clear: () => void;
   detailViewComponent: {
     chirp: any;
     mainChirp: any;

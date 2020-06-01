@@ -7,6 +7,7 @@ import {maybeRevertToLegacyReplies} from './features/revertToLegacyReplies';
 import {maybeChangeUsernameFormat} from './features/usernameDisplay';
 import {putBadgesOnTopOfAvatars} from './features/verifiedBadges';
 import {sendInternalBTDMessage} from './helpers/communicationHelpers';
+import {maybeAddColumnsButtons} from './inject/addColumnButtons';
 import {allowImagePaste} from './inject/allowImagePaste';
 import {setupChirpHandler} from './inject/chirpHandler';
 import {setupMediaSizeMonitor} from './inject/columnMediaSizeMonitor';
@@ -87,6 +88,7 @@ window.$ = $;
   });
   monitorBtdModal({TD, $});
   allowImagePaste({$});
+  maybeAddColumnsButtons({TD, $, settings});
 
   $(document).one('dataColumnsLoaded', () => {
     maybeSetupCustomTimestampFormat({TD, settings});
