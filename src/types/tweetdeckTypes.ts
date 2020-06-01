@@ -10,7 +10,9 @@ export interface TweetDeckObject {
   components: unknown;
   services: Services;
   controller: TweetDeckController;
-  vo: unknown;
+  vo: {
+    Column: typeof Column;
+  };
   ui: TweetDeckUI;
   sync: Sync;
   cache: TweetDeckCache;
@@ -128,6 +130,7 @@ interface TweetDeckController {
 
 interface ColumnManager {
   get(columnKey: string): Column;
+  showColumn(columnKey: string): void;
   _aColumnIndex: ColumnMap;
   _columnOrder: string[];
   commands: unknown;
@@ -276,7 +279,16 @@ interface ColumnMap {
   [key: string]: Column;
 }
 
-export interface Column {
+export declare class Column {
+  constructor(...args: any[]);
+  _btd: {
+    _parent: Column;
+    _isCollapsed: boolean;
+    isCollapsed(): boolean;
+    collapse(): void;
+    uncollapse(): void;
+    toggleCollapse(state?: boolean): void;
+  };
   clear(): void;
   model: ColumnModel;
   ui: ColumnUiState;
@@ -579,6 +591,9 @@ interface ColumnUiState {
   newTweetsTemplates: NewTweetsTemplates;
   moreTweetsState: MoreTweetsState;
   _$chirpContainer: ChirpContainer;
+  getChirpScroller(): JQuery<HTMLElement>;
+  pause(): void;
+  unpause(): void;
 }
 
 interface MoreTweetsButtonContainer {
