@@ -47,10 +47,13 @@ export const maybeChangeUsernameFormat = makeBTDModule(({settings, TD}) => {
         // @ts-ignore
         const val = render ? render(input) : Hogan.compile(input).render(this);
 
-        return (
-          val.match(/https:\/\/(?:www.|)twitter.com\/(?:@|)([A-Za-z0-9_]+)/) &&
-          val.match(/https:\/\/(?:www.|)twitter.com\/(?:@|)([A-Za-z0-9_]+)/)[1]
-        );
+        const usernameMatch = val.match(/https:\/\/(?:www.|)twitter.com\/(?:@|)([A-Za-z0-9_]+)/);
+
+        if (!usernameMatch) {
+          return '';
+        }
+
+        return usernameMatch[1];
       };
     },
   };

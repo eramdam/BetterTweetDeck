@@ -1,3 +1,6 @@
+import {Twitter} from 'twit';
+
+import {TweetDeckChirp} from '../types/tweetdeck';
 import {TweetDeckObject} from '../types/tweetdeckTypes';
 
 /**
@@ -9,23 +12,19 @@ export const findMustache = (TD: TweetDeckObject, query: string) =>
     TD.mustaches[i].toLowerCase().includes(query.toLowerCase())
   );
 
-interface Chirp {
-  [x: string]: any;
-  renderInMediaGallery: () => string;
-  targetTweet?: Chirp;
-  favorite: () => void;
-  retweet: () => void;
-}
-
 /** Finds a chirp inside TweetDeck given a key and a column key. */
-export const getChirpFromKey = (TD: TweetDeckObject, key: string, colKey: string): Chirp | null => {
+export const getChirpFromKey = (
+  TD: TweetDeckObject,
+  key: string,
+  colKey: string
+): TweetDeckChirp | null => {
   const column = TD.controller.columnManager.get(colKey);
 
   if (!column) {
     return null;
   }
 
-  const chirpsArray: any[] = [];
+  const chirpsArray: TweetDeckChirp[] = [];
   Object.keys(column.updateIndex).forEach((updateKey) => {
     const c = column.updateIndex[updateKey];
     if (c) {
@@ -81,7 +80,7 @@ export const getChirpFromKey = (TD: TweetDeckObject, key: string, colKey: string
 export const getChirpFromElement = (
   TD: TweetDeckObject,
   element: HTMLElement | Element
-): Chirp | null => {
+): TweetDeckChirp | null => {
   const chirpElm = element.closest('[data-key]');
   if (!chirpElm) {
     throw new Error('Not a chirp');
@@ -122,8 +121,8 @@ export const getChirpFromElement = (
 };
 
 /** Finds all the URLs (attachments, links, etc) in a chirp. */
-export const getURLsFromChirp = (chirp: any) => {
-  let chirpURLs: any[] = [];
+export const getURLsFromChirp = (chirp: TweetDeckChirp) => {
+  let chirpURLs: Twitter.UrlEntity[] = [];
 
   if (!chirp) {
     console.log(chirp);
@@ -145,5 +144,5 @@ export const getURLsFromChirp = (chirp: any) => {
 };
 
 // Might not be useful anymore
-export const createSelectorForChirp = (chirp: any, colKey: string) =>
+export const createSelectorForChirp = (chirp: TweetDeckChirp, colKey: string) =>
   `[data-column=${colKey}] [data-key="${chirp.id}"]`;

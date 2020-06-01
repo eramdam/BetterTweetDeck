@@ -73,8 +73,8 @@ export const setupChirpHandler: SetupChirpHandler = (TD, handlerOnAdd, handlerOn
                 uuid,
                 chirp: JSON.parse(JSON.stringify(chirp)),
                 urls: (urls || []).map((e) => e.expanded_url),
-                columnKey: chirp._btd.columnKey,
-                columnMediaSize: getSizeForColumnKey(chirp._btd.columnKey),
+                columnKey: chirp._btd?.columnKey || '',
+                columnMediaSize: getSizeForColumnKey(chirp._btd?.columnKey),
               });
             }
           });

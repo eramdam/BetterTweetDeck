@@ -4,7 +4,13 @@ import {findMustache, getChirpFromElement, getChirpFromKey} from '../helpers/twe
 
 declare global {
   interface Window {
-    BTD: any;
+    BTD: {
+      debug: {
+        findMustache: typeof findMustache;
+        getChirpFromElement: typeof getChirpFromElement;
+        getChirpFromKey: typeof getChirpFromKey;
+      };
+    };
   }
 }
 
@@ -14,10 +20,7 @@ export function maybeSetupDebugFunctions() {
     return;
   }
 
-  window.BTD = {};
-  window.BTD.debug = {
-    getChirpFromElement,
-    getChirpFromKey,
-    findMustache,
+  window.BTD = {
+    debug: {getChirpFromElement, getChirpFromKey, findMustache},
   };
 }

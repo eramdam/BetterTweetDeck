@@ -16,7 +16,7 @@ export const maybeRevertToLegacyReplies = makeBTDModule(({TD, settings}) => {
     }
 
     const filtered = repliers
-      .filter((user: any) => {
+      .filter((user) => {
         // When user are replying to themselves are replying to ppl as well (them + other ppl)
         if (replyingToThemselves && repliers.length > 1) {
           return user.screenName !== this.user.screenName;
@@ -24,14 +24,14 @@ export const maybeRevertToLegacyReplies = makeBTDModule(({TD, settings}) => {
 
         return true;
       })
-      .filter((user: any) => {
+      .filter((user) => {
         const str = `<a href="https://twitter.com/${user.screenName}/"`;
 
         return this.htmlText.indexOf(str) !== 0;
       });
 
     return filtered
-      .map((user: any) => TD.ui.template.render('text/profile_link', {user}))
+      .map((user) => TD.ui.template.render('text/profile_link', {user}))
       .concat('')
       .join(' ');
   };

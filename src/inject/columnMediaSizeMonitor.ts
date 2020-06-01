@@ -1,4 +1,5 @@
 import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
+import {Column} from '../types/tweetdeck';
 import {TweetDeckColumnMediaPreviewSizesEnum} from '../types/tweetdeckTypes';
 
 const columnMediaSizes: Map<string, TweetDeckColumnMediaPreviewSizesEnum> = new Map();
@@ -26,10 +27,10 @@ export const setupMediaSizeMonitor = makeBTDModule(({$}) => {
     columnMediaSizes.set(id, size);
   });
 
-  $(document).on('dataColumns', (_, data) => {
+  function onDataColumns(data: {columns: Column[]}) {
     const cols = data.columns
-      .filter((col: any) => col.model.state.settings)
-      .map((col: any) => ({
+      .filter((col) => col.model.state.settings)
+      .map((col) => ({
         id: col.model.privateState.key,
         mediaSize: col.model.state.settings.media_preview_size,
       }));
@@ -39,9 +40,13 @@ export const setupMediaSizeMonitor = makeBTDModule(({$}) => {
     }
 
     cols
-      .filter((col: any) => col.id)
-      .forEach((col: any) => {
+      .filter((col) => col.id)
+      .forEach((col) => {
         columnMediaSizes.set(col.id, col.mediaSize || 'medium');
       });
+  }
+
+  $(document).on('dataColumns', (_, data) => {
+    onDataColumns(data);
   });
 });

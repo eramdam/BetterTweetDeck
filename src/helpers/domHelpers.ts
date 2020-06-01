@@ -1,5 +1,7 @@
-export function isHTMLElement(blob: any): blob is HTMLElement {
-  return Boolean(blob.closest);
+import {has} from 'lodash';
+
+export function isHTMLElement(blob: Element | Node): blob is HTMLElement {
+  return Boolean(has(blob, 'closest'));
 }
 
 export const getRandomString = (length = 32) => {
