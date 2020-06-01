@@ -1,7 +1,7 @@
-import {has} from 'lodash';
+import {hasProperty} from './typeHelpers';
 
 export function isHTMLElement(blob: Element | Node): blob is HTMLElement {
-  return Boolean(has(blob, 'closest'));
+  return hasProperty(blob, 'closest');
 }
 
 export const getRandomString = (length = 32) => {
