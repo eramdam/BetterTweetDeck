@@ -32,7 +32,6 @@ module.exports = {
         'simple-import-sort/sort': 2,
         'unused-imports/no-unused-imports-ts': 2,
         'no-use-before-define': 0,
-        'no-unused-vars': 0,
         'no-undef': 0,
         'no-restricted-globals': 0,
       },

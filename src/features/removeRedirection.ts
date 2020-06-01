@@ -10,7 +10,7 @@ export const maybeRemoveRedirection = makeBTDModule(({TD}) => {
     return;
   }
 
-  TD.util.createUrlAnchor = (e: any) => {
+  TD.util.createUrlAnchor = (e) => {
     // Run the url through the original function first.
     let result = originalMethod(e);
 
