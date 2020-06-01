@@ -1,10 +1,11 @@
 import React, {CSSProperties, FC, useRef, useState} from 'react';
 import useResizeObserver from 'use-resize-observer';
 
-import {RendererOf} from '../helpers/typeHelpers';
+import {Handler, RendererOf} from '../helpers/typeHelpers';
 
 interface FullscreenModalWrapperProps {
   children: RendererOf<{style: CSSProperties}>;
+  onClose: Handler;
 }
 
 export const FullscreenModalWrapper: FC<FullscreenModalWrapperProps> = (props) => {
@@ -28,6 +29,7 @@ export const FullscreenModalWrapper: FC<FullscreenModalWrapperProps> = (props) =
           <a
             href="#"
             className="mdl-dismiss js-dismiss mdl-dismiss-media mdl-btn-media"
+            onClick={props.onClose}
             rel="dismiss">
             <i className="icon txt-size--24 icon-close"></i>
           </a>
