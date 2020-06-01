@@ -1,6 +1,6 @@
 import {Twitter} from 'twit';
 
-import {TweetDeckChirp} from '../types/tweetdeck';
+import {TweetDeckChirp} from '../types/tweetdeckTypes';
 import {TweetDeckObject} from '../types/tweetdeckTypes';
 
 /**

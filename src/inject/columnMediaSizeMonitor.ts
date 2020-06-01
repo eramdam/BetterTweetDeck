@@ -1,5 +1,5 @@
 import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
-import {Column} from '../types/tweetdeck';
+import {Column} from '../types/tweetdeckTypes';
 import {TweetDeckColumnMediaPreviewSizesEnum} from '../types/tweetdeckTypes';
 
 const columnMediaSizes: Map<string, TweetDeckColumnMediaPreviewSizesEnum> = new Map();
