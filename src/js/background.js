@@ -97,6 +97,12 @@ function openWelcomePage() {
   });
 }
 
+function openSettings() {
+  chrome.tabs.create({
+    url: 'options/options.html',
+  });
+}
+
 function contextMenuHandler(info, tab, settings) {
   const urlToShare = info.linkUrl || info.srcUrl || info.pageUrl;
   let textToShare = info.selectionText || tab.title;
@@ -216,6 +222,10 @@ Messages.on((message, sender, sendResponse) => {
 
     case 'get_local':
       BHelper.settings.get(message.key, (val) => sendResponse({ val }));
+      return true;
+
+    case 'open_settings':
+      openSettings();
       return true;
 
     default:

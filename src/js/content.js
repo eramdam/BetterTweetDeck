@@ -611,7 +611,6 @@ onEvent('BTDC_ready', () => {
     insertEmojiCompletionDropdownHolder();
   });
 
-  const settingsURL = BHelper.getExtensionUrl('options/options.html');
   const settingsBtn = `
     <a class="btd-settings-btn js-header-action link-clean cf app-nav-link padding-h--16 padding-v--2 with-nav-border-t" data-title="BTD Settings">
       <div class="obj-left margin-l--2">
@@ -624,7 +623,7 @@ onEvent('BTDC_ready', () => {
   $('nav.app-navigator')[0].insertAdjacentElement('afterbegin', settingsBtnNode);
   $('.btd-settings-btn')[0].addEventListener('click', (e) => {
     e.preventDefault();
-    window.open(settingsURL);
+    sendMessage({ action: 'open_settings' });
   });
 
   onMessage((details) => {
