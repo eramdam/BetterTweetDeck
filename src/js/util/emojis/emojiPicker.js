@@ -74,11 +74,6 @@ export function registerEmojiPickerEventsHandlers() {
     if (emojiPopover.style.display === 'none') {
       emojiPopover.style = 'display: block';
 
-      console.log({
-        emojiBottom: emojiPopover.getBoundingClientRect().bottom,
-        height: window.innerHeight,
-      });
-
       if (emojiPopover.getBoundingClientRect().bottom > window.innerHeight) {
         emojiPopover.style.top = '';
         const button = document.body.querySelector('.js-add-emojis');
