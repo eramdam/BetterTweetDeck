@@ -43,13 +43,16 @@ function rebuildEmojiPicker() {
 export function registerEmojiPickerEventsHandlers() {
   // Click on button.
   window.addEventListener('resize', () => {
-    const emojiPopover = $('.emoji-popover')[0];
+    const emojiPopover = $('.emoji-popover') && $('.emoji-popover')[0];
 
-    if (emojiPopover.style.display === 'none') {
+    if (!emojiPopover || emojiPopover.style.display === 'none') {
       return;
     }
 
-    if (emojiPopover.getBoundingClientRect().bottom > window.innerHeight) {
+    if (
+      emojiPopover.getBoundingClientRect().bottom > window.innerHeight &&
+      !emojiPopover.style.bottom
+    ) {
       const button = document.body.querySelector('.js-add-emojis');
       const buttonDistanceFromBottom = Math.ceil(
         window.innerHeight - button.getBoundingClientRect().bottom + button.clientHeight + 10
