@@ -14,11 +14,11 @@ html.btd-on {
     }
   }
 
-  .js-schedule-datapicker-holder > .popover {
+  .js-schedule-datepicker-holder > .popover {
     margin-top: 51px;
 
     .caret {
-      left: calc(50% - 5px);
+      left: calc(50%);
     }
   }
 }
