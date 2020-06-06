@@ -42,6 +42,24 @@ function rebuildEmojiPicker() {
 
 export function registerEmojiPickerEventsHandlers() {
   // Click on button.
+  window.addEventListener('resize', () => {
+    const emojiPopover = $('.emoji-popover')[0];
+
+    if (emojiPopover.style.display === 'none') {
+      return;
+    }
+
+    if (emojiPopover.getBoundingClientRect().bottom > window.innerHeight) {
+      const button = document.body.querySelector('.js-add-emojis');
+      const buttonDistanceFromBottom = Math.ceil(
+        window.innerHeight - button.getBoundingClientRect().bottom + button.clientHeight + 10
+      );
+
+      emojiPopover.style = `display: block; bottom: ${buttonDistanceFromBottom}px`;
+    } else {
+      emojiPopover.style = 'display: block';
+    }
+  });
   document.body.addEventListener('click', (ev) => {
     if (!(ev.target.closest('.js-add-emojis') || ev.target.matches('.js-add-emojis'))) {
       return;
@@ -54,9 +72,24 @@ export function registerEmojiPickerEventsHandlers() {
     const emojiPopover = $('.emoji-popover')[0];
 
     if (emojiPopover.style.display === 'none') {
-      emojiPopover.style.display = 'block';
+      emojiPopover.style = 'display: block';
+
+      console.log({
+        emojiBottom: emojiPopover.getBoundingClientRect().bottom,
+        height: window.innerHeight,
+      });
+
+      if (emojiPopover.getBoundingClientRect().bottom > window.innerHeight) {
+        emojiPopover.style.top = '';
+        const button = document.body.querySelector('.js-add-emojis');
+        const buttonDistanceFromBottom = Math.ceil(
+          window.innerHeight - button.getBoundingClientRect().bottom + button.clientHeight + 10
+        );
+
+        emojiPopover.style = `display: block; bottom: ${buttonDistanceFromBottom}px`;
+      }
     } else {
-      emojiPopover.style.display = 'none';
+      emojiPopover.style = 'display: none';
     }
   });
 

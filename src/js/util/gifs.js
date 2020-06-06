@@ -1,6 +1,8 @@
 import { Client } from 'config';
-import { shuffle } from 'lodash';
+import { shuffle, uniqueId } from 'lodash';
 import qs from 'query-string';
+
+import { proxyEvent } from '../inject';
 
 const formatTenorResults = (res) =>
   res.results.map((result) => ({
@@ -34,7 +36,7 @@ const tenor = (endpoint, params = {}) => {
     )
   );
 
-  return fetch(`https://api.tenor.com/v1/${endpoint}?${querystring}`).then((res) => res.json());
+  return makeGifRequester(`https://api.tenor.com/v1/${endpoint}?${querystring}`);
 };
 
 const giphy = (endpoint, params = {}) => {
@@ -51,9 +53,7 @@ const giphy = (endpoint, params = {}) => {
     )
   );
 
-  return fetch(`https://api.giphy.com/v1/gifs/${endpoint}?${querystring}`).then((res) =>
-    res.json()
-  );
+  return makeGifRequester(`https://api.giphy.com/v1/gifs/${endpoint}?${querystring}`);
 };
 
 export function trending() {
@@ -94,4 +94,29 @@ export default function tenorR(endpoint, params = {}) {
   );
 
   return fetch(`https://api.tenor.com/v1/${endpoint}?${querystring}`).then((res) => res.json());
+}
+
+function makeGifRequester(url) {
+  return new Promise((resolve) => {
+    const requestUuid = uniqueId('gif_req_');
+    proxyEvent('makeGifPickerRequest', {
+      url: url,
+      uuid: requestUuid,
+    });
+
+    window.addEventListener('message', function handler(ev) {
+      const { origin, data } = ev;
+
+      if (!origin.includes('tweetdeck.') && !origin.includes('better.tw')) {
+        return false;
+      }
+
+      if (data.name !== 'BTDC_gotGifPickerRequest' || data.detail.uuid !== requestUuid) {
+        return;
+      }
+
+      resolve(data.detail.res);
+      this.window.removeEventListener('message', this);
+    });
+  });
 }
