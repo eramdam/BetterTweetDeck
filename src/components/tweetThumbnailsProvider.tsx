@@ -23,8 +23,22 @@ export const TweetThumbnailsProvider: FC = () => {
     [urlResults, setUrlResults]
   );
 
+  const removeFromMap = useCallback(
+    (keys: readonly string[]) => {
+      const newMap = new Map(urlResults);
+      keys.forEach((k) => {
+        if (newMap.has(k)) {
+          newMap.delete(k);
+        }
+      });
+
+      setUrlResults(newMap);
+    },
+    [urlResults, setUrlResults]
+  );
+
   useEffect(() => {
-    const removeAddEventListener = listenToInternalBTDMessage(
+    const removeNewChirpListener = listenToInternalBTDMessage(
       BTDMessages.CHIRP_RESULT,
       BTDMessageOriginsEnum.CONTENT,
       async ({data}) => {
@@ -77,10 +91,23 @@ export const TweetThumbnailsProvider: FC = () => {
       }
     );
 
+    const removeChirpRemovalListener = listenToInternalBTDMessage(
+      BTDMessages.CHIRP_REMOVAL,
+      BTDMessageOriginsEnum.CONTENT,
+      ({data}) => {
+        if (data.name !== BTDMessages.CHIRP_REMOVAL) {
+          return;
+        }
+
+        removeFromMap(data.payload.uuids);
+      }
+    );
+
     return () => {
-      removeAddEventListener();
+      removeNewChirpListener();
+      removeChirpRemovalListener();
     };
-  }, [updateMap]);
+  }, [updateMap, removeFromMap]);
 
   return (
     <div>
