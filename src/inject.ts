@@ -13,6 +13,7 @@ import {setupChirpHandler} from './inject/chirpHandler';
 import {setupMediaSizeMonitor} from './inject/columnMediaSizeMonitor';
 import {maybeSetupDebugFunctions} from './inject/debugMethods';
 import {monitorBtdModal} from './inject/monitorBtdModal';
+import {updateTabTitle} from './inject/updateTabTitle';
 import {BTDSettingsAttribute} from './types/betterTweetDeck/btdCommonTypes';
 import {BTDMessageOriginsEnum, BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
 import {BTDSettings} from './types/betterTweetDeck/btdSettingsTypes';
@@ -89,6 +90,7 @@ window.$ = $;
   monitorBtdModal({TD, $});
   allowImagePaste({$});
   maybeAddColumnsButtons({TD, $, settings});
+  updateTabTitle({TD, $});
 
   $(document).one('dataColumnsLoaded', () => {
     maybeSetupCustomTimestampFormat({TD, settings});
