@@ -51,7 +51,7 @@ export const RBetterTweetDeckSettings = t.type({
   ),
 
   /** Put badges (translator/verified) on top of user avatars rather than next to names. */
-  badgesOnTopOfAvatars: withDefault(t.boolean, false),
+  badgesOnTopOfAvatars: withDefault(t.boolean, true),
 
   /** Where to show tweet actions. */
   tweetActionsPosition: withDefault(

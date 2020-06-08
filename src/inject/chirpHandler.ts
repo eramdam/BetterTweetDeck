@@ -5,7 +5,11 @@ import {getRandomString, isHTMLElement} from '../helpers/domHelpers';
 import {getChirpFromElement, getURLsFromChirp} from '../helpers/tweetdeckHelpers';
 import {HandlerOf, makeEnumRuntimeType} from '../helpers/typeHelpers';
 import {BTDModalUuidAttribute, BTDUuidAttribute} from '../types/betterTweetDeck/btdCommonTypes';
-import {TweetDeckColumnMediaPreviewSizesEnum, TweetDeckObject} from '../types/tweetdeckTypes';
+import {
+  TweetDeckChirp,
+  TweetDeckColumnMediaPreviewSizesEnum,
+  TweetDeckObject,
+} from '../types/tweetdeckTypes';
 import {getSizeForColumnKey} from './columnMediaSizeMonitor';
 
 export const RChirpHandlerPayload = t.type({
@@ -18,7 +22,9 @@ export const RChirpHandlerPayload = t.type({
   columnKey: t.string,
 });
 
-export interface ChirpHandlerPayload extends t.TypeOf<typeof RChirpHandlerPayload> {}
+export interface ChirpHandlerPayload extends t.TypeOf<typeof RChirpHandlerPayload> {
+  chirp: TweetDeckChirp;
+}
 
 export interface ChirpRemovedPayload {
   uuidArray: string[];

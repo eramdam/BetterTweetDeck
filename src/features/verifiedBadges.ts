@@ -13,7 +13,7 @@ export function putBadgesOnTopOfAvatars(settings: BTDSettings, addedChirp: Chirp
 
   const chirp = addedChirp.chirp;
   const actionOrType = chirp.action || chirp.chirpType;
-  let userToVerify;
+  let userToVerify: {isVerified: boolean} | undefined;
   const classesToAdd = ['btd-is-from-verified'];
   const chirpNode = document.querySelector(makeBtdUuidSelector('data-btd-uuid', addedChirp.uuid));
 
@@ -29,7 +29,7 @@ export function putBadgesOnTopOfAvatars(settings: BTDSettings, addedChirp: Chirp
         userToVerify = chirp.sourceUser;
         classesToAdd.push('btd-is-from-verified-mini');
       } else {
-        userToVerify = chirp.targetTweet.user;
+        userToVerify = chirp.targetTweet?.user;
       }
 
       break;
@@ -54,6 +54,10 @@ export function putBadgesOnTopOfAvatars(settings: BTDSettings, addedChirp: Chirp
 
     case 'tweet':
       userToVerify = chirp.retweetedStatus ? chirp.retweetedStatus.user : chirp.user;
+      break;
+
+    case 'message':
+      userToVerify = chirp.sender;
       break;
 
     default:

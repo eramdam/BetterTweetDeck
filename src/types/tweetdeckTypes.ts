@@ -429,6 +429,7 @@ interface HighWaterMarkChirpSortIndex {
   type: string;
 }
 
+export type TweetDeckUser = User;
 interface User {
   account: ChirpAccount;
   id: string;
@@ -476,40 +477,45 @@ interface TwitterUrl {
 }
 
 export interface TweetDeckChirp {
+  _media: any[];
   account: ChirpAccount;
+  action?: string;
+  chirpType?: string;
+  conversationMuted: boolean;
+  created: Date;
+  entities: TweetEntities;
+  htmlText: string;
   id: string;
-  sortIndex: TargetTweetSortIndex;
-  user: User;
-  sourceNoHTML: string;
-  sourceUrl: string;
-  prettyRetweetCount: boolean;
+  inReplyToID: string | number | null;
+  inReplyToScreenName: string;
+  inReplyToUserID: string;
+  isFavorite: boolean;
+  isQuoteStatus: boolean;
+  isRetweeted: boolean;
+  lang: string;
+  likeCount: number;
+  owner?: User;
+  participants: User[];
+  place: unknown;
   prettyLikeCount: boolean;
   prettyReplyCount: boolean;
-  withPrettyEngagements: boolean;
-  inReplyToUserID: string;
-  inReplyToScreenName: string;
-  isFavorite: boolean;
-  isRetweeted: boolean;
-  retweetCount: number;
-  likeCount: number;
-  replyCount: number;
-  inReplyToID: string | number | null;
-  selfThreadId: boolean;
-  text: string;
-  entities: TweetEntities;
-  isQuoteStatus: boolean;
+  prettyRetweetCount: boolean;
   quotedTweet?: TweetDeckChirp;
-  targetTweet?: TweetDeckChirp;
-  retweet?: TweetDeckChirp;
-  retweetedStatus?: TweetDeckChirp;
   quotedTweetMissing: boolean;
-  _media: any[];
-  lang: string;
-  place: unknown;
-  created: Date;
-  conversationMuted: boolean;
-  htmlText: string;
-  chirpType?: string;
+  replyCount: number;
+  retweet?: TweetDeckChirp;
+  retweetCount: number;
+  retweetedStatus?: TweetDeckChirp;
+  selfThreadId: boolean;
+  sender?: User;
+  sortIndex: TargetTweetSortIndex;
+  sourceNoHTML: string;
+  sourceUrl: string;
+  sourceUser: User;
+  targetTweet?: TweetDeckChirp;
+  text: string;
+  user: User;
+  withPrettyEngagements: boolean;
   _btd?: {
     chirpKey: string;
     columnKey: string;
