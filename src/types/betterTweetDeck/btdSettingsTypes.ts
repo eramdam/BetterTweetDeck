@@ -105,13 +105,15 @@ export const RBetterTweetDeckSettings = t.type({
   /** Change tab title when stuff happens in TweetDeck */
   updateTabTitleOnActivity: withDefault(t.boolean, false),
 
-  // I like this one...but maybe i'm the only who cares?
-  showLikeRTDogears: withDefault(t.boolean, false),
+  // I like this one...but maybe i'm the only one who cares?
+  // showLikeRTDogears: withDefault(t.boolean, false),
 
   enableShareItem: withDefault(t.boolean, true),
   shouldShortenSharedText: withDefault(t.boolean, true),
 
   disableGifsInProfilePictures: withDefault(t.boolean, false),
+
+  collapseReadDms: withDefault(t.boolean, false),
 
   legacy: withDefault(
     t.partial({
