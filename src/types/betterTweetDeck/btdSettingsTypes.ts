@@ -111,39 +111,18 @@ export const RBetterTweetDeckSettings = t.type({
   enableShareItem: withDefault(t.boolean, true),
   shouldShortenSharedText: withDefault(t.boolean, true),
 
+  disableGifsInProfilePictures: withDefault(t.boolean, false),
+
   legacy: withDefault(
     t.partial({
       // Legacy / Not sure what to do with those
       // DEPREQ
       // Annoying feature...might remove or find a better way to do it
       displayStars: t.undefined,
-      // DEPREQ
-      // Annoying? I dont remember anyone depending on that + is probably buggy af
-      flashTweets: t.undefined,
-      // Useful but needs to be repositioned
-      disableGifsInProfilePictures: t.undefined,
-      // DEPREQ
-      // Not sure they're that useful tbh
-      collapse_columns_pause: t.boolean,
-      // DEPREQ
-      uncollapse_columns_unpause: t.boolean,
       // Not sure what to do with this one... Might need some rework
       minimal_mode: t.boolean,
-      // DEPREQ
-      // ...never knew why I kept this after the new replies tbqh
-      hide_context: t.boolean,
       // This one will be a doozy....
       og_dark_theme: t.boolean,
-      // DEPREQ
-      // Not sure if this ever worked reliably
-      pause_scroll_on_hover: t.boolean,
-      // Might be risky nowadays...
-      share_item: t.type({
-        enabled: t.boolean,
-        short_txt: t.boolean,
-      }),
-      // DEPREQ
-      make_search_columns_first: t.boolean,
     }),
     {}
   ),

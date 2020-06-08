@@ -5,6 +5,7 @@ import {browser} from 'webextension-polyfill-ts';
 import {changeAvatarsShape} from './features/changeAvatarShape';
 import {changeScrollbarStyling} from './features/changeScrollbars';
 import {changeTweetActionsStyling} from './features/changeTweetActions';
+import {maybeFreezeGifsInProfilePicture} from './features/freezeGifsProfilePictures';
 import {maybeMakeComposerButtonsSmaller} from './features/smallerComposerButtons';
 import {getValidatedSettings} from './services/backgroundSettings';
 import {injectInTD} from './services/injectInTD';
@@ -24,6 +25,7 @@ import {setupReactRoot} from './services/setupBTDRoot';
   maybeMakeComposerButtonsSmaller({settings});
   changeTweetActionsStyling({settings});
   changeScrollbarStyling({settings});
+  maybeFreezeGifsInProfilePicture({settings});
 })();
 
 browser.runtime.onMessage.addListener((details) => {
