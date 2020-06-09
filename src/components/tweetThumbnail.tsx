@@ -1,8 +1,14 @@
 import React, {FC} from 'react';
 import {Portal, PortalWithState} from 'react-portal';
 
+import {maybeDoOnNode} from '../helpers/domHelpers';
 import {BTDFetchResult, BTDUrlProviderResultTypeEnum} from '../thumbnails/types';
-import {BTDModalUuidAttribute, BTDUuidAttribute} from '../types/betterTweetDeck/btdCommonTypes';
+import {
+  BTDModalUuidAttribute,
+  BTDUuidAttribute,
+  getFullscreenNode,
+  getFullscreenNodeRoot,
+} from '../types/betterTweetDeck/btdCommonTypes';
 import {FullscreenImageModal} from './fullscreenImageModal';
 import {MediumThumbnail} from './mediaThumbnails';
 
@@ -10,13 +16,6 @@ type TweetThumbnailProps = {
   uuid: string;
   thumbnailPayload: BTDFetchResult;
 };
-
-function maybeDoOnNode(node: Element | null, cb: (node: Element) => void) {
-  if (!node) {
-    return;
-  }
-  cb(node);
-}
 
 export const TweetThumbnail: FC<TweetThumbnailProps> = ({uuid, thumbnailPayload}) => {
   const thumbnailNode = document.querySelector(
@@ -26,9 +25,6 @@ export const TweetThumbnail: FC<TweetThumbnailProps> = ({uuid, thumbnailPayload}
   if (!thumbnailNode) {
     return null;
   }
-
-  const fullscreenNodeRoot = document.getElementById('btd-fullscreen-portal-root');
-  const fullscreenNode = document.getElementById('btd-fullscreen-portal-target');
 
   if (thumbnailPayload.type === BTDUrlProviderResultTypeEnum.ERROR) {
     return null;
@@ -41,17 +37,16 @@ export const TweetThumbnail: FC<TweetThumbnailProps> = ({uuid, thumbnailPayload}
 
   return (
     <PortalWithState
-      node={fullscreenNode}
-      closeOnEsc
+      node={getFullscreenNode()}
       closeOnOutsideClick
       onOpen={() => {
-        return maybeDoOnNode(fullscreenNodeRoot, (node) => {
+        return maybeDoOnNode(getFullscreenNodeRoot(), (node) => {
           node.classList.add('open');
           node.setAttribute(BTDModalUuidAttribute, uuid);
         });
       }}
       onClose={() => {
-        return maybeDoOnNode(fullscreenNodeRoot, (node) => {
+        return maybeDoOnNode(getFullscreenNodeRoot(), (node) => {
           node.classList.remove('open');
           node.removeAttribute(BTDModalUuidAttribute);
         });

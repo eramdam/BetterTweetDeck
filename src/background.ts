@@ -1,13 +1,14 @@
 import {browser} from 'webextension-polyfill-ts';
 
+import {processThumbnailMessage} from './background/fetchThumbnail';
+import {processGifRequest} from './background/gifRequests';
 import {getValidatedSettings, setupSettingsInBackground} from './services/backgroundSettings';
-import {findProviderForUrl, getThumbnailData} from './thumbnails';
-import {BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
+import {BTDMessageEvent, BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
 
 (async () => {
   await setupSettingsInBackground();
 
-  browser.runtime.onMessage.addListener(async (request, sender) => {
+  browser.runtime.onMessage.addListener(async (request: BTDMessageEvent, sender) => {
     if (
       sender.url !== 'https://tweetdeck.twitter.com/' ||
       !String(sender.id).includes('erambert.me') ||
@@ -17,23 +18,11 @@ import {BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
     }
 
     if (request.data.name === BTDMessages.FETCH_THUMBNAIL) {
-      const targetUrl = request.data.payload.url;
-      if (!targetUrl) {
-        return;
-      }
+      return await processThumbnailMessage(request.data);
+    }
 
-      const provider = findProviderForUrl(targetUrl);
-
-      if (!provider) {
-        return;
-      }
-
-      const thumbnailData = await getThumbnailData(targetUrl, provider);
-
-      return {
-        name: BTDMessages.THUMBNAIL_RESULT,
-        payload: thumbnailData,
-      };
+    if (request.data.name === BTDMessages.MAKE_GIF_REQUEST) {
+      return await processGifRequest(request.data);
     }
 
     return undefined;

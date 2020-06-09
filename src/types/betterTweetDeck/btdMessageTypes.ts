@@ -6,11 +6,14 @@ import {RBTDFetchResult} from '../../thumbnails/types';
 
 /** Different kinds of messages that BTD can send/receive internally. */
 export enum BTDMessages {
+  BTD_READY = 'BTD_READY',
   FETCH_THUMBNAIL = 'FETCH_THUMBNAIL',
   THUMBNAIL_RESULT = 'THUMBNAIL_RESULT',
   FETCH_CHIRP = 'FETCH_CHIRP',
   CHIRP_RESULT = 'CHIRP_RESULT',
   CHIRP_REMOVAL = 'CHIRP_REMOVAL',
+  MAKE_GIF_REQUEST = 'MAKE_GIF_REQUEST',
+  GIF_REQUEST_RESULT = 'GIF_REQUEST_RESULT',
 }
 
 /** Locations from which messages can be listened/sent to. */
@@ -59,17 +62,59 @@ const RThumbnailResultEvent = t.type({
   payload: RBTDFetchResult,
 });
 
+const gifSources = t.union([t.literal('giphy'), t.literal('tenor')]);
+const RMakeGifRequestEvent = t.type({
+  ...baseMessageEvent,
+  name: t.literal(BTDMessages.MAKE_GIF_REQUEST),
+  payload: t.type({
+    endpoint: t.string,
+    source: gifSources,
+    params: t.dictionary(t.string, t.string),
+  }),
+});
+
+const RMakeGifRequestResultEvent = t.type({
+  ...baseMessageEvent,
+  name: t.literal(BTDMessages.GIF_REQUEST_RESULT),
+  payload: t.type({
+    gifs: t.readonlyArray(
+      t.type({
+        preview: t.type({
+          url: t.string,
+          width: t.Integer,
+          height: t.Integer,
+        }),
+        url: t.string,
+        source: gifSources,
+      })
+    ),
+  }),
+});
+
+const RBTDReady = t.type({
+  ...baseMessageEvent,
+  name: t.literal(BTDMessages.BTD_READY),
+  payload: t.undefined,
+});
+
 const RBTDMessageEvent = t.type({
   data: t.taggedUnion('name', [
     RFetchThumbnailEvent,
     RThumbnailResultEvent,
     RChirpResult,
     RChirpRemoval,
+    RMakeGifRequestEvent,
+    RMakeGifRequestResultEvent,
+    RBTDReady,
   ]),
 });
 
 export interface BTDMessageEvent extends t.TypeOf<typeof RBTDMessageEvent> {}
-interface BTDThumbnailResultEvent extends t.TypeOf<typeof RThumbnailResultEvent> {}
+export interface BTDThumbnailResultEvent extends t.TypeOf<typeof RThumbnailResultEvent> {}
+export interface BTDFetchThumbnailEvent extends t.TypeOf<typeof RFetchThumbnailEvent> {}
+export interface BTDMakeGifRequestEvent extends t.TypeOf<typeof RMakeGifRequestEvent> {}
+export interface BTDMakeGifRequestResultEvent extends t.TypeOf<typeof RMakeGifRequestResultEvent> {}
+
 export type BTDThumbnailResultEventPayload = BTDThumbnailResultEvent['payload'];
 export type BTDMessageEventData = BTDMessageEvent['data'];
 

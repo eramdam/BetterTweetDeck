@@ -14,3 +14,10 @@ export const getRandomString = (length = 32) => {
     .map((n) => Number(n).toString(16))
     .join('');
 };
+
+export function maybeDoOnNode(node: Element | null, cb: (node: Element) => void) {
+  if (!node) {
+    return;
+  }
+  cb(node);
+}
