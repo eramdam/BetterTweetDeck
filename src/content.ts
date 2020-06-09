@@ -8,17 +8,20 @@ import {changeTweetActionsStyling} from './features/changeTweetActions';
 import {maybeCollapseDms} from './features/collapseDms';
 import {maybeFreezeGifsInProfilePicture} from './features/freezeGifsProfilePictures';
 import {maybeMakeComposerButtonsSmaller} from './features/smallerComposerButtons';
+import {listenToInternalBTDMessage} from './helpers/communicationHelpers';
 import {getValidatedSettings} from './services/backgroundSettings';
 import {injectInTD} from './services/injectInTD';
 import {setupReactRoot} from './services/setupBTDRoot';
+import {BTDMessageOriginsEnum, BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
 
-(async () => {
+// Inject some scripts
+injectInTD();
+
+listenToInternalBTDMessage(BTDMessages.BTD_READY, BTDMessageOriginsEnum.CONTENT, async () => {
   // Setup the React components.
   await setupReactRoot();
   // Add our own class to the body.
   document.body.classList.add('btd-loaded');
-  // Inject some scripts
-  await injectInTD();
 
   // Get the settings from the browser.
   const settings = await getValidatedSettings();
@@ -28,7 +31,7 @@ import {setupReactRoot} from './services/setupBTDRoot';
   changeScrollbarStyling({settings});
   maybeFreezeGifsInProfilePicture({settings});
   maybeCollapseDms({settings});
-})();
+});
 
 browser.runtime.onMessage.addListener((details) => {
   switch (details.action) {

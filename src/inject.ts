@@ -94,6 +94,12 @@ window.$ = $;
 
   $(document).one('dataColumnsLoaded', () => {
     maybeSetupCustomTimestampFormat({TD, settings});
+    sendInternalBTDMessage({
+      name: BTDMessages.BTD_READY,
+      origin: BTDMessageOriginsEnum.INJECT,
+      isReponse: false,
+      payload: undefined,
+    });
   });
 })();
 

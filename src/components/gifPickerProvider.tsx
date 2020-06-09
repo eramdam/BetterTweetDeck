@@ -1,10 +1,11 @@
 import _, {Dictionary} from 'lodash';
 import React, {FC} from 'react';
-import {Portal} from 'react-portal';
+import {Portal, PortalWithState} from 'react-portal';
 
 import {GifsArray} from '../background/gifRequests';
 import {sendMessageToBackground} from '../helpers/webExtensionHelpers';
 import {GifButton} from '../services/gif/gifButton';
+import {getFullscreenNode} from '../types/betterTweetDeck/btdCommonTypes';
 import {BTDMessageOriginsEnum, BTDMessages} from '../types/betterTweetDeck/btdMessageTypes';
 
 export const GifPickerProvider: FC = () => {
@@ -16,9 +17,18 @@ export const GifPickerProvider: FC = () => {
   const gifButtonNode = document.querySelector('.compose-text-container > div.txt-right');
 
   return (
-    <Portal node={gifButtonNode}>
-      <GifButton onClick={onGifClick}></GifButton>
-    </Portal>
+    <PortalWithState node={getFullscreenNode()} closeOnOutsideClick>
+      {({portal, openPortal}) => {
+        return (
+          <>
+            <Portal node={gifButtonNode}>
+              <GifButton onClick={openPortal}></GifButton>
+            </Portal>
+            {portal(<div>Hello</div>)}
+          </>
+        );
+      }}
+    </PortalWithState>
   );
 };
 
