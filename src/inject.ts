@@ -43,8 +43,6 @@ const TD = window.TD as TweetDeckObject;
 const $: JQueryStatic | undefined =
   mR && mR.findFunction('jQuery') && mR.findFunction('jquery:')[0];
 
-window.$ = $;
-
 (async () => {
   if (!isObject(TD)) {
     return;
@@ -81,7 +79,7 @@ window.$ = $;
 
   markInjectScriptAsReady();
   setupMediaSizeMonitor({TD, $});
-  maybeSetupDebugFunctions();
+  maybeSetupDebugFunctions({$});
   maybeRemoveRedirection({TD});
   maybeChangeUsernameFormat({
     TD,
