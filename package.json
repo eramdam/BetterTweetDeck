@@ -14,6 +14,7 @@
   },
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack --watch --progress --env.browser",
+    "build": "cross-env NODE_ENV=production webpack -p --progress --env.browser",
     "fix": "eslint --fix . --ext .jsx,.js,.ts,.tsx",
     "typecheck:watch": "tsc -p . --watch",
     "postinstall": "node-config-ts",
