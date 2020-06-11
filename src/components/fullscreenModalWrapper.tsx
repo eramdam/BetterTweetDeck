@@ -1,27 +1,16 @@
-import React, {CSSProperties, FC, useRef, useState} from 'react';
-import useResizeObserver from 'use-resize-observer';
+import React from 'dom-chef';
+import {CSSProperties} from 'react';
 
-import {Handler, RendererOf} from '../helpers/typeHelpers';
+import {DCFactory} from '../helpers/domHelpers';
+import {Handler} from '../helpers/typeHelpers';
 
 interface FullscreenModalWrapperProps {
-  children: RendererOf<{style: CSSProperties}>;
   onClose: Handler;
+  url: string;
+  imageStyles: CSSProperties;
 }
 
-export const FullscreenModalWrapper: FC<FullscreenModalWrapperProps> = (props) => {
-  const embedItemRef = useRef<HTMLDivElement>(null);
-  const [imageStyles, setImageStyles] = useState<CSSProperties>({});
-
-  useResizeObserver({
-    ref: embedItemRef,
-    onResize: (dimensions) => {
-      setImageStyles({
-        maxWidth: dimensions.width,
-        maxHeight: dimensions.height,
-      });
-    },
-  });
-
+export const makeFullscreenModalWrapper: DCFactory<FullscreenModalWrapperProps> = (props) => {
   return (
     <div className="js-mediatable ovl-block is-inverted-light" tabIndex={-1}>
       <div className="s-padded">
@@ -33,7 +22,12 @@ export const FullscreenModalWrapper: FC<FullscreenModalWrapperProps> = (props) =
             rel="dismiss">
             <i className="icon txt-size--24 icon-close"></i>
           </a>
-          <div className="js-embeditem med-embeditem is-loaded" ref={embedItemRef}>
+          <div
+            className="js-embeditem med-embeditem is-loaded"
+            data-btd-modal-content-sizer
+            style={{
+              bottom: 50,
+            }}>
             <div className="l-table">
               <div className="l-cell">
                 <div
@@ -41,7 +35,7 @@ export const FullscreenModalWrapper: FC<FullscreenModalWrapperProps> = (props) =
                   style={{
                     opacity: 1,
                   }}>
-                  {props.children({style: imageStyles})}
+                  <img src={props.url} alt="" />
                 </div>
               </div>
             </div>

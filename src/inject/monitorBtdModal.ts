@@ -1,12 +1,13 @@
 import {getChirpFromElement} from '../helpers/tweetdeckHelpers';
 import {
   BTDModalUuidAttribute,
+  getFullscreenNodeRoot,
   makeBTDModule,
   makeBtdUuidSelector,
 } from '../types/betterTweetDeck/btdCommonTypes';
 
 export const monitorBtdModal = makeBTDModule(({TD}) => {
-  const btdPortalTarget = document.querySelector('#btd-fullscreen-portal-target');
+  const btdPortalTarget = getFullscreenNodeRoot();
 
   if (!btdPortalTarget) {
     console.warn(`Could not init modal listener`);

@@ -8,7 +8,7 @@ export function hasProperty<T, K extends string>(o: T, k: K): o is T & Object & 
 
 export type Handler = () => void;
 export type HandlerOf<T> = (opt: T) => void;
-export type RendererOf<T> = (props: T) => React.ReactNode;
+export type RendererOf<T> = (props: T) => JSX.Element;
 
 /** Creates an io-ts type with a default value. */
 /* Taken from https://github.com/gcanti/io-ts/blob/d8382e60685f17414942b1b04826168280c14f2e/test/helpers.ts#L101-L111 */

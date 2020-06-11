@@ -3,7 +3,10 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
-    "lib": ["dom", "es2018"],
+    "lib": [
+      "dom",
+      "es2020"
+    ],
     "moduleResolution": "node",
     "noEmit": true,
     "noEmitHelpers": true,

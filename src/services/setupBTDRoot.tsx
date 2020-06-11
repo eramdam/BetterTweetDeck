@@ -1,19 +1,18 @@
-import React from 'react';
-import {render} from 'react-dom';
+import React from 'dom-chef';
 
-import {BtdApp} from '../components/btdApp';
-
-export function setupReactRoot() {
+export function setupBtdRoot() {
   return new Promise((resolve) => {
     if (document.querySelector('#btdRoot')) {
       return;
     }
 
-    const root = document.createElement('div');
-    root.id = 'btdRoot';
+    const btdApp = (
+      <div id="btdRoot">
+        <div id="btd-fullscreen-portal-root"></div>
+      </div>
+    );
 
-    document.body.appendChild(root);
-
-    render(<BtdApp />, root, resolve);
+    document.body.appendChild<any>(btdApp);
+    resolve();
   });
 }

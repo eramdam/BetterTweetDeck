@@ -1,9 +1,15 @@
 import {isObject} from 'lodash';
 import moduleRaid from 'moduleraid';
 
+import {changeAvatarsShape} from './features/changeAvatarShape';
+import {changeScrollbarStyling} from './features/changeScrollbars';
 import {maybeSetupCustomTimestampFormat} from './features/changeTimestampFormat';
+import {changeTweetActionsStyling} from './features/changeTweetActions';
+import {maybeCollapseDms} from './features/collapseDms';
+import {maybeFreezeGifsInProfilePicture} from './features/freezeGifsProfilePictures';
 import {maybeRemoveRedirection} from './features/removeRedirection';
 import {maybeRevertToLegacyReplies} from './features/revertToLegacyReplies';
+import {maybeMakeComposerButtonsSmaller} from './features/smallerComposerButtons';
 import {maybeChangeUsernameFormat} from './features/usernameDisplay';
 import {putBadgesOnTopOfAvatars} from './features/verifiedBadges';
 import {sendInternalBTDMessage} from './helpers/communicationHelpers';
@@ -12,7 +18,6 @@ import {allowImagePaste} from './inject/allowImagePaste';
 import {setupChirpHandler} from './inject/chirpHandler';
 import {setupMediaSizeMonitor} from './inject/columnMediaSizeMonitor';
 import {maybeSetupDebugFunctions} from './inject/debugMethods';
-import {monitorBtdModal} from './inject/monitorBtdModal';
 import {updateTabTitle} from './inject/updateTabTitle';
 import {BTDSettingsAttribute} from './types/betterTweetDeck/btdCommonTypes';
 import {BTDMessageOriginsEnum, BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
@@ -87,12 +92,18 @@ window.$ = $;
     TD,
     settings,
   });
-  monitorBtdModal({TD, $});
   allowImagePaste({$});
   maybeAddColumnsButtons({TD, $, settings});
   updateTabTitle({TD, $});
+  changeAvatarsShape({settings});
+  maybeMakeComposerButtonsSmaller({settings});
+  changeTweetActionsStyling({settings});
+  changeScrollbarStyling({settings});
+  maybeFreezeGifsInProfilePicture({settings});
+  maybeCollapseDms({settings});
 
   $(document).one('dataColumnsLoaded', () => {
+    document.body.classList.add('btd-loaded');
     maybeSetupCustomTimestampFormat({TD, settings});
     sendInternalBTDMessage({
       name: BTDMessages.BTD_READY,

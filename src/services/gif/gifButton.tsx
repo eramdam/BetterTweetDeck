@@ -1,11 +1,12 @@
-import React, {FC} from 'react';
+import React from 'dom-chef';
 
+import {DCFactory} from '../../helpers/domHelpers';
 import {Handler} from '../../helpers/typeHelpers';
 
 interface GifButtonProps {
   onClick: Handler;
 }
-export const GifButton: FC<GifButtonProps> = (props) => {
+export const makeGifButton: DCFactory<GifButtonProps> = (props) => {
   return (
     <span onClick={props.onClick} className="btd-gif-button -visible color-twitter-dark-gray">
       GIF
