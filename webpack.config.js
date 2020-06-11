@@ -17,7 +17,7 @@ function WebpackConfig(env) {
       extensions: ['.ts', '.tsx', '.js', '.jsx'],
     },
     plugins: [new GenerateJsonPlugin('manifest.json', manifestJson, null, 2)],
-    mode: 'development',
+    mode: process.env.NODE_ENV,
     module: {
       rules: [
         {
