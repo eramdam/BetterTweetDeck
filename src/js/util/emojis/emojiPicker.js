@@ -96,6 +96,7 @@ export function registerEmojiPickerEventsHandlers() {
     if (
       clickedOutsideElement('.emoji-popover', ev) &&
       clickedOutsideElement('.js-add-emojis', ev) &&
+      $('.emoji-popover') &&
       $('.emoji-popover')[0].style.display === 'block'
     ) {
       $('.emoji-popover')[0].style.display = 'none';
