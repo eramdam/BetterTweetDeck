@@ -5,6 +5,7 @@ import FileSaver from 'file-saver';
 import { debounce, unescape, uniqueId } from 'lodash';
 import moduleRaid from 'moduleraid';
 
+import { maybeToggleColumnStyles } from './fixChromeColumnBug';
 import AdvancedMuteEngine from './util/ame';
 import * as GIFS from './util/gifs';
 import { keepHashtags } from './util/keepHashtags';
@@ -988,6 +989,8 @@ $(document).one('dataColumnsLoaded', () => {
         ></span>
       `);
   });
+
+  maybeToggleColumnStyles();
 });
 
 $(document).on('click', '.btd-gif-button', (e) => {
