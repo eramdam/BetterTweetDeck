@@ -1,4 +1,5 @@
 import {debounce, Dictionary} from 'lodash';
+import _ from 'lodash';
 
 import {GifsArray} from '../background/gifRequests';
 import {makeGifButton} from '../components/gifButton';
