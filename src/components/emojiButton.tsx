@@ -2,10 +2,12 @@ import {BaseEmoji, Emoji, Picker} from 'emoji-mart';
 import React, {FC, Fragment, useState} from 'react';
 
 import {isHTMLElement} from '../helpers/domHelpers';
+import {useTweetdeckTheme} from '../helpers/hookHelpers';
 import {HandlerOf} from '../helpers/typeHelpers';
 
 export const EmojiButton: FC<{onClick: HandlerOf<string>}> = (props) => {
   const [isPickerShown, setIsPickerShown] = useState(false);
+  const theme = useTweetdeckTheme();
   const composerRect = () =>
     document.querySelector('.compose-text-container')!.getBoundingClientRect();
 
@@ -27,14 +29,13 @@ export const EmojiButton: FC<{onClick: HandlerOf<string>}> = (props) => {
             autoFocus
             onSelect={(emoji: BaseEmoji) => {
               props.onClick(emoji.native);
-              setIsPickerShown(false);
             }}
             emoji="sparkles"
             useButton={false}
             emojiSize={16}
             perLine={8}
             title=""
-            theme="dark"
+            theme={theme}
             style={{
               position: 'fixed',
               top: composerRect().top + composerRect().height,

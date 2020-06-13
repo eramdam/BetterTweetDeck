@@ -48,5 +48,4 @@ html .btd-loaded .ovl {
 
 .js-compose-text {
   width: calc(100% - 26px) !important;
-  resize: vertical;
 }

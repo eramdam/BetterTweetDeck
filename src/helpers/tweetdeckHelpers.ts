@@ -201,3 +201,29 @@ export function insertInsideComposer(string: string) {
   tweetCompose.dispatchEvent(new KeyboardEvent('input'));
   tweetCompose.dispatchEvent(new Event('change'));
 }
+
+export function getCurrentTheme() {
+  return document.querySelector<HTMLElement>('html')!.classList.contains('dark') ? 'dark' : 'light';
+}
+
+export function onThemeChange(callback: HandlerOf<'light' | 'dark'>) {
+  const root = document.querySelector<HTMLElement>('html');
+
+  if (!root) {
+    return;
+  }
+
+  const onChange = () => {
+    const theme = root.classList.contains('dark') ? 'dark' : 'light';
+    callback(theme);
+  };
+
+  const observer = new MutationObserver(onChange);
+
+  onChange();
+
+  observer.observe(root, {
+    attributes: true,
+    attributeFilter: ['class'],
+  });
+}

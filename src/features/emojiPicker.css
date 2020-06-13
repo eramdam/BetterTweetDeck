@@ -2,8 +2,7 @@
  * Emoji mart styles override to avoid CSS issues in TweetDecjk
  */
 
-html.dark .btd-loaded,
-html.light .btd-loaded {
+html .btd-loaded {
   & .emoji-mart,
   & .emoji-mart * {
     box-sizing: border-box;
