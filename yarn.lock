@@ -8430,10 +8430,10 @@ web-ext@^4.2.0:
     yargs "15.1.0"
     zip-dir "1.0.2"
 
-webextension-polyfill-ts@^0.16.0:
-  version "0.16.0"
-  resolved "https://registry.yarnpkg.com/webextension-polyfill-ts/-/webextension-polyfill-ts-0.16.0.tgz#3c4fffdf16885127eabfeb067da071e641296cfc"
-  integrity sha512-ibuzJf6lVbH5kKjRBzqNaF+C2tjfDNUtkT/h6RQlEt0zvW3HpLO9ESNJcyXCsPGgeBuXQfJprND/EiwCzIkYRw==
+webextension-polyfill-ts@^0.17.0:
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/webextension-polyfill-ts/-/webextension-polyfill-ts-0.17.0.tgz#40c7b82469401527a5cff9c53c88ba08cebf3927"
+  integrity sha512-VTk36aYicwPCM+qh7LPAWAZMeYASB7GqGcJ+f39kRO6l39NmoIakkX6L9rqAPwDxoIfLK0UpxtfkxXGfB5lEfA==
   dependencies:
     webextension-polyfill "^0.6.0"
 
