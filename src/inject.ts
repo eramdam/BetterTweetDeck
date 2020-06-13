@@ -1,6 +1,8 @@
 import {isObject} from 'lodash';
 import moduleRaid from 'moduleraid';
 
+import {maybeAddColumnsButtons} from './features/addColumnButtons';
+import {allowImagePaste} from './features/allowImagePaste';
 import {changeAvatarsShape} from './features/changeAvatarShape';
 import {changeScrollbarStyling} from './features/changeScrollbars';
 import {maybeSetupCustomTimestampFormat} from './features/changeTimestampFormat';
@@ -10,15 +12,13 @@ import {maybeFreezeGifsInProfilePicture} from './features/freezeGifsProfilePictu
 import {maybeRemoveRedirection} from './features/removeRedirection';
 import {maybeRevertToLegacyReplies} from './features/revertToLegacyReplies';
 import {maybeMakeComposerButtonsSmaller} from './features/smallerComposerButtons';
+import {updateTabTitle} from './features/updateTabTitle';
 import {maybeChangeUsernameFormat} from './features/usernameDisplay';
 import {putBadgesOnTopOfAvatars} from './features/verifiedBadges';
 import {sendInternalBTDMessage} from './helpers/communicationHelpers';
-import {maybeAddColumnsButtons} from './features/addColumnButtons';
-import {allowImagePaste} from './features/allowImagePaste';
 import {setupChirpHandler} from './inject/chirpHandler';
 import {setupMediaSizeMonitor} from './inject/columnMediaSizeMonitor';
 import {maybeSetupDebugFunctions} from './inject/debugMethods';
-import {updateTabTitle} from './features/updateTabTitle';
 import {BTDSettingsAttribute} from './types/betterTweetDeck/btdCommonTypes';
 import {BTDMessageOriginsEnum, BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
 import {BTDSettings} from './types/betterTweetDeck/btdSettingsTypes';
