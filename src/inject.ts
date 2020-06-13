@@ -13,12 +13,12 @@ import {maybeMakeComposerButtonsSmaller} from './features/smallerComposerButtons
 import {maybeChangeUsernameFormat} from './features/usernameDisplay';
 import {putBadgesOnTopOfAvatars} from './features/verifiedBadges';
 import {sendInternalBTDMessage} from './helpers/communicationHelpers';
-import {maybeAddColumnsButtons} from './inject/addColumnButtons';
-import {allowImagePaste} from './inject/allowImagePaste';
+import {maybeAddColumnsButtons} from './features/addColumnButtons';
+import {allowImagePaste} from './features/allowImagePaste';
 import {setupChirpHandler} from './inject/chirpHandler';
 import {setupMediaSizeMonitor} from './inject/columnMediaSizeMonitor';
 import {maybeSetupDebugFunctions} from './inject/debugMethods';
-import {updateTabTitle} from './inject/updateTabTitle';
+import {updateTabTitle} from './features/updateTabTitle';
 import {BTDSettingsAttribute} from './types/betterTweetDeck/btdCommonTypes';
 import {BTDMessageOriginsEnum, BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
 import {BTDSettings} from './types/betterTweetDeck/btdSettingsTypes';

@@ -1,9 +1,9 @@
-import {makeFullscreenModalWrapper} from '../components/fullscreenModalWrapper';
-import {makeMediumThumbnail} from '../components/mediaThumbnails';
-import {listenToInternalBTDMessage} from '../helpers/communicationHelpers';
-import {sendMessageToBackground} from '../helpers/webExtensionHelpers';
-import {BTDUuidAttribute, makeBtdUuidSelector} from '../types/betterTweetDeck/btdCommonTypes';
-import {BTDMessageOriginsEnum, BTDMessages} from '../types/betterTweetDeck/btdMessageTypes';
+import {makeFullscreenModalWrapper} from '../../components/fullscreenModalWrapper';
+import {makeMediumThumbnail} from '../../components/mediaThumbnails';
+import {listenToInternalBTDMessage} from '../../helpers/communicationHelpers';
+import {sendMessageToBackground} from '../../helpers/webExtensionHelpers';
+import {BTDUuidAttribute, makeBtdUuidSelector} from '../../types/betterTweetDeck/btdCommonTypes';
+import {BTDMessageOriginsEnum, BTDMessages} from '../../types/betterTweetDeck/btdMessageTypes';
 import {findProviderForUrl} from '.';
 import {closeFullscreenModal, openFullscreenModal} from './thumbnailHelpers';
 import {

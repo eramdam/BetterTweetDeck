@@ -2,9 +2,9 @@ import './components/styles/index.css';
 
 import {browser} from 'webextension-polyfill-ts';
 
+import {setupThumbnailInjector} from './features/thumbnails/thumbnailInjector';
 import {injectInTD} from './services/injectInTD';
 import {setupBtdRoot} from './services/setupBTDRoot';
-import {setupThumbnailInjector} from './thumbnails/thumbnailInjector';
 
 // Setup root modal.
 setupBtdRoot();

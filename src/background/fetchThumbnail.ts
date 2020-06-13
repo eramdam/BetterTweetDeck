@@ -1,4 +1,4 @@
-import {findProviderForUrl, getThumbnailData} from '../thumbnails';
+import {findProviderForUrl, getThumbnailData} from '../features/thumbnails';
 import {
   BTDFetchThumbnailEvent,
   BTDMessages,

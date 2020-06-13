@@ -1,4 +1,4 @@
-import './collapseColumns.css';
+import './addColumnButtons.css';
 
 import {isHTMLElement} from '../helpers/domHelpers';
 import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';

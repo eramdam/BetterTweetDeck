@@ -1,10 +1,10 @@
 import {Key} from 'ts-key-enum';
 
-import {emptyNode, isHTMLElement, maybeDoOnNode, setStylesOnNode} from '../helpers/domHelpers';
+import {emptyNode, isHTMLElement, maybeDoOnNode, setStylesOnNode} from '../../helpers/domHelpers';
 import {
   BTDModalUuidAttribute,
   getFullscreenNodeRoot,
-} from '../types/betterTweetDeck/btdCommonTypes';
+} from '../../types/betterTweetDeck/btdCommonTypes';
 
 const onFullscreenKeyDown = (e: KeyboardEvent) => {
   if (e.key !== Key.Escape) {

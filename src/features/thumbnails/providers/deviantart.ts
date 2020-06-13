@@ -1,4 +1,4 @@
-import {buildURLWithSearchParams, statusAndJson} from '../../helpers/thumbnailsHelpers';
+import {buildURLWithSearchParams, statusAndJson} from '../../../helpers/networkHelpers';
 import {BTDThumbnailProvider, BTDUrlProviderResultTypeEnum} from '../types';
 
 export const DeviantArtProvider: BTDThumbnailProvider = {

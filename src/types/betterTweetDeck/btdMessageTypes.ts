@@ -2,7 +2,7 @@ import * as t from 'io-ts';
 
 import {makeEnumRuntimeType} from '../../helpers/typeHelpers';
 import {RChirpHandlerPayload} from '../../inject/chirpHandler';
-import {RBTDFetchResult} from '../../thumbnails/types';
+import {RBTDFetchResult} from '../../features/thumbnails/types';
 
 /** Different kinds of messages that BTD can send/receive internally. */
 export enum BTDMessages {
