@@ -519,3 +519,12 @@ html.dark .btd-loaded {
 .emoji-mart-preview-emoticon {
   display: none;
 }
+
+#emojiPickerWrapper {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10000;
+  left: -330px;
+  top: 0;
+}

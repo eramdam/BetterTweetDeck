@@ -1,52 +1,36 @@
 import './emojiPicker.css';
 
-import {BaseEmoji, Picker} from 'emoji-mart';
-import React from 'react';
+import {BaseEmoji, Emoji, Picker} from 'emoji-mart';
+import React, {FC, Fragment, useState} from 'react';
 import ReactDOM, {unmountComponentAtNode} from 'react-dom';
 
-import {makeEmojiButton} from '../components/emojiButton';
 import {isHTMLElement} from '../helpers/domHelpers';
 import {insertInsideComposer, onComposerShown} from '../helpers/tweetdeckHelpers';
+import {HandlerOf} from '../helpers/typeHelpers';
 
-export function setupEmojiPicker() {
-  const root = document.createElement('div');
-  root.id = 'emojiRoot';
+const EmojiButton: FC<{onClick: HandlerOf<string>}> = (props) => {
+  const [isPickerShown, setIsPickerShown] = useState(false);
+  const composerRect = () =>
+    document.querySelector('.compose-text-container')!.getBoundingClientRect();
 
-  document.body.appendChild(root);
-
-  function unmount() {
-    unmountComponentAtNode(root);
-  }
-
-  onComposerShown((isVisible) => {
-    if (!isVisible) {
-      unmount();
-      return;
-    }
-
-    function renderEmojiPicker() {
-      const composer = document.querySelector('.compose-text-container')!;
-      const composerRect = composer.getBoundingClientRect();
-      ReactDOM.render(
+  return (
+    <Fragment>
+      {isPickerShown && (
         <div
-          style={{
-            height: '100vh',
-            width: '100vw',
-            position: 'fixed',
-            zIndex: 100000,
-          }}
+          id="emojiPickerWrapper"
           onClick={(e) => {
             if (isHTMLElement(e.target) && e.target.closest('.emoji-mart')) {
               return;
             }
-            unmount();
+
+            setIsPickerShown(false);
           }}>
           <Picker
             set="twitter"
             autoFocus
             onSelect={(emoji: BaseEmoji) => {
-              insertInsideComposer(emoji.native);
-              unmount();
+              props.onClick(emoji.native);
+              setIsPickerShown(false);
             }}
             emoji="sparkles"
             useButton={false}
@@ -56,18 +40,46 @@ export function setupEmojiPicker() {
             theme="dark"
             style={{
               position: 'fixed',
-              top: composerRect.top + composerRect.height,
-              left: composerRect.left,
+              top: composerRect().top + composerRect().height,
+              left: 0,
+              width: composerRect().width,
+              border: 'none',
+              transform: 'translateX(calc(-100% - 15px))',
             }}
           />
-        </div>,
-        root,
-        console.log
-      );
+        </div>
+      )}
+      <div
+        style={{
+          height: 20,
+          position: 'absolute',
+          top: 10,
+          right: 10,
+          width: 20,
+          display: 'block',
+        }}>
+        <Emoji emoji="joy" size={20} onClick={() => setIsPickerShown(true)} set="twitter" />
+      </div>
+    </Fragment>
+  );
+};
+
+export function setupEmojiPicker() {
+  function unmount() {
+    unmountComponentAtNode(document.querySelector('#emojiButton')!);
+  }
+
+  onComposerShown((isVisible) => {
+    if (!isVisible) {
+      unmount();
+      return;
     }
 
-    const emojiButton = makeEmojiButton({onClick: renderEmojiPicker});
+    const root = document.createElement('div');
+    root.id = 'emojiButton';
 
-    document.querySelector('.compose-text-container')?.append(emojiButton as any);
+    document.querySelector('.compose-text-container')!.appendChild(root);
+
+    ReactDOM.render(<EmojiButton onClick={insertInsideComposer}></EmojiButton>, root);
   });
 }
