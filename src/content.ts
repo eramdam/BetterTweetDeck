@@ -2,6 +2,7 @@ import './components/index.css';
 
 import {browser} from 'webextension-polyfill-ts';
 
+import {setupEmojiPicker} from './features/emojiPicker';
 import {setupGifPicker} from './features/gifPicker';
 import {setupThumbnailInjector} from './features/thumbnails/thumbnailInjector';
 import {listenToInternalBTDMessage} from './helpers/communicationHelpers';
@@ -18,6 +19,7 @@ setupThumbnailInjector();
 
 listenToInternalBTDMessage(BTDMessages.BTD_READY, BTDMessageOriginsEnum.CONTENT, async () => {
   setupGifPicker();
+  setupEmojiPicker();
 
   browser.runtime.onMessage.addListener((details) => {
     switch (details.action) {
