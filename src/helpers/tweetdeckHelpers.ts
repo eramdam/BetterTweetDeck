@@ -2,6 +2,7 @@ import {Twitter} from 'twit';
 
 import {TweetDeckChirp} from '../types/tweetdeckTypes';
 import {TweetDeckObject} from '../types/tweetdeckTypes';
+import {HandlerOf} from './typeHelpers';
 
 /**
  * Finds a mustache template whose content matches the query.
@@ -146,3 +147,30 @@ export const getURLsFromChirp = (chirp: TweetDeckChirp) => {
 // Might not be useful anymore
 export const createSelectorForChirp = (chirp: TweetDeckChirp, colKey: string) =>
   `[data-column=${colKey}] [data-key="${chirp.id}"]`;
+
+export function onComposerShown(callback: HandlerOf<boolean>) {
+  const drawer = document.querySelector('.drawer[data-drawer="compose"]');
+
+  const onChange = () => {
+    const tweetCompose = drawer?.querySelector('textarea.js-compose-text');
+
+    if (!tweetCompose) {
+      callback(false);
+      return;
+    }
+
+    callback(true);
+  };
+
+  const composerObserver = new MutationObserver(onChange);
+
+  composerObserver.observe(drawer!, {
+    childList: true,
+  });
+
+  onChange();
+
+  return () => {
+    composerObserver.disconnect();
+  };
+}
