@@ -1,8 +1,12 @@
 import './emojiPicker.css';
 
-import {Picker} from 'emoji-mart';
+import {BaseEmoji, Picker} from 'emoji-mart';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM, {unmountComponentAtNode} from 'react-dom';
+
+import {makeEmojiButton} from '../components/emojiButton';
+import {isHTMLElement} from '../helpers/domHelpers';
+import {insertInsideComposer, onComposerShown} from '../helpers/tweetdeckHelpers';
 
 export function setupEmojiPicker() {
   const root = document.createElement('div');
@@ -10,26 +14,60 @@ export function setupEmojiPicker() {
 
   document.body.appendChild(root);
 
-  ReactDOM.render(
-    <div>
-      <Picker
-        set="twitter"
-        autoFocus
-        onSelect={console.log}
-        emoji="sparkles"
-        useButton={false}
-        emojiSize={18}
-        perLine={7}
-        theme="dark"
-        title="Pick an emoji!"
-        style={{
-          position: 'fixed',
-          top: 40,
-          left: 100,
-        }}
-      />
-    </div>,
-    root,
-    console.log
-  );
+  function unmount() {
+    unmountComponentAtNode(root);
+  }
+
+  onComposerShown((isVisible) => {
+    if (!isVisible) {
+      unmount();
+      return;
+    }
+
+    function renderEmojiPicker() {
+      const composer = document.querySelector('.compose-text-container')!;
+      const composerRect = composer.getBoundingClientRect();
+      ReactDOM.render(
+        <div
+          style={{
+            height: '100vh',
+            width: '100vw',
+            position: 'fixed',
+            zIndex: 100000,
+          }}
+          onClick={(e) => {
+            if (isHTMLElement(e.target) && e.target.closest('.emoji-mart')) {
+              return;
+            }
+            unmount();
+          }}>
+          <Picker
+            set="twitter"
+            autoFocus
+            onSelect={(emoji: BaseEmoji) => {
+              insertInsideComposer(emoji.native);
+              unmount();
+            }}
+            emoji="sparkles"
+            useButton={false}
+            emojiSize={16}
+            perLine={8}
+            title=""
+            theme="dark"
+            style={{
+              position: 'fixed',
+              top: composerRect.top + composerRect.height,
+              left: composerRect.left,
+            }}
+          />
+        </div>,
+        root,
+        console.log
+      );
+    }
+
+    const emojiButton = makeEmojiButton({onClick: renderEmojiPicker});
+
+    document.querySelector('.compose-text-container')?.append(emojiButton as any);
+  });
 }

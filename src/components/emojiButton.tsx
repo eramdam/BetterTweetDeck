@@ -7,10 +7,16 @@ export const makeEmojiButton: DCFactory<{
   onClick: Handler;
 }> = (props) => {
   return (
-    <button
-      className="js-add-emojis js-show-tip needsclick btn btn-on-blue full-width txt-left margin-b--12 padding-v--9"
-      onClick={props.onClick}>
-      <span className="js-add-image-button-label label padding-ls">Emojis</span>
-    </button>
+    <div
+      style={{
+        height: 20,
+        position: 'absolute',
+        top: 10,
+        right: 10,
+        width: 20,
+        background: 'red',
+        display: 'block',
+      }}
+      onClick={props.onClick}></div>
   );
 };

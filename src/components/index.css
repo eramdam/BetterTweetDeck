@@ -45,3 +45,8 @@ html .btd-loaded .ovl {
 .badge-verified::before {
   background-position-y: 48px;
 }
+
+.js-compose-text {
+  width: calc(100% - 26px) !important;
+  resize: vertical;
+}

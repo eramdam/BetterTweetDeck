@@ -508,6 +508,14 @@ html.dark .btd-loaded {
 
 @media (max-height: 700px) {
   .emoji-mart-scroll {
-    height: 200px !important;
+    height: 170px !important;
   }
+
+  .emoji-mart-preview {
+    height: 50px !important;
+  }
+}
+
+.emoji-mart-preview-emoticon {
+  display: none;
 }
