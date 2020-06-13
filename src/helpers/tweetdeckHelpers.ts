@@ -176,27 +176,21 @@ export function onComposerShown(callback: HandlerOf<boolean>) {
 }
 
 // From http://stackoverflow.com/questions/1064089/inserting-a-text-where-cursor-is-using-javascript-jquery
-function insertAtCursor(input, value) {
-  // IE support
-  if (document.selection) {
-    input.focus();
-    const sel = document.selection.createRange();
-    sel.text = value;
-    // MOZILLA and others
-  } else if (input.selectionStart || input.selectionStart === '0') {
+function insertAtCursor(input: HTMLInputElement | HTMLTextAreaElement, value: string) {
+  if (input.selectionStart || input.selectionStart === 0) {
     const startPos = input.selectionStart;
     const endPos = input.selectionEnd;
     input.value =
       input.value.substring(0, startPos) +
       value +
-      input.value.substring(endPos, input.value.length);
+      input.value.substring(endPos || 0, input.value.length);
   } else {
     input.value += value;
   }
 }
 
 export function insertInsideComposer(string: string) {
-  const tweetCompose = document.querySelector('textarea.js-compose-text');
+  const tweetCompose = document.querySelector<HTMLTextAreaElement>('textarea.js-compose-text');
 
   if (!tweetCompose) {
     console.error('[BTD] No composer present');

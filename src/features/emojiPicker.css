@@ -1,3 +1,7 @@
+/**
+ * Emoji mart styles override to avoid CSS issues in TweetDecjk
+ */
+
 html.dark .btd-loaded,
 html.light .btd-loaded {
   & .emoji-mart,
@@ -506,7 +510,10 @@ html.dark .btd-loaded {
   }
 }
 
-@media (max-height: 700px) {
+/**
+ * Custom styles to make it work better on smaller screens.
+ */
+@media (max-height: 800px) {
   .emoji-mart-scroll {
     height: 170px !important;
   }
@@ -516,10 +523,27 @@ html.dark .btd-loaded {
   }
 }
 
+@media (max-height: 600px) {
+  .emoji-mart-scroll {
+    height: 120px !important;
+  }
+
+  .emoji-mart-preview {
+    display: none !important;
+    height: 50px !important;
+  }
+}
+
+/**
+ * No need for the emoticon preview ¯\(ツ)/¯ 
+ */
 .emoji-mart-preview-emoticon {
   display: none;
 }
 
+/**
+ * Invisible "overlay" we put around the picker to detect clicks outside of it
+ */
 #emojiPickerWrapper {
   position: fixed;
   width: 100vw;
@@ -527,4 +551,18 @@ html.dark .btd-loaded {
   z-index: 10000;
   left: -330px;
   top: 0;
+}
+
+.btd-emoji-button-wrapper {
+  filter: saturate(0);
+  transition-property: filter, transform;
+  transition-duration: 300ms;
+  transition-timing-function: ease;
+  overflow: hidden;
+  transform: scale(1);
+
+  &:hover {
+    filter: saturate(1);
+    transform: scale(1.1);
+  }
 }
