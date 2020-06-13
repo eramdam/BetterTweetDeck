@@ -4,7 +4,7 @@ const {NodeConfigTSPlugin} = require('node-config-ts/webpack');
 const {join} = require('path');
 
 function WebpackConfig(env) {
-  const manifestJson = require(`./tools/manifests2/${env.browser}.js`);
+  const manifestJson = require(`./tools/manifests/${env.browser}.js`);
 
   const finalConfig = {
     devtool: 'cheap-source-map',

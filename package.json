@@ -1,7 +1,6 @@
 {
   "name": "bettertweetdeck",
   "version": "4.0.0",
-  "extension_version": "4.0.0",
   "description": "Adds some nice options on TweetDeck to provide a better experience on the webapp when used on Chrome.",
   "repository": {
     "type": "git",
@@ -21,9 +20,9 @@
     "run:firefox": "web-ext run -s dist"
   },
   "browserslist": [
-    "last 2 chrome versions",
-    "last 2 firefox versions",
-    "last 2 edge versions"
+    "last 1 chrome versions",
+    "last 1 firefox versions",
+    "last 1 edge versions"
   ],
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
   "dependencies": {
