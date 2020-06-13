@@ -12,7 +12,7 @@ export function setupBtdRoot() {
       </div>
     );
 
-    document.body.appendChild<any>(btdApp);
+    document.body.appendChild(btdApp);
     resolve();
   });
 }

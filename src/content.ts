@@ -1,10 +1,13 @@
-import './components/styles/index.css';
+import './components/index.css';
 
 import {browser} from 'webextension-polyfill-ts';
 
+import {setupGifPicker} from './features/gifPicker';
 import {setupThumbnailInjector} from './features/thumbnails/thumbnailInjector';
+import {listenToInternalBTDMessage} from './helpers/communicationHelpers';
 import {injectInTD} from './services/injectInTD';
 import {setupBtdRoot} from './services/setupBTDRoot';
+import {BTDMessageOriginsEnum, BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
 
 // Setup root modal.
 setupBtdRoot();
@@ -13,22 +16,23 @@ injectInTD();
 // Setup thumbnail system.
 setupThumbnailInjector();
 
-browser.runtime.onMessage.addListener((details) => {
-  switch (details.action) {
-    case 'share': {
-      document.dispatchEvent(new CustomEvent('uiComposeTweet'));
-      const composer = document.querySelector<HTMLTextAreaElement>('textarea.js-compose-text');
+listenToInternalBTDMessage(BTDMessages.BTD_READY, BTDMessageOriginsEnum.CONTENT, async () => {
+  setupGifPicker();
 
-      if (!composer) {
-        return;
+  browser.runtime.onMessage.addListener((details) => {
+    switch (details.action) {
+      case 'share': {
+        document.dispatchEvent(new CustomEvent('uiComposeTweet'));
+        const composer = document.querySelector<HTMLTextAreaElement>('textarea.js-compose-text');
+
+        if (!composer) {
+          return;
+        }
+
+        composer.value = `${details.text} ${details.url}`;
+        composer.dispatchEvent(new Event('change'));
+        break;
       }
-
-      composer.value = `${details.text} ${details.url}`;
-      composer.dispatchEvent(new Event('change'));
-      break;
     }
-  }
+  });
 });
-
-// listenToInternalBTDMessage(BTDMessages.BTD_READY, BTDMessageOriginsEnum.CONTENT, async () => {
-// });

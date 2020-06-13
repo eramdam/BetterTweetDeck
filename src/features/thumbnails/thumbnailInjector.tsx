@@ -92,7 +92,7 @@ function insertThumbnailOnTweet(
       },
     });
 
-    thumbnailNode.appendChild<any>(thumbnail);
+    thumbnailNode.appendChild(thumbnail);
   } catch (e) {
     console.error(e);
   }

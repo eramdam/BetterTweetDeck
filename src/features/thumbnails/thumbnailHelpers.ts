@@ -57,7 +57,7 @@ export function openFullscreenModal(content: JSX.Element, btdUuid: string) {
   fullscreenNode.addEventListener('click', maybeCloseFullscreenModalOnClick);
   document.addEventListener('keydown', onFullscreenKeyDown, true);
 
-  fullscreenNode.appendChild<any>(content);
+  fullscreenNode.appendChild(content);
 
   const target = document.querySelector('[data-btd-modal-content-sizer]');
   if (!target) {

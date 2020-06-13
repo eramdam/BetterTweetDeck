@@ -1,7 +1,7 @@
 import {browser} from 'webextension-polyfill-ts';
 
 import {processThumbnailMessage} from './background/fetchThumbnail';
-import {processGifRequest} from './background/gifRequests';
+import {processDownloadGifRequest, processGifRequest} from './background/gifRequests';
 import {getValidatedSettings, setupSettingsInBackground} from './services/backgroundSettings';
 import {BTDMessageEvent, BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
 
@@ -17,15 +17,21 @@ import {BTDMessageEvent, BTDMessages} from './types/betterTweetDeck/btdMessageTy
       throw new Error('Message not coming from BTD');
     }
 
-    if (request.data.name === BTDMessages.FETCH_THUMBNAIL) {
-      return await processThumbnailMessage(request.data);
-    }
+    switch (request.data.name) {
+      case BTDMessages.FETCH_THUMBNAIL: {
+        return await processThumbnailMessage(request.data);
+      }
 
-    if (request.data.name === BTDMessages.MAKE_GIF_REQUEST) {
-      return await processGifRequest(request.data);
-    }
+      case BTDMessages.MAKE_GIF_REQUEST: {
+        return await processGifRequest(request.data);
+      }
 
-    return undefined;
+      case BTDMessages.DOWNLOAD_GIF:
+        return await processDownloadGifRequest(request.data);
+
+      default:
+        return undefined;
+    }
   });
 
   // // Get the settings from the browser.
@@ -72,23 +78,23 @@ import {BTDMessageEvent, BTDMessages} from './types/betterTweetDeck/btdMessageTy
   }
 })();
 
-browser.webRequest.onHeadersReceived.addListener(
-  (details) => {
-    if (
-      (details.type !== 'main_frame' && details.type !== 'sub_frame') ||
-      !details.responseHeaders
-    ) {
-      return undefined;
-    }
+// browser.webRequest.onHeadersReceived.addListener(
+//   (details) => {
+//     if (
+//       (details.type !== 'main_frame' && details.type !== 'sub_frame') ||
+//       !details.responseHeaders
+//     ) {
+//       return undefined;
+//     }
 
-    return {
-      responseHeaders: Array.from(details.responseHeaders).filter((h) => {
-        return h.name && h.name !== 'content-security-policy';
-      }),
-    };
-  },
-  {
-    urls: ['https://tweetdeck.twitter.com/*'],
-  },
-  ['responseHeaders', 'blocking']
-);
+//     return {
+//       responseHeaders: Array.from(details.responseHeaders).filter((h) => {
+//         return h.name && h.name !== 'content-security-policy';
+//       }),
+//     };
+//   },
+//   {
+//     urls: ['https://tweetdeck.twitter.com/*'],
+//   },
+//   ['responseHeaders', 'blocking']
+// );

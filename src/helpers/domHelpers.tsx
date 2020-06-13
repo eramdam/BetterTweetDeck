@@ -39,7 +39,7 @@ export function emptyNode(node: Element) {
 export function setStylesOnNode(node: HTMLElement, style: CSSProperties) {
   const wrapper = document.createElement('div');
   const tempElement = <div style={style}></div>;
-  wrapper.appendChild<any>(tempElement);
+  wrapper.appendChild(tempElement);
 
   const domStyle = (wrapper.firstElementChild! as HTMLElement).style;
   for (let name of Object.values(domStyle)) {

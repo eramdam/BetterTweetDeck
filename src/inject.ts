@@ -15,7 +15,7 @@ import {maybeMakeComposerButtonsSmaller} from './features/smallerComposerButtons
 import {updateTabTitle} from './features/updateTabTitle';
 import {maybeChangeUsernameFormat} from './features/usernameDisplay';
 import {putBadgesOnTopOfAvatars} from './features/verifiedBadges';
-import {sendInternalBTDMessage} from './helpers/communicationHelpers';
+import {listenToInternalBTDMessage, sendInternalBTDMessage} from './helpers/communicationHelpers';
 import {setupChirpHandler} from './inject/chirpHandler';
 import {setupMediaSizeMonitor} from './inject/columnMediaSizeMonitor';
 import {maybeSetupDebugFunctions} from './inject/debugMethods';
@@ -109,6 +109,21 @@ const $: JQueryStatic | undefined =
       isReponse: false,
       payload: undefined,
     });
+  });
+
+  listenToInternalBTDMessage(
+    BTDMessages.DOWNLOAD_GIF_RESULT,
+    BTDMessageOriginsEnum.INJECT,
+    (ev) => {
+      const file = ev.data.payload;
+      $(document).trigger('uiFilesAdded', {
+        files: [file],
+      });
+      $('.btd-gif-button').removeClass('-visible');
+    }
+  );
+  $(document).on('uiResetImageUpload', () => {
+    $('.btd-gif-button').addClass('-visible');
   });
 })();
 
