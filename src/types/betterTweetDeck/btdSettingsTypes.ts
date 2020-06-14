@@ -8,7 +8,7 @@ import {BTDUsernameFormat} from '../../features/usernameDisplay';
 import {makeEnumRuntimeType, withDefault} from '../../helpers/typeHelpers';
 import {getExtensionVersion} from '../../helpers/webExtensionHelpers';
 
-export const RBetterTweetDeckSettings = t.partial({
+export const RBetterTweetDeckSettings = t.type({
   /** Used to show a banner prompting the user to follow @BetterTDeck */
   needsToShowFollowPrompt: withDefault(t.boolean, false),
 

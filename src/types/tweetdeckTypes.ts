@@ -122,7 +122,9 @@ interface TweetDeckController {
   feedScheduler: FeedScheduler;
   feedManager: unknown;
   notifications: unknown;
-  filterManager: unknown;
+  filterManager: {
+    addFilter(type: string, value: string): void;
+  };
   init: Init;
   upgrade: Upgrade;
   columnManager: ColumnManager;
@@ -396,6 +398,7 @@ interface ChirpAccount {
   state: ChirpAccountState;
   privateState: ChirpAccountPrivateState;
   managed: boolean;
+  getUserID(): string;
 }
 
 interface ChirpAccountPrivateState {
@@ -479,6 +482,7 @@ interface TwitterUrl {
 export interface TweetDeckChirp {
   _media: any[];
   account: ChirpAccount;
+  creatorAccount: ChirpAccount;
   action?: string;
   chirpType?: string;
   conversationMuted: boolean;
@@ -520,7 +524,13 @@ export interface TweetDeckChirp {
     chirpKey: string;
     columnKey: string;
   };
+  conversationId?: string | number;
   renderInMediaGallery(): string;
+  getChirpURL(): string;
+  getMainTweet(): TweetDeckChirp;
+  getReplyUsers(): User[];
+  getReplyingToUsers(): User[];
+  destroy(): void;
 }
 
 export interface TweetHashtag {
@@ -528,12 +538,25 @@ export interface TweetHashtag {
   text: string;
 }
 
+export type TweetdeckMediaEntity = Twitter.MediaEntity & {
+  video_info: {
+    variants: {
+      url: string;
+      bitrate: number;
+    }[];
+  };
+};
+
+type TweetDeckMentionEntity = Twitter.UserMentionEntity & {
+  isImplicitMention: boolean;
+};
+
 export interface TweetEntities {
   hashtags: Twitter.HashtagEntity[];
   urls: Twitter.UrlEntity[];
-  user_mentions: Twitter.UserMentionEntity[];
+  user_mentions: TweetDeckMentionEntity[];
   cashtags: any[];
-  media: Twitter.MediaEntity[];
+  media: TweetdeckMediaEntity[];
   convertedToUTF16: boolean;
 }
 
@@ -600,6 +623,7 @@ interface ColumnUiState {
   getChirpScroller(): JQuery<HTMLElement>;
   pause(): void;
   unpause(): void;
+  getChirpById(id: string | number): JQuery<HTMLElement>;
 }
 
 interface MoreTweetsButtonContainer {
@@ -957,6 +981,9 @@ interface TwitterStatus extends TweetDeckChirp {
 interface Services {
   bitly: unknown;
   TwitterStatus: TwitterStatus;
+  ChirpBase: {
+    MESSAGE: string;
+  };
 }
 
 interface TweetDeckSettings {
@@ -971,8 +998,13 @@ interface LinkShortener {
   title: string;
 }
 
+type TweetDeckAccount = {
+  generateKeyFor(service: string, userID: string): string;
+};
+
 interface Storage {
   store: Store;
+  Account: TweetDeckAccount;
   notification: unknown;
   feedController: FeedController;
   columnController: ColumnController;

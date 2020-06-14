@@ -17,8 +17,8 @@ export async function getValidatedSettings(): Promise<BTDSettings> {
   const settingsWithDefault = RBetterTweetDeckSettings.decode(currentSettings);
 
   if (!isRight(settingsWithDefault)) {
-    console.error('Had to use default settings');
     console.log(PathReporter.report(settingsWithDefault));
+    // @ts-ignore
     return defaultSettings;
   }
 

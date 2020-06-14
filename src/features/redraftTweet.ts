@@ -1,0 +1,154 @@
+import {getChirpFromElement} from '../helpers/tweetdeckHelpers';
+import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
+import {TweetDeckChirp, TweetDeckUser} from '../types/tweetdeckTypes';
+
+export const listenToRedraftTweetEvent = makeBTDModule(({TD, $}) => {
+  $('body').on('click', '[data-btd-action="edit-tweet"]', (ev) => {
+    ev.preventDefault();
+    const chirp = getChirpFromElement(TD, ev.target);
+    if (!chirp) {
+      return;
+    }
+
+    // const media = getMediaFromChirp(chirp);
+
+    type ComposeData = {
+      type: string;
+      text: string;
+      from: string[];
+      conversationId?: string | number;
+      quotedTweet?: TweetDeckChirp;
+      mentions?: TweetDeckUser[];
+      element?: HTMLElement;
+      inReplyTo?: {
+        id: string;
+        htmlText: string;
+        user: {
+          screenName: string;
+          name: string;
+          profileImageURL: string;
+        };
+      };
+    };
+
+    const composeData: ComposeData = {
+      type: chirp.chirpType || '',
+      text: chirp.text,
+      from: [TD.storage.Account.generateKeyFor('twitter', chirp.creatorAccount!.getUserID())],
+    };
+
+    // @TODO: this doesn't work in DMs yet because DMs use attachments sometimes, i don't understand
+    // @TODO: in what circumstances do we use MESSAGE_THREAD? regular MESSAGE has conversationId
+    // @TODO: in what circumstances do we use messageRecipients? no chirps have them.
+
+    if (chirp.chirpType === TD.services.ChirpBase.MESSAGE) {
+      composeData.conversationId = chirp.conversationId;
+    }
+
+    // == get the original text back
+    // if we have media, remove the link from the text
+    if (chirp.entities.media.length) {
+      const firstMedia = chirp.entities.media[0];
+      composeData.text = loudencer(composeData.text, ...firstMedia.indices);
+    }
+
+    // remove usernames from tweet
+    chirp.entities.user_mentions.forEach((mention) => {
+      if (mention.isImplicitMention) {
+        composeData.text = loudencer(composeData.text, ...mention.indices);
+      }
+    });
+
+    // replace quotes in a tweet
+    chirp.entities.urls.forEach((url) => {
+      if (
+        chirp.isQuoteStatus &&
+        !chirp.quotedTweetMissing &&
+        url.expanded_url === chirp.quotedTweet?.getChirpURL()
+      ) {
+        composeData.text = loudencer(composeData.text, ...url.indices);
+        composeData.quotedTweet = chirp.quotedTweet;
+      }
+    });
+
+    // make the chirp quieter
+    // eslint-disable-next-line no-control-regex
+    composeData.text = composeData.text.replace(/\u0007/gi, '');
+
+    // expand original urls for tweets
+    chirp.entities.urls.forEach((url) => {
+      composeData.text = composeData.text.replace(url.url, url.expanded_url);
+    });
+
+    // ensure no html entities remain
+    composeData.text = unescape(composeData.text);
+
+    // trim in case we picked up any whitespace
+    composeData.text = composeData.text.trim();
+
+    // compose in advance because the reply composer doesn't transfer text for reasons unknown
+    $(document).trigger('uiComposeTweet', composeData);
+
+    // == handle replies
+    if (chirp.inReplyToID) {
+      const mainChirp = chirp.getMainTweet();
+      composeData.type = 'reply';
+      composeData.mentions = chirp.getReplyingToUsers();
+      composeData.inReplyTo = {
+        id: chirp.id,
+        htmlText: mainChirp.htmlText,
+        user: {
+          screenName: mainChirp.user.screenName,
+          name: mainChirp.user.name,
+          profileImageURL: mainChirp.user.profileImageURL,
+        },
+      };
+
+      // == find that user, if at all possible
+      const column = TD.controller.columnManager.get(chirp._btd?.columnKey || '');
+      const replyEl = column.ui.getChirpById(chirp.inReplyToID);
+      if (replyEl.length) {
+        composeData.element = replyEl[0];
+        const replyChirp = getChirpFromElement(TD, replyEl[0]);
+        if (replyChirp) {
+          composeData.mentions = replyChirp.getReplyUsers();
+          composeData.inReplyTo = {
+            id: replyChirp.id,
+            htmlText: replyChirp.htmlText,
+            user: {
+              screenName: replyChirp.user.screenName,
+              name: replyChirp.user.name,
+              profileImageURL: replyChirp.user.profileImageURL,
+            },
+          };
+        } else {
+          console.log('reply did not have an element for some reason');
+        }
+      } else {
+        console.log('reply did not have an existing chirp in its original column');
+      }
+
+      // now that the reply information is filled, we have to push this compose on top of the one with text
+      $(document).trigger('uiComposeTweet', composeData);
+    }
+
+    // == re-upload all the files we had, if any
+    // if (media.length) {
+    //   Promise.all(media.map((item) => requestMediaItem(item))).then((gotFiles) => {
+    //     $(document).trigger('uiComposeFilesAdded', {files: gotFiles});
+    //   });
+    // }
+
+    // send one last compose event, for good luck
+    $(document).trigger('uiComposeTweet', composeData);
+
+    // it is now safe to remove the tweet
+    chirp.destroy();
+  });
+});
+
+// control characters can't appear in tweets, so we can use them to pad strings out
+// source: https://shkspr.mobi/blog/2015/11/twitters-weird-control-character-handling/
+const loudencer = (str: string, start: number, end: number) => {
+  return str.slice(0, start) + '\x07'.repeat(str.slice(start, end).length) + str.slice(end);
+};

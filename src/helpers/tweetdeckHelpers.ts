@@ -1,6 +1,6 @@
 import {Twitter} from 'twit';
 
-import {TweetDeckChirp} from '../types/tweetdeckTypes';
+import {TweetDeckChirp, TweetdeckMediaEntity} from '../types/tweetdeckTypes';
 import {TweetDeckObject} from '../types/tweetdeckTypes';
 import {HandlerOf} from './typeHelpers';
 
@@ -227,3 +227,29 @@ export function onThemeChange(callback: HandlerOf<'light' | 'dark'>) {
     attributeFilter: ['class'],
   });
 }
+
+export const getMediaFromChirp = (chirp: TweetDeckChirp) => {
+  const urls: string[] = [];
+
+  chirp.entities.media.forEach((item) => {
+    switch (item.type) {
+      case 'video':
+      case 'animated_gif':
+        urls.push(findBiggestBitrate(item.video_info.variants).url.split('?')[0]);
+        break;
+      case 'photo':
+        urls.push(`${item.media_url_https}:orig`);
+        break;
+      default:
+        throw new Error(`unsupported media type: ${item.type}`);
+    }
+  });
+
+  return urls;
+};
+
+const findBiggestBitrate = (videos: TweetdeckMediaEntity['video_info']['variants']) => {
+  return videos.reduce((max, x) => {
+    return (x.bitrate || -1) > (max.bitrate || -1) ? x : max;
+  });
+};
