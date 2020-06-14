@@ -11,7 +11,7 @@ html .btd-loaded {
 
   & .emoji-mart {
     font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     display: inline-block;
     color: #222427;
     border: 1px solid #d9d9d9;
@@ -56,13 +56,14 @@ html .btd-loaded {
     overflow: hidden;
     transition: color 0.1s ease-out;
     margin: 0;
-    box-shadow: none;
-    background: none;
-    border: none;
+    box-shadow: none !important;
+    background: none !important;
+    border: none !important;
   }
   & .emoji-mart-anchor:focus {
     outline: 0;
   }
+
   & .emoji-mart-anchor:hover,
   & .emoji-mart-anchor:focus,
   & .emoji-mart-anchor-selected {
@@ -119,6 +120,7 @@ html .btd-loaded {
     background: white;
     color: black;
     outline: 0;
+    box-shadow: none !important;
   }
 
   & .emoji-mart-search input,
@@ -137,8 +139,8 @@ html .btd-loaded {
     right: 11px;
     z-index: 2;
     padding: 2px 5px 1px;
-    border: none;
-    background: none;
+    border: none !important;
+    background: none !important;
   }
 
   & .emoji-mart-category .emoji-mart-emoji span {
@@ -468,20 +470,21 @@ html.dark .btd-loaded {
  * Dark mode styles
  */
 
+  --background: #15202b;
   & .emoji-mart-dark {
     color: #fff;
     border-color: #555453;
-    background-color: #222;
+    background-color: var(--background);
   }
 
   & .emoji-mart-dark .emoji-mart-bar {
-    border-color: #555453;
+    border-color: #000000;
   }
 
   & .emoji-mart-dark .emoji-mart-search input {
     color: #fff;
     border-color: #555453;
-    background-color: #2f2f2f;
+    background-color: #10171e;
   }
 
   & .emoji-mart-dark .emoji-mart-search-icon svg {
@@ -493,13 +496,13 @@ html.dark .btd-loaded {
   }
 
   & .emoji-mart-dark .emoji-mart-category-label span {
-    background-color: #222;
+    background-color: var(--background);
     color: #fff;
   }
 
   & .emoji-mart-dark .emoji-mart-skin-swatches {
     border-color: #555453;
-    background-color: #222;
+    background-color: var(--background);
   }
 
   & .emoji-mart-dark .emoji-mart-anchor:hover,

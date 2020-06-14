@@ -10,6 +10,7 @@ export const EmojiButton: FC<{onClick: HandlerOf<string>}> = (props) => {
   const theme = useTweetdeckTheme();
   const composerRect = () =>
     document.querySelector('.compose-text-container')!.getBoundingClientRect();
+  const color = '#1da1f2';
 
   return (
     // @ts-ignore
@@ -30,6 +31,7 @@ export const EmojiButton: FC<{onClick: HandlerOf<string>}> = (props) => {
             onSelect={(emoji: BaseEmoji) => {
               props.onClick(emoji.native);
             }}
+            color={color}
             emoji="sparkles"
             useButton={false}
             emojiSize={16}
