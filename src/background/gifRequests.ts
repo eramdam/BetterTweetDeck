@@ -74,13 +74,10 @@ export async function processDownloadGifRequest(
   const url = message.payload;
 
   const blob = await fetch(url).then((res) => res.blob());
-  const gifFile = new File([blob], 'awesome-gif.gif', {
-    type: 'image/gif',
-  });
 
   return {
     ...message,
-    name: BTDMessages.DOWNLOAD_GIF_RESULT,
-    payload: gifFile,
+    name: BTDMessages.DOWNLOAD_MEDIA_RESULT,
+    payload: blob,
   };
 }

@@ -14,8 +14,8 @@ export enum BTDMessages {
   CHIRP_REMOVAL = 'CHIRP_REMOVAL',
   MAKE_GIF_REQUEST = 'MAKE_GIF_REQUEST',
   GIF_REQUEST_RESULT = 'GIF_REQUEST_RESULT',
-  DOWNLOAD_GIF = 'DOWNLOAD_GIF',
-  DOWNLOAD_GIF_RESULT = 'DOWNLOAD_GIF_RESULT',
+  DOWNLOAD_MEDIA = 'DOWNLOAD_MEDIA',
+  DOWNLOAD_MEDIA_RESULT = 'DOWNLOAD_MEDIA_RESULT',
 }
 
 /** Locations from which messages can be listened/sent to. */
@@ -101,13 +101,13 @@ const RBTDReady = t.type({
 
 const RGifDownloadRequestEvent = t.type({
   ...baseMessageEvent,
-  name: t.literal(BTDMessages.DOWNLOAD_GIF),
+  name: t.literal(BTDMessages.DOWNLOAD_MEDIA),
   payload: t.string,
 });
 
 const RGifDownloadRequestResultEvent = t.type({
   ...baseMessageEvent,
-  name: t.literal(BTDMessages.DOWNLOAD_GIF_RESULT),
+  name: t.literal(BTDMessages.DOWNLOAD_MEDIA_RESULT),
   payload: t.object,
 });
 

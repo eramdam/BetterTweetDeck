@@ -22,7 +22,7 @@ import {BTDMessageEvent, BTDMessages} from './types/betterTweetDeck/btdMessageTy
         return await processGifRequest(request.data);
       }
 
-      case BTDMessages.DOWNLOAD_GIF:
+      case BTDMessages.DOWNLOAD_MEDIA:
         return await processDownloadGifRequest(request.data);
 
       default:

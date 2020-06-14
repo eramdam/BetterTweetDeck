@@ -118,12 +118,19 @@ const $: JQueryStatic | undefined =
   });
 
   listenToInternalBTDMessage(
-    BTDMessages.DOWNLOAD_GIF_RESULT,
+    BTDMessages.DOWNLOAD_MEDIA_RESULT,
     BTDMessageOriginsEnum.INJECT,
     (ev) => {
-      const file = ev.data.payload;
+      if (ev.data.name !== BTDMessages.DOWNLOAD_MEDIA_RESULT) {
+        return;
+      }
+
+      const blob = ev.data.payload as Blob;
+      const gifFile = new File([blob], 'awesome-gif.gif', {
+        type: 'image/gif',
+      });
       $(document).trigger('uiFilesAdded', {
-        files: [file],
+        files: [gifFile],
       });
       $('.btd-gif-button').removeClass('-visible');
     }

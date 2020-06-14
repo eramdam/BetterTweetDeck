@@ -119,7 +119,7 @@ async function onGifClick(gifUrl: string) {
     data: {
       requestId: undefined,
       isReponse: false,
-      name: BTDMessages.DOWNLOAD_GIF,
+      name: BTDMessages.DOWNLOAD_MEDIA,
       origin: BTDMessageOriginsEnum.CONTENT,
       payload: gifUrl,
     },
