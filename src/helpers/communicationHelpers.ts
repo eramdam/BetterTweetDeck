@@ -31,7 +31,7 @@ export function isMessageEventAllowed(ev: MessageEvent) {
 
 export type BTDMessageEventHandler = (
   ev: BTDMessageEvent
-) => BTDMessageEventData | void | never | Promise<any>;
+) => BTDMessageEventData | void | Promise<void> | Promise<BTDMessageEventData>;
 
 export function listenToInternalBTDMessage(
   name: BTDMessages,
@@ -39,7 +39,7 @@ export function listenToInternalBTDMessage(
   location: BTDMessageOriginsEnum,
   handler: BTDMessageEventHandler
 ) {
-  const listener = (ev: MessageEvent) => {
+  const listener = async (ev: MessageEvent) => {
     if (!isMessageEventAllowed(ev)) {
       return;
     }
@@ -62,7 +62,7 @@ export function listenToInternalBTDMessage(
       return;
     }
 
-    const replyEvent = handler(ev);
+    const replyEvent = await handler(ev);
 
     if (!replyEvent) {
       return;
