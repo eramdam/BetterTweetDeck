@@ -1,0 +1,14 @@
+.dropdown-menu [data-btd-action],
+.dropdown-menu [data-btd-filter] {
+  display: block;
+  padding: 5px 20px;
+  color: #292f33;
+  text-shadow: none;
+  cursor: pointer;
+  text-decoration: none !important;
+}
+
+.dropdown-menu .is-selected [data-btd-action],
+.dropdown-menu .is-selected [data-btd-filter] {
+  color: #fff;
+}

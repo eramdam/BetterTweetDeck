@@ -2,6 +2,7 @@ import {isObject} from 'lodash';
 import moduleRaid from 'moduleraid';
 
 import {maybeAddColumnsButtons} from './features/addColumnButtons';
+import {maybeAddTweetMenuItems} from './features/addTweetMenuItems';
 import {allowImagePaste} from './features/allowImagePaste';
 import {changeAvatarsShape} from './features/changeAvatarShape';
 import {changeScrollbarStyling} from './features/changeScrollbars';
@@ -93,6 +94,7 @@ const $: JQueryStatic | undefined =
   });
   allowImagePaste({$});
   maybeAddColumnsButtons({TD, $, settings});
+  maybeAddTweetMenuItems({TD, $, settings});
   updateTabTitle({TD, $});
   changeAvatarsShape({settings});
   maybeMakeComposerButtonsSmaller({settings});

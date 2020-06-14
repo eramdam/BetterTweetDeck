@@ -1,11 +1,15 @@
-import {isRight} from 'fp-ts/lib/Either';
+import {fold, isRight} from 'fp-ts/lib/Either';
+import {pipe} from 'fp-ts/lib/function';
 import {PathReporter} from 'io-ts/lib/PathReporter';
+import _ from 'lodash';
 
 import {ExtensionSettings} from '../helpers/webExtensionHelpers';
 import {BTDSettings, RBetterTweetDeckSettings} from '../types/betterTweetDeck/btdSettingsTypes';
 
-// @ts-ignore
-const defaultSettings = RBetterTweetDeckSettings.decode({}) as BTDSettings;
+const defaultSettings = pipe(
+  RBetterTweetDeckSettings.decode({}),
+  fold(() => '', _.identity)
+);
 
 /** Returns the currently saved settings, validated against the schema. */
 export async function getValidatedSettings(): Promise<BTDSettings> {

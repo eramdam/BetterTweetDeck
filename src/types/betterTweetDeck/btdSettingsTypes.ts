@@ -8,7 +8,7 @@ import {BTDUsernameFormat} from '../../features/usernameDisplay';
 import {makeEnumRuntimeType, withDefault} from '../../helpers/typeHelpers';
 import {getExtensionVersion} from '../../helpers/webExtensionHelpers';
 
-export const RBetterTweetDeckSettings = t.type({
+export const RBetterTweetDeckSettings = t.partial({
   /** Used to show a banner prompting the user to follow @BetterTDeck */
   needsToShowFollowPrompt: withDefault(t.boolean, false),
 
@@ -63,17 +63,27 @@ export const RBetterTweetDeckSettings = t.type({
   showTweetActionsOnHover: withDefault(t.boolean, false),
 
   /* Adds more actions below tweets */
-  /** Shows a 📎 icon to copy links of medias in a tweet. */
-  addCopyMediaLinksAction: withDefault(t.boolean, false),
+  tweetActions: withDefault(
+    t.type({
+      /** Shows a 📎 icon to copy links of medias in a tweet. */
+      addCopyMediaLinksAction: t.boolean,
 
-  /** Shows a download button to download medias in a tweet. */
-  addDownloadMediaLinksAction: withDefault(t.boolean, false),
+      /** Shows a download button to download medias in a tweet. */
+      addDownloadMediaLinksAction: t.boolean,
 
-  /** Shows a mute icon to mute the author of a tweet quickly. */
-  addMuteAction: withDefault(t.boolean, false),
+      /** Shows a mute icon to mute the author of a tweet quickly. */
+      addMuteAction: t.boolean,
 
-  /** Shows a block icon to block the author of a tweet quickly. */
-  addBlockAction: withDefault(t.boolean, false),
+      /** Shows a block icon to block the author of a tweet quickly. */
+      addBlockAction: t.boolean,
+    }),
+    {
+      addCopyMediaLinksAction: true,
+      addDownloadMediaLinksAction: true,
+      addMuteAction: true,
+      addBlockAction: true,
+    }
+  ),
 
   /** Change the display of usernames in columns. */
   usernamesFormat: withDefault(
@@ -84,14 +94,23 @@ export const RBetterTweetDeckSettings = t.type({
   /** Adds more actions in tweet menus
    * TODO(damien): maybe put a BTD separator to make them more obvious in the UI.
    */
-  /** Adds a "redraft" item */
-  addRedraftMenuItem: withDefault(t.boolean, false),
+  tweetMenuItems: withDefault(
+    t.type({
+      /** Adds a "redraft" item */
+      addRedraftMenuItem: t.boolean,
 
-  /** Adds an item to mute the source of the tweet */
-  addMuteSourceMenuItem: withDefault(t.boolean, false),
+      /** Adds an item to mute the source of the tweet */
+      addMuteSourceMenuItem: t.boolean,
 
-  /** Adds a items to mute the hashtags of the tweet */
-  addMuteHashtagsMenuItems: withDefault(t.boolean, false),
+      /** Adds a items to mute the hashtags of the tweet */
+      addMuteHashtagsMenuItems: t.boolean,
+    }),
+    {
+      addRedraftMenuItem: true,
+      addMuteHashtagsMenuItems: true,
+      addMuteSourceMenuItem: true,
+    }
+  ),
 
   /** Show legacy replies in columns */
   showLegacyReplies: withDefault(t.boolean, false),
