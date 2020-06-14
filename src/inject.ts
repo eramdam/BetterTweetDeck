@@ -3,6 +3,7 @@ import moduleRaid from 'moduleraid';
 
 import {maybeAddColumnsButtons} from './features/addColumnButtons';
 import {maybeAddTweetMenuItems} from './features/addTweetMenuItems';
+import {setupAME} from './features/advancedMuteEngine';
 import {allowImagePaste} from './features/allowImagePaste';
 import {changeAvatarsShape} from './features/changeAvatarShape';
 import {changeScrollbarStyling} from './features/changeScrollbars';
@@ -103,6 +104,7 @@ const $: JQueryStatic | undefined =
   changeScrollbarStyling({settings});
   maybeFreezeGifsInProfilePicture({settings});
   maybeCollapseDms({settings});
+  setupAME({TD});
 
   $(document).one('dataColumnsLoaded', () => {
     document.body.classList.add('btd-loaded');

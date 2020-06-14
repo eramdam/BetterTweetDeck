@@ -1,6 +1,17 @@
 import {Template} from 'hogan.js';
 import {Twitter} from 'twit';
 
+declare class TweetDeckFilter {
+  value: string;
+  type: string;
+  getDisplayType(): string;
+  _getDisplayType(): string;
+  _getFilterTarget(chirp: TweetDeckChirp): TweetDeckChirp;
+  _pass(chirp: TweetDeckChirp): boolean;
+  pass(chirp: TweetDeckChirp): boolean;
+  prototype: this;
+}
+
 export interface TweetDeckObject {
   storage: Storage;
   core: Core;
@@ -12,6 +23,7 @@ export interface TweetDeckObject {
   controller: TweetDeckController;
   vo: {
     Column: typeof Column;
+    Filter: TweetDeckFilter;
   };
   ui: TweetDeckUI;
   sync: Sync;
@@ -531,6 +543,8 @@ export interface TweetDeckChirp {
   getReplyUsers(): User[];
   getReplyingToUsers(): User[];
   destroy(): void;
+  isRetweetedStatus(): boolean;
+  getFilterableText(): string;
 }
 
 export interface TweetHashtag {
