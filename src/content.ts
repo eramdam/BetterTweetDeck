@@ -6,6 +6,7 @@ import {setupEmojiPicker} from './features/emojiPicker';
 import {setupGifPicker} from './features/gifPicker';
 import {setupThumbnailInjector} from './features/thumbnails/thumbnailInjector';
 import {listenToInternalBTDMessage} from './helpers/communicationHelpers';
+import {sendMessageToBackground} from './helpers/webExtensionHelpers';
 import {injectInTD} from './services/injectInTD';
 import {setupBtdRoot} from './services/setupBTDRoot';
 import {BTDMessageOriginsEnum, BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
@@ -38,3 +39,31 @@ listenToInternalBTDMessage(BTDMessages.BTD_READY, BTDMessageOriginsEnum.CONTENT,
     }
   });
 });
+
+listenToInternalBTDMessage(
+  BTDMessages.DOWNLOAD_MEDIA,
+  BTDMessageOriginsEnum.CONTENT,
+  async (ev) => {
+    if (ev.data.name !== BTDMessages.DOWNLOAD_MEDIA) {
+      return;
+    }
+
+    const mediaUrl = ev.data.payload;
+
+    const mediaBlob = await sendMessageToBackground({
+      data: {
+        requestId: undefined,
+        isReponse: false,
+        name: BTDMessages.DOWNLOAD_MEDIA,
+        origin: BTDMessageOriginsEnum.CONTENT,
+        payload: mediaUrl,
+      },
+    });
+
+    if (!mediaBlob) {
+      return;
+    }
+
+    return mediaBlob;
+  }
+);

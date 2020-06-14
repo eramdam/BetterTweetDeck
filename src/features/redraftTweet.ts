@@ -1,5 +1,7 @@
-import {getChirpFromElement} from '../helpers/tweetdeckHelpers';
+import {sendInternalBTDMessage} from '../helpers/communicationHelpers';
+import {getChirpFromElement, getMediaFromChirp} from '../helpers/tweetdeckHelpers';
 import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
+import {BTDMessageOriginsEnum, BTDMessages} from '../types/betterTweetDeck/btdMessageTypes';
 import {TweetDeckChirp, TweetDeckUser} from '../types/tweetdeckTypes';
 
 export const listenToRedraftTweetEvent = makeBTDModule(({TD, $}) => {
@@ -10,7 +12,7 @@ export const listenToRedraftTweetEvent = makeBTDModule(({TD, $}) => {
       return;
     }
 
-    // const media = getMediaFromChirp(chirp);
+    const media = getMediaFromChirp(chirp);
 
     type ComposeData = {
       type: string;
@@ -133,11 +135,11 @@ export const listenToRedraftTweetEvent = makeBTDModule(({TD, $}) => {
     }
 
     // == re-upload all the files we had, if any
-    // if (media.length) {
-    //   Promise.all(media.map((item) => requestMediaItem(item))).then((gotFiles) => {
-    //     $(document).trigger('uiComposeFilesAdded', {files: gotFiles});
-    //   });
-    // }
+    if (media.length) {
+      Promise.all(media.map((item) => requestMediaItem(item))).then((gotFiles) => {
+        $(document).trigger('uiComposeFilesAdded', {files: gotFiles});
+      });
+    }
 
     // send one last compose event, for good luck
     $(document).trigger('uiComposeTweet', composeData);
@@ -152,3 +154,38 @@ export const listenToRedraftTweetEvent = makeBTDModule(({TD, $}) => {
 const loudencer = (str: string, start: number, end: number) => {
   return str.slice(0, start) + '\x07'.repeat(str.slice(start, end).length) + str.slice(end);
 };
+
+const getMediaUrlParts = (url: string) => {
+  const extension = url
+    .replace(/:[a-z]+$/, '')
+    .split('.')
+    .pop();
+
+  let type: string | undefined = undefined;
+
+  if (extension?.toLowerCase() === 'mp4') {
+    type = 'video/mp4';
+  } else if (extension?.toLowerCase() === 'gif') {
+    type = 'image/gif';
+  }
+
+  return {
+    originalExtension: extension,
+    type,
+    originalFile: url.split('/').pop()!.split('.')[0],
+  };
+};
+
+async function requestMediaItem(mediaUrl: string) {
+  const res = await sendInternalBTDMessage({
+    isReponse: false,
+    name: BTDMessages.DOWNLOAD_MEDIA,
+    origin: BTDMessageOriginsEnum.INJECT,
+    payload: mediaUrl,
+  });
+  const parts = getMediaUrlParts(mediaUrl);
+
+  return new File([res.payload as Blob], `${parts.originalFile}.${parts.originalExtension}`, {
+    type: parts.type,
+  });
+}

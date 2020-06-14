@@ -17,9 +17,7 @@ import {maybeRevertToLegacyReplies} from './features/revertToLegacyReplies';
 import {maybeMakeComposerButtonsSmaller} from './features/smallerComposerButtons';
 import {updateTabTitle} from './features/updateTabTitle';
 import {maybeChangeUsernameFormat} from './features/usernameDisplay';
-import {putBadgesOnTopOfAvatars} from './features/verifiedBadges';
 import {listenToInternalBTDMessage, sendInternalBTDMessage} from './helpers/communicationHelpers';
-import {setupChirpHandler} from './inject/chirpHandler';
 import {setupMediaSizeMonitor} from './inject/columnMediaSizeMonitor';
 import {maybeSetupDebugFunctions} from './inject/debugMethods';
 import {BTDSettingsAttribute} from './types/betterTweetDeck/btdCommonTypes';
@@ -120,7 +118,7 @@ const $: JQueryStatic | undefined =
   listenToInternalBTDMessage(
     BTDMessages.DOWNLOAD_MEDIA_RESULT,
     BTDMessageOriginsEnum.INJECT,
-    (ev) => {
+    async (ev) => {
       if (ev.data.name !== BTDMessages.DOWNLOAD_MEDIA_RESULT) {
         return;
       }
