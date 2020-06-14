@@ -9,11 +9,7 @@ import {BTDMessageEvent, BTDMessages} from './types/betterTweetDeck/btdMessageTy
   await setupSettingsInBackground();
 
   browser.runtime.onMessage.addListener(async (request: BTDMessageEvent, sender) => {
-    if (
-      sender.url !== 'https://tweetdeck.twitter.com/' ||
-      !String(sender.id).includes('erambert.me') ||
-      !String(sender.id).includes('BetterTweetDeck')
-    ) {
+    if (sender.url !== 'https://tweetdeck.twitter.com/') {
       throw new Error('Message not coming from BTD');
     }
 
