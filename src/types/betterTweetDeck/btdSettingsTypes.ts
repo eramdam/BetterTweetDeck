@@ -35,8 +35,8 @@ export const RBetterTweetDeckSettings = t.type({
   /** Shows a collapse (➖/➕) button in the header of columns */
   showCollapseButtonInColumnsHeader: withDefault(t.boolean, false),
 
-  /** Specify a custom column width using CSS values */
-  columnCustomWidth: withDefault(t.union([t.string, t.number]), ''),
+  /** Hide icons in the columns' header */
+  hideColumnIcons: withDefault(t.boolean, true),
 
   /** Choose the shape of avatars in columns */
   avatarsShape: withDefault(

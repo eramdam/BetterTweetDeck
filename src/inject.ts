@@ -9,6 +9,7 @@ import {maybeSetupCustomTimestampFormat} from './features/changeTimestampFormat'
 import {changeTweetActionsStyling} from './features/changeTweetActions';
 import {maybeCollapseDms} from './features/collapseDms';
 import {maybeFreezeGifsInProfilePicture} from './features/freezeGifsProfilePictures';
+import {maybeHideColumnIcons} from './features/hideColumnIcons';
 import {maybeRemoveRedirection} from './features/removeRedirection';
 import {maybeRevertToLegacyReplies} from './features/revertToLegacyReplies';
 import {maybeMakeComposerButtonsSmaller} from './features/smallerComposerButtons';
@@ -95,6 +96,7 @@ const $: JQueryStatic | undefined =
   updateTabTitle({TD, $});
   changeAvatarsShape({settings});
   maybeMakeComposerButtonsSmaller({settings});
+  maybeHideColumnIcons({settings});
   changeTweetActionsStyling({settings});
   changeScrollbarStyling({settings});
   maybeFreezeGifsInProfilePicture({settings});
