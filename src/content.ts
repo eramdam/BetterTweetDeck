@@ -3,6 +3,7 @@ import './components/index.css';
 import {browser} from 'webextension-polyfill-ts';
 
 import {setupEmojiPicker} from './features/emojiPicker';
+import {setupGifModals} from './features/gifModals';
 import {setupGifPicker} from './features/gifPicker';
 import {setupThumbnailInjector} from './features/thumbnails/thumbnailInjector';
 import {listenToInternalBTDMessage} from './helpers/communicationHelpers';
@@ -17,6 +18,7 @@ setupBtdRoot();
 injectInTD();
 // Setup thumbnail system.
 setupThumbnailInjector();
+setupGifModals();
 
 listenToInternalBTDMessage(BTDMessages.BTD_READY, BTDMessageOriginsEnum.CONTENT, async () => {
   setupGifPicker();

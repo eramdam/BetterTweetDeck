@@ -14,7 +14,6 @@ import {requestMediaItem} from './redraftTweet';
 
 export const maybeAddTweetActions = makeBTDModule(({settings, TD, $}) => {
   const actionItems = settings.tweetActions;
-  console.log({actionItems});
 
   if (!actionItems) {
     return;

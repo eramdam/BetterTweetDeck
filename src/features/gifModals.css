@@ -1,0 +1,3 @@
+.js-media-gif-container:not(.is-paused) video {
+  cursor: zoom-in;
+}

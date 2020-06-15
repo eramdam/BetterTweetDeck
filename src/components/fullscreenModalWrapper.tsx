@@ -1,13 +1,10 @@
 import React from 'dom-chef';
-import {CSSProperties} from 'react';
 
 import {DCFactory} from '../helpers/domHelpers';
 import {Handler} from '../helpers/typeHelpers';
 
 interface FullscreenModalWrapperProps {
   onClose: Handler;
-  url: string;
-  imageStyles: CSSProperties;
 }
 
 export const makeFullscreenModalWrapper: DCFactory<FullscreenModalWrapperProps> = (props) => {
@@ -35,7 +32,7 @@ export const makeFullscreenModalWrapper: DCFactory<FullscreenModalWrapperProps> 
                   style={{
                     opacity: 1,
                   }}>
-                  <img src={props.url} alt="" />
+                  {props.children}
                 </div>
               </div>
             </div>

@@ -1,3 +1,5 @@
+import React from 'dom-chef';
+
 import {makeFullscreenModalWrapper} from '../../components/fullscreenModalWrapper';
 import {makeMediumThumbnail} from '../../components/mediaThumbnails';
 import {listenToInternalBTDMessage} from '../../helpers/communicationHelpers';
@@ -74,26 +76,22 @@ function insertThumbnailOnTweet(
     return;
   }
 
-  try {
-    const thumbnail = makeMediumThumbnail({
-      imageUrl: thumbnailData.thumbnailUrl,
-      url: thumbnailData.url,
-      onClick: () => {
-        const imageModal = makeFullscreenModalWrapper({
-          imageStyles: {},
-          onClose: closeFullscreenModal,
-          url:
-            (thumbnailData.type === BTDUrlProviderResultTypeEnum.IMAGE &&
-              thumbnailData.fullscreenImageUrl) ||
-            '',
-        });
+  const fullscreenUrl =
+    (thumbnailData.type === BTDUrlProviderResultTypeEnum.IMAGE &&
+      thumbnailData.fullscreenImageUrl) ||
+    '';
+  const thumbnail = makeMediumThumbnail({
+    imageUrl: thumbnailData.thumbnailUrl,
+    url: thumbnailData.url,
+    onClick: () => {
+      const imageModal = makeFullscreenModalWrapper({
+        onClose: closeFullscreenModal,
+        children: <img src={fullscreenUrl} alt="" />,
+      });
 
-        openFullscreenModal(imageModal, uuid);
-      },
-    });
+      openFullscreenModal(imageModal, uuid);
+    },
+  });
 
-    thumbnailNode.appendChild(thumbnail);
-  } catch (e) {
-    console.error(e);
-  }
+  thumbnailNode.appendChild(thumbnail);
 }

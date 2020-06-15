@@ -17,9 +17,11 @@ const onFullscreenKeyDown = (e: KeyboardEvent) => {
 const modalObserver = new ResizeObserver((entries) => {
   const rect = entries[0].contentRect;
 
-  const img = document.querySelector<HTMLImageElement>('[data-btd-modal-content-sizer] img')!;
+  const mediaElement = document.querySelector<HTMLImageElement | HTMLVideoElement>(
+    '[data-btd-modal-content-sizer] img, [data-btd-modal-content-sizer] video'
+  )!;
 
-  setStylesOnNode(img, {
+  setStylesOnNode(mediaElement, {
     maxWidth: rect.width,
     maxHeight: rect.height,
   });

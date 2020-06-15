@@ -492,6 +492,7 @@ interface TwitterUrl {
 }
 
 export interface TweetDeckChirp {
+  _hasAnimatedGif: boolean;
   _media: any[];
   account: ChirpAccount;
   creatorAccount: ChirpAccount;

@@ -39,8 +39,11 @@ const UuidSelectors = [BTDUuidAttribute, BTDModalUuidAttribute] as const;
 
 export function makeBtdUuidSelector(
   uuidSelectors: typeof UuidSelectors[number],
-  uuid: string,
+  uuid?: string,
   suffix = ''
 ) {
+  if (!uuid) {
+    return `[${uuidSelectors}] ${suffix}`.trim();
+  }
   return `[${uuidSelectors}="${uuid}"] ${suffix}`.trim();
 }
