@@ -176,7 +176,7 @@ const getMediaUrlParts = (url: string) => {
   };
 };
 
-async function requestMediaItem(mediaUrl: string) {
+export async function requestMediaItem(mediaUrl: string) {
   const res = await sendInternalBTDMessage({
     isReponse: false,
     name: BTDMessages.DOWNLOAD_MEDIA,

@@ -253,3 +253,23 @@ const findBiggestBitrate = (videos: TweetdeckMediaEntity['video_info']['variants
     return (x.bitrate || -1) > (max.bitrate || -1) ? x : max;
   });
 };
+
+export const getFilenameDownloadData = (chirp: TweetDeckChirp, url: string) => {
+  return {
+    fileExtension: url
+      .replace(/:[a-z]+$/, '')
+      .split('.')
+      .pop(),
+    fileName: url.split('/').pop()!.split('.')[0],
+    postedUser: chirp.retweetedStatus
+      ? chirp.retweetedStatus.user.screenName
+      : chirp.user.screenName,
+    tweetId: chirp.retweetedStatus ? chirp.retweetedStatus.id : chirp.id,
+    year: chirp.created.getFullYear(),
+    month: (chirp.created.getMonth() + 1).toString().padStart(2, '0'),
+    day: chirp.created.getDate().toString().padStart(2, '0'),
+    hours: chirp.created.getHours().toString().padStart(2, '0'),
+    minutes: chirp.created.getMinutes().toString().padStart(2, '0'),
+    seconds: chirp.created.getSeconds().toString().padStart(2, '0'),
+  };
+};

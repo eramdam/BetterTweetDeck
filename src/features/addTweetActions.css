@@ -1,0 +1,12 @@
+.icon-download::before {
+  content: '\F186';
+}
+
+.icon-muted::before {
+  content: '\F101';
+}
+
+.tweet-detail-actions.tweet-detail-actions {
+  display: flex;
+  padding-bottom: 8px;
+}

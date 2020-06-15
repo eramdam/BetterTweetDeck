@@ -2,6 +2,7 @@ import {isObject} from 'lodash';
 import moduleRaid from 'moduleraid';
 
 import {maybeAddColumnsButtons} from './features/addColumnButtons';
+import {maybeAddTweetActions} from './features/addTweetActions';
 import {maybeAddTweetMenuItems} from './features/addTweetMenuItems';
 import {setupAME} from './features/advancedMuteEngine';
 import {allowImagePaste} from './features/allowImagePaste';
@@ -96,6 +97,7 @@ const $: JQueryStatic | undefined =
   allowImagePaste({$});
   maybeAddColumnsButtons({TD, $, settings});
   maybeAddTweetMenuItems({TD, $, settings});
+  maybeAddTweetActions({TD, $, settings});
   updateTabTitle({TD, $});
   changeAvatarsShape({settings});
   maybeMakeComposerButtonsSmaller({settings});
@@ -105,6 +107,9 @@ const $: JQueryStatic | undefined =
   maybeFreezeGifsInProfilePicture({settings});
   maybeCollapseDms({settings});
   setupAME({TD});
+
+  // Embed custom mustaches.
+  TD.mustaches['btd/download_filename_format.mustache'] = settings.downloadFilenameFormat;
 
   $(document).one('dataColumnsLoaded', () => {
     document.body.classList.add('btd-loaded');

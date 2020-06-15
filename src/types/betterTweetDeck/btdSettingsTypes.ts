@@ -118,7 +118,7 @@ export const RBetterTweetDeckSettings = t.type({
   /** A mustache template defining the filename used when downloading files */
   downloadFilenameFormat: withDefault(
     t.string,
-    '{{postedUser}}-{{tweetId}}-{{fileName}}.{{fileExtension}}'
+    '{{postedUser}}-{{year}}{{month}}{{day}}-{{hours}}{{minutes}}{{seconds}}-{{tweetId}}-{{fileName}}.{{fileExtension}}'
   ),
 
   /** Change tab title when stuff happens in TweetDeck */
