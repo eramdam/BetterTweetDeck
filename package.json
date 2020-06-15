@@ -15,9 +15,11 @@
     "start": "cross-env NODE_ENV=development webpack --watch --progress --env.browser",
     "build": "cross-env NODE_ENV=production webpack -p --progress --hide-modules --env.browser",
     "fix": "eslint --fix . --ext .jsx,.js,.ts,.tsx",
+    "lint": "eslint . --ext .jsx,.js,.ts,.tsx",
     "typecheck:watch": "tsc -p . --watch",
     "postinstall": "node-config-ts",
-    "run:firefox": "web-ext run -s dist"
+    "run:firefox": "web-ext run -s dist",
+    "test": "npm run lint && npm run tsc -p ."
   },
   "browserslist": [
     "last 1 chrome versions",
