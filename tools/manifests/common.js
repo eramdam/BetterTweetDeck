@@ -2,7 +2,7 @@ const urls = require('./commonHosts');
 
 module.exports = {
   name: 'Better TweetDeck',
-  version: '4.0.0',
+  version: '4.0.0-alpha',
   manifest_version: 2,
   content_scripts: [
     {
