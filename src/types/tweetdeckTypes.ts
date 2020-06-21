@@ -499,7 +499,7 @@ export interface TweetDeckChirp {
   action?: string;
   chirpType?: string;
   conversationMuted: boolean;
-  created: Date;
+  created: string;
   entities: TweetEntities;
   htmlText: string;
   id: string;
