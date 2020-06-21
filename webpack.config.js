@@ -36,7 +36,7 @@ function WebpackConfig(env) {
           ],
         },
         {
-          test: /\.(png|jpg|gif|svg)$/i,
+          test: /\.(png|jpg|gif|svg|woff|woff2|ttf|eot)$/i,
           use: [
             {
               loader: 'url-loader',

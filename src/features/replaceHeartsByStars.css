@@ -1,0 +1,68 @@
+@font-face {
+  font-family: 'btd-stars';
+  src: url('../assets/btd-stars/btd-stars.woff2?96eb4149c81ffbb8502070db3243a3c3') format('woff2'), url('../assets/btd-stars/btd-stars.woff?96eb4149c81ffbb8502070db3243a3c3') format('woff'), url('../assets/btd-stars/btd-stars.ttf?96eb4149c81ffbb8502070db3243a3c3') format('truetype'), url('../assets/btd-stars/btd-stars.svg?96eb4149c81ffbb8502070db3243a3c3#btd-stars') format('svg');
+}
+
+.btd-loaded[btd-use-stars='true'] {
+  & .icon-favorite::before,
+  & .icon-heart-filled::before {
+    font-family: 'btd-stars' !important;
+  }
+
+  & .dm-action:active .icon-favorite,
+  & .dm-action:active .like-count,
+  & .dm-action:focus .icon-favorite,
+  & .dm-action:focus .like-count,
+  & .dm-action:hover .icon-favorite,
+  & .dm-action:hover .like-count,
+  & .is-selected.dm-action .icon-favorite,
+  & .is-selected.dm-action .like-count,
+  & .is-selected.tweet-detail-action .icon-favorite,
+  & .is-selected.tweet-detail-action .like-count,
+  & .tweet-action.is-selected .icon-favorite,
+  & .tweet-action.is-selected .like-count,
+  & .tweet-action:active .icon-favorite,
+  & .tweet-action:active .like-count,
+  & .tweet-action:focus .icon-favorite,
+  & .tweet-action:focus .like-count,
+  & .tweet-action:hover .icon-favorite,
+  & .tweet-action:hover .like-count,
+  & .tweet-detail-action:active .icon-favorite,
+  & .tweet-detail-action:active .like-count,
+  & .tweet-detail-action:focus .icon-favorite,
+  & .tweet-detail-action:focus .like-count,
+  & .tweet-detail-action:hover .icon-favorite,
+  & .tweet-detail-action:hover .like-count,
+  & .is-favorite .icon-favorite-toggle,
+  & .icon-favorite-color {
+    color: #fab41e !important;
+  }
+
+  & .js-icon-favorite.is-invisible {
+    visibility: visible !important;
+  }
+
+  & .heart-anim {
+    display: none;
+  }
+
+  & .lst-launcher .btn .icon-favorite {
+    line-height: 1.04 !important;
+  }
+
+  & .icon-heart-filled::before {
+    content: '\f101' !important;
+  }
+
+  & .icon-favorite::before {
+    content: '\f102' !important;
+  }
+
+  & .column-nav-link .icon-favorite {
+    line-height: 1.4 !important;
+  }
+
+  & .js-column-header .column-type-icon.icon-favorite {
+    margin-top: 0 !important;
+  }
+}

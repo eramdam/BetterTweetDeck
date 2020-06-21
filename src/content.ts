@@ -6,6 +6,7 @@ import {setupEmojiAutocompletion} from './features/emojiAutocompletion';
 import {setupEmojiPicker} from './features/emojiPicker';
 import {setupGifModals} from './features/gifModals';
 import {setupGifPicker} from './features/gifPicker';
+import {maybeReplaceHeartsByStars} from './features/replaceHeartsByStars';
 import {setupThumbnailInjector} from './features/thumbnails/thumbnailInjector';
 import {listenToInternalBTDMessage} from './helpers/communicationHelpers';
 import {sendMessageToBackground} from './helpers/webExtensionHelpers';
@@ -22,6 +23,7 @@ injectInTD();
 setupThumbnailInjector();
 getValidatedSettings().then((settings) => {
   setupGifModals(settings);
+  maybeReplaceHeartsByStars({settings});
 });
 
 listenToInternalBTDMessage(BTDMessages.BTD_READY, BTDMessageOriginsEnum.CONTENT, async () => {
