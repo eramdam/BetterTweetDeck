@@ -49,3 +49,18 @@ html .btd-loaded .ovl {
 .js-compose-text {
   width: calc(100% - 26px) !important;
 }
+
+/**
+ * Some fixes around default dark theme
+ */
+
+html.dark .lst-modal {
+  background: #15202b;
+  border: 1px solid #38444d;
+}
+
+html.dark .typeahead .fullname,
+html.dark .typeahead .username,
+html.dark .typeahead .js-hashtag {
+  color: white;
+}
