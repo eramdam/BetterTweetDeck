@@ -8,6 +8,10 @@ import {insertInsideComposer, onComposerShown} from '../helpers/tweetdeckHelpers
 
 export function setupEmojiPicker() {
   function unmount() {
+    if (!document.querySelector('#emojiButton')) {
+      return;
+    }
+
     unmountComponentAtNode(document.querySelector('#emojiButton')!);
   }
 
