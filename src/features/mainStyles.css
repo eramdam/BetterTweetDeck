@@ -1,7 +1,5 @@
 /**
- * 
  * Fullscreen modal styles 
- *
  */
 #btd-fullscreen-portal-root {
   background: rgba(0, 0, 0, 0.8);
@@ -46,6 +44,7 @@ html .btd-loaded .ovl {
   background-position-y: 48px;
 }
 
+/* Allow room for emoji button in composer */
 .js-compose-text {
   width: calc(100% - 26px) !important;
 }
@@ -53,7 +52,6 @@ html .btd-loaded .ovl {
 /**
  * Some fixes around default dark theme
  */
-
 html.dark .lst-modal {
   background: #15202b;
   border: 1px solid #38444d;
@@ -63,4 +61,19 @@ html.dark .typeahead .fullname,
 html.dark .typeahead .username,
 html.dark .typeahead .js-hashtag {
   color: white;
+}
+
+/* Small UI tweaks */
+.app-columns {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  padding-left: 0 !important;
+}
+
+.column {
+  margin-right: 2px !important;
+}
+
+html.dark .stream-item {
+  border-bottom-color: #10171e !important;
 }
