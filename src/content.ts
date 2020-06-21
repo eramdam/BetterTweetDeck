@@ -2,6 +2,7 @@ import './components/index.css';
 
 import {browser} from 'webextension-polyfill-ts';
 
+import {setupEmojiAutocompletion} from './features/emojiAutocompletion';
 import {setupEmojiPicker} from './features/emojiPicker';
 import {setupGifModals} from './features/gifModals';
 import {setupGifPicker} from './features/gifPicker';
@@ -26,6 +27,7 @@ getValidatedSettings().then((settings) => {
 listenToInternalBTDMessage(BTDMessages.BTD_READY, BTDMessageOriginsEnum.CONTENT, async () => {
   setupGifPicker();
   setupEmojiPicker();
+  setupEmojiAutocompletion();
 
   browser.runtime.onMessage.addListener((details) => {
     switch (details.action) {
