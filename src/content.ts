@@ -1,4 +1,4 @@
-import './components/index.css';
+import './features/mainStyles.css';
 
 import {browser} from 'webextension-polyfill-ts';
 
