@@ -31,6 +31,9 @@ export const makeFullscreenModalWrapper: DCFactory<FullscreenModalWrapperProps> 
                   className="med-tray js-mediaembed"
                   style={{
                     opacity: 1,
+                    display: 'inline-flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
                   }}>
                   {props.children}
                 </div>

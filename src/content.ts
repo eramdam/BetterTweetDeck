@@ -8,6 +8,7 @@ import {setupGifPicker} from './features/gifPicker';
 import {setupThumbnailInjector} from './features/thumbnails/thumbnailInjector';
 import {listenToInternalBTDMessage} from './helpers/communicationHelpers';
 import {sendMessageToBackground} from './helpers/webExtensionHelpers';
+import {getValidatedSettings} from './services/backgroundSettings';
 import {injectInTD} from './services/injectInTD';
 import {setupBtdRoot} from './services/setupBTDRoot';
 import {BTDMessageOriginsEnum, BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
@@ -18,7 +19,9 @@ setupBtdRoot();
 injectInTD();
 // Setup thumbnail system.
 setupThumbnailInjector();
-setupGifModals();
+getValidatedSettings().then((settings) => {
+  setupGifModals(settings);
+});
 
 listenToInternalBTDMessage(BTDMessages.BTD_READY, BTDMessageOriginsEnum.CONTENT, async () => {
   setupGifPicker();
