@@ -51,7 +51,7 @@ interface AMEFilterOptions {
   nameInDropdown?: string;
 }
 
-export const setupAME = makeBTDModule(({TD}) => {
+export const setupAME = makeBTDModule(({TD, $}) => {
   // Save references of original functions
   TD.vo.Filter.prototype._getDisplayType = TD.vo.Filter.prototype.getDisplayType;
   TD.vo.Filter.prototype._pass = TD.vo.Filter.prototype.pass;

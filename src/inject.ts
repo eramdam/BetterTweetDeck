@@ -106,7 +106,7 @@ const $: JQueryStatic | undefined =
   changeScrollbarStyling({settings});
   maybeFreezeGifsInProfilePicture({settings});
   maybeCollapseDms({settings});
-  setupAME({TD});
+  setupAME({TD, $});
 
   // Embed custom mustaches.
   TD.mustaches['btd/download_filename_format.mustache'] = settings.downloadFilenameFormat;
