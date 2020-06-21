@@ -14,13 +14,17 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack --watch --progress --env.browser",
     "build": "cross-env NODE_ENV=production webpack -p --progress --hide-modules --env.browser",
+    "build:prod": "cross-env NODE_ENV=production webpack --hide-modules --env.browser",
     "fix": "eslint --fix . --ext .jsx,.js,.ts,.tsx",
     "lint": "eslint . --ext .jsx,.js,.ts,.tsx",
     "typecheck:watch": "tsc -p . --watch",
     "typecheck": "tsc -p .",
     "postinstall": "node-config-ts",
     "run:firefox": "web-ext run -s dist",
-    "test": "npm run lint && npm run typecheck"
+    "test": "npm run lint && npm run typecheck",
+    "release": "npm run build:prod -- chrome && npm run pack:chrome && npm run build:prod -- firefox && npm run pack:firefox",
+    "pack:chrome": "cross-env NODE_ENV=development node tools/pack.js",
+    "pack:firefox": "cross-env NODE_ENV=development web-ext build -s dist -a artifacts"
   },
   "browserslist": [
     "last 1 chrome versions",
@@ -45,6 +49,7 @@
     "@typescript-eslint/parser": "^3.0.0",
     "config": "^3.3.1",
     "cross-env": "^7.0.2",
+    "crx": "^5.0.1",
     "css-loader": "^3.5.3",
     "dom-chef": "^4.1.0",
     "emoji-mart": "^3.0.0",
