@@ -3,7 +3,7 @@
 declare module "node-config-ts" {
   interface IConfig {
     FirefoxId: string
-    opera_key: string
+    crx_key: string
     Client: Client
   }
   interface Client {
