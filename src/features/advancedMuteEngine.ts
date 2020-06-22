@@ -51,7 +51,7 @@ interface AMEFilterOptions {
   nameInDropdown?: string;
 }
 
-export const setupAME = makeBTDModule(({TD, $}) => {
+export const setupAME = makeBTDModule(({TD, jq}) => {
   // Save references of original functions
   TD.vo.Filter.prototype._getDisplayType = TD.vo.Filter.prototype.getDisplayType;
   TD.vo.Filter.prototype._pass = TD.vo.Filter.prototype.pass;
@@ -246,21 +246,21 @@ export const setupAME = makeBTDModule(({TD, $}) => {
     return filterString;
   };
 
-  $(document).on('change', '.js-filter-types', (e) => {
+  jq(document).on('change', '.js-filter-types', (e) => {
     e.preventDefault();
 
     const options = e.target.options;
     const filter = e.target.options[options.selectedIndex].value;
 
     if (filter.startsWith('BTD')) {
-      $('.js-filter-input').attr('placeholder', AmeFilters[filter].placeholder);
+      jq('.js-filter-input').attr('placeholder', AmeFilters[filter].placeholder);
     }
   });
 
-  $('body').on('click', '[data-btd-filter]', (ev) => {
+  jq('body').on('click', '[data-btd-filter]', (ev) => {
     ev.preventDefault();
-    const filter = $(ev.target).data('btd-filter');
-    const value = $(ev.target).data('btd-value');
+    const filter = jq(ev.target).data('btd-filter');
+    const value = jq(ev.target).data('btd-value');
 
     TD.controller.filterManager.addFilter(filter, value);
   });

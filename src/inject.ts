@@ -44,7 +44,7 @@ try {
 
 const TD = window.TD as TweetDeckObject;
 // Grab TweetDeck's jQuery from webpack
-const $: JQueryStatic | undefined =
+const jq: JQueryStatic | undefined =
   mR && mR.findFunction('jQuery') && mR.findFunction('jquery:')[0];
 
 (async () => {
@@ -54,7 +54,7 @@ const $: JQueryStatic | undefined =
 
   const settings = getBTDSettings();
 
-  if (!settings || !$) {
+  if (!settings || !jq) {
     return;
   }
 
@@ -82,23 +82,23 @@ const $: JQueryStatic | undefined =
   );
 
   markInjectScriptAsReady();
-  setupMediaSizeMonitor({TD, $});
-  maybeSetupDebugFunctions({$});
+  setupMediaSizeMonitor({TD, jq});
+  maybeSetupDebugFunctions({jq});
   maybeRemoveRedirection({TD});
   maybeChangeUsernameFormat({
     TD,
     settings,
   });
   maybeRevertToLegacyReplies({
-    $,
+    jq,
     TD,
     settings,
   });
-  allowImagePaste({$});
-  maybeAddColumnsButtons({TD, $, settings});
-  maybeAddTweetMenuItems({TD, $, settings});
-  maybeAddTweetActions({TD, $, settings});
-  updateTabTitle({TD, $});
+  allowImagePaste({jq});
+  maybeAddColumnsButtons({TD, jq, settings});
+  maybeAddTweetMenuItems({TD, jq, settings});
+  maybeAddTweetActions({TD, jq, settings});
+  updateTabTitle({TD, jq});
   changeAvatarsShape({settings});
   maybeMakeComposerButtonsSmaller({settings});
   maybeHideColumnIcons({settings});
@@ -106,12 +106,12 @@ const $: JQueryStatic | undefined =
   changeScrollbarStyling({settings});
   maybeFreezeGifsInProfilePicture({settings});
   maybeCollapseDms({settings});
-  setupAME({TD, $});
+  setupAME({TD, jq});
 
   // Embed custom mustaches.
   TD.mustaches['btd/download_filename_format.mustache'] = settings.downloadFilenameFormat;
 
-  $(document).one('dataColumnsLoaded', () => {
+  jq(document).one('dataColumnsLoaded', () => {
     document.body.classList.add('btd-loaded');
     maybeSetupCustomTimestampFormat({TD, settings});
     sendInternalBTDMessage({
@@ -134,14 +134,14 @@ const $: JQueryStatic | undefined =
       const gifFile = new File([blob], 'awesome-gif.gif', {
         type: 'image/gif',
       });
-      $(document).trigger('uiFilesAdded', {
+      jq(document).trigger('uiFilesAdded', {
         files: [gifFile],
       });
-      $('.btd-gif-button').removeClass('-visible');
+      jq('.btd-gif-button').removeClass('-visible');
     }
   );
-  $(document).on('uiResetImageUpload', () => {
-    $('.btd-gif-button').addClass('-visible');
+  jq(document).on('uiResetImageUpload', () => {
+    jq('.btd-gif-button').addClass('-visible');
   });
 })();
 

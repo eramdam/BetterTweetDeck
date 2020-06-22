@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 
-export const allowImagePaste = makeBTDModule(({$}) => {
+export const allowImagePaste = makeBTDModule(({jq}) => {
   document.addEventListener('paste', (event) => {
     if (!event.clipboardData) {
       return;
@@ -28,8 +28,8 @@ export const allowImagePaste = makeBTDModule(({$}) => {
       return;
     }
 
-    $(document).trigger('uiComposeTweet');
-    $(document).trigger('uiFilesAdded', {
+    jq(document).trigger('uiComposeTweet');
+    jq(document).trigger('uiFilesAdded', {
       files,
     });
   });

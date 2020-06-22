@@ -4,8 +4,8 @@ import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 import {BTDMessageOriginsEnum, BTDMessages} from '../types/betterTweetDeck/btdMessageTypes';
 import {TweetDeckChirp, TweetDeckUser} from '../types/tweetdeckTypes';
 
-export const listenToRedraftTweetEvent = makeBTDModule(({TD, $}) => {
-  $('body').on('click', '[data-btd-action="edit-tweet"]', (ev) => {
+export const listenToRedraftTweetEvent = makeBTDModule(({TD, jq}) => {
+  jq('body').on('click', '[data-btd-action="edit-tweet"]', (ev) => {
     ev.preventDefault();
     const chirp = getChirpFromElement(TD, ev.target);
     if (!chirp) {
@@ -89,7 +89,7 @@ export const listenToRedraftTweetEvent = makeBTDModule(({TD, $}) => {
     composeData.text = composeData.text.trim();
 
     // compose in advance because the reply composer doesn't transfer text for reasons unknown
-    $(document).trigger('uiComposeTweet', composeData);
+    jq(document).trigger('uiComposeTweet', composeData);
 
     // == handle replies
     if (chirp.inReplyToID) {
@@ -131,18 +131,18 @@ export const listenToRedraftTweetEvent = makeBTDModule(({TD, $}) => {
       }
 
       // now that the reply information is filled, we have to push this compose on top of the one with text
-      $(document).trigger('uiComposeTweet', composeData);
+      jq(document).trigger('uiComposeTweet', composeData);
     }
 
     // == re-upload all the files we had, if any
     if (media.length) {
       Promise.all(media.map((item) => requestMediaItem(item))).then((gotFiles) => {
-        $(document).trigger('uiComposeFilesAdded', {files: gotFiles});
+        jq(document).trigger('uiComposeFilesAdded', {files: gotFiles});
       });
     }
 
     // send one last compose event, for good luck
-    $(document).trigger('uiComposeTweet', composeData);
+    jq(document).trigger('uiComposeTweet', composeData);
 
     // it is now safe to remove the tweet
     chirp.destroy();

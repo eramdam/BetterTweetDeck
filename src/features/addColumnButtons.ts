@@ -5,7 +5,7 @@ import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
 import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 import {TweetDeckObject} from '../types/tweetdeckTypes';
 
-export const maybeAddColumnsButtons = makeBTDModule(({TD, $}) => {
+export const maybeAddColumnsButtons = makeBTDModule(({TD, jq}) => {
   if (!window.localStorage.getItem('btd_collapsed_columns')) {
     window.localStorage.setItem('btd_collapsed_columns', JSON.stringify({}));
   }
@@ -22,9 +22,9 @@ export const maybeAddColumnsButtons = makeBTDModule(({TD, $}) => {
     );
   });
 
-  overrideColumnPrototype(TD, $);
+  overrideColumnPrototype(TD, jq);
 
-  $(document).on('mousedown', '.btd-clear-column-link', (ev) => {
+  jq(document).on('mousedown', '.btd-clear-column-link', (ev) => {
     ev.preventDefault();
 
     const element = ev.target;
@@ -42,7 +42,7 @@ export const maybeAddColumnsButtons = makeBTDModule(({TD, $}) => {
     TD.controller.columnManager.get(columnKey).clear();
   });
 
-  $(document).on(
+  jq(document).on(
     'mousedown',
     '.column-panel header.column-header .btd-toggle-collapse-column-link',
     (ev) => {
@@ -58,7 +58,7 @@ export const maybeAddColumnsButtons = makeBTDModule(({TD, $}) => {
   );
 });
 
-function overrideColumnPrototype(TD: TweetDeckObject, $: JQueryStatic) {
+function overrideColumnPrototype(TD: TweetDeckObject, jq: JQueryStatic) {
   ((originalColumn) => {
     TD.vo.Column = class BTDColumn extends originalColumn {
       constructor(...args: any[]) {
@@ -75,7 +75,7 @@ function overrideColumnPrototype(TD: TweetDeckObject, $: JQueryStatic) {
             const dataBoy = JSON.parse(window.localStorage.getItem('btd_collapsed_columns') || '');
 
             const columnKey = this._parent.model.privateState.key;
-            const theColumn = $(`section.column[data-column="${columnKey}"]`);
+            const theColumn = jq(`section.column[data-column="${columnKey}"]`);
             theColumn.addClass('btd-column-collapsed');
 
             dataBoy[this._parent.model.privateState.apiid] = true;
@@ -92,7 +92,7 @@ function overrideColumnPrototype(TD: TweetDeckObject, $: JQueryStatic) {
               }
 
               const columnKey = this._parent.model.privateState.key;
-              const theColumn = $(`section.column[data-column="${columnKey}"]`);
+              const theColumn = jq(`section.column[data-column="${columnKey}"]`);
               theColumn.removeClass('btd-column-collapsed');
 
               delete dataBoy[this._parent.model.privateState.apiid];
