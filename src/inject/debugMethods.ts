@@ -9,9 +9,7 @@ export const maybeSetupDebugFunctions = makeBTDModule(({jq}) => {
     return;
   }
 
-  window.$ = jq;
-
   window.BTD = {
-    debug: {getChirpFromElement, getChirpFromKey, findMustache},
+    debug: {getChirpFromElement, getChirpFromKey, findMustache, $: jq},
   };
 });
