@@ -12,7 +12,7 @@ import {
 import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 import {requestMediaItem} from './redraftTweet';
 
-export const maybeAddTweetActions = makeBTDModule(({settings, TD, $}) => {
+export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
   const actionItems = settings.tweetActions;
 
   if (!actionItems) {
@@ -145,7 +145,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, $}) => {
     return string.replace(marker, replacement);
   });
 
-  $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
+  jq('body').on('click', '[data-btd-action="download-media"]', (ev) => {
     ev.preventDefault();
     const chirp = getChirpFromElement(TD, ev.target);
     if (!chirp) {
@@ -166,7 +166,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, $}) => {
     });
   });
 
-  $('body').on('click', '[data-btd-action="hotlink-media"]', (ev) => {
+  jq('body').on('click', '[data-btd-action="hotlink-media"]', (ev) => {
     ev.preventDefault();
     const chirp = getChirpFromElement(TD, ev.target);
     if (!chirp) {
@@ -176,7 +176,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, $}) => {
     navigator.clipboard.writeText(mediaUrls);
   });
 
-  $('body').on(
+  jq('body').on(
     'click',
     '[data-btd-action="mute-account"], [data-btd-action="block-account"]',
     (ev) => {
@@ -196,12 +196,12 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, $}) => {
       const action = target.getAttribute('data-btd-action');
 
       if (action === 'mute-account') {
-        $(document).trigger('uiMuteAction', {
+        jq(document).trigger('uiMuteAction', {
           account,
           twitterUser: user,
         });
       } else if (action === 'block-account') {
-        $(document).trigger('uiBlockAction', {
+        jq(document).trigger('uiBlockAction', {
           account,
           twitterUser: user,
         });
