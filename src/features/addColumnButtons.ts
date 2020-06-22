@@ -22,7 +22,7 @@ export const maybeAddColumnsButtons = makeBTDModule(({TD, $}) => {
     );
   });
 
-  overrideColumnPrototype(TD);
+  overrideColumnPrototype(TD, $);
 
   $(document).on('mousedown', '.btd-clear-column-link', (ev) => {
     ev.preventDefault();
@@ -58,7 +58,7 @@ export const maybeAddColumnsButtons = makeBTDModule(({TD, $}) => {
   );
 });
 
-function overrideColumnPrototype(TD: TweetDeckObject) {
+function overrideColumnPrototype(TD: TweetDeckObject, $: JQueryStatic) {
   ((originalColumn) => {
     TD.vo.Column = class BTDColumn extends originalColumn {
       constructor(...args: any[]) {
