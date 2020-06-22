@@ -6,7 +6,7 @@ type BTDModuleOptions = {
 } & {
   TD: TweetDeckObject;
 } & {
-  jq: JQueryStatic;
+  $: JQueryStatic;
 };
 type UniversalBTDModule = (opts: BTDModuleOptions) => void;
 type PartialUniversalBTDModule = (opts: Partial<BTDModuleOptions>) => void;

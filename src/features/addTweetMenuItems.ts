@@ -4,7 +4,7 @@ import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
 import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 import {listenToRedraftTweetEvent} from './redraftTweet';
 
-export const maybeAddTweetMenuItems = makeBTDModule(({settings, TD, jq}) => {
+export const maybeAddTweetMenuItems = makeBTDModule(({settings, TD, $}) => {
   const menuItems = settings.tweetMenuItems;
   if (!menuItems) {
     return;
@@ -39,19 +39,19 @@ export const maybeAddTweetMenuItems = makeBTDModule(({settings, TD, jq}) => {
     return string.replace(marker, `${additions.filter((i) => !!i).join('')}`);
   });
 
-  jq('body').on('click', '[data-btd-action="mute-hashtag"]', (ev) => {
+  $('body').on('click', '[data-btd-action="mute-hashtag"]', (ev) => {
     ev.preventDefault();
-    const hashtag = jq(ev.target).data('btd-hashtag');
+    const hashtag = $(ev.target).data('btd-hashtag');
 
     TD.controller.filterManager.addFilter('phrase', `#${hashtag}`);
   });
 
-  jq('body').on('click', '[data-btd-action="mute-source"]', (ev) => {
+  $('body').on('click', '[data-btd-action="mute-source"]', (ev) => {
     ev.preventDefault();
-    const source = jq(ev.target).data('btd-source');
+    const source = $(ev.target).data('btd-source');
 
     TD.controller.filterManager.addFilter('source', source);
   });
 
-  listenToRedraftTweetEvent({TD, jq});
+  listenToRedraftTweetEvent({TD, $});
 });

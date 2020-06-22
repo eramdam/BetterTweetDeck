@@ -1,11 +1,11 @@
 import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 
-export const updateTabTitle = makeBTDModule(({jq}) => {
+export const updateTabTitle = makeBTDModule(({$}) => {
   const countTitle = (count: number) => `(${count}) TweetDeck`;
   const defaultTitle = 'TweetDeck';
   const unreadTitle = '(*) TweetDeck';
 
-  jq(document).on('uiReadStateChange uiMessageUnreadCount', (ev, data) => {
+  $(document).on('uiReadStateChange uiMessageUnreadCount', (ev, data) => {
     const {read, count} = data;
 
     if (
@@ -20,10 +20,7 @@ export const updateTabTitle = makeBTDModule(({jq}) => {
       document.title = unreadTitle;
     }
 
-    if (
-      document.title !== defaultTitle &&
-      jq('.is-new, .js-unread-count.is-visible').length === 0
-    ) {
+    if (document.title !== defaultTitle && $('.is-new, .js-unread-count.is-visible').length === 0) {
       document.title = defaultTitle;
     }
   });

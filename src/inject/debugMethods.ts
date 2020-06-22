@@ -4,12 +4,12 @@ import {findMustache, getChirpFromElement, getChirpFromKey} from '../helpers/twe
 import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 
 /** Setup a few helpful debug functions on the global scope if the config asks for it. */
-export const maybeSetupDebugFunctions = makeBTDModule(({jq}) => {
+export const maybeSetupDebugFunctions = makeBTDModule(({$}) => {
   if (!config.Client.debug) {
     return;
   }
 
-  window.$ = jq;
+  window.$ = $;
 
   window.BTD = {
     debug: {getChirpFromElement, getChirpFromKey, findMustache},
