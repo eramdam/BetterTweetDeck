@@ -20,6 +20,7 @@ import {updateTabTitle} from './features/updateTabTitle';
 import {maybeChangeUsernameFormat} from './features/usernameDisplay';
 import {putBadgesOnTopOfAvatars} from './features/verifiedBadges';
 import {listenToInternalBTDMessage, sendInternalBTDMessage} from './helpers/communicationHelpers';
+import {modifyMustacheTemplate} from './helpers/mustacheHelpers';
 import {setupChirpHandler} from './inject/chirpHandler';
 import {setupMediaSizeMonitor} from './inject/columnMediaSizeMonitor';
 import {maybeSetupDebugFunctions} from './inject/debugMethods';
@@ -110,6 +111,17 @@ const jq: JQueryStatic | undefined =
 
   // Embed custom mustaches.
   TD.mustaches['btd/download_filename_format.mustache'] = settings.downloadFilenameFormat;
+
+  modifyMustacheTemplate(TD, 'status/tweet_single.mustache', (string) => {
+    return string
+      .replace('{{^hasMedia}}', '')
+      .replace('{{/hasMedia}}', '')
+      .replace(`{{>status/tweet_media_wrapper}}`, '')
+      .replace(
+        `<div class="js-card-container"></div>  {{#quotedTweet}}`,
+        `{{>status/tweet_media_wrapper}}  {{#quotedTweet}}`
+      );
+  });
 
   jq(document).one('dataColumnsLoaded', () => {
     document.body.classList.add('btd-loaded');
