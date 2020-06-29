@@ -25,6 +25,11 @@ export const getChirpFromKey = (
     return null;
   }
 
+  const directChirp = column.updateIndex[key];
+  if (directChirp && directChirp.id === String(key)) {
+    return directChirp;
+  }
+
   const chirpsArray: TweetDeckChirp[] = [];
   Object.keys(column.updateIndex).forEach((updateKey) => {
     const c = column.updateIndex[updateKey];

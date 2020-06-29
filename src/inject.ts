@@ -61,13 +61,13 @@ const jq: JQueryStatic | undefined =
   setupChirpHandler(
     TD,
     (payload) => {
-      putBadgesOnTopOfAvatars(settings, payload);
       sendInternalBTDMessage({
         name: BTDMessages.CHIRP_RESULT,
         origin: BTDMessageOriginsEnum.INJECT,
         isReponse: false,
         payload,
       });
+      putBadgesOnTopOfAvatars(settings, payload);
     },
     (payload) => {
       sendInternalBTDMessage({
