@@ -2,7 +2,6 @@ import {isObject} from 'lodash';
 import moduleRaid from 'moduleraid';
 
 import {maybeAddColumnsButtons} from './features/addColumnButtons';
-import {maybeAddTweetActions} from './features/addTweetActions';
 import {maybeAddTweetMenuItems} from './features/addTweetMenuItems';
 import {setupAME} from './features/advancedMuteEngine';
 import {allowImagePaste} from './features/allowImagePaste';
@@ -14,13 +13,13 @@ import {maybeCollapseDms} from './features/collapseDms';
 import {maybeFreezeGifsInProfilePicture} from './features/freezeGifsProfilePictures';
 import {maybeHideColumnIcons} from './features/hideColumnIcons';
 import {maybeRemoveRedirection} from './features/removeRedirection';
+import {renderMediaAndQuotedTweets} from './features/renderMediaAndQuotedTweets';
 import {maybeRevertToLegacyReplies} from './features/revertToLegacyReplies';
 import {maybeMakeComposerButtonsSmaller} from './features/smallerComposerButtons';
 import {updateTabTitle} from './features/updateTabTitle';
 import {maybeChangeUsernameFormat} from './features/usernameDisplay';
 import {putBadgesOnTopOfAvatars} from './features/verifiedBadges';
 import {listenToInternalBTDMessage, sendInternalBTDMessage} from './helpers/communicationHelpers';
-import {modifyMustacheTemplate} from './helpers/mustacheHelpers';
 import {setupChirpHandler} from './inject/chirpHandler';
 import {setupMediaSizeMonitor} from './inject/columnMediaSizeMonitor';
 import {maybeSetupDebugFunctions} from './inject/debugMethods';
@@ -98,7 +97,7 @@ const jq: JQueryStatic | undefined =
   allowImagePaste({jq});
   maybeAddColumnsButtons({TD, jq, settings});
   maybeAddTweetMenuItems({TD, jq, settings});
-  maybeAddTweetActions({TD, jq, settings});
+  // maybeAddTweetActions({TD, jq, settings});
   updateTabTitle({TD, jq});
   changeAvatarsShape({settings});
   maybeMakeComposerButtonsSmaller({settings});
@@ -108,20 +107,10 @@ const jq: JQueryStatic | undefined =
   maybeFreezeGifsInProfilePicture({settings});
   maybeCollapseDms({settings});
   setupAME({TD, jq});
+  renderMediaAndQuotedTweets({TD});
 
   // Embed custom mustaches.
   TD.mustaches['btd/download_filename_format.mustache'] = settings.downloadFilenameFormat;
-
-  modifyMustacheTemplate(TD, 'status/tweet_single.mustache', (string) => {
-    return string
-      .replace('{{^hasMedia}}', '')
-      .replace('{{/hasMedia}}', '')
-      .replace(`{{>status/tweet_media_wrapper}}`, '')
-      .replace(
-        `<div class="js-card-container"></div>  {{#quotedTweet}}`,
-        `{{>status/tweet_media_wrapper}}  {{#quotedTweet}}`
-      );
-  });
 
   jq(document).one('dataColumnsLoaded', () => {
     document.body.classList.add('btd-loaded');
