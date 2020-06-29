@@ -13,7 +13,9 @@ export enum BetterTweetDeckAccentColors {
 
 import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 
-export const addAccentColors = makeBTDModule(() => {
+export const tweakTweetDeckTheme = makeBTDModule(() => {
   // @ts-ignore
-  document.body.style = `--btd-accent-color: ${BetterTweetDeckAccentColors.DEFAULT}`;
+  document.body.style = `--btd-accent-color: ${BetterTweetDeckAccentColors.AVOCADO}`;
+
+  document.body.setAttribute('btd-super-dark', 'true');
 });

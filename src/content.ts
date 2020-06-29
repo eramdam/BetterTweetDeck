@@ -2,12 +2,12 @@ import './features/mainStyles.css';
 
 import {browser} from 'webextension-polyfill-ts';
 
-import {addAccentColors} from './features/addAccentColors';
 import {setupEmojiAutocompletion} from './features/emojiAutocompletion';
 import {setupEmojiPicker} from './features/emojiPicker';
 import {setupGifModals} from './features/gifModals';
 import {setupGifPicker} from './features/gifPicker';
 import {maybeReplaceHeartsByStars} from './features/replaceHeartsByStars';
+import {tweakTweetDeckTheme} from './features/themeTweaks';
 import {setupThumbnailInjector} from './features/thumbnails/thumbnailInjector';
 import {listenToInternalBTDMessage} from './helpers/communicationHelpers';
 import {sendMessageToBackground} from './helpers/webExtensionHelpers';
@@ -25,7 +25,7 @@ setupThumbnailInjector();
 getValidatedSettings().then((settings) => {
   setupGifModals(settings);
   maybeReplaceHeartsByStars({settings});
-  addAccentColors({settings});
+  tweakTweetDeckTheme({settings});
 });
 
 listenToInternalBTDMessage(BTDMessages.BTD_READY, BTDMessageOriginsEnum.CONTENT, async () => {

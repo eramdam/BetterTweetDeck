@@ -77,3 +77,7 @@ html.dark .typeahead .js-hashtag {
 html.dark .stream-item {
   border-bottom-color: #10171e !important;
 }
+
+.js-media.media-grid-container + p.txt-ellipsis {
+  display: none;
+}
