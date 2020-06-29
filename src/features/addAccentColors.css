@@ -1,0 +1,119 @@
+:root {
+  /* value set in `addAccentColors.ts */
+  /* --btd-accent-color:; */
+}
+
+.column-header-link,
+.app-nav-link,
+.app-nav-tab,
+.app-search-fake {
+  color: var(--btd-accent-color) !important;
+}
+
+html[class] a,
+html[class] a:focus,
+html[class] a:hover,
+html[class] a:active,
+html[class] .color-twitter-blue,
+html[class] .other-replies-link,
+html[class] .other-replies-link:hover,
+.facet-subtitle {
+  color: var(--btd-accent-color);
+}
+
+html[class] .Button,
+html[class] .Button.is-visited,
+html[class] .Button:visited,
+html[class] button,
+html[class] button.is-visited,
+html[class] button:visited,
+html[class] input.is-visited[type='button'],
+html[class] input:visited[type='button'],
+html[class] input[type='button'] {
+  border-color: var(--btd-accent-color);
+  color: var(--btd-accent-color);
+}
+
+button.btn-on-dark,
+input[type='button'].btn-on-dark {
+  color: var(--btd-accent-color);
+  background: transparent;
+}
+
+html[class] .dropdown-menu .is-selected,
+.lst-group .selected {
+  background-color: var(--btd-accent-color) !important;
+}
+
+html[class] .Button.btn-fav.s-favorited,
+html[class] .Button.btn-fav.s-favorited:visited,
+html[class] .Button.Button--primary,
+html[class] .Button.Button--primary:visited,
+html[class] .ButtonGroup--primary > .Button,
+html[class] .ButtonGroup--primary > .Button:visited,
+html[class] .ButtonGroup--primary > .ButtonGroup > .Button,
+html[class] .ButtonGroup--primary > .ButtonGroup > .Button:visited,
+html[class] .ButtonGroup--primary > .ButtonGroup > button,
+html[class] .ButtonGroup--primary > .ButtonGroup > button:visited,
+html[class] .ButtonGroup--primary > .ButtonGroup > input:visited[type='button'],
+html[class] .ButtonGroup--primary > .ButtonGroup > input[type='button'],
+html[class] .ButtonGroup--primary > button,
+html[class] .ButtonGroup--primary > button:visited,
+html[class] .ButtonGroup--primary > input:visited[type='button'],
+html[class] .ButtonGroup--primary > input[type='button'],
+html[class] .s-following .follow-btn:hover .Button.following-text,
+html[class] .s-following .follow-btn:hover .Button.following-text:visited,
+html[class] .s-following .follow-btn:hover button.following-text,
+html[class] .s-following .follow-btn:hover button.following-text:visited,
+html[class] .s-following .follow-btn:hover input.following-text:visited[type='button'],
+html[class] .s-following .follow-btn:hover input.following-text[type='button'],
+html[class] button.btn-fav.s-favorited,
+html[class] button.btn-fav.s-favorited:visited,
+html[class] button.Button--primary,
+html[class] button.Button--primary:visited,
+html[class] input.btn-fav.s-favorited:visited[type='button'],
+html[class] input.btn-fav.s-favorited[type='button'],
+html[class] input.Button--primary:visited[type='button'],
+html[class] input.Button--primary[type='button'] {
+  background-color: var(--btd-accent-color) !important;
+  border: none !important;
+}
+
+.Button.btn-fav.s-favorited:hover,
+.Button.Button--primary.is-hover,
+.Button.Button--primary:hover,
+.Button.is-hover.btn-fav.s-favorited,
+.ButtonGroup--primary > .Button.is-hover,
+.ButtonGroup--primary > .Button:hover,
+.ButtonGroup--primary > .ButtonGroup > .Button.is-hover,
+.ButtonGroup--primary > .ButtonGroup > .Button:hover,
+.ButtonGroup--primary > .ButtonGroup > button.is-hover,
+.ButtonGroup--primary > .ButtonGroup > button:hover,
+.ButtonGroup--primary > .ButtonGroup > input.is-hover[type='button'],
+.ButtonGroup--primary > .ButtonGroup > input:hover[type='button'],
+.ButtonGroup--primary > button.is-hover,
+.ButtonGroup--primary > button:hover,
+.ButtonGroup--primary > input.is-hover[type='button'],
+.ButtonGroup--primary > input:hover[type='button'],
+.s-following .follow-btn:hover .Button.following-text:hover,
+.s-following .follow-btn:hover .Button.is-hover.following-text,
+.s-following .follow-btn:hover button.following-text:hover,
+.s-following .follow-btn:hover button.is-hover.following-text,
+.s-following .follow-btn:hover input.following-text:hover[type='button'],
+.s-following .follow-btn:hover input.is-hover.following-text[type='button'],
+button.btn-fav.s-favorited:hover,
+button.Button--primary.is-hover,
+button.Button--primary:hover,
+button.is-hover.btn-fav.s-favorited,
+input.btn-fav.s-favorited:hover[type='button'],
+input.Button--primary.is-hover[type='button'],
+input.Button--primary:hover[type='button'],
+input.is-hover.btn-fav.s-favorited[type='button'],
+.lst-group .selected a:hover {
+  background-color: var(--btd-accent-color) !important;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)) !important;
+}
+
+.app-search-fake {
+  border-color: var(--btd-accent-color) !important;
+}
