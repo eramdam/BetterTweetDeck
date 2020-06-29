@@ -67,6 +67,12 @@ export function setupEmojiAutocompletion() {
     'keydown',
     (ev) => {
       const target = ev.target;
+
+      // Let event go through if meta is pressed (otherwise "send" shortcut won't work).
+      if (ev.metaKey) {
+        return;
+      }
+
       if (!isHTMLElement(target)) {
         return;
       }
