@@ -82,6 +82,12 @@ export function setupEmojiAutocompletion() {
       }
 
       const composer = target as HTMLTextAreaElement;
+      const valAtCursor = valueAtCursor(composer).value;
+      const colonMatches = valAtCursor.match(emojiColonRegex);
+
+      if (!colonMatches) {
+        return;
+      }
 
       const allowedKeys: string[] = [Key.ArrowDown, Key.ArrowUp, Key.Tab, Key.Enter, Key.Escape];
       const eventKey = ev.key;
