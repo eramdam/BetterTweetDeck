@@ -1,7 +1,6 @@
 import {isObject} from 'lodash';
 import moduleRaid from 'moduleraid';
 
-import {addAccentColors} from './features/addAccentColors';
 import {maybeAddColumnsButtons} from './features/addColumnButtons';
 import {maybeAddTweetActions} from './features/addTweetActions';
 import {maybeAddTweetMenuItems} from './features/addTweetMenuItems';
@@ -108,7 +107,6 @@ const jq: JQueryStatic | undefined =
   maybeFreezeGifsInProfilePicture({settings});
   maybeCollapseDms({settings});
   setupAME({TD, jq});
-  addAccentColors({settings});
 
   // Embed custom mustaches.
   TD.mustaches['btd/download_filename_format.mustache'] = settings.downloadFilenameFormat;

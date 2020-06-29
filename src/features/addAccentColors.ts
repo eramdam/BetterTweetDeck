@@ -1,4 +1,5 @@
 import './addAccentColors.css';
+import './lightsOut.css';
 
 export enum BetterTweetDeckAccentColors {
   DEFAULT = '#1da1f2',
@@ -13,5 +14,6 @@ export enum BetterTweetDeckAccentColors {
 import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 
 export const addAccentColors = makeBTDModule(() => {
-  document.body.style.setProperty('--btd-accent-color', BetterTweetDeckAccentColors.DEFAULT);
+  // @ts-ignore
+  document.body.style = `--btd-accent-color: ${BetterTweetDeckAccentColors.DEFAULT}`;
 });

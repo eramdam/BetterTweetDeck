@@ -2,6 +2,7 @@ import './features/mainStyles.css';
 
 import {browser} from 'webextension-polyfill-ts';
 
+import {addAccentColors} from './features/addAccentColors';
 import {setupEmojiAutocompletion} from './features/emojiAutocompletion';
 import {setupEmojiPicker} from './features/emojiPicker';
 import {setupGifModals} from './features/gifModals';
@@ -24,6 +25,7 @@ setupThumbnailInjector();
 getValidatedSettings().then((settings) => {
   setupGifModals(settings);
   maybeReplaceHeartsByStars({settings});
+  addAccentColors({settings});
 });
 
 listenToInternalBTDMessage(BTDMessages.BTD_READY, BTDMessageOriginsEnum.CONTENT, async () => {
