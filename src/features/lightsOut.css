@@ -1,6 +1,5 @@
-body[btd-super-dark='true'] {
-  & .app-columns-container,
-  & .app-content,
+body[btd-super-dark='true'],
+body[btd-old-grey='true'] {
   & .app-content .column-panel,
   & .app-content .column,
   & .app-navigator,
@@ -16,41 +15,61 @@ body[btd-super-dark='true'] {
   & .app-content .column-header-temp,
   & .btn-on-blue,
   & .detail-view-inline {
-    background: black;
+    background: var(--btd-theme-background);
   }
 
   & .detail-view-inline {
-    background: black;
+    background: var(--btd-theme-background);
     border: none;
   }
 
   & .btn-on-blue:hover {
-    background-color: #2b2b2b;
+    background-color: var(--btd-theme-btn-hover);
   }
 
   & .compose,
   & .inline-reply,
   & .old-composer-footer {
-    background-color: #141414;
+    background-color: var(--btd-theme-background-lighter);
   }
 
   & .reply-triangle {
-    border-bottom-color: #141414;
+    border-bottom-color: var(--btd-theme-background-lighter);
   }
 
   & .attach-compose-buttons .Button.tweet-button,
   & .attach-compose-buttons button.tweet-button,
   & .attach-compose-buttons input.tweet-button[type='button'] {
-    background-color: #141414;
+    background-color: var(--btd-theme-background-lighter);
   }
 
   & .attach-compose-buttons button.tweet-button:hover {
-    background-color: #141414 !important;
+    background-color: var(--btd-theme-background-lighter) !important;
   }
 
   & .js-hide-drawer.Button.tweet-button,
   & .js-hide-drawer.Button.tweet-button:hover {
     color: white;
-    background: #141414 !important;
+    background: var(--btd-theme-background-lighter) !important;
   }
+}
+
+body[btd-super-dark='true'] {
+  --btd-theme-background: black;
+  --btd-theme-background-lighter: #141414;
+  --btd-theme-btn-hover: #2b2b2b;
+}
+
+body[btd-old-grey='true'] {
+  --btd-theme-background: hsl(210, 6%, 17%);
+  --btd-theme-background-lighter: #373a3e;
+  --btd-theme-btn-hover: #2b2b2b;
+
+  /* & .app-content .column-header,
+  & .column-nav-item,
+  & .app-header,
+  & .app-title,
+  & .app-navigator {
+    background: var(--btd-theme-background-lighter);
+  } */
 }

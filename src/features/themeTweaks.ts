@@ -2,12 +2,13 @@ import './addAccentColors.css';
 import './lightsOut.css';
 
 export enum BetterTweetDeckAccentColors {
-  DEFAULT = '#1da1f2',
-  GOLD = '#ffac33',
-  RED = '#e0245e',
-  PURPLE = '#794bc4',
-  ORANGE = '#f45d22',
-  AVOCADO = '#17bf63',
+  DEFAULT = 'rgb(29, 161, 242)',
+  STAR = 'rgb(255, 173, 31)',
+  CHERRY_RED = 'rgb(224, 36, 94)',
+  CHERRY = 'rgb(224, 36, 142)',
+  OCTOPUS = 'rgb(121, 75, 196)',
+  FIRE = 'rgb(244, 93, 34)',
+  AVOCADO = 'rgb(23, 191, 99)',
   GREY = '',
 }
 
@@ -15,7 +16,8 @@ import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 
 export const tweakTweetDeckTheme = makeBTDModule(() => {
   // @ts-ignore
-  document.body.style = `--btd-accent-color: ${BetterTweetDeckAccentColors.AVOCADO}`;
+  document.body.style = `--btd-accent-color: ${BetterTweetDeckAccentColors.DEFAULT}`;
 
+  // document.body.setAttribute('btd-old-grey', 'true');
   document.body.setAttribute('btd-super-dark', 'true');
 });
