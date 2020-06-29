@@ -58,6 +58,11 @@ body[btd-super-dark='true'] {
   --btd-theme-background: black;
   --btd-theme-background-lighter: #141414;
   --btd-theme-btn-hover: #2b2b2b;
+
+  & .app-content,
+  & .app-columns-container {
+    background: #080808;
+  }
 }
 
 body[btd-old-grey='true'] {
