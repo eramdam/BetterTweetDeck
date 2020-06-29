@@ -470,11 +470,11 @@ html.dark .btd-loaded {
  * Dark mode styles
  */
 
-  --background: #15202b;
+  --emoji-picker-background: #15202b;
   & .emoji-mart-dark {
     color: #fff;
     border-color: #555453;
-    background-color: var(--background);
+    background-color: var(--emoji-picker-background);
   }
 
   & .emoji-mart-dark .emoji-mart-bar {
@@ -496,13 +496,13 @@ html.dark .btd-loaded {
   }
 
   & .emoji-mart-dark .emoji-mart-category-label span {
-    background-color: var(--background);
+    background-color: var(--emoji-picker-background);
     color: #fff;
   }
 
   & .emoji-mart-dark .emoji-mart-skin-swatches {
     border-color: #555453;
-    background-color: var(--background);
+    background-color: var(--emoji-picker-background);
   }
 
   & .emoji-mart-dark .emoji-mart-anchor:hover,
