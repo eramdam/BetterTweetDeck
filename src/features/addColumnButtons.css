@@ -1,4 +1,4 @@
-html {
+html .app-content {
   /* collapsed column states */
 
   & section.btd-column-collapsed {

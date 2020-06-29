@@ -1,0 +1,43 @@
+html.dark .app-columns-container,
+html.dark .app-content,
+html.dark .app-content .column-panel,
+html.dark .app-content .column,
+html.dark .app-navigator,
+html.dark .column-nav-item,
+html.dark .app-header,
+html.dark .app-title,
+html.dark .column-options,
+html.dark .column-options .button-tray,
+html.dark .facet-type.is-active,
+html.dark .app-content .stream-item,
+html.dark .app-content .column-message,
+html.dark .app-content .column-header,
+html.dark .app-content .column-header-temp,
+html.dark .btn-on-blue {
+  background: black;
+}
+
+html.dark .btn-on-blue:hover {
+  background-color: #2b2b2b;
+}
+
+html.dark .compose,
+html.dark .old-composer-footer {
+  background-color: #141414;
+}
+
+html.dark .attach-compose-buttons .Button.tweet-button,
+html.dark .attach-compose-buttons button.tweet-button,
+html.dark .attach-compose-buttons input.tweet-button[type='button'] {
+  background-color: #141414;
+}
+
+html.dark .attach-compose-buttons button.tweet-button:hover {
+  background-color: #141414 !important;
+}
+
+html.dark .js-hide-drawer.Button.tweet-button,
+html.dark .js-hide-drawer.Button.tweet-button:hover {
+  color: white;
+  background: #141414 !important;
+}
