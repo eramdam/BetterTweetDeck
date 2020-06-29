@@ -14,8 +14,14 @@ body[btd-super-dark='true'] {
   & .app-content .column-message,
   & .app-content .column-header,
   & .app-content .column-header-temp,
-  & .btn-on-blue {
+  & .btn-on-blue,
+  & .detail-view-inline {
     background: black;
+  }
+
+  & .detail-view-inline {
+    background: black;
+    border: none;
   }
 
   & .btn-on-blue:hover {
@@ -23,8 +29,13 @@ body[btd-super-dark='true'] {
   }
 
   & .compose,
+  & .inline-reply,
   & .old-composer-footer {
     background-color: #141414;
+  }
+
+  & .reply-triangle {
+    border-bottom-color: #141414;
   }
 
   & .attach-compose-buttons .Button.tweet-button,
