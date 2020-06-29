@@ -10,26 +10,26 @@
   color: var(--btd-accent-color) !important;
 }
 
-html[class] a,
-html[class] a:focus,
-html[class] a:hover,
-html[class] a:active,
-html[class] .color-twitter-blue,
-html[class] .other-replies-link,
-html[class] .other-replies-link:hover,
+:matches(html, html.dark) a,
+:matches(html, html.dark) a:focus,
+:matches(html, html.dark) a:hover,
+:matches(html, html.dark) a:active,
+:matches(html, html.dark) .color-twitter-blue,
+:matches(html, html.dark) .other-replies-link,
+:matches(html, html.dark) .other-replies-link:hover,
 .facet-subtitle {
   color: var(--btd-accent-color);
 }
 
-html[class] .Button,
-html[class] .Button.is-visited,
-html[class] .Button:visited,
-html[class] button,
-html[class] button.is-visited,
-html[class] button:visited,
-html[class] input.is-visited[type='button'],
-html[class] input:visited[type='button'],
-html[class] input[type='button'] {
+:matches(html, html.dark) .Button,
+:matches(html, html.dark) .Button.is-visited,
+:matches(html, html.dark) .Button:visited,
+:matches(html, html.dark) button,
+:matches(html, html.dark) button.is-visited,
+:matches(html, html.dark) button:visited,
+:matches(html, html.dark) input.is-visited[type='button'],
+:matches(html, html.dark) input:visited[type='button'],
+:matches(html, html.dark) input[type='button'] {
   border-color: var(--btd-accent-color);
   color: var(--btd-accent-color);
 }
@@ -40,41 +40,41 @@ input[type='button'].btn-on-dark {
   background: transparent;
 }
 
-html[class] .dropdown-menu .is-selected,
+:matches(html, html.dark) .dropdown-menu .is-selected,
 .lst-group .selected {
   background-color: var(--btd-accent-color) !important;
 }
 
-html[class] .Button.btn-fav.s-favorited,
-html[class] .Button.btn-fav.s-favorited:visited,
-html[class] .Button.Button--primary,
-html[class] .Button.Button--primary:visited,
-html[class] .ButtonGroup--primary > .Button,
-html[class] .ButtonGroup--primary > .Button:visited,
-html[class] .ButtonGroup--primary > .ButtonGroup > .Button,
-html[class] .ButtonGroup--primary > .ButtonGroup > .Button:visited,
-html[class] .ButtonGroup--primary > .ButtonGroup > button,
-html[class] .ButtonGroup--primary > .ButtonGroup > button:visited,
-html[class] .ButtonGroup--primary > .ButtonGroup > input:visited[type='button'],
-html[class] .ButtonGroup--primary > .ButtonGroup > input[type='button'],
-html[class] .ButtonGroup--primary > button,
-html[class] .ButtonGroup--primary > button:visited,
-html[class] .ButtonGroup--primary > input:visited[type='button'],
-html[class] .ButtonGroup--primary > input[type='button'],
-html[class] .s-following .follow-btn:hover .Button.following-text,
-html[class] .s-following .follow-btn:hover .Button.following-text:visited,
-html[class] .s-following .follow-btn:hover button.following-text,
-html[class] .s-following .follow-btn:hover button.following-text:visited,
-html[class] .s-following .follow-btn:hover input.following-text:visited[type='button'],
-html[class] .s-following .follow-btn:hover input.following-text[type='button'],
-html[class] button.btn-fav.s-favorited,
-html[class] button.btn-fav.s-favorited:visited,
-html[class] button.Button--primary,
-html[class] button.Button--primary:visited,
-html[class] input.btn-fav.s-favorited:visited[type='button'],
-html[class] input.btn-fav.s-favorited[type='button'],
-html[class] input.Button--primary:visited[type='button'],
-html[class] input.Button--primary[type='button'] {
+:matches(html, html.dark) .Button.btn-fav.s-favorited,
+:matches(html, html.dark) .Button.btn-fav.s-favorited:visited,
+:matches(html, html.dark) .Button.Button--primary,
+:matches(html, html.dark) .Button.Button--primary:visited,
+:matches(html, html.dark) .ButtonGroup--primary > .Button,
+:matches(html, html.dark) .ButtonGroup--primary > .Button:visited,
+:matches(html, html.dark) .ButtonGroup--primary > .ButtonGroup > .Button,
+:matches(html, html.dark) .ButtonGroup--primary > .ButtonGroup > .Button:visited,
+:matches(html, html.dark) .ButtonGroup--primary > .ButtonGroup > button,
+:matches(html, html.dark) .ButtonGroup--primary > .ButtonGroup > button:visited,
+:matches(html, html.dark) .ButtonGroup--primary > .ButtonGroup > input:visited[type='button'],
+:matches(html, html.dark) .ButtonGroup--primary > .ButtonGroup > input[type='button'],
+:matches(html, html.dark) .ButtonGroup--primary > button,
+:matches(html, html.dark) .ButtonGroup--primary > button:visited,
+:matches(html, html.dark) .ButtonGroup--primary > input:visited[type='button'],
+:matches(html, html.dark) .ButtonGroup--primary > input[type='button'],
+:matches(html, html.dark) .s-following .follow-btn:hover .Button.following-text,
+:matches(html, html.dark) .s-following .follow-btn:hover .Button.following-text:visited,
+:matches(html, html.dark) .s-following .follow-btn:hover button.following-text,
+:matches(html, html.dark) .s-following .follow-btn:hover button.following-text:visited,
+:matches(html, html.dark) .s-following .follow-btn:hover input.following-text:visited[type='button'],
+:matches(html, html.dark) .s-following .follow-btn:hover input.following-text[type='button'],
+:matches(html, html.dark) button.btn-fav.s-favorited,
+:matches(html, html.dark) button.btn-fav.s-favorited:visited,
+:matches(html, html.dark) button.Button--primary,
+:matches(html, html.dark) button.Button--primary:visited,
+:matches(html, html.dark) input.btn-fav.s-favorited:visited[type='button'],
+:matches(html, html.dark) input.btn-fav.s-favorited[type='button'],
+:matches(html, html.dark) input.Button--primary:visited[type='button'],
+:matches(html, html.dark) input.Button--primary[type='button'] {
   background-color: var(--btd-accent-color) !important;
   border: none !important;
 }
@@ -116,4 +116,12 @@ input.is-hover.btn-fav.s-favorited[type='button'],
 
 .app-search-fake {
   border-color: var(--btd-accent-color) !important;
+}
+
+/* Re-set the color of the button to hide the drawer */
+html[class] .js-hide-drawer.Button.tweet-button,
+html[class] .js-hide-drawer.Button.tweet-button:hover {
+  background-image: none !important;
+  color: white;
+  background: #3d5466 !important;
 }
