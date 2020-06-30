@@ -2,6 +2,7 @@ import {isObject} from 'lodash';
 import moduleRaid from 'moduleraid';
 
 import {maybeAddColumnsButtons} from './features/addColumnButtons';
+import {maybeAddTweetActions} from './features/addTweetActions';
 import {maybeAddTweetMenuItems} from './features/addTweetMenuItems';
 import {setupAME} from './features/advancedMuteEngine';
 import {allowImagePaste} from './features/allowImagePaste';
@@ -51,12 +52,30 @@ const jq: JQueryStatic | undefined =
   if (!isObject(TD)) {
     return;
   }
+  renderMediaAndQuotedTweets({TD});
 
   const settings = getBTDSettings();
 
   if (!settings || !jq) {
     return;
   }
+
+  const OGPluck = TD.util.pluck;
+  const OGCanSend = OGPluck('canSend');
+  const customCanSend = (t: any) => {
+    if (t.hasQuotedTweet && t.hasMediaAttached) {
+      return true;
+    }
+
+    return OGCanSend(t);
+  };
+  TD.util.pluck = (e) => {
+    if (e === 'canSend') {
+      return customCanSend;
+    }
+
+    return OGPluck(e);
+  };
 
   setupChirpHandler(
     TD,
@@ -97,7 +116,7 @@ const jq: JQueryStatic | undefined =
   allowImagePaste({jq});
   maybeAddColumnsButtons({TD, jq, settings});
   maybeAddTweetMenuItems({TD, jq, settings});
-  // maybeAddTweetActions({TD, jq, settings});
+  maybeAddTweetActions({TD, jq, settings});
   updateTabTitle({TD, jq});
   changeAvatarsShape({settings});
   maybeMakeComposerButtonsSmaller({settings});
@@ -107,7 +126,6 @@ const jq: JQueryStatic | undefined =
   maybeFreezeGifsInProfilePicture({settings});
   maybeCollapseDms({settings});
   setupAME({TD, jq});
-  renderMediaAndQuotedTweets({TD});
 
   // Embed custom mustaches.
   TD.mustaches['btd/download_filename_format.mustache'] = settings.downloadFilenameFormat;

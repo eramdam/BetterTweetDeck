@@ -1172,6 +1172,7 @@ interface TweetDeckUtil {
   datesCached: DatesCached;
   poller: unknown;
   createUrlAnchor(e: any): string;
+  pluck(method: string): (a: any) => any;
 }
 
 interface DatesCached {

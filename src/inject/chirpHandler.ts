@@ -1,5 +1,5 @@
 import * as t from 'io-ts';
-import _, {compact} from 'lodash';
+import {compact} from 'lodash';
 
 import {getRandomString, isHTMLElement} from '../helpers/domHelpers';
 import {getChirpFromElement, getURLsFromChirp} from '../helpers/tweetdeckHelpers';
@@ -40,7 +40,7 @@ export const setupChirpHandler: SetupChirpHandler = (TD, handlerOnAdd, handlerOn
   const mutObserver = new MutationObserver((mutations) =>
     mutations.forEach((mutation) => {
       if (handlerOnAdd) {
-        _(mutation.addedNodes)
+        Array.from(mutation.addedNodes)
           .filter((addedEl) => {
             if (
               !isHTMLElement(addedEl) ||
@@ -87,7 +87,7 @@ export const setupChirpHandler: SetupChirpHandler = (TD, handlerOnAdd, handlerOn
       }
 
       if (handlerOnRemove) {
-        _(mutation.removedNodes)
+        Array.from(mutation.removedNodes)
           .filter((removedEl) => {
             if (!isHTMLElement(removedEl)) {
               return false;
@@ -101,7 +101,7 @@ export const setupChirpHandler: SetupChirpHandler = (TD, handlerOnAdd, handlerOn
 
             return true;
           })
-          .compact()
+          .filter((i) => !!i)
           .forEach((removedEl) => {
             if (!isHTMLElement(removedEl)) {
               return;
