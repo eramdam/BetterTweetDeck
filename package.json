@@ -1,7 +1,7 @@
 {
   "name": "BetterTweetDeck",
-  "version": "3.9.13",
-  "extension_version": "3.9.13",
+  "version": "3.9.15",
+  "extension_version": "3.9.15",
   "description": "Adds some nice options on TweetDeck to provide a better experience on the webapp when used on Chrome.",
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
   "dependencies": {
     "@types/dompurify": "0.0.33",
+    "@types/lodash": "^4.14.152",
     "apollo-fetch": "^0.7.0",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.4",
@@ -74,7 +75,7 @@
     "semver": "^5.6.0",
     "stringify-package": "^1.0.0",
     "style-loader": "^0.20.3",
-    "web-ext": "^4.0.0",
+    "web-ext": "^4.2.0",
     "webpack": "^4.5.0",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.3.10",

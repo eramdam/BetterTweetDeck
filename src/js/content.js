@@ -611,7 +611,6 @@ onEvent('BTDC_ready', () => {
     insertEmojiCompletionDropdownHolder();
   });
 
-  const settingsURL = BHelper.getExtensionUrl('options/options.html');
   const settingsBtn = `
     <a class="btd-settings-btn js-header-action link-clean cf app-nav-link padding-h--16 padding-v--2 with-nav-border-t" data-title="BTD Settings">
       <div class="obj-left margin-l--2">
@@ -624,7 +623,7 @@ onEvent('BTDC_ready', () => {
   $('nav.app-navigator')[0].insertAdjacentElement('afterbegin', settingsBtnNode);
   $('.btd-settings-btn')[0].addEventListener('click', (e) => {
     e.preventDefault();
-    window.open(settingsURL);
+    sendMessage({ action: 'open_settings' });
   });
 
   onMessage((details) => {
@@ -837,6 +836,83 @@ onEvent('BTDC_clickedOnGif', (ev, data) => {
   });
 
   sendEvent('getOpenModalTweetHTML', { tweetKey, colKey, modalHtml });
+});
+
+onEvent('BTDC_makeGifPickerRequest', (ev, data) => {
+  const { url, uuid } = data;
+
+  if (
+    !String(url).includes('https://api.tenor.com/v1/') &&
+    !String(url).includes('https://api.giphy.com/v1/')
+  ) {
+    return;
+  }
+
+  fetch(url)
+    .then((res) => {
+      return res.json();
+    })
+    .then((res) => {
+      sendEvent('gotGifPickerRequest', {
+        res,
+        uuid,
+      });
+    });
+});
+
+onEvent('BTDC_downloadGif', (ev, data) => {
+  const { url, source } = data;
+
+  if (!String(url).includes('tenor.com/') && !String(url).includes('giphy.com/')) {
+    return;
+  }
+
+  const gifRequest = new XMLHttpRequest();
+  gifRequest.open('GET', url);
+  gifRequest.responseType = 'blob';
+
+  gifRequest.onload = (event) => {
+    const blob = event.target.response;
+
+    const gifFile = new File([blob], 'awesome-gif.gif', {
+      type: 'image/gif',
+    });
+    sendEvent('gotDownloadedGif', {
+      file: gifFile,
+      source,
+    });
+  };
+
+  gifRequest.onerror = console.error;
+
+  gifRequest.onprogress = (event) => {
+    const { loaded, total } = event;
+    document.querySelector('.btd-gif-indicator').textContent = `Adding GIF (${(
+      (loaded / total) *
+      100
+    ).toFixed(2)}%)`;
+  };
+
+  gifRequest.send();
+});
+
+onEvent('BTDC_downloadMedia', (ev, data) => {
+  const { url, type, fileName, uuid } = data;
+
+  if (!String(url).includes('twimg.com')) {
+    return;
+  }
+
+  fetch(url)
+    .then((res) => res.blob())
+    .then((blob) => {
+      const file = new File([blob], fileName, { type });
+
+      sendEvent('gotMediaFile', {
+        file,
+        uuid,
+      });
+    });
 });
 
 window.addEventListener('message', (ev) => {

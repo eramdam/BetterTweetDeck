@@ -97,6 +97,12 @@ function openWelcomePage() {
   });
 }
 
+function openSettings() {
+  chrome.tabs.create({
+    url: 'options/options.html',
+  });
+}
+
 function contextMenuHandler(info, tab, settings) {
   const urlToShare = info.linkUrl || info.srcUrl || info.pageUrl;
   let textToShare = info.selectionText || tab.title;
@@ -218,61 +224,11 @@ Messages.on((message, sender, sendResponse) => {
       BHelper.settings.get(message.key, (val) => sendResponse({ val }));
       return true;
 
+    case 'open_settings':
+      openSettings();
+      return true;
+
     default:
       return false;
   }
 });
-
-function addUrlsToCSP(headerValue, directive, ...values) {
-  return String(headerValue)
-    .split('; ')
-    .map((line) => {
-      const [directiveName, ...patterns] = line.split(' ');
-      const newPatterns = directive === directiveName ? patterns.concat(values) : patterns;
-
-      return [directiveName, ...newPatterns].join(' ');
-    })
-    .join('; ');
-}
-
-chrome.permissions.contains(
-  {
-    permissions: ['webRequest', 'webRequestBlocking'],
-  },
-  (hasWR) => {
-    if (!hasWR) {
-      return;
-    }
-
-    chrome.webRequest.onHeadersReceived.addListener(
-      (details) => {
-        if (details.type !== 'main_frame' && details.type !== 'sub_frame') {
-          return undefined;
-        }
-
-        return {
-          responseHeaders: Array.from(details.responseHeaders).map((h) => {
-            if (h.name && h.name === 'content-security-policy') {
-              const mod = Object.assign(h, {
-                value: addUrlsToCSP(
-                  h.value,
-                  'connect-src',
-                  'https://*.tenor.com',
-                  'https://*.giphy.com',
-                  'https://*.twimg.com'
-                ),
-              });
-              return mod;
-            }
-
-            return h;
-          }),
-        };
-      },
-      {
-        urls: ['https://tweetdeck.twitter.com/*'],
-      },
-      ['responseHeaders', 'blocking']
-    );
-  }
-);

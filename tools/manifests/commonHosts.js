@@ -15,4 +15,7 @@ module.exports = [
   'https://raw.githubusercontent.com/eramdam/BetterTweetDeck/master/*',
   '*://tweetdeck.twitter.com/*',
   'https://audiomack.com/oembed',
+  'https://*.tenor.com/*',
+  'https://*.giphy.com/*',
+  'https://*.twimg.com/*',
 ];
