@@ -16,8 +16,6 @@ import {injectInTD} from './services/injectInTD';
 import {setupBtdRoot} from './services/setupBTDRoot';
 import {BTDMessageOriginsEnum, BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
 
-// Setup root modal.
-setupBtdRoot();
 // Inject some scripts.
 injectInTD();
 // Setup thumbnail system.
@@ -32,6 +30,8 @@ listenToInternalBTDMessage(BTDMessages.BTD_READY, BTDMessageOriginsEnum.CONTENT,
   setupGifPicker();
   setupEmojiPicker();
   setupEmojiAutocompletion();
+  // Setup root modal.
+  setupBtdRoot();
 
   browser.runtime.onMessage.addListener((details) => {
     switch (details.action) {

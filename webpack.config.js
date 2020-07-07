@@ -4,6 +4,7 @@ const {NodeConfigTSPlugin} = require('node-config-ts/webpack');
 const {join, resolve} = require('path');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const ZipPlugin = require('zip-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 function WebpackConfig(env) {
   const manifestJson = require(`./tools/manifests/${env.browser}.js`);
@@ -15,11 +16,17 @@ function WebpackConfig(env) {
       content: join(__dirname, 'src/content.ts'),
       inject: join(__dirname, 'src/inject.ts'),
       background: join(__dirname, 'src/background.ts'),
+      options: join(__dirname, 'src/options.tsx'),
     },
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.jsx'],
     },
     plugins: [
+      new HtmlWebpackPlugin({
+        title: 'Better TweetDeck Options',
+        filename: 'options/index.html',
+        chunks: ['options'],
+      }),
       new CleanWebpackPlugin({
         cleanOnceBeforeBuildPatterns: ['dist'],
       }),

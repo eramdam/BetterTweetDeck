@@ -67,6 +67,7 @@
     "fp-ts": "^2.6.1",
     "generate-json-webpack-plugin": "^1.0.0",
     "hogan.js": "^3.0.2",
+    "html-webpack-plugin": "^4.3.0",
     "io-ts": "^2.2.3",
     "lodash": "^4.17.15",
     "luxon": "^1.24.1",
