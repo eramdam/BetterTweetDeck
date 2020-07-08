@@ -1006,6 +1006,7 @@ interface TweetDeckSettings {
   COLUMN_WIDTH_VALUES: string[];
   FONT_SIZE_VALUES: string[];
   linkShorteners: LinkShortener[];
+  setTheme(theme: 'light' | 'dark'): void;
 }
 
 interface LinkShortener {
@@ -1065,6 +1066,7 @@ interface Client {
   deltaQ: any[];
   stateCache: null;
   managed: boolean;
+  dictSet(object: string, key: string, value: any): void;
 }
 
 interface ClientState {

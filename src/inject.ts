@@ -6,6 +6,7 @@ import {maybeAddTweetActions} from './features/addTweetActions';
 import {maybeAddTweetMenuItems} from './features/addTweetMenuItems';
 import {setupAME} from './features/advancedMuteEngine';
 import {allowImagePaste} from './features/allowImagePaste';
+import {setupThemeAutoSwitch} from './features/autoSwitchThemes';
 import {changeAvatarsShape} from './features/changeAvatarShape';
 import {changeScrollbarStyling} from './features/changeScrollbars';
 import {maybeSetupCustomTimestampFormat} from './features/changeTimestampFormat';
@@ -139,6 +140,7 @@ const jq: JQueryStatic | undefined =
       isReponse: false,
       payload: undefined,
     });
+    setupThemeAutoSwitch({TD});
   });
 
   listenToInternalBTDMessage(
