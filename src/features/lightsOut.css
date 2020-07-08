@@ -1,5 +1,5 @@
-body[btd-super-dark='true'],
-body[btd-old-grey='true'] {
+html.dark body[btd-super-dark='true'],
+html.dark body[btd-old-grey='true'] {
   & .app-content .column-panel,
   & .app-content .column,
   & .app-navigator,
@@ -54,7 +54,7 @@ body[btd-old-grey='true'] {
   }
 }
 
-body[btd-super-dark='true'] {
+html.dark body[btd-super-dark='true'] {
   --btd-theme-background: black;
   --btd-theme-background-lighter: #141414;
   --btd-theme-btn-hover: #2b2b2b;
@@ -65,7 +65,7 @@ body[btd-super-dark='true'] {
   }
 }
 
-body[btd-old-grey='true'] {
+html.dark body[btd-old-grey='true'] {
   --btd-theme-background: hsl(210, 6%, 17%);
   --btd-theme-background-lighter: #373a3e;
   --btd-theme-btn-hover: #2b2b2b;
