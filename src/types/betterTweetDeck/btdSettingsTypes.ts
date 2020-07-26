@@ -6,14 +6,13 @@ import {BTDTimestampFormats} from '../../features/changeTimestampFormat';
 import {BTDTweetActionsPosition} from '../../features/changeTweetActions';
 import {BTDUsernameFormat} from '../../features/usernameDisplay';
 import {makeEnumRuntimeType, withDefault} from '../../helpers/typeHelpers';
-import {getExtensionVersion} from '../../helpers/webExtensionHelpers';
 
 export const RBetterTweetDeckSettings = t.type({
   /** Used to show a banner prompting the user to follow @BetterTDeck */
   needsToShowFollowPrompt: withDefault(t.boolean, false),
 
   /** Is used to track the version of the user and show a banner upon updates */
-  installedVersion: withDefault(t.string, getExtensionVersion()),
+  installedVersion: withDefault(t.string, '4.0.0'),
 
   /** Alters the timestamp display in tweets */
   timestampShortFormat: withDefault(t.string, ''),

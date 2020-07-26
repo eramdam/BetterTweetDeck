@@ -3,6 +3,7 @@ import React from 'dom-chef';
 import {makeFullscreenModalWrapper} from '../../components/fullscreenModalWrapper';
 import {makeMediumThumbnail} from '../../components/mediaThumbnails';
 import {listenToInternalBTDMessage} from '../../helpers/communicationHelpers';
+import {insertDomChefElement} from '../../helpers/typeHelpers';
 import {sendMessageToBackground} from '../../helpers/webExtensionHelpers';
 import {BTDUuidAttribute, makeBtdUuidSelector} from '../../types/betterTweetDeck/btdCommonTypes';
 import {BTDMessageOriginsEnum, BTDMessages} from '../../types/betterTweetDeck/btdMessageTypes';
@@ -93,5 +94,5 @@ function insertThumbnailOnTweet(
     },
   });
 
-  thumbnailNode.appendChild(thumbnail);
+  thumbnailNode.appendChild(insertDomChefElement(thumbnail));
 }

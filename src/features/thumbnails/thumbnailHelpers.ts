@@ -1,17 +1,23 @@
+import ReactDOM from 'react-dom';
 import {Key} from 'ts-key-enum';
 
 import {emptyNode, isHTMLElement, maybeDoOnNode, setStylesOnNode} from '../../helpers/domHelpers';
+import {Handler, insertDomChefElement} from '../../helpers/typeHelpers';
 import {
   BTDModalUuidAttribute,
   getFullscreenNodeRoot,
 } from '../../types/betterTweetDeck/btdCommonTypes';
 
-const onFullscreenKeyDown = (e: KeyboardEvent) => {
+const onFullscreenKeyDown = (e: KeyboardEvent, onClose?: Handler) => {
   if (e.key !== Key.Escape) {
     return;
   }
 
   closeFullscreenModal();
+
+  if (onClose) {
+    onClose();
+  }
 };
 
 const modalObserver = new ResizeObserver((entries) => {
@@ -36,7 +42,7 @@ export function closeFullscreenModal() {
   });
 }
 
-function maybeCloseFullscreenModalOnClick(e: MouseEvent) {
+function maybeCloseFullscreenModalOnClick(e: MouseEvent, onClose?: Handler) {
   if (
     isHTMLElement(e.target) &&
     e.target.closest('.js-mediatable .js-modal-panel .js-mediaembed, .med-tweet, .mdl-btn-media')
@@ -45,9 +51,13 @@ function maybeCloseFullscreenModalOnClick(e: MouseEvent) {
   }
 
   closeFullscreenModal();
+
+  if (onClose) {
+    onClose();
+  }
 }
 
-export function openFullscreenModal(content: JSX.Element, btdUuid: string) {
+export function openFullscreenModal(content: JSX.Element, btdUuid?: string) {
   const fullscreenNode = getFullscreenNodeRoot();
 
   if (!fullscreenNode) {
@@ -55,11 +65,13 @@ export function openFullscreenModal(content: JSX.Element, btdUuid: string) {
   }
 
   fullscreenNode.classList.add('open');
-  fullscreenNode.setAttribute(BTDModalUuidAttribute, btdUuid);
+  if (btdUuid) {
+    fullscreenNode.setAttribute(BTDModalUuidAttribute, btdUuid);
+  }
   fullscreenNode.addEventListener('click', maybeCloseFullscreenModalOnClick);
   document.addEventListener('keydown', onFullscreenKeyDown, true);
 
-  fullscreenNode.appendChild(content);
+  fullscreenNode.appendChild(insertDomChefElement(content));
 
   const target = document.querySelector('[data-btd-modal-content-sizer]');
   if (!target) {
@@ -67,4 +79,33 @@ export function openFullscreenModal(content: JSX.Element, btdUuid: string) {
   }
 
   modalObserver.observe(target);
+}
+
+export function openFullscreenModalWithReactElement(content: JSX.Element) {
+  const fullscreenNode = getFullscreenNodeRoot();
+
+  // Make sure to clean everything in the modal first
+  closeFullscreenModal();
+
+  if (!fullscreenNode) {
+    return;
+  }
+
+  fullscreenNode.classList.add('open');
+
+  const onClose = () => {
+    ReactDOM.unmountComponentAtNode(fullscreenNode);
+  };
+
+  fullscreenNode.addEventListener('click', (e) => {
+    return maybeCloseFullscreenModalOnClick(e, onClose);
+  });
+  document.addEventListener(
+    'keydown',
+    (e) => {
+      return onFullscreenKeyDown(e, onClose);
+    },
+    true
+  );
+  ReactDOM.render(content, fullscreenNode);
 }

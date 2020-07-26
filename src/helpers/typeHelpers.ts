@@ -38,3 +38,7 @@ export function makeEnumRuntimeType<T extends Object>(srcEnum: object) {
     (value) => value.toString()
   );
 }
+
+export function insertDomChefElement(element: JSX.Element) {
+  return element as any;
+}

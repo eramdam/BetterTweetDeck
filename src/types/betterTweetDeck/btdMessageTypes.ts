@@ -3,6 +3,7 @@ import * as t from 'io-ts';
 import {RBTDFetchResult} from '../../features/thumbnails/types';
 import {makeEnumRuntimeType} from '../../helpers/typeHelpers';
 import {RChirpHandlerPayload} from '../../inject/chirpHandler';
+import {RBetterTweetDeckSettings} from './btdSettingsTypes';
 
 /** Different kinds of messages that BTD can send/receive internally. */
 export enum BTDMessages {
@@ -16,6 +17,7 @@ export enum BTDMessages {
   GIF_REQUEST_RESULT = 'GIF_REQUEST_RESULT',
   DOWNLOAD_MEDIA = 'DOWNLOAD_MEDIA',
   DOWNLOAD_MEDIA_RESULT = 'DOWNLOAD_MEDIA_RESULT',
+  SAVE_SETTINGS = 'SAVE_SETTINGS',
 }
 
 /** Locations from which messages can be listened/sent to. */
@@ -111,6 +113,15 @@ const RGifDownloadRequestResultEvent = t.type({
   payload: t.object,
 });
 
+export const RSaveSettingsResultEvent = t.type({
+  ...baseMessageEvent,
+  name: t.literal(BTDMessages.SAVE_SETTINGS),
+  payload: t.type({
+    settings: RBetterTweetDeckSettings,
+    shouldRefresh: t.boolean,
+  }),
+});
+
 const RBTDMessageEvent = t.type({
   data: t.taggedUnion('name', [
     RFetchThumbnailEvent,
@@ -122,6 +133,7 @@ const RBTDMessageEvent = t.type({
     RBTDReady,
     RGifDownloadRequestEvent,
     RGifDownloadRequestResultEvent,
+    RSaveSettingsResultEvent,
   ]),
 });
 

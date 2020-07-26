@@ -204,7 +204,6 @@ function renderEmojiDropdownInHolder({emojis}: EmojiCompletionProps, input: HTML
                 gridColumnGap: '8px',
                 overflow: 'hidden',
               }}>
-              {/* @ts-expect-error */}
               <Emoji emoji={emoji.emojiData} size={16} set="twitter" />
               <span>{emoji.emojiData.colons}</span>
             </p>

@@ -5,6 +5,7 @@ const {join, resolve} = require('path');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const ZipPlugin = require('zip-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
 function WebpackConfig(env) {
   const manifestJson = require(`./tools/manifests/${env.browser}.js`);
@@ -68,6 +69,9 @@ function WebpackConfig(env) {
           ],
         },
       ],
+    },
+    devServer: {
+      contentBase: path.join(__dirname, 'dist'),
     },
   };
 

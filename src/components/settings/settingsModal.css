@@ -1,0 +1,134 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --settings-modal-background: #15202b;
+  --settings-modal-menu-item-selected: #2e465c;
+  --settings-modal-menu-item-hover: #293e52;
+  --settings-modal-text: white;
+  --settings-modal-separator: rgb(0, 0, 0);
+}
+
+.btd-settings-modal {
+  color: var(--settings-modal-text);
+  width: 800px;
+  background-color: var(--settings-modal-background);
+  display: grid;
+  grid-template-areas:
+    'header   header'
+    'sidebar  content'
+    'footer   footer';
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: auto 1fr;
+  border-radius: 10px;
+
+  font-family: system-ui;
+
+  box-shadow: 0 1px 0 black, 0 4px 16px rgba(0, 0, 0, 0.6);
+}
+
+.btd-settings-button {
+  border-radius: 100px;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: bold;
+  outline: none;
+  border: 1px solid;
+  padding: 3px 12px;
+  cursor: pointer;
+}
+
+.btd-settings-button.primary {
+  color: white;
+  background-color: #1da1f2;
+  border-color: #1da1f2;
+
+  &:hover {
+    background-color: #005fd1;
+    border-color: #005fd1;
+  }
+}
+
+.btd-settings-button.secondary {
+  color: #1da1f2;
+  background-color: transparent;
+  border-color: #1da1f2;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+}
+
+.btd-settings-content {
+  grid-area: content;
+  min-height: 400px;
+}
+
+.btd-settings-footer {
+  grid-area: footer;
+  padding: 15px;
+  border-top: 1px solid var(--settings-modal-separator);
+
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 10px;
+}
+
+.btd-settings-header {
+  grid-area: header;
+  padding: 20px;
+  font-size: 20px;
+  text-align: center;
+
+  border-bottom: 1px solid var(--settings-modal-separator);
+}
+
+/**
+ * Sidebar
+ */
+
+.btd-settings-sidebar {
+  grid-area: sidebar;
+  width: 200px;
+  border-right: 1px solid var(--settings-modal-separator);
+}
+
+.btd-settings-sidebar ul {
+  list-style: none;
+}
+
+.btd-settings-sidebar ul li {
+  user-select: none;
+  display: grid;
+  grid-template-areas: 'icon text';
+  grid-template-columns: auto 1fr;
+  column-gap: 10px;
+  padding: 15px 10px;
+
+  &.active {
+    background-color: var(--settings-modal-menu-item-selected);
+  }
+
+  &:hover {
+    background-color: var(--settings-modal-menu-item-hover);
+  }
+}
+
+.btd-settings-sidebar ul li .icon {
+  grid-area: icon;
+  width: 20px;
+  height: 20px;
+  color: currentColor;
+}
+
+.btd-settings-sidebar ul li .icon svg {
+  max-width: 20px;
+  max-height: 20px;
+}
+
+.btd-settings-sidebar ul li .text {
+  grid-area: text;
+}

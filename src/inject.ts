@@ -25,6 +25,7 @@ import {listenToInternalBTDMessage, sendInternalBTDMessage} from './helpers/comm
 import {setupChirpHandler} from './inject/chirpHandler';
 import {setupMediaSizeMonitor} from './inject/columnMediaSizeMonitor';
 import {maybeSetupDebugFunctions} from './inject/debugMethods';
+import {setupSettings} from './inject/setupSettings';
 import {BTDSettingsAttribute} from './types/betterTweetDeck/btdCommonTypes';
 import {BTDMessageOriginsEnum, BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
 import {BTDSettings} from './types/betterTweetDeck/btdSettingsTypes';
@@ -102,6 +103,7 @@ const jq: JQueryStatic | undefined =
   );
 
   markInjectScriptAsReady();
+  setupSettings({jq});
   setupMediaSizeMonitor({TD, jq});
   maybeSetupDebugFunctions({jq});
   maybeRemoveRedirection({TD});

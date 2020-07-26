@@ -1,5 +1,6 @@
 import './features/mainStyles.css';
 
+import {isRight} from 'fp-ts/lib/Either';
 import {browser} from 'webextension-polyfill-ts';
 
 import {setupEmojiAutocompletion} from './features/emojiAutocompletion';
@@ -10,11 +11,15 @@ import {maybeReplaceHeartsByStars} from './features/replaceHeartsByStars';
 import {tweakTweetDeckTheme} from './features/themeTweaks';
 import {setupThumbnailInjector} from './features/thumbnails/thumbnailInjector';
 import {listenToInternalBTDMessage} from './helpers/communicationHelpers';
-import {sendMessageToBackground} from './helpers/webExtensionHelpers';
+import {ExtensionSettings, sendMessageToBackground} from './helpers/webExtensionHelpers';
 import {getValidatedSettings} from './services/backgroundSettings';
 import {injectInTD} from './services/injectInTD';
 import {setupBtdRoot} from './services/setupBTDRoot';
-import {BTDMessageOriginsEnum, BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
+import {
+  BTDMessageOriginsEnum,
+  BTDMessages,
+  RSaveSettingsResultEvent,
+} from './types/betterTweetDeck/btdMessageTypes';
 
 // Inject some scripts.
 injectInTD();
@@ -30,7 +35,6 @@ listenToInternalBTDMessage(BTDMessages.BTD_READY, BTDMessageOriginsEnum.CONTENT,
   setupGifPicker();
   setupEmojiPicker();
   setupEmojiAutocompletion();
-  // Setup root modal.
   setupBtdRoot();
 
   browser.runtime.onMessage.addListener((details) => {
@@ -76,5 +80,26 @@ listenToInternalBTDMessage(
     }
 
     return mediaBlob;
+  }
+);
+
+listenToInternalBTDMessage(
+  BTDMessages.SAVE_SETTINGS,
+  BTDMessageOriginsEnum.CONTENT,
+  async (msg) => {
+    if (msg.data.name !== BTDMessages.SAVE_SETTINGS) {
+      return;
+    }
+
+    const decoded = RSaveSettingsResultEvent.decode(msg.data);
+
+    if (!isRight(decoded)) {
+      console.log('error parsing save settings msg');
+      return;
+    }
+
+    const {settings} = decoded.right.payload;
+
+    ExtensionSettings.set(settings);
   }
 );

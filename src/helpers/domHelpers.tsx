@@ -1,7 +1,7 @@
 import React from 'dom-chef';
 import {CSSProperties} from 'react';
 
-import {hasProperty} from './typeHelpers';
+import {hasProperty, insertDomChefElement} from './typeHelpers';
 
 export function isHTMLElement(
   blob: EventTarget | Element | Node | unknown | any | null
@@ -26,7 +26,7 @@ export const getRandomString = (length = 32) => {
     .join('');
 };
 
-export type DCFactory<T> = (
+export type DCFactory<T = {}> = (
   props: T & {
     children?: JSX.Element;
   }
@@ -47,7 +47,7 @@ export function emptyNode(node: Element) {
 export function setStylesOnNode(node: HTMLElement, style: CSSProperties) {
   const wrapper = document.createElement('div');
   const tempElement = <div style={style}></div>;
-  wrapper.appendChild(tempElement);
+  wrapper.appendChild(insertDomChefElement(tempElement));
 
   const domStyle = (wrapper.firstElementChild! as HTMLElement).style;
   for (let name of Object.values(domStyle)) {

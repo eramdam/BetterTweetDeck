@@ -7,6 +7,7 @@ import {makeGifItem, makeGifPicker} from '../components/gifPicker';
 import {sendInternalBTDMessage} from '../helpers/communicationHelpers';
 import {emptyNode} from '../helpers/domHelpers';
 import {onComposerShown} from '../helpers/tweetdeckHelpers';
+import {insertDomChefElement} from '../helpers/typeHelpers';
 import {sendMessageToBackground} from '../helpers/webExtensionHelpers';
 import {BTDMessageOriginsEnum, BTDMessages} from '../types/betterTweetDeck/btdMessageTypes';
 
@@ -70,6 +71,7 @@ export function setupGifPicker() {
       return;
     }
 
+    // @ts-expect-error
     const gifButton = makeGifButton({
       onClick: () => {
         document.querySelector('.btd-giphy-zone')?.classList.add('-visible');
@@ -79,7 +81,7 @@ export function setupGifPicker() {
           }
         });
       },
-    });
+    }) as HTMLElement;
     gifButton.classList.add('-visible');
 
     characterCount.parentElement!.append(gifButton as any);
@@ -152,5 +154,5 @@ function renderGifItems(gifs: GifsArray) {
     return;
   }
 
-  giphyContent.append(...gifsElements);
+  giphyContent.append(...gifsElements.map(insertDomChefElement));
 }
