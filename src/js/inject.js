@@ -9,6 +9,7 @@ import AdvancedMuteEngine from './util/ame';
 import * as GIFS from './util/gifs';
 import { keepHashtags } from './util/keepHashtags';
 import Log from './util/logger';
+import resizeImage from './util/resizeImage';
 import { giphyBlock, giphySearch } from './util/templates';
 import { onComposerShown } from './util/tweetdeckUtils';
 import UsernamesTemplates from './util/username_templates';
@@ -1102,7 +1103,14 @@ document.addEventListener('paste', (ev) => {
       }
       const blob = item.getAsFile();
 
-      files.push(blob);
+      const maxFileSize = 5242880;
+      if (blob.size < maxFileSize) {
+        files.push(blob);
+      } else {
+        resizeImage(blob, maxFileSize, files, () => {
+          $(document).trigger('uiFilesAdded', { files });
+        });
+      }
     });
 
     if (files.length === 0) {
