@@ -1104,7 +1104,7 @@ document.addEventListener('paste', (ev) => {
       const blob = item.getAsFile();
 
       const maxFileSize = 5242880;
-      if (blob.size < maxFileSize) {
+      if (!SETTINGS.resize_big_images_on_paste || blob.size < maxFileSize) {
         files.push(blob);
       } else {
         resizeImage(blob, maxFileSize, files, () => {
