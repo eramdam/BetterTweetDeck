@@ -173,7 +173,7 @@
   },
   "resize_big_images_on_paste": {
     "message":
-      "クリップボードから5MB以上の大きな画像を貼り付けたとき、自動的にサイズを変更する"
+      "クリップボードから 5MB 以上の大きな画像を貼り付けたとき、自動的にサイズを変更する"
   },
   "btd_logo": {
     "message": "左下の TweetDeck ロゴを BetterTweetDeck のロゴに置き換える"
