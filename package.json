@@ -30,7 +30,8 @@
   "browserslist": [
     "last 1 chrome versions",
     "last 1 firefox versions",
-    "last 1 edge versions"
+    "last 1 edge versions",
+    "last 1 safari versions"
   ],
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
   "dependencies": {
@@ -56,6 +57,7 @@
     "css-loader": "^3.5.3",
     "dom-chef": "^4.1.0",
     "emoji-mart": "^3.0.0",
+    "emotion": "^10.0.27",
     "eslint": "^7.1.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.20.2",

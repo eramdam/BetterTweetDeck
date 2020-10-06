@@ -4,11 +4,12 @@ import {SettingsModal} from '../components/settings/settingsModal';
 import {openFullscreenModal} from '../features/thumbnails/thumbnailHelpers';
 import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 
-export const setupSettings = makeBTDModule(({jq}) => {
+export const setupSettings = makeBTDModule(({jq, settings}) => {
   jq(document).off('uiShowGlobalSettings');
   jq(document).on('uiShowGlobalSettings', () => {
-    const settingsModal = <SettingsModal></SettingsModal>;
+    const settingsModal = <SettingsModal settings={settings}></SettingsModal>;
 
+    console.log(settingsModal);
     openFullscreenModal(settingsModal);
   });
 });

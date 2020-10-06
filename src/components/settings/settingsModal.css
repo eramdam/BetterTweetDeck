@@ -10,11 +10,14 @@
   --settings-modal-menu-item-hover: #293e52;
   --settings-modal-text: white;
   --settings-modal-separator: rgb(0, 0, 0);
+  --twitter-blue: #1da1f2;
+  --twitter-darkblue: #005fd1;
 }
 
 .btd-settings-modal {
   color: var(--settings-modal-text);
   width: 800px;
+  height: 550px;
   background-color: var(--settings-modal-background);
   display: grid;
   grid-template-areas:
@@ -43,19 +46,19 @@
 
 .btd-settings-button.primary {
   color: white;
-  background-color: #1da1f2;
-  border-color: #1da1f2;
+  background-color: var(--twitter-blue);
+  border-color: var(--twitter-blue);
 
   &:hover {
-    background-color: #005fd1;
-    border-color: #005fd1;
+    background-color: var(--twitter-darkblue);
+    border-color: var(--twitter-darkblue);
   }
 }
 
 .btd-settings-button.secondary {
-  color: #1da1f2;
+  color: var(--twitter-blue);
   background-color: transparent;
-  border-color: #1da1f2;
+  border-color: var(--twitter-blue);
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.3);
@@ -92,12 +95,20 @@
 
 .btd-settings-sidebar {
   grid-area: sidebar;
-  width: 200px;
+  min-width: 200px;
+  max-width: 300px;
   border-right: 1px solid var(--settings-modal-separator);
 }
 
 .btd-settings-sidebar ul {
   list-style: none;
+}
+
+.btd-settings-sidebar ul li,
+.btd-settings-sidebar ul li .text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .btd-settings-sidebar ul li {
@@ -122,6 +133,7 @@
   width: 20px;
   height: 20px;
   color: currentColor;
+  background: grey;
 }
 
 .btd-settings-sidebar ul li .icon svg {

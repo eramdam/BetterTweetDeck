@@ -2,6 +2,9 @@ import React from 'react';
 import {render} from 'react-dom';
 
 import {SettingsModal} from './components/settings/settingsModal';
+import {RBetterTweetDeckSettings} from './types/betterTweetDeck/btdSettingsTypes';
+
+const settingsWithDefault = RBetterTweetDeckSettings.decode({});
 
 const App = (
   <div>
@@ -14,14 +17,21 @@ const App = (
         overflow: hidden;
         margin: 0;
         padding: 0;
+      }
 
-        display: grid;
-        place-items: center;
+      .btd-settings-modal {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
       }
     `}
     </style>
-    <SettingsModal></SettingsModal>
+    <SettingsModal settings={(settingsWithDefault as any).right}></SettingsModal>
   </div>
 );
 
-render(App, document.body);
+const root = document.createElement('div');
+root.id = 'root';
+document.body.appendChild(root);
+render(App, root);
