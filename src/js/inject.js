@@ -1,7 +1,7 @@
 /* eslint-disable no-self-assign */
 import Clipboard from 'clipboard';
 import config from 'config';
-import FileSaver from 'file-saver';
+import { saveAs } from 'file-saver';
 import { debounce, unescape, uniqueId } from 'lodash';
 import moduleRaid from 'moduleraid';
 
@@ -1296,12 +1296,15 @@ $('body').on('click', '[data-btd-action="download-media"]', (ev) => {
   const media = getMediaFromChirp(chirp);
 
   media.forEach((item) => {
-    requestMediaItem(item).then((blob) => {
-      FileSaver.saveAs(
-        blob,
-        TD.ui.template.render('btd/download_filename_format', getMediaParts(chirp, item))
-      );
-    });
+    requestMediaItem(item)
+      .then((blob) => blob.arrayBuffer())
+      .then((arrayBuffer) => {
+        const file = new File(
+          [arrayBuffer],
+          TD.ui.template.render('btd/download_filename_format', getMediaParts(chirp, item))
+        );
+        saveAs(file);
+      });
   });
 });
 
