@@ -27,7 +27,9 @@ const App = (
       }
     `}
     </style>
-    <SettingsModal settings={(settingsWithDefault as any).right}></SettingsModal>
+    <SettingsModal
+      onSettingsUpdate={console.log}
+      settings={(settingsWithDefault as any).right}></SettingsModal>
   </div>
 );
 

@@ -48,7 +48,9 @@ export const SettingsModal = (props: SettingsModalProps) => {
         </ul> */}
       </aside>
       <section className="btd-settings-content">
-        <AvatarsShape initialValue={settings.avatarsShape} onChange={console.log}></AvatarsShape>
+        <AvatarsShape
+          initialValue={settings.avatarsShape}
+          onChange={(val) => onSettingsChange('avatarsShape', val)}></AvatarsShape>
       </section>
       <footer className="btd-settings-footer">
         <button className="btd-settings-button primary">Save</button>

@@ -143,7 +143,7 @@ export const RBetterTweetDeckSettings = t.type({
 
   customAccentColor: withDefault(
     makeEnumRuntimeType<BetterTweetDeckAccentColors>(BetterTweetDeckAccentColors),
-    BetterTweetDeckAccentColors.GREY
+    BetterTweetDeckAccentColors.DEFAULT
   ),
 });
 

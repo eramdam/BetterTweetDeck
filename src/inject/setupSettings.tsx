@@ -31,7 +31,9 @@ export const setupSettings = makeBTDModule(({jq, settings}) => {
               childDocument.head.appendChild(element);
             });
 
-            return <SettingsModal settings={settings}></SettingsModal>;
+            return (
+              <SettingsModal onSettingsUpdate={console.log} settings={settings}></SettingsModal>
+            );
           }}
         </FrameContextConsumer>
       </Frame>
