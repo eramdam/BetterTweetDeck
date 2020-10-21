@@ -103,7 +103,7 @@ const jq: JQueryStatic | undefined =
   );
 
   markInjectScriptAsReady();
-  setupSettings({jq});
+  setupSettings({jq, settings});
   setupMediaSizeMonitor({TD, jq});
   maybeSetupDebugFunctions({jq});
   maybeRemoveRedirection({TD});

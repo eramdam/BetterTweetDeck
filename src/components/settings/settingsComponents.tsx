@@ -11,6 +11,11 @@ export function makeSettingsRow<T extends keyof BTDSettings>(
   };
 }
 
+export type SettingsRow<T extends keyof BTDSettings> = {
+  render: RendererOf<BTDSettings[T]>;
+  id: T;
+};
+
 export interface SettingsSection {
   id: string;
   content: readonly SettingsRow<keyof BTDSettings>[];

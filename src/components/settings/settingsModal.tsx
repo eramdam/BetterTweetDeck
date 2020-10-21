@@ -1,38 +1,37 @@
 import './settingsModal.css';
 
-import React, {Fragment, useState} from 'react';
+import React, {useCallback} from 'react';
 
+import {HandlerOf} from '../../helpers/typeHelpers';
 import {BTDSettings} from '../../types/betterTweetDeck/btdSettingsTypes';
 import {AvatarsShape} from './components/avatarsShape';
-import {makeSettingsRow, SettingsSection} from './settingsComponents';
 
-export const SettingsModal = (props: {settings: BTDSettings}) => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const menu: readonly SettingsSection[] = [
-    {
-      id: 'section-1',
-      content: [
-        makeSettingsRow('avatarsShape', (val) => {
-          return <AvatarsShape val={val}></AvatarsShape>;
-        }),
-      ],
+interface SettingsModalProps {
+  settings: BTDSettings;
+  onSettingsUpdate: HandlerOf<BTDSettings>;
+}
+
+export const SettingsModal = (props: SettingsModalProps) => {
+  // const [selectedIndex, setSelectedIndex] = useState(0);
+  const {settings, onSettingsUpdate} = props;
+
+  const onSettingsChange = useCallback(
+    <T extends keyof BTDSettings>(key: T, val: BTDSettings[T]) => {
+      const newSettings = {
+        ...settings,
+        [key]: val,
+      };
+
+      onSettingsUpdate(newSettings);
     },
-    {
-      id: 'section-2',
-      content: [
-        {
-          id: 'badgesOnTopOfAvatars',
-          render: (val) => <div>{val}</div>,
-        },
-      ],
-    },
-  ];
+    [onSettingsUpdate, settings]
+  );
 
   return (
     <div className="btd-settings-modal">
       <header className="btd-settings-header">Better TweetDeck Settings</header>
       <aside className="btd-settings-sidebar">
-        <ul>
+        {/* <ul>
           {menu.map((item, index) => {
             return (
               <li
@@ -46,15 +45,10 @@ export const SettingsModal = (props: {settings: BTDSettings}) => {
               </li>
             );
           })}
-        </ul>
+        </ul> */}
       </aside>
       <section className="btd-settings-content">
-        {menu[selectedIndex].content.map((row) => {
-          console.log({val: props.settings[row.id]});
-          return (
-            <Fragment key={selectedIndex + row.id}>{row.render(props.settings[row.id])}</Fragment>
-          );
-        })}
+        <AvatarsShape initialValue={settings.avatarsShape} onChange={console.log}></AvatarsShape>
       </section>
       <footer className="btd-settings-footer">
         <button className="btd-settings-button primary">Save</button>

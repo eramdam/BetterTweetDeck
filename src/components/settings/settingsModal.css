@@ -16,8 +16,8 @@
 
 .btd-settings-modal {
   color: var(--settings-modal-text);
-  width: 800px;
-  height: 550px;
+  min-width: 100vw;
+  min-height: 100vh;
   background-color: var(--settings-modal-background);
   display: grid;
   grid-template-areas:

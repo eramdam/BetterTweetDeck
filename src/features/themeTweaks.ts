@@ -9,15 +9,24 @@ export enum BetterTweetDeckAccentColors {
   OCTOPUS = 'rgb(121, 75, 196)',
   FIRE = 'rgb(244, 93, 34)',
   AVOCADO = 'rgb(23, 191, 99)',
-  GREY = '',
+}
+
+export enum BetterTweetDeckDarkThemes {
+  DEFAULT = 'default',
+  LEGACY = 'legacy',
+  ULTRA_DARK = 'ultra_dark',
 }
 
 import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 
-export const tweakTweetDeckTheme = makeBTDModule(() => {
+export const tweakTweetDeckTheme = makeBTDModule(({settings}) => {
+  console.log({accent: settings.customAccentColor});
   // @ts-ignore
-  document.body.style = `--btd-accent-color: ${BetterTweetDeckAccentColors.DEFAULT}`;
+  document.body.style = `--btd-accent-color: ${settings.customAccentColor}`;
 
-  // document.body.setAttribute('btd-old-grey', 'true');
-  document.body.setAttribute('btd-super-dark', 'true');
+  if (settings.customDarkTheme === BetterTweetDeckDarkThemes.LEGACY) {
+    document.body.setAttribute('btd-old-grey', 'true');
+  } else if (settings.customDarkTheme === BetterTweetDeckDarkThemes.ULTRA_DARK) {
+    document.body.setAttribute('btd-super-dark', 'true');
+  }
 });

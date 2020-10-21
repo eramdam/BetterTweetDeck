@@ -24,7 +24,7 @@ export const maybeAddColumnsButtons = makeBTDModule(({TD, jq}) => {
 
   overrideColumnPrototype(TD, jq);
 
-  jq(document).on('mousedown', '.btd-clear-column-link', (ev) => {
+  jq(document).on('click', '.btd-clear-column-link', (ev) => {
     ev.preventDefault();
 
     const element = ev.target;
@@ -43,7 +43,7 @@ export const maybeAddColumnsButtons = makeBTDModule(({TD, jq}) => {
   });
 
   jq(document).on(
-    'mousedown',
+    'click',
     '.column-panel header.column-header .btd-toggle-collapse-column-link',
     (ev) => {
       ev.preventDefault();

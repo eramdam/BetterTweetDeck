@@ -4,6 +4,7 @@ import {BTDAvatarShapes} from '../../features/changeAvatarShape';
 import {BTDScrollbarsMode} from '../../features/changeScrollbars';
 import {BTDTimestampFormats} from '../../features/changeTimestampFormat';
 import {BTDTweetActionsPosition} from '../../features/changeTweetActions';
+import {BetterTweetDeckAccentColors, BetterTweetDeckDarkThemes} from '../../features/themeTweaks';
 import {BTDUsernameFormat} from '../../features/usernameDisplay';
 import {makeEnumRuntimeType, withDefault} from '../../helpers/typeHelpers';
 
@@ -133,18 +134,16 @@ export const RBetterTweetDeckSettings = t.type({
 
   collapseReadDms: withDefault(t.boolean, false),
 
-  legacy: withDefault(
-    t.partial({
-      // Legacy / Not sure what to do with those
-      // DEPREQ
-      // Annoying feature...might remove or find a better way to do it
-      displayStars: t.undefined,
-      // Not sure what to do with this one... Might need some rework
-      minimal_mode: t.boolean,
-      // This one will be a doozy....
-      og_dark_theme: t.boolean,
-    }),
-    {}
+  replaceHeartsByStars: withDefault(t.boolean, false),
+
+  customDarkTheme: withDefault(
+    makeEnumRuntimeType<BetterTweetDeckDarkThemes>(BetterTweetDeckDarkThemes),
+    BetterTweetDeckDarkThemes.DEFAULT
+  ),
+
+  customAccentColor: withDefault(
+    makeEnumRuntimeType<BetterTweetDeckAccentColors>(BetterTweetDeckAccentColors),
+    BetterTweetDeckAccentColors.GREY
   ),
 });
 
