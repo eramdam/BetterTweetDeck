@@ -1,7 +1,7 @@
 import '../css/index.css';
 
 import config from 'config';
-import { saveAs } from 'file-saver';
+import FileSaver from 'file-saver';
 import PromiseEach from 'promise-each';
 import qs from 'query-string';
 
@@ -931,7 +931,7 @@ window.addEventListener('message', (ev) => {
   if (data) {
     switch (data.message) {
       case 'complete_gif':
-        saveAs(dataURItoBlob(data.img), data.name);
+        FileSaver.saveAs(dataURItoBlob(data.img), data.name);
         markGifDlComplete($('[data-btd-dl-gif]') && $('[data-btd-dl-gif]')[0], data.name);
         break;
       case 'resize_imgur':
