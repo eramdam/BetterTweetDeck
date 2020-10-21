@@ -1,3 +1,4 @@
 dist/
 !.eslintrc.js
 tools/embeds.js
+src/moduleraid.js

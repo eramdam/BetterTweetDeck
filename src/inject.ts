@@ -1,5 +1,4 @@
 import {isObject} from 'lodash';
-import moduleRaid from 'moduleraid';
 
 import {maybeAddColumnsButtons} from './features/addColumnButtons';
 import {maybeAddTweetActions} from './features/addTweetActions';
@@ -38,10 +37,13 @@ declare global {
   }
 }
 
+const moduleRaid = require('./moduleraid');
 let mR;
 try {
   mR = moduleRaid();
 } catch (e) {
+  console.log(moduleRaid);
+  console.error(e);
   //
 }
 
@@ -103,7 +105,7 @@ const jq: JQueryStatic | undefined =
   );
 
   markInjectScriptAsReady();
-  setupSettings({jq, settings});
+  setupSettings({jq});
   setupMediaSizeMonitor({TD, jq});
   maybeSetupDebugFunctions({jq});
   maybeRemoveRedirection({TD});
