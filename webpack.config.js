@@ -2,7 +2,6 @@
 const GenerateJsonPlugin = require('generate-json-webpack-plugin');
 const {NodeConfigTSPlugin} = require('node-config-ts/webpack');
 const {join, resolve} = require('path');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const ZipPlugin = require('zip-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
@@ -27,9 +26,6 @@ function WebpackConfig(env) {
         title: 'Better TweetDeck Options',
         filename: 'options/index.html',
         chunks: ['options'],
-      }),
-      new CleanWebpackPlugin({
-        cleanOnceBeforeBuildPatterns: ['dist'],
       }),
       new GenerateJsonPlugin('manifest.json', manifestJson, null, 2),
       (IS_PRODUCTION &&
