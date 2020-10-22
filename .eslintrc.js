@@ -34,6 +34,7 @@ module.exports = {
       files: ['*.ts', '*.tsx'],
       rules: {
         'react/prop-types': 0,
+        'no-unused-vars': 0,
         'react/display-name': 0,
         'simple-import-sort/sort': 2,
         'unused-imports/no-unused-imports-ts': 2,
