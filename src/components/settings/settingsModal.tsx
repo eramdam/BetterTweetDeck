@@ -1,6 +1,7 @@
 import './settingsModal.css';
 
-import React, {useCallback} from 'react';
+import {isEqual} from 'lodash';
+import React, {useCallback, useMemo, useState} from 'react';
 
 import {HandlerOf} from '../../helpers/typeHelpers';
 import {BTDSettings} from '../../types/betterTweetDeck/btdSettingsTypes';
@@ -12,20 +13,26 @@ interface SettingsModalProps {
 }
 
 export const SettingsModal = (props: SettingsModalProps) => {
-  // const [selectedIndex, setSelectedIndex] = useState(0);
-  const {settings, onSettingsUpdate} = props;
+  const {onSettingsUpdate} = props;
+  const [settings, setSettings] = useState<BTDSettings>(props.settings);
 
   const onSettingsChange = useCallback(
     <T extends keyof BTDSettings>(key: T, val: BTDSettings[T]) => {
-      const newSettings = {
-        ...settings,
-        [key]: val,
-      };
-
-      onSettingsUpdate(newSettings);
+      setSettings((currentSettings) => {
+        return {
+          ...currentSettings,
+          [key]: val,
+        };
+      });
     },
-    [onSettingsUpdate, settings]
+    []
   );
+
+  const updateSettings = useCallback(() => {
+    onSettingsUpdate(settings);
+  }, [onSettingsUpdate, settings]);
+
+  const canSave = useMemo(() => !isEqual(props.settings, settings), [props.settings, settings]);
 
   return (
     <div className="btd-settings-modal">
@@ -53,7 +60,12 @@ export const SettingsModal = (props: SettingsModalProps) => {
           onChange={(val) => onSettingsChange('avatarsShape', val)}></AvatarsShape>
       </section>
       <footer className="btd-settings-footer">
-        <button className="btd-settings-button primary">Save</button>
+        <button
+          className="btd-settings-button primary"
+          onClick={updateSettings}
+          disabled={!canSave}>
+          Save
+        </button>
       </footer>
     </div>
   );

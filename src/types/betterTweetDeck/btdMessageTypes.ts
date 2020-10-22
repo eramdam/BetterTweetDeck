@@ -18,6 +18,8 @@ export enum BTDMessages {
   DOWNLOAD_MEDIA = 'DOWNLOAD_MEDIA',
   DOWNLOAD_MEDIA_RESULT = 'DOWNLOAD_MEDIA_RESULT',
   SAVE_SETTINGS = 'SAVE_SETTINGS',
+  GET_SETTINGS = 'GET_SETTINGS',
+  GET_SETTINGS_RESULT = 'GET_SETTINGS_RESULT',
 }
 
 /** Locations from which messages can be listened/sent to. */
@@ -122,6 +124,18 @@ export const RSaveSettingsResultEvent = t.type({
   }),
 });
 
+export const RGetSettingsEvent = t.type({
+  ...baseMessageEvent,
+  name: t.literal(BTDMessages.GET_SETTINGS),
+  payload: t.undefined,
+});
+
+export const RGetSettingsResultEvent = t.type({
+  ...baseMessageEvent,
+  name: t.literal(BTDMessages.GET_SETTINGS_RESULT),
+  payload: RBetterTweetDeckSettings,
+});
+
 const RBTDMessageEvent = t.type({
   data: t.taggedUnion('name', [
     RFetchThumbnailEvent,
@@ -134,6 +148,8 @@ const RBTDMessageEvent = t.type({
     RGifDownloadRequestEvent,
     RGifDownloadRequestResultEvent,
     RSaveSettingsResultEvent,
+    RGetSettingsEvent,
+    RGetSettingsResultEvent,
   ]),
 });
 

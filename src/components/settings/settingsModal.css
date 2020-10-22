@@ -53,6 +53,12 @@
     background-color: var(--twitter-darkblue);
     border-color: var(--twitter-darkblue);
   }
+
+  &[disabled],
+  &.disabled {
+    opacity: 0.7;
+    pointer-events: none;
+  }
 }
 
 .btd-settings-button.secondary {

@@ -1,6 +1,7 @@
 import './features/mainStyles.css';
 
 import {isRight} from 'fp-ts/lib/Either';
+import {PathReporter} from 'io-ts/lib/PathReporter';
 import {browser} from 'webextension-polyfill-ts';
 
 import {setupEmojiAutocompletion} from './features/emojiAutocompletion';
@@ -94,6 +95,7 @@ listenToInternalBTDMessage(
     const decoded = RSaveSettingsResultEvent.decode(msg.data);
 
     if (!isRight(decoded)) {
+      console.log(PathReporter.report(decoded));
       console.log('error parsing save settings msg');
       return;
     }
@@ -103,3 +105,20 @@ listenToInternalBTDMessage(
     ExtensionSettings.set(settings);
   }
 );
+
+listenToInternalBTDMessage(BTDMessages.GET_SETTINGS, BTDMessageOriginsEnum.CONTENT, async (msg) => {
+  if (msg.data.name !== BTDMessages.GET_SETTINGS) {
+    return;
+  }
+
+  const settings = await getValidatedSettings();
+  console.log({settings});
+
+  return {
+    requestId: undefined,
+    isReponse: true,
+    name: BTDMessages.GET_SETTINGS_RESULT,
+    origin: BTDMessageOriginsEnum.CONTENT,
+    payload: settings,
+  };
+});

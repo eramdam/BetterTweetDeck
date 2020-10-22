@@ -105,7 +105,10 @@ const jq: JQueryStatic | undefined =
   );
 
   markInjectScriptAsReady();
-  setupSettings({jq});
+  setupSettings(jq, settings, (newSettings) => {
+    saveBTDSettings(newSettings);
+    return fetchBTDSettings();
+  });
   setupMediaSizeMonitor({TD, jq});
   maybeSetupDebugFunctions({jq});
   maybeRemoveRedirection({TD});
@@ -195,4 +198,38 @@ function getBTDSettings() {
   } catch (e) {
     return undefined;
   }
+}
+
+function fetchBTDSettings() {
+  return new Promise<BTDSettings>((resolve) => {
+    sendInternalBTDMessage({
+      name: BTDMessages.GET_SETTINGS,
+      origin: BTDMessageOriginsEnum.INJECT,
+      isReponse: false,
+      payload: undefined,
+    });
+    listenToInternalBTDMessage(
+      BTDMessages.GET_SETTINGS_RESULT,
+      BTDMessageOriginsEnum.INJECT,
+      async (ev) => {
+        if (ev.data.name !== BTDMessages.GET_SETTINGS_RESULT) {
+          return;
+        }
+
+        resolve(ev.data.payload);
+      }
+    );
+  });
+}
+
+function saveBTDSettings(settings: BTDSettings) {
+  sendInternalBTDMessage({
+    name: BTDMessages.SAVE_SETTINGS,
+    origin: BTDMessageOriginsEnum.INJECT,
+    isReponse: false,
+    payload: {
+      settings,
+      shouldRefresh: false,
+    },
+  });
 }

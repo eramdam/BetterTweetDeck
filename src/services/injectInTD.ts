@@ -1,5 +1,6 @@
-import {ExtensionSettings, getExtensionUrl} from '../helpers/webExtensionHelpers';
+import {getExtensionUrl} from '../helpers/webExtensionHelpers';
 import {BTDSettingsAttribute} from '../types/betterTweetDeck/btdCommonTypes';
+import {getValidatedSettings} from './backgroundSettings';
 
 export async function injectInTD() {
   // If we're already injected, nothing to do.
@@ -8,7 +9,7 @@ export async function injectInTD() {
   }
 
   // Get the settings from the browser.
-  const settings = await ExtensionSettings.get();
+  const settings = await getValidatedSettings();
 
   // Inject.
   const toInject = document.createElement('script');
