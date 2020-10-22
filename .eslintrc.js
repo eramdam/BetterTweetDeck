@@ -1,7 +1,7 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'react-hooks', 'unused-imports', 'simple-import-sort'],
-  extends: ['eslint:recommended', 'plugin:prettier/recommended', 'plugin:react/recommended'],
+  plugins: ['@typescript-eslint', 'unused-imports', 'simple-import-sort'],
+  extends: ['eslint:recommended', 'plugin:react/recommended', 'plugin:react-hooks/recommended'],
   parserOptions: {
     ecmaVersion: 2020,
     ecmaFeatures: {
@@ -19,8 +19,12 @@ module.exports = {
   },
   rules: {
     'prettier/prettier': 'error',
-    'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn',
+    'react-hooks/exhaustive-deps': [
+      'warn',
+      {
+        enableDangerousAutofixThisMayCauseInfiniteLoops: true,
+      },
+    ],
   },
   overrides: [
     {
