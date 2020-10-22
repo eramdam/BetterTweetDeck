@@ -8,16 +8,16 @@ import {
   getFullscreenNodeRoot,
 } from '../../types/betterTweetDeck/btdCommonTypes';
 
-const onFullscreenKeyDown = (e: KeyboardEvent, onClose?: Handler) => {
+const onFullscreenKeyDown = (e: KeyboardEvent, beforeClose?: Handler) => {
   if (e.key !== Key.Escape) {
     return;
   }
 
-  closeFullscreenModal();
-
-  if (onClose) {
-    onClose();
+  if (beforeClose) {
+    beforeClose();
   }
+
+  closeFullscreenModal();
 };
 
 const modalObserver = new ResizeObserver((entries) => {
@@ -42,7 +42,7 @@ export function closeFullscreenModal() {
   });
 }
 
-function maybeCloseFullscreenModalOnClick(e: MouseEvent, onClose?: Handler) {
+function maybeCloseFullscreenModalOnClick(e: MouseEvent, beforeClose?: Handler) {
   if (
     isHTMLElement(e.target) &&
     e.target.closest('.js-mediatable .js-modal-panel .js-mediaembed, .med-tweet, .mdl-btn-media')
@@ -50,11 +50,11 @@ function maybeCloseFullscreenModalOnClick(e: MouseEvent, onClose?: Handler) {
     return;
   }
 
-  closeFullscreenModal();
-
-  if (onClose) {
-    onClose();
+  if (beforeClose) {
+    beforeClose();
   }
+
+  closeFullscreenModal();
 }
 
 export function openFullscreenModal(content: JSX.Element, btdUuid?: string) {
@@ -93,17 +93,17 @@ export function openFullscreenModalWithReactElement(content: JSX.Element) {
 
   fullscreenNode.classList.add('open');
 
-  const onClose = () => {
+  const beforeClose = () => {
     ReactDOM.unmountComponentAtNode(fullscreenNode);
   };
 
   fullscreenNode.addEventListener('click', (e) => {
-    return maybeCloseFullscreenModalOnClick(e, onClose);
+    return maybeCloseFullscreenModalOnClick(e, beforeClose);
   });
   document.addEventListener(
     'keydown',
     (e) => {
-      return onFullscreenKeyDown(e, onClose);
+      return onFullscreenKeyDown(e, beforeClose);
     },
     true
   );
