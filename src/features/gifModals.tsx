@@ -2,7 +2,6 @@ import './gifModals.css';
 
 import React from 'dom-chef';
 import {saveAs} from 'file-saver';
-import {GifshotOptions} from 'gifshot';
 import * as Hogan from 'hogan.js';
 import qs from 'query-string';
 
@@ -120,9 +119,7 @@ export function setupGifModals(settings: BTDSettings) {
               return;
             }
 
-            const gifShotOptions: GifshotOptions & {
-              name: string;
-            } = {
+            const gifShotOptions = {
               video: [videoNode.src],
               gifWidth: videoNode.videoWidth,
               gifHeight: videoNode.videoHeight,
