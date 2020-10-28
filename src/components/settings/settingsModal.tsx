@@ -1,11 +1,27 @@
 import './settingsModal.css';
 
+import {css} from 'emotion';
 import {isEqual} from 'lodash';
 import React, {useCallback, useMemo, useState} from 'react';
 
 import {HandlerOf} from '../../helpers/typeHelpers';
 import {BTDSettings} from '../../types/betterTweetDeck/btdSettingsTypes';
 import {AvatarsShape} from './components/avatarsShape';
+import {BadgesOnTopOfAvatars} from './components/badgesOnTopOfAvatars';
+
+export const settingsRowTitle = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+
+  padding: 20px;
+`;
+
+export const settingsRow = css`
+  display: flex;
+  padding-top: 20px;
+`;
 
 interface SettingsModalProps {
   settings: BTDSettings;
@@ -58,6 +74,9 @@ export const SettingsModal = (props: SettingsModalProps) => {
         <AvatarsShape
           initialValue={settings.avatarsShape}
           onChange={(val) => onSettingsChange('avatarsShape', val)}></AvatarsShape>
+        <BadgesOnTopOfAvatars
+          initialValue={settings.badgesOnTopOfAvatars}
+          onChange={(val) => onSettingsChange('badgesOnTopOfAvatars', val)}></BadgesOnTopOfAvatars>
       </section>
       <footer className="btd-settings-footer">
         <button

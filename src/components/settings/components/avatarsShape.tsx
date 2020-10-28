@@ -2,16 +2,15 @@ import {css, cx} from 'emotion';
 import React, {Fragment} from 'react';
 
 import {BTDAvatarShapes} from '../../../features/changeAvatarShape';
+import {settingsRowTitle} from '../settingsModal';
 import {BaseSettingsProps} from '../settingsTypes';
 
-const settingsRowTitle = css`
+export const settingsRow = css`
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-end;
-
-  padding: 20px;
+  padding-top: 20px;
 `;
+
+console.log({settingsRow, settingsRowTitle});
 
 const avatarChoiceStyle = css`
   display: grid;
@@ -57,8 +56,7 @@ const avatarChoiceStyleShape = css`
 `;
 
 const avatarShapesStyle = css`
-  display: flex;
-  padding-top: 20px;
+  ${settingsRow};
   input {
     display: none;
   }
