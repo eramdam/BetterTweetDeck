@@ -8,7 +8,7 @@ const path = require('path');
 
 function WebpackConfig(env) {
   const manifestJson = require(`./tools/manifests/${env.browser}.js`);
-  const IS_PRODUCTION = process.env.NODE_ENV !== 'development';
+  const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
   const finalConfig = {
     devtool: 'cheap-source-map',
@@ -35,7 +35,9 @@ function WebpackConfig(env) {
         })) ||
         undefined,
     ].filter((i) => !!i),
-    mode: process.env.NODE_ENV,
+    mode: process.env.NODE_ENV || 'development',
+    stats: 'minimal',
+    target: 'web',
     module: {
       rules: [
         {
@@ -67,6 +69,8 @@ function WebpackConfig(env) {
       ],
     },
     devServer: {
+      hot: true,
+      stats: 'minimal',
       contentBase: path.join(__dirname, 'dist'),
     },
   };

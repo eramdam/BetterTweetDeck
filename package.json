@@ -15,7 +15,7 @@
     "_start": "cross-env NODE_ENV=development webpack --watch --progress --env",
     "start:firefox": "npm run _start -- browser=firefox",
     "start:chrome": "npm run _start -- browser=chrome",
-    "serve": "webpack-dev-server --hot --env.browser",
+    "serve": "webpack serve --env",
     "build": "cross-env NODE_ENV=production webpack -p --progress --hide-modules --env",
     "build:prod": "cross-env NODE_ENV=production webpack --hide-modules --env",
     "fix": "eslint --fix . --ext .jsx,.js,.ts,.tsx",
