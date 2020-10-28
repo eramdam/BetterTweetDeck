@@ -7,6 +7,7 @@ import {HandlerOf} from '../../helpers/typeHelpers';
 import {BTDSettings} from '../../types/betterTweetDeck/btdSettingsTypes';
 import {AvatarsShape} from './components/avatarsShape';
 import {BooleanSettingsRow} from './components/booleanSettingRow';
+import {ScrollbarsMode} from './components/scrollbarsMode';
 
 interface SettingsModalProps {
   settings: BTDSettings;
@@ -67,6 +68,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
           onChange={(val) => onSettingsChange('replaceHeartsByStars', val)}>
           Replace hearts by stars:
         </BooleanSettingsRow>
+        <ScrollbarsMode></ScrollbarsMode>
       </section>
       <footer className="btd-settings-footer">
         <button
