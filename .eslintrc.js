@@ -18,7 +18,6 @@ module.exports = {
     node: true,
   },
   rules: {
-    'prettier/prettier': 'error',
     'react-hooks/exhaustive-deps': [
       'warn',
       {
