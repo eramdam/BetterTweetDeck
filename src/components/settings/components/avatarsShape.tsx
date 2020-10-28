@@ -15,8 +15,8 @@ const settingsRowTitle = css`
 
 const avatarChoiceStyle = css`
   display: grid;
-  grid-template-rows: auto 10px auto;
-  grid-template-areas: 'shape' '.' 'text';
+  grid-template-columns: auto 10px auto;
+  grid-template-areas: 'shape . text';
   padding: 12px 14px;
   background: rgba(0, 0, 0, 0.6);
   border-radius: 4px;
@@ -29,15 +29,23 @@ const avatarChoiceStyle = css`
 
 const avatarChoiceStyleLabel = css`
   grid-area: text;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const avatarChoiceStyleShapeWrapper = css`
+  grid-area: shape;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const avatarChoiceStyleShape = css`
-  grid-area: shape;
   display: inline-block;
   background: var(--twitter-blue);
-  width: 50px;
-  height: 50px;
+  width: 25px;
+  height: 25px;
 
   &.square {
     border-radius: 4px;
@@ -82,7 +90,9 @@ export function AvatarsShape(props: AvatarsShapeProps) {
                 onChange={(e) => props.onChange(e.target.value as typeof props.initialValue)}
               />
               <label htmlFor={value} className={avatarChoiceStyle}>
-                <span className={cx(avatarChoiceStyleShape, value)}></span>
+                <span className={avatarChoiceStyleShapeWrapper}>
+                  <span className={cx(avatarChoiceStyleShape, value)}></span>
+                </span>
                 <span className={avatarChoiceStyleLabel}>{value}</span>
               </label>
             </Fragment>
