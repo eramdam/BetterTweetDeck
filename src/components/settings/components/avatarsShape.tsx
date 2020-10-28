@@ -2,15 +2,8 @@ import {css, cx} from 'emotion';
 import React, {Fragment} from 'react';
 
 import {BTDAvatarShapes} from '../../../features/changeAvatarShape';
-import {settingsRowTitle} from '../settingsModal';
+import {settingsRow, settingsRowTitle} from '../settingsStyles';
 import {BaseSettingsProps} from '../settingsTypes';
-
-export const settingsRow = css`
-  display: flex;
-  padding-top: 20px;
-`;
-
-console.log({settingsRow, settingsRowTitle});
 
 const avatarChoiceStyle = css`
   display: grid;

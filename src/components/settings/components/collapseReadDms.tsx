@@ -3,15 +3,15 @@ import React from 'react';
 import {BaseSettingsProps} from '../settingsTypes';
 import {BooleanSettingsRow} from './booleanSettingRow';
 
-interface BadgesOnTopOfAvatarsProps extends BaseSettingsProps<'badgesOnTopOfAvatars'> {}
+interface CollapseReadDmsProps extends BaseSettingsProps<'collapseReadDms'> {}
 
-export function BadgesOnTopOfAvatars(props: BadgesOnTopOfAvatarsProps) {
+export function CollapseReadDms(props: CollapseReadDmsProps) {
   return (
     <BooleanSettingsRow
-      id="badgesOnTopOfAvatars"
+      id="collapseReadDms"
       initialValue={props.initialValue}
       onChange={props.onChange}>
-      Show badges on top of avatars:
+      Collapse read DMs:
     </BooleanSettingsRow>
   );
 }
