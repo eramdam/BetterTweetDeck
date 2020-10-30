@@ -51,6 +51,15 @@ const labelStyles = css`
 
   &:after {
     content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform: translateY(100%);
+    opacity: 0;
+  }
+
+  &:before {
+    content: '';
     display: block;
     position: absolute;
     background: white;
@@ -63,7 +72,7 @@ const labelStyles = css`
     transition: transform 200ms ease;
   }
 
-  input:checked + &:after {
+  input:checked + &:before {
     transform: translate(-50%, -50%) scale(1);
   }
 `;
