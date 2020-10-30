@@ -1,4 +1,5 @@
-import React, {FC} from 'react';
+import {uniqueId} from 'lodash';
+import React, {FC, useEffect, useRef} from 'react';
 import Frame, {FrameContextConsumer} from 'react-frame-component';
 
 import {SettingsModal} from '../components/settings/settingsModal';
@@ -25,9 +26,45 @@ interface SettingsWrapperAppProps {
   onSettingsUpdate: OnSettingsUpdate;
   settings: BTDSettings;
 }
+
+function createUniqueStyleSheetId() {
+  return uniqueId('btd-stylesheet-');
+}
+
 const SettingsWrapperApp: FC<SettingsWrapperAppProps> = (props) => {
   const parentDocument = document;
+  const childDocument = useRef<Document>();
   const {settings, onSettingsUpdate} = props;
+
+  useEffect(() => {
+    const headObserver = new MutationObserver(() => {
+      const childDoc = childDocument.current;
+      if (!childDoc) {
+        return;
+      }
+
+      parentDocument.querySelectorAll('style').forEach((style) => {
+        if (style.getAttribute('btd-stylesheet-id')) {
+          return;
+        }
+
+        const styleId = createUniqueStyleSheetId();
+        style.setAttribute('btd-stylesheet-id', styleId);
+        const element = childDoc.createElement('style');
+        element.type = 'text/css';
+        element.appendChild(childDoc.createTextNode(style.innerText));
+        childDoc.head.appendChild(element);
+      });
+    });
+    headObserver.observe(parentDocument.head, {
+      childList: true,
+      subtree: true,
+    });
+
+    return () => {
+      headObserver.disconnect();
+    };
+  }, [parentDocument]);
 
   return (
     <Frame
@@ -41,14 +78,7 @@ const SettingsWrapperApp: FC<SettingsWrapperAppProps> = (props) => {
       }}>
       <FrameContextConsumer>
         {({document}) => {
-          const childDocument: Document = document;
-
-          parentDocument.querySelectorAll('style').forEach((style) => {
-            const element = childDocument.createElement('style');
-            element.type = 'text/css';
-            element.appendChild(childDocument.createTextNode(style.innerText));
-            childDocument.head.appendChild(element);
-          });
+          childDocument.current = document;
 
           return (
             <SettingsModal
