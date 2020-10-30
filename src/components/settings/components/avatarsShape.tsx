@@ -78,7 +78,7 @@ export function AvatarsShape(props: AvatarsShapeProps) {
                 value={value}
                 name="avatarShape"
                 defaultChecked={value === props.initialValue}
-                onChange={(e) => props.onChange(e.target.value as typeof props.initialValue)}
+                onChange={() => props.onChange(value)}
               />
               <label htmlFor={value} className={avatarChoiceStyle}>
                 <span className={avatarChoiceStyleShapeWrapper}>

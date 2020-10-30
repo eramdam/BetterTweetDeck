@@ -8,7 +8,7 @@ interface BadgesOnTopOfAvatarsProps extends BaseSettingsProps<'badgesOnTopOfAvat
 export function BadgesOnTopOfAvatars(props: BadgesOnTopOfAvatarsProps) {
   return (
     <BooleanSettingsRow
-      id="badgesOnTopOfAvatars"
+      settingsKey="badgesOnTopOfAvatars"
       initialValue={props.initialValue}
       onChange={props.onChange}>
       Show badges on top of avatars:

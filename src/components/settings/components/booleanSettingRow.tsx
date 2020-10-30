@@ -8,7 +8,7 @@ import {SettingsToggle} from './settingsToggle';
 interface BooleanSettingsRowProps {
   initialValue: boolean;
   onChange: HandlerOf<boolean>;
-  id: string;
+  settingsKey: string;
 }
 
 export function BooleanSettingsRow(props: PropsWithChildren<BooleanSettingsRowProps>) {
@@ -22,8 +22,8 @@ export function BooleanSettingsRow(props: PropsWithChildren<BooleanSettingsRowPr
           justify-content: center;
         `}>
         <SettingsToggle
-          id={props.id}
-          name={props.id}
+          id={props.settingsKey}
+          name={props.settingsKey}
           defaultChecked={props.initialValue}
           onChange={props.onChange}
         />

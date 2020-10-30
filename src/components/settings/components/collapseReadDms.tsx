@@ -8,7 +8,7 @@ interface CollapseReadDmsProps extends BaseSettingsProps<'collapseReadDms'> {}
 export function CollapseReadDms(props: CollapseReadDmsProps) {
   return (
     <BooleanSettingsRow
-      id="collapseReadDms"
+      settingsKey="collapseReadDms"
       initialValue={props.initialValue}
       onChange={props.onChange}>
       Collapse read DMs:
