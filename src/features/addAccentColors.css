@@ -3,12 +3,26 @@
   /* --btd-accent-color:; */
 }
 
+html .column-header-link:hover {
+  color: rgb(143, 143, 143);
+}
+
+html.dark .column-header-link:hover {
+  color: white;
+}
+
 :matches(html, html.dark) {
   & .column-header-link,
   & .app-nav-link,
   & .app-nav-tab,
   & .app-search-fake {
-    color: var(--btd-accent-color) !important;
+    color: var(--btd-accent-color);
+  }
+
+  & .app-nav-link:hover,
+  & .app-nav-link.is-selected:hover,
+  & .app-nav-tab:hover {
+    color: white;
   }
 
   & a,
@@ -138,11 +152,16 @@
 
   & .app-search-fake {
     border-color: var(--btd-accent-color) !important;
+
+    &:hover {
+      border-color: white !important;
+      color: white !important;
+    }
   }
 
   /* Reset the color of the button to hide the drawer */
-  html[class] .js-hide-drawer.Button.tweet-button,
-  html[class] .js-hide-drawer.Button.tweet-button:hover {
+  &[class] .js-hide-drawer.Button.tweet-button,
+  &[class] .js-hide-drawer.Button.tweet-button:hover {
     background-image: none !important;
     color: white;
     background: #3d5466 !important;

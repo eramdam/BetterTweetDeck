@@ -15,7 +15,7 @@ export function ScrollbarsMode(props: ScrollbarsModeProps) {
         ${settingsRow};
         align-items: flex-start;
       `}>
-      <span className={settingsRowTitle}>Style of scrollbars:</span>
+      <span className={settingsRowTitle}>Style of scrollbars</span>
       <div
         className={css`
           display: flex;

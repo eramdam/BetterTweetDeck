@@ -83,11 +83,11 @@
 
 .btd-settings-footer {
   grid-area: footer;
-  padding: 15px;
+  padding: 10px;
   border-top: 1px solid var(--settings-modal-separator);
 
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   column-gap: 10px;
 }
 

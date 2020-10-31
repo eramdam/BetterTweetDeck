@@ -11,7 +11,7 @@ export function BadgesOnTopOfAvatars(props: BadgesOnTopOfAvatarsProps) {
       settingsKey="badgesOnTopOfAvatars"
       initialValue={props.initialValue}
       onChange={props.onChange}>
-      Show badges on top of avatars:
+      Show badges on top of avatars
     </BooleanSettingsRow>
   );
 }

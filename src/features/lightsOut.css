@@ -14,7 +14,8 @@ html.dark body[btd-old-grey='true'] {
   & .app-content .column-header,
   & .app-content .column-header-temp,
   & .btn-on-blue,
-  & .detail-view-inline {
+  & .detail-view-inline,
+  & {
     background: var(--btd-theme-background);
   }
 
@@ -69,6 +70,11 @@ html.dark body[btd-old-grey='true'] {
   --btd-theme-background: hsl(210, 6%, 17%);
   --btd-theme-background-lighter: #373a3e;
   --btd-theme-btn-hover: #2b2b2b;
+
+  & .app-content,
+  & .app-columns-container {
+    background: #14171a;
+  }
 
   /* & .app-content .column-header,
   & .column-nav-item,

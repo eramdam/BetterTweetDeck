@@ -81,3 +81,7 @@ html.dark .stream-item {
 .js-media.media-grid-container + p.txt-ellipsis {
   display: none;
 }
+
+#settings-modal {
+  z-index: 9999999;
+}

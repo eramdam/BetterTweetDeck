@@ -28,6 +28,7 @@ const App = (
     `}
     </style>
     <SettingsModal
+      onOpenTDSettings={console.log}
       onSettingsUpdate={console.log}
       settings={(settingsWithDefault as any).right}></SettingsModal>
   </div>

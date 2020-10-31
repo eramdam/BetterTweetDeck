@@ -15,7 +15,7 @@ module.exports = {
   background: {
     scripts: ['background.js'],
   },
-  web_accessible_resources: ['inject.js'],
+  web_accessible_resources: ['inject.js', '*.png'],
   permissions: ['storage', 'contextMenus', ...urls],
   content_security_policy: `img-src https: data: 'self' *; default-src; connect-src * https: ws: localhost; style-src 'unsafe-inline'; script-src 'self';`,
 };

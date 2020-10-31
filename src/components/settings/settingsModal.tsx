@@ -3,7 +3,7 @@ import './settingsModal.css';
 import {isEqual} from 'lodash';
 import React, {Fragment, useCallback, useMemo, useState} from 'react';
 
-import {HandlerOf, Renderer} from '../../helpers/typeHelpers';
+import {Handler, HandlerOf, Renderer} from '../../helpers/typeHelpers';
 import {BTDSettings} from '../../types/betterTweetDeck/btdSettingsTypes';
 import {AvatarsShape} from './components/avatarsShape';
 import {BooleanSettingsRow} from './components/booleanSettingRow';
@@ -12,6 +12,7 @@ import {CustomDarkTheme} from './components/customDarkTheme';
 import {ScrollbarsMode} from './components/scrollbarsMode';
 
 interface SettingsModalProps {
+  onOpenTDSettings: Handler;
   settings: BTDSettings;
   onSettingsUpdate: HandlerOf<BTDSettings>;
 }
@@ -23,8 +24,9 @@ interface MenuItem {
 }
 
 export const SettingsModal = (props: SettingsModalProps) => {
-  const {onSettingsUpdate} = props;
+  const {onSettingsUpdate, onOpenTDSettings} = props;
   const [settings, setSettings] = useState<BTDSettings>(props.settings);
+  const [selectedIndex, setSelectedIndex] = useState(1);
 
   const makeOnSettingsChange = useCallback(<T extends keyof BTDSettings>(key: T) => {
     return (val: BTDSettings[T]) => {
@@ -43,7 +45,6 @@ export const SettingsModal = (props: SettingsModalProps) => {
 
   const canSave = useMemo(() => !isEqual(props.settings, settings), [props.settings, settings]);
 
-  const [selectedIndex, setSelectedIndex] = useState(1);
   const menu: readonly MenuItem[] = [
     {
       id: 'interface',
@@ -58,25 +59,25 @@ export const SettingsModal = (props: SettingsModalProps) => {
               settingsKey="badgesOnTopOfAvatars"
               initialValue={settings.badgesOnTopOfAvatars}
               onChange={makeOnSettingsChange('badgesOnTopOfAvatars')}>
-              Show badges on top of avatars:
+              Show badges on top of avatars
             </BooleanSettingsRow>
             <BooleanSettingsRow
               settingsKey="collapseReadDms"
               initialValue={settings.collapseReadDms}
               onChange={makeOnSettingsChange('collapseReadDms')}>
-              Collapse read DMs:
+              Collapse read DMs
             </BooleanSettingsRow>
             <BooleanSettingsRow
               settingsKey="disableGifsInProfilePictures"
               initialValue={settings.disableGifsInProfilePictures}
               onChange={makeOnSettingsChange('disableGifsInProfilePictures')}>
-              Freeze GIFs in profile pictures:
+              Freeze GIFs in profile pictures
             </BooleanSettingsRow>
             <BooleanSettingsRow
               settingsKey="replaceHeartsByStars"
               initialValue={settings.replaceHeartsByStars}
               onChange={makeOnSettingsChange('replaceHeartsByStars')}>
-              Replace hearts by stars:
+              Replace hearts by stars
             </BooleanSettingsRow>
             <ScrollbarsMode
               initialValue={settings.scrollbarsMode}
@@ -93,6 +94,9 @@ export const SettingsModal = (props: SettingsModalProps) => {
           <CustomAccentColor
             initialValue={settings.customAccentColor}
             onChange={makeOnSettingsChange('customAccentColor')}></CustomAccentColor>
+          <CustomDarkTheme
+            initialValue={settings.customDarkTheme}
+            onChange={makeOnSettingsChange('customDarkTheme')}></CustomDarkTheme>
         </Fragment>
       ),
     },
@@ -120,6 +124,9 @@ export const SettingsModal = (props: SettingsModalProps) => {
       </aside>
       <section className="btd-settings-content">{menu[selectedIndex].renderContent()}</section>
       <footer className="btd-settings-footer">
+        <button className="btd-settings-button secondary" onClick={onOpenTDSettings}>
+          Open TweetDeck settings
+        </button>
         <button
           className="btd-settings-button primary"
           onClick={updateSettings}

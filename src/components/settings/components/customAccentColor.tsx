@@ -85,7 +85,7 @@ const accentColorRow = css`
 export function CustomAccentColor(props: CustomAccentColorProps) {
   return (
     <div className={accentColorRow}>
-      <span className={settingsRowTitle}>Accent color:</span>
+      <span className={settingsRowTitle}>Accent color</span>
       <div
         className={css`
           display: grid;

@@ -81,7 +81,7 @@ export function openFullscreenModal(content: JSX.Element, btdUuid?: string) {
   modalObserver.observe(target);
 }
 
-export function openFullscreenModalWithReactElement(content: JSX.Element) {
+export function openFullscreenModalWithReactElement(content: JSX.Element, onClose?: Handler) {
   const fullscreenNode = getFullscreenNodeRoot();
 
   // Make sure to clean everything in the modal first
@@ -95,6 +95,9 @@ export function openFullscreenModalWithReactElement(content: JSX.Element) {
 
   const beforeClose = () => {
     ReactDOM.unmountComponentAtNode(fullscreenNode);
+    if (onClose) {
+      onClose();
+    }
   };
 
   fullscreenNode.addEventListener('click', (e) => {
