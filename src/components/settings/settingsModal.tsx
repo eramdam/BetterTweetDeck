@@ -8,6 +8,7 @@ import {BTDSettings} from '../../types/betterTweetDeck/btdSettingsTypes';
 import {AvatarsShape} from './components/avatarsShape';
 import {BooleanSettingsRow} from './components/booleanSettingRow';
 import {CustomAccentColor} from './components/customAccentColor';
+import {CustomDarkTheme} from './components/customDarkTheme';
 import {ScrollbarsMode} from './components/scrollbarsMode';
 
 interface SettingsModalProps {
@@ -25,17 +26,16 @@ export const SettingsModal = (props: SettingsModalProps) => {
   const {onSettingsUpdate} = props;
   const [settings, setSettings] = useState<BTDSettings>(props.settings);
 
-  const onSettingsChange = useCallback(
-    <T extends keyof BTDSettings>(key: T, val: BTDSettings[T]) => {
+  const makeOnSettingsChange = useCallback(<T extends keyof BTDSettings>(key: T) => {
+    return (val: BTDSettings[T]) => {
       setSettings((currentSettings) => {
         return {
           ...currentSettings,
           [key]: val,
         };
       });
-    },
-    []
-  );
+    };
+  }, []);
 
   const updateSettings = useCallback(() => {
     onSettingsUpdate(settings);
@@ -53,34 +53,34 @@ export const SettingsModal = (props: SettingsModalProps) => {
           <Fragment>
             <AvatarsShape
               initialValue={settings.avatarsShape}
-              onChange={(val) => onSettingsChange('avatarsShape', val)}></AvatarsShape>
+              onChange={makeOnSettingsChange('avatarsShape')}></AvatarsShape>
             <BooleanSettingsRow
               settingsKey="badgesOnTopOfAvatars"
               initialValue={settings.badgesOnTopOfAvatars}
-              onChange={(val) => onSettingsChange('badgesOnTopOfAvatars', val)}>
+              onChange={makeOnSettingsChange('badgesOnTopOfAvatars')}>
               Show badges on top of avatars:
             </BooleanSettingsRow>
             <BooleanSettingsRow
               settingsKey="collapseReadDms"
               initialValue={settings.collapseReadDms}
-              onChange={(val) => onSettingsChange('collapseReadDms', val)}>
+              onChange={makeOnSettingsChange('collapseReadDms')}>
               Collapse read DMs:
             </BooleanSettingsRow>
             <BooleanSettingsRow
               settingsKey="disableGifsInProfilePictures"
               initialValue={settings.disableGifsInProfilePictures}
-              onChange={(val) => onSettingsChange('disableGifsInProfilePictures', val)}>
+              onChange={makeOnSettingsChange('disableGifsInProfilePictures')}>
               Freeze GIFs in profile pictures:
             </BooleanSettingsRow>
             <BooleanSettingsRow
               settingsKey="replaceHeartsByStars"
               initialValue={settings.replaceHeartsByStars}
-              onChange={(val) => onSettingsChange('replaceHeartsByStars', val)}>
+              onChange={makeOnSettingsChange('replaceHeartsByStars')}>
               Replace hearts by stars:
             </BooleanSettingsRow>
             <ScrollbarsMode
               initialValue={settings.scrollbarsMode}
-              onChange={(val) => onSettingsChange('scrollbarsMode', val)}></ScrollbarsMode>
+              onChange={makeOnSettingsChange('scrollbarsMode')}></ScrollbarsMode>
           </Fragment>
         );
       },
@@ -92,7 +92,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
         <Fragment>
           <CustomAccentColor
             initialValue={settings.customAccentColor}
-            onChange={(val) => onSettingsChange('customAccentColor', val)}></CustomAccentColor>
+            onChange={makeOnSettingsChange('customAccentColor')}></CustomAccentColor>
         </Fragment>
       ),
     },
