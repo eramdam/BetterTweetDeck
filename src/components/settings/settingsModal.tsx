@@ -26,24 +26,34 @@ interface MenuItem {
 export const SettingsModal = (props: SettingsModalProps) => {
   const {onSettingsUpdate, onOpenTDSettings} = props;
   const [settings, setSettings] = useState<BTDSettings>(props.settings);
-  const [selectedIndex, setSelectedIndex] = useState(1);
+  const [isDirty, setIsDirty] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const makeOnSettingsChange = useCallback(<T extends keyof BTDSettings>(key: T) => {
-    return (val: BTDSettings[T]) => {
-      setSettings((currentSettings) => {
-        return {
-          ...currentSettings,
-          [key]: val,
-        };
-      });
-    };
-  }, []);
+  const makeOnSettingsChange = useCallback(
+    <T extends keyof BTDSettings>(key: T) => {
+      return (val: BTDSettings[T]) => {
+        setSettings((currentSettings) => {
+          return {
+            ...currentSettings,
+            [key]: val,
+          };
+        });
+        setIsDirty(true);
+      };
+    },
+    [setSettings, setIsDirty]
+  );
 
   const updateSettings = useCallback(() => {
     onSettingsUpdate(settings);
+    setIsDirty(false);
   }, [onSettingsUpdate, settings]);
 
-  const canSave = useMemo(() => !isEqual(props.settings, settings), [props.settings, settings]);
+  const canSave = useMemo(() => !isEqual(props.settings, settings) && isDirty, [
+    isDirty,
+    props.settings,
+    settings,
+  ]);
 
   const menu: readonly MenuItem[] = [
     {
