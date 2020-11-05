@@ -3,14 +3,17 @@ import './settingsModal.css';
 import {isEqual} from 'lodash';
 import React, {Fragment, useCallback, useMemo, useState} from 'react';
 
+import {BTDScrollbarsMode} from '../../features/changeScrollbars';
+import {BTDTweetActionsPosition} from '../../features/changeTweetActions';
 import {Handler, HandlerOf, Renderer} from '../../helpers/typeHelpers';
 import {BTDSettings} from '../../types/betterTweetDeck/btdSettingsTypes';
 import {AvatarsShape} from './components/avatarsShape';
 import {BooleanSettingsRow} from './components/booleanSettingRow';
+import {CheckboxSelectSettingsRow} from './components/checkboxSelectSettingsRow';
 import {ColumnSettingsPreview} from './components/columnSettingsPreview';
 import {CustomAccentColor} from './components/customAccentColor';
 import {CustomDarkTheme} from './components/customDarkTheme';
-import {ScrollbarsMode} from './components/scrollbarsMode';
+import {RadioSelectSettingsRow} from './components/radioSelectSettingsRow';
 
 interface SettingsModalProps {
   onOpenTDSettings: Handler;
@@ -28,7 +31,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
   const {onSettingsUpdate, onOpenTDSettings} = props;
   const [settings, setSettings] = useState<BTDSettings>(props.settings);
   const [isDirty, setIsDirty] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(2);
+  const [selectedIndex, setSelectedIndex] = useState(1);
 
   const makeOnSettingsChange = useCallback(
     <T extends keyof BTDSettings>(key: T) => {
@@ -90,9 +93,6 @@ export const SettingsModal = (props: SettingsModalProps) => {
               onChange={makeOnSettingsChange('replaceHeartsByStars')}>
               Replace hearts by stars
             </BooleanSettingsRow>
-            <ScrollbarsMode
-              initialValue={settings.scrollbarsMode}
-              onChange={makeOnSettingsChange('scrollbarsMode')}></ScrollbarsMode>
           </Fragment>
         );
       },
@@ -108,12 +108,23 @@ export const SettingsModal = (props: SettingsModalProps) => {
           <CustomDarkTheme
             initialValue={settings.customDarkTheme}
             onChange={makeOnSettingsChange('customDarkTheme')}></CustomDarkTheme>
+          <RadioSelectSettingsRow
+            settingsKey="scrollbarsMode"
+            initialValue={settings.scrollbarsMode}
+            onChange={makeOnSettingsChange('scrollbarsMode')}
+            fields={[
+              {label: 'Default', value: BTDScrollbarsMode.DEFAULT},
+              {label: 'Thin', value: BTDScrollbarsMode.SLIM},
+              {label: 'Hidden', value: BTDScrollbarsMode.HIDDEN},
+            ]}>
+            Style of scrollbars
+          </RadioSelectSettingsRow>
         </Fragment>
       ),
     },
     {
       id: 'columns',
-      label: 'Columns',
+      label: 'Column tweaks',
       renderContent: () => {
         return (
           <Fragment>
@@ -136,6 +147,63 @@ export const SettingsModal = (props: SettingsModalProps) => {
               Show &quot;Collapse&quot; button in columns&apos; header
             </BooleanSettingsRow>
             <ColumnSettingsPreview settings={settings}></ColumnSettingsPreview>
+          </Fragment>
+        );
+      },
+    },
+    {
+      id: 'tweet-actions',
+      label: 'Tweet actions',
+      renderContent: () => {
+        return (
+          <Fragment>
+            <BooleanSettingsRow
+              settingsKey="showTweetActionsOnHover"
+              initialValue={settings.showTweetActionsOnHover}
+              onChange={makeOnSettingsChange('showTweetActionsOnHover')}>
+              Show tweet actions only on hover
+            </BooleanSettingsRow>
+            <RadioSelectSettingsRow
+              settingsKey="tweetActionsPosition"
+              initialValue={settings.tweetActionsPosition}
+              onChange={makeOnSettingsChange('tweetActionsPosition')}
+              fields={[
+                {label: 'Left', value: BTDTweetActionsPosition.LEFT},
+                {label: 'Right', value: BTDTweetActionsPosition.RIGHT},
+              ]}>
+              Position of actions
+            </RadioSelectSettingsRow>
+            <CheckboxSelectSettingsRow
+              onChange={(key, value) => {
+                makeOnSettingsChange('tweetActions')({
+                  ...settings.tweetActions,
+                  [key]: value,
+                });
+              }}
+              fields={[
+                {
+                  initialValue: settings.tweetActions.addBlockAction,
+                  key: 'addBlockAction',
+                  label: 'Block author',
+                },
+                {
+                  initialValue: settings.tweetActions.addMuteAction,
+                  key: 'addMuteAction',
+                  label: 'Mute author',
+                },
+                {
+                  initialValue: settings.tweetActions.addCopyMediaLinksAction,
+                  key: 'addCopyMediaLinksAction',
+                  label: 'Copy media links',
+                },
+                {
+                  initialValue: settings.tweetActions.addDownloadMediaLinksAction,
+                  key: 'addDownloadMediaLinksAction',
+                  label: 'Download media',
+                },
+              ]}>
+              Additional actions
+            </CheckboxSelectSettingsRow>
           </Fragment>
         );
       },

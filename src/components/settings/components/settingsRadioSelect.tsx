@@ -4,7 +4,7 @@ import React from 'react';
 import {HandlerOf} from '../../../helpers/typeHelpers';
 import {BTDSettings} from '../../../types/betterTweetDeck/btdSettingsTypes';
 
-interface SettingsSelectProps<T extends keyof BTDSettings> {
+export interface SettingsRadioSelectProps<T extends keyof BTDSettings> {
   fields: ReadonlyArray<{
     label: string;
     value: BTDSettings[T];
@@ -14,10 +14,29 @@ interface SettingsSelectProps<T extends keyof BTDSettings> {
   onChange: HandlerOf<BTDSettings[T]>;
 }
 
-export function SettingsSelect<T extends keyof BTDSettings>(props: SettingsSelectProps<T>) {
+const mainInputStyles = css`
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border: 1px solid var(--twitter-blue);
+  background: transparent;
+  outline: 0;
+  border-radius: 100%;
+
+  &:checked {
+    box-shadow: inset 0 0 0 3px var(--settings-modal-background),
+      inset 0 0 0 8px var(--twitter-blue);
+  }
+`;
+
+export function SettingsRadioSelect<T extends keyof BTDSettings>(
+  props: SettingsRadioSelectProps<T>
+) {
   return (
     <div
       className={css`
+        padding-top: 4px;
+
         input + label {
           padding-left: 10px;
         }
@@ -34,20 +53,8 @@ export function SettingsSelect<T extends keyof BTDSettings>(props: SettingsSelec
               type="radio"
               id={'input-' + String(field.value)}
               defaultChecked={field.value === props.initialValue}
-              className={css`
-                appearance: none;
-                border-radius: 100%;
-                width: 15px;
-                height: 15px;
-                border: 1px solid var(--twitter-blue);
-                background: transparent;
-                outline: 0;
-
-                &:checked {
-                  box-shadow: inset 0 0 0 3px var(--settings-modal-background),
-                    inset 0 0 0 8px var(--twitter-blue);
-                }
-              `}
+              className={mainInputStyles}
+              onChange={() => props.onChange(field.value)}
             />
             <label htmlFor={'input-' + String(field.value)}>{field.label}</label>
           </span>
