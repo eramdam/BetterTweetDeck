@@ -32,10 +32,24 @@ export function SettingsSelect<T extends keyof BTDSettings>(props: SettingsSelec
             <input
               name={props.settingsKey}
               type="radio"
-              id={String(field.value)}
+              id={'input-' + String(field.value)}
               defaultChecked={field.value === props.initialValue}
+              className={css`
+                appearance: none;
+                border-radius: 100%;
+                width: 15px;
+                height: 15px;
+                border: 1px solid var(--twitter-blue);
+                background: transparent;
+                outline: 0;
+
+                &:checked {
+                  box-shadow: inset 0 0 0 3px var(--settings-modal-background),
+                    inset 0 0 0 8px var(--twitter-blue);
+                }
+              `}
             />
-            <label htmlFor={String(field.value)}>{field.label}</label>
+            <label htmlFor={'input-' + String(field.value)}>{field.label}</label>
           </span>
         );
       })}
