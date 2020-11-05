@@ -5,9 +5,13 @@ import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
 import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 import {TweetDeckObject} from '../types/tweetdeckTypes';
 
-export const maybeAddColumnsButtons = makeBTDModule(({TD, jq}) => {
+export const maybeAddColumnsButtons = makeBTDModule(({TD, jq, settings}) => {
   if (!window.localStorage.getItem('btd_collapsed_columns')) {
     window.localStorage.setItem('btd_collapsed_columns', JSON.stringify({}));
+  }
+
+  if (!settings.showClearButtonInColumnsHeader && !settings.showCollapseButtonInColumnsHeader) {
+    return;
   }
 
   modifyMustacheTemplate(TD, 'column/column_header.mustache', (string) => {
@@ -15,10 +19,14 @@ export const maybeAddColumnsButtons = makeBTDModule(({TD, jq}) => {
     return string.replace(
       marker,
       marker +
-        `<a class="js-action-header-button column-header-link btd-clear-column-link" href="#" data-action="clear"><i class="icon icon-clear-timeline"></i></a>` +
-        `<a class="js-action-header-button column-header-link btd-toggle-collapse-column-link" href="#" data-action="toggle-collapse-column">
+        ((settings.showClearButtonInColumnsHeader &&
+          `<a class="js-action-header-button column-header-link btd-clear-column-link" href="#" data-action="clear"><i class="icon icon-clear-timeline"></i></a>`) ||
+          '') +
+        ((settings.showCollapseButtonInColumnsHeader &&
+          `<a class="js-action-header-button column-header-link btd-toggle-collapse-column-link" href="#" data-action="toggle-collapse-column">
         <i class="icon icon-minus"></i>
-      </a>`
+      </a>`) ||
+          '')
     );
   });
 
