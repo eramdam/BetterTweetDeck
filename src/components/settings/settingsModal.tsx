@@ -7,6 +7,7 @@ import {Handler, HandlerOf, Renderer} from '../../helpers/typeHelpers';
 import {BTDSettings} from '../../types/betterTweetDeck/btdSettingsTypes';
 import {AvatarsShape} from './components/avatarsShape';
 import {BooleanSettingsRow} from './components/booleanSettingRow';
+import {ColumnSettingsPreview} from './components/columnSettingsPreview';
 import {CustomAccentColor} from './components/customAccentColor';
 import {CustomDarkTheme} from './components/customDarkTheme';
 import {ScrollbarsMode} from './components/scrollbarsMode';
@@ -27,7 +28,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
   const {onSettingsUpdate, onOpenTDSettings} = props;
   const [settings, setSettings] = useState<BTDSettings>(props.settings);
   const [isDirty, setIsDirty] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(2);
 
   const makeOnSettingsChange = useCallback(
     <T extends keyof BTDSettings>(key: T) => {
@@ -109,6 +110,35 @@ export const SettingsModal = (props: SettingsModalProps) => {
             onChange={makeOnSettingsChange('customDarkTheme')}></CustomDarkTheme>
         </Fragment>
       ),
+    },
+    {
+      id: 'columns',
+      label: 'Columns',
+      renderContent: () => {
+        return (
+          <Fragment>
+            <BooleanSettingsRow
+              settingsKey="hideColumnIcons"
+              initialValue={settings.hideColumnIcons}
+              onChange={makeOnSettingsChange('hideColumnIcons')}>
+              Hide icons on top of columns
+            </BooleanSettingsRow>
+            <BooleanSettingsRow
+              settingsKey="showClearButtonInColumnsHeader"
+              initialValue={settings.showClearButtonInColumnsHeader}
+              onChange={makeOnSettingsChange('showClearButtonInColumnsHeader')}>
+              Show &quot;Clear&quot; button in columns&apos; header
+            </BooleanSettingsRow>
+            <BooleanSettingsRow
+              settingsKey="showCollapseButtonInColumnsHeader"
+              initialValue={settings.showCollapseButtonInColumnsHeader}
+              onChange={makeOnSettingsChange('showCollapseButtonInColumnsHeader')}>
+              Show &quot;Collapse&quot; button in columns&apos; header
+            </BooleanSettingsRow>
+            <ColumnSettingsPreview settings={settings}></ColumnSettingsPreview>
+          </Fragment>
+        );
+      },
     },
   ];
 

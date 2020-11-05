@@ -30,7 +30,7 @@ export const RBetterTweetDeckSettings = t.type({
   removeRedirectionOnLinks: withDefault(t.boolean, false),
 
   /** Shows a clear (💧) button in the header of columns */
-  showClearButtonColumnsInHeader: withDefault(t.boolean, false),
+  showClearButtonInColumnsHeader: withDefault(t.boolean, false),
 
   /** Shows a collapse (➖/➕) button in the header of columns */
   showCollapseButtonInColumnsHeader: withDefault(t.boolean, false),
