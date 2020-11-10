@@ -1,6 +1,5 @@
 import './settingsModal.css';
 
-import {css} from 'emotion';
 import {isEqual} from 'lodash';
 import React, {Fragment, useCallback, useMemo, useState} from 'react';
 
@@ -141,7 +140,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
           <CustomAccentColor
             initialValue={settings.customAccentColor}
             onChange={makeOnSettingsChange('customAccentColor')}></CustomAccentColor>
-          <div className={css``}>
+          <div>
             <RadioSelectSettingsRow
               settingsKey="scrollbarsMode"
               initialValue={settings.scrollbarsMode}
