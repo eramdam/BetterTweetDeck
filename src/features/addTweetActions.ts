@@ -105,7 +105,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
         `<li class="tweet-action-item btd-tweet-action-item pull-left margin-r--10 margin-l--1">
     <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
       data-btd-action="hotlink-media" rel="hotlink" title="Copy links to media"> 
-      <i class="js-icon-attachment icon icon-attachment txt-center txt-size--16 margin-t---1"></i>
+      <i class="js-icon-attachment icon icon-attachment txt-center margin-t---1"></i>
       <span class="is-vishidden"> {{_i}}Copy links to media{{/i}} </span>
     </a>
   </li>`) ||
@@ -116,7 +116,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
         `<li class="tweet-action-item btd-tweet-action-item pull-left margin-r--10 margin-l--1">
       <a class="js-show-tip tweet-action btd-tweet-action position-rel" href="#" 
         data-btd-action="download-media" rel="download" title="Download media"> 
-        <i class="js-icon icon icon-download txt-center txt-size--16 margin-t---1"></i>
+        <i class="js-icon icon icon-download txt-center margin-t---1"></i>
         <span class="is-vishidden"> {{_i}}Download media{{/i}} </span>
       </a>
     </li>`) ||
@@ -127,7 +127,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
         `<li class="tweet-action-item btd-tweet-action-item pull-left margin-r--10 margin-l--1">
     <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
       data-btd-action="mute-account" rel="action" title="Mute {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}"> 
-      <i class="js-icon-attachment icon icon-muted txt-center txt-size--16 margin-t---1"></i>
+      <i class="js-icon-attachment icon icon-muted txt-center margin-t---1"></i>
       <span class="is-vishidden"> {{_i}}Mute {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}{{/i}} </span>
     </a>
   </li>`) ||
@@ -138,7 +138,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
         `<li class="tweet-action-item btd-tweet-action-item pull-left margin-r--10 margin-l--1">
   <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
     data-btd-action="block-account" rel="action" title="Block {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}"> 
-    <i class="js-icon-attachment icon icon-blocked txt-center txt-size--16 margin-t---1"></i>
+    <i class="js-icon-attachment icon icon-blocked txt-center margin-t---1"></i>
     <span class="is-vishidden"> {{_i}}Block {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}{{/i}} </span>
   </a>
 </li>`) ||
