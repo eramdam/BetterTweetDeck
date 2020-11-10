@@ -10,3 +10,7 @@
   display: flex;
   padding-bottom: 8px;
 }
+
+.btd-loaded[btd-hide-buttons-count='true'] :matches(.like-count, .retweet-count, .reply-count) {
+  display: none;
+}

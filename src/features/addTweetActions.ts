@@ -26,6 +26,17 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
     addDownloadMediaLinksAction,
   } = actionItems;
 
+  const numberOfEnabledActions = [
+    addCopyMediaLinksAction,
+    addMuteAction,
+    addBlockAction,
+    addDownloadMediaLinksAction,
+  ].filter((i) => i).length;
+
+  if (numberOfEnabledActions > 2) {
+    document.body.setAttribute('btd-hide-buttons-count', 'true');
+  }
+
   // Modify detail buttons.
   modifyMustacheTemplate(TD, 'status/tweet_detail_actions.mustache', (string) => {
     const marker = '{{_i}}Like{{/i}} </span> </a> {{/account}} </li>';
