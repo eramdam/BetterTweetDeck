@@ -2,24 +2,29 @@ import {css} from 'emotion';
 import React from 'react';
 
 import defaultDarkTheme from '../../../assets/dark-themes/default-dark.png';
+import lightTheme from '../../../assets/dark-themes/light.png';
 import lightsOut from '../../../assets/dark-themes/lights-out.png';
 import oldDark from '../../../assets/dark-themes/old-dark.png';
 import {BetterTweetDeckDarkThemes} from '../../../features/themeTweaks';
+import {HandlerOf} from '../../../helpers/typeHelpers';
 import {settingsRow, settingsRowTitle} from '../settingsStyles';
-import {BaseSettingsProps} from '../settingsTypes';
 
-interface CustomDarkThemeProps extends BaseSettingsProps<'customDarkTheme'> {}
+interface CustomDarkThemeProps {
+  initialValue: BetterTweetDeckDarkThemes | 'light';
+  onChange: HandlerOf<BetterTweetDeckDarkThemes | 'light'>;
+  hasLightTheme: boolean;
+}
 
 const darkThemeRow = css`
   ${settingsRow};
   align-items: flex-start;
-  margin-top: 20px;
+  padding-top: 30px;
 `;
 
 const themeBlock = css`
   display: grid;
-  grid-auto-flow: column;
-  grid-column-gap: 14px;
+  grid-template-columns: repeat(2, auto);
+  grid-gap: 14px;
 `;
 
 const optionBlock = css`
@@ -55,7 +60,7 @@ const optionImageBlock = css`
 const themes = [
   {
     value: BetterTweetDeckDarkThemes.DEFAULT,
-    label: 'Default',
+    label: 'Dark',
     image: defaultDarkTheme,
   },
   {
@@ -70,17 +75,27 @@ const themes = [
   },
 ];
 
-export function CustomDarkTheme(props: CustomDarkThemeProps) {
+export function ThemeSelector(props: CustomDarkThemeProps) {
   return (
     <div className={darkThemeRow}>
       <span
         className={css`
           ${settingsRowTitle};
-          padding-top: 50px;
         `}>
-        Dark theme variant
+        Theme
       </span>
       <div className={themeBlock}>
+        <label className={optionBlock} htmlFor={'light'}>
+          <input
+            type="radio"
+            name="customDarkTheme"
+            id={'light'}
+            onChange={() => props.onChange('light')}
+            defaultChecked={props.initialValue === 'light'}
+          />
+          <div className={optionImageBlock} style={{backgroundImage: `url(${lightTheme})`}}></div>
+          <span className={optionLabel}>Light</span>
+        </label>
         {themes.map((theme) => {
           return (
             <label key={theme.value} className={optionBlock} htmlFor={theme.value}>

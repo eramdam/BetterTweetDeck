@@ -80,6 +80,8 @@ const labelStyles = css`
 const accentColorRow = css`
   ${settingsRow};
   align-items: flex-start;
+  padding-top: 30px;
+  padding-bottom: 20px;
 `;
 
 export function CustomAccentColor(props: CustomAccentColorProps) {

@@ -88,14 +88,15 @@ const SettingsWrapperApp: FC<SettingsWrapperAppProps> = (props) => {
       className={css`
         position: fixed;
         z-index: 999;
-        height: 75vh;
+        height: 90vh;
         width: 75vw;
+        max-width: 980px;
         border: 0;
         border-radius: 10px;
 
         @media (min-height: 600px) {
           min-width: 980px;
-          max-height: 640px;
+          max-height: 1100px;
         }
 
         @media (max-height: 600px) {

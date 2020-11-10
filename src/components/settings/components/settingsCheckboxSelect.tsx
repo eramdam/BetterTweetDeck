@@ -3,6 +3,7 @@ import React from 'react';
 import {Object} from 'ts-toolbelt';
 
 import {BTDSettings} from '../../../types/betterTweetDeck/btdSettingsTypes';
+import {checkboxInputStyles} from '../settingsStyles';
 
 // There's probably a wau to do this without having to do a manual union ¯\(ツ)/¯
 type SettingKey =
@@ -18,20 +19,6 @@ export interface SettingsCheckboxSelectProps {
     initialValue: boolean;
   }>;
 }
-
-const mainInputStyles = css`
-  appearance: none;
-  width: 15px;
-  height: 15px;
-  border: 1px solid var(--twitter-blue);
-  background: transparent;
-  outline: 0;
-
-  &:checked {
-    box-shadow: inset 0 0 0 3px var(--settings-modal-background),
-      inset 0 0 0 8px var(--twitter-blue);
-  }
-`;
 
 export function SettingsCheckboxSelect(props: SettingsCheckboxSelectProps) {
   return (
@@ -55,7 +42,7 @@ export function SettingsCheckboxSelect(props: SettingsCheckboxSelectProps) {
               type="checkbox"
               id={'input-' + String(field.key)}
               defaultChecked={field.initialValue}
-              className={mainInputStyles}
+              className={checkboxInputStyles}
               onChange={() => props.onChange(field.key, !field.initialValue)}
             />
             <label htmlFor={'input-' + String(field.key)}>{field.label}</label>

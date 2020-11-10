@@ -10,6 +10,7 @@ import {settingsRow, settingsRowTitle} from '../settingsStyles';
 
 interface ColumnSettingsPreviewProps {
   settings: BTDSettings;
+  alignToTheLeft?: boolean;
 }
 
 const mainPreview = css`
@@ -34,14 +35,17 @@ const hiddenStyles = css`
   display: none;
 `;
 
-export function ColumnSettingsPreview({settings}: ColumnSettingsPreviewProps) {
+export function ColumnSettingsPreview({settings, alignToTheLeft}: ColumnSettingsPreviewProps) {
   const {
     hideColumnIcons,
     showClearButtonInColumnsHeader,
     showCollapseButtonInColumnsHeader,
   } = settings;
   return (
-    <div className={settingsRow}>
+    <div
+      className={css`
+        ${settingsRow};
+      `}>
       <span className={settingsRowTitle}>Preview</span>
       <div
         className={css`

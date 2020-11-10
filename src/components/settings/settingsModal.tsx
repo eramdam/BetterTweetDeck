@@ -1,5 +1,6 @@
 import './settingsModal.css';
 
+import {css} from 'emotion';
 import {isEqual} from 'lodash';
 import React, {Fragment, useCallback, useMemo, useState} from 'react';
 
@@ -12,8 +13,8 @@ import {BooleanSettingsRow} from './components/booleanSettingRow';
 import {CheckboxSelectSettingsRow} from './components/checkboxSelectSettingsRow';
 import {ColumnSettingsPreview} from './components/columnSettingsPreview';
 import {CustomAccentColor} from './components/customAccentColor';
-import {CustomDarkTheme} from './components/customDarkTheme';
 import {RadioSelectSettingsRow} from './components/radioSelectSettingsRow';
+import {ThemeSelector} from './components/themeSelector';
 
 interface SettingsModalProps {
   onOpenTDSettings: Handler;
@@ -61,37 +62,59 @@ export const SettingsModal = (props: SettingsModalProps) => {
 
   const menu: readonly MenuItem[] = [
     {
-      id: 'interface',
-      label: 'Interface',
+      id: 'general',
+      label: 'General',
       renderContent: () => {
         return (
           <Fragment>
-            <AvatarsShape
-              initialValue={settings.avatarsShape}
-              onChange={makeOnSettingsChange('avatarsShape')}></AvatarsShape>
+            <BooleanSettingsRow
+              settingsKey="streamTweets"
+              initialValue={true}
+              alignToTheLeft
+              onChange={console.log}>
+              Stream Tweets in realtime
+            </BooleanSettingsRow>
+            <BooleanSettingsRow
+              settingsKey="showNotifications"
+              initialValue={true}
+              alignToTheLeft
+              onChange={console.log}>
+              Show notifications on startup
+            </BooleanSettingsRow>
+            <BooleanSettingsRow
+              settingsKey="displaySensitiveMedia"
+              initialValue={true}
+              alignToTheLeft
+              onChange={console.log}>
+              Display media that may contain sensitive content
+            </BooleanSettingsRow>
+            <BooleanSettingsRow
+              settingsKey="autoplayGifs"
+              initialValue={true}
+              alignToTheLeft
+              onChange={console.log}>
+              Autoplay GIFs
+            </BooleanSettingsRow>
             <BooleanSettingsRow
               settingsKey="badgesOnTopOfAvatars"
               initialValue={settings.badgesOnTopOfAvatars}
+              alignToTheLeft
               onChange={makeOnSettingsChange('badgesOnTopOfAvatars')}>
               Show badges on top of avatars
             </BooleanSettingsRow>
             <BooleanSettingsRow
               settingsKey="collapseReadDms"
               initialValue={settings.collapseReadDms}
+              alignToTheLeft
               onChange={makeOnSettingsChange('collapseReadDms')}>
               Collapse read DMs
             </BooleanSettingsRow>
             <BooleanSettingsRow
               settingsKey="disableGifsInProfilePictures"
               initialValue={settings.disableGifsInProfilePictures}
+              alignToTheLeft
               onChange={makeOnSettingsChange('disableGifsInProfilePictures')}>
               Freeze GIFs in profile pictures
-            </BooleanSettingsRow>
-            <BooleanSettingsRow
-              settingsKey="replaceHeartsByStars"
-              initialValue={settings.replaceHeartsByStars}
-              onChange={makeOnSettingsChange('replaceHeartsByStars')}>
-              Replace hearts by stars
             </BooleanSettingsRow>
           </Fragment>
         );
@@ -99,32 +122,44 @@ export const SettingsModal = (props: SettingsModalProps) => {
     },
     {
       id: 'theme-tweaks',
-      label: 'Theme tweaks',
+      label: 'Interface',
       renderContent: () => (
         <Fragment>
+          <AvatarsShape
+            initialValue={settings.avatarsShape}
+            onChange={makeOnSettingsChange('avatarsShape')}></AvatarsShape>
+          <ThemeSelector
+            initialValue={settings.customDarkTheme}
+            hasLightTheme={false}
+            onChange={(value) => {
+              if (value !== 'light') {
+                makeOnSettingsChange('customDarkTheme')(value);
+              } else {
+                console.log('need to apply light theme');
+              }
+            }}></ThemeSelector>
           <CustomAccentColor
             initialValue={settings.customAccentColor}
             onChange={makeOnSettingsChange('customAccentColor')}></CustomAccentColor>
-          <CustomDarkTheme
-            initialValue={settings.customDarkTheme}
-            onChange={makeOnSettingsChange('customDarkTheme')}></CustomDarkTheme>
-          <RadioSelectSettingsRow
-            settingsKey="scrollbarsMode"
-            initialValue={settings.scrollbarsMode}
-            onChange={makeOnSettingsChange('scrollbarsMode')}
-            fields={[
-              {label: 'Default', value: BTDScrollbarsMode.DEFAULT},
-              {label: 'Thin', value: BTDScrollbarsMode.SLIM},
-              {label: 'Hidden', value: BTDScrollbarsMode.HIDDEN},
-            ]}>
-            Style of scrollbars
-          </RadioSelectSettingsRow>
+          <div className={css``}>
+            <RadioSelectSettingsRow
+              settingsKey="scrollbarsMode"
+              initialValue={settings.scrollbarsMode}
+              onChange={makeOnSettingsChange('scrollbarsMode')}
+              fields={[
+                {label: 'Default', value: BTDScrollbarsMode.DEFAULT},
+                {label: 'Thin', value: BTDScrollbarsMode.SLIM},
+                {label: 'Hidden', value: BTDScrollbarsMode.HIDDEN},
+              ]}>
+              Style of scrollbars
+            </RadioSelectSettingsRow>
+          </div>
         </Fragment>
       ),
     },
     {
       id: 'columns',
-      label: 'Column tweaks',
+      label: 'Columns',
       renderContent: () => {
         return (
           <Fragment>
@@ -157,12 +192,6 @@ export const SettingsModal = (props: SettingsModalProps) => {
       renderContent: () => {
         return (
           <Fragment>
-            <BooleanSettingsRow
-              settingsKey="showTweetActionsOnHover"
-              initialValue={settings.showTweetActionsOnHover}
-              onChange={makeOnSettingsChange('showTweetActionsOnHover')}>
-              Show tweet actions only on hover
-            </BooleanSettingsRow>
             <RadioSelectSettingsRow
               settingsKey="tweetActionsPosition"
               initialValue={settings.tweetActionsPosition}
@@ -204,6 +233,18 @@ export const SettingsModal = (props: SettingsModalProps) => {
               ]}>
               Additional actions
             </CheckboxSelectSettingsRow>
+            <BooleanSettingsRow
+              settingsKey="showTweetActionsOnHover"
+              initialValue={settings.showTweetActionsOnHover}
+              onChange={makeOnSettingsChange('showTweetActionsOnHover')}>
+              Show tweet actions only on hover
+            </BooleanSettingsRow>
+            <BooleanSettingsRow
+              settingsKey="replaceHeartsByStars"
+              initialValue={settings.replaceHeartsByStars}
+              onChange={makeOnSettingsChange('replaceHeartsByStars')}>
+              Replace hearts by stars
+            </BooleanSettingsRow>
           </Fragment>
         );
       },
@@ -212,7 +253,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
 
   return (
     <div className="btd-settings-modal">
-      <header className="btd-settings-header">Better TweetDeck Settings</header>
+      <header className="btd-settings-header">Settings</header>
       <aside className="btd-settings-sidebar">
         <ul>
           {menu.map((item, index) => {
