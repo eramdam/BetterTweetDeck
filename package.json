@@ -37,6 +37,8 @@
   ],
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
   "dependencies": {
+    "@emotion/core": "^10.1.1",
+    "@emotion/styled": "^10.0.27",
     "@types/emoji-mart": "^3.0.2",
     "@types/feather-icons": "^4.7.0",
     "@types/file-saver": "^2.0.1",

@@ -10,9 +10,9 @@ import {BTDSettings} from '../../types/betterTweetDeck/btdSettingsTypes';
 import {AvatarsShape} from './components/avatarsShape';
 import {BooleanSettingsRow} from './components/booleanSettingRow';
 import {CheckboxSelectSettingsRow} from './components/checkboxSelectSettingsRow';
-import {ColumnSettingsPreview} from './components/columnSettingsPreview';
 import {CustomAccentColor} from './components/customAccentColor';
 import {RadioSelectSettingsRow} from './components/radioSelectSettingsRow';
+import {SettingsSeperator} from './components/settingsSeperator';
 import {ThemeSelector} from './components/themeSelector';
 
 interface SettingsModalProps {
@@ -124,9 +124,9 @@ export const SettingsModal = (props: SettingsModalProps) => {
       label: 'Interface',
       renderContent: () => (
         <Fragment>
-          <AvatarsShape
-            initialValue={settings.avatarsShape}
-            onChange={makeOnSettingsChange('avatarsShape')}></AvatarsShape>
+          <CustomAccentColor
+            initialValue={settings.customAccentColor}
+            onChange={makeOnSettingsChange('customAccentColor')}></CustomAccentColor>
           <ThemeSelector
             initialValue={settings.customDarkTheme}
             hasLightTheme={false}
@@ -137,22 +137,20 @@ export const SettingsModal = (props: SettingsModalProps) => {
                 console.log('need to apply light theme');
               }
             }}></ThemeSelector>
-          <CustomAccentColor
-            initialValue={settings.customAccentColor}
-            onChange={makeOnSettingsChange('customAccentColor')}></CustomAccentColor>
-          <div>
-            <RadioSelectSettingsRow
-              settingsKey="scrollbarsMode"
-              initialValue={settings.scrollbarsMode}
-              onChange={makeOnSettingsChange('scrollbarsMode')}
-              fields={[
-                {label: 'Default', value: BTDScrollbarsMode.DEFAULT},
-                {label: 'Thin', value: BTDScrollbarsMode.SLIM},
-                {label: 'Hidden', value: BTDScrollbarsMode.HIDDEN},
-              ]}>
-              Style of scrollbars
-            </RadioSelectSettingsRow>
-          </div>
+          <AvatarsShape
+            initialValue={settings.avatarsShape}
+            onChange={makeOnSettingsChange('avatarsShape')}></AvatarsShape>
+          <RadioSelectSettingsRow
+            settingsKey="scrollbarsMode"
+            initialValue={settings.scrollbarsMode}
+            onChange={makeOnSettingsChange('scrollbarsMode')}
+            fields={[
+              {label: 'Default', value: BTDScrollbarsMode.DEFAULT},
+              {label: 'Thin', value: BTDScrollbarsMode.SLIM},
+              {label: 'Hidden', value: BTDScrollbarsMode.HIDDEN},
+            ]}>
+            Style of scrollbars
+          </RadioSelectSettingsRow>
         </Fragment>
       ),
     },
@@ -163,24 +161,27 @@ export const SettingsModal = (props: SettingsModalProps) => {
         return (
           <Fragment>
             <BooleanSettingsRow
+              alignToTheLeft
               settingsKey="hideColumnIcons"
               initialValue={settings.hideColumnIcons}
               onChange={makeOnSettingsChange('hideColumnIcons')}>
               Hide icons on top of columns
             </BooleanSettingsRow>
             <BooleanSettingsRow
+              alignToTheLeft
               settingsKey="showClearButtonInColumnsHeader"
               initialValue={settings.showClearButtonInColumnsHeader}
               onChange={makeOnSettingsChange('showClearButtonInColumnsHeader')}>
               Show &quot;Clear&quot; button in columns&apos; header
             </BooleanSettingsRow>
             <BooleanSettingsRow
+              alignToTheLeft
               settingsKey="showCollapseButtonInColumnsHeader"
               initialValue={settings.showCollapseButtonInColumnsHeader}
               onChange={makeOnSettingsChange('showCollapseButtonInColumnsHeader')}>
               Show &quot;Collapse&quot; button in columns&apos; header
             </BooleanSettingsRow>
-            <ColumnSettingsPreview settings={settings}></ColumnSettingsPreview>
+            {/* <ColumnSettingsPreview settings={settings}></ColumnSettingsPreview> */}
           </Fragment>
         );
       },
@@ -232,6 +233,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
               ]}>
               Additional actions
             </CheckboxSelectSettingsRow>
+            <SettingsSeperator></SettingsSeperator>
             <BooleanSettingsRow
               settingsKey="showTweetActionsOnHover"
               initialValue={settings.showTweetActionsOnHover}

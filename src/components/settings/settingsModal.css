@@ -80,7 +80,10 @@
 .btd-settings-content {
   grid-area: content;
   overflow: auto;
-  padding-bottom: 40px;
+}
+
+.btd-settings-content > div:last-child {
+  margin-bottom: 40px;
 }
 
 .btd-settings-footer {

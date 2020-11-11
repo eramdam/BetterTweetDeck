@@ -11,11 +11,12 @@ const avatarChoiceStyle = css`
   grid-template-areas: 'shape . text';
   padding: 12px 14px;
   background: rgba(0, 0, 0, 0.6);
-  border-radius: 4px;
+  border-radius: 6px;
   color: white;
+  border: 2px solid rgba(0, 0, 0, 0.6);
 
   input:checked + & {
-    box-shadow: 0 0 0 1px var(--twitter-blue), 0 0 6px var(--twitter-blue);
+    border-color: var(--twitter-blue);
   }
 `;
 

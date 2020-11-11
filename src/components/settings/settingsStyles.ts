@@ -13,11 +13,19 @@ export const settingsRowTitle = css`
 
 export const settingsRow = css`
   display: flex;
-  padding-top: 20px;
+  padding-top: 15px;
   display: grid;
   grid-template-columns: 220px auto;
   grid-column-gap: 10px;
   justify-content: flex-start;
+
+  & + & {
+    padding-top: 10px;
+  }
+
+  hr + & {
+    padding-top: 0;
+  }
 `;
 
 export const checkboxInputStyles = css`

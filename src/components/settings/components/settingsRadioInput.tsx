@@ -1,0 +1,41 @@
+import {css} from 'emotion';
+import React, {PropsWithChildren} from 'react';
+
+import {Handler} from '../../../helpers/typeHelpers';
+
+const mainInputStyles = css`
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border: 1px solid var(--twitter-blue);
+  background: transparent;
+  outline: 0;
+  border-radius: 100%;
+
+  &:checked {
+    box-shadow: inset 0 0 0 3px var(--settings-modal-background),
+      inset 0 0 0 8px var(--twitter-blue);
+  }
+`;
+
+interface SettingsRadioSelectFieldProps {
+  name: string;
+  id: string;
+  defaultChecked: boolean;
+  onChange: Handler;
+}
+export function SettingsRadioInput(props: PropsWithChildren<SettingsRadioSelectFieldProps>) {
+  return (
+    <span>
+      <input
+        name={props.name}
+        type="radio"
+        id={'input-' + props.id}
+        defaultChecked={props.defaultChecked}
+        className={mainInputStyles}
+        onChange={props.onChange}
+      />
+      <label htmlFor={'input-' + props.id}>{props.children}</label>
+    </span>
+  );
+}

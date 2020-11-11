@@ -3,8 +3,9 @@ import React from 'react';
 
 import {HandlerOf} from '../../../helpers/typeHelpers';
 import {BTDSettings} from '../../../types/betterTweetDeck/btdSettingsTypes';
+import {SettingsRadioInput} from './settingsRadioInput';
 
-export interface SettingsRadioSelectProps<T extends keyof BTDSettings> {
+export interface SettingsRadioSettingSelectProps<T extends keyof BTDSettings> {
   fields: ReadonlyArray<{
     label: string;
     value: BTDSettings[T];
@@ -14,50 +15,33 @@ export interface SettingsRadioSelectProps<T extends keyof BTDSettings> {
   onChange: HandlerOf<BTDSettings[T]>;
 }
 
-const mainInputStyles = css`
-  appearance: none;
-  width: 15px;
-  height: 15px;
-  border: 1px solid var(--twitter-blue);
-  background: transparent;
-  outline: 0;
-  border-radius: 100%;
+const wrapperStyles = css`
+  padding-top: 4px;
 
-  &:checked {
-    box-shadow: inset 0 0 0 3px var(--settings-modal-background),
-      inset 0 0 0 8px var(--twitter-blue);
+  input + label {
+    padding-left: 10px;
   }
+
+  display: grid;
+  grid-auto-flow: row;
+  grid-row-gap: 10px;
 `;
 
-export function SettingsRadioSelect<T extends keyof BTDSettings>(
-  props: SettingsRadioSelectProps<T>
+export function SettingsRadioSettingSelect<T extends keyof BTDSettings>(
+  props: SettingsRadioSettingSelectProps<T>
 ) {
   return (
-    <div
-      className={css`
-        padding-top: 4px;
-
-        input + label {
-          padding-left: 10px;
-        }
-
-        display: grid;
-        grid-auto-flow: row;
-        grid-row-gap: 10px;
-      `}>
+    <div className={wrapperStyles}>
       {props.fields.map((field) => {
         return (
-          <span key={String(field.value)}>
-            <input
-              name={props.settingsKey}
-              type="radio"
-              id={'input-' + String(field.value)}
-              defaultChecked={field.value === props.initialValue}
-              className={mainInputStyles}
-              onChange={() => props.onChange(field.value)}
-            />
-            <label htmlFor={'input-' + String(field.value)}>{field.label}</label>
-          </span>
+          <SettingsRadioInput
+            key={String(field.value)}
+            id={String(field.value)}
+            name={props.settingsKey}
+            defaultChecked={field.value === props.initialValue}
+            onChange={() => props.onChange(field.value)}>
+            {field.label}
+          </SettingsRadioInput>
         );
       })}
     </div>

@@ -19,6 +19,7 @@ const darkThemeRow = css`
   ${settingsRow};
   align-items: flex-start;
   padding-top: 30px;
+  padding-bottom: 30px;
 `;
 
 const themeBlock = css`
