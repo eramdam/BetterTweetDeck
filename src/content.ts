@@ -10,7 +10,6 @@ import {setupGifModals} from './features/gifModals';
 import {setupGifPicker} from './features/gifPicker';
 import {maybeReplaceHeartsByStars} from './features/replaceHeartsByStars';
 import {tweakTweetDeckTheme} from './features/themeTweaks';
-import {setupThumbnailInjector} from './features/thumbnails/thumbnailInjector';
 import {listenToInternalBTDMessage} from './helpers/communicationHelpers';
 import {ExtensionSettings, sendMessageToBackground} from './helpers/webExtensionHelpers';
 import {getValidatedSettings} from './services/backgroundSettings';
@@ -24,8 +23,6 @@ import {
 
 // Inject some scripts.
 injectInTD();
-// Setup thumbnail system.
-setupThumbnailInjector();
 getValidatedSettings().then((settings) => {
   setupGifModals(settings);
   maybeReplaceHeartsByStars({settings});
