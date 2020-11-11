@@ -1,6 +1,14 @@
 import {Template} from 'hogan.js';
 import {Twitter} from 'twit';
 
+import {
+  TweetDeckBitlyAccount,
+  TweetDeckColumnWidth,
+  TweetDeckFontSize,
+  TweetDeckLinkShortener,
+  TweetDeckTheme,
+} from './abstractTweetDeckSettings';
+
 declare class TweetDeckFilter {
   value: string;
   type: string;
@@ -1003,10 +1011,27 @@ interface Services {
 
 interface TweetDeckSettings {
   NEW_COMPOSER_OPT_IN: string;
-  COLUMN_WIDTH_VALUES: string[];
-  FONT_SIZE_VALUES: string[];
+  COLUMN_WIDTH_VALUES: TweetDeckColumnWidth[];
+  FONT_SIZE_VALUES: TweetDeckFontSize[];
   linkShorteners: LinkShortener[];
-  setTheme(theme: 'light' | 'dark'): void;
+  setTheme(theme: TweetDeckTheme): void;
+  getTheme(): TweetDeckTheme;
+  getLinkShortener(): TweetDeckLinkShortener;
+  setLinkShortener(service: TweetDeckLinkShortener): void;
+  setBitlyAccount(account: TweetDeckBitlyAccount): void;
+  getBitlyAccount(): TweetDeckBitlyAccount;
+  getColumnWidth(): TweetDeckColumnWidth;
+  setColumnWidth(width: TweetDeckColumnWidth): void;
+  getFontSize(): TweetDeckFontSize;
+  setFontSize(size: TweetDeckFontSize): void;
+  getAutoPlayGifs(): boolean;
+  setAutoPlayGifs(value: boolean): void;
+  getShowStartupNotifications(): boolean;
+  setShowStartupNotifications(value: boolean): void;
+  getDisplaySensitiveMedia(): boolean;
+  setDisplaySensitiveMedia(value: boolean): void;
+  getUseStream(): boolean;
+  setUseStream(value: boolean): void;
 }
 
 interface LinkShortener {

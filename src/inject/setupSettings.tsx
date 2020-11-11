@@ -6,13 +6,26 @@ import Frame, {FrameContextConsumer} from 'react-frame-component';
 import {SettingsModal} from '../components/settings/settingsModal';
 import {openFullscreenModalWithReactElement} from '../features/thumbnails/thumbnailHelpers';
 import {Handler} from '../helpers/typeHelpers';
+import {
+  AbstractTweetDeckSettings,
+  makeAbstractTweetDeckSettings,
+} from '../types/abstractTweetDeckSettings';
 import {BTDSettings} from '../types/betterTweetDeck/btdSettingsTypes';
+import {TweetDeckObject} from '../types/tweetdeckTypes';
 
-type OnSettingsUpdate = (newSettings: BTDSettings) => Promise<BTDSettings>;
+export type OnSettingsUpdateAsync = (
+  newBtdSettings: BTDSettings,
+  newTdSettings: AbstractTweetDeckSettings
+) => Promise<BTDSettings>;
+export type OnSettingsUpdate = (
+  newBtdSettings: BTDSettings,
+  newTdSettings: AbstractTweetDeckSettings
+) => void;
 export const setupSettings = (
   jq: JQueryStatic,
+  TD: TweetDeckObject,
   settings: BTDSettings,
-  onSettingsUpdate: OnSettingsUpdate
+  onSettingsUpdate: OnSettingsUpdateAsync
 ) => {
   // @ts-expect-error
   const originalSettingsHandler = jq._data(document).events['uiShowGlobalSettings'][0].handler;
@@ -24,7 +37,8 @@ export const setupSettings = (
           console.log('opening TD settings');
           originalSettingsHandler();
         }}
-        settings={settings}
+        btdSettings={settings}
+        tdSettings={makeAbstractTweetDeckSettings(TD)}
         onSettingsUpdate={onSettingsUpdate}
       />
     );
@@ -38,8 +52,9 @@ export const setupSettings = (
 
 interface SettingsWrapperAppProps {
   onOpenTDSettings: Handler;
-  onSettingsUpdate: OnSettingsUpdate;
-  settings: BTDSettings;
+  onSettingsUpdate: OnSettingsUpdateAsync;
+  btdSettings: BTDSettings;
+  tdSettings: AbstractTweetDeckSettings;
 }
 
 function createUniqueStyleSheetId() {
@@ -49,7 +64,7 @@ function createUniqueStyleSheetId() {
 const parentDocument = document;
 const SettingsWrapperApp: FC<SettingsWrapperAppProps> = (props) => {
   const childDocument = useRef<Document>();
-  const {settings, onSettingsUpdate, onOpenTDSettings} = props;
+  const {btdSettings, onSettingsUpdate, onOpenTDSettings, tdSettings} = props;
 
   const onHeaderMutation = useCallback(() => {
     const childDoc = childDocument.current;
@@ -112,10 +127,11 @@ const SettingsWrapperApp: FC<SettingsWrapperAppProps> = (props) => {
           return (
             <SettingsModal
               onOpenTDSettings={onOpenTDSettings}
-              onSettingsUpdate={(newSettings) => {
-                onSettingsUpdate(newSettings).then(console.log);
+              onSettingsUpdate={(...args) => {
+                onSettingsUpdate(...args).then(console.log);
               }}
-              settings={settings}></SettingsModal>
+              tdSettings={tdSettings}
+              btdSettings={btdSettings}></SettingsModal>
           );
         }}
       </FrameContextConsumer>

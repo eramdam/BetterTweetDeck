@@ -5,7 +5,9 @@ import React, {Fragment, useCallback, useMemo, useState} from 'react';
 
 import {BTDScrollbarsMode} from '../../features/changeScrollbars';
 import {BTDTweetActionsPosition} from '../../features/changeTweetActions';
-import {Handler, HandlerOf, Renderer} from '../../helpers/typeHelpers';
+import {Handler, Renderer} from '../../helpers/typeHelpers';
+import {OnSettingsUpdate} from '../../inject/setupSettings';
+import {AbstractTweetDeckSettings} from '../../types/abstractTweetDeckSettings';
 import {BTDSettings} from '../../types/betterTweetDeck/btdSettingsTypes';
 import {AvatarsShape} from './components/avatarsShape';
 import {BooleanSettingsRow} from './components/booleanSettingRow';
@@ -17,8 +19,9 @@ import {ThemeSelector} from './components/themeSelector';
 
 interface SettingsModalProps {
   onOpenTDSettings: Handler;
-  settings: BTDSettings;
-  onSettingsUpdate: HandlerOf<BTDSettings>;
+  btdSettings: BTDSettings;
+  tdSettings: AbstractTweetDeckSettings;
+  onSettingsUpdate: OnSettingsUpdate;
 }
 
 interface MenuItem {
@@ -29,14 +32,14 @@ interface MenuItem {
 
 export const SettingsModal = (props: SettingsModalProps) => {
   const {onSettingsUpdate, onOpenTDSettings} = props;
-  const [settings, setSettings] = useState<BTDSettings>(props.settings);
+  const [btdSettings, setBtdSettings] = useState<BTDSettings>(props.btdSettings);
   const [isDirty, setIsDirty] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(1);
 
   const makeOnSettingsChange = useCallback(
     <T extends keyof BTDSettings>(key: T) => {
       return (val: BTDSettings[T]) => {
-        setSettings((currentSettings) => {
+        setBtdSettings((currentSettings) => {
           return {
             ...currentSettings,
             [key]: val,
@@ -45,18 +48,18 @@ export const SettingsModal = (props: SettingsModalProps) => {
         setIsDirty(true);
       };
     },
-    [setSettings, setIsDirty]
+    [setBtdSettings, setIsDirty]
   );
 
   const updateSettings = useCallback(() => {
-    onSettingsUpdate(settings);
+    onSettingsUpdate(btdSettings, {} as any);
     setIsDirty(false);
-  }, [onSettingsUpdate, settings]);
+  }, [onSettingsUpdate, btdSettings]);
 
-  const canSave = useMemo(() => !isEqual(props.settings, settings) && isDirty, [
+  const canSave = useMemo(() => !isEqual(props.btdSettings, btdSettings) && isDirty, [
     isDirty,
-    props.settings,
-    settings,
+    props.btdSettings,
+    btdSettings,
   ]);
 
   const menu: readonly MenuItem[] = [
@@ -96,21 +99,21 @@ export const SettingsModal = (props: SettingsModalProps) => {
             </BooleanSettingsRow>
             <BooleanSettingsRow
               settingsKey="badgesOnTopOfAvatars"
-              initialValue={settings.badgesOnTopOfAvatars}
+              initialValue={btdSettings.badgesOnTopOfAvatars}
               alignToTheLeft
               onChange={makeOnSettingsChange('badgesOnTopOfAvatars')}>
               Show badges on top of avatars
             </BooleanSettingsRow>
             <BooleanSettingsRow
               settingsKey="collapseReadDms"
-              initialValue={settings.collapseReadDms}
+              initialValue={btdSettings.collapseReadDms}
               alignToTheLeft
               onChange={makeOnSettingsChange('collapseReadDms')}>
               Collapse read DMs
             </BooleanSettingsRow>
             <BooleanSettingsRow
               settingsKey="disableGifsInProfilePictures"
-              initialValue={settings.disableGifsInProfilePictures}
+              initialValue={btdSettings.disableGifsInProfilePictures}
               alignToTheLeft
               onChange={makeOnSettingsChange('disableGifsInProfilePictures')}>
               Freeze GIFs in profile pictures
@@ -125,10 +128,10 @@ export const SettingsModal = (props: SettingsModalProps) => {
       renderContent: () => (
         <Fragment>
           <CustomAccentColor
-            initialValue={settings.customAccentColor}
+            initialValue={btdSettings.customAccentColor}
             onChange={makeOnSettingsChange('customAccentColor')}></CustomAccentColor>
           <ThemeSelector
-            initialValue={settings.customDarkTheme}
+            initialValue={btdSettings.customDarkTheme}
             hasLightTheme={false}
             onChange={(value) => {
               if (value !== 'light') {
@@ -138,11 +141,11 @@ export const SettingsModal = (props: SettingsModalProps) => {
               }
             }}></ThemeSelector>
           <AvatarsShape
-            initialValue={settings.avatarsShape}
+            initialValue={btdSettings.avatarsShape}
             onChange={makeOnSettingsChange('avatarsShape')}></AvatarsShape>
           <RadioSelectSettingsRow
             settingsKey="scrollbarsMode"
-            initialValue={settings.scrollbarsMode}
+            initialValue={btdSettings.scrollbarsMode}
             onChange={makeOnSettingsChange('scrollbarsMode')}
             fields={[
               {label: 'Default', value: BTDScrollbarsMode.DEFAULT},
@@ -163,21 +166,21 @@ export const SettingsModal = (props: SettingsModalProps) => {
             <BooleanSettingsRow
               alignToTheLeft
               settingsKey="hideColumnIcons"
-              initialValue={settings.hideColumnIcons}
+              initialValue={btdSettings.hideColumnIcons}
               onChange={makeOnSettingsChange('hideColumnIcons')}>
               Hide icons on top of columns
             </BooleanSettingsRow>
             <BooleanSettingsRow
               alignToTheLeft
               settingsKey="showClearButtonInColumnsHeader"
-              initialValue={settings.showClearButtonInColumnsHeader}
+              initialValue={btdSettings.showClearButtonInColumnsHeader}
               onChange={makeOnSettingsChange('showClearButtonInColumnsHeader')}>
               Show &quot;Clear&quot; button in columns&apos; header
             </BooleanSettingsRow>
             <BooleanSettingsRow
               alignToTheLeft
               settingsKey="showCollapseButtonInColumnsHeader"
-              initialValue={settings.showCollapseButtonInColumnsHeader}
+              initialValue={btdSettings.showCollapseButtonInColumnsHeader}
               onChange={makeOnSettingsChange('showCollapseButtonInColumnsHeader')}>
               Show &quot;Collapse&quot; button in columns&apos; header
             </BooleanSettingsRow>
@@ -194,7 +197,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
           <Fragment>
             <RadioSelectSettingsRow
               settingsKey="tweetActionsPosition"
-              initialValue={settings.tweetActionsPosition}
+              initialValue={btdSettings.tweetActionsPosition}
               onChange={makeOnSettingsChange('tweetActionsPosition')}
               fields={[
                 {label: 'Left', value: BTDTweetActionsPosition.LEFT},
@@ -205,28 +208,28 @@ export const SettingsModal = (props: SettingsModalProps) => {
             <CheckboxSelectSettingsRow
               onChange={(key, value) => {
                 makeOnSettingsChange('tweetActions')({
-                  ...settings.tweetActions,
+                  ...btdSettings.tweetActions,
                   [key]: value,
                 });
               }}
               fields={[
                 {
-                  initialValue: settings.tweetActions.addBlockAction,
+                  initialValue: btdSettings.tweetActions.addBlockAction,
                   key: 'addBlockAction',
                   label: 'Block author',
                 },
                 {
-                  initialValue: settings.tweetActions.addMuteAction,
+                  initialValue: btdSettings.tweetActions.addMuteAction,
                   key: 'addMuteAction',
                   label: 'Mute author',
                 },
                 {
-                  initialValue: settings.tweetActions.addCopyMediaLinksAction,
+                  initialValue: btdSettings.tweetActions.addCopyMediaLinksAction,
                   key: 'addCopyMediaLinksAction',
                   label: 'Copy media links',
                 },
                 {
-                  initialValue: settings.tweetActions.addDownloadMediaLinksAction,
+                  initialValue: btdSettings.tweetActions.addDownloadMediaLinksAction,
                   key: 'addDownloadMediaLinksAction',
                   label: 'Download media',
                 },
@@ -236,13 +239,13 @@ export const SettingsModal = (props: SettingsModalProps) => {
             <SettingsSeperator></SettingsSeperator>
             <BooleanSettingsRow
               settingsKey="showTweetActionsOnHover"
-              initialValue={settings.showTweetActionsOnHover}
+              initialValue={btdSettings.showTweetActionsOnHover}
               onChange={makeOnSettingsChange('showTweetActionsOnHover')}>
               Show tweet actions only on hover
             </BooleanSettingsRow>
             <BooleanSettingsRow
               settingsKey="replaceHeartsByStars"
-              initialValue={settings.replaceHeartsByStars}
+              initialValue={btdSettings.replaceHeartsByStars}
               onChange={makeOnSettingsChange('replaceHeartsByStars')}>
               Replace hearts by stars
             </BooleanSettingsRow>

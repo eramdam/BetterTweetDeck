@@ -2,6 +2,7 @@ import React from 'react';
 import {render} from 'react-dom';
 
 import {SettingsModal} from './components/settings/settingsModal';
+import {dummyAbstractTweetDeckSettings} from './types/abstractTweetDeckSettings';
 import {RBetterTweetDeckSettings} from './types/betterTweetDeck/btdSettingsTypes';
 
 const settingsWithDefault = RBetterTweetDeckSettings.decode({});
@@ -21,7 +22,8 @@ const App = (
     <SettingsModal
       onOpenTDSettings={console.log}
       onSettingsUpdate={console.log}
-      settings={(settingsWithDefault as any).right}></SettingsModal>
+      tdSettings={dummyAbstractTweetDeckSettings}
+      btdSettings={(settingsWithDefault as any).right}></SettingsModal>
   </>
 );
 
