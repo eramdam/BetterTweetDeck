@@ -1,19 +1,32 @@
 const fs = require('fs');
+const _ = require('lodash');
 
 const packageJson = JSON.parse(fs.readFileSync(`${__dirname}/../../package.json`, 'utf8'));
 const isBeta = process.env.BTD_BETA === 'true';
 
-const icons = {
-  16: 'icons/icon-16.png',
-  48: 'icons/icon-48.png',
-  128: 'icons/icon-128.png',
-};
+const iconSizes = [16, 32, 48, 96, 128, 256, 512];
 
-const betaIcons = {
-  16: 'icons/icon-beta-16.png',
-  48: 'icons/icon-beta-48.png',
-  128: 'icons/icon-beta-128.png',
-};
+const icons = _(iconSizes)
+  .map((size) => {
+    return {
+      size,
+      icon: `icons/icon-${size}.png`,
+    };
+  })
+  .keyBy((i) => i.size)
+  .mapValues((v) => v.icon)
+  .value();
+
+const betaIcons = _(iconSizes)
+  .map((size) => {
+    return {
+      size,
+      icon: `icons/icon-beta-${size}.png`,
+    };
+  })
+  .keyBy((i) => i.size)
+  .mapValues((v) => v.icon)
+  .value();
 
 const betaVersion = () => {
   const d = new Date();
