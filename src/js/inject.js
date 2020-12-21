@@ -1112,19 +1112,20 @@ document.addEventListener('paste', (ev) => {
     const canPopout =
       $('.js-inline-compose-pop, .js-reply-popout').length > 0 &&
       !$('.js-app-content').hasClass('is-open');
-    
-    const findTextbox = $(ev.target).closest(".js-column").find(".js-inline-compose-pop, .js-reply-popout");
+
+    const findTextbox = $(ev.target)
+      .closest('.js-column')
+      .find('.js-inline-compose-pop, .js-reply-popout');
 
     if (canPopout) {
-      if(findTextbox.length > 0) {
-          $(findTextbox)
-            .trigger("click");
-      } else{
-          $('.js-inline-compose-pop, .js-reply-popout')
-            .first()
-            .trigger('click');
+      if (findTextbox.length > 0) {
+        $(findTextbox).trigger('click');
+      } else {
+        $('.js-inline-compose-pop, .js-reply-popout')
+          .first()
+          .trigger('click');
       }
-      
+
       setTimeout(() => {
         $(document).trigger('uiFilesAdded', {
           files,
