@@ -1,0 +1,819 @@
+/* From https://github.com/chylex/TweetDuck/blob/master/Resources/Plugins/edit-design/theme.black.css */
+html.dark{color:#e1e8ed}
+html.dark .is-inverted-dark .stream-item{background-color:#fff}
+html.dark::selection{background:#e1e8ed;color:#111}
+html.dark a{color:#8bd}
+html.dark a:hover,html.dark a:focus,html.dark a:active{color:#8bd}
+html.dark .txt-mute{color:#8899a6}
+html.dark .txt-mute a:not(:hover):not(:focus){color:#8899a6}
+html.dark .txt-mute-text-only{color:#8899a6}
+html.dark .color-twitter-darker-gray{color:#657786}
+html.dark .color-twitter-white{color:#fff}
+html.dark .color-twitter-gray{color:#AAB8C2}
+html.dark .color-twitter-blue{color:#1DA1F2}
+html.dark .color-twitter-red{color:#E0245E}
+html.dark .color-twitter-deep-red{color:#A01744}
+html.dark .color-twitter-green{color:#17BF63}
+html.dark .color-twitter-deep-black{color:#14171A}
+html.dark .color-twitter-dark-black{color:#292F33}
+html.dark .color-twitter-dark-gray{color:#8899A6}
+html.dark .color-twitter-black{color:#000}
+html.dark .color-twitter-yellow{color:#FFAD1F}
+html.dark .bg-color-twitter-white{background-color:#fff}
+html.dark .bg-color-twitter-blue{background-color:#1DA1F2}
+html.dark .bg-color-twitter-medium-blue{background-color:#1DA1F2}
+html.dark .bg-color-twitter-deep-black{background-color:#292F33}
+html.dark .bg-color-twitter-lightest-gray{background-color:#F5F8FA}
+html.dark .link-hover-override:hover .link-hover-target{color:#8bd}
+html.dark .scroll-styled-v::-webkit-scrollbar-track,html.dark .scroll-styled-h::-webkit-scrollbar-track{border-left:1px solid #292F33}
+html.dark .scroll-styled-v::-webkit-scrollbar-thumb,html.dark .scroll-styled-h::-webkit-scrollbar-thumb{background-color:#657786}
+html.dark .scroll-styled-v::-webkit-scrollbar-thumb:hover,html.dark .scroll-styled-h::-webkit-scrollbar-thumb:hover{background-color:#8899a6}
+html.dark .scroll-alt::-webkit-scrollbar-track{border-color:#eaeaea}
+html.dark .scroll-alt::-webkit-scrollbar-thumb{background-color:#e1e8ed}
+html.dark .scroll-alt::-webkit-scrollbar-thumb:hover{background-color:#657786}
+html.dark .scroll-conversation{background:#292F33}
+html.dark .is-inverted-dark .column-scroller::-webkit-scrollbar-track{border-left-color:#e1e8ed}
+html.dark .is-inverted-dark .column-scroller::-webkit-scrollbar-thumb{background-color:#ddd}
+html.dark .is-inverted-dark .column-scroller::-webkit-scrollbar-thumb:hover{background-color:#8899a6}
+html.dark .antiscroll-scrollbar{background:rgba(255,255,255,0.2)}
+html.dark .is-loading{background-color:#fff}
+html.dark .with-drop-shadow:after{box-shadow:inset 0 2px 1px rgba(17,17,17,0.25);border-top:1px solid rgba(17,17,17,0.25)}
+html.dark .border-separated li{border-bottom:1px solid #CCD6DD}
+html.dark .dark-border{border:1px solid #292f33}
+html.dark .dark-border-top{border-top:1px solid #292f33}
+html.dark .bs-1{box-shadow:0 1px 4px rgba(0,0,0,0.25)}
+html.dark .is-inverted-dark{color:#292F33}
+html.dark .is-inverted-dark a,html.dark .is-inverted-dark a:hover,html.dark .is-inverted-dark a:focus,html.dark .is-inverted-dark a:active{color:#3b94d9}
+html.dark .is-inverted-dark .link-normal-dark,html.dark .is-inverted-dark .link-normal-dark:hover,html.dark .is-inverted-dark .link-normal-dark:focus,html.dark .is-inverted-dark .link-normal-dark:active{color:#111}
+html.dark .is-inverted-dark .list-link,html.dark .is-inverted-dark .list-twitter-list,html.dark .is-inverted-dark .list-subtitle,html.dark .is-inverted-dark .list-account,html.dark .is-inverted-dark .list-listmember{color:#292F33}
+html.dark .is-inverted-dark .txt-mute{color:#8899a6}
+html.dark .is-inverted-dark .txt-mute a:not(:hover):not(:focus){color:#8899a6}
+html.dark .is-inverted-dark .stream-item:not(.conversation-event),html.dark .is-inverted-dark .conversation-event+.stream-item:not(.conversation-event){border-color:#eaeaea}
+html.dark .is-inverted-dark .account-link{color:#292F33}
+html.dark .is-inverted-dark .account-bio{color:#8899a6}
+html.dark .is-inverted-dark .with-drop-shadow:after{box-shadow:inset 0 2px 4px #ccd6dd;border-top:1px solid rgba(17,17,17,0.25)}
+html.dark .is-inverted-dark .column-close-link{color:#66757f}
+html.dark .is-inverted-dark .accordion{color:#111}
+html.dark .is-inverted-dark .accordion-header{color:#111}
+html.dark .is-inverted-dark .accordion-divider-t{border-top:1px solid #eaeaea}
+html.dark .is-inverted-dark .accordion-header:hover{color:#111}
+html.dark .is-inverted-dark .facet-type-content.is-active{background-color:rgba(210,155,154,0.2)}
+html.dark .is-inverted-dark .facet-type-user.is-active{background-color:rgba(255,217,131,0.2)}
+html.dark .is-inverted-dark .facet-type-location.is-active{background-color:rgba(118,194,158,0.2)}
+html.dark .is-inverted-dark .facet-type-preferences.is-active{background-color:rgba(136,153,166,0.2)}
+html.dark .is-inverted-dark .facet-type-engagement.is-active{background-color:#e1e8ed}
+html.dark .is-inverted-dark .facet-type{border-bottom:1px solid #eaeaea}
+html.dark .is-inverted-dark .accordion .is-active{color:#111}
+html.dark .is-inverted-dark .accordion .is-active .accordion-header,html.dark .is-inverted-dark .accordion .is-active .accordion-header:hover{color:#111}
+html.dark .is-inverted-dark .tweet-detail-wrapper{background:#F5F8FA}
+html.dark .is-inverted-dark .scroll-conversation{background:#eaeaea}
+html.dark .is-inverted-dark .tweet-detail-actions,html.dark .is-inverted-dark .tweet-stats,html.dark .is-inverted-dark .card-holder{border-top-color:#eaeaea}
+html.dark .is-inverted-dark .tweet-detail-action{color:#8899a6}
+html.dark .is-inverted-dark .tweet-detail-action:hover,html.dark .is-inverted-dark .tweet-detail-action:focus,html.dark .is-inverted-dark .tweet-detail-action:active,html.dark .is-inverted-dark .tweet-detail-action.is-selected{color:#292F33}
+html.dark .is-inverted-dark .social-proof-for-tweet-title{background-color:#eaeaea;color:#777;border-bottom:#ddd}
+html.dark .is-inverted-dark .rpl textarea{border:1px solid #e1e8ed;background:#fff;box-shadow:#8899a6 0 1px 0 inset}
+html.dark .is-inverted-dark .media-badge{border-color:#e1e8ed;color:#8899a6}
+html.dark .is-inverted-dark .media-badge:hover{background-color:#f5f8fa}
+html.dark .icon-favorite-color{color:#E0245E}
+html.dark .icon-follow-color{color:#50a5e6}
+html.dark .icon-list-color{color:#66757f}
+html.dark .icon-image-color{color:#66757f}
+html.dark .icon-mention-color{color:#66757f}
+html.dark .icon-unread-color{color:#50a5e6}
+html.dark .icon-remove-color{color:#dd2e44}
+html.dark .icon-submit-color{color:#77b255}
+html.dark .icon-retweet-color{color:#17BF63}
+html.dark .icon-twitter-blue-color{color:#2b7bb9}
+html.dark .btn:hover{color:#1DA1F2;background-color:#292F33}
+html.dark .btn:focus{color:#1DA1F2;background-color:#292F33;box-shadow:0 0 0 1px #fff,0 0 0 3px #71C9F8}
+html.dark .btn:active,html.dark .btn.is-selected{color:#1DA1F2;background-color:#292F33}
+html.dark .btn[disabled],html.dark .btn[disabled]:hover,html.dark .btn[disabled]:active,html.dark .btn.is-disabled,html.dark .btn.is-disabled:hover,html.dark .btn.is-disabled:focus,html.dark .btn.is-disabled:active{color:#1DA1F2}
+html.dark .btn-on-dark:focus{box-shadow:0 0 0 1px #292F33,0 0 0 3px #71C9F8}
+html.dark .mdl-content .btn-on-dark:focus{box-shadow:0 0 0 1px #fff,0 0 0 3px #71C9F8}
+html.dark .is-inverted-dark .btn:hover,html.dark .is-inverted-dark .btn:focus,html.dark .is-inverted-dark .btn:active,html.dark .is-inverted-dark .btn.is-selected{background-color:#F2F9FF}
+html.dark .is-inverted-dark .btn-fav.s-favorited:hover,html.dark .is-inverted-dark .s-following .follow-btn:hover,html.dark .s-following .is-inverted-dark .follow-btn:hover{background-color:#005FD1}
+html.dark .is-inverted-dark .btn-fav.s-favorited:focus,html.dark .is-inverted-dark .s-following .follow-btn:focus,html.dark .s-following .is-inverted-dark .follow-btn:focus{background-color:#005FD1}
+html.dark .is-inverted-dark .btn-fav.s-favorited:active,html.dark .is-inverted-dark .s-following .follow-btn:active,html.dark .s-following .is-inverted-dark .follow-btn:active,html.dark .is-inverted-dark .is-selected.btn-fav.s-favorited,html.dark .is-inverted-dark .s-following .is-selected.follow-btn,html.dark .s-following .is-inverted-dark .is-selected.follow-btn{background-color:#005FD1}
+html.dark .is-inverted-dark .btn-fav.s-favorited:hover,html.dark .is-inverted-dark .s-following .follow-btn:hover,html.dark .s-following .is-inverted-dark .follow-btn:hover{background-color:#A01744}
+html.dark .is-inverted-dark .btn-fav.s-favorited:focus,html.dark .is-inverted-dark .s-following .follow-btn:focus,html.dark .s-following .is-inverted-dark .follow-btn:focus{background-color:#A01744}
+html.dark .is-inverted-dark .btn-fav.s-favorited:active,html.dark .is-inverted-dark .s-following .follow-btn:active,html.dark .s-following .is-inverted-dark .follow-btn:active,html.dark .is-inverted-dark .is-selected.btn-fav.s-favorited,html.dark .is-inverted-dark .s-following .is-selected.follow-btn,html.dark .s-following .is-inverted-dark .is-selected.follow-btn{background-color:#A01744}
+html.dark .btn-fav.s-favorited,html.dark .s-following .follow-btn{color:#fff;background-color:#1DA1F2;border:1px solid #1DA1F2}
+html.dark .btn-fav.s-favorited:hover,html.dark .s-following .follow-btn:hover{color:#fff;background-color:#005FD1;border:1px solid #005FD1}
+html.dark .btn-fav.s-favorited:focus,html.dark .s-following .follow-btn:focus{color:#fff;background-color:#005FD1;border:1px solid #005FD1;box-shadow:0 0 0 1px #fff,0 0 0 3px #71C9F8}
+html.dark .btn-fav.s-favorited:active,html.dark .s-following .follow-btn:active,html.dark .is-selected.btn-fav.s-favorited,html.dark .s-following .is-selected.follow-btn{color:#fff;background-color:#005FD1;border:1px solid #005FD1}
+html.dark [disabled].btn-fav.s-favorited,html.dark .s-following [disabled].follow-btn,html.dark [disabled].btn-fav.s-favorited:hover,html.dark .s-following [disabled].follow-btn:hover,html.dark [disabled].btn-fav.s-favorited:active,html.dark .s-following [disabled].follow-btn:active,html.dark .is-disabled.btn-fav.s-favorited,html.dark .s-following .is-disabled.follow-btn,html.dark .is-disabled.btn-fav.s-favorited:hover,html.dark .s-following .is-disabled.follow-btn:hover,html.dark .is-disabled.btn-fav.s-favorited:focus,html.dark .s-following .is-disabled.follow-btn:focus,html.dark .is-disabled.btn-fav.s-favorited:active,html.dark .s-following .is-disabled.follow-btn:active{color:#fff;background-color:#1DA1F2;border:1px solid #1DA1F2}
+html.dark .btn-fav.s-favorited:hover,html.dark .s-following .follow-btn:hover{color:#fff;background-color:#A01744;border:#A01744}
+html.dark .btn-fav.s-favorited:active,html.dark .s-following .follow-btn:active,html.dark .is-selected.btn-fav.s-favorited,html.dark .s-following .is-selected.follow-btn{color:#fff;background-color:#A01744;border:#A01744}
+html.dark .btn-on-blue{color:#fff;background-color:#66757f}
+html.dark .btn-on-blue:hover{color:#fff;background-color:#66757f}
+html.dark .btn-on-blue:focus{color:#fff;background-color:#66757f;box-shadow:0 0 2px 3px #50a5e6}
+html.dark .btn-on-blue:active,html.dark .btn-on-blue.is-selected{color:#fff;background-color:#434c51}
+html.dark .btn-on-blue[disabled],html.dark .btn-on-blue[disabled]:hover,html.dark .btn-on-blue[disabled]:active,html.dark .btn-on-blue.is-disabled,html.dark .btn-on-blue.is-disabled:hover,html.dark .btn-on-blue.is-disabled:focus,html.dark .btn-on-blue.is-disabled:active{color:#fff;background-color:#66757f}
+html.dark .btn-options-tray{color:#e1e8ed}
+html.dark .btn-options-tray:hover,html.dark .btn-options-tray:focus{color:#8bd}
+html.dark .btn-options-tray[disabled],html.dark .btn-options-tray[disabled]:hover,html.dark .btn-options-tray[disabled]:active,html.dark .btn-options-tray.is-disabled,html.dark .btn-options-tray.is-disabled:hover,html.dark .btn-options-tray.is-disabled:focus,html.dark .btn-options-tray.is-disabled:active{color:#8bd}
+html.dark .follow-btn .icon,html.dark .follow-btn .Icon{color:#1DA1F2}
+html.dark .account-profile-header{background-color:#1DA1F2}
+html.dark .account-settings-bt{border-top:1px solid #e1e8ed}
+html.dark .account-settings-bb{border-bottom:1px solid #e1e8ed}
+html.dark .account-stats a{color:#66757f}
+html.dark .account-stats a:hover{color:#2b7bb9}
+html.dark .column-panel{background-color:#222426}
+html.dark .column.is-focused{box-shadow:0 0 0 6px #7aa2c0}
+html.dark .column-background-fill{background-color:#F5F8FA}
+html.dark .more-tweets-glow{background-color:#55acee;background:radial-gradient(ellipse farthest-corner at 50% 100%,#55acee 0%,#55acee 25%,rgba(255,255,255,0) 75%)}
+html.dark .more-tweets-btn{box-shadow:0 2px 0 rgba(0,0,0,0.2)}
+html.dark .more-tweets-btn:active,html.dark .more-tweets-btn:focus{box-shadow:0 1px 0 rgba(0,0,0,0.3)}
+html.dark .more-tweets-btn-container--mouse-release .more-tweets-btn,html.dark .more-tweets-btn-container--loading .more-tweets-btn{background-color:#66757f}
+html.dark .drag-drop-indicator{background-color:#3b94d9;color:#fff}
+html.dark .location-form .icon-close,html.dark .location-form .Icon--close{background-color:rgba(255,255,255,0.35)}
+html.dark .search-filter-callout-triangle{border-color:transparent transparent #55acee}
+html.dark .live-video-timelines{background-color:#292F33;border-bottom:1px solid #292F33}
+html.dark .live-video-timelines button{color:#8bd;background-color:#292F33}
+html.dark .live-video-timelines button:active,html.dark .live-video-timelines button:focus,html.dark .live-video-timelines button:hover{background-color:#292F33;color:#8bd}
+html.dark .column-type-scheduled{background-color:#292F33}
+html.dark .column-header{background-color:#292F33}
+html.dark .is-inverted-dark .column-header{border-bottom:1px solid #ddd}
+html.dark .is-inverted-dark .column-title-edit-box{color:#111;background-color:#fff;border-color:#e1e8ed}
+html.dark .column-header{border-bottom:1px solid #222426}
+html.dark .column-title-edit-box{color:#e1e8ed;background-color:#14171A;border-color:#111}
+html.dark .column-number{color:#66757f}
+html.dark .is-new .column-type-icon{color:#55acee}
+html.dark .column-header-link{color:#66757f}
+html.dark .column-header-link:hover,html.dark .column-header-link:focus,html.dark .column-header-link:active{color:#fff}
+html.dark .is-options-open .column-settings-link{background-color:#292f33;color:#8bd;border-color:#222426}
+html.dark .is-options-open .column-settings-link:hover{color:#8bd}
+html.dark .column-message{background-color:#292f33}
+html.dark .filter-error{color:#fff;background-color:#be1931}
+html.dark .facet-content{color:#d29b9a}
+html.dark .facet-user{color:#ffd983}
+html.dark .facet-action{color:#9cd1d4}
+html.dark .facet-engagement{color:#8899a6}
+html.dark .edit-conversation-name{border-bottom:1px solid #222426}
+html.dark .column-options{background-color:#292f33}
+html.dark .with-column-divider-bottom{border-bottom:1px solid #292F33}
+html.dark .column-options .button-tray{background-color:#292F33}
+html.dark .btn-options-unique{color:#e1e8ed}
+html.dark .is-inverted-dark .column-options{background-color:#fff}
+html.dark .is-inverted-dark .with-column-divider-bottom{border-bottom:1px solid #e1e8ed}
+html.dark .column-nav-updates{color:#55acee}
+html.dark .contributor-manager .link-complex{border:1px solid #e1e8ed}
+html.dark .contributor-settings-role{border-bottom:1px solid #e1e8ed}
+html.dark .contributor-row[data-state='settings']{background-color:#fff}
+html.dark .contributor-row[data-state='confirmAdd']{background-color:#fff}
+html.dark .contributor-row[data-state='confirmAdd-added']{background-color:#fff}
+html.dark .contributor-row[data-state='confirmDeadmin']{background-color:#fff}
+html.dark .contributor-row[data-state='confirmRemove'],html.dark .contributor-row[data-state='confirmRemove-removing']{background-color:#fff}
+html.dark .contributor-row[data-state='confirmRemove-removing']{background-color:#fff}
+html.dark .stream-item{border-bottom:1px solid #292F33;background-color:#222426}
+html.dark .is-streamed{background-color:#4F0299}
+html.dark .gap-chirp{background-color:#14171A;color:#8899a6}
+html.dark .gap-chirp:hover .gap-chirp-text--with-size,html.dark .gap-chirp:active .gap-chirp-text--with-size{background:#1f2428}
+html.dark .gap-chirp-text--with-size{border-color:#4b5964}
+html.dark .is-inverted-dark .thread{background-color:#E1E8ED}
+html.dark .thread{background-color:#3a3d42}
+html.dark .list-item{color:#66757f}
+html.dark .list-item:hover,html.dark .list-item:active,html.dark .list-item.is-selected{background-color:#55acee;color:#fff}
+html.dark .list-item:hover:not(.is-selected){color:#66757f}
+html.dark .list-item:hover .txt-mute,html.dark .list-item:active .txt-mute,html.dark .list-item.is-selected .txt-mute{color:#e1e8ed}
+html.dark .list-item:hover .list-icon,html.dark .list-item:active .list-icon,html.dark .list-item.is-selected .list-icon{color:#fff}
+html.dark .list-item:hover:not(.is-selected) .list-icon{color:#8899a6}
+html.dark .list-icon{color:#8899a6}
+html.dark .list-divider{border-top:1px solid rgba(17,17,17,0.25)}
+html.dark .list-item-button{color:#aab8c2;background-color:#F5F8FA}
+html.dark .is-touch-search .list-item:hover,html.dark .is-touch-search .list-item:active,html.dark .is-touch-search .list-item.is-selected{background-color:#55acee;color:#fff}
+html.dark .is-touch-search .list-item:hover .list-icon,html.dark .is-touch-search .list-item:active .list-icon,html.dark .is-touch-search .list-item.is-selected .list-icon{color:#fff}
+html.dark .avatar-border--2{border:2px solid #fff;background-color:#fff}
+html.dark .account-link{color:#e1e8ed}
+html.dark .media-badge{border:1px solid #292F33;color:#999}
+html.dark .media-badge:hover{background-color:#14171A}
+html.dark .media-size-large-height::after,html.dark .media-item.media-size-large::after{background-image:linear-gradient(rgba(17,17,17,0.25),rgba(17,17,17,0))}
+html.dark .media-sensitive{background:#292f33;color:#8899a6}
+html.dark .media-sensitive-title{color:#e1e8ed}
+html.dark .media-caret{border-color:#292F33 transparent transparent}
+html.dark .video-overlay{color:#fff}
+html.dark .is-inverted-dark .media-sensitive{background:#e1e8ed;color:#8899a6}
+html.dark .is-inverted-dark .media-sensitive-title{color:#292f33}
+html.dark .is-inverted-dark .triangle{border-color:#fff transparent transparent}
+html.dark .is-inverted-dark .media-badge{border:1px solid #e1e8ed;color:#8899a6}
+html.dark .is-inverted-dark .media-badge:hover{background-color:#f5f8fa}
+html.dark .tweet-action,html.dark .tweet-detail-action,html.dark .dm-action{color:#8899a6}
+html.dark .tweet-action:hover .icon-reply,html.dark .tweet-detail-action:hover .icon-reply,html.dark .dm-action:hover .icon-reply,html.dark .tweet-action:focus .icon-reply,html.dark .tweet-detail-action:focus .icon-reply,html.dark .dm-action:focus .icon-reply,html.dark .tweet-action:active .icon-reply,html.dark .tweet-detail-action:active .icon-reply,html.dark .dm-action:active .icon-reply,html.dark .tweet-action.is-selected .icon-reply,html.dark .is-selected.tweet-detail-action .icon-reply,html.dark .is-selected.dm-action .icon-reply{color:#1DA1F2}
+html.dark .tweet-action:hover .icon-retweet,html.dark .tweet-detail-action:hover .icon-retweet,html.dark .dm-action:hover .icon-retweet,html.dark .tweet-action:focus .icon-retweet,html.dark .tweet-detail-action:focus .icon-retweet,html.dark .dm-action:focus .icon-retweet,html.dark .tweet-action:active .icon-retweet,html.dark .tweet-detail-action:active .icon-retweet,html.dark .dm-action:active .icon-retweet,html.dark .tweet-action.is-selected .icon-retweet,html.dark .is-selected.tweet-detail-action .icon-retweet,html.dark .is-selected.dm-action .icon-retweet{color:#17BF63}
+html.dark .tweet-action:hover .icon-favorite,html.dark .tweet-detail-action:hover .icon-favorite,html.dark .dm-action:hover .icon-favorite,html.dark .tweet-action:focus .icon-favorite,html.dark .tweet-detail-action:focus .icon-favorite,html.dark .dm-action:focus .icon-favorite,html.dark .tweet-action:active .icon-favorite,html.dark .tweet-detail-action:active .icon-favorite,html.dark .dm-action:active .icon-favorite,html.dark .tweet-action.is-selected .icon-favorite,html.dark .is-selected.tweet-detail-action .icon-favorite,html.dark .is-selected.dm-action .icon-favorite{color:#E0245E}
+html.dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .tweet-action,html.dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .tweet-detail-action,html.dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .dm-action{color:#657786}
+html.dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .tweet-action:hover,html.dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .tweet-detail-action:hover,html.dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .dm-action:hover,html.dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .tweet-action:focus,html.dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .tweet-detail-action:focus,html.dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .dm-action:focus,html.dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .tweet-action:active,html.dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .tweet-detail-action:active,html.dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .dm-action:active,html.dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .tweet-action.is-selected,html.dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .is-selected.tweet-detail-action,html.dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .is-selected.dm-action{color:#8899a6}
+html.dark .is-inverted-dark .tweet-action,html.dark .is-inverted-dark .tweet-detail-action,html.dark .is-inverted-dark .dm-action,html.dark .is-inverted-dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .tweet-action,html.dark .is-inverted-dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .tweet-detail-action,html.dark .is-inverted-dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .dm-action{color:#8899a6}
+html.dark .is-inverted-dark .tweet-action:hover,html.dark .is-inverted-dark .tweet-detail-action:hover,html.dark .is-inverted-dark .dm-action:hover,html.dark .is-inverted-dark .tweet-action:focus,html.dark .is-inverted-dark .tweet-detail-action:focus,html.dark .is-inverted-dark .dm-action:focus,html.dark .is-inverted-dark .tweet-action:active,html.dark .is-inverted-dark .tweet-detail-action:active,html.dark .is-inverted-dark .dm-action:active,html.dark .is-inverted-dark .tweet-action.is-selected,html.dark .is-inverted-dark .is-selected.tweet-detail-action,html.dark .is-inverted-dark .is-selected.dm-action,html.dark .is-inverted-dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .tweet-action:hover,html.dark .is-inverted-dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .tweet-detail-action:hover,html.dark .is-inverted-dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .dm-action:hover,html.dark .is-inverted-dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .tweet-action:focus,html.dark .is-inverted-dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .tweet-detail-action:focus,html.dark .is-inverted-dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .dm-action:focus,html.dark .is-inverted-dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .tweet-action:active,html.dark .is-inverted-dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .tweet-detail-action:active,html.dark .is-inverted-dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .dm-action:active,html.dark .is-inverted-dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .tweet-action.is-selected,html.dark .is-inverted-dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .is-selected.tweet-detail-action,html.dark .is-inverted-dark .chirp-container .stream-item:not(:hover):not(.is-selected-tweet) .is-selected.dm-action{color:#111}
+html.dark .is-inverted-dark .quoted-tweet{border-color:#E1E8ED;color:#66757f}
+html.dark .is-retweet .icon-retweet-toggle{color:#17BF63}
+html.dark .is-favorite .icon-favorite-toggle{color:#E0245E}
+html.dark .is-minimalist .tweet-img{background:#292F33}
+html.dark .is-selected-tweet{background:#292F33}
+html.dark .in-tweet-divider:before{background:#292F33}
+html.dark .tweet-translation-original-text{color:#8899a6}
+html.dark .quoted-tweet{border-color:#292F33;color:#999}
+html.dark .scheduled-tweet{border:1px solid #292F33;color:#8899A6}
+html.dark .stream-item .icon-edit,html.dark .stream-item .icon-trash{color:#657786}
+html.dark .stream-item .icon-edit:hover,html.dark .stream-item .icon-trash:hover{color:#8899A6}
+html.dark .tweet-detail-wrapper{background:#222426}
+html.dark .tweet-stats{border-top:1px solid #292F33}
+html.dark .tweet-stat{color:#8899a6}
+html.dark .stat-word{color:#66757f}
+.is-actionable:hover html.dark .stat-word{color:#8bd}
+html.dark .tweet-detail-actions{border-top:1px solid #292F33}
+html.dark .conversation-more{color:#8bd}
+html.dark .column-detail .is-selected-tweet{background:#292F33}
+html.dark .social-proof-for-tweet-title{background-color:#292F33;color:#8899a6;border-bottom:1px solid #292F33}
+html.dark .is-inverted-dark .tweet-detail-reply .is-selected{color:#111}
+html.dark .is-unread{background:#485865}
+html.dark .is-unread .txt-mute,html.dark .is-unread .conversation-indicator{color:#e1e8ed}
+html.dark .is-unread.is-selected-tweet{background:#66757f}
+html.dark .is-inverted-dark .is-unread{background:#bbddf5}
+html.dark .is-inverted-dark .is-unread .txt-mute,html.dark .is-inverted-dark .is-unread .conversation-indicator{color:#292F33}
+html.dark .conversation-indicator{color:#8899a6}
+html.dark .conversation-event{background-color:#292F33}
+html.dark .conversation-event+.stream-item:not(.conversation-event),html.dark .conversation-event:first-child{border-top:1px solid #292F33}
+html.dark .add-participant{background-color:#292F33}
+html.dark .rpl{border-bottom:#292F33}
+html.dark .rpl textarea{border:1px solid #292F33;background:#fff;box-shadow:inset 0 1px 1px rgba(17,17,17,0.5)}
+html.dark .rpl input.over-char-count{color:#ea596e}
+html.dark .spinner-button-with-progress{color:#fff}
+html.dark .app-header{background-color:#292f33}
+html.dark .app-title{background-color:#292f33}
+html.dark .app-content{background-color:#14171A}
+html.dark .app-columns-container{background-color:#14171A}
+html.dark .app-navigator{background-color:#292f33}
+html.dark .app-nav-link{color:#8899A6}
+html.dark .app-nav-link:focus,html.dark .app-nav-link:active{color:#8899A6}
+html.dark .app-nav-link.is-selected,html.dark .app-nav-link:hover{color:#fff}
+html.dark .app-nav-tab{color:#8899A6}
+html.dark .app-nav-tab:hover{color:#fff}
+html.dark .app-nav-tab.is-selected{color:#292f33}
+html.dark .app-nav-tab.is-selected:hover{color:#292f33}
+html.dark .attach-compose-buttons .tweet-button{background-color:#485865!important}
+html.dark .with-nav-border-t:before{border-top:1px solid #777}
+html.dark .app-search-input,html.dark .app-search-fake{background-color:#14171A;color:#aab8c2;box-shadow:inset 0 1px 1px rgba(17,17,17,0.5)}
+html.dark .app-search-input::-webkit-input-placeholder{color:#aab8c2}
+html.dark .app-search-input::placeholder{color:#aab8c2}
+html.dark .app-search-input:focus,html.dark .app-search-input.is-focused{border:1px solid #292F33;color:#292F33;background-color:#fff}
+html.dark .app-search-fake{color:#777}
+html.dark .app-search-button{color:#aab8c2}
+html.dark .app-search-button:hover{color:#aab8c2}
+html.dark .message-banner .dismiss{color:#292F33}
+html.dark .typeahead{background-color:#fff;color:#292f33}
+html.dark .typeahead .fullname{color:#292f33}
+html.dark .typeahead .username{color:#8899a6}
+html.dark .accordion,html.dark .accordion-popover{color:#e1e8ed}
+html.dark .accordion-divider-t{border-top:1px solid #292F33}
+html.dark .accordion-header{color:#e1e8ed}
+html.dark .accordion-header:hover{color:#e1e8ed}
+html.dark .facet-type{border-bottom:1px solid #292F33}
+html.dark .facet-type-thumb-size{border-top:1px solid #292F33}
+html.dark .facet-type.is-active{background-color:rgba(136,153,166,0.2)}
+html.dark .facet-subtitle{color:#8bd}
+html.dark .accordion .is-active{color:#e1e8ed}
+html.dark .accordion .is-active .accordion-header,html.dark .accordion .is-active .accordion-header:hover{color:#e1e8ed}
+html.dark .account-settings-row.is-highlighted{background-color:#F5F8FA;border-top:1px solid #CCD6DD}
+html.dark .account-settings-row.is-highlighted:last-child{border-bottom:1px solid #CCD6DD}
+html.dark .join-team{border-top:1px solid #E1E8ED;border-bottom:1px solid #E1E8ED}
+html.dark .account-row-separator-b:after{background-color:#e1e8ed}
+html.dark .separator-a:before{background-color:#e1e8ed}
+html.dark .tooltip-inner{background-color:#111;color:#ddd}
+html.dark .tooltip-arrow{border:5px dashed #111}
+html.dark .bottom{border-bottom-color:#111}
+html.dark .top{border-top-color:#111}
+html.dark .left{border-left-color:#111}
+html.dark .right{border-right-color:#111}
+html.dark .stroke-twitter-light-gray{stroke:#CCD6DD}
+html.dark .stroke-twitter-blue{stroke:#1DA1F2}
+html.dark .stroke-twitter-yellow{stroke:#FFAD1F}
+html.dark .stroke-twitter-red{stroke:#E0245E}
+html.dark .numbered-badge{background-color:#55acee;color:#fff}
+html.dark .numbered-badge-onheader{border:2px solid #292F33}
+html.dark .numbered-badge-onnav{border:2px solid #292f33}
+html.dark .is-open .drawer:after{box-shadow:2px 0 1px rgba(0,0,0,0.2)}
+html.dark .drawer-header{border-bottom:1px solid #e1e8ed}
+html.dark .dataminr{background-color:#f5f8fa}
+html.dark .txt-dataminr{color:#8899a6}
+html.dark .dataminr-title{background-color:#ccd6dd;color:#66757f}
+html.dark .dataminr-search-terms-detail{color:#66757f}
+html.dark .dataminr-separator{border-bottom:4px solid #e1e8ed}
+html.dark .is-dataminr-tweet{background-color:#fff}
+html.dark .dataminr-header,html.dark .dataminr-meta-link{color:#8899a6}
+html.dark .dataminr-category-pill{color:#fff;background-color:#5585ad}
+html.dark .dataminr-category-mn{background-color:#1F90BF}
+html.dark .dataminr-category-mbg{background-color:#1F90BF}
+html.dark .dataminr-category-ln{background-color:#1F90BF}
+html.dark .dataminr-category-bg{background-color:#1F90BF}
+html.dark .dataminr-category-rpr{background-color:#1F90BF}
+html.dark .dataminr-category-er{background-color:#CC412E}
+html.dark .dataminr-category-gov{background-color:#CC412E}
+html.dark .dataminr-category-ngo{background-color:#CC412E}
+html.dark .dataminr-category-spo{background-color:#8A64AD}
+html.dark .dataminr-category-ent{background-color:#8A64AD}
+html.dark .dataminr-category-uni{background-color:#CC412E}
+html.dark .dataminr-category-bsn{background-color:#CC412E}
+html.dark .dataminr-category-alt{background-color:#b26333}
+html.dark .dataminr-category-ctr{background-color:#CC7332}
+html.dark .dataminr-label{color:#e28409}
+html.dark .dataminr-label-momentum{color:#5caee1}
+html.dark .dataminr-map-img{border:1px solid #ccd6dd}
+html.dark .dataminr-bio-count{color:#66757f}
+html.dark .dataminr-user-profile{background-color:#fff}
+html.dark .dataminr{background-color:#292f33}
+html.dark .txt-dataminr{color:#aab8c2}
+html.dark .dataminr-title{background-color:#657786;color:#e1e8ed}
+html.dark .dataminr-search-terms-detail{color:#e1e8ed}
+html.dark .is-dataminr-tweet{background-color:#444448}
+html.dark .dataminr-separator{border-bottom:2px solid #444448}
+html.dark .dataminr-header,html.dark .dataminr-meta-link{color:#ccd6dd}
+html.dark .dataminr-map-img{border:1px solid #292F33}
+html.dark .dataminr-label{color:#FFAD1F}
+html.dark .dataminr-label-momentum{color:#55acee}
+html.dark .dataminr-bio-count{color:#aab8c2}
+html.dark .dataminr-user-profile{background-color:#111}
+html.dark .dataminr-external-link{background-color:#222426}
+html.dark .is-inverted-dark .dataminr{background-color:#f5f8fa}
+html.dark .is-inverted-dark .txt-dataminr{color:#8899a6}
+html.dark .is-inverted-dark .dataminr-title{background-color:#ccd6dd;color:#66757f}
+html.dark .is-inverted-dark .dataminr-search-terms-detail{color:#66757f}
+html.dark .is-inverted-dark .dataminr-separator{border-bottom:4px solid #e1e8ed}
+html.dark .is-inverted-dark .is-dataminr-tweet{background-color:#fff}
+html.dark .is-inverted-dark .dataminr-header,html.dark .is-inverted-dark .dataminr-meta-link{color:#8899a6}
+html.dark .is-inverted-dark .dataminr-category-pill{color:#fff;background-color:#5585ad}
+html.dark .is-inverted-dark .dataminr-category-mn{background-color:#1F90BF}
+html.dark .is-inverted-dark .dataminr-category-mbg{background-color:#1F90BF}
+html.dark .is-inverted-dark .dataminr-category-ln{background-color:#1F90BF}
+html.dark .is-inverted-dark .dataminr-category-bg{background-color:#1F90BF}
+html.dark .is-inverted-dark .dataminr-category-rpr{background-color:#1F90BF}
+html.dark .is-inverted-dark .dataminr-category-er{background-color:#CC412E}
+html.dark .is-inverted-dark .dataminr-category-gov{background-color:#CC412E}
+html.dark .is-inverted-dark .dataminr-category-ngo{background-color:#CC412E}
+html.dark .is-inverted-dark .dataminr-category-spo{background-color:#8A64AD}
+html.dark .is-inverted-dark .dataminr-category-ent{background-color:#8A64AD}
+html.dark .is-inverted-dark .dataminr-category-uni{background-color:#CC412E}
+html.dark .is-inverted-dark .dataminr-category-bsn{background-color:#CC412E}
+html.dark .is-inverted-dark .dataminr-category-alt{background-color:#b26333}
+html.dark .is-inverted-dark .dataminr-category-ctr{background-color:#CC7332}
+html.dark .is-inverted-dark .dataminr-label{color:#e28409}
+html.dark .is-inverted-dark .dataminr-label-momentum{color:#5caee1}
+html.dark .is-inverted-dark .dataminr-map-img{border:1px solid #ccd6dd}
+html.dark .is-inverted-dark .dataminr-bio-count{color:#66757f}
+html.dark .is-inverted-dark .dataminr-user-profile{background-color:#fff}
+html.dark .info-caret{border-color:transparent #55acee transparent transparent}
+html.dark .info-popover-close{color:#fff}
+html.dark .info-popover-close:hover,html.dark .info-popover-close:active{color:#fff}
+html.dark .info-popover-list-item:before{color:#88c9f9}
+html.dark .info-popover-content{border:1px solid #fff}
+html.dark .poll-bar{background-color:#8899A6}
+html.dark .poll-bar--winner{background-color:#3b94d9}
+html.dark .other-replies{color:#8899a6}
+html.dark .other-replies-link,html.dark .other-replies-link:hover{color:#8bd}
+html.dark .compose .other-replies,html.dark .inline-reply .other-replies{color:#8899A6}
+html.dark .compose .other-replies-link,html.dark .compose .other-replies-link:hover,html.dark .inline-reply .other-replies-link,html.dark .inline-reply .other-replies-link:hover{color:#2b7bb9}
+html.dark .ovl,html.dark .overlay{background:rgba(41,47,51,0.9)}
+html.dark .overlay-opaque{background-color:#1c6399;background-image:radial-gradient(center center,ellipse cover,#1c6399,#274256)}
+html.dark .seamful .modal-content{background:#fff}
+html.dark .modal-content-with-border{border:1px solid #ccd6dd}
+html.dark .mdl{background-color:#fff;box-shadow:0 0 10px rgba(17,17,17,0.5)}
+html.dark .mdl-header{color:#8899a6}
+html.dark .mdl-header-divider{border-bottom:1px solid #e1e8ed}
+html.dark .mdl-content{border:1px solid #ccd6dd;background:#eaeaea}
+html.dark .mdl-placeholder{color:#aab8c2;text-shadow:0 1px 0 rgba(255,255,255,0.8)}
+html.dark .mdl-dismiss{color:#292F33}
+html.dark .mdl-dismiss:hover{color:#292F33}
+html.dark .mdl-btn-media,html.dark .is-inverted-light .mdl-btn-media{color:#fff}
+html.dark .mdl-btn-media:hover,html.dark .mdl-btn-media:active,html.dark .mdl-btn-media:focus,html.dark .is-inverted-light .mdl-btn-media:hover,html.dark .is-inverted-light .mdl-btn-media:active{color:#fff}
+html.dark .mdl-media-prev,html.dark .mdl-media-next{background:rgba(17,17,17,0.3)}
+html.dark .mdl-column-med{background:#F5F8FA}
+html.dark .mdl-column-rhs{border-left:1px solid #ccd6dd;background:#fff}
+html.dark .s-minimal .mdl-header{border-bottom:1px solid #e1e8ed}
+html.dark .lst-launcher .top-row{border-bottom:1px solid #e1e8ed}
+html.dark .lst-launcher .is-disabled a,html.dark .lst-launcher .is-disabled a:hover,html.dark .lst-launcher .is-disabled a:focus,html.dark .lst-launcher .is-disabled a:active{background:#fff}
+html.dark .lst-launcher a:hover,html.dark .lst-launcher a:focus,html.dark .lst-launcher a:active{background:#f2f9ff}
+html.dark .lst-profile a,html.dark .lst-profile a:hover,html.dark .lst-profile a:focus,html.dark .lst-profile a:active{color:#657786}
+html.dark .mdl-col-settings{background-color:#fff;border-left:1px solid #E1E8ED}
+html.dark .mdl-links{color:#8899a6}
+html.dark .mdl-links a{color:#8899a6}
+html.dark .mdl-account-shared-warning .mdl-content{background:#fff}
+html.dark .char-count:disabled{color:#777}
+html.dark .over-char-count:disabled{color:#be1931}
+html.dark .cmp-replyto{background-color:#eaeaea;border-top:1px solid #ddd}
+html.dark .s-link-added.s-photo-added p:last-child{border-top:1px solid #ddd}
+html.dark .inline-reply{background-color:#485865;color:#fff}
+html.dark .inline-reply .btn-neutral,html.dark .inline-reply .character-count{color:#fff}
+html.dark .reply-triangle{border-color:transparent transparent #485865}
+html.dark .detail-view-inline-text{border:1px solid #ccd6dd;background-color:#fff;color:#8899a6}
+html.dark .is-inverted-dark .detail-view-inline{border-color:#ccd6dd}
+html.dark .med-fullpanel{background-color:#111}
+html.dark .med-link{color:#8bd}
+html.dark .med-origlink,html.dark .med-flaglink{color:#8bd}
+html.dark .med-origlink:hover,html.dark .med-flaglink:hover{color:#8bd}
+html.dark .embed-modal .mdl-content{background:#fff}
+html.dark .embed-loading-container{border:1px solid #ccd6dd}
+html.dark .keyboard-shortcut-list-modal .mdl-content{background:#fff}
+html.dark .text-like-keyboard-key{background-color:#eaeaea;border:1px solid #e1e8ed;box-shadow:0 1px 2px #e1e8ed,0 1px 2px #fff inset}
+html.dark .s-checked .checked{color:#5c913b}
+html.dark .list-link,html.dark .list-twitter-list,html.dark .list-subtitle,html.dark .list-account,html.dark .list-listmember,html.dark .list-account,html.dark .list-listaccount,html.dark .list-subtitle,html.dark .list-filter{color:#292F33}
+html.dark .list-link:hover,html.dark .list-twitter-list:hover,html.dark .list-subtitle:hover,html.dark .list-account:hover,html.dark .list-listmember:hover,html.dark .list-account:hover,html.dark .list-listaccount:hover,html.dark .list-subtitle:hover{color:#111;background:#fff}
+html.dark .list-link:hover:hover,html.dark .list-twitter-list:hover:hover,html.dark .list-subtitle:hover:hover,html.dark .list-account:hover:hover,html.dark .list-listmember:hover:hover,html.dark .list-link:hover:focus,html.dark .list-twitter-list:hover:focus,html.dark .list-subtitle:hover:focus,html.dark .list-account:hover:focus,html.dark .list-listmember:hover:focus,html.dark .list-link:hover:active,html.dark .list-twitter-list:hover:active,html.dark .list-subtitle:hover:active,html.dark .list-account:hover:active,html.dark .list-listmember:hover:active,html.dark .list-account:hover:hover,html.dark .list-account:hover:focus,html.dark .list-account:hover:active,html.dark .list-listaccount:hover:hover,html.dark .list-listaccount:hover:focus,html.dark .list-listaccount:hover:active,html.dark .list-subtitle:hover:hover,html.dark .list-subtitle:hover:focus,html.dark .list-subtitle:hover:active{color:#111;background:#fff}
+html.dark .list-twitter-list .inner strong{color:#292F33}
+html.dark .list-twitter-list .bytext,html.dark .list-twitter-list .txt-ellipsis{color:#8899a6}
+html.dark .list-twitter-list .subtitle{color:#8899a6}
+html.dark .list-subtitle span{color:#8899a6}
+html.dark .list-account{text-shadow:0 1px 0 #fff}
+html.dark .list-account .fullname{color:#292F33}
+html.dark .list-account .username{color:#8899a6}
+html.dark .list-listmember .username{color:#8899a6}
+html.dark .list-listmember .bio{color:#657786}
+html.dark .divider-bar{background-color:#ddd}
+html.dark input,html.dark textarea,html.dark select{color:#111;border:1px solid #e1e8ed;background-color:#fff}
+html.dark input:disabled{background-color:#eaeaea;border-color:#e1e8ed}
+html.dark select:disabled{background-color:#f5f8fa}
+html.dark input:focus,html.dark select:focus,html.dark textarea:focus,html.dark .focus{border-color:rgba(80,165,230,0.8);box-shadow:inset 0 1px 3px rgba(17,17,17,0.1),0 0 8px rgba(80,165,230,0.6)}
+html.dark input.on-blue:focus{box-shadow:0 0 2px 3px #50a5e6}
+html.dark .frm{color:#111}
+html.dark .with-emphasis{border:1px solid #8899a6}
+html.dark .with-emphasis:disabled{border-color:#999}
+html.dark::-webkit-input-placeholder input::-webkit-input-placeholder,html.dark textarea::-webkit-input-placeholder{color:#aab8c2}
+html.dark::placeholder input::placeholder,html.dark textarea::placeholder{color:#aab8c2}
+html.dark::-webkit-validation-bubble-message{border:1px solid #ea596e;background-color:#ffe8eb}
+html.dark::-webkit-validation-bubble-arrow{border:1px solid #ea596e;background-color:#ffe8eb}
+html.dark .s-error input{border-color:rgba(200,120,114,0.8)}
+html.dark .s-error label{color:#be1931}
+html.dark .s-error input:focus{border-color:#c87872;box-shadow:0 0 6px rgba(200,120,114,0.5)}
+html.dark input,html.dark textarea,html.dark select{color:#111}
+html.dark .search-input-perform-search,html.dark .search-input-clear-search,html.dark .search-input-spinner{color:#aab8c2}
+html.dark .search-input-perform-search:hover,html.dark .search-input-clear-search:hover,html.dark .search-input-spinner:hover{color:#aab8c2}
+html.dark .input-clear-control{color:#aab8c2}
+html.dark .input-clear-control:hover{color:#aab8c2}
+html.dark .toggle-item.is-selected{color:#e1e8ed}
+html.dark .toggle-item{color:#8bd}
+html.dark .add-on{color:#999;border:1px solid #e1e8ed}
+html.dark .add-on.with-emphasis{border:1px solid #8899a6}
+html.dark .input-prepend input{border-left-color:#ccd6dd}
+html.dark #calbody{background:#fff}
+html.dark #caldays{border-bottom:1px solid #eaeaea}
+html.dark #caldays span{color:#292f33}
+html.dark #calweeks{background-color:#fff}
+html.dark .calweek a{color:#444}
+html.dark .calweek a:hover,html.dark .calfocus{background-color:#ccd6dd}
+html.dark a.caloff{color:#ccd6dd}
+html.dark a.caloff:hover{color:#fff;background-color:#e1e8ed}
+html.dark a.caldisabled{background-color:#F5F8FA!important;color:#e1e8ed!important}
+html.dark #calcurrent{background-color:#50a5e6;color:#292f33}
+html.dark #caltoday{background-color:#ddd;color:#fff}
+html.dark .cal{color:#e1e8ed}
+html.dark .cal header{border-bottom:1px soild #eaeaea}
+html.dark .prf-header{background:#292f33;text-shadow:0 1px 1px rgba(17,17,17,0.8);color:#fff}
+html.dark .prf-header .prf-siteurl,html.dark .prf-header .prf-bio a,html.dark .prf-header .pretty-link{color:#fff}
+html.dark .prf-header .prf-siteurl:hover,html.dark .prf-header .prf-bio a:hover,html.dark .prf-header .pretty-link:hover{color:#fff}
+html.dark .prf-header-inner-overlay{background-image:linear-gradient(transparent 0,rgba(17,17,17,0.55) 100%)}
+html.dark .prf .fullname{color:#fff}
+html.dark .prf .username{color:#fff}
+html.dark .prf-meta{border-top:1px solid #eaeaea;background:#fff}
+html.dark .prf-stats li+li a{border-left:1px solid #eaeaea}
+html.dark .prf-stats a{color:#8899a6}
+html.dark .prf-stats a strong{color:#292F33}
+html.dark .prf-stats a:hover,html.dark .prf-stats a:hover strong{color:#1c6399}
+html.dark .prf .lst-profile span{color:#aab8c2}
+html.dark .prf .lst-profile i{color:#aab8c2}
+html.dark .prf .lst-profile a{border-right:1px solid #fff}
+html.dark .prf .lst-profile a:hover span{color:#505060}
+html.dark .prf .lst-profile a:hover i{color:#505060}
+html.dark .detail-group{border-bottom:#292F33}
+html.dark .prf-follow-status{background-color:rgba(17,17,17,0.25);color:#fff}
+html.dark .profile-full-follow-status{background-color:#eaeaea}
+html.dark .social-proof-container{background-color:#e1e8ed}
+html.dark .profile-full{background-color:#fff}
+html.dark .profile-icon{color:#8899a6}
+html.dark .profile-full-avatar{background-color:#fff}
+html.dark .profile-full-bio-count{color:#292f33}
+html.dark .profile-full{background-color:#111}
+html.dark .profile-icon{color:#ccd6dd}
+html.dark .profile-full-avatar{background-color:#111}
+html.dark .profile-full-bio-count{color:#ccd6dd}
+html.dark .is-inverted-dark .profile-full{background-color:#fff}
+html.dark .is-inverted-dark .profile-icon{color:#8899a6}
+html.dark .is-inverted-dark .profile-full-avatar{background-color:#fff}
+html.dark .is-inverted-dark .profile-full-bio-count{color:#292f33}
+html.dark .lst li{border-bottom:1px solid #ddd}
+html.dark .lst-modal{background:#fff;border:1px solid #eaeaea}
+html.dark .lst .s-selected{background-color:#50a5e6;color:#fff}
+html.dark .lst .s-selected .fullname,html.dark .lst .s-selected .username{color:#fff}
+html.dark .lst-group .selected{background:#55acee;color:#F5F8FA}
+html.dark .lst-group .selected a:hover{background:#55acee}
+html.dark .lst-group .selected .fullname,html.dark .lst-group .selected .inner strong,html.dark .lst-group .selected .list-link,html.dark .lst-group .selected .list-twitter-list,html.dark .lst-group .selected .list-subtitle,html.dark .lst-group .selected .list-account,html.dark .lst-group .selected .list-listmember,html.dark .lst-group .selected .txt-ellipsis{color:#F5F8FA}
+html.dark .lst-group .selected .username,html.dark .lst-group .selected .bytext,html.dark .lst-group .selected .subtitle,html.dark .lst-group .selected .icon-protected{color:#eef3f7}
+html.dark .itm-remove{border-top:1px solid #ddd}
+html.dark .caret-outer{border-bottom:7px solid rgba(17,17,17,0.1)}
+html.dark .caret-inner{border-bottom:6px solid #fff}
+html.dark .drp-h-divider{border-bottom:1px solid #292929}
+html.dark .dropdown-menu .typeahead-item,html.dark .dropdown-menu [data-action]{color:#292F33}
+html.dark .dropdown-menu .is-selected{background:#55acee;color:#fff}
+html.dark .dropdown-menu .is-selected [data-action]{color:#fff}
+html.dark .dropdown-menu .is-selected a:not(:hover):not(:focus){color:#fff}
+html.dark .dropdown-menu a:not(:hover):not(:focus){color:#292F33}
+html.dark .dropdown-menu-old li:hover{background:#55acee}
+html.dark .dropdown-menu-old li:hover a{color:#fff}
+html.dark .dropdown-menu-old li:hover .attribution{color:#fff}
+html.dark .non-selectable-item{color:#292F33}
+html.dark .update-available-item:before{background-color:#FFAD1F}
+html.dark .is-selected .update-available-item:before{background-color:rgba(41,47,51,0.2)}
+html.dark .popover{background-color:#fff;box-shadow:0 0 10px rgba(17,17,17,0.7)}
+html.dark .release-notes{background-color:#F5F8FA}
+html.dark .release-notes-header-subtitle{color:#8899a6}
+html.dark .release-notes-image-bullet{border:1px solid #ddd}
+html.dark .startflow-background:before{background-color:#292f33;background-image:linear-gradient(36deg,#3b94d9 0%,transparent 100%)}
+html.dark .startflow-link{color:#2b7bb9}
+html.dark .startflow-link:hover,html.dark .startflow-link:focus,html.dark .startflow-link:active{color:#2b7bb9}
+html.dark .startflow-link-on-background{color:#55acee}
+html.dark .app-info-title{color:#fff}
+html.dark .app-info-text p{color:#ccd6dd}
+html.dark .form-legend{border-bottom:1px solid #ccd6dd;color:#111}
+html.dark .startflow-panel,html.dark .startflow-panel-rounded{background-color:#fff;color:#292f33;border:1px solid #292f33}
+html.dark .form-login-pwd::-webkit-input-placeholder,html.dark .form-login-email::-webkit-input-placeholder,html.dark .form-login-username::-webkit-input-placeholder{color:#999}
+html.dark .form-login-pwd::placeholder,html.dark .form-login-email::placeholder,html.dark .form-login-username::placeholder{color:#999}
+html.dark .privacy-info{color:#aab8c2}
+html.dark .privacy-info a,html.dark .privacy-info a:visited,html.dark .privacy-info a:hover,html.dark .privacy-info a:active{color:#aab8c2}
+html.dark .form-message{color:#fff}
+html.dark .form-error-message{background-color:#a0041e}
+html.dark .form-success-message{background-color:#5c913b}
+html.dark .form-warning-message{background-color:#5c913b}
+html.dark .startflow-msg-header{background-color:#ccd6dd}
+html.dark .startflow-msg-warning{background-color:#ffcc4d}
+html.dark .compose{background-color:#485865;color:#fff}
+html.dark .compose-header{border-bottom:1px solid #66757f}
+html.dark .compose-text-container{background-color:#fff}
+html.dark .compose-text{color:#111}
+html.dark .compose-text::-webkit-input-placeholder{color:#AAB8C2}
+html.dark .compose-text::placeholder{color:#AAB8C2}
+html.dark .compose-text-title{color:#88c9f9;color:#fff}
+html.dark .compose-send-button-success{color:#fff}
+html.dark .compose-reply-tweet{background-color:#e1e8ed;color:#292f33}
+html.dark .compose-reply-tweet-remove{color:#292f33}
+html.dark .compose-reply-tweet .tweet-body a{color:#2b7bb9}
+html.dark .compose-reply-tweet .fullname{color:#292f33}
+html.dark .compose-reply-tweet .username{color:#8899a6}
+html.dark .replyto-caret{border-color:transparent transparent #fff}
+html.dark .compose-message-account{color:#111}
+html.dark .compose-message-recipient{border:1px solid #eaeaea}
+html.dark .compose-message-recipient-input-container.is-focused{box-shadow:0 0 2px 3px #50a5e6}
+html.dark .compose-media-bar-holder{background-color:#fff}
+html.dark .compose-media-info-bar-holder{background-color:#fff;color:#8899a6}
+html.dark .compose-media-info-bar{background:#e1e8ed}
+html.dark .compose-account{color:#fff}
+html.dark .compose-account-img{background-color:#66757f}
+html.dark .compose-account:hover{color:#fff}
+html.dark .compose-account:focus{color:#fff}
+html.dark .compose-account:focus .compose-account-img{box-shadow:0 0 2px 3px #50a5e6}
+html.dark .is-selected.compose-account:focus .compose-account-img{box-shadow:0 0 2px 3px #50a5e6}
+html.dark .compose-account-selected{background-color:#17BF63}
+html.dark .compose-remember-state{color:#fff}
+html.dark .video-container .video-controls{background:rgba(0,0,0,0.5);background:linear-gradient(transparent,rgba(0,0,0,0.65))}
+html.dark .column-nav-link:focus,html.dark .column-nav-link:active{color:#F5F8FA}
+html.dark .column-nav-link.is-selected,html.dark .column-nav-link:hover{color:#fff}
+html.dark .column-nav-item{color:#e1e8ed;background-color:#292f33}
+html.dark .column-nav-link:after{color:#8899A6}
+html.dark .column-nav-link .attribution{color:#8899A6}
+html.dark .draggable-dragging{box-shadow:0 4px 10px rgba(17,17,17,0.8)}
+html.dark .nav-user-info .username{color:#8899A6}
+html.dark .nav-user-info .fullname{color:#F5F8FA}
+html.dark .account-bio{color:#8899a6}
+html.dark .DatePickerDropdown-menuItem--footer{border-top:1px solid #ccd6dd;background-color:#f5f8fa}
+html.dark .DatePicker-monthButton{color:#1da1f2}
+html.dark .DatePicker-monthButton:hover,html.dark .DatePicker-monthButton:focus{color:#005fd1}
+html.dark .DatePicker-monthButton[disabled]{color:#ccd6dd}
+html.dark .DatePicker-calendarDayHeader{color:#657786}
+html.dark .DatePicker-calendarDay{color:#ccd6dd}
+html.dark .DatePicker-calendarDay.is-selectable{color:#14171a}
+html.dark .DatePicker-calendarDay.is-selectable.is-adjacentMonth{color:#657786}
+html.dark .DatePicker-calendarDay.is-selectable:hover{background-color:#005fd1}
+html.dark .DatePicker-calendarDay.is-withinRange{background-color:#1da1f2}
+html.dark .DatePicker-calendarDay.is-withinRange.is-adjacentMonth{color:#ccd6dd}
+html.dark .DatePicker-calendarDay.is-rangeStart,html.dark .DatePicker-calendarDay.is-rangeEnd{background-color:#005fd1}
+html.dark .DatePicker-calendarDay.is-rangeStart.is-adjacentMonth,html.dark .DatePicker-calendarDay.is-rangeEnd.is-adjacentMonth{color:#ccd6dd}
+html.dark .DatePicker--withPendingRange .DatePicker-calendarDay.is-withinRange,html.dark .DatePicker--withPendingRange .DatePicker-calendarDay.is-rangeStart,html.dark .DatePicker--withPendingRange .DatePicker-calendarDay.is-rangeEnd{border:1px solid #1da1f2;color:#14171a}
+html.dark .DatePicker--withPendingRange .DatePicker-calendarDay.is-withinRange.is-adjacentMonth,html.dark .DatePicker--withPendingRange .DatePicker-calendarDay.is-rangeStart.is-adjacentMonth,html.dark .DatePicker--withPendingRange .DatePicker-calendarDay.is-rangeEnd.is-adjacentMonth{color:#657786}
+html.dark .DatePicker--withPendingRange .DatePicker-calendarDay.is-rangeStart,html.dark .DatePicker--withPendingRange .DatePicker-calendarDay.is-rangeEnd{background-color:#eaf5fd}
+html.dark .DatePicker-time{border-top:1px solid #ccd6dd}
+html.dark .DatePicker-timeZone{color:#657786}
+html.dark .Dropdown{background-color:rgba(255,255,255,0.98);box-shadow:0 1px 4px rgba(0,0,0,0.25)}
+html.dark .Dropdown-detailPanel{border:1px solid #ccd6dd;background-color:#f5f8fa}
+html.dark .Dropdown-divider{background-color:#ccd6dd}
+html.dark .Dropdown-menuItem .Dropdown-menuItemContent,html.dark .Dropdown-menuGroupLabel{color:#14171a}
+html.dark .Dropdown-menuItem .Dropdown-menuItemContent .Icon--check{color:#1da1f2}
+html.dark .Dropdown-menuItem.is-focus{background-color:#1da1f2}
+html.dark .Dropdown-menuGroupLabel{color:#657786}
+html.dark .ButtonGroup>.Button.is-selected,html.dark .ButtonGroup>.Button.is-selected:visited{background-color:#1da1f2;border:1px solid #1da1f2}
+html.dark .ButtonGroup>.Button.is-selected:focus,html.dark .ButtonGroup>.Button.is-selected.is-focus{box-shadow:0 0 0 2px #fff,0 0 0 4px #71c9f8;background:#1da1f2;border-color:#1da1f2}
+html.dark .ButtonGroup>.Button.is-selected:hover,html.dark .ButtonGroup>.Button.is-selected.is-hover{background-color:#1da1f2;border-color:#1da1f2}
+html.dark .ButtonGroup>.Button.is-selected:active,html.dark .ButtonGroup>.Button.is-selected.is-active{box-shadow:0 0 0 2px #fff,0 0 0 4px #1da1f2;background-color:#1da1f2;border-color:#1da1f2}
+html.dark .ButtonGroup>.Button.is-selected[disabled],html.dark .ButtonGroup>.Button.is-selected.is-disabled,html.dark fieldset[disabled] .ButtonGroup>.Button.is-selected{background-color:#1da1f2;border-color:#1da1f2}
+html.dark .ButtonGroup--tertiary>.Button.is-selected,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-selected,html.dark .ButtonGroup--tertiary>.Button.is-selected:visited,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-selected:visited{background-color:#657786;border:1px solid #657786}
+html.dark .ButtonGroup--tertiary>.Button.is-selected:focus,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-selected:focus,html.dark .ButtonGroup--tertiary>.Button.is-selected.is-focus,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-selected.is-focus{box-shadow:0 0 0 2px #fff,0 0 0 4px #ccd6dd;background:#657786;border-color:#657786}
+html.dark .ButtonGroup--tertiary>.Button.is-selected:hover,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-selected:hover,html.dark .ButtonGroup--tertiary>.Button.is-selected.is-hover,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-selected.is-hover{background-color:#657786;border-color:#657786}
+html.dark .ButtonGroup--tertiary>.Button.is-selected:active,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-selected:active,html.dark .ButtonGroup--tertiary>.Button.is-selected.is-active,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-selected.is-active{box-shadow:0 0 0 2px #fff,0 0 0 4px #aab8c2;background-color:#657786;border-color:#657786}
+html.dark .ButtonGroup--tertiary>.Button.is-selected[disabled],html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-selected[disabled],html.dark .ButtonGroup--tertiary>.Button.is-selected.is-disabled,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-selected.is-disabled,html.dark fieldset[disabled] .ButtonGroup--tertiary>.Button.is-selected,html.dark fieldset[disabled] .ButtonGroup--tertiary>.ButtonGroup>.Button.is-selected{background-color:#657786;border-color:#657786}
+html.dark .Button,html.dark .Button:visited,html.dark .Button.is-visited{border:1px solid #1da1f2;color:#1da1f2}
+html.dark .Button:focus,html.dark .Button.is-focus{box-shadow:0 0 0 2px #fff,0 0 0 4px #71c9f8;border-color:#1da1f2;color:#1da1f2}
+html.dark .Button:hover,html.dark .Button.is-hover{background-color:#eaf5fd;color:#1da1f2}
+html.dark .Button:active,html.dark .Button.is-active{box-shadow:0 0 0 2px #fff,0 0 0 4px #1da1f2;background:#eaf5fd;border-color:#1da1f2;color:#1da1f2}
+html.dark .Button.Button--primary,html.dark .Button.Button--primary:visited,html.dark .ButtonGroup--primary>.Button,html.dark .ButtonGroup--primary>.Button:visited,html.dark .ButtonGroup--primary>.ButtonGroup>.Button,html.dark .ButtonGroup--primary>.ButtonGroup>.Button:visited{background-color:#1da1f2;border:1px solid #1da1f2}
+html.dark .Button.Button--primary:focus,html.dark .Button.Button--primary.is-focus,html.dark .ButtonGroup--primary>.Button:focus,html.dark .ButtonGroup--primary>.Button.is-focus,html.dark .ButtonGroup--primary>.ButtonGroup>.Button:focus,html.dark .ButtonGroup--primary>.ButtonGroup>.Button.is-focus{box-shadow:0 0 0 2px #fff,0 0 0 4px #71c9f8;background:#1da1f2;border-color:#1da1f2}
+html.dark .Button.Button--primary:hover,html.dark .Button.Button--primary.is-hover,html.dark .ButtonGroup--primary>.Button:hover,html.dark .ButtonGroup--primary>.Button.is-hover,html.dark .ButtonGroup--primary>.ButtonGroup>.Button:hover,html.dark .ButtonGroup--primary>.ButtonGroup>.Button.is-hover{background-color:#005fd1;border-color:#005fd1}
+html.dark .Button.Button--primary:active,html.dark .Button.Button--primary.is-active,html.dark .ButtonGroup--primary>.Button:active,html.dark .ButtonGroup--primary>.Button.is-active,html.dark .ButtonGroup--primary>.ButtonGroup>.Button:active,html.dark .ButtonGroup--primary>.ButtonGroup>.Button.is-active{box-shadow:0 0 0 2px #fff,0 0 0 4px #1da1f2;background-color:#005fd1;border-color:#005fd1}
+html.dark .Button.Button--primary[disabled],html.dark .Button.Button--primary.is-disabled,html.dark fieldset[disabled] .Button.Button--primary,html.dark .ButtonGroup--primary>.Button[disabled],html.dark .ButtonGroup--primary>.Button.is-disabled,html.dark fieldset[disabled] .ButtonGroup--primary>.Button,html.dark .ButtonGroup--primary>.ButtonGroup>.Button[disabled],html.dark .ButtonGroup--primary>.ButtonGroup>.Button.is-disabled,html.dark fieldset[disabled] .ButtonGroup--primary>.ButtonGroup>.Button{background-color:#1da1f2;border-color:#1da1f2}
+html.dark .Button.Button--tertiary,html.dark .Button.Button--tertiary:visited,html.dark .ButtonGroup--tertiary>.Button,html.dark .ButtonGroup--tertiary>.Button:visited,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button:visited{border:1px solid #657786;color:#657786}
+html.dark .Button.Button--tertiary:focus,html.dark .Button.Button--tertiary.is-focus,html.dark .ButtonGroup--tertiary>.Button:focus,html.dark .ButtonGroup--tertiary>.Button.is-focus,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button:focus,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-focus{box-shadow:0 0 0 2px #fff,0 0 0 4px #ccd6dd;border-color:#657786;color:#657786}
+html.dark .Button.Button--tertiary:hover,html.dark .Button.Button--tertiary.is-hover,html.dark .ButtonGroup--tertiary>.Button:hover,html.dark .ButtonGroup--tertiary>.Button.is-hover,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button:hover,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-hover{background-color:#f5f8fa;border-color:#657786;color:#657786}
+html.dark .Button.Button--tertiary:active,html.dark .Button.Button--tertiary.is-active,html.dark .ButtonGroup--tertiary>.Button:active,html.dark .ButtonGroup--tertiary>.Button.is-active,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button:active,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-active{box-shadow:0 0 0 2px #fff,0 0 0 4px #657786;background-color:#f5f8fa;border-color:#657786;color:#657786}
+html.dark .Button.Button--tertiary[disabled],html.dark .Button.Button--tertiary.is-disabled,html.dark fieldset[disabled] .Button.Button--tertiary,html.dark .ButtonGroup--tertiary>.Button[disabled],html.dark .ButtonGroup--tertiary>.Button.is-disabled,html.dark fieldset[disabled] .ButtonGroup--tertiary>.Button,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button[disabled],html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-disabled,html.dark fieldset[disabled] .ButtonGroup--tertiary>.ButtonGroup>.Button{border-color:#657786}
+html.dark .Button.Button--success,html.dark .Button.Button--success:visited{background-color:#17bf63;border:1px solid #17bf63}
+html.dark .Button.Button--success:focus,html.dark .Button.Button--success.is-focus{box-shadow:0 0 0 2px #fff,0 0 0 4px #68e090;background:#17bf63;border-color:#17bf63}
+html.dark .Button.Button--success:hover,html.dark .Button.Button--success.is-hover{background-color:#008951;border-color:#008951}
+html.dark .Button.Button--success:active,html.dark .Button.Button--success.is-active{box-shadow:0 0 0 2px #fff,0 0 0 4px #17bf63;background-color:#008951;border-color:#008951}
+html.dark .Button.Button--success[disabled],html.dark .Button.Button--success.is-disabled,html.dark fieldset[disabled] .Button.Button--success{background-color:#17bf63;border-color:#17bf63}
+html.dark .Button.Button--warning,html.dark .Button.Button--warning:visited{background-color:#ffad1f;border:1px solid #ffad1f}
+html.dark .Button.Button--warning:focus,html.dark .Button.Button--warning.is-focus{box-shadow:0 0 0 2px #fff,0 0 0 4px #ffd03f;background:#ffad1f;border-color:#ffad1f}
+html.dark .Button.Button--warning:hover,html.dark .Button.Button--warning.is-hover{background-color:#f98e00;border-color:#f98e00}
+html.dark .Button.Button--warning:active,html.dark .Button.Button--warning.is-active{box-shadow:0 0 0 2px #fff,0 0 0 4px #ffad1f;background-color:#f98e00;border-color:#f98e00}
+html.dark .Button.Button--warning[disabled],html.dark .Button.Button--warning.is-disabled,html.dark fieldset[disabled] .Button.Button--warning{background-color:#ffad1f;border-color:#ffad1f}
+html.dark .Button.Button--danger,html.dark .Button.Button--danger:visited{background-color:#e0245e;border:1px solid #e0245e}
+html.dark .Button.Button--danger:focus,html.dark .Button.Button--danger.is-focus{box-shadow:0 0 0 2px #fff,0 0 0 4px #f6809a;background:#e0245e;border-color:#e0245e}
+html.dark .Button.Button--danger:hover,html.dark .Button.Button--danger.is-hover{background-color:#a01744;border-color:#a01744}
+html.dark .Button.Button--danger:active,html.dark .Button.Button--danger.is-active{box-shadow:0 0 0 2px #fff,0 0 0 4px #e0245e;background-color:#a01744;border-color:#a01744}
+html.dark .Button.Button--danger[disabled],html.dark .Button.Button--danger.is-disabled,html.dark fieldset[disabled] .Button.Button--danger{background-color:#e0245e;border-color:#e0245e}
+html.dark .Button.Button--link{color:#1b95e0}
+html.dark .Button.Button--dangerLink{color:#e0245e}
+html.dark .ProgressBar{background-color:#ccd6dd;color:#1da1f2}
+html.dark .ProgressBar::-webkit-progress-bar{background-color:#ccd6dd}
+html.dark .ProgressBar.ProgressBar:indeterminate{border-top:1.5px solid #ccd6dd;border-bottom:1.5px solid #ccd6dd}
+html.dark .ProgressBar::-webkit-progress-value{background-color:#1da1f2}
+html.dark .ProgressBar--red{color:#e0245e}
+html.dark .ProgressBar--red::-webkit-progress-value{background-color:#e0245e}
+html.dark .ProgressBar--yellow{color:#ffad1f}
+html.dark .ProgressBar--yellow::-webkit-progress-value{background-color:#ffad1f}
+html.dark .ProgressBar--green{color:#17bf63}
+html.dark .ProgressBar--green::-webkit-progress-value{background-color:#17bf63}
+html.dark .ProgressBar--blue{color:#1da1f2}
+html.dark .ProgressBar--blue::-webkit-progress-value{background-color:#1da1f2}
+html.dark .ProgressBar--white{background-color:#657786}
+html.dark .ProgressBar--white::-webkit-progress-bar{background-color:#657786}
+html.dark .ProgressBar--large.ProgressBar:indeterminate{border-top:4.5px solid #ccd6dd;border-bottom:4.5px solid #ccd6dd}
+html.dark .Notification-inner{box-shadow:0 2px 4px rgba(0,0,0,0.1)}
+html.dark .Notification-icon{background-color:#1da1f2}
+html.dark .Notification-content{border:1px solid #ccd6dd}
+html.dark .Notification-title+.Notification-body{color:#657786}
+html.dark .Notification-closeButton{color:#aab8c2}
+html.dark .Notification-closeButton:hover,html.dark .Notification-closeButton:focus{color:#657786}
+html.dark .Notification--green .Notification-icon{background-color:#17bf63}
+html.dark .Notification--red .Notification-icon{background-color:#e0245e}
+html.dark .ModalOverlay{background-color:rgba(20,23,26,0.8)}
+html.dark .Drawer{background-color:#fff}
+html.dark .Drawer:not([dir="rtl"]){border-left:1px solid #ccd6dd}
+html.dark .Drawer[dir="rtl"]{border-right:1px solid #ccd6dd}
+html.dark .Drawer--modal{background-color:#fff}
+html.dark .Drawer-close{color:#aab8c2}
+html.dark .Drawer-close:hover{color:#657786}
+html.dark .DialogContent-title{border-bottom:2px solid #ccd6dd}
+html.dark .DialogContent-footer{background-color:#f5f8fa;border-top:1px solid #ccd6dd}
+html.dark .Tooltip{border-color:#ccd6dd;box-shadow:0 2px 4px rgba(0,0,0,0.1)}
+html.dark .Tooltip .Tooltip-content{color:#14171a}
+html.dark .Tooltip .Tooltip-close{color:#aab8c2}
+html.dark .Tooltip .Tooltip-triangleOuter{border-color:transparent #ccd6dd transparent transparent}
+html.dark .Tooltip.Tooltip--left .Tooltip-triangleOuter,html.dark .Tooltip.Tooltip--topLeft .Tooltip-triangleOuter,html.dark .Tooltip.Tooltip--bottomLeft .Tooltip-triangleOuter{border-color:transparent transparent transparent #ccd6dd}
+html.dark .Tooltip.Tooltip--top .Tooltip-triangleOuter,html.dark .Tooltip.Tooltip--topLeft .Tooltip-triangleOuter{border-color:#ccd6dd transparent transparent}
+html.dark .Tooltip.Tooltip--bottom .Tooltip-triangleOuter,html.dark .Tooltip.Tooltip--bottomLeft .Tooltip-triangleOuter{border-color:transparent transparent #ccd6dd}
+html.dark .Tooltip--dark{background:#14171a;border-color:#14171a}
+html.dark .Tooltip--dark .Tooltip-triangleOuter{border-color:transparent #14171a transparent transparent}
+html.dark .Tooltip--dark .Tooltip-triangleInner{border-color:transparent #14171a transparent transparent}
+html.dark .Tooltip--dark.Tooltip--left .Tooltip-triangleOuter,html.dark .Tooltip--dark.Tooltip--topLeft .Tooltip-triangleOuter,html.dark .Tooltip--dark.Tooltip--bottomLeft .Tooltip-triangleOuter{border-color:transparent transparent transparent #14171a}
+html.dark .Tooltip--dark.Tooltip--left .Tooltip-triangleInner,html.dark .Tooltip--dark.Tooltip--topLeft .Tooltip-triangleInner,html.dark .Tooltip--dark.Tooltip--bottomLeft .Tooltip-triangleInner{border-color:transparent transparent transparent #14171a}
+html.dark .Tooltip--dark.Tooltip--top .Tooltip-triangleOuter,html.dark .Tooltip--dark.Tooltip--topLeft .Tooltip-triangleOuter{border-color:#14171a transparent transparent}
+html.dark .Tooltip--dark.Tooltip--top .Tooltip-triangleInner,html.dark .Tooltip--dark.Tooltip--topLeft .Tooltip-triangleInner{border-color:#14171a transparent transparent}
+html.dark .Tooltip--dark.Tooltip--bottom .Tooltip-triangleOuter,html.dark .Tooltip--dark.Tooltip--bottomLeft .Tooltip-triangleOuter{border-color:transparent transparent #14171a}
+html.dark .Tooltip--dark.Tooltip--bottom .Tooltip-triangleInner,html.dark .Tooltip--dark.Tooltip--bottomLeft .Tooltip-triangleInner{border-color:transparent transparent #14171a}
+html.dark .Tooltip--intro{background:#1da1f2;border-color:#1da1f2}
+html.dark .Tooltip--intro .Tooltip-triangleOuter{border-color:transparent #1da1f2 transparent transparent}
+html.dark .Tooltip--intro .Tooltip-triangleInner{border-color:transparent #1da1f2 transparent transparent}
+html.dark .Tooltip--intro.Tooltip--left .Tooltip-triangleOuter,html.dark .Tooltip--intro.Tooltip--topLeft .Tooltip-triangleOuter,html.dark .Tooltip--intro.Tooltip--bottomLeft .Tooltip-triangleOuter{border-color:transparent transparent transparent #1da1f2}
+html.dark .Tooltip--intro.Tooltip--left .Tooltip-triangleInner,html.dark .Tooltip--intro.Tooltip--topLeft .Tooltip-triangleInner,html.dark .Tooltip--intro.Tooltip--bottomLeft .Tooltip-triangleInner{border-color:transparent transparent transparent #1da1f2}
+html.dark .Tooltip--intro.Tooltip--top .Tooltip-triangleOuter,html.dark .Tooltip--intro.Tooltip--topLeft .Tooltip-triangleOuter{border-color:#1da1f2 transparent transparent}
+html.dark .Tooltip--intro.Tooltip--top .Tooltip-triangleInner,html.dark .Tooltip--intro.Tooltip--topLeft .Tooltip-triangleInner{border-color:#1da1f2 transparent transparent}
+html.dark .Tooltip--intro.Tooltip--bottom .Tooltip-triangleOuter,html.dark .Tooltip--intro.Tooltip--bottomLeft .Tooltip-triangleOuter{border-color:transparent transparent #1da1f2}
+html.dark .Tooltip--intro.Tooltip--bottom .Tooltip-triangleInner,html.dark .Tooltip--intro.Tooltip--bottomLeft .Tooltip-triangleInner{border-color:transparent transparent #1da1f2}
+html.dark .Tooltip-close:hover{color:#657786}
+html.dark .TooltipHoverTarget{background-image:linear-gradient(to right,#1da1f2 50%,transparent 0%)}
+html.dark .LegendItem-color{background-color:#aab8c2}
+html.dark .LegendItem--gray .LegendItem-color{background-color:#aab8c2}
+html.dark .LegendItem--blue .LegendItem-color{background-color:#1da1f2}
+html.dark .LegendItem--green .LegendItem-color{background-color:#17bf63}
+html.dark .LegendItem--yellow .LegendItem-color{background-color:#ffad1f}
+html.dark .LegendItem--red .LegendItem-color{background-color:#e0245e}
+html.dark .LegendItem--purple .LegendItem-color{background-color:#794bc4}
+html.dark .DateRangeDropdown-menuItem--footer{border-top:1px solid #ccd6dd;background-color:#f5f8fa}
+html.dark .DateRange:not([dir='rtl']) .DateRange-presets{border-right:1px solid #ccd6dd}
+html.dark .DateRange:not([dir='rtl']) .DateRange-pickersRow:first-child .DateRange-pickerWrapper:last-child{border-left:1px solid #ccd6dd}
+html.dark .DateRange[dir='rtl'] .DateRange-presets{border-left:1px solid #ccd6dd}
+html.dark .DateRange[dir='rtl'] .DateRange-pickersRow:first-child .DateRange-pickerWrapper:last-child{border-right:1px solid #ccd6dd}
+html.dark .PillGroup .Pill.is-selected{background:#005fd1}
+html.dark .PillGroup .Pill>a,html.dark .PillGroup .Pill>button{color:#1b95e0}
+html.dark .PillGroup .Pill>a:hover,html.dark .PillGroup .Pill>button:hover{background:#eaf5fd}
+html.dark .PillGroup .Pill>a:focus,html.dark .PillGroup .Pill>button:focus{box-shadow:0 0 0 2px #fff,0 0 0 4px #71c9f8}
+html.dark .PillGroup .Pill>a:active,html.dark .PillGroup .Pill>button:active{box-shadow:0 0 0 2px #fff,0 0 0 4px #1da1f2}
+html.dark .PillGroup .Pill.is-selected>a,html.dark .PillGroup .Pill.is-selected>button{color:#FFF}
+html.dark .FormInput,html.dark .FormTextarea{border:1px solid #ccd6dd;color:#14171a}
+html.dark .FormInput-characterCount{color:#ccd6dd}
+html.dark .FormInput-characterCount.is-negative{color:#e0245e}
+html.dark .FormInput::-webkit-input-placeholder,html.dark .FormTextarea::-webkit-input-placeholder{color:#aab8c2}
+html.dark .FormInput[disabled],html.dark .FormTextarea[disabled],html.dark .FormInput.is-disabled,html.dark .FormTextarea.is-disabled,html.dark fieldset[disabled] .FormInput,html.dark fieldset[disabled] .FormTextarea,html.dark .FormInputWrapper.is-disabled .FormInput{background:#f5f8fa;color:#657786}
+html.dark .FormInput.is-error,html.dark .FormTextarea.is-error,html.dark .FormInput.is-invalid,html.dark .FormTextarea.is-invalid,html.dark .FormInputWrapper.is-invalid .FormInput{border-color:#e0245e}
+html.dark .FormInput.is-error:focus,html.dark .FormTextarea.is-error:focus,html.dark .FormInput.is-invalid:focus,html.dark .FormTextarea.is-invalid:focus,html.dark .FormInput.is-error.is-focus,html.dark .FormTextarea.is-error.is-focus,html.dark .FormInput.is-invalid.is-focus,html.dark .FormTextarea.is-invalid.is-focus,html.dark .FormInputWrapper.is-invalid .FormInput:focus,html.dark .FormInputWrapper.is-invalid .FormInput.is-focus{border-color:#e0245e;box-shadow:inset 0 0 0 1px #e0245e}
+html.dark .FormInput.is-valid,html.dark .FormTextarea.is-valid{border-color:#17bf63}
+html.dark .FormInput.is-valid:focus,html.dark .FormTextarea.is-valid:focus,html.dark .FormInput.is-valid.is-focus,html.dark .FormTextarea.is-valid.is-focus{border-color:#17bf63;box-shadow:inset 0 0 0 1px #17bf63}
+html.dark .FormInput:focus,html.dark .FormTextarea:focus,html.dark .FormInput.is-focus,html.dark .FormTextarea.is-focus,html.dark .FormInputWrapper.is-focus .FormInput{border-color:#1da1f2;box-shadow:inset 0 0 0 1px #1da1f2}
+html.dark .FormOption.is-disabled{color:#aab8c2}
+html.dark .FormInputWrapper-absoluteStartAdornment .Icon,html.dark .FormInputWrapper-absoluteEndAdornment .Icon{color:#aab8c2}
+html.dark .FormInputWrapper-absoluteStartAdornment .Icon--caretDown,html.dark .FormInputWrapper-absoluteEndAdornment .Icon--caretDown{color:#14171a}
+html.dark .FormInputWrapper.is-disabled .FormInputWrapper-absoluteStartAdornment .Icon--caretDown,html.dark .FormInputWrapper.is-disabled .FormInputWrapper-absoluteEndAdornment .Icon--caretDown,html.dark fieldset[disabled] .FormInputWrapper-absoluteStartAdornment .Icon--caretDown,html.dark fieldset[disabled] .FormInputWrapper-absoluteEndAdornment .Icon--caretDown{color:#657786}
+html.dark .FormInputWrapper-startAdornment,html.dark .FormInputWrapper-endAdornment{border:1px solid #ccd6dd}
+html.dark .FormField.is-invalid .FormField-validationMessage{color:#e0245e}
+html.dark .FormField.is-valid .FormField-validationMessage{color:#008951}
+html.dark .FormField-description{color:#657786}
+html.dark .Token-checkbox input[type="checkbox"]:focus+.Icon{box-shadow:0 0 0 5px #fff,0 0 0 7px #71c9f8}
+html.dark .Token--small .Token-trigger input[type="checkbox"]:focus+.Icon,html.dark .TokenGroup--small>.Token .Token-trigger input[type="checkbox"]:focus+.Icon,html.dark .TokenGroup--small>.TokenGroup>.Token .Token-trigger input[type="checkbox"]:focus+.Icon{box-shadow:0 0 0 3px #fff,0 0 0 5px #71c9f8}
+html.dark .Token--xsmall .Token-trigger input[type="checkbox"]:focus+.Icon,html.dark .TokenGroup--xsmall>.Token .Token-trigger input[type="checkbox"]:focus+.Icon,html.dark .TokenGroup--xsmall>.TokenGroup>.Token .Token-trigger input[type="checkbox"]:focus+.Icon{box-shadow:0 0 0 0 #fff,0 0 0 2px #71c9f8}
+html.dark .Token,html.dark .Token--blue{border-color:#1da1f2;color:#1da1f2}
+html.dark .Token .Token-adornment,html.dark .Token--blue .Token-adornment{background-color:#1da1f2}
+html.dark .Token:hover,html.dark .Token--blue:hover{background-color:#97e3ff;color:#005fd1}
+html.dark .Token.is-selected,html.dark .Token--blue.is-selected{background-color:#1da1f2}
+html.dark .Token.is-selected .Token-adornment,html.dark .Token--blue.is-selected .Token-adornment{color:#1da1f2}
+html.dark .Token.is-selected:hover,html.dark .Token--blue.is-selected:hover{background-color:#005fd1;border-color:#005fd1}
+html.dark .Token:focus,html.dark .Token--blue:focus,html.dark .Token.is-focused,html.dark .Token--blue.is-focused{box-shadow:0 0 0 1px #fff,0 0 0 3px #71c9f8}
+html.dark .Token--green{border-color:#17bf63;color:#17bf63}
+html.dark .Token--green .Token-adornment{background-color:#17bf63}
+html.dark .Token--green:hover{background-color:#a5f2aa;color:#008951}
+html.dark .Token--green.is-selected{background-color:#17bf63}
+html.dark .Token--green.is-selected .Token-adornment{color:#17bf63}
+html.dark .Token--green.is-selected:hover{background-color:#008951;border-color:#008951}
+html.dark .Token--green:focus,html.dark .Token--green.is-focused{box-shadow:0 0 0 1px #fff,0 0 0 3px #68e090}
+html.dark .Token--red{border-color:#e0245e;color:#e0245e}
+html.dark .Token--red .Token-adornment{background-color:#e0245e}
+html.dark .Token--red:hover{background-color:#ffb8c2;color:#a01744}
+html.dark .Token--red.is-selected{background-color:#e0245e}
+html.dark .Token--red.is-selected .Token-adornment{color:#e0245e}
+html.dark .Token--red.is-selected:hover{background-color:#a01744;border-color:#a01744}
+html.dark .Token--red:focus,html.dark .Token--red.is-focused{box-shadow:0 0 0 1px #fff,0 0 0 3px #f6809a}
+html.dark .Token--purple{border-color:#794bc4;color:#794bc4}
+html.dark .Token--purple .Token-adornment{background-color:#794bc4}
+html.dark .Token--purple:hover{background-color:#c7b4fa;color:#4f0299}
+html.dark .Token--purple.is-selected{background-color:#794bc4}
+html.dark .Token--purple.is-selected .Token-adornment{color:#794bc4}
+html.dark .Token--purple.is-selected:hover{background-color:#4f0299;border-color:#4f0299}
+html.dark .Token--purple:focus,html.dark .Token--purple.is-focused{box-shadow:0 0 0 1px #fff,0 0 0 3px #a37ced}
+html.dark .Token--yellow{border-color:#ffad1f;color:#ffad1f}
+html.dark .Token--yellow .Token-adornment{background-color:#ffad1f}
+html.dark .Token--yellow:hover{background-color:#ffe76e;color:#f98e00}
+html.dark .Token--yellow.is-selected{background-color:#ffad1f}
+html.dark .Token--yellow.is-selected .Token-adornment{color:#ffad1f}
+html.dark .Token--yellow.is-selected:hover{background-color:#f98e00;border-color:#f98e00}
+html.dark .Token--yellow:focus,html.dark .Token--yellow.is-focused{box-shadow:0 0 0 1px #fff,0 0 0 3px #ffd03f}
+html.dark .Token--gray{border-color:#657786;color:#657786}
+html.dark .Token--gray .Token-adornment{background-color:#657786}
+html.dark .Token--gray:hover{background-color:#e6ecf0;color:#657786}
+html.dark .Token--gray.is-selected{background-color:#657786}
+html.dark .Token--gray.is-selected .Token-adornment{color:#657786}
+html.dark .Token--gray.is-selected:hover{background-color:#aab8c2;border-color:#aab8c2}
+html.dark .Token--gray:focus,html.dark .Token--gray.is-focused{box-shadow:0 0 0 1px #fff,0 0 0 3px #aab8c2}
+html.dark .FormTokenInput-input::-webkit-input-placeholder{color:#aab8c2}
+html.dark .DataPoint .DataPoint-label{color:#657786}
+html.dark .DataPoint .DataPoint-info{color:#14171a}
+html.dark .DataPoint .DataPoint-trend--negative{color:#e0245e}
+html.dark .DataPoint .DataPoint-trend--positive{color:#17bf63}
+html.dark .DataPoint--withBottomBorder{border-bottom:1px solid #ccd6dd}
+html.dark .FormTokenInput.FormTextarea::-webkit-input-placeholder{color:#8899A6}
+html.dark .FormTokenInput.FormTextarea::placeholder{color:#8899A6}
+html.dark .DatePicker.date-unselected .is-rangeStart,html.dark .DatePicker.date-unselected .is-rangeEnd{color:#14171a}
+html.dark .DatePicker.date-unselected .is-rangeStart:hover,html.dark .DatePicker.date-unselected .is-rangeEnd:hover{background-color:#005091;color:#fff}
+html.dark .NotificationList .Notification-body{color:#14171A}
+html.dark .DrawerModal{color:#14171A}
+/* fixes */
+html.dark .app-search-fake{border-color:transparent}
+html.dark .spinner-small,html.dark .spinner-large{filter:grayscale(85%)brightness(117%)}
+html.dark .tweet>.color-twitter-blue{color:#8bd!important}
+html.dark .hw-card-container>div{border-color:#292F33;background:transparent}
+html.dark .hw-card-container>div>div{border-color:#292F33}
+html.dark .modal-content,html.dark .lst-group{color:#292F33}
+html.dark .lst-launcher a span{color:#657786!important}
+html.dark .social-proof-names a{color:#3b94d9}
+html.dark .is-inverted-dark .column-header-temp{border-bottom:1px solid #ddd; background-color: white;}
+
+
+/* fix text color */
+htm.dark .dropdown-menu .non-selectable-item
+, html.dark .dropdown-menu .js-dropdown-content a:not(:hover):not(:focus)
+, html.dark .dropdown-menu .js-dropdown-content .non-selectable-item { color: #e1e8ed; }
+/* fix background color */
+html.dark .dropdown-menu { background-color: #292F33; }

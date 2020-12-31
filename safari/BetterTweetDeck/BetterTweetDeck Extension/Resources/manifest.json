@@ -1,0 +1,73 @@
+{
+  "name": "__MSG_appName__",
+  "short_name": "BetterTDeck",
+  "version": "3.9.16",
+  "version_name": "3.9.16",
+  "manifest_version": 2,
+  "homepage_url": "https://better.tw",
+  "content_scripts": [
+    {
+      "matches": [
+        "*://tweetdeck.twitter.com/*"
+      ],
+      "js": [
+        "js/content.js"
+      ],
+      "css": [
+        "css/index.css"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "background": {
+    "scripts": [
+      "js/background.js"
+    ]
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "96": "icons/icon-96.png",
+    "128": "icons/icon-128.png",
+    "256": "icons/icon-256.png",
+    "512": "icons/icon-512.png"
+  },
+  "permissions": [
+    "storage",
+    "contextMenus",
+    "https://images4-focus-opensocial.googleusercontent.com/gadgets/proxy*",
+    "https://api.dailymotion.com/video/*",
+    "https://*.imgur.com/*",
+    "https://api.streamable.com/*",
+    "https://*.bandcamp.com/*",
+    "https://cl.ly/*",
+    "https://api.gyazo.com/api/*",
+    "https://www.tinami.com/api/*",
+    "https://*.nicovideo.jp/*",
+    "https://api.photozou.jp/rest/*",
+    "https://noembed.com/embed*",
+    "*://*.pixiv.net/*",
+    "https://api.gfycat.com/",
+    "https://raw.githubusercontent.com/eramdam/BetterTweetDeck/master/*",
+    "*://tweetdeck.twitter.com/*",
+    "https://audiomack.com/oembed",
+    "https://*.tenor.com/*",
+    "https://*.giphy.com/*",
+    "https://*.twimg.com/*"
+  ],
+  "options_ui": {
+    "page": "options/ui/ui.html",
+    "chrome_style": false
+  },
+  "web_accessible_resources": [
+    "revert-dark-theme.css",
+    "emojis/sheet_twitter_64.png",
+    "fonts/*.*",
+    "js/inject.js",
+    "options/options.html"
+  ],
+  "content_security_policy": "img-src https: data: 'self' *; default-src; connect-src * https:; style-src 'unsafe-inline'; script-src 'self';",
+  "description": "__MSG_appDesc__",
+  "default_locale": "en"
+}
