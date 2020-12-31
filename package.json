@@ -26,7 +26,7 @@
     "update_emojis": "node tools/update_emojis.js",
     "prepush": "npm run lint",
     "fix": "eslint --fix '**/*.{js,jsx}' && prettier --write '**/*.css'",
-    "safari": "xcrun safari-web-extension-converter dist --project-location safari --swift --force --bundle-identifier me.erambert.bettertweetdeck"
+    "safari": "xcrun safari-web-extension-converter --project-location safari --swift --force --bundle-identifier me.erambert.bettertweetdeck --app-name 'Better TweetDeck' dist"
   },
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
   "dependencies": {

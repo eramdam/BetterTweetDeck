@@ -1,0 +1,538 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6DE9BC49259DBFD50081D8E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE9BC48259DBFD50081D8E9 /* AppDelegate.swift */; };
+		6DE9BC4C259DBFD50081D8E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BC4A259DBFD50081D8E9 /* Main.storyboard */; };
+		6DE9BC4E259DBFD50081D8E9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE9BC4D259DBFD50081D8E9 /* ViewController.swift */; };
+		6DE9BC50259DBFD60081D8E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BC4F259DBFD60081D8E9 /* Assets.xcassets */; };
+		6DE9BC57259DBFD60081D8E9 /* Better TweetDeck Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6DE9BC56259DBFD60081D8E9 /* Better TweetDeck Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6DE9BC5C259DBFD60081D8E9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DE9BC5B259DBFD60081D8E9 /* Cocoa.framework */; };
+		6DE9BC5F259DBFD60081D8E9 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE9BC5E259DBFD60081D8E9 /* SafariWebExtensionHandler.swift */; };
+		6DE9BC75259DBFD70081D8E9 /* options in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BC6C259DBFD70081D8E9 /* options */; };
+		6DE9BC76259DBFD70081D8E9 /* css in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BC6D259DBFD70081D8E9 /* css */; };
+		6DE9BC77259DBFD70081D8E9 /* js in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BC6E259DBFD70081D8E9 /* js */; };
+		6DE9BC78259DBFD70081D8E9 /* icons in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BC6F259DBFD70081D8E9 /* icons */; };
+		6DE9BC79259DBFD70081D8E9 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BC70259DBFD70081D8E9 /* manifest.json */; };
+		6DE9BC7A259DBFD70081D8E9 /* revert-dark-theme.css in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BC71259DBFD70081D8E9 /* revert-dark-theme.css */; };
+		6DE9BC7B259DBFD70081D8E9 /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BC72259DBFD70081D8E9 /* _locales */; };
+		6DE9BC7C259DBFD70081D8E9 /* emojis in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BC73259DBFD70081D8E9 /* emojis */; };
+		6DE9BC7D259DBFD70081D8E9 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BC74259DBFD70081D8E9 /* fonts */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6DE9BC58259DBFD60081D8E9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6DE9BC3C259DBFD50081D8E9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6DE9BC55259DBFD60081D8E9;
+			remoteInfo = "Better TweetDeck Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6DE9BC67259DBFD60081D8E9 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				6DE9BC57259DBFD60081D8E9 /* Better TweetDeck Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		6DE9BC44259DBFD50081D8E9 /* Better TweetDeck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Better TweetDeck.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6DE9BC47259DBFD50081D8E9 /* Better_TweetDeck.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Better_TweetDeck.entitlements; sourceTree = "<group>"; };
+		6DE9BC48259DBFD50081D8E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6DE9BC4B259DBFD50081D8E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6DE9BC4D259DBFD50081D8E9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6DE9BC4F259DBFD60081D8E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6DE9BC51259DBFD60081D8E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6DE9BC56259DBFD60081D8E9 /* Better TweetDeck Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Better TweetDeck Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6DE9BC5B259DBFD60081D8E9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		6DE9BC5E259DBFD60081D8E9 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		6DE9BC60259DBFD60081D8E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6DE9BC61259DBFD60081D8E9 /* Better_TweetDeck_Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Better_TweetDeck_Extension.entitlements; sourceTree = "<group>"; };
+		6DE9BC6C259DBFD70081D8E9 /* options */ = {isa = PBXFileReference; lastKnownFileType = folder; name = options; path = ../../../dist/options; sourceTree = "<group>"; };
+		6DE9BC6D259DBFD70081D8E9 /* css */ = {isa = PBXFileReference; lastKnownFileType = folder; name = css; path = ../../../dist/css; sourceTree = "<group>"; };
+		6DE9BC6E259DBFD70081D8E9 /* js */ = {isa = PBXFileReference; lastKnownFileType = folder; name = js; path = ../../../dist/js; sourceTree = "<group>"; };
+		6DE9BC6F259DBFD70081D8E9 /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = icons; path = ../../../dist/icons; sourceTree = "<group>"; };
+		6DE9BC70259DBFD70081D8E9 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../../dist/manifest.json; sourceTree = "<group>"; };
+		6DE9BC71259DBFD70081D8E9 /* revert-dark-theme.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = "revert-dark-theme.css"; path = "../../../dist/revert-dark-theme.css"; sourceTree = "<group>"; };
+		6DE9BC72259DBFD70081D8E9 /* _locales */ = {isa = PBXFileReference; lastKnownFileType = folder; name = _locales; path = ../../../dist/_locales; sourceTree = "<group>"; };
+		6DE9BC73259DBFD70081D8E9 /* emojis */ = {isa = PBXFileReference; lastKnownFileType = folder; name = emojis; path = ../../../dist/emojis; sourceTree = "<group>"; };
+		6DE9BC74259DBFD70081D8E9 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fonts; path = ../../../dist/fonts; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6DE9BC41259DBFD50081D8E9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6DE9BC53259DBFD60081D8E9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6DE9BC5C259DBFD60081D8E9 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6DE9BC3B259DBFD50081D8E9 = {
+			isa = PBXGroup;
+			children = (
+				6DE9BC46259DBFD50081D8E9 /* Better TweetDeck */,
+				6DE9BC5D259DBFD60081D8E9 /* Better TweetDeck Extension */,
+				6DE9BC5A259DBFD60081D8E9 /* Frameworks */,
+				6DE9BC45259DBFD50081D8E9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6DE9BC45259DBFD50081D8E9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6DE9BC44259DBFD50081D8E9 /* Better TweetDeck.app */,
+				6DE9BC56259DBFD60081D8E9 /* Better TweetDeck Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6DE9BC46259DBFD50081D8E9 /* Better TweetDeck */ = {
+			isa = PBXGroup;
+			children = (
+				6DE9BC47259DBFD50081D8E9 /* Better_TweetDeck.entitlements */,
+				6DE9BC48259DBFD50081D8E9 /* AppDelegate.swift */,
+				6DE9BC4A259DBFD50081D8E9 /* Main.storyboard */,
+				6DE9BC4D259DBFD50081D8E9 /* ViewController.swift */,
+				6DE9BC4F259DBFD60081D8E9 /* Assets.xcassets */,
+				6DE9BC51259DBFD60081D8E9 /* Info.plist */,
+			);
+			path = "Better TweetDeck";
+			sourceTree = "<group>";
+		};
+		6DE9BC5A259DBFD60081D8E9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6DE9BC5B259DBFD60081D8E9 /* Cocoa.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6DE9BC5D259DBFD60081D8E9 /* Better TweetDeck Extension */ = {
+			isa = PBXGroup;
+			children = (
+				6DE9BC6B259DBFD70081D8E9 /* Resources */,
+				6DE9BC5E259DBFD60081D8E9 /* SafariWebExtensionHandler.swift */,
+				6DE9BC60259DBFD60081D8E9 /* Info.plist */,
+				6DE9BC61259DBFD60081D8E9 /* Better_TweetDeck_Extension.entitlements */,
+			);
+			path = "Better TweetDeck Extension";
+			sourceTree = "<group>";
+		};
+		6DE9BC6B259DBFD70081D8E9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6DE9BC6C259DBFD70081D8E9 /* options */,
+				6DE9BC6D259DBFD70081D8E9 /* css */,
+				6DE9BC6E259DBFD70081D8E9 /* js */,
+				6DE9BC6F259DBFD70081D8E9 /* icons */,
+				6DE9BC70259DBFD70081D8E9 /* manifest.json */,
+				6DE9BC71259DBFD70081D8E9 /* revert-dark-theme.css */,
+				6DE9BC72259DBFD70081D8E9 /* _locales */,
+				6DE9BC73259DBFD70081D8E9 /* emojis */,
+				6DE9BC74259DBFD70081D8E9 /* fonts */,
+			);
+			name = Resources;
+			path = "Better TweetDeck Extension";
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6DE9BC43259DBFD50081D8E9 /* Better TweetDeck */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6DE9BC68259DBFD60081D8E9 /* Build configuration list for PBXNativeTarget "Better TweetDeck" */;
+			buildPhases = (
+				6DE9BC40259DBFD50081D8E9 /* Sources */,
+				6DE9BC41259DBFD50081D8E9 /* Frameworks */,
+				6DE9BC42259DBFD50081D8E9 /* Resources */,
+				6DE9BC67259DBFD60081D8E9 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6DE9BC59259DBFD60081D8E9 /* PBXTargetDependency */,
+			);
+			name = "Better TweetDeck";
+			productName = "Better TweetDeck";
+			productReference = 6DE9BC44259DBFD50081D8E9 /* Better TweetDeck.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6DE9BC55259DBFD60081D8E9 /* Better TweetDeck Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6DE9BC64259DBFD60081D8E9 /* Build configuration list for PBXNativeTarget "Better TweetDeck Extension" */;
+			buildPhases = (
+				6DE9BC52259DBFD60081D8E9 /* Sources */,
+				6DE9BC53259DBFD60081D8E9 /* Frameworks */,
+				6DE9BC54259DBFD60081D8E9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Better TweetDeck Extension";
+			productName = "Better TweetDeck Extension";
+			productReference = 6DE9BC56259DBFD60081D8E9 /* Better TweetDeck Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6DE9BC3C259DBFD50081D8E9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1230;
+				LastUpgradeCheck = 1230;
+				TargetAttributes = {
+					6DE9BC43259DBFD50081D8E9 = {
+						CreatedOnToolsVersion = 12.3;
+					};
+					6DE9BC55259DBFD60081D8E9 = {
+						CreatedOnToolsVersion = 12.3;
+					};
+				};
+			};
+			buildConfigurationList = 6DE9BC3F259DBFD50081D8E9 /* Build configuration list for PBXProject "Better TweetDeck" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6DE9BC3B259DBFD50081D8E9;
+			productRefGroup = 6DE9BC45259DBFD50081D8E9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6DE9BC43259DBFD50081D8E9 /* Better TweetDeck */,
+				6DE9BC55259DBFD60081D8E9 /* Better TweetDeck Extension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6DE9BC42259DBFD50081D8E9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6DE9BC50259DBFD60081D8E9 /* Assets.xcassets in Resources */,
+				6DE9BC4C259DBFD50081D8E9 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6DE9BC54259DBFD60081D8E9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6DE9BC76259DBFD70081D8E9 /* css in Resources */,
+				6DE9BC78259DBFD70081D8E9 /* icons in Resources */,
+				6DE9BC79259DBFD70081D8E9 /* manifest.json in Resources */,
+				6DE9BC7A259DBFD70081D8E9 /* revert-dark-theme.css in Resources */,
+				6DE9BC77259DBFD70081D8E9 /* js in Resources */,
+				6DE9BC7C259DBFD70081D8E9 /* emojis in Resources */,
+				6DE9BC7D259DBFD70081D8E9 /* fonts in Resources */,
+				6DE9BC7B259DBFD70081D8E9 /* _locales in Resources */,
+				6DE9BC75259DBFD70081D8E9 /* options in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6DE9BC40259DBFD50081D8E9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6DE9BC4E259DBFD50081D8E9 /* ViewController.swift in Sources */,
+				6DE9BC49259DBFD50081D8E9 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6DE9BC52259DBFD60081D8E9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6DE9BC5F259DBFD60081D8E9 /* SafariWebExtensionHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6DE9BC59259DBFD60081D8E9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6DE9BC55259DBFD60081D8E9 /* Better TweetDeck Extension */;
+			targetProxy = 6DE9BC58259DBFD60081D8E9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		6DE9BC4A259DBFD50081D8E9 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6DE9BC4B259DBFD50081D8E9 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6DE9BC62259DBFD60081D8E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		6DE9BC63259DBFD60081D8E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		6DE9BC65259DBFD60081D8E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Better TweetDeck Extension/Better_TweetDeck_Extension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Better TweetDeck Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = "me.erambert.Better-TweetDeck.Extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				MARKETING_VERSION = 3.9.16;
+			};
+			name = Debug;
+		};
+		6DE9BC66259DBFD60081D8E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Better TweetDeck Extension/Better_TweetDeck_Extension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Better TweetDeck Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = "me.erambert.Better-TweetDeck.Extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				MARKETING_VERSION = 3.9.16;
+			};
+			name = Release;
+		};
+		6DE9BC69259DBFD60081D8E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Better TweetDeck/Better_TweetDeck.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Better TweetDeck/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = "me.erambert.Better-TweetDeck";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				MARKETING_VERSION = 3.9.16;
+			};
+			name = Debug;
+		};
+		6DE9BC6A259DBFD60081D8E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Better TweetDeck/Better_TweetDeck.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Better TweetDeck/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = "me.erambert.Better-TweetDeck";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				MARKETING_VERSION = 3.9.16;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6DE9BC3F259DBFD50081D8E9 /* Build configuration list for PBXProject "Better TweetDeck" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6DE9BC62259DBFD60081D8E9 /* Debug */,
+				6DE9BC63259DBFD60081D8E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6DE9BC64259DBFD60081D8E9 /* Build configuration list for PBXNativeTarget "Better TweetDeck Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6DE9BC65259DBFD60081D8E9 /* Debug */,
+				6DE9BC66259DBFD60081D8E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6DE9BC68259DBFD60081D8E9 /* Build configuration list for PBXNativeTarget "Better TweetDeck" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6DE9BC69259DBFD60081D8E9 /* Debug */,
+				6DE9BC6A259DBFD60081D8E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6DE9BC3C259DBFD50081D8E9 /* Project object */;
+}
