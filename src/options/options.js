@@ -4,7 +4,6 @@ require('brace/theme/solarized_light');
 
 import '../css/options/index.css';
 
-import { createApolloFetch } from 'apollo-fetch';
 import config from 'config';
 import fecha from 'fecha';
 import $ from 'jquery';
@@ -19,46 +18,6 @@ import { schemeWhitelist } from '../js/util/thumbnails';
 const CSS_EDITOR = ace.edit('custom-css-editor');
 CSS_EDITOR.getSession().setMode('ace/mode/css');
 CSS_EDITOR.setTheme('ace/theme/solarized_light');
-
-const GITHUB_URI = 'https://api.github.com/graphql';
-const GITHUB_RELEASES_QUERY = `
-query BTDReleases {
-  viewer {
-    repository(name: "BetterTweetDeck") {
-      id
-      releases(last: 100, orderBy: {field: CREATED_AT, direction: DESC}) {
-        edges {
-          node {
-            id
-            name
-            isDraft
-            createdAt
-            description
-            url
-            tag {
-              name
-            }
-          }
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-        }
-      }
-    }
-  }
-}`;
-
-const githubApolloFetch = createApolloFetch({ uri: GITHUB_URI });
-
-githubApolloFetch.use(({ options }, next) => {
-  if (!options.headers) {
-    options.headers = {}; // Create the headers object if needed.
-  }
-  options.headers.authorization = `bearer ${config.Client.github_token}`;
-
-  next();
-});
 
 if (config.Client.debug) {
   window._BTDSetSettings = (obj) => BHelper.settings.set(obj);
@@ -511,7 +470,7 @@ fetch('https://api.github.com/repos/eramdam/BetterTweetDeck/contributors').then(
 const makeReleaseMarkup = (release) => {
   const GITHUB_USERNAME_RE = /([^>])@([a-z0-9-_]+)([^<])/gi;
   const GITHUB_ISSUES_RE = /([^>])#([0-9]+)([^<])/g;
-  const string = release.description
+  const string = release.body
     .replace(
       GITHUB_ISSUES_RE,
       '$1<a href="https://github.com/eramdam/BetterTweetDeck/issues/$2">#$2</a>$3'
@@ -521,19 +480,17 @@ const makeReleaseMarkup = (release) => {
   return marked(string);
 };
 
-githubApolloFetch({ query: GITHUB_RELEASES_QUERY })
-  .then(({ data }) =>
-    data.viewer.repository.releases.edges.filter((e) => !e.node.isDraft).map((e) => e.node)
-  )
+fetch('https://api.github.com/repos/eramdam/BetterTweetDeck/releases')
+  .then((res) => res.json())
   .then((releases) => {
     const changelogMarkup = releases
       .map((release, index) => {
         let str = '';
 
         if (index === 0) {
-          str = `<h1>🎉 ${release.name || release.tag.name} 🎉</h1>`;
+          str = `<h1>🎉 ${release.name || release.tag_name} 🎉</h1>`;
         } else {
-          str = `<h1>${release.name || release.tag.name}</h1>`;
+          str = `<h1>${release.name || release.tag_name}</h1>`;
         }
 
         str += `<div>${makeReleaseMarkup(release)}</div>`;
