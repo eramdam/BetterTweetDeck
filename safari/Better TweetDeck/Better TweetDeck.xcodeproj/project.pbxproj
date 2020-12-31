@@ -7,42 +7,42 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6DE9BC49259DBFD50081D8E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE9BC48259DBFD50081D8E9 /* AppDelegate.swift */; };
-		6DE9BC4C259DBFD50081D8E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BC4A259DBFD50081D8E9 /* Main.storyboard */; };
-		6DE9BC4E259DBFD50081D8E9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE9BC4D259DBFD50081D8E9 /* ViewController.swift */; };
-		6DE9BC50259DBFD60081D8E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BC4F259DBFD60081D8E9 /* Assets.xcassets */; };
-		6DE9BC57259DBFD60081D8E9 /* Better TweetDeck Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6DE9BC56259DBFD60081D8E9 /* Better TweetDeck Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		6DE9BC5C259DBFD60081D8E9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DE9BC5B259DBFD60081D8E9 /* Cocoa.framework */; };
-		6DE9BC5F259DBFD60081D8E9 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE9BC5E259DBFD60081D8E9 /* SafariWebExtensionHandler.swift */; };
-		6DE9BC75259DBFD70081D8E9 /* options in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BC6C259DBFD70081D8E9 /* options */; };
-		6DE9BC76259DBFD70081D8E9 /* css in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BC6D259DBFD70081D8E9 /* css */; };
-		6DE9BC77259DBFD70081D8E9 /* js in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BC6E259DBFD70081D8E9 /* js */; };
-		6DE9BC78259DBFD70081D8E9 /* icons in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BC6F259DBFD70081D8E9 /* icons */; };
-		6DE9BC79259DBFD70081D8E9 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BC70259DBFD70081D8E9 /* manifest.json */; };
-		6DE9BC7A259DBFD70081D8E9 /* revert-dark-theme.css in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BC71259DBFD70081D8E9 /* revert-dark-theme.css */; };
-		6DE9BC7B259DBFD70081D8E9 /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BC72259DBFD70081D8E9 /* _locales */; };
-		6DE9BC7C259DBFD70081D8E9 /* emojis in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BC73259DBFD70081D8E9 /* emojis */; };
-		6DE9BC7D259DBFD70081D8E9 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9BC74259DBFD70081D8E9 /* fonts */; };
+		6D85C75D259DC08300B9797B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D85C75C259DC08300B9797B /* AppDelegate.swift */; };
+		6D85C760259DC08300B9797B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D85C75E259DC08300B9797B /* Main.storyboard */; };
+		6D85C762259DC08300B9797B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D85C761259DC08300B9797B /* ViewController.swift */; };
+		6D85C764259DC08300B9797B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D85C763259DC08300B9797B /* Assets.xcassets */; };
+		6D85C76B259DC08300B9797B /* Better TweetDeck Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6D85C76A259DC08300B9797B /* Better TweetDeck Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6D85C770259DC08300B9797B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D85C76F259DC08300B9797B /* Cocoa.framework */; };
+		6D85C773259DC08300B9797B /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D85C772259DC08300B9797B /* SafariWebExtensionHandler.swift */; };
+		6D85C789259DC08400B9797B /* options in Resources */ = {isa = PBXBuildFile; fileRef = 6D85C780259DC08400B9797B /* options */; };
+		6D85C78A259DC08400B9797B /* css in Resources */ = {isa = PBXBuildFile; fileRef = 6D85C781259DC08400B9797B /* css */; };
+		6D85C78B259DC08400B9797B /* js in Resources */ = {isa = PBXBuildFile; fileRef = 6D85C782259DC08400B9797B /* js */; };
+		6D85C78C259DC08400B9797B /* icons in Resources */ = {isa = PBXBuildFile; fileRef = 6D85C783259DC08400B9797B /* icons */; };
+		6D85C78D259DC08400B9797B /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 6D85C784259DC08400B9797B /* manifest.json */; };
+		6D85C78E259DC08400B9797B /* revert-dark-theme.css in Resources */ = {isa = PBXBuildFile; fileRef = 6D85C785259DC08400B9797B /* revert-dark-theme.css */; };
+		6D85C78F259DC08400B9797B /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = 6D85C786259DC08400B9797B /* _locales */; };
+		6D85C790259DC08400B9797B /* emojis in Resources */ = {isa = PBXBuildFile; fileRef = 6D85C787259DC08400B9797B /* emojis */; };
+		6D85C791259DC08400B9797B /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 6D85C788259DC08400B9797B /* fonts */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		6DE9BC58259DBFD60081D8E9 /* PBXContainerItemProxy */ = {
+		6D85C76C259DC08300B9797B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 6DE9BC3C259DBFD50081D8E9 /* Project object */;
+			containerPortal = 6D85C750259DC08200B9797B /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 6DE9BC55259DBFD60081D8E9;
+			remoteGlobalIDString = 6D85C769259DC08300B9797B;
 			remoteInfo = "Better TweetDeck Extension";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		6DE9BC67259DBFD60081D8E9 /* Embed App Extensions */ = {
+		6D85C77B259DC08300B9797B /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				6DE9BC57259DBFD60081D8E9 /* Better TweetDeck Extension.appex in Embed App Extensions */,
+				6D85C76B259DC08300B9797B /* Better TweetDeck Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -50,111 +50,111 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		6DE9BC44259DBFD50081D8E9 /* Better TweetDeck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Better TweetDeck.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6DE9BC47259DBFD50081D8E9 /* Better_TweetDeck.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Better_TweetDeck.entitlements; sourceTree = "<group>"; };
-		6DE9BC48259DBFD50081D8E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6DE9BC4B259DBFD50081D8E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		6DE9BC4D259DBFD50081D8E9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		6DE9BC4F259DBFD60081D8E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		6DE9BC51259DBFD60081D8E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6DE9BC56259DBFD60081D8E9 /* Better TweetDeck Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Better TweetDeck Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6DE9BC5B259DBFD60081D8E9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		6DE9BC5E259DBFD60081D8E9 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
-		6DE9BC60259DBFD60081D8E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6DE9BC61259DBFD60081D8E9 /* Better_TweetDeck_Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Better_TweetDeck_Extension.entitlements; sourceTree = "<group>"; };
-		6DE9BC6C259DBFD70081D8E9 /* options */ = {isa = PBXFileReference; lastKnownFileType = folder; name = options; path = ../../../dist/options; sourceTree = "<group>"; };
-		6DE9BC6D259DBFD70081D8E9 /* css */ = {isa = PBXFileReference; lastKnownFileType = folder; name = css; path = ../../../dist/css; sourceTree = "<group>"; };
-		6DE9BC6E259DBFD70081D8E9 /* js */ = {isa = PBXFileReference; lastKnownFileType = folder; name = js; path = ../../../dist/js; sourceTree = "<group>"; };
-		6DE9BC6F259DBFD70081D8E9 /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = icons; path = ../../../dist/icons; sourceTree = "<group>"; };
-		6DE9BC70259DBFD70081D8E9 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../../dist/manifest.json; sourceTree = "<group>"; };
-		6DE9BC71259DBFD70081D8E9 /* revert-dark-theme.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = "revert-dark-theme.css"; path = "../../../dist/revert-dark-theme.css"; sourceTree = "<group>"; };
-		6DE9BC72259DBFD70081D8E9 /* _locales */ = {isa = PBXFileReference; lastKnownFileType = folder; name = _locales; path = ../../../dist/_locales; sourceTree = "<group>"; };
-		6DE9BC73259DBFD70081D8E9 /* emojis */ = {isa = PBXFileReference; lastKnownFileType = folder; name = emojis; path = ../../../dist/emojis; sourceTree = "<group>"; };
-		6DE9BC74259DBFD70081D8E9 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fonts; path = ../../../dist/fonts; sourceTree = "<group>"; };
+		6D85C758259DC08300B9797B /* Better TweetDeck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Better TweetDeck.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D85C75B259DC08300B9797B /* Better_TweetDeck.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Better_TweetDeck.entitlements; sourceTree = "<group>"; };
+		6D85C75C259DC08300B9797B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6D85C75F259DC08300B9797B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6D85C761259DC08300B9797B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6D85C763259DC08300B9797B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6D85C765259DC08300B9797B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6D85C76A259DC08300B9797B /* Better TweetDeck Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Better TweetDeck Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D85C76F259DC08300B9797B /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		6D85C772259DC08300B9797B /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		6D85C774259DC08300B9797B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6D85C775259DC08300B9797B /* Better_TweetDeck_Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Better_TweetDeck_Extension.entitlements; sourceTree = "<group>"; };
+		6D85C780259DC08400B9797B /* options */ = {isa = PBXFileReference; lastKnownFileType = folder; name = options; path = ../../../dist/options; sourceTree = "<group>"; };
+		6D85C781259DC08400B9797B /* css */ = {isa = PBXFileReference; lastKnownFileType = folder; name = css; path = ../../../dist/css; sourceTree = "<group>"; };
+		6D85C782259DC08400B9797B /* js */ = {isa = PBXFileReference; lastKnownFileType = folder; name = js; path = ../../../dist/js; sourceTree = "<group>"; };
+		6D85C783259DC08400B9797B /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = icons; path = ../../../dist/icons; sourceTree = "<group>"; };
+		6D85C784259DC08400B9797B /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../../dist/manifest.json; sourceTree = "<group>"; };
+		6D85C785259DC08400B9797B /* revert-dark-theme.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = "revert-dark-theme.css"; path = "../../../dist/revert-dark-theme.css"; sourceTree = "<group>"; };
+		6D85C786259DC08400B9797B /* _locales */ = {isa = PBXFileReference; lastKnownFileType = folder; name = _locales; path = ../../../dist/_locales; sourceTree = "<group>"; };
+		6D85C787259DC08400B9797B /* emojis */ = {isa = PBXFileReference; lastKnownFileType = folder; name = emojis; path = ../../../dist/emojis; sourceTree = "<group>"; };
+		6D85C788259DC08400B9797B /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fonts; path = ../../../dist/fonts; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		6DE9BC41259DBFD50081D8E9 /* Frameworks */ = {
+		6D85C755259DC08300B9797B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6DE9BC53259DBFD60081D8E9 /* Frameworks */ = {
+		6D85C767259DC08300B9797B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6DE9BC5C259DBFD60081D8E9 /* Cocoa.framework in Frameworks */,
+				6D85C770259DC08300B9797B /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6DE9BC3B259DBFD50081D8E9 = {
+		6D85C74F259DC08200B9797B = {
 			isa = PBXGroup;
 			children = (
-				6DE9BC46259DBFD50081D8E9 /* Better TweetDeck */,
-				6DE9BC5D259DBFD60081D8E9 /* Better TweetDeck Extension */,
-				6DE9BC5A259DBFD60081D8E9 /* Frameworks */,
-				6DE9BC45259DBFD50081D8E9 /* Products */,
+				6D85C75A259DC08300B9797B /* Better TweetDeck */,
+				6D85C771259DC08300B9797B /* Better TweetDeck Extension */,
+				6D85C76E259DC08300B9797B /* Frameworks */,
+				6D85C759259DC08300B9797B /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		6DE9BC45259DBFD50081D8E9 /* Products */ = {
+		6D85C759259DC08300B9797B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6DE9BC44259DBFD50081D8E9 /* Better TweetDeck.app */,
-				6DE9BC56259DBFD60081D8E9 /* Better TweetDeck Extension.appex */,
+				6D85C758259DC08300B9797B /* Better TweetDeck.app */,
+				6D85C76A259DC08300B9797B /* Better TweetDeck Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6DE9BC46259DBFD50081D8E9 /* Better TweetDeck */ = {
+		6D85C75A259DC08300B9797B /* Better TweetDeck */ = {
 			isa = PBXGroup;
 			children = (
-				6DE9BC47259DBFD50081D8E9 /* Better_TweetDeck.entitlements */,
-				6DE9BC48259DBFD50081D8E9 /* AppDelegate.swift */,
-				6DE9BC4A259DBFD50081D8E9 /* Main.storyboard */,
-				6DE9BC4D259DBFD50081D8E9 /* ViewController.swift */,
-				6DE9BC4F259DBFD60081D8E9 /* Assets.xcassets */,
-				6DE9BC51259DBFD60081D8E9 /* Info.plist */,
+				6D85C75B259DC08300B9797B /* Better_TweetDeck.entitlements */,
+				6D85C75C259DC08300B9797B /* AppDelegate.swift */,
+				6D85C75E259DC08300B9797B /* Main.storyboard */,
+				6D85C761259DC08300B9797B /* ViewController.swift */,
+				6D85C763259DC08300B9797B /* Assets.xcassets */,
+				6D85C765259DC08300B9797B /* Info.plist */,
 			);
 			path = "Better TweetDeck";
 			sourceTree = "<group>";
 		};
-		6DE9BC5A259DBFD60081D8E9 /* Frameworks */ = {
+		6D85C76E259DC08300B9797B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6DE9BC5B259DBFD60081D8E9 /* Cocoa.framework */,
+				6D85C76F259DC08300B9797B /* Cocoa.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		6DE9BC5D259DBFD60081D8E9 /* Better TweetDeck Extension */ = {
+		6D85C771259DC08300B9797B /* Better TweetDeck Extension */ = {
 			isa = PBXGroup;
 			children = (
-				6DE9BC6B259DBFD70081D8E9 /* Resources */,
-				6DE9BC5E259DBFD60081D8E9 /* SafariWebExtensionHandler.swift */,
-				6DE9BC60259DBFD60081D8E9 /* Info.plist */,
-				6DE9BC61259DBFD60081D8E9 /* Better_TweetDeck_Extension.entitlements */,
+				6D85C77F259DC08400B9797B /* Resources */,
+				6D85C772259DC08300B9797B /* SafariWebExtensionHandler.swift */,
+				6D85C774259DC08300B9797B /* Info.plist */,
+				6D85C775259DC08300B9797B /* Better_TweetDeck_Extension.entitlements */,
 			);
 			path = "Better TweetDeck Extension";
 			sourceTree = "<group>";
 		};
-		6DE9BC6B259DBFD70081D8E9 /* Resources */ = {
+		6D85C77F259DC08400B9797B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				6DE9BC6C259DBFD70081D8E9 /* options */,
-				6DE9BC6D259DBFD70081D8E9 /* css */,
-				6DE9BC6E259DBFD70081D8E9 /* js */,
-				6DE9BC6F259DBFD70081D8E9 /* icons */,
-				6DE9BC70259DBFD70081D8E9 /* manifest.json */,
-				6DE9BC71259DBFD70081D8E9 /* revert-dark-theme.css */,
-				6DE9BC72259DBFD70081D8E9 /* _locales */,
-				6DE9BC73259DBFD70081D8E9 /* emojis */,
-				6DE9BC74259DBFD70081D8E9 /* fonts */,
+				6D85C780259DC08400B9797B /* options */,
+				6D85C781259DC08400B9797B /* css */,
+				6D85C782259DC08400B9797B /* js */,
+				6D85C783259DC08400B9797B /* icons */,
+				6D85C784259DC08400B9797B /* manifest.json */,
+				6D85C785259DC08400B9797B /* revert-dark-theme.css */,
+				6D85C786259DC08400B9797B /* _locales */,
+				6D85C787259DC08400B9797B /* emojis */,
+				6D85C788259DC08400B9797B /* fonts */,
 			);
 			name = Resources;
 			path = "Better TweetDeck Extension";
@@ -163,32 +163,32 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6DE9BC43259DBFD50081D8E9 /* Better TweetDeck */ = {
+		6D85C757259DC08300B9797B /* Better TweetDeck */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6DE9BC68259DBFD60081D8E9 /* Build configuration list for PBXNativeTarget "Better TweetDeck" */;
+			buildConfigurationList = 6D85C77C259DC08300B9797B /* Build configuration list for PBXNativeTarget "Better TweetDeck" */;
 			buildPhases = (
-				6DE9BC40259DBFD50081D8E9 /* Sources */,
-				6DE9BC41259DBFD50081D8E9 /* Frameworks */,
-				6DE9BC42259DBFD50081D8E9 /* Resources */,
-				6DE9BC67259DBFD60081D8E9 /* Embed App Extensions */,
+				6D85C754259DC08300B9797B /* Sources */,
+				6D85C755259DC08300B9797B /* Frameworks */,
+				6D85C756259DC08300B9797B /* Resources */,
+				6D85C77B259DC08300B9797B /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				6DE9BC59259DBFD60081D8E9 /* PBXTargetDependency */,
+				6D85C76D259DC08300B9797B /* PBXTargetDependency */,
 			);
 			name = "Better TweetDeck";
 			productName = "Better TweetDeck";
-			productReference = 6DE9BC44259DBFD50081D8E9 /* Better TweetDeck.app */;
+			productReference = 6D85C758259DC08300B9797B /* Better TweetDeck.app */;
 			productType = "com.apple.product-type.application";
 		};
-		6DE9BC55259DBFD60081D8E9 /* Better TweetDeck Extension */ = {
+		6D85C769259DC08300B9797B /* Better TweetDeck Extension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6DE9BC64259DBFD60081D8E9 /* Build configuration list for PBXNativeTarget "Better TweetDeck Extension" */;
+			buildConfigurationList = 6D85C778259DC08300B9797B /* Build configuration list for PBXNativeTarget "Better TweetDeck Extension" */;
 			buildPhases = (
-				6DE9BC52259DBFD60081D8E9 /* Sources */,
-				6DE9BC53259DBFD60081D8E9 /* Frameworks */,
-				6DE9BC54259DBFD60081D8E9 /* Resources */,
+				6D85C766259DC08300B9797B /* Sources */,
+				6D85C767259DC08300B9797B /* Frameworks */,
+				6D85C768259DC08300B9797B /* Resources */,
 			);
 			buildRules = (
 			);
@@ -196,27 +196,27 @@
 			);
 			name = "Better TweetDeck Extension";
 			productName = "Better TweetDeck Extension";
-			productReference = 6DE9BC56259DBFD60081D8E9 /* Better TweetDeck Extension.appex */;
+			productReference = 6D85C76A259DC08300B9797B /* Better TweetDeck Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		6DE9BC3C259DBFD50081D8E9 /* Project object */ = {
+		6D85C750259DC08200B9797B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1230;
 				LastUpgradeCheck = 1230;
 				TargetAttributes = {
-					6DE9BC43259DBFD50081D8E9 = {
+					6D85C757259DC08300B9797B = {
 						CreatedOnToolsVersion = 12.3;
 					};
-					6DE9BC55259DBFD60081D8E9 = {
+					6D85C769259DC08300B9797B = {
 						CreatedOnToolsVersion = 12.3;
 					};
 				};
 			};
-			buildConfigurationList = 6DE9BC3F259DBFD50081D8E9 /* Build configuration list for PBXProject "Better TweetDeck" */;
+			buildConfigurationList = 6D85C753259DC08200B9797B /* Build configuration list for PBXProject "Better TweetDeck" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -224,78 +224,78 @@
 				en,
 				Base,
 			);
-			mainGroup = 6DE9BC3B259DBFD50081D8E9;
-			productRefGroup = 6DE9BC45259DBFD50081D8E9 /* Products */;
+			mainGroup = 6D85C74F259DC08200B9797B;
+			productRefGroup = 6D85C759259DC08300B9797B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6DE9BC43259DBFD50081D8E9 /* Better TweetDeck */,
-				6DE9BC55259DBFD60081D8E9 /* Better TweetDeck Extension */,
+				6D85C757259DC08300B9797B /* Better TweetDeck */,
+				6D85C769259DC08300B9797B /* Better TweetDeck Extension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		6DE9BC42259DBFD50081D8E9 /* Resources */ = {
+		6D85C756259DC08300B9797B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6DE9BC50259DBFD60081D8E9 /* Assets.xcassets in Resources */,
-				6DE9BC4C259DBFD50081D8E9 /* Main.storyboard in Resources */,
+				6D85C764259DC08300B9797B /* Assets.xcassets in Resources */,
+				6D85C760259DC08300B9797B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6DE9BC54259DBFD60081D8E9 /* Resources */ = {
+		6D85C768259DC08300B9797B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6DE9BC76259DBFD70081D8E9 /* css in Resources */,
-				6DE9BC78259DBFD70081D8E9 /* icons in Resources */,
-				6DE9BC79259DBFD70081D8E9 /* manifest.json in Resources */,
-				6DE9BC7A259DBFD70081D8E9 /* revert-dark-theme.css in Resources */,
-				6DE9BC77259DBFD70081D8E9 /* js in Resources */,
-				6DE9BC7C259DBFD70081D8E9 /* emojis in Resources */,
-				6DE9BC7D259DBFD70081D8E9 /* fonts in Resources */,
-				6DE9BC7B259DBFD70081D8E9 /* _locales in Resources */,
-				6DE9BC75259DBFD70081D8E9 /* options in Resources */,
+				6D85C78A259DC08400B9797B /* css in Resources */,
+				6D85C78C259DC08400B9797B /* icons in Resources */,
+				6D85C78D259DC08400B9797B /* manifest.json in Resources */,
+				6D85C78E259DC08400B9797B /* revert-dark-theme.css in Resources */,
+				6D85C78B259DC08400B9797B /* js in Resources */,
+				6D85C790259DC08400B9797B /* emojis in Resources */,
+				6D85C791259DC08400B9797B /* fonts in Resources */,
+				6D85C78F259DC08400B9797B /* _locales in Resources */,
+				6D85C789259DC08400B9797B /* options in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		6DE9BC40259DBFD50081D8E9 /* Sources */ = {
+		6D85C754259DC08300B9797B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6DE9BC4E259DBFD50081D8E9 /* ViewController.swift in Sources */,
-				6DE9BC49259DBFD50081D8E9 /* AppDelegate.swift in Sources */,
+				6D85C762259DC08300B9797B /* ViewController.swift in Sources */,
+				6D85C75D259DC08300B9797B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6DE9BC52259DBFD60081D8E9 /* Sources */ = {
+		6D85C766259DC08300B9797B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6DE9BC5F259DBFD60081D8E9 /* SafariWebExtensionHandler.swift in Sources */,
+				6D85C773259DC08300B9797B /* SafariWebExtensionHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		6DE9BC59259DBFD60081D8E9 /* PBXTargetDependency */ = {
+		6D85C76D259DC08300B9797B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6DE9BC55259DBFD60081D8E9 /* Better TweetDeck Extension */;
-			targetProxy = 6DE9BC58259DBFD60081D8E9 /* PBXContainerItemProxy */;
+			target = 6D85C769259DC08300B9797B /* Better TweetDeck Extension */;
+			targetProxy = 6D85C76C259DC08300B9797B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		6DE9BC4A259DBFD50081D8E9 /* Main.storyboard */ = {
+		6D85C75E259DC08300B9797B /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				6DE9BC4B259DBFD50081D8E9 /* Base */,
+				6D85C75F259DC08300B9797B /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -303,7 +303,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		6DE9BC62259DBFD60081D8E9 /* Debug */ = {
+		6D85C776259DC08300B9797B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -364,7 +364,7 @@
 			};
 			name = Debug;
 		};
-		6DE9BC63259DBFD60081D8E9 /* Release */ = {
+		6D85C777259DC08300B9797B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -418,7 +418,7 @@
 			};
 			name = Release;
 		};
-		6DE9BC65259DBFD60081D8E9 /* Debug */ = {
+		6D85C779259DC08300B9797B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Better TweetDeck Extension/Better_TweetDeck_Extension.entitlements";
@@ -438,7 +438,7 @@
 			};
 			name = Debug;
 		};
-		6DE9BC66259DBFD60081D8E9 /* Release */ = {
+		6D85C77A259DC08300B9797B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Better TweetDeck Extension/Better_TweetDeck_Extension.entitlements";
@@ -458,7 +458,7 @@
 			};
 			name = Release;
 		};
-		6DE9BC69259DBFD60081D8E9 /* Debug */ = {
+		6D85C77D259DC08300B9797B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -480,7 +480,7 @@
 			};
 			name = Debug;
 		};
-		6DE9BC6A259DBFD60081D8E9 /* Release */ = {
+		6D85C77E259DC08300B9797B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -505,34 +505,34 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6DE9BC3F259DBFD50081D8E9 /* Build configuration list for PBXProject "Better TweetDeck" */ = {
+		6D85C753259DC08200B9797B /* Build configuration list for PBXProject "Better TweetDeck" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6DE9BC62259DBFD60081D8E9 /* Debug */,
-				6DE9BC63259DBFD60081D8E9 /* Release */,
+				6D85C776259DC08300B9797B /* Debug */,
+				6D85C777259DC08300B9797B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6DE9BC64259DBFD60081D8E9 /* Build configuration list for PBXNativeTarget "Better TweetDeck Extension" */ = {
+		6D85C778259DC08300B9797B /* Build configuration list for PBXNativeTarget "Better TweetDeck Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6DE9BC65259DBFD60081D8E9 /* Debug */,
-				6DE9BC66259DBFD60081D8E9 /* Release */,
+				6D85C779259DC08300B9797B /* Debug */,
+				6D85C77A259DC08300B9797B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6DE9BC68259DBFD60081D8E9 /* Build configuration list for PBXNativeTarget "Better TweetDeck" */ = {
+		6D85C77C259DC08300B9797B /* Build configuration list for PBXNativeTarget "Better TweetDeck" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6DE9BC69259DBFD60081D8E9 /* Debug */,
-				6DE9BC6A259DBFD60081D8E9 /* Release */,
+				6D85C77D259DC08300B9797B /* Debug */,
+				6D85C77E259DC08300B9797B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 6DE9BC3C259DBFD50081D8E9 /* Project object */;
+	rootObject = 6D85C750259DC08200B9797B /* Project object */;
 }
