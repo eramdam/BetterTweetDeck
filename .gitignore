@@ -27,3 +27,4 @@ config/*.json
 
 output/*
 res-webpack.config.js
+*.xcuserstate
