@@ -37,7 +37,7 @@ const COLUMNS_MEDIA_SIZES = new Map();
 
 sendMessage({ action: 'get_settings' }, (response) => {
   SETTINGS = response.settings;
-  const scripts = [BHelper.getExtensionUrl('js/inject.js')];
+  const scripts = [BHelper.getExtensionUrl('build/js/inject.js')];
 
   scripts.forEach((src) => {
     const el = document.createElement('script');
@@ -51,7 +51,7 @@ sendMessage({ action: 'get_settings' }, (response) => {
   });
 
   const getFontFile = (format) =>
-    BHelper.getExtensionUrl(`fonts/tweetdeck-regular-webfont-old.${format}`);
+    BHelper.getExtensionUrl(`build/fonts/tweetdeck-regular-webfont-old.${format}`);
 
   const style = document.createElement('style');
   style.type = 'text/css';
@@ -227,7 +227,7 @@ function tweakClassesFromVisualSettings() {
   if (SETTINGS.css.og_dark_theme) {
     const linkRevert = document.createElement('link');
     linkRevert.rel = 'stylesheet';
-    linkRevert.href = BHelper.getExtensionUrl('revert-dark-theme.css');
+    linkRevert.href = BHelper.getExtensionUrl('build/revert-dark-theme.css');
     document.head.appendChild(linkRevert);
     document.body.classList.add('btd__og_dark_theme');
   }
@@ -652,7 +652,7 @@ onEvent('BTDC_ready', () => {
           event: {
             type: 'openBtdSettings',
             data: {
-              url: BHelper.getExtensionUrl('options/options.html?on=update'),
+              url: BHelper.getExtensionUrl('build/options/options.html?on=update'),
             },
           },
           text: `Better TweetDeck has been updated to ${BHelper.getVersion()}!`,
