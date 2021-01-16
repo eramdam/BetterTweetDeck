@@ -86,13 +86,30 @@ export default function() {
       display: {
         global: true,
       },
-      name: 'Regular Expression',
+      name: 'Tweet Text (Regular Expression)',
       descriptor: 'tweets matching',
       placeholder: 'Enter a regular expression',
       function(t, e) {
         const regex = new RegExp(t.value, 'g');
 
         return !e.getFilterableText().match(regex);
+      },
+    },
+    BTD_user_regex: {
+      display: {
+        global: true,
+      },
+      name: 'Username (Regular Expression)',
+      descriptor: 'usernames matching',
+      placeholder: 'Enter a regular expression',
+      function(t, e) {
+        const regex = new RegExp(t.value, 'g');
+
+        if (e.user === undefined) {
+          return true;
+        }
+
+        return !e.user.screenName.match(regex);
       },
     },
     BTD_mute_quotes: {
