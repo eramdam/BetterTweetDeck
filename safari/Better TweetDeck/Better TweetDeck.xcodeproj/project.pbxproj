@@ -33,6 +33,13 @@
 			remoteGlobalIDString = 6D85C769259DC08300B9797B;
 			remoteInfo = "Better TweetDeck Extension";
 		};
+		6DA1F72325A029E3007DB5BE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6D85C750259DC08200B9797B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6D85C769259DC08300B9797B;
+			remoteInfo = "Better TweetDeck Extension";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -176,6 +183,7 @@
 			);
 			dependencies = (
 				6D85C76D259DC08300B9797B /* PBXTargetDependency */,
+				6DA1F72425A029E3007DB5BE /* PBXTargetDependency */,
 			);
 			name = "Better TweetDeck";
 			productName = "Better TweetDeck";
@@ -288,6 +296,11 @@
 			isa = PBXTargetDependency;
 			target = 6D85C769259DC08300B9797B /* Better TweetDeck Extension */;
 			targetProxy = 6D85C76C259DC08300B9797B /* PBXContainerItemProxy */;
+		};
+		6DA1F72425A029E3007DB5BE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6D85C769259DC08300B9797B /* Better TweetDeck Extension */;
+			targetProxy = 6DA1F72325A029E3007DB5BE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
