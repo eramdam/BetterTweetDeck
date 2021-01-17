@@ -23,6 +23,7 @@
     "release": "npm run build:prod -- chrome && npm run pack:chrome && npm run build:prod -- firefox && npm run pack:firefox",
     "pack:chrome": "cross-env NODE_ENV=development node tools/pack.js",
     "pack:firefox": "cross-env NODE_ENV=development web-ext build -s dist -a artifacts",
+    "pack:safari": "xcodebuild -project 'safari/Better TweetDeck for Safari/Better TweetDeck for Safari.xcodeproj/'",
     "update_emojis": "node tools/update_emojis.js",
     "prepush": "npm run lint",
     "fix": "eslint --fix '**/*.{js,jsx}' && prettier --write '**/*.css'"
