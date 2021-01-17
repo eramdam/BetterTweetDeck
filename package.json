@@ -25,8 +25,7 @@
     "pack:firefox": "cross-env NODE_ENV=development web-ext build -s dist -a artifacts",
     "update_emojis": "node tools/update_emojis.js",
     "prepush": "npm run lint",
-    "fix": "eslint --fix '**/*.{js,jsx}' && prettier --write '**/*.css'",
-    "safari": "xcrun safari-web-extension-converter --project-location safari --swift --force --bundle-identifier me.erambert.bettertweetdeck --app-name 'Better TweetDeck' dist"
+    "fix": "eslint --fix '**/*.{js,jsx}' && prettier --write '**/*.css'"
   },
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
   "dependencies": {
