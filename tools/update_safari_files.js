@@ -4,7 +4,8 @@ const path = require('path');
 const packageJson = require('../package.json');
 const plist = require('simple-plist');
 
-const projectPath = 'safari/Better TweetDeck/Better TweetDeck.xcodeproj/project.pbxproj';
+const projectPath =
+  'safari/Better TweetDeck for Safari/Better TweetDeck for Safari.xcodeproj/project.pbxproj';
 const safariProject = xcode.project(projectPath);
 
 const VERSION_NUMBER = packageJson.version;
@@ -33,7 +34,7 @@ for (const key in configurations) {
   const plistPath = path.resolve(
     __dirname,
     '..',
-    'safari/Better TweetDeck',
+    'safari/Better TweetDeck for Safari',
     String(buildSettings.INFOPLIST_FILE).replace(/"/g, '')
   );
   const plistData = plist.readFileSync(plistPath);

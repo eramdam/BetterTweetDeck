@@ -1,6 +1,6 @@
 //
 //  SafariWebExtensionHandler.swift
-//  Better TweetDeck Extension
+//  Better TweetDeck for Safari Extension
 //
 //  Created by Damien Erambert on 1/16/21.
 //

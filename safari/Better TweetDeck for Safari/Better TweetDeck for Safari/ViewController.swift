@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  Better TweetDeck
+//  Better TweetDeck for Safari
 //
 //  Created by Damien Erambert on 1/16/21.
 //
@@ -9,8 +9,8 @@ import Cocoa
 import SafariServices.SFSafariApplication
 import SafariServices.SFSafariExtensionManager
 
-let appName = "Better TweetDeck"
-let extensionBundleIdentifier = "me.erambert.Better-TweetDeck.Extension"
+let appName = "Better TweetDeck for Safari"
+let extensionBundleIdentifier = "me.erambert.Better-TweetDeck-for-Safari.Extension"
 
 class ViewController: NSViewController {
 

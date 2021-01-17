@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Better TweetDeck
+//  Better TweetDeck for Safari
 //
 //  Created by Damien Erambert on 1/16/21.
 //
