@@ -103,11 +103,8 @@ export default function() {
       descriptor: 'usernames matching',
       placeholder: 'Enter a regular expression',
       function(t, e) {
+        if (!e.user) return true;
         const regex = new RegExp(t.value, 'g');
-
-        if (e.user === undefined) {
-          return true;
-        }
 
         return !e.user.screenName.match(regex);
       },
