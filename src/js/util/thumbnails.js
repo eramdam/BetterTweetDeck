@@ -101,7 +101,7 @@ const noEmbedImgCB = (url) => {
  * Returns a promise with video data from noembed
  */
 const noEmbedVideoCB = (url) => {
-  return fetch(`${getEnpointFor('noembed')}${url}`)
+  return fetch(`${getEnpointFor('noembed')}${url}&maxwidth=640&maxheight=480`)
     .then(statusAndJson)
     .then((data) => {
       const obj = {
