@@ -537,3 +537,7 @@ window.onbeforeunload = () => {
 
   return null;
 };
+
+if (BHelper.isSafari) {
+  $('a[data-lang="shared_btd_h1"], #share').remove();
+}

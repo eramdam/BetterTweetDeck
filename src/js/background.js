@@ -190,7 +190,7 @@ BHelper.settings.getAll((settings) => {
     }
 
     // We create the context menu item
-    if (newSettings.share_item && newSettings.share_item.enabled) {
+    if (newSettings.share_item && newSettings.share_item.enabled && !BHelper.isSafari) {
       createMenuItem(newSettings);
     }
   });
