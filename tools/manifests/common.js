@@ -1,19 +1,32 @@
 const fs = require('fs');
+const _ = require('lodash');
 
 const packageJson = JSON.parse(fs.readFileSync(`${__dirname}/../../package.json`, 'utf8'));
 const isBeta = process.env.BTD_BETA === 'true';
 
-const icons = {
-  16: 'icons/icon-16.png',
-  48: 'icons/icon-48.png',
-  128: 'icons/icon-128.png',
-};
+const iconSizes = [16, 32, 48, 96, 128, 256, 512];
 
-const betaIcons = {
-  16: 'icons/icon-beta-16.png',
-  48: 'icons/icon-beta-48.png',
-  128: 'icons/icon-beta-128.png',
-};
+const icons = _(iconSizes)
+  .map((size) => {
+    return {
+      size,
+      icon: `build/icons/icon-${size}.png`,
+    };
+  })
+  .keyBy((i) => i.size)
+  .mapValues((v) => v.icon)
+  .value();
+
+const betaIcons = _(iconSizes)
+  .map((size) => {
+    return {
+      size,
+      icon: `build/icons/icon-beta-${size}.png`,
+    };
+  })
+  .keyBy((i) => i.size)
+  .mapValues((v) => v.icon)
+  .value();
 
 const betaVersion = () => {
   const d = new Date();
@@ -37,26 +50,32 @@ const common = {
   content_scripts: [
     {
       matches: ['*://tweetdeck.twitter.com/*'],
-      js: ['js/content.js'],
-      css: ['css/index.css'],
+      js: ['build/js/content.js'],
+      css: ['build/css/index.css'],
       run_at: 'document_end',
     },
   ],
   background: {
-    scripts: ['js/background.js'],
+    scripts: ['build/js/background.js'],
   },
   icons: isBeta ? betaIcons : icons,
+  browser_action: {
+    default_icon: {
+      16: 'build/icons/toolbar-icon-16.png',
+      32: 'build/icons/toolbar-icon-32.png',
+    },
+  },
   permissions: ['storage', 'contextMenus', ...urls],
   options_ui: {
-    page: 'options/ui/ui.html',
+    page: 'build/options/ui/ui.html',
     chrome_style: false,
   },
   web_accessible_resources: [
-    'revert-dark-theme.css',
-    'emojis/sheet_twitter_64.png',
-    'fonts/*.*',
-    'js/inject.js',
-    'options/options.html',
+    'build/revert-dark-theme.css',
+    'build/emojis/sheet_twitter_64.png',
+    'build/fonts/*.*',
+    'build/js/inject.js',
+    'build/options/options.html',
   ],
   content_security_policy: `img-src https: data: 'self' *; default-src; connect-src * https:; style-src 'unsafe-inline'; script-src 'self';`,
 };

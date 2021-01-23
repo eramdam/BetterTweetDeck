@@ -6,7 +6,7 @@ import { getExtensionUrl } from '../browserHelper';
 
 const Emoji = new jsEmoji.EmojiConvertor();
 
-const emojiSheet = getExtensionUrl('emojis/sheet_twitter_64.png');
+const emojiSheet = getExtensionUrl('build/emojis/sheet_twitter_64.png');
 Emoji.img_set = 'twitter';
 
 export const colonRegex = /:([a-z0-9_\-+]+):?:?([a-z0-9_-]+)?:?$/i;

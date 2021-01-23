@@ -38,7 +38,7 @@ const staticFiles = [
   },
 ];
 
-const DIST_FOLDER = 'dist';
+const DIST_FOLDER = 'dist/build';
 const IS_PRODUCTION = process.env.NODE_ENV !== 'development';
 const POSSIBLE_BROWSERS = ['chrome', 'firefox'];
 
@@ -115,7 +115,7 @@ module.exports = (env) => {
     plugins: [
       extractContent,
       extractOptions,
-      new CleanWebpackPlugin([DIST_FOLDER]),
+      new CleanWebpackPlugin('dist'),
       new CopyWebpackPlugin(staticFilesPath),
       new GenerateJsonPlugin('manifest.json', getManifest(), null, 2),
       IS_PRODUCTION
@@ -124,6 +124,14 @@ module.exports = (env) => {
             filename: `dist-${env.browser}`,
           })
         : () => null,
+      {
+        apply: (compiler) => {
+          compiler.hooks.afterEmit.tap('AfterEmitPlugin', () => {
+            fs.renameSync('./dist/build/manifest.json', './dist/manifest.json');
+            fs.renameSync('./dist/build/_locales', './dist/_locales');
+          });
+        },
+      },
     ],
   };
 };

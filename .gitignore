@@ -2,6 +2,7 @@
 node_modules
 safari
 dist/
+build
 artifacts/*
 config/development.js
 config/production.js
@@ -28,3 +29,6 @@ config/*.json
 
 output/*
 res-webpack.config.js
+*.xcuserstate
+*.xcworkspacedata
+xcuserdata
