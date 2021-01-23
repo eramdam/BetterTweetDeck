@@ -1,4 +1,5 @@
 const xcode = require('xcode');
+const fecha = require('fecha');
 const fs = require('fs');
 const path = require('path');
 const packageJson = require('../package.json');
@@ -43,7 +44,7 @@ for (const key in configurations) {
     plistData.LSApplicationCategoryType = 'public.app-category.social-networking';
   }
   plistData.CFBundleShortVersionString = '$(MARKETING_VERSION)';
-  plistData.CFBundleVersion = String(VERSION_NUMBER).replace(/\./g, '');
+  plistData.CFBundleVersion = fecha.format(new Date(), 'YYMMDDHHmm');
 
   // Write Info.plist file.
   plist.writeFileSync(plistPath, plistData);

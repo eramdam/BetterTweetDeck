@@ -10,7 +10,7 @@ import SafariServices.SFSafariApplication
 import SafariServices.SFSafariExtensionManager
 
 let appName = "Better TweetDeck for Safari"
-let extensionBundleIdentifier = "me.erambert.Better-TweetDeck-for-Safari.Extension"
+let extensionBundleIdentifier = "me.erambert.bettertweetdeck-safari.extension"
 
 class ViewController: NSViewController {
 
