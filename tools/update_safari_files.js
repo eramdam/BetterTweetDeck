@@ -6,7 +6,7 @@ const packageJson = require('../package.json');
 const plist = require('simple-plist');
 
 const projectPath =
-  'safari/Better TweetDeck for Safari/Better TweetDeck for Safari.xcodeproj/project.pbxproj';
+  'safari/Better TweetDeck for Safari/BetterTDeck for TweetDeck.xcodeproj/project.pbxproj';
 const safariProject = xcode.project(projectPath);
 
 const VERSION_NUMBER = packageJson.version;

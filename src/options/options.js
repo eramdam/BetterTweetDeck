@@ -539,5 +539,5 @@ window.onbeforeunload = () => {
 };
 
 if (BHelper.isSafari) {
-  $('a[data-lang="shared_btd_h1"], #share').remove();
+  $('a[data-lang="shared_btd_h1"], #share, a[data-lang="sec_donate"], #donate').remove();
 }
