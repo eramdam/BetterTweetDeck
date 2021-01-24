@@ -36,6 +36,7 @@ The extensions is currently available for the following browsers:
 - [Opera](https://addons.opera.com/en/extensions/details/bettertweetdeck/)
 - [Firefox](https://addons.mozilla.org/en-US/firefox/addon/better-tweetdeck-17/)
 - [Edge (Chromium)](https://microsoftedge.microsoft.com/addons/detail/cpahogfkcecoeidfaemlcojbcbhaojcj)
+- [Safari 14+](https://apps.apple.com/us/app/better-tdeck-for-tweetdeck/id1549421502)
 
 # Features
 
