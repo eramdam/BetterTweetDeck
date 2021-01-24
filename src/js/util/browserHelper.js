@@ -20,7 +20,7 @@ const getKey = (object, property) => {
 export const getExtensionUrl = (...args) => chrome.extension.getURL(...args);
 export const isFirefox = getUA().includes('Firefox/');
 export const isChrome = getUA().includes('Chrome/');
-export const isSafari = getUA().includes('Safari/');
+export const isSafari = getUA().includes('Safari/') && !isChrome;
 
 export const getBrowser = () => {
   if (isFirefox) {
