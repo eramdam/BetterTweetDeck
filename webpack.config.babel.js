@@ -122,6 +122,16 @@ module.exports = (env) => {
         ? new ZipPlugin({
             path: path.resolve(__dirname, 'artifacts'),
             filename: `dist-${env.browser}`,
+            pathMapper: (assetPath) => {
+              if (
+                String(assetPath) === 'manifest.json' ||
+                String(assetPath).startsWith('_locales')
+              ) {
+                return assetPath;
+              }
+
+              return path.join('build', path.dirname(assetPath), path.basename(assetPath));
+            },
           })
         : () => null,
       {
