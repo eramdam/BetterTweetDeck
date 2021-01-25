@@ -14,6 +14,10 @@ function RadioSelectSettingsRow<S extends object, T extends keyof S>(
       className={css`
         ${settingsRow};
         align-items: flex-start;
+
+        & + & {
+          padding-top: 30px;
+        }
       `}>
       <span className={settingsRowTitle}>{props.children}</span>
       <div
