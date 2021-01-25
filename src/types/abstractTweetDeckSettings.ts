@@ -47,8 +47,8 @@ export function applyAbstractTweetDeckSettings(
   TD.settings.setTheme(settings.theme); // done
   TD.settings.setLinkShortener(settings.linkShortener);
   TD.settings.setBitlyAccount(settings.bitlyAccount);
-  TD.settings.setColumnWidth(settings.columnWidth);
-  TD.settings.setFontSize(settings.fontSize);
+  TD.settings.setColumnWidth(settings.columnWidth); // done
+  TD.settings.setFontSize(settings.fontSize); // done
   TD.settings.setAutoPlayGifs(settings.autoPlayGifs); // done
   TD.settings.setShowStartupNotifications(settings.showStartupNotifications); // done
   TD.settings.setDisplaySensitiveMedia(settings.displaySensitiveMedia); // done

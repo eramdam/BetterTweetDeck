@@ -173,6 +173,19 @@ export const SettingsModal = (props: SettingsModalProps) => {
             ]}>
             Style of scrollbars
           </BTDRadioSelectSettingsRow>
+          <TDRadioSelectSettingsRow
+            settingsKey="fontSize"
+            initialValue={tdSettings.fontSize}
+            onChange={makeOnTdSettingsChange('fontSize')}
+            fields={[
+              {label: 'Smallest', value: 'smallest'},
+              {label: 'Small', value: 'small'},
+              {label: 'Medium', value: 'medium'},
+              {label: 'Large', value: 'large'},
+              {label: 'Largest', value: 'largest'},
+            ]}>
+            Font size
+          </TDRadioSelectSettingsRow>
         </Fragment>
       ),
     },

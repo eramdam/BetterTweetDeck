@@ -84,6 +84,26 @@ const SettingsWrapperApp: FC<SettingsWrapperAppProps> = (props) => {
       element.appendChild(childDoc.createTextNode(style.innerText));
       childDoc.head.appendChild(element);
     });
+
+    const resetStyleId = createUniqueStyleSheetId();
+    const resetStyle = childDoc.createElement('style');
+    resetStyle.setAttribute('btd-stylesheet-id', resetStyleId);
+    resetStyle.type = 'text/css';
+    resetStyle.appendChild(
+      childDoc.createTextNode(`
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    
+    *,
+    *:after,
+    *:before {
+      box-sizing: border-box;
+    }
+    `)
+    );
+    childDoc.head.appendChild(resetStyle);
   }, []);
 
   useEffect(() => {

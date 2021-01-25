@@ -67,6 +67,7 @@ html .app-content {
 
   & .column-header-links {
     max-width: none !important;
+    flex-shrink: 0;
   }
 
   & .js-column-header {
