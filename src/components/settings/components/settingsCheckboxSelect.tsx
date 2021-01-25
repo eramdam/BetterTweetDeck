@@ -1,15 +1,16 @@
 import {css} from 'emotion';
 import React from 'react';
-import {Object} from 'ts-toolbelt';
 
+import {AbstractTweetDeckSettings} from '../../../types/abstractTweetDeckSettings';
 import {BTDSettings} from '../../../types/betterTweetDeck/btdSettingsTypes';
 import {checkboxInputStyles} from '../settingsStyles';
 
 // There's probably a wau to do this without having to do a manual union ¯\(ツ)/¯
 type SettingKey =
-  | Object.Keys<BTDSettings>
-  | Object.Keys<BTDSettings['tweetActions']>
-  | Object.Keys<BTDSettings['tweetMenuItems']>;
+  | keyof BTDSettings
+  | keyof AbstractTweetDeckSettings
+  | keyof BTDSettings['tweetActions']
+  | keyof BTDSettings['tweetMenuItems'];
 
 export interface SettingsCheckboxSelectProps {
   onChange: (key: SettingKey, value: boolean) => void;

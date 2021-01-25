@@ -137,6 +137,13 @@ export const SettingsModal = (props: SettingsModalProps) => {
               onChange={makeOnSettingsChange('disableGifsInProfilePictures')}>
               Freeze GIFs in profile pictures
             </BooleanSettingsRow>
+            <BooleanSettingsRow
+              settingsKey="removeRedirectionOnLinks"
+              initialValue={btdSettings.removeRedirectionOnLinks}
+              alignToTheLeft
+              onChange={makeOnSettingsChange('removeRedirectionOnLinks')}>
+              Remove t.co redirection on links
+            </BooleanSettingsRow>
           </Fragment>
         );
       },
