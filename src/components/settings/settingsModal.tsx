@@ -311,7 +311,6 @@ export const SettingsModal = (props: SettingsModalProps) => {
                 onClick={() => {
                   setSelectedIndex(index);
                 }}>
-                <div className="icon"></div>
                 <div className="text">{item.label}</div>
               </li>
             );
