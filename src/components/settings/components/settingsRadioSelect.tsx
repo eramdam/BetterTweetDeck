@@ -2,17 +2,18 @@ import {css} from 'emotion';
 import React from 'react';
 
 import {HandlerOf} from '../../../helpers/typeHelpers';
+import {AbstractTweetDeckSettings} from '../../../types/abstractTweetDeckSettings';
 import {BTDSettings} from '../../../types/betterTweetDeck/btdSettingsTypes';
 import {SettingsRadioInput} from './settingsRadioInput';
 
-export interface SettingsRadioSettingSelectProps<T extends keyof BTDSettings> {
+export interface SettingsRadioSettingsSelectProps<S extends object, T extends keyof S> {
   fields: ReadonlyArray<{
     label: string;
-    value: BTDSettings[T];
+    value: S[T];
   }>;
-  initialValue: BTDSettings[T];
+  initialValue: S[T];
   settingsKey: T;
-  onChange: HandlerOf<BTDSettings[T]>;
+  onChange: HandlerOf<S[T]>;
 }
 
 const wrapperStyles = css`
@@ -27,8 +28,8 @@ const wrapperStyles = css`
   grid-row-gap: 10px;
 `;
 
-export function SettingsRadioSettingSelect<T extends keyof BTDSettings>(
-  props: SettingsRadioSettingSelectProps<T>
+export function SettingsRadioSettingSelect<S extends object, T extends keyof S>(
+  props: SettingsRadioSettingsSelectProps<S, T>
 ) {
   return (
     <div className={wrapperStyles}>
@@ -37,7 +38,7 @@ export function SettingsRadioSettingSelect<T extends keyof BTDSettings>(
           <SettingsRadioInput
             key={String(field.value)}
             id={String(field.value)}
-            name={props.settingsKey}
+            name={String(props.settingsKey)}
             defaultChecked={field.value === props.initialValue}
             onChange={() => props.onChange(field.value)}>
             {field.label}
@@ -46,4 +47,16 @@ export function SettingsRadioSettingSelect<T extends keyof BTDSettings>(
       })}
     </div>
   );
+}
+
+export function BTDSettingsRadioSettingSelect<T extends keyof BTDSettings>(
+  props: SettingsRadioSettingsSelectProps<BTDSettings, T>
+) {
+  return SettingsRadioSettingSelect(props);
+}
+
+export function TDSettingsRadioSettingSelect<T extends keyof AbstractTweetDeckSettings>(
+  props: SettingsRadioSettingsSelectProps<AbstractTweetDeckSettings, T>
+) {
+  return SettingsRadioSettingSelect(props);
 }

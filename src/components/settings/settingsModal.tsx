@@ -13,7 +13,10 @@ import {AvatarsShape} from './components/avatarsShape';
 import {BooleanSettingsRow} from './components/booleanSettingRow';
 import {CheckboxSelectSettingsRow} from './components/checkboxSelectSettingsRow';
 import {CustomAccentColor} from './components/customAccentColor';
-import {RadioSelectSettingsRow} from './components/radioSelectSettingsRow';
+import {
+  BTDRadioSelectSettingsRow,
+  TDRadioSelectSettingsRow,
+} from './components/radioSelectSettingsRow';
 import {SettingsSeperator} from './components/settingsSeperator';
 import {ThemeSelector} from './components/themeSelector';
 
@@ -70,12 +73,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
     setIsDirty(false);
   }, [onSettingsUpdate, btdSettings, tdSettings]);
 
-  const canSave = useMemo(
-    () =>
-      (!isEqual(props.btdSettings, btdSettings) || !isEqual(props.tdSettings, tdSettings)) &&
-      isDirty,
-    [props.btdSettings, props.tdSettings, btdSettings, tdSettings, isDirty]
-  );
+  const canSave = useMemo(() => isDirty, [isDirty]);
 
   const reloadNeeded = useMemo(() => !isEqual(props.btdSettings, btdSettings) && isDirty, [
     btdSettings,
@@ -164,7 +162,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
           <AvatarsShape
             initialValue={btdSettings.avatarsShape}
             onChange={makeOnSettingsChange('avatarsShape')}></AvatarsShape>
-          <RadioSelectSettingsRow
+          <BTDRadioSelectSettingsRow
             settingsKey="scrollbarsMode"
             initialValue={btdSettings.scrollbarsMode}
             onChange={makeOnSettingsChange('scrollbarsMode')}
@@ -174,7 +172,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
               {label: 'Hidden', value: BTDScrollbarsMode.HIDDEN},
             ]}>
             Style of scrollbars
-          </RadioSelectSettingsRow>
+          </BTDRadioSelectSettingsRow>
         </Fragment>
       ),
     },
@@ -205,7 +203,18 @@ export const SettingsModal = (props: SettingsModalProps) => {
               onChange={makeOnSettingsChange('showCollapseButtonInColumnsHeader')}>
               Show &quot;Collapse&quot; button in columns&apos; header
             </BooleanSettingsRow>
-            {/* <ColumnSettingsPreview settings={settings}></ColumnSettingsPreview> */}
+            <SettingsSeperator></SettingsSeperator>
+            <TDRadioSelectSettingsRow
+              settingsKey="columnWidth"
+              initialValue={tdSettings.columnWidth}
+              onChange={makeOnTdSettingsChange('columnWidth')}
+              fields={[
+                {label: 'Narrow', value: 'narrow'},
+                {label: 'Medium', value: 'medium'},
+                {label: 'Wide', value: 'wide'},
+              ]}>
+              Width of columns
+            </TDRadioSelectSettingsRow>
           </Fragment>
         );
       },
@@ -216,7 +225,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
       renderContent: () => {
         return (
           <Fragment>
-            <RadioSelectSettingsRow
+            <BTDRadioSelectSettingsRow
               settingsKey="tweetActionsPosition"
               initialValue={btdSettings.tweetActionsPosition}
               onChange={makeOnSettingsChange('tweetActionsPosition')}
@@ -225,7 +234,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
                 {label: 'Right', value: BTDTweetActionsPosition.RIGHT},
               ]}>
               Position of actions
-            </RadioSelectSettingsRow>
+            </BTDRadioSelectSettingsRow>
             <CheckboxSelectSettingsRow
               onChange={(key, value) => {
                 makeOnSettingsChange('tweetActions')({

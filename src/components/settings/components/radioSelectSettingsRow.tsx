@@ -1,15 +1,13 @@
 import {css} from 'emotion';
 import React, {PropsWithChildren} from 'react';
 
+import {AbstractTweetDeckSettings} from '../../../types/abstractTweetDeckSettings';
 import {BTDSettings} from '../../../types/betterTweetDeck/btdSettingsTypes';
 import {settingsRow, settingsRowTitle} from '../settingsStyles';
-import {SettingsRadioSettingSelect, SettingsRadioSettingSelectProps} from './settingsRadioSelect';
+import {SettingsRadioSettingSelect, SettingsRadioSettingsSelectProps} from './settingsRadioSelect';
 
-interface RadioSelectSettingsRowProps<T extends keyof BTDSettings>
-  extends SettingsRadioSettingSelectProps<T> {}
-
-export function RadioSelectSettingsRow<T extends keyof BTDSettings>(
-  props: PropsWithChildren<RadioSelectSettingsRowProps<T>>
+function RadioSelectSettingsRow<S extends object, T extends keyof S>(
+  props: PropsWithChildren<SettingsRadioSettingsSelectProps<S, T>>
 ) {
   return (
     <div
@@ -24,7 +22,7 @@ export function RadioSelectSettingsRow<T extends keyof BTDSettings>(
           flex-direction: column;
           justify-content: center;
         `}>
-        <SettingsRadioSettingSelect
+        <SettingsRadioSettingSelect<S, T>
           settingsKey={props.settingsKey}
           onChange={props.onChange}
           initialValue={props.initialValue}
@@ -33,4 +31,16 @@ export function RadioSelectSettingsRow<T extends keyof BTDSettings>(
       </div>
     </div>
   );
+}
+
+export function BTDRadioSelectSettingsRow<T extends keyof BTDSettings>(
+  props: PropsWithChildren<SettingsRadioSettingsSelectProps<BTDSettings, T>>
+) {
+  return RadioSelectSettingsRow(props);
+}
+
+export function TDRadioSelectSettingsRow<T extends keyof AbstractTweetDeckSettings>(
+  props: PropsWithChildren<SettingsRadioSettingsSelectProps<AbstractTweetDeckSettings, T>>
+) {
+  return RadioSelectSettingsRow(props);
 }
