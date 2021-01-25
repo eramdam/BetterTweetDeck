@@ -144,6 +144,13 @@ export const SettingsModal = (props: SettingsModalProps) => {
               onChange={makeOnSettingsChange('removeRedirectionOnLinks')}>
               Remove t.co redirection on links
             </BooleanSettingsRow>
+            <BooleanSettingsRow
+              settingsKey="smallComposerButtons"
+              initialValue={btdSettings.smallComposerButtons}
+              alignToTheLeft
+              onChange={makeOnSettingsChange('smallComposerButtons')}>
+              Make buttons smaller in the composer
+            </BooleanSettingsRow>
           </Fragment>
         );
       },
