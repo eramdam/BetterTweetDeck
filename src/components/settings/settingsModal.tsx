@@ -145,7 +145,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
     },
     {
       id: 'theme-tweaks',
-      label: 'Interface',
+      label: 'Theme',
       renderContent: () => (
         <Fragment>
           <CustomAccentColor
