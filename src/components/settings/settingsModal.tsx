@@ -35,7 +35,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
   const [btdSettings, setBtdSettings] = useState<BTDSettings>(props.btdSettings);
   const [tdSettings, setTdSettings] = useState<AbstractTweetDeckSettings>(props.tdSettings);
   const [isDirty, setIsDirty] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(1);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const makeOnSettingsChange = useCallback(<T extends keyof BTDSettings>(key: T) => {
     return (val: BTDSettings[T]) => {
@@ -76,6 +76,12 @@ export const SettingsModal = (props: SettingsModalProps) => {
       isDirty,
     [props.btdSettings, props.tdSettings, btdSettings, tdSettings, isDirty]
   );
+
+  const reloadNeeded = useMemo(() => !isEqual(props.btdSettings, btdSettings) && isDirty, [
+    btdSettings,
+    isDirty,
+    props.btdSettings,
+  ]);
 
   const menu: readonly MenuItem[] = [
     {
@@ -295,12 +301,15 @@ export const SettingsModal = (props: SettingsModalProps) => {
         <button className="btd-settings-button secondary" onClick={onOpenTDSettings}>
           Open TweetDeck settings
         </button>
-        <button
-          className="btd-settings-button primary"
-          onClick={updateSettings}
-          disabled={!canSave}>
-          Save
-        </button>
+        <div>
+          {reloadNeeded && <span className="btd-settings-footer-label">TweetDeck will reload</span>}
+          <button
+            className="btd-settings-button primary"
+            onClick={updateSettings}
+            disabled={!canSave}>
+            Save
+          </button>
+        </div>
       </footer>
     </div>
   );

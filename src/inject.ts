@@ -1,4 +1,4 @@
-import {isObject} from 'lodash';
+import {isEqual, isObject} from 'lodash';
 
 import {maybeAddColumnsButtons} from './features/addColumnButtons';
 import {maybeAddTweetActions} from './features/addTweetActions';
@@ -109,7 +109,12 @@ const jq: JQueryStatic | undefined =
   setupSettings(jq, TD, settings, (newBtdSettings, newTdSettings) => {
     saveBTDSettings(newBtdSettings);
     applyAbstractTweetDeckSettings(TD, newTdSettings);
-    window.location.reload();
+
+    if (!isEqual(newBtdSettings, settings)) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 10);
+    }
   });
   setupMediaSizeMonitor({TD, jq});
   maybeSetupDebugFunctions({jq});
