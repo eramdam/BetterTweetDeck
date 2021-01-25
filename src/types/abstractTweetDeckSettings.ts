@@ -44,15 +44,15 @@ export function applyAbstractTweetDeckSettings(
   if (isEmpty(settings)) {
     return;
   }
-  TD.settings.setTheme(settings.theme);
+  TD.settings.setTheme(settings.theme); // done
   TD.settings.setLinkShortener(settings.linkShortener);
   TD.settings.setBitlyAccount(settings.bitlyAccount);
   TD.settings.setColumnWidth(settings.columnWidth);
   TD.settings.setFontSize(settings.fontSize);
-  TD.settings.setAutoPlayGifs(settings.autoPlayGifs);
-  TD.settings.setShowStartupNotifications(settings.showStartupNotifications);
-  TD.settings.setDisplaySensitiveMedia(settings.displaySensitiveMedia);
-  TD.settings.setUseStream(settings.useStream);
+  TD.settings.setAutoPlayGifs(settings.autoPlayGifs); // done
+  TD.settings.setShowStartupNotifications(settings.showStartupNotifications); // done
+  TD.settings.setDisplaySensitiveMedia(settings.displaySensitiveMedia); // done
+  TD.settings.setUseStream(settings.useStream); // done
 }
 
 export const dummyAbstractTweetDeckSettings: AbstractTweetDeckSettings = {
