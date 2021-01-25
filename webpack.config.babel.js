@@ -40,7 +40,7 @@ const staticFiles = [
 
 const DIST_FOLDER = 'dist/build';
 const IS_PRODUCTION = process.env.NODE_ENV !== 'development';
-const POSSIBLE_BROWSERS = ['chrome', 'firefox'];
+const POSSIBLE_BROWSERS = ['chrome', 'firefox', 'safari'];
 
 const cssLoaders = {
   fallback: 'style-loader',
