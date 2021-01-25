@@ -109,7 +109,7 @@ const jq: JQueryStatic | undefined =
   setupSettings(jq, TD, settings, (newBtdSettings, newTdSettings) => {
     saveBTDSettings(newBtdSettings);
     applyAbstractTweetDeckSettings(TD, newTdSettings);
-    return fetchBTDSettings();
+    window.location.reload();
   });
   setupMediaSizeMonitor({TD, jq});
   maybeSetupDebugFunctions({jq});
@@ -200,28 +200,6 @@ function getBTDSettings() {
   } catch (e) {
     return undefined;
   }
-}
-
-function fetchBTDSettings() {
-  return new Promise<BTDSettings>((resolve) => {
-    sendInternalBTDMessage({
-      name: BTDMessages.GET_SETTINGS,
-      origin: BTDMessageOriginsEnum.INJECT,
-      isReponse: false,
-      payload: undefined,
-    });
-    listenToInternalBTDMessage(
-      BTDMessages.GET_SETTINGS_RESULT,
-      BTDMessageOriginsEnum.INJECT,
-      async (ev) => {
-        if (ev.data.name !== BTDMessages.GET_SETTINGS_RESULT) {
-          return;
-        }
-
-        resolve(ev.data.payload);
-      }
-    );
-  });
 }
 
 function saveBTDSettings(settings: BTDSettings) {

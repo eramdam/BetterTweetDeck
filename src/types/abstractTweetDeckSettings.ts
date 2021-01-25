@@ -1,3 +1,5 @@
+import {isEmpty} from 'lodash';
+
 import {TweetDeckObject} from './tweetdeckTypes';
 
 export type TweetDeckTheme = 'light' | 'dark';
@@ -39,6 +41,9 @@ export function applyAbstractTweetDeckSettings(
   TD: TweetDeckObject,
   settings: AbstractTweetDeckSettings
 ) {
+  if (isEmpty(settings)) {
+    return;
+  }
   TD.settings.setTheme(settings.theme);
   TD.settings.setLinkShortener(settings.linkShortener);
   TD.settings.setBitlyAccount(settings.bitlyAccount);

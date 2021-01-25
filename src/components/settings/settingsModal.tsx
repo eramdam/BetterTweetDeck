@@ -33,13 +33,27 @@ interface MenuItem {
 export const SettingsModal = (props: SettingsModalProps) => {
   const {onSettingsUpdate, onOpenTDSettings} = props;
   const [btdSettings, setBtdSettings] = useState<BTDSettings>(props.btdSettings);
+  const [tdSettings, setTdSettings] = useState<AbstractTweetDeckSettings>(props.tdSettings);
   const [isDirty, setIsDirty] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(1);
 
-  const makeOnSettingsChange = useCallback(
-    <T extends keyof BTDSettings>(key: T) => {
-      return (val: BTDSettings[T]) => {
-        setBtdSettings((currentSettings) => {
+  const makeOnSettingsChange = useCallback(<T extends keyof BTDSettings>(key: T) => {
+    return (val: BTDSettings[T]) => {
+      setBtdSettings((currentSettings) => {
+        return {
+          ...currentSettings,
+          [key]: val,
+        };
+      });
+      setIsDirty(true);
+    };
+  }, []);
+
+  const makeOnTdSettingsChange = useCallback(
+    <T extends keyof AbstractTweetDeckSettings>(key: T) => {
+      return (val: AbstractTweetDeckSettings[T]) => {
+        console.log('TD', key, val);
+        setTdSettings((currentSettings) => {
           return {
             ...currentSettings,
             [key]: val,
@@ -48,19 +62,20 @@ export const SettingsModal = (props: SettingsModalProps) => {
         setIsDirty(true);
       };
     },
-    [setBtdSettings, setIsDirty]
+    []
   );
 
   const updateSettings = useCallback(() => {
-    onSettingsUpdate(btdSettings, {} as any);
+    onSettingsUpdate(btdSettings, tdSettings);
     setIsDirty(false);
-  }, [onSettingsUpdate, btdSettings]);
+  }, [onSettingsUpdate, btdSettings, tdSettings]);
 
-  const canSave = useMemo(() => !isEqual(props.btdSettings, btdSettings) && isDirty, [
-    isDirty,
-    props.btdSettings,
-    btdSettings,
-  ]);
+  const canSave = useMemo(
+    () =>
+      (!isEqual(props.btdSettings, btdSettings) || !isEqual(props.tdSettings, tdSettings)) &&
+      isDirty,
+    [props.btdSettings, props.tdSettings, btdSettings, tdSettings, isDirty]
+  );
 
   const menu: readonly MenuItem[] = [
     {
@@ -70,31 +85,31 @@ export const SettingsModal = (props: SettingsModalProps) => {
         return (
           <Fragment>
             <BooleanSettingsRow
-              settingsKey="streamTweets"
-              initialValue={true}
+              settingsKey="useStream"
+              initialValue={tdSettings.useStream}
               alignToTheLeft
-              onChange={console.log}>
+              onChange={makeOnTdSettingsChange('useStream')}>
               Stream Tweets in realtime
             </BooleanSettingsRow>
             <BooleanSettingsRow
-              settingsKey="showNotifications"
-              initialValue={true}
+              settingsKey="showStartupNotifications"
+              initialValue={tdSettings.showStartupNotifications}
               alignToTheLeft
-              onChange={console.log}>
+              onChange={makeOnTdSettingsChange('showStartupNotifications')}>
               Show notifications on startup
             </BooleanSettingsRow>
             <BooleanSettingsRow
               settingsKey="displaySensitiveMedia"
-              initialValue={true}
+              initialValue={tdSettings.displaySensitiveMedia}
               alignToTheLeft
-              onChange={console.log}>
+              onChange={makeOnTdSettingsChange('displaySensitiveMedia')}>
               Display media that may contain sensitive content
             </BooleanSettingsRow>
             <BooleanSettingsRow
               settingsKey="autoplayGifs"
-              initialValue={true}
+              initialValue={tdSettings.autoPlayGifs}
               alignToTheLeft
-              onChange={console.log}>
+              onChange={makeOnTdSettingsChange('autoPlayGifs')}>
               Autoplay GIFs
             </BooleanSettingsRow>
             <BooleanSettingsRow
@@ -132,12 +147,12 @@ export const SettingsModal = (props: SettingsModalProps) => {
             onChange={makeOnSettingsChange('customAccentColor')}></CustomAccentColor>
           <ThemeSelector
             initialValue={btdSettings.customDarkTheme}
-            hasLightTheme={false}
             onChange={(value) => {
               if (value !== 'light') {
                 makeOnSettingsChange('customDarkTheme')(value);
+                makeOnTdSettingsChange('theme')('dark');
               } else {
-                console.log('need to apply light theme');
+                makeOnTdSettingsChange('theme')(value);
               }
             }}></ThemeSelector>
           <AvatarsShape

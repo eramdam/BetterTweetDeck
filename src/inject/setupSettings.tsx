@@ -16,7 +16,7 @@ import {TweetDeckObject} from '../types/tweetdeckTypes';
 export type OnSettingsUpdateAsync = (
   newBtdSettings: BTDSettings,
   newTdSettings: AbstractTweetDeckSettings
-) => Promise<BTDSettings>;
+) => void;
 export type OnSettingsUpdate = (
   newBtdSettings: BTDSettings,
   newTdSettings: AbstractTweetDeckSettings
@@ -127,9 +127,7 @@ const SettingsWrapperApp: FC<SettingsWrapperAppProps> = (props) => {
           return (
             <SettingsModal
               onOpenTDSettings={onOpenTDSettings}
-              onSettingsUpdate={(...args) => {
-                onSettingsUpdate(...args).then(console.log);
-              }}
+              onSettingsUpdate={onSettingsUpdate}
               tdSettings={tdSettings}
               btdSettings={btdSettings}></SettingsModal>
           );

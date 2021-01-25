@@ -12,7 +12,6 @@ import {settingsRow, settingsRowTitle} from '../settingsStyles';
 interface CustomDarkThemeProps {
   initialValue: BetterTweetDeckDarkThemes | 'light';
   onChange: HandlerOf<BetterTweetDeckDarkThemes | 'light'>;
-  hasLightTheme: boolean;
 }
 
 const darkThemeRow = css`

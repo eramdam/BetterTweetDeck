@@ -20,7 +20,6 @@ export enum BetterTweetDeckDarkThemes {
 import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 
 export const tweakTweetDeckTheme = makeBTDModule(({settings}) => {
-  console.log({accent: settings.customAccentColor});
   // @ts-ignore
   document.body.style = `--btd-accent-color: ${settings.customAccentColor}`;
 

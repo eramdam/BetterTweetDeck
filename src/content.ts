@@ -102,20 +102,3 @@ listenToInternalBTDMessage(
     ExtensionSettings.set(settings);
   }
 );
-
-listenToInternalBTDMessage(BTDMessages.GET_SETTINGS, BTDMessageOriginsEnum.CONTENT, async (msg) => {
-  if (msg.data.name !== BTDMessages.GET_SETTINGS) {
-    return;
-  }
-
-  const settings = await getValidatedSettings();
-  console.log({settings});
-
-  return {
-    requestId: undefined,
-    isReponse: true,
-    name: BTDMessages.GET_SETTINGS_RESULT,
-    origin: BTDMessageOriginsEnum.CONTENT,
-    payload: settings,
-  };
-});
