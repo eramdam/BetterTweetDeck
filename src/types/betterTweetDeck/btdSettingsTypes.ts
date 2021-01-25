@@ -38,6 +38,9 @@ export const RBetterTweetDeckSettings = t.type({
   /** Hide icons in the columns' header */
   hideColumnIcons: withDefault(t.boolean, true),
 
+  /** Make buttons in composer smaller */
+  smallComposerButtons: withDefault(t.boolean, false),
+
   /** Choose the shape of avatars in columns */
   avatarsShape: withDefault(
     makeEnumRuntimeType<BTDAvatarShapes>(BTDAvatarShapes),
