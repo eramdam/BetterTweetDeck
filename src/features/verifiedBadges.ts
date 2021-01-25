@@ -1,5 +1,3 @@
-import './verifiedBadges.css';
-
 import {ChirpHandlerPayload} from '../inject/chirpHandler';
 import {makeBtdUuidSelector} from '../types/betterTweetDeck/btdCommonTypes';
 import {BTDSettings} from '../types/betterTweetDeck/btdSettingsTypes';
@@ -10,6 +8,8 @@ export function putBadgesOnTopOfAvatars(settings: BTDSettings, addedChirp: Chirp
   if (!settings.badgesOnTopOfAvatars) {
     return;
   }
+
+  require('./verifiedBadges.css');
 
   const chirp = addedChirp.chirp;
   const actionOrType = chirp.action || chirp.chirpType;
