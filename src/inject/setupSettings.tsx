@@ -123,20 +123,20 @@ const SettingsWrapperApp: FC<SettingsWrapperAppProps> = (props) => {
       className={css`
         position: fixed;
         z-index: 999;
-        height: 90vh;
+        height: 50vh;
         width: 75vw;
         max-width: 980px;
         border: 0;
         border-radius: 10px;
 
-        @media (min-height: 600px) {
+        @media (min-height: 640px) {
           min-width: 980px;
           max-height: 1100px;
         }
 
-        @media (max-height: 600px) {
+        @media (max-height: 640px) {
           width: 100vw;
-          height: 100vh;
+          height: 80vh;
         }
       `}
       contentDidMount={onHeaderMutation}>
