@@ -3,29 +3,13 @@ import {BTDSettings} from './btdSettingsTypes';
 
 type BTDModuleOptions = {
   settings: BTDSettings;
-} & {
   TD: TweetDeckObject;
-} & {
   jq: JQueryStatic;
 };
 type UniversalBTDModule = (opts: BTDModuleOptions) => void;
-type PartialUniversalBTDModule = (opts: Partial<BTDModuleOptions>) => void;
-function validateBTDModuleArguments(opts: Partial<BTDModuleOptions>): opts is BTDModuleOptions {
-  if (Object.keys(opts).length > 0) {
-    return true;
-  }
 
-  throw new Error('missing arguments for BTD module');
-}
-
-export function makeBTDModule(module: UniversalBTDModule): PartialUniversalBTDModule {
-  return (opts) => {
-    if (!validateBTDModuleArguments(opts)) {
-      return;
-    }
-
-    module(opts);
-  };
+export function makeBTDModule(btdModule: UniversalBTDModule): UniversalBTDModule {
+  return btdModule;
 }
 
 export const BTDSettingsAttribute = 'data-btd-settings';

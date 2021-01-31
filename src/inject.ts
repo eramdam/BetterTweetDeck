@@ -15,8 +15,10 @@ import {maybeFreezeGifsInProfilePicture} from './features/freezeGifsProfilePictu
 import {maybeHideColumnIcons} from './features/hideColumnIcons';
 import {maybeRemoveRedirection} from './features/removeRedirection';
 import {renderMediaAndQuotedTweets} from './features/renderMediaAndQuotedTweets';
+import {maybeReplaceHeartsByStars} from './features/replaceHeartsByStars';
 import {maybeRevertToLegacyReplies} from './features/revertToLegacyReplies';
 import {maybeMakeComposerButtonsSmaller} from './features/smallerComposerButtons';
+import {tweakTweetDeckTheme} from './features/themeTweaks';
 import {updateTabTitle} from './features/updateTabTitle';
 import {maybeChangeUsernameFormat} from './features/usernameDisplay';
 import {putBadgesOnTopOfAvatars} from './features/verifiedBadges';
@@ -54,16 +56,18 @@ const jq: JQueryStatic | undefined =
   mR && mR.findFunction('jQuery') && mR.findFunction('jquery:')[0];
 
 (async () => {
-  if (!isObject(TD)) {
-    return;
-  }
-  renderMediaAndQuotedTweets({TD});
-
   const settings = getBTDSettings();
-
-  if (!settings || !jq) {
+  if (!settings || !jq || !isObject(TD)) {
     return;
   }
+
+  const btdModuleOptions = {
+    TD,
+    jq,
+    settings,
+  };
+
+  renderMediaAndQuotedTweets(btdModuleOptions);
 
   const OGPluck = TD.util.pluck;
   const OGCanSend = OGPluck('canSend');
@@ -106,55 +110,50 @@ const jq: JQueryStatic | undefined =
   );
 
   markInjectScriptAsReady();
-  setupSettings(jq, TD, settings, (newBtdSettings, newTdSettings) => {
-    saveBTDSettings(newBtdSettings);
-    applyAbstractTweetDeckSettings(TD, newTdSettings);
-
-    if (!isEqual(newBtdSettings, settings)) {
-      setTimeout(() => {
-        window.location.reload();
-      }, 10);
-    }
-  });
-  setupMediaSizeMonitor({TD, jq});
-  maybeSetupDebugFunctions({jq});
-  maybeRemoveRedirection({TD});
-  maybeChangeUsernameFormat({
-    TD,
-    settings,
-  });
-  maybeRevertToLegacyReplies({
-    jq,
-    TD,
-    settings,
-  });
-  allowImagePaste({jq});
-  maybeAddColumnsButtons({TD, jq, settings});
-  maybeAddTweetMenuItems({TD, jq, settings});
-  maybeAddTweetActions({TD, jq, settings});
-  updateTabTitle({TD, jq});
-  changeAvatarsShape({settings});
-  maybeMakeComposerButtonsSmaller({settings});
-  maybeHideColumnIcons({settings});
-  changeTweetActionsStyling({settings});
-  changeScrollbarStyling({settings});
-  maybeFreezeGifsInProfilePicture({settings});
-  maybeCollapseDms({settings});
-  setupAME({TD, jq});
+  setupMediaSizeMonitor(btdModuleOptions);
+  maybeSetupDebugFunctions(btdModuleOptions);
+  maybeRemoveRedirection(btdModuleOptions);
+  maybeChangeUsernameFormat(btdModuleOptions);
+  maybeRevertToLegacyReplies(btdModuleOptions);
+  allowImagePaste(btdModuleOptions);
+  maybeAddColumnsButtons(btdModuleOptions);
+  maybeAddTweetMenuItems(btdModuleOptions);
+  maybeAddTweetActions(btdModuleOptions);
+  updateTabTitle(btdModuleOptions);
+  changeAvatarsShape(btdModuleOptions);
+  maybeMakeComposerButtonsSmaller(btdModuleOptions);
+  maybeHideColumnIcons(btdModuleOptions);
+  changeTweetActionsStyling(btdModuleOptions);
+  changeScrollbarStyling(btdModuleOptions);
+  maybeFreezeGifsInProfilePicture(btdModuleOptions);
+  maybeCollapseDms(btdModuleOptions);
+  setupAME(btdModuleOptions);
+  maybeReplaceHeartsByStars(btdModuleOptions);
+  tweakTweetDeckTheme(btdModuleOptions);
 
   // Embed custom mustaches.
   TD.mustaches['btd/download_filename_format.mustache'] = settings.downloadFilenameFormat;
 
   jq(document).one('dataColumnsLoaded', () => {
     document.body.classList.add('btd-loaded');
-    maybeSetupCustomTimestampFormat({TD, settings});
+    maybeSetupCustomTimestampFormat(btdModuleOptions);
     sendInternalBTDMessage({
       name: BTDMessages.BTD_READY,
       origin: BTDMessageOriginsEnum.INJECT,
       isReponse: false,
       payload: undefined,
     });
-    setupThemeAutoSwitch({TD});
+    setupThemeAutoSwitch(btdModuleOptions);
+    setupSettings(jq, TD, settings, (newBtdSettings, newTdSettings) => {
+      saveBTDSettings(newBtdSettings);
+      applyAbstractTweetDeckSettings(TD, newTdSettings);
+
+      if (!isEqual(newBtdSettings, settings)) {
+        setTimeout(() => {
+          window.location.reload();
+        }, 10);
+      }
+    });
   });
 
   listenToInternalBTDMessage(

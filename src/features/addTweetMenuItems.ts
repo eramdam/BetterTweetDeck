@@ -53,5 +53,5 @@ export const maybeAddTweetMenuItems = makeBTDModule(({settings, TD, jq}) => {
     TD.controller.filterManager.addFilter('source', source);
   });
 
-  listenToRedraftTweetEvent({TD, jq});
+  listenToRedraftTweetEvent({settings, TD, jq});
 });
