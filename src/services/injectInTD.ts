@@ -17,7 +17,7 @@ export async function injectInTD() {
   toInject.setAttribute(BTDSettingsAttribute, JSON.stringify(settings));
   document.head.appendChild(toInject);
 
-  return new Promise((resolve, reject) => {
+  return new Promise<void>((resolve, reject) => {
     const body = document.querySelector('body');
 
     if (!body) {

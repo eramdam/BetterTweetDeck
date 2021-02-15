@@ -3,7 +3,7 @@ import React from 'dom-chef';
 import {insertDomChefElement} from '../helpers/typeHelpers';
 
 export function setupBtdRoot() {
-  return new Promise((resolve) => {
+  return new Promise<void>((resolve) => {
     if (document.querySelector('#btdRoot')) {
       return;
     }
