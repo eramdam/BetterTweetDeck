@@ -1,4 +1,4 @@
-import {css} from 'emotion';
+import {css} from '@emotion/css';
 import React from 'react';
 
 import blueEmoji from '../../../assets/accent-colors/blue.svg';

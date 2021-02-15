@@ -1,4 +1,4 @@
-import {css} from 'emotion';
+import {css} from '@emotion/css';
 import React, {PropsWithChildren} from 'react';
 
 import {HandlerOf} from '../../../helpers/typeHelpers';

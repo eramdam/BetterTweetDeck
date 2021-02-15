@@ -1,4 +1,4 @@
-import {css} from 'emotion';
+import {css} from '@emotion/css';
 import {uniqueId} from 'lodash';
 import React, {FC, useCallback, useEffect, useRef} from 'react';
 import Frame, {FrameContextConsumer} from 'react-frame-component';
