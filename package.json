@@ -1,7 +1,7 @@
 {
   "name": "bettertweetdeck",
   "version": "4.0.0",
-  "description": "Adds some nice options on TweetDeck to provide a better experience on the webapp when used on Chrome.",
+  "description": "Adds some nice options on TweetDeck.",
   "repository": {
     "type": "git",
     "url": "https://github.com/eramdam/BetterTweetDeck.git"
@@ -94,7 +94,6 @@
     "ts-key-enum": "^2.0.7",
     "ts-loader": "^8.0.17",
     "ts-node": "^9.1.1",
-    "ts-toolbelt": "^9.3.11",
     "typescript": "^4.1.5",
     "url-loader": "^4.1.1",
     "web-ext": "^5.5.0",
