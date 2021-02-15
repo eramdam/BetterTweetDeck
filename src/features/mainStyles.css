@@ -85,3 +85,13 @@ html.dark .stream-item {
 #settings-modal {
   z-index: 9999999;
 }
+
+.app-navigator > a.js-header-action:not(.is-hidden) {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+}
+
+.app-navigator > a.js-header-action:not(.is-hidden) > .padding-ts {
+  padding-top: 0 !important;
+}
