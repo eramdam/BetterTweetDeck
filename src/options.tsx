@@ -20,7 +20,6 @@ const App = (
     `}
     </style>
     <SettingsModal
-      onOpenTDSettings={console.log}
       onSettingsUpdate={console.log}
       tdSettings={dummyAbstractTweetDeckSettings}
       btdSettings={(settingsWithDefault as any).right}></SettingsModal>

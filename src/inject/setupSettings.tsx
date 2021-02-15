@@ -4,8 +4,9 @@ import React, {FC, useCallback, useEffect, useRef} from 'react';
 import Frame, {FrameContextConsumer} from 'react-frame-component';
 
 import {SettingsModal} from '../components/settings/settingsModal';
+import {makeSettingsButton} from '../components/settingsButton';
 import {openFullscreenModalWithReactElement} from '../features/thumbnails/thumbnailHelpers';
-import {Handler} from '../helpers/typeHelpers';
+import {insertDomChefElement} from '../helpers/typeHelpers';
 import {
   AbstractTweetDeckSettings,
   makeAbstractTweetDeckSettings,
@@ -21,37 +22,36 @@ export type OnSettingsUpdate = (
   newBtdSettings: BTDSettings,
   newTdSettings: AbstractTweetDeckSettings
 ) => void;
+
 export const setupSettings = (
   jq: JQueryStatic,
   TD: TweetDeckObject,
   settings: BTDSettings,
   onSettingsUpdate: OnSettingsUpdateAsync
 ) => {
-  // @ts-expect-error
-  const originalSettingsHandler = jq._data(document).events['uiShowGlobalSettings'][0].handler;
-  jq(document).off('uiShowGlobalSettings');
-  jq(document).on('uiShowGlobalSettings', () => {
-    const settingsModal = (
-      <SettingsWrapperApp
-        onOpenTDSettings={() => {
-          console.log('opening TD settings');
-          originalSettingsHandler();
-        }}
-        btdSettings={settings}
-        tdSettings={makeAbstractTweetDeckSettings(TD)}
-        onSettingsUpdate={onSettingsUpdate}
-      />
-    );
-    openFullscreenModalWithReactElement(settingsModal, () => {
-      document
-        .querySelectorAll('style[btd-stylesheet-id]')
-        .forEach((style) => style.removeAttribute('btd-stylesheet-id'));
-    });
+  const settingsButton = makeSettingsButton({
+    onClick: () => {
+      const settingsModal = (
+        <SettingsWrapperApp
+          btdSettings={settings}
+          tdSettings={makeAbstractTweetDeckSettings(TD)}
+          onSettingsUpdate={onSettingsUpdate}
+        />
+      );
+      openFullscreenModalWithReactElement(settingsModal, () => {
+        document
+          .querySelectorAll('style[btd-stylesheet-id]')
+          .forEach((style) => style.removeAttribute('btd-stylesheet-id'));
+      });
+    },
   });
+
+  document
+    .querySelector('.app-navigator [data-action="settings-menu"]')
+    ?.insertAdjacentElement('beforebegin', insertDomChefElement(settingsButton));
 };
 
 interface SettingsWrapperAppProps {
-  onOpenTDSettings: Handler;
   onSettingsUpdate: OnSettingsUpdateAsync;
   btdSettings: BTDSettings;
   tdSettings: AbstractTweetDeckSettings;
@@ -64,7 +64,7 @@ function createUniqueStyleSheetId() {
 const parentDocument = document;
 const SettingsWrapperApp: FC<SettingsWrapperAppProps> = (props) => {
   const childDocument = useRef<Document>();
-  const {btdSettings, onSettingsUpdate, onOpenTDSettings, tdSettings} = props;
+  const {btdSettings, onSettingsUpdate, tdSettings} = props;
 
   const onHeaderMutation = useCallback(() => {
     const childDoc = childDocument.current;
@@ -123,7 +123,7 @@ const SettingsWrapperApp: FC<SettingsWrapperAppProps> = (props) => {
       className={css`
         position: fixed;
         z-index: 999;
-        height: 50vh;
+        height: 75vh;
         width: 75vw;
         max-width: 980px;
         border: 0;
@@ -146,7 +146,6 @@ const SettingsWrapperApp: FC<SettingsWrapperAppProps> = (props) => {
 
           return (
             <SettingsModal
-              onOpenTDSettings={onOpenTDSettings}
               onSettingsUpdate={onSettingsUpdate}
               tdSettings={tdSettings}
               btdSettings={btdSettings}></SettingsModal>

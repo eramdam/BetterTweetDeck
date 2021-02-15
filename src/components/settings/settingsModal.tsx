@@ -5,7 +5,7 @@ import React, {Fragment, useCallback, useMemo, useState} from 'react';
 
 import {BTDScrollbarsMode} from '../../features/changeScrollbars';
 import {BTDTweetActionsPosition} from '../../features/changeTweetActions';
-import {Handler, Renderer} from '../../helpers/typeHelpers';
+import {Renderer} from '../../helpers/typeHelpers';
 import {OnSettingsUpdate} from '../../inject/setupSettings';
 import {AbstractTweetDeckSettings} from '../../types/abstractTweetDeckSettings';
 import {BTDSettings} from '../../types/betterTweetDeck/btdSettingsTypes';
@@ -21,7 +21,6 @@ import {SettingsSeperator} from './components/settingsSeperator';
 import {ThemeSelector} from './components/themeSelector';
 
 interface SettingsModalProps {
-  onOpenTDSettings: Handler;
   btdSettings: BTDSettings;
   tdSettings: AbstractTweetDeckSettings;
   onSettingsUpdate: OnSettingsUpdate;
@@ -34,7 +33,7 @@ interface MenuItem {
 }
 
 export const SettingsModal = (props: SettingsModalProps) => {
-  const {onSettingsUpdate, onOpenTDSettings} = props;
+  const {onSettingsUpdate} = props;
   const [btdSettings, setBtdSettings] = useState<BTDSettings>(props.btdSettings);
   const [tdSettings, setTdSettings] = useState<AbstractTweetDeckSettings>(props.tdSettings);
   const [isDirty, setIsDirty] = useState(false);
@@ -333,9 +332,6 @@ export const SettingsModal = (props: SettingsModalProps) => {
       </aside>
       <section className="btd-settings-content">{menu[selectedIndex].renderContent()}</section>
       <footer className="btd-settings-footer">
-        <button className="btd-settings-button secondary" onClick={onOpenTDSettings}>
-          Open TweetDeck settings
-        </button>
         <div>
           {reloadNeeded && <span className="btd-settings-footer-label">TweetDeck will reload</span>}
           <button
