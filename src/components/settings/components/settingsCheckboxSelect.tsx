@@ -14,6 +14,7 @@ type SettingKey =
 
 export interface SettingsCheckboxSelectProps {
   onChange: (key: SettingKey, value: boolean) => void;
+  disabled?: boolean;
   fields: ReadonlyArray<{
     key: SettingKey;
     label: string;
@@ -29,6 +30,7 @@ export function SettingsCheckboxSelect(props: SettingsCheckboxSelectProps) {
 
         input + label {
           padding-left: 10px;
+          line-height: 1.6;
         }
 
         display: grid;

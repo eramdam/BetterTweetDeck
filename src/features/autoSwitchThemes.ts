@@ -1,6 +1,11 @@
 import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
+import {tweakTweetDeckTheme} from './themeTweaks';
 
-export const setupThemeAutoSwitch = makeBTDModule(({TD}) => {
+export const setupThemeAutoSwitch = makeBTDModule((opts) => {
+  const {TD, settings} = opts;
+  if (!settings.enableAutoThemeSwitch) {
+    return;
+  }
   const html = document.querySelector('html');
 
   function applyTheme(matches: boolean) {
@@ -15,6 +20,7 @@ export const setupThemeAutoSwitch = makeBTDModule(({TD}) => {
       html.classList.remove('dark');
       TD.storage.clientController.client.dictSet('settings', 'theme', 'light');
     }
+    tweakTweetDeckTheme(opts);
   }
 
   const darkSchemeQl = window.matchMedia('(prefers-color-scheme: dark)');

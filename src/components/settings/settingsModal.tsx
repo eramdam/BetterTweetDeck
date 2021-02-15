@@ -19,6 +19,7 @@ import {
 } from './components/radioSelectSettingsRow';
 import {SettingsSeperator} from './components/settingsSeperator';
 import {ThemeSelector} from './components/themeSelector';
+import {BetterTweetDeckDarkThemes} from '../../features/themeTweaks';
 
 interface SettingsModalProps {
   btdSettings: BTDSettings;
@@ -39,7 +40,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
   const [isDirty, setIsDirty] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const makeOnSettingsChange = useCallback(<T extends keyof BTDSettings>(key: T) => {
+  const makeOnSettingsChange = <T extends keyof BTDSettings>(key: T) => {
     return (val: BTDSettings[T]) => {
       setBtdSettings((currentSettings) => {
         return {
@@ -49,23 +50,19 @@ export const SettingsModal = (props: SettingsModalProps) => {
       });
       setIsDirty(true);
     };
-  }, []);
+  };
 
-  const makeOnTdSettingsChange = useCallback(
-    <T extends keyof AbstractTweetDeckSettings>(key: T) => {
-      return (val: AbstractTweetDeckSettings[T]) => {
-        console.log('TD', key, val);
-        setTdSettings((currentSettings) => {
-          return {
-            ...currentSettings,
-            [key]: val,
-          };
-        });
-        setIsDirty(true);
-      };
-    },
-    []
-  );
+  const makeOnTdSettingsChange = <T extends keyof AbstractTweetDeckSettings>(key: T) => {
+    return (val: AbstractTweetDeckSettings[T]) => {
+      setTdSettings((currentSettings) => {
+        return {
+          ...currentSettings,
+          [key]: val,
+        };
+      });
+      setIsDirty(true);
+    };
+  };
 
   const updateSettings = useCallback(() => {
     onSettingsUpdate(btdSettings, tdSettings);
@@ -157,50 +154,67 @@ export const SettingsModal = (props: SettingsModalProps) => {
     {
       id: 'theme-tweaks',
       label: 'Theme',
-      renderContent: () => (
-        <Fragment>
-          <CustomAccentColor
-            initialValue={btdSettings.customAccentColor}
-            onChange={makeOnSettingsChange('customAccentColor')}></CustomAccentColor>
-          <ThemeSelector
-            initialValue={btdSettings.customDarkTheme}
-            onChange={(value) => {
-              if (value !== 'light') {
-                makeOnSettingsChange('customDarkTheme')(value);
-                makeOnTdSettingsChange('theme')('dark');
-              } else {
-                makeOnTdSettingsChange('theme')(value);
+      renderContent: () => {
+        return (
+          <Fragment>
+            <CustomAccentColor
+              initialValue={btdSettings.customAccentColor}
+              onChange={makeOnSettingsChange('customAccentColor')}></CustomAccentColor>
+            <ThemeSelector
+              initialValue={
+                tdSettings.theme === 'dark' ? btdSettings.customDarkTheme : tdSettings.theme
               }
-            }}></ThemeSelector>
-          <AvatarsShape
-            initialValue={btdSettings.avatarsShape}
-            onChange={makeOnSettingsChange('avatarsShape')}></AvatarsShape>
-          <BTDRadioSelectSettingsRow
-            settingsKey="scrollbarsMode"
-            initialValue={btdSettings.scrollbarsMode}
-            onChange={makeOnSettingsChange('scrollbarsMode')}
-            fields={[
-              {label: 'Default', value: BTDScrollbarsMode.DEFAULT},
-              {label: 'Thin', value: BTDScrollbarsMode.SLIM},
-              {label: 'Hidden', value: BTDScrollbarsMode.HIDDEN},
-            ]}>
-            Style of scrollbars
-          </BTDRadioSelectSettingsRow>
-          <TDRadioSelectSettingsRow
-            settingsKey="fontSize"
-            initialValue={tdSettings.fontSize}
-            onChange={makeOnTdSettingsChange('fontSize')}
-            fields={[
-              {label: 'Smallest', value: 'smallest'},
-              {label: 'Small', value: 'small'},
-              {label: 'Medium', value: 'medium'},
-              {label: 'Large', value: 'large'},
-              {label: 'Largest', value: 'largest'},
-            ]}>
-            Font size
-          </TDRadioSelectSettingsRow>
-        </Fragment>
-      ),
+              onChange={(value) => {
+                if (value === 'light') {
+                  makeOnTdSettingsChange('theme')(value);
+                  makeOnSettingsChange('customDarkTheme')(BetterTweetDeckDarkThemes.DEFAULT);
+                } else {
+                  makeOnTdSettingsChange('theme')('dark');
+                  makeOnSettingsChange('customDarkTheme')(value);
+                }
+              }}></ThemeSelector>
+            <CheckboxSelectSettingsRow
+              onChange={(_key, value) => {
+                makeOnSettingsChange('enableAutoThemeSwitch')(value);
+              }}
+              disabled={tdSettings.theme === 'light'}
+              fields={[
+                {
+                  initialValue: btdSettings.enableAutoThemeSwitch,
+                  key: 'enableAutoThemeSwitch',
+                  label: 'Switch to light theme when OS is in light mode',
+                },
+              ]}></CheckboxSelectSettingsRow>
+            <AvatarsShape
+              initialValue={btdSettings.avatarsShape}
+              onChange={makeOnSettingsChange('avatarsShape')}></AvatarsShape>
+            <BTDRadioSelectSettingsRow
+              settingsKey="scrollbarsMode"
+              initialValue={btdSettings.scrollbarsMode}
+              onChange={makeOnSettingsChange('scrollbarsMode')}
+              fields={[
+                {label: 'Default', value: BTDScrollbarsMode.DEFAULT},
+                {label: 'Thin', value: BTDScrollbarsMode.SLIM},
+                {label: 'Hidden', value: BTDScrollbarsMode.HIDDEN},
+              ]}>
+              Style of scrollbars
+            </BTDRadioSelectSettingsRow>
+            <TDRadioSelectSettingsRow
+              settingsKey="fontSize"
+              initialValue={tdSettings.fontSize}
+              onChange={makeOnTdSettingsChange('fontSize')}
+              fields={[
+                {label: 'Smallest', value: 'smallest'},
+                {label: 'Small', value: 'small'},
+                {label: 'Medium', value: 'medium'},
+                {label: 'Large', value: 'large'},
+                {label: 'Largest', value: 'largest'},
+              ]}>
+              Font size
+            </TDRadioSelectSettingsRow>
+          </Fragment>
+        );
+      },
     },
     {
       id: 'columns',
@@ -239,7 +253,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
                 {label: 'Medium', value: 'medium'},
                 {label: 'Wide', value: 'wide'},
               ]}>
-              Width of columns
+              Column width
             </TDRadioSelectSettingsRow>
           </Fragment>
         );

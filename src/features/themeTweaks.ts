@@ -24,8 +24,10 @@ export const tweakTweetDeckTheme = makeBTDModule(({settings}) => {
   document.body.style = `--btd-accent-color: ${settings.customAccentColor}`;
 
   if (settings.customDarkTheme === BetterTweetDeckDarkThemes.LEGACY) {
-    document.body.setAttribute('btd-old-grey', 'true');
+    document.body.setAttribute('btd-theme', 'old-grey');
   } else if (settings.customDarkTheme === BetterTweetDeckDarkThemes.ULTRA_DARK) {
-    document.body.setAttribute('btd-super-dark', 'true');
+    document.body.setAttribute('btd-theme', 'super-dark');
+  } else {
+    document.body.setAttribute('btd-theme', '');
   }
 });

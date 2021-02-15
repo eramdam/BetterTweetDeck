@@ -1,5 +1,5 @@
-html.dark body[btd-super-dark='true'],
-html.dark body[btd-old-grey='true'] {
+html.dark body[btd-theme='super-dark'],
+html.dark body[btd-theme='old-grey'] {
   & .app-content .column-panel,
   & .app-content .column,
   & .app-navigator,
@@ -55,7 +55,7 @@ html.dark body[btd-old-grey='true'] {
   }
 }
 
-html.dark body[btd-super-dark='true'] {
+html.dark body[btd-theme='super-dark'] {
   --btd-theme-background: black;
   --btd-theme-background-lighter: #141414;
   --btd-theme-btn-hover: #2b2b2b;
@@ -66,7 +66,7 @@ html.dark body[btd-super-dark='true'] {
   }
 }
 
-html.dark body[btd-old-grey='true'] {
+html.dark body[btd-theme='old-grey'] {
   --btd-theme-background: hsl(210, 6%, 17%);
   --btd-theme-background-lighter: #373a3e;
   --btd-theme-btn-hover: #2b2b2b;

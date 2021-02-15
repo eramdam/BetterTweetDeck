@@ -143,6 +143,11 @@ export const RBetterTweetDeckSettings = t.type({
     makeEnumRuntimeType<BetterTweetDeckDarkThemes>(BetterTweetDeckDarkThemes),
     BetterTweetDeckDarkThemes.DEFAULT
   ),
+  enableAutoThemeSwitch: withDefault(t.boolean, false),
+  preferredDarkTheme: withDefault(
+    makeEnumRuntimeType<BetterTweetDeckDarkThemes>(BetterTweetDeckDarkThemes),
+    BetterTweetDeckDarkThemes.DEFAULT
+  ),
 
   customAccentColor: withDefault(
     makeEnumRuntimeType<BetterTweetDeckAccentColors>(BetterTweetDeckAccentColors),
