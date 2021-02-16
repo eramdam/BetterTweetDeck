@@ -1,7 +1,12 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'unused-imports', 'simple-import-sort'],
-  extends: ['eslint:recommended', 'plugin:react/recommended', 'plugin:react-hooks/recommended'],
+  plugins: ['@typescript-eslint', 'unused-imports', 'simple-import-sort', 'prettier'],
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'prettier',
+  ],
   parserOptions: {
     ecmaVersion: 2020,
     ecmaFeatures: {
@@ -18,6 +23,7 @@ module.exports = {
     node: true,
   },
   rules: {
+    'prettier/prettier': 'warn',
     'react-hooks/exhaustive-deps': [
       'warn',
       {
