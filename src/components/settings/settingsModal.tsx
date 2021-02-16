@@ -266,6 +266,16 @@ export const SettingsModal = (props: SettingsModalProps) => {
         return (
           <Fragment>
             <BTDRadioSelectSettingsRow
+              settingsKey="showTweetActionsOnHover"
+              initialValue={btdSettings.showTweetActionsOnHover}
+              onChange={makeOnSettingsChange('showTweetActionsOnHover')}
+              fields={[
+                {label: 'Always', value: false},
+                {label: 'On hover', value: true},
+              ]}>
+              Actions visibility
+            </BTDRadioSelectSettingsRow>
+            <BTDRadioSelectSettingsRow
               settingsKey="tweetActionsPosition"
               initialValue={btdSettings.tweetActionsPosition}
               onChange={makeOnSettingsChange('tweetActionsPosition')}
@@ -307,12 +317,6 @@ export const SettingsModal = (props: SettingsModalProps) => {
               Additional actions
             </CheckboxSelectSettingsRow>
             <SettingsSeperator></SettingsSeperator>
-            <BooleanSettingsRow
-              settingsKey="showTweetActionsOnHover"
-              initialValue={btdSettings.showTweetActionsOnHover}
-              onChange={makeOnSettingsChange('showTweetActionsOnHover')}>
-              Show tweet actions only on hover
-            </BooleanSettingsRow>
             <BooleanSettingsRow
               settingsKey="replaceHeartsByStars"
               initialValue={btdSettings.replaceHeartsByStars}
