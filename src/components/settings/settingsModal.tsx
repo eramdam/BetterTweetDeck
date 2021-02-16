@@ -168,7 +168,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
               initialValue={btdSettings.updateTabTitleOnActivity}
               alignToTheLeft
               onChange={makeOnSettingsChange('updateTabTitleOnActivity')}>
-              Reflect new tweets and DMs in the tab's title
+              Reflect new tweets and DMs in the tab&apos;s title
             </BooleanSettingsRow>
           </Fragment>
         );

@@ -14,7 +14,6 @@ import {maybeCollapseDms} from './features/collapseDms';
 import {maybeFreezeGifsInProfilePicture} from './features/freezeGifsProfilePictures';
 import {maybeHideColumnIcons} from './features/hideColumnIcons';
 import {maybeRemoveRedirection} from './features/removeRedirection';
-
 import {maybeReplaceHeartsByStars} from './features/replaceHeartsByStars';
 import {maybeRevertToLegacyReplies} from './features/revertToLegacyReplies';
 import {maybeMakeComposerButtonsSmaller} from './features/smallerComposerButtons';

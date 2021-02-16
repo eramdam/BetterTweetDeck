@@ -1,5 +1,6 @@
 import {css} from '@emotion/css';
 import React from 'react';
+
 import {HandlerOf} from '../../../helpers/typeHelpers';
 
 export interface SettingsTextInputProps {

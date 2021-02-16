@@ -1,4 +1,5 @@
 import React, {PropsWithChildren} from 'react';
+
 import {Handler} from '../../../helpers/typeHelpers';
 
 interface SettingsButtonProps {
