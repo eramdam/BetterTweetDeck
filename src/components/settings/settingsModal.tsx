@@ -133,7 +133,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
               initialValue={btdSettings.badgesOnTopOfAvatars}
               alignToTheLeft
               onChange={makeOnSettingsChange('badgesOnTopOfAvatars')}>
-              Show badges on top of avatars
+              Show profile badges on top of avatars
             </BooleanSettingsRow>
             <BooleanSettingsRow
               settingsKey="collapseReadDms"

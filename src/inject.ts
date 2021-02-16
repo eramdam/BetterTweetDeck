@@ -6,6 +6,7 @@ import {maybeAddTweetMenuItems} from './features/addTweetMenuItems';
 import {setupAME} from './features/advancedMuteEngine';
 import {allowImagePaste} from './features/allowImagePaste';
 import {setupThemeAutoSwitch} from './features/autoSwitchThemes';
+import {putBadgesOnTopOfAvatars} from './features/badgesOnTopOfAvatars';
 import {changeAvatarsShape} from './features/changeAvatarShape';
 import {changeScrollbarStyling} from './features/changeScrollbars';
 import {maybeSetupCustomTimestampFormat} from './features/changeTimestampFormat';
@@ -20,7 +21,6 @@ import {maybeMakeComposerButtonsSmaller} from './features/smallerComposerButtons
 import {tweakTweetDeckTheme} from './features/themeTweaks';
 import {updateTabTitle} from './features/updateTabTitle';
 import {maybeChangeUsernameFormat} from './features/usernameDisplay';
-import {putBadgesOnTopOfAvatars} from './features/verifiedBadges';
 import {listenToInternalBTDMessage, sendInternalBTDMessage} from './helpers/communicationHelpers';
 import {setupChirpHandler} from './inject/chirpHandler';
 import {setupMediaSizeMonitor} from './inject/columnMediaSizeMonitor';

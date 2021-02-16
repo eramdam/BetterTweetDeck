@@ -1,8 +1,9 @@
-import './verifiedBadges.css';
+import './badgesOnTopOfAvatars.css';
 
 import {ChirpHandlerPayload} from '../inject/chirpHandler';
 import {makeBtdUuidSelector} from '../types/betterTweetDeck/btdCommonTypes';
 import {BTDSettings} from '../types/betterTweetDeck/btdSettingsTypes';
+import {TweetDeckUser} from '../types/tweetdeckTypes';
 
 export function putBadgesOnTopOfAvatars(settings: BTDSettings, addedChirp: ChirpHandlerPayload) {
   document.body.setAttribute('btd-badges-top-avatar', String(settings.badgesOnTopOfAvatars));
@@ -13,8 +14,8 @@ export function putBadgesOnTopOfAvatars(settings: BTDSettings, addedChirp: Chirp
 
   const chirp = addedChirp.chirp;
   const actionOrType = chirp.action || chirp.chirpType;
-  let userToVerify: {isVerified: boolean} | undefined;
-  const classesToAdd = ['btd-is-from-verified'];
+  let userToVerify: TweetDeckUser | undefined;
+  const classesToAdd = ['btd-badge'];
   const chirpNode = document.querySelector(makeBtdUuidSelector('data-btd-uuid', addedChirp.uuid));
 
   if (!chirpNode) {
@@ -27,7 +28,7 @@ export function putBadgesOnTopOfAvatars(settings: BTDSettings, addedChirp: Chirp
     case 'favorite':
       if (chirpNode.querySelector('.has-source-avatar')) {
         userToVerify = chirp.sourceUser;
-        classesToAdd.push('btd-is-from-verified-mini');
+        classesToAdd.push('btd-mini-badge');
       } else {
         userToVerify = chirp.targetTweet?.user;
       }
@@ -41,7 +42,7 @@ export function putBadgesOnTopOfAvatars(settings: BTDSettings, addedChirp: Chirp
 
     case 'list_member_added':
       userToVerify = chirp.owner;
-      classesToAdd.push('btd-is-from-verified-mini');
+      classesToAdd.push('btd-mini-badge');
       break;
 
     case 'message_thread':
@@ -64,11 +65,12 @@ export function putBadgesOnTopOfAvatars(settings: BTDSettings, addedChirp: Chirp
       break;
   }
 
-  if (userToVerify && userToVerify.isVerified) {
-    const el = chirpNode;
-
-    if (el) {
-      el.classList.add(...classesToAdd);
+  const el = chirpNode;
+  if (userToVerify && el) {
+    if (userToVerify.isVerified) {
+      el.classList.add(...classesToAdd, 'btd-verified-badge');
+    } else if (userToVerify.isTranslator) {
+      el.classList.add(...classesToAdd, 'btd-translator-badge');
     }
   }
 }
