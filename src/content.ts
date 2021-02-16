@@ -6,11 +6,9 @@ import {browser} from 'webextension-polyfill-ts';
 
 import {setupEmojiAutocompletion} from './features/emojiAutocompletion';
 import {setupEmojiPicker} from './features/emojiPicker';
-import {setupGifModals} from './features/gifModals';
 import {setupGifPicker} from './features/gifPicker';
 import {listenToInternalBTDMessage} from './helpers/communicationHelpers';
 import {ExtensionSettings, sendMessageToBackground} from './helpers/webExtensionHelpers';
-import {getValidatedSettings} from './services/backgroundSettings';
 import {injectInTD} from './services/injectInTD';
 import {setupBtdRoot} from './services/setupBTDRoot';
 import {
@@ -21,9 +19,6 @@ import {
 
 // Inject some scripts.
 injectInTD();
-getValidatedSettings().then((settings) => {
-  setupGifModals(settings);
-});
 
 listenToInternalBTDMessage(BTDMessages.BTD_READY, BTDMessageOriginsEnum.CONTENT, async () => {
   setupGifPicker();

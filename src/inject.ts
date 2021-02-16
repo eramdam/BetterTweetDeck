@@ -13,6 +13,7 @@ import {maybeSetupCustomTimestampFormat} from './features/changeTimestampFormat'
 import {changeTweetActionsStyling} from './features/changeTweetActions';
 import {maybeCollapseDms} from './features/collapseDms';
 import {maybeFreezeGifsInProfilePicture} from './features/freezeGifsProfilePictures';
+import {setupGifModals} from './features/gifModals';
 import {maybeHideColumnIcons} from './features/hideColumnIcons';
 import {maybeRemoveRedirection} from './features/removeRedirection';
 import {maybeReplaceHeartsByStars} from './features/replaceHeartsByStars';
@@ -127,6 +128,7 @@ const jq: JQueryStatic | undefined =
   setupAME(btdModuleOptions);
   maybeReplaceHeartsByStars(btdModuleOptions);
   tweakTweetDeckTheme(btdModuleOptions);
+  setupGifModals(btdModuleOptions.TD, btdModuleOptions.settings);
 
   // Embed custom mustaches.
   TD.mustaches['btd/download_filename_format.mustache'] = settings.downloadFilenameFormat;

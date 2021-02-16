@@ -6,65 +6,14 @@ import * as Hogan from 'hogan.js';
 import qs from 'query-string';
 
 import {makeFullscreenModalWrapper} from '../components/fullscreenModalWrapper';
-import {listenToInternalBTDMessage} from '../helpers/communicationHelpers';
 import {dataURItoBlob, isHTMLElement, isHtmlVideoElement} from '../helpers/domHelpers';
-import {getFilenameDownloadData} from '../helpers/tweetdeckHelpers';
-import {ChirpHandlerPayload} from '../inject/chirpHandler';
-import {BTDUuidAttribute, makeBtdUuidSelector} from '../types/betterTweetDeck/btdCommonTypes';
-import {BTDMessageOriginsEnum, BTDMessages} from '../types/betterTweetDeck/btdMessageTypes';
+import {getChirpFromElement, getFilenameDownloadData} from '../helpers/tweetdeckHelpers';
 import {BTDSettings} from '../types/betterTweetDeck/btdSettingsTypes';
-import {TweetDeckChirp} from '../types/tweetdeckTypes';
+import {TweetDeckObject} from '../types/tweetdeckTypes';
 import {closeFullscreenModal, openFullscreenModal} from './thumbnails/thumbnailHelpers';
 
-export function setupGifModals(settings: BTDSettings) {
-  const gifChirpsCache = new Map<string, TweetDeckChirp>();
+export function setupGifModals(TD: TweetDeckObject, settings: BTDSettings) {
   const filenameRenderer = Hogan.compile(settings.downloadFilenameFormat);
-
-  listenToInternalBTDMessage(
-    BTDMessages.CHIRP_RESULT,
-    BTDMessageOriginsEnum.CONTENT,
-    async ({data}) => {
-      if (data.name !== BTDMessages.CHIRP_RESULT) {
-        return;
-      }
-
-      const {uuid, chirp} = data.payload as ChirpHandlerPayload;
-
-      if (!chirp.entities) {
-        return;
-      }
-
-      const gifEntity = chirp.entities.media.find((m) => m.type === 'animated_gif');
-
-      if (!gifEntity) {
-        return;
-      }
-
-      gifChirpsCache.set(uuid, chirp);
-
-      const thumbnailNode = document.querySelector(
-        `.column article[${BTDUuidAttribute}="${uuid}"] .js-tweet.tweet .js-media-gif`
-      );
-
-      if (!thumbnailNode) {
-        return;
-      }
-    }
-  );
-
-  listenToInternalBTDMessage(
-    BTDMessages.CHIRP_REMOVAL,
-    BTDMessageOriginsEnum.CONTENT,
-    async ({data}) => {
-      if (data.name !== BTDMessages.CHIRP_RESULT) {
-        return;
-      }
-
-      const {uuid} = data.payload;
-
-      gifChirpsCache.delete(uuid);
-    }
-  );
 
   document.querySelector('.js-app')?.addEventListener('click', (e) => {
     const target = isHTMLElement(e.target) && e.target;
@@ -77,24 +26,21 @@ export function setupGifModals(settings: BTDSettings) {
       return;
     }
 
-    const chirpNode = target.closest(makeBtdUuidSelector('data-btd-uuid'));
+    const chirpNode = target.closest('[data-key]');
+    console.log('chirpNode', chirpNode);
 
     if (!chirpNode) {
       return;
     }
 
-    const uuid = chirpNode.getAttribute(BTDUuidAttribute);
-    if (!uuid) {
+    const chirp = getChirpFromElement(TD, chirpNode);
+    console.log('chirp', chirp);
+
+    if (!chirp) {
       return;
     }
 
-    const gifChirp = gifChirpsCache.get(uuid);
-
-    if (!gifChirp) {
-      return;
-    }
-
-    const gifEntity = gifChirp.entities.media.find((m) => m.type === 'animated_gif');
+    const gifEntity = chirp.entities.media.find((m) => m.type === 'animated_gif');
 
     if (!gifEntity) {
       return;
@@ -124,7 +70,7 @@ export function setupGifModals(settings: BTDSettings) {
               gifWidth: videoNode.videoWidth,
               gifHeight: videoNode.videoHeight,
               name: filenameRenderer.render(
-                getFilenameDownloadData(gifChirp, videoUrl.replace('mp4', 'gif'))
+                getFilenameDownloadData(chirp, videoUrl.replace('mp4', 'gif'))
               ),
               numFrames: Math.floor(videoNode.duration / 0.1),
               interval: 0.1,
@@ -148,7 +94,7 @@ export function setupGifModals(settings: BTDSettings) {
       children: videoWrapper,
     });
 
-    openFullscreenModal(videoModal, uuid);
+    openFullscreenModal(videoModal, chirp.id);
   });
 
   window.addEventListener('message', onMessageEvent);
