@@ -20,7 +20,6 @@ export const settingsRow = css`
   display: flex;
   padding-top: 15px;
   display: grid;
-  /* grid-template-columns: 220px auto; */
   grid-template-columns: 150px auto;
   grid-column-gap: 10px;
   justify-content: flex-start;

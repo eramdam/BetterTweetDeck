@@ -1,6 +1,9 @@
 import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 
-export const updateTabTitle = makeBTDModule(({jq}) => {
+export const updateTabTitle = makeBTDModule(({jq, settings}) => {
+  if (!settings.updateTabTitleOnActivity) {
+    return;
+  }
   const countTitle = (count: number) => `(${count}) TweetDeck`;
   const defaultTitle = 'TweetDeck';
   const unreadTitle = '(*) TweetDeck';

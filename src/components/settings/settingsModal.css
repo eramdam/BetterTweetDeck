@@ -1,11 +1,20 @@
 :root {
-  --settings-modal-background: #15202b;
+  --settings-modal-background: #101a27;
   --settings-modal-menu-item-selected: #2e465c;
   --settings-modal-menu-item-hover: #293e52;
   --settings-modal-text: white;
   --settings-modal-separator: rgb(0, 0, 0);
   --twitter-blue: #1da1f2;
   --twitter-darkblue: #005fd1;
+  --twitter-input-bg: #0d1118;
+  --twitter-input-placeholder: #8899a6;
+  --twitter-input-border-color: #14171a;
+}
+
+.btd-settings-modal.light {
+  --twitter-input-bg: white;
+  --twitter-input-placeholder: #8899a6;
+  --twitter-input-border-color: #e1e8ed;
 }
 
 .btd-settings-modal {

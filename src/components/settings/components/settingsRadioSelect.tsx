@@ -1,5 +1,5 @@
 import {css} from '@emotion/css';
-import React from 'react';
+import React, {ReactNode} from 'react';
 
 import {HandlerOf} from '../../../helpers/typeHelpers';
 import {AbstractTweetDeckSettings} from '../../../types/abstractTweetDeckSettings';
@@ -8,7 +8,7 @@ import {SettingsRadioInput} from './settingsRadioInput';
 
 export interface SettingsRadioSettingsSelectProps<S extends object, T extends keyof S> {
   fields: ReadonlyArray<{
-    label: string;
+    label: ReactNode;
     value: S[T];
   }>;
   initialValue: S[T];

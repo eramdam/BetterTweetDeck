@@ -20,6 +20,14 @@ import {
 import {SettingsSeperator} from './components/settingsSeperator';
 import {ThemeSelector} from './components/themeSelector';
 import {BetterTweetDeckDarkThemes} from '../../features/themeTweaks';
+import {BTDTimestampFormats} from '../../features/changeTimestampFormat';
+
+import {settingsDisabled, settingsRow, settingsRowTitle} from './settingsStyles';
+import {css, cx} from '@emotion/css';
+import {DateTime} from 'luxon';
+import {SettingsTimeFormatInput} from './components/settingsTimeFormatInput';
+import {BTDUsernameFormat} from '../../features/usernameDisplay';
+import {SettingsTextInput} from './components/settingsTextInput';
 
 interface SettingsModalProps {
   btdSettings: BTDSettings;
@@ -30,7 +38,7 @@ interface SettingsModalProps {
 interface MenuItem {
   id: string;
   label: string;
-  renderContent: Renderer;
+  render: Renderer;
 }
 
 export const SettingsModal = (props: SettingsModalProps) => {
@@ -81,7 +89,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
     {
       id: 'general',
       label: 'General',
-      renderContent: () => {
+      render: () => {
         return (
           <Fragment>
             <BooleanSettingsRow
@@ -147,6 +155,13 @@ export const SettingsModal = (props: SettingsModalProps) => {
               onChange={makeOnSettingsChange('smallComposerButtons')}>
               Make buttons smaller in the composer
             </BooleanSettingsRow>
+            <BooleanSettingsRow
+              settingsKey="updateTabTitleOnActivity"
+              initialValue={btdSettings.updateTabTitleOnActivity}
+              alignToTheLeft
+              onChange={makeOnSettingsChange('updateTabTitleOnActivity')}>
+              Reflect new tweets and DMs in the tab's title
+            </BooleanSettingsRow>
           </Fragment>
         );
       },
@@ -154,7 +169,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
     {
       id: 'theme-tweaks',
       label: 'Theme',
-      renderContent: () => {
+      render: () => {
         return (
           <Fragment>
             <CustomAccentColor
@@ -219,7 +234,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
     {
       id: 'columns',
       label: 'Columns',
-      renderContent: () => {
+      render: () => {
         return (
           <Fragment>
             <BooleanSettingsRow
@@ -260,9 +275,123 @@ export const SettingsModal = (props: SettingsModalProps) => {
       },
     },
     {
+      id: 'tweets-display',
+      label: 'Tweets display',
+      render: () => {
+        return (
+          <Fragment>
+            <BooleanSettingsRow
+              alignToTheLeft
+              settingsKey="showLegacyReplies"
+              initialValue={btdSettings.showLegacyReplies}
+              onChange={makeOnSettingsChange('showLegacyReplies')}>
+              Use old style of replies (inline @mentions)
+            </BooleanSettingsRow>
+            <SettingsSeperator></SettingsSeperator>
+            <BTDRadioSelectSettingsRow
+              settingsKey="timestampStyle"
+              initialValue={btdSettings.timestampStyle}
+              onChange={makeOnSettingsChange('timestampStyle')}
+              fields={[
+                {label: 'Relative', value: BTDTimestampFormats.RELATIVE},
+                {label: 'Custom', value: BTDTimestampFormats.CUSTOM},
+              ]}>
+              Date format
+            </BTDRadioSelectSettingsRow>
+            <div
+              className={cx(
+                settingsRow,
+                btdSettings.timestampStyle === BTDTimestampFormats.RELATIVE && settingsDisabled
+              )}>
+              <span></span>
+              <SettingsTimeFormatInput
+                value={btdSettings.timestampShortFormat}
+                onChange={makeOnSettingsChange('timestampShortFormat')}
+                preview={formatDateTime(
+                  btdSettings.timestampShortFormat
+                )}></SettingsTimeFormatInput>
+            </div>
+            <BooleanSettingsRow
+              alignToTheLeft
+              settingsKey="fullTimestampAfterDay"
+              initialValue={btdSettings.fullTimestampAfterDay}
+              onChange={makeOnSettingsChange('fullTimestampAfterDay')}>
+              Use a different date format after 24h
+            </BooleanSettingsRow>
+            <div
+              className={cx(
+                settingsRow,
+                (btdSettings.timestampStyle === BTDTimestampFormats.RELATIVE ||
+                  !btdSettings.fullTimestampAfterDay) &&
+                  settingsDisabled
+              )}>
+              <span></span>
+              <SettingsTimeFormatInput
+                value={btdSettings.timestampFullFormat}
+                onChange={makeOnSettingsChange('timestampFullFormat')}
+                preview={formatDateTime(btdSettings.timestampFullFormat)}></SettingsTimeFormatInput>
+            </div>
+            <div
+              className={cx(
+                settingsRow,
+                css`
+                  align-items: flex-start;
+                `
+              )}>
+              <span className={settingsRowTitle}>Presets</span>
+              <div
+                className={css`
+                  display: inline-block;
+                  margin-left: -10px;
+
+                  > button {
+                    margin-bottom: 10px;
+                    margin-left: 10px;
+                  }
+                `}>
+                <button
+                  className="btd-settings-button secondary"
+                  onClick={() => {
+                    makeOnSettingsChange('timestampStyle')(BTDTimestampFormats.CUSTOM);
+                    makeOnSettingsChange('fullTimestampAfterDay')(true);
+                    makeOnSettingsChange('timestampShortFormat')('HH:mm');
+                    makeOnSettingsChange('timestampFullFormat')('dd/MM/yy HH:mm');
+                  }}>
+                  Absolute
+                </button>
+                <button
+                  className="btd-settings-button secondary"
+                  onClick={() => {
+                    makeOnSettingsChange('timestampStyle')(BTDTimestampFormats.CUSTOM);
+                    makeOnSettingsChange('fullTimestampAfterDay')(true);
+                    makeOnSettingsChange('timestampShortFormat')('hh:mm');
+                    makeOnSettingsChange('timestampFullFormat')('MM/dd/yy hh:mm');
+                  }}>
+                  Absolute (U.S. style)
+                </button>
+              </div>
+            </div>
+            <SettingsSeperator></SettingsSeperator>
+            <BTDRadioSelectSettingsRow
+              settingsKey="usernamesFormat"
+              initialValue={btdSettings.usernamesFormat}
+              onChange={makeOnSettingsChange('usernamesFormat')}
+              fields={[
+                {label: 'Fullname @username', value: BTDUsernameFormat.DEFAULT},
+                {label: '@username fullname', value: BTDUsernameFormat.USER_FULL},
+                {label: '@username', value: BTDUsernameFormat.USER},
+                {label: 'Fullname', value: BTDUsernameFormat.FULL},
+              ]}>
+              Name display style
+            </BTDRadioSelectSettingsRow>
+          </Fragment>
+        );
+      },
+    },
+    {
       id: 'tweet-actions',
       label: 'Tweet actions',
-      renderContent: () => {
+      render: () => {
         return (
           <Fragment>
             <BTDRadioSelectSettingsRow
@@ -316,6 +445,151 @@ export const SettingsModal = (props: SettingsModalProps) => {
               ]}>
               Additional actions
             </CheckboxSelectSettingsRow>
+            <div
+              className={cx(
+                settingsRow,
+                !btdSettings.tweetActions.addDownloadMediaLinksAction && settingsDisabled,
+                css`
+                  grid-template-columns: 150px 1fr;
+
+                  input {
+                    width: 80%;
+                  }
+                `
+              )}>
+              <span className={settingsRowTitle}>Downloaded filename format</span>
+              <SettingsTextInput
+                value={btdSettings.downloadFilenameFormat}
+                onChange={makeOnSettingsChange('downloadFilenameFormat')}></SettingsTextInput>
+            </div>
+            <div
+              className={cx(
+                settingsRow,
+                !btdSettings.tweetActions.addDownloadMediaLinksAction && settingsDisabled,
+                css`
+                  align-items: flex-start;
+                `
+              )}>
+              <span className={settingsRowTitle}>Filename format tokens</span>
+              <div
+                className={css`
+                  display: inline-block;
+                  margin-left: -10px;
+
+                  > button {
+                    margin-bottom: 10px;
+                    margin-left: 10px;
+                  }
+                `}>
+                <button
+                  className="btd-settings-button secondary"
+                  onClick={() => {
+                    makeOnSettingsChange('downloadFilenameFormat')(
+                      btdSettings.downloadFilenameFormat + '{{postedUser}}'
+                    );
+                  }}>
+                  username (without @)
+                </button>
+                <button
+                  className="btd-settings-button secondary"
+                  onClick={() => {
+                    makeOnSettingsChange('downloadFilenameFormat')(
+                      btdSettings.downloadFilenameFormat + '{{tweetId}}'
+                    );
+                  }}>
+                  Tweet ID
+                </button>
+                <button
+                  className="btd-settings-button secondary"
+                  onClick={() => {
+                    makeOnSettingsChange('downloadFilenameFormat')(
+                      btdSettings.downloadFilenameFormat + '{{fileName}}'
+                    );
+                  }}>
+                  Filename
+                </button>
+                <button
+                  className="btd-settings-button secondary"
+                  onClick={() => {
+                    makeOnSettingsChange('downloadFilenameFormat')(
+                      btdSettings.downloadFilenameFormat + '{{fileExtension}}'
+                    );
+                  }}>
+                  File extension
+                </button>
+                <button
+                  className="btd-settings-button secondary"
+                  onClick={() => {
+                    makeOnSettingsChange('downloadFilenameFormat')(
+                      btdSettings.downloadFilenameFormat + '{{year}}'
+                    );
+                  }}>
+                  Year ({formatDateTime('yyyy')})
+                </button>
+                <button
+                  className="btd-settings-button secondary"
+                  onClick={() => {
+                    makeOnSettingsChange('downloadFilenameFormat')(
+                      btdSettings.downloadFilenameFormat + '{{day}}'
+                    );
+                  }}>
+                  Day ({formatDateTime('dd')})
+                </button>
+                <button
+                  className="btd-settings-button secondary"
+                  onClick={() => {
+                    makeOnSettingsChange('downloadFilenameFormat')(
+                      btdSettings.downloadFilenameFormat + '{{month}}'
+                    );
+                  }}>
+                  Month ({formatDateTime('MM')})
+                </button>
+                <button
+                  className="btd-settings-button secondary"
+                  onClick={() => {
+                    makeOnSettingsChange('downloadFilenameFormat')(
+                      btdSettings.downloadFilenameFormat + '{{minutes}}'
+                    );
+                  }}>
+                  Minutes
+                </button>
+                <button
+                  className="btd-settings-button secondary"
+                  onClick={() => {
+                    makeOnSettingsChange('downloadFilenameFormat')(
+                      btdSettings.downloadFilenameFormat + '{{seconds}}'
+                    );
+                  }}>
+                  Seconds
+                </button>
+              </div>
+            </div>
+            <CheckboxSelectSettingsRow
+              onChange={(key, value) => {
+                makeOnSettingsChange('tweetMenuItems')({
+                  ...btdSettings.tweetMenuItems,
+                  [key]: value,
+                });
+              }}
+              fields={[
+                {
+                  initialValue: btdSettings.tweetMenuItems.addMuteHashtagsMenuItems,
+                  key: 'addMuteHashtagsMenuItems',
+                  label: 'Mute #hashtags',
+                },
+                {
+                  initialValue: btdSettings.tweetMenuItems.addMuteSourceMenuItem,
+                  key: 'addMuteSourceMenuItem',
+                  label: "Mute tweet's source",
+                },
+                {
+                  initialValue: btdSettings.tweetMenuItems.addRedraftMenuItem,
+                  key: 'addRedraftMenuItem',
+                  label: 'Re-draft',
+                },
+              ]}>
+              Additional tweet menu items
+            </CheckboxSelectSettingsRow>
             <SettingsSeperator></SettingsSeperator>
             <BooleanSettingsRow
               settingsKey="replaceHeartsByStars"
@@ -348,7 +622,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
           })}
         </ul>
       </aside>
-      <section className="btd-settings-content">{menu[selectedIndex].renderContent()}</section>
+      <section className="btd-settings-content">{menu[selectedIndex].render()}</section>
       <footer className="btd-settings-footer">
         <div>
           {reloadNeeded && <span className="btd-settings-footer-label">TweetDeck will reload</span>}
@@ -363,3 +637,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
     </div>
   );
 };
+
+function formatDateTime(format: string) {
+  return DateTime.local().toFormat(format);
+}

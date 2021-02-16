@@ -31,7 +31,7 @@ export function SettingsRadioInput(props: PropsWithChildren<SettingsRadioSelectF
         name={props.name}
         type="radio"
         id={'input-' + props.id}
-        defaultChecked={props.defaultChecked}
+        checked={props.defaultChecked}
         className={mainInputStyles}
         onChange={props.onChange}
       />

@@ -6,7 +6,7 @@ import {BTDSettings} from '../types/betterTweetDeck/btdSettingsTypes';
 
 export enum BTDTimestampFormats {
   RELATIVE = 'relative',
-  ABSOLUTE = 'absolute',
+  CUSTOM = 'custom',
 }
 
 const TIMESTAMP_INTERVAL = 1e3 * 8;
@@ -30,7 +30,7 @@ function getFinalDateString(
 }
 
 function refreshTimestamps(settings: BTDSettings) {
-  const timeElements = document.querySelectorAll('time.js-timestamp');
+  const timeElements = document.querySelectorAll('time');
 
   timeElements.forEach((timeElement) => {
     const timeString = timeElement.getAttribute('datetime');
@@ -69,7 +69,8 @@ export const maybeSetupCustomTimestampFormat = makeBTDModule(({TD, settings}) =>
     .compact()
     .first();
 
-  // If no id is found, nothign we can do
+  console.log('taskIdToRemove', taskIdToRemove);
+  // If no id is found, nothing we can do
   if (!taskIdToRemove) {
     return;
   }
