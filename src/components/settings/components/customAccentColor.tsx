@@ -9,8 +9,8 @@ import purpleEmoji from '../../../assets/accent-colors/purple.svg';
 import redEmoji from '../../../assets/accent-colors/red.svg';
 import yellowEmoji from '../../../assets/accent-colors/yellow.svg';
 import {BetterTweetDeckAccentColors} from '../../../features/themeTweaks';
-import {settingsRow, settingsRowTitle} from '../settingsStyles';
 import {BaseSettingsProps} from '../settingsTypes';
+import {SettingsRow, SettingsRowContent, SettingsRowTitle} from './settingsRow';
 
 interface CustomAccentColorProps extends BaseSettingsProps<'customAccentColor'> {}
 
@@ -78,7 +78,6 @@ const labelStyles = css`
 `;
 
 const accentColorRow = css`
-  ${settingsRow};
   align-items: flex-start;
   padding-top: 30px;
   padding-bottom: 20px;
@@ -86,9 +85,9 @@ const accentColorRow = css`
 
 export function CustomAccentColor(props: CustomAccentColorProps) {
   return (
-    <div className={accentColorRow}>
-      <span className={settingsRowTitle}>Accent color</span>
-      <div
+    <SettingsRow className={accentColorRow}>
+      <SettingsRowTitle>Accent color</SettingsRowTitle>
+      <SettingsRowContent
         className={css`
           display: grid;
           grid-auto-flow: column;
@@ -119,7 +118,7 @@ export function CustomAccentColor(props: CustomAccentColorProps) {
             </span>
           );
         })}
-      </div>
-    </div>
+      </SettingsRowContent>
+    </SettingsRow>
   );
 }

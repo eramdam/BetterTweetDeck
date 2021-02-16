@@ -1,10 +1,15 @@
 import './settingsModal.css';
 
+import {css} from '@emotion/css';
 import {isEqual} from 'lodash';
+import {DateTime} from 'luxon';
 import React, {Fragment, useCallback, useMemo, useState} from 'react';
 
 import {BTDScrollbarsMode} from '../../features/changeScrollbars';
+import {BTDTimestampFormats} from '../../features/changeTimestampFormat';
 import {BTDTweetActionsPosition} from '../../features/changeTweetActions';
+import {BetterTweetDeckDarkThemes} from '../../features/themeTweaks';
+import {BTDUsernameFormat} from '../../features/usernameDisplay';
 import {Renderer} from '../../helpers/typeHelpers';
 import {OnSettingsUpdate} from '../../inject/setupSettings';
 import {AbstractTweetDeckSettings} from '../../types/abstractTweetDeckSettings';
@@ -17,18 +22,20 @@ import {
   BTDRadioSelectSettingsRow,
   TDRadioSelectSettingsRow,
 } from './components/radioSelectSettingsRow';
-import {SettingsSeperator} from './components/settingsSeperator';
-import {ThemeSelector} from './components/themeSelector';
-import {BetterTweetDeckDarkThemes} from '../../features/themeTweaks';
-import {BTDTimestampFormats} from '../../features/changeTimestampFormat';
-
-import {settingsDisabled, settingsRow, settingsRowTitle} from './settingsStyles';
-import {css, cx} from '@emotion/css';
-import {DateTime} from 'luxon';
-import {SettingsTimeFormatInput} from './components/settingsTimeFormatInput';
-import {BTDUsernameFormat} from '../../features/usernameDisplay';
-import {SettingsTextInput} from './components/settingsTextInput';
 import {SettingsButton} from './components/settingsButton';
+import {
+  SettingsContent,
+  SettingsFooter,
+  SettingsFooterLabel,
+  SettingsHeader,
+  SettingsModalWrapper,
+  SettingsSidebar,
+} from './components/settingsModalComponents';
+import {SettingsRow, SettingsRowTitle} from './components/settingsRow';
+import {SettingsSeperator} from './components/settingsSeperator';
+import {SettingsTextInput} from './components/settingsTextInput';
+import {SettingsTimeFormatInput} from './components/settingsTimeFormatInput';
+import {ThemeSelector} from './components/themeSelector';
 
 interface SettingsModalProps {
   btdSettings: BTDSettings;
@@ -299,11 +306,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
               ]}>
               Date format
             </BTDRadioSelectSettingsRow>
-            <div
-              className={cx(
-                settingsRow,
-                btdSettings.timestampStyle === BTDTimestampFormats.RELATIVE && settingsDisabled
-              )}>
+            <SettingsRow disabled={btdSettings.timestampStyle === BTDTimestampFormats.RELATIVE}>
               <span></span>
               <SettingsTimeFormatInput
                 value={btdSettings.timestampShortFormat}
@@ -311,7 +314,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
                 preview={formatDateTime(
                   btdSettings.timestampShortFormat
                 )}></SettingsTimeFormatInput>
-            </div>
+            </SettingsRow>
             <BooleanSettingsRow
               alignToTheLeft
               settingsKey="fullTimestampAfterDay"
@@ -319,27 +322,22 @@ export const SettingsModal = (props: SettingsModalProps) => {
               onChange={makeOnSettingsChange('fullTimestampAfterDay')}>
               Use a different date format after 24h
             </BooleanSettingsRow>
-            <div
-              className={cx(
-                settingsRow,
-                (btdSettings.timestampStyle === BTDTimestampFormats.RELATIVE ||
-                  !btdSettings.fullTimestampAfterDay) &&
-                  settingsDisabled
-              )}>
+            <SettingsRow
+              disabled={
+                btdSettings.timestampStyle === BTDTimestampFormats.RELATIVE ||
+                !btdSettings.fullTimestampAfterDay
+              }>
               <span></span>
               <SettingsTimeFormatInput
                 value={btdSettings.timestampFullFormat}
                 onChange={makeOnSettingsChange('timestampFullFormat')}
                 preview={formatDateTime(btdSettings.timestampFullFormat)}></SettingsTimeFormatInput>
-            </div>
-            <div
-              className={cx(
-                settingsRow,
-                css`
-                  align-items: flex-start;
-                `
-              )}>
-              <span className={settingsRowTitle}>Presets</span>
+            </SettingsRow>
+            <SettingsRow
+              className={css`
+                align-items: flex-start;
+              `}>
+              <SettingsRowTitle>Presets</SettingsRowTitle>
               <div
                 className={css`
                   display: inline-block;
@@ -369,7 +367,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
                   Absolute (U.S. style)
                 </SettingsButton>
               </div>
-            </div>
+            </SettingsRow>
             <SettingsSeperator></SettingsSeperator>
             <BTDRadioSelectSettingsRow
               settingsKey="usernamesFormat"
@@ -444,32 +442,26 @@ export const SettingsModal = (props: SettingsModalProps) => {
               ]}>
               Additional actions
             </CheckboxSelectSettingsRow>
-            <div
-              className={cx(
-                settingsRow,
-                !btdSettings.tweetActions.addDownloadMediaLinksAction && settingsDisabled,
-                css`
-                  grid-template-columns: 150px 1fr;
+            <SettingsRow
+              disabled={!btdSettings.tweetActions.addDownloadMediaLinksAction}
+              className={css`
+                grid-template-columns: 150px 1fr;
 
-                  input {
-                    width: 80%;
-                  }
-                `
-              )}>
-              <span className={settingsRowTitle}>Downloaded filename format</span>
+                input {
+                  width: 80%;
+                }
+              `}>
+              <SettingsRowTitle>Downloaded filename format</SettingsRowTitle>
               <SettingsTextInput
                 value={btdSettings.downloadFilenameFormat}
                 onChange={makeOnSettingsChange('downloadFilenameFormat')}></SettingsTextInput>
-            </div>
-            <div
-              className={cx(
-                settingsRow,
-                !btdSettings.tweetActions.addDownloadMediaLinksAction && settingsDisabled,
-                css`
-                  align-items: flex-start;
-                `
-              )}>
-              <span className={settingsRowTitle}>Filename format tokens</span>
+            </SettingsRow>
+            <SettingsRow
+              disabled={!btdSettings.tweetActions.addDownloadMediaLinksAction}
+              className={css`
+                align-items: flex-start;
+              `}>
+              <SettingsRowTitle>Filename format tokens</SettingsRowTitle>
               <div
                 className={css`
                   display: inline-block;
@@ -553,7 +545,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
                   Seconds
                 </SettingsButton>
               </div>
-            </div>
+            </SettingsRow>
             <CheckboxSelectSettingsRow
               onChange={(key, value) => {
                 makeOnSettingsChange('tweetMenuItems')({
@@ -594,9 +586,9 @@ export const SettingsModal = (props: SettingsModalProps) => {
   ];
 
   return (
-    <div className="btd-settings-modal">
-      <header className="btd-settings-header">Settings</header>
-      <aside className="btd-settings-sidebar">
+    <SettingsModalWrapper>
+      <SettingsHeader>Settings</SettingsHeader>
+      <SettingsSidebar>
         <ul>
           {menu.map((item, index) => {
             return (
@@ -611,17 +603,17 @@ export const SettingsModal = (props: SettingsModalProps) => {
             );
           })}
         </ul>
-      </aside>
-      <section className="btd-settings-content">{menu[selectedIndex].render()}</section>
-      <footer className="btd-settings-footer">
+      </SettingsSidebar>
+      <SettingsContent>{menu[selectedIndex].render()}</SettingsContent>
+      <SettingsFooter>
         <div>
-          {reloadNeeded && <span className="btd-settings-footer-label">TweetDeck will reload</span>}
+          {reloadNeeded && <SettingsFooterLabel>TweetDeck will reload</SettingsFooterLabel>}
           <SettingsButton variant="primary" onClick={updateSettings} disabled={!canSave}>
             Save
           </SettingsButton>
         </div>
-      </footer>
-    </div>
+      </SettingsFooter>
+    </SettingsModalWrapper>
   );
 };
 

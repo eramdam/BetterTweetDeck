@@ -1,4 +1,4 @@
-import {css, cx} from '@emotion/css';
+import {css} from '@emotion/css';
 import React, {ReactNode} from 'react';
 
 import defaultDarkTheme from '../../../assets/dark-themes/default-dark.png';
@@ -7,19 +7,17 @@ import lightsOut from '../../../assets/dark-themes/lights-out.png';
 import oldDark from '../../../assets/dark-themes/old-dark.png';
 import {BetterTweetDeckDarkThemes} from '../../../features/themeTweaks';
 import {HandlerOf} from '../../../helpers/typeHelpers';
-import {settingsDisabled, settingsRow, settingsRowTitle} from '../settingsStyles';
+import {SettingsRow, SettingsRowContent, SettingsRowTitle} from './settingsRow';
 
 interface CustomDarkThemeProps {
   initialValue: BetterTweetDeckDarkThemes | 'light';
   onChange: HandlerOf<BetterTweetDeckDarkThemes | 'light'>;
   disabled?: boolean;
   onlyDark?: boolean;
-  noLabel?: boolean;
   label?: ReactNode;
 }
 
 const darkThemeRow = css`
-  ${settingsRow};
   align-items: flex-start;
   padding-top: 30px;
   padding-bottom: 30px;
@@ -91,24 +89,9 @@ const generateId = () => {
 export function ThemeSelector(props: CustomDarkThemeProps) {
   const inputId = generateId();
   return (
-    <div
-      className={cx(
-        darkThemeRow,
-        props.disabled && settingsDisabled,
-        props.noLabel &&
-          css`
-            grid-template-columns: 1fr;
-          `
-      )}>
-      {!props.noLabel && <span className={settingsRowTitle}>{props.label ?? 'Theme'}</span>}
-      <div
-        className={cx(
-          themeBlock,
-          props.noLabel &&
-            css`
-              grid-template-columns: repeat(auto-fit, minmax(160px, auto));
-            `
-        )}>
+    <SettingsRow className={darkThemeRow} disabled={props.disabled}>
+      <SettingsRowTitle>{props.label ?? 'Theme'}</SettingsRowTitle>
+      <SettingsRowContent className={themeBlock}>
         {!props.onlyDark && (
           <label className={optionBlock} htmlFor={'light'}>
             <input
@@ -144,7 +127,7 @@ export function ThemeSelector(props: CustomDarkThemeProps) {
             </label>
           );
         })}
-      </div>
-    </div>
+      </SettingsRowContent>
+    </SettingsRow>
   );
 }

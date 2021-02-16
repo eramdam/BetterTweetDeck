@@ -1,8 +1,8 @@
 import {css, cx} from '@emotion/css';
 import React, {PropsWithChildren} from 'react';
 
-import {settingsDisabled, settingsRow, settingsRowTitle} from '../settingsStyles';
 import {SettingsCheckboxSelect, SettingsCheckboxSelectProps} from './settingsCheckboxSelect';
+import {SettingsRow, SettingsRowContent, SettingsRowTitle} from './settingsRow';
 
 interface CheckboxSelectSettingsRowProps extends SettingsCheckboxSelectProps {}
 
@@ -10,16 +10,15 @@ export function CheckboxSelectSettingsRow(
   props: PropsWithChildren<CheckboxSelectSettingsRowProps>
 ) {
   return (
-    <div
+    <SettingsRow
       className={cx(
         css`
-          ${settingsRow};
           align-items: flex-start;
-        `,
-        props.disabled && settingsDisabled
-      )}>
-      <span className={settingsRowTitle}>{props.children}</span>
-      <div
+        `
+      )}
+      disabled={props.disabled}>
+      <SettingsRowTitle>{props.children}</SettingsRowTitle>
+      <SettingsRowContent
         className={css`
           display: flex;
           flex-direction: column;
@@ -28,7 +27,7 @@ export function CheckboxSelectSettingsRow(
         <SettingsCheckboxSelect
           fields={props.fields}
           onChange={props.onChange}></SettingsCheckboxSelect>
-      </div>
-    </div>
+      </SettingsRowContent>
+    </SettingsRow>
   );
 }

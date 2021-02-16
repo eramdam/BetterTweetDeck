@@ -2,8 +2,8 @@ import {css, cx} from '@emotion/css';
 import React, {Fragment} from 'react';
 
 import {BTDAvatarShapes} from '../../../features/changeAvatarShape';
-import {settingsRow, settingsRowTitle} from '../settingsStyles';
 import {BaseSettingsProps} from '../settingsTypes';
+import {SettingsRow, SettingsRowContent, SettingsRowTitle} from './settingsRow';
 
 const avatarChoiceStyle = css`
   display: grid;
@@ -49,13 +49,6 @@ const avatarChoiceStyleShape = css`
   }
 `;
 
-const avatarShapesStyle = css`
-  ${settingsRow};
-  input {
-    display: none;
-  }
-`;
-
 const avatarShapesWrapperStyle = css`
   display: grid;
   grid-auto-columns: auto;
@@ -67,9 +60,14 @@ interface AvatarsShapeProps extends BaseSettingsProps<'avatarsShape'> {}
 
 export function AvatarsShape(props: AvatarsShapeProps) {
   return (
-    <div className={avatarShapesStyle}>
-      <span className={settingsRowTitle}>Avatar shape:</span>
-      <div className={avatarShapesWrapperStyle}>
+    <SettingsRow
+      className={css`
+        input {
+          display: none;
+        }
+      `}>
+      <SettingsRowTitle>Avatar shape:</SettingsRowTitle>
+      <SettingsRowContent className={avatarShapesWrapperStyle}>
         {Object.values(BTDAvatarShapes).map((value) => {
           return (
             <Fragment key={value}>
@@ -90,7 +88,7 @@ export function AvatarsShape(props: AvatarsShapeProps) {
             </Fragment>
           );
         })}
-      </div>
-    </div>
+      </SettingsRowContent>
+    </SettingsRow>
   );
 }

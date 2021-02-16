@@ -6,7 +6,7 @@ import collapseBtn from '../../../assets/column-preview/collapse-btn.png';
 import mainBg from '../../../assets/column-preview/column-bg.png';
 import noIcon from '../../../assets/column-preview/no-icon.png';
 import {BTDSettings} from '../../../types/betterTweetDeck/btdSettingsTypes';
-import {settingsRow, settingsRowTitle} from '../settingsStyles';
+import {SettingsRow, SettingsRowContent, SettingsRowTitle} from './settingsRow';
 
 interface ColumnSettingsPreviewProps {
   settings: BTDSettings;
@@ -42,12 +42,9 @@ export function ColumnSettingsPreview({settings, alignToTheLeft}: ColumnSettings
     showCollapseButtonInColumnsHeader,
   } = settings;
   return (
-    <div
-      className={css`
-        ${settingsRow};
-      `}>
-      <span className={settingsRowTitle}>Preview</span>
-      <div
+    <SettingsRow>
+      <SettingsRowTitle>Preview</SettingsRowTitle>
+      <SettingsRowContent
         className={css`
           display: flex;
           flex-direction: column;
@@ -78,7 +75,7 @@ export function ColumnSettingsPreview({settings, alignToTheLeft}: ColumnSettings
             />
           </div>
         </div>
-      </div>
-    </div>
+      </SettingsRowContent>
+    </SettingsRow>
   );
 }

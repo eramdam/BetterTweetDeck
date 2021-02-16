@@ -2,7 +2,8 @@ import {css} from '@emotion/css';
 import React, {PropsWithChildren} from 'react';
 
 import {HandlerOf} from '../../../helpers/typeHelpers';
-import {maybeAlignToTheLeft, settingsRow, settingsRowTitle} from '../settingsStyles';
+import {maybeAlignToTheLeft} from '../settingsStyles';
+import {SettingsRow, SettingsRowContent, SettingsRowTitle} from './settingsRow';
 import {SettingsToggle} from './settingsToggle';
 
 interface BooleanSettingsRowProps {
@@ -14,13 +15,9 @@ interface BooleanSettingsRowProps {
 
 export function BooleanSettingsRow(props: PropsWithChildren<BooleanSettingsRowProps>) {
   return (
-    <div
-      className={css`
-        ${settingsRow};
-        ${maybeAlignToTheLeft(props.alignToTheLeft)}
-      `}>
-      <span className={settingsRowTitle}></span>
-      <div
+    <SettingsRow className={maybeAlignToTheLeft(props.alignToTheLeft)}>
+      <SettingsRowTitle></SettingsRowTitle>
+      <SettingsRowContent
         className={css`
           display: flex;
           align-items: center;
@@ -32,7 +29,7 @@ export function BooleanSettingsRow(props: PropsWithChildren<BooleanSettingsRowPr
           onChange={props.onChange}>
           {props.children}
         </SettingsToggle>
-      </div>
-    </div>
+      </SettingsRowContent>
+    </SettingsRow>
   );
 }

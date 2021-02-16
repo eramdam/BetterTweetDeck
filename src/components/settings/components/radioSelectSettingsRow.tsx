@@ -3,24 +3,23 @@ import React, {PropsWithChildren} from 'react';
 
 import {AbstractTweetDeckSettings} from '../../../types/abstractTweetDeckSettings';
 import {BTDSettings} from '../../../types/betterTweetDeck/btdSettingsTypes';
-import {settingsRow, settingsRowTitle} from '../settingsStyles';
 import {SettingsRadioSettingSelect, SettingsRadioSettingsSelectProps} from './settingsRadioSelect';
+import {SettingsRow, SettingsRowContent, SettingsRowTitle} from './settingsRow';
 
 function RadioSelectSettingsRow<S extends object, T extends keyof S>(
   props: PropsWithChildren<SettingsRadioSettingsSelectProps<S, T>>
 ) {
   return (
-    <div
+    <SettingsRow
       className={css`
-        ${settingsRow};
         align-items: flex-start;
 
         & + & {
           padding-top: 30px;
         }
       `}>
-      <span className={settingsRowTitle}>{props.children}</span>
-      <div
+      <SettingsRowTitle>{props.children}</SettingsRowTitle>
+      <SettingsRowContent
         className={css`
           display: flex;
           flex-direction: column;
@@ -32,8 +31,8 @@ function RadioSelectSettingsRow<S extends object, T extends keyof S>(
           initialValue={props.initialValue}
           fields={props.fields}
         />
-      </div>
-    </div>
+      </SettingsRowContent>
+    </SettingsRow>
   );
 }
 
