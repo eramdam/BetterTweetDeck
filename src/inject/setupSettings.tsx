@@ -4,7 +4,7 @@ import React, {FC, useCallback, useEffect, useRef} from 'react';
 import Frame, {FrameContextConsumer} from 'react-frame-component';
 
 import {SettingsModal} from '../components/settings/settingsModal';
-import {makeSettingsButton} from '../components/settingsButton';
+import {makeSettingsButton} from '../components/openBtdSettingsButton';
 import {openFullscreenModalWithReactElement} from '../features/thumbnails/thumbnailHelpers';
 import {insertDomChefElement} from '../helpers/typeHelpers';
 import {

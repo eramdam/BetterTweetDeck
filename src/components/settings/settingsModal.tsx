@@ -28,6 +28,7 @@ import {DateTime} from 'luxon';
 import {SettingsTimeFormatInput} from './components/settingsTimeFormatInput';
 import {BTDUsernameFormat} from '../../features/usernameDisplay';
 import {SettingsTextInput} from './components/settingsTextInput';
+import {SettingsButton} from './components/settingsButton';
 
 interface SettingsModalProps {
   btdSettings: BTDSettings;
@@ -349,8 +350,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
                     margin-left: 10px;
                   }
                 `}>
-                <button
-                  className="btd-settings-button secondary"
+                <SettingsButton
                   onClick={() => {
                     makeOnSettingsChange('timestampStyle')(BTDTimestampFormats.CUSTOM);
                     makeOnSettingsChange('fullTimestampAfterDay')(true);
@@ -358,9 +358,8 @@ export const SettingsModal = (props: SettingsModalProps) => {
                     makeOnSettingsChange('timestampFullFormat')('dd/MM/yy HH:mm');
                   }}>
                   Absolute
-                </button>
-                <button
-                  className="btd-settings-button secondary"
+                </SettingsButton>
+                <SettingsButton
                   onClick={() => {
                     makeOnSettingsChange('timestampStyle')(BTDTimestampFormats.CUSTOM);
                     makeOnSettingsChange('fullTimestampAfterDay')(true);
@@ -368,7 +367,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
                     makeOnSettingsChange('timestampFullFormat')('MM/dd/yy hh:mm');
                   }}>
                   Absolute (U.S. style)
-                </button>
+                </SettingsButton>
               </div>
             </div>
             <SettingsSeperator></SettingsSeperator>
@@ -481,87 +480,78 @@ export const SettingsModal = (props: SettingsModalProps) => {
                     margin-left: 10px;
                   }
                 `}>
-                <button
-                  className="btd-settings-button secondary"
+                <SettingsButton
                   onClick={() => {
                     makeOnSettingsChange('downloadFilenameFormat')(
                       btdSettings.downloadFilenameFormat + '{{postedUser}}'
                     );
                   }}>
                   username (without @)
-                </button>
-                <button
-                  className="btd-settings-button secondary"
+                </SettingsButton>
+                <SettingsButton
                   onClick={() => {
                     makeOnSettingsChange('downloadFilenameFormat')(
                       btdSettings.downloadFilenameFormat + '{{tweetId}}'
                     );
                   }}>
                   Tweet ID
-                </button>
-                <button
-                  className="btd-settings-button secondary"
+                </SettingsButton>
+                <SettingsButton
                   onClick={() => {
                     makeOnSettingsChange('downloadFilenameFormat')(
                       btdSettings.downloadFilenameFormat + '{{fileName}}'
                     );
                   }}>
                   Filename
-                </button>
-                <button
-                  className="btd-settings-button secondary"
+                </SettingsButton>
+                <SettingsButton
                   onClick={() => {
                     makeOnSettingsChange('downloadFilenameFormat')(
                       btdSettings.downloadFilenameFormat + '{{fileExtension}}'
                     );
                   }}>
                   File extension
-                </button>
-                <button
-                  className="btd-settings-button secondary"
+                </SettingsButton>
+                <SettingsButton
                   onClick={() => {
                     makeOnSettingsChange('downloadFilenameFormat')(
                       btdSettings.downloadFilenameFormat + '{{year}}'
                     );
                   }}>
                   Year ({formatDateTime('yyyy')})
-                </button>
-                <button
-                  className="btd-settings-button secondary"
+                </SettingsButton>
+                <SettingsButton
                   onClick={() => {
                     makeOnSettingsChange('downloadFilenameFormat')(
                       btdSettings.downloadFilenameFormat + '{{day}}'
                     );
                   }}>
                   Day ({formatDateTime('dd')})
-                </button>
-                <button
-                  className="btd-settings-button secondary"
+                </SettingsButton>
+                <SettingsButton
                   onClick={() => {
                     makeOnSettingsChange('downloadFilenameFormat')(
                       btdSettings.downloadFilenameFormat + '{{month}}'
                     );
                   }}>
                   Month ({formatDateTime('MM')})
-                </button>
-                <button
-                  className="btd-settings-button secondary"
+                </SettingsButton>
+                <SettingsButton
                   onClick={() => {
                     makeOnSettingsChange('downloadFilenameFormat')(
                       btdSettings.downloadFilenameFormat + '{{minutes}}'
                     );
                   }}>
                   Minutes
-                </button>
-                <button
-                  className="btd-settings-button secondary"
+                </SettingsButton>
+                <SettingsButton
                   onClick={() => {
                     makeOnSettingsChange('downloadFilenameFormat')(
                       btdSettings.downloadFilenameFormat + '{{seconds}}'
                     );
                   }}>
                   Seconds
-                </button>
+                </SettingsButton>
               </div>
             </div>
             <CheckboxSelectSettingsRow
@@ -626,12 +616,9 @@ export const SettingsModal = (props: SettingsModalProps) => {
       <footer className="btd-settings-footer">
         <div>
           {reloadNeeded && <span className="btd-settings-footer-label">TweetDeck will reload</span>}
-          <button
-            className="btd-settings-button primary"
-            onClick={updateSettings}
-            disabled={!canSave}>
+          <SettingsButton variant="primary" onClick={updateSettings} disabled={!canSave}>
             Save
-          </button>
+          </SettingsButton>
         </div>
       </footer>
     </div>
