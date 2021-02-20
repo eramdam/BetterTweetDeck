@@ -9,6 +9,7 @@ import {setupEmojiPicker} from './features/emojiPicker';
 import {setupGifPicker} from './features/gifPicker';
 import {listenToInternalBTDMessage} from './helpers/communicationHelpers';
 import {ExtensionSettings, sendMessageToBackground} from './helpers/webExtensionHelpers';
+import {setupSettings} from './inject/setupSettings';
 import {injectInTD} from './services/injectInTD';
 import {setupBtdRoot} from './services/setupBTDRoot';
 import {
@@ -42,6 +43,8 @@ listenToInternalBTDMessage(BTDMessages.BTD_READY, BTDMessageOriginsEnum.CONTENT,
       }
     }
   });
+
+  setupSettings();
 });
 
 listenToInternalBTDMessage(
