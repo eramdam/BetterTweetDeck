@@ -1,13 +1,14 @@
 import {Template} from 'hogan.js';
 import {Twitter} from 'twit';
 
-import {
-  TweetDeckBitlyAccount,
-  TweetDeckColumnWidth,
-  TweetDeckFontSize,
-  TweetDeckLinkShortener,
-  TweetDeckTheme,
-} from './abstractTweetDeckSettings';
+export type TweetDeckTheme = 'light' | 'dark';
+export type TweetDeckLinkShortener = 'bitly' | 'twitter';
+export interface TweetDeckBitlyAccount {
+  apiKey: string;
+  login: string;
+}
+export type TweetDeckColumnWidth = 'wide' | 'medium' | 'narrow' | 'custom';
+export type TweetDeckFontSize = 'smallest' | 'small' | 'medium' | 'large' | 'largest';
 
 declare class TweetDeckFilter {
   value: string;

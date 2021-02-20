@@ -11,9 +11,10 @@ export enum BetterTweetDeckAccentColors {
   GREEN = 'rgb(23, 191, 99)',
 }
 
-export enum BetterTweetDeckDarkThemes {
-  DEFAULT = 'default',
-  LEGACY = 'legacy',
+export enum BetterTweetDeckThemes {
+  LIGHT = 'light',
+  DARK = 'default',
+  LEGACY_DARK = 'legacy',
   ULTRA_DARK = 'ultra_dark',
 }
 
@@ -23,9 +24,9 @@ export const tweakTweetDeckTheme = makeBTDModule(({settings}) => {
   // @ts-ignore
   document.body.style = `--btd-accent-color: ${settings.customAccentColor}`;
 
-  if (settings.customDarkTheme === BetterTweetDeckDarkThemes.LEGACY) {
+  if (settings.theme === BetterTweetDeckThemes.LEGACY_DARK) {
     document.body.setAttribute('btd-theme', 'old-grey');
-  } else if (settings.customDarkTheme === BetterTweetDeckDarkThemes.ULTRA_DARK) {
+  } else if (settings.theme === BetterTweetDeckThemes.ULTRA_DARK) {
     document.body.setAttribute('btd-theme', 'super-dark');
   } else {
     document.body.setAttribute('btd-theme', '');

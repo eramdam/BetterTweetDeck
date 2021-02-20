@@ -1,32 +1,26 @@
 import './settingsModal.css';
 
 import {css} from '@emotion/css';
-import {isEqual} from 'lodash';
 import {DateTime} from 'luxon';
 import React, {Fragment, useCallback, useMemo, useState} from 'react';
 
 import {BTDScrollbarsMode} from '../../features/changeScrollbars';
 import {BTDTimestampFormats} from '../../features/changeTimestampFormat';
 import {BTDTweetActionsPosition} from '../../features/changeTweetActions';
-import {BetterTweetDeckDarkThemes} from '../../features/themeTweaks';
+import {BetterTweetDeckThemes} from '../../features/themeTweaks';
 import {BTDUsernameFormat} from '../../features/usernameDisplay';
 import {Renderer} from '../../helpers/typeHelpers';
 import {OnSettingsUpdate} from '../../inject/setupSettings';
-import {AbstractTweetDeckSettings} from '../../types/abstractTweetDeckSettings';
 import {BTDSettings} from '../../types/betterTweetDeck/btdSettingsTypes';
 import {AvatarsShape} from './components/avatarsShape';
 import {BooleanSettingsRow} from './components/booleanSettingRow';
 import {CheckboxSelectSettingsRow} from './components/checkboxSelectSettingsRow';
 import {CustomAccentColor} from './components/customAccentColor';
-import {
-  BTDRadioSelectSettingsRow,
-  TDRadioSelectSettingsRow,
-} from './components/radioSelectSettingsRow';
+import {BTDRadioSelectSettingsRow} from './components/radioSelectSettingsRow';
 import {SettingsButton} from './components/settingsButton';
 import {
   SettingsContent,
   SettingsFooter,
-  SettingsFooterLabel,
   SettingsHeader,
   SettingsModalWrapper,
   SettingsSidebar,
@@ -39,7 +33,6 @@ import {ThemeSelector} from './components/themeSelector';
 
 interface SettingsModalProps {
   btdSettings: BTDSettings;
-  tdSettings: AbstractTweetDeckSettings;
   onSettingsUpdate: OnSettingsUpdate;
 }
 
@@ -52,7 +45,6 @@ interface MenuItem {
 export const SettingsModal = (props: SettingsModalProps) => {
   const {onSettingsUpdate} = props;
   const [btdSettings, setBtdSettings] = useState<BTDSettings>(props.btdSettings);
-  const [tdSettings, setTdSettings] = useState<AbstractTweetDeckSettings>(props.tdSettings);
   const [isDirty, setIsDirty] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -68,30 +60,12 @@ export const SettingsModal = (props: SettingsModalProps) => {
     };
   };
 
-  const makeOnTdSettingsChange = <T extends keyof AbstractTweetDeckSettings>(key: T) => {
-    return (val: AbstractTweetDeckSettings[T]) => {
-      setTdSettings((currentSettings) => {
-        return {
-          ...currentSettings,
-          [key]: val,
-        };
-      });
-      setIsDirty(true);
-    };
-  };
-
   const updateSettings = useCallback(() => {
-    onSettingsUpdate(btdSettings, tdSettings);
+    onSettingsUpdate(btdSettings);
     setIsDirty(false);
-  }, [onSettingsUpdate, btdSettings, tdSettings]);
+  }, [onSettingsUpdate, btdSettings]);
 
   const canSave = useMemo(() => isDirty, [isDirty]);
-
-  const reloadNeeded = useMemo(() => !isEqual(props.btdSettings, btdSettings) && isDirty, [
-    btdSettings,
-    isDirty,
-    props.btdSettings,
-  ]);
 
   const menu: readonly MenuItem[] = [
     {
@@ -100,34 +74,6 @@ export const SettingsModal = (props: SettingsModalProps) => {
       render: () => {
         return (
           <Fragment>
-            <BooleanSettingsRow
-              settingsKey="useStream"
-              initialValue={tdSettings.useStream}
-              alignToTheLeft
-              onChange={makeOnTdSettingsChange('useStream')}>
-              Stream Tweets in realtime
-            </BooleanSettingsRow>
-            <BooleanSettingsRow
-              settingsKey="showStartupNotifications"
-              initialValue={tdSettings.showStartupNotifications}
-              alignToTheLeft
-              onChange={makeOnTdSettingsChange('showStartupNotifications')}>
-              Show notifications on startup
-            </BooleanSettingsRow>
-            <BooleanSettingsRow
-              settingsKey="displaySensitiveMedia"
-              initialValue={tdSettings.displaySensitiveMedia}
-              alignToTheLeft
-              onChange={makeOnTdSettingsChange('displaySensitiveMedia')}>
-              Display media that may contain sensitive content
-            </BooleanSettingsRow>
-            <BooleanSettingsRow
-              settingsKey="autoplayGifs"
-              initialValue={tdSettings.autoPlayGifs}
-              alignToTheLeft
-              onChange={makeOnTdSettingsChange('autoPlayGifs')}>
-              Autoplay GIFs
-            </BooleanSettingsRow>
             <BooleanSettingsRow
               settingsKey="badgesOnTopOfAvatars"
               initialValue={btdSettings.badgesOnTopOfAvatars}
@@ -184,23 +130,19 @@ export const SettingsModal = (props: SettingsModalProps) => {
               initialValue={btdSettings.customAccentColor}
               onChange={makeOnSettingsChange('customAccentColor')}></CustomAccentColor>
             <ThemeSelector
-              initialValue={
-                tdSettings.theme === 'dark' ? btdSettings.customDarkTheme : tdSettings.theme
-              }
+              initialValue={btdSettings.theme}
               onChange={(value) => {
                 if (value === 'light') {
-                  makeOnTdSettingsChange('theme')(value);
-                  makeOnSettingsChange('customDarkTheme')(BetterTweetDeckDarkThemes.DEFAULT);
+                  makeOnSettingsChange('theme')(BetterTweetDeckThemes.LIGHT);
                 } else {
-                  makeOnTdSettingsChange('theme')('dark');
-                  makeOnSettingsChange('customDarkTheme')(value);
+                  makeOnSettingsChange('theme')(value);
                 }
               }}></ThemeSelector>
             <CheckboxSelectSettingsRow
               onChange={(_key, value) => {
                 makeOnSettingsChange('enableAutoThemeSwitch')(value);
               }}
-              disabled={tdSettings.theme === 'light'}
+              disabled={btdSettings.theme === BetterTweetDeckThemes.LIGHT}
               fields={[
                 {
                   initialValue: btdSettings.enableAutoThemeSwitch,
@@ -222,19 +164,6 @@ export const SettingsModal = (props: SettingsModalProps) => {
               ]}>
               Style of scrollbars
             </BTDRadioSelectSettingsRow>
-            <TDRadioSelectSettingsRow
-              settingsKey="fontSize"
-              initialValue={tdSettings.fontSize}
-              onChange={makeOnTdSettingsChange('fontSize')}
-              fields={[
-                {label: 'Smallest', value: 'smallest'},
-                {label: 'Small', value: 'small'},
-                {label: 'Medium', value: 'medium'},
-                {label: 'Large', value: 'large'},
-                {label: 'Largest', value: 'largest'},
-              ]}>
-              Font size
-            </TDRadioSelectSettingsRow>
           </Fragment>
         );
       },
@@ -266,18 +195,6 @@ export const SettingsModal = (props: SettingsModalProps) => {
               onChange={makeOnSettingsChange('showCollapseButtonInColumnsHeader')}>
               Show &quot;Collapse&quot; button in columns&apos; header
             </BooleanSettingsRow>
-            <SettingsSeperator></SettingsSeperator>
-            <TDRadioSelectSettingsRow
-              settingsKey="columnWidth"
-              initialValue={tdSettings.columnWidth}
-              onChange={makeOnTdSettingsChange('columnWidth')}
-              fields={[
-                {label: 'Narrow', value: 'narrow'},
-                {label: 'Medium', value: 'medium'},
-                {label: 'Wide', value: 'wide'},
-              ]}>
-              Column width
-            </TDRadioSelectSettingsRow>
           </Fragment>
         );
       },
@@ -316,6 +233,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
                 )}></SettingsTimeFormatInput>
             </SettingsRow>
             <BooleanSettingsRow
+              disabled={btdSettings.timestampStyle === BTDTimestampFormats.RELATIVE}
               alignToTheLeft
               settingsKey="fullTimestampAfterDay"
               initialValue={btdSettings.fullTimestampAfterDay}
@@ -607,7 +525,6 @@ export const SettingsModal = (props: SettingsModalProps) => {
       <SettingsContent>{menu[selectedIndex].render()}</SettingsContent>
       <SettingsFooter>
         <div>
-          {reloadNeeded && <SettingsFooterLabel>TweetDeck will reload</SettingsFooterLabel>}
           <SettingsButton variant="primary" onClick={updateSettings} disabled={!canSave}>
             Save
           </SettingsButton>

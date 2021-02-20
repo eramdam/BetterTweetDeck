@@ -5,13 +5,13 @@ import defaultDarkTheme from '../../../assets/dark-themes/default-dark.png';
 import lightTheme from '../../../assets/dark-themes/light.png';
 import lightsOut from '../../../assets/dark-themes/lights-out.png';
 import oldDark from '../../../assets/dark-themes/old-dark.png';
-import {BetterTweetDeckDarkThemes} from '../../../features/themeTweaks';
+import {BetterTweetDeckThemes} from '../../../features/themeTweaks';
 import {HandlerOf} from '../../../helpers/typeHelpers';
 import {SettingsRow, SettingsRowContent, SettingsRowTitle} from './settingsRow';
 
 interface CustomDarkThemeProps {
-  initialValue: BetterTweetDeckDarkThemes | 'light';
-  onChange: HandlerOf<BetterTweetDeckDarkThemes | 'light'>;
+  initialValue: BetterTweetDeckThemes | 'light';
+  onChange: HandlerOf<BetterTweetDeckThemes | 'light'>;
   disabled?: boolean;
   onlyDark?: boolean;
   label?: ReactNode;
@@ -64,17 +64,17 @@ const optionImageBlock = css`
 
 const themes = [
   {
-    value: BetterTweetDeckDarkThemes.DEFAULT,
+    value: BetterTweetDeckThemes.DARK,
     label: 'Dark',
     image: defaultDarkTheme,
   },
   {
-    value: BetterTweetDeckDarkThemes.LEGACY,
+    value: BetterTweetDeckThemes.LEGACY_DARK,
     label: 'Old Gray',
     image: oldDark,
   },
   {
-    value: BetterTweetDeckDarkThemes.ULTRA_DARK,
+    value: BetterTweetDeckThemes.ULTRA_DARK,
     label: 'Super Black',
     image: lightsOut,
   },

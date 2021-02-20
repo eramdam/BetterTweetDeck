@@ -4,7 +4,7 @@ import {BTDAvatarShapes} from '../../features/changeAvatarShape';
 import {BTDScrollbarsMode} from '../../features/changeScrollbars';
 import {BTDTimestampFormats} from '../../features/changeTimestampFormat';
 import {BTDTweetActionsPosition} from '../../features/changeTweetActions';
-import {BetterTweetDeckAccentColors, BetterTweetDeckDarkThemes} from '../../features/themeTweaks';
+import {BetterTweetDeckAccentColors, BetterTweetDeckThemes} from '../../features/themeTweaks';
 import {BTDUsernameFormat} from '../../features/usernameDisplay';
 import {makeEnumRuntimeType, withDefault} from '../../helpers/typeHelpers';
 
@@ -139,16 +139,11 @@ export const RBetterTweetDeckSettings = t.type({
 
   replaceHeartsByStars: withDefault(t.boolean, false),
 
-  customDarkTheme: withDefault(
-    makeEnumRuntimeType<BetterTweetDeckDarkThemes>(BetterTweetDeckDarkThemes),
-    BetterTweetDeckDarkThemes.DEFAULT
+  theme: withDefault(
+    makeEnumRuntimeType<BetterTweetDeckThemes>(BetterTweetDeckThemes),
+    BetterTweetDeckThemes.DARK
   ),
   enableAutoThemeSwitch: withDefault(t.boolean, false),
-  preferredDarkTheme: withDefault(
-    makeEnumRuntimeType<BetterTweetDeckDarkThemes>(BetterTweetDeckDarkThemes),
-    BetterTweetDeckDarkThemes.DEFAULT
-  ),
-
   customAccentColor: withDefault(
     makeEnumRuntimeType<BetterTweetDeckAccentColors>(BetterTweetDeckAccentColors),
     BetterTweetDeckAccentColors.DEFAULT

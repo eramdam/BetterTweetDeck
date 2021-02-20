@@ -25,6 +25,13 @@ import {BTDMessageEvent, BTDMessages} from './types/betterTweetDeck/btdMessageTy
       case BTDMessages.DOWNLOAD_MEDIA:
         return await processDownloadGifRequest(request.data);
 
+      case BTDMessages.OPEN_SETTINGS: {
+        browser.tabs.create({
+          url: 'options/index.html',
+        });
+        return undefined;
+      }
+
       default:
         return undefined;
     }
@@ -73,24 +80,3 @@ import {BTDMessageEvent, BTDMessages} from './types/betterTweetDeck/btdMessageTy
     });
   }
 })();
-
-// browser.webRequest.onHeadersReceived.addListener(
-//   (details) => {
-//     if (
-//       (details.type !== 'main_frame' && details.type !== 'sub_frame') ||
-//       !details.responseHeaders
-//     ) {
-//       return undefined;
-//     }
-
-//     return {
-//       responseHeaders: Array.from(details.responseHeaders).filter((h) => {
-//         return h.name && h.name !== 'content-security-policy';
-//       }),
-//     };
-//   },
-//   {
-//     urls: ['https://tweetdeck.twitter.com/*'],
-//   },
-//   ['responseHeaders', 'blocking']
-// );

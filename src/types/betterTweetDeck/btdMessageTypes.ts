@@ -19,6 +19,7 @@ export enum BTDMessages {
   DOWNLOAD_MEDIA_RESULT = 'DOWNLOAD_MEDIA_RESULT',
   SAVE_SETTINGS = 'SAVE_SETTINGS',
   GET_SETTINGS = 'GET_SETTINGS',
+  OPEN_SETTINGS = 'OPEN_SETTINGS',
   GET_SETTINGS_RESULT = 'GET_SETTINGS_RESULT',
 }
 
@@ -130,6 +131,12 @@ export const RGetSettingsEvent = t.type({
   payload: t.undefined,
 });
 
+export const ROpenSettingsEvent = t.type({
+  ...baseMessageEvent,
+  name: t.literal(BTDMessages.OPEN_SETTINGS),
+  payload: t.undefined,
+});
+
 export const RGetSettingsResultEvent = t.type({
   ...baseMessageEvent,
   name: t.literal(BTDMessages.GET_SETTINGS_RESULT),
@@ -150,6 +157,7 @@ const RBTDMessageEvent = t.type({
     RSaveSettingsResultEvent,
     RGetSettingsEvent,
     RGetSettingsResultEvent,
+    ROpenSettingsEvent,
   ]),
 });
 

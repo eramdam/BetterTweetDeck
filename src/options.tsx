@@ -1,32 +1,29 @@
-import React from 'react';
+import {isEmpty} from 'lodash';
+import React, {FC, useEffect, useState} from 'react';
 import {render} from 'react-dom';
 
 import {SettingsModal} from './components/settings/settingsModal';
-import {dummyAbstractTweetDeckSettings} from './types/abstractTweetDeckSettings';
-import {RBetterTweetDeckSettings} from './types/betterTweetDeck/btdSettingsTypes';
+import {ExtensionSettings} from './helpers/webExtensionHelpers';
+import {getValidatedSettings} from './services/backgroundSettings';
+import {BTDSettings} from './types/betterTweetDeck/btdSettingsTypes';
 
-const settingsWithDefault = RBetterTweetDeckSettings.decode({});
+const App: FC = () => {
+  const [settings, setSettings] = useState<BTDSettings>({} as any);
 
-const App = (
-  <>
-    <style>
-      {`
-      body, #root, html {
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    `}
-    </style>
-    <SettingsModal
-      onSettingsUpdate={console.log}
-      tdSettings={dummyAbstractTweetDeckSettings}
-      btdSettings={(settingsWithDefault as any).right}></SettingsModal>
-  </>
-);
+  useEffect(() => {
+    getValidatedSettings().then(setSettings);
+  }, []);
+
+  if (isEmpty(settings)) {
+    return null;
+  }
+
+  return (
+    <SettingsModal onSettingsUpdate={ExtensionSettings.set} btdSettings={settings}></SettingsModal>
+  );
+};
 
 const root = document.createElement('div');
 root.id = 'root';
 document.body.appendChild(root);
-render(App, root);
+render(<App></App>, root);
