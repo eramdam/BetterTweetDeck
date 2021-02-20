@@ -148,6 +148,8 @@ export const RBetterTweetDeckSettings = t.type({
     makeEnumRuntimeType<BetterTweetDeckAccentColors>(BetterTweetDeckAccentColors),
     BetterTweetDeckAccentColors.DEFAULT
   ),
+
+  customCss: withDefault(t.string, ''),
 });
 
 export interface BTDSettings extends t.TypeOf<typeof RBetterTweetDeckSettings> {}

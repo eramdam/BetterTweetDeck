@@ -2,7 +2,8 @@ import './settingsModal.css';
 
 import {css} from '@emotion/css';
 import {DateTime} from 'luxon';
-import React, {Fragment, useCallback, useMemo, useState} from 'react';
+import React, {Fragment, useCallback, useMemo, useRef, useState} from 'react';
+import MonacoEditor, {monaco} from 'react-monaco-editor';
 
 import {BTDScrollbarsMode} from '../../features/changeScrollbars';
 import {BTDTimestampFormats} from '../../features/changeTimestampFormat';
@@ -47,6 +48,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
   const [btdSettings, setBtdSettings] = useState<BTDSettings>(props.btdSettings);
   const [isDirty, setIsDirty] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [editorHasErrors, setEditorHasErrors] = useState(false);
 
   const makeOnSettingsChange = <T extends keyof BTDSettings>(key: T) => {
     return (val: BTDSettings[T]) => {
@@ -65,7 +67,24 @@ export const SettingsModal = (props: SettingsModalProps) => {
     setIsDirty(false);
   }, [onSettingsUpdate, btdSettings]);
 
-  const canSave = useMemo(() => isDirty, [isDirty]);
+  const canSave = useMemo(() => !editorHasErrors && isDirty, [editorHasErrors, isDirty]);
+
+  const monacoRef = useRef<monaco.editor.IStandaloneCodeEditor>();
+
+  const onMonacoMount: MonacoEditor['props']['editorDidMount'] = (editor) => {
+    monacoRef.current = editor;
+    editor.onDidChangeModelDecorations(() => {
+      const model = editor.getModel();
+      if (!model) {
+        return;
+      }
+      const owner = model.getModeId();
+      const markers = monaco.editor.getModelMarkers({owner});
+      const hasErrors = markers.some((marker) => marker.severity === monaco.MarkerSeverity.Error);
+
+      setEditorHasErrors(hasErrors);
+    });
+  };
 
   const menu: readonly MenuItem[] = [
     {
@@ -501,11 +520,71 @@ export const SettingsModal = (props: SettingsModalProps) => {
         );
       },
     },
+    {
+      id: 'custom-css',
+      label: 'Custom CSS',
+      render: () => {
+        return (
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              height: '100%',
+              marginBottom: 0,
+              overflow: 'hidden',
+              padding: 20,
+              paddingBottom: 0,
+            }}>
+            <div
+              style={{
+                marginBottom: 20,
+              }}>
+              ⚠️ Pasting unknown code in this editor can lead to weird issues if you don't know what
+              you're doing ⚠️️
+            </div>
+            <div
+              style={{
+                flexShrink: 1,
+                flexGrow: 1,
+                position: 'relative',
+              }}>
+              <div
+                style={{
+                  height: '100%',
+                }}>
+                <MonacoEditor
+                  height="300px"
+                  editorDidMount={onMonacoMount}
+                  editorWillMount={(monaco) => {
+                    monaco.editor.defineTheme('vs-dark', {
+                      base: 'vs-dark',
+                      colors: {
+                        'editor.background': '#0d1118',
+                      },
+                      inherit: true,
+                      rules: [],
+                    });
+                  }}
+                  theme="vs-dark"
+                  language="css"
+                  onChange={makeOnSettingsChange('customCss')}
+                  defaultValue={btdSettings.customCss}
+                  options={{
+                    minimap: {
+                      enabled: false,
+                    },
+                  }}></MonacoEditor>
+              </div>
+            </div>
+          </div>
+        );
+      },
+    },
   ];
 
   return (
     <SettingsModalWrapper>
-      <SettingsHeader>Settings</SettingsHeader>
+      <SettingsHeader>Better TweetDeck Settings</SettingsHeader>
       <SettingsSidebar>
         <ul>
           {menu.map((item, index) => {
