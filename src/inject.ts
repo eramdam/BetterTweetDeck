@@ -21,6 +21,7 @@ import {maybeRevertToLegacyReplies} from './features/revertToLegacyReplies';
 import {maybeMakeComposerButtonsSmaller} from './features/smallerComposerButtons';
 import {tweakTweetDeckTheme} from './features/themeTweaks';
 import {updateTabTitle} from './features/updateTabTitle';
+import {updateTwemojiRegex} from './features/updateTwemojiRegex';
 import {maybeChangeUsernameFormat} from './features/usernameDisplay';
 import {listenToInternalBTDMessage, sendInternalBTDMessage} from './helpers/communicationHelpers';
 import {setupChirpHandler} from './inject/chirpHandler';
@@ -96,6 +97,7 @@ const jq: JQueryStatic | undefined =
   );
 
   markInjectScriptAsReady();
+  updateTwemojiRegex(mR);
   setupMediaSizeMonitor(btdModuleOptions);
   maybeRemoveRedirection(btdModuleOptions);
   maybeChangeUsernameFormat(btdModuleOptions);
