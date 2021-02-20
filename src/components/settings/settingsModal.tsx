@@ -2,8 +2,7 @@ import './settingsModal.css';
 
 import {css} from '@emotion/css';
 import {DateTime} from 'luxon';
-import React, {Fragment, useCallback, useMemo, useRef, useState} from 'react';
-import MonacoEditor, {monaco} from 'react-monaco-editor';
+import React, {Fragment, useCallback, useMemo, useState} from 'react';
 
 import {BTDScrollbarsMode} from '../../features/changeScrollbars';
 import {BTDTimestampFormats} from '../../features/changeTimestampFormat';
@@ -19,6 +18,7 @@ import {CheckboxSelectSettingsRow} from './components/checkboxSelectSettingsRow'
 import {CustomAccentColor} from './components/customAccentColor';
 import {BTDRadioSelectSettingsRow} from './components/radioSelectSettingsRow';
 import {SettingsButton} from './components/settingsButton';
+import {SettingsCssEditor} from './components/settingsCssEditor';
 import {
   SettingsContent,
   SettingsFooter,
@@ -45,14 +45,14 @@ interface MenuItem {
 
 export const SettingsModal = (props: SettingsModalProps) => {
   const {onSettingsUpdate} = props;
-  const [btdSettings, setBtdSettings] = useState<BTDSettings>(props.btdSettings);
+  const [settings, setSettings] = useState<BTDSettings>(props.btdSettings);
   const [isDirty, setIsDirty] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [editorHasErrors, setEditorHasErrors] = useState(false);
 
   const makeOnSettingsChange = <T extends keyof BTDSettings>(key: T) => {
     return (val: BTDSettings[T]) => {
-      setBtdSettings((currentSettings) => {
+      setSettings((currentSettings) => {
         return {
           ...currentSettings,
           [key]: val,
@@ -63,28 +63,11 @@ export const SettingsModal = (props: SettingsModalProps) => {
   };
 
   const updateSettings = useCallback(() => {
-    onSettingsUpdate(btdSettings);
+    onSettingsUpdate(settings);
     setIsDirty(false);
-  }, [onSettingsUpdate, btdSettings]);
+  }, [onSettingsUpdate, settings]);
 
   const canSave = useMemo(() => !editorHasErrors && isDirty, [editorHasErrors, isDirty]);
-
-  const monacoRef = useRef<monaco.editor.IStandaloneCodeEditor>();
-
-  const onMonacoMount: MonacoEditor['props']['editorDidMount'] = (editor) => {
-    monacoRef.current = editor;
-    editor.onDidChangeModelDecorations(() => {
-      const model = editor.getModel();
-      if (!model) {
-        return;
-      }
-      const owner = model.getModeId();
-      const markers = monaco.editor.getModelMarkers({owner});
-      const hasErrors = markers.some((marker) => marker.severity === monaco.MarkerSeverity.Error);
-
-      setEditorHasErrors(hasErrors);
-    });
-  };
 
   const menu: readonly MenuItem[] = [
     {
@@ -95,42 +78,42 @@ export const SettingsModal = (props: SettingsModalProps) => {
           <Fragment>
             <BooleanSettingsRow
               settingsKey="badgesOnTopOfAvatars"
-              initialValue={btdSettings.badgesOnTopOfAvatars}
+              initialValue={settings.badgesOnTopOfAvatars}
               alignToTheLeft
               onChange={makeOnSettingsChange('badgesOnTopOfAvatars')}>
               Show profile badges on top of avatars
             </BooleanSettingsRow>
             <BooleanSettingsRow
               settingsKey="collapseReadDms"
-              initialValue={btdSettings.collapseReadDms}
+              initialValue={settings.collapseReadDms}
               alignToTheLeft
               onChange={makeOnSettingsChange('collapseReadDms')}>
               Collapse read DMs
             </BooleanSettingsRow>
             <BooleanSettingsRow
               settingsKey="disableGifsInProfilePictures"
-              initialValue={btdSettings.disableGifsInProfilePictures}
+              initialValue={settings.disableGifsInProfilePictures}
               alignToTheLeft
               onChange={makeOnSettingsChange('disableGifsInProfilePictures')}>
               Freeze GIFs in profile pictures
             </BooleanSettingsRow>
             <BooleanSettingsRow
               settingsKey="removeRedirectionOnLinks"
-              initialValue={btdSettings.removeRedirectionOnLinks}
+              initialValue={settings.removeRedirectionOnLinks}
               alignToTheLeft
               onChange={makeOnSettingsChange('removeRedirectionOnLinks')}>
               Remove t.co redirection on links
             </BooleanSettingsRow>
             <BooleanSettingsRow
               settingsKey="smallComposerButtons"
-              initialValue={btdSettings.smallComposerButtons}
+              initialValue={settings.smallComposerButtons}
               alignToTheLeft
               onChange={makeOnSettingsChange('smallComposerButtons')}>
               Make buttons smaller in the composer
             </BooleanSettingsRow>
             <BooleanSettingsRow
               settingsKey="updateTabTitleOnActivity"
-              initialValue={btdSettings.updateTabTitleOnActivity}
+              initialValue={settings.updateTabTitleOnActivity}
               alignToTheLeft
               onChange={makeOnSettingsChange('updateTabTitleOnActivity')}>
               Reflect new tweets and DMs in the tab&apos;s title
@@ -146,10 +129,10 @@ export const SettingsModal = (props: SettingsModalProps) => {
         return (
           <Fragment>
             <CustomAccentColor
-              initialValue={btdSettings.customAccentColor}
+              initialValue={settings.customAccentColor}
               onChange={makeOnSettingsChange('customAccentColor')}></CustomAccentColor>
             <ThemeSelector
-              initialValue={btdSettings.theme}
+              initialValue={settings.theme}
               onChange={(value) => {
                 if (value === 'light') {
                   makeOnSettingsChange('theme')(BetterTweetDeckThemes.LIGHT);
@@ -161,20 +144,20 @@ export const SettingsModal = (props: SettingsModalProps) => {
               onChange={(_key, value) => {
                 makeOnSettingsChange('enableAutoThemeSwitch')(value);
               }}
-              disabled={btdSettings.theme === BetterTweetDeckThemes.LIGHT}
+              disabled={settings.theme === BetterTweetDeckThemes.LIGHT}
               fields={[
                 {
-                  initialValue: btdSettings.enableAutoThemeSwitch,
+                  initialValue: settings.enableAutoThemeSwitch,
                   key: 'enableAutoThemeSwitch',
                   label: 'Switch to light theme when OS is in light mode',
                 },
               ]}></CheckboxSelectSettingsRow>
             <AvatarsShape
-              initialValue={btdSettings.avatarsShape}
+              initialValue={settings.avatarsShape}
               onChange={makeOnSettingsChange('avatarsShape')}></AvatarsShape>
             <BTDRadioSelectSettingsRow
               settingsKey="scrollbarsMode"
-              initialValue={btdSettings.scrollbarsMode}
+              initialValue={settings.scrollbarsMode}
               onChange={makeOnSettingsChange('scrollbarsMode')}
               fields={[
                 {label: 'Default', value: BTDScrollbarsMode.DEFAULT},
@@ -196,21 +179,21 @@ export const SettingsModal = (props: SettingsModalProps) => {
             <BooleanSettingsRow
               alignToTheLeft
               settingsKey="hideColumnIcons"
-              initialValue={btdSettings.hideColumnIcons}
+              initialValue={settings.hideColumnIcons}
               onChange={makeOnSettingsChange('hideColumnIcons')}>
               Hide icons on top of columns
             </BooleanSettingsRow>
             <BooleanSettingsRow
               alignToTheLeft
               settingsKey="showClearButtonInColumnsHeader"
-              initialValue={btdSettings.showClearButtonInColumnsHeader}
+              initialValue={settings.showClearButtonInColumnsHeader}
               onChange={makeOnSettingsChange('showClearButtonInColumnsHeader')}>
               Show &quot;Clear&quot; button in columns&apos; header
             </BooleanSettingsRow>
             <BooleanSettingsRow
               alignToTheLeft
               settingsKey="showCollapseButtonInColumnsHeader"
-              initialValue={btdSettings.showCollapseButtonInColumnsHeader}
+              initialValue={settings.showCollapseButtonInColumnsHeader}
               onChange={makeOnSettingsChange('showCollapseButtonInColumnsHeader')}>
               Show &quot;Collapse&quot; button in columns&apos; header
             </BooleanSettingsRow>
@@ -227,14 +210,14 @@ export const SettingsModal = (props: SettingsModalProps) => {
             <BooleanSettingsRow
               alignToTheLeft
               settingsKey="showLegacyReplies"
-              initialValue={btdSettings.showLegacyReplies}
+              initialValue={settings.showLegacyReplies}
               onChange={makeOnSettingsChange('showLegacyReplies')}>
               Use old style of replies (inline @mentions)
             </BooleanSettingsRow>
             <SettingsSeperator></SettingsSeperator>
             <BTDRadioSelectSettingsRow
               settingsKey="timestampStyle"
-              initialValue={btdSettings.timestampStyle}
+              initialValue={settings.timestampStyle}
               onChange={makeOnSettingsChange('timestampStyle')}
               fields={[
                 {label: 'Relative', value: BTDTimestampFormats.RELATIVE},
@@ -242,33 +225,31 @@ export const SettingsModal = (props: SettingsModalProps) => {
               ]}>
               Date format
             </BTDRadioSelectSettingsRow>
-            <SettingsRow disabled={btdSettings.timestampStyle === BTDTimestampFormats.RELATIVE}>
+            <SettingsRow disabled={settings.timestampStyle === BTDTimestampFormats.RELATIVE}>
               <span></span>
               <SettingsTimeFormatInput
-                value={btdSettings.timestampShortFormat}
+                value={settings.timestampShortFormat}
                 onChange={makeOnSettingsChange('timestampShortFormat')}
-                preview={formatDateTime(
-                  btdSettings.timestampShortFormat
-                )}></SettingsTimeFormatInput>
+                preview={formatDateTime(settings.timestampShortFormat)}></SettingsTimeFormatInput>
             </SettingsRow>
             <BooleanSettingsRow
-              disabled={btdSettings.timestampStyle === BTDTimestampFormats.RELATIVE}
+              disabled={settings.timestampStyle === BTDTimestampFormats.RELATIVE}
               alignToTheLeft
               settingsKey="fullTimestampAfterDay"
-              initialValue={btdSettings.fullTimestampAfterDay}
+              initialValue={settings.fullTimestampAfterDay}
               onChange={makeOnSettingsChange('fullTimestampAfterDay')}>
               Use a different date format after 24h
             </BooleanSettingsRow>
             <SettingsRow
               disabled={
-                btdSettings.timestampStyle === BTDTimestampFormats.RELATIVE ||
-                !btdSettings.fullTimestampAfterDay
+                settings.timestampStyle === BTDTimestampFormats.RELATIVE ||
+                !settings.fullTimestampAfterDay
               }>
               <span></span>
               <SettingsTimeFormatInput
-                value={btdSettings.timestampFullFormat}
+                value={settings.timestampFullFormat}
                 onChange={makeOnSettingsChange('timestampFullFormat')}
-                preview={formatDateTime(btdSettings.timestampFullFormat)}></SettingsTimeFormatInput>
+                preview={formatDateTime(settings.timestampFullFormat)}></SettingsTimeFormatInput>
             </SettingsRow>
             <SettingsRow
               className={css`
@@ -308,7 +289,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
             <SettingsSeperator></SettingsSeperator>
             <BTDRadioSelectSettingsRow
               settingsKey="usernamesFormat"
-              initialValue={btdSettings.usernamesFormat}
+              initialValue={settings.usernamesFormat}
               onChange={makeOnSettingsChange('usernamesFormat')}
               fields={[
                 {label: 'Fullname @username', value: BTDUsernameFormat.DEFAULT},
@@ -330,7 +311,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
           <Fragment>
             <BTDRadioSelectSettingsRow
               settingsKey="showTweetActionsOnHover"
-              initialValue={btdSettings.showTweetActionsOnHover}
+              initialValue={settings.showTweetActionsOnHover}
               onChange={makeOnSettingsChange('showTweetActionsOnHover')}
               fields={[
                 {label: 'Always', value: false},
@@ -340,7 +321,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
             </BTDRadioSelectSettingsRow>
             <BTDRadioSelectSettingsRow
               settingsKey="tweetActionsPosition"
-              initialValue={btdSettings.tweetActionsPosition}
+              initialValue={settings.tweetActionsPosition}
               onChange={makeOnSettingsChange('tweetActionsPosition')}
               fields={[
                 {label: 'Left', value: BTDTweetActionsPosition.LEFT},
@@ -351,28 +332,28 @@ export const SettingsModal = (props: SettingsModalProps) => {
             <CheckboxSelectSettingsRow
               onChange={(key, value) => {
                 makeOnSettingsChange('tweetActions')({
-                  ...btdSettings.tweetActions,
+                  ...settings.tweetActions,
                   [key]: value,
                 });
               }}
               fields={[
                 {
-                  initialValue: btdSettings.tweetActions.addBlockAction,
+                  initialValue: settings.tweetActions.addBlockAction,
                   key: 'addBlockAction',
                   label: 'Block author',
                 },
                 {
-                  initialValue: btdSettings.tweetActions.addMuteAction,
+                  initialValue: settings.tweetActions.addMuteAction,
                   key: 'addMuteAction',
                   label: 'Mute author',
                 },
                 {
-                  initialValue: btdSettings.tweetActions.addCopyMediaLinksAction,
+                  initialValue: settings.tweetActions.addCopyMediaLinksAction,
                   key: 'addCopyMediaLinksAction',
                   label: 'Copy media links',
                 },
                 {
-                  initialValue: btdSettings.tweetActions.addDownloadMediaLinksAction,
+                  initialValue: settings.tweetActions.addDownloadMediaLinksAction,
                   key: 'addDownloadMediaLinksAction',
                   label: 'Download media',
                 },
@@ -380,7 +361,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
               Additional actions
             </CheckboxSelectSettingsRow>
             <SettingsRow
-              disabled={!btdSettings.tweetActions.addDownloadMediaLinksAction}
+              disabled={!settings.tweetActions.addDownloadMediaLinksAction}
               className={css`
                 grid-template-columns: 150px 1fr;
 
@@ -390,11 +371,11 @@ export const SettingsModal = (props: SettingsModalProps) => {
               `}>
               <SettingsRowTitle>Downloaded filename format</SettingsRowTitle>
               <SettingsTextInput
-                value={btdSettings.downloadFilenameFormat}
+                value={settings.downloadFilenameFormat}
                 onChange={makeOnSettingsChange('downloadFilenameFormat')}></SettingsTextInput>
             </SettingsRow>
             <SettingsRow
-              disabled={!btdSettings.tweetActions.addDownloadMediaLinksAction}
+              disabled={!settings.tweetActions.addDownloadMediaLinksAction}
               className={css`
                 align-items: flex-start;
               `}>
@@ -412,7 +393,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
                 <SettingsButton
                   onClick={() => {
                     makeOnSettingsChange('downloadFilenameFormat')(
-                      btdSettings.downloadFilenameFormat + '{{postedUser}}'
+                      settings.downloadFilenameFormat + '{{postedUser}}'
                     );
                   }}>
                   username (without @)
@@ -420,7 +401,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
                 <SettingsButton
                   onClick={() => {
                     makeOnSettingsChange('downloadFilenameFormat')(
-                      btdSettings.downloadFilenameFormat + '{{tweetId}}'
+                      settings.downloadFilenameFormat + '{{tweetId}}'
                     );
                   }}>
                   Tweet ID
@@ -428,7 +409,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
                 <SettingsButton
                   onClick={() => {
                     makeOnSettingsChange('downloadFilenameFormat')(
-                      btdSettings.downloadFilenameFormat + '{{fileName}}'
+                      settings.downloadFilenameFormat + '{{fileName}}'
                     );
                   }}>
                   Filename
@@ -436,7 +417,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
                 <SettingsButton
                   onClick={() => {
                     makeOnSettingsChange('downloadFilenameFormat')(
-                      btdSettings.downloadFilenameFormat + '{{fileExtension}}'
+                      settings.downloadFilenameFormat + '{{fileExtension}}'
                     );
                   }}>
                   File extension
@@ -444,7 +425,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
                 <SettingsButton
                   onClick={() => {
                     makeOnSettingsChange('downloadFilenameFormat')(
-                      btdSettings.downloadFilenameFormat + '{{year}}'
+                      settings.downloadFilenameFormat + '{{year}}'
                     );
                   }}>
                   Year ({formatDateTime('yyyy')})
@@ -452,7 +433,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
                 <SettingsButton
                   onClick={() => {
                     makeOnSettingsChange('downloadFilenameFormat')(
-                      btdSettings.downloadFilenameFormat + '{{day}}'
+                      settings.downloadFilenameFormat + '{{day}}'
                     );
                   }}>
                   Day ({formatDateTime('dd')})
@@ -460,7 +441,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
                 <SettingsButton
                   onClick={() => {
                     makeOnSettingsChange('downloadFilenameFormat')(
-                      btdSettings.downloadFilenameFormat + '{{month}}'
+                      settings.downloadFilenameFormat + '{{month}}'
                     );
                   }}>
                   Month ({formatDateTime('MM')})
@@ -468,7 +449,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
                 <SettingsButton
                   onClick={() => {
                     makeOnSettingsChange('downloadFilenameFormat')(
-                      btdSettings.downloadFilenameFormat + '{{minutes}}'
+                      settings.downloadFilenameFormat + '{{minutes}}'
                     );
                   }}>
                   Minutes
@@ -476,7 +457,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
                 <SettingsButton
                   onClick={() => {
                     makeOnSettingsChange('downloadFilenameFormat')(
-                      btdSettings.downloadFilenameFormat + '{{seconds}}'
+                      settings.downloadFilenameFormat + '{{seconds}}'
                     );
                   }}>
                   Seconds
@@ -486,23 +467,23 @@ export const SettingsModal = (props: SettingsModalProps) => {
             <CheckboxSelectSettingsRow
               onChange={(key, value) => {
                 makeOnSettingsChange('tweetMenuItems')({
-                  ...btdSettings.tweetMenuItems,
+                  ...settings.tweetMenuItems,
                   [key]: value,
                 });
               }}
               fields={[
                 {
-                  initialValue: btdSettings.tweetMenuItems.addMuteHashtagsMenuItems,
+                  initialValue: settings.tweetMenuItems.addMuteHashtagsMenuItems,
                   key: 'addMuteHashtagsMenuItems',
                   label: 'Mute #hashtags',
                 },
                 {
-                  initialValue: btdSettings.tweetMenuItems.addMuteSourceMenuItem,
+                  initialValue: settings.tweetMenuItems.addMuteSourceMenuItem,
                   key: 'addMuteSourceMenuItem',
                   label: "Mute tweet's source",
                 },
                 {
-                  initialValue: btdSettings.tweetMenuItems.addRedraftMenuItem,
+                  initialValue: settings.tweetMenuItems.addRedraftMenuItem,
                   key: 'addRedraftMenuItem',
                   label: 'Re-draft',
                 },
@@ -512,7 +493,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
             <SettingsSeperator></SettingsSeperator>
             <BooleanSettingsRow
               settingsKey="replaceHeartsByStars"
-              initialValue={btdSettings.replaceHeartsByStars}
+              initialValue={settings.replaceHeartsByStars}
               onChange={makeOnSettingsChange('replaceHeartsByStars')}>
               Replace hearts by stars
             </BooleanSettingsRow>
@@ -525,58 +506,10 @@ export const SettingsModal = (props: SettingsModalProps) => {
       label: 'Custom CSS',
       render: () => {
         return (
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              height: '100%',
-              marginBottom: 0,
-              overflow: 'hidden',
-              padding: 20,
-              paddingBottom: 0,
-            }}>
-            <div
-              style={{
-                marginBottom: 20,
-              }}>
-              ⚠️ Pasting unknown code in this editor can lead to weird issues if you don't know what
-              you're doing ⚠️️
-            </div>
-            <div
-              style={{
-                flexShrink: 1,
-                flexGrow: 1,
-                position: 'relative',
-              }}>
-              <div
-                style={{
-                  height: '100%',
-                }}>
-                <MonacoEditor
-                  height="300px"
-                  editorDidMount={onMonacoMount}
-                  editorWillMount={(monaco) => {
-                    monaco.editor.defineTheme('vs-dark', {
-                      base: 'vs-dark',
-                      colors: {
-                        'editor.background': '#0d1118',
-                      },
-                      inherit: true,
-                      rules: [],
-                    });
-                  }}
-                  theme="vs-dark"
-                  language="css"
-                  onChange={makeOnSettingsChange('customCss')}
-                  defaultValue={btdSettings.customCss}
-                  options={{
-                    minimap: {
-                      enabled: false,
-                    },
-                  }}></MonacoEditor>
-              </div>
-            </div>
-          </div>
+          <SettingsCssEditor
+            onChange={makeOnSettingsChange('customCss')}
+            onErrorChange={setEditorHasErrors}
+            value={settings.customCss}></SettingsCssEditor>
         );
       },
     },
