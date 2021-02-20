@@ -1,4 +1,4 @@
-import {isObject} from 'lodash';
+import {isEqual, isObject} from 'lodash';
 
 import {maybeAddColumnsButtons} from './features/addColumnButtons';
 import {maybeAddTweetActions} from './features/addTweetActions';
@@ -26,6 +26,8 @@ import {listenToInternalBTDMessage, sendInternalBTDMessage} from './helpers/comm
 import {setupChirpHandler} from './inject/chirpHandler';
 import {setupMediaSizeMonitor} from './inject/columnMediaSizeMonitor';
 import {maybeSetupDebugFunctions} from './inject/debugMethods';
+import {setupSettings} from './inject/setupSettings';
+import {applyAbstractTweetDeckSettings} from './types/abstractTweetDeckSettings';
 import {BTDSettingsAttribute} from './types/betterTweetDeck/btdCommonTypes';
 import {BTDMessageOriginsEnum, BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
 import {BTDSettings} from './types/betterTweetDeck/btdSettingsTypes';
@@ -141,6 +143,16 @@ const jq: JQueryStatic | undefined =
       payload: undefined,
     });
     setupThemeAutoSwitch(btdModuleOptions);
+    setupSettings(jq, TD, settings, (newBtdSettings, newTdSettings) => {
+      saveBTDSettings(newBtdSettings);
+      applyAbstractTweetDeckSettings(TD, newTdSettings);
+
+      if (!isEqual(newBtdSettings, settings)) {
+        setTimeout(() => {
+          window.location.reload();
+        }, 10);
+      }
+    });
   });
 
   listenToInternalBTDMessage(
