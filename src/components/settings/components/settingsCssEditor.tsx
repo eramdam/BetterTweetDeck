@@ -42,8 +42,8 @@ export const SettingsCssEditor: FC<SettingsCssEditorProps> = (props) => {
         style={{
           marginBottom: 20,
         }}>
-        ⚠️ Pasting unknown code in this editor can lead to weird issues if you don't know what
-        you're doing ⚠️️
+        ⚠️ Pasting unknown code in this editor can lead to weird issues if you don&apos;t know what
+        you are doing ⚠️️
       </div>
       <div
         style={{
