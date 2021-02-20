@@ -22,3 +22,6 @@ export async function sendMessageToBackground(
 
   return browser.runtime.sendMessage(msg);
 }
+
+export const getMessage = (msg: string, substitutions?: string) =>
+  browser.i18n.getMessage(msg, substitutions);

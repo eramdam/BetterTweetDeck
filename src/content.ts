@@ -8,9 +8,8 @@ import {setupEmojiAutocompletion} from './features/emojiAutocompletion';
 import {setupEmojiPicker} from './features/emojiPicker';
 import {setupGifPicker} from './features/gifPicker';
 import {listenToInternalBTDMessage} from './helpers/communicationHelpers';
+import {isHTMLElement} from './helpers/domHelpers';
 import {ExtensionSettings, sendMessageToBackground} from './helpers/webExtensionHelpers';
-import {setupSettings} from './inject/setupSettings';
-import {getValidatedSettings} from './services/backgroundSettings';
 import {injectInTD} from './services/injectInTD';
 import {setupBtdRoot} from './services/setupBTDRoot';
 import {
@@ -27,8 +26,22 @@ listenToInternalBTDMessage(BTDMessages.BTD_READY, BTDMessageOriginsEnum.CONTENT,
   setupEmojiPicker();
   setupEmojiAutocompletion();
   setupBtdRoot();
-  const settings = await getValidatedSettings();
-  setupSettings(settings);
+
+  const settingsButton = document.querySelector('[btd-settings-button]');
+
+  if (isHTMLElement(settingsButton)) {
+    settingsButton.addEventListener('click', () => {
+      sendMessageToBackground({
+        data: {
+          requestId: undefined,
+          isReponse: false,
+          name: BTDMessages.OPEN_SETTINGS,
+          origin: BTDMessageOriginsEnum.CONTENT,
+          payload: undefined,
+        },
+      });
+    });
+  }
 
   browser.runtime.onMessage.addListener((details) => {
     switch (details.action) {

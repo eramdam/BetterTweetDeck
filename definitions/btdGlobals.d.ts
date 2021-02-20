@@ -5,6 +5,7 @@ declare global {
     BTD?: {
       debug?: {
         $?: JQueryStatic;
+        mR: any;
         findMustache: typeof findMustache;
         getChirpFromElement: typeof getChirpFromElement;
         getChirpFromKey: typeof getChirpFromKey;

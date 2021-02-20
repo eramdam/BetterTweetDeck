@@ -26,6 +26,7 @@ import {listenToInternalBTDMessage, sendInternalBTDMessage} from './helpers/comm
 import {setupChirpHandler} from './inject/chirpHandler';
 import {setupMediaSizeMonitor} from './inject/columnMediaSizeMonitor';
 import {maybeSetupDebugFunctions} from './inject/debugMethods';
+import {insertSettingsButton} from './inject/setupSettings';
 import {applyTweetDeckSettings} from './types/abstractTweetDeckSettings';
 import {BTDSettingsAttribute} from './types/betterTweetDeck/btdCommonTypes';
 import {BTDMessageOriginsEnum, BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
@@ -46,7 +47,6 @@ try {
 } catch (e) {
   console.log(moduleRaid);
   console.error(e);
-  //
 }
 
 const TD = window.TD as TweetDeckObject;
@@ -66,24 +66,9 @@ const jq: JQueryStatic | undefined =
     settings,
   };
 
-  const OGPluck = TD.util.pluck;
-  const OGCanSend = OGPluck('canSend');
-  const customCanSend = (t: any) => {
-    if (t.hasQuotedTweet && t.hasMediaAttached) {
-      return true;
-    }
+  maybeSetupDebugFunctions(jq, mR);
 
-    return OGCanSend(t);
-  };
-  TD.util.pluck = (e) => {
-    if (e === 'canSend') {
-      return customCanSend;
-    }
-
-    return OGPluck(e);
-  };
-
-  jq(document).on('dataSettingsValues', () => {
+  jq(document).one('dataSettingsValues', () => {
     applyTweetDeckSettings(TD, settings);
   });
 
@@ -112,7 +97,6 @@ const jq: JQueryStatic | undefined =
 
   markInjectScriptAsReady();
   setupMediaSizeMonitor(btdModuleOptions);
-  maybeSetupDebugFunctions(btdModuleOptions);
   maybeRemoveRedirection(btdModuleOptions);
   maybeChangeUsernameFormat(btdModuleOptions);
   maybeRevertToLegacyReplies(btdModuleOptions);
@@ -146,6 +130,7 @@ const jq: JQueryStatic | undefined =
       payload: undefined,
     });
     setupThemeAutoSwitch(btdModuleOptions);
+    insertSettingsButton();
   });
 
   listenToInternalBTDMessage(
@@ -197,16 +182,4 @@ function getBTDSettings() {
   } catch (e) {
     return undefined;
   }
-}
-
-function saveBTDSettings(settings: BTDSettings) {
-  sendInternalBTDMessage({
-    name: BTDMessages.SAVE_SETTINGS,
-    origin: BTDMessageOriginsEnum.INJECT,
-    isReponse: false,
-    payload: {
-      settings,
-      shouldRefresh: false,
-    },
-  });
 }

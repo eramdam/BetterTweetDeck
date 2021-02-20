@@ -2,7 +2,7 @@ import './settingsModal.css';
 
 import {css} from '@emotion/css';
 import {DateTime} from 'luxon';
-import React, {Fragment, useCallback, useMemo, useState} from 'react';
+import React, {Fragment, ReactNode, useCallback, useMemo, useState} from 'react';
 
 import {BTDScrollbarsMode} from '../../features/changeScrollbars';
 import {BTDTimestampFormats} from '../../features/changeTimestampFormat';
@@ -12,6 +12,7 @@ import {BTDUsernameFormat} from '../../features/usernameDisplay';
 import {Renderer} from '../../helpers/typeHelpers';
 import {OnSettingsUpdate} from '../../inject/setupSettings';
 import {BTDSettings} from '../../types/betterTweetDeck/btdSettingsTypes';
+import {Trans} from '../trans';
 import {AvatarsShape} from './components/avatarsShape';
 import {BooleanSettingsRow} from './components/booleanSettingRow';
 import {CheckboxSelectSettingsRow} from './components/checkboxSelectSettingsRow';
@@ -39,7 +40,7 @@ interface SettingsModalProps {
 
 interface MenuItem {
   id: string;
-  label: string;
+  label: ReactNode;
   render: Renderer;
 }
 
@@ -517,7 +518,9 @@ export const SettingsModal = (props: SettingsModalProps) => {
 
   return (
     <SettingsModalWrapper>
-      <SettingsHeader>Better TweetDeck Settings</SettingsHeader>
+      <SettingsHeader>
+        <Trans id="settings_title"></Trans>
+      </SettingsHeader>
       <SettingsSidebar>
         <ul>
           {menu.map((item, index) => {
@@ -547,5 +550,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
 };
 
 function formatDateTime(format: string) {
-  return DateTime.local().toFormat(format);
+  return DateTime.local().toFormat(format, {
+    locale: 'en',
+  });
 }

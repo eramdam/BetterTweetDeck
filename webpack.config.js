@@ -6,7 +6,7 @@ const ZipPlugin = require('zip-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
-const MONACO_DIR = path.resolve(__dirname, './node_modules/monaco-editor');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 function WebpackConfig(env) {
   const manifestJson = require(`./tools/manifests/${env.browser}.js`);
@@ -24,6 +24,14 @@ function WebpackConfig(env) {
       extensions: ['.ts', '.tsx', '.js', '.jsx'],
     },
     plugins: [
+      new CopyWebpackPlugin({
+        patterns: [
+          {
+            from: '_locales/**/*',
+            context: './src/',
+          },
+        ],
+      }),
       new HtmlWebpackPlugin({
         title: 'Better TweetDeck Settings',
         filename: 'options/index.html',

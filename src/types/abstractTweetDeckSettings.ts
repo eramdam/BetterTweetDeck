@@ -19,6 +19,12 @@ export function applyTweetDeckSettings(TD: TweetDeckObject, settings: BTDSetting
   }
 }
 
+export function getSettingsFromTweetDeck(TD: TweetDeckObject) {
+  return {
+    theme: TD.settings.getTheme(),
+  };
+}
+
 export const dummyAbstractTweetDeckSettings: AbstractTweetDeckSettings = {
   theme: 'dark',
 };

@@ -16,6 +16,7 @@
     "jsx": "react",
     "sourceMap": true,
     "strict": true,
-    "target": "es2018"
+    "target": "es2018",
+    "resolveJsonModule": true
   }
 }
