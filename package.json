@@ -14,6 +14,7 @@
   "scripts": {
     "_start": "cross-env NODE_ENV=development webpack --watch --progress --env",
     "start:firefox": "npm run _start -- browser=firefox",
+    "start:safari": "npm run _start -- browser=safari",
     "start:chrome": "npm run _start -- browser=chrome",
     "serve": "webpack serve --env",
     "build": "cross-env NODE_ENV=production webpack -p --progress --env",
