@@ -54,6 +54,10 @@ function WebpackConfig(env) {
             from: '_locales/**/*',
             context: './src/',
           },
+          {
+            from: 'assets/icons/*',
+            context: './src/',
+          },
         ],
       }),
       new HtmlWebpackPlugin({

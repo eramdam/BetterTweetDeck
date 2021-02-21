@@ -1,4 +1,18 @@
 const urls = require('./commonHosts');
+const _ = require('lodash');
+
+const iconSizes = [16, 32, 48, 96, 128, 256, 512];
+
+const icons = _(iconSizes)
+  .map((size) => {
+    return {
+      size,
+      icon: `build/assets/icons/icon-${size}.png`,
+    };
+  })
+  .keyBy((i) => i.size)
+  .mapValues((v) => v.icon)
+  .value();
 
 module.exports = {
   name: 'Better TweetDeck',
@@ -6,6 +20,7 @@ module.exports = {
   default_locale: 'en',
   version: '4.0.0',
   manifest_version: 2,
+  icons,
   content_scripts: [
     {
       matches: ['*://tweetdeck.twitter.com/*'],
