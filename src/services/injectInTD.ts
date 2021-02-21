@@ -13,7 +13,7 @@ export async function injectInTD() {
 
   // Inject.
   const toInject = document.createElement('script');
-  toInject.src = getExtensionUrl('inject.js');
+  toInject.src = getExtensionUrl('build/inject.js');
   toInject.setAttribute(BTDSettingsAttribute, JSON.stringify(settings));
   document.head.appendChild(toInject);
 

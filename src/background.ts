@@ -27,7 +27,7 @@ import {BTDMessageEvent, BTDMessages} from './types/betterTweetDeck/btdMessageTy
 
       case BTDMessages.OPEN_SETTINGS: {
         browser.tabs.create({
-          url: 'options/index.html',
+          url: 'build/options/index.html',
         });
         return undefined;
       }

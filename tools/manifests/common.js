@@ -9,14 +9,18 @@ module.exports = {
   content_scripts: [
     {
       matches: ['*://tweetdeck.twitter.com/*'],
-      js: ['content.js'],
+      js: ['build/content.js'],
       run_at: 'document_end',
     },
   ],
   background: {
-    scripts: ['background.js'],
+    scripts: ['build/background.js'],
   },
-  web_accessible_resources: ['inject.js', '*.png'],
+  options_ui: {
+    page: 'build/options/ui.html',
+    chrome_style: false,
+  },
+  web_accessible_resources: ['build/inject.js', '*.png'],
   permissions: ['storage', 'contextMenus', ...urls],
   content_security_policy: `img-src https: data: 'self' *; default-src; connect-src * https: ws: localhost; style-src 'unsafe-inline'; script-src 'self';`,
 };

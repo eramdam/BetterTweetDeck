@@ -1,12 +1,13 @@
 /* eslint-disable global-require */
 const GenerateJsonPlugin = require('generate-json-webpack-plugin');
 const {NodeConfigTSPlugin} = require('node-config-ts/webpack');
-const {join, resolve} = require('path');
+const fs = require('fs');
 const ZipPlugin = require('zip-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const {initial} = require('lodash');
 
 function WebpackConfig(env) {
   const manifestJson = require(`./tools/manifests/${env.browser}.js`);
@@ -15,15 +16,39 @@ function WebpackConfig(env) {
   const finalConfig = {
     devtool: 'cheap-source-map',
     entry: {
-      content: join(__dirname, 'src/content.ts'),
-      inject: join(__dirname, 'src/inject.ts'),
-      background: join(__dirname, 'src/background.ts'),
-      options: join(__dirname, 'src/options.tsx'),
+      content: path.join(__dirname, 'src/content.ts'),
+      inject: path.join(__dirname, 'src/inject.ts'),
+      background: path.join(__dirname, 'src/background.ts'),
+      options: path.join(__dirname, 'src/options.tsx'),
+      optionsPage: path.join(__dirname, 'src/optionsPage.ts'),
+    },
+    output: {
+      path: `${__dirname}/dist/build`,
     },
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.jsx'],
     },
     plugins: [
+      {
+        apply: (compiler) => {
+          let initialClean = false;
+          compiler.hooks.emit.tap('EmitPlugin', () => {
+            if (initialClean) {
+              return;
+            }
+            try {
+              fs.rmSync(`./dist`, {recursive: true, force: true});
+              initialClean = true;
+            } catch (e) {
+              console.error(e);
+            }
+          });
+          compiler.hooks.afterEmit.tap('AfterEmitPlugin', () => {
+            fs.renameSync('./dist/build/manifest.json', './dist/manifest.json');
+            fs.renameSync('./dist/build/_locales', './dist/_locales');
+          });
+        },
+      },
       new CopyWebpackPlugin({
         patterns: [
           {
@@ -37,13 +62,18 @@ function WebpackConfig(env) {
         filename: 'options/index.html',
         chunks: ['options'],
       }),
+      new HtmlWebpackPlugin({
+        title: 'Better TweetDeck Settings',
+        filename: 'options/ui.html',
+        chunks: ['optionsPage'],
+      }),
       new MonacoWebpackPlugin({
         languages: ['css'],
       }),
       new GenerateJsonPlugin('manifest.json', manifestJson, null, 2),
       (IS_PRODUCTION &&
         new ZipPlugin({
-          path: resolve(__dirname, 'artifacts'),
+          path: path.resolve(__dirname, 'artifacts'),
           filename: `dist-${env.browser}.zip`,
         })) ||
         undefined,
