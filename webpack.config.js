@@ -7,6 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 function WebpackConfig(env) {
   const manifestJson = require(`./tools/manifests/${env.browser}.js`);
@@ -14,6 +15,18 @@ function WebpackConfig(env) {
 
   const finalConfig = {
     devtool: !IS_PRODUCTION && 'cheap-source-map',
+    optimization: {
+      minimize: IS_PRODUCTION,
+      minimizer: [
+        new TerserPlugin({
+          terserOptions: {
+            output: {
+              keep_quoted_props: true,
+            },
+          },
+        }),
+      ],
+    },
     entry: {
       content: path.join(__dirname, 'src/content.ts'),
       inject: path.join(__dirname, 'src/inject.ts'),
