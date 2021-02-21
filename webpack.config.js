@@ -120,7 +120,7 @@ function WebpackConfig(env) {
             {
               loader: 'url-loader',
               options: {
-                limit: 20 * 1000,
+                limit: false,
               },
             },
           ],
