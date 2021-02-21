@@ -28,7 +28,7 @@
     "release": "npm run build:prod -- browser=chrome && npm run pack:chrome && npm run build:prod -- browser=firefox && npm run pack:firefox",
     "pack:chrome": "cross-env NODE_ENV=development node tools/pack.js",
     "pack:firefox": "cross-env NODE_ENV=development web-ext build -s dist -a artifacts --overwrite-dest",
-    "pack:safari": "node tools/update_safari_files.js && xcodebuild -project 'safari/Better TweetDeck for Safari/Better TweetDeck for TweetDeck.xcodeproj/'"
+    "pack:safari": "node tools/update_safari_files.js && xcodebuild -project 'safari/Better TweetDeck for Safari/BetterTDeck for TweetDeck.xcodeproj/'"
   },
   "browserslist": [
     "last 1 chrome versions",
