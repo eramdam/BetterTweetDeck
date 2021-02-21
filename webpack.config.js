@@ -13,7 +13,7 @@ function WebpackConfig(env) {
   const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
   const finalConfig = {
-    devtool: 'cheap-source-map',
+    devtool: !IS_PRODUCTION && 'cheap-source-map',
     entry: {
       content: path.join(__dirname, 'src/content.ts'),
       inject: path.join(__dirname, 'src/inject.ts'),
