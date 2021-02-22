@@ -176,16 +176,26 @@ const getMediaUrlParts = (url: string) => {
   };
 };
 
-export async function requestMediaItem(mediaUrl: string) {
+export async function requestMediaItem(mediaUrl: string): Promise<File | undefined>;
+export async function requestMediaItem(mediaUrl: string, asBlob: true): Promise<Blob | undefined>;
+export async function requestMediaItem(mediaUrl: string, asBlob?: boolean) {
   const res = await sendInternalBTDMessage({
     isReponse: false,
     name: BTDMessages.DOWNLOAD_MEDIA,
     origin: BTDMessageOriginsEnum.INJECT,
     payload: mediaUrl,
   });
+  if (res.name !== BTDMessages.DOWNLOAD_MEDIA_RESULT) {
+    return undefined;
+  }
+
+  if (asBlob) {
+    return res.payload;
+  }
+
   const parts = getMediaUrlParts(mediaUrl);
 
-  return new File([res.payload as Blob], `${parts.originalFile}.${parts.originalExtension}`, {
+  return new File([res.payload], `${parts.originalFile}.${parts.originalExtension}`, {
     type: parts.type,
   });
 }

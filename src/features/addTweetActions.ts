@@ -165,7 +165,10 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
     const media = getMediaFromChirp(chirp);
 
     media.forEach((item) => {
-      requestMediaItem(item).then((blob) => {
+      requestMediaItem(item, true).then((blob) => {
+        if (!blob) {
+          return;
+        }
         saveAs(
           blob,
           TD.ui.template.render(
