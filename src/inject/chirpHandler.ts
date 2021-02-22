@@ -1,9 +1,8 @@
-import * as t from 'io-ts';
 import {compact} from 'lodash';
 
 import {getRandomString, isHTMLElement} from '../helpers/domHelpers';
 import {getChirpFromElement, getURLsFromChirp} from '../helpers/tweetdeckHelpers';
-import {HandlerOf, makeEnumRuntimeType} from '../helpers/typeHelpers';
+import {HandlerOf} from '../helpers/typeHelpers';
 import {BTDModalUuidAttribute, BTDUuidAttribute} from '../types/betterTweetDeck/btdCommonTypes';
 import {
   TweetDeckChirp,
@@ -12,18 +11,12 @@ import {
 } from '../types/tweetdeckTypes';
 import {getSizeForColumnKey} from './columnMediaSizeMonitor';
 
-export const RChirpHandlerPayload = t.type({
-  uuid: t.string,
-  chirp: t.any,
-  urls: t.array(t.string),
-  columnMediaSize: makeEnumRuntimeType<TweetDeckColumnMediaPreviewSizesEnum>(
-    TweetDeckColumnMediaPreviewSizesEnum
-  ),
-  columnKey: t.string,
-});
-
-export interface ChirpHandlerPayload extends t.TypeOf<typeof RChirpHandlerPayload> {
+export interface ChirpHandlerPayload {
+  uuid: string;
   chirp: TweetDeckChirp;
+  urls: string[];
+  columnMediaSize: TweetDeckColumnMediaPreviewSizesEnum;
+  columnKey: string;
 }
 
 export interface ChirpRemovedPayload {

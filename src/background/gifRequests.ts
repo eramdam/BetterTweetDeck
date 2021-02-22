@@ -1,17 +1,17 @@
 import {config} from 'node-config-ts';
 
 import {
-  BTDGifDownloadRequestEvent,
-  BTDGifDownloadRequestResultEvent,
-  BTDMakeGifPickerRequestEvent,
-  BTDMakeGifPickerRequestResultEvent,
+  BTDGifDownloadRequest,
+  BTDGifDownloadRequestResult,
+  BTDMakeGifPickerRequest,
+  BTDMakeGifPickerRequestResult,
   BTDMessages,
 } from '../types/betterTweetDeck/btdMessageTypes';
 
-export type GifsArray = BTDMakeGifPickerRequestResultEvent['payload']['gifs'];
+export type GifsArray = BTDMakeGifPickerRequestResult['payload']['gifs'];
 export async function processGifRequest(
-  message: BTDMakeGifPickerRequestEvent
-): Promise<BTDMakeGifPickerRequestResultEvent | undefined> {
+  message: BTDMakeGifPickerRequest
+): Promise<BTDMakeGifPickerRequestResult | undefined> {
   const {endpoint, source, params} = message.payload;
 
   if (source === 'giphy') {
@@ -69,8 +69,8 @@ export async function processGifRequest(
 }
 
 export async function processDownloadGifRequest(
-  message: BTDGifDownloadRequestEvent
-): Promise<BTDGifDownloadRequestResultEvent | undefined> {
+  message: BTDGifDownloadRequest
+): Promise<BTDGifDownloadRequestResult | undefined> {
   const url = message.payload;
 
   const blob = await fetch(url).then((res) => res.blob());

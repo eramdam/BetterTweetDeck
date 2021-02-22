@@ -1,13 +1,13 @@
 import {findProviderForUrl, getThumbnailData} from '../features/thumbnails';
 import {
-  BTDFetchThumbnailEvent,
+  BTDFetchThumbnailResult,
   BTDMessages,
-  BTDThumbnailResultEvent,
+  BTDThumbnailResult,
 } from '../types/betterTweetDeck/btdMessageTypes';
 
 export async function processThumbnailMessage(
-  message: BTDFetchThumbnailEvent
-): Promise<BTDThumbnailResultEvent | undefined> {
+  message: BTDFetchThumbnailResult
+): Promise<BTDThumbnailResult | undefined> {
   const targetUrl = message.payload.url;
   if (!targetUrl) {
     return undefined;

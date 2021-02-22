@@ -1,7 +1,5 @@
 import './features/mainStyles.css';
 
-import {isRight} from 'fp-ts/lib/Either';
-import {PathReporter} from 'io-ts/lib/PathReporter';
 import {browser} from 'webextension-polyfill-ts';
 
 import {setupEmojiAutocompletion} from './features/emojiAutocompletion';
@@ -12,11 +10,7 @@ import {isHTMLElement} from './helpers/domHelpers';
 import {ExtensionSettings, sendMessageToBackground} from './helpers/webExtensionHelpers';
 import {injectInTD} from './services/injectInTD';
 import {setupBtdRoot} from './services/setupBTDRoot';
-import {
-  BTDMessageOriginsEnum,
-  BTDMessages,
-  RSaveSettingsResultEvent,
-} from './types/betterTweetDeck/btdMessageTypes';
+import {BTDMessageOriginsEnum, BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
 
 // Inject some scripts.
 injectInTD();
@@ -97,15 +91,7 @@ listenToInternalBTDMessage(
       return;
     }
 
-    const decoded = RSaveSettingsResultEvent.decode(msg.data);
-
-    if (!isRight(decoded)) {
-      console.log(PathReporter.report(decoded));
-      console.log('error parsing save settings msg');
-      return;
-    }
-
-    const {settings} = decoded.right.payload;
+    const {settings} = msg.data.payload;
 
     ExtensionSettings.set(settings);
   }
