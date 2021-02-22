@@ -167,6 +167,10 @@ const getMediaUrlParts = (url: string) => {
     type = 'video/mp4';
   } else if (extension?.toLowerCase() === 'gif') {
     type = 'image/gif';
+  } else if (extension?.toLowerCase() === 'jpg') {
+    type = 'image/jpg';
+  } else if (extension?.toLowerCase() === 'png') {
+    type = 'image/png';
   }
 
   return {
@@ -176,9 +180,7 @@ const getMediaUrlParts = (url: string) => {
   };
 };
 
-export async function requestMediaItem(mediaUrl: string): Promise<File | undefined>;
-export async function requestMediaItem(mediaUrl: string, asBlob: true): Promise<Blob | undefined>;
-export async function requestMediaItem(mediaUrl: string, asBlob?: boolean) {
+export async function requestMediaItem(mediaUrl: string): Promise<File | undefined> {
   const res = await sendInternalBTDMessage({
     isReponse: false,
     name: BTDMessages.DOWNLOAD_MEDIA,
@@ -189,13 +191,10 @@ export async function requestMediaItem(mediaUrl: string, asBlob?: boolean) {
     return undefined;
   }
 
-  if (asBlob) {
-    return res.payload;
-  }
-
   const parts = getMediaUrlParts(mediaUrl);
+  console.log(parts);
 
-  return new File([res.payload], `${parts.originalFile}.${parts.originalExtension}`, {
+  return new File([res.payload.blob], `${parts.originalFile}.${parts.originalExtension}`, {
     type: parts.type,
   });
 }

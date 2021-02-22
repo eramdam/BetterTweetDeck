@@ -165,17 +165,21 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
     const media = getMediaFromChirp(chirp);
 
     media.forEach((item) => {
-      requestMediaItem(item, true).then((blob) => {
-        if (!blob) {
+      requestMediaItem(item).then((file) => {
+        if (!file) {
           return;
         }
-        saveAs(
-          blob,
-          TD.ui.template.render(
-            'btd/download_filename_format',
-            getFilenameDownloadData(chirp, item)
-          )
-        );
+        try {
+          saveAs(
+            file,
+            TD.ui.template.render(
+              'btd/download_filename_format',
+              getFilenameDownloadData(chirp, item)
+            )
+          );
+        } catch (e) {
+          console.error(e);
+        }
       });
     });
   });

@@ -143,8 +143,7 @@ const jq: JQueryStatic | undefined =
         return;
       }
 
-      const blob = ev.data.payload;
-      const gifFile = new File([blob], 'awesome-gif.gif', {
+      const gifFile = new File([ev.data.payload.blob], 'awesome-gif.gif', {
         type: 'image/gif',
       });
       jq(document).trigger('uiFilesAdded', {

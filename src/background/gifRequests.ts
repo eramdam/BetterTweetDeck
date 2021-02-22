@@ -1,8 +1,8 @@
 import {config} from 'node-config-ts';
 
 import {
-  BTDGifDownloadRequest,
-  BTDGifDownloadRequestResult,
+  BTDDownloadMediaRequest,
+  BTDDownloadMediaRequestResult,
   BTDMakeGifPickerRequest,
   BTDMakeGifPickerRequestResult,
   BTDMessages,
@@ -68,9 +68,9 @@ export async function processGifRequest(
   };
 }
 
-export async function processDownloadGifRequest(
-  message: BTDGifDownloadRequest
-): Promise<BTDGifDownloadRequestResult | undefined> {
+export async function processDownloadMediaRequest(
+  message: BTDDownloadMediaRequest
+): Promise<BTDDownloadMediaRequestResult | undefined> {
   const url = message.payload;
 
   const blob = await fetch(url).then((res) => res.blob());
@@ -78,6 +78,9 @@ export async function processDownloadGifRequest(
   return {
     ...message,
     name: BTDMessages.DOWNLOAD_MEDIA_RESULT,
-    payload: blob,
+    payload: {
+      blob,
+      url: url,
+    },
   };
 }

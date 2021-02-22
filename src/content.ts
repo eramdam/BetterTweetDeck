@@ -2,6 +2,7 @@ import './features/mainStyles.css';
 
 import {browser} from 'webextension-polyfill-ts';
 
+import {processDownloadMediaRequest} from './background/gifRequests';
 import {setupEmojiAutocompletion} from './features/emojiAutocompletion';
 import {setupEmojiPicker} from './features/emojiPicker';
 import {setupGifPicker} from './features/gifPicker';
@@ -65,21 +66,19 @@ listenToInternalBTDMessage(
 
     const mediaUrl = ev.data.payload;
 
-    const mediaBlob = await sendMessageToBackground({
-      data: {
-        requestId: undefined,
-        isReponse: false,
-        name: BTDMessages.DOWNLOAD_MEDIA,
-        origin: BTDMessageOriginsEnum.CONTENT,
-        payload: mediaUrl,
-      },
+    const mediaPayload = await processDownloadMediaRequest({
+      requestId: undefined,
+      isReponse: false,
+      name: BTDMessages.DOWNLOAD_MEDIA,
+      origin: BTDMessageOriginsEnum.CONTENT,
+      payload: mediaUrl,
     });
 
-    if (!mediaBlob) {
+    if (!mediaPayload) {
       return;
     }
 
-    return mediaBlob;
+    return mediaPayload;
   }
 );
 

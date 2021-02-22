@@ -27,14 +27,12 @@ export function setupGifModals(TD: TweetDeckObject, settings: BTDSettings) {
     }
 
     const chirpNode = target.closest('[data-key]');
-    console.log('chirpNode', chirpNode);
 
     if (!chirpNode) {
       return;
     }
 
     const chirp = getChirpFromElement(TD, chirpNode);
-    console.log('chirp', chirp);
 
     if (!chirp) {
       return;

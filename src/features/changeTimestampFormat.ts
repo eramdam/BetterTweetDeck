@@ -69,7 +69,6 @@ export const maybeSetupCustomTimestampFormat = makeBTDModule(({TD, settings}) =>
     .compact()
     .first();
 
-  console.log('taskIdToRemove', taskIdToRemove);
   // If no id is found, nothing we can do
   if (!taskIdToRemove) {
     return;

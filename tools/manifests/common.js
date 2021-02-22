@@ -1,4 +1,4 @@
-const urls = require('./commonHosts');
+const {commonHosts, commonConnectHosts} = require('./commonHosts');
 const _ = require('lodash');
 
 const iconSizes = [16, 32, 48, 96, 128, 256, 512];
@@ -36,6 +36,16 @@ module.exports = {
     chrome_style: false,
   },
   web_accessible_resources: ['build/inject.js', '*.png'],
-  permissions: ['storage', 'contextMenus', ...urls],
-  content_security_policy: `img-src https: data: 'self' *; default-src; connect-src https://*.giphy.com https://*.tenor.com; style-src 'unsafe-inline'; script-src 'self';`,
+  permissions: ['storage', 'contextMenus', ...commonHosts],
+  content_security_policy: [
+    ['img-src', 'https:', 'data:', "'self'", '*'],
+    ['default-src'],
+    ['connect-src', ...commonConnectHosts],
+    ['style-src', "'unsafe-inline'"],
+    ['script-src', `'self'`],
+  ]
+    .map((directive) => {
+      return directive.join(' ');
+    })
+    .join('; '),
 };

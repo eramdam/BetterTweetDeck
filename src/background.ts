@@ -1,7 +1,5 @@
 import {browser} from 'webextension-polyfill-ts';
 
-import {processThumbnailMessage} from './background/fetchThumbnail';
-import {processDownloadGifRequest, processGifRequest} from './background/gifRequests';
 import {getValidatedSettings, setupSettingsInBackground} from './services/backgroundSettings';
 import {BTDMessageEvent, BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
 
@@ -14,17 +12,6 @@ import {BTDMessageEvent, BTDMessages} from './types/betterTweetDeck/btdMessageTy
     }
 
     switch (request.data.name) {
-      case BTDMessages.FETCH_THUMBNAIL: {
-        return await processThumbnailMessage(request.data);
-      }
-
-      case BTDMessages.MAKE_GIF_REQUEST: {
-        return await processGifRequest(request.data);
-      }
-
-      case BTDMessages.DOWNLOAD_MEDIA:
-        return await processDownloadGifRequest(request.data);
-
       case BTDMessages.OPEN_SETTINGS: {
         browser.tabs.create({
           url: 'build/options/index.html',

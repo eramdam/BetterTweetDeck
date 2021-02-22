@@ -102,14 +102,17 @@ interface BTDReady extends BTDMessageEventBase {
   payload: undefined;
 }
 
-export interface BTDGifDownloadRequest extends BTDMessageEventBase {
+export interface BTDDownloadMediaRequest extends BTDMessageEventBase {
   name: BTDMessages.DOWNLOAD_MEDIA;
   payload: string;
 }
 
-export interface BTDGifDownloadRequestResult extends BTDMessageEventBase {
+export interface BTDDownloadMediaRequestResult extends BTDMessageEventBase {
   name: BTDMessages.DOWNLOAD_MEDIA_RESULT;
-  payload: Blob;
+  payload: {
+    blob: Blob;
+    url: string;
+  };
 }
 
 interface BTDSaveSettings extends BTDMessageEventBase {
@@ -148,8 +151,8 @@ export type BTDMessageEventData =
   | BTDGetSettings
   | BTDOpenSettings
   | BTDGetSettingsResult
-  | BTDGifDownloadRequest
-  | BTDGifDownloadRequestResult;
+  | BTDDownloadMediaRequest
+  | BTDDownloadMediaRequestResult;
 export interface BTDMessageEvent {
   data: BTDMessageEventData;
 }

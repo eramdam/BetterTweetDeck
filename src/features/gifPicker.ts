@@ -1,14 +1,13 @@
 import {debounce, Dictionary} from 'lodash';
 import _ from 'lodash';
 
-import {GifsArray} from '../background/gifRequests';
+import {GifsArray, processGifRequest} from '../background/gifRequests';
 import {makeGifButton} from '../components/gifButton';
 import {makeGifItem, makeGifPicker} from '../components/gifPicker';
 import {sendInternalBTDMessage} from '../helpers/communicationHelpers';
 import {emptyNode} from '../helpers/domHelpers';
 import {onComposerShown} from '../helpers/tweetdeckHelpers';
 import {insertDomChefElement} from '../helpers/typeHelpers';
-import {sendMessageToBackground} from '../helpers/webExtensionHelpers';
 import {BTDMessageOriginsEnum, BTDMessages} from '../types/betterTweetDeck/btdMessageTypes';
 
 async function makeGifRequest(
@@ -16,30 +15,26 @@ async function makeGifRequest(
   params: Dictionary<string> = {}
 ): Promise<GifsArray | undefined> {
   const gifPromises = [
-    await sendMessageToBackground({
-      data: {
-        requestId: undefined,
-        isReponse: false,
-        name: BTDMessages.MAKE_GIF_REQUEST,
-        origin: BTDMessageOriginsEnum.CONTENT,
-        payload: {
-          endpoint,
-          source: 'giphy',
-          params,
-        },
+    await processGifRequest({
+      requestId: undefined,
+      isReponse: false,
+      name: BTDMessages.MAKE_GIF_REQUEST,
+      origin: BTDMessageOriginsEnum.CONTENT,
+      payload: {
+        endpoint,
+        source: 'giphy',
+        params,
       },
     }),
-    await sendMessageToBackground({
-      data: {
-        requestId: undefined,
-        isReponse: false,
-        name: BTDMessages.MAKE_GIF_REQUEST,
-        origin: BTDMessageOriginsEnum.CONTENT,
-        payload: {
-          endpoint,
-          source: 'tenor',
-          params,
-        },
+    await processGifRequest({
+      requestId: undefined,
+      isReponse: false,
+      name: BTDMessages.MAKE_GIF_REQUEST,
+      origin: BTDMessageOriginsEnum.CONTENT,
+      payload: {
+        endpoint,
+        source: 'tenor',
+        params,
       },
     }),
   ];
@@ -117,20 +112,14 @@ function resetGifItems() {
 }
 
 async function onGifClick(gifUrl: string) {
-  const downloadGifResult = await sendMessageToBackground({
-    data: {
-      requestId: undefined,
-      isReponse: false,
-      name: BTDMessages.DOWNLOAD_MEDIA,
-      origin: BTDMessageOriginsEnum.CONTENT,
-      payload: gifUrl,
+  sendInternalBTDMessage({
+    name: BTDMessages.DOWNLOAD_MEDIA_RESULT,
+    origin: BTDMessageOriginsEnum.CONTENT,
+    payload: {
+      url: gifUrl,
+      blob: await fetch(gifUrl).then((res) => res.blob()),
     },
   });
-  if (!downloadGifResult) {
-    return;
-  }
-
-  sendInternalBTDMessage(downloadGifResult);
   closeGifPicker();
 }
 
