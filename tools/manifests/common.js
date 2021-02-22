@@ -37,5 +37,5 @@ module.exports = {
   },
   web_accessible_resources: ['build/inject.js', '*.png'],
   permissions: ['storage', 'contextMenus', ...urls],
-  content_security_policy: `img-src https: data: 'self' *; default-src; connect-src * https: ws: localhost; style-src 'unsafe-inline'; script-src 'self';`,
+  content_security_policy: `img-src https: data: 'self' *; default-src; connect-src https://*.giphy.com https://*.tenor.com; style-src 'unsafe-inline'; script-src 'self';`,
 };
