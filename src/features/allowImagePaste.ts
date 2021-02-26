@@ -1,34 +1,58 @@
-import _ from 'lodash';
-
 import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 
 export const allowImagePaste = makeBTDModule(({jq}) => {
-  document.addEventListener('paste', (event) => {
-    if (!event.clipboardData) {
+  document.addEventListener('paste', (ev) => {
+    if (!ev.clipboardData || !ev.target) {
       return;
     }
 
-    const items = event.clipboardData.items;
+    const items = ev.clipboardData.items;
 
     if (!items) {
       return;
     }
 
-    const files = _(items)
-      .filter((item) => {
-        return item.kind === 'file' && item.type.startsWith('image/');
-      })
-      .map((item) => {
-        return item.getAsFile();
-      })
-      .compact()
-      .value();
+    const files: File[] = [];
+
+    Array.from(items).forEach((item) => {
+      if (item.type.indexOf('image') < 0) {
+        return;
+      }
+      const blob = item.getAsFile();
+      if (!blob) {
+        return;
+      }
+
+      files.push(blob);
+    });
 
     if (files.length === 0) {
       return;
     }
 
-    jq(document).trigger('uiComposeTweet');
+    const canPopout =
+      jq('.js-inline-compose-pop, .js-reply-popout').length > 0 &&
+      !jq('.js-app-content').hasClass('is-open');
+
+    const findTextbox = jq(ev.target)
+      .closest('.js-column')
+      .find('.js-inline-compose-pop, .js-reply-popout');
+
+    if (canPopout) {
+      if (findTextbox.length > 0) {
+        jq(findTextbox).trigger('click');
+      } else {
+        jq('.js-inline-compose-pop, .js-reply-popout').first().trigger('click');
+      }
+
+      setTimeout(() => {
+        jq(document).trigger('uiFilesAdded', {
+          files,
+        });
+      }, 0);
+      return;
+    }
+
     jq(document).trigger('uiFilesAdded', {
       files,
     });
