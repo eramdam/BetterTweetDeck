@@ -1,6 +1,8 @@
 import {Template} from 'hogan.js';
 import {Twitter} from 'twit';
 
+import {HandlerOf} from '../helpers/typeHelpers';
+
 export type TweetDeckTheme = 'light' | 'dark';
 export type TweetDeckLinkShortener = 'bitly' | 'twitter';
 export interface TweetDeckBitlyAccount {
@@ -31,7 +33,7 @@ export interface TweetDeckObject {
   services: Services;
   controller: TweetDeckController;
   vo: {
-    Column: typeof Column;
+    Column: typeof TweetDeckColumn;
     Filter: TweetDeckFilter;
   };
   ui: TweetDeckUI;
@@ -152,7 +154,7 @@ interface TweetDeckController {
 }
 
 interface ColumnManager {
-  get(columnKey: string): Column;
+  get(columnKey: string): TweetDeckColumn;
   showColumn(columnKey: string): void;
   _aColumnIndex: ColumnMap;
   _columnOrder: string[];
@@ -299,13 +301,13 @@ interface TwitterGeneric {
 }
 
 interface ColumnMap {
-  [key: string]: Column;
+  [key: string]: TweetDeckColumn;
 }
 
-export declare class Column {
+export declare class TweetDeckColumn {
   constructor(...args: any[]);
   _btd: {
-    _parent: Column;
+    _parent: TweetDeckColumn;
     _isCollapsed: boolean;
     isCollapsed(): boolean;
     collapse(): void;
@@ -555,6 +557,7 @@ export interface TweetDeckChirp {
   destroy(): void;
   isRetweetedStatus(): boolean;
   getFilterableText(): string;
+  card: object;
 }
 
 export interface TweetHashtag {
@@ -819,6 +822,7 @@ interface Stats {
   SCRIBE_CLIENT: string;
   scribeClientEvent: ScribeClientEvent;
   scribeGuestId: number;
+  setExperiments: HandlerOf<object>;
 }
 
 interface ColumnNamespaces {

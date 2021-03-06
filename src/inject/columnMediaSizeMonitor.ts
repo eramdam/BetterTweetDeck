@@ -1,5 +1,5 @@
 import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
-import {Column} from '../types/tweetdeckTypes';
+import {TweetDeckColumn} from '../types/tweetdeckTypes';
 import {TweetDeckColumnMediaPreviewSizesEnum} from '../types/tweetdeckTypes';
 
 const columnMediaSizes: Map<string, TweetDeckColumnMediaPreviewSizesEnum> = new Map();
@@ -27,7 +27,7 @@ export const setupMediaSizeMonitor = makeBTDModule(({jq}) => {
     columnMediaSizes.set(id, size);
   });
 
-  function onDataColumns(data: {columns: Column[]}) {
+  function onDataColumns(data: {columns: TweetDeckColumn[]}) {
     const cols = data.columns
       .filter((col) => col.model.state.settings)
       .map((col) => ({

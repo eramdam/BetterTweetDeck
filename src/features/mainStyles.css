@@ -102,3 +102,7 @@ p > .emoji {
   padding: 0.2em 0.05em 0 0.1em !important;
   vertical-align: text-bottom !important;
 }
+
+p.js-tweet-text + .js-card-container:not(:empty) {
+  padding-top: 10px;
+}
