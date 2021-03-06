@@ -1,7 +1,7 @@
 import {Dictionary} from 'lodash';
 
 import {BTDFetchResult} from '../../features/thumbnails/types';
-import {ChirpHandlerPayload} from '../../inject/chirpHandler';
+import {ChirpAddedPayload} from '../../inject/chirpHandler';
 import {BTDSettings} from './btdSettingsTypes';
 
 /** Different kinds of messages that BTD can send/receive internally. */
@@ -44,7 +44,7 @@ interface BTDMessageEventBase {
 
 interface BTDChirpResult extends BTDMessageEventBase {
   name: BTDMessages.CHIRP_RESULT;
-  payload: ChirpHandlerPayload;
+  payload: ChirpAddedPayload;
 }
 
 interface BTDChirpRemoval extends BTDMessageEventBase {

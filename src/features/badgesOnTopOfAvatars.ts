@@ -1,11 +1,11 @@
 import './badgesOnTopOfAvatars.css';
 
-import {ChirpHandlerPayload} from '../inject/chirpHandler';
+import {ChirpAddedPayload} from '../inject/chirpHandler';
 import {makeBtdUuidSelector} from '../types/betterTweetDeck/btdCommonTypes';
 import {BTDSettings} from '../types/betterTweetDeck/btdSettingsTypes';
 import {TweetDeckUser} from '../types/tweetdeckTypes';
 
-export function putBadgesOnTopOfAvatars(settings: BTDSettings, addedChirp: ChirpHandlerPayload) {
+export function putBadgesOnTopOfAvatars(settings: BTDSettings, addedChirp: ChirpAddedPayload) {
   document.body.setAttribute('btd-badges-top-avatar', String(settings.badgesOnTopOfAvatars));
 
   if (!settings.badgesOnTopOfAvatars) {

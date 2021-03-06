@@ -11,7 +11,7 @@ import {
 } from '../types/tweetdeckTypes';
 import {getSizeForColumnKey} from './columnMediaSizeMonitor';
 
-export interface ChirpHandlerPayload {
+export interface ChirpAddedPayload {
   uuid: string;
   chirp: TweetDeckChirp;
   urls: string[];
@@ -25,14 +25,35 @@ export interface ChirpRemovedPayload {
 
 type SetupChirpHandler = (
   TD: TweetDeckObject,
-  handlerOnAdd?: HandlerOf<ChirpHandlerPayload>,
+  handlerOnAdd?: HandlerOf<ChirpAddedPayload>,
   handlerOnRemove?: HandlerOf<ChirpRemovedPayload>
 ) => void;
 
-export const setupChirpHandler: SetupChirpHandler = (TD, handlerOnAdd, handlerOnRemove) => {
+let isObserverSetup = false;
+const onRemoveCallbacks = new Set<HandlerOf<ChirpRemovedPayload>>();
+const onAddCallbacks = new Set<HandlerOf<ChirpAddedPayload>>();
+
+export function onChirpAdded(cb: HandlerOf<ChirpAddedPayload>) {
+  if (!isObserverSetup) {
+    throw new Error('call `setupChirpHandler` first!');
+  }
+  onAddCallbacks.add(cb);
+}
+
+export function onChirpRemove(cb: HandlerOf<ChirpRemovedPayload>) {
+  if (!isObserverSetup) {
+    throw new Error('call `setupChirpHandler` first!');
+  }
+  onRemoveCallbacks.add(cb);
+}
+
+export const setupChirpHandler: SetupChirpHandler = (TD) => {
   const mutObserver = new MutationObserver((mutations) =>
     mutations.forEach((mutation) => {
-      if (handlerOnAdd) {
+      const hasAddHandlers = onAddCallbacks.size > 0;
+      const hasRemoveHandlers = onRemoveCallbacks.size > 0;
+
+      if (hasAddHandlers) {
         Array.from(mutation.addedNodes)
           .filter((addedEl) => {
             if (
@@ -68,18 +89,22 @@ export const setupChirpHandler: SetupChirpHandler = (TD, handlerOnAdd, handlerOn
 
               element.setAttribute(BTDUuidAttribute, uuid);
 
-              handlerOnAdd({
+              const payload = {
                 uuid,
                 chirp: JSON.parse(JSON.stringify(chirp)),
                 urls: (urls || []).map((e) => e.expanded_url),
                 columnKey: chirp._btd?.columnKey || '',
                 columnMediaSize: getSizeForColumnKey(chirp._btd?.columnKey),
+              };
+
+              onAddCallbacks.forEach((cb) => {
+                cb(payload);
               });
             }
           });
       }
 
-      if (handlerOnRemove) {
+      if (hasRemoveHandlers) {
         Array.from(mutation.removedNodes)
           .filter((removedEl) => {
             if (!isHTMLElement(removedEl)) {
@@ -106,8 +131,12 @@ export const setupChirpHandler: SetupChirpHandler = (TD, handlerOnAdd, handlerOn
 
             const uuids = compact(nodes.map((n) => n.getAttribute(BTDUuidAttribute)));
 
-            handlerOnRemove({
+            const payload = {
               uuidArray: uuids,
+            };
+
+            onRemoveCallbacks.forEach((cb) => {
+              cb(payload);
             });
           });
       }
@@ -115,4 +144,5 @@ export const setupChirpHandler: SetupChirpHandler = (TD, handlerOnAdd, handlerOn
   );
 
   mutObserver.observe(document, {subtree: true, childList: true});
+  isObserverSetup = true;
 };

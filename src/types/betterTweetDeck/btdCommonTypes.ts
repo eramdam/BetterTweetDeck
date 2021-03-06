@@ -1,7 +1,7 @@
 import {TweetDeckObject} from '../tweetdeckTypes';
 import {BTDSettings} from './btdSettingsTypes';
 
-type BTDModuleOptions = {
+export type BTDModuleOptions = {
   settings: BTDSettings;
   TD: TweetDeckObject;
   jq: JQueryStatic;

@@ -1,4 +1,4 @@
-import {Dictionary, isObject} from 'lodash';
+import {isObject} from 'lodash';
 
 import {maybeAddColumnsButtons} from './features/addColumnButtons';
 import {maybeAddTweetActions} from './features/addTweetActions';
@@ -16,6 +16,7 @@ import {maybeFreezeGifsInProfilePicture} from './features/freezeGifsProfilePictu
 import {setupGifModals} from './features/gifModals';
 import {maybeHideColumnIcons} from './features/hideColumnIcons';
 import {maybeRemoveRedirection} from './features/removeRedirection';
+import {maybeRenderCardsInColumns} from './features/renderCardsInColumns';
 import {maybeReplaceHeartsByStars} from './features/replaceHeartsByStars';
 import {maybeRevertToLegacyReplies} from './features/revertToLegacyReplies';
 import {maybeMakeComposerButtonsSmaller} from './features/smallerComposerButtons';
@@ -24,9 +25,7 @@ import {updateTabTitle} from './features/updateTabTitle';
 import {updateTwemojiRegex} from './features/updateTwemojiRegex';
 import {maybeChangeUsernameFormat} from './features/usernameDisplay';
 import {listenToInternalBTDMessage, sendInternalBTDMessage} from './helpers/communicationHelpers';
-import {createSelectorForChirp, getChirpFromKey} from './helpers/tweetdeckHelpers';
-import {hasProperty} from './helpers/typeHelpers';
-import {setupChirpHandler} from './inject/chirpHandler';
+import {onChirpAdded, onChirpRemove, setupChirpHandler} from './inject/chirpHandler';
 import {setupMediaSizeMonitor} from './inject/columnMediaSizeMonitor';
 import {maybeSetupDebugFunctions} from './inject/debugMethods';
 import {insertSettingsButton} from './inject/setupSettings';
@@ -34,7 +33,7 @@ import {applyTweetDeckSettings} from './types/abstractTweetDeckSettings';
 import {BTDSettingsAttribute} from './types/betterTweetDeck/btdCommonTypes';
 import {BTDMessageOriginsEnum, BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
 import {BTDSettings} from './types/betterTweetDeck/btdSettingsTypes';
-import {TweetDeckChirp, TweetDeckColumn, TweetDeckObject} from './types/tweetdeckTypes';
+import {TweetDeckObject} from './types/tweetdeckTypes';
 
 // Declare typings on the window
 declare global {
@@ -57,36 +56,6 @@ const TD = window.TD as TweetDeckObject;
 const jq: JQueryStatic | undefined =
   mR && mR.findFunction('jQuery') && mR.findFunction('jquery:')[0];
 
-type RenderCardForChirp = (
-  chirp: TweetDeckChirp,
-  targetNode: JQuery<HTMLElement>,
-  params: object
-) => void;
-
-const renderCardForChirpModule = Array.from(
-  (mR && mR.findFunction('renderCardForChirp')) || []
-).find((maybeModule) => {
-  if (
-    hasProperty(maybeModule, 'renderCardForChirp') &&
-    typeof maybeModule.renderCardForChirp === 'function'
-  ) {
-    return true;
-  }
-
-  return false;
-}) as
-  | {
-      renderCardForChirp: RenderCardForChirp;
-    }
-  | undefined;
-
-const getColumnTypeModule:
-  | {
-      getColumnType: (col: TweetDeckColumn) => string;
-      columnMetaTypeToScribeNamespace: Dictionary<object>;
-    }
-  | undefined = mR && mR.findFunction('getColumnType')[0];
-
 (async () => {
   const settings = getBTDSettings();
   if (!settings || !jq || !isObject(TD)) {
@@ -105,63 +74,33 @@ const getColumnTypeModule:
     applyTweetDeckSettings(TD, settings);
   });
 
-  setupChirpHandler(
-    TD,
-    (payload) => {
-      sendInternalBTDMessage({
-        name: BTDMessages.CHIRP_RESULT,
-        origin: BTDMessageOriginsEnum.INJECT,
-        isReponse: false,
-        payload,
-      });
-      putBadgesOnTopOfAvatars(settings, payload);
+  setupChirpHandler(TD);
 
-      const chirp = getChirpFromKey(TD, payload.chirp.id, payload.columnKey);
-
-      if (!chirp || !chirp.card || !jq || !renderCardForChirpModule || !getColumnTypeModule) {
-        return;
-      }
-
-      // Cards on private users won't load.
-      if (chirp.user.isProtected) {
-        return;
-      }
-
-      const column = TD.controller.columnManager.get(payload.columnKey);
-
-      if (!column) {
-        return;
-      }
-
-      const columnType = getColumnTypeModule.getColumnType(column);
-      const scripeNamespace = getColumnTypeModule.columnMetaTypeToScribeNamespace[columnType];
-
-      if (!scripeNamespace) {
-        return;
-      }
-
-      renderCardForChirpModule.renderCardForChirp(
-        chirp,
-        jq(`${createSelectorForChirp(chirp, payload.columnKey)} .js-card-container`),
-        {
-          context: 'detail',
-          scripeNamespace,
-        }
-      );
-    },
-    (payload) => {
-      sendInternalBTDMessage({
-        name: BTDMessages.CHIRP_REMOVAL,
-        origin: BTDMessageOriginsEnum.INJECT,
-        isReponse: false,
-        payload: {
-          uuids: payload.uuidArray,
-        },
-      });
-    }
-  );
+  onChirpAdded((payload) => {
+    sendInternalBTDMessage({
+      name: BTDMessages.CHIRP_RESULT,
+      origin: BTDMessageOriginsEnum.INJECT,
+      isReponse: false,
+      payload,
+    });
+    putBadgesOnTopOfAvatars(settings, payload);
+  });
+  onChirpRemove((payload) => {
+    sendInternalBTDMessage({
+      name: BTDMessages.CHIRP_REMOVAL,
+      origin: BTDMessageOriginsEnum.INJECT,
+      isReponse: false,
+      payload: {
+        uuids: payload.uuidArray,
+      },
+    });
+  });
 
   markInjectScriptAsReady();
+  maybeRenderCardsInColumns({
+    ...btdModuleOptions,
+    mR,
+  });
   updateTwemojiRegex(mR);
   setupMediaSizeMonitor(btdModuleOptions);
   maybeRemoveRedirection(btdModuleOptions);

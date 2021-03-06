@@ -78,6 +78,13 @@ export const SettingsModal = (props: SettingsModalProps) => {
         return (
           <Fragment>
             <BooleanSettingsRow
+              settingsKey="showCardsInsideColumns"
+              initialValue={settings.showCardsInsideColumns}
+              alignToTheLeft
+              onChange={makeOnSettingsChange('showCardsInsideColumns')}>
+              Show tweet cards inside columns
+            </BooleanSettingsRow>
+            <BooleanSettingsRow
               settingsKey="badgesOnTopOfAvatars"
               initialValue={settings.badgesOnTopOfAvatars}
               alignToTheLeft

@@ -23,6 +23,9 @@ export const RBetterTweetDeckSettings = t.type({
     BTDTimestampFormats.RELATIVE
   ),
 
+  /** Show tweet cards in columns. */
+  showCardsInsideColumns: withDefault(t.boolean, true),
+
   /** Switches between the full timestamp in tweets after 24h */
   fullTimestampAfterDay: withDefault(t.boolean, false),
 
