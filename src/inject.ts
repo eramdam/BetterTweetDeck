@@ -188,13 +188,6 @@ const getColumnTypeModule:
   TD.mustaches['btd/download_filename_format.mustache'] = settings.downloadFilenameFormat;
 
   jq(document).one('dataColumnsLoaded', () => {
-    TD.controller.stats.setExperiments({
-      config: {
-        cards_in_td_columns_8351: {
-          value: 'cards_in_td_columns_enabled',
-        },
-      },
-    });
     document.body.classList.add('btd-loaded');
     maybeSetupCustomTimestampFormat(btdModuleOptions);
     sendInternalBTDMessage({
