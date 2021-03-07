@@ -196,5 +196,8 @@
   },
   "settings_avatar_shape": {
     "message": "Avatar shape"
+  },
+  "settings_save": {
+    "message": "Save"
   }
 }

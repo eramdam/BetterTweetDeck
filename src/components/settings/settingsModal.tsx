@@ -73,7 +73,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
       <SettingsFooter>
         <div>
           <SettingsButton variant="primary" onClick={updateSettings} disabled={!canSave}>
-            Save
+            <Trans id="settings_save" />
           </SettingsButton>
         </div>
       </SettingsFooter>
