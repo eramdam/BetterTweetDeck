@@ -2,6 +2,7 @@ import React, {FC, useRef} from 'react';
 import MonacoEditor, {monaco} from 'react-monaco-editor';
 
 import {HandlerOf} from '../../../helpers/typeHelpers';
+import {Trans} from '../../trans';
 
 interface SettingsCssEditorProps {
   onErrorChange: HandlerOf<boolean>;
@@ -42,8 +43,7 @@ export const SettingsCssEditor: FC<SettingsCssEditorProps> = (props) => {
         style={{
           marginBottom: 20,
         }}>
-        ⚠️ Pasting unknown code in this editor can lead to weird issues if you don&apos;t know what
-        you are doing ⚠️️
+        ⚠️ <Trans id="settings_custom_css_warning" /> ⚠️️
       </div>
       <div
         style={{

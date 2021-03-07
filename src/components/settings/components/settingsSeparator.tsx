@@ -1,7 +1,7 @@
 import {css} from '@emotion/css';
 import React from 'react';
 
-export function SettingsSeperator() {
+export function SettingsSeparator() {
   return (
     <hr
       className={css`

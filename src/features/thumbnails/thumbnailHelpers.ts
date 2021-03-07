@@ -20,7 +20,7 @@ const onFullscreenKeyDown = (e: KeyboardEvent, beforeClose?: Handler) => {
   closeFullscreenModal();
 };
 
-const modalObserver = new ResizeObserver((entries) => {
+const modalObserver = new ResizeObserver((entries: ResizeObserverEntry[]) => {
   const rect = entries[0].contentRect;
 
   const mediaElement = document.querySelector<HTMLImageElement | HTMLVideoElement>(

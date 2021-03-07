@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 
-import defaultMessages from '../_locales/en/messages.json';
+import type defaultMessages from '../_locales/en/messages.json';
 import {getMessage} from '../helpers/webExtensionHelpers';
 
 interface TransProps {
@@ -10,10 +10,17 @@ interface TransProps {
 
 // Stole the name from `js-lingui`
 export const Trans: FC<TransProps> = (props) => {
-  return <>{getLocalizedMessage(props)}</>;
+  return <>{getLocalizedMessageInternal(props)}</>;
 };
 
-export function getLocalizedMessage(props: TransProps) {
+export function getTransString(id: TransProps['id'], substitutions?: TransProps['substitutions']) {
+  return getLocalizedMessageInternal({
+    id,
+    substitutions,
+  });
+}
+
+function getLocalizedMessageInternal(props: TransProps) {
   try {
     const localizedMessage = getMessage(props.id, props.substitutions);
 

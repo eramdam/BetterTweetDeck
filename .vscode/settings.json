@@ -1,33 +1,39 @@
 {
-  "editor.formatOnSave": true,
-  "movets.skipWarning": true,
-  "xmlTools.splitXmlnsOnFormat": false,
-  "files.eol": "\n",
-  "files.exclude": {
-    "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
-    "**/.DS_Store": true,
-    ".cache-loader": true
-  },
-  "search.exclude": {
-    "**/node_modules": true,
-    "**/bower_components": true
-  },
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "emmet.includeLanguages": {
-    "javascript": "javascriptreact",
-    "typescript": "typescriptreact",
-    "markdown": "javascriptreact"
-  },
-  "emmet.excludeLanguages": [],
-  "typescript.preferences.useAliasesForRenames": false,
-  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
-  "beautify.ignore": [
-    "*"
-  ],
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
-  }
+  },
+  "editor.formatOnSave": false,
+  "emmet.excludeLanguages": [],
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "markdown": "javascriptreact",
+    "typescript": "typescriptreact"
+  },
+  "files.eol": "\n",
+  "files.exclude": {
+    "**/.DS_Store": true,
+    "**/.git": true,
+    "**/.hg": true,
+    "**/.svn": true,
+    "**/CVS": true,
+    ".cache-loader": true
+  },
+  "i18n-ally.enabledFrameworks": [
+    "chrome-ext",
+    "custom"
+  ],
+  "i18n-ally.extract.keyPrefix": "settings_",
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.localesPaths": [
+    "src/_locales"
+  ],
+  "i18n-ally.preferredDelimiter": "_",
+  "movets.skipWarning": true,
+  "search.exclude": {
+    "**/bower_components": true,
+    "**/node_modules": true
+  },
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
+  "typescript.preferences.useAliasesForRenames": false,
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
