@@ -8,18 +8,17 @@ interface TransProps {
   substitutions?: string;
 }
 
-// Stole the name from `lingui`
+// Stole the name from `js-lingui`
 export const Trans: FC<TransProps> = (props) => {
   return <>{getLocalizedMessage(props)}</>;
 };
 
 export function getLocalizedMessage(props: TransProps) {
-  const fallback = defaultMessages[props.id]?.message;
   try {
     const localizedMessage = getMessage(props.id, props.substitutions);
 
     return localizedMessage;
   } catch (e) {
-    return fallback || props.id;
+    return props.id;
   }
 }
