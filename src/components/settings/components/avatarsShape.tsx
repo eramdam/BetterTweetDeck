@@ -2,6 +2,7 @@ import {css, cx} from '@emotion/css';
 import React, {Fragment} from 'react';
 
 import {BTDAvatarShapes} from '../../../features/changeAvatarShape';
+import {Trans} from '../../trans';
 import {BaseSettingsProps} from '../settingsTypes';
 import {SettingsRow, SettingsRowContent, SettingsRowTitle} from './settingsRow';
 
@@ -66,7 +67,9 @@ export function AvatarsShape(props: AvatarsShapeProps) {
           display: none;
         }
       `}>
-      <SettingsRowTitle>Avatar shape:</SettingsRowTitle>
+      <SettingsRowTitle>
+        <Trans id="settings_avatar_shape" />
+      </SettingsRowTitle>
       <SettingsRowContent className={avatarShapesWrapperStyle}>
         {Object.values(BTDAvatarShapes).map((value) => {
           return (

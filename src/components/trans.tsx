@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 
-import type defaultMessages from '../_locales/en/messages.json';
+import defaultMessages from '../_locales/en/messages.json';
 import {getMessage} from '../helpers/webExtensionHelpers';
 
 interface TransProps {
@@ -21,11 +21,12 @@ export function getTransString(id: TransProps['id'], substitutions?: TransProps[
 }
 
 function getLocalizedMessageInternal(props: TransProps) {
+  const fallback = defaultMessages[props.id]?.message;
   try {
     const localizedMessage = getMessage(props.id, props.substitutions);
 
-    return localizedMessage;
+    return localizedMessage || fallback || props.id;
   } catch (e) {
-    return props.id;
+    return fallback || props.id;
   }
 }

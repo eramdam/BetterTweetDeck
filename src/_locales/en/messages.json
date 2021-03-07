@@ -193,5 +193,8 @@
   },
   "settings_custom_css_warning": {
     "message": "Pasting unknown code in this editor can lead to weird issues if you don't know what\n        you are doing"
+  },
+  "settings_avatar_shape": {
+    "message": "Avatar shape"
   }
 }
