@@ -23,6 +23,7 @@ import {maybeMakeComposerButtonsSmaller} from './features/smallerComposerButtons
 import {tweakTweetDeckTheme} from './features/themeTweaks';
 import {updateTabTitle} from './features/updateTabTitle';
 import {updateTwemojiRegex} from './features/updateTwemojiRegex';
+import {useOriginalAspectRatio} from './features/useOriginalAspectRatio';
 import {maybeChangeUsernameFormat} from './features/usernameDisplay';
 import {listenToInternalBTDMessage, sendInternalBTDMessage} from './helpers/communicationHelpers';
 import {onChirpAdded, setupChirpHandler} from './inject/chirpHandler';
@@ -78,6 +79,7 @@ const jq: JQueryStatic | undefined =
 
   onChirpAdded((payload) => {
     putBadgesOnTopOfAvatars(settings, payload);
+    useOriginalAspectRatio(settings, payload);
   });
 
   markInjectScriptAsReady();
