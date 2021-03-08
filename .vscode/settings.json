@@ -3,6 +3,9 @@
     "source.fixAll.eslint": true
   },
   "editor.formatOnSave": false,
+  "[css]": {
+    "editor.formatOnSave": true
+  },
   "emmet.excludeLanguages": [],
   "emmet.includeLanguages": {
     "javascript": "javascriptreact",
