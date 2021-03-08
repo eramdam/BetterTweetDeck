@@ -39,6 +39,48 @@ html .btd-loaded .ovl {
   pointer-events: all;
 }
 
+.mdl-media-prev,
+.mdl-media-next {
+  background: transparent;
+  z-index: 10;
+
+  & .icon::after {
+    content: '';
+    position: absolute;
+    background: rgba(21, 21, 21, 0.6);
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    top: 0;
+    left: 0;
+    z-index: 0;
+  }
+
+  & .icon::before {
+    position: absolute;
+    left: 45%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+}
+
+.mdl-media-next .icon::after {
+  transform: translate(-22%, -20%);
+}
+
+.mdl-media-prev .icon::after {
+  transform: translate(-16%, -20%);
+}
+
+.js-mediatable .js-modal-panel .med-tweet {
+  display: none;
+}
+
+.js-mediatable .js-modal-panel .med-embeditem {
+  bottom: 50px;
+}
+
 /** Fix the default verified badge alignment */
 .badge-verified::before {
   background-position-y: 48px;
