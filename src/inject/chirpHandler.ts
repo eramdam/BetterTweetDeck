@@ -1,7 +1,7 @@
 import {compact} from 'lodash';
 
 import {getRandomString, isHTMLElement} from '../helpers/domHelpers';
-import {decorateChirp} from '../helpers/tweetdeckHelpers';
+import {getChirpFromElement, getURLsFromChirp} from '../helpers/tweetdeckHelpers';
 import {HandlerOf} from '../helpers/typeHelpers';
 import {BTDModalUuidAttribute, BTDUuidAttribute} from '../types/betterTweetDeck/btdCommonTypes';
 import {
@@ -22,7 +22,11 @@ export interface ChirpRemovedPayload {
   uuidArray: string[];
 }
 
-type SetupChirpHandler = (TD: TweetDeckObject, jq: JQueryStatic) => void;
+type SetupChirpHandler = (
+  TD: TweetDeckObject,
+  handlerOnAdd?: HandlerOf<ChirpAddedPayload>,
+  handlerOnRemove?: HandlerOf<ChirpRemovedPayload>
+) => void;
 
 let isObserverSetup = false;
 const onRemoveCallbacks = new Set<HandlerOf<ChirpRemovedPayload>>();
@@ -42,10 +46,62 @@ export function onChirpRemove(cb: HandlerOf<ChirpRemovedPayload>) {
   onRemoveCallbacks.add(cb);
 }
 
-export const setupChirpHandler: SetupChirpHandler = (TD, jq) => {
+export const setupChirpHandler: SetupChirpHandler = (TD) => {
   const mutObserver = new MutationObserver((mutations) =>
     mutations.forEach((mutation) => {
+      const hasAddHandlers = onAddCallbacks.size > 0;
       const hasRemoveHandlers = onRemoveCallbacks.size > 0;
+
+      if (hasAddHandlers) {
+        Array.from(mutation.addedNodes)
+          .filter((addedEl) => {
+            if (
+              !isHTMLElement(addedEl) ||
+              addedEl.closest('[' + BTDUuidAttribute + ']') ||
+              addedEl.matches('[' + BTDUuidAttribute + ']') ||
+              addedEl.closest('[' + BTDModalUuidAttribute + ']') ||
+              addedEl.matches('[' + BTDModalUuidAttribute + ']')
+            ) {
+              return false;
+            }
+
+            return true;
+          })
+          .forEach((element) => {
+            if (!isHTMLElement(element)) {
+              return;
+            }
+
+            if (element.closest('.js-tweet-detail.tweet-detail-wrapper')) {
+              return;
+            }
+
+            if (element.closest('[data-key]')) {
+              const chirp = getChirpFromElement(TD, element);
+
+              if (!chirp) {
+                return;
+              }
+
+              const urls = getURLsFromChirp(chirp);
+              const uuid = getRandomString();
+
+              element.setAttribute(BTDUuidAttribute, uuid);
+
+              const payload = {
+                uuid,
+                chirp: JSON.parse(JSON.stringify(chirp)),
+                urls: (urls || []).map((e) => e.expanded_url),
+                columnKey: chirp._btd?.columnKey || '',
+                columnMediaSize: getSizeForColumnKey(chirp._btd?.columnKey),
+              };
+
+              onAddCallbacks.forEach((cb) => {
+                cb(payload);
+              });
+            }
+          });
+      }
 
       if (hasRemoveHandlers) {
         Array.from(mutation.removedNodes)
@@ -87,63 +143,5 @@ export const setupChirpHandler: SetupChirpHandler = (TD, jq) => {
   );
 
   mutObserver.observe(document, {subtree: true, childList: true});
-
-  type UiVisibleChirpsEventData = {
-    columnKey: string;
-    chirpsData: Array<{$elem: JQuery<HTMLElement>; chirp: TweetDeckChirp}>;
-  };
-  // Using this event is slightly less expensive since it gives us the element and the chirp right away.
-  jq(document).on('uiVisibleChirps', (_event, data: UiVisibleChirpsEventData) => {
-    // If we don't have any chirp, nothing to do.
-    if (data.chirpsData.length < 1) {
-      return;
-    }
-
-    // If we don't have any handlers, nothing to do.
-    if (onAddCallbacks.size < 1) {
-      return;
-    }
-
-    const {columnKey} = data;
-
-    data.chirpsData.forEach((chirpDatum) => {
-      const {$elem, chirp} = chirpDatum;
-      // If we don't have any element, we can skip.
-      if ($elem.length === 0) {
-        return;
-      }
-
-      // If we already attached a BTD uuid, we can skip.
-      if (
-        $elem.closest('[' + BTDUuidAttribute + ']').length ||
-        $elem.is('[' + BTDUuidAttribute + ']') ||
-        $elem.closest('[' + BTDModalUuidAttribute + ']').length ||
-        $elem.is('[' + BTDModalUuidAttribute + ']')
-      ) {
-        return;
-      }
-
-      // If the element is inside a detail view, we can skip.
-      if ($elem.closest('.js-tweet-detail.tweet-detail-wrapper').length) {
-        return;
-      }
-
-      const uuid = getRandomString();
-
-      $elem.attr(BTDUuidAttribute, uuid);
-
-      const decoratedChirp = decorateChirp(chirp, columnKey);
-      const payload: ChirpAddedPayload = {
-        uuid,
-        chirp: JSON.parse(JSON.stringify(decoratedChirp)),
-        columnKey,
-        columnMediaSize: getSizeForColumnKey(columnKey),
-      };
-
-      onAddCallbacks.forEach((cb) => {
-        cb(payload);
-      });
-    });
-  });
   isObserverSetup = true;
 };
