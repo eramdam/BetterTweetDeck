@@ -49,6 +49,10 @@ export function useOriginalAspectRatio(settings: BTDSettings, addedChirp: ChirpA
     height: singleMedia.sizes.large.h,
   };
 
+  if ((sizeObject.height / sizeObject.width) * 100 > 500) {
+    return;
+  }
+
   const mediaImageLink = chirpNode.querySelector('.js-media-image-link');
 
   if (!isHTMLElement(mediaImageLink)) {
