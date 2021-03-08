@@ -1,12 +1,12 @@
 import ReactDOM from 'react-dom';
 import {Key} from 'ts-key-enum';
 
-import {emptyNode, isHTMLElement, maybeDoOnNode, setStylesOnNode} from '../../helpers/domHelpers';
-import {Handler, insertDomChefElement} from '../../helpers/typeHelpers';
 import {
   BTDModalUuidAttribute,
   getFullscreenNodeRoot,
-} from '../../types/betterTweetDeck/btdCommonTypes';
+} from '../types/betterTweetDeck/btdCommonTypes';
+import {emptyNode, isHTMLElement, maybeDoOnNode, setStylesOnNode} from './domHelpers';
+import {Handler, insertDomChefElement} from './typeHelpers';
 
 const onFullscreenKeyDown = (e: KeyboardEvent, beforeClose?: Handler) => {
   if (e.key !== Key.Escape) {

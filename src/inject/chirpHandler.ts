@@ -14,7 +14,6 @@ import {getSizeForColumnKey} from './columnMediaSizeMonitor';
 export interface ChirpAddedPayload {
   uuid: string;
   chirp: TweetDeckChirp;
-  urls: string[];
   columnMediaSize: TweetDeckColumnMediaPreviewSizesEnum;
   columnKey: string;
 }
@@ -134,10 +133,9 @@ export const setupChirpHandler: SetupChirpHandler = (TD, jq) => {
       $elem.attr(BTDUuidAttribute, uuid);
 
       const decoratedChirp = decorateChirp(chirp, columnKey);
-      const payload = {
+      const payload: ChirpAddedPayload = {
         uuid,
         chirp: JSON.parse(JSON.stringify(decoratedChirp)),
-        urls: [],
         columnKey,
         columnMediaSize: getSizeForColumnKey(columnKey),
       };

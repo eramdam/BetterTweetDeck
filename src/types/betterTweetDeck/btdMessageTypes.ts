@@ -1,14 +1,11 @@
 import {Dictionary} from 'lodash';
 
-import {BTDFetchResult} from '../../features/thumbnails/types';
 import {ChirpAddedPayload} from '../../inject/chirpHandler';
 import {BTDSettings} from './btdSettingsTypes';
 
 /** Different kinds of messages that BTD can send/receive internally. */
 export enum BTDMessages {
   BTD_READY = 'BTD_READY',
-  FETCH_THUMBNAIL = 'FETCH_THUMBNAIL',
-  THUMBNAIL_RESULT = 'THUMBNAIL_RESULT',
   FETCH_CHIRP = 'FETCH_CHIRP',
   CHIRP_RESULT = 'CHIRP_RESULT',
   CHIRP_REMOVAL = 'CHIRP_REMOVAL',
@@ -52,25 +49,6 @@ interface BTDChirpRemoval extends BTDMessageEventBase {
   payload: {
     uuids: string[];
   };
-}
-
-interface BTDFetchThumbnail extends BTDMessageEventBase {
-  name: BTDMessages.FETCH_THUMBNAIL;
-  payload: {
-    url: string;
-  };
-}
-
-export interface BTDFetchThumbnailResult extends BTDMessageEventBase {
-  name: BTDMessages.FETCH_THUMBNAIL;
-  payload: {
-    url: string;
-  };
-}
-
-export interface BTDThumbnailResult extends BTDMessageEventBase {
-  name: BTDMessages.THUMBNAIL_RESULT;
-  payload: BTDFetchResult;
 }
 
 export interface BTDMakeGifPickerRequest extends BTDMessageEventBase {
@@ -141,9 +119,6 @@ interface BTDOpenSettings extends BTDMessageEventBase {
 export type BTDMessageEventData =
   | BTDChirpResult
   | BTDChirpRemoval
-  | BTDFetchThumbnail
-  | BTDFetchThumbnailResult
-  | BTDThumbnailResult
   | BTDMakeGifPickerRequest
   | BTDMakeGifPickerRequestResult
   | BTDReady

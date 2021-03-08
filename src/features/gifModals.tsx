@@ -7,10 +7,10 @@ import qs from 'query-string';
 
 import {makeFullscreenModalWrapper} from '../components/fullscreenModalWrapper';
 import {dataURItoBlob, isHTMLElement, isHtmlVideoElement} from '../helpers/domHelpers';
+import {closeFullscreenModal, openFullscreenModal} from '../helpers/modalHelpers';
 import {getChirpFromElement, getFilenameDownloadData} from '../helpers/tweetdeckHelpers';
 import {BTDSettings} from '../types/betterTweetDeck/btdSettingsTypes';
 import {TweetDeckObject} from '../types/tweetdeckTypes';
-import {closeFullscreenModal, openFullscreenModal} from './thumbnails/thumbnailHelpers';
 
 export function setupGifModals(TD: TweetDeckObject, settings: BTDSettings) {
   const filenameRenderer = Hogan.compile(settings.downloadFilenameFormat);
