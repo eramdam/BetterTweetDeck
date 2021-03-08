@@ -116,14 +116,18 @@ export const getChirpFromElement = (
     return null;
   }
 
-  chirp._btd = {
-    chirpKey,
-    columnKey: colKey,
+  return decorateChirp(chirp, colKey);
+};
+
+export const decorateChirp = (chirp: TweetDeckChirp, columnKey: string): TweetDeckChirp => {
+  return {
+    ...chirp,
+    chirpType: chirp.chirpType,
+    _btd: {
+      chirpKey: chirp.id,
+      columnKey,
+    },
   };
-  // `chirpType` lives on the prototype of `chirp`, so it obviously won't carry on when serialized
-  // eslint-disable-next-line no-self-assign
-  chirp.chirpType = chirp.chirpType;
-  return chirp;
 };
 
 /** Finds all the URLs (attachments, links, etc) in a chirp. */
@@ -131,7 +135,6 @@ export const getURLsFromChirp = (chirp: TweetDeckChirp) => {
   let chirpURLs: Twitter.UrlEntity[] = [];
 
   if (!chirp) {
-    console.log(chirp);
     return [];
   }
 
