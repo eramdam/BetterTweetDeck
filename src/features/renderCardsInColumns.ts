@@ -50,28 +50,22 @@ export function maybeRenderCardsInColumns(
 
   onChirpAdded((payload) => {
     // The chirp returned by the chirp handler is a simplified version without its prototype.
-    const actualChirp = getChirpFromKey(TD, payload.chirp.id, payload.columnKey);
+    // The prototype is required by `renderCardForChirp` later on.
+    const baseChirp = getChirpFromKey(TD, payload.chirp.id, payload.columnKey);
+    // In the case of a reply, we want the `targetTweet`, as the chirp itself is just a notification
+    const actualChirp = baseChirp?.targetTweet ? baseChirp.targetTweet : baseChirp;
 
-    if (
-      !actualChirp ||
-      !actualChirp.card ||
-      !jq ||
-      !renderCardForChirpModule ||
-      !getColumnTypeModule
-    ) {
+    if (!actualChirp || !actualChirp.card || !renderCardForChirpModule || !getColumnTypeModule) {
       return;
     }
 
     // Cards on private users won't load.
-    if (actualChirp.user.isProtected) {
+    if (!actualChirp.user || actualChirp.user.isProtected) {
+      console.log('actualChirp', actualChirp);
       return;
     }
 
     const column = TD.controller.columnManager.get(payload.columnKey);
-
-    if (!column) {
-      return;
-    }
 
     const columnType = getColumnTypeModule.getColumnType(column);
     const scribeNamespace = getColumnTypeModule.columnMetaTypeToScribeNamespace[columnType];
