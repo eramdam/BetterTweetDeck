@@ -1,7 +1,7 @@
 import {compact} from 'lodash';
 
 import {getRandomString, isHTMLElement} from '../helpers/domHelpers';
-import {getChirpFromElement, getURLsFromChirp} from '../helpers/tweetdeckHelpers';
+import {decorateChirp, getChirpFromElement, getURLsFromChirp} from '../helpers/tweetdeckHelpers';
 import {HandlerOf} from '../helpers/typeHelpers';
 import {BTDModalUuidAttribute, BTDUuidAttribute} from '../types/betterTweetDeck/btdCommonTypes';
 import {
@@ -22,21 +22,25 @@ export interface ChirpRemovedPayload {
   uuidArray: string[];
 }
 
-type SetupChirpHandler = (
-  TD: TweetDeckObject,
-  handlerOnAdd?: HandlerOf<ChirpAddedPayload>,
-  handlerOnRemove?: HandlerOf<ChirpRemovedPayload>
-) => void;
+type SetupChirpHandler = (TD: TweetDeckObject, jq: JQueryStatic) => void;
 
 let isObserverSetup = false;
 const onRemoveCallbacks = new Set<HandlerOf<ChirpRemovedPayload>>();
-const onAddCallbacks = new Set<HandlerOf<ChirpAddedPayload>>();
+const onDomAddCallbacks = new Set<HandlerOf<ChirpAddedPayload>>();
+const onVisibleCallbacks = new Set<HandlerOf<ChirpAddedPayload>>();
 
 export function onChirpAdded(cb: HandlerOf<ChirpAddedPayload>) {
   if (!isObserverSetup) {
     throw new Error('call `setupChirpHandler` first!');
   }
-  onAddCallbacks.add(cb);
+  onDomAddCallbacks.add(cb);
+}
+
+export function onVisibleChirpAdded(cb: HandlerOf<ChirpAddedPayload>) {
+  if (!isObserverSetup) {
+    throw new Error('call `setupChirpHandler` first!');
+  }
+  onVisibleCallbacks.add(cb);
 }
 
 export function onChirpRemove(cb: HandlerOf<ChirpRemovedPayload>) {
@@ -46,10 +50,10 @@ export function onChirpRemove(cb: HandlerOf<ChirpRemovedPayload>) {
   onRemoveCallbacks.add(cb);
 }
 
-export const setupChirpHandler: SetupChirpHandler = (TD) => {
+export const setupChirpHandler: SetupChirpHandler = (TD, jq) => {
   const mutObserver = new MutationObserver((mutations) =>
     mutations.forEach((mutation) => {
-      const hasAddHandlers = onAddCallbacks.size > 0;
+      const hasAddHandlers = onDomAddCallbacks.size > 0;
       const hasRemoveHandlers = onRemoveCallbacks.size > 0;
 
       if (hasAddHandlers) {
@@ -96,7 +100,7 @@ export const setupChirpHandler: SetupChirpHandler = (TD) => {
                 columnMediaSize: getSizeForColumnKey(chirp._btd?.columnKey),
               };
 
-              onAddCallbacks.forEach((cb) => {
+              onDomAddCallbacks.forEach((cb) => {
                 cb(payload);
               });
             }
@@ -143,5 +147,50 @@ export const setupChirpHandler: SetupChirpHandler = (TD) => {
   );
 
   mutObserver.observe(document, {subtree: true, childList: true});
+
+  type UiVisibleChirpsEventData = {
+    columnKey: string;
+    chirpsData: Array<{$elem: JQuery<HTMLElement>; chirp: TweetDeckChirp}>;
+  };
+  // Using this event is slightly less expensive since it gives us the element and the chirp right away.
+  jq(document).on('uiVisibleChirps', (_event, data: UiVisibleChirpsEventData) => {
+    // If we don't have any chirp, nothing to do.
+    if (data.chirpsData.length < 1) {
+      return;
+    }
+
+    // If we don't have any handlers, nothing to do.
+    if (onVisibleCallbacks.size < 1) {
+      console.log('no visible callbacks');
+      return;
+    }
+
+    const {columnKey} = data;
+
+    data.chirpsData.forEach((chirpDatum) => {
+      const {$elem, chirp} = chirpDatum;
+      // If we don't have any element, we can skip.
+      if ($elem.length === 0) {
+        return;
+      }
+
+      // If the element is inside a detail view, we can skip.
+      if ($elem.closest('.js-tweet-detail.tweet-detail-wrapper').length) {
+        return;
+      }
+
+      const decoratedChirp = decorateChirp(chirp, columnKey);
+      const payload: ChirpAddedPayload = {
+        uuid: '',
+        chirp: JSON.parse(JSON.stringify(decoratedChirp)),
+        columnKey,
+        columnMediaSize: getSizeForColumnKey(columnKey),
+      };
+
+      onVisibleCallbacks.forEach((cb) => {
+        cb(payload);
+      });
+    });
+  });
   isObserverSetup = true;
 };

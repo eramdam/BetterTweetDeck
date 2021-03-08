@@ -75,7 +75,7 @@ const jq: JQueryStatic | undefined =
     applyTweetDeckSettings(TD, settings);
   });
 
-  setupChirpHandler(TD);
+  setupChirpHandler(TD, jq);
 
   onChirpAdded((payload) => {
     putBadgesOnTopOfAvatars(settings, payload);

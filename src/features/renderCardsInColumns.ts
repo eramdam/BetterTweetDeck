@@ -3,7 +3,7 @@ import moduleraid from 'moduleraid';
 
 import {createSelectorForChirp, getChirpFromKey} from '../helpers/tweetdeckHelpers';
 import {hasProperty} from '../helpers/typeHelpers';
-import {onChirpAdded} from '../inject/chirpHandler';
+import {onVisibleChirpAdded} from '../inject/chirpHandler';
 import {BTDModuleOptions} from '../types/betterTweetDeck/btdCommonTypes';
 import {TweetDeckChirp, TweetDeckColumn} from '../types/tweetdeckTypes';
 
@@ -48,10 +48,20 @@ export function maybeRenderCardsInColumns(
       }
     | undefined = mR && mR.findFunction('getColumnType')[0];
 
-  onChirpAdded((payload) => {
+  onVisibleChirpAdded((payload) => {
+    const cardContainer = jq(
+      `${createSelectorForChirp(payload.chirp, payload.columnKey)} .js-card-container`
+    );
+
+    // If we already have a card, nothing to do.
+    if (cardContainer.has('iframe').length) {
+      return;
+    }
+
     // The chirp returned by the chirp handler is a simplified version without its prototype.
     // The prototype is required by `renderCardForChirp` later on.
     const baseChirp = getChirpFromKey(TD, payload.chirp.id, payload.columnKey);
+
     // In the case of a reply, we want the `targetTweet`, as the chirp itself is just a notification
     const actualChirp = baseChirp?.targetTweet ? baseChirp.targetTweet : baseChirp;
 
@@ -61,7 +71,6 @@ export function maybeRenderCardsInColumns(
 
     // Cards on private users won't load.
     if (!actualChirp.user || actualChirp.user.isProtected) {
-      console.log('actualChirp', actualChirp);
       return;
     }
 
@@ -74,13 +83,9 @@ export function maybeRenderCardsInColumns(
       return;
     }
 
-    renderCardForChirpModule.renderCardForChirp(
-      actualChirp,
-      jq(`${createSelectorForChirp(actualChirp, payload.columnKey)} .js-card-container`),
-      {
-        context: 'detail',
-        scribeNamespace,
-      }
-    );
+    renderCardForChirpModule.renderCardForChirp(actualChirp, cardContainer, {
+      context: 'detail',
+      scribeNamespace,
+    });
   });
 }

@@ -116,14 +116,7 @@ export const getChirpFromElement = (
     return null;
   }
 
-  chirp._btd = {
-    chirpKey,
-    columnKey: colKey,
-  };
-  // `chirpType` lives on the prototype of `chirp`, so it obviously won't carry on when serialized
-  // eslint-disable-next-line no-self-assign
-  chirp.chirpType = chirp.chirpType;
-  return chirp;
+  return decorateChirp(chirp, colKey);
 };
 
 /** Finds all the URLs (attachments, links, etc) in a chirp. */
@@ -277,5 +270,16 @@ export const getFilenameDownloadData = (chirp: TweetDeckChirp, url: string) => {
     hours: chirpCreated.getHours().toString().padStart(2, '0'),
     minutes: chirpCreated.getMinutes().toString().padStart(2, '0'),
     seconds: chirpCreated.getSeconds().toString().padStart(2, '0'),
+  };
+};
+
+export const decorateChirp = (chirp: TweetDeckChirp, columnKey: string): TweetDeckChirp => {
+  return {
+    ...chirp,
+    chirpType: chirp.chirpType,
+    _btd: {
+      chirpKey: chirp.id,
+      columnKey,
+    },
   };
 };
