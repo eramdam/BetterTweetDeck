@@ -24,7 +24,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
   const {onSettingsUpdate} = props;
   const [settings, setSettings] = useState<BTDSettings>(props.btdSettings);
   const [isDirty, setIsDirty] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(1);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [editorHasErrors, setEditorHasErrors] = useState(false);
 
   const makeOnSettingsChange = <T extends keyof BTDSettings>(key: T) => {

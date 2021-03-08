@@ -42,11 +42,18 @@ export const makeSettingsMenu = (
         return (
           <Fragment>
             <BooleanSettingsRow
+              settingsKey="useOriginalAspectRatioForSingleImages"
+              initialValue={settings.useOriginalAspectRatioForSingleImages}
+              alignToTheLeft
+              onChange={makeOnSettingsChange('useOriginalAspectRatioForSingleImages')}>
+              <Trans id="settings_use_original_aspect_ratio_images" />
+            </BooleanSettingsRow>
+            <BooleanSettingsRow
               settingsKey="showCardsInsideColumns"
               initialValue={settings.showCardsInsideColumns}
               alignToTheLeft
               onChange={makeOnSettingsChange('showCardsInsideColumns')}>
-              <Trans id="settings_show_cards_inside_columns"></Trans>
+              <Trans id="settings_show_cards_inside_columns" />
             </BooleanSettingsRow>
             <BooleanSettingsRow
               settingsKey="badgesOnTopOfAvatars"

@@ -1,10 +1,16 @@
+import './useOriginalAspectRatio.css';
+
 import {isHTMLElement} from '../helpers/domHelpers';
 import {ChirpAddedPayload} from '../inject/chirpHandler';
 import {makeBtdUuidSelector} from '../types/betterTweetDeck/btdCommonTypes';
 import {BTDSettings} from '../types/betterTweetDeck/btdSettingsTypes';
 import {TweetDeckChirp, TweetDeckColumnMediaPreviewSizesEnum} from '../types/tweetdeckTypes';
 
-export function useOriginalAspectRatio(_settings: BTDSettings, addedChirp: ChirpAddedPayload) {
+export function useOriginalAspectRatio(settings: BTDSettings, addedChirp: ChirpAddedPayload) {
+  if (!settings.useOriginalAspectRatioForSingleImages) {
+    return;
+  }
+
   if (
     addedChirp.columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.OFF ||
     addedChirp.columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.SMALL
@@ -33,6 +39,11 @@ export function useOriginalAspectRatio(_settings: BTDSettings, addedChirp: Chirp
   }
 
   const singleMedia = mediaEntities[0];
+
+  if (!singleMedia || singleMedia.type !== 'photo') {
+    return;
+  }
+
   const sizeObject = {
     width: singleMedia.sizes.large.w,
     height: singleMedia.sizes.large.h,
@@ -44,8 +55,9 @@ export function useOriginalAspectRatio(_settings: BTDSettings, addedChirp: Chirp
     return;
   }
 
-  mediaImageLink.style.height = '0';
-  mediaImageLink.style.paddingTop = `calc(${sizeObject.height} / ${sizeObject.width} * 100%)`;
+  mediaImageLink.classList.add('btd-aspect-ratio-thumbnail');
+  mediaImageLink.style.setProperty('--btd-thumb-height', sizeObject.height.toString());
+  mediaImageLink.style.setProperty('--btd-thumb-width', sizeObject.width.toString());
 }
 
 const getUsefulChirp = (chirp: TweetDeckChirp) => {

@@ -1,0 +1,4 @@
+.btd-aspect-ratio-thumbnail {
+  height: 0 !important;
+  padding-top: calc(var(--btd-thumb-height) / var(--btd-thumb-width) * 100%);
+}

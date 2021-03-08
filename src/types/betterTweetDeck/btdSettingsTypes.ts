@@ -26,6 +26,9 @@ export const RBetterTweetDeckSettings = t.type({
   /** Show tweet cards in columns. */
   showCardsInsideColumns: withDefault(t.boolean, true),
 
+  /** Display single images using their original aspect ratio. */
+  useOriginalAspectRatioForSingleImages: withDefault(t.boolean, false),
+
   /** Switches between the full timestamp in tweets after 24h */
   fullTimestampAfterDay: withDefault(t.boolean, false),
 
