@@ -25,7 +25,7 @@ import {updateTabTitle} from './features/updateTabTitle';
 import {updateTwemojiRegex} from './features/updateTwemojiRegex';
 import {maybeChangeUsernameFormat} from './features/usernameDisplay';
 import {listenToInternalBTDMessage, sendInternalBTDMessage} from './helpers/communicationHelpers';
-import {onChirpAdded, onChirpRemove, setupChirpHandler} from './inject/chirpHandler';
+import {onChirpAdded, setupChirpHandler} from './inject/chirpHandler';
 import {setupMediaSizeMonitor} from './inject/columnMediaSizeMonitor';
 import {maybeSetupDebugFunctions} from './inject/debugMethods';
 import {insertSettingsButton} from './inject/setupSettings';
@@ -77,23 +77,7 @@ const jq: JQueryStatic | undefined =
   setupChirpHandler(TD, jq);
 
   onChirpAdded((payload) => {
-    sendInternalBTDMessage({
-      name: BTDMessages.CHIRP_RESULT,
-      origin: BTDMessageOriginsEnum.INJECT,
-      isReponse: false,
-      payload,
-    });
     putBadgesOnTopOfAvatars(settings, payload);
-  });
-  onChirpRemove((payload) => {
-    sendInternalBTDMessage({
-      name: BTDMessages.CHIRP_REMOVAL,
-      origin: BTDMessageOriginsEnum.INJECT,
-      isReponse: false,
-      payload: {
-        uuids: payload.uuidArray,
-      },
-    });
   });
 
   markInjectScriptAsReady();

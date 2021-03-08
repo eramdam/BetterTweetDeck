@@ -6,7 +6,6 @@ import {BTDSettings} from './btdSettingsTypes';
 /** Different kinds of messages that BTD can send/receive internally. */
 export enum BTDMessages {
   BTD_READY = 'BTD_READY',
-  FETCH_CHIRP = 'FETCH_CHIRP',
   CHIRP_RESULT = 'CHIRP_RESULT',
   CHIRP_REMOVAL = 'CHIRP_REMOVAL',
   MAKE_GIF_REQUEST = 'MAKE_GIF_REQUEST',
@@ -14,9 +13,7 @@ export enum BTDMessages {
   DOWNLOAD_MEDIA = 'DOWNLOAD_MEDIA',
   DOWNLOAD_MEDIA_RESULT = 'DOWNLOAD_MEDIA_RESULT',
   SAVE_SETTINGS = 'SAVE_SETTINGS',
-  GET_SETTINGS = 'GET_SETTINGS',
   OPEN_SETTINGS = 'OPEN_SETTINGS',
-  GET_SETTINGS_RESULT = 'GET_SETTINGS_RESULT',
 }
 
 /** Locations from which messages can be listened/sent to. */
@@ -101,16 +98,6 @@ interface BTDSaveSettings extends BTDMessageEventBase {
   };
 }
 
-interface BTDGetSettings extends BTDMessageEventBase {
-  name: BTDMessages.GET_SETTINGS;
-  payload: undefined;
-}
-
-interface BTDGetSettingsResult extends BTDMessageEventBase {
-  name: BTDMessages.GET_SETTINGS_RESULT;
-  payload: BTDSettings;
-}
-
 interface BTDOpenSettings extends BTDMessageEventBase {
   name: BTDMessages.OPEN_SETTINGS;
   payload: undefined;
@@ -123,9 +110,7 @@ export type BTDMessageEventData =
   | BTDMakeGifPickerRequestResult
   | BTDReady
   | BTDSaveSettings
-  | BTDGetSettings
   | BTDOpenSettings
-  | BTDGetSettingsResult
   | BTDDownloadMediaRequest
   | BTDDownloadMediaRequestResult;
 export interface BTDMessageEvent {
