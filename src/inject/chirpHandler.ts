@@ -1,7 +1,7 @@
 import {compact} from 'lodash';
 
 import {getRandomString, isHTMLElement} from '../helpers/domHelpers';
-import {decorateChirp, getChirpFromElement, getURLsFromChirp} from '../helpers/tweetdeckHelpers';
+import {getChirpFromElement, getURLsFromChirp} from '../helpers/tweetdeckHelpers';
 import {HandlerOf} from '../helpers/typeHelpers';
 import {BTDModalUuidAttribute, BTDUuidAttribute} from '../types/betterTweetDeck/btdCommonTypes';
 import {
@@ -81,11 +81,13 @@ export const setupChirpHandler: SetupChirpHandler = (TD, jq) => {
             }
 
             if (element.closest('[data-key]')) {
-              const chirp = getChirpFromElement(TD, element);
+              const chirpObject = getChirpFromElement(TD, element);
 
-              if (!chirp) {
+              if (!chirpObject) {
                 return;
               }
+
+              const {chirp, extra} = chirpObject;
 
               const urls = getURLsFromChirp(chirp);
               const uuid = getRandomString();
@@ -96,8 +98,8 @@ export const setupChirpHandler: SetupChirpHandler = (TD, jq) => {
                 uuid,
                 chirp: JSON.parse(JSON.stringify(chirp)),
                 urls: (urls || []).map((e) => e.expanded_url),
-                columnKey: chirp._btd?.columnKey || '',
-                columnMediaSize: getSizeForColumnKey(chirp._btd?.columnKey),
+                columnKey: extra.columnKey || '',
+                columnMediaSize: getSizeForColumnKey(extra.columnKey),
               };
 
               onDomAddCallbacks.forEach((cb) => {
@@ -179,10 +181,9 @@ export const setupChirpHandler: SetupChirpHandler = (TD, jq) => {
         return;
       }
 
-      const decoratedChirp = decorateChirp(chirp, columnKey);
       const payload: ChirpAddedPayload = {
         uuid: '',
-        chirp: JSON.parse(JSON.stringify(decoratedChirp)),
+        chirp: JSON.parse(JSON.stringify(chirp)),
         columnKey,
         columnMediaSize: getSizeForColumnKey(columnKey),
       };

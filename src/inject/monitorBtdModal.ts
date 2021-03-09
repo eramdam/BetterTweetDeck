@@ -40,7 +40,7 @@ export const monitorBtdModal = makeBTDModule(({TD}) => {
       return;
     }
 
-    const chirp = getChirpFromModal(modalWithUuid);
+    const chirp = getChirpFromModal(modalWithUuid)?.chirp;
 
     if (modalWithUuid.querySelectorAll('.js-med-tweet > *').length > 0 || !chirp) {
       return;

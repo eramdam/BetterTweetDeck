@@ -86,7 +86,12 @@ export const getChirpFromKey = (
 export const getChirpFromElement = (
   TD: TweetDeckObject,
   element: HTMLElement | Element
-): TweetDeckChirp | null => {
+): {
+  chirp: TweetDeckChirp;
+  extra: {
+    columnKey: string;
+  };
+} | null => {
   const chirpElm = element.closest('[data-key]');
   if (!chirpElm) {
     throw new Error('Not a chirp');
@@ -116,7 +121,12 @@ export const getChirpFromElement = (
     return null;
   }
 
-  return decorateChirp(chirp, colKey);
+  return {
+    chirp,
+    extra: {
+      columnKey: colKey,
+    },
+  };
 };
 
 /** Finds all the URLs (attachments, links, etc) in a chirp. */
@@ -270,16 +280,5 @@ export const getFilenameDownloadData = (chirp: TweetDeckChirp, url: string) => {
     hours: chirpCreated.getHours().toString().padStart(2, '0'),
     minutes: chirpCreated.getMinutes().toString().padStart(2, '0'),
     seconds: chirpCreated.getSeconds().toString().padStart(2, '0'),
-  };
-};
-
-export const decorateChirp = (chirp: TweetDeckChirp, columnKey: string): TweetDeckChirp => {
-  return {
-    ...chirp,
-    chirpType: chirp.chirpType,
-    _btd: {
-      chirpKey: chirp.id,
-      columnKey,
-    },
   };
 };

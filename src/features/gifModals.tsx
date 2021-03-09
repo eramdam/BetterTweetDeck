@@ -32,7 +32,7 @@ export function setupGifModals(TD: TweetDeckObject, settings: BTDSettings) {
       return;
     }
 
-    const chirp = getChirpFromElement(TD, chirpNode);
+    const chirp = getChirpFromElement(TD, chirpNode)?.chirp;
 
     if (!chirp) {
       return;

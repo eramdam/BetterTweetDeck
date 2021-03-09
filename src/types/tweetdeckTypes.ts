@@ -404,17 +404,11 @@ interface ColumnChirp {
   htmlText: string;
   apiBounds: APIBounds;
   sortIndex: HighWaterMarkChirpSortIndex;
-  _btd: Btd;
   chirpType: string;
   _hasAnimatedGif: boolean;
   messages?: TweetDeckChirp[];
   quotedTweet?: TweetDeckChirp;
   retweetedStatus?: TweetDeckChirp;
-}
-
-interface Btd {
-  chirpKey: string;
-  columnKey: string;
 }
 
 interface ChirpAccount {
@@ -544,10 +538,6 @@ export interface TweetDeckChirp {
   text: string;
   user: User;
   withPrettyEngagements: boolean;
-  _btd?: {
-    chirpKey: string;
-    columnKey: string;
-  };
   conversationId?: string | number;
   renderInMediaGallery(): string;
   getChirpURL(): string;

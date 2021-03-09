@@ -158,7 +158,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
 
   jq('body').on('click', '[data-btd-action="download-media"]', (ev) => {
     ev.preventDefault();
-    const chirp = getChirpFromElement(TD, ev.target);
+    const chirp = getChirpFromElement(TD, ev.target)?.chirp;
     if (!chirp) {
       return;
     }
@@ -186,7 +186,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
 
   jq('body').on('click', '[data-btd-action="hotlink-media"]', (ev) => {
     ev.preventDefault();
-    const chirp = getChirpFromElement(TD, ev.target);
+    const chirp = getChirpFromElement(TD, ev.target)?.chirp;
     if (!chirp) {
       return;
     }
@@ -203,7 +203,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
       if (!isHTMLElement(target)) {
         return;
       }
-      let chirp = getChirpFromElement(TD, ev.target);
+      let chirp = getChirpFromElement(TD, ev.target)?.chirp;
       if (!chirp) {
         return;
       }

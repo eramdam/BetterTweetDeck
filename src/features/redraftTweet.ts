@@ -7,10 +7,12 @@ import {TweetDeckChirp, TweetDeckUser} from '../types/tweetdeckTypes';
 export const listenToRedraftTweetEvent = makeBTDModule(({TD, jq}) => {
   jq('body').on('click', '[data-btd-action="edit-tweet"]', (ev) => {
     ev.preventDefault();
-    const chirp = getChirpFromElement(TD, ev.target);
-    if (!chirp) {
+    const chirpObject = getChirpFromElement(TD, ev.target);
+    if (!chirpObject) {
       return;
     }
+
+    const {chirp, extra} = chirpObject;
 
     const media = getMediaFromChirp(chirp);
 
@@ -107,11 +109,11 @@ export const listenToRedraftTweetEvent = makeBTDModule(({TD, jq}) => {
       };
 
       // == find that user, if at all possible
-      const column = TD.controller.columnManager.get(chirp._btd?.columnKey || '');
+      const column = TD.controller.columnManager.get(extra.columnKey || '');
       const replyEl = column.ui.getChirpById(chirp.inReplyToID);
       if (replyEl.length) {
         composeData.element = replyEl[0];
-        const replyChirp = getChirpFromElement(TD, replyEl[0]);
+        const replyChirp = getChirpFromElement(TD, replyEl[0])?.chirp;
         if (replyChirp) {
           composeData.mentions = replyChirp.getReplyUsers();
           composeData.inReplyTo = {
@@ -144,6 +146,7 @@ export const listenToRedraftTweetEvent = makeBTDModule(({TD, jq}) => {
     // send one last compose event, for good luck
     jq(document).trigger('uiComposeTweet', composeData);
 
+    console.log('chirp', chirp);
     // it is now safe to remove the tweet
     chirp.destroy();
   });
