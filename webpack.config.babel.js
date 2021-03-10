@@ -136,9 +136,14 @@ module.exports = (env) => {
         : () => null,
       {
         apply: (compiler) => {
+          let initialClean = false;
           compiler.hooks.afterEmit.tap('AfterEmitPlugin', () => {
+            if (initialClean) {
+              return;
+            }
             fs.renameSync('./dist/build/manifest.json', './dist/manifest.json');
             fs.renameSync('./dist/build/_locales', './dist/_locales');
+            initialClean = true;
           });
         },
       },
