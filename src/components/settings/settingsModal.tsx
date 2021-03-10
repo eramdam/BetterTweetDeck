@@ -49,7 +49,15 @@ export const SettingsModal = (props: SettingsModalProps) => {
 
   const canSave = useMemo(() => !editorHasErrors && isDirty, [editorHasErrors, isDirty]);
 
-  const menu = makeSettingsMenu(settings, makeOnSettingsChange, setEditorHasErrors);
+  const menu = makeSettingsMenu(
+    settings,
+    makeOnSettingsChange,
+    (newSettings) => {
+      setSettings(newSettings);
+      setIsDirty(true);
+    },
+    setEditorHasErrors
+  );
 
   const renderSelectedPage = () => {
     const menuSection = menu

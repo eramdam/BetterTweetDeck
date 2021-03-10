@@ -68,12 +68,13 @@ html {
 .btd-settings-button {
   border-radius: 100px;
   font-size: 14px;
-  line-height: 22px;
+  line-height: 21px;
   font-weight: bold;
   outline: none;
   border: 1px solid;
   padding: 3px 12px;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .btd-settings-button.primary {

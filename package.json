@@ -84,6 +84,7 @@
     "hogan.js": "^3.0.2",
     "html-webpack-plugin": "^5.2.0",
     "io-ts": "^2.2.15",
+    "io-ts-reporters": "^1.2.2",
     "lodash": "^4.17.21",
     "luxon": "^1.26.0",
     "monaco-editor-webpack-plugin": "^3.0.0",

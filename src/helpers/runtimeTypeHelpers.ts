@@ -18,14 +18,13 @@ export function makeEnumRuntimeType<T extends Object>(srcEnum: object) {
 
 /** Creates an io-ts type with a default value. */
 /* Taken from https://github.com/gcanti/io-ts/blob/d8382e60685f17414942b1b04826168280c14f2e/test/helpers.ts#L101-L111 */
-export function withDefault<T extends t.Mixed>(
-  type: T,
-  defaultValue: t.TypeOf<T>
-): t.Type<t.TypeOf<T>, t.TypeOf<T>, unknown> {
-  return new t.Type(
-    `withDefault(${type.name}, ${JSON.stringify(defaultValue)})`,
+export function withDefault<A, O, I>(type: t.Type<A, O, I>, defaultValue: I) {
+  return new t.Type<A, O, I>(
+    type.name,
     type.is,
-    (v) => type.decode(v != null ? v : defaultValue),
+    (v, context) => {
+      return type.validate(v != null ? v : defaultValue, context);
+    },
     type.encode
   );
 }

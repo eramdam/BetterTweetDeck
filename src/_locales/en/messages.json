@@ -6,7 +6,7 @@
     "message": "Better TweetDeck"
   },
   "settings_title": {
-    "message": "Better TweetDeck Settings"
+    "message": "Better TweetDeck"
   },
   "settings_show_cards_inside_columns": {
     "message": "Show tweet cards inside columns"
@@ -205,5 +205,8 @@
   },
   "settings_section_settings": {
     "message": "Settings"
+  },
+  "settings_support": {
+    "message": "Support"
   }
 }

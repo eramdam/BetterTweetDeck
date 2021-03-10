@@ -56,3 +56,31 @@ export function maybeAlignToTheLeft(alignToTheLeft?: boolean) {
     grid-template-columns: minmax(20px, auto) auto;
   `;
 }
+
+export const settingsRegularText = css`
+  margin: 40px;
+
+  display: grid;
+  grid-auto-flow: row;
+  grid-row-gap: 50px;
+  grid-auto-rows: auto;
+
+  h3 {
+    margin-bottom: 10px;
+  }
+
+  p {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+
+  ul {
+    padding-left: 10px;
+  }
+
+  ul li {
+    list-style-type: none;
+    line-height: 2;
+    margin: 12px 0;
+  }
+`;

@@ -1,6 +1,6 @@
 import {fold, isRight} from 'fp-ts/lib/Either';
 import {pipe} from 'fp-ts/lib/function';
-import {PathReporter} from 'io-ts/lib/PathReporter';
+import reporter from 'io-ts-reporters';
 import _ from 'lodash';
 
 import {ExtensionSettings} from '../helpers/webExtensionHelpers';
@@ -11,13 +11,27 @@ const defaultSettings = pipe(
   fold(() => '', _.identity)
 );
 
+export function validateSettings(src: any) {
+  const decoded = RBetterTweetDeckSettings.decode(src);
+
+  if (!isRight(decoded)) {
+    const errors: string[] = [];
+    reporter.report(decoded).forEach((error) => {
+      errors.push(error);
+    });
+    throw new Error(errors.join('\n'));
+  }
+
+  return decoded.right;
+}
+
 /** Returns the currently saved settings, validated against the schema. */
 export async function getValidatedSettings(): Promise<BTDSettings> {
   const currentSettings = await ExtensionSettings.get();
   const settingsWithDefault = RBetterTweetDeckSettings.decode(currentSettings);
 
   if (!isRight(settingsWithDefault)) {
-    console.log(PathReporter.report(settingsWithDefault));
+    console.log(reporter.report(settingsWithDefault));
     // @ts-ignore
     return defaultSettings;
   }
