@@ -39,6 +39,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
           [key]: val,
         };
       });
+      setIsDirty(true);
     };
   };
 
