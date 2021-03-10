@@ -156,6 +156,7 @@ interface TweetDeckController {
 interface ColumnManager {
   get(columnKey: string): TweetDeckColumn;
   showColumn(columnKey: string): void;
+  deleteColumn(columnKey: string): void;
   _aColumnIndex: ColumnMap;
   _columnOrder: string[];
   commands: unknown;

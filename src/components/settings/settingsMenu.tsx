@@ -182,6 +182,13 @@ export const makeSettingsMenu = (
               onChange={makeOnSettingsChange('showCollapseButtonInColumnsHeader')}>
               <Trans id="settings_show_collapse_button_in_columns_header" />
             </BooleanSettingsRow>
+            <BooleanSettingsRow
+              alignToTheLeft
+              settingsKey="showRemoveButtonInColumnsHeader"
+              initialValue={settings.showRemoveButtonInColumnsHeader}
+              onChange={makeOnSettingsChange('showRemoveButtonInColumnsHeader')}>
+              <Trans id="settings_show_delete_button_in_columns_header" />
+            </BooleanSettingsRow>
           </Fragment>
         );
       },

@@ -1,5 +1,7 @@
 import './addColumnButtons.css';
 
+import {compact} from 'lodash';
+
 import {isHTMLElement} from '../helpers/domHelpers';
 import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
 import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
@@ -10,27 +12,53 @@ export const maybeAddColumnsButtons = makeBTDModule(({TD, jq, settings}) => {
     window.localStorage.setItem('btd_collapsed_columns', JSON.stringify({}));
   }
 
-  if (!settings.showClearButtonInColumnsHeader && !settings.showCollapseButtonInColumnsHeader) {
+  if (
+    !settings.showClearButtonInColumnsHeader &&
+    !settings.showCollapseButtonInColumnsHeader &&
+    !settings.showRemoveButtonInColumnsHeader
+  ) {
     return;
   }
 
   modifyMustacheTemplate(TD, 'column/column_header.mustache', (string) => {
     const marker = '{{/withMarkAllRead}} {{^isTemporary}}';
-    return string.replace(
-      marker,
-      marker +
-        ((settings.showClearButtonInColumnsHeader &&
-          `<a class="js-action-header-button column-header-link btd-clear-column-link" href="#" data-action="clear"><i class="icon icon-clear-timeline"></i></a>`) ||
-          '') +
-        ((settings.showCollapseButtonInColumnsHeader &&
-          `<a class="js-action-header-button column-header-link btd-toggle-collapse-column-link" href="#" data-action="toggle-collapse-column">
-        <i class="icon icon-minus"></i>
-      </a>`) ||
-          '')
-    );
+    const {
+      showClearButtonInColumnsHeader: showClear,
+      showCollapseButtonInColumnsHeader: showCollapse,
+      showRemoveButtonInColumnsHeader: showRemove,
+    } = settings;
+
+    const additionalMarkup = compact([
+      showClear &&
+        `<a class="js-action-header-button column-header-link btd-clear-column-link" href="#" data-action="clear"><i class="icon icon-clear-timeline"></i></a>`,
+      showCollapse &&
+        `<a class="js-action-header-button column-header-link btd-toggle-collapse-column-link" href="#" data-action="toggle-collapse-column"><i class="icon icon-minus"></i></a>`,
+      showRemove &&
+        `<a class="js-action-header-button column-header-link btd-remove-column-link" href="#" data-action="remove"><i class="icon icon-close"></i></a>`,
+    ]).join('');
+
+    return string.replace(marker, marker + additionalMarkup);
   });
 
   overrideColumnPrototype(TD, jq);
+
+  jq(document).on('mousedown', '.btd-remove-column-link', (ev) => {
+    ev.preventDefault();
+
+    const element = ev.target;
+
+    if (!isHTMLElement(element)) {
+      return;
+    }
+
+    const thisColumn = element.closest('[data-column]');
+    const columnKey = thisColumn?.getAttribute('data-column');
+    if (!columnKey) {
+      return;
+    }
+
+    TD.controller.columnManager.deleteColumn(columnKey);
+  });
 
   jq(document).on('mousedown', '.btd-clear-column-link', (ev) => {
     ev.preventDefault();

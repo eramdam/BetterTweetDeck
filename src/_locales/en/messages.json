@@ -202,5 +202,8 @@
   },
   "settings_use_original_aspect_ratio_images": {
     "message": "Display single images with their original aspect ratio (applies only to Medium and\n              Large sizes)"
+  },
+  "settings_show_delete_button_in_columns_header": {
+    "message": "Show \"Delete\" button in columns' header"
   }
 }
