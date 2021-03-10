@@ -26,7 +26,7 @@ export const renderMediaAndQuotedTweets = makeBTDModule(({TD}) => {
       .replace(`{{>status/tweet_media_wrapper}}`, '')
       .replace(
         `<div class="js-card-container"></div>  {{#quotedTweet}}`,
-        `{{>status/tweet_media_wrapper}}  {{#quotedTweet}}`
+        `<div class="js-card-container"></div> {{>status/tweet_media_wrapper}} {{#quotedTweet}}`
       );
   });
 
