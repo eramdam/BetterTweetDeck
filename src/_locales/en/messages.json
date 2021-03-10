@@ -29,7 +29,7 @@
   "settings_reflect_new_tweets_and_dms_in_the_tabs_title": {
     "message": "Reflect new tweets and DMs in the tab's title"
   },
-  "settings_switch_to_light_theme_when_os_is_in_light_mode": {
+  "settings_auto_switch_light_theme": {
     "message": "Switch to light theme when OS is in light mode"
   },
   "settings_scrollbar_default": {
@@ -44,7 +44,7 @@
   "settings_style_of_scrollbars": {
     "message": "Style of scrollbars"
   },
-  "settings_show_and_quot_clear_and_quot_button_in_columns_and_apos_header": {
+  "settings_show_clear_button_column": {
     "message": "Show \"Clear\" button in columns' header"
   },
   "settings_show_collapse_button_in_columns_header": {
@@ -97,9 +97,6 @@
   },
   "settings_theme": {
     "message": "Theme"
-  },
-  "settings_columns": {
-    "message": "Columns"
   },
   "settings_tweets_display": {
     "message": "Tweets display"
@@ -192,7 +189,7 @@
     "message": "Custom CSS"
   },
   "settings_custom_css_warning": {
-    "message": "Pasting unknown code in this editor can lead to weird issues if you don't know what\n        you are doing"
+    "message": "Pasting unknown code in this editor can lead to weird issues if you don't know what you are doing"
   },
   "settings_avatar_shape": {
     "message": "Avatar shape"
@@ -201,9 +198,12 @@
     "message": "Save"
   },
   "settings_use_original_aspect_ratio_images": {
-    "message": "Display single images with their original aspect ratio (applies only to Medium and\n              Large sizes)"
+    "message": "Display single images with their original aspect ratio (applies only to Medium and Large sizes)"
   },
   "settings_show_delete_button_in_columns_header": {
     "message": "Show \"Delete\" button in columns' header"
+  },
+  "settings_section_settings": {
+    "message": "Settings"
   }
 }

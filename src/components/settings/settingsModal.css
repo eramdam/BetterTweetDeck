@@ -12,12 +12,19 @@ html {
   box-sizing: border-box;
 }
 
-:root {
-  --settings-modal-background: #101a27;
-  --settings-modal-menu-item-selected: #2e465c;
-  --settings-modal-menu-item-hover: #293e52;
+:root,
+.btd-settings-sidebar {
+  --settings-modal-background: #151f2a;
+  --settings-modal-menu-item-selected: white;
+  --settings-modal-menu-item-hover: white;
+  --settings-modal-menu-item-hover-fg: white;
+  --settings-modal-menu-item: rgba(255, 255, 255, 0.7);
   --settings-modal-text: white;
+  --settings-modal-muted-text: #8899a6;
   --settings-modal-separator: rgb(0, 0, 0);
+}
+
+:root {
   --twitter-blue: #1da1f2;
   --twitter-darkblue: #005fd1;
   --twitter-input-bg: #0d1118;
@@ -25,12 +32,19 @@ html {
   --twitter-input-border-color: #14171a;
 }
 
-.btd-settings-modal.light {
-  --twitter-input-bg: white;
-  --twitter-input-placeholder: #8899a6;
-  --twitter-input-border-color: #e1e8ed;
+@media screen and (prefers-color-scheme: light) {
+  :root {
+    --settings-modal-background: #ffffff;
+    --settings-modal-menu-item-selected: #1da1f2;
+    --settings-modal-menu-item-hover: #1170aa;
+    --settings-modal-menu-item: #14171a;
+    --settings-modal-text: #14171a;
+    --settings-modal-separator: #ccd6dd;
+    --twitter-input-bg: white;
+    --twitter-input-placeholder: #8899a6;
+    --twitter-input-border-color: #e1e8ed;
+  }
 }
-
 .btd-settings-modal {
   color: var(--settings-modal-text);
   width: 100%;
@@ -38,9 +52,9 @@ html {
   display: grid;
   height: 100%;
   grid-template-areas:
-    'header   header'
+    'sidebar   header'
     'sidebar  content'
-    'footer   footer';
+    'sidebar   footer';
   grid-template-rows: auto 1fr auto;
   grid-template-columns: auto 1fr;
   border-radius: 0;
@@ -118,11 +132,35 @@ html {
 
 .btd-settings-header {
   grid-area: header;
-  padding: 20px;
+  padding: 15px;
   font-size: 20px;
-  text-align: center;
-
+  text-align: left;
   border-bottom: 1px solid var(--settings-modal-separator);
+
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: auto;
+  grid-column-gap: 10px;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.btd-settings-header .icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: -6px;
+}
+
+.btd-settings-header img {
+  height: 32px;
+  width: 32px;
+}
+
+.btd-settings-header .version {
+  color: var(--settings-modal-muted-text);
+  font-size: 14px;
 }
 
 /**
@@ -131,9 +169,16 @@ html {
 
 .btd-settings-sidebar {
   grid-area: sidebar;
-  min-width: 200px;
-  max-width: 300px;
+  width: 200px;
   border-right: 1px solid var(--settings-modal-separator);
+  background-color: var(--settings-modal-background);
+  color: var(--settings-modal-text);
+}
+
+.btd-settings-sidebar .section-title {
+  color: var(--settings-modal-muted-text);
+  font-size: 20px;
+  padding: 16px;
 }
 
 .btd-settings-sidebar ul {
@@ -149,23 +194,23 @@ html {
 
 .btd-settings-sidebar ul li {
   user-select: none;
-  display: grid;
-  grid-template-areas: 'icon text';
-  grid-template-columns: auto 1fr;
-  column-gap: 10px;
-  padding: 15px 10px;
+  padding: 10px 16px;
   cursor: pointer;
+  font-weight: bold;
+  color: var(--settings-modal-menu-item);
 
   &.active {
-    background-color: var(--settings-modal-menu-item-selected);
+    color: var(--settings-modal-menu-item-selected);
+    box-shadow: inset 4px 0 0 currentColor;
   }
 
   &:hover {
-    background-color: var(--settings-modal-menu-item-hover);
+    color: var(--settings-modal-menu-item-hover);
+    box-shadow: inset 4px 0 0 currentColor;
   }
 }
 
-.btd-settings-sidebar ul li .icon {
+/* .btd-settings-sidebar ul li .icon {
   grid-area: icon;
   width: 20px;
   height: 20px;
@@ -180,4 +225,4 @@ html {
 
 .btd-settings-sidebar ul li .text {
   grid-area: text;
-}
+} */

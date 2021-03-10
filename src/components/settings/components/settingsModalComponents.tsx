@@ -3,7 +3,7 @@ import React, {PropsWithChildren} from 'react';
 type defaultProps = PropsWithChildren<{}>;
 
 export function SettingsModalWrapper(props: defaultProps) {
-  return <div className="btd-settings-modal">{props.children}</div>;
+  return <div className="btd-settings-modal light">{props.children}</div>;
 }
 export function SettingsHeader(props: defaultProps) {
   return <div className="btd-settings-header">{props.children}</div>;

@@ -134,7 +134,7 @@ export const RBetterTweetDeckSettings = t.type({
   ),
 
   /** Change tab title when stuff happens in TweetDeck */
-  updateTabTitleOnActivity: withDefault(t.boolean, false),
+  updateTabTitleOnActivity: withDefault(t.boolean, true),
 
   // I like this one...but maybe i'm the only one who cares?
   // showLikeRTDogears: withDefault(t.boolean, false),

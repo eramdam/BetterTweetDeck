@@ -1,5 +1,5 @@
 import {css} from '@emotion/css';
-import React from 'react';
+import React, {ReactNode} from 'react';
 
 import {AbstractTweetDeckSettings} from '../../../types/abstractTweetDeckSettings';
 import {BTDSettings} from '../../../types/betterTweetDeck/btdSettingsTypes';
@@ -17,7 +17,7 @@ export interface SettingsCheckboxSelectProps {
   disabled?: boolean;
   fields: ReadonlyArray<{
     key: SettingKey;
-    label: string;
+    label: ReactNode;
     initialValue: boolean;
   }>;
 }
