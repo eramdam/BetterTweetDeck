@@ -12,6 +12,7 @@ import {changeScrollbarStyling} from './features/changeScrollbars';
 import {maybeSetupCustomTimestampFormat} from './features/changeTimestampFormat';
 import {changeTweetActionsStyling} from './features/changeTweetActions';
 import {maybeCollapseDms} from './features/collapseDms';
+import {injectCustomCss} from './features/customCss';
 import {maybeFreezeGifsInProfilePicture} from './features/freezeGifsProfilePictures';
 import {setupGifModals} from './features/gifModals';
 import {maybeHideColumnIcons} from './features/hideColumnIcons';
@@ -83,6 +84,7 @@ const jq: JQueryStatic | undefined =
     useOriginalAspectRatio(settings, payload);
   });
 
+  injectCustomCss(btdModuleOptions);
   renderMediaAndQuotedTweets(btdModuleOptions);
   markInjectScriptAsReady();
   maybeRenderCardsInColumns({
