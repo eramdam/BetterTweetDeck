@@ -124,10 +124,6 @@ html.dark .stream-item {
   display: none;
 }
 
-#settings-modal {
-  z-index: 9999999;
-}
-
 .app-navigator > a.js-header-action:not(.is-hidden) {
   display: flex !important;
   flex-direction: row !important;
@@ -138,6 +134,9 @@ html.dark .stream-item {
   padding-top: 0 !important;
 }
 
+/** 
+ * Bigger emojis
+ */
 p > .emoji {
   width: 1.3em !important;
   height: 1.3em !important;
@@ -145,6 +144,7 @@ p > .emoji {
   vertical-align: text-bottom !important;
 }
 
+/** Padding above cards in columns */
 p.js-tweet-text + .js-card-container:not(:empty) {
   padding-top: 10px;
 }
