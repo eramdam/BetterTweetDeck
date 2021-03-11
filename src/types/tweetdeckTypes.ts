@@ -405,7 +405,7 @@ interface ColumnChirp {
   htmlText: string;
   apiBounds: APIBounds;
   sortIndex: HighWaterMarkChirpSortIndex;
-  chirpType: string;
+  chirpType: ChirpBaseTypeEnum;
   _hasAnimatedGif: boolean;
   messages?: TweetDeckChirp[];
   quotedTweet?: TweetDeckChirp;
@@ -497,13 +497,51 @@ interface TwitterUrl {
   indices: number[];
 }
 
+export enum TwitterActionEnum {
+  FAVORITE = 'favorite',
+  FAVORITED_MEDIA = 'favorited_media_tagged',
+  FAVORITED_MENTION = 'favorited_mention',
+  FAVORITED_RETWEET = 'favorited_retweet',
+  FOLLOW = 'follow',
+  LIST_CREATED = 'list_created',
+  LIST_DESTROYED = 'list_destroyed',
+  LIST_MEMBER_ADDED = 'list_member_added',
+  LIST_MEMBER_REMOVED = 'list_member_removed',
+  MENTION = 'mention',
+  QUOTE = 'quote',
+  QUOTED_TWEET = 'quoted_tweet',
+  REPLY = 'reply',
+  RETWEET = 'retweet',
+  RETWEETED_MEDIA = 'retweeted_media_tagged',
+  RETWEETED_MENTION = 'retweeted_mention',
+  RETWEETED_RETWEET = 'retweeted_retweet',
+  UNFAVORITE = 'unfavorite',
+  UNFOLLOW = 'unfollow',
+}
+
+export enum ChirpBaseTypeEnum {
+  CONVERSATION_JOIN = 'conversation_participants_join',
+  CONVERSATION_NAME_UPDATE = 'conversation_name_update',
+  CONVERSATION_PARTICIPANTS_FAILED = 'conversation_participants_failed',
+  CONVERSATION_PARTICIPANTS_JOIN = 'conversation_participants_join',
+  DATAMINR_ALERT = 'dataminr_alert',
+  GAP = 'gap',
+  MESSAGE_THREAD = 'message_thread',
+  MESSAGE = 'message',
+  SCHEDULED_GROUP = 'scheduled_group',
+  SCHEDULED_STATUS = 'scheduled_status',
+  SCHEDULED_TWEET_GROUP = 'scheduled_tweet_group',
+  SCHEDULED_TWEET = 'scheduled_tweet',
+  TWEET = 'tweet',
+}
+
 export interface TweetDeckChirp {
   _hasAnimatedGif: boolean;
   _media: any[];
   account: ChirpAccount;
   creatorAccount: ChirpAccount;
-  action?: string;
-  chirpType?: string;
+  action?: TwitterActionEnum;
+  chirpType?: ChirpBaseTypeEnum;
   conversationMuted: boolean;
   created: string;
   entities: TweetEntities;

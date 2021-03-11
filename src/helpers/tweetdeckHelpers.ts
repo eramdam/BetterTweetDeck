@@ -122,7 +122,11 @@ export const getChirpFromElement = (
   }
 
   return {
-    chirp,
+    chirp: {
+      ...chirp,
+      chirpType: chirp.chirpType,
+      action: chirp.action,
+    },
     extra: {
       columnKey: colKey,
     },
