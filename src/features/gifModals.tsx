@@ -45,10 +45,11 @@ export function setupGifModals(TD: TweetDeckObject, settings: BTDSettings) {
     }
 
     const videoUrl = gifEntity.video_info.variants[0].url;
+    const posterUrl = gifEntity.media_url_https;
 
     e.stopPropagation();
     e.preventDefault();
-    const videoEl = <video autoPlay loop src={videoUrl}></video>;
+    const videoEl = <video poster={posterUrl} autoPlay loop src={videoUrl}></video>;
     const videoWrapper = (
       <>
         {videoEl}

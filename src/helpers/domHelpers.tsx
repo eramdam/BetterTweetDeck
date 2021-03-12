@@ -1,18 +1,18 @@
 import React from 'dom-chef';
 import {CSSProperties} from 'react';
 
-import {hasProperty, insertDomChefElement} from './typeHelpers';
+import {insertDomChefElement} from './typeHelpers';
 
 export function isHTMLElement(
   blob: EventTarget | Element | Node | unknown | any | null
 ): blob is HTMLElement {
-  return hasProperty(blob, 'closest');
+  return blob instanceof HTMLElement;
 }
 
 export function isHtmlVideoElement(
   blob: EventTarget | Element | Node | unknown | any | null
 ): blob is HTMLVideoElement {
-  return hasProperty(blob, 'videoWidth');
+  return blob instanceof HTMLVideoElement;
 }
 
 export const getRandomString = (length = 32) => {

@@ -22,15 +22,24 @@
  * Override TweetDeck's modal styles.
  */
 
+:root {
+  --btd-overlay-background: rgba(0, 0, 0, 0.8);
+  --btd-original-overlay-background: rgba(0, 0, 0, 0.8);
+}
+
 html .btd-loaded .overlay,
 html .btd-loaded .ovl {
-  background: rgba(0, 0, 0, 0.8);
+  background-color: var(--btd-overlay-background);
 }
 
 .js-modal-panel.mdl.s-full.med-fullpanel {
   background: transparent;
   pointer-events: none;
   box-shadow: none;
+}
+
+.js-mediatable .js-modal-panel {
+  max-width: 80vw !important;
 }
 
 .js-mediatable .js-modal-panel .js-mediaembed,
@@ -73,12 +82,32 @@ html .btd-loaded .ovl {
   transform: translate(-16%, -20%);
 }
 
-.js-mediatable .js-modal-panel .med-tweet {
+.js-mediatable .js-modal-panel .med-tweet .js-tweet > :not(.tweet-footer),
+.js-mediatable .js-modal-panel .med-embeditem .med-tray .media-preview-container ~ a {
   display: none;
 }
 
+.js-mediatable .js-modal-panel .med-tweet .js-tweet .tweet-footer .tweet-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.js-mediatable .js-modal-panel .med-tweet .js-tweet .tweet-footer .tweet-actions a {
+  color: white !important;
+}
+
+.js-mediatable .js-modal-panel .med-tweet .js-tweet .tweet-footer .tweet-actions .txt-size--12 {
+  font-size: 13px !important;
+  margin-left: 12px !important;
+}
+
+.js-mediatable .js-modal-panel .med-tweet .js-tweet .tweet-footer .tweet-actions .icon {
+  font-size: 24px !important;
+}
+
 .js-mediatable .js-modal-panel .med-embeditem {
-  bottom: 50px;
+  bottom: 50px !important;
+  top: -8px !important;
 }
 
 /** Fix the default verified badge alignment */
@@ -147,4 +176,19 @@ p > .emoji {
 /** Padding above cards in columns */
 p.js-tweet-text + .js-card-container:not(:empty) {
   padding-top: 10px;
+}
+
+foo {
+  color: hsl(60, 0.42553191489361547, 53.92156862745098);
+  color: hsl(30, 13.235294117647053, 26.666666666666668);
+  color: hsl(300, 9.677419354838712, 18.23529411764706);
+  color: hsl(0, 0, 0.39215686274509803);
+  color: hsl(0, 0, 0.39215686274509803);
+  color: hsl(0, 0, 16.470588235294116);
+  color: hsl(60, 16.363636363636363, 10.784313725490197);
+  color: hsl(240, 9.677419354838712, 18.23529411764706);
+  color: hsl(0, 0, 0.39215686274509803);
+  color: hsl(0, 0, 0.39215686274509803);
+  color: hsl(180, 16.363636363636363, 10.784313725490197);
+  color: hsl(0, 16.363636363636363, 10.784313725490197);
 }

@@ -7,6 +7,7 @@ import {setupAME} from './features/advancedMuteEngine';
 import {allowImagePaste} from './features/allowImagePaste';
 import {setupThemeAutoSwitch} from './features/autoSwitchThemes';
 import {putBadgesOnTopOfAvatars} from './features/badgesOnTopOfAvatars';
+import {useBlurhashForOverlayBackground} from './features/blurhashOverlay';
 import {changeAvatarsShape} from './features/changeAvatarShape';
 import {changeScrollbarStyling} from './features/changeScrollbars';
 import {maybeSetupCustomTimestampFormat} from './features/changeTimestampFormat';
@@ -14,11 +15,9 @@ import {changeTweetActionsStyling} from './features/changeTweetActions';
 import {maybeCollapseDms} from './features/collapseDms';
 import {injectCustomCss} from './features/customCss';
 import {maybeFreezeGifsInProfilePicture} from './features/freezeGifsProfilePictures';
-import {setupGifModals} from './features/gifModals';
 import {maybeHideColumnIcons} from './features/hideColumnIcons';
 import {maybeRemoveRedirection} from './features/removeRedirection';
 import {maybeRenderCardsInColumns} from './features/renderCardsInColumns';
-import {renderMediaAndQuotedTweets} from './features/renderMediaAndQuotedTweets';
 import {maybeReplaceHeartsByStars} from './features/replaceHeartsByStars';
 import {maybeRevertToLegacyReplies} from './features/revertToLegacyReplies';
 import {maybeMakeComposerButtonsSmaller} from './features/smallerComposerButtons';
@@ -86,7 +85,6 @@ const jq: JQueryStatic | undefined =
   });
 
   injectCustomCss(btdModuleOptions);
-  renderMediaAndQuotedTweets(btdModuleOptions);
   markInjectScriptAsReady();
   maybeRenderCardsInColumns(btdModuleOptions);
   updateTwemojiRegex(mR);
@@ -109,12 +107,13 @@ const jq: JQueryStatic | undefined =
   setupAME(btdModuleOptions);
   maybeReplaceHeartsByStars(btdModuleOptions);
   tweakTweetDeckTheme(btdModuleOptions);
-  setupGifModals(btdModuleOptions.TD, btdModuleOptions.settings);
+  // setupGifModals(btdModuleOptions.TD, btdModuleOptions.settings);
 
   // Embed custom mustaches.
   TD.mustaches['btd/download_filename_format.mustache'] = settings.downloadFilenameFormat;
 
   jq(document).one('dataColumnsLoaded', () => {
+    useBlurhashForOverlayBackground(btdModuleOptions);
     document.body.classList.add('btd-loaded');
     maybeSetupCustomTimestampFormat(btdModuleOptions);
     sendInternalBTDMessage({
