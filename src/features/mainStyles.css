@@ -41,7 +41,7 @@ html .btd-loaded .ovl {
 
 .mdl-media-prev,
 .mdl-media-next {
-  background: transparent;
+  background: transparent !important;
   z-index: 10;
 
   & .icon::after {
