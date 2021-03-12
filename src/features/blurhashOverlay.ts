@@ -41,7 +41,7 @@ export const useBlurhashForOverlayBackground = makeBTDModule((options) => {
         if (!color) {
           document.body.style.setProperty(
             '--btd-overlay-background',
-            '--btd-original-overlay-background'
+            'var(--btd-original-overlay-background)'
           );
           return;
         }
@@ -54,7 +54,7 @@ export const useBlurhashForOverlayBackground = makeBTDModule((options) => {
         console.log('resetting overlay');
         document.body.style.setProperty(
           '--btd-overlay-background',
-          '--btd-original-overlay-background'
+          'var(--btd-original-overlay-background)'
         );
       }
       return;
