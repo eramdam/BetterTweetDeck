@@ -4,7 +4,8 @@ import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
 import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 import {listenToRedraftTweetEvent} from './redraftTweet';
 
-export const maybeAddTweetMenuItems = makeBTDModule(({settings, TD, jq}) => {
+export const maybeAddTweetMenuItems = makeBTDModule((options) => {
+  const {settings, TD, jq} = options;
   const menuItems = settings.tweetMenuItems;
   if (!menuItems) {
     return;
@@ -53,5 +54,5 @@ export const maybeAddTweetMenuItems = makeBTDModule(({settings, TD, jq}) => {
     TD.controller.filterManager.addFilter('source', source);
   });
 
-  listenToRedraftTweetEvent({settings, TD, jq});
+  listenToRedraftTweetEvent(options);
 });
