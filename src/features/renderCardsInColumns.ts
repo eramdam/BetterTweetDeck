@@ -1,17 +1,12 @@
 import {Dictionary} from 'lodash';
-import moduleraid from 'moduleraid';
 
 import {createSelectorForChirp, getChirpFromKey} from '../helpers/tweetdeckHelpers';
 import {hasProperty} from '../helpers/typeHelpers';
 import {onVisibleChirpAdded} from '../inject/chirpHandler';
-import {BTDModuleOptions} from '../types/betterTweetDeck/btdCommonTypes';
+import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 import {TweetDeckChirp, TweetDeckColumn} from '../types/tweetdeckTypes';
 
-export function maybeRenderCardsInColumns(
-  options: BTDModuleOptions & {
-    mR: moduleraid;
-  }
-) {
+export const maybeRenderCardsInColumns = makeBTDModule((options) => {
   const {mR, TD, settings, jq} = options;
 
   if (!settings.showCardsInsideColumns) {
@@ -88,4 +83,4 @@ export function maybeRenderCardsInColumns(
       scribeNamespace,
     });
   });
-}
+});

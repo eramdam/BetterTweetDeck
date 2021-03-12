@@ -69,6 +69,7 @@ const jq: JQueryStatic | undefined =
     TD,
     jq,
     settings,
+    mR,
   };
 
   maybeSetupDebugFunctions(jq, mR);
@@ -87,10 +88,7 @@ const jq: JQueryStatic | undefined =
   injectCustomCss(btdModuleOptions);
   renderMediaAndQuotedTweets(btdModuleOptions);
   markInjectScriptAsReady();
-  maybeRenderCardsInColumns({
-    ...btdModuleOptions,
-    mR,
-  });
+  maybeRenderCardsInColumns(btdModuleOptions);
   updateTwemojiRegex(mR);
   setupMediaSizeMonitor(btdModuleOptions);
   maybeRemoveRedirection(btdModuleOptions);
