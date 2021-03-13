@@ -1,11 +1,17 @@
+import _ from 'lodash';
 import {DateTime} from 'luxon';
+import Highlight, {defaultProps} from 'prism-react-renderer';
 import React, {FC, useState} from 'react';
 
 import {isHTMLElement} from '../../../helpers/domHelpers';
 import {HandlerOf} from '../../../helpers/typeHelpers';
 import {getExtensionVersion} from '../../../helpers/webExtensionHelpers';
 import {validateSettings} from '../../../services/backgroundSettings';
-import {BTDSettings} from '../../../types/betterTweetDeck/btdSettingsTypes';
+import {
+  BTDSettings,
+  RBetterTweetDeckSettings,
+} from '../../../types/betterTweetDeck/btdSettingsTypes';
+import {getTransString, Trans} from '../../trans';
 import {settingsRegularText} from '../settingsStyles';
 
 export const ExportSettings: FC<{settings: BTDSettings; onNewSettings: HandlerOf<BTDSettings>}> = (
@@ -23,19 +29,29 @@ export const ExportSettings: FC<{settings: BTDSettings; onNewSettings: HandlerOf
   )}.json`;
 
   const [errorString, setErrorString] = useState('');
+  const [successString, setSuccessString] = useState('');
+  const [importedSettings, setImportedSettings] = useState({});
 
   return (
     <div className={settingsRegularText}>
       <div>
-        <h3>Export settings</h3>
-        <p>Export your settings by clicking the button below</p>
+        <h3>
+          <Trans id="settings_export_settings" />
+        </h3>
+        <p>
+          <Trans id="settings_export_settings_copy" />
+        </p>
         <a download={downloadName} href={href} className="btd-settings-button secondary">
-          Download settings
+          <Trans id="settings_download_settings_button" />
         </a>
       </div>
       <div>
-        <h3>Import settings</h3>
-        <p>Import your settings from a JSON file</p>
+        <h3>
+          <Trans id="settings_import_settings" />
+        </h3>
+        <p>
+          <Trans id="settings_import_settings_copy" />
+        </p>
         <input
           type="file"
           accept=".json"
@@ -49,25 +65,103 @@ export const ExportSettings: FC<{settings: BTDSettings; onNewSettings: HandlerOf
             reader.onload = () => {
               try {
                 const resultString = String(reader.result);
+
                 const resultObject = JSON.parse(resultString || '');
-                const validatedSettings = validateSettings(resultObject);
-                onNewSettings(validatedSettings);
+                const fileKeys = _(resultObject)
+                  .mapValues((v) => true)
+                  .toPairs()
+                  .sortBy(0)
+                  .fromPairs()
+                  .value();
+                const settingsKeys = _(RBetterTweetDeckSettings.props)
+                  .mapValues((v) => true)
+                  .toPairs()
+                  .sortBy(0)
+                  .fromPairs()
+                  .value();
+
+                const hasRightKeys = _.isMatch(fileKeys, settingsKeys);
+
+                if (!hasRightKeys) {
+                  throw new Error(getTransString('settings_import_json_wrong_keys'));
+                }
+
+                const finalSettings = validateSettings(resultObject);
+
+                onNewSettings(finalSettings);
+                setImportedSettings(finalSettings);
                 setErrorString('');
+                const successString = getTransString('settings_import_success');
+                setSuccessString(successString);
               } catch (e) {
+                setSuccessString('');
+                setImportedSettings({});
                 setErrorString(String(e));
               }
             };
+
             reader.readAsText(target.files[0]);
           }}
         />
         <div>
           <pre
             style={{
-              paddingTop: 10,
+              paddingTop: 30,
               whiteSpace: 'pre-wrap',
+              color: 'red',
             }}>
             {errorString}
           </pre>
+          <pre
+            style={{
+              paddingTop: 30,
+              whiteSpace: 'pre-wrap',
+              color: 'green',
+            }}>
+            {successString}
+          </pre>
+          {!_.isEmpty(importedSettings) && (
+            <details
+              style={{
+                margin: '20px 0',
+              }}>
+              <summary
+                style={{
+                  cursor: 'pointer',
+                }}>
+                <Trans id="settings_imported_settings_summary" />
+              </summary>
+              <Highlight
+                {...defaultProps}
+                language="json"
+                code={JSON.stringify(importedSettings, null, 2)}>
+                {({className, style, tokens, getLineProps, getTokenProps}) => (
+                  <pre
+                    className={className}
+                    style={{
+                      ...style,
+                      padding: 20,
+                      whiteSpace: 'pre-wrap',
+                      borderRadius: 12,
+                      margin: '12px 0',
+                    }}>
+                    {tokens.map((line, i) => (
+                      <div
+                        {...getLineProps({line, key: i})}
+                        key={JSON.stringify(line)}
+                        style={{
+                          margin: '2px 0',
+                        }}>
+                        {line.map((token, key) => (
+                          <span key={key} {...getTokenProps({token, key})} />
+                        ))}
+                      </div>
+                    ))}
+                  </pre>
+                )}
+              </Highlight>
+            </details>
+          )}
         </div>
       </div>
     </div>

@@ -84,10 +84,16 @@ export const makeSettingsMenu = (
           render: () => (
             <div className={settingsRegularText}>
               <div>
-                <h3>Browser and extension informations</h3>
+                <h3>
+                  <Trans id="settings_browser_and_extension_informations" />
+                </h3>
                 <ul>
-                  <li>Version: {getExtensionVersion()}</li>
-                  <li>User agent: {navigator.userAgent}</li>
+                  <li>
+                    <Trans id="settings_version" /> {getExtensionVersion()}
+                  </li>
+                  <li>
+                    <Trans id="settings_user_agent" /> {navigator.userAgent}
+                  </li>
                 </ul>
               </div>
             </div>

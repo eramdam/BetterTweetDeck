@@ -59,6 +59,7 @@ export function maybeAlignToTheLeft(alignToTheLeft?: boolean) {
 
 export const settingsRegularText = css`
   margin: 40px;
+  overflow: hidden;
 
   display: grid;
   grid-auto-flow: row;

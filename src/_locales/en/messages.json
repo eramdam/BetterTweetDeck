@@ -198,7 +198,7 @@
     "message": "Save"
   },
   "settings_use_original_aspect_ratio_images": {
-    "message": "Display single images with their original aspect ratio (applies only to Medium and Large sizes)"
+    "message": "Display single images with their original aspect ratio (only for Medium and Large sizes)"
   },
   "settings_show_delete_button_in_columns_header": {
     "message": "Show \"Delete\" button in columns' header"
@@ -217,5 +217,38 @@
   },
   "settings_display_modern_fullscreen_images": {
     "message": "Display fullscreen images à la Twitter Web"
+  },
+  "settings_browser_and_extension_informations": {
+    "message": "Browser and extension informations"
+  },
+  "settings_version": {
+    "message": "Version:"
+  },
+  "settings_user_agent": {
+    "message": "User agent:"
+  },
+  "settings_export_settings": {
+    "message": "Export settings"
+  },
+  "settings_export_settings_copy": {
+    "message": "Export your settings by clicking the button below"
+  },
+  "settings_download_settings_button": {
+    "message": "Download settings"
+  },
+  "settings_import_settings": {
+    "message": "Import settings"
+  },
+  "settings_import_settings_copy": {
+    "message": "Import your settings from a JSON file"
+  },
+  "settings_import_json_wrong_keys": {
+    "message": "Your file does not match the format of Better TweetDeck's settings"
+  },
+  "settings_import_success": {
+    "message": "Your settings have correctly been imported, don't forget to hit the Save button!"
+  },
+  "settings_imported_settings_summary": {
+    "message": "Click here to view imported settings"
   }
 }

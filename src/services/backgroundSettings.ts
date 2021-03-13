@@ -1,5 +1,6 @@
 import {fold, isRight} from 'fp-ts/lib/Either';
 import {pipe} from 'fp-ts/lib/function';
+import * as t from 'io-ts';
 import reporter from 'io-ts-reporters';
 import _ from 'lodash';
 
@@ -12,7 +13,7 @@ const defaultSettings = pipe(
 );
 
 export function validateSettings(src: any) {
-  const decoded = RBetterTweetDeckSettings.decode(src);
+  const decoded = t.exact(RBetterTweetDeckSettings).decode(src);
 
   if (!isRight(decoded)) {
     const errors: string[] = [];
