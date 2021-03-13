@@ -1,10 +1,7 @@
 import ReactDOM from 'react-dom';
 import {Key} from 'ts-key-enum';
 
-import {
-  BTDModalUuidAttribute,
-  getFullscreenNodeRoot,
-} from '../types/betterTweetDeck/btdCommonTypes';
+import {getFullscreenNodeRoot} from '../types/betterTweetDeck/btdCommonTypes';
 import {emptyNode, isHTMLElement, maybeDoOnNode, setStylesOnNode} from './domHelpers';
 import {Handler, insertDomChefElement} from './typeHelpers';
 
@@ -57,7 +54,7 @@ function maybeCloseFullscreenModalOnClick(e: MouseEvent, beforeClose?: Handler) 
   closeFullscreenModal();
 }
 
-export function openFullscreenModal(content: JSX.Element, btdUuid?: string) {
+export function openFullscreenModal(content: JSX.Element) {
   const fullscreenNode = getFullscreenNodeRoot();
 
   if (!fullscreenNode) {
@@ -65,9 +62,7 @@ export function openFullscreenModal(content: JSX.Element, btdUuid?: string) {
   }
 
   fullscreenNode.classList.add('open');
-  if (btdUuid) {
-    fullscreenNode.setAttribute(BTDModalUuidAttribute, btdUuid);
-  }
+
   fullscreenNode.addEventListener('click', maybeCloseFullscreenModalOnClick);
   document.addEventListener('keydown', onFullscreenKeyDown, true);
 

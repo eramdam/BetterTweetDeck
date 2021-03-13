@@ -3,96 +3,57 @@ import './gifModals.css';
 import React from 'dom-chef';
 import {saveAs} from 'file-saver';
 import * as Hogan from 'hogan.js';
-import qs from 'query-string';
 
 import {makeFullscreenModalWrapper} from '../components/fullscreenModalWrapper';
-import {dataURItoBlob, isHTMLElement, isHtmlVideoElement} from '../helpers/domHelpers';
+import {maybeSetOverlayColorForMediaUrlInChirp} from '../helpers/colorHelpers';
+import {dataURItoBlob, isHtmlVideoElement} from '../helpers/domHelpers';
 import {closeFullscreenModal, openFullscreenModal} from '../helpers/modalHelpers';
-import {getChirpFromElement, getFilenameDownloadData} from '../helpers/tweetdeckHelpers';
-import {BTDSettings} from '../types/betterTweetDeck/btdSettingsTypes';
-import {TweetDeckObject} from '../types/tweetdeckTypes';
+import {getChirpFromElement} from '../helpers/tweetdeckHelpers';
+import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 
-export function setupGifModals(TD: TweetDeckObject, settings: BTDSettings) {
+export const setupGifModals = makeBTDModule(({TD, settings, jq}) => {
   const filenameRenderer = Hogan.compile(settings.downloadFilenameFormat);
 
-  document.querySelector('.js-app')?.addEventListener('click', (e) => {
-    const target = isHTMLElement(e.target) && e.target;
+  jq(document).on('click', 'video.js-media-gif', (e) => {
+    const target = isHtmlVideoElement(e.target) && e.target;
 
     if (!target) {
       return;
     }
 
-    if (!target.matches('video')) {
+    if (!target.closest('[data-key]')) {
       return;
     }
 
-    const chirpNode = target.closest('[data-key]');
+    const chirpData = getChirpFromElement(TD, target);
 
-    if (!chirpNode) {
+    if (!chirpData) {
       return;
     }
 
-    const chirp = getChirpFromElement(TD, chirpNode)?.chirp;
-
-    if (!chirp) {
-      return;
-    }
+    const {chirp} = chirpData;
 
     const gifEntity = chirp.entities.media.find((m) => m.type === 'animated_gif');
-
+    console.log(gifEntity);
     if (!gifEntity) {
       return;
     }
 
     const videoUrl = gifEntity.video_info.variants[0].url;
-    const posterUrl = gifEntity.media_url_https;
 
     e.stopPropagation();
     e.preventDefault();
-    const videoEl = <video poster={posterUrl} autoPlay loop src={videoUrl}></video>;
-    const videoWrapper = (
-      <>
-        {videoEl}
-        <a
-          href="#"
-          style={{
-            marginTop: 10,
-          }}
-          onClick={() => {
-            const videoNode = videoEl as unknown;
-            if (!isHtmlVideoElement(videoNode)) {
-              return;
-            }
-
-            const gifShotOptions = {
-              video: [videoNode.src],
-              gifWidth: videoNode.videoWidth,
-              gifHeight: videoNode.videoHeight,
-              name: filenameRenderer.render(
-                getFilenameDownloadData(chirp, videoUrl.replace('mp4', 'gif'))
-              ),
-              numFrames: Math.floor(videoNode.duration / 0.1),
-              interval: 0.1,
-              sampleInterval: 10,
-            };
-            const iframeUrl = `https://better.tw/gif?${qs.stringify(gifShotOptions)}`;
-
-            const iframeElement = document.createElement('iframe');
-            iframeElement.src = iframeUrl;
-
-            document.body.appendChild(iframeElement);
-          }}>
-          Download as .GIF
-        </a>
-      </>
-    );
+    const videoEl = <video autoPlay loop src={videoUrl}></video>;
 
     const videoModal = makeFullscreenModalWrapper({
       onClose: closeFullscreenModal,
-      children: videoWrapper,
+      children: videoEl,
     });
 
-    openFullscreenModal(videoModal, chirp.id);
+    openFullscreenModal(videoModal);
+    if (settings.useModernFullscreenImage) {
+      maybeSetOverlayColorForMediaUrlInChirp(chirp, gifEntity.media_url_https);
+    }
   });
 
   window.addEventListener('message', onMessageEvent);
@@ -108,4 +69,39 @@ export function setupGifModals(TD: TweetDeckObject, settings: BTDSettings) {
       saveAs(blob, ev.data.name);
     }
   }
+});
+
+{
+  /* <a
+href="#"
+data-key={chirp.id}
+style={{
+  marginTop: 10,
+}}
+onClick={() => {
+  const videoNode = videoEl as unknown;
+  if (!isHtmlVideoElement(videoNode)) {
+    return;
+  }
+
+  const gifShotOptions = {
+    video: [videoNode.src],
+    gifWidth: videoNode.videoWidth,
+    gifHeight: videoNode.videoHeight,
+    name: filenameRenderer.render(
+      getFilenameDownloadData(chirp, videoUrl.replace('mp4', 'gif'))
+    ),
+    numFrames: Math.floor(videoNode.duration / 0.1),
+    interval: 0.1,
+    sampleInterval: 10,
+  };
+  const iframeUrl = `https://better.tw/gif?${qs.stringify(gifShotOptions)}`;
+
+  const iframeElement = document.createElement('iframe');
+  iframeElement.src = iframeUrl;
+
+  document.body.appendChild(iframeElement);
+}}>
+Download as .GIF
+</a> */
 }

@@ -2,7 +2,7 @@ import './modernOverlays.css';
 
 import _ from 'lodash';
 
-import {getBackgroundColorForMediaInChirp} from '../helpers/colorHelpers';
+import {maybeSetOverlayColorForMediaUrlInChirp} from '../helpers/colorHelpers';
 import {isHTMLElement} from '../helpers/domHelpers';
 import {buildURLWithSearchParams} from '../helpers/networkHelpers';
 import {getChirpFromKeyAlone} from '../helpers/tweetdeckHelpers';
@@ -14,10 +14,6 @@ export const useModernOverlays = makeBTDModule((options) => {
   if (!settings.useModernFullscreenImage) {
     return;
   }
-
-  const originalOverlayBackground = document.body.style.getPropertyValue(
-    '--btd-original-overlay-background'
-  );
 
   document.body.setAttribute('btd-modern-overlays', 'true');
 
@@ -65,24 +61,7 @@ export const useModernOverlays = makeBTDModule((options) => {
         return;
       }
 
-      const newBackgroundColor = getBackgroundColorForMediaInChirp(modalChirp.chirp, newImage.src);
-
-      const currentOverlayBackground = document.body.style.getPropertyValue(
-        '--btd-overlay-background'
-      );
-
-      if (currentOverlayBackground === originalOverlayBackground) {
-        document.body.style.setProperty('--btd-overlay-background', `transparent`);
-      }
-
-      if (!newBackgroundColor) {
-        document.body.style.setProperty(
-          '--btd-overlay-background',
-          'var(--btd-original-overlay-background)'
-        );
-        return;
-      }
-      document.body.style.setProperty('--btd-overlay-background', newBackgroundColor);
+      maybeSetOverlayColorForMediaUrlInChirp(modalChirp.chirp, newImage.src);
     } else if (mutation.removedNodes.length) {
       const isModalEmpty = document.querySelectorAll('#open-modal *').length === 0;
 

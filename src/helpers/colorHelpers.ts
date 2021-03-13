@@ -95,3 +95,25 @@ const tweakHsv = (paletteColor: {rgb: Rgb; hsv: CustomHsv}) => {
 };
 
 const filterHsv = (h: CustomHsv) => h.saturation > 0.15 && h.value > 0.1;
+
+export function maybeSetOverlayColorForMediaUrlInChirp(chirp: TweetDeckChirp, mediaUrl: string) {
+  const originalOverlayBackground = document.body.style.getPropertyValue(
+    '--btd-original-overlay-background'
+  );
+  const newBackgroundColor = getBackgroundColorForMediaInChirp(chirp, mediaUrl);
+
+  const currentOverlayBackground = document.body.style.getPropertyValue('--btd-overlay-background');
+
+  if (currentOverlayBackground === originalOverlayBackground) {
+    document.body.style.setProperty('--btd-overlay-background', `transparent`);
+  }
+
+  if (!newBackgroundColor) {
+    document.body.style.setProperty(
+      '--btd-overlay-background',
+      'var(--btd-original-overlay-background)'
+    );
+    return;
+  }
+  document.body.style.setProperty('--btd-overlay-background', newBackgroundColor);
+}
