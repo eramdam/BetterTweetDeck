@@ -52,6 +52,10 @@ function maybeCloseFullscreenModalOnClick(e: MouseEvent, beforeClose?: Handler) 
   }
 
   closeFullscreenModal();
+  document.body.style.setProperty(
+    '--btd-overlay-background',
+    'var(--btd-original-overlay-background)'
+  );
 }
 
 export function openFullscreenModal(content: JSX.Element) {

@@ -5,8 +5,8 @@ import {getExtensionVersion} from '../../helpers/webExtensionHelpers';
 import {BTDSettings} from '../../types/betterTweetDeck/btdSettingsTypes';
 import {getTransString, Trans} from '../trans';
 import {SettingsCssEditor} from './components/settingsCssEditor';
-import {ExportSettings} from './menu/settingsImportExport';
 import {renderGeneralSettings} from './menu/settingsGeneral';
+import {ImportExportSettings} from './menu/settingsImportExport';
 import {renderThemeSettings} from './menu/settingsTheme';
 import {renderTweetActionsSettings} from './menu/settingsTweetActions';
 import {renderTweetDisplaySettings} from './menu/settingsTweetsDisplay';
@@ -102,7 +102,7 @@ export const makeSettingsMenu = (
         {
           id: 'import-export',
           label: 'Import / Export',
-          render: () => <ExportSettings settings={settings} onNewSettings={setSettings} />,
+          render: () => <ImportExportSettings settings={settings} onNewSettings={setSettings} />,
         },
       ],
     },

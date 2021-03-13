@@ -2,7 +2,6 @@ import './gifModals.css';
 
 import React from 'dom-chef';
 import {saveAs} from 'file-saver';
-import * as Hogan from 'hogan.js';
 
 import {makeFullscreenModalWrapper} from '../components/fullscreenModalWrapper';
 import {maybeSetOverlayColorForMediaUrlInChirp} from '../helpers/colorHelpers';
@@ -12,7 +11,7 @@ import {getChirpFromElement} from '../helpers/tweetdeckHelpers';
 import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 
 export const setupGifModals = makeBTDModule(({TD, settings, jq}) => {
-  const filenameRenderer = Hogan.compile(settings.downloadFilenameFormat);
+  // const filenameRenderer = Hogan.compile(settings.downloadFilenameFormat);
 
   jq(document).on('click', 'video.js-media-gif', (e) => {
     const target = isHtmlVideoElement(e.target) && e.target;

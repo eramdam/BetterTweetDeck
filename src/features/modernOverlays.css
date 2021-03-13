@@ -14,7 +14,7 @@
   }
 
   & .js-mediatable .js-modal-panel {
-    max-width: 100% !important;
+    max-width: 80% !important;
   }
 
   & .js-mediatable .js-modal-panel .med-tweet .js-tweet .tweet-footer .tweet-actions .txt-size--12 {
