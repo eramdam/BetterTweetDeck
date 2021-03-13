@@ -193,6 +193,12 @@ html {
   white-space: nowrap;
 }
 
+.btd-settings-sidebar ul li a {
+  text-decoration: none;
+  display: inline-block;
+  width: 100%;
+}
+
 .btd-settings-sidebar ul li {
   user-select: none;
   padding: 10px 16px;

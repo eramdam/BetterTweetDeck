@@ -250,5 +250,11 @@
   },
   "settings_imported_settings_summary": {
     "message": "Click here to view imported settings"
+  },
+  "settings_website": {
+    "message": "Website"
+  },
+  "settings_links": {
+    "message": "Links"
   }
 }

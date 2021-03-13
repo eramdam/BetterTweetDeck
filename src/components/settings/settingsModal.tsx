@@ -102,6 +102,31 @@ export const SettingsModal = (props: SettingsModalProps) => {
             </div>
           );
         })}
+        <div>
+          <div className="section-title">
+            <Trans id="settings_links" />
+          </div>
+          <ul>
+            <li>
+              <a href="https://twitter.com/@BetterTDeck" target="_blank" rel="noopener noreferrer">
+                @BetterTDeck
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://github.com/eramdam/BetterTweetDeck"
+                target="_blank"
+                rel="noopener noreferrer">
+                GitHub
+              </a>
+            </li>
+            <li>
+              <a href="https://better.tw" target="_blank" rel="noopener noreferrer">
+                <Trans id="settings_website" />
+              </a>
+            </li>
+          </ul>
+        </div>
       </SettingsSidebar>
       <SettingsContent>{renderSelectedPage()}</SettingsContent>
       <SettingsFooter>
