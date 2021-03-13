@@ -93,15 +93,7 @@ export const getChirpFromKey = (
 };
 
 /** finds the chirp corresponding to an element in the DOM. */
-export const getChirpFromElement = (
-  TD: TweetDeckObject,
-  element: HTMLElement | Element
-): {
-  chirp: TweetDeckChirp;
-  extra: {
-    columnKey: string;
-  };
-} | null => {
+export const getChirpFromElement = (TD: TweetDeckObject, element: HTMLElement | Element) => {
   const chirpElm = element.closest('[data-key]');
   if (!chirpElm) {
     throw new Error('Not a chirp');
@@ -132,12 +124,10 @@ export const getChirpFromElement = (
   }
 
   return {
-    chirp: {
-      ...chirp,
+    chirp: chirp,
+    extra: {
       chirpType: chirp.chirpType,
       action: chirp.action,
-    },
-    extra: {
       columnKey: colKey,
     },
   };

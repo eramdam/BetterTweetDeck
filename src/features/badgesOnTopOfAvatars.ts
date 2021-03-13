@@ -12,8 +12,8 @@ export function putBadgesOnTopOfAvatars(settings: BTDSettings, addedChirp: Chirp
     return;
   }
 
-  const chirp = addedChirp.chirp;
-  const actionOrType = chirp.action || chirp.chirpType;
+  const {chirp, chirpExtra} = addedChirp;
+  const actionOrType = chirpExtra.action || chirpExtra.chirpType;
   let userToVerify: TweetDeckUser | undefined;
   const classesToAdd = ['btd-badge'];
   const chirpNode = document.querySelector(makeBtdUuidSelector('data-btd-uuid', addedChirp.uuid));

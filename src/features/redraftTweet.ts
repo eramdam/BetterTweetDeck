@@ -36,7 +36,7 @@ export const listenToRedraftTweetEvent = makeBTDModule(({TD, jq}) => {
     };
 
     const composeData: ComposeData = {
-      type: chirp.chirpType || '',
+      type: extra.chirpType || '',
       text: chirp.text,
       from: [TD.storage.Account.generateKeyFor('twitter', chirp.creatorAccount!.getUserID())],
     };
@@ -45,7 +45,7 @@ export const listenToRedraftTweetEvent = makeBTDModule(({TD, jq}) => {
     // @TODO: in what circumstances do we use MESSAGE_THREAD? regular MESSAGE has conversationId
     // @TODO: in what circumstances do we use messageRecipients? no chirps have them.
 
-    if (chirp.chirpType === TD.services.ChirpBase.MESSAGE) {
+    if (extra.chirpType === TD.services.ChirpBase.MESSAGE) {
       composeData.conversationId = chirp.conversationId;
     }
 

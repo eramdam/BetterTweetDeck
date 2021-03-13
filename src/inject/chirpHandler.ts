@@ -13,7 +13,11 @@ import {getSizeForColumnKey} from './columnMediaSizeMonitor';
 
 export interface ChirpAddedPayload {
   uuid: string;
-  chirp: TweetDeckChirp;
+  chirp: Omit<TweetDeckChirp, 'action' | 'chirpType'>;
+  chirpExtra: {
+    action: TweetDeckChirp['action'];
+    chirpType: TweetDeckChirp['chirpType'];
+  };
   columnMediaSize: TweetDeckColumnMediaPreviewSizesEnum;
   columnKey: string;
 }
@@ -96,7 +100,11 @@ export const setupChirpHandler: SetupChirpHandler = (TD, jq) => {
 
               const payload = {
                 uuid,
-                chirp: JSON.parse(JSON.stringify(chirp)),
+                chirp: chirp,
+                chirpExtra: {
+                  action: chirp.action,
+                  chirpType: chirp.chirpType,
+                },
                 urls: (urls || []).map((e) => e.expanded_url),
                 columnKey: extra.columnKey || '',
                 columnMediaSize: getSizeForColumnKey(extra.columnKey),
@@ -182,7 +190,11 @@ export const setupChirpHandler: SetupChirpHandler = (TD, jq) => {
 
       const payload: ChirpAddedPayload = {
         uuid: '',
-        chirp: JSON.parse(JSON.stringify(chirp)),
+        chirp: chirp,
+        chirpExtra: {
+          action: chirp.action,
+          chirpType: chirp.chirpType,
+        },
         columnKey,
         columnMediaSize: getSizeForColumnKey(columnKey),
       };
