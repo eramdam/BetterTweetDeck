@@ -217,6 +217,12 @@ export const renderTweetActionsSettings: SettingsMenuRenderer = (
         onChange={makeOnSettingsChange('replaceHeartsByStars')}>
         <Trans id="settings_replace_hearts_by_stars" />
       </BooleanSettingsRow>
+      <BooleanSettingsRow
+        settingsKey="showAccountChoiceOnFavorite"
+        initialValue={settings.showAccountChoiceOnFavorite}
+        onChange={makeOnSettingsChange('showAccountChoiceOnFavorite')}>
+        <Trans id="settings_show_account_picker_like" />
+      </BooleanSettingsRow>
     </Fragment>
   );
 };

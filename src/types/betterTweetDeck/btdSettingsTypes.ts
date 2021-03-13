@@ -77,7 +77,7 @@ export const RBetterTweetDeckSettings = t.type({
   /** Whether to show actions on hover */
   showTweetActionsOnHover: withDefault(t.boolean, false),
 
-  /* Adds more actions below tweets */
+  /** Adds more actions below tweets */
   tweetActions: withDefault(
     t.type({
       /** Shows a 📎 icon to copy links of medias in a tweet. */
@@ -99,6 +99,9 @@ export const RBetterTweetDeckSettings = t.type({
       addBlockAction: true,
     }
   ),
+
+  /** Always shows the account picker when favoriting a tweet */
+  showAccountChoiceOnFavorite: withDefault(t.boolean, false),
 
   /** Change the display of usernames in columns. */
   usernamesFormat: withDefault(

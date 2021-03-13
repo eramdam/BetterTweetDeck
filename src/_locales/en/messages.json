@@ -259,5 +259,8 @@
   },
   "settings_footer_label": {
     "message": "TweetDeck will need to be reloaded for changes to take effect!"
+  },
+  "settings_show_account_picker_like": {
+    "message": "Show account picker when clicking on the like button"
   }
 }
