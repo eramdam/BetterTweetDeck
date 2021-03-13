@@ -69,8 +69,6 @@ export const SettingsModal = (props: SettingsModalProps) => {
     return menuSection?.render();
   };
 
-  console.log('isEqual(props.btdSettings, settings)', isEqual(props.btdSettings, settings));
-
   const showSettingsLabel = useMemo(() => !isEqual(props.btdSettings, settings), [
     props.btdSettings,
     settings,

@@ -55,9 +55,11 @@ export const useModernOverlays = makeBTDModule((options) => {
       const tweetModalKey = document
         .querySelector('#open-modal [data-key]')
         ?.getAttribute('data-key');
+
       if (!tweetModalKey) {
         return;
       }
+
       const modalChirp = getChirpFromKeyAlone(TD, tweetModalKey);
       if (!modalChirp) {
         return;
@@ -85,7 +87,6 @@ export const useModernOverlays = makeBTDModule((options) => {
       const isModalEmpty = document.querySelectorAll('#open-modal *').length === 0;
 
       if (isModalEmpty) {
-        console.log('resetting overlay');
         document.body.style.setProperty(
           '--btd-overlay-background',
           'var(--btd-original-overlay-background)'

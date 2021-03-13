@@ -163,7 +163,6 @@ export const setupChirpHandler: SetupChirpHandler = (TD, jq) => {
 
     // If we don't have any handlers, nothing to do.
     if (onVisibleCallbacks.size < 1) {
-      console.log('no visible callbacks');
       return;
     }
 

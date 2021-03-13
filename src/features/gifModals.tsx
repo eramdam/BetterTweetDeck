@@ -76,7 +76,6 @@ export function setupGifModals(TD: TweetDeckObject, settings: BTDSettings) {
               sampleInterval: 10,
             };
             const iframeUrl = `https://better.tw/gif?${qs.stringify(gifShotOptions)}`;
-            console.log({iframeUrl, gifShotOptions});
 
             const iframeElement = document.createElement('iframe');
             iframeElement.src = iframeUrl;
@@ -102,8 +101,6 @@ export function setupGifModals(TD: TweetDeckObject, settings: BTDSettings) {
     if (!ev.origin.includes('better.tw')) {
       return;
     }
-
-    console.log(ev.data);
 
     if (ev.data.message === 'complete_gif') {
       const blob = dataURItoBlob(ev.data.img);

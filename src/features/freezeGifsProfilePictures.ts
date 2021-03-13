@@ -25,8 +25,6 @@ export const maybeFreezeGifsInProfilePicture = makeBTDModule(({settings}) => {
       })
       .filter((img) => img.src.endsWith('.gif'))
       .forEach((img, _i, array) => {
-        console.log(array.length, ' images to change');
-
         img.src = getImageUrl(img.src);
       });
   };

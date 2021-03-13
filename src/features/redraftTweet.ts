@@ -146,7 +146,6 @@ export const listenToRedraftTweetEvent = makeBTDModule(({TD, jq}) => {
     // send one last compose event, for good luck
     jq(document).trigger('uiComposeTweet', composeData);
 
-    console.log('chirp', chirp);
     // it is now safe to remove the tweet
     chirp.destroy();
   });
@@ -195,7 +194,6 @@ export async function requestMediaItem(mediaUrl: string): Promise<File | undefin
   }
 
   const parts = getMediaUrlParts(mediaUrl);
-  console.log(parts);
 
   return new File([res.payload.blob], `${parts.originalFile}.${parts.originalExtension}`, {
     type: parts.type,
