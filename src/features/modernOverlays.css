@@ -13,6 +13,10 @@
     color: white !important;
   }
 
+  & .js-mediatable .js-modal-panel {
+    max-width: 100% !important;
+  }
+
   & .js-mediatable .js-modal-panel .med-tweet .js-tweet .tweet-footer .tweet-actions .txt-size--12 {
     font-size: 13px !important;
     margin-left: 12px !important;
@@ -27,7 +31,15 @@
   }
 
   & .js-mediatable .js-modal-panel .med-embeditem {
-    bottom: 50px !important;
-    top: -8px !important;
+    bottom: 40px !important;
+    top: -31px !important;
+  }
+
+  & .js-mediatable .mdl-media-next {
+    right: 2vw;
+  }
+
+  & .js-mediatable .mdl-media-prev {
+    left: 2vw;
   }
 }

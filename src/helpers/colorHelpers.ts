@@ -13,18 +13,6 @@ export function getBackgroundColorForMediaInChirp(chirp: TweetDeckChirp, mediaUr
   return getBackgroundColorFromPalette(palette);
 }
 
-function getPaletteForMediaInChirp(chirp: TweetDeckChirp, mediaUrl: string) {
-  const entityForMedia = chirp.entities.media.find((e) => {
-    const mediaFileId = new URL(e.media_url_https).pathname.split('/').pop()?.split('.')[0];
-    if (!mediaFileId) {
-      return false;
-    }
-    return mediaUrl.includes(mediaFileId);
-  });
-
-  return entityForMedia?.ext_media_color?.palette;
-}
-
 function getBackgroundColorFromPalette(palette: TweetMediaEntityPalette) {
   if (palette.length === 0) {
     return undefined;
@@ -34,6 +22,22 @@ function getBackgroundColorFromPalette(palette: TweetMediaEntityPalette) {
   const tweakedPick = tweakHsv(basePick);
 
   return rgba(tweakedPick.rgb.red, tweakedPick.rgb.green, tweakedPick.rgb.blue, 0.96);
+}
+
+export function getMediaEntityForMediaUrl(chirp: TweetDeckChirp, mediaUrl: string) {
+  return chirp.entities.media.find((e) => {
+    const mediaFileId = new URL(e.media_url_https).pathname.split('/').pop()?.split('.')[0];
+    if (!mediaFileId) {
+      return false;
+    }
+    return mediaUrl.includes(mediaFileId);
+  });
+}
+
+function getPaletteForMediaInChirp(chirp: TweetDeckChirp, mediaUrl: string) {
+  const entityForMedia = getMediaEntityForMediaUrl(chirp, mediaUrl);
+
+  return entityForMedia?.ext_media_color?.palette;
 }
 
 interface Rgb {

@@ -40,10 +40,6 @@ html .btd-loaded .ovl {
   box-shadow: none;
 }
 
-.js-mediatable .js-modal-panel {
-  max-width: 80vw !important;
-}
-
 .js-mediatable .js-modal-panel .js-mediaembed,
 .med-tweet,
 .mdl-btn-media {
