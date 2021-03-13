@@ -2,7 +2,7 @@ import {css, cx} from '@emotion/css';
 import React, {Fragment} from 'react';
 
 import {BTDAvatarShapes} from '../../../features/changeAvatarShape';
-import {Trans} from '../../trans';
+import {getTransString, Trans} from '../../trans';
 import {BaseSettingsProps} from '../settingsTypes';
 import {SettingsRow, SettingsRowContent, SettingsRowTitle} from './settingsRow';
 
@@ -11,10 +11,10 @@ const avatarChoiceStyle = css`
   grid-template-columns: auto 10px auto;
   grid-template-areas: 'shape . text';
   padding: 12px 14px;
-  background: rgba(0, 0, 0, 0.6);
+  background: transparent;
   border-radius: 6px;
-  color: white;
-  border: 2px solid rgba(0, 0, 0, 0.6);
+  color: var(--settings-modal-text);
+  border: 2px solid var(--settings-modal-separator);
 
   input:checked + & {
     border-color: var(--twitter-blue);
@@ -71,7 +71,16 @@ export function AvatarsShape(props: AvatarsShapeProps) {
         <Trans id="settings_avatar_shape" />
       </SettingsRowTitle>
       <SettingsRowContent className={avatarShapesWrapperStyle}>
-        {Object.values(BTDAvatarShapes).map((value) => {
+        {[
+          {
+            value: BTDAvatarShapes.SQUARE,
+            name: getTransString('settings_avatar_square'),
+          },
+          {
+            value: BTDAvatarShapes.CIRCLE,
+            name: getTransString('settings_avatar_circle'),
+          },
+        ].map(({value, name}) => {
           return (
             <Fragment key={value}>
               <input
@@ -86,7 +95,7 @@ export function AvatarsShape(props: AvatarsShapeProps) {
                 <span className={avatarChoiceStyleShapeWrapper}>
                   <span className={cx(avatarChoiceStyleShape, value)}></span>
                 </span>
-                <span className={avatarChoiceStyleLabel}>{value}</span>
+                <span className={avatarChoiceStyleLabel}>{name}</span>
               </label>
             </Fragment>
           );

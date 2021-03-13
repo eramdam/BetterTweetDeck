@@ -33,7 +33,7 @@ function getBackgroundColorFromPalette(palette: TweetMediaEntityPalette) {
   const basePick = pickColor(palette);
   const tweakedPick = tweakHsv(basePick);
 
-  return rgba(tweakedPick.rgb.red, tweakedPick.rgb.green, tweakedPick.rgb.blue, 0.9);
+  return rgba(tweakedPick.rgb.red, tweakedPick.rgb.green, tweakedPick.rgb.blue, 0.96);
 }
 
 interface Rgb {

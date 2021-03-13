@@ -208,5 +208,14 @@
   },
   "settings_support": {
     "message": "Support"
+  },
+  "settings_avatar_square": {
+    "message": "Square"
+  },
+  "settings_avatar_circle": {
+    "message": "Circle"
+  },
+  "settings_display_modern_fullscreen_images": {
+    "message": "Display fullscreen images à la Twitter Web"
   }
 }

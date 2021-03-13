@@ -56,6 +56,11 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
             label: <Trans id="settings_use_original_aspect_ratio_images" />,
           },
           {
+            initialValue: settings.useModernFullscreenImage,
+            key: 'useModernFullscreenImage',
+            label: <Trans id="settings_display_modern_fullscreen_images" />,
+          },
+          {
             initialValue: settings.showCardsInsideColumns,
             key: 'showCardsInsideColumns',
             label: <Trans id="settings_show_cards_inside_columns" />,

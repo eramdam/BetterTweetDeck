@@ -1,3 +1,5 @@
+import './modernOverlays.css';
+
 import _ from 'lodash';
 
 import {getBackgroundColorForMediaInChirp} from '../helpers/colorHelpers';
@@ -7,10 +9,17 @@ import {getChirpFromKeyAlone} from '../helpers/tweetdeckHelpers';
 import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 
 export const useModernOverlays = makeBTDModule((options) => {
-  const {TD, jq} = options;
+  const {TD, jq, settings} = options;
+
+  if (!settings.useModernFullscreenImage) {
+    return;
+  }
+
   const originalOverlayBackground = document.body.style.getPropertyValue(
     '--btd-original-overlay-background'
   );
+
+  document.body.setAttribute('btd-modern-overlays', 'true');
 
   jq.ajaxPrefilter((options) => {
     try {

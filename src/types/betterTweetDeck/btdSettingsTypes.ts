@@ -26,6 +26,9 @@ export const RBetterTweetDeckSettings = t.type({
   /** Show tweet cards in columns. */
   showCardsInsideColumns: withDefault(t.boolean, true),
 
+  /** Render image overlays à la Twitter Web. */
+  useModernFullscreenImage: withDefault(t.boolean, false),
+
   /** Display single images using their original aspect ratio. */
   useOriginalAspectRatioForSingleImages: withDefault(t.boolean, false),
 
