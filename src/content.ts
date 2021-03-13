@@ -8,7 +8,7 @@ import {setupEmojiPicker} from './features/emojiPicker';
 import {setupGifPicker} from './features/gifPicker';
 import {listenToInternalBTDMessage} from './helpers/communicationHelpers';
 import {isHTMLElement} from './helpers/domHelpers';
-import {ExtensionSettings, sendMessageToBackground} from './helpers/webExtensionHelpers';
+import {sendMessageToBackground} from './helpers/webExtensionHelpers';
 import {injectInTD} from './services/injectInTD';
 import {setupBtdRoot} from './services/setupBTDRoot';
 import {BTDMessageOriginsEnum, BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
@@ -26,15 +26,7 @@ listenToInternalBTDMessage(BTDMessages.BTD_READY, BTDMessageOriginsEnum.CONTENT,
 
   if (isHTMLElement(settingsButton)) {
     settingsButton.addEventListener('click', () => {
-      sendMessageToBackground({
-        data: {
-          requestId: undefined,
-          isReponse: false,
-          name: BTDMessages.OPEN_SETTINGS,
-          origin: BTDMessageOriginsEnum.CONTENT,
-          payload: undefined,
-        },
-      });
+      openSettings();
     });
   }
 
@@ -82,16 +74,14 @@ listenToInternalBTDMessage(
   }
 );
 
-listenToInternalBTDMessage(
-  BTDMessages.SAVE_SETTINGS,
-  BTDMessageOriginsEnum.CONTENT,
-  async (msg) => {
-    if (msg.data.name !== BTDMessages.SAVE_SETTINGS) {
-      return;
-    }
-
-    const {settings} = msg.data.payload;
-
-    ExtensionSettings.set(settings);
-  }
-);
+function openSettings() {
+  sendMessageToBackground({
+    data: {
+      requestId: undefined,
+      isReponse: false,
+      name: BTDMessages.OPEN_SETTINGS,
+      origin: BTDMessageOriginsEnum.CONTENT,
+      payload: undefined,
+    },
+  });
+}
