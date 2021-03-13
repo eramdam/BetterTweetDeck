@@ -7,7 +7,6 @@ import {setupAME} from './features/advancedMuteEngine';
 import {allowImagePaste} from './features/allowImagePaste';
 import {setupThemeAutoSwitch} from './features/autoSwitchThemes';
 import {putBadgesOnTopOfAvatars} from './features/badgesOnTopOfAvatars';
-import {useBlurhashForOverlayBackground} from './features/blurhashOverlay';
 import {changeAvatarsShape} from './features/changeAvatarShape';
 import {changeScrollbarStyling} from './features/changeScrollbars';
 import {maybeSetupCustomTimestampFormat} from './features/changeTimestampFormat';
@@ -16,6 +15,7 @@ import {maybeCollapseDms} from './features/collapseDms';
 import {injectCustomCss} from './features/customCss';
 import {maybeFreezeGifsInProfilePicture} from './features/freezeGifsProfilePictures';
 import {maybeHideColumnIcons} from './features/hideColumnIcons';
+import {useModernOverlays} from './features/modernOverlays';
 import {maybeRemoveRedirection} from './features/removeRedirection';
 import {maybeRenderCardsInColumns} from './features/renderCardsInColumns';
 import {maybeReplaceHeartsByStars} from './features/replaceHeartsByStars';
@@ -113,7 +113,7 @@ const jq: JQueryStatic | undefined =
   TD.mustaches['btd/download_filename_format.mustache'] = settings.downloadFilenameFormat;
 
   jq(document).one('dataColumnsLoaded', () => {
-    useBlurhashForOverlayBackground(btdModuleOptions);
+    useModernOverlays(btdModuleOptions);
     document.body.classList.add('btd-loaded');
     maybeSetupCustomTimestampFormat(btdModuleOptions);
     sendInternalBTDMessage({

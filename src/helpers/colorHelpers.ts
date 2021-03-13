@@ -1,24 +1,93 @@
-import {RGBA} from 'color-blend/dist/types';
-import {RgbaColor, RgbColor} from 'polished/lib/types/color';
+import convert from 'color-convert';
+import {rgba} from 'polished';
 
-function isRgbaColor(src: RgbColor | RgbaColor): src is RgbaColor {
-  return (src as any).alpha;
+import {TweetDeckChirp, TweetMediaEntityPalette} from '../types/tweetdeckTypes';
+
+export function getBackgroundColorForMediaInChirp(chirp: TweetDeckChirp, mediaUrl: string) {
+  const palette = getPaletteForMediaInChirp(chirp, mediaUrl);
+
+  if (!palette) {
+    return undefined;
+  }
+
+  return getBackgroundColorFromPalette(palette);
 }
 
-export function polishedToColorBlend(color: RgbColor | RgbaColor): RGBA {
+function getPaletteForMediaInChirp(chirp: TweetDeckChirp, mediaUrl: string) {
+  const entityForMedia = chirp.entities.media.find((e) => {
+    const mediaFileId = new URL(e.media_url_https).pathname.split('/').pop()?.split('.')[0];
+    if (!mediaFileId) {
+      return false;
+    }
+    return mediaUrl.includes(mediaFileId);
+  });
+
+  return entityForMedia?.ext_media_color?.palette;
+}
+
+function getBackgroundColorFromPalette(palette: TweetMediaEntityPalette) {
+  if (palette.length === 0) {
+    return undefined;
+  }
+
+  const basePick = pickColor(palette);
+  const tweakedPick = tweakHsv(basePick);
+
+  return rgba(tweakedPick.rgb.red, tweakedPick.rgb.green, tweakedPick.rgb.blue, 0.9);
+}
+
+interface Rgb {
+  red: number;
+  green: number;
+  blue: number;
+}
+interface CustomHsv {
+  hue: number;
+  saturation: number;
+  value: number;
+}
+
+const rgbToCustomHsv = ({red, green, blue}: Rgb) => {
+  const [baseHue, baseSaturation, baseValue] = convert.rgb.hsv([red, green, blue]);
   return {
-    r: color.red,
-    g: color.green,
-    b: color.blue,
-    a: isRgbaColor(color) ? color.alpha : 1,
+    hue: baseHue / 360,
+    saturation: baseSaturation / 100,
+    value: baseValue / 100,
   };
-}
+};
 
-export function colorBlendToPolished(color: RGBA): RgbaColor {
+const customHsvToRgb = ({hue, saturation, value}: CustomHsv) => {
+  const [red, green, blue] = convert.hsv.rgb([hue * 360, saturation * 100, value * 100]);
   return {
-    red: color.r,
-    green: color.g,
-    blue: color.b,
-    alpha: color.a,
+    red,
+    green,
+    blue,
   };
-}
+};
+
+const pickColor = (palette: TweetMediaEntityPalette) => {
+  const withHsv = palette.map((color) => {
+    return {
+      ...color,
+      hsv: rgbToCustomHsv(color.rgb),
+    };
+  });
+
+  return withHsv.find((c) => filterHsv(c.hsv)) || withHsv[0];
+};
+
+const tweakHsv = (paletteColor: {rgb: Rgb; hsv: CustomHsv}) => {
+  const newHsv = paletteColor.hsv;
+  if (newHsv.hue >= 11 / 360 && newHsv.hue < 0.125) {
+    newHsv.hue = 5 / 360;
+  }
+  newHsv.saturation = Math.min(Math.max(newHsv.saturation, 0), 0.85);
+  newHsv.value = Math.min(Math.max(newHsv.value, 0.15), 0.25);
+
+  return {
+    hsv: newHsv,
+    rgb: customHsvToRgb(newHsv),
+  };
+};
+
+const filterHsv = (h: CustomHsv) => h.saturation > 0.15 && h.value > 0.1;

@@ -13,6 +13,16 @@ export const findMustache = (TD: TweetDeckObject, query: string) =>
     TD.mustaches[i].toLowerCase().includes(query.toLowerCase())
   );
 
+export const getChirpFromKeyAlone = (TD: TweetDeckObject, key: string) => {
+  const chirpNode = document.querySelector(`[data-key="${key}"]`);
+
+  if (!chirpNode) {
+    return undefined;
+  }
+
+  return getChirpFromElement(TD, chirpNode);
+};
+
 /** Finds a chirp inside TweetDeck given a key and a column key. */
 export const getChirpFromKey = (
   TD: TweetDeckObject,

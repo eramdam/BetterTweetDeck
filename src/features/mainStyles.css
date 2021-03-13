@@ -23,13 +23,15 @@
  */
 
 :root {
-  --btd-overlay-background: rgba(0, 0, 0, 0.8);
-  --btd-original-overlay-background: rgba(0, 0, 0, 0.8);
+  --btd-overlay-background: rgba(0, 0, 0, 0.9);
+  --btd-original-overlay-background: rgba(0, 0, 0, 0.9);
 }
 
 html .btd-loaded .overlay,
 html .btd-loaded .ovl {
   background-color: var(--btd-overlay-background);
+  transition-property: background-color;
+  transition-duration: 0.5s;
 }
 
 .js-modal-panel.mdl.s-full.med-fullpanel {

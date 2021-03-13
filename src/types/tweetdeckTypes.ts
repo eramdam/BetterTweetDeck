@@ -594,7 +594,19 @@ export interface TweetHashtag {
   text: string;
 }
 
+export type TweetMediaEntityPalette = {
+  rgb: {
+    blue: number;
+    red: number;
+    green: number;
+  };
+  percentage: number;
+}[];
+
 export type TweetdeckMediaEntity = Twitter.MediaEntity & {
+  ext_media_color?: {
+    palette: TweetMediaEntityPalette;
+  };
   video_info: {
     variants: {
       url: string;
