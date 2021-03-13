@@ -1,5 +1,6 @@
 import './settingsModal.css';
 
+import {isEqual} from 'lodash';
 import React, {Fragment, useCallback, useMemo, useState} from 'react';
 
 import {getExtensionUrl, getExtensionVersion} from '../../helpers/webExtensionHelpers';
@@ -68,6 +69,13 @@ export const SettingsModal = (props: SettingsModalProps) => {
     return menuSection?.render();
   };
 
+  console.log('isEqual(props.btdSettings, settings)', isEqual(props.btdSettings, settings));
+
+  const showSettingsLabel = useMemo(() => !isEqual(props.btdSettings, settings), [
+    props.btdSettings,
+    settings,
+  ]);
+
   return (
     <SettingsModalWrapper>
       <SettingsHeader>
@@ -131,6 +139,11 @@ export const SettingsModal = (props: SettingsModalProps) => {
       <SettingsContent>{renderSelectedPage()}</SettingsContent>
       <SettingsFooter>
         <div>
+          {showSettingsLabel && (
+            <div className="btd-settings-footer-label">
+              <Trans id="settings_footer_label" />
+            </div>
+          )}
           <SettingsButton variant="primary" onClick={updateSettings} disabled={!canSave}>
             <Trans id="settings_save" />
           </SettingsButton>

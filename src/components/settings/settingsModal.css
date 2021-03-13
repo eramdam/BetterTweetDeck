@@ -124,6 +124,11 @@ html {
   column-gap: 10px;
 }
 
+.btd-settings-footer > div {
+  display: flex;
+  align-items: center;
+}
+
 .btd-settings-footer-label {
   font-size: 14px;
   margin-right: 10px;

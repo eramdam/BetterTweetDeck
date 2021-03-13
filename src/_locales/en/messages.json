@@ -256,5 +256,8 @@
   },
   "settings_links": {
     "message": "Links"
+  },
+  "settings_footer_label": {
+    "message": "TweetDeck will need to be reloaded for changes to take effect!"
   }
 }
