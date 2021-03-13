@@ -5,7 +5,7 @@ import {getExtensionVersion} from '../../helpers/webExtensionHelpers';
 import {BTDSettings} from '../../types/betterTweetDeck/btdSettingsTypes';
 import {getTransString, Trans} from '../trans';
 import {SettingsCssEditor} from './components/settingsCssEditor';
-import {ExportSettings} from './menu/settingsExport';
+import {ExportSettings} from './menu/settingsImportExport';
 import {renderGeneralSettings} from './menu/settingsGeneral';
 import {renderThemeSettings} from './menu/settingsTheme';
 import {renderTweetActionsSettings} from './menu/settingsTweetActions';

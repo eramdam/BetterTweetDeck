@@ -1,11 +1,9 @@
 import _ from 'lodash';
-import {DateTime} from 'luxon';
 import Highlight, {defaultProps} from 'prism-react-renderer';
 import React, {FC, useState} from 'react';
 
 import {isHTMLElement} from '../../../helpers/domHelpers';
 import {HandlerOf} from '../../../helpers/typeHelpers';
-import {getExtensionVersion} from '../../../helpers/webExtensionHelpers';
 import {validateSettings} from '../../../services/backgroundSettings';
 import {
   BTDSettings,
@@ -13,20 +11,13 @@ import {
 } from '../../../types/betterTweetDeck/btdSettingsTypes';
 import {getTransString, Trans} from '../../trans';
 import {settingsRegularText} from '../settingsStyles';
+import {SettingsExportButton} from './settingsExportButton';
 
-export const ExportSettings: FC<{settings: BTDSettings; onNewSettings: HandlerOf<BTDSettings>}> = (
-  props
-) => {
+export const ImportExportSettings: FC<{
+  settings: BTDSettings;
+  onNewSettings: HandlerOf<BTDSettings>;
+}> = (props) => {
   const {settings, onNewSettings} = props;
-  const href = URL.createObjectURL(
-    new Blob([JSON.stringify(settings, null, 2)], {
-      type: 'application/json',
-    })
-  );
-
-  const downloadName = `better-tweetdeck-settings-${getExtensionVersion()}-${DateTime.local().toFormat(
-    'y-LL-dd_HH.mm.ss'
-  )}.json`;
 
   const [errorString, setErrorString] = useState('');
   const [successString, setSuccessString] = useState('');
@@ -41,9 +32,7 @@ export const ExportSettings: FC<{settings: BTDSettings; onNewSettings: HandlerOf
         <p>
           <Trans id="settings_export_settings_copy" />
         </p>
-        <a download={downloadName} href={href} className="btd-settings-button secondary">
-          <Trans id="settings_download_settings_button" />
-        </a>
+        <SettingsExportButton settings={settings}></SettingsExportButton>
       </div>
       <div>
         <h3>
