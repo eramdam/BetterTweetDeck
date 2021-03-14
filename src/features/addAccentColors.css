@@ -12,19 +12,20 @@ html.dark .column-header-link:hover {
 }
 
 :matches(html, html.dark) {
+  /** Sidebar links/buttons */
   & .column-header-link,
   & .app-nav-link,
   & .app-nav-tab,
   & .app-search-fake {
     color: var(--btd-accent-color);
   }
-
   & .app-nav-link:hover,
   & .app-nav-link.is-selected:hover,
   & .app-nav-tab:hover {
     color: white;
   }
 
+  /** Regular links */
   & a,
   & a:focus,
   & a:hover,
@@ -42,6 +43,7 @@ html.dark .column-header-link:hover {
     color: var(--btd-accent-color);
   }
 
+  /** General button colors */
   & .Button,
   & .Button.is-visited,
   & .Button:visited,
@@ -54,19 +56,18 @@ html.dark .column-header-link:hover {
     border-color: var(--btd-accent-color);
     color: var(--btd-accent-color);
   }
-
   & button.btn-on-dark,
   & input[type='button'].btn-on-dark {
     color: var(--btd-accent-color);
     background: transparent;
   }
-
   & .dropdown-menu .is-selected,
   & .lst-group .selected,
   & .lst .s-selected {
     background-color: var(--btd-accent-color) !important;
   }
 
+  /** Primary button colors */
   & .Button.btn-fav.s-favorited,
   & .Button.btn-fav.s-favorited:visited,
   & .Button.Button--primary,
@@ -96,11 +97,13 @@ html.dark .column-header-link:hover {
   & input.btn-fav.s-favorited:visited[type='button'],
   & input.btn-fav.s-favorited[type='button'],
   & input.Button--primary:visited[type='button'],
-  & input.Button--primary[type='button'] {
+  & input.Button--primary[type='button'],
+  & .btn-on-blue {
     background-color: var(--btd-accent-color) !important;
     border: none !important;
   }
 
+  /** Hover styles */
   & .Button.btn-fav.s-favorited:hover,
   & .Button.Button--primary.is-hover,
   & .Button.Button--primary:hover,
@@ -136,13 +139,13 @@ html.dark .column-header-link:hover {
     background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)) !important;
   }
 
+  /** Column type picker */
   & .lst-launcher .is-disabled a:active i,
   & .lst-launcher .is-disabled a:focus i,
   & .lst-launcher .is-disabled a:hover i,
   & .lst-launcher .is-disabled a i {
     color: var(--btd-accent-color) !important;
   }
-
   & .lst-launcher a:active i,
   & .lst-launcher a:focus i,
   & .lst-launcher a:hover i {
@@ -150,6 +153,7 @@ html.dark .column-header-link:hover {
     opacity: 0.9;
   }
 
+  /** Search button. */
   & .app-search-fake {
     border-color: var(--btd-accent-color) !important;
 
@@ -167,10 +171,12 @@ html.dark .column-header-link:hover {
     background: #3d5466 !important;
   }
 
+  /** Button text color */
   & button.btn-on-dark.btn-fav-unfav-text,
   & button.Button--danger.btn-on-dark,
   & input.btn-fav-unfav-text[type='button'].btn-on-dark,
-  & input[type='button'].Button--danger.btn-on-dark {
+  & input[type='button'].Button--danger.btn-on-dark,
+  & .btn-on-blue {
     color: white;
   }
 }
