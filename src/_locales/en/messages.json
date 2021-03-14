@@ -268,5 +268,11 @@
   },
   "settings_misc": {
     "message": "Misc."
+  },
+  "settings_meta": {
+    "message": "Meta"
+  },
+  "settings_import_export": {
+    "message": "Import / Export"
   }
 }

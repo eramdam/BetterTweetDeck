@@ -75,7 +75,7 @@ export const makeSettingsMenu = (
       ],
     },
     {
-      title: 'Meta',
+      title: getTransString('settings_meta'),
       id: 'meta',
       items: [
         {
@@ -101,7 +101,7 @@ export const makeSettingsMenu = (
         },
         {
           id: 'import-export',
-          label: 'Import / Export',
+          label: getTransString('settings_import_export'),
           render: () => <ImportExportSettings settings={settings} onNewSettings={setSettings} />,
         },
       ],

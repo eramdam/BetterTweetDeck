@@ -7,6 +7,7 @@ import lightsOut from '../../../assets/dark-themes/lights-out.png';
 import oldDark from '../../../assets/dark-themes/old-dark.png';
 import {BetterTweetDeckThemes} from '../../../features/themeTweaks';
 import {HandlerOf} from '../../../helpers/typeHelpers';
+import {Trans} from '../../trans';
 import {SettingsRow, SettingsRowContent, SettingsRowTitle} from './settingsRow';
 
 interface CustomDarkThemeProps {
@@ -83,7 +84,9 @@ export function ThemeSelector(props: CustomDarkThemeProps) {
   const inputId = generateId();
   return (
     <SettingsRow disabled={props.disabled}>
-      <SettingsRowTitle>{props.label ?? 'Theme'}</SettingsRowTitle>
+      <SettingsRowTitle>
+        <Trans id="settings_theme.message" />
+      </SettingsRowTitle>
       <SettingsRowContent className={themeBlock}>
         {!props.onlyDark && (
           <label className={optionBlock} htmlFor={'light'}>

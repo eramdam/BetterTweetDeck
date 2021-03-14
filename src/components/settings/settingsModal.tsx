@@ -71,7 +71,8 @@ export const SettingsModal = (props: SettingsModalProps) => {
     return menuSection?.render();
   };
 
-  const showSettingsLabel = useMemo(() => !isEqual(props.btdSettings, settings), [
+  const showSettingsLabel = useMemo(() => !isEqual(props.btdSettings, settings) || isDirty, [
+    isDirty,
     props.btdSettings,
     settings,
   ]);
