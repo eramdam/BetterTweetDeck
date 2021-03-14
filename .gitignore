@@ -26,3 +26,4 @@ config/env/*.json
 *.xcuserstate
 *.xcworkspacedata
 xcuserdata
+.yarn
