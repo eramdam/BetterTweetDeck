@@ -11,8 +11,14 @@ export type BTDModuleOptions = {
 };
 type UniversalBTDModule = (opts: BTDModuleOptions) => void;
 
-export function makeBTDModule(btdModule: UniversalBTDModule): UniversalBTDModule {
-  return btdModule;
+export function makeBTDModule(btdModule: UniversalBTDModule) {
+  return (opts: BTDModuleOptions) => {
+    try {
+      btdModule(opts);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 }
 
 export const BTDSettingsAttribute = 'data-btd-settings';
