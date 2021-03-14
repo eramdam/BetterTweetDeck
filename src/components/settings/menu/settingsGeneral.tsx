@@ -33,6 +33,7 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
             label: <Trans id="settings_show_collapse_button_in_columns_header" />,
           },
           {
+            introducedIn: '4',
             initialValue: settings.showRemoveButtonInColumnsHeader,
             key: 'showRemoveButtonInColumnsHeader',
             label: <Trans id="settings_show_delete_button_in_columns_header" />,
@@ -51,16 +52,19 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
             label: <Trans id="settings_use_old_style_of_replies" />,
           },
           {
+            introducedIn: '4',
             initialValue: settings.useOriginalAspectRatioForSingleImages,
             key: 'useOriginalAspectRatioForSingleImages',
             label: <Trans id="settings_use_original_aspect_ratio_images" />,
           },
           {
+            introducedIn: '4',
             initialValue: settings.useModernFullscreenImage,
             key: 'useModernFullscreenImage',
             label: <Trans id="settings_display_modern_fullscreen_images" />,
           },
           {
+            introducedIn: '4',
             initialValue: settings.showCardsInsideColumns,
             key: 'showCardsInsideColumns',
             label: <Trans id="settings_show_cards_inside_columns" />,
@@ -104,7 +108,7 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
             label: <Trans id="settings_reflect_new_tweets_and_dms_in_the_tabs_title" />,
           },
         ]}>
-        Misc.
+        <Trans id="settings_misc" />
       </CheckboxSelectSettingsRow>
     </Fragment>
   );

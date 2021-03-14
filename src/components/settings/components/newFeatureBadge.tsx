@@ -4,14 +4,16 @@ import semver from 'semver';
 
 import {getExtensionVersion} from '../../../helpers/webExtensionHelpers';
 
-interface NewFeatureBadgeProps {
-  introducedWith: string;
+export interface NewFeatureBadgeProps {
+  introducedIn: string;
 }
 
 const currentVersion = semver.coerce(getExtensionVersion());
 
+export const featureBadgeClassname = 'btd-feature-badge';
+
 export const NewFeatureBadge: FC<NewFeatureBadgeProps> = (props) => {
-  const cleanVersion = semver.coerce(props.introducedWith);
+  const cleanVersion = semver.coerce(props.introducedIn);
 
   if (!currentVersion || !cleanVersion) {
     return null;
@@ -23,15 +25,19 @@ export const NewFeatureBadge: FC<NewFeatureBadgeProps> = (props) => {
 
   return (
     <span
-      className={cx(css`
-        background: var(--twitter-blue);
-        color: white;
-        border-radius: 4px;
-        font-size: 11px;
-        text-transform: uppercase;
-        font-weight: bold;
-        padding: 3px 5px;
-      `)}>
+      className={cx(
+        css`
+          display: inline-block;
+          background: var(--twitter-blue);
+          color: white;
+          border-radius: 4px;
+          font-size: 10px;
+          text-transform: uppercase;
+          font-weight: bold;
+          padding: 1px 4px 2px 4px;
+        `,
+        featureBadgeClassname
+      )}>
       NEW
     </span>
   );

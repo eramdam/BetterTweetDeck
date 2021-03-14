@@ -4,6 +4,7 @@ import React, {Fragment} from 'react';
 import {BTDTimestampFormats} from '../../../features/changeTimestampFormat';
 import {BTDUsernameFormat} from '../../../features/usernameDisplay';
 import {getTransString, Trans} from '../../trans';
+import {AvatarsShape} from '../components/avatarsShape';
 import {BooleanSettingsRow} from '../components/booleanSettingRow';
 import {BTDRadioSelectSettingsRow} from '../components/radioSelectSettingsRow';
 import {SettingsButton} from '../components/settingsButton';
@@ -35,7 +36,9 @@ export const renderTweetDisplaySettings: SettingsMenuRenderer = (
         ]}>
         <Trans id="settings_date_format" />
       </BTDRadioSelectSettingsRow>
-      <SettingsRow disabled={settings.timestampStyle === BTDTimestampFormats.RELATIVE}>
+      <SettingsRow
+        disabled={settings.timestampStyle === BTDTimestampFormats.RELATIVE}
+        stretch={false}>
         <span></span>
         <SettingsTimeFormatInput
           value={settings.timestampShortFormat}
@@ -117,6 +120,9 @@ export const renderTweetDisplaySettings: SettingsMenuRenderer = (
         ]}>
         <Trans id="settings_name_display_style" />
       </BTDRadioSelectSettingsRow>
+      <AvatarsShape
+        initialValue={settings.avatarsShape}
+        onChange={makeOnSettingsChange('avatarsShape')}></AvatarsShape>
     </Fragment>
   );
 };

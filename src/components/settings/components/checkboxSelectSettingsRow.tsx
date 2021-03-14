@@ -10,13 +10,7 @@ export function CheckboxSelectSettingsRow(
   props: PropsWithChildren<CheckboxSelectSettingsRowProps>
 ) {
   return (
-    <SettingsRow
-      className={cx(
-        css`
-          align-items: flex-start;
-        `
-      )}
-      disabled={props.disabled}>
+    <SettingsRow className={cx(css``)} disabled={props.disabled}>
       <SettingsRowTitle>{props.children}</SettingsRowTitle>
       <SettingsRowContent
         className={css`

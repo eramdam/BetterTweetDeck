@@ -9,7 +9,9 @@ import purpleEmoji from '../../../assets/accent-colors/purple.svg';
 import redEmoji from '../../../assets/accent-colors/red.svg';
 import yellowEmoji from '../../../assets/accent-colors/yellow.svg';
 import {BetterTweetDeckAccentColors} from '../../../features/themeTweaks';
+import {Trans} from '../../trans';
 import {BaseSettingsProps} from '../settingsTypes';
+import {NewFeatureBadge} from './newFeatureBadge';
 import {SettingsRow, SettingsRowContent, SettingsRowTitle} from './settingsRow';
 
 interface CustomAccentColorProps extends BaseSettingsProps<'customAccentColor'> {}
@@ -78,15 +80,17 @@ const labelStyles = css`
 `;
 
 const accentColorRow = css`
-  align-items: flex-start;
   padding-top: 30px;
   padding-bottom: 20px;
 `;
 
 export function CustomAccentColor(props: CustomAccentColorProps) {
   return (
-    <SettingsRow className={accentColorRow}>
-      <SettingsRowTitle>Accent color</SettingsRowTitle>
+    <SettingsRow className={accentColorRow} stretch={false}>
+      <SettingsRowTitle>
+        <Trans id="settings_accent_color" />
+        <NewFeatureBadge introducedIn="4" />
+      </SettingsRowTitle>
       <SettingsRowContent
         className={css`
           display: grid;

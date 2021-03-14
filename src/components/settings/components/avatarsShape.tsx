@@ -63,6 +63,8 @@ export function AvatarsShape(props: AvatarsShapeProps) {
   return (
     <SettingsRow
       className={css`
+        justify-content: flex-start;
+
         input {
           display: none;
         }

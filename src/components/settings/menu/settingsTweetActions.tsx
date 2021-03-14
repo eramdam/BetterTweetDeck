@@ -2,13 +2,12 @@ import {css} from '@emotion/css';
 import React, {Fragment} from 'react';
 
 import {BTDTweetActionsPosition} from '../../../features/changeTweetActions';
+import {BTDSettings} from '../../../types/betterTweetDeck/btdSettingsTypes';
 import {getTransString, Trans} from '../../trans';
-import {BooleanSettingsRow} from '../components/booleanSettingRow';
 import {CheckboxSelectSettingsRow} from '../components/checkboxSelectSettingsRow';
 import {BTDRadioSelectSettingsRow} from '../components/radioSelectSettingsRow';
 import {SettingsButton} from '../components/settingsButton';
 import {SettingsRow, SettingsRowTitle} from '../components/settingsRow';
-import {SettingsSeparator} from '../components/settingsSeparator';
 import {SettingsTextInput} from '../components/settingsTextInput';
 import {formatDateTime, SettingsMenuRenderer} from '../settingsComponents';
 
@@ -79,8 +78,6 @@ export const renderTweetActionsSettings: SettingsMenuRenderer = (
       <SettingsRow
         disabled={!settings.tweetActions.addDownloadMediaLinksAction}
         className={css`
-          grid-template-columns: 150px 1fr;
-
           input {
             width: 80%;
           }
@@ -92,11 +89,7 @@ export const renderTweetActionsSettings: SettingsMenuRenderer = (
           value={settings.downloadFilenameFormat}
           onChange={makeOnSettingsChange('downloadFilenameFormat')}></SettingsTextInput>
       </SettingsRow>
-      <SettingsRow
-        disabled={!settings.tweetActions.addDownloadMediaLinksAction}
-        className={css`
-          align-items: flex-start;
-        `}>
+      <SettingsRow disabled={!settings.tweetActions.addDownloadMediaLinksAction}>
         <SettingsRowTitle>
           <Trans id="settings_filename_format_tokens" />
         </SettingsRowTitle>
@@ -210,19 +203,25 @@ export const renderTweetActionsSettings: SettingsMenuRenderer = (
         ]}>
         <Trans id="settings_additional_tweet_menu_items" />
       </CheckboxSelectSettingsRow>
-      <SettingsSeparator></SettingsSeparator>
-      <BooleanSettingsRow
-        settingsKey="replaceHeartsByStars"
-        initialValue={settings.replaceHeartsByStars}
-        onChange={makeOnSettingsChange('replaceHeartsByStars')}>
-        <Trans id="settings_replace_hearts_by_stars" />
-      </BooleanSettingsRow>
-      <BooleanSettingsRow
-        settingsKey="showAccountChoiceOnFavorite"
-        initialValue={settings.showAccountChoiceOnFavorite}
-        onChange={makeOnSettingsChange('showAccountChoiceOnFavorite')}>
-        <Trans id="settings_show_account_picker_like" />
-      </BooleanSettingsRow>
+      <CheckboxSelectSettingsRow
+        onChange={(key, value) => {
+          makeOnSettingsChange(key as keyof BTDSettings)(value);
+        }}
+        fields={[
+          {
+            initialValue: settings.replaceHeartsByStars,
+            key: 'replaceHeartsByStars',
+            label: <Trans id="settings_replace_hearts_by_stars" />,
+          },
+          {
+            introducedIn: '4',
+            initialValue: settings.showAccountChoiceOnFavorite,
+            key: 'showAccountChoiceOnFavorite',
+            label: <Trans id="settings_show_account_picker_like" />,
+          },
+        ]}>
+        <Trans id="settings_misc" />
+      </CheckboxSelectSettingsRow>
     </Fragment>
   );
 };

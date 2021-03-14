@@ -17,13 +17,6 @@ interface CustomDarkThemeProps {
   label?: ReactNode;
 }
 
-const darkThemeRow = css`
-  align-items: flex-start;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  grid-template-columns: 150px 1fr;
-`;
-
 const themeBlock = css`
   display: grid;
   /* grid-template-columns: repeat(2, auto); */
@@ -89,7 +82,7 @@ const generateId = () => {
 export function ThemeSelector(props: CustomDarkThemeProps) {
   const inputId = generateId();
   return (
-    <SettingsRow className={darkThemeRow} disabled={props.disabled}>
+    <SettingsRow disabled={props.disabled}>
       <SettingsRowTitle>{props.label ?? 'Theme'}</SettingsRowTitle>
       <SettingsRowContent className={themeBlock}>
         {!props.onlyDark && (

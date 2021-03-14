@@ -1,6 +1,8 @@
 import {css} from '@emotion/css';
 import React from 'react';
 
+import {settingsRow} from '../settingsStyles';
+
 export function SettingsSeparator() {
   return (
     <hr
@@ -10,6 +12,10 @@ export function SettingsSeparator() {
         border: 0;
         border-bottom: 2px solid var(--settings-modal-separator);
         opacity: 0.6;
+
+        ${settingsRow} & {
+          margin: 20px 0;
+        }
       `}
     />
   );

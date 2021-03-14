@@ -1,14 +1,19 @@
 import {css} from '@emotion/css';
 
-export const settingsRowTitle = css`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  line-height: 1.7;
-  font-size: 14px;
+import {featureBadgeClassname} from './components/newFeatureBadge';
 
-  padding: 0 20px;
-  text-align: right;
+export const settingsRowTitle = css`
+  line-height: 1.7;
+  font-size: 20px;
+
+  padding: 6px 0;
+  text-align: left;
+  display: flex;
+  align-items: center;
+
+  .${featureBadgeClassname} {
+    margin-left: 10px;
+  }
 `;
 
 export const settingsDisabled = css`
@@ -20,12 +25,13 @@ export const settingsRow = css`
   display: flex;
   padding-top: 15px;
   display: grid;
-  grid-template-columns: 150px auto;
-  grid-column-gap: 10px;
-  justify-content: flex-start;
+  grid-auto-rows: auto;
+  grid-auto-flow: row;
+  padding-left: 40px;
+  justify-content: stretch;
 
   & + & {
-    padding-top: 20px;
+    padding-top: 15px;
   }
 
   hr + & {

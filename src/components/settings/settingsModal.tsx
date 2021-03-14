@@ -51,15 +51,17 @@ export const SettingsModal = (props: SettingsModalProps) => {
 
   const canSave = useMemo(() => !editorHasErrors && isDirty, [editorHasErrors, isDirty]);
 
-  const menu = makeSettingsMenu(
-    settings,
-    makeOnSettingsChange,
-    (newSettings) => {
-      setSettings(newSettings);
-      setIsDirty(true);
-    },
-    setEditorHasErrors
-  );
+  const menu = useMemo(() => {
+    return makeSettingsMenu(
+      settings,
+      makeOnSettingsChange,
+      (newSettings) => {
+        setSettings(newSettings);
+        setIsDirty(true);
+      },
+      setEditorHasErrors
+    );
+  }, [settings]);
 
   const renderSelectedPage = () => {
     const menuSection = menu
@@ -91,7 +93,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
             <div key={section.id}>
               <div className="section-title">{section.title}</div>
               <ul>
-                {section.items.map((item, index) => {
+                {section.items.map((item) => {
                   return (
                     <Fragment key={section.id + '-' + item.id}>
                       <li

@@ -3,7 +3,6 @@ import React, {Fragment} from 'react';
 import {BTDScrollbarsMode} from '../../../features/changeScrollbars';
 import {BetterTweetDeckThemes} from '../../../features/themeTweaks';
 import {getTransString, Trans} from '../../trans';
-import {AvatarsShape} from '../components/avatarsShape';
 import {CheckboxSelectSettingsRow} from '../components/checkboxSelectSettingsRow';
 import {CustomAccentColor} from '../components/customAccentColor';
 import {BTDRadioSelectSettingsRow} from '../components/radioSelectSettingsRow';
@@ -36,14 +35,13 @@ export const renderThemeSettings: SettingsMenuRenderer = (
         disabled={settings.theme === BetterTweetDeckThemes.LIGHT}
         fields={[
           {
+            introducedIn: '4',
             initialValue: settings.enableAutoThemeSwitch,
             key: 'enableAutoThemeSwitch',
             label: getTransString('settings_auto_switch_light_theme'),
           },
         ]}></CheckboxSelectSettingsRow>
-      <AvatarsShape
-        initialValue={settings.avatarsShape}
-        onChange={makeOnSettingsChange('avatarsShape')}></AvatarsShape>
+
       <BTDRadioSelectSettingsRow
         settingsKey="scrollbarsMode"
         initialValue={settings.scrollbarsMode}

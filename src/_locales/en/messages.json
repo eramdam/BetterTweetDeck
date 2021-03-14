@@ -192,7 +192,7 @@
     "message": "Pasting unknown code in this editor can lead to weird issues if you don't know what you are doing"
   },
   "settings_avatar_shape": {
-    "message": "Avatar shape"
+    "message": "Avatars shape"
   },
   "settings_save": {
     "message": "Save"
@@ -262,5 +262,11 @@
   },
   "settings_show_account_picker_like": {
     "message": "Show account picker when clicking on the like button"
+  },
+  "settings_accent_color": {
+    "message": "Accent color"
+  },
+  "settings_misc": {
+    "message": "Misc."
   }
 }
