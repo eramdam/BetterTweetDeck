@@ -1,3 +1,4 @@
+import {cx} from '@emotion/css';
 import React, {PropsWithChildren} from 'react';
 
 type defaultProps = PropsWithChildren<{}>;
@@ -14,8 +15,12 @@ export function SettingsSidebar(props: defaultProps) {
 export function SettingsContent(props: defaultProps) {
   return <div className="btd-settings-content">{props.children}</div>;
 }
-export function SettingsFooter(props: defaultProps) {
-  return <div className="btd-settings-footer">{props.children}</div>;
+export function SettingsFooter(
+  props: defaultProps & {
+    className?: string;
+  }
+) {
+  return <div className={cx('btd-settings-footer', props.className)}>{props.children}</div>;
 }
 export function SettingsFooterLabel(props: defaultProps) {
   return <div className="btd-settings-footer-label">{props.children}</div>;

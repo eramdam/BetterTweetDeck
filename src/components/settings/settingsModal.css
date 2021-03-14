@@ -46,6 +46,7 @@ html {
   }
 }
 .btd-settings-modal {
+  overflow: hidden;
   color: var(--settings-modal-text);
   width: 100%;
   background-color: var(--settings-modal-background);
@@ -119,19 +120,27 @@ html {
   border-top: 1px solid var(--settings-modal-separator);
 
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center;
   column-gap: 10px;
+
+  transition: transform 300ms ease;
+  transform: translateY(100%);
+
+  &.visible {
+    transform: translateY(0%);
+  }
 }
 
 .btd-settings-footer > div {
   display: flex;
+  flex-direction: row-reverse;
   align-items: center;
 }
 
 .btd-settings-footer-label {
   font-size: 14px;
-  margin-right: 10px;
+  margin: 0 10px;
   color: var(--twitter-blue);
   opacity: 0.8;
 }

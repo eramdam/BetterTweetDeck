@@ -1,5 +1,6 @@
 import './settingsModal.css';
 
+import {cx} from '@emotion/css';
 import {isEqual} from 'lodash';
 import React, {Fragment, useCallback, useMemo, useState} from 'react';
 
@@ -138,7 +139,10 @@ export const SettingsModal = (props: SettingsModalProps) => {
         </div>
       </SettingsSidebar>
       <SettingsContent>{renderSelectedPage()}</SettingsContent>
-      <SettingsFooter>
+      <SettingsFooter
+        className={cx({
+          visible: canSave || showSettingsLabel,
+        })}>
         <div>
           {showSettingsLabel && (
             <div className="btd-settings-footer-label">
