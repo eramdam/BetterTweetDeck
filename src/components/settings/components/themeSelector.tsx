@@ -85,7 +85,7 @@ export function ThemeSelector(props: CustomDarkThemeProps) {
   return (
     <SettingsRow disabled={props.disabled}>
       <SettingsRowTitle>
-        <Trans id="settings_theme.message" />
+        <Trans id="settings_theme" />
       </SettingsRowTitle>
       <SettingsRowContent className={themeBlock}>
         {!props.onlyDark && (
