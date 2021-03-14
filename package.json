@@ -128,8 +128,5 @@
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^3.11.2",
     "xcode": "^3.0.1"
-  },
-  "devDependencies": {
-    "depcheck": "^1.4.0"
   }
 }
