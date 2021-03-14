@@ -1,6 +1,6 @@
-import moduleraid from 'moduleraid';
+import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 const regexp = require('twitter-regexps/emoji');
 
-export function updateTwemojiRegex(mR: moduleraid) {
+export const updateTwemojiRegex = makeBTDModule(({mR}) => {
   mR.findModule((mod) => mod.default instanceof RegExp)[0].default = regexp;
-}
+});

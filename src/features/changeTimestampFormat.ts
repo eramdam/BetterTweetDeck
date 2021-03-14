@@ -50,32 +50,34 @@ function refreshTimestamps(settings: BTDSettings) {
   });
 }
 
-export const maybeSetupCustomTimestampFormat = makeBTDModule(({TD, settings}) => {
+export const maybeSetupCustomTimestampFormat = makeBTDModule(({TD, settings, jq}) => {
   const {timestampStyle} = settings;
   if (timestampStyle === BTDTimestampFormats.RELATIVE) {
     return;
   }
 
-  // Find the task that changes the timestamp
-  const taskIdToRemove = _(TD.controller.scheduler._tasks)
-    .entries()
-    .filter(([, task]) => {
-      // The timestamp task is ran every 30 seconds.
-      return task.period === 1e3 * 30;
-    })
-    .map(([, task]) => {
-      return task.id;
-    })
-    .compact()
-    .first();
+  jq(document).one('dataColumnsLoaded', () => {
+    // Find the task that changes the timestamp
+    const taskIdToRemove = _(TD.controller.scheduler._tasks)
+      .entries()
+      .filter(([, task]) => {
+        // The timestamp task is ran every 30 seconds.
+        return task.period === 1e3 * 30;
+      })
+      .map(([, task]) => {
+        return task.id;
+      })
+      .compact()
+      .first();
 
-  // If no id is found, nothing we can do
-  if (!taskIdToRemove) {
-    return;
-  }
+    // If no id is found, nothing we can do
+    if (!taskIdToRemove) {
+      return;
+    }
 
-  // Otherwise, remove the periodic task
-  TD.controller.scheduler.removePeriodicTask(taskIdToRemove);
-  refreshTimestamps(settings);
-  setInterval(() => refreshTimestamps(settings), TIMESTAMP_INTERVAL);
+    // Otherwise, remove the periodic task
+    TD.controller.scheduler.removePeriodicTask(taskIdToRemove);
+    refreshTimestamps(settings);
+    setInterval(() => refreshTimestamps(settings), TIMESTAMP_INTERVAL);
+  });
 });

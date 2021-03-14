@@ -29,7 +29,7 @@ import {updateTwemojiRegex} from './features/updateTwemojiRegex';
 import {useOriginalAspectRatio} from './features/useOriginalAspectRatio';
 import {maybeChangeUsernameFormat} from './features/usernameDisplay';
 import {listenToInternalBTDMessage, sendInternalBTDMessage} from './helpers/communicationHelpers';
-import {onChirpAdded, setupChirpHandler} from './inject/chirpHandler';
+import {setupChirpHandler} from './inject/chirpHandler';
 import {setupMediaSizeMonitor} from './inject/columnMediaSizeMonitor';
 import {maybeSetupDebugFunctions} from './inject/debugMethods';
 import {insertSettingsButton} from './inject/setupSettings';
@@ -73,25 +73,21 @@ const jq: JQueryStatic | undefined =
     mR,
   };
 
-  maybeSetupDebugFunctions(jq, mR);
+  // Add custom mustaches.
+  TD.mustaches['btd/download_filename_format.mustache'] = settings.downloadFilenameFormat;
+  // Marks the DOM to make sure we don't inject our script twice.
+  document.body.setAttribute('data-btd-ready', 'true');
 
-  jq(document).one('dataSettingsValues', () => {
-    applyTweetDeckSettings(TD, settings);
-  });
-
-  setupChirpHandler(TD, jq);
-
-  onChirpAdded((payload) => {
-    putBadgesOnTopOfAvatars(settings, payload);
-    useOriginalAspectRatio(settings, payload);
-  });
-
+  // Setup BTD features
+  setupChirpHandler(btdModuleOptions);
+  maybeSetupDebugFunctions(btdModuleOptions);
+  updateTwemojiRegex(btdModuleOptions);
+  putBadgesOnTopOfAvatars(btdModuleOptions);
+  useOriginalAspectRatio(btdModuleOptions);
   renderMediaAndQuotedTweets(btdModuleOptions);
   setupGifModals(btdModuleOptions);
   injectCustomCss(btdModuleOptions);
-  markInjectScriptAsReady();
   maybeRenderCardsInColumns(btdModuleOptions);
-  updateTwemojiRegex(mR);
   setupMediaSizeMonitor(btdModuleOptions);
   maybeRemoveRedirection(btdModuleOptions);
   maybeChangeUsernameFormat(btdModuleOptions);
@@ -111,23 +107,23 @@ const jq: JQueryStatic | undefined =
   setupAME(btdModuleOptions);
   maybeReplaceHeartsByStars(btdModuleOptions);
   tweakTweetDeckTheme(btdModuleOptions);
-  // setupGifModals(btdModuleOptions.TD, btdModuleOptions.settings);
-
-  // Embed custom mustaches.
-  TD.mustaches['btd/download_filename_format.mustache'] = settings.downloadFilenameFormat;
+  useModernOverlays(btdModuleOptions);
+  insertSettingsButton(btdModuleOptions);
+  setupThemeAutoSwitch(btdModuleOptions);
+  maybeSetupCustomTimestampFormat(btdModuleOptions);
+  applyTweetDeckSettings(btdModuleOptions);
 
   jq(document).one('dataColumnsLoaded', () => {
-    useModernOverlays(btdModuleOptions);
     document.body.classList.add('btd-loaded');
-    maybeSetupCustomTimestampFormat(btdModuleOptions);
     sendInternalBTDMessage({
       name: BTDMessages.BTD_READY,
       origin: BTDMessageOriginsEnum.INJECT,
       isReponse: false,
       payload: undefined,
     });
-    setupThemeAutoSwitch(btdModuleOptions);
-    insertSettingsButton();
+  });
+  jq(document).on('uiResetImageUpload', () => {
+    jq('.btd-gif-button').addClass('-visible');
   });
 
   listenToInternalBTDMessage(
@@ -147,25 +143,11 @@ const jq: JQueryStatic | undefined =
       jq('.btd-gif-button').removeClass('-visible');
     }
   );
-  jq(document).on('uiResetImageUpload', () => {
-    jq('.btd-gif-button').addClass('-visible');
-  });
-  jq(document).on('dataSettingsValues', () => {});
 })();
 
 /**
 Helpers.
  */
-
-/** Marks the DOM to make sure we don't inject our script twice. */
-function markInjectScriptAsReady() {
-  const {body} = document;
-  if (!body) {
-    return;
-  }
-
-  body.setAttribute('data-btd-ready', 'true');
-}
 
 /** Parses and returns the settings from the <script> tag as an object. */
 function getBTDSettings() {

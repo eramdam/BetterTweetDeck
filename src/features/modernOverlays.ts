@@ -75,8 +75,10 @@ export const useModernOverlays = makeBTDModule((options) => {
     }
   });
 
-  modalObserver.observe(document.querySelector('#open-modal')!, {
-    childList: true,
-    subtree: true,
+  jq(document).one('dataColumnsLoaded', () => {
+    modalObserver.observe(document.querySelector('#open-modal')!, {
+      childList: true,
+      subtree: true,
+    });
   });
 });

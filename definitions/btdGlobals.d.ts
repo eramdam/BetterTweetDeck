@@ -6,7 +6,7 @@ declare global {
   interface Window {
     BTD?: {
       debug?: {
-        $?: JQueryStatic;
+        jq?: JQueryStatic;
         mR?: moduleraid;
         findMustache: typeof findMustache;
         getChirpFromElement: typeof getChirpFromElement;

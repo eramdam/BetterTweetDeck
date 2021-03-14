@@ -1,68 +1,69 @@
 import './useOriginalAspectRatio.css';
 
 import {isHTMLElement} from '../helpers/domHelpers';
-import {ChirpAddedPayload} from '../inject/chirpHandler';
-import {makeBtdUuidSelector} from '../types/betterTweetDeck/btdCommonTypes';
-import {BTDSettings} from '../types/betterTweetDeck/btdSettingsTypes';
+import {onChirpAdded} from '../inject/chirpHandler';
+import {makeBTDModule, makeBtdUuidSelector} from '../types/betterTweetDeck/btdCommonTypes';
 import {TweetDeckChirp, TweetDeckColumnMediaPreviewSizesEnum} from '../types/tweetdeckTypes';
 
-export function useOriginalAspectRatio(settings: BTDSettings, addedChirp: ChirpAddedPayload) {
+export const useOriginalAspectRatio = makeBTDModule(({settings}) => {
   if (!settings.useOriginalAspectRatioForSingleImages) {
     return;
   }
 
-  if (
-    addedChirp.columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.OFF ||
-    addedChirp.columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.SMALL
-  ) {
-    return;
-  }
+  onChirpAdded((addedChirp) => {
+    if (
+      addedChirp.columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.OFF ||
+      addedChirp.columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.SMALL
+    ) {
+      return;
+    }
 
-  const chirp = addedChirp.chirp;
-  const actualChirp = getUsefulChirp(chirp);
-  const chirpNode = document.querySelector(makeBtdUuidSelector('data-btd-uuid', addedChirp.uuid));
+    const chirp = addedChirp.chirp;
+    const actualChirp = getUsefulChirp(chirp);
+    const chirpNode = document.querySelector(makeBtdUuidSelector('data-btd-uuid', addedChirp.uuid));
 
-  // If the chirp isn't in the DOM, skip.
-  if (!chirpNode) {
-    return;
-  }
+    // If the chirp isn't in the DOM, skip.
+    if (!chirpNode) {
+      return;
+    }
 
-  if (!actualChirp.entities) {
-    return;
-  }
+    if (!actualChirp.entities) {
+      return;
+    }
 
-  const mediaEntities = actualChirp.entities.media;
+    const mediaEntities = actualChirp.entities.media;
 
-  // If we don't have any media or we have more than one, skip.
-  if (!mediaEntities.length || mediaEntities.length > 1) {
-    return;
-  }
+    // If we don't have any media or we have more than one, skip.
+    if (!mediaEntities.length || mediaEntities.length > 1) {
+      return;
+    }
 
-  const singleMedia = mediaEntities[0];
+    const singleMedia = mediaEntities[0];
 
-  if (!singleMedia || singleMedia.type !== 'photo') {
-    return;
-  }
+    if (!singleMedia || singleMedia.type !== 'photo') {
+      return;
+    }
 
-  const sizeObject = {
-    width: singleMedia.sizes.large.w,
-    height: singleMedia.sizes.large.h,
-  };
+    const sizeObject = {
+      width: singleMedia.sizes.large.w,
+      height: singleMedia.sizes.large.h,
+    };
 
-  if ((sizeObject.height / sizeObject.width) * 100 > 500) {
-    return;
-  }
+    if ((sizeObject.height / sizeObject.width) * 100 > 500) {
+      return;
+    }
 
-  const mediaImageLink = chirpNode.querySelector('.js-media-image-link');
+    const mediaImageLink = chirpNode.querySelector('.js-media-image-link');
 
-  if (!isHTMLElement(mediaImageLink)) {
-    return;
-  }
+    if (!isHTMLElement(mediaImageLink)) {
+      return;
+    }
 
-  mediaImageLink.classList.add('btd-aspect-ratio-thumbnail');
-  mediaImageLink.style.setProperty('--btd-thumb-height', sizeObject.height.toString());
-  mediaImageLink.style.setProperty('--btd-thumb-width', sizeObject.width.toString());
-}
+    mediaImageLink.classList.add('btd-aspect-ratio-thumbnail');
+    mediaImageLink.style.setProperty('--btd-thumb-height', sizeObject.height.toString());
+    mediaImageLink.style.setProperty('--btd-thumb-width', sizeObject.width.toString());
+  });
+});
 
 const getUsefulChirp = (chirp: TweetDeckChirp) => {
   if (chirp.retweetedStatus) {

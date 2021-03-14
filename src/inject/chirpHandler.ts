@@ -3,12 +3,12 @@ import {compact} from 'lodash';
 import {getRandomString, isHTMLElement} from '../helpers/domHelpers';
 import {getChirpFromElement, getURLsFromChirp} from '../helpers/tweetdeckHelpers';
 import {HandlerOf} from '../helpers/typeHelpers';
-import {BTDModalUuidAttribute, BTDUuidAttribute} from '../types/betterTweetDeck/btdCommonTypes';
 import {
-  TweetDeckChirp,
-  TweetDeckColumnMediaPreviewSizesEnum,
-  TweetDeckObject,
-} from '../types/tweetdeckTypes';
+  BTDModalUuidAttribute,
+  BTDUuidAttribute,
+  makeBTDModule,
+} from '../types/betterTweetDeck/btdCommonTypes';
+import {TweetDeckChirp, TweetDeckColumnMediaPreviewSizesEnum} from '../types/tweetdeckTypes';
 import {getSizeForColumnKey} from './columnMediaSizeMonitor';
 
 export interface ChirpAddedPayload {
@@ -25,8 +25,6 @@ export interface ChirpAddedPayload {
 export interface ChirpRemovedPayload {
   uuidArray: string[];
 }
-
-type SetupChirpHandler = (TD: TweetDeckObject, jq: JQueryStatic) => void;
 
 let isObserverSetup = false;
 const onRemoveCallbacks = new Set<HandlerOf<ChirpRemovedPayload>>();
@@ -54,7 +52,7 @@ export function onChirpRemove(cb: HandlerOf<ChirpRemovedPayload>) {
   onRemoveCallbacks.add(cb);
 }
 
-export const setupChirpHandler: SetupChirpHandler = (TD, jq) => {
+export const setupChirpHandler = makeBTDModule(({TD, jq}) => {
   const mutObserver = new MutationObserver((mutations) =>
     mutations.forEach((mutation) => {
       const hasAddHandlers = onDomAddCallbacks.size > 0;
@@ -205,4 +203,4 @@ export const setupChirpHandler: SetupChirpHandler = (TD, jq) => {
     });
   });
   isObserverSetup = true;
-};
+});
