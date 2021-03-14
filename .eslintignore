@@ -1,4 +1,5 @@
-dist/
 !.eslintrc.js
-tools/embeds.js
+artifacts/
+dist/
+safari/
 src/moduleraid.js
