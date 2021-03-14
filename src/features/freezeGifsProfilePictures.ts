@@ -1,6 +1,6 @@
 import {memoize} from 'lodash';
 
-import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
+import {makeBTDModule} from '../types/btdCommonTypes';
 
 export const maybeFreezeGifsInProfilePicture = makeBTDModule(({settings}) => {
   if (!settings.disableGifsInProfilePictures) {

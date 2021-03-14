@@ -3,7 +3,7 @@ import React, {ReactNode} from 'react';
 
 import {HandlerOf} from '../../../helpers/typeHelpers';
 import {AbstractTweetDeckSettings} from '../../../types/abstractTweetDeckSettings';
-import {BTDSettings} from '../../../types/betterTweetDeck/btdSettingsTypes';
+import {BTDSettings} from '../../../types/btdSettingsTypes';
 import {SettingsRadioInput} from './settingsRadioInput';
 
 export interface SettingsRadioSettingsSelectProps<S extends object, T extends keyof S> {

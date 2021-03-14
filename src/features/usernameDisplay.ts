@@ -1,7 +1,7 @@
 import {compile} from 'hogan.js';
 import {Dictionary} from 'lodash';
 
-import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
+import {makeBTDModule} from '../types/btdCommonTypes';
 
 export enum BTDUsernameFormat {
   /** `Fullname @username` (default) */

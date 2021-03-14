@@ -6,7 +6,7 @@ import {
   BTDMessageOriginsEnum,
   BTDMessages,
   isBTDMessage,
-} from '../types/betterTweetDeck/btdMessageTypes';
+} from '../types/btdMessageTypes';
 
 const ORIGIN_TWEETDECK = 'https://tweetdeck.twitter.com';
 const ORIGIN_BETTER_TW = 'https://better.tw';

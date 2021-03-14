@@ -18,7 +18,7 @@ export enum BetterTweetDeckThemes {
   ULTRA_DARK = 'ultra_dark',
 }
 
-import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
+import {makeBTDModule} from '../types/btdCommonTypes';
 
 export const tweakTweetDeckTheme = makeBTDModule(({settings}) => {
   // @ts-ignore

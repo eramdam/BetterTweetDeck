@@ -1,7 +1,7 @@
 import {browser} from 'webextension-polyfill-ts';
 
 import {getValidatedSettings, setupSettingsInBackground} from './services/backgroundSettings';
-import {BTDMessageEvent, BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
+import {BTDMessageEvent, BTDMessages} from './types/btdMessageTypes';
 
 (async () => {
   await setupSettingsInBackground();

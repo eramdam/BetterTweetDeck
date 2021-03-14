@@ -2,7 +2,7 @@ import './changeTweetActions.css';
 
 import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
 import {getChirpFromElement} from '../helpers/tweetdeckHelpers';
-import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
+import {makeBTDModule} from '../types/btdCommonTypes';
 
 export enum BTDTweetActionsPosition {
   LEFT = 'left',

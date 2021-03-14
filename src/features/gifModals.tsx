@@ -8,7 +8,7 @@ import {maybeSetOverlayColorForMediaUrlInChirp} from '../helpers/colorHelpers';
 import {dataURItoBlob, isHtmlVideoElement} from '../helpers/domHelpers';
 import {closeFullscreenModal, openFullscreenModal} from '../helpers/modalHelpers';
 import {getChirpFromElement} from '../helpers/tweetdeckHelpers';
-import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
+import {makeBTDModule} from '../types/btdCommonTypes';
 
 export const setupGifModals = makeBTDModule(({TD, settings, jq}) => {
   // const filenameRenderer = Hogan.compile(settings.downloadFilenameFormat);

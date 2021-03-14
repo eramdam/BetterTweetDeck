@@ -4,7 +4,7 @@ import {
   getFullscreenNodeRoot,
   makeBTDModule,
   makeBtdUuidSelector,
-} from '../types/betterTweetDeck/btdCommonTypes';
+} from '../types/btdCommonTypes';
 
 export const monitorBtdModal = makeBTDModule(({TD}) => {
   const btdPortalTarget = getFullscreenNodeRoot();

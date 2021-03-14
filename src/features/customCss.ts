@@ -1,4 +1,4 @@
-import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
+import {makeBTDModule} from '../types/btdCommonTypes';
 
 export const injectCustomCss = makeBTDModule(({settings}) => {
   if (settings.customCss.trim().length === 0) {

@@ -1,4 +1,4 @@
-import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
+import {makeBTDModule} from '../types/btdCommonTypes';
 
 export const allowImagePaste = makeBTDModule(({jq}) => {
   document.addEventListener('paste', (ev) => {

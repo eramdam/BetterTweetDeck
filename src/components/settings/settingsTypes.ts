@@ -1,5 +1,5 @@
 import {HandlerOf} from '../../helpers/typeHelpers';
-import {BTDSettings} from '../../types/betterTweetDeck/btdSettingsTypes';
+import {BTDSettings} from '../../types/btdSettingsTypes';
 
 export interface BaseSettingsProps<T extends keyof BTDSettings> {
   initialValue: BTDSettings[T];

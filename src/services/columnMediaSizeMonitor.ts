@@ -1,4 +1,4 @@
-import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
+import {makeBTDModule} from '../types/btdCommonTypes';
 import {TweetDeckColumn} from '../types/tweetdeckTypes';
 import {TweetDeckColumnMediaPreviewSizesEnum} from '../types/tweetdeckTypes';
 

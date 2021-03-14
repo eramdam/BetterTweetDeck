@@ -1,6 +1,6 @@
 import './changeScrollbars.css';
 
-import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
+import {makeBTDModule} from '../types/btdCommonTypes';
 
 export enum BTDScrollbarsMode {
   DEFAULT = 'default',

@@ -1,6 +1,6 @@
 import {browser} from 'webextension-polyfill-ts';
 
-import {BTDMessageEvent, BTDMessageEventData} from '../types/betterTweetDeck/btdMessageTypes';
+import {BTDMessageEvent, BTDMessageEventData} from '../types/btdMessageTypes';
 
 /**
  * Converts a relative path within an extension install directory to a fully-qualified URL.

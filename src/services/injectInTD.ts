@@ -1,5 +1,5 @@
 import {getExtensionUrl} from '../helpers/webExtensionHelpers';
-import {BTDSettingsAttribute} from '../types/betterTweetDeck/btdCommonTypes';
+import {BTDSettingsAttribute} from '../types/btdCommonTypes';
 import {getValidatedSettings} from './backgroundSettings';
 
 export async function injectInTD() {

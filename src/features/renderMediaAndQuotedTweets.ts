@@ -1,5 +1,5 @@
 import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
-import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
+import {makeBTDModule} from '../types/btdCommonTypes';
 
 export const renderMediaAndQuotedTweets = makeBTDModule(({TD}) => {
   modifyMustacheTemplate(TD, 'status/tweet_single.mustache', (string) => {

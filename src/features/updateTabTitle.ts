@@ -1,4 +1,4 @@
-import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
+import {makeBTDModule} from '../types/btdCommonTypes';
 
 export const updateTabTitle = makeBTDModule(({jq, settings}) => {
   if (!settings.updateTabTitleOnActivity) {

@@ -1,7 +1,7 @@
 import './addTweetMenuItems.css';
 
 import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
-import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
+import {makeBTDModule} from '../types/btdCommonTypes';
 import {listenToRedraftTweetEvent} from './redraftTweet';
 
 export const maybeAddTweetMenuItems = makeBTDModule((options) => {

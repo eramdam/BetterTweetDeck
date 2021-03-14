@@ -1,4 +1,4 @@
-import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
+import {makeBTDModule} from '../types/btdCommonTypes';
 import {tweakTweetDeckTheme} from './themeTweaks';
 
 export const setupThemeAutoSwitch = makeBTDModule((opts) => {

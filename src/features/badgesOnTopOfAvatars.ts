@@ -1,7 +1,7 @@
 import './badgesOnTopOfAvatars.css';
 
 import {onChirpAdded} from '../services/chirpHandler';
-import {makeBTDModule, makeBtdUuidSelector} from '../types/betterTweetDeck/btdCommonTypes';
+import {makeBTDModule, makeBtdUuidSelector} from '../types/btdCommonTypes';
 import {ChirpBaseTypeEnum, TweetDeckUser, TwitterActionEnum} from '../types/tweetdeckTypes';
 
 export const putBadgesOnTopOfAvatars = makeBTDModule(({settings}) => {

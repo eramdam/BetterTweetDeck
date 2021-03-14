@@ -2,7 +2,7 @@ import {DateTime} from 'luxon';
 import {ReactNode} from 'react';
 
 import {HandlerOf, RendererOf} from '../../helpers/typeHelpers';
-import {BTDSettings} from '../../types/betterTweetDeck/btdSettingsTypes';
+import {BTDSettings} from '../../types/btdSettingsTypes';
 
 export function makeSettingsRow<T extends keyof BTDSettings>(
   key: T,

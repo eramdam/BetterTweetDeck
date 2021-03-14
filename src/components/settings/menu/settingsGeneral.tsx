@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 
-import {BTDSettings} from '../../../types/betterTweetDeck/btdSettingsTypes';
+import {BTDSettings} from '../../../types/btdSettingsTypes';
 import {Trans} from '../../trans';
 import {CheckboxSelectSettingsRow} from '../components/checkboxSelectSettingsRow';
 import {SettingsMenuRenderer} from '../settingsComponents';

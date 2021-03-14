@@ -1,4 +1,4 @@
-import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
+import {makeBTDModule} from '../types/btdCommonTypes';
 
 /** Removes the t.co redirection on links. */
 export const maybeRemoveRedirection = makeBTDModule(({TD, settings}) => {

@@ -1,4 +1,4 @@
-import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
+import {makeBTDModule} from '../types/btdCommonTypes';
 const regexp = require('twitter-regexps/emoji');
 
 export const updateTwemojiRegex = makeBTDModule(({mR}) => {

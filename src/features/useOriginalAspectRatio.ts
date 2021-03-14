@@ -2,7 +2,7 @@ import './useOriginalAspectRatio.css';
 
 import {isHTMLElement} from '../helpers/domHelpers';
 import {onChirpAdded} from '../services/chirpHandler';
-import {makeBTDModule, makeBtdUuidSelector} from '../types/betterTweetDeck/btdCommonTypes';
+import {makeBTDModule, makeBtdUuidSelector} from '../types/btdCommonTypes';
 import {TweetDeckChirp, TweetDeckColumnMediaPreviewSizesEnum} from '../types/tweetdeckTypes';
 
 export const useOriginalAspectRatio = makeBTDModule(({settings}) => {

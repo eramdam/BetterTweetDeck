@@ -26,7 +26,7 @@
  *
  */
 
-import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
+import {makeBTDModule} from '../types/btdCommonTypes';
 import {TweetDeckChirp, TweetDeckObject} from '../types/tweetdeckTypes';
 
 type AMEFiltersMap = {[k: string]: AMEFilter};

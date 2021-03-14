@@ -1,6 +1,6 @@
 import './hideColumnIcons.css';
 
-import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
+import {makeBTDModule} from '../types/btdCommonTypes';
 
 export const maybeHideColumnIcons = makeBTDModule(({settings}) => {
   if (!settings.hideColumnIcons) {

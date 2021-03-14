@@ -3,7 +3,7 @@ import {Dictionary} from 'lodash';
 import {createSelectorForChirp, getChirpFromKey} from '../helpers/tweetdeckHelpers';
 import {hasProperty} from '../helpers/typeHelpers';
 import {onVisibleChirpAdded} from '../services/chirpHandler';
-import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
+import {makeBTDModule} from '../types/btdCommonTypes';
 import {TweetDeckChirp, TweetDeckColumn} from '../types/tweetdeckTypes';
 
 export const maybeRenderCardsInColumns = makeBTDModule((options) => {

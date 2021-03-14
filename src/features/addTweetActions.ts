@@ -9,7 +9,7 @@ import {
   getFilenameDownloadData,
   getMediaFromChirp,
 } from '../helpers/tweetdeckHelpers';
-import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
+import {makeBTDModule} from '../types/btdCommonTypes';
 import {requestMediaItem} from './redraftTweet';
 
 export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {

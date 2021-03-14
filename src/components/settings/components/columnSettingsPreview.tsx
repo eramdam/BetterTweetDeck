@@ -5,7 +5,7 @@ import clearBtn from '../../../assets/column-preview/clear-btn.png';
 import collapseBtn from '../../../assets/column-preview/collapse-btn.png';
 import mainBg from '../../../assets/column-preview/column-bg.png';
 import noIcon from '../../../assets/column-preview/no-icon.png';
-import {BTDSettings} from '../../../types/betterTweetDeck/btdSettingsTypes';
+import {BTDSettings} from '../../../types/btdSettingsTypes';
 import {SettingsRow, SettingsRowContent, SettingsRowTitle} from './settingsRow';
 
 interface ColumnSettingsPreviewProps {

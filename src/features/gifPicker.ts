@@ -8,7 +8,7 @@ import {sendInternalBTDMessage} from '../helpers/communicationHelpers';
 import {emptyNode} from '../helpers/domHelpers';
 import {onComposerShown} from '../helpers/tweetdeckHelpers';
 import {insertDomChefElement} from '../helpers/typeHelpers';
-import {BTDMessageOriginsEnum, BTDMessages} from '../types/betterTweetDeck/btdMessageTypes';
+import {BTDMessageOriginsEnum, BTDMessages} from '../types/btdMessageTypes';
 
 async function makeGifRequest(
   endpoint: string,

@@ -1,7 +1,7 @@
 import {sendInternalBTDMessage} from '../helpers/communicationHelpers';
 import {getChirpFromElement, getMediaFromChirp} from '../helpers/tweetdeckHelpers';
-import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
-import {BTDMessageOriginsEnum, BTDMessages} from '../types/betterTweetDeck/btdMessageTypes';
+import {makeBTDModule} from '../types/btdCommonTypes';
+import {BTDMessageOriginsEnum, BTDMessages} from '../types/btdMessageTypes';
 import {TweetDeckChirp, TweetDeckUser} from '../types/tweetdeckTypes';
 
 export const listenToRedraftTweetEvent = makeBTDModule(({TD, jq}) => {

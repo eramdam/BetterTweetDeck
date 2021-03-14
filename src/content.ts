@@ -11,7 +11,7 @@ import {isHTMLElement} from './helpers/domHelpers';
 import {sendMessageToBackground} from './helpers/webExtensionHelpers';
 import {injectInTD} from './services/injectInTD';
 import {setupBtdRoot} from './services/setupBTDRoot';
-import {BTDMessageOriginsEnum, BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
+import {BTDMessageOriginsEnum, BTDMessages} from './types/btdMessageTypes';
 
 // Inject some scripts.
 injectInTD();

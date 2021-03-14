@@ -1,6 +1,6 @@
 import './changeAvatarShape.css';
 
-import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
+import {makeBTDModule} from '../types/btdCommonTypes';
 
 export enum BTDAvatarShapes {
   SQUARE = 'square',

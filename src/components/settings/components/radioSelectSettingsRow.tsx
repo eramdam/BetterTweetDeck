@@ -2,7 +2,7 @@ import {css} from '@emotion/css';
 import React, {PropsWithChildren} from 'react';
 
 import {AbstractTweetDeckSettings} from '../../../types/abstractTweetDeckSettings';
-import {BTDSettings} from '../../../types/betterTweetDeck/btdSettingsTypes';
+import {BTDSettings} from '../../../types/btdSettingsTypes';
 import {SettingsRadioSettingSelect, SettingsRadioSettingsSelectProps} from './settingsRadioSelect';
 import {SettingsRow, SettingsRowContent, SettingsRowTitle} from './settingsRow';
 

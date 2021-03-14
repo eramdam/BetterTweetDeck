@@ -1,7 +1,7 @@
 import moduleraid from 'moduleraid';
 
-import {TweetDeckObject} from '../tweetdeckTypes';
 import {BTDSettings} from './btdSettingsTypes';
+import {TweetDeckObject} from './tweetdeckTypes';
 
 export type BTDModuleOptions = {
   settings: BTDSettings;

@@ -6,7 +6,7 @@ import {
   BTDMakeGifPickerRequest,
   BTDMakeGifPickerRequestResult,
   BTDMessages,
-} from '../types/betterTweetDeck/btdMessageTypes';
+} from '../types/btdMessageTypes';
 
 export type GifsArray = BTDMakeGifPickerRequestResult['payload']['gifs'];
 export async function processGifRequest(

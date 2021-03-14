@@ -1,6 +1,6 @@
 import {Dictionary} from 'lodash';
 
-import {ChirpAddedPayload} from '../../services/chirpHandler';
+import {ChirpAddedPayload} from '../services/chirpHandler';
 import {BTDSettings} from './btdSettingsTypes';
 
 /** Different kinds of messages that BTD can send/receive internally. */

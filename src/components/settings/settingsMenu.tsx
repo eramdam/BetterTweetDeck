@@ -2,7 +2,7 @@ import React, {ReactNode} from 'react';
 
 import {HandlerOf, Renderer} from '../../helpers/typeHelpers';
 import {getExtensionVersion} from '../../helpers/webExtensionHelpers';
-import {BTDSettings} from '../../types/betterTweetDeck/btdSettingsTypes';
+import {BTDSettings} from '../../types/btdSettingsTypes';
 import {getTransString, Trans} from '../trans';
 import {SettingsCssEditor} from './components/settingsCssEditor';
 import {renderGeneralSettings} from './menu/settingsGeneral';

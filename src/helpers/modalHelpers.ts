@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom';
 import {Key} from 'ts-key-enum';
 
-import {getFullscreenNodeRoot} from '../types/betterTweetDeck/btdCommonTypes';
+import {getFullscreenNodeRoot} from '../types/btdCommonTypes';
 import {emptyNode, isHTMLElement, maybeDoOnNode, setStylesOnNode} from './domHelpers';
 import {Handler, insertDomChefElement} from './typeHelpers';
 

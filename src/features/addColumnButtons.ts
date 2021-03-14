@@ -4,7 +4,7 @@ import {compact} from 'lodash';
 
 import {isHTMLElement} from '../helpers/domHelpers';
 import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
-import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
+import {makeBTDModule} from '../types/btdCommonTypes';
 import {TweetDeckObject} from '../types/tweetdeckTypes';
 
 export const maybeAddColumnsButtons = makeBTDModule(({TD, jq, settings}) => {

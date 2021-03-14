@@ -2,7 +2,7 @@ import {css} from '@emotion/css';
 import React, {Fragment} from 'react';
 
 import {BTDTweetActionsPosition} from '../../../features/changeTweetActions';
-import {BTDSettings} from '../../../types/betterTweetDeck/btdSettingsTypes';
+import {BTDSettings} from '../../../types/btdSettingsTypes';
 import {getTransString, Trans} from '../../trans';
 import {CheckboxSelectSettingsRow} from '../components/checkboxSelectSettingsRow';
 import {BTDRadioSelectSettingsRow} from '../components/radioSelectSettingsRow';

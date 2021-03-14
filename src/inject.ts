@@ -34,9 +34,9 @@ import {setupMediaSizeMonitor} from './services/columnMediaSizeMonitor';
 import {maybeSetupDebugFunctions} from './services/debugMethods';
 import {insertSettingsButton} from './services/setupSettings';
 import {applyTweetDeckSettings} from './types/abstractTweetDeckSettings';
-import {BTDSettingsAttribute} from './types/betterTweetDeck/btdCommonTypes';
-import {BTDMessageOriginsEnum, BTDMessages} from './types/betterTweetDeck/btdMessageTypes';
-import {BTDSettings} from './types/betterTweetDeck/btdSettingsTypes';
+import {BTDSettingsAttribute} from './types/btdCommonTypes';
+import {BTDMessageOriginsEnum, BTDMessages} from './types/btdMessageTypes';
+import {BTDSettings} from './types/btdSettingsTypes';
 import {TweetDeckObject} from './types/tweetdeckTypes';
 
 // Declare typings on the window

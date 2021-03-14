@@ -5,7 +5,7 @@ import reporter from 'io-ts-reporters';
 import _ from 'lodash';
 
 import {ExtensionSettings} from '../helpers/webExtensionHelpers';
-import {BTDSettings, RBetterTweetDeckSettings} from '../types/betterTweetDeck/btdSettingsTypes';
+import {BTDSettings, RBetterTweetDeckSettings} from '../types/btdSettingsTypes';
 
 const defaultSettings = pipe(
   RBetterTweetDeckSettings.decode({}),

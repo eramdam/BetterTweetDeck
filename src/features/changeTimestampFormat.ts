@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import {DateTime, Interval} from 'luxon';
 
-import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
-import {BTDSettings} from '../types/betterTweetDeck/btdSettingsTypes';
+import {makeBTDModule} from '../types/btdCommonTypes';
+import {BTDSettings} from '../types/btdSettingsTypes';
 
 export enum BTDTimestampFormats {
   RELATIVE = 'relative',

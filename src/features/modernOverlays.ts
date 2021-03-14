@@ -6,7 +6,7 @@ import {maybeSetOverlayColorForMediaUrlInChirp} from '../helpers/colorHelpers';
 import {isHTMLElement} from '../helpers/domHelpers';
 import {buildURLWithSearchParams} from '../helpers/networkHelpers';
 import {getChirpFromKeyAlone} from '../helpers/tweetdeckHelpers';
-import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
+import {makeBTDModule} from '../types/btdCommonTypes';
 
 export const useModernOverlays = makeBTDModule((options) => {
   const {TD, jq, settings} = options;

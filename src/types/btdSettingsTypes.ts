@@ -1,12 +1,12 @@
 import * as t from 'io-ts';
 
-import {BTDAvatarShapes} from '../../features/changeAvatarShape';
-import {BTDScrollbarsMode} from '../../features/changeScrollbars';
-import {BTDTimestampFormats} from '../../features/changeTimestampFormat';
-import {BTDTweetActionsPosition} from '../../features/changeTweetActions';
-import {BetterTweetDeckAccentColors, BetterTweetDeckThemes} from '../../features/themeTweaks';
-import {BTDUsernameFormat} from '../../features/usernameDisplay';
-import {makeEnumRuntimeType, withDefault} from '../../helpers/runtimeTypeHelpers';
+import {BTDAvatarShapes} from '../features/changeAvatarShape';
+import {BTDScrollbarsMode} from '../features/changeScrollbars';
+import {BTDTimestampFormats} from '../features/changeTimestampFormat';
+import {BTDTweetActionsPosition} from '../features/changeTweetActions';
+import {BetterTweetDeckAccentColors, BetterTweetDeckThemes} from '../features/themeTweaks';
+import {BTDUsernameFormat} from '../features/usernameDisplay';
+import {makeEnumRuntimeType, withDefault} from '../helpers/runtimeTypeHelpers';
 
 export const RBetterTweetDeckSettings = t.type({
   /** Used to show a banner prompting the user to follow @BetterTDeck */

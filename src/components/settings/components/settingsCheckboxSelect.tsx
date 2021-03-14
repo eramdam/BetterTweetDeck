@@ -2,7 +2,7 @@ import {css} from '@emotion/css';
 import React, {ReactNode} from 'react';
 
 import {AbstractTweetDeckSettings} from '../../../types/abstractTweetDeckSettings';
-import {BTDSettings} from '../../../types/betterTweetDeck/btdSettingsTypes';
+import {BTDSettings} from '../../../types/btdSettingsTypes';
 import {checkboxInputStyles} from '../settingsStyles';
 import {featureBadgeClassname, NewFeatureBadge, NewFeatureBadgeProps} from './newFeatureBadge';
 

@@ -3,11 +3,7 @@ import {compact} from 'lodash';
 import {getRandomString, isHTMLElement} from '../helpers/domHelpers';
 import {getChirpFromElement, getURLsFromChirp} from '../helpers/tweetdeckHelpers';
 import {HandlerOf} from '../helpers/typeHelpers';
-import {
-  BTDModalUuidAttribute,
-  BTDUuidAttribute,
-  makeBTDModule,
-} from '../types/betterTweetDeck/btdCommonTypes';
+import {BTDModalUuidAttribute, BTDUuidAttribute, makeBTDModule} from '../types/btdCommonTypes';
 import {TweetDeckChirp, TweetDeckColumnMediaPreviewSizesEnum} from '../types/tweetdeckTypes';
 import {getSizeForColumnKey} from './columnMediaSizeMonitor';
 

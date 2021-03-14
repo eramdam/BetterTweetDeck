@@ -5,7 +5,7 @@ import {render} from 'react-dom';
 import {SettingsModal} from './components/settings/settingsModal';
 import {ExtensionSettings} from './helpers/webExtensionHelpers';
 import {getValidatedSettings} from './services/backgroundSettings';
-import {BTDSettings} from './types/betterTweetDeck/btdSettingsTypes';
+import {BTDSettings} from './types/btdSettingsTypes';
 
 const App: FC = () => {
   const [settings, setSettings] = useState<BTDSettings>({} as any);

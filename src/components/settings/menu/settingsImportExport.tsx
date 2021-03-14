@@ -5,10 +5,7 @@ import React, {FC, useState} from 'react';
 import {isHTMLElement} from '../../../helpers/domHelpers';
 import {HandlerOf} from '../../../helpers/typeHelpers';
 import {validateSettings} from '../../../services/backgroundSettings';
-import {
-  BTDSettings,
-  RBetterTweetDeckSettings,
-} from '../../../types/betterTweetDeck/btdSettingsTypes';
+import {BTDSettings, RBetterTweetDeckSettings} from '../../../types/btdSettingsTypes';
 import {getTransString, Trans} from '../../trans';
 import {settingsRegularText} from '../settingsStyles';
 import {SettingsExportButton} from './settingsExportButton';

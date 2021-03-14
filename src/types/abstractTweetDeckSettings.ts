@@ -1,7 +1,7 @@
 import {isEmpty} from 'lodash';
 
 import {BetterTweetDeckThemes} from '../features/themeTweaks';
-import {makeBTDModule} from './betterTweetDeck/btdCommonTypes';
+import {makeBTDModule} from './btdCommonTypes';
 import {TweetDeckObject, TweetDeckTheme} from './tweetdeckTypes';
 
 export interface AbstractTweetDeckSettings {
