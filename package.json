@@ -35,11 +35,6 @@
     "pack:safari": "node tools/update_safari_files.js && xcodebuild -project 'safari/Better TweetDeck for Safari/BetterTDeck for TweetDeck.xcodeproj/'",
     "prepare": "husky install"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "eslint --fix",
     "*.{css,md,html,json}": "prettier --write"
