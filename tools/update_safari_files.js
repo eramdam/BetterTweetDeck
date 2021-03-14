@@ -11,9 +11,9 @@ const safariProject = xcode.project(projectPath);
 
 const VERSION_NUMBER = packageJson.version;
 
-    // Parse the project.
-      safariProject.parseSync();
-      console.log('test')
+// Parse the project.
+safariProject.parseSync();
+console.log('test');
 // Grab build configurations.
 const configurations = safariProject.pbxXCBuildConfigurationSection();
 for (const key in configurations) {
