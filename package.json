@@ -32,7 +32,8 @@
     "run:firefox": "web-ext run -s dist",
     "test": "npm run lint && npm run typecheck",
     "release": "ts-node tools/release.ts",
-    "pack:safari": "node tools/update_safari_files.js && xcodebuild -project 'safari/Better TweetDeck for Safari/BetterTDeck for TweetDeck.xcodeproj/'"
+    "pack:safari": "node tools/update_safari_files.js && xcodebuild -project 'safari/Better TweetDeck for Safari/BetterTDeck for TweetDeck.xcodeproj/'",
+    "prepare": "husky install"
   },
   "husky": {
     "hooks": {
