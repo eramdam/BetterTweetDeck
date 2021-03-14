@@ -78,16 +78,16 @@
     "message": "Absolute (U.S. style)"
   },
   "settings_fullname_username": {
-    "message": "Fullname @username"
+    "message": "Fullname and username"
   },
   "settings_username_fullname": {
-    "message": "@username fullname"
+    "message": "Username and fullname"
   },
   "settings_username": {
-    "message": "@username"
+    "message": "Username only"
   },
   "settings_fullname": {
-    "message": "Fullname"
+    "message": "Fullname only"
   },
   "settings_name_display_style": {
     "message": "Name display style"
@@ -135,7 +135,7 @@
     "message": "Download media"
   },
   "settings_additional_actions": {
-    "message": "Additional actions"
+    "message": "Tweet actions to add"
   },
   "settings_downloaded_filename_format": {
     "message": "Downloaded filename format"
@@ -274,5 +274,11 @@
   },
   "settings_import_export": {
     "message": "Import / Export"
+  },
+  "settings_columns": {
+    "message": "Columns"
+  },
+  "settings_tweet_content": {
+    "message": "Tweet content"
   }
 }

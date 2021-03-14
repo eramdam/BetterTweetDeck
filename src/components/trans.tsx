@@ -25,7 +25,7 @@ function getLocalizedMessageInternal(props: TransProps) {
   try {
     const localizedMessage = getMessage(props.id, props.substitutions);
 
-    return localizedMessage || fallback || props.id;
+    return fallback || props.id;
   } catch (e) {
     return fallback || props.id;
   }
