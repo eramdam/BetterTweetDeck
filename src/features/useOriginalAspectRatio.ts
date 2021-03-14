@@ -1,7 +1,7 @@
 import './useOriginalAspectRatio.css';
 
 import {isHTMLElement} from '../helpers/domHelpers';
-import {onChirpAdded} from '../inject/chirpHandler';
+import {onChirpAdded} from '../services/chirpHandler';
 import {makeBTDModule, makeBtdUuidSelector} from '../types/betterTweetDeck/btdCommonTypes';
 import {TweetDeckChirp, TweetDeckColumnMediaPreviewSizesEnum} from '../types/tweetdeckTypes';
 

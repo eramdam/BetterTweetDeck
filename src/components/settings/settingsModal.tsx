@@ -4,7 +4,7 @@ import {isEqual} from 'lodash';
 import React, {Fragment, useCallback, useMemo, useState} from 'react';
 
 import {getExtensionUrl, getExtensionVersion} from '../../helpers/webExtensionHelpers';
-import {OnSettingsUpdate} from '../../inject/setupSettings';
+import {OnSettingsUpdate} from '../../services/setupSettings';
 import {BTDSettings} from '../../types/betterTweetDeck/btdSettingsTypes';
 import {getTransString, Trans} from '../trans';
 import {SettingsButton} from './components/settingsButton';

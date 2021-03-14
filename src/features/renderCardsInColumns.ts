@@ -2,7 +2,7 @@ import {Dictionary} from 'lodash';
 
 import {createSelectorForChirp, getChirpFromKey} from '../helpers/tweetdeckHelpers';
 import {hasProperty} from '../helpers/typeHelpers';
-import {onVisibleChirpAdded} from '../inject/chirpHandler';
+import {onVisibleChirpAdded} from '../services/chirpHandler';
 import {makeBTDModule} from '../types/betterTweetDeck/btdCommonTypes';
 import {TweetDeckChirp, TweetDeckColumn} from '../types/tweetdeckTypes';
 

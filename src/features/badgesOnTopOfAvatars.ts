@@ -1,6 +1,6 @@
 import './badgesOnTopOfAvatars.css';
 
-import {onChirpAdded} from '../inject/chirpHandler';
+import {onChirpAdded} from '../services/chirpHandler';
 import {makeBTDModule, makeBtdUuidSelector} from '../types/betterTweetDeck/btdCommonTypes';
 import {ChirpBaseTypeEnum, TweetDeckUser, TwitterActionEnum} from '../types/tweetdeckTypes';
 
