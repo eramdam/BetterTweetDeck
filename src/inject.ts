@@ -19,6 +19,7 @@ import {maybeHideColumnIcons} from './features/hideColumnIcons';
 import {useModernOverlays} from './features/modernOverlays';
 import {maybeRemoveRedirection} from './features/removeRedirection';
 import {maybeRenderCardsInColumns} from './features/renderCardsInColumns';
+import {renderMediaAndQuotedTweets} from './features/renderMediaAndQuotedTweets';
 import {maybeReplaceHeartsByStars} from './features/replaceHeartsByStars';
 import {maybeRevertToLegacyReplies} from './features/revertToLegacyReplies';
 import {maybeMakeComposerButtonsSmaller} from './features/smallerComposerButtons';
@@ -85,6 +86,7 @@ const jq: JQueryStatic | undefined =
     useOriginalAspectRatio(settings, payload);
   });
 
+  renderMediaAndQuotedTweets(btdModuleOptions);
   setupGifModals(btdModuleOptions);
   injectCustomCss(btdModuleOptions);
   markInjectScriptAsReady();
