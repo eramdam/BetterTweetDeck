@@ -280,5 +280,8 @@
   },
   "settings_tweet_content": {
     "message": "Tweet content"
+  },
+  "settings_pause_column_scrolling_on_hover": {
+    "message": "Pause column scrolling on hover"
   }
 }

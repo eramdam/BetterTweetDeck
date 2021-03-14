@@ -17,6 +17,7 @@ import {maybeFreezeGifsInProfilePicture} from './features/freezeGifsProfilePictu
 import {setupGifModals} from './features/gifModals';
 import {maybeHideColumnIcons} from './features/hideColumnIcons';
 import {useModernOverlays} from './features/modernOverlays';
+import {pauseColumnsOnHover} from './features/pauseColumnsOnHover';
 import {maybeRemoveRedirection} from './features/removeRedirection';
 import {maybeRenderCardsInColumns} from './features/renderCardsInColumns';
 import {renderMediaAndQuotedTweets} from './features/renderMediaAndQuotedTweets';
@@ -81,6 +82,8 @@ const jq: JQueryStatic | undefined =
   // Setup BTD features
   setupChirpHandler(btdModuleOptions);
   maybeSetupDebugFunctions(btdModuleOptions);
+
+  pauseColumnsOnHover(btdModuleOptions);
   updateTwemojiRegex(btdModuleOptions);
   putBadgesOnTopOfAvatars(btdModuleOptions);
   useOriginalAspectRatio(btdModuleOptions);

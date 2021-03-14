@@ -23,6 +23,11 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
             label: <Trans id="settings_hide_icons_on_top_of_columns" />,
           },
           {
+            initialValue: settings.pauseColumnScrollingOnHover,
+            key: 'pauseColumnScrollingOnHover',
+            label: <Trans id="settings_pause_column_scrolling_on_hover" />,
+          },
+          {
             initialValue: settings.showClearButtonInColumnsHeader,
             key: 'showClearButtonInColumnsHeader',
             label: <Trans id="settings_show_clear_button_column" />,
@@ -39,7 +44,7 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
             label: <Trans id="settings_show_delete_button_in_columns_header" />,
           },
         ]}>
-        Columns
+        <Trans id="settings_columns" />
       </CheckboxSelectSettingsRow>
       <CheckboxSelectSettingsRow
         onChange={(key, value) => {

@@ -29,6 +29,9 @@ export const RBetterTweetDeckSettings = t.type({
   /** Render image overlays à la Twitter Web. */
   useModernFullscreenImage: withDefault(t.boolean, false),
 
+  /** Pauses scrolling of columns when mouse hovers over theme */
+  pauseColumnScrollingOnHover: withDefault(t.boolean, false),
+
   /** Display single images using their original aspect ratio. */
   useOriginalAspectRatioForSingleImages: withDefault(t.boolean, false),
 
