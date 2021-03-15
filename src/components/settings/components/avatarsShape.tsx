@@ -18,6 +18,7 @@ const avatarChoiceStyle = css`
 
   input:checked + & {
     border-color: var(--twitter-blue);
+    box-shadow: 0 0 8px rgba(29, 161, 242, 0.6);
   }
 `;
 

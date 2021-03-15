@@ -8,6 +8,7 @@ import oldDark from '../../../assets/dark-themes/old-dark.png';
 import {BetterTweetDeckThemes} from '../../../features/themeTweaks';
 import {HandlerOf} from '../../../helpers/typeHelpers';
 import {Trans} from '../../trans';
+import {featureBadgeClassname, NewFeatureBadge} from './newFeatureBadge';
 import {SettingsRow, SettingsRowContent, SettingsRowTitle} from './settingsRow';
 
 interface CustomDarkThemeProps {
@@ -18,11 +19,13 @@ interface CustomDarkThemeProps {
   label?: ReactNode;
 }
 
+const themeBlockWidth = '180px';
+
 const themeBlock = css`
   display: grid;
   /* grid-template-columns: repeat(2, auto); */
-  grid-template-columns: repeat(auto-fill, minmax(auto, 120px));
-  grid-gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(auto, ${themeBlockWidth}));
+  grid-gap: 20px;
   justify-items: flex-start;
 `;
 
@@ -41,35 +44,47 @@ const optionBlock = css`
 const optionLabel = css`
   text-align: center;
   font-size: 14px;
+
+  .${featureBadgeClassname} {
+    margin-left: 10px;
+    vertical-align: middle;
+  }
 `;
 
 const optionImageBlock = css`
-  width: 120px;
-  height: 60px;
-  border-radius: 8px;
-  background-size: 160px;
+  width: ${themeBlockWidth};
+  height: 0;
+  padding-top: calc(60 / 120 * 100%);
+  border-radius: 10px;
+  background-size: 135%;
   position: relative;
   border: 2px solid var(--settings-modal-separator);
 
   input:checked + & {
     border-color: var(--twitter-blue);
+    box-shadow: 0 0 8px rgba(29, 161, 242, 0.6);
   }
 `;
 
 const themes = [
   {
     value: BetterTweetDeckThemes.DARK,
-    label: 'Dark',
+    label: <Trans id="settings_dark_theme" />,
     image: defaultDarkTheme,
   },
   {
     value: BetterTweetDeckThemes.LEGACY_DARK,
-    label: 'Old Gray',
+    label: <Trans id="settings_old_gray" />,
     image: oldDark,
   },
   {
     value: BetterTweetDeckThemes.ULTRA_DARK,
-    label: 'Super Black',
+    label: (
+      <>
+        <Trans id="settings_super_black" />
+        <NewFeatureBadge introducedIn="4"></NewFeatureBadge>
+      </>
+    ),
     image: lightsOut,
   },
 ];
@@ -99,7 +114,9 @@ export function ThemeSelector(props: CustomDarkThemeProps) {
               disabled={props.disabled}
             />
             <div className={optionImageBlock} style={{backgroundImage: `url(${lightTheme})`}}></div>
-            <span className={optionLabel}>Light</span>
+            <span className={optionLabel}>
+              <Trans id="settings_light" />
+            </span>
           </label>
         )}
         {themes.map((theme) => {

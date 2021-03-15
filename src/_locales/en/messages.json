@@ -301,5 +301,17 @@
   },
   "settings_contextual_menu": {
     "message": "Contextual menu"
+  },
+  "settings_dark_theme": {
+    "message": "Dark"
+  },
+  "settings_old_gray": {
+    "message": "Old Gray"
+  },
+  "settings_super_black": {
+    "message": "Super Black"
+  },
+  "settings_light": {
+    "message": "Light"
   }
 }
