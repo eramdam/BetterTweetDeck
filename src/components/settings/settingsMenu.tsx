@@ -66,7 +66,7 @@ export const makeSettingsMenu = (
           render: () => {
             return (
               <SettingsCssEditor
-                onChange={(val) => makeOnSettingsChange('customCss')(val.trim())}
+                onChange={(val) => makeOnSettingsChange('customCss')(val)}
                 onErrorChange={setEditorHasErrors}
                 value={settings.customCss}></SettingsCssEditor>
             );

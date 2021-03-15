@@ -73,6 +73,7 @@ export const SettingsCssEditor: FC<SettingsCssEditorProps> = (props) => {
             onChange={props.onChange}
             value={props.value}
             options={{
+              fontSize: 16,
               minimap: {
                 enabled: false,
               },
