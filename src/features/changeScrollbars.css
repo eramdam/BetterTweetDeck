@@ -1,11 +1,11 @@
 /**
  * Firefox / standard CSS
  */
-.btd-loaded[btd-scrollbar-style="hidden"] .column-scroller {
+.btd-loaded.is-firefox[btd-scrollbar-style='hidden'] .column-scroller {
   scrollbar-width: none;
 }
 
-.btd-loaded[btd-scrollbar-style="slim"] .column-scroller {
+.btd-loaded.is-firefox[btd-scrollbar-style='slim'] .column-scroller {
   scrollbar-width: thin;
 }
 
@@ -13,4 +13,27 @@
  * Webkit / Blink
  */
 
-/** TODO */
+.btd-loaded:not(.is-firefox)[btd-scrollbar-style='hidden'] {
+  & .js-column-scroller {
+    overflow-y: hidden;
+  }
+
+  & .js-detail-container {
+    overflow-y: hidden;
+  }
+}
+
+.btd-loaded:not(.is-firefox)[btd-scrollbar-style='slim'] {
+  & .js-column-scroller.scroll-styled-v::-webkit-scrollbar,
+  & .js-dropdown-container.scroll-styled-v::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  & .js-app-columns-container.scroll-styled-h::-webkit-scrollbar {
+    height: 3px;
+  }
+
+  & .js-app-columns-container.needs-scroll-bottom-offset.scroll-styled-h {
+    bottom: 0;
+  }
+}

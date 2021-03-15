@@ -4,7 +4,7 @@ import {cx} from '@emotion/css';
 import {isEqual} from 'lodash';
 import React, {Fragment, useCallback, useMemo, useState} from 'react';
 
-import {getExtensionUrl, getExtensionVersion} from '../../helpers/browserHelpers';
+import {getExtensionUrl, getExtensionVersion} from '../../helpers/webExtensionHelpers';
 import {OnSettingsUpdate} from '../../services/setupSettings';
 import {BTDSettings} from '../../types/btdSettingsTypes';
 import {getTransString, Trans} from '../trans';
