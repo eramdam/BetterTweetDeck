@@ -17,7 +17,6 @@ const App: FC = () => {
         ...newSettings,
         customCss: prettifyCss(newSettings.customCss),
       });
-      console.timeEnd('set settings');
     });
   }, []);
 
@@ -34,7 +33,6 @@ const App: FC = () => {
           ...newSettings,
           customCss: compressedCss,
         });
-        console.timeEnd('saveSettings');
       }}
       btdSettings={settings}></SettingsModal>
   );
