@@ -289,5 +289,17 @@
   },
   "settings_width_any_valid_css_value": {
     "message": "Width (any valid CSS value)"
+  },
+  "settings_share_on_tweetdeck": {
+    "message": "Share on TweetDeck"
+  },
+  "settings_enable_share_item": {
+    "message": "Add a \"Share on TweetDeck\" item in the browser's contextual menu"
+  },
+  "settings_shorten_the_shared_text": {
+    "message": "Shorten the shared text"
+  },
+  "settings_contextual_menu": {
+    "message": "Contextual menu"
   }
 }

@@ -1,9 +1,9 @@
-import {css} from '@emotion/css';
+import {css, cx} from '@emotion/css';
 import React, {ReactNode} from 'react';
 
 import {AbstractTweetDeckSettings} from '../../../types/abstractTweetDeckSettings';
 import {BTDSettings} from '../../../types/btdSettingsTypes';
-import {checkboxInputStyles} from '../settingsStyles';
+import {checkboxInputStyles, settingsDisabled} from '../settingsStyles';
 import {featureBadgeClassname, NewFeatureBadge, NewFeatureBadgeProps} from './newFeatureBadge';
 
 // There's probably a wau to do this without having to do a manual union ¯\(ツ)/¯
@@ -21,6 +21,7 @@ export interface SettingsCheckboxSelectProps {
       key: SettingKey;
       label: ReactNode;
       initialValue: boolean;
+      isDisabled?: boolean;
     } & Partial<NewFeatureBadgeProps>
   >;
 }
@@ -46,10 +47,11 @@ export function SettingsCheckboxSelect(props: SettingsCheckboxSelectProps) {
       `}>
       {props.fields.map((field) => {
         return (
-          <span key={String(field.key)}>
+          <span key={String(field.key)} className={cx(field.isDisabled && settingsDisabled)}>
             <input
               name={field.key}
               type="checkbox"
+              disabled={field.isDisabled}
               id={'input-' + String(field.key)}
               defaultChecked={field.initialValue}
               className={checkboxInputStyles}

@@ -1,5 +1,6 @@
 import {browser} from 'webextension-polyfill-ts';
 
+import {getTransString} from './components/trans';
 import {isSafari} from './helpers/browserHelpers';
 import {getValidatedSettings, setupSettingsInBackground} from './services/backgroundSettings';
 import {BTDMessageEvent, BTDMessages} from './types/btdMessageTypes';
@@ -34,7 +35,7 @@ import {BTDMessageEvent, BTDMessages} from './types/btdMessageTypes';
   }
 
   browser.contextMenus.create({
-    title: 'Share on BTD',
+    title: getTransString('settings_share_on_tweetdeck'),
     contexts: ['page', 'selection', 'image', 'link'],
     onclick: async (info, tab) => {
       const urlToShare = info.linkUrl || info.srcUrl || info.pageUrl;

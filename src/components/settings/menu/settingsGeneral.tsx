@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react';
 
+import {isSafari} from '../../../helpers/browserHelpers';
 import {BTDSettings} from '../../../types/btdSettingsTypes';
 import {Trans} from '../../trans';
 import {BooleanSettingsRow} from '../components/booleanSettingRow';
@@ -135,6 +136,27 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
         ]}>
         <Trans id="settings_misc" />
       </CheckboxSelectSettingsRow>
+      {!isSafari && (
+        <CheckboxSelectSettingsRow
+          onChange={(key, value) => {
+            makeOnSettingsChange(key as keyof BTDSettings)(value);
+          }}
+          fields={[
+            {
+              initialValue: settings.enableShareItem,
+              key: 'enableShareItem',
+              label: <Trans id="settings_enable_share_item" />,
+            },
+            {
+              initialValue: settings.shouldShortenSharedText,
+              key: 'shouldShortenSharedText',
+              isDisabled: !settings.enableShareItem,
+              label: <Trans id="settings_shorten_the_shared_text" />,
+            },
+          ]}>
+          <Trans id="settings_contextual_menu" />
+        </CheckboxSelectSettingsRow>
+      )}
     </Fragment>
   );
 };
