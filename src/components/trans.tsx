@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 
 import defaultMessages from '../_locales/en/messages.json';
-import {getMessage} from '../helpers/webExtensionHelpers';
+import {getMessage} from '../helpers/browserHelpers';
 
 interface TransProps {
   id: keyof typeof defaultMessages;

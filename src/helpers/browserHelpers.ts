@@ -25,3 +25,7 @@ export async function sendMessageToBackground(
 
 export const getMessage = (msg: string, substitutions?: string) =>
   browser.i18n.getMessage(msg, substitutions);
+
+export const isFirefox = navigator.userAgent.includes('Firefox/');
+export const isChrome = navigator.userAgent.includes('Chrome/');
+export const isSafari = navigator.userAgent.includes('Safari/') && !isChrome;

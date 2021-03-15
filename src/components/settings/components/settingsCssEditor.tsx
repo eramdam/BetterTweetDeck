@@ -56,7 +56,7 @@ export const SettingsCssEditor: FC<SettingsCssEditorProps> = (props) => {
             height: '100%',
           }}>
           <MonacoEditor
-            height="300px"
+            height="700px"
             editorDidMount={onMonacoMount}
             editorWillMount={(monaco) => {
               monaco.editor.defineTheme('vs-dark', {

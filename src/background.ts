@@ -1,5 +1,6 @@
 import {browser} from 'webextension-polyfill-ts';
 
+import {isSafari} from './helpers/browserHelpers';
 import {getValidatedSettings, setupSettingsInBackground} from './services/backgroundSettings';
 import {BTDMessageEvent, BTDMessages} from './types/btdMessageTypes';
 
@@ -28,42 +29,44 @@ import {BTDMessageEvent, BTDMessages} from './types/btdMessageTypes';
   const settings = await getValidatedSettings();
   const textLimitWithLink = 254;
 
-  if (settings.enableShareItem) {
-    browser.contextMenus.create({
-      title: 'Share on BTD',
-      contexts: ['page', 'selection', 'image', 'link'],
-      onclick: async (info, tab) => {
-        const urlToShare = info.linkUrl || info.srcUrl || info.pageUrl;
-        const baseText = info.selectionText || tab.title || '';
-        const textToShare = !settings.shouldShortenSharedText
-          ? baseText
-          : baseText.slice(0, textLimitWithLink) + '…';
-
-        const tabs = await browser.tabs.query({
-          url: '*://tweetdeck.twitter.com/*',
-        });
-
-        if (tabs.length === 0) {
-          return;
-        }
-
-        const TweetDeckTab = tabs[0];
-
-        if (!TweetDeckTab.id || !TweetDeckTab.windowId) {
-          return;
-        }
-
-        await browser.windows.update(TweetDeckTab.windowId, {
-          focused: true,
-        });
-
-        await browser.tabs.update(TweetDeckTab.id, {active: true});
-        browser.tabs.sendMessage(TweetDeckTab.id, {
-          action: 'share',
-          text: textToShare,
-          url: urlToShare,
-        });
-      },
-    });
+  if (!settings.enableShareItem || isSafari) {
+    return;
   }
+
+  browser.contextMenus.create({
+    title: 'Share on BTD',
+    contexts: ['page', 'selection', 'image', 'link'],
+    onclick: async (info, tab) => {
+      const urlToShare = info.linkUrl || info.srcUrl || info.pageUrl;
+      const baseText = info.selectionText || tab.title || '';
+      const textToShare = !settings.shouldShortenSharedText
+        ? baseText
+        : baseText.slice(0, textLimitWithLink) + '…';
+
+      const tabs = await browser.tabs.query({
+        url: '*://tweetdeck.twitter.com/*',
+      });
+
+      if (tabs.length === 0) {
+        return;
+      }
+
+      const TweetDeckTab = tabs[0];
+
+      if (!TweetDeckTab.id || !TweetDeckTab.windowId) {
+        return;
+      }
+
+      await browser.windows.update(TweetDeckTab.windowId, {
+        focused: true,
+      });
+
+      await browser.tabs.update(TweetDeckTab.id, {active: true});
+      browser.tabs.sendMessage(TweetDeckTab.id, {
+        action: 'share',
+        text: textToShare,
+        url: urlToShare,
+      });
+    },
+  });
 })();

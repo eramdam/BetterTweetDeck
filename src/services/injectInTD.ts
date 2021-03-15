@@ -1,4 +1,4 @@
-import {getExtensionUrl} from '../helpers/webExtensionHelpers';
+import {getExtensionUrl} from '../helpers/browserHelpers';
 import {BTDSettingsAttribute} from '../types/btdCommonTypes';
 import {getValidatedSettings} from './backgroundSettings';
 

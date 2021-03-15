@@ -2,7 +2,7 @@ import {css, cx} from '@emotion/css';
 import React, {FC} from 'react';
 import semver from 'semver';
 
-import {getExtensionVersion} from '../../../helpers/webExtensionHelpers';
+import {getExtensionVersion} from '../../../helpers/browserHelpers';
 
 export interface NewFeatureBadgeProps {
   introducedIn: string;

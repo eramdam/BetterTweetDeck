@@ -42,7 +42,7 @@ module.exports = {
     ['default-src'],
     ['connect-src', ...commonConnectHosts],
     ['style-src', "'unsafe-inline'"],
-    ['script-src', `'self'`],
+    ['script-src', `'self'`, `'unsafe-eval'`],
   ]
     .map((directive) => {
       return directive.join(' ');

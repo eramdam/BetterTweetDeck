@@ -4,7 +4,7 @@ import * as t from 'io-ts';
 import reporter from 'io-ts-reporters';
 import _ from 'lodash';
 
-import {ExtensionSettings} from '../helpers/webExtensionHelpers';
+import {ExtensionSettings} from '../helpers/browserHelpers';
 import {BTDSettings, RBetterTweetDeckSettings} from '../types/btdSettingsTypes';
 
 const defaultSettings = pipe(

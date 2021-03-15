@@ -1,7 +1,7 @@
 import {DateTime} from 'luxon';
 import React, {FC} from 'react';
 
-import {getExtensionVersion} from '../../../helpers/webExtensionHelpers';
+import {getExtensionVersion} from '../../../helpers/browserHelpers';
 import {BTDSettings} from '../../../types/btdSettingsTypes';
 import {Trans} from '../../trans';
 
