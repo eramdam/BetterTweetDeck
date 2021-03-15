@@ -12,12 +12,16 @@ interface BooleanSettingsRowProps extends Partial<NewFeatureBadgeProps> {
   onChange: HandlerOf<boolean>;
   settingsKey: string;
   alignToTheLeft?: boolean;
+  noPaddingTop?: boolean;
   disabled?: boolean;
 }
 
 export function BooleanSettingsRow(props: PropsWithChildren<BooleanSettingsRowProps>) {
   return (
-    <SettingsRow className={cx(props.disabled && settingsDisabled)} stretch={!props.alignToTheLeft}>
+    <SettingsRow
+      className={cx(props.disabled && settingsDisabled)}
+      stretch={!props.alignToTheLeft}
+      noPaddingTop={props.noPaddingTop}>
       <SettingsRowContent
         className={css`
           display: flex;

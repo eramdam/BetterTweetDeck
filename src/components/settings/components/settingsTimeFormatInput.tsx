@@ -4,10 +4,10 @@ import React, {ReactNode} from 'react';
 import {SettingsTextInput, SettingsTextInputProps} from './settingsTextInput';
 
 interface SettingsTimeFormatInputProps extends SettingsTextInputProps {
-  preview: ReactNode;
+  annotation: ReactNode;
 }
 
-export function SettingsTimeFormatInput(props: SettingsTimeFormatInputProps) {
+export function SettingsTextInputWithAnnotation(props: SettingsTimeFormatInputProps) {
   return (
     <div
       className={css`
@@ -22,7 +22,7 @@ export function SettingsTimeFormatInput(props: SettingsTimeFormatInputProps) {
         className={css`
           margin-left: 10px;
         `}>
-        {props.preview}
+        {props.annotation}
       </small>
     </div>
   );

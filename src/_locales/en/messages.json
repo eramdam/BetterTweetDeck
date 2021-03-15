@@ -283,5 +283,11 @@
   },
   "settings_pause_column_scrolling_on_hover": {
     "message": "Pause column scrolling on hover"
+  },
+  "settings_use_a_custom_width_for_columns": {
+    "message": "Use a custom width for columns"
+  },
+  "settings_width_any_valid_css_value": {
+    "message": "Width (any valid CSS value)"
   }
 }

@@ -2,7 +2,10 @@ import React, {Fragment} from 'react';
 
 import {BTDSettings} from '../../../types/btdSettingsTypes';
 import {Trans} from '../../trans';
+import {BooleanSettingsRow} from '../components/booleanSettingRow';
 import {CheckboxSelectSettingsRow} from '../components/checkboxSelectSettingsRow';
+import {SettingsRow} from '../components/settingsRow';
+import {SettingsTextInputWithAnnotation} from '../components/settingsTimeFormatInput';
 import {SettingsMenuRenderer} from '../settingsComponents';
 
 export const renderGeneralSettings: SettingsMenuRenderer = (
@@ -46,6 +49,23 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
         ]}>
         <Trans id="settings_columns" />
       </CheckboxSelectSettingsRow>
+      <BooleanSettingsRow
+        noPaddingTop
+        alignToTheLeft
+        settingsKey="useCustomColumnWidth"
+        initialValue={settings.useCustomColumnWidth}
+        onChange={makeOnSettingsChange('useCustomColumnWidth')}>
+        <Trans id="settings_use_a_custom_width_for_columns" />
+      </BooleanSettingsRow>
+      <SettingsRow disabled={!settings.useCustomColumnWidth}>
+        <span></span>
+        <SettingsTextInputWithAnnotation
+          value={settings.customColumnWidthValue}
+          onChange={makeOnSettingsChange('customColumnWidthValue')}
+          annotation={
+            <Trans id="settings_width_any_valid_css_value" />
+          }></SettingsTextInputWithAnnotation>
+      </SettingsRow>
       <CheckboxSelectSettingsRow
         onChange={(key, value) => {
           makeOnSettingsChange(key as keyof BTDSettings)(value);

@@ -168,6 +168,8 @@ export const RBetterTweetDeckSettings = t.type({
   ),
 
   customCss: withDefault(t.string, ''),
+  useCustomColumnWidth: withDefault(t.boolean, false),
+  customColumnWidthValue: withDefault(t.string, '250px'),
 });
 
 export interface BTDSettings extends t.TypeOf<typeof RBetterTweetDeckSettings> {}

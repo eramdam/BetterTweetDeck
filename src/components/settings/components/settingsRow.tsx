@@ -6,7 +6,9 @@ import {settingsDisabled, settingsRow, settingsRowTitle} from '../settingsStyles
 
 type SettingsRowProps = PropsWithChildren<{className?: string}>;
 
-export function SettingsRow(props: SettingsRowProps & {disabled?: boolean; stretch?: boolean}) {
+export function SettingsRow(
+  props: SettingsRowProps & {disabled?: boolean; stretch?: boolean; noPaddingTop?: boolean}
+) {
   const stretch = props.stretch ?? true;
   return (
     <div
@@ -14,6 +16,10 @@ export function SettingsRow(props: SettingsRowProps & {disabled?: boolean; stret
         settingsRow,
         props.className,
         props.disabled && settingsDisabled,
+        props.noPaddingTop &&
+          css`
+            padding-top: 0;
+          `,
         !stretch &&
           css`
             justify-content: flex-start;

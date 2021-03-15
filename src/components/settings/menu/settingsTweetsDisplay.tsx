@@ -10,7 +10,7 @@ import {BTDRadioSelectSettingsRow} from '../components/radioSelectSettingsRow';
 import {SettingsButton} from '../components/settingsButton';
 import {SettingsRow, SettingsRowTitle} from '../components/settingsRow';
 import {SettingsSeparator} from '../components/settingsSeparator';
-import {SettingsTimeFormatInput} from '../components/settingsTimeFormatInput';
+import {SettingsTextInputWithAnnotation} from '../components/settingsTimeFormatInput';
 import {formatDateTime, SettingsMenuRenderer} from '../settingsComponents';
 
 export const renderTweetDisplaySettings: SettingsMenuRenderer = (
@@ -40,10 +40,12 @@ export const renderTweetDisplaySettings: SettingsMenuRenderer = (
         disabled={settings.timestampStyle === BTDTimestampFormats.RELATIVE}
         stretch={false}>
         <span></span>
-        <SettingsTimeFormatInput
+        <SettingsTextInputWithAnnotation
           value={settings.timestampShortFormat}
           onChange={makeOnSettingsChange('timestampShortFormat')}
-          preview={formatDateTime(settings.timestampShortFormat)}></SettingsTimeFormatInput>
+          annotation={formatDateTime(
+            settings.timestampShortFormat
+          )}></SettingsTextInputWithAnnotation>
       </SettingsRow>
       <BooleanSettingsRow
         disabled={settings.timestampStyle === BTDTimestampFormats.RELATIVE}
@@ -59,10 +61,12 @@ export const renderTweetDisplaySettings: SettingsMenuRenderer = (
           !settings.fullTimestampAfterDay
         }>
         <span></span>
-        <SettingsTimeFormatInput
+        <SettingsTextInputWithAnnotation
           value={settings.timestampFullFormat}
           onChange={makeOnSettingsChange('timestampFullFormat')}
-          preview={formatDateTime(settings.timestampFullFormat)}></SettingsTimeFormatInput>
+          annotation={formatDateTime(
+            settings.timestampFullFormat
+          )}></SettingsTextInputWithAnnotation>
       </SettingsRow>
       <SettingsRow
         className={css`
