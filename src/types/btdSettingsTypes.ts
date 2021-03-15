@@ -148,7 +148,7 @@ export const RBetterTweetDeckSettings = t.type({
   // I like this one...but maybe i'm the only one who cares?
   // showLikeRTDogears: withDefault(t.boolean, false),
 
-  enableShareItem: withDefault(t.boolean, false),
+  enableShareItem: withDefault(t.boolean, true),
   shouldShortenSharedText: withDefault(t.boolean, true),
 
   disableGifsInProfilePictures: withDefault(t.boolean, false),

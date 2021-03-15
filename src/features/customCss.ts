@@ -6,25 +6,26 @@ export const injectCustomCss = makeBTDModule(({settings}) => {
     return;
   }
 
-  const styleElement = document.querySelector('style');
+  const styleElement = document.createElement('style');
+  styleElement.id = 'btd-custom-css';
 
-  if (!styleElement || !styleElement.sheet) {
-    console.log('no sheet css');
+  if (!styleElement) {
     return;
   }
 
   if (settings.customCss.trim().length) {
-    styleElement.sheet.insertRule(settings.customCss, styleElement.sheet.cssRules.length);
+    styleElement.appendChild(document.createTextNode(settings.customCss));
   }
 
   if (settings.useCustomColumnWidth && settings.customColumnWidthValue.trim().length) {
-    styleElement.sheet.insertRule(
-      `
-      section.column {
-        width: ${settings.customColumnWidthValue} !important;
-      }
-    `,
-      styleElement.sheet.cssRules.length
+    styleElement.appendChild(
+      document.createTextNode(`
+    section.column {
+      width: ${settings.customColumnWidthValue} !important;
+    }
+  `)
     );
   }
+
+  document.head.appendChild(styleElement);
 });
