@@ -86,7 +86,7 @@ html .btd-loaded .ovl {
 }
 
 /* Allow room for emoji button in composer */
-.js-compose-text {
+.js-drawer .js-compose-text {
   width: calc(100% - 26px) !important;
 }
 
