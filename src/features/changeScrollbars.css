@@ -14,12 +14,13 @@
  */
 
 .btd-loaded:not(.is-firefox)[btd-scrollbar-style='hidden'] {
-  & .js-column-scroller {
-    overflow-y: hidden;
+  & .js-column-scroller.scroll-styled-v::-webkit-scrollbar,
+  & .js-dropdown-container.scroll-styled-v::-webkit-scrollbar {
+    display: none;
   }
 
-  & .js-detail-container {
-    overflow-y: hidden;
+  & .js-app-columns-container.needs-scroll-bottom-offset.scroll-styled-h::-webkit-scrollbar {
+    display: none;
   }
 }
 
