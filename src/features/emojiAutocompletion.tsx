@@ -31,16 +31,21 @@ export function setupEmojiAutocompletion() {
       const valAtCursor = valueAtCursor(composer).value;
       const colonMatches = valAtCursor.match(emojiColonRegex);
 
-      if (!colonMatches || valAtCursor.startsWith(':-')) {
+      if (!colonMatches) {
         unmountEmojiDropodownNearInput(composer);
         return;
       }
 
       const [, shortcode] = colonMatches;
 
+      if (shortcode.startsWith('-')) {
+        unmountEmojiDropodownNearInput(composer);
+        return;
+      }
+
       const emojiResults = emojiIndex.search(shortcode)?.slice(0, 5);
 
-      if (!emojiResults) {
+      if (!emojiResults || !emojiResults.length) {
         unmountEmojiDropodownNearInput(composer);
         return;
       }
