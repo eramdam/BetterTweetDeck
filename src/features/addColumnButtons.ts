@@ -7,9 +7,11 @@ import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 import {TweetDeckObject} from '../types/tweetdeckTypes';
 
+const collapsedColumnsStorageKey = 'btd_collapsed_columns';
+
 export const maybeAddColumnsButtons = makeBTDModule(({TD, jq, settings}) => {
-  if (!window.localStorage.getItem('btd_collapsed_columns')) {
-    window.localStorage.setItem('btd_collapsed_columns', JSON.stringify({}));
+  if (!window.localStorage.getItem(collapsedColumnsStorageKey)) {
+    window.localStorage.setItem(collapsedColumnsStorageKey, JSON.stringify({}));
   }
 
   if (
@@ -92,6 +94,25 @@ export const maybeAddColumnsButtons = makeBTDModule(({TD, jq, settings}) => {
       TD.controller.columnManager.get(columnKey)._btd.toggleCollapse();
     }
   );
+
+  const collapsedColumns = window.localStorage.getItem(collapsedColumnsStorageKey);
+
+  if (!collapsedColumns) {
+    return;
+  }
+
+  const columnsSettings = JSON.parse(collapsedColumns);
+  const collapsedColumnsKeys = Object.keys(columnsSettings);
+
+  jq(document).on('uiColumnRendered', (ev, data) => {
+    const {column} = data;
+
+    const columnApiId = column.model.privateState.apiid;
+
+    if (collapsedColumnsKeys.includes(columnApiId)) {
+      column._btd.toggleCollapse(!(columnsSettings[columnApiId] && column));
+    }
+  });
 });
 
 function overrideColumnPrototype(TD: TweetDeckObject, jq: JQueryStatic) {
@@ -108,20 +129,27 @@ function overrideColumnPrototype(TD: TweetDeckObject, jq: JQueryStatic) {
             return this._isCollapsed || false;
           },
           collapse() {
-            const dataBoy = JSON.parse(window.localStorage.getItem('btd_collapsed_columns') || '');
+            const collapsedColumns = JSON.parse(
+              window.localStorage.getItem(collapsedColumnsStorageKey) || ''
+            );
 
             const columnKey = this._parent.model.privateState.key;
             const theColumn = jq(`section.column[data-column="${columnKey}"]`);
             theColumn.addClass('btd-column-collapsed');
 
-            dataBoy[this._parent.model.privateState.apiid] = true;
+            collapsedColumns[this._parent.model.privateState.apiid] = true;
             this._isCollapsed = true;
-            window.localStorage.setItem('btd_collapsed_columns', JSON.stringify(dataBoy));
+            window.localStorage.setItem(
+              collapsedColumnsStorageKey,
+              JSON.stringify(collapsedColumns)
+            );
           },
           uncollapse() {
-            const dataBoy = JSON.parse(window.localStorage.getItem('btd_collapsed_columns') || '');
+            const collapsedColumns = JSON.parse(
+              window.localStorage.getItem(collapsedColumnsStorageKey) || ''
+            );
 
-            if (dataBoy[this._parent.model.privateState.apiid]) {
+            if (collapsedColumns[this._parent.model.privateState.apiid]) {
               const scroller = this._parent.ui.getChirpScroller();
               if (scroller.scrollTop() !== 0) {
                 this._parent.ui.unpause();
@@ -131,10 +159,13 @@ function overrideColumnPrototype(TD: TweetDeckObject, jq: JQueryStatic) {
               const theColumn = jq(`section.column[data-column="${columnKey}"]`);
               theColumn.removeClass('btd-column-collapsed');
 
-              delete dataBoy[this._parent.model.privateState.apiid];
+              delete collapsedColumns[this._parent.model.privateState.apiid];
               this._isCollapsed = false;
-              window.localStorage.setItem('btd_collapsed_columns', JSON.stringify(dataBoy));
-              TD.controller.columnManager.showColumn(columnKey);
+              window.localStorage.setItem(
+                collapsedColumnsStorageKey,
+                JSON.stringify(collapsedColumns)
+              );
+              // TD.controller.columnManager.showColumn(columnKey);
             }
           },
           toggleCollapse(state = false) {
