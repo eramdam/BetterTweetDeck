@@ -98,8 +98,8 @@ export const renderTweetDisplaySettings: SettingsMenuRenderer = (
             onClick={() => {
               makeOnSettingsChange('timestampStyle')(BTDTimestampFormats.CUSTOM);
               makeOnSettingsChange('fullTimestampAfterDay')(true);
-              makeOnSettingsChange('timestampShortFormat')('hh:mm');
-              makeOnSettingsChange('timestampFullFormat')('MM/dd/yy hh:mm');
+              makeOnSettingsChange('timestampShortFormat')('hh:mm a');
+              makeOnSettingsChange('timestampFullFormat')('MM/dd/yy hh:mm a');
             }}>
             <Trans id="settings_timestamp_preset_absolute_us" />
           </SettingsButton>
