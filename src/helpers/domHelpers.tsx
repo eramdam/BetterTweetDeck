@@ -1,12 +1,12 @@
 import React from 'dom-chef';
 import {CSSProperties} from 'react';
 
-import {insertDomChefElement} from './typeHelpers';
+import {hasProperty, insertDomChefElement} from './typeHelpers';
 
 export function isHTMLElement(
   blob: EventTarget | Element | Node | unknown | any | null
 ): blob is HTMLElement {
-  return blob instanceof HTMLElement;
+  return hasProperty(blob, 'closest');
 }
 
 export function isHtmlVideoElement(
