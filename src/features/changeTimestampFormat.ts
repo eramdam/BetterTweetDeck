@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import {DateTime, Interval} from 'luxon';
 
-import {makeBTDModule} from '../types/btdCommonTypes';
+import {onChirpAdded} from '../services/chirpHandler';
+import {makeBTDModule, makeBtdUuidSelector} from '../types/btdCommonTypes';
 import {BTDSettings} from '../types/btdSettingsTypes';
 
 export enum BTDTimestampFormats {
@@ -29,9 +30,10 @@ function getFinalDateString(
   return shortString;
 }
 
-function refreshTimestamps(settings: BTDSettings) {
-  const timeElements = document.querySelectorAll('time');
-
+function refreshTimestamps(
+  settings: BTDSettings,
+  timeElements = document.querySelectorAll('time')
+) {
   timeElements.forEach((timeElement) => {
     const timeString = timeElement.getAttribute('datetime');
     if (!timeString) {
@@ -79,5 +81,11 @@ export const maybeSetupCustomTimestampFormat = makeBTDModule(({TD, settings, jq}
     TD.controller.scheduler.removePeriodicTask(taskIdToRemove);
     refreshTimestamps(settings);
     setInterval(() => refreshTimestamps(settings), TIMESTAMP_INTERVAL);
+    onChirpAdded((addedChirp) => {
+      refreshTimestamps(
+        settings,
+        document.querySelectorAll(`${makeBtdUuidSelector('data-btd-uuid', addedChirp.uuid)} time`)
+      );
+    });
   });
 });
