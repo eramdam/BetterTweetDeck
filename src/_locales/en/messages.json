@@ -316,5 +316,11 @@
   },
   "settings_tokens_list": {
     "message": "Tokens list"
+  },
+  "settings_make_emoji_bigger_in_tweets": {
+    "message": "Make emoji bigger in tweets"
+  },
+  "settings_add_search_columns_first_in_the_list": {
+    "message": "Add search columns first in the list"
   }
 }

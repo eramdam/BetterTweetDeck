@@ -32,6 +32,11 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
             label: <Trans id="settings_pause_column_scrolling_on_hover" />,
           },
           {
+            initialValue: settings.addSearchColumnsFirst,
+            key: 'addSearchColumnsFirst',
+            label: <Trans id="settings_add_search_columns_first_in_the_list" />,
+          },
+          {
             initialValue: settings.showClearButtonInColumnsHeader,
             key: 'showClearButtonInColumnsHeader',
             label: <Trans id="settings_show_clear_button_column" />,
@@ -51,7 +56,6 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
         <Trans id="settings_columns" />
       </CheckboxSelectSettingsRow>
       <BooleanSettingsRow
-        noPaddingTop
         alignToTheLeft
         settingsKey="useCustomColumnWidth"
         initialValue={settings.useCustomColumnWidth}
@@ -100,8 +104,13 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
             key: 'removeRedirectionOnLinks',
             label: <Trans id="settings_remove_t_co_redirection_on_links" />,
           },
+          {
+            initialValue: settings.biggerEmoji,
+            key: 'biggerEmoji',
+            label: <Trans id="settings_make_emoji_bigger_in_tweets" />,
+          },
         ]}>
-        Tweet content
+        <Trans id="settings_tweet_content" />
       </CheckboxSelectSettingsRow>
       <CheckboxSelectSettingsRow
         onChange={(key, value) => {

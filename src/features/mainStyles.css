@@ -133,16 +133,6 @@ html.dark .stream-item {
   padding-top: 0 !important;
 }
 
-/** 
- * Bigger emojis
- */
-p > .emoji {
-  width: 1.3em !important;
-  height: 1.3em !important;
-  padding: 0.2em 0.05em 0 0.1em !important;
-  vertical-align: text-bottom !important;
-}
-
 /** Padding above cards in columns */
 p.js-tweet-text + .js-card-container:not(:empty) {
   padding-top: 10px;

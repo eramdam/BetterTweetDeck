@@ -26,6 +26,12 @@ export const RBetterTweetDeckSettings = t.type({
   /** Show tweet cards in columns. */
   showCardsInsideColumns: withDefault(t.boolean, true),
 
+  /** Make emoji bigger in tweets. */
+  biggerEmoji: withDefault(t.boolean, true),
+
+  /** Add search columns at top of the list. */
+  addSearchColumnsFirst: withDefault(t.boolean, false),
+
   /** Render image overlays à la Twitter Web. */
   useModernFullscreenImage: withDefault(t.boolean, false),
 

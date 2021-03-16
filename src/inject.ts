@@ -7,6 +7,7 @@ import {setupAME} from './features/advancedMuteEngine';
 import {allowImagePaste} from './features/allowImagePaste';
 import {setupThemeAutoSwitch} from './features/autoSwitchThemes';
 import {putBadgesOnTopOfAvatars} from './features/badgesOnTopOfAvatars';
+import {makeEmojiBigger} from './features/biggerEmoji';
 import {changeAvatarsShape} from './features/changeAvatarShape';
 import {changeScrollbarStyling} from './features/changeScrollbars';
 import {maybeSetupCustomTimestampFormat} from './features/changeTimestampFormat';
@@ -16,6 +17,7 @@ import {injectCustomCss} from './features/customCss';
 import {maybeFreezeGifsInProfilePicture} from './features/freezeGifsProfilePictures';
 import {setupGifModals} from './features/gifModals';
 import {maybeHideColumnIcons} from './features/hideColumnIcons';
+import {makeSearchColumnsFirst} from './features/makeSearchColumnsFirst';
 import {useModernOverlays} from './features/modernOverlays';
 import {pauseColumnsOnHover} from './features/pauseColumnsOnHover';
 import {maybeRemoveRedirection} from './features/removeRedirection';
@@ -83,6 +85,8 @@ const jq: JQueryStatic | undefined =
   setupChirpHandler(btdModuleOptions);
   maybeSetupDebugFunctions(btdModuleOptions);
 
+  makeSearchColumnsFirst(btdModuleOptions);
+  makeEmojiBigger(btdModuleOptions);
   pauseColumnsOnHover(btdModuleOptions);
   updateTwemojiRegex(btdModuleOptions);
   putBadgesOnTopOfAvatars(btdModuleOptions);
