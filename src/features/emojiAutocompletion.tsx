@@ -31,7 +31,7 @@ export function setupEmojiAutocompletion() {
       const valAtCursor = valueAtCursor(composer).value;
       const colonMatches = valAtCursor.match(emojiColonRegex);
 
-      if (!colonMatches) {
+      if (!colonMatches || valAtCursor.startsWith(':-')) {
         unmountEmojiDropodownNearInput(composer);
         return;
       }
