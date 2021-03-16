@@ -313,5 +313,8 @@
   },
   "settings_light": {
     "message": "Light"
+  },
+  "settings_tokens_list": {
+    "message": "Tokens list"
   }
 }

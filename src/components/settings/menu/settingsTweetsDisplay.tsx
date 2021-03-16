@@ -30,7 +30,23 @@ export const renderTweetDisplaySettings: SettingsMenuRenderer = (
             value: BTDTimestampFormats.RELATIVE,
           },
           {
-            label: getTransString('settings_timestamp_custom'),
+            label: (
+              <>
+                <Trans id="settings_timestamp_custom" />
+                <a
+                  className={css`
+                    text-decoration: none;
+                    font-size: 12px;
+                    margin-left: 8px;
+                    color: var(--twitter-blue);
+                  `}
+                  href="https://moment.github.io/luxon/docs/manual/formatting.html#table-of-tokens"
+                  target="_blank"
+                  rel="noreferrer noopener">
+                  <Trans id="settings_tokens_list" />
+                </a>
+              </>
+            ),
             value: BTDTimestampFormats.CUSTOM,
           },
         ]}>
