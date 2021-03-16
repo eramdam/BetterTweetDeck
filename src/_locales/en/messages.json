@@ -322,5 +322,8 @@
   },
   "settings_add_search_columns_first_in_the_list": {
     "message": "Add search columns first in the list"
+  },
+  "settings_save_tweeted_hashtags": {
+    "message": "Save tweeted hashtags"
   }
 }

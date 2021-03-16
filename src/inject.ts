@@ -17,6 +17,7 @@ import {injectCustomCss} from './features/customCss';
 import {maybeFreezeGifsInProfilePicture} from './features/freezeGifsProfilePictures';
 import {setupGifModals} from './features/gifModals';
 import {maybeHideColumnIcons} from './features/hideColumnIcons';
+import {keepTweetedHashtagsInComposer} from './features/keepTweetedHashtags';
 import {makeSearchColumnsFirst} from './features/makeSearchColumnsFirst';
 import {useModernOverlays} from './features/modernOverlays';
 import {pauseColumnsOnHover} from './features/pauseColumnsOnHover';
@@ -85,6 +86,7 @@ const jq: JQueryStatic | undefined =
   setupChirpHandler(btdModuleOptions);
   maybeSetupDebugFunctions(btdModuleOptions);
 
+  keepTweetedHashtagsInComposer(btdModuleOptions);
   makeSearchColumnsFirst(btdModuleOptions);
   makeEmojiBigger(btdModuleOptions);
   pauseColumnsOnHover(btdModuleOptions);

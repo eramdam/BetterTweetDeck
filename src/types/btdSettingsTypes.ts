@@ -29,6 +29,9 @@ export const RBetterTweetDeckSettings = t.type({
   /** Make emoji bigger in tweets. */
   biggerEmoji: withDefault(t.boolean, true),
 
+  /** Save tweeted hashtags. */
+  saveTweetedHashtags: withDefault(t.boolean, false),
+
   /** Add search columns at top of the list. */
   addSearchColumnsFirst: withDefault(t.boolean, false),
 

@@ -2,7 +2,6 @@ import {makeBTDModule} from '../types/btdCommonTypes';
 
 export const injectCustomCss = makeBTDModule(({settings}) => {
   if (settings.customCss.trim().length === 0 && !settings.useCustomColumnWidth) {
-    console.log('skipping css');
     return;
   }
 

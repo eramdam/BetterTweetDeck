@@ -138,6 +138,11 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
             label: <Trans id="settings_make_buttons_smaller_in_the_composer" />,
           },
           {
+            initialValue: settings.saveTweetedHashtags,
+            key: 'saveTweetedHashtags',
+            label: <Trans id="settings_save_tweeted_hashtags" />,
+          },
+          {
             initialValue: settings.updateTabTitleOnActivity,
             key: 'updateTabTitleOnActivity',
             label: <Trans id="settings_reflect_new_tweets_and_dms_in_the_tabs_title" />,
