@@ -80,11 +80,6 @@ html .btd-loaded .ovl {
   transform: translate(-16%, -20%);
 }
 
-/** Fix the default verified badge alignment */
-.badge-verified::before {
-  background-position-y: -48px;
-}
-
 /* Allow room for emoji button in composer */
 .js-drawer .js-compose-text {
   width: calc(100% - 26px) !important;

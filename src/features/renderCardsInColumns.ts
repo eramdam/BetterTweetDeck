@@ -44,6 +44,9 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
     | undefined = mR && mR.findFunction('getColumnType')[0];
 
   onVisibleChirpAdded((payload) => {
+    if (payload.chirpNode.closest('.js-tweet-detail.tweet-detail-wrapper')) {
+      return;
+    }
     const cardContainer = jq(
       `${createSelectorForChirp(payload.chirp, payload.columnKey)} .js-card-container`
     );

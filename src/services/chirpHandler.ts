@@ -16,6 +16,7 @@ export interface ChirpAddedPayload {
   };
   columnMediaSize: TweetDeckColumnMediaPreviewSizesEnum;
   columnKey: string;
+  chirpNode: HTMLElement;
 }
 
 export interface ChirpRemovedPayload {
@@ -74,10 +75,6 @@ export const setupChirpHandler = makeBTDModule(({TD, jq}) => {
               return;
             }
 
-            if (element.closest('.js-tweet-detail.tweet-detail-wrapper')) {
-              return;
-            }
-
             if (element.closest('[data-key]')) {
               const chirpObject = getChirpFromElement(TD, element);
 
@@ -99,6 +96,7 @@ export const setupChirpHandler = makeBTDModule(({TD, jq}) => {
                   action: chirp.action,
                   chirpType: chirp.chirpType,
                 },
+                chirpNode: element.closest('[data-key]') as HTMLElement,
                 urls: (urls || []).map((e) => e.expanded_url),
                 columnKey: extra.columnKey || '',
                 columnMediaSize: getSizeForColumnKey(extra.columnKey),
@@ -177,11 +175,6 @@ export const setupChirpHandler = makeBTDModule(({TD, jq}) => {
         return;
       }
 
-      // If the element is inside a detail view, we can skip.
-      if ($elem.closest('.js-tweet-detail.tweet-detail-wrapper').length) {
-        return;
-      }
-
       const payload: ChirpAddedPayload = {
         uuid: '',
         chirp: chirp,
@@ -191,6 +184,7 @@ export const setupChirpHandler = makeBTDModule(({TD, jq}) => {
         },
         columnKey,
         columnMediaSize: getSizeForColumnKey(columnKey),
+        chirpNode: $elem[0],
       };
 
       onVisibleCallbacks.forEach((cb) => {

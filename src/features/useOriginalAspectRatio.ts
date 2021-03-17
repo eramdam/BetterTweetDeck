@@ -11,6 +11,9 @@ export const useOriginalAspectRatio = makeBTDModule(({settings}) => {
   }
 
   onChirpAdded((addedChirp) => {
+    if (addedChirp.chirpNode.closest('.js-tweet-detail.tweet-detail-wrapper')) {
+      return;
+    }
     if (
       addedChirp.columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.OFF ||
       addedChirp.columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.SMALL
