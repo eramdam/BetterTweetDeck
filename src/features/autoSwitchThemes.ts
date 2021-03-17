@@ -1,3 +1,4 @@
+import {buildURLWithSearchParams} from '../helpers/networkHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 import {tweakTweetDeckTheme} from './themeTweaks';
 
@@ -23,6 +24,18 @@ export const setupThemeAutoSwitch = makeBTDModule((opts) => {
         TD.storage.clientController.client.dictSet('settings', 'theme', 'light');
       }
       tweakTweetDeckTheme(opts);
+
+      Array.from(document.querySelectorAll<HTMLIFrameElement>('.js-card-container iframe')).forEach(
+        (cardIframe) => {
+          const currentIframeUrl = cardIframe.src;
+
+          const newCardIframeUrl = buildURLWithSearchParams(currentIframeUrl, {
+            theme: matches ? 'tweetdeck-dark' : 'tweetdeck-light',
+          });
+
+          cardIframe.src = newCardIframeUrl;
+        }
+      );
     }
 
     const darkSchemeQl = window.matchMedia('(prefers-color-scheme: dark)');
