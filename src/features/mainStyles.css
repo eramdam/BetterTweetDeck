@@ -82,7 +82,7 @@ html .btd-loaded .ovl {
 
 /** Fix the default verified badge alignment */
 .badge-verified::before {
-  background-position-y: 48px;
+  background-position-y: -48px;
 }
 
 /* Allow room for emoji button in composer */
