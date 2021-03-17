@@ -2,6 +2,7 @@ import {browser} from 'webextension-polyfill-ts';
 
 import {getTransString} from './components/trans';
 import {isSafari} from './helpers/browserHelpers';
+import {ExtensionSettings, getExtensionVersion} from './helpers/webExtensionHelpers';
 import {getValidatedSettings, setupSettingsInBackground} from './services/backgroundSettings';
 import {BTDMessageEvent, BTDMessages} from './types/btdMessageTypes';
 
@@ -21,6 +22,15 @@ import {BTDMessageEvent, BTDMessages} from './types/btdMessageTypes';
         return undefined;
       }
 
+      case BTDMessages.BTD_READY: {
+        await ExtensionSettings.set({
+          ...(await getValidatedSettings()),
+          needsToShowUpdateBanner: false,
+          needsToShowFollowPrompt: false,
+        });
+        return undefined;
+      }
+
       default:
         return undefined;
     }
@@ -29,6 +39,14 @@ import {BTDMessageEvent, BTDMessages} from './types/btdMessageTypes';
   // // Get the settings from the browser.
   const settings = await getValidatedSettings();
   const textLimitWithLink = 254;
+
+  if (settings.installedVersion !== getExtensionVersion()) {
+    await ExtensionSettings.set({
+      ...settings,
+      installedVersion: getExtensionVersion(),
+      needsToShowUpdateBanner: true,
+    });
+  }
 
   if (!settings.enableShareItem || isSafari) {
     return;

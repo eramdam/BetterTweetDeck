@@ -1,5 +1,5 @@
-import {getExtensionUrl} from '../helpers/webExtensionHelpers';
-import {BTDSettingsAttribute} from '../types/btdCommonTypes';
+import {getExtensionUrl, getExtensionVersion} from '../helpers/webExtensionHelpers';
+import {BTDSettingsAttribute, BTDVersionAttribute} from '../types/btdCommonTypes';
 import {getValidatedSettings} from './backgroundSettings';
 
 export async function injectInTD() {
@@ -15,6 +15,7 @@ export async function injectInTD() {
   const toInject = document.createElement('script');
   toInject.src = getExtensionUrl('build/inject.js');
   toInject.setAttribute(BTDSettingsAttribute, JSON.stringify(settings));
+  toInject.setAttribute(BTDVersionAttribute, getExtensionVersion());
   document.head.appendChild(toInject);
 
   return new Promise<void>((resolve, reject) => {

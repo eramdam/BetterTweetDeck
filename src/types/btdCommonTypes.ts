@@ -22,6 +22,7 @@ export function makeBTDModule(btdModule: UniversalBTDModule) {
 }
 
 export const BTDSettingsAttribute = 'data-btd-settings';
+export const BTDVersionAttribute = 'data-btd-version';
 export const BTDUuidAttribute = 'data-btd-uuid';
 export const BTDModalUuidAttribute = 'data-btd-modal-uuid';
 

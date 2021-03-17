@@ -30,6 +30,16 @@ listenToInternalBTDMessage(BTDMessages.BTD_READY, BTDMessageOriginsEnum.CONTENT,
     });
   }
 
+  sendMessageToBackground({
+    data: {
+      requestId: undefined,
+      isReponse: false,
+      name: BTDMessages.BTD_READY,
+      origin: BTDMessageOriginsEnum.CONTENT,
+      payload: undefined,
+    },
+  });
+
   browser.runtime.onMessage.addListener((details) => {
     switch (details.action) {
       case 'share': {

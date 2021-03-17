@@ -10,10 +10,11 @@ import {makeEnumRuntimeType, withDefault} from '../helpers/runtimeTypeHelpers';
 
 export const RBetterTweetDeckSettings = t.type({
   /** Used to show a banner prompting the user to follow @BetterTDeck */
-  needsToShowFollowPrompt: withDefault(t.boolean, false),
+  needsToShowFollowPrompt: withDefault(t.boolean, true),
 
-  /** Is used to track the version of the user and show a banner upon updates */
+  /** Are used to track the version of the user and show a banner upon updates */
   installedVersion: withDefault(t.string, '4.0.0'),
+  needsToShowUpdateBanner: withDefault(t.boolean, false),
 
   /** Alters the timestamp display in tweets */
   timestampShortFormat: withDefault(t.string, ''),

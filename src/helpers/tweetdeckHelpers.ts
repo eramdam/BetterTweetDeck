@@ -286,3 +286,63 @@ export const getFilenameDownloadData = (chirp: TweetDeckChirp, url: string) => {
     seconds: chirpCreated.getSeconds().toString().padStart(2, '0'),
   };
 };
+
+let bannerId = 0;
+
+interface TweetDeckBannerDataActionBase {
+  action: 'url-ext' | 'trigger-event';
+  label: string;
+  class?: string;
+}
+
+interface TweetDeckBannerDataActionWithEvent extends TweetDeckBannerDataActionBase {
+  action: 'trigger-event';
+  event: {
+    type: string;
+    data: object;
+  };
+}
+
+interface TweetDeckBannerDataActionWithUrl extends TweetDeckBannerDataActionBase {
+  action: 'url-ext';
+  url: string;
+}
+
+type TweetDeckBannerDataAction =
+  | TweetDeckBannerDataActionWithEvent
+  | TweetDeckBannerDataActionWithUrl;
+
+interface TweetDeckBannerData {
+  bannerClasses?: string;
+  message: {
+    text: string;
+    colors?: {
+      background?: string;
+      foreground?: string;
+    };
+    isUnDismissable?: boolean;
+    actions?: TweetDeckBannerDataAction[];
+  };
+}
+
+export const displayTweetDeckBanner = (jq: JQueryStatic, data: TweetDeckBannerData) => {
+  bannerId++;
+  jq(document).trigger('dataMessage', {
+    ...data,
+    bannerClasses: `${data.bannerClasses} btd-banner`,
+    message: {
+      ...data.message,
+      id: `btd-${bannerId}`,
+      colors: {
+        foreground: 'white',
+        background: '#009eff',
+      },
+      actions: (data.message.actions || []).map((a, index) => ({
+        ...a,
+        actionId: `action-${bannerId}`,
+        id: `action-${bannerId}`,
+        class: `btd-banner-button ${a.class}`,
+      })),
+    },
+  });
+};

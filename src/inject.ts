@@ -33,15 +33,16 @@ import {updateTwemojiRegex} from './features/updateTwemojiRegex';
 import {useOriginalAspectRatio} from './features/useOriginalAspectRatio';
 import {maybeChangeUsernameFormat} from './features/usernameDisplay';
 import {listenToInternalBTDMessage, sendInternalBTDMessage} from './helpers/communicationHelpers';
+import {displayTweetDeckBanner} from './helpers/tweetdeckHelpers';
 import {setupChirpHandler} from './services/chirpHandler';
 import {setupMediaSizeMonitor} from './services/columnMediaSizeMonitor';
 import {maybeSetupDebugFunctions} from './services/debugMethods';
 import {insertSettingsButton} from './services/setupSettings';
 import {applyTweetDeckSettings} from './types/abstractTweetDeckSettings';
-import {BTDSettingsAttribute} from './types/btdCommonTypes';
+import {BTDModuleOptions, BTDSettingsAttribute, BTDVersionAttribute} from './types/btdCommonTypes';
 import {BTDMessageOriginsEnum, BTDMessages} from './types/btdMessageTypes';
 import {BTDSettings} from './types/btdSettingsTypes';
-import {TweetDeckObject} from './types/tweetdeckTypes';
+import {TweetDeckControllerClient, TweetDeckObject} from './types/tweetdeckTypes';
 
 // Declare typings on the window
 declare global {
@@ -130,6 +131,25 @@ const jq: JQueryStatic | undefined =
       isReponse: false,
       payload: undefined,
     });
+    maybeShowFollowBanner(btdModuleOptions);
+    setTimeout(() => {
+      if (!settings.needsToShowUpdateBanner) {
+        return;
+      }
+      displayTweetDeckBanner(jq, {
+        bannerClasses: 'btd-banner',
+        message: {
+          text: `Better TweetDeck has been updated to ${getBTDVersion()}`,
+          actions: [
+            {
+              label: 'See the changes',
+              action: 'url-ext',
+              url: `https://github.com/eramdam/BetterTweetDeck/releases/tag/${getBTDVersion()}`,
+            },
+          ],
+        },
+      });
+    }, 2000);
   });
   jq(document).on('uiResetImageUpload', () => {
     jq('.btd-gif-button').addClass('-visible');
@@ -169,4 +189,69 @@ function getBTDSettings() {
   } catch (e) {
     return undefined;
   }
+}
+
+function getBTDVersion() {
+  const scriptElement = document.querySelector(`[${BTDSettingsAttribute}]`);
+  const versionAttribute = scriptElement && scriptElement.getAttribute(BTDVersionAttribute);
+
+  if (!versionAttribute) {
+    return '';
+  }
+
+  return versionAttribute;
+}
+
+const followStatus = (client: TweetDeckControllerClient, targetScreenName: string) => {
+  return new Promise<{
+    id: string;
+    following: boolean;
+  }>((resolve) => {
+    client.showFriendship(client.oauth.account.state.userId, null, targetScreenName, (result) => {
+      return resolve({
+        id: client.oauth.account.state.username,
+        following: result.relationship.target.followed_by,
+      });
+    });
+  });
+};
+
+async function maybeShowFollowBanner({TD, jq, settings}: BTDModuleOptions) {
+  if (
+    window.localStorage.getItem('btd-disable-follow-prompt') ||
+    !settings.needsToShowFollowPrompt
+  ) {
+    return;
+  }
+
+  const followingPromises = TD.controller.clients.getClientsByService('twitter').map((client) => {
+    return followStatus(client, 'BetterTDeck');
+  });
+
+  window.localStorage.setItem('btd-disable-follow-prompt', 'true');
+  const values = await Promise.all(followingPromises);
+
+  const shouldShowBanner = values.every((user) => user.following === false);
+
+  if (!shouldShowBanner) {
+    return;
+  }
+
+  displayTweetDeckBanner(jq, {
+    message: {
+      text: 'Do you want to follow Better TweetDeck on Twitter for news, support and tips?',
+      actions: [
+        {
+          action: 'trigger-event',
+          event: {
+            type: 'uiShowProfile',
+            data: {
+              id: 'BetterTDeck',
+            },
+          },
+          label: 'Sure!',
+        },
+      ],
+    },
+  });
 }
