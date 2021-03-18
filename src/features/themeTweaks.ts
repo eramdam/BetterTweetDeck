@@ -1,4 +1,3 @@
-import './addAccentColors.css';
 import './lightsOut.css';
 
 export enum BetterTweetDeckAccentColors {
@@ -21,8 +20,13 @@ export enum BetterTweetDeckThemes {
 import {makeBTDModule} from '../types/btdCommonTypes';
 
 export const tweakTweetDeckTheme = makeBTDModule(({settings}) => {
-  // @ts-ignore
-  document.body.style = `--btd-accent-color: ${settings.customAccentColor}`;
+  console.log({accent: settings.customAccentColor, default: BetterTweetDeckAccentColors.DEFAULT});
+  if (settings.customAccentColor !== BetterTweetDeckAccentColors.DEFAULT) {
+    require('./addAccentColors.css');
+    // @ts-ignore
+    document.body.style = `--btd-accent-color: ${settings.customAccentColor}`;
+    document.body.setAttribute('btd-accent-color', 'true');
+  }
 
   if (settings.theme === BetterTweetDeckThemes.LEGACY_DARK) {
     document.body.setAttribute('btd-theme', 'old-grey');

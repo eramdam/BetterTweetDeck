@@ -97,8 +97,7 @@ html.dark .column-header-link:hover {
   & input.btn-fav.s-favorited:visited[type='button'],
   & input.btn-fav.s-favorited[type='button'],
   & input.Button--primary:visited[type='button'],
-  & input.Button--primary[type='button'],
-  & .btn-on-blue {
+  & input.Button--primary[type='button'] {
     background-color: var(--btd-accent-color) !important;
     border: none !important;
   }
@@ -163,20 +162,21 @@ html.dark .column-header-link:hover {
     }
   }
 
-  /* Reset the color of the button to hide the drawer */
-  &[class] .js-hide-drawer.Button.tweet-button,
-  &[class] .js-hide-drawer.Button.tweet-button:hover {
-    background-image: none !important;
-    color: white;
-    background: #3d5466 !important;
-  }
-
   /** Button text color */
   & button.btn-on-dark.btn-fav-unfav-text,
   & button.Button--danger.btn-on-dark,
   & input.btn-fav-unfav-text[type='button'].btn-on-dark,
-  & input[type='button'].Button--danger.btn-on-dark,
-  & .btn-on-blue {
+  & input[type='button'].Button--danger.btn-on-dark {
     color: white;
+  }
+
+  /* Reset the color of the button to hide the drawer */
+  &[class] .js-hide-drawer.Button.tweet-button {
+    background-image: none !important;
+    color: white;
+    background: #2b7bb9 !important;
+  }
+  &[class].dark .js-hide-drawer.Button.tweet-button {
+    background: #3d5466 !important;
   }
 }
