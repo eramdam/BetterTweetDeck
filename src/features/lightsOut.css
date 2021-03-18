@@ -7,6 +7,11 @@ html.dark body[btd-theme='old-grey'] {
   & .app-header,
   & .app-title,
   & .column-options,
+  & .column-panel,
+  & .column-header,
+  & .column-header-temp,
+  & .column-background-fill,
+  & .stream-item,
   & .column-options .button-tray,
   & .facet-type.is-active,
   & .app-content .stream-item,
@@ -15,8 +20,12 @@ html.dark body[btd-theme='old-grey'] {
   & .app-content .column-header-temp,
   & .btn-on-blue,
   & .detail-view-inline,
+  & .prf-meta,
+  & .mdl,
+  & .popover,
+  & .dropdown-menu,
   & {
-    background: var(--btd-theme-background);
+    background-color: var(--btd-theme-background);
   }
 
   & .detail-view-inline {
@@ -30,7 +39,8 @@ html.dark body[btd-theme='old-grey'] {
 
   & .compose,
   & .inline-reply,
-  & .old-composer-footer {
+  & .old-composer-footer,
+  & .mdl-column-med {
     background-color: var(--btd-theme-background-lighter);
   }
 
@@ -57,7 +67,7 @@ html.dark body[btd-theme='old-grey'] {
 
 html.dark body[btd-theme='super-dark'] {
   --btd-theme-background: black;
-  --btd-theme-background-lighter: #141414;
+  --btd-theme-background-lighter: #0c0c0c;
   --btd-theme-btn-hover: #2b2b2b;
 
   & .app-content,
