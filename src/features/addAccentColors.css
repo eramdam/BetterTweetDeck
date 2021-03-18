@@ -30,6 +30,10 @@ html.dark .column-header-link:hover {
   & a:focus,
   & a:hover,
   & a:active,
+  & .prf-stats .js-action-url:hover,
+  & .prf-stats .js-action-url:hover strong,
+  & .prf .lst-profile a:hover i,
+  & .prf .lst-profile a:hover span,
   & .color-twitter-blue,
   & .other-replies-link,
   & .other-replies-link:hover,
@@ -39,7 +43,9 @@ html.dark .column-header-link:hover {
   & .inline-reply .other-replies-link,
   & .inline-reply .other-replies-link:hover,
   & .med-flaglink,
-  & .med-origlink {
+  & .med-origlink,
+  & .follow-btn .icon,
+  & .follow-btn .Icon {
     color: var(--btd-accent-color);
   }
 
