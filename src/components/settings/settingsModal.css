@@ -213,6 +213,10 @@ html {
   width: 100%;
 }
 
+.btd-settings-sidebar ul li a:any-link {
+  color: currentColor;
+}
+
 .btd-settings-sidebar ul li {
   user-select: none;
   padding: 10px 16px;
