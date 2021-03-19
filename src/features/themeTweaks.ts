@@ -20,7 +20,6 @@ export enum BetterTweetDeckThemes {
 import {makeBTDModule} from '../types/btdCommonTypes';
 
 export const tweakTweetDeckTheme = makeBTDModule(({settings}) => {
-  console.log({accent: settings.customAccentColor, default: BetterTweetDeckAccentColors.DEFAULT});
   if (settings.customAccentColor !== BetterTweetDeckAccentColors.DEFAULT) {
     require('./addAccentColors.css');
     // @ts-ignore
