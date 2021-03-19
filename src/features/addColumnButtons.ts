@@ -1,6 +1,6 @@
 import './addColumnButtons.css';
 
-import {compact} from 'lodash';
+import {compact, Dictionary} from 'lodash';
 
 import {isHTMLElement} from '../helpers/domHelpers';
 import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
@@ -41,8 +41,6 @@ export const maybeAddColumnsButtons = makeBTDModule(({TD, jq, settings}) => {
 
     return string.replace(marker, marker + additionalMarkup);
   });
-
-  overrideColumnPrototype(TD, jq);
 
   jq(document).on('mousedown', '.btd-remove-column-link', (ev) => {
     ev.preventDefault();
@@ -91,92 +89,82 @@ export const maybeAddColumnsButtons = makeBTDModule(({TD, jq, settings}) => {
 
       const thisColumn = ev.target.closest('[data-column]');
       const columnKey = thisColumn.getAttribute('data-column');
-      TD.controller.columnManager.get(columnKey)._btd.toggleCollapse();
+      toggleCollapseColumn(TD, columnKey);
     }
   );
 
-  const collapsedColumns = window.localStorage.getItem(collapsedColumnsStorageKey);
-
-  if (!collapsedColumns) {
-    return;
-  }
-
-  const columnsSettings = JSON.parse(collapsedColumns);
+  const columnsSettings = getCollapsedColumnState();
   const collapsedColumnsKeys = Object.keys(columnsSettings);
 
   jq(document).on('uiColumnRendered', (ev, data) => {
     const {column} = data;
 
-    const columnApiId = column.model.privateState.apiid;
+    const {key, apiid} = column.model.privateState;
 
-    if (collapsedColumnsKeys.includes(columnApiId)) {
-      column._btd.toggleCollapse(!(columnsSettings[columnApiId] && column));
+    if (collapsedColumnsKeys.includes(apiid)) {
+      collapseColumn(apiid, key);
     }
   });
 });
 
-function overrideColumnPrototype(TD: TweetDeckObject, jq: JQueryStatic) {
-  ((originalColumn) => {
-    TD.vo.Column = class BTDColumn extends originalColumn {
-      constructor(...args: any[]) {
-        super(...args);
+function getCollapsedColumnState(): Dictionary<boolean> {
+  const rawData = window.localStorage.getItem(collapsedColumnsStorageKey) || '{}';
+  try {
+    const parsed = JSON.parse(rawData);
+    return parsed || [];
+  } catch (e) {
+    console.error(e);
+    return {};
+  }
+}
 
-        const _parent = this;
-        this._btd = {
-          _parent,
-          _isCollapsed: false,
-          isCollapsed() {
-            return this._isCollapsed || false;
-          },
-          collapse() {
-            const collapsedColumns = JSON.parse(
-              window.localStorage.getItem(collapsedColumnsStorageKey) || ''
-            );
+function saveCollapsedColumnState(state: Dictionary<boolean>) {
+  window.localStorage.setItem(collapsedColumnsStorageKey, JSON.stringify(state));
+}
 
-            const columnKey = this._parent.model.privateState.key;
-            const theColumn = jq(`section.column[data-column="${columnKey}"]`);
-            theColumn.addClass('btd-column-collapsed');
+function toggleCollapseColumn(TD: TweetDeckObject, columnKey: string) {
+  const apiId = TD.controller.columnManager
+    .getAllOrdered()
+    .find((c) => c.model.privateState.key === columnKey)?.model.privateState.apiid;
 
-            collapsedColumns[this._parent.model.privateState.apiid] = true;
-            this._isCollapsed = true;
-            window.localStorage.setItem(
-              collapsedColumnsStorageKey,
-              JSON.stringify(collapsedColumns)
-            );
-          },
-          uncollapse() {
-            const collapsedColumns = JSON.parse(
-              window.localStorage.getItem(collapsedColumnsStorageKey) || ''
-            );
+  console.log({apiId});
 
-            if (collapsedColumns[this._parent.model.privateState.apiid]) {
-              const scroller = this._parent.ui.getChirpScroller();
-              if (scroller.scrollTop() !== 0) {
-                this._parent.ui.unpause();
-              }
+  if (!apiId) {
+    return;
+  }
+  const isCollapsed = getCollapsedColumnState()[apiId];
 
-              const columnKey = this._parent.model.privateState.key;
-              const theColumn = jq(`section.column[data-column="${columnKey}"]`);
-              theColumn.removeClass('btd-column-collapsed');
+  if (isCollapsed) {
+    uncollapseColumn(apiId, columnKey);
+  } else {
+    collapseColumn(apiId, columnKey);
+  }
+}
 
-              delete collapsedColumns[this._parent.model.privateState.apiid];
-              this._isCollapsed = false;
-              window.localStorage.setItem(
-                collapsedColumnsStorageKey,
-                JSON.stringify(collapsedColumns)
-              );
-              // TD.controller.columnManager.showColumn(columnKey);
-            }
-          },
-          toggleCollapse(state = false) {
-            if (this._isCollapsed || state) {
-              this.uncollapse();
-            } else {
-              this.collapse();
-            }
-          },
-        };
-      }
-    };
-  })(TD.vo.Column);
+function collapseColumn(apiId: string, columnKey: string) {
+  const columnNode = document.querySelector(`section.column[data-column="${columnKey}"]`);
+
+  if (!columnNode) {
+    return;
+  }
+
+  columnNode.classList.add('btd-column-collapsed');
+  saveCollapsedColumnState({
+    ...getCollapsedColumnState(),
+    [apiId]: true,
+  });
+}
+
+function uncollapseColumn(apiId: string, columnKey: string) {
+  const columnNode = document.querySelector(`section.column[data-column="${columnKey}"]`);
+
+  if (!columnNode) {
+    return;
+  }
+
+  columnNode.classList.remove('btd-column-collapsed');
+  saveCollapsedColumnState({
+    ...getCollapsedColumnState(),
+    [apiId]: false,
+  });
 }

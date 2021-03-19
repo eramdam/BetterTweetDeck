@@ -207,6 +207,7 @@ interface TweetDeckController {
 
 interface ColumnManager {
   get(columnKey: string): TweetDeckColumn;
+  getAllOrdered(): ReadonlyArray<TweetDeckColumn>;
   showColumn(columnKey: string): void;
   move(columnKey: string, direction: string): void;
   deleteColumn(columnKey: string): void;
