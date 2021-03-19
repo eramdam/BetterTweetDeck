@@ -24,6 +24,7 @@ html.dark body[btd-theme='old-grey'] {
   & .mdl,
   & .popover,
   & .dropdown-menu,
+  & .bg-color-twitter-midnight-dark-gray,
   & {
     background-color: var(--btd-theme-background);
   }

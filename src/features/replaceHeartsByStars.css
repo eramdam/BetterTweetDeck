@@ -62,7 +62,7 @@
     line-height: 1.4 !important;
   }
 
-  & .js-column-header .column-type-icon.icon-favorite {
+  & .column-header .column-type-icon.icon-favorite {
     margin-top: 0 !important;
   }
 }

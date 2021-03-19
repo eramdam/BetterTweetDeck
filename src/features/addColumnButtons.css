@@ -6,7 +6,7 @@ html .app-content {
       width: 52px !important;
     }
 
-    & .js-column-header {
+    & .column-header {
       transform-origin: 0 100%;
       transform: rotate(90deg);
       width: 100vh;
@@ -70,7 +70,7 @@ html .app-content {
     flex-shrink: 0;
   }
 
-  & .js-column-header {
+  & .column-header {
     display: flex;
   }
 
