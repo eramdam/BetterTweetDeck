@@ -14,29 +14,27 @@ export const maybeAddColumnsButtons = makeBTDModule(({TD, jq, settings}) => {
     window.localStorage.setItem(collapsedColumnsStorageKey, JSON.stringify({}));
   }
 
-  if (
-    !settings.showClearButtonInColumnsHeader &&
-    !settings.showCollapseButtonInColumnsHeader &&
-    !settings.showRemoveButtonInColumnsHeader
-  ) {
+  const {
+    showClearButtonInColumnsHeader: showClear,
+    showCollapseButtonInColumnsHeader: showCollapse,
+    showRemoveButtonInColumnsHeader: showRemove,
+  } = settings;
+
+  if (!showClear && !showCollapse && !showRemove) {
     return;
   }
 
+  const clearButtonMarkup = `<a class="js-action-header-button column-header-link btd-clear-column-link" href="#" data-action="clear"><i class="icon icon-clear-timeline"></i></a>`;
+  const collapseButtonMarkup = `<a class="js-action-header-button column-header-link btd-toggle-collapse-column-link" href="#" data-action="toggle-collapse-column"><i class="icon icon-minus"></i></a>`;
+  const removeButtonMarkup = `<a class="js-action-header-button column-header-link btd-remove-column-link" href="#" data-action="remove"><i class="icon icon-close"></i></a>`;
+
   modifyMustacheTemplate(TD, 'column/column_header.mustache', (string) => {
     const marker = '{{/withMarkAllRead}} {{^isTemporary}}';
-    const {
-      showClearButtonInColumnsHeader: showClear,
-      showCollapseButtonInColumnsHeader: showCollapse,
-      showRemoveButtonInColumnsHeader: showRemove,
-    } = settings;
 
     const additionalMarkup = compact([
-      showClear &&
-        `<a class="js-action-header-button column-header-link btd-clear-column-link" href="#" data-action="clear"><i class="icon icon-clear-timeline"></i></a>`,
-      showCollapse &&
-        `<a class="js-action-header-button column-header-link btd-toggle-collapse-column-link" href="#" data-action="toggle-collapse-column"><i class="icon icon-minus"></i></a>`,
-      showRemove &&
-        `<a class="js-action-header-button column-header-link btd-remove-column-link" href="#" data-action="remove"><i class="icon icon-close"></i></a>`,
+      showClear && clearButtonMarkup,
+      showCollapse && collapseButtonMarkup,
+      showRemove && removeButtonMarkup,
     ]).join('');
 
     return string.replace(marker, marker + additionalMarkup);
@@ -94,12 +92,27 @@ export const maybeAddColumnsButtons = makeBTDModule(({TD, jq, settings}) => {
   );
 
   const columnsSettings = getCollapsedColumnState();
-  const collapsedColumnsKeys = Object.keys(columnsSettings);
+  const collapsedColumnsKeys = Object.keys(columnsSettings).filter((k) => columnsSettings[k]);
 
   jq(document).on('uiColumnRendered', (ev, data) => {
     const {column} = data;
 
     const {key, apiid} = column.model.privateState;
+    const isTrendingColumn = column?.model?.state?.type === 'trends';
+    const headerLinks = document.querySelector(
+      `section.column[data-column="${key}"] .column-header-links`
+    );
+
+    if (!headerLinks) {
+      return;
+    }
+
+    if (isTrendingColumn && showRemove) {
+      headerLinks?.insertAdjacentHTML('afterbegin', removeButtonMarkup);
+    }
+    if (isTrendingColumn && showCollapse) {
+      headerLinks?.insertAdjacentHTML('afterbegin', collapseButtonMarkup);
+    }
 
     if (collapsedColumnsKeys.includes(apiid)) {
       collapseColumn(apiid, key);
@@ -126,8 +139,6 @@ function toggleCollapseColumn(TD: TweetDeckObject, columnKey: string) {
   const apiId = TD.controller.columnManager
     .getAllOrdered()
     .find((c) => c.model.privateState.key === columnKey)?.model.privateState.apiid;
-
-  console.log({apiId});
 
   if (!apiId) {
     return;

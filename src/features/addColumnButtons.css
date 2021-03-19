@@ -59,7 +59,7 @@ html .app-content {
       content: '\f183';
     }
 
-    & .js-column-content,
+    & .column-content,
     & .js-add-to-customtimeline {
       display: none;
     }
