@@ -625,6 +625,7 @@ export interface TweetDeckChirp {
   withPrettyEngagements: boolean;
   conversationId?: string | number;
   renderInMediaGallery(): string;
+  renderQuotedTweet(options: {mediaPreviewSize: TweetDeckColumnMediaPreviewSizesEnum}): string;
   getChirpURL(): string;
   getMainTweet(): TweetDeckChirp;
   getReplyUsers(): User[];
