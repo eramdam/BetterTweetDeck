@@ -361,14 +361,6 @@ interface ColumnMap {
 
 export declare class TweetDeckColumn {
   constructor(...args: any[]);
-  _btd: {
-    _parent: TweetDeckColumn;
-    _isCollapsed: boolean;
-    isCollapsed(): boolean;
-    collapse(): void;
-    uncollapse(): void;
-    toggleCollapse(state?: boolean): void;
-  };
   clear(): void;
   model: ColumnModel;
   ui: ColumnUiState;
