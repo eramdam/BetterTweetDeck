@@ -9,7 +9,7 @@
     justify-content: space-between;
   }
 
-  & .js-mediatable .js-modal-panel .med-tweet .js-tweet .tweet-footer .tweet-actions a {
+  & .js-mediatable .js-modal-panel .med-tweet .js-tweet .tweet-footer .tweet-actions > .tweet-action-item > .tweet-action {
     color: white !important;
   }
 
