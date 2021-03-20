@@ -37,7 +37,7 @@ export const RBetterTweetDeckSettings = t.type({
   addSearchColumnsFirst: withDefault(t.boolean, false),
 
   /** Render image overlays à la Twitter Web. */
-  useModernFullscreenImage: withDefault(t.boolean, false),
+  useModernFullscreenImage: withDefault(t.boolean, true),
 
   /** Pauses scrolling of columns when mouse hovers over theme */
   pauseColumnScrollingOnHover: withDefault(t.boolean, false),
@@ -49,7 +49,7 @@ export const RBetterTweetDeckSettings = t.type({
   fullTimestampAfterDay: withDefault(t.boolean, false),
 
   /** Uses full links instead of t.co links */
-  removeRedirectionOnLinks: withDefault(t.boolean, false),
+  removeRedirectionOnLinks: withDefault(t.boolean, true),
 
   /** Shows a clear (💧) button in the header of columns */
   showClearButtonInColumnsHeader: withDefault(t.boolean, false),
@@ -61,7 +61,7 @@ export const RBetterTweetDeckSettings = t.type({
   showRemoveButtonInColumnsHeader: withDefault(t.boolean, false),
 
   /** Hide icons in the columns' header */
-  hideColumnIcons: withDefault(t.boolean, true),
+  hideColumnIcons: withDefault(t.boolean, false),
 
   /** Make buttons in composer smaller */
   smallComposerButtons: withDefault(t.boolean, false),
@@ -106,10 +106,10 @@ export const RBetterTweetDeckSettings = t.type({
       addBlockAction: t.boolean,
     }),
     {
-      addCopyMediaLinksAction: true,
-      addDownloadMediaLinksAction: true,
-      addMuteAction: true,
-      addBlockAction: true,
+      addCopyMediaLinksAction: false,
+      addDownloadMediaLinksAction: false,
+      addMuteAction: false,
+      addBlockAction: false,
     }
   ),
 
