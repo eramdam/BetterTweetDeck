@@ -94,13 +94,13 @@ chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => 
 
 function openWelcomePage() {
   chrome.tabs.create({
-    url: 'options/options.html?on=install',
+    url: 'build/options/options.html?on=install',
   });
 }
 
 function openSettings() {
   chrome.tabs.create({
-    url: 'options/options.html',
+    url: 'build/options/options.html',
   });
 }
 
@@ -191,7 +191,7 @@ BHelper.settings.getAll((settings) => {
     }
 
     // We create the context menu item
-    if (newSettings.share_item && newSettings.share_item.enabled) {
+    if (newSettings.share_item && newSettings.share_item.enabled && !BHelper.isSafari) {
       createMenuItem(newSettings);
     }
   });
