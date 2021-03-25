@@ -69,38 +69,3 @@ export const setupGifModals = makeBTDModule(({TD, settings, jq}) => {
     }
   }
 });
-
-{
-  /* <a
-href="#"
-data-key={chirp.id}
-style={{
-  marginTop: 10,
-}}
-onClick={() => {
-  const videoNode = videoEl as unknown;
-  if (!isHtmlVideoElement(videoNode)) {
-    return;
-  }
-
-  const gifShotOptions = {
-    video: [videoNode.src],
-    gifWidth: videoNode.videoWidth,
-    gifHeight: videoNode.videoHeight,
-    name: filenameRenderer.render(
-      getFilenameDownloadData(chirp, videoUrl.replace('mp4', 'gif'))
-    ),
-    numFrames: Math.floor(videoNode.duration / 0.1),
-    interval: 0.1,
-    sampleInterval: 10,
-  };
-  const iframeUrl = `https://better.tw/gif?${qs.stringify(gifShotOptions)}`;
-
-  const iframeElement = document.createElement('iframe');
-  iframeElement.src = iframeUrl;
-
-  document.body.appendChild(iframeElement);
-}}>
-Download as .GIF
-</a> */
-}
