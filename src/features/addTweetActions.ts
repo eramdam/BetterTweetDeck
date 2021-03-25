@@ -67,7 +67,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
       (addMuteAction &&
         `<li class="tweet-detail-action-item btd-tweet-detail-action-item">
       <a class="js-show-tip tweet-detail-action btd-tweet-detail-action btd-clipboard position-rel" href="#"
-        data-btd-action="hotlink-media" rel="action" title="Mute {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}">
+        data-btd-action="mute-account" rel="action" title="Mute {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}">
         <i class="icon icon-muted txt-center"></i>
         <span class="is-vishidden"> {{_i}}Mute {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}{{/i}} </span>
       </a>
@@ -78,7 +78,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
       (addBlockAction &&
         `<li class="tweet-detail-action-item btd-tweet-detail-action-item">
       <a class="js-show-tip tweet-detail-action btd-tweet-detail-action btd-clipboard position-rel" href="#"
-        data-btd-action="hotlink-media" rel="hotlink" title="Block {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}">
+        data-btd-action="block-account" rel="hotlink" title="Block {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}">
         <i class="icon icon-blocked txt-center"></i>
         <span class="is-vishidden"> {{_i}}Block {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}{{/i}} </span>
       </a>
@@ -199,11 +199,12 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
     '[data-btd-action="mute-account"], [data-btd-action="block-account"]',
     (ev) => {
       ev.preventDefault();
-      const target = ev.target;
+      const target = ev.currentTarget;
       if (!isHTMLElement(target)) {
         return;
       }
       let chirp = getChirpFromElement(TD, ev.target)?.chirp;
+
       if (!chirp) {
         return;
       }
