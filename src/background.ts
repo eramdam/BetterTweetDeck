@@ -36,7 +36,7 @@ import {BTDMessageEvent, BTDMessages} from './types/btdMessageTypes';
     }
   });
 
-  // // Get the settings from the browser.
+  // Get the settings from the browser.
   const settings = await getValidatedSettings();
   const textLimitWithLink = 254;
 
