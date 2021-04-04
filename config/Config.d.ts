@@ -9,7 +9,6 @@ declare module "node-config-ts" {
   interface Client {
     github_token: string
     debug: boolean
-    remote_inst: boolean
     APIs: APIs
     extension_ids: Extensionids
   }
