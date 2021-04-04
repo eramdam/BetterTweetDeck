@@ -4,6 +4,7 @@ import {HandlerOf, Renderer} from '../../helpers/typeHelpers';
 import {getExtensionVersion} from '../../helpers/webExtensionHelpers';
 import {BTDSettings} from '../../types/btdSettingsTypes';
 import {getTransString, Trans} from '../trans';
+import {SettingsCredits} from './components/settingsCredits';
 import {SettingsCssEditor} from './components/settingsCssEditor';
 import {renderGeneralSettings} from './menu/settingsGeneral';
 import {ImportExportSettings} from './menu/settingsImportExport';
@@ -103,6 +104,13 @@ export const makeSettingsMenu = (
           id: 'import-export',
           label: getTransString('settings_import_export'),
           render: () => <ImportExportSettings settings={settings} onNewSettings={setSettings} />,
+        },
+        {
+          id: 'credits',
+          label: <Trans id="settings_credits_about" />,
+          render: () => {
+            return <SettingsCredits />;
+          },
         },
       ],
     },

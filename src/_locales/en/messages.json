@@ -325,5 +325,26 @@
   },
   "settings_save_tweeted_hashtags": {
     "message": "Save tweeted hashtags"
+  },
+  "settings_changelog": {
+    "message": "Changelog"
+  },
+  "settings_chrome_web_store": {
+    "message": "Chrome Web Store"
+  },
+  "settings_bugs_or_suggestions": {
+    "message": "Bugs or suggestions"
+  },
+  "settings_source_on_github": {
+    "message": "Source on GitHub"
+  },
+  "settings_contributors": {
+    "message": "Contributors"
+  },
+  "settings_author": {
+    "message": "Author"
+  },
+  "settings_credits_about": {
+    "message": "Credits / About"
   }
 }

@@ -73,7 +73,11 @@ export const settingsRegularText = css`
   grid-auto-rows: auto;
 
   h3 {
-    margin-bottom: 10px;
+    margin: 10px 0;
+  }
+
+  h3 + p + h3 {
+    margin-top: 2em;
   }
 
   p {
@@ -89,5 +93,14 @@ export const settingsRegularText = css`
     list-style-type: none;
     line-height: 2;
     margin: 12px 0;
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--twitter-blue);
+
+    &:hover {
+      color: var(--twitter-darkblue);
+    }
   }
 `;

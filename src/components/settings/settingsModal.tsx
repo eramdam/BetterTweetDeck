@@ -30,7 +30,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
   const {onSettingsUpdate} = props;
   const [settings, setSettings] = useState<BTDSettings>(props.btdSettings);
   const [isDirty, setIsDirty] = useState(false);
-  const [selectedId, setSelectedId] = useState('general');
+  const [selectedId, setSelectedId] = useState('credits');
   const [editorHasErrors, setEditorHasErrors] = useState(false);
 
   const makeOnSettingsChange = <T extends keyof BTDSettings>(key: T) => {
@@ -133,6 +133,11 @@ export const SettingsModal = (props: SettingsModalProps) => {
             <li>
               <a href="https://better.tw" target="_blank" rel="noopener noreferrer">
                 <Trans id="settings_website" />
+              </a>
+            </li>
+            <li>
+              <a href="https://better.tw/releases" target="_blank" rel="noopener noreferrer">
+                <Trans id="settings_changelog" />
               </a>
             </li>
           </ul>

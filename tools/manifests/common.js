@@ -1,4 +1,4 @@
-const {commonHosts, commonConnectHosts} = require('./commonHosts');
+const {commonHosts} = require('./commonHosts');
 const _ = require('lodash');
 
 const iconSizes = [16, 32, 48, 96, 128, 256, 512];
@@ -40,7 +40,7 @@ module.exports = {
   content_security_policy: [
     ['img-src', 'https:', 'data:', "'self'", '*'],
     ['default-src'],
-    ['connect-src', ...commonConnectHosts],
+    ['connect-src', '*', 'https:'],
     ['style-src', "'unsafe-inline'"],
     ['script-src', `'self'`, `'unsafe-eval'`],
   ]

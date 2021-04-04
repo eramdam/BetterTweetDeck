@@ -39,6 +39,10 @@ export const renderTweetDisplaySettings: SettingsMenuRenderer = (
                     font-size: 12px;
                     margin-left: 8px;
                     color: var(--twitter-blue);
+
+                    &:hover {
+                      color: var(--twitter-darkblue);
+                    }
                   `}
                   href="https://moment.github.io/luxon/docs/manual/formatting.html#table-of-tokens"
                   target="_blank"
