@@ -4,7 +4,6 @@
   "Client": {
     "github_token": "",
     "debug": false,
-    "remote_inst": true,
     "APIs": {
       "dribbble": "",
       "imgur": "",
