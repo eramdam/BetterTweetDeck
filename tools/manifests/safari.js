@@ -1,5 +1,6 @@
 const chromeManifest = require('./chrome');
 module.exports = Object.assign(chromeManifest, {
+  name: 'Better TDeck for TweetDeck',
   browser_action: {
     default_icon: {
       16: 'build/assets/icons/toolbar-icon-16.png',
