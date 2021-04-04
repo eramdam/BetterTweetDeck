@@ -1,16 +1,16 @@
-**This document is still a work in progress, feel free to ask questions!**
+**⚠️ Disclaimer: this doc isn't up to date with the current codebase. I will update it at a later time ⚠️**
 
+<details>
 :thumbsup: :tada: :raised_hands: First, thanks for taking the time to contribute! :thumbsup: :tada: :raised_hands:
 
 The following is a set of guidelines to contribute to Better TweetDeck so the project can stay clean and focused
 
 **Table of Contents**
+
 - [What should I know before?](#what-should-i-know-before)
   - [Background](#background)
   - [Focus of the project](#focus-of-the-project)
-  - [Project structure](#project-structure)
-        - [Files and folders](#files-and-folders)
-        - [Rundown of `src/`](#rundown-of-src)
+  - [Project structure](#project-structure) - [Files and folders](#files-and-folders) - [Rundown of `src/`](#rundown-of-src)
 - [How Can I Contribute?](#how-can-i-contribute)
   - [Contributing by actually coding](#contributing-by-actually-coding)
     - [Setup](#setup)
@@ -20,10 +20,11 @@ The following is a set of guidelines to contribute to Better TweetDeck so the pr
     - [About the config](#about-the-config)
     - [Ok I'm done, what do I do now?](#ok-im-done-what-do-i-do-now)
   - [Reporting Bugs](#reporting-bugs)
-      - [Before Submitting A Bug Report](#before-submitting-a-bug-report)
-      - [How Do I Submit A (Good) Bug Report?](#how-do-i-submit-a-good-bug-report)
+    - [Before Submitting A Bug Report](#before-submitting-a-bug-report)
+    - [How Do I Submit A (Good) Bug Report?](#how-do-i-submit-a-good-bug-report)
 
 # What should I know before?
+
 ## Background
 
 I started Better TweetDeck as a little side project for myself then decided to release it to the world and it has now a whooping 20K+ users! On a technical standpoint the project went through a lof of iterations but version 3 marked a huge progress in terms of "good practices" and "cleanliness" of the project's code.
@@ -31,12 +32,13 @@ I started Better TweetDeck as a little side project for myself then decided to r
 ## Focus of the project
 
 Better TweetDeck **is** made to:
+
 - add features to improve someone's experience on TweetDeck
 - improve some minor design issues of TweetDeck
 - that's basically it!
 
-
 Better TweetDeck **is not** made to:
+
 - add full-featured themes, the "Minimal mode" is the one and only ""theme"" present in the extension. That is not definitive and could maybe chance but is unlikely
 - fix TweetDeck's bugs. TweetDeck's team has to do some work too, this project is not meant to fix their technical regressions
 - track, spy, put ads to users or whatever against users' privacy
@@ -74,14 +76,13 @@ Better TweetDeck **is not** made to:
 - `options/`: settings code
 - `manifest.json`: project manifest
 
-
 # How Can I Contribute?
 
 ## Contributing by actually coding
 
 ### Setup
 
-You will need [NodeJS](https://nodejs.org/en/) (**The more recent the better**). Fire up your favorite Terminal emulator and do the followings: 
+You will need [NodeJS](https://nodejs.org/en/) (**The more recent the better**). Fire up your favorite Terminal emulator and do the followings:
 
 - **[Fork](https://github.com/eramdam/BetterTweetDeck/fork)** this repository
 - Clone the project
@@ -104,8 +105,8 @@ Here is a run-down of all the scripts:
 - `build -- <browser>` builds the extension in **`dev`** mode against the defined target
 - `build:prod -- <browser>`: builds the extension in **`prod`** mode against the defined target
 - `pack:<browser>` packages the extension for the given target:
-	- `chrome` will make a `.crx` and a `.nex` file with a private key
-	- `firefox` will use `web-ext` to make a zip file that has to be submitted to Mozilla Add-ons
+  - `chrome` will make a `.crx` and a `.nex` file with a private key
+  - `firefox` will use `web-ext` to make a zip file that has to be submitted to Mozilla Add-ons
 - `release` builds and packages the extension for **all** the targets
 - `test` Runs the link task from the Gulpfile and tries to run `release`. This is run on [Travis](https://travis-ci.org/eramdam/BetterTweetDeck) at every push and on every pull requests. If a given pull request doesn't pass this task, it won't be accepted.
 - `fix` Will run [prettier-eslint](https://github.com/prettier/prettier-eslint) and [prettier-stylelint](https://github.com/hugomrdias/prettier-stylelint) over the whole repository. **You should not need to run this as the precommit hook will do that for you**
@@ -123,7 +124,7 @@ Now that you know what's available in your hands, let's get started. On a typica
 ### About the config
 
 This project is using [config](https://npmjs.org/package/config) and [config-browserify](https://npmjs.org/package/config-browserify) to handle configuration.
-You will have to fill a `dev.js` using the [default.js](https://github.com/eramdam/BetterTweetDeck/blob/master/config/default.js) file as an example. 
+You will have to fill a `dev.js` using the [default.js](https://github.com/eramdam/BetterTweetDeck/blob/master/config/default.js) file as an example.
 
 **DO NOT COMMIT YOUR CONFIGURATION FILE. DO NOT COMMIT API KEYS AND/OR SECRET**.
 
@@ -161,3 +162,5 @@ Provide some context:
 - **Did the issue start happening recently** or was it always an issue?
 - **Are you up-to-date?** What version of the extension have you currently installed?
 - **What are your settings?** You can easily copy/paste [**Debug infos**](meta/debug-infos.png) in your issue
+
+</details>

@@ -32,28 +32,17 @@ Adds some nice options on [TweetDeck](http://tweetdeck.twitter.com) to provide a
 # Installation
 
 The extensions is currently available for the following browsers:
+
 - [Chrome](https://chrome.google.com/webstore/detail/bettertweetdeck-3/micblkellenpbfapmcpcfhcoeohhnpob)
 - [Opera](https://addons.opera.com/en/extensions/details/bettertweetdeck/)
 - [Firefox](https://addons.mozilla.org/en-US/firefox/addon/better-tweetdeck-17/)
+- [Safari 14+](https://apps.apple.com/us/app/better-tdeck-for-tweetdeck/id1549421502)
+- [Edge](https://microsoftedge.microsoft.com/addons/detail/better-tweetdeck/cpahogfkcecoeidfaemlcojbcbhaojcj)
 
 # Features
 
 Find the complete list of features on [https://better.tw/#features-list](https://better.tw/#features-list)
 
-
 # Contributing & helping
 
 Feel free to read the [CONTRIBUTING](./CONTRIBUTING.md) documentation to know how to help and contribute!
-
-[travis-ci-badge]: https://img.shields.io/travis/eramdam/BetterTweetDeck.svg
-[travis-ci]: https://travis-ci.org/eramdam/BetterTweetDeck/
-[chrome-badge]: https://img.shields.io/chrome-web-store/v/micblkellenpbfapmcpcfhcoeohhnpob.svg
-[chrome-badge-users]: https://img.shields.io/chrome-web-store/d/micblkellenpbfapmcpcfhcoeohhnpob.svg
-[chrome]: https://better.tw/chrome
-[firefox-badge]: https://img.shields.io/amo/v/better-tweetdeck-17.svg
-[firefox-badge-users]: https://img.shields.io/amo/users/better-tweetdeck-17.svg
-[firefox]: https://better.tw/chrome
-[twitter]: https://twitter.com/@BetterTDeck
-[twitter-badge]: https://img.shields.io/badge/twitter-%40BetterTDeck-blue.svg
-[paypal-badge]: https://img.shields.io/badge/paypal-donate-yellow.svg
-[paypal]: https://paypal.me/eramdam
