@@ -1,6 +1,7 @@
 import {css} from '@emotion/css';
 import {Octokit} from '@octokit/core';
 import React, {FC, useEffect, useState} from 'react';
+import {PromiseType} from 'utility-types';
 
 import {Trans} from '../../trans';
 import {settingsRegularText} from '../settingsStyles';
@@ -8,7 +9,9 @@ import {settingsRegularText} from '../settingsStyles';
 const octokit = new Octokit();
 
 export const SettingsCredits: FC = () => {
-  const [contributors, setContributors] = useState<ReadonlyArray<GithubContributor>>([]);
+  const [contributors, setContributors] = useState<
+    PromiseType<ReturnType<typeof getGithubContributors>>
+  >([]);
 
   useEffect(() => {
     getGithubContributors().then(setContributors);
@@ -91,13 +94,7 @@ export const SettingsCredits: FC = () => {
   );
 };
 
-interface GithubContributor {
-  contributions: number;
-  username: string | undefined;
-  url: string | undefined;
-}
-
-async function getGithubContributors(): Promise<ReadonlyArray<GithubContributor>> {
+async function getGithubContributors() {
   const response = await octokit.request('GET /repos/{owner}/{repo}/contributors', {
     owner: 'eramdam',
     repo: 'BetterTweetDeck',
