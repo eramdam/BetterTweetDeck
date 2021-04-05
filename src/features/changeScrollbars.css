@@ -5,7 +5,8 @@
   scrollbar-width: none;
 }
 
-.btd-loaded.is-firefox[btd-scrollbar-style='slim'] .column-scroller {
+.btd-loaded.is-firefox[btd-scrollbar-style='slim'] .column-scroller,
+.btd-loaded.is-firefox[btd-scrollbar-style='slim'] .js-app-columns-container.needs-scroll-bottom-offset.scroll-styled-h {
   scrollbar-width: thin;
 }
 
