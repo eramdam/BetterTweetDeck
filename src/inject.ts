@@ -27,6 +27,7 @@ import {maybeRenderCardsInColumns} from './features/renderCardsInColumns';
 import {renderMediaAndQuotedTweets} from './features/renderMediaAndQuotedTweets';
 import {maybeReplaceHeartsByStars} from './features/replaceHeartsByStars';
 import {maybeRevertToLegacyReplies} from './features/revertToLegacyReplies';
+import {showTweetDogEars} from './features/showTweetDogEars';
 import {maybeMakeComposerButtonsSmaller} from './features/smallerComposerButtons';
 import {tweakTweetDeckTheme} from './features/themeTweaks';
 import {updateTabTitle} from './features/updateTabTitle';
@@ -124,6 +125,7 @@ const jq: JQueryStatic | undefined =
   maybeSetupCustomTimestampFormat(btdModuleOptions);
   applyTweetDeckSettings(btdModuleOptions);
   maybeShowCharacterCount(btdModuleOptions);
+  showTweetDogEars(btdModuleOptions);
 
   jq(document).one('dataColumnsLoaded', () => {
     document.body.classList.add('btd-loaded');

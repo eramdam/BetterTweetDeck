@@ -159,7 +159,7 @@ export const RBetterTweetDeckSettings = t.type({
   updateTabTitleOnActivity: withDefault(t.boolean, true),
 
   // I like this one...but maybe i'm the only one who cares?
-  // showLikeRTDogears: withDefault(t.boolean, false),
+  showLikeRTDogears: withDefault(t.boolean, false),
 
   enableShareItem: withDefault(t.boolean, !isFirefox),
   shouldShortenSharedText: withDefault(t.boolean, true),
