@@ -11,10 +11,10 @@ html.dark body[btd-theme='old-grey'] {
   & .column-header,
   & .column-header-temp,
   & .column-background-fill,
-  & .stream-item:not(.is-unread),
+  & .stream-item,
   & .column-options .button-tray,
   & .facet-type.is-active,
-  & .app-content .stream-item:not(.is-unread),
+  & .app-content .stream-item,
   & .app-content .column-message,
   & .app-content .column-header,
   & .app-content .column-header-temp,
@@ -41,8 +41,13 @@ html.dark body[btd-theme='old-grey'] {
   & .compose,
   & .inline-reply,
   & .old-composer-footer,
-  & .mdl-column-med {
+  & .mdl-column-med,
+  & .stream-item.is-selected-tweet {
     background-color: var(--btd-theme-background-lighter);
+  }
+
+  & .stream-item.is-unread {
+    background-color: #163043;
   }
 
   & .reply-triangle {
