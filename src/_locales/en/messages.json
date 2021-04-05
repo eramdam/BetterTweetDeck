@@ -346,5 +346,8 @@
   },
   "settings_credits_about": {
     "message": "Credits / About"
+  },
+  "settings_always_characters_left": {
+    "message": "Always show the number of characters left in the tweet composer"
   }
 }

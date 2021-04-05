@@ -138,6 +138,11 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
             label: <Trans id="settings_make_buttons_smaller_in_the_composer" />,
           },
           {
+            initialValue: settings.alwaysShowNumberOfCharactersLeft,
+            key: 'alwaysShowNumberOfCharactersLeft',
+            label: <Trans id="settings_always_characters_left" />,
+          },
+          {
             initialValue: settings.saveTweetedHashtags,
             key: 'saveTweetedHashtags',
             label: <Trans id="settings_save_tweeted_hashtags" />,

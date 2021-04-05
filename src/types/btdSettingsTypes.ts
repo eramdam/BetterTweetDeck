@@ -24,6 +24,8 @@ export const RBetterTweetDeckSettings = t.type({
     BTDTimestampFormats.RELATIVE
   ),
 
+  alwaysShowNumberOfCharactersLeft: withDefault(t.boolean, false),
+
   /** Show tweet cards in columns. */
   showCardsInsideColumns: withDefault(t.boolean, true),
 

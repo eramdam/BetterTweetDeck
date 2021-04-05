@@ -5,6 +5,7 @@ import {maybeAddTweetActions} from './features/addTweetActions';
 import {maybeAddTweetMenuItems} from './features/addTweetMenuItems';
 import {setupAME} from './features/advancedMuteEngine';
 import {allowImagePaste} from './features/allowImagePaste';
+import {maybeShowCharacterCount} from './features/alwaysShowCharacterCount';
 import {setupThemeAutoSwitch} from './features/autoSwitchThemes';
 import {putBadgesOnTopOfAvatars} from './features/badgesOnTopOfAvatars';
 import {makeEmojiBigger} from './features/biggerEmoji';
@@ -122,6 +123,7 @@ const jq: JQueryStatic | undefined =
   setupThemeAutoSwitch(btdModuleOptions);
   maybeSetupCustomTimestampFormat(btdModuleOptions);
   applyTweetDeckSettings(btdModuleOptions);
+  maybeShowCharacterCount(btdModuleOptions);
 
   jq(document).one('dataColumnsLoaded', () => {
     document.body.classList.add('btd-loaded');
