@@ -30,6 +30,38 @@ export const useOriginalAspectRatio = makeBTDModule(({settings}) => {
       return;
     }
 
+    if (actualChirp.quotedTweet && settings.useOriginalAspectRatioForSingleImagesInQuotedTweets) {
+      const quotedEntities = actualChirp.quotedTweet.entities.media;
+      if (!quotedEntities.length || quotedEntities.length > 1) {
+        return;
+      }
+
+      const quotedMedia = quotedEntities[0];
+
+      if (!quotedMedia || quotedMedia.type !== 'photo') {
+        return;
+      }
+
+      const quotedSizeObject = {
+        width: quotedMedia.sizes.large.w,
+        height: quotedMedia.sizes.large.h,
+      };
+
+      const quotedMediaNode = chirpNode.querySelector(
+        `[data-media-entity-id="${quotedMedia.id_str}"].js-media-image-link`
+      );
+
+      console.log(chirpNode, quotedMediaNode, quotedMedia.id_str);
+
+      if (!isHTMLElement(quotedMediaNode)) {
+        return;
+      }
+
+      quotedMediaNode.classList.add('btd-aspect-ratio-thumbnail');
+      quotedMediaNode.style.setProperty('--btd-thumb-height', quotedSizeObject.height.toString());
+      quotedMediaNode.style.setProperty('--btd-thumb-width', quotedSizeObject.width.toString());
+    }
+
     if (!actualChirp.entities) {
       return;
     }

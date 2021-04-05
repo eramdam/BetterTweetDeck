@@ -88,6 +88,13 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
             label: <Trans id="settings_use_original_aspect_ratio_images" />,
           },
           {
+            introducedIn: '4.0.1',
+            initialValue: settings.useOriginalAspectRatioForSingleImagesInQuotedTweets,
+            key: 'useOriginalAspectRatioForSingleImagesInQuotedTweets',
+            label: <Trans id="settings_do_the_same_for_single_images_in_quoted_tweets" />,
+            isDisabled: !settings.useOriginalAspectRatioForSingleImages,
+          },
+          {
             introducedIn: '4',
             initialValue: settings.useModernFullscreenImage,
             key: 'useModernFullscreenImage',

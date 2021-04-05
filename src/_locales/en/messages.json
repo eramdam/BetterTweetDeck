@@ -355,5 +355,8 @@
   },
   "settings_show_like_rt_indicators_on_top_of_tweets": {
     "message": "Show like/RT indicators on top of tweets"
+  },
+  "settings_do_the_same_for_single_images_in_quoted_tweets": {
+    "message": "Do the same for single images in quoted tweets"
   }
 }

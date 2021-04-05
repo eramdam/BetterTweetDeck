@@ -48,6 +48,9 @@ export const RBetterTweetDeckSettings = t.type({
   /** Display single images using their original aspect ratio. */
   useOriginalAspectRatioForSingleImages: withDefault(t.boolean, false),
 
+  /** Display single images using their original aspect ratio. (quoted tweets) */
+  useOriginalAspectRatioForSingleImagesInQuotedTweets: withDefault(t.boolean, true),
+
   /** Switches between the full timestamp in tweets after 24h */
   fullTimestampAfterDay: withDefault(t.boolean, false),
 
