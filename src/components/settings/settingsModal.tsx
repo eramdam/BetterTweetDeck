@@ -3,6 +3,7 @@ import './settingsModal.css';
 import {cx} from '@emotion/css';
 import {isEqual} from 'lodash';
 import React, {Fragment, useCallback, useMemo, useState} from 'react';
+import {browser} from 'webextension-polyfill-ts';
 
 import {isFirefox} from '../../helpers/browserHelpers';
 import {getExtensionUrl, getExtensionVersion} from '../../helpers/webExtensionHelpers';
