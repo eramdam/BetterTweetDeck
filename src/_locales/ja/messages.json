@@ -63,7 +63,7 @@
       "message": "ブラウザと拡張機能の情報"
    },
    "settings_bugs_or_suggestions": {
-      "message": "バグや提案"
+      "message": "バグ報告や提案"
    },
    "settings_changelog": {
       "message": "変更履歴"
@@ -102,7 +102,7 @@
       "message": "Twitter Webのようにフルスクリーンで画像を表示"
    },
    "settings_download_settings_button": {
-      "message": "ダウンロード設定"
+      "message": "設定のバックアップをダウンロード"
    },
    "settings_downloaded_filename_format": {
       "message": "ダウンロードしたファイルの名前"
@@ -315,7 +315,7 @@
       "message": "ツイートアクション"
    },
    "settings_tweet_content": {
-      "message": "Tweet content"
+      "message": "ツイート内容"
    },
    "settings_tweets_display": {
       "message": "ツイート表示"
