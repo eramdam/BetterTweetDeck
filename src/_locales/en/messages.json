@@ -349,5 +349,8 @@
   },
   "settings_always_characters_left": {
     "message": "Always show the number of characters left in the tweet composer"
+  },
+  "settings_better_tweetdeck_ask_tabs": {
+    "message": "Better TweetDeck will ask access to browser tabs for this to work properly"
   }
 }

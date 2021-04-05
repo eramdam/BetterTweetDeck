@@ -2,8 +2,7 @@ const {config} = require('node-config-ts');
 
 module.exports = {
   ...require('./common.js'),
-  name: '__MSG_app_name__',
-  description: '__MSG_app_desc__',
+  optional_permissions: ['tabs'],
   applications: {
     gecko: {
       id: config.FirefoxId,

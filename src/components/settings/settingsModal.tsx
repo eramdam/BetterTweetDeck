@@ -4,6 +4,7 @@ import {cx} from '@emotion/css';
 import {isEqual} from 'lodash';
 import React, {Fragment, useCallback, useMemo, useState} from 'react';
 
+import {isFirefox} from '../../helpers/browserHelpers';
 import {getExtensionUrl, getExtensionVersion} from '../../helpers/webExtensionHelpers';
 import {OnSettingsUpdate} from '../../services/setupSettings';
 import {BTDSettings} from '../../types/btdSettingsTypes';
@@ -48,6 +49,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
   const updateSettings = useCallback(() => {
     onSettingsUpdate(settings);
     setIsDirty(false);
+    maybeAskForTabsPermissions(settings);
   }, [onSettingsUpdate, settings]);
 
   const canSave = useMemo(() => !editorHasErrors && isDirty, [editorHasErrors, isDirty]);
@@ -162,3 +164,16 @@ export const SettingsModal = (props: SettingsModalProps) => {
     </SettingsModalWrapper>
   );
 };
+
+async function maybeAskForTabsPermissions(newSettings: BTDSettings) {
+  if (!newSettings.enableShareItem) {
+    return;
+  }
+  if (!isFirefox) {
+    return;
+  }
+
+  return browser.permissions.request({
+    permissions: ['tabs'],
+  });
+}

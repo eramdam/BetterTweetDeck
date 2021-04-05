@@ -6,6 +6,7 @@ import {BTDTimestampFormats} from '../features/changeTimestampFormat';
 import {BTDTweetActionsPosition} from '../features/changeTweetActions';
 import {BetterTweetDeckAccentColors, BetterTweetDeckThemes} from '../features/themeTweaks';
 import {BTDUsernameFormat} from '../features/usernameDisplay';
+import {isFirefox} from '../helpers/browserHelpers';
 import {makeEnumRuntimeType, withDefault} from '../helpers/runtimeTypeHelpers';
 
 export const RBetterTweetDeckSettings = t.type({
@@ -160,7 +161,7 @@ export const RBetterTweetDeckSettings = t.type({
   // I like this one...but maybe i'm the only one who cares?
   // showLikeRTDogears: withDefault(t.boolean, false),
 
-  enableShareItem: withDefault(t.boolean, true),
+  enableShareItem: withDefault(t.boolean, !isFirefox),
   shouldShortenSharedText: withDefault(t.boolean, true),
 
   disableGifsInProfilePictures: withDefault(t.boolean, false),

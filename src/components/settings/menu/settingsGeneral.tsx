@@ -1,13 +1,13 @@
 import React, {Fragment} from 'react';
 
-import {isSafari} from '../../../helpers/browserHelpers';
+import {isFirefox, isSafari} from '../../../helpers/browserHelpers';
 import {BTDSettings} from '../../../types/btdSettingsTypes';
 import {Trans} from '../../trans';
 import {BooleanSettingsRow} from '../components/booleanSettingRow';
 import {CheckboxSelectSettingsRow} from '../components/checkboxSelectSettingsRow';
 import {SettingsRow} from '../components/settingsRow';
 import {SettingsTextInputWithAnnotation} from '../components/settingsTimeFormatInput';
-import {SettingsMenuRenderer} from '../settingsComponents';
+import {SettingsMenuRenderer, SettingsSmallText} from '../settingsComponents';
 
 export const renderGeneralSettings: SettingsMenuRenderer = (
   settings,
@@ -164,7 +164,16 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
             {
               initialValue: settings.enableShareItem,
               key: 'enableShareItem',
-              label: <Trans id="settings_enable_share_item" />,
+              label: (
+                <>
+                  <Trans id="settings_enable_share_item" />
+                  {isFirefox && (
+                    <SettingsSmallText>
+                      <Trans id="settings_better_tweetdeck_ask_tabs" />
+                    </SettingsSmallText>
+                  )}
+                </>
+              ),
             },
             {
               initialValue: settings.shouldShortenSharedText,

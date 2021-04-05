@@ -1,5 +1,6 @@
+import {css} from '@emotion/css';
 import {DateTime} from 'luxon';
-import {ReactNode} from 'react';
+import React, {FC, ReactNode} from 'react';
 
 import {HandlerOf, RendererOf} from '../../helpers/typeHelpers';
 import {BTDSettings} from '../../types/btdSettingsTypes';
@@ -35,3 +36,14 @@ export function formatDateTime(format: string) {
     locale: 'en',
   });
 }
+
+export const SettingsSmallText: FC = (props) => {
+  return (
+    <div
+      className={css`
+        color: var(--settings-modal-muted-text);
+      `}>
+      {props.children}
+    </div>
+  );
+};
