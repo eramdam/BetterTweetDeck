@@ -51,8 +51,6 @@ export const useOriginalAspectRatio = makeBTDModule(({settings}) => {
         `[data-media-entity-id="${quotedMedia.id_str}"].js-media-image-link`
       );
 
-      console.log(chirpNode, quotedMediaNode, quotedMedia.id_str);
-
       if (!isHTMLElement(quotedMediaNode)) {
         return;
       }
