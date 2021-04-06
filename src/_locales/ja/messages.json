@@ -1,350 +1,356 @@
 {
-   "app_desc": {
-      "message": "Take TweetDeck to the next level!"
-   },
-   "app_name": {
-      "message": "Better TweetDeck"
-   },
-   "settings_accent_color": {
-      "message": "アクセントカラー"
-   },
-   "settings_action_block_author": {
-      "message": "投稿者をブロック"
-   },
-   "settings_action_copy_media_links": {
-      "message": "メディアのリンクをコピー"
-   },
-   "settings_action_download_media": {
-      "message": "メディアをダウンロード"
-   },
-   "settings_action_mute_author": {
-      "message": "投稿者をミュート"
-   },
-   "settings_actions_position_left": {
-      "message": "左"
-   },
-   "settings_actions_position_right": {
-      "message": "右"
-   },
-   "settings_actions_visibility": {
-      "message": "アクションの表示設定"
-   },
-   "settings_actions_visibility_always": {
-      "message": "常に表示"
-   },
-   "settings_actions_visibility_on_hover": {
-      "message": "ホバー時のみ表示"
-   },
-   "settings_add_search_columns_first_in_the_list": {
-      "message": "検索カラムを列の一番最初に持ってくる"
-   },
-   "settings_additional_actions": {
-      "message": "追加のアクション"
-   },
-   "settings_additional_tweet_menu_items": {
-      "message": "追加のメニュー項目"
-   },
-   "settings_author": {
-      "message": "著作者"
-   },
-   "settings_auto_switch_light_theme": {
-      "message": "OSのテーマがライトモードのときにライトテーマに自動で切り替える"
-   },
-   "settings_avatar_circle": {
-      "message": "まる"
-   },
-   "settings_avatar_shape": {
-      "message": "アイコンの形"
-   },
-   "settings_avatar_square": {
-      "message": "しかく"
-   },
-   "settings_browser_and_extension_informations": {
-      "message": "ブラウザと拡張機能の情報"
-   },
-   "settings_bugs_or_suggestions": {
-      "message": "バグ報告や提案"
-   },
-   "settings_changelog": {
-      "message": "変更履歴"
-   },
-   "settings_chrome_web_store": {
-      "message": "Chromeウェブストア"
-   },
-   "settings_collapse_read_dms": {
-      "message": "既読したDMを折りたたむ"
-   },
-   "settings_columns": {
-      "message": "カラム"
-   },
-   "settings_contextual_menu": {
-      "message": "コンテキストメニュー"
-   },
-   "settings_contributors": {
-      "message": "貢献者"
-   },
-   "settings_credits_about": {
-      "message": "クレジット / 概要"
-   },
-   "settings_custom_css": {
-      "message": "カスタムCSS"
-   },
-   "settings_custom_css_warning": {
-      "message": "何をしているか理解出来てないのにもかかわらず、未知のコードを貼り付けると予期せぬ問題など不具合が発生する事があります"
-   },
-   "settings_dark_theme": {
-      "message": "ダーク"
-   },
-   "settings_date_format": {
-      "message": "日付形式"
-   },
-   "settings_display_modern_fullscreen_images": {
-      "message": "Twitter Webのようにフルスクリーンで画像を表示"
-   },
-   "settings_download_settings_button": {
-      "message": "設定のバックアップをダウンロード"
-   },
-   "settings_downloaded_filename_format": {
-      "message": "ダウンロードしたファイルの名前"
-   },
-   "settings_enable_share_item": {
-      "message": "ブラウザのコンテクストメニューに「TweetDeckで共有」の項目を追加"
-   },
-   "settings_export_settings": {
-      "message": "バックアップの保存"
-   },
-   "settings_export_settings_copy": {
-      "message": "下のボタンをクリックして設定のバックアップを取ります"
-   },
-   "settings_filename_format_tokens": {
-      "message": "ファイルの名前のテンプレート"
-   },
-   "settings_footer_label": {
-      "message": "変更を適用するには、TweetDeckをリロードする必要があります!"
-   },
-   "settings_freeze_gifs_in_profile_pictures": {
-      "message": "アイコンのGIFを止める"
-   },
-   "settings_fullname": {
-      "message": "名前だけ"
-   },
-   "settings_fullname_username": {
-      "message": "名前とユーザー名"
-   },
-   "settings_general": {
-      "message": "一般"
-   },
-   "settings_hide_icons_on_top_of_columns": {
-      "message": "カラムのアイコンを表示しない"
-   },
-   "settings_import_export": {
-      "message": "設定のバックアップ"
-   },
-   "settings_import_json_wrong_keys": {
-      "message": "ファイルがBetterTweetDeckの設定の形式と一致しません"
-   },
-   "settings_import_settings": {
-      "message": "バックアップの取り込み"
-   },
-   "settings_import_settings_copy": {
-      "message": "JSON形式のバックアップファイルから設定を取り込みます"
-   },
-   "settings_import_success": {
-      "message": "設定が正しく取り込めました。保存ボタンを押すことを忘れないでください！"
-   },
-   "settings_imported_settings_summary": {
-      "message": "取り込まれた設定を表示するには、ここをクリックしてください"
-   },
-   "settings_light": {
-      "message": "ライト"
-   },
-   "settings_links": {
-      "message": "リンク集"
-   },
-   "settings_make_buttons_smaller_in_the_composer": {
-      "message": "メディア、スケジュール、DMボタンを小さくする"
-   },
-   "settings_make_emoji_bigger_in_tweets": {
-      "message": "ツイートの絵文字を大きくする"
-   },
-   "settings_menu_item_mute_hashtags": {
-      "message": "#ハッシュタグ をミュート"
-   },
-   "settings_menu_item_mute_source": {
-      "message": "viaをミュート (例:Twitter for Androidなど)"
-   },
-   "settings_menu_item_redraft": {
-      "message": "再投稿(Re-draft)"
-   },
-   "settings_meta": {
-      "message": "Meta"
-   },
-   "settings_misc": {
-      "message": "その他"
-   },
-   "settings_name_display_style": {
-      "message": "名前の表示スタイル"
-   },
-   "settings_old_gray": {
-      "message": "昔の灰色"
-   },
-   "settings_pause_column_scrolling_on_hover": {
-      "message": "ホバー時にカラムのスクロールを一時停止"
-   },
-   "settings_position_of_actions": {
-      "message": "アクションの位置"
-   },
-   "settings_reflect_new_tweets_and_dms_in_the_tabs_title": {
-      "message": "新着ツイートやDMをタブのタイトルに反映"
-   },
-   "settings_remove_t_co_redirection_on_links": {
-      "message": "リンクにおけるt.coへのリダイレクトを削除"
-   },
-   "settings_replace_hearts_by_stars": {
-      "message": "ハートを星に置き換え"
-   },
-   "settings_save": {
-      "message": "保存"
-   },
-   "settings_save_tweeted_hashtags": {
-      "message": "ハッシュタグを保持"
-   },
-   "settings_scrollbar_default": {
-      "message": "デフォルト"
-   },
-   "settings_scrollbar_hidden": {
-      "message": "隠す"
-   },
-   "settings_scrollbar_thin": {
-      "message": "細く"
-   },
-   "settings_section_settings": {
-      "message": "設定"
-   },
-   "settings_share_on_tweetdeck": {
-      "message": "TweetDeckで共有"
-   },
-   "settings_short_time_after_24h": {
-      "message": "24時間後に別の日付形式を使用"
-   },
-   "settings_shorten_the_shared_text": {
-      "message": "共有テキストの短縮化"
-   },
-   "settings_show_account_picker_like": {
-      "message": "「いいね」を押したときにアカウント選択画面を開く"
-   },
-   "settings_show_cards_inside_columns": {
-      "message": "カラムの中で返信できるツイートカードを使う"
-   },
-   "settings_show_clear_button_column": {
-      "message": "カラムのヘッダーに「クリア」ボタンを表示"
-   },
-   "settings_show_collapse_button_in_columns_header": {
-      "message": "カラムのヘッダーに「最小化」ボタンを表示"
-   },
-   "settings_show_delete_button_in_columns_header": {
-      "message": "カラムのヘッダーに「削除」ボタンを表示"
-   },
-   "settings_show_profile_badges_on_top_of_avatars": {
-      "message": "アイコンの上に重ねて認証バッジを表示"
-   },
-   "settings_source_on_github": {
-      "message": "Source on GitHub"
-   },
-   "settings_style_of_scrollbars": {
-      "message": "スクロールバーのスタイル"
-   },
-   "settings_super_black": {
-      "message": "めっちゃくちゃ黒"
-   },
-   "settings_support": {
-      "message": "サポート"
-   },
-   "settings_theme": {
-      "message": "テーマ"
-   },
-   "settings_timestamp_custom": {
-      "message": "カスタム"
-   },
-   "settings_timestamp_preset_absolute": {
-      "message": "絶対表示"
-   },
-   "settings_timestamp_preset_absolute_us": {
-      "message": "絶対表示 (アメリカスタイル)"
-   },
-   "settings_timestamp_presets": {
-      "message": "プリセット"
-   },
-   "settings_timestamp_relative": {
-      "message": "相対表示"
-   },
-   "settings_title": {
-      "message": "Better TweetDeck"
-   },
-   "settings_token_day": {
-      "message": "日"
-   },
-   "settings_token_file_extension": {
-      "message": "拡張子"
-   },
-   "settings_token_filename": {
-      "message": "ファイル名"
-   },
-   "settings_token_minutes": {
-      "message": "分"
-   },
-   "settings_token_month": {
-      "message": "月"
-   },
-   "settings_token_seconds": {
-      "message": "秒"
-   },
-   "settings_token_tweet_id": {
-      "message": "ツイートID"
-   },
-   "settings_token_username_without": {
-      "message": "ユーザー名 (@含まない)"
-   },
-   "settings_token_year": {
-      "message": "年"
-   },
-   "settings_tokens_list": {
-      "message": "Tokens list"
-   },
-   "settings_tweet_actions": {
-      "message": "ツイートアクション"
-   },
-   "settings_tweet_content": {
-      "message": "ツイート内容"
-   },
-   "settings_tweets_display": {
-      "message": "ツイート表示"
-   },
-   "settings_use_a_custom_width_for_columns": {
-      "message": "カラムの幅を変更"
-   },
-   "settings_use_old_style_of_replies": {
-      "message": "古いスタイルのリプライ(@メンションを入れて返信)を使う"
-   },
-   "settings_use_original_aspect_ratio_images": {
-      "message": "1枚の画像をオリジナルのアスペクト比で表示する(Medium、Largeサイズの場合のみ)"
-   },
-   "settings_user_agent": {
-      "message": "User agent:"
-   },
-   "settings_username": {
-      "message": "ユーザー名だけ"
-   },
-   "settings_username_fullname": {
-      "message": "ユーザー名と名前"
-   },
-   "settings_version": {
-      "message": "バージョン:"
-   },
-   "settings_website": {
-      "message": "ウェブサイト"
-   },
-   "settings_width_any_valid_css_value": {
-      "message": "幅 (CSSで有効な任意の値)"
-   }
+  "app_desc": {
+    "message": "Take TweetDeck to the next level!"
+  },
+  "app_name": {
+    "message": "Better TweetDeck"
+  },
+  "settings_title": {
+    "message": "Better TweetDeck"
+  },
+  "settings_show_cards_inside_columns": {
+    "message": "カラムの中で返信できるツイートカードを使う"
+  },
+  "settings_show_profile_badges_on_top_of_avatars": {
+    "message": "アイコンの上に重ねて認証バッジを表示"
+  },
+  "settings_collapse_read_dms": {
+    "message": "既読したDMを折りたたむ"
+  },
+  "settings_freeze_gifs_in_profile_pictures": {
+    "message": "アイコンのGIFを止める"
+  },
+  "settings_remove_t_co_redirection_on_links": {
+    "message": "リンクにおけるt.coへのリダイレクトを削除"
+  },
+  "settings_make_buttons_smaller_in_the_composer": {
+    "message": "メディア、スケジュール、DMボタンを小さくする"
+  },
+  "settings_reflect_new_tweets_and_dms_in_the_tabs_title": {
+    "message": "新着ツイートやDMをタブのタイトルに反映"
+  },
+  "settings_auto_switch_light_theme": {
+    "message": "OSのテーマがライトモードのときにライトテーマに自動で切り替える"
+  },
+  "settings_scrollbar_default": {
+    "message": "デフォルト"
+  },
+  "settings_scrollbar_thin": {
+    "message": "細く"
+  },
+  "settings_scrollbar_hidden": {
+    "message": "隠す"
+  },
+  "settings_style_of_scrollbars": {
+    "message": "スクロールバーのスタイル"
+  },
+  "settings_show_clear_button_column": {
+    "message": "カラムのヘッダーに「クリア」ボタンを表示"
+  },
+  "settings_show_collapse_button_in_columns_header": {
+    "message": "カラムのヘッダーに「最小化」ボタンを表示"
+  },
+  "settings_hide_icons_on_top_of_columns": {
+    "message": "カラムのアイコンを表示しない"
+  },
+  "settings_use_old_style_of_replies": {
+    "message": "古いスタイルのリプライ(@メンションを入れて返信)を使う"
+  },
+  "settings_timestamp_relative": {
+    "message": "相対表示"
+  },
+  "settings_timestamp_custom": {
+    "message": "カスタム"
+  },
+  "settings_date_format": {
+    "message": "日付形式"
+  },
+  "settings_short_time_after_24h": {
+    "message": "24時間後に別の日付形式を使用"
+  },
+  "settings_timestamp_presets": {
+    "message": "プリセット"
+  },
+  "settings_timestamp_preset_absolute": {
+    "message": "絶対表示"
+  },
+  "settings_timestamp_preset_absolute_us": {
+    "message": "絶対表示 (アメリカスタイル)"
+  },
+  "settings_fullname_username": {
+    "message": "名前とユーザー名"
+  },
+  "settings_username_fullname": {
+    "message": "ユーザー名と名前"
+  },
+  "settings_username": {
+    "message": "ユーザー名だけ"
+  },
+  "settings_fullname": {
+    "message": "名前だけ"
+  },
+  "settings_name_display_style": {
+    "message": "名前の表示スタイル"
+  },
+  "settings_general": {
+    "message": "一般"
+  },
+  "settings_theme": {
+    "message": "テーマ"
+  },
+  "settings_tweets_display": {
+    "message": "ツイート表示"
+  },
+  "settings_tweet_actions": {
+    "message": "ツイートアクション"
+  },
+  "settings_actions_visibility_always": {
+    "message": "常に表示"
+  },
+  "settings_actions_visibility_on_hover": {
+    "message": "ホバー時のみ表示"
+  },
+  "settings_actions_visibility": {
+    "message": "アクションの表示設定"
+  },
+  "settings_position_of_actions": {
+    "message": "アクションの位置"
+  },
+  "settings_actions_position_left": {
+    "message": "左"
+  },
+  "settings_actions_position_right": {
+    "message": "右"
+  },
+  "settings_action_block_author": {
+    "message": "投稿者をブロック"
+  },
+  "settings_action_mute_author": {
+    "message": "投稿者をミュート"
+  },
+  "settings_action_copy_media_links": {
+    "message": "メディアのリンクをコピー"
+  },
+  "settings_action_download_media": {
+    "message": "メディアをダウンロード"
+  },
+  "settings_additional_actions": {
+    "message": "追加のアクション"
+  },
+  "settings_downloaded_filename_format": {
+    "message": "ダウンロードしたファイルの名前"
+  },
+  "settings_filename_format_tokens": {
+    "message": "ファイルの名前のテンプレート"
+  },
+  "settings_token_username_without": {
+    "message": "ユーザー名 (@含まない)"
+  },
+  "settings_token_tweet_id": {
+    "message": "ツイートID"
+  },
+  "settings_token_filename": {
+    "message": "ファイル名"
+  },
+  "settings_token_file_extension": {
+    "message": "拡張子"
+  },
+  "settings_token_year": {
+    "message": "年"
+  },
+  "settings_token_day": {
+    "message": "日"
+  },
+  "settings_token_month": {
+    "message": "月"
+  },
+  "settings_token_minutes": {
+    "message": "分"
+  },
+  "settings_token_seconds": {
+    "message": "秒"
+  },
+  "settings_menu_item_mute_hashtags": {
+    "message": "#ハッシュタグ をミュート"
+  },
+  "settings_menu_item_mute_source": {
+    "message": "viaをミュート (例:Twitter for Androidなど)"
+  },
+  "settings_menu_item_redraft": {
+    "message": "再投稿(Re-draft)"
+  },
+  "settings_additional_tweet_menu_items": {
+    "message": "追加のメニュー項目"
+  },
+  "settings_replace_hearts_by_stars": {
+    "message": "ハートを星に置き換え"
+  },
+  "settings_custom_css": {
+    "message": "カスタムCSS"
+  },
+  "settings_custom_css_warning": {
+    "message": "何をしているか理解出来てないのにもかかわらず、未知のコードを貼り付けると予期せぬ問題など不具合が発生する事があります"
+  },
+  "settings_avatar_shape": {
+    "message": "アイコンの形"
+  },
+  "settings_save": {
+    "message": "保存"
+  },
+  "settings_use_original_aspect_ratio_images": {
+    "message": "1枚の画像をオリジナルのアスペクト比で表示する(Medium、Largeサイズの場合のみ)"
+  },
+  "settings_show_delete_button_in_columns_header": {
+    "message": "カラムのヘッダーに「削除」ボタンを表示"
+  },
+  "settings_section_settings": {
+    "message": "設定"
+  },
+  "settings_support": {
+    "message": "サポート"
+  },
+  "settings_avatar_square": {
+    "message": "しかく"
+  },
+  "settings_avatar_circle": {
+    "message": "まる"
+  },
+  "settings_display_modern_fullscreen_images": {
+    "message": "Twitter Webのようにフルスクリーンで画像を表示"
+  },
+  "settings_browser_and_extension_informations": {
+    "message": "ブラウザと拡張機能の情報"
+  },
+  "settings_version": {
+    "message": "バージョン:"
+  },
+  "settings_user_agent": {
+    "message": "ユーザーエージェント:"
+  },
+  "settings_export_settings": {
+    "message": "バックアップの保存"
+  },
+  "settings_export_settings_copy": {
+    "message": "下のボタンをクリックして設定のバックアップを取ります"
+  },
+  "settings_download_settings_button": {
+    "message": "設定のバックアップをダウンロード"
+  },
+  "settings_import_settings": {
+    "message": "バックアップの取り込み"
+  },
+  "settings_import_settings_copy": {
+    "message": "JSON形式のバックアップファイルから設定を取り込みます"
+  },
+  "settings_import_json_wrong_keys": {
+    "message": "ファイルがBetterTweetDeckの設定の形式と一致しません"
+  },
+  "settings_import_success": {
+    "message": "設定が正しく取り込めました。保存ボタンを押すことを忘れないでください！"
+  },
+  "settings_imported_settings_summary": {
+    "message": "取り込まれた設定を表示するには、ここをクリックしてください"
+  },
+  "settings_website": {
+    "message": "ウェブサイト"
+  },
+  "settings_links": {
+    "message": "リンク集"
+  },
+  "settings_footer_label": {
+    "message": "変更を適用するには、TweetDeckをリロードする必要があります!"
+  },
+  "settings_show_account_picker_like": {
+    "message": "「いいね」を押したときにアカウント選択画面を開く"
+  },
+  "settings_accent_color": {
+    "message": "アクセントカラー"
+  },
+  "settings_misc": {
+    "message": "その他"
+  },
+  "settings_import_export": {
+    "message": "設定のバックアップ"
+  },
+  "settings_columns": {
+    "message": "カラム"
+  },
+  "settings_tweet_content": {
+    "message": "ツイート内容"
+  },
+  "settings_pause_column_scrolling_on_hover": {
+    "message": "ホバー時にカラムのスクロールを一時停止"
+  },
+  "settings_use_a_custom_width_for_columns": {
+    "message": "カラムの幅を変更"
+  },
+  "settings_width_any_valid_css_value": {
+    "message": "幅 (CSSで有効な任意の値)"
+  },
+  "settings_share_on_tweetdeck": {
+    "message": "TweetDeckで共有"
+  },
+  "settings_enable_share_item": {
+    "message": "ブラウザのコンテクストメニューに「TweetDeckで共有」の項目を追加"
+  },
+  "settings_shorten_the_shared_text": {
+    "message": "共有テキストの短縮化"
+  },
+  "settings_contextual_menu": {
+    "message": "コンテキストメニュー"
+  },
+  "settings_dark_theme": {
+    "message": "ダーク"
+  },
+  "settings_old_gray": {
+    "message": "昔の灰色"
+  },
+  "settings_super_black": {
+    "message": "めっちゃくちゃ黒"
+  },
+  "settings_light": {
+    "message": "ライト"
+  },
+  "settings_tokens_list": {
+    "message": "テンプレート一覧"
+  },
+  "settings_make_emoji_bigger_in_tweets": {
+    "message": "ツイートの絵文字を大きくする"
+  },
+  "settings_add_search_columns_first_in_the_list": {
+    "message": "検索カラムを列の一番最初に持ってくる"
+  },
+  "settings_save_tweeted_hashtags": {
+    "message": "ハッシュタグを保持"
+  },
+  "settings_changelog": {
+    "message": "変更履歴"
+  },
+  "settings_chrome_web_store": {
+    "message": "Chromeウェブストア"
+  },
+  "settings_bugs_or_suggestions": {
+    "message": "バグ報告や提案"
+  },
+  "settings_contributors": {
+    "message": "貢献者"
+  },
+  "settings_author": {
+    "message": "著作者"
+  },
+  "settings_credits_about": {
+    "message": "クレジット / 概要"
+  },
+  "settings_always_characters_left": {
+    "message": "ツイートの入力欄に入力可能な残り文字数を常に表示する"
+  },
+  "settings_better_tweetdeck_ask_tabs": {
+    "message": "ブラウザのタブへのアクセス権限が必要です"
+  },
+  "settings_show_like_rt_indicators_on_top_of_tweets": {
+    "message": "ツイート右上に「いいね」/「リツイート」のインジケーターを表示する"
+  },
+  "settings_do_the_same_for_single_images_in_quoted_tweets": {
+    "message": "引用ツイートに含まれる単一の画像も同様に表示する"
+  }
 }

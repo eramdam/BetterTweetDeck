@@ -1,0 +1,29 @@
+{
+  "app_desc": {
+    "message": "Take TweetDeck to the next level!"
+  },
+  "app_name": {
+    "message": "Better TweetDeck"
+  },
+  "settings_title": {
+    "message": "Better TweetDeck"
+  },
+  "settings_show_cards_inside_columns": {
+    "message": "Afficher les \"cards\" des tweets dans les colonnes"
+  },
+  "settings_show_profile_badges_on_top_of_avatars": {
+    "message": "Afficher les badges de profil sur les avatars"
+  },
+  "settings_collapse_read_dms": {
+    "message": "Réduire les DMs lus"
+  },
+  "settings_freeze_gifs_in_profile_pictures": {
+    "message": "Geler les GIFs dans les photos de profil"
+  },
+  "settings_remove_t_co_redirection_on_links": {
+    "message": "Supprimer la redirection t.co sur les liens"
+  },
+  "settings_make_buttons_smaller_in_the_composer": {
+    "message": "Rendre les boutons plus petits dans le composeur"
+  }
+}
