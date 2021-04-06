@@ -11,6 +11,8 @@
 <a href="https://better.tw/chrome">
   <img src="https://img.shields.io/chrome-web-store/d/micblkellenpbfapmcpcfhcoeohhnpob.svg" alt="Chrome Store Users">
 </a>
+
+<br/>
 <a href="https://better.tw/firefox">
   <img src="https://img.shields.io/amo/v/better-tweetdeck-17.svg" alt="Mozilla Add-ons Version">
 </a>
@@ -20,6 +22,7 @@
 <a href="https://twitter.com/@BetterTDeck">
   <img src="https://img.shields.io/badge/twitter-%40BetterTDeck-blue.svg" alt="Follow on Twitter">
 </a>
+<br/>
 <a href="https://paypal.me/eramdam">
 <img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="Donate on PayPal">
 </a>
