@@ -306,13 +306,13 @@
     "message": "Dunkel"
   },
   "settings_old_gray": {
-    "message": "Altes Grau"
+    "message": "Old Gray"
   },
   "settings_super_black": {
     "message": "Super Black"
   },
   "settings_light": {
-    "message": "Hell"
+    "message": "Light"
   },
   "settings_tokens_list": {
     "message": "Tokenliste"
