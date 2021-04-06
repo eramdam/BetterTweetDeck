@@ -269,9 +269,6 @@
   "settings_misc": {
     "message": "その他"
   },
-  "settings_meta": {
-    "message": "Meta"
-  },
   "settings_import_export": {
     "message": "設定のバックアップ"
   },
@@ -334,9 +331,6 @@
   },
   "settings_bugs_or_suggestions": {
     "message": "バグ報告や提案"
-  },
-  "settings_source_on_github": {
-    "message": "Source on GitHub"
   },
   "settings_contributors": {
     "message": "貢献者"
