@@ -16,7 +16,6 @@ export interface ChirpAddedPayload {
   };
   columnMediaSize: TweetDeckColumnMediaPreviewSizesEnum;
   columnKey: string;
-  chirpNode: HTMLElement;
 }
 
 export interface ChirpRemovedPayload {
@@ -96,7 +95,6 @@ export const setupChirpHandler = makeBTDModule(({TD, jq}) => {
                   action: chirp.action,
                   chirpType: chirp.chirpType,
                 },
-                chirpNode: element.closest('[data-key]') as HTMLElement,
                 urls: (urls || []).map((e) => e.expanded_url),
                 columnKey: extra.columnKey || '',
                 columnMediaSize: getSizeForColumnKey(extra.columnKey),
@@ -184,7 +182,6 @@ export const setupChirpHandler = makeBTDModule(({TD, jq}) => {
         },
         columnKey,
         columnMediaSize: getSizeForColumnKey(columnKey),
-        chirpNode: $elem[0],
       };
 
       onVisibleCallbacks.forEach((cb) => {

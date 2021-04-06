@@ -51,12 +51,15 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
     if (payload.columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.OFF) {
       return;
     }
-    if (payload.chirpNode.closest('.js-tweet-detail.tweet-detail-wrapper')) {
-      return;
-    }
+
     const cardContainer = jq(
       `${createSelectorForChirp(payload.chirp, payload.columnKey)} .js-card-container`
     );
+    const chirpNode = jq(`${createSelectorForChirp(payload.chirp, payload.columnKey)}`);
+
+    if (chirpNode.closest('.js-tweet-detail.tweet-detail-wrapper').length) {
+      return;
+    }
 
     // If we already have a card, nothing to do.
     if (cardContainer.has('iframe').length) {
