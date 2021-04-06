@@ -1,0 +1,362 @@
+{
+  "app_desc": {
+    "message": "Take TweetDeck to the next level!"
+  },
+  "app_name": {
+    "message": "Better TweetDeck"
+  },
+  "settings_title": {
+    "message": "Better TweetDeck"
+  },
+  "settings_show_cards_inside_columns": {
+    "message": "Show tweet cards inside columns"
+  },
+  "settings_show_profile_badges_on_top_of_avatars": {
+    "message": "Show profile badges on top of avatars"
+  },
+  "settings_collapse_read_dms": {
+    "message": "Collapse read DMs"
+  },
+  "settings_freeze_gifs_in_profile_pictures": {
+    "message": "Freeze GIFs in profile pictures"
+  },
+  "settings_remove_t_co_redirection_on_links": {
+    "message": "Remove t.co redirection on links"
+  },
+  "settings_make_buttons_smaller_in_the_composer": {
+    "message": "Make buttons smaller in the composer"
+  },
+  "settings_reflect_new_tweets_and_dms_in_the_tabs_title": {
+    "message": "Reflect new tweets and DMs in the tab's title"
+  },
+  "settings_auto_switch_light_theme": {
+    "message": "Switch to light theme when OS is in light mode"
+  },
+  "settings_scrollbar_default": {
+    "message": "Default"
+  },
+  "settings_scrollbar_thin": {
+    "message": "Thin"
+  },
+  "settings_scrollbar_hidden": {
+    "message": "Hidden"
+  },
+  "settings_style_of_scrollbars": {
+    "message": "Style of scrollbars"
+  },
+  "settings_show_clear_button_column": {
+    "message": "Show \"Clear\" button in columns' header"
+  },
+  "settings_show_collapse_button_in_columns_header": {
+    "message": "Show \"Collapse\" button in columns' header"
+  },
+  "settings_hide_icons_on_top_of_columns": {
+    "message": "Hide icons on top of columns"
+  },
+  "settings_use_old_style_of_replies": {
+    "message": "Use old style of replies (inline @mentions)"
+  },
+  "settings_timestamp_relative": {
+    "message": "Relative"
+  },
+  "settings_timestamp_custom": {
+    "message": "Custom"
+  },
+  "settings_date_format": {
+    "message": "Date format"
+  },
+  "settings_short_time_after_24h": {
+    "message": "Use a different date format after 24h"
+  },
+  "settings_timestamp_presets": {
+    "message": "Presets"
+  },
+  "settings_timestamp_preset_absolute": {
+    "message": "Absolute"
+  },
+  "settings_timestamp_preset_absolute_us": {
+    "message": "Absolute (U.S. style)"
+  },
+  "settings_fullname_username": {
+    "message": "Fullname and username"
+  },
+  "settings_username_fullname": {
+    "message": "Username and fullname"
+  },
+  "settings_username": {
+    "message": "Username only"
+  },
+  "settings_fullname": {
+    "message": "Fullname only"
+  },
+  "settings_name_display_style": {
+    "message": "Name display style"
+  },
+  "settings_general": {
+    "message": "General"
+  },
+  "settings_theme": {
+    "message": "Theme"
+  },
+  "settings_tweets_display": {
+    "message": "Tweets display"
+  },
+  "settings_tweet_actions": {
+    "message": "Tweet actions"
+  },
+  "settings_actions_visibility_always": {
+    "message": "Always"
+  },
+  "settings_actions_visibility_on_hover": {
+    "message": "On hover"
+  },
+  "settings_actions_visibility": {
+    "message": "Actions visibility"
+  },
+  "settings_position_of_actions": {
+    "message": "Position of actions"
+  },
+  "settings_actions_position_left": {
+    "message": "Left"
+  },
+  "settings_actions_position_right": {
+    "message": "Right"
+  },
+  "settings_action_block_author": {
+    "message": "Block author"
+  },
+  "settings_action_mute_author": {
+    "message": "Mute author"
+  },
+  "settings_action_copy_media_links": {
+    "message": "Copy media links"
+  },
+  "settings_action_download_media": {
+    "message": "Download media"
+  },
+  "settings_additional_actions": {
+    "message": "Tweet actions to add"
+  },
+  "settings_downloaded_filename_format": {
+    "message": "Downloaded filename format"
+  },
+  "settings_filename_format_tokens": {
+    "message": "Filename format tokens"
+  },
+  "settings_token_username_without": {
+    "message": "username (without @)"
+  },
+  "settings_token_tweet_id": {
+    "message": "Tweet ID"
+  },
+  "settings_token_filename": {
+    "message": "Filename"
+  },
+  "settings_token_file_extension": {
+    "message": "File extension"
+  },
+  "settings_token_year": {
+    "message": "Year"
+  },
+  "settings_token_day": {
+    "message": "Day"
+  },
+  "settings_token_month": {
+    "message": "Month"
+  },
+  "settings_token_minutes": {
+    "message": "Minutes"
+  },
+  "settings_token_seconds": {
+    "message": "Seconds"
+  },
+  "settings_menu_item_mute_hashtags": {
+    "message": "Mute #hashtags"
+  },
+  "settings_menu_item_mute_source": {
+    "message": "Mute tweet's source"
+  },
+  "settings_menu_item_redraft": {
+    "message": "Re-draft"
+  },
+  "settings_additional_tweet_menu_items": {
+    "message": "Additional tweet menu items"
+  },
+  "settings_replace_hearts_by_stars": {
+    "message": "Replace hearts by stars"
+  },
+  "settings_custom_css": {
+    "message": "Custom CSS"
+  },
+  "settings_custom_css_warning": {
+    "message": "Pasting unknown code in this editor can lead to weird issues if you don't know what you are doing"
+  },
+  "settings_avatar_shape": {
+    "message": "Avatars shape"
+  },
+  "settings_save": {
+    "message": "Save"
+  },
+  "settings_use_original_aspect_ratio_images": {
+    "message": "Display single images with their original aspect ratio (only for Medium and Large sizes)"
+  },
+  "settings_show_delete_button_in_columns_header": {
+    "message": "Show \"Delete\" button in columns' header"
+  },
+  "settings_section_settings": {
+    "message": "Settings"
+  },
+  "settings_support": {
+    "message": "Support"
+  },
+  "settings_avatar_square": {
+    "message": "Square"
+  },
+  "settings_avatar_circle": {
+    "message": "Circle"
+  },
+  "settings_display_modern_fullscreen_images": {
+    "message": "Display fullscreen images à la Twitter Web"
+  },
+  "settings_browser_and_extension_informations": {
+    "message": "Browser and extension informations"
+  },
+  "settings_version": {
+    "message": "Version:"
+  },
+  "settings_user_agent": {
+    "message": "User agent:"
+  },
+  "settings_export_settings": {
+    "message": "Export settings"
+  },
+  "settings_export_settings_copy": {
+    "message": "Export your settings by clicking the button below"
+  },
+  "settings_download_settings_button": {
+    "message": "Download settings"
+  },
+  "settings_import_settings": {
+    "message": "Import settings"
+  },
+  "settings_import_settings_copy": {
+    "message": "Import your settings from a JSON file"
+  },
+  "settings_import_json_wrong_keys": {
+    "message": "Your file does not match the format of Better TweetDeck's settings"
+  },
+  "settings_import_success": {
+    "message": "Your settings have correctly been imported, don't forget to hit the Save button!"
+  },
+  "settings_imported_settings_summary": {
+    "message": "Click here to view imported settings"
+  },
+  "settings_website": {
+    "message": "Website"
+  },
+  "settings_links": {
+    "message": "Links"
+  },
+  "settings_footer_label": {
+    "message": "TweetDeck will need to be reloaded for changes to take effect!"
+  },
+  "settings_show_account_picker_like": {
+    "message": "Show account picker when clicking on the like button"
+  },
+  "settings_accent_color": {
+    "message": "Accent color"
+  },
+  "settings_misc": {
+    "message": "Misc."
+  },
+  "settings_meta": {
+    "message": "Meta"
+  },
+  "settings_import_export": {
+    "message": "Import / Export"
+  },
+  "settings_columns": {
+    "message": "Columns"
+  },
+  "settings_tweet_content": {
+    "message": "Tweet content"
+  },
+  "settings_pause_column_scrolling_on_hover": {
+    "message": "Pause column scrolling on hover"
+  },
+  "settings_use_a_custom_width_for_columns": {
+    "message": "Use a custom width for columns"
+  },
+  "settings_width_any_valid_css_value": {
+    "message": "Width (any valid CSS value)"
+  },
+  "settings_share_on_tweetdeck": {
+    "message": "Share on TweetDeck"
+  },
+  "settings_enable_share_item": {
+    "message": "Add a \"Share on TweetDeck\" item in the browser's contextual menu"
+  },
+  "settings_shorten_the_shared_text": {
+    "message": "Shorten the shared text"
+  },
+  "settings_contextual_menu": {
+    "message": "Contextual menu"
+  },
+  "settings_dark_theme": {
+    "message": "Dark"
+  },
+  "settings_old_gray": {
+    "message": "Old Gray"
+  },
+  "settings_super_black": {
+    "message": "Super Black"
+  },
+  "settings_light": {
+    "message": "Light"
+  },
+  "settings_tokens_list": {
+    "message": "Tokens list"
+  },
+  "settings_make_emoji_bigger_in_tweets": {
+    "message": "Make emoji bigger in tweets"
+  },
+  "settings_add_search_columns_first_in_the_list": {
+    "message": "Add search columns first in the list"
+  },
+  "settings_save_tweeted_hashtags": {
+    "message": "Save tweeted hashtags"
+  },
+  "settings_changelog": {
+    "message": "Changelog"
+  },
+  "settings_chrome_web_store": {
+    "message": "Chrome Web Store"
+  },
+  "settings_bugs_or_suggestions": {
+    "message": "Bugs or suggestions"
+  },
+  "settings_source_on_github": {
+    "message": "Source on GitHub"
+  },
+  "settings_contributors": {
+    "message": "Contributors"
+  },
+  "settings_author": {
+    "message": "Author"
+  },
+  "settings_credits_about": {
+    "message": "Credits / About"
+  },
+  "settings_always_characters_left": {
+    "message": "Always show the number of characters left in the tweet composer"
+  },
+  "settings_better_tweetdeck_ask_tabs": {
+    "message": "Better TweetDeck will ask access to browser tabs for this to work properly"
+  },
+  "settings_show_like_rt_indicators_on_top_of_tweets": {
+    "message": "Show like/RT indicators on top of tweets"
+  },
+  "settings_do_the_same_for_single_images_in_quoted_tweets": {
+    "message": "Do the same for single images in quoted tweets"
+  }
+}
