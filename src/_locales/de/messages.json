@@ -27,13 +27,13 @@
     "message": "Buttons im Composer verkleinern"
   },
   "settings_reflect_new_tweets_and_dms_in_the_tabs_title": {
-    "message": "Neue Tweets und DMs im Tabulatortitel wiedergeben"
+    "message": "Neue Tweets und Direktnachrichten im Tabulatortitel anzeigen"
   },
   "settings_auto_switch_light_theme": {
-    "message": "Zum hellen Design wechseln, wenn das Betriebssystem im hellen Modus ist"
+    "message": "Zum hellen Farbschema wechseln, wenn das Betriebssystem im hellen Modus ist"
   },
   "settings_scrollbar_default": {
-    "message": "Vorgabe"
+    "message": "Voreinstellung"
   },
   "settings_scrollbar_thin": {
     "message": "Schmal"
@@ -51,7 +51,7 @@
     "message": "Zeige \"Einklappen\"-Button im Spaltenkopf"
   },
   "settings_hide_icons_on_top_of_columns": {
-    "message": "Symbole im oberen Teil der Spalten ausblenden"
+    "message": "Symbole nicht über Spalten anzeigen"
   },
   "settings_use_old_style_of_replies": {
     "message": "Alten Antwortstil verwenden (inline @mentions)"
@@ -106,5 +106,8 @@
   },
   "settings_actions_visibility_always": {
     "message": "Immer"
+  },
+  "settings_actions_visibility_on_hover": {
+    "message": "Wenn der Mauszeiger darauf zeigt"
   }
 }
