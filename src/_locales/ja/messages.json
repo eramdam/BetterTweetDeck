@@ -225,7 +225,7 @@
     "message": "バージョン:"
   },
   "settings_user_agent": {
-    "message": "User agent:"
+    "message": "ユーザーエージェント:"
   },
   "settings_export_settings": {
     "message": "バックアップの保存"
@@ -315,7 +315,7 @@
     "message": "ライト"
   },
   "settings_tokens_list": {
-    "message": "Tokens list"
+    "message": "テンプレート一覧"
   },
   "settings_make_emoji_bigger_in_tweets": {
     "message": "ツイートの絵文字を大きくする"
@@ -354,7 +354,7 @@
     "message": "ブラウザのタブへのアクセス権限が必要です"
   },
   "settings_show_like_rt_indicators_on_top_of_tweets": {
-    "message": "Show like/RT indicators on top of tweets"
+    "message": "ツイート右上に「いいね」/「リツイート」のインジケーターを表示する"
   },
   "settings_do_the_same_for_single_images_in_quoted_tweets": {
     "message": "引用ツイートに含まれる単一の画像も同様に表示する"
