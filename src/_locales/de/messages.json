@@ -272,6 +272,9 @@
   "settings_meta": {
     "message": "Meta"
   },
+  "settings_import_export": {
+    "message": "Import / Export"
+  },
   "settings_columns": {
     "message": "Spalten"
   },
@@ -310,5 +313,29 @@
   },
   "settings_make_emoji_bigger_in_tweets": {
     "message": "Emojis in Tweets vergrößern"
+  },
+  "settings_changelog": {
+    "message": "Änderungsverlauf"
+  },
+  "settings_chrome_web_store": {
+    "message": "Chrome Web Store"
+  },
+  "settings_bugs_or_suggestions": {
+    "message": "Bugs oder Vorschläge"
+  },
+  "settings_source_on_github": {
+    "message": "Quellcode auf GitHub"
+  },
+  "settings_contributors": {
+    "message": "Unterstützer"
+  },
+  "settings_author": {
+    "message": "Autor"
+  },
+  "settings_credits_about": {
+    "message": "Credits / Über"
+  },
+  "settings_always_characters_left": {
+    "message": "Immer die verbleibenden Zeichen beim schreiben eines Tweets anzeigen"
   }
 }
