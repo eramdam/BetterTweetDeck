@@ -42,7 +42,7 @@
     "message": "Oculta"
   },
   "settings_style_of_scrollbars": {
-    "message": "Estilos de barras de rolagem"
+    "message": "Estilo das barras de rolagem"
   },
   "settings_show_clear_button_column": {
     "message": "Exibir botão de \"Limpar\" no cabeçalho das colunas"
@@ -267,37 +267,37 @@
     "message": "Cor em destaque"
   },
   "settings_misc": {
-    "message": "Misc."
+    "message": "Outros"
   },
   "settings_meta": {
     "message": "Meta"
   },
   "settings_import_export": {
-    "message": "Import / Export"
+    "message": "Importar / Exportar"
   },
   "settings_columns": {
-    "message": "Columns"
+    "message": "Colunas"
   },
   "settings_tweet_content": {
-    "message": "Tweet content"
+    "message": "Conteúdo do tweet"
   },
   "settings_pause_column_scrolling_on_hover": {
-    "message": "Pause column scrolling on hover"
+    "message": "Pausar rolagem da coluna ao passar o mouse"
   },
   "settings_use_a_custom_width_for_columns": {
-    "message": "Use a custom width for columns"
+    "message": "Usar largura personalizada para colunas"
   },
   "settings_width_any_valid_css_value": {
-    "message": "Width (any valid CSS value)"
+    "message": "Largura (qualquer valor CSS válido)"
   },
   "settings_share_on_tweetdeck": {
-    "message": "Share on TweetDeck"
+    "message": "Compartilhar no TweetDeck"
   },
   "settings_enable_share_item": {
-    "message": "Add a \"Share on TweetDeck\" item in the browser's contextual menu"
+    "message": "Adicionar \"Compartilhar no TweetDeck\" no menu contextual do navegador"
   },
   "settings_shorten_the_shared_text": {
-    "message": "Shorten the shared text"
+    "message": "Encurtar o texto compartilhado"
   },
   "settings_contextual_menu": {
     "message": "Menu de contexto"
@@ -348,15 +348,15 @@
     "message": "Créditos / Sobre"
   },
   "settings_always_characters_left": {
-    "message": "Always show the number of characters left in the tweet composer"
+    "message": "Sempre mostrar o número de caracteres restantes na aba de novo tweet"
   },
   "settings_better_tweetdeck_ask_tabs": {
-    "message": "Better TweetDeck will ask access to browser tabs for this to work properly"
+    "message": "Better TweetDeck irá requisitar acesso às abas do navegador para que isto funcione corretamente"
   },
   "settings_show_like_rt_indicators_on_top_of_tweets": {
-    "message": "Show like/RT indicators on top of tweets"
+    "message": "Mostrar indicadores de curtir/RT em cima dos tweets"
   },
   "settings_do_the_same_for_single_images_in_quoted_tweets": {
-    "message": "Do the same for single images in quoted tweets"
+    "message": "Fazer o mesmo em tweets comentados com imagens únicas"
   }
 }
