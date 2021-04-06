@@ -50,3 +50,8 @@ Find the complete list of features on [https://better.tw/#features-list](https:/
 # Contributing & helping
 
 Feel free to read the [CONTRIBUTING](./CONTRIBUTING.md) documentation to know how to help and contribute!
+
+# Localization
+
+If you want to help localize the project, you can do so on Crowdin!
+https://crowdin.com/project/better-tweetdeck
