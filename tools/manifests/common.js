@@ -16,6 +16,7 @@ const icons = _(iconSizes)
 
 module.exports = {
   name: 'Better TweetDeck',
+  description: 'Take TweetDeck to the next level!',
   short_name: 'Better TweetDeck',
   default_locale: 'en',
   version: '4.0.0',

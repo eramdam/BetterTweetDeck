@@ -3,6 +3,7 @@ import MonacoEditor, {monaco} from 'react-monaco-editor';
 
 import {HandlerOf} from '../../../helpers/typeHelpers';
 import {Trans} from '../../trans';
+import {settingsLink} from '../settingsStyles';
 
 interface SettingsCssEditorProps {
   onErrorChange: HandlerOf<boolean>;
@@ -44,6 +45,14 @@ export const SettingsCssEditor: FC<SettingsCssEditorProps> = (props) => {
           marginBottom: 20,
         }}>
         ⚠️ <Trans id="settings_custom_css_warning" /> ⚠️️
+        <br />
+        <br />
+        Looking for inspiration?{' '}
+        <a
+          className={settingsLink}
+          href="https://github.com/eramdam/BetterTweetDeck/wiki/Custom-CSS-recipes">
+          Check the collection of CSS snippets
+        </a>
       </div>
       <div
         style={{

@@ -4,7 +4,11 @@ import {createSelectorForChirp, getChirpFromKey} from '../helpers/tweetdeckHelpe
 import {hasProperty} from '../helpers/typeHelpers';
 import {onVisibleChirpAdded} from '../services/chirpHandler';
 import {makeBTDModule} from '../types/btdCommonTypes';
-import {TweetDeckChirp, TweetDeckColumn} from '../types/tweetdeckTypes';
+import {
+  TweetDeckChirp,
+  TweetDeckColumn,
+  TweetDeckColumnMediaPreviewSizesEnum,
+} from '../types/tweetdeckTypes';
 
 export const maybeRenderCardsInColumns = makeBTDModule((options) => {
   const {mR, TD, settings, jq} = options;
@@ -44,6 +48,9 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
     | undefined = mR && mR.findFunction('getColumnType')[0];
 
   onVisibleChirpAdded((payload) => {
+    if (payload.columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.OFF) {
+      return;
+    }
     if (payload.chirpNode.closest('.js-tweet-detail.tweet-detail-wrapper')) {
       return;
     }

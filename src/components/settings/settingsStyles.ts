@@ -63,6 +63,15 @@ export function maybeAlignToTheLeft(alignToTheLeft?: boolean) {
   `;
 }
 
+export const settingsLink = css`
+  text-decoration: none;
+  color: var(--twitter-blue);
+
+  &:hover {
+    color: var(--twitter-darkblue);
+  }
+`;
+
 export const settingsRegularText = css`
   margin: 40px;
   overflow: hidden;
@@ -96,11 +105,6 @@ export const settingsRegularText = css`
   }
 
   a {
-    text-decoration: none;
-    color: var(--twitter-blue);
-
-    &:hover {
-      color: var(--twitter-darkblue);
-    }
+    ${settingsLink};
   }
 `;

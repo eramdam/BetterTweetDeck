@@ -41,8 +41,13 @@ html.dark body[btd-theme='old-grey'] {
   & .compose,
   & .inline-reply,
   & .old-composer-footer,
-  & .mdl-column-med {
+  & .mdl-column-med,
+  & .stream-item.is-selected-tweet {
     background-color: var(--btd-theme-background-lighter);
+  }
+
+  & .stream-item.is-unread {
+    background-color: #163043;
   }
 
   & .reply-triangle {
@@ -78,8 +83,8 @@ html.dark body[btd-theme='super-dark'] {
 }
 
 html.dark body[btd-theme='old-grey'] {
-  --btd-theme-background: hsl(210, 6%, 17%);
-  --btd-theme-background-lighter: #373a3e;
+  --btd-theme-background: #1c1f21;
+  --btd-theme-background-lighter: #242b30;
   --btd-theme-btn-hover: #2b2b2b;
 
   & .app-content,
@@ -87,11 +92,11 @@ html.dark body[btd-theme='old-grey'] {
     background: #14171a;
   }
 
-  /* & .app-content .column-header,
+  & .app-content .column-header,
   & .column-nav-item,
   & .app-header,
   & .app-title,
   & .app-navigator {
     background: var(--btd-theme-background-lighter);
-  } */
+  }
 }
