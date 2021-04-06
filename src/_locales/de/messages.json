@@ -39,7 +39,7 @@
     "message": "Schmal"
   },
   "settings_scrollbar_hidden": {
-    "message": "Ausgeblendet"
+    "message": "Versteckt"
   },
   "settings_style_of_scrollbars": {
     "message": "Stil der Scrollbalken"
@@ -126,7 +126,7 @@
     "message": "Autor blockieren"
   },
   "settings_action_mute_author": {
-    "message": "Autor muten"
+    "message": "Autor stummschalten"
   },
   "settings_action_copy_media_links": {
     "message": "Medienlinks kopieren"
@@ -135,7 +135,7 @@
     "message": "Medien herunterladen"
   },
   "settings_additional_actions": {
-    "message": "Tweet Aktionen hinzufügen"
+    "message": "Tweet-Aktionen hinzufügen"
   },
   "settings_downloaded_filename_format": {
     "message": "Dateinamen für heruntergeladene Dateien"
