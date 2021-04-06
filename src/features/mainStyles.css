@@ -174,3 +174,8 @@ p.js-tweet-text + .js-card-container:not(:empty) {
     text-decoration: none !important;
   }
 }
+
+/* Prevent horizontal scrollbar in columns inside modals */
+.js-modal.open-modal div.js-right-column.scroll-v {
+  overflow-x: hidden;
+}
