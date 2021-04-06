@@ -1,5 +1,110 @@
 {
   "app_desc": {
     "message": "Bringe TweetDeck auf das nächste Level!"
+  },
+  "app_name": {
+    "message": "Better TweetDeck"
+  },
+  "settings_title": {
+    "message": "Better TweetDeck"
+  },
+  "settings_show_cards_inside_columns": {
+    "message": "Tweet-Karten innerhalb der Spalten anzeigen"
+  },
+  "settings_show_profile_badges_on_top_of_avatars": {
+    "message": "Profilabzeichen über den Avataren anzeigen"
+  },
+  "settings_collapse_read_dms": {
+    "message": "Gelesene Direktnachrichten einklappen"
+  },
+  "settings_freeze_gifs_in_profile_pictures": {
+    "message": "GIFs in Profilbildern anhalten"
+  },
+  "settings_remove_t_co_redirection_on_links": {
+    "message": "t.co-Weiterleitung auf Links entfernen"
+  },
+  "settings_make_buttons_smaller_in_the_composer": {
+    "message": "Buttons im Composer verkleinern"
+  },
+  "settings_reflect_new_tweets_and_dms_in_the_tabs_title": {
+    "message": "Neue Tweets und DMs im Tabulatortitel wiedergeben"
+  },
+  "settings_auto_switch_light_theme": {
+    "message": "Zum hellen Design wechseln, wenn das Betriebssystem im hellen Modus ist"
+  },
+  "settings_scrollbar_default": {
+    "message": "Vorgabe"
+  },
+  "settings_scrollbar_thin": {
+    "message": "Schmal"
+  },
+  "settings_scrollbar_hidden": {
+    "message": "Ausgeblendet"
+  },
+  "settings_style_of_scrollbars": {
+    "message": "Stil der Scrollbalken"
+  },
+  "settings_show_clear_button_column": {
+    "message": "Zeige \"Löschen\"-Button im Spaltenkopf"
+  },
+  "settings_show_collapse_button_in_columns_header": {
+    "message": "Zeige \"Einklappen\"-Button im Spaltenkopf"
+  },
+  "settings_hide_icons_on_top_of_columns": {
+    "message": "Symbole im oberen Teil der Spalten ausblenden"
+  },
+  "settings_use_old_style_of_replies": {
+    "message": "Alten Antwortstil verwenden (inline @mentions)"
+  },
+  "settings_timestamp_relative": {
+    "message": "Relativ"
+  },
+  "settings_timestamp_custom": {
+    "message": "Benutzerdefiniert"
+  },
+  "settings_date_format": {
+    "message": "Datumsformat"
+  },
+  "settings_short_time_after_24h": {
+    "message": "Verwende ein anderes Datumsformat nach 24 Stunden"
+  },
+  "settings_timestamp_presets": {
+    "message": "Voreinstellungen"
+  },
+  "settings_timestamp_preset_absolute": {
+    "message": "Absolut"
+  },
+  "settings_timestamp_preset_absolute_us": {
+    "message": "Absolut (US-Stil)"
+  },
+  "settings_fullname_username": {
+    "message": "Vollständiger Name und Benutzername"
+  },
+  "settings_username_fullname": {
+    "message": "Benutzername und vollständiger Name"
+  },
+  "settings_username": {
+    "message": "Nur Benutzername"
+  },
+  "settings_fullname": {
+    "message": "Nur vollständiger Name"
+  },
+  "settings_name_display_style": {
+    "message": "Anzeigeformat für Namen"
+  },
+  "settings_general": {
+    "message": "Allgemeines"
+  },
+  "settings_theme": {
+    "message": "Farbschema"
+  },
+  "settings_tweets_display": {
+    "message": "Tweet-Anzeige"
+  },
+  "settings_tweet_actions": {
+    "message": "Tweet-Aktionen"
+  },
+  "settings_actions_visibility_always": {
+    "message": "Immer"
   }
 }
