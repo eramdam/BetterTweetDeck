@@ -5,6 +5,7 @@ import {maybeAddTweetActions} from './features/addTweetActions';
 import {maybeAddTweetMenuItems} from './features/addTweetMenuItems';
 import {setupAME} from './features/advancedMuteEngine';
 import {allowImagePaste} from './features/allowImagePaste';
+import {maybeShowCharacterCount} from './features/alwaysShowCharacterCount';
 import {setupThemeAutoSwitch} from './features/autoSwitchThemes';
 import {putBadgesOnTopOfAvatars} from './features/badgesOnTopOfAvatars';
 import {makeEmojiBigger} from './features/biggerEmoji';
@@ -26,6 +27,7 @@ import {maybeRenderCardsInColumns} from './features/renderCardsInColumns';
 import {renderMediaAndQuotedTweets} from './features/renderMediaAndQuotedTweets';
 import {maybeReplaceHeartsByStars} from './features/replaceHeartsByStars';
 import {maybeRevertToLegacyReplies} from './features/revertToLegacyReplies';
+import {showTweetDogEars} from './features/showTweetDogEars';
 import {maybeMakeComposerButtonsSmaller} from './features/smallerComposerButtons';
 import {tweakTweetDeckTheme} from './features/themeTweaks';
 import {updateTabTitle} from './features/updateTabTitle';
@@ -122,6 +124,8 @@ const jq: JQueryStatic | undefined =
   setupThemeAutoSwitch(btdModuleOptions);
   maybeSetupCustomTimestampFormat(btdModuleOptions);
   applyTweetDeckSettings(btdModuleOptions);
+  maybeShowCharacterCount(btdModuleOptions);
+  showTweetDogEars(btdModuleOptions);
 
   jq(document).one('dataColumnsLoaded', () => {
     document.body.classList.add('btd-loaded');

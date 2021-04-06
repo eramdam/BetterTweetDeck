@@ -1,0 +1,36 @@
+.btd-loaded {
+  & .tweet-dogear {
+    position: absolute;
+    top: 0;
+    right: 0;
+    visibility: hidden;
+    width: 24px;
+    height: 24px;
+    z-index: 9;
+    background-size: 24px;
+  }
+
+  & .is-retweet .tweet-dogear {
+    visibility: visible;
+    background-image: url('../assets/dogears/rt.png');
+  }
+
+  & .is-favorite .tweet-dogear {
+    visibility: visible;
+    background-image: url('../assets/dogears/fav-heart.png');
+  }
+
+  & .is-retweet.is-favorite .tweet-dogear {
+    background-image: url('../assets/dogears/fav-rt-heart.png');
+  }
+
+  &[btd-use-stars='true'] {
+    & .is-favorite .tweet-dogear {
+      background-image: url('../assets/dogears/fav-star.png');
+    }
+
+    & .is-retweet.is-favorite .tweet-dogear {
+      background-image: url('../assets/dogears/fav-rt-star.png');
+    }
+  }
+}

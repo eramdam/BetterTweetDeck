@@ -1,13 +1,13 @@
 import React, {Fragment} from 'react';
 
-import {isSafari} from '../../../helpers/browserHelpers';
+import {isFirefox, isSafari} from '../../../helpers/browserHelpers';
 import {BTDSettings} from '../../../types/btdSettingsTypes';
 import {Trans} from '../../trans';
 import {BooleanSettingsRow} from '../components/booleanSettingRow';
 import {CheckboxSelectSettingsRow} from '../components/checkboxSelectSettingsRow';
 import {SettingsRow} from '../components/settingsRow';
 import {SettingsTextInputWithAnnotation} from '../components/settingsTimeFormatInput';
-import {SettingsMenuRenderer} from '../settingsComponents';
+import {SettingsMenuRenderer, SettingsSmallText} from '../settingsComponents';
 
 export const renderGeneralSettings: SettingsMenuRenderer = (
   settings,
@@ -88,6 +88,13 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
             label: <Trans id="settings_use_original_aspect_ratio_images" />,
           },
           {
+            introducedIn: '4.0.1',
+            initialValue: settings.useOriginalAspectRatioForSingleImagesInQuotedTweets,
+            key: 'useOriginalAspectRatioForSingleImagesInQuotedTweets',
+            label: <Trans id="settings_do_the_same_for_single_images_in_quoted_tweets" />,
+            isDisabled: !settings.useOriginalAspectRatioForSingleImages,
+          },
+          {
             introducedIn: '4',
             initialValue: settings.useModernFullscreenImage,
             key: 'useModernFullscreenImage',
@@ -138,6 +145,11 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
             label: <Trans id="settings_make_buttons_smaller_in_the_composer" />,
           },
           {
+            initialValue: settings.alwaysShowNumberOfCharactersLeft,
+            key: 'alwaysShowNumberOfCharactersLeft',
+            label: <Trans id="settings_always_characters_left" />,
+          },
+          {
             initialValue: settings.saveTweetedHashtags,
             key: 'saveTweetedHashtags',
             label: <Trans id="settings_save_tweeted_hashtags" />,
@@ -159,7 +171,16 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
             {
               initialValue: settings.enableShareItem,
               key: 'enableShareItem',
-              label: <Trans id="settings_enable_share_item" />,
+              label: (
+                <>
+                  <Trans id="settings_enable_share_item" />
+                  {isFirefox && (
+                    <SettingsSmallText>
+                      <Trans id="settings_better_tweetdeck_ask_tabs" />
+                    </SettingsSmallText>
+                  )}
+                </>
+              ),
             },
             {
               initialValue: settings.shouldShortenSharedText,

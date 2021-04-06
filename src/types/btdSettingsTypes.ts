@@ -6,6 +6,7 @@ import {BTDTimestampFormats} from '../features/changeTimestampFormat';
 import {BTDTweetActionsPosition} from '../features/changeTweetActions';
 import {BetterTweetDeckAccentColors, BetterTweetDeckThemes} from '../features/themeTweaks';
 import {BTDUsernameFormat} from '../features/usernameDisplay';
+import {isFirefox} from '../helpers/browserHelpers';
 import {makeEnumRuntimeType, withDefault} from '../helpers/runtimeTypeHelpers';
 
 export const RBetterTweetDeckSettings = t.type({
@@ -23,6 +24,8 @@ export const RBetterTweetDeckSettings = t.type({
     makeEnumRuntimeType<BTDTimestampFormats>(BTDTimestampFormats),
     BTDTimestampFormats.RELATIVE
   ),
+
+  alwaysShowNumberOfCharactersLeft: withDefault(t.boolean, false),
 
   /** Show tweet cards in columns. */
   showCardsInsideColumns: withDefault(t.boolean, true),
@@ -44,6 +47,9 @@ export const RBetterTweetDeckSettings = t.type({
 
   /** Display single images using their original aspect ratio. */
   useOriginalAspectRatioForSingleImages: withDefault(t.boolean, false),
+
+  /** Display single images using their original aspect ratio. (quoted tweets) */
+  useOriginalAspectRatioForSingleImagesInQuotedTweets: withDefault(t.boolean, true),
 
   /** Switches between the full timestamp in tweets after 24h */
   fullTimestampAfterDay: withDefault(t.boolean, false),
@@ -156,9 +162,9 @@ export const RBetterTweetDeckSettings = t.type({
   updateTabTitleOnActivity: withDefault(t.boolean, true),
 
   // I like this one...but maybe i'm the only one who cares?
-  // showLikeRTDogears: withDefault(t.boolean, false),
+  showLikeRTDogears: withDefault(t.boolean, false),
 
-  enableShareItem: withDefault(t.boolean, true),
+  enableShareItem: withDefault(t.boolean, !isFirefox),
   shouldShortenSharedText: withDefault(t.boolean, true),
 
   disableGifsInProfilePictures: withDefault(t.boolean, false),

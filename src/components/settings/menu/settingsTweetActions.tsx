@@ -209,15 +209,20 @@ export const renderTweetActionsSettings: SettingsMenuRenderer = (
         }}
         fields={[
           {
+            introducedIn: '4',
+            initialValue: settings.showAccountChoiceOnFavorite,
+            key: 'showAccountChoiceOnFavorite',
+            label: <Trans id="settings_show_account_picker_like" />,
+          },
+          {
             initialValue: settings.replaceHeartsByStars,
             key: 'replaceHeartsByStars',
             label: <Trans id="settings_replace_hearts_by_stars" />,
           },
           {
-            introducedIn: '4',
-            initialValue: settings.showAccountChoiceOnFavorite,
-            key: 'showAccountChoiceOnFavorite',
-            label: <Trans id="settings_show_account_picker_like" />,
+            initialValue: settings.showLikeRTDogears,
+            key: 'showLikeRTDogears',
+            label: <Trans id="settings_show_like_rt_indicators_on_top_of_tweets" />,
           },
         ]}>
         <Trans id="settings_misc" />

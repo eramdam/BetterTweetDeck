@@ -110,10 +110,6 @@ html.dark .typeahead .js-hashtag {
   margin-right: 2px !important;
 }
 
-html.dark .stream-item {
-  border-bottom-color: #10171e !important;
-}
-
 .js-media.media-grid-container + p.txt-ellipsis {
   display: none;
 }
