@@ -23,6 +23,7 @@
 <a href="https://paypal.me/eramdam">
 <img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="Donate on PayPal">
 </a>
+<a title="Crowdin" target="_blank" href="https://crowdin.com/project/better-tweetdeck"><img src="https://badges.crowdin.net/better-tweetdeck/localized.svg"></a>
 </p>
 
 # Intro
