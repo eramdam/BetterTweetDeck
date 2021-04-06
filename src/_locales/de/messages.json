@@ -337,5 +337,11 @@
   },
   "settings_always_characters_left": {
     "message": "Immer die verbleibenden Zeichen beim schreiben eines Tweets anzeigen"
+  },
+  "settings_better_tweetdeck_ask_tabs": {
+    "message": "Better TweetDeck braucht für diese Funktion die Berechtigung zum Zugriff auf geöffnete Tabs"
+  },
+  "settings_show_like_rt_indicators_on_top_of_tweets": {
+    "message": "Like/Retweet Buttons über Tweets anzeigen"
   }
 }
