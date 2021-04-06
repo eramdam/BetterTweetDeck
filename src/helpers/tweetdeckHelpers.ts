@@ -187,6 +187,35 @@ export function onComposerShown(callback: HandlerOf<boolean>) {
   };
 }
 
+export function onComposerDisabledStateChange(callback: HandlerOf<boolean>) {
+  const tweetComposerObserver = new MutationObserver(() => {
+    const tweetComposer = document.querySelector(
+      '.drawer[data-drawer="compose"] textarea.js-compose-text'
+    );
+    callback(tweetComposer?.getAttribute('disabled') === 'true');
+  });
+
+  onComposerShown((isVisible) => {
+    if (!isVisible) {
+      tweetComposerObserver.disconnect();
+      return;
+    }
+
+    const tweetComposer = document.querySelector(
+      '.drawer[data-drawer="compose"] textarea.js-compose-text'
+    );
+
+    if (!tweetComposer) {
+      return;
+    }
+
+    tweetComposerObserver.observe(tweetComposer, {
+      attributeFilter: ['disabled'],
+      attributes: true,
+    });
+  });
+}
+
 // From http://stackoverflow.com/questions/1064089/inserting-a-text-where-cursor-is-using-javascript-jquery
 function insertAtCursor(input: HTMLInputElement | HTMLTextAreaElement, value: string) {
   if (input.selectionStart || input.selectionStart === 0) {

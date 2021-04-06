@@ -1,5 +1,5 @@
 import {isHTMLElement} from '../helpers/domHelpers';
-import {onComposerShown} from '../helpers/tweetdeckHelpers';
+import {onComposerDisabledStateChange, onComposerShown} from '../helpers/tweetdeckHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 
 export const keepTweetedHashtagsInComposer = makeBTDModule(({jq, settings}) => {
@@ -10,7 +10,6 @@ export const keepTweetedHashtagsInComposer = makeBTDModule(({jq, settings}) => {
 
   function pasteHashtags() {
     const tweetTextArea = document.querySelector<HTMLTextAreaElement>('textarea.js-compose-text');
-    console.log('savedHashtags', savedHashtags);
 
     if (!tweetTextArea) {
       return;
@@ -49,6 +48,14 @@ export const keepTweetedHashtagsInComposer = makeBTDModule(({jq, settings}) => {
   jq(document).one('dataColumnsLoaded', () => {
     onComposerShown((isVisible) => {
       if (!isVisible) {
+        return;
+      }
+
+      pasteHashtags();
+    });
+
+    onComposerDisabledStateChange((isDisabled) => {
+      if (isDisabled) {
         return;
       }
 
