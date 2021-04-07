@@ -171,10 +171,10 @@
     "message": "Sekunden"
   },
   "settings_menu_item_mute_hashtags": {
-    "message": "Mute #hashtags"
+    "message": "#hashtags Stummschalten"
   },
   "settings_menu_item_mute_source": {
-    "message": "Tweet Quelle muten"
+    "message": "Tweet Quelle stummschalten"
   },
   "settings_menu_item_redraft": {
     "message": "Neu Tweeten"
