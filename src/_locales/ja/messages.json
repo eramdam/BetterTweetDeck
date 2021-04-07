@@ -54,7 +54,7 @@
     "message": "カラムのアイコンを表示しない"
   },
   "settings_use_old_style_of_replies": {
-    "message": "古いスタイルのリプライ(@メンションを入れて返信)を使う"
+    "message": "古いスタイルのリプライ (@メンションを入れて返信) を使う"
   },
   "settings_timestamp_relative": {
     "message": "相対表示"
@@ -174,10 +174,10 @@
     "message": "#ハッシュタグ をミュート"
   },
   "settings_menu_item_mute_source": {
-    "message": "viaをミュート (例:Twitter for Androidなど)"
+    "message": "viaをミュート (例: Twitter for Androidなど)"
   },
   "settings_menu_item_redraft": {
-    "message": "再投稿(Re-draft)"
+    "message": "再投稿 (Re-draft)"
   },
   "settings_additional_tweet_menu_items": {
     "message": "追加のメニュー項目"
