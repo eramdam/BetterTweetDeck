@@ -100,7 +100,9 @@ interface BTDSaveSettings extends BTDMessageEventBase {
 
 interface BTDOpenSettings extends BTDMessageEventBase {
   name: BTDMessages.OPEN_SETTINGS;
-  payload: undefined;
+  payload: {
+    selectedId?: string;
+  };
 }
 
 export type BTDMessageEventData =

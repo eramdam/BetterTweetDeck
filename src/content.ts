@@ -58,6 +58,14 @@ listenToInternalBTDMessage(BTDMessages.BTD_READY, BTDMessageOriginsEnum.CONTENT,
   });
 });
 
+listenToInternalBTDMessage(BTDMessages.OPEN_SETTINGS, BTDMessageOriginsEnum.CONTENT, async (ev) => {
+  if (ev.data.name !== BTDMessages.OPEN_SETTINGS) {
+    return;
+  }
+
+  openSettings(ev.data.payload.selectedId);
+});
+
 listenToInternalBTDMessage(
   BTDMessages.DOWNLOAD_MEDIA,
   BTDMessageOriginsEnum.CONTENT,
@@ -84,14 +92,16 @@ listenToInternalBTDMessage(
   }
 );
 
-function openSettings() {
+function openSettings(selectedId?: string) {
   sendMessageToBackground({
     data: {
       requestId: undefined,
       isReponse: false,
       name: BTDMessages.OPEN_SETTINGS,
       origin: BTDMessageOriginsEnum.CONTENT,
-      payload: undefined,
+      payload: {
+        selectedId,
+      },
     },
   });
 }

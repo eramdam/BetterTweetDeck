@@ -47,7 +47,7 @@ export const makeSettingsMenu = (
           render: () => renderGeneralSettings(...rendererArguments),
         },
         {
-          id: 'theme-tweaks',
+          id: 'theme',
           label: getTransString('settings_theme'),
           render: () => renderThemeSettings(...rendererArguments),
         },

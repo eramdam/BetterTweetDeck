@@ -32,7 +32,15 @@ export const SettingsModal = (props: SettingsModalProps) => {
   const {onSettingsUpdate} = props;
   const [settings, setSettings] = useState<BTDSettings>(props.btdSettings);
   const [isDirty, setIsDirty] = useState(false);
-  const [selectedId, setSelectedId] = useState('general');
+  const [selectedId, setSelectedId] = useState(() => {
+    try {
+      const selectedIdFromUrl = new URL(window.location.href).searchParams.get('selectedId');
+
+      return selectedIdFromUrl || 'general';
+    } catch (e) {
+      return 'general';
+    }
+  });
   const [editorHasErrors, setEditorHasErrors] = useState(false);
 
   const makeOnSettingsChange = <T extends keyof BTDSettings>(key: T) => {

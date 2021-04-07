@@ -17,7 +17,9 @@ import {BTDMessageEvent, BTDMessages} from './types/btdMessageTypes';
     switch (request.data.name) {
       case BTDMessages.OPEN_SETTINGS: {
         browser.tabs.create({
-          url: 'build/options/index.html',
+          url: request.data.payload.selectedId
+            ? `build/options/index.html?selectedId=${request.data.payload.selectedId}`
+            : 'build/options/index.html',
         });
         return undefined;
       }
