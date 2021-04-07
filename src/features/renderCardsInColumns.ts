@@ -2,7 +2,7 @@ import {Dictionary} from 'lodash';
 
 import {createSelectorForChirp, getChirpFromKey} from '../helpers/tweetdeckHelpers';
 import {hasProperty} from '../helpers/typeHelpers';
-import {onVisibleChirpAdded} from '../services/chirpHandler';
+import {onChirpRemove, onVisibleChirpAdded} from '../services/chirpHandler';
 import {makeBTDModule} from '../types/btdCommonTypes';
 import {
   TweetDeckChirp,
@@ -94,6 +94,16 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
     renderCardForChirpModule.renderCardForChirp(actualChirp, cardContainer, {
       context: 'detail',
       scribeNamespace,
+    });
+  });
+
+  onChirpRemove((payload) => {
+    const allColumns = TD.controller.columnManager.getAllOrdered();
+
+    payload.chirpIds.forEach((id) => {
+      allColumns.forEach((column) => {
+        column.ui.teardownCard(id);
+      });
     });
   });
 });

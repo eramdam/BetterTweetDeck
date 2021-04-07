@@ -20,6 +20,7 @@ export interface ChirpAddedPayload {
 
 export interface ChirpRemovedPayload {
   uuidArray: string[];
+  chirpIds: string[];
 }
 
 let isObserverSetup = false;
@@ -114,13 +115,7 @@ export const setupChirpHandler = makeBTDModule(({TD, jq}) => {
               return false;
             }
 
-            const btdNode = removedEl.closest('[' + BTDUuidAttribute + ']');
-
-            if (!btdNode) {
-              return false;
-            }
-
-            return true;
+            return removedEl.closest('[' + BTDUuidAttribute + ']');
           })
           .filter((i) => !!i)
           .forEach((removedEl) => {
@@ -136,6 +131,7 @@ export const setupChirpHandler = makeBTDModule(({TD, jq}) => {
 
             const payload = {
               uuidArray: uuids,
+              chirpIds: compact(nodes.map((e) => e.getAttribute('data-key'))),
             };
 
             onRemoveCallbacks.forEach((cb) => {

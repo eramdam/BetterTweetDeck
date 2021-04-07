@@ -739,6 +739,7 @@ interface ColumnUiState {
   pause(): void;
   unpause(): void;
   getChirpById(id: string | number): JQuery<HTMLElement>;
+  teardownCard(id: string): void;
 }
 
 interface MoreTweetsButtonContainer {
