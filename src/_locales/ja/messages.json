@@ -210,10 +210,10 @@
     "message": "サポート"
   },
   "settings_avatar_square": {
-    "message": "しかく"
+    "message": "四角"
   },
   "settings_avatar_circle": {
-    "message": "まる"
+    "message": "丸"
   },
   "settings_display_modern_fullscreen_images": {
     "message": "Twitter Webのようにフルスクリーンで画像を表示"
