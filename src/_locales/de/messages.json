@@ -111,7 +111,7 @@
     "message": "Wenn der Mauszeiger darauf zeigt"
   },
   "settings_actions_visibility": {
-    "message": "Sichtbare Aktionen"
+    "message": "Sichtbarkeit von Aktionen"
   },
   "settings_position_of_actions": {
     "message": "Position von Aktionen"
@@ -141,13 +141,13 @@
     "message": "Namensformat für heruntergeladene Dateien"
   },
   "settings_filename_format_tokens": {
-    "message": "Formatierungsvorlagen für Dateinamen"
+    "message": "Formatmuster für Dateinamen"
   },
   "settings_token_username_without": {
     "message": "Benutzername (ohne @)"
   },
   "settings_token_tweet_id": {
-    "message": "Tweet ID"
+    "message": "Tweet-ID"
   },
   "settings_token_filename": {
     "message": "Dateiname"
@@ -171,13 +171,13 @@
     "message": "Sekunden"
   },
   "settings_menu_item_mute_hashtags": {
-    "message": "#hashtags Stummschalten"
+    "message": "#hashtags stummschalten"
   },
   "settings_menu_item_mute_source": {
     "message": "Tweet Quelle stummschalten"
   },
   "settings_menu_item_redraft": {
-    "message": "Neu Tweeten"
+    "message": "Neu entwerfen"
   },
   "settings_additional_tweet_menu_items": {
     "message": "Zusätzliche Tweet-Menüeinträge"
@@ -207,16 +207,16 @@
     "message": "Einstellungen"
   },
   "settings_support": {
-    "message": "Unterstützung"
+    "message": "Hilfe"
   },
   "settings_avatar_square": {
-    "message": "Quadratisch"
+    "message": "Quadrat"
   },
   "settings_avatar_circle": {
-    "message": "Rund"
+    "message": "Kreis"
   },
   "settings_display_modern_fullscreen_images": {
-    "message": "Bilder im Vollbild Stil von Twitter.com anzeigen"
+    "message": "Vollbildanzeige wie bei Twitter.com"
   },
   "settings_browser_and_extension_informations": {
     "message": "Browser- und Erweiterungsinformationen"
@@ -225,13 +225,13 @@
     "message": "Version:"
   },
   "settings_user_agent": {
-    "message": "User Agent:"
+    "message": "Browser:"
   },
   "settings_export_settings": {
     "message": "Einstellungen exportieren"
   },
   "settings_export_settings_copy": {
-    "message": "Benutze den Download Button um deine Einstellungen zu exportieren"
+    "message": "Exportiere deine Einstellungen, indem du unten auf den Button klickst"
   },
   "settings_download_settings_button": {
     "message": "Einstellungen herunterladen"
