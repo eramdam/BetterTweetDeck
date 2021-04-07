@@ -2,7 +2,7 @@ import {Dictionary} from 'lodash';
 
 import {createSelectorForChirp, getChirpFromKey} from '../helpers/tweetdeckHelpers';
 import {hasProperty} from '../helpers/typeHelpers';
-import {onChirpRemove, onVisibleChirpAdded} from '../services/chirpHandler';
+import {onVisibleChirpAdded} from '../services/chirpHandler';
 import {makeBTDModule} from '../types/btdCommonTypes';
 import {
   TweetDeckChirp,
@@ -46,6 +46,34 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
         columnMetaTypeToScribeNamespace: Dictionary<object>;
       }
     | undefined = mR && mR.findFunction('getColumnType')[0];
+
+  const observer = new IntersectionObserver((entries, thisObserver) => {
+    const allColumns = TD.controller.columnManager.getAllOrdered();
+
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        return;
+      }
+
+      const chirpNode = entry.target.closest('[data-key]');
+
+      if (!chirpNode) {
+        return;
+      }
+
+      const chirpKey = chirpNode.getAttribute('data-key');
+
+      if (!chirpKey) {
+        return;
+      }
+
+      allColumns.forEach((c) => {
+        c.ui.teardownCard(chirpKey);
+      });
+
+      thisObserver.unobserve(entry.target);
+    });
+  });
 
   onVisibleChirpAdded((payload) => {
     if (payload.columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.OFF) {
@@ -91,19 +119,12 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
       return;
     }
 
+    // Observer the card container to remove the card when it gets out of the view
+    observer.observe(cardContainer[0]);
+
     renderCardForChirpModule.renderCardForChirp(actualChirp, cardContainer, {
       context: 'detail',
       scribeNamespace,
-    });
-  });
-
-  onChirpRemove((payload) => {
-    const allColumns = TD.controller.columnManager.getAllOrdered();
-
-    payload.chirpIds.forEach((id) => {
-      allColumns.forEach((column) => {
-        column.ui.teardownCard(id);
-      });
     });
   });
 });
