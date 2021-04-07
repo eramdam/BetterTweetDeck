@@ -24,7 +24,7 @@
     "message": "t.co-Weiterleitung auf Links entfernen"
   },
   "settings_make_buttons_smaller_in_the_composer": {
-    "message": "Buttons im Composer verkleinern"
+    "message": "Kleinere Buttons unterhalb des Editors"
   },
   "settings_reflect_new_tweets_and_dms_in_the_tabs_title": {
     "message": "Neue Tweets und Direktnachrichten im Titel des Tabs anzeigen"
@@ -66,7 +66,7 @@
     "message": "Datumsformat"
   },
   "settings_short_time_after_24h": {
-    "message": "Verwende ein anderes Datumsformat nach 24 Stunden"
+    "message": "Nach 24 Stunden ein anderes Datumsformat verwenden"
   },
   "settings_timestamp_presets": {
     "message": "Voreinstellungen"
@@ -138,13 +138,13 @@
     "message": "Tweet-Aktionen hinzufügen"
   },
   "settings_downloaded_filename_format": {
-    "message": "Dateinamen für heruntergeladene Dateien"
+    "message": "Namensformat für heruntergeladene Dateien"
   },
   "settings_filename_format_tokens": {
     "message": "Formatierungsvorlagen für Dateinamen"
   },
   "settings_token_username_without": {
-    "message": "nutzername (ohne @)"
+    "message": "Benutzername (ohne @)"
   },
   "settings_token_tweet_id": {
     "message": "Tweet ID"
