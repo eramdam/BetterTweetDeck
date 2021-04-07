@@ -348,15 +348,15 @@
     "message": "Dank / Über"
   },
   "settings_always_characters_left": {
-    "message": "Immer die verbleibenden Zeichen beim schreiben eines Tweets anzeigen"
+    "message": "Beim Schreiben eines Tweets die verbleibenden Zeichen im Editor anzeigen"
   },
   "settings_better_tweetdeck_ask_tabs": {
-    "message": "Better TweetDeck braucht für diese Funktion die Berechtigung zum Zugriff auf geöffnete Tabs"
+    "message": "Für diese Funktion wird Better TweetDeck Zugriff auf Browser-Tabs erbitten"
   },
   "settings_show_like_rt_indicators_on_top_of_tweets": {
-    "message": "Like/Retweet Buttons über Tweets anzeigen"
+    "message": "Like- und Retweet-Buttons über Tweets anzeigen"
   },
   "settings_do_the_same_for_single_images_in_quoted_tweets": {
-    "message": "auch für einzelne Bilder in zitierten Tweets"
+    "message": "Auch für einzelne Bilder in zitierten Tweets"
   }
 }
