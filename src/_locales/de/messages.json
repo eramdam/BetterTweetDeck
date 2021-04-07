@@ -243,7 +243,7 @@
     "message": "Einstellungen aus einer JSON-Datei importieren"
   },
   "settings_import_json_wrong_keys": {
-    "message": "Die Datei entspricht nicht dem benötigten Format von Better TweetDeck"
+    "message": "Die Datei entspricht nicht Better TweetDeck-Einstellungsformat"
   },
   "settings_import_success": {
     "message": "Einstellungen importiert. Speichern nicht vergessen!"
@@ -252,7 +252,7 @@
     "message": "Klicke hier, um die importierten Einstellungen zu sehen"
   },
   "settings_website": {
-    "message": "Webseite"
+    "message": "Website"
   },
   "settings_links": {
     "message": "Links"
@@ -267,7 +267,7 @@
     "message": "Akzentfarbe"
   },
   "settings_misc": {
-    "message": "Sonstige"
+    "message": "Verschiedenes"
   },
   "settings_meta": {
     "message": "Meta"
@@ -279,22 +279,22 @@
     "message": "Spalten"
   },
   "settings_tweet_content": {
-    "message": "Tweet Inhalt"
+    "message": "Tweet-Inhalt"
   },
   "settings_pause_column_scrolling_on_hover": {
-    "message": "Scrollen einer Zeile anhalten beim Überfliegen mit der Maus"
+    "message": "Kein Scrollen, wenn der Mauszeiger auf einer Spalte liegt"
   },
   "settings_use_a_custom_width_for_columns": {
     "message": "Eigene Spaltenbreite verwenden"
   },
   "settings_width_any_valid_css_value": {
-    "message": "Breite (CSS Syntax beachten)"
+    "message": "Breite (muss gültiger CSS-Wert sein)"
   },
   "settings_share_on_tweetdeck": {
     "message": "Auf TweetDeck teilen"
   },
   "settings_enable_share_item": {
-    "message": "Einen \"Auf TweetDeck teilen\" Eintrag im Browser Kontextmenü anzeigen"
+    "message": "\"Mit TweetDeck teilen\" zum Kontextmenü des Browsers hinzufügen"
   },
   "settings_shorten_the_shared_text": {
     "message": "Den geteilten Text kürzen"
@@ -312,7 +312,7 @@
     "message": "Super Black"
   },
   "settings_light": {
-    "message": "Light"
+    "message": "Hell"
   },
   "settings_tokens_list": {
     "message": "Tokenliste"
@@ -327,25 +327,25 @@
     "message": "Getweetete Hashtags speichern"
   },
   "settings_changelog": {
-    "message": "Änderungsverlauf"
+    "message": "Changelog"
   },
   "settings_chrome_web_store": {
     "message": "Chrome Web Store"
   },
   "settings_bugs_or_suggestions": {
-    "message": "Bugs oder Vorschläge"
+    "message": "Fehler melden und Vorschläge machen"
   },
   "settings_source_on_github": {
     "message": "Quellcode auf GitHub"
   },
   "settings_contributors": {
-    "message": "Unterstützer"
+    "message": "Beitragende"
   },
   "settings_author": {
     "message": "Autor"
   },
   "settings_credits_about": {
-    "message": "Credits / Über"
+    "message": "Dank / Über"
   },
   "settings_always_characters_left": {
     "message": "Immer die verbleibenden Zeichen beim schreiben eines Tweets anzeigen"
