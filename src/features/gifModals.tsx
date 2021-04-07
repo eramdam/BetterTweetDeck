@@ -33,7 +33,6 @@ export const setupGifModals = makeBTDModule(({TD, settings, jq}) => {
     const {chirp} = chirpData;
 
     const gifEntity = chirp.entities.media.find((m) => m.type === 'animated_gif');
-    console.log(gifEntity);
     if (!gifEntity) {
       return;
     }
