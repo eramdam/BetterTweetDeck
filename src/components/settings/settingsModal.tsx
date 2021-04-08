@@ -18,6 +18,8 @@ import {
   SettingsModalWrapper,
   SettingsSidebar,
 } from './components/settingsModalComponents';
+import {SettingsTextInput} from './components/settingsTextInput';
+import {useSettingsSearch} from './settingsContext';
 import {makeSettingsMenu} from './settingsMenu';
 
 interface SettingsModalProps {
@@ -42,6 +44,8 @@ export const SettingsModal = (props: SettingsModalProps) => {
     }
   });
   const [editorHasErrors, setEditorHasErrors] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const {renderSearchResults} = useSettingsSearch();
 
   const makeOnSettingsChange = <T extends keyof BTDSettings>(key: T) => {
     return (val: BTDSettings[T]) => {
@@ -101,6 +105,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
         <small className="version">{topbarVersion}</small>
       </SettingsHeader>
       <SettingsSidebar>
+        <SettingsTextInput onChange={setSearchQuery} value={searchQuery}></SettingsTextInput>
         {menu.map((section) => {
           return (
             <div key={section.id}>
@@ -154,7 +159,9 @@ export const SettingsModal = (props: SettingsModalProps) => {
           </ul>
         </div>
       </SettingsSidebar>
-      <SettingsContent>{renderSelectedPage()}</SettingsContent>
+      <SettingsContent>
+        {searchQuery ? renderSearchResults(searchQuery) : renderSelectedPage()}
+      </SettingsContent>
       <SettingsFooter
         className={cx({
           visible: canSave || showSettingsLabel,

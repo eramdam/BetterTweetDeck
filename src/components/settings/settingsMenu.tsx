@@ -19,7 +19,7 @@ interface MenuItem {
   id: string;
   items: {
     id: string;
-    label: ReactNode;
+    label: string;
     render: Renderer;
   }[];
 }
@@ -53,17 +53,17 @@ export const makeSettingsMenu = (
         },
         {
           id: 'tweets-display',
-          label: <Trans id="settings_tweets_display" />,
+          label: getTransString('settings_tweets_display'),
           render: () => renderTweetDisplaySettings(...rendererArguments),
         },
         {
           id: 'tweet-actions',
-          label: <Trans id="settings_tweet_actions" />,
+          label: getTransString('settings_tweet_actions'),
           render: () => renderTweetActionsSettings(...rendererArguments),
         },
         {
           id: 'custom-css',
-          label: <Trans id="settings_custom_css" />,
+          label: getTransString('settings_custom_css'),
           render: () => {
             return (
               <SettingsCssEditor
@@ -81,7 +81,7 @@ export const makeSettingsMenu = (
       items: [
         {
           id: 'support',
-          label: <Trans id="settings_support" />,
+          label: getTransString('settings_support'),
           render: () => (
             <div className={settingsRegularText}>
               <div>
@@ -107,7 +107,7 @@ export const makeSettingsMenu = (
         },
         {
           id: 'credits',
-          label: <Trans id="settings_credits_about" />,
+          label: getTransString('settings_credits_about'),
           render: () => {
             return <SettingsCredits />;
           },

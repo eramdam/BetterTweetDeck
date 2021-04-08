@@ -2,6 +2,8 @@ import {css, cx} from '@emotion/css';
 import React, {PropsWithChildren} from 'react';
 
 import {HandlerOf} from '../../../helpers/typeHelpers';
+import {useSettingsSearch} from '../settingsContext';
+import {reactElementToString} from '../settingsHelpers';
 import {settingsDisabled} from '../settingsStyles';
 import {featureBadgeClassname, NewFeatureBadge, NewFeatureBadgeProps} from './newFeatureBadge';
 import {SettingsRow, SettingsRowContent} from './settingsRow';
@@ -14,10 +16,12 @@ interface BooleanSettingsRowProps extends Partial<NewFeatureBadgeProps> {
   alignToTheLeft?: boolean;
   noPaddingTop?: boolean;
   disabled?: boolean;
+  ignoreInSearch?: boolean;
 }
 
 export function BooleanSettingsRow(props: PropsWithChildren<BooleanSettingsRowProps>) {
-  return (
+  const {addToIndex} = useSettingsSearch();
+  const render = () => (
     <SettingsRow
       className={cx(props.disabled && settingsDisabled)}
       stretch={!props.alignToTheLeft}
@@ -44,4 +48,13 @@ export function BooleanSettingsRow(props: PropsWithChildren<BooleanSettingsRowPr
       </SettingsRowContent>
     </SettingsRow>
   );
+
+  if (!props.ignoreInSearch && !props.disabled) {
+    addToIndex({
+      keywords: [reactElementToString(render())],
+      render: () => render(),
+    });
+  }
+
+  return render();
 }

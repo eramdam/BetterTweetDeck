@@ -8,12 +8,45 @@ import {CheckboxSelectSettingsRow} from '../components/checkboxSelectSettingsRow
 import {SettingsRow} from '../components/settingsRow';
 import {SettingsTextInputWithAnnotation} from '../components/settingsTimeFormatInput';
 import {SettingsMenuRenderer, SettingsSmallText} from '../settingsComponents';
+import {useSettingsSearch} from '../settingsContext';
+import {reactElementToString} from '../settingsHelpers';
 
 export const renderGeneralSettings: SettingsMenuRenderer = (
   settings,
   makeOnSettingsChange,
   _setEditorHasErrors
 ) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const {addToIndex} = useSettingsSearch();
+  const customWidthField = () => {
+    return (
+      <Fragment>
+        <BooleanSettingsRow
+          alignToTheLeft
+          ignoreInSearch
+          settingsKey="useCustomColumnWidth"
+          initialValue={settings.useCustomColumnWidth}
+          onChange={makeOnSettingsChange('useCustomColumnWidth')}>
+          <Trans id="settings_use_a_custom_width_for_columns" />
+        </BooleanSettingsRow>
+        <SettingsRow disabled={!settings.useCustomColumnWidth}>
+          <span></span>
+          <SettingsTextInputWithAnnotation
+            value={settings.customColumnWidthValue}
+            onChange={makeOnSettingsChange('customColumnWidthValue')}
+            annotation={
+              <Trans id="settings_width_any_valid_css_value" />
+            }></SettingsTextInputWithAnnotation>
+        </SettingsRow>
+      </Fragment>
+    );
+  };
+
+  addToIndex({
+    keywords: [reactElementToString(customWidthField())],
+    render: () => customWidthField(),
+  });
+
   return (
     <Fragment>
       <CheckboxSelectSettingsRow
@@ -55,22 +88,7 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
         ]}>
         <Trans id="settings_columns" />
       </CheckboxSelectSettingsRow>
-      <BooleanSettingsRow
-        alignToTheLeft
-        settingsKey="useCustomColumnWidth"
-        initialValue={settings.useCustomColumnWidth}
-        onChange={makeOnSettingsChange('useCustomColumnWidth')}>
-        <Trans id="settings_use_a_custom_width_for_columns" />
-      </BooleanSettingsRow>
-      <SettingsRow disabled={!settings.useCustomColumnWidth}>
-        <span></span>
-        <SettingsTextInputWithAnnotation
-          value={settings.customColumnWidthValue}
-          onChange={makeOnSettingsChange('customColumnWidthValue')}
-          annotation={
-            <Trans id="settings_width_any_valid_css_value" />
-          }></SettingsTextInputWithAnnotation>
-      </SettingsRow>
+      {customWidthField()}
       <CheckboxSelectSettingsRow
         onChange={(key, value) => {
           makeOnSettingsChange(key as keyof BTDSettings)(value);
