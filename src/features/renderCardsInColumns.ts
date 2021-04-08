@@ -47,35 +47,44 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
       }
     | undefined = mR && mR.findFunction('getColumnType')[0];
 
-  const observer = new IntersectionObserver((entries, thisObserver) => {
-    const allColumns = TD.controller.columnManager.getAllOrdered();
+  const observer = new IntersectionObserver(
+    (entries, thisObserver) => {
+      const allColumns = TD.controller.columnManager.getAllOrdered();
 
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        return;
-      }
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          return;
+        }
 
-      const chirpNode = entry.target.closest('[data-key]');
+        const chirpNode = entry.target.closest('[data-key]');
 
-      if (!chirpNode) {
-        return;
-      }
+        if (!chirpNode) {
+          return;
+        }
 
-      const chirpKey = chirpNode.getAttribute('data-key');
+        const chirpKey = chirpNode.getAttribute('data-key');
 
-      if (!chirpKey) {
-        return;
-      }
+        if (!chirpKey) {
+          return;
+        }
 
-      allColumns.forEach((c) => {
-        c.ui.teardownCard(chirpKey);
+        allColumns.forEach((c) => {
+          if (!c.updateIndex[chirpKey]) {
+            return;
+          }
+
+          c.ui.teardownCard(chirpKey);
+        });
+
+        thisObserver.unobserve(entry.target);
       });
+    },
+    {
+      threshold: 0,
+    }
+  );
 
-      thisObserver.unobserve(entry.target);
-    });
-  });
-
-  onVisibleChirpAdded((payload) => {
+  onVisibleChirpAdded(async (payload) => {
     if (payload.columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.OFF) {
       return;
     }
@@ -119,8 +128,16 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
       return;
     }
 
+    // Wait a bit, if the user's timeline goes very fast, we can avoid rendering anything at all.
+    await delayAsync(500);
+
+    // If the chirp is out of the view, don't render the card.
+    if (isNodeIsOutsideOfTheViewport(chirpNode[0])) {
+      return;
+    }
+
     // Observer the card container to remove the card when it gets out of the view
-    observer.observe(cardContainer[0]);
+    observer.observe(chirpNode[0]);
 
     renderCardForChirpModule.renderCardForChirp(actualChirp, cardContainer, {
       context: 'detail',
@@ -128,3 +145,23 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
     });
   });
 });
+
+function isNodeIsOutsideOfTheViewport(node: HTMLElement) {
+  const rect = node.getBoundingClientRect();
+  return (
+    rect.left > window.innerWidth ||
+    rect.left < 0 ||
+    rect.top > window.innerHeight ||
+    rect.top < 0 ||
+    rect.top + rect.height > window.innerHeight ||
+    rect.left + rect.width > window.innerWidth ||
+    rect.x < 0 ||
+    rect.y < 0
+  );
+}
+
+function delayAsync(number = 0) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, number);
+  });
+}
