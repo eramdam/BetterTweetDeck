@@ -24,7 +24,7 @@
     "message": "t.co-Weiterleitung auf Links entfernen"
   },
   "settings_make_buttons_smaller_in_the_composer": {
-    "message": "Buttons im Composer verkleinern"
+    "message": "Kleinere Buttons unterhalb des Editors"
   },
   "settings_reflect_new_tweets_and_dms_in_the_tabs_title": {
     "message": "Neue Tweets und Direktnachrichten im Titel des Tabs anzeigen"
@@ -66,7 +66,7 @@
     "message": "Datumsformat"
   },
   "settings_short_time_after_24h": {
-    "message": "Verwende ein anderes Datumsformat nach 24 Stunden"
+    "message": "Nach 24 Stunden ein anderes Datumsformat verwenden"
   },
   "settings_timestamp_presets": {
     "message": "Voreinstellungen"
@@ -111,7 +111,7 @@
     "message": "Wenn der Mauszeiger darauf zeigt"
   },
   "settings_actions_visibility": {
-    "message": "Sichtbare Aktionen"
+    "message": "Sichtbarkeit von Aktionen"
   },
   "settings_position_of_actions": {
     "message": "Position von Aktionen"
@@ -138,16 +138,16 @@
     "message": "Tweet-Aktionen hinzufügen"
   },
   "settings_downloaded_filename_format": {
-    "message": "Dateinamen für heruntergeladene Dateien"
+    "message": "Namensformat für heruntergeladene Dateien"
   },
   "settings_filename_format_tokens": {
-    "message": "Formatierungsvorlagen für Dateinamen"
+    "message": "Formatmuster für Dateinamen"
   },
   "settings_token_username_without": {
-    "message": "nutzername (ohne @)"
+    "message": "Benutzername (ohne @)"
   },
   "settings_token_tweet_id": {
-    "message": "Tweet ID"
+    "message": "Tweet-ID"
   },
   "settings_token_filename": {
     "message": "Dateiname"
@@ -171,13 +171,13 @@
     "message": "Sekunden"
   },
   "settings_menu_item_mute_hashtags": {
-    "message": "Mute #hashtags"
+    "message": "#hashtags stummschalten"
   },
   "settings_menu_item_mute_source": {
-    "message": "Tweet Quelle muten"
+    "message": "Tweet Quelle stummschalten"
   },
   "settings_menu_item_redraft": {
-    "message": "Neu Tweeten"
+    "message": "Neu entwerfen"
   },
   "settings_additional_tweet_menu_items": {
     "message": "Zusätzliche Tweet-Menüeinträge"
@@ -207,16 +207,16 @@
     "message": "Einstellungen"
   },
   "settings_support": {
-    "message": "Unterstützung"
+    "message": "Hilfe"
   },
   "settings_avatar_square": {
-    "message": "Quadratisch"
+    "message": "Quadrat"
   },
   "settings_avatar_circle": {
-    "message": "Rund"
+    "message": "Kreis"
   },
   "settings_display_modern_fullscreen_images": {
-    "message": "Bilder im Vollbild Stil von Twitter.com anzeigen"
+    "message": "Vollbildanzeige wie bei Twitter.com"
   },
   "settings_browser_and_extension_informations": {
     "message": "Browser- und Erweiterungsinformationen"
@@ -225,13 +225,13 @@
     "message": "Version:"
   },
   "settings_user_agent": {
-    "message": "User Agent:"
+    "message": "Browser:"
   },
   "settings_export_settings": {
     "message": "Einstellungen exportieren"
   },
   "settings_export_settings_copy": {
-    "message": "Benutze den Download Button um deine Einstellungen zu exportieren"
+    "message": "Exportiere deine Einstellungen, indem du unten auf den Button klickst"
   },
   "settings_download_settings_button": {
     "message": "Einstellungen herunterladen"
@@ -243,7 +243,7 @@
     "message": "Einstellungen aus einer JSON-Datei importieren"
   },
   "settings_import_json_wrong_keys": {
-    "message": "Die Datei entspricht nicht dem benötigten Format von Better TweetDeck"
+    "message": "Die Datei entspricht nicht Better TweetDeck-Einstellungsformat"
   },
   "settings_import_success": {
     "message": "Einstellungen importiert. Speichern nicht vergessen!"
@@ -252,7 +252,7 @@
     "message": "Klicke hier, um die importierten Einstellungen zu sehen"
   },
   "settings_website": {
-    "message": "Webseite"
+    "message": "Website"
   },
   "settings_links": {
     "message": "Links"
@@ -267,7 +267,7 @@
     "message": "Akzentfarbe"
   },
   "settings_misc": {
-    "message": "Sonstige"
+    "message": "Verschiedenes"
   },
   "settings_meta": {
     "message": "Meta"
@@ -279,22 +279,22 @@
     "message": "Spalten"
   },
   "settings_tweet_content": {
-    "message": "Tweet Inhalt"
+    "message": "Tweet-Inhalt"
   },
   "settings_pause_column_scrolling_on_hover": {
-    "message": "Scrollen einer Zeile anhalten beim Überfliegen mit der Maus"
+    "message": "Kein Scrollen, wenn der Mauszeiger auf einer Spalte liegt"
   },
   "settings_use_a_custom_width_for_columns": {
     "message": "Eigene Spaltenbreite verwenden"
   },
   "settings_width_any_valid_css_value": {
-    "message": "Breite (CSS Syntax beachten)"
+    "message": "Breite (muss gültiger CSS-Wert sein)"
   },
   "settings_share_on_tweetdeck": {
     "message": "Auf TweetDeck teilen"
   },
   "settings_enable_share_item": {
-    "message": "Einen \"Auf TweetDeck teilen\" Eintrag im Browser Kontextmenü anzeigen"
+    "message": "\"Mit TweetDeck teilen\" zum Kontextmenü des Browsers hinzufügen"
   },
   "settings_shorten_the_shared_text": {
     "message": "Den geteilten Text kürzen"
@@ -312,10 +312,10 @@
     "message": "Super Black"
   },
   "settings_light": {
-    "message": "Light"
+    "message": "Hell"
   },
   "settings_tokens_list": {
-    "message": "Tokenliste"
+    "message": "Mögliche Datumsformate"
   },
   "settings_make_emoji_bigger_in_tweets": {
     "message": "Emojis in Tweets vergrößern"
@@ -327,36 +327,36 @@
     "message": "Getweetete Hashtags speichern"
   },
   "settings_changelog": {
-    "message": "Änderungsverlauf"
+    "message": "Changelog"
   },
   "settings_chrome_web_store": {
     "message": "Chrome Web Store"
   },
   "settings_bugs_or_suggestions": {
-    "message": "Bugs oder Vorschläge"
+    "message": "Fehler melden und Vorschläge machen"
   },
   "settings_source_on_github": {
     "message": "Quellcode auf GitHub"
   },
   "settings_contributors": {
-    "message": "Unterstützer"
+    "message": "Beitragende"
   },
   "settings_author": {
     "message": "Autor"
   },
   "settings_credits_about": {
-    "message": "Credits / Über"
+    "message": "Dank / Über"
   },
   "settings_always_characters_left": {
-    "message": "Immer die verbleibenden Zeichen beim schreiben eines Tweets anzeigen"
+    "message": "Beim Schreiben eines Tweets die verbleibenden Zeichen im Editor anzeigen"
   },
   "settings_better_tweetdeck_ask_tabs": {
-    "message": "Better TweetDeck braucht für diese Funktion die Berechtigung zum Zugriff auf geöffnete Tabs"
+    "message": "Für diese Funktion wird Better TweetDeck Zugriff auf Browser-Tabs erbitten"
   },
   "settings_show_like_rt_indicators_on_top_of_tweets": {
-    "message": "Like/Retweet Buttons über Tweets anzeigen"
+    "message": "Like- und Retweet-Buttons über Tweets anzeigen"
   },
   "settings_do_the_same_for_single_images_in_quoted_tweets": {
-    "message": "auch für einzelne Bilder in zitierten Tweets"
+    "message": "Auch für einzelne Bilder in zitierten Tweets"
   }
 }
