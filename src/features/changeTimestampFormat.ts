@@ -35,6 +35,9 @@ function refreshTimestamps(
   timeElements = document.querySelectorAll('time')
 ) {
   timeElements.forEach((timeElement) => {
+    if (timeElement.closest('.js-tweet-detail.tweet-detail-wrapper')) {
+      return;
+    }
     const timeString = timeElement.getAttribute('datetime');
     if (!timeString) {
       return;
@@ -82,10 +85,6 @@ export const maybeSetupCustomTimestampFormat = makeBTDModule(({TD, settings, jq}
     refreshTimestamps(settings);
     setInterval(() => refreshTimestamps(settings), TIMESTAMP_INTERVAL);
     onChirpAdded((addedChirp) => {
-      if (addedChirp.chirpNode.closest('.js-tweet-detail.tweet-detail-wrapper')) {
-        return;
-      }
-
       refreshTimestamps(
         settings,
         document.querySelectorAll(`${makeBtdUuidSelector('data-btd-uuid', addedChirp.uuid)} time`)

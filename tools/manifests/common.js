@@ -1,5 +1,6 @@
 const {commonHosts} = require('./commonHosts');
 const _ = require('lodash');
+const packageJson = require('../../package.json');
 
 const iconSizes = [16, 32, 48, 96, 128, 256, 512];
 
@@ -19,7 +20,7 @@ module.exports = {
   description: 'Take TweetDeck to the next level!',
   short_name: 'Better TweetDeck',
   default_locale: 'en',
-  version: '4.0.0',
+  version: packageJson.version,
   manifest_version: 2,
   icons,
   content_scripts: [

@@ -38,18 +38,6 @@ const extensionPath = path.resolve(__dirname, '../dist');
   const xcodeBuild = execa('npm', ['run', 'pack:safari']);
   xcodeBuild.stderr?.pipe(process.stderr);
   await xcodeBuild;
-  await zip(
-    path.resolve(
-      __dirname,
-      '../safari/',
-      'Better TweetDeck for Safari',
-      'build',
-      'Release',
-      'BetterTDeck for TweetDeck.app'
-    ),
-    path.resolve(__dirname, '../artifacts/', `better-tweetdeck-${packageJson.version}.safari.zip`),
-    'BetterTDeck for TweetDeck.app'
-  );
 })();
 
 function zip(source: string, saveTo: string, destPath: string | false = false) {
