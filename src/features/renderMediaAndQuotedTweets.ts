@@ -1,4 +1,5 @@
 import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
+import {createSelectorForChirp} from '../helpers/tweetdeckHelpers';
 import {onChirpAdded} from '../services/chirpHandler';
 import {makeBTDModule} from '../types/btdCommonTypes';
 
@@ -18,9 +19,15 @@ export const renderMediaAndQuotedTweets = makeBTDModule(({TD, jq}) => {
         mediaPreviewSize: addedChirp.columnMediaSize,
       });
 
-      addedChirp.chirpNode
-        .querySelector('.tweet-body')
-        ?.insertAdjacentHTML('beforeend', quotedTweetMarkup);
+      const chirpNode = document.querySelector(
+        `${createSelectorForChirp(addedChirp.chirp, addedChirp.columnKey)}`
+      );
+
+      if (!chirpNode) {
+        return;
+      }
+
+      chirpNode.querySelector('.tweet-body')?.insertAdjacentHTML('beforeend', quotedTweetMarkup);
     }
   });
   modifyMustacheTemplate(TD, 'status/tweet_single.mustache', (string) => {
