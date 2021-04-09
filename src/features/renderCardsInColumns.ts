@@ -8,6 +8,7 @@ import {
   TweetDeckChirp,
   TweetDeckColumn,
   TweetDeckColumnMediaPreviewSizesEnum,
+  TwitterActionEnum,
 } from '../types/tweetdeckTypes';
 
 export const maybeRenderCardsInColumns = makeBTDModule((options) => {
@@ -108,7 +109,11 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
     const baseChirp = getChirpFromKey(TD, payload.chirp.id, payload.columnKey);
 
     // In the case of a reply, we want the `targetTweet`, as the chirp itself is just a notification
-    const actualChirp = baseChirp?.targetTweet ? baseChirp.targetTweet : baseChirp;
+    const isEligibleNotification =
+      payload.chirpExtra.action === TwitterActionEnum.MENTION ||
+      payload.chirpExtra.action === TwitterActionEnum.REPLY;
+    const actualChirp =
+      baseChirp?.targetTweet && isEligibleNotification ? baseChirp.targetTweet : baseChirp;
 
     if (!actualChirp || !actualChirp.card || !renderCardForChirpModule || !getColumnTypeModule) {
       return;
