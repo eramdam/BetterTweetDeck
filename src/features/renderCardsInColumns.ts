@@ -134,7 +134,7 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
     }
 
     // Wait a bit, if the user's timeline goes very fast, we can avoid rendering anything at all.
-    await delayAsync(500);
+    await delayAsync(200);
 
     // If the chirp is out of the view, don't render the card.
     if (isNodeIsOutsideOfTheViewport(chirpNode[0])) {
