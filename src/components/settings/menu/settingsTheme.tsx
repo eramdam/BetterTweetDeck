@@ -15,30 +15,16 @@ export const SettingsTheme: FC<SettingsMenuSectionProps> = (props) => {
   const {settings, makeOnSettingsChange} = props;
   const {renderAndAddtoIndex} = useSettingsSearch();
 
-  const accentColor = (
-    <CustomAccentColor
-      initialValue={settings.customAccentColor}
-      onChange={makeOnSettingsChange('customAccentColor')}></CustomAccentColor>
-  );
-
-  const themeSelector = (
-    <ThemeSelector
-      initialValue={settings.theme}
-      onChange={(value) => {
-        if (value === 'light') {
-          makeOnSettingsChange('theme')(BetterTweetDeckThemes.LIGHT);
-        } else {
-          makeOnSettingsChange('theme')(value);
-        }
-      }}></ThemeSelector>
-  );
-
   return (
     <Fragment>
       {renderAndAddtoIndex({
         keywords: [reactElementToString(<Trans id="settings_accent_color" />)],
         key: 'accentColor',
-        render: () => accentColor,
+        render: (newSettings) => (
+          <CustomAccentColor
+            initialValue={newSettings.customAccentColor}
+            onChange={makeOnSettingsChange('customAccentColor')}></CustomAccentColor>
+        ),
       })}
       {renderAndAddtoIndex({
         keywords: [
@@ -49,7 +35,17 @@ export const SettingsTheme: FC<SettingsMenuSectionProps> = (props) => {
           getTransString('settings_super_black'),
         ],
         key: 'theme',
-        render: () => themeSelector,
+        render: (newSettings) => (
+          <ThemeSelector
+            initialValue={newSettings.theme}
+            onChange={(value) => {
+              if (value === 'light') {
+                makeOnSettingsChange('theme')(BetterTweetDeckThemes.LIGHT);
+              } else {
+                makeOnSettingsChange('theme')(value);
+              }
+            }}></ThemeSelector>
+        ),
       })}
       <CheckboxSelectSettingsRow
         onChange={(_key, value) => {

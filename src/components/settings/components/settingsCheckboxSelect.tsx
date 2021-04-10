@@ -8,7 +8,7 @@ import {checkboxInputStyles, settingsDisabled} from '../settingsStyles';
 import {featureBadgeClassname, NewFeatureBadge, NewFeatureBadgeProps} from './newFeatureBadge';
 
 // There's probably a wau to do this without having to do a manual union ¯\(ツ)/¯
-type SettingKey =
+export type SettingKey =
   | keyof BTDSettings
   | keyof AbstractTweetDeckSettings
   | keyof BTDSettings['tweetActions']
