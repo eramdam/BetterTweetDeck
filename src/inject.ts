@@ -89,7 +89,6 @@ const jq: JQueryStatic | undefined =
   setupChirpHandler(btdModuleOptions);
   maybeSetupDebugFunctions(btdModuleOptions);
 
-  keepTweetedHashtagsInComposer(btdModuleOptions);
   makeSearchColumnsFirst(btdModuleOptions);
   makeEmojiBigger(btdModuleOptions);
   pauseColumnsOnHover(btdModuleOptions);
@@ -136,6 +135,7 @@ const jq: JQueryStatic | undefined =
       payload: undefined,
     });
     maybeShowFollowBanner(btdModuleOptions);
+    keepTweetedHashtagsInComposer(btdModuleOptions);
     setTimeout(() => {
       if (!settings.needsToShowUpdateBanner) {
         return;
