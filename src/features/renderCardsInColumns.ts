@@ -158,8 +158,6 @@ function isNodeIsOutsideOfTheViewport(node: HTMLElement) {
     rect.left < 0 ||
     rect.top > window.innerHeight ||
     rect.top < 0 ||
-    rect.top + rect.height > window.innerHeight ||
-    rect.left + rect.width > window.innerWidth ||
     rect.x < 0 ||
     rect.y < 0
   );
