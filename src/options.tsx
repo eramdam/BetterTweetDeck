@@ -2,7 +2,6 @@ import {isEmpty} from 'lodash';
 import React, {FC, useEffect, useState} from 'react';
 import {render} from 'react-dom';
 
-import {SettingsSearchProvider} from './components/settings/settingsContext';
 import {SettingsModal} from './components/settings/settingsModal';
 import {minifyCss, prettifyCss} from './helpers/cssHelpers';
 import {ExtensionSettings} from './helpers/webExtensionHelpers';
@@ -26,17 +25,15 @@ const App: FC = () => {
   }
 
   return (
-    <SettingsSearchProvider>
-      <SettingsModal
-        onSettingsUpdate={async (newSettings) => {
-          const compressedCss = minifyCss(newSettings.customCss);
-          await ExtensionSettings.set({
-            ...newSettings,
-            customCss: compressedCss,
-          });
-        }}
-        btdSettings={settings}></SettingsModal>
-    </SettingsSearchProvider>
+    <SettingsModal
+      onSettingsUpdate={async (newSettings) => {
+        const compressedCss = minifyCss(newSettings.customCss);
+        await ExtensionSettings.set({
+          ...newSettings,
+          customCss: compressedCss,
+        });
+      }}
+      btdSettings={settings}></SettingsModal>
   );
 };
 

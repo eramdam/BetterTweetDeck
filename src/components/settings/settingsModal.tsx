@@ -2,7 +2,7 @@ import './settingsModal.css';
 
 import {css, cx} from '@emotion/css';
 import {isEqual} from 'lodash';
-import React, {Fragment, useCallback, useEffect, useMemo, useState} from 'react';
+import React, {Fragment, useCallback, useMemo, useState} from 'react';
 import {browser} from 'webextension-polyfill-ts';
 
 import {isFirefox} from '../../helpers/browserHelpers';
@@ -18,10 +18,10 @@ import {
   SettingsModalWrapper,
   SettingsSidebar,
 } from './components/settingsModalComponents';
-import {SettingsRow, SettingsRowTitle} from './components/settingsRow';
 import {SettingsTextInput} from './components/settingsTextInput';
-import {SettingsSearchContext, useSettingsSearch} from './settingsContext';
+import {SettingsSearchProvider} from './settingsContext';
 import {makeSettingsMenu, MenuItem} from './settingsMenu';
+import {SettingsModalSearchContent} from './settingsModalContent';
 
 interface SettingsModalProps {
   btdSettings: BTDSettings;
@@ -46,7 +46,6 @@ export const SettingsModal = (props: SettingsModalProps) => {
   });
   const [editorHasErrors, setEditorHasErrors] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const {renderSearchResults, stopIndexing} = useSettingsSearch();
 
   const onSearchQueryChange = (newQuery: string) => {
     if (!newQuery) {
@@ -56,10 +55,6 @@ export const SettingsModal = (props: SettingsModalProps) => {
     }
     setSearchQuery(newQuery);
   };
-
-  useEffect(() => {
-    stopIndexing();
-  }, [stopIndexing]);
 
   const makeOnSettingsChange = <T extends keyof BTDSettings>(key: T) => {
     return (val: BTDSettings[T]) => {
@@ -94,51 +89,18 @@ export const SettingsModal = (props: SettingsModalProps) => {
     );
   }, [settings]);
 
-  const renderSelectedPage = () => {
-    const menuSection = menu
-      .find((s) => s.items.find((s) => s.id === selectedId))
-      ?.items.find((s) => s.id === selectedId);
-
-    return menuSection?.render();
-  };
-
   const showSettingsLabel = useMemo(() => !isEqual(props.btdSettings, settings) || isDirty, [
     isDirty,
     props.btdSettings,
     settings,
   ]);
 
-  const renderSettingsContent = () => {
-    if (!searchQuery) {
-      return renderSelectedPage();
-    }
-
-    return (
-      <SettingsRow>
-        <SettingsRowTitle
-          className={css`
-            font-size: 24px;
-          `}>
-          Search results
-        </SettingsRowTitle>
-        <div
-          className={css`
-            > div {
-              padding-left: 20px;
-            }
-          `}>
-          {renderSearchResults(searchQuery, settings)}
-        </div>
-      </SettingsRow>
-    );
-  };
-
   const renderSearchIndex = () => {
     return renderMenuInInvisibleContainer(menu);
   };
 
   return (
-    <>
+    <SettingsSearchProvider settings={settings}>
       {renderSearchIndex()}
       <SettingsModalWrapper>
         <SettingsHeader>
@@ -225,14 +187,12 @@ export const SettingsModal = (props: SettingsModalProps) => {
           </div>
         </SettingsSidebar>
         <SettingsContent>
-          <SettingsSearchContext.Provider
-            value={{
-              addToIndex: () => null,
-              stopIndexing: () => {},
-              renderSearchResults: () => null,
-            }}>
-            {renderSettingsContent()}
-          </SettingsSearchContext.Provider>
+          <SettingsModalSearchContent
+            selectedId={selectedId}
+            menu={menu}
+            searchQuery={searchQuery}
+            settings={settings}
+          />
         </SettingsContent>
         <SettingsFooter
           className={cx({
@@ -250,7 +210,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
           </div>
         </SettingsFooter>
       </SettingsModalWrapper>
-    </>
+    </SettingsSearchProvider>
   );
 };
 

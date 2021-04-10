@@ -67,7 +67,7 @@ export const makeSettingsMenu = (
           label: getTransString('settings_custom_css'),
           render: () => {
             // eslint-disable-next-line react-hooks/rules-of-hooks
-            const {addToIndex} = useSettingsSearch();
+            const {renderAndAddtoIndex} = useSettingsSearch();
             const renderEditor = (newSettings: BTDSettings) => (
               <SettingsCssEditor
                 onChange={(val) => makeOnSettingsChange('customCss')(val)}
@@ -75,14 +75,11 @@ export const makeSettingsMenu = (
                 value={newSettings.customCss}></SettingsCssEditor>
             );
 
-            return addToIndex(
-              {
-                key: 'custom_css',
-                keywords: [getTransString('settings_custom_css')],
-                render: renderEditor,
-              },
-              settings
-            );
+            return renderAndAddtoIndex({
+              key: 'custom_css',
+              keywords: [getTransString('settings_custom_css')],
+              render: renderEditor,
+            });
           },
         },
       ],

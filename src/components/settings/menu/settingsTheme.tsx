@@ -17,7 +17,7 @@ export const renderThemeSettings: SettingsMenuRenderer = (
   _setEditorHasErrors
 ) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const {addToIndex} = useSettingsSearch();
+  const {renderAndAddtoIndex} = useSettingsSearch();
 
   const accentColor = (
     <CustomAccentColor
@@ -39,28 +39,22 @@ export const renderThemeSettings: SettingsMenuRenderer = (
 
   return (
     <Fragment>
-      {addToIndex(
-        {
-          keywords: [reactElementToString(<Trans id="settings_accent_color" />)],
-          key: 'accentColor',
-          render: () => accentColor,
-        },
-        settings
-      )}
-      {addToIndex(
-        {
-          keywords: [
-            getTransString('settings_theme'),
-            getTransString('settings_light'),
-            getTransString('settings_dark_theme'),
-            getTransString('settings_old_gray'),
-            getTransString('settings_super_black'),
-          ],
-          key: 'theme',
-          render: () => themeSelector,
-        },
-        settings
-      )}
+      {renderAndAddtoIndex({
+        keywords: [reactElementToString(<Trans id="settings_accent_color" />)],
+        key: 'accentColor',
+        render: () => accentColor,
+      })}
+      {renderAndAddtoIndex({
+        keywords: [
+          getTransString('settings_theme'),
+          getTransString('settings_light'),
+          getTransString('settings_dark_theme'),
+          getTransString('settings_old_gray'),
+          getTransString('settings_super_black'),
+        ],
+        key: 'theme',
+        render: () => themeSelector,
+      })}
       <CheckboxSelectSettingsRow
         onChange={(_key, value) => {
           makeOnSettingsChange('enableAutoThemeSwitch')(value);

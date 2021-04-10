@@ -20,7 +20,7 @@ interface BooleanSettingsRowProps extends Partial<NewFeatureBadgeProps> {
 }
 
 export function BooleanSettingsRow(props: PropsWithChildren<BooleanSettingsRowProps>) {
-  const {addToIndex} = useSettingsSearch();
+  const {renderAndAddtoIndex} = useSettingsSearch();
   const render = () => (
     <SettingsRow
       className={cx(props.disabled && settingsDisabled)}
@@ -50,14 +50,11 @@ export function BooleanSettingsRow(props: PropsWithChildren<BooleanSettingsRowPr
   );
 
   if (!props.ignoreInSearch) {
-    addToIndex(
-      {
-        keywords: [reactElementToString(props.children)],
-        key: props.settingsKey,
-        render: () => render(),
-      },
-      {} as any
-    );
+    renderAndAddtoIndex({
+      keywords: [reactElementToString(props.children)],
+      key: props.settingsKey,
+      render: () => render(),
+    });
   }
 
   return render();

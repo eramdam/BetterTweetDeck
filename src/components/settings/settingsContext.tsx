@@ -14,18 +14,22 @@ interface SettingsSearchItem {
 }
 
 interface SettingsSearchContextProps {
-  addToIndex: (blob: SettingsSearchItem, settings: BTDSettings) => ReactNode;
-  renderSearchResults: (query: string, settings: BTDSettings) => ReactNode;
+  renderAndAddtoIndex: (blob: SettingsSearchItem) => ReactNode;
+  renderSearchResults: (query: string) => ReactNode;
   stopIndexing(): void;
 }
 
 export const SettingsSearchContext = createContext<SettingsSearchContextProps>({
-  addToIndex: () => null,
+  renderAndAddtoIndex: () => null,
   renderSearchResults: () => null,
   stopIndexing: () => {},
 });
 
-export const SettingsSearchProvider: FC = (props) => {
+interface SettingsSearchProviderProps {
+  settings: BTDSettings;
+}
+
+export const SettingsSearchProvider: FC<SettingsSearchProviderProps> = (props) => {
   const searchItems = useRef<Fuse<SettingsSearchItem>>(
     new Fuse([], {
       threshold: 0.4,
@@ -34,6 +38,7 @@ export const SettingsSearchProvider: FC = (props) => {
     })
   );
   const stopIndexingRef = useRef(false);
+  const {settings} = props;
 
   return (
     <SettingsSearchContext.Provider
@@ -41,7 +46,7 @@ export const SettingsSearchProvider: FC = (props) => {
         stopIndexing: () => {
           stopIndexingRef.current = true;
         },
-        addToIndex: (item, settings) => {
+        renderAndAddtoIndex: (item) => {
           if (stopIndexingRef.current) {
             return item.render(settings);
           }
@@ -54,10 +59,9 @@ export const SettingsSearchProvider: FC = (props) => {
           });
           return item.render(settings);
         },
-        renderSearchResults: (query, settings) => {
+        renderSearchResults: (query) => {
           return _(searchItems.current.search(query.trim()))
             .uniqBy((r) => r.item.key)
-
             .map((result) => {
               return (
                 <Fragment key={result.item.key}>

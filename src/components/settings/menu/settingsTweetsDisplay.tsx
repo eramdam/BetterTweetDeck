@@ -23,7 +23,7 @@ export const renderTweetDisplaySettings: SettingsMenuRenderer = (
   makeOnSettingsChange,
   _setEditorHasErrors
 ) => {
-  const {addToIndex} = useSettingsSearch();
+  const {renderAndAddtoIndex} = useSettingsSearch();
   const dateTimeSection = (newSettings: BTDSettings) => (
     <>
       <BTDRadioSelectSettingsRow
@@ -137,22 +137,19 @@ export const renderTweetDisplaySettings: SettingsMenuRenderer = (
 
   return (
     <Fragment>
-      {addToIndex(
-        {
-          keywords: [
-            <Trans id="settings_timestamp_relative" />,
-            <Trans id="settings_timestamp_custom" />,
-            <Trans id="settings_date_format" />,
-            <Trans id="settings_short_time_after_24h" />,
-            <Trans id="settings_timestamp_presets" />,
-            <Trans id="settings_timestamp_preset_absolute" />,
-            <Trans id="settings_timestamp_preset_absolute_us" />,
-          ].map((t) => reactElementToString(t)),
-          key: 'dateTimeSection',
-          render: dateTimeSection,
-        },
-        settings
-      )}
+      {renderAndAddtoIndex({
+        keywords: [
+          <Trans id="settings_timestamp_relative" />,
+          <Trans id="settings_timestamp_custom" />,
+          <Trans id="settings_date_format" />,
+          <Trans id="settings_short_time_after_24h" />,
+          <Trans id="settings_timestamp_presets" />,
+          <Trans id="settings_timestamp_preset_absolute" />,
+          <Trans id="settings_timestamp_preset_absolute_us" />,
+        ].map((t) => reactElementToString(t)),
+        key: 'dateTimeSection',
+        render: dateTimeSection,
+      })}
       <SettingsSeparator></SettingsSeparator>
       <BTDRadioSelectSettingsRow
         settingsKey="usernamesFormat"
@@ -172,22 +169,19 @@ export const renderTweetDisplaySettings: SettingsMenuRenderer = (
         ]}>
         <Trans id="settings_name_display_style" />
       </BTDRadioSelectSettingsRow>
-      {addToIndex(
-        {
-          keywords: [
-            <Trans id="settings_avatar_shape" />,
-            <Trans id="settings_avatar_square" />,
-            <Trans id="settings_avatar_circle" />,
-          ].map((t) => reactElementToString(t)),
-          key: 'avatarShapes',
-          render: (newSettings: BTDSettings) => (
-            <AvatarsShape
-              initialValue={newSettings.avatarsShape}
-              onChange={makeOnSettingsChange('avatarsShape')}></AvatarsShape>
-          ),
-        },
-        settings
-      )}
+      {renderAndAddtoIndex({
+        keywords: [
+          <Trans id="settings_avatar_shape" />,
+          <Trans id="settings_avatar_square" />,
+          <Trans id="settings_avatar_circle" />,
+        ].map((t) => reactElementToString(t)),
+        key: 'avatarShapes',
+        render: (newSettings: BTDSettings) => (
+          <AvatarsShape
+            initialValue={newSettings.avatarsShape}
+            onChange={makeOnSettingsChange('avatarsShape')}></AvatarsShape>
+        ),
+      })}
     </Fragment>
   );
 };

@@ -13,26 +13,23 @@ interface CheckboxSelectSettingsRowProps extends SettingsCheckboxSelectProps {
 export function CheckboxSelectSettingsRow(
   props: PropsWithChildren<CheckboxSelectSettingsRowProps>
 ) {
-  const {addToIndex} = useSettingsSearch();
+  const {renderAndAddtoIndex} = useSettingsSearch();
 
   if (!props.ignoreSearch) {
     props.fields
       .filter((f) => !f.isDisabled)
       .forEach((field) => {
-        addToIndex(
-          {
-            key: field.key,
-            keywords: [reactElementToString(field.label)],
-            render: () => (
-              <SettingsRow>
-                <SettingsCheckboxSelect
-                  fields={[field]}
-                  onChange={props.onChange}></SettingsCheckboxSelect>
-              </SettingsRow>
-            ),
-          },
-          {} as any
-        );
+        renderAndAddtoIndex({
+          key: field.key,
+          keywords: [reactElementToString(field.label)],
+          render: () => (
+            <SettingsRow>
+              <SettingsCheckboxSelect
+                fields={[field]}
+                onChange={props.onChange}></SettingsCheckboxSelect>
+            </SettingsRow>
+          ),
+        });
       });
   }
 

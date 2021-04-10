@@ -19,7 +19,7 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
   _setEditorHasErrors
 ) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const {addToIndex} = useSettingsSearch();
+  const {renderAndAddtoIndex} = useSettingsSearch();
   const onBooleanCustomWidthChange = makeOnSettingsChange('useCustomColumnWidth');
   const customWidthField = (newSettings: BTDSettings) => (
     <Fragment>
@@ -31,7 +31,7 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
         onChange={onBooleanCustomWidthChange}>
         <Trans id="settings_use_a_custom_width_for_columns" />
       </BooleanSettingsRow>
-      <SettingsRow>
+      <SettingsRow disabled={!newSettings.useCustomColumnWidth}>
         <span></span>
         <SettingsTextInputWithAnnotation
           value={newSettings.customColumnWidthValue}
@@ -116,17 +116,14 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
         ]}>
         <Trans id="settings_columns" />
       </CheckboxSelectSettingsRow>
-      {addToIndex(
-        {
-          keywords: [
-            <Trans id="settings_use_a_custom_width_for_columns" />,
-            <Trans id="settings_width_any_valid_css_value" />,
-          ].map((t) => reactElementToString(t)),
-          key: 'custom_width_column',
-          render: customWidthField,
-        },
-        settings
-      )}
+      {renderAndAddtoIndex({
+        keywords: [
+          <Trans id="settings_use_a_custom_width_for_columns" />,
+          <Trans id="settings_width_any_valid_css_value" />,
+        ].map((t) => reactElementToString(t)),
+        key: 'custom_width_column',
+        render: customWidthField,
+      })}
       <CheckboxSelectSettingsRow
         onChange={(key, value) => {
           makeOnSettingsChange(key as keyof BTDSettings)(value);
@@ -219,22 +216,19 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
         <Trans id="settings_misc" />
       </CheckboxSelectSettingsRow>
       {!isSafari &&
-        addToIndex(
-          {
-            keywords: _([
-              <Trans id="settings_enable_share_item" />,
-              isFirefox && <Trans id="settings_better_tweetdeck_ask_tabs" />,
-              <Trans id="settings_shorten_the_shared_text" />,
-              <Trans id="settings_contextual_menu" />,
-            ])
-              .compact()
-              .map((t) => reactElementToString(t))
-              .value(),
-            key: 'share',
-            render: shareItem,
-          },
-          settings
-        )}
+        renderAndAddtoIndex({
+          keywords: _([
+            <Trans id="settings_enable_share_item" />,
+            isFirefox && <Trans id="settings_better_tweetdeck_ask_tabs" />,
+            <Trans id="settings_shorten_the_shared_text" />,
+            <Trans id="settings_contextual_menu" />,
+          ])
+            .compact()
+            .map((t) => reactElementToString(t))
+            .value(),
+          key: 'share',
+          render: shareItem,
+        })}
     </Fragment>
   );
 };

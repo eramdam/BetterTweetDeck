@@ -2,7 +2,6 @@ import {css} from '@emotion/css';
 import React, {PropsWithChildren} from 'react';
 
 import {BTDSettings} from '../../../types/btdSettingsTypes';
-import {useSettingsSearch} from '../settingsContext';
 import {SettingsRadioSettingSelect, SettingsRadioSettingsSelectProps} from './settingsRadioSelect';
 import {SettingsRow, SettingsRowContent, SettingsRowTitle} from './settingsRow';
 
@@ -39,7 +38,5 @@ function RadioSelectSettingsRow<S extends object, T extends keyof S>(
 export function BTDRadioSelectSettingsRow<T extends keyof BTDSettings>(
   props: PropsWithChildren<SettingsRadioSettingsSelectProps<BTDSettings, T>>
 ) {
-  const {addToIndex} = useSettingsSearch();
-
   return RadioSelectSettingsRow(props);
 }
