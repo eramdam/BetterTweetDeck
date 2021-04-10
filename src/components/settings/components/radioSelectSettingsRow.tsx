@@ -41,10 +41,14 @@ export function BTDRadioSelectSettingsRow<T extends keyof BTDSettings>(
   props: PropsWithChildren<SettingsRadioSettingsSelectProps<BTDSettings, T>>
 ) {
   const {renderAndAddtoIndex} = useSettingsSearch();
-  return renderAndAddtoIndex({
-    key: props.settingsKey,
-    keywords: props.fields.map((f) => reactElementToString(f.label)),
-    render: (newSettings) =>
-      RadioSelectSettingsRow({...props, initialValue: newSettings[props.settingsKey]}),
-  });
+  return (
+    <>
+      {renderAndAddtoIndex({
+        key: props.settingsKey,
+        keywords: props.fields.map((f) => reactElementToString(f.label)),
+        render: (newSettings) =>
+          RadioSelectSettingsRow({...props, initialValue: newSettings[props.settingsKey]}),
+      })}
+    </>
+  );
 }
