@@ -142,6 +142,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
                           className={(selectedId === item.id && 'active') || ''}
                           onClick={() => {
                             setSelectedId(item.id);
+                            setSearchQuery('');
                           }}>
                           <div className="text">{item.label}</div>
                         </li>

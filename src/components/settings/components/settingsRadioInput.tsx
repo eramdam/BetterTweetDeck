@@ -2,7 +2,6 @@ import {css} from '@emotion/css';
 import React, {PropsWithChildren} from 'react';
 
 import {Handler} from '../../../helpers/typeHelpers';
-import {generateInputId} from '../settingsHelpers';
 
 const mainInputStyles = css`
   appearance: none;
@@ -26,18 +25,17 @@ interface SettingsRadioSelectFieldProps {
   onChange: Handler;
 }
 export function SettingsRadioInput(props: PropsWithChildren<SettingsRadioSelectFieldProps>) {
-  const inputId = generateInputId();
   return (
     <span>
       <input
         name={props.name}
         type="radio"
-        id={inputId}
+        id={props.id}
         checked={props.defaultChecked}
         className={mainInputStyles}
         onChange={props.onChange}
       />
-      <label htmlFor={inputId}>{props.children}</label>
+      <label htmlFor={props.id}>{props.children}</label>
     </span>
   );
 }
