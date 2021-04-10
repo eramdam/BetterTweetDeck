@@ -46,12 +46,11 @@ export const SettingsModal = (props: SettingsModalProps) => {
   });
   const [editorHasErrors, setEditorHasErrors] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const {renderSearchResults} = useSettingsSearch();
-  const [isInitialRender, setIsInitialRender] = useState(true);
+  const {renderSearchResults, stopIndexing} = useSettingsSearch();
 
   useEffect(() => {
-    setIsInitialRender(false);
-  }, []);
+    stopIndexing();
+  }, [stopIndexing]);
 
   const makeOnSettingsChange = <T extends keyof BTDSettings>(key: T) => {
     return (val: BTDSettings[T]) => {
@@ -125,10 +124,6 @@ export const SettingsModal = (props: SettingsModalProps) => {
   };
 
   const renderSearchIndex = () => {
-    if (!isInitialRender) {
-      return null;
-    }
-
     return renderMenuInInvisibleContainer(menu);
   };
 
@@ -223,6 +218,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
           <SettingsSearchContext.Provider
             value={{
               addToIndex: noop,
+              stopIndexing: () => {},
               renderSearchResults: () => null,
             }}>
             {renderSettingsContent()}

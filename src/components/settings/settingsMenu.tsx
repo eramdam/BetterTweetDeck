@@ -12,6 +12,7 @@ import {renderThemeSettings} from './menu/settingsTheme';
 import {renderTweetActionsSettings} from './menu/settingsTweetActions';
 import {renderTweetDisplaySettings} from './menu/settingsTweetsDisplay';
 import {SettingsMenuRenderer} from './settingsComponents';
+import {useSettingsSearch} from './settingsContext';
 import {settingsRegularText} from './settingsStyles';
 
 export interface MenuItem {
@@ -65,12 +66,22 @@ export const makeSettingsMenu = (
           id: 'custom-css',
           label: getTransString('settings_custom_css'),
           render: () => {
-            return (
+            // eslint-disable-next-line react-hooks/rules-of-hooks
+            const {addToIndex} = useSettingsSearch();
+            const editor = (
               <SettingsCssEditor
                 onChange={(val) => makeOnSettingsChange('customCss')(val)}
                 onErrorChange={setEditorHasErrors}
                 value={settings.customCss}></SettingsCssEditor>
             );
+
+            addToIndex({
+              key: 'custom_css',
+              keywords: [getTransString('settings_custom_css')],
+              render: () => editor,
+            });
+
+            return editor;
           },
         },
       ],

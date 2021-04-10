@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-key */
+import _ from 'lodash';
 import React, {Fragment} from 'react';
 
 import {isFirefox, isSafari} from '../../../helpers/browserHelpers';
@@ -43,11 +45,15 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
   };
 
   addToIndex({
-    keywords: [reactElementToString(customWidthField())],
+    keywords: [
+      <Trans id="settings_use_a_custom_width_for_columns" />,
+      <Trans id="settings_width_any_valid_css_value" />,
+    ].map((t) => reactElementToString(t)),
+    key: 'custom_width_column',
     render: () => customWidthField(),
   });
 
-  const shareItem = (
+  const shareItem = () => (
     <CheckboxSelectSettingsRow
       ignoreSearch
       onChange={(key, value) => {
@@ -81,8 +87,17 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
 
   if (!isSafari) {
     addToIndex({
-      keywords: [reactElementToString(<>{shareItem}</>)],
-      render: () => shareItem,
+      keywords: _([
+        <Trans id="settings_enable_share_item" />,
+        isFirefox && <Trans id="settings_better_tweetdeck_ask_tabs" />,
+        <Trans id="settings_shorten_the_shared_text" />,
+        <Trans id="settings_contextual_menu" />,
+      ])
+        .compact()
+        .map((t) => reactElementToString(t))
+        .value(),
+      key: 'share',
+      render: () => shareItem(),
     });
   }
 
@@ -219,7 +234,7 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
         ]}>
         <Trans id="settings_misc" />
       </CheckboxSelectSettingsRow>
-      {!isSafari && shareItem}
+      {!isSafari && shareItem()}
     </Fragment>
   );
 };

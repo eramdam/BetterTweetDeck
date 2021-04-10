@@ -5,31 +5,40 @@ import {Renderer, RendererOf} from '../../helpers/typeHelpers';
 
 interface SettingsSearchItem {
   render: Renderer;
+  key: string;
   keywords: ReadonlyArray<string>;
 }
 
 interface SettingsSearchContextProps {
   addToIndex(blob: SettingsSearchItem): void;
   renderSearchResults: RendererOf<string>;
+  stopIndexing(): void;
 }
 
 export const SettingsSearchContext = createContext<SettingsSearchContextProps>({
   addToIndex: () => {},
   renderSearchResults: () => null,
+  stopIndexing: () => {},
 });
 
 export const SettingsSearchProvider: FC = (props) => {
   const searchItems = useRef<ReadonlyArray<SettingsSearchItem>>([]);
+  const stopIndexingRef = useRef(false);
 
   return (
     <SettingsSearchContext.Provider
       value={{
+        stopIndexing: () => {
+          stopIndexingRef.current = true;
+        },
         addToIndex: (item) => {
+          if (stopIndexingRef.current) {
+            return;
+          }
+
           searchItems.current = _(searchItems.current)
             .concat(item)
-            .uniqBy((i) => {
-              return i.keywords.join('').trim();
-            })
+            .uniqBy((i) => i.key)
             .value();
         },
         renderSearchResults: (query) => {

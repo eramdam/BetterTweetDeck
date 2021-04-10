@@ -49,9 +49,10 @@ export function BooleanSettingsRow(props: PropsWithChildren<BooleanSettingsRowPr
     </SettingsRow>
   );
 
-  if (!props.ignoreInSearch && !props.disabled) {
+  if (!props.ignoreInSearch) {
     addToIndex({
-      keywords: [reactElementToString(render())],
+      keywords: [reactElementToString(props.children)],
+      key: props.settingsKey,
       render: () => render(),
     });
   }

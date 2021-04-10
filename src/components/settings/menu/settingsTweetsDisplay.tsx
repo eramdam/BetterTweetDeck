@@ -135,6 +135,7 @@ export const renderTweetDisplaySettings: SettingsMenuRenderer = (
 
   addToIndex({
     keywords: [reactElementToString(dateTimeSection)],
+    key: 'dateTimeSection',
     render: () => dateTimeSection,
   });
 
@@ -146,6 +147,7 @@ export const renderTweetDisplaySettings: SettingsMenuRenderer = (
 
   addToIndex({
     keywords: [reactElementToString(avatarShapes)],
+    key: 'avatarShapes',
     render: () => avatarShapes,
   });
 

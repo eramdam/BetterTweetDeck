@@ -26,6 +26,7 @@ export const renderThemeSettings: SettingsMenuRenderer = (
 
   addToIndex({
     keywords: ['accent', 'color', 'theme'],
+    key: 'accentColor',
     render: () => accentColor,
   });
 
@@ -47,6 +48,7 @@ export const renderThemeSettings: SettingsMenuRenderer = (
       getTransString('settings_old_gray'),
       getTransString('settings_super_black'),
     ],
+    key: 'theme',
     render: () => themeSelector,
   });
 

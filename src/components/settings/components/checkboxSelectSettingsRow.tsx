@@ -1,5 +1,5 @@
 import {css, cx} from '@emotion/css';
-import React, {Fragment, PropsWithChildren} from 'react';
+import React, {PropsWithChildren} from 'react';
 
 import {useSettingsSearch} from '../settingsContext';
 import {reactElementToString} from '../settingsHelpers';
@@ -20,7 +20,8 @@ export function CheckboxSelectSettingsRow(
       .filter((f) => !f.isDisabled)
       .forEach((field) => {
         addToIndex({
-          keywords: [reactElementToString(<Fragment>{field.label}</Fragment>)],
+          key: field.key,
+          keywords: [reactElementToString(field.label)],
           render: () => (
             <SettingsRow>
               <SettingsCheckboxSelect
