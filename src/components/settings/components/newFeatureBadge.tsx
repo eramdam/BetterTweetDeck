@@ -42,14 +42,17 @@ export const NewFeatureBadge: FC<NewFeatureBadgeProps> = (props) => {
     <span
       className={cx(
         css`
-          display: inline-block;
+          display: inline-flex;
+          flex-direction: column;
+          justify-content: center;
           background: var(--twitter-blue);
           color: white;
           border-radius: 4px;
           font-size: 10px;
+          height: 18px;
           text-transform: uppercase;
           font-weight: bold;
-          padding: 1px 4px 2px 4px;
+          padding: 0 4px;
         `,
         featureBadgeClassname
       )}>
