@@ -6,12 +6,11 @@ import {BTDSettings} from '../../types/btdSettingsTypes';
 import {getTransString, Trans} from '../trans';
 import {SettingsCredits} from './components/settingsCredits';
 import {SettingsCssEditor} from './components/settingsCssEditor';
-import {renderGeneralSettings} from './menu/settingsGeneral';
+import {SettingsGeneral} from './menu/settingsGeneral';
 import {ImportExportSettings} from './menu/settingsImportExport';
-import {renderThemeSettings} from './menu/settingsTheme';
-import {renderTweetActionsSettings} from './menu/settingsTweetActions';
-import {renderTweetDisplaySettings} from './menu/settingsTweetsDisplay';
-import {SettingsMenuRenderer} from './settingsComponents';
+import {SettingsTheme} from './menu/settingsTheme';
+import {SettingsTweetActions} from './menu/settingsTweetActions';
+import {SettingsTweetsDisplay} from './menu/settingsTweetsDisplay';
 import {useSettingsSearch} from './settingsContext';
 import {settingsRegularText} from './settingsStyles';
 
@@ -31,11 +30,11 @@ export const makeSettingsMenu = (
   setSettings: HandlerOf<BTDSettings>,
   setEditorHasErrors: HandlerOf<boolean>
 ): readonly MenuItem[] => {
-  const rendererArguments: Parameters<SettingsMenuRenderer> = [
+  const settingsSectionProps = {
+    setEditorHasErrors,
     settings,
     makeOnSettingsChange,
-    setEditorHasErrors,
-  ];
+  };
 
   return [
     {
@@ -45,22 +44,22 @@ export const makeSettingsMenu = (
         {
           id: 'general',
           label: getTransString('settings_general'),
-          render: () => renderGeneralSettings(...rendererArguments),
+          render: () => <SettingsGeneral {...settingsSectionProps}></SettingsGeneral>,
         },
         {
           id: 'theme',
           label: getTransString('settings_theme'),
-          render: () => renderThemeSettings(...rendererArguments),
+          render: () => <SettingsTheme {...settingsSectionProps}></SettingsTheme>,
         },
         {
           id: 'tweets-display',
           label: getTransString('settings_tweets_display'),
-          render: () => renderTweetDisplaySettings(...rendererArguments),
+          render: () => <SettingsTweetsDisplay {...settingsSectionProps}></SettingsTweetsDisplay>,
         },
         {
           id: 'tweet-actions',
           label: getTransString('settings_tweet_actions'),
-          render: () => renderTweetActionsSettings(...rendererArguments),
+          render: () => <SettingsTweetActions {...settingsSectionProps}></SettingsTweetActions>,
         },
         {
           id: 'custom-css',

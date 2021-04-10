@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {FC, Fragment} from 'react';
 
 import {BTDScrollbarsMode} from '../../../features/changeScrollbars';
 import {BetterTweetDeckThemes} from '../../../features/themeTweaks';
@@ -7,16 +7,12 @@ import {CheckboxSelectSettingsRow} from '../components/checkboxSelectSettingsRow
 import {CustomAccentColor} from '../components/customAccentColor';
 import {BTDRadioSelectSettingsRow} from '../components/radioSelectSettingsRow';
 import {ThemeSelector} from '../components/themeSelector';
-import {SettingsMenuRenderer} from '../settingsComponents';
+import {SettingsMenuSectionProps} from '../settingsComponents';
 import {useSettingsSearch} from '../settingsContext';
 import {reactElementToString} from '../settingsHelpers';
 
-export const renderThemeSettings: SettingsMenuRenderer = (
-  settings,
-  makeOnSettingsChange,
-  _setEditorHasErrors
-) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+export const SettingsTheme: FC<SettingsMenuSectionProps> = (props) => {
+  const {settings, makeOnSettingsChange} = props;
   const {renderAndAddtoIndex} = useSettingsSearch();
 
   const accentColor = (

@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable react-hooks/rules-of-hooks */
 import {css} from '@emotion/css';
-import React, {Fragment} from 'react';
+import React, {FC, Fragment} from 'react';
 
 import {BTDTimestampFormats} from '../../../features/changeTimestampFormat';
 import {BTDUsernameFormat} from '../../../features/usernameDisplay';
@@ -14,15 +14,12 @@ import {SettingsButton} from '../components/settingsButton';
 import {SettingsRow, SettingsRowTitle} from '../components/settingsRow';
 import {SettingsSeparator} from '../components/settingsSeparator';
 import {SettingsTextInputWithAnnotation} from '../components/settingsTimeFormatInput';
-import {formatDateTime, SettingsMenuRenderer} from '../settingsComponents';
+import {formatDateTime, SettingsMenuSectionProps} from '../settingsComponents';
 import {useSettingsSearch} from '../settingsContext';
 import {reactElementToString} from '../settingsHelpers';
 
-export const renderTweetDisplaySettings: SettingsMenuRenderer = (
-  settings,
-  makeOnSettingsChange,
-  _setEditorHasErrors
-) => {
+export const SettingsTweetsDisplay: FC<SettingsMenuSectionProps> = (props) => {
+  const {makeOnSettingsChange, settings} = props;
   const {renderAndAddtoIndex} = useSettingsSearch();
   const dateTimeSection = (newSettings: BTDSettings) => (
     <>

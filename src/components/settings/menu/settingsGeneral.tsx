@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import _ from 'lodash';
-import React, {Fragment} from 'react';
+import React, {FC, Fragment} from 'react';
 
 import {isFirefox, isSafari} from '../../../helpers/browserHelpers';
 import {BTDSettings} from '../../../types/btdSettingsTypes';
@@ -9,16 +9,12 @@ import {BooleanSettingsRow} from '../components/booleanSettingRow';
 import {CheckboxSelectSettingsRow} from '../components/checkboxSelectSettingsRow';
 import {SettingsRow} from '../components/settingsRow';
 import {SettingsTextInputWithAnnotation} from '../components/settingsTimeFormatInput';
-import {SettingsMenuRenderer, SettingsSmallText} from '../settingsComponents';
+import {SettingsMenuSectionProps, SettingsSmallText} from '../settingsComponents';
 import {useSettingsSearch} from '../settingsContext';
 import {reactElementToString} from '../settingsHelpers';
 
-export const renderGeneralSettings: SettingsMenuRenderer = (
-  settings,
-  makeOnSettingsChange,
-  _setEditorHasErrors
-) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
+  const {settings, makeOnSettingsChange} = props;
   const {renderAndAddtoIndex} = useSettingsSearch();
   const onBooleanCustomWidthChange = makeOnSettingsChange('useCustomColumnWidth');
   const customWidthField = (newSettings: BTDSettings) => (
