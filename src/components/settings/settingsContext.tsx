@@ -13,7 +13,7 @@ interface SettingsSearchContextProps {
   renderSearchResults: RendererOf<string>;
 }
 
-const SettingsSearchContext = createContext<SettingsSearchContextProps>({
+export const SettingsSearchContext = createContext<SettingsSearchContextProps>({
   addToIndex: () => {},
   renderSearchResults: () => null,
 });
@@ -27,17 +27,20 @@ export const SettingsSearchProvider: FC = (props) => {
         addToIndex: (item) => {
           searchItems.current = _(searchItems.current)
             .concat(item)
-            .uniqBy((i) => i.keywords.join(''))
+            .uniqBy((i) => {
+              return i.keywords.join('').trim();
+            })
             .value();
         },
         renderSearchResults: (query) => {
-          return searchItems.current
+          return _(searchItems.current)
             .filter((item) =>
               item.keywords.some((k) => k.toLowerCase().includes(query.toLowerCase()))
             )
             .map((item, index) => {
               return <Fragment key={`${query}-${index}`}>{item.render()}</Fragment>;
-            });
+            })
+            .value();
         },
       }}>
       {props.children}

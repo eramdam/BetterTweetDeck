@@ -22,14 +22,14 @@ html {
   --settings-modal-text: white;
   --settings-modal-muted-text: #8899a6;
   --settings-modal-separator: rgb(0, 0, 0);
+  --twitter-input-bg: #0d1118;
+  --twitter-input-placeholder: #8899a6;
+  --twitter-input-border-color: #14171a;
 }
 
 :root {
   --twitter-blue: #1da1f2;
   --twitter-darkblue: #005fd1;
-  --twitter-input-bg: #0d1118;
-  --twitter-input-placeholder: #8899a6;
-  --twitter-input-border-color: #14171a;
 }
 
 @media screen and (prefers-color-scheme: light) {

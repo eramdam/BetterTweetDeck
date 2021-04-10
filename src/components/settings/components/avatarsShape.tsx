@@ -3,6 +3,7 @@ import React, {Fragment} from 'react';
 
 import {BTDAvatarShapes} from '../../../features/changeAvatarShape';
 import {getTransString, Trans} from '../../trans';
+import {generateInputId} from '../settingsHelpers';
 import {BaseSettingsProps} from '../settingsTypes';
 import {SettingsRow, SettingsRowContent, SettingsRowTitle} from './settingsRow';
 
@@ -84,17 +85,18 @@ export function AvatarsShape(props: AvatarsShapeProps) {
             name: getTransString('settings_avatar_circle'),
           },
         ].map(({value, name}) => {
+          const inputId = generateInputId();
           return (
             <Fragment key={value}>
               <input
                 type="radio"
-                id={value}
+                id={inputId}
                 value={value}
                 name="avatarShape"
                 defaultChecked={value === props.initialValue}
                 onChange={() => props.onChange(value)}
               />
-              <label htmlFor={value} className={avatarChoiceStyle}>
+              <label htmlFor={inputId} className={avatarChoiceStyle}>
                 <span className={avatarChoiceStyleShapeWrapper}>
                   <span className={cx(avatarChoiceStyleShape, value)}></span>
                 </span>

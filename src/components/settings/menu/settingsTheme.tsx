@@ -8,26 +8,52 @@ import {CustomAccentColor} from '../components/customAccentColor';
 import {BTDRadioSelectSettingsRow} from '../components/radioSelectSettingsRow';
 import {ThemeSelector} from '../components/themeSelector';
 import {SettingsMenuRenderer} from '../settingsComponents';
+import {useSettingsSearch} from '../settingsContext';
 
 export const renderThemeSettings: SettingsMenuRenderer = (
   settings,
   makeOnSettingsChange,
   _setEditorHasErrors
 ) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const {addToIndex} = useSettingsSearch();
+
+  const accentColor = (
+    <CustomAccentColor
+      initialValue={settings.customAccentColor}
+      onChange={makeOnSettingsChange('customAccentColor')}></CustomAccentColor>
+  );
+
+  addToIndex({
+    keywords: ['accent', 'color', 'theme'],
+    render: () => accentColor,
+  });
+
+  const themeSelector = (
+    <ThemeSelector
+      initialValue={settings.theme}
+      onChange={(value) => {
+        if (value === 'light') {
+          makeOnSettingsChange('theme')(BetterTweetDeckThemes.LIGHT);
+        } else {
+          makeOnSettingsChange('theme')(value);
+        }
+      }}></ThemeSelector>
+  );
+
+  addToIndex({
+    keywords: [
+      getTransString('settings_dark_theme'),
+      getTransString('settings_old_gray'),
+      getTransString('settings_super_black'),
+    ],
+    render: () => themeSelector,
+  });
+
   return (
     <Fragment>
-      <CustomAccentColor
-        initialValue={settings.customAccentColor}
-        onChange={makeOnSettingsChange('customAccentColor')}></CustomAccentColor>
-      <ThemeSelector
-        initialValue={settings.theme}
-        onChange={(value) => {
-          if (value === 'light') {
-            makeOnSettingsChange('theme')(BetterTweetDeckThemes.LIGHT);
-          } else {
-            makeOnSettingsChange('theme')(value);
-          }
-        }}></ThemeSelector>
+      {accentColor}
+      {themeSelector}
       <CheckboxSelectSettingsRow
         onChange={(_key, value) => {
           makeOnSettingsChange('enableAutoThemeSwitch')(value);

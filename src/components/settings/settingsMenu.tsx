@@ -14,7 +14,7 @@ import {renderTweetDisplaySettings} from './menu/settingsTweetsDisplay';
 import {SettingsMenuRenderer} from './settingsComponents';
 import {settingsRegularText} from './settingsStyles';
 
-interface MenuItem {
+export interface MenuItem {
   title: ReactNode;
   id: string;
   items: {

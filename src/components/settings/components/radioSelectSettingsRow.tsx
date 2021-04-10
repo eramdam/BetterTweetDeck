@@ -3,6 +3,8 @@ import React, {PropsWithChildren} from 'react';
 
 import {AbstractTweetDeckSettings} from '../../../types/abstractTweetDeckSettings';
 import {BTDSettings} from '../../../types/btdSettingsTypes';
+import {useSettingsSearch} from '../settingsContext';
+import {reactElementToString} from '../settingsHelpers';
 import {SettingsRadioSettingSelect, SettingsRadioSettingsSelectProps} from './settingsRadioSelect';
 import {SettingsRow, SettingsRowContent, SettingsRowTitle} from './settingsRow';
 
@@ -39,11 +41,35 @@ function RadioSelectSettingsRow<S extends object, T extends keyof S>(
 export function BTDRadioSelectSettingsRow<T extends keyof BTDSettings>(
   props: PropsWithChildren<SettingsRadioSettingsSelectProps<BTDSettings, T>>
 ) {
+  const {addToIndex} = useSettingsSearch();
+
+  if (!props.ignoreSearch) {
+    addToIndex({
+      keywords: [
+        ...props.fields.map((f) => reactElementToString(<>{f.label}</>)),
+        reactElementToString(<>{props.children}</>),
+      ],
+      render: () => RadioSelectSettingsRow(props),
+    });
+  }
+
   return RadioSelectSettingsRow(props);
 }
 
 export function TDRadioSelectSettingsRow<T extends keyof AbstractTweetDeckSettings>(
   props: PropsWithChildren<SettingsRadioSettingsSelectProps<AbstractTweetDeckSettings, T>>
 ) {
+  const {addToIndex} = useSettingsSearch();
+
+  if (!props.ignoreSearch) {
+    addToIndex({
+      keywords: [
+        ...props.fields.map((f) => reactElementToString(<>{f.label}</>)),
+        reactElementToString(<>{props.children}</>),
+      ],
+      render: () => RadioSelectSettingsRow(props),
+    });
+  }
+
   return RadioSelectSettingsRow(props);
 }

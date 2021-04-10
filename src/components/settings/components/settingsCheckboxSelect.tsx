@@ -3,6 +3,7 @@ import React, {ReactNode} from 'react';
 
 import {AbstractTweetDeckSettings} from '../../../types/abstractTweetDeckSettings';
 import {BTDSettings} from '../../../types/btdSettingsTypes';
+import {generateInputId} from '../settingsHelpers';
 import {checkboxInputStyles, settingsDisabled} from '../settingsStyles';
 import {featureBadgeClassname, NewFeatureBadge, NewFeatureBadgeProps} from './newFeatureBadge';
 
@@ -46,18 +47,19 @@ export function SettingsCheckboxSelect(props: SettingsCheckboxSelectProps) {
         grid-row-gap: 10px;
       `}>
       {props.fields.map((field) => {
+        const inputId = `${field.key}-${generateInputId()}`;
         return (
           <span key={String(field.key)} className={cx(field.isDisabled && settingsDisabled)}>
             <input
               name={field.key}
               type="checkbox"
               disabled={field.isDisabled}
-              id={'input-' + String(field.key)}
+              id={inputId}
               defaultChecked={field.initialValue}
               className={checkboxInputStyles}
               onChange={() => props.onChange(field.key, !field.initialValue)}
             />
-            <label htmlFor={'input-' + String(field.key)}>
+            <label htmlFor={inputId}>
               {field.label}
               {field.introducedIn && (
                 <NewFeatureBadge introducedIn={field.introducedIn}></NewFeatureBadge>

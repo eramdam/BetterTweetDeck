@@ -10,6 +10,7 @@ import redEmoji from '../../../assets/accent-colors/red.svg';
 import yellowEmoji from '../../../assets/accent-colors/yellow.svg';
 import {BetterTweetDeckAccentColors} from '../../../features/themeTweaks';
 import {Trans} from '../../trans';
+import {generateInputId} from '../settingsHelpers';
 import {BaseSettingsProps} from '../settingsTypes';
 import {NewFeatureBadge} from './newFeatureBadge';
 import {SettingsRow, SettingsRowContent, SettingsRowTitle} from './settingsRow';
@@ -102,11 +103,12 @@ export function CustomAccentColor(props: CustomAccentColorProps) {
           }
         `}>
         {possibleAccentColors.map(([key, value]) => {
+          const inputId = `${key}-${generateInputId()}`;
           return (
             <span key={key} className={optionStyles}>
               <input
                 type="radio"
-                id={key}
+                id={inputId}
                 value={key}
                 name="customAccentColor"
                 defaultChecked={value === props.initialValue}
@@ -117,7 +119,7 @@ export function CustomAccentColor(props: CustomAccentColorProps) {
                   backgroundColor: value,
                 }}
                 className={labelStyles}
-                htmlFor={key}></label>
+                htmlFor={inputId}></label>
               <img src={emojiMap[value]} alt="" />
             </span>
           );

@@ -47,6 +47,45 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
     render: () => customWidthField(),
   });
 
+  const shareItem = (
+    <CheckboxSelectSettingsRow
+      ignoreSearch
+      onChange={(key, value) => {
+        makeOnSettingsChange(key as keyof BTDSettings)(value);
+      }}
+      fields={[
+        {
+          initialValue: settings.enableShareItem,
+          key: 'enableShareItem',
+          label: (
+            <>
+              <Trans id="settings_enable_share_item" />
+              {isFirefox && (
+                <SettingsSmallText>
+                  <Trans id="settings_better_tweetdeck_ask_tabs" />
+                </SettingsSmallText>
+              )}
+            </>
+          ),
+        },
+        {
+          initialValue: settings.shouldShortenSharedText,
+          key: 'shouldShortenSharedText',
+          isDisabled: !settings.enableShareItem,
+          label: <Trans id="settings_shorten_the_shared_text" />,
+        },
+      ]}>
+      <Trans id="settings_contextual_menu" />
+    </CheckboxSelectSettingsRow>
+  );
+
+  if (!isSafari) {
+    addToIndex({
+      keywords: [reactElementToString(<>{shareItem}</>)],
+      render: () => shareItem,
+    });
+  }
+
   return (
     <Fragment>
       <CheckboxSelectSettingsRow
@@ -180,36 +219,7 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
         ]}>
         <Trans id="settings_misc" />
       </CheckboxSelectSettingsRow>
-      {!isSafari && (
-        <CheckboxSelectSettingsRow
-          onChange={(key, value) => {
-            makeOnSettingsChange(key as keyof BTDSettings)(value);
-          }}
-          fields={[
-            {
-              initialValue: settings.enableShareItem,
-              key: 'enableShareItem',
-              label: (
-                <>
-                  <Trans id="settings_enable_share_item" />
-                  {isFirefox && (
-                    <SettingsSmallText>
-                      <Trans id="settings_better_tweetdeck_ask_tabs" />
-                    </SettingsSmallText>
-                  )}
-                </>
-              ),
-            },
-            {
-              initialValue: settings.shouldShortenSharedText,
-              key: 'shouldShortenSharedText',
-              isDisabled: !settings.enableShareItem,
-              label: <Trans id="settings_shorten_the_shared_text" />,
-            },
-          ]}>
-          <Trans id="settings_contextual_menu" />
-        </CheckboxSelectSettingsRow>
-      )}
+      {!isSafari && shareItem}
     </Fragment>
   );
 };

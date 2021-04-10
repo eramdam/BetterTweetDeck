@@ -8,6 +8,7 @@ import oldDark from '../../../assets/dark-themes/old-dark.png';
 import {BetterTweetDeckThemes} from '../../../features/themeTweaks';
 import {HandlerOf} from '../../../helpers/typeHelpers';
 import {Trans} from '../../trans';
+import {generateInputId} from '../settingsHelpers';
 import {featureBadgeClassname, NewFeatureBadge} from './newFeatureBadge';
 import {SettingsRow, SettingsRowContent, SettingsRowTitle} from './settingsRow';
 
@@ -89,14 +90,8 @@ const themes = [
   },
 ];
 
-let id = 0;
-const generateId = () => {
-  id++;
-  return id;
-};
-
 export function ThemeSelector(props: CustomDarkThemeProps) {
-  const inputId = generateId();
+  const inputId = generateInputId();
   return (
     <SettingsRow disabled={props.disabled}>
       <SettingsRowTitle>

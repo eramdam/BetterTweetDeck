@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import {css} from '@emotion/css';
 import React, {Fragment} from 'react';
 
@@ -12,15 +13,19 @@ import {SettingsRow, SettingsRowTitle} from '../components/settingsRow';
 import {SettingsSeparator} from '../components/settingsSeparator';
 import {SettingsTextInputWithAnnotation} from '../components/settingsTimeFormatInput';
 import {formatDateTime, SettingsMenuRenderer} from '../settingsComponents';
+import {useSettingsSearch} from '../settingsContext';
+import {reactElementToString} from '../settingsHelpers';
 
 export const renderTweetDisplaySettings: SettingsMenuRenderer = (
   settings,
   makeOnSettingsChange,
   _setEditorHasErrors
 ) => {
-  return (
-    <Fragment>
+  const {addToIndex} = useSettingsSearch();
+  const dateTimeSection = (
+    <>
       <BTDRadioSelectSettingsRow
+        ignoreSearch
         settingsKey="timestampStyle"
         initialValue={settings.timestampStyle}
         onChange={makeOnSettingsChange('timestampStyle')}
@@ -125,6 +130,28 @@ export const renderTweetDisplaySettings: SettingsMenuRenderer = (
           </SettingsButton>
         </div>
       </SettingsRow>
+    </>
+  );
+
+  addToIndex({
+    keywords: [reactElementToString(dateTimeSection)],
+    render: () => dateTimeSection,
+  });
+
+  const avatarShapes = (
+    <AvatarsShape
+      initialValue={settings.avatarsShape}
+      onChange={makeOnSettingsChange('avatarsShape')}></AvatarsShape>
+  );
+
+  addToIndex({
+    keywords: [reactElementToString(avatarShapes)],
+    render: () => avatarShapes,
+  });
+
+  return (
+    <Fragment>
+      {dateTimeSection}
       <SettingsSeparator></SettingsSeparator>
       <BTDRadioSelectSettingsRow
         settingsKey="usernamesFormat"
@@ -144,9 +171,7 @@ export const renderTweetDisplaySettings: SettingsMenuRenderer = (
         ]}>
         <Trans id="settings_name_display_style" />
       </BTDRadioSelectSettingsRow>
-      <AvatarsShape
-        initialValue={settings.avatarsShape}
-        onChange={makeOnSettingsChange('avatarsShape')}></AvatarsShape>
+      {avatarShapes}
     </Fragment>
   );
 };
