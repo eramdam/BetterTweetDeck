@@ -1,7 +1,7 @@
 import './settingsModal.css';
 
 import {css, cx} from '@emotion/css';
-import {isEqual, noop} from 'lodash';
+import {isEqual} from 'lodash';
 import React, {Fragment, useCallback, useEffect, useMemo, useState} from 'react';
 import {browser} from 'webextension-polyfill-ts';
 
@@ -63,6 +63,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
 
   const makeOnSettingsChange = <T extends keyof BTDSettings>(key: T) => {
     return (val: BTDSettings[T]) => {
+      console.log({key, val});
       setSettings((currentSettings) => {
         return {
           ...currentSettings,
@@ -126,7 +127,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
               padding-left: 20px;
             }
           `}>
-          {renderSearchResults(searchQuery)}
+          {renderSearchResults(searchQuery, settings)}
         </div>
       </SettingsRow>
     );
@@ -226,7 +227,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
         <SettingsContent>
           <SettingsSearchContext.Provider
             value={{
-              addToIndex: noop,
+              addToIndex: () => null,
               stopIndexing: () => {},
               renderSearchResults: () => null,
             }}>

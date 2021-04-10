@@ -9,6 +9,7 @@ import {BTDRadioSelectSettingsRow} from '../components/radioSelectSettingsRow';
 import {ThemeSelector} from '../components/themeSelector';
 import {SettingsMenuRenderer} from '../settingsComponents';
 import {useSettingsSearch} from '../settingsContext';
+import {reactElementToString} from '../settingsHelpers';
 
 export const renderThemeSettings: SettingsMenuRenderer = (
   settings,
@@ -24,12 +25,6 @@ export const renderThemeSettings: SettingsMenuRenderer = (
       onChange={makeOnSettingsChange('customAccentColor')}></CustomAccentColor>
   );
 
-  addToIndex({
-    keywords: ['accent', 'color', 'theme'],
-    key: 'accentColor',
-    render: () => accentColor,
-  });
-
   const themeSelector = (
     <ThemeSelector
       initialValue={settings.theme}
@@ -42,20 +37,30 @@ export const renderThemeSettings: SettingsMenuRenderer = (
       }}></ThemeSelector>
   );
 
-  addToIndex({
-    keywords: [
-      getTransString('settings_dark_theme'),
-      getTransString('settings_old_gray'),
-      getTransString('settings_super_black'),
-    ],
-    key: 'theme',
-    render: () => themeSelector,
-  });
-
   return (
     <Fragment>
-      {accentColor}
-      {themeSelector}
+      {addToIndex(
+        {
+          keywords: [reactElementToString(<Trans id="settings_accent_color" />)],
+          key: 'accentColor',
+          render: () => accentColor,
+        },
+        settings
+      )}
+      {addToIndex(
+        {
+          keywords: [
+            getTransString('settings_theme'),
+            getTransString('settings_light'),
+            getTransString('settings_dark_theme'),
+            getTransString('settings_old_gray'),
+            getTransString('settings_super_black'),
+          ],
+          key: 'theme',
+          render: () => themeSelector,
+        },
+        settings
+      )}
       <CheckboxSelectSettingsRow
         onChange={(_key, value) => {
           makeOnSettingsChange('enableAutoThemeSwitch')(value);

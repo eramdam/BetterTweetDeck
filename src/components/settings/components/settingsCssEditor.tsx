@@ -34,7 +34,6 @@ export const SettingsCssEditor: FC<SettingsCssEditorProps> = (props) => {
       style={{
         display: 'flex',
         flexDirection: 'column',
-        height: '100%',
         marginBottom: 0,
         overflow: 'hidden',
         padding: 20,

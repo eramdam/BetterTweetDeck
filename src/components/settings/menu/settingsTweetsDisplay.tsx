@@ -1,10 +1,12 @@
+/* eslint-disable react/jsx-key */
 /* eslint-disable react-hooks/rules-of-hooks */
 import {css} from '@emotion/css';
 import React, {Fragment} from 'react';
 
 import {BTDTimestampFormats} from '../../../features/changeTimestampFormat';
 import {BTDUsernameFormat} from '../../../features/usernameDisplay';
-import {getTransString, Trans} from '../../trans';
+import {BTDSettings} from '../../../types/btdSettingsTypes';
+import {Trans} from '../../trans';
 import {AvatarsShape} from '../components/avatarsShape';
 import {BooleanSettingsRow} from '../components/booleanSettingRow';
 import {BTDRadioSelectSettingsRow} from '../components/radioSelectSettingsRow';
@@ -22,16 +24,16 @@ export const renderTweetDisplaySettings: SettingsMenuRenderer = (
   _setEditorHasErrors
 ) => {
   const {addToIndex} = useSettingsSearch();
-  const dateTimeSection = (
+  const dateTimeSection = (newSettings: BTDSettings) => (
     <>
       <BTDRadioSelectSettingsRow
         ignoreSearch
         settingsKey="timestampStyle"
-        initialValue={settings.timestampStyle}
+        initialValue={newSettings.timestampStyle}
         onChange={makeOnSettingsChange('timestampStyle')}
         fields={[
           {
-            label: getTransString('settings_timestamp_relative'),
+            label: <Trans id="settings_timestamp_relative" />,
             value: BTDTimestampFormats.RELATIVE,
           },
           {
@@ -62,35 +64,35 @@ export const renderTweetDisplaySettings: SettingsMenuRenderer = (
         <Trans id="settings_date_format" />
       </BTDRadioSelectSettingsRow>
       <SettingsRow
-        disabled={settings.timestampStyle === BTDTimestampFormats.RELATIVE}
+        disabled={newSettings.timestampStyle === BTDTimestampFormats.RELATIVE}
         stretch={false}>
         <span></span>
         <SettingsTextInputWithAnnotation
-          value={settings.timestampShortFormat}
+          value={newSettings.timestampShortFormat}
           onChange={makeOnSettingsChange('timestampShortFormat')}
           annotation={formatDateTime(
-            settings.timestampShortFormat
+            newSettings.timestampShortFormat
           )}></SettingsTextInputWithAnnotation>
       </SettingsRow>
       <BooleanSettingsRow
-        disabled={settings.timestampStyle === BTDTimestampFormats.RELATIVE}
+        disabled={newSettings.timestampStyle === BTDTimestampFormats.RELATIVE}
         alignToTheLeft
         settingsKey="fullTimestampAfterDay"
-        initialValue={settings.fullTimestampAfterDay}
+        initialValue={newSettings.fullTimestampAfterDay}
         onChange={makeOnSettingsChange('fullTimestampAfterDay')}>
         <Trans id="settings_short_time_after_24h" />
       </BooleanSettingsRow>
       <SettingsRow
         disabled={
-          settings.timestampStyle === BTDTimestampFormats.RELATIVE ||
-          !settings.fullTimestampAfterDay
+          newSettings.timestampStyle === BTDTimestampFormats.RELATIVE ||
+          !newSettings.fullTimestampAfterDay
         }>
         <span></span>
         <SettingsTextInputWithAnnotation
-          value={settings.timestampFullFormat}
+          value={newSettings.timestampFullFormat}
           onChange={makeOnSettingsChange('timestampFullFormat')}
           annotation={formatDateTime(
-            settings.timestampFullFormat
+            newSettings.timestampFullFormat
           )}></SettingsTextInputWithAnnotation>
       </SettingsRow>
       <SettingsRow
@@ -133,27 +135,24 @@ export const renderTweetDisplaySettings: SettingsMenuRenderer = (
     </>
   );
 
-  addToIndex({
-    keywords: [reactElementToString(dateTimeSection)],
-    key: 'dateTimeSection',
-    render: () => dateTimeSection,
-  });
-
-  const avatarShapes = (
-    <AvatarsShape
-      initialValue={settings.avatarsShape}
-      onChange={makeOnSettingsChange('avatarsShape')}></AvatarsShape>
-  );
-
-  addToIndex({
-    keywords: [reactElementToString(avatarShapes)],
-    key: 'avatarShapes',
-    render: () => avatarShapes,
-  });
-
   return (
     <Fragment>
-      {dateTimeSection}
+      {addToIndex(
+        {
+          keywords: [
+            <Trans id="settings_timestamp_relative" />,
+            <Trans id="settings_timestamp_custom" />,
+            <Trans id="settings_date_format" />,
+            <Trans id="settings_short_time_after_24h" />,
+            <Trans id="settings_timestamp_presets" />,
+            <Trans id="settings_timestamp_preset_absolute" />,
+            <Trans id="settings_timestamp_preset_absolute_us" />,
+          ].map((t) => reactElementToString(t)),
+          key: 'dateTimeSection',
+          render: dateTimeSection,
+        },
+        settings
+      )}
       <SettingsSeparator></SettingsSeparator>
       <BTDRadioSelectSettingsRow
         settingsKey="usernamesFormat"
@@ -173,7 +172,22 @@ export const renderTweetDisplaySettings: SettingsMenuRenderer = (
         ]}>
         <Trans id="settings_name_display_style" />
       </BTDRadioSelectSettingsRow>
-      {avatarShapes}
+      {addToIndex(
+        {
+          keywords: [
+            <Trans id="settings_avatar_shape" />,
+            <Trans id="settings_avatar_square" />,
+            <Trans id="settings_avatar_circle" />,
+          ].map((t) => reactElementToString(t)),
+          key: 'avatarShapes',
+          render: (newSettings: BTDSettings) => (
+            <AvatarsShape
+              initialValue={newSettings.avatarsShape}
+              onChange={makeOnSettingsChange('avatarsShape')}></AvatarsShape>
+          ),
+        },
+        settings
+      )}
     </Fragment>
   );
 };

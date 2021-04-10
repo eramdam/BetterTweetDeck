@@ -1,28 +1,38 @@
+import Fuse from 'fuse.js';
+import he from 'he';
 import _ from 'lodash';
-import React, {createContext, FC, Fragment, useContext, useRef} from 'react';
+import React, {createContext, FC, Fragment, ReactNode, useContext, useRef} from 'react';
 
-import {Renderer, RendererOf} from '../../helpers/typeHelpers';
+import {RendererOf} from '../../helpers/typeHelpers';
+import {BTDSettings} from '../../types/btdSettingsTypes';
+import {SettingsSeparator} from './components/settingsSeparator';
 
 interface SettingsSearchItem {
-  render: Renderer;
+  render: RendererOf<BTDSettings>;
   key: string;
   keywords: ReadonlyArray<string>;
 }
 
 interface SettingsSearchContextProps {
-  addToIndex(blob: SettingsSearchItem): void;
-  renderSearchResults: RendererOf<string>;
+  addToIndex: (blob: SettingsSearchItem, settings: BTDSettings) => ReactNode;
+  renderSearchResults: (query: string, settings: BTDSettings) => ReactNode;
   stopIndexing(): void;
 }
 
 export const SettingsSearchContext = createContext<SettingsSearchContextProps>({
-  addToIndex: () => {},
+  addToIndex: () => null,
   renderSearchResults: () => null,
   stopIndexing: () => {},
 });
 
 export const SettingsSearchProvider: FC = (props) => {
-  const searchItems = useRef<ReadonlyArray<SettingsSearchItem>>([]);
+  const searchItems = useRef<Fuse<SettingsSearchItem>>(
+    new Fuse([], {
+      threshold: 0.4,
+      distance: 200,
+      keys: ['keywords'],
+    })
+  );
   const stopIndexingRef = useRef(false);
 
   return (
@@ -31,23 +41,30 @@ export const SettingsSearchProvider: FC = (props) => {
         stopIndexing: () => {
           stopIndexingRef.current = true;
         },
-        addToIndex: (item) => {
+        addToIndex: (item, settings) => {
           if (stopIndexingRef.current) {
-            return;
+            return item.render(settings);
           }
 
-          searchItems.current = _(searchItems.current)
-            .concat(item)
-            .uniqBy((i) => i.key)
-            .value();
+          const decodedKeywords = item.keywords.map((k) => he.decode(k));
+
+          searchItems.current.add({
+            ...item,
+            keywords: [...decodedKeywords, decodedKeywords.join(' ')],
+          });
+          return item.render(settings);
         },
-        renderSearchResults: (query) => {
-          return _(searchItems.current)
-            .filter((item) =>
-              item.keywords.some((k) => k.toLowerCase().includes(query.toLowerCase()))
-            )
-            .map((item, index) => {
-              return <Fragment key={`${query}-${index}`}>{item.render()}</Fragment>;
+        renderSearchResults: (query, settings) => {
+          return _(searchItems.current.search(query.trim()))
+            .uniqBy((r) => r.item.key)
+
+            .map((result) => {
+              return (
+                <Fragment key={result.item.key}>
+                  {result.item.render(settings)}
+                  <SettingsSeparator></SettingsSeparator>
+                </Fragment>
+              );
             })
             .value();
         },

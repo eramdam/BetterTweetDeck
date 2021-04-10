@@ -3,7 +3,6 @@ import React, {PropsWithChildren} from 'react';
 
 import {BTDSettings} from '../../../types/btdSettingsTypes';
 import {useSettingsSearch} from '../settingsContext';
-import {reactElementToString} from '../settingsHelpers';
 import {SettingsRadioSettingSelect, SettingsRadioSettingsSelectProps} from './settingsRadioSelect';
 import {SettingsRow, SettingsRowContent, SettingsRowTitle} from './settingsRow';
 
@@ -41,17 +40,6 @@ export function BTDRadioSelectSettingsRow<T extends keyof BTDSettings>(
   props: PropsWithChildren<SettingsRadioSettingsSelectProps<BTDSettings, T>>
 ) {
   const {addToIndex} = useSettingsSearch();
-
-  if (!props.ignoreSearch) {
-    addToIndex({
-      keywords: [
-        ...props.fields.map((f) => reactElementToString(f.label)),
-        reactElementToString(props.children),
-      ],
-      key: props.settingsKey,
-      render: () => RadioSelectSettingsRow(props),
-    });
-  }
 
   return RadioSelectSettingsRow(props);
 }

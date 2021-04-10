@@ -19,17 +19,20 @@ export function CheckboxSelectSettingsRow(
     props.fields
       .filter((f) => !f.isDisabled)
       .forEach((field) => {
-        addToIndex({
-          key: field.key,
-          keywords: [reactElementToString(field.label)],
-          render: () => (
-            <SettingsRow>
-              <SettingsCheckboxSelect
-                fields={[field]}
-                onChange={props.onChange}></SettingsCheckboxSelect>
-            </SettingsRow>
-          ),
-        });
+        addToIndex(
+          {
+            key: field.key,
+            keywords: [reactElementToString(field.label)],
+            render: () => (
+              <SettingsRow>
+                <SettingsCheckboxSelect
+                  fields={[field]}
+                  onChange={props.onChange}></SettingsCheckboxSelect>
+              </SettingsRow>
+            ),
+          },
+          {} as any
+        );
       });
   }
 
