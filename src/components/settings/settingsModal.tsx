@@ -48,6 +48,15 @@ export const SettingsModal = (props: SettingsModalProps) => {
   const [searchQuery, setSearchQuery] = useState('');
   const {renderSearchResults, stopIndexing} = useSettingsSearch();
 
+  const onSearchQueryChange = (newQuery: string) => {
+    if (!newQuery) {
+      setSelectedId('general');
+    } else {
+      setSelectedId('');
+    }
+    setSearchQuery(newQuery);
+  };
+
   useEffect(() => {
     stopIndexing();
   }, [stopIndexing]);
@@ -154,7 +163,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
                   --twitter-input-border-color: rgba(255, 255, 255, 0.2);
                 `}
                 placeholder="Search settings"
-                onChange={setSearchQuery}
+                onChange={onSearchQueryChange}
                 value={searchQuery}></SettingsTextInput>
             </div>
           </div>
