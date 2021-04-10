@@ -9,7 +9,7 @@
     "message": "Better TweetDeck"
   },
   "settings_show_cards_inside_columns": {
-    "message": "カラムの中で返信できるツイートカードを使う"
+    "message": "カラム上にツイートカードを表示"
   },
   "settings_show_profile_badges_on_top_of_avatars": {
     "message": "アイコンの上に重ねて認証バッジを表示"
