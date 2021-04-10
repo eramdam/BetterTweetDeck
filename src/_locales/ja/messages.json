@@ -299,17 +299,11 @@
   "settings_contextual_menu": {
     "message": "コンテキストメニュー"
   },
-  "settings_dark_theme": {
-    "message": "ダーク"
-  },
   "settings_old_gray": {
     "message": "昔の灰色"
   },
   "settings_super_black": {
     "message": "めっちゃくちゃ黒"
-  },
-  "settings_light": {
-    "message": "ライト"
   },
   "settings_tokens_list": {
     "message": "テンプレート一覧"
@@ -325,9 +319,6 @@
   },
   "settings_changelog": {
     "message": "変更履歴"
-  },
-  "settings_chrome_web_store": {
-    "message": "Chromeウェブストア"
   },
   "settings_bugs_or_suggestions": {
     "message": "バグ報告や提案"

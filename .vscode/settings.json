@@ -6,6 +6,9 @@
   "[css]": {
     "editor.formatOnSave": true
   },
+  "[json]": {
+    "editor.formatOnSave": true
+  },
   "emmet.excludeLanguages": [],
   "emmet.includeLanguages": {
     "javascript": "javascriptreact",
@@ -21,15 +24,10 @@
     "**/CVS": true,
     ".cache-loader": true
   },
-  "i18n-ally.enabledFrameworks": [
-    "chrome-ext",
-    "custom"
-  ],
+  "i18n-ally.enabledFrameworks": ["chrome-ext", "custom"],
   "i18n-ally.extract.keyPrefix": "settings_",
   "i18n-ally.keystyle": "nested",
-  "i18n-ally.localesPaths": [
-    "src/_locales"
-  ],
+  "i18n-ally.localesPaths": ["src/_locales"],
   "i18n-ally.preferredDelimiter": "_",
   "movets.skipWarning": true,
   "search.exclude": {

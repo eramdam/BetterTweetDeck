@@ -2,7 +2,6 @@ import {css} from '@emotion/css';
 import React, {ReactNode} from 'react';
 
 import defaultDarkTheme from '../../../assets/dark-themes/default-dark.png';
-import lightTheme from '../../../assets/dark-themes/light.png';
 import lightsOut from '../../../assets/dark-themes/lights-out.png';
 import oldDark from '../../../assets/dark-themes/old-dark.png';
 import {BetterTweetDeckThemes} from '../../../features/themeTweaks';
@@ -69,7 +68,7 @@ const optionImageBlock = css`
 const themes = [
   {
     value: BetterTweetDeckThemes.DARK,
-    label: <Trans id="settings_dark_theme" />,
+    label: <Trans id="settings_default_dark_theme" />,
     image: defaultDarkTheme,
   },
   {
@@ -100,25 +99,9 @@ export function ThemeSelector(props: CustomDarkThemeProps) {
   return (
     <SettingsRow disabled={props.disabled}>
       <SettingsRowTitle>
-        <Trans id="settings_theme" />
+        <Trans id="settings_custom_dark_theme" />
       </SettingsRowTitle>
       <SettingsRowContent className={themeBlock}>
-        {!props.onlyDark && (
-          <label className={optionBlock} htmlFor={'light'}>
-            <input
-              type="radio"
-              name={`customDarkTheme-${inputId}`}
-              id={'light'}
-              onChange={() => props.onChange('light')}
-              checked={props.initialValue === 'light'}
-              disabled={props.disabled}
-            />
-            <div className={optionImageBlock} style={{backgroundImage: `url(${lightTheme})`}}></div>
-            <span className={optionLabel}>
-              <Trans id="settings_light" />
-            </span>
-          </label>
-        )}
         {themes.map((theme) => {
           return (
             <label

@@ -302,17 +302,11 @@
   "settings_contextual_menu": {
     "message": "Menu de contexto"
   },
-  "settings_dark_theme": {
-    "message": "Escuro"
-  },
   "settings_old_gray": {
     "message": "Cinza Original"
   },
   "settings_super_black": {
     "message": "Super Escuro"
-  },
-  "settings_light": {
-    "message": "Claro"
   },
   "settings_tokens_list": {
     "message": "Lista de modelos"
@@ -328,9 +322,6 @@
   },
   "settings_changelog": {
     "message": "Registro de alterações"
-  },
-  "settings_chrome_web_store": {
-    "message": "Chrome Web Store"
   },
   "settings_bugs_or_suggestions": {
     "message": "Bugs ou sugestões"
