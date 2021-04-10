@@ -91,6 +91,14 @@ export const maybeAddColumnsButtons = makeBTDModule(({TD, jq, settings}) => {
     }
   );
 
+  jq('body').on('click', '#column-navigator .column-nav-item', (ev) => {
+    ev.preventDefault();
+
+    const thisColumn = ev.target.closest('[data-column]');
+    const columnKey = thisColumn.getAttribute('data-column');
+    toggleCollapseColumn(TD, columnKey, true);
+  });
+
   const columnsSettings = getCollapsedColumnState();
   const collapsedColumnsKeys = Object.keys(columnsSettings).filter((k) => columnsSettings[k]);
 
@@ -135,7 +143,7 @@ function saveCollapsedColumnState(state: Dictionary<boolean>) {
   window.localStorage.setItem(collapsedColumnsStorageKey, JSON.stringify(state));
 }
 
-function toggleCollapseColumn(TD: TweetDeckObject, columnKey: string) {
+function toggleCollapseColumn(TD: TweetDeckObject, columnKey: string, bool?: boolean) {
   const apiId = TD.controller.columnManager
     .getAllOrdered()
     .find((c) => c.model.privateState.key === columnKey)?.model.privateState.apiid;
@@ -145,7 +153,7 @@ function toggleCollapseColumn(TD: TweetDeckObject, columnKey: string) {
   }
   const isCollapsed = getCollapsedColumnState()[apiId];
 
-  if (isCollapsed) {
+  if (isCollapsed || bool) {
     uncollapseColumn(apiId, columnKey);
   } else {
     collapseColumn(apiId, columnKey);
