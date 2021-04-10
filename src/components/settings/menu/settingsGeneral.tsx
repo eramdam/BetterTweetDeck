@@ -156,6 +156,13 @@ export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
             label: <Trans id="settings_show_cards_inside_columns" />,
           },
           {
+            introducedIn: '4',
+            initialValue: settings.showCardsInSmallMediaColumns,
+            key: 'showCardsInSmallMediaColumns',
+            isDisabled: !settings.showCardsInsideColumns,
+            label: <Trans id="settings_also_show_cards_in_columns_with_small_media_size" />,
+          },
+          {
             initialValue: settings.removeRedirectionOnLinks,
             key: 'removeRedirectionOnLinks',
             label: <Trans id="settings_remove_t_co_redirection_on_links" />,

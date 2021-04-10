@@ -86,7 +86,11 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
   );
 
   onVisibleChirpAdded(async (payload) => {
-    if (payload.columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.OFF) {
+    if (
+      payload.columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.OFF ||
+      (payload.columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.SMALL &&
+        !settings.showCardsInSmallMediaColumns)
+    ) {
       return;
     }
 

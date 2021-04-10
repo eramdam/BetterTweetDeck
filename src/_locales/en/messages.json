@@ -367,5 +367,20 @@
   },
   "settings_enable_the_gif_button": {
     "message": "Enable the GIF button"
+  },
+  "settings_also_show_cards_in_columns_with_small_media_size": {
+    "message": "Also show cards in columns with Small media size"
+  },
+  "settings_looking_for_inspiration": {
+    "message": "Looking for inspiration?"
+  },
+  "settings_check_the_collection_of_css_snippets": {
+    "message": "Check the collection of CSS snippets"
+  },
+  "settings_css_compress_warning": {
+    "message": "The CSS in the editor will be compressed in order to save space towards your browser's\n        storage quota. Meaning some indentation or white space will be removed"
+  },
+  "settings_backup_warning": {
+    "message": "Don't forget to keep backups of your work in another place!"
   }
 }
