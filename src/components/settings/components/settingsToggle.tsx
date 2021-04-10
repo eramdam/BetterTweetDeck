@@ -30,7 +30,6 @@ export function SettingsToggle(props: PropsWithChildren<SettingsToggleProps>) {
           props.onChange(e.target.checked);
         }}
         id={props.id}
-        name={props.name}
       />
       <label htmlFor={props.id}>{props.children}</label>
     </div>

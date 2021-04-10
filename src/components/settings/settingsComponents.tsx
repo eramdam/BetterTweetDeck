@@ -31,6 +31,12 @@ export type SettingsMenuRenderer = (
   setEditorHasErrors: HandlerOf<boolean>
 ) => ReactNode;
 
+export interface SettingsMenuSectionProps {
+  settings: BTDSettings;
+  makeOnSettingsChange: <T extends keyof BTDSettings>(key: T) => (val: BTDSettings[T]) => void;
+  setEditorHasErrors: HandlerOf<boolean>;
+}
+
 export function formatDateTime(format: string) {
   return DateTime.local().toFormat(format, {
     locale: 'en',

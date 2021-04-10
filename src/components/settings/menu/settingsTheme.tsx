@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {FC, Fragment} from 'react';
 
 import {BTDScrollbarsMode} from '../../../features/changeScrollbars';
 import {BetterTweetDeckThemes} from '../../../features/themeTweaks';
@@ -7,28 +7,45 @@ import {CheckboxSelectSettingsRow} from '../components/checkboxSelectSettingsRow
 import {CustomAccentColor} from '../components/customAccentColor';
 import {BTDRadioSelectSettingsRow} from '../components/radioSelectSettingsRow';
 import {ThemeSelector} from '../components/themeSelector';
-import {SettingsMenuRenderer} from '../settingsComponents';
+import {SettingsMenuSectionProps} from '../settingsComponents';
+import {useSettingsSearch} from '../settingsContext';
+import {reactElementToString} from '../settingsHelpers';
 
-export const renderThemeSettings: SettingsMenuRenderer = (
-  settings,
-  makeOnSettingsChange,
-  _setEditorHasErrors
-) => {
+export const SettingsTheme: FC<SettingsMenuSectionProps> = (props) => {
+  const {settings, makeOnSettingsChange} = props;
+  const {renderAndAddtoIndex} = useSettingsSearch();
+
   return (
     <Fragment>
-      <CustomAccentColor
-        initialValue={settings.customAccentColor}
-        onChange={makeOnSettingsChange('customAccentColor')}></CustomAccentColor>
-      <ThemeSelector
-        initialValue={settings.theme}
-        onlyDark
-        onChange={(value) => {
-          if (value === 'light') {
-            makeOnSettingsChange('theme')(BetterTweetDeckThemes.LIGHT);
-          } else {
-            makeOnSettingsChange('theme')(value);
-          }
-        }}></ThemeSelector>
+      {renderAndAddtoIndex({
+        keywords: [reactElementToString(<Trans id="settings_accent_color" />)],
+        key: 'accentColor',
+        render: (newSettings) => (
+          <CustomAccentColor
+            initialValue={newSettings.customAccentColor}
+            onChange={makeOnSettingsChange('customAccentColor')}></CustomAccentColor>
+        ),
+      })}
+      {renderAndAddtoIndex({
+        keywords: [
+          getTransString('settings_theme'),
+          getTransString('settings_custom_dark_theme'),
+          getTransString('settings_old_gray'),
+          getTransString('settings_super_black'),
+        ],
+        key: 'theme',
+        render: (newSettings) => (
+          <ThemeSelector
+            initialValue={newSettings.theme}
+            onChange={(value) => {
+              if (value === 'light') {
+                makeOnSettingsChange('theme')(BetterTweetDeckThemes.LIGHT);
+              } else {
+                makeOnSettingsChange('theme')(value);
+              }
+            }}></ThemeSelector>
+        ),
+      })}
       <CheckboxSelectSettingsRow
         onChange={(_key, value) => {
           makeOnSettingsChange('enableAutoThemeSwitch')(value);

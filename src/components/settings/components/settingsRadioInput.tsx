@@ -12,7 +12,8 @@ const mainInputStyles = css`
   outline: 0;
   border-radius: 100%;
 
-  &:checked {
+  &:checked,
+  &[checked] {
     box-shadow: inset 0 0 0 3px var(--settings-modal-background),
       inset 0 0 0 8px var(--twitter-blue);
   }
@@ -25,17 +26,18 @@ interface SettingsRadioSelectFieldProps {
   onChange: Handler;
 }
 export function SettingsRadioInput(props: PropsWithChildren<SettingsRadioSelectFieldProps>) {
+  console.log(props.id, props.defaultChecked);
   return (
     <span>
       <input
         name={props.name}
         type="radio"
-        id={'input-' + props.id}
+        id={props.id}
         checked={props.defaultChecked}
         className={mainInputStyles}
         onChange={props.onChange}
       />
-      <label htmlFor={'input-' + props.id}>{props.children}</label>
+      <label htmlFor={props.id}>{props.children}</label>
     </span>
   );
 }

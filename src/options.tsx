@@ -28,7 +28,6 @@ const App: FC = () => {
     <SettingsModal
       onSettingsUpdate={async (newSettings) => {
         const compressedCss = minifyCss(newSettings.customCss);
-
         await ExtensionSettings.set({
           ...newSettings,
           customCss: compressedCss,

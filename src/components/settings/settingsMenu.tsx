@@ -5,21 +5,20 @@ import {getExtensionVersion} from '../../helpers/webExtensionHelpers';
 import {BTDSettings} from '../../types/btdSettingsTypes';
 import {getTransString, Trans} from '../trans';
 import {SettingsCredits} from './components/settingsCredits';
-import {SettingsCssEditor} from './components/settingsCssEditor';
-import {renderGeneralSettings} from './menu/settingsGeneral';
+import {SettingsCss} from './components/settingsCss';
+import {SettingsGeneral} from './menu/settingsGeneral';
 import {ImportExportSettings} from './menu/settingsImportExport';
-import {renderThemeSettings} from './menu/settingsTheme';
-import {renderTweetActionsSettings} from './menu/settingsTweetActions';
-import {renderTweetDisplaySettings} from './menu/settingsTweetsDisplay';
-import {SettingsMenuRenderer} from './settingsComponents';
+import {SettingsTheme} from './menu/settingsTheme';
+import {SettingsTweetActions} from './menu/settingsTweetActions';
+import {SettingsTweetsDisplay} from './menu/settingsTweetsDisplay';
 import {settingsRegularText} from './settingsStyles';
 
-interface MenuItem {
+export interface MenuItem {
   title: ReactNode;
   id: string;
   items: {
     id: string;
-    label: ReactNode;
+    label: string;
     render: Renderer;
   }[];
 }
@@ -30,11 +29,11 @@ export const makeSettingsMenu = (
   setSettings: HandlerOf<BTDSettings>,
   setEditorHasErrors: HandlerOf<boolean>
 ): readonly MenuItem[] => {
-  const rendererArguments: Parameters<SettingsMenuRenderer> = [
+  const settingsSectionProps = {
+    setEditorHasErrors,
     settings,
     makeOnSettingsChange,
-    setEditorHasErrors,
-  ];
+  };
 
   return [
     {
@@ -44,33 +43,28 @@ export const makeSettingsMenu = (
         {
           id: 'general',
           label: getTransString('settings_general'),
-          render: () => renderGeneralSettings(...rendererArguments),
+          render: () => <SettingsGeneral {...settingsSectionProps}></SettingsGeneral>,
         },
         {
           id: 'theme',
           label: getTransString('settings_theme'),
-          render: () => renderThemeSettings(...rendererArguments),
+          render: () => <SettingsTheme {...settingsSectionProps}></SettingsTheme>,
         },
         {
           id: 'tweets-display',
-          label: <Trans id="settings_tweets_display" />,
-          render: () => renderTweetDisplaySettings(...rendererArguments),
+          label: getTransString('settings_tweets_display'),
+          render: () => <SettingsTweetsDisplay {...settingsSectionProps}></SettingsTweetsDisplay>,
         },
         {
           id: 'tweet-actions',
-          label: <Trans id="settings_tweet_actions" />,
-          render: () => renderTweetActionsSettings(...rendererArguments),
+          label: getTransString('settings_tweet_actions'),
+          render: () => <SettingsTweetActions {...settingsSectionProps}></SettingsTweetActions>,
         },
         {
           id: 'custom-css',
-          label: <Trans id="settings_custom_css" />,
+          label: getTransString('settings_custom_css'),
           render: () => {
-            return (
-              <SettingsCssEditor
-                onChange={(val) => makeOnSettingsChange('customCss')(val)}
-                onErrorChange={setEditorHasErrors}
-                value={settings.customCss}></SettingsCssEditor>
-            );
+            return <SettingsCss {...settingsSectionProps}></SettingsCss>;
           },
         },
       ],
@@ -81,7 +75,7 @@ export const makeSettingsMenu = (
       items: [
         {
           id: 'support',
-          label: <Trans id="settings_support" />,
+          label: getTransString('settings_support'),
           render: () => (
             <div className={settingsRegularText}>
               <div>
@@ -107,7 +101,7 @@ export const makeSettingsMenu = (
         },
         {
           id: 'credits',
-          label: <Trans id="settings_credits_about" />,
+          label: getTransString('settings_credits_about'),
           render: () => {
             return <SettingsCredits />;
           },
