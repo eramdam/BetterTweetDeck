@@ -42,7 +42,7 @@ export function setupEmojiAutocompletion(settings: BTDSettings) {
 
       const [, shortcode] = colonMatches;
 
-      if (shortcode.startsWith('-') || shortcode.length < 1) {
+      if (shortcode.startsWith('-') || shortcode.length < 2) {
         unmountEmojiDropodownNearInput(composer);
         return;
       }
