@@ -6,6 +6,7 @@ import {BTDSettings} from '../../types/btdSettingsTypes';
 import {getTransString, Trans} from '../trans';
 import {SettingsCredits} from './components/settingsCredits';
 import {SettingsCss} from './components/settingsCss';
+import {SettingsComposer} from './menu/settingsComposer';
 import {SettingsGeneral} from './menu/settingsGeneral';
 import {ImportExportSettings} from './menu/settingsImportExport';
 import {SettingsTheme} from './menu/settingsTheme';
@@ -13,11 +14,24 @@ import {SettingsTweetActions} from './menu/settingsTweetActions';
 import {SettingsTweetsDisplay} from './menu/settingsTweetsDisplay';
 import {settingsRegularText} from './settingsStyles';
 
+export enum SettingsMenuSectionsEnum {
+  GENERAL = 'general',
+  THEME = 'theme',
+  TWEETS_DISPLAY = 'tweets-display',
+  TWEET_ACTIONS = 'tweet-actions',
+  COMPOSER = 'composer',
+  CUSTOM_CSS = 'custom-css',
+  SUPPORT = 'support',
+  IMPORT_EXPORT = 'import-export',
+  CREDITS = 'credits',
+  BLANK = '__BLANK__',
+}
+
 export interface MenuItem {
   title: ReactNode;
   id: string;
   items: {
-    id: string;
+    id: SettingsMenuSectionsEnum;
     label: string;
     render: Renderer;
   }[];
@@ -41,27 +55,32 @@ export const makeSettingsMenu = (
       id: 'settings',
       items: [
         {
-          id: 'general',
+          id: SettingsMenuSectionsEnum.GENERAL,
           label: getTransString('settings_general'),
           render: () => <SettingsGeneral {...settingsSectionProps}></SettingsGeneral>,
         },
         {
-          id: 'theme',
+          id: SettingsMenuSectionsEnum.THEME,
           label: getTransString('settings_theme'),
           render: () => <SettingsTheme {...settingsSectionProps}></SettingsTheme>,
         },
         {
-          id: 'tweets-display',
+          id: SettingsMenuSectionsEnum.TWEETS_DISPLAY,
           label: getTransString('settings_tweets_display'),
           render: () => <SettingsTweetsDisplay {...settingsSectionProps}></SettingsTweetsDisplay>,
         },
         {
-          id: 'tweet-actions',
+          id: SettingsMenuSectionsEnum.TWEET_ACTIONS,
           label: getTransString('settings_tweet_actions'),
           render: () => <SettingsTweetActions {...settingsSectionProps}></SettingsTweetActions>,
         },
         {
-          id: 'custom-css',
+          id: SettingsMenuSectionsEnum.COMPOSER,
+          label: getTransString('settings_tweet_composer'),
+          render: () => <SettingsComposer {...settingsSectionProps}></SettingsComposer>,
+        },
+        {
+          id: SettingsMenuSectionsEnum.CUSTOM_CSS,
           label: getTransString('settings_custom_css'),
           render: () => {
             return <SettingsCss {...settingsSectionProps}></SettingsCss>;
@@ -74,7 +93,7 @@ export const makeSettingsMenu = (
       id: 'meta',
       items: [
         {
-          id: 'support',
+          id: SettingsMenuSectionsEnum.SUPPORT,
           label: getTransString('settings_support'),
           render: () => (
             <div className={settingsRegularText}>
@@ -95,12 +114,12 @@ export const makeSettingsMenu = (
           ),
         },
         {
-          id: 'import-export',
+          id: SettingsMenuSectionsEnum.IMPORT_EXPORT,
           label: getTransString('settings_import_export'),
           render: () => <ImportExportSettings settings={settings} onNewSettings={setSettings} />,
         },
         {
-          id: 'credits',
+          id: SettingsMenuSectionsEnum.CREDITS,
           label: getTransString('settings_credits_about'),
           render: () => {
             return <SettingsCredits />;

@@ -14,7 +14,7 @@ interface StateEmoji {
 const emojiColonRegex = /:([a-z0-9_\-+]+):?:?([a-z0-9_-]+)?:?$/i;
 
 export function setupEmojiAutocompletion(settings: BTDSettings) {
-  if (!settings.enabledEmojiCompletion) {
+  if (!settings.enableEmojiCompletion) {
     return;
   }
   let stateEmojis: StateEmoji[] = [];

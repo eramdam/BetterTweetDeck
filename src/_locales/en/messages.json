@@ -355,5 +355,17 @@
   },
   "settings_custom_dark_theme": {
     "message": "Dark theme"
+  },
+  "settings_tweet_composer": {
+    "message": "Tweet composer"
+  },
+  "settings_show_the_emoji_picker": {
+    "message": "Show the emoji picker"
+  },
+  "settings_enable_emoji_autocompletion": {
+    "message": "Enable emoji autocompletion using :shortcodes:"
+  },
+  "settings_enable_the_gif_button": {
+    "message": "Enable the GIF button"
   }
 }

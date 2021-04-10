@@ -20,7 +20,7 @@ import {
 } from './components/settingsModalComponents';
 import {SettingsTextInput} from './components/settingsTextInput';
 import {SettingsSearchProvider} from './settingsContext';
-import {makeSettingsMenu, MenuItem} from './settingsMenu';
+import {makeSettingsMenu, MenuItem, SettingsMenuSectionsEnum} from './settingsMenu';
 import {SettingsModalSearchContent} from './settingsModalContent';
 
 interface SettingsModalProps {
@@ -35,13 +35,16 @@ export const SettingsModal = (props: SettingsModalProps) => {
   const {onSettingsUpdate} = props;
   const [settings, setSettings] = useState<BTDSettings>(props.btdSettings);
   const [isDirty, setIsDirty] = useState(false);
-  const [selectedId, setSelectedId] = useState(() => {
+  const [selectedId, setSelectedId] = useState<SettingsMenuSectionsEnum>(() => {
     try {
       const selectedIdFromUrl = new URL(window.location.href).searchParams.get('selectedId');
+      const validSelectedId = Object.values(SettingsMenuSectionsEnum).find(
+        (v) => selectedIdFromUrl
+      );
 
-      return selectedIdFromUrl || 'general';
+      return validSelectedId || SettingsMenuSectionsEnum.GENERAL;
     } catch (e) {
-      return 'general';
+      return SettingsMenuSectionsEnum.GENERAL;
     }
   });
   const [editorHasErrors, setEditorHasErrors] = useState(false);
@@ -49,9 +52,9 @@ export const SettingsModal = (props: SettingsModalProps) => {
 
   const onSearchQueryChange = (newQuery: string) => {
     if (!newQuery) {
-      setSelectedId('general');
+      setSelectedId(SettingsMenuSectionsEnum.GENERAL);
     } else {
-      setSelectedId('');
+      setSelectedId(SettingsMenuSectionsEnum.BLANK);
     }
     setSearchQuery(newQuery);
   };

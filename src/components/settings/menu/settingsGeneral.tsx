@@ -189,21 +189,6 @@ export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
             label: <Trans id="settings_freeze_gifs_in_profile_pictures" />,
           },
           {
-            initialValue: settings.smallComposerButtons,
-            key: 'smallComposerButtons',
-            label: <Trans id="settings_make_buttons_smaller_in_the_composer" />,
-          },
-          {
-            initialValue: settings.alwaysShowNumberOfCharactersLeft,
-            key: 'alwaysShowNumberOfCharactersLeft',
-            label: <Trans id="settings_always_characters_left" />,
-          },
-          {
-            initialValue: settings.saveTweetedHashtags,
-            key: 'saveTweetedHashtags',
-            label: <Trans id="settings_save_tweeted_hashtags" />,
-          },
-          {
             initialValue: settings.updateTabTitleOnActivity,
             key: 'updateTabTitleOnActivity',
             label: <Trans id="settings_reflect_new_tweets_and_dms_in_the_tabs_title" />,

@@ -4,11 +4,11 @@ import React, {useEffect} from 'react';
 import {BTDSettings} from '../../types/btdSettingsTypes';
 import {SettingsRow, SettingsRowTitle} from './components/settingsRow';
 import {useSettingsSearch} from './settingsContext';
-import {MenuItem} from './settingsMenu';
+import {MenuItem, SettingsMenuSectionsEnum} from './settingsMenu';
 
 interface SettingsModalContentProps {
   settings: BTDSettings;
-  selectedId: string;
+  selectedId: SettingsMenuSectionsEnum;
   searchQuery: string;
   menu: ReadonlyArray<MenuItem>;
 }
