@@ -5,13 +5,12 @@ import {getExtensionVersion} from '../../helpers/webExtensionHelpers';
 import {BTDSettings} from '../../types/btdSettingsTypes';
 import {getTransString, Trans} from '../trans';
 import {SettingsCredits} from './components/settingsCredits';
-import {SettingsCssEditor} from './components/settingsCssEditor';
+import {SettingsCss} from './components/settingsCss';
 import {SettingsGeneral} from './menu/settingsGeneral';
 import {ImportExportSettings} from './menu/settingsImportExport';
 import {SettingsTheme} from './menu/settingsTheme';
 import {SettingsTweetActions} from './menu/settingsTweetActions';
 import {SettingsTweetsDisplay} from './menu/settingsTweetsDisplay';
-import {useSettingsSearch} from './settingsContext';
 import {settingsRegularText} from './settingsStyles';
 
 export interface MenuItem {
@@ -65,20 +64,7 @@ export const makeSettingsMenu = (
           id: 'custom-css',
           label: getTransString('settings_custom_css'),
           render: () => {
-            // eslint-disable-next-line react-hooks/rules-of-hooks
-            const {renderAndAddtoIndex} = useSettingsSearch();
-            const renderEditor = (newSettings: BTDSettings) => (
-              <SettingsCssEditor
-                onChange={(val) => makeOnSettingsChange('customCss')(val)}
-                onErrorChange={setEditorHasErrors}
-                value={newSettings.customCss}></SettingsCssEditor>
-            );
-
-            return renderAndAddtoIndex({
-              key: 'custom_css',
-              keywords: [getTransString('settings_custom_css')],
-              render: renderEditor,
-            });
+            return <SettingsCss {...settingsSectionProps}></SettingsCss>;
           },
         },
       ],

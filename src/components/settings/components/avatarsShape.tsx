@@ -17,7 +17,8 @@ const avatarChoiceStyle = css`
   color: var(--settings-modal-text);
   border: 2px solid var(--settings-modal-separator);
 
-  input:checked + & {
+  input:checked + &,
+  input[checked] + & {
     border-color: var(--twitter-blue);
     box-shadow: 0 0 8px rgba(29, 161, 242, 0.6);
   }

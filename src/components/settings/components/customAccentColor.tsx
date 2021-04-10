@@ -75,7 +75,8 @@ const labelStyles = css`
     transition: transform 200ms ease;
   }
 
-  input:checked + &:before {
+  input:checked + &:before,
+  input[checked] + &:before {
     transform: translate(-50%, -50%) scale(1);
   }
 `;
