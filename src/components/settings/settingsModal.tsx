@@ -2,7 +2,7 @@ import './settingsModal.css';
 
 import {css, cx} from '@emotion/css';
 import {isEqual, noop} from 'lodash';
-import React, {Fragment, useCallback, useEffect, useMemo, useState} from 'react';
+import React, {Fragment, useCallback, useLayoutEffect, useMemo, useRef, useState} from 'react';
 import {browser} from 'webextension-polyfill-ts';
 
 import {isFirefox} from '../../helpers/browserHelpers';
@@ -47,10 +47,10 @@ export const SettingsModal = (props: SettingsModalProps) => {
   const [editorHasErrors, setEditorHasErrors] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const {renderSearchResults} = useSettingsSearch();
-  const [isInitialRender, setIsInitialRender] = useState(true);
+  const isInitialRender = useRef(true);
 
-  useEffect(() => {
-    setIsInitialRender(false);
+  useLayoutEffect(() => {
+    isInitialRender.current = false;
   }, []);
 
   const makeOnSettingsChange = <T extends keyof BTDSettings>(key: T) => {
@@ -125,7 +125,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
   };
 
   const renderSearchIndex = () => {
-    if (!isInitialRender) {
+    if (!isInitialRender.current) {
       return null;
     }
 
