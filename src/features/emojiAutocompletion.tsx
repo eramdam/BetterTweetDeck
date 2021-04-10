@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import {Key} from 'ts-key-enum';
 
 import {isHTMLElement, replaceAt, valueAtCursor} from '../helpers/domHelpers';
+import {BTDSettings} from '../types/btdSettingsTypes';
 
 interface StateEmoji {
   emojiData: BaseEmoji;
@@ -12,7 +13,10 @@ interface StateEmoji {
 
 const emojiColonRegex = /:([a-z0-9_\-+]+):?:?([a-z0-9_-]+)?:?$/i;
 
-export function setupEmojiAutocompletion() {
+export function setupEmojiAutocompletion(settings: BTDSettings) {
+  if (!settings.enabledEmojiCompletion) {
+    return;
+  }
   let stateEmojis: StateEmoji[] = [];
 
   document.body.addEventListener(
@@ -38,7 +42,7 @@ export function setupEmojiAutocompletion() {
 
       const [, shortcode] = colonMatches;
 
-      if (shortcode.startsWith('-')) {
+      if (shortcode.startsWith('-') || shortcode.length < 1) {
         unmountEmojiDropodownNearInput(composer);
         return;
       }

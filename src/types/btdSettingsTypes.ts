@@ -32,6 +32,10 @@ export const RBetterTweetDeckSettings = t.type({
 
   /** Make emoji bigger in tweets. */
   biggerEmoji: withDefault(t.boolean, true),
+  /** Show emoji picker. */
+  showEmojiPicker: withDefault(t.boolean, true),
+  enabledEmojiCompletion: withDefault(t.boolean, true),
+  showGifPicker: withDefault(t.boolean, true),
 
   /** Save tweeted hashtags. */
   saveTweetedHashtags: withDefault(t.boolean, false),
