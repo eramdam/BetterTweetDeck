@@ -34,6 +34,7 @@ export const SettingsSearchProvider: FC<SettingsSearchProviderProps> = (props) =
     new Fuse([], {
       threshold: 0.4,
       distance: 200,
+      includeScore: true,
       keys: ['keywords'],
     })
   );
@@ -62,6 +63,7 @@ export const SettingsSearchProvider: FC<SettingsSearchProviderProps> = (props) =
         renderSearchResults: (query) => {
           return _(searchItems.current.search(query.trim()))
             .uniqBy((r) => r.item.key)
+            .sortBy((r) => r.refIndex)
             .map((result) => {
               return (
                 <Fragment key={result.item.key}>

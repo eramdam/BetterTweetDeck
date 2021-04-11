@@ -1,5 +1,5 @@
 import {css} from '@emotion/css';
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 
 import {BTDSettings} from '../../types/btdSettingsTypes';
 import {SettingsRow, SettingsRowTitle} from './components/settingsRow';
@@ -14,12 +14,22 @@ interface SettingsModalContentProps {
 }
 
 export const SettingsModalSearchContent = (props: SettingsModalContentProps) => {
-  const {renderSearchResults, stopIndexing} = useSettingsSearch();
+  const {renderSearchResults: internalRenderSearchResults, stopIndexing} = useSettingsSearch();
   const {searchQuery, selectedId, menu} = props;
 
   useEffect(() => {
     stopIndexing();
   }, [stopIndexing]);
+
+  const renderSearchResults = useCallback(
+    (query: string) => {
+      console.time('search');
+      const res = internalRenderSearchResults(query);
+      console.timeEnd('search');
+      return res;
+    },
+    [internalRenderSearchResults]
+  );
 
   const renderSelectedPage = () => {
     const menuSection = menu

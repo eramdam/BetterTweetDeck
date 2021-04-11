@@ -1,75 +1,15 @@
 /* eslint-disable react/jsx-key */
-import _ from 'lodash';
 import React, {FC, Fragment} from 'react';
 
 import {isFirefox, isSafari} from '../../../helpers/browserHelpers';
 import {BTDSettings} from '../../../types/btdSettingsTypes';
 import {Trans} from '../../trans';
-import {BooleanSettingsRow} from '../components/booleanSettingRow';
 import {CheckboxSelectSettingsRow} from '../components/checkboxSelectSettingsRow';
-import {SettingsRow} from '../components/settingsRow';
 import {SettingsTextInputWithAnnotation} from '../components/settingsTimeFormatInput';
 import {SettingsMenuSectionProps, SettingsSmallText} from '../settingsComponents';
-import {useSettingsSearch} from '../settingsContext';
-import {reactElementToString} from '../settingsHelpers';
 
 export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
   const {settings, makeOnSettingsChange} = props;
-  const {renderAndAddtoIndex} = useSettingsSearch();
-  const onBooleanCustomWidthChange = makeOnSettingsChange('useCustomColumnWidth');
-  const customWidthField = (newSettings: BTDSettings) => (
-    <Fragment>
-      <BooleanSettingsRow
-        alignToTheLeft
-        ignoreInSearch
-        settingsKey="useCustomColumnWidth"
-        initialValue={newSettings.useCustomColumnWidth}
-        onChange={onBooleanCustomWidthChange}>
-        <Trans id="settings_use_a_custom_width_for_columns" />
-      </BooleanSettingsRow>
-      <SettingsRow disabled={!newSettings.useCustomColumnWidth}>
-        <span></span>
-        <SettingsTextInputWithAnnotation
-          value={newSettings.customColumnWidthValue}
-          onChange={makeOnSettingsChange('customColumnWidthValue')}
-          annotation={
-            <Trans id="settings_width_any_valid_css_value" />
-          }></SettingsTextInputWithAnnotation>
-      </SettingsRow>
-    </Fragment>
-  );
-
-  const shareItem = (newSettings: BTDSettings) => (
-    <CheckboxSelectSettingsRow
-      ignoreSearch
-      onChange={(key, value) => {
-        makeOnSettingsChange(key as keyof BTDSettings)(value);
-      }}
-      fields={[
-        {
-          initialValue: newSettings.enableShareItem,
-          key: 'enableShareItem',
-          label: (
-            <>
-              <Trans id="settings_enable_share_item" />
-              {isFirefox && (
-                <SettingsSmallText>
-                  <Trans id="settings_better_tweetdeck_ask_tabs" />
-                </SettingsSmallText>
-              )}
-            </>
-          ),
-        },
-        {
-          initialValue: newSettings.shouldShortenSharedText,
-          key: 'shouldShortenSharedText',
-          isDisabled: !newSettings.enableShareItem,
-          label: <Trans id="settings_shorten_the_shared_text" />,
-        },
-      ]}>
-      <Trans id="settings_contextual_menu" />
-    </CheckboxSelectSettingsRow>
-  );
 
   return (
     <Fragment>
@@ -109,17 +49,24 @@ export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
             key: 'showRemoveButtonInColumnsHeader',
             label: <Trans id="settings_show_delete_button_in_columns_header" />,
           },
+          {
+            initialValue: settings.useCustomColumnWidth,
+            key: 'useCustomColumnWidth',
+            label: <Trans id="settings_use_a_custom_width_for_columns" />,
+            extraContent: (newSettings) =>
+              newSettings && (
+                <SettingsTextInputWithAnnotation
+                  isDisabled={!newSettings.useCustomColumnWidth}
+                  value={newSettings.customColumnWidthValue}
+                  onChange={makeOnSettingsChange('customColumnWidthValue')}
+                  annotation={
+                    <Trans id="settings_width_any_valid_css_value" />
+                  }></SettingsTextInputWithAnnotation>
+              ),
+          },
         ]}>
         <Trans id="settings_columns" />
       </CheckboxSelectSettingsRow>
-      {renderAndAddtoIndex({
-        keywords: [
-          <Trans id="settings_use_a_custom_width_for_columns" />,
-          <Trans id="settings_width_any_valid_css_value" />,
-        ].map((t) => reactElementToString(t)),
-        key: 'custom_width_column',
-        render: customWidthField,
-      })}
       <CheckboxSelectSettingsRow
         onChange={(key, value) => {
           makeOnSettingsChange(key as keyof BTDSettings)(value);
@@ -203,20 +150,36 @@ export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
         ]}>
         <Trans id="settings_misc" />
       </CheckboxSelectSettingsRow>
-      {!isSafari &&
-        renderAndAddtoIndex({
-          keywords: _([
-            <Trans id="settings_enable_share_item" />,
-            isFirefox && <Trans id="settings_better_tweetdeck_ask_tabs" />,
-            <Trans id="settings_shorten_the_shared_text" />,
-            <Trans id="settings_contextual_menu" />,
-          ])
-            .compact()
-            .map((t) => reactElementToString(t))
-            .value(),
-          key: 'share',
-          render: shareItem,
-        })}
+      {!isSafari && (
+        <CheckboxSelectSettingsRow
+          onChange={(key, value) => {
+            makeOnSettingsChange(key as keyof BTDSettings)(value);
+          }}
+          fields={[
+            {
+              initialValue: settings.enableShareItem,
+              key: 'enableShareItem',
+              label: (
+                <>
+                  <Trans id="settings_enable_share_item" />
+                  {isFirefox && (
+                    <SettingsSmallText>
+                      <Trans id="settings_better_tweetdeck_ask_tabs" />
+                    </SettingsSmallText>
+                  )}
+                </>
+              ),
+            },
+            {
+              initialValue: settings.shouldShortenSharedText,
+              key: 'shouldShortenSharedText',
+              isDisabled: !settings.enableShareItem,
+              label: <Trans id="settings_shorten_the_shared_text" />,
+            },
+          ]}>
+          <Trans id="settings_contextual_menu" />
+        </CheckboxSelectSettingsRow>
+      )}
     </Fragment>
   );
 };

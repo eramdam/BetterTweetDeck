@@ -61,7 +61,6 @@ export const SettingsModal = (props: SettingsModalProps) => {
 
   const makeOnSettingsChange = <T extends keyof BTDSettings>(key: T) => {
     return (val: BTDSettings[T]) => {
-      console.log({key, val});
       setSettings((currentSettings) => {
         return {
           ...currentSettings,

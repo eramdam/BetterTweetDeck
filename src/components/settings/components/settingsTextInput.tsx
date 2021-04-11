@@ -8,6 +8,7 @@ export interface SettingsTextInputProps {
   className?: string;
   value: string;
   onChange: HandlerOf<string>;
+  isDisabled?: boolean;
 }
 
 export function SettingsTextInput(props: SettingsTextInputProps) {
@@ -40,6 +41,7 @@ export function SettingsTextInput(props: SettingsTextInputProps) {
       onChange={(e) => props.onChange(e.target.value)}
       value={props.value}
       placeholder={props.placeholder}
+      disabled={props.isDisabled}
     />
   );
 }

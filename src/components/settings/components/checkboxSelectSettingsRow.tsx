@@ -41,7 +41,9 @@ export function CheckboxSelectSettingsRow(
       <>
         {renderAndAddtoIndex({
           key: props.fields.map((k) => k.key).join('-'),
-          keywords: props.fields.map((k) => reactElementToString(k.label)),
+          keywords: props.fields
+            .map((k) => reactElementToString(k.label))
+            .concat(reactElementToString(props.children)),
           render: (newSettings) => {
             function getValue(key: SettingKey) {
               if (Object.keys(newSettings.tweetActions).includes(key)) {
@@ -67,6 +69,8 @@ export function CheckboxSelectSettingsRow(
                       return {
                         ...f,
                         initialValue: getValue(f.key) as typeof f.initialValue,
+                        extraContent: () =>
+                          f.extraContent ? f.extraContent(newSettings) : undefined,
                       };
                     })}
                     onChange={props.onChange}></SettingsCheckboxSelect>

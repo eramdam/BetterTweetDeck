@@ -21,7 +21,6 @@ export const SettingsTweetsDisplay: FC<SettingsMenuSectionProps> = (props) => {
   const {makeOnSettingsChange, settings} = props;
   const {renderAndAddtoIndex} = useSettingsSearch();
   const dateTimeSection = (newSettings: BTDSettings) => {
-    console.log('timestampStyle', newSettings.timestampStyle);
     return (
       <>
         <BTDRadioSelectSettingsRow

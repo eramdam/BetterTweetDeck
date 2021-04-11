@@ -48,7 +48,6 @@ export const keepTweetedHashtagsInComposer = makeBTDModule(({jq, settings}) => {
 
   // Re-instate hashtags when the composer is enabled again.
   onComposerDisabledStateChange((isDisabled) => {
-    console.log({isDisabled});
     if (isDisabled) {
       return;
     }

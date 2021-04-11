@@ -26,14 +26,13 @@ interface SettingsRadioSelectFieldProps {
   onChange: Handler;
 }
 export function SettingsRadioInput(props: PropsWithChildren<SettingsRadioSelectFieldProps>) {
-  console.log(props.id, props.defaultChecked);
   return (
     <span>
       <input
         name={props.name}
         type="radio"
         id={props.id}
-        checked={props.defaultChecked}
+        defaultChecked={props.defaultChecked}
         className={mainInputStyles}
         onChange={props.onChange}
       />
