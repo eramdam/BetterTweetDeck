@@ -378,7 +378,7 @@
     "message": "Check the collection of CSS snippets"
   },
   "settings_css_compress_warning": {
-    "message": "The CSS in the editor will be compressed in order to save space towards your browser's\n        storage quota. Meaning some indentation or white space will be removed"
+    "message": "The CSS in the editor will be compressed in order to save space towards your browser's\n        storage quota. Meaning some indentation or white space will be removed."
   },
   "settings_backup_warning": {
     "message": "Don't forget to keep backups of your work in another place!"
