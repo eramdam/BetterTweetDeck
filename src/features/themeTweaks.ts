@@ -8,6 +8,7 @@ export enum BetterTweetDeckAccentColors {
   PURPLE = 'rgb(121, 75, 196)',
   ORANGE = 'rgb(244, 93, 34)',
   GREEN = 'rgb(23, 191, 99)',
+  CUSTOM = 'CUSTOM',
 }
 
 export enum BetterTweetDeckThemes {
@@ -22,8 +23,11 @@ import {makeBTDModule} from '../types/btdCommonTypes';
 export const tweakTweetDeckTheme = makeBTDModule(({settings}) => {
   if (settings.customAccentColor !== BetterTweetDeckAccentColors.DEFAULT) {
     require('./addAccentColors.css');
-    // @ts-ignore
-    document.body.style = `--btd-accent-color: ${settings.customAccentColor}`;
+    if (settings.customAccentColor === BetterTweetDeckAccentColors.CUSTOM) {
+      document.body.style.setProperty('--btd-accent-color', settings.customAnyAccentColor);
+    } else {
+      document.body.style.setProperty('--btd-accent-color', settings.customAccentColor);
+    }
     document.body.setAttribute('btd-accent-color', 'true');
   }
 

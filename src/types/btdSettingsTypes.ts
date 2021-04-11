@@ -187,6 +187,7 @@ export const RBetterTweetDeckSettings = t.type({
     makeEnumRuntimeType<BetterTweetDeckAccentColors>(BetterTweetDeckAccentColors),
     BetterTweetDeckAccentColors.DEFAULT
   ),
+  customAnyAccentColor: withDefault(t.string, ''),
 
   customCss: withDefault(t.string, ''),
   useCustomColumnWidth: withDefault(t.boolean, false),

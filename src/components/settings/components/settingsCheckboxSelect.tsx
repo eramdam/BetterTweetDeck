@@ -69,7 +69,7 @@ export function SettingsCheckboxSelect(props: SettingsCheckboxSelectProps) {
                 )}
               </label>
             </span>
-            {field.extraContent()}
+            {field.extraContent && field.extraContent(undefined)}
           </Fragment>
         );
       })}

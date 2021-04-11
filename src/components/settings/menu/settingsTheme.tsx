@@ -22,6 +22,8 @@ export const SettingsTheme: FC<SettingsMenuSectionProps> = (props) => {
         key: 'accentColor',
         render: (newSettings) => (
           <CustomAccentColor
+            customAnyAccentColor={newSettings.customAnyAccentColor}
+            onCustomAnyAccentColorChange={makeOnSettingsChange('customAnyAccentColor')}
             initialValue={newSettings.customAccentColor}
             onChange={makeOnSettingsChange('customAccentColor')}></CustomAccentColor>
         ),
