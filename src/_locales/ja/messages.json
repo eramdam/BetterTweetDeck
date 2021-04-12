@@ -291,7 +291,7 @@
     "message": "TweetDeckで共有"
   },
   "settings_enable_share_item": {
-    "message": "ブラウザのコンテクストメニューに「TweetDeckで共有」の項目を追加"
+    "message": "ブラウザのコンテキストメニューに「TweetDeckで共有」の項目を追加"
   },
   "settings_shorten_the_shared_text": {
     "message": "共有テキストの短縮化"
