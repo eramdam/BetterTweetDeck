@@ -349,5 +349,11 @@
   },
   "settings_do_the_same_for_single_images_in_quoted_tweets": {
     "message": "Fazer o mesmo em tweets comentados com imagens únicas"
+  },
+  "settings_default_dark_theme": {
+    "message": "Padrão"
+  },
+  "settings_custom_dark_theme": {
+    "message": "Tema escuro"
   }
 }
