@@ -349,5 +349,8 @@
   },
   "settings_do_the_same_for_single_images_in_quoted_tweets": {
     "message": "Auch für einzelne Bilder in zitierten Tweets"
+  },
+  "settings_custom_dark_theme": {
+    "message": "Dunkles Farbschema"
   }
 }
