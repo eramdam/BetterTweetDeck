@@ -27,6 +27,10 @@ export const renderMediaAndQuotedTweets = makeBTDModule(({TD, jq}) => {
         return;
       }
 
+      if (chirpNode.querySelector('.quoted-tweet')) {
+        return;
+      }
+
       chirpNode.querySelector('.tweet-body')?.insertAdjacentHTML('beforeend', quotedTweetMarkup);
     }
   });

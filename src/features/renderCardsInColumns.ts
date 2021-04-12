@@ -8,6 +8,7 @@ import {
   TweetDeckChirp,
   TweetDeckColumn,
   TweetDeckColumnMediaPreviewSizesEnum,
+  TwitterActionEnum,
 } from '../types/tweetdeckTypes';
 
 export const maybeRenderCardsInColumns = makeBTDModule((options) => {
@@ -108,7 +109,11 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
     const baseChirp = getChirpFromKey(TD, payload.chirp.id, payload.columnKey);
 
     // In the case of a reply, we want the `targetTweet`, as the chirp itself is just a notification
-    const actualChirp = baseChirp?.targetTweet ? baseChirp.targetTweet : baseChirp;
+    const isEligibleNotification =
+      payload.chirpExtra.action === TwitterActionEnum.MENTION ||
+      payload.chirpExtra.action === TwitterActionEnum.REPLY;
+    const actualChirp =
+      baseChirp?.targetTweet && isEligibleNotification ? baseChirp.targetTweet : baseChirp;
 
     if (!actualChirp || !actualChirp.card || !renderCardForChirpModule || !getColumnTypeModule) {
       return;
@@ -129,7 +134,7 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
     }
 
     // Wait a bit, if the user's timeline goes very fast, we can avoid rendering anything at all.
-    await delayAsync(500);
+    await delayAsync(200);
 
     // If the chirp is out of the view, don't render the card.
     if (isNodeIsOutsideOfTheViewport(chirpNode[0])) {
@@ -153,8 +158,6 @@ function isNodeIsOutsideOfTheViewport(node: HTMLElement) {
     rect.left < 0 ||
     rect.top > window.innerHeight ||
     rect.top < 0 ||
-    rect.top + rect.height > window.innerHeight ||
-    rect.left + rect.width > window.innerWidth ||
     rect.x < 0 ||
     rect.y < 0
   );

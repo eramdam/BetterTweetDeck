@@ -21,6 +21,7 @@ export const renderThemeSettings: SettingsMenuRenderer = (
         onChange={makeOnSettingsChange('customAccentColor')}></CustomAccentColor>
       <ThemeSelector
         initialValue={settings.theme}
+        onlyDark
         onChange={(value) => {
           if (value === 'light') {
             makeOnSettingsChange('theme')(BetterTweetDeckThemes.LIGHT);
