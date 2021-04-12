@@ -302,17 +302,11 @@
   "settings_contextual_menu": {
     "message": "Contextual menu"
   },
-  "settings_dark_theme": {
-    "message": "Dark"
-  },
   "settings_old_gray": {
     "message": "Old Gray"
   },
   "settings_super_black": {
     "message": "Super Black"
-  },
-  "settings_light": {
-    "message": "Light"
   },
   "settings_tokens_list": {
     "message": "Tokens list"
@@ -328,9 +322,6 @@
   },
   "settings_changelog": {
     "message": "Changelog"
-  },
-  "settings_chrome_web_store": {
-    "message": "Chrome Web Store"
   },
   "settings_bugs_or_suggestions": {
     "message": "Bugs or suggestions"
