@@ -269,6 +269,9 @@
   "settings_misc": {
     "message": "その他"
   },
+  "settings_meta": {
+    "message": "メタ"
+  },
   "settings_import_export": {
     "message": "設定のバックアップ"
   },
@@ -306,7 +309,7 @@
     "message": "スーパーブラック"
   },
   "settings_tokens_list": {
-    "message": "テンプレート一覧"
+    "message": "トークン一覧"
   },
   "settings_make_emoji_bigger_in_tweets": {
     "message": "ツイートの絵文字を大きくする"
@@ -322,6 +325,9 @@
   },
   "settings_bugs_or_suggestions": {
     "message": "バグ報告や提案"
+  },
+  "settings_source_on_github": {
+    "message": "GitHub上のソース"
   },
   "settings_contributors": {
     "message": "貢献者"
