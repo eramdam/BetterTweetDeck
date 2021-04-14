@@ -9,6 +9,7 @@ import {BTDRadioSelectSettingsRow} from '../components/radioSelectSettingsRow';
 import {SettingsButton} from '../components/settingsButton';
 import {SettingsRow, SettingsRowTitle} from '../components/settingsRow';
 import {SettingsTextInput} from '../components/settingsTextInput';
+import {SettingsTextInputWithAnnotation} from '../components/settingsTimeFormatInput';
 import {formatDateTime, SettingsMenuSectionProps} from '../settingsComponents';
 
 export const SettingsTweetActions: FC<SettingsMenuSectionProps> = (props) => {
@@ -210,6 +211,19 @@ export const SettingsTweetActions: FC<SettingsMenuSectionProps> = (props) => {
             initialValue: settings.showAccountChoiceOnFavorite,
             key: 'showAccountChoiceOnFavorite',
             label: <Trans id="settings_show_account_picker_like" />,
+            extraContent: (newSettings) => {
+              return (
+                newSettings && (
+                  <SettingsTextInputWithAnnotation
+                    isDisabled={!newSettings.showAccountChoiceOnFavorite}
+                    value={newSettings.accountChoiceAllowList}
+                    onChange={makeOnSettingsChange('accountChoiceAllowList')}
+                    annotation={
+                      <Trans id="settings_usernames_like_picker_allowlist" />
+                    }></SettingsTextInputWithAnnotation>
+                )
+              );
+            },
           },
           {
             initialValue: settings.replaceHeartsByStars,

@@ -382,5 +382,8 @@
   },
   "settings_backup_warning": {
     "message": "Don't forget to keep backups of your work in another place!"
+  },
+  "settings_usernames_like_picker_allowlist": {
+    "message": "Comma separated list of usernames for which the picker should show (leave empty to always show)"
   }
 }

@@ -633,6 +633,7 @@ export interface TweetDeckChirp {
   destroy(): void;
   isRetweetedStatus(): boolean;
   getFilterableText(): string;
+  favorite(options: {element: JQuery<Element>; statusKey: string; column: string}): void;
   card: object;
 }
 

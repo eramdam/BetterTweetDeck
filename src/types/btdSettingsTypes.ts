@@ -126,6 +126,8 @@ export const RBetterTweetDeckSettings = t.type({
 
   /** Always shows the account picker when favoriting a tweet */
   showAccountChoiceOnFavorite: withDefault(t.boolean, false),
+  /** Comma separated list of account usernames from which to trigger the account picker */
+  accountChoiceAllowList: withDefault(t.string, ''),
 
   /** Change the display of usernames in columns. */
   usernamesFormat: withDefault(

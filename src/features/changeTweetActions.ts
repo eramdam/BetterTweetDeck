@@ -1,6 +1,6 @@
 import './changeTweetActions.css';
 
-import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
+import {isHTMLElement} from '../helpers/domHelpers';
 import {getChirpFromElement} from '../helpers/tweetdeckHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 
@@ -20,25 +20,38 @@ export const changeTweetActionsStyling = makeBTDModule(({settings, jq, TD}) => {
     return;
   }
 
-  modifyMustacheTemplate(TD, 'status/tweet_detail_actions.mustache', (string) => {
-    return string.replace('rel="favorite"', 'rel="btd-favoriteOrUnfavorite"');
-  });
-  modifyMustacheTemplate(TD, 'status/tweet_single_actions.mustache', (string) => {
-    return string.replace('rel="favorite"', 'rel="btd-favoriteOrUnfavorite"');
-  });
+  const usernamesAllowlist = settings.accountChoiceAllowList
+    .split(',')
+    .map((t) => t.trim().replace('@', '').toLowerCase())
+    .filter(Boolean);
 
-  jq(document).on('click', '.tweet-footer .tweet-action[rel="btd-favoriteOrUnfavorite"]', (e) => {
+  jq(document).on('click', '.tweet-footer .tweet-action[rel="favorite"]', (e) => {
     const chirp = getChirpFromElement(TD, e.target);
 
-    if (!chirp) {
+    if (!chirp || !isHTMLElement(e.target) || !e.target.closest('.stream-item')) {
       return;
     }
 
-    jq(document).trigger('uiShowFavoriteFromOptions', {
-      tweet: chirp.chirp,
-    });
+    const usefulChirp = chirp.chirp.targetTweet || chirp.chirp;
 
+    e.stopImmediatePropagation();
     e.stopPropagation();
     e.preventDefault();
+
+    if (
+      usernamesAllowlist.includes(usefulChirp.account.state.username.toLowerCase()) ||
+      usernamesAllowlist.length === 0
+    ) {
+      jq(document).trigger('uiShowFavoriteFromOptions', {
+        tweet: usefulChirp,
+      });
+      return;
+    }
+
+    usefulChirp.favorite({
+      element: jq(e.target.closest('.stream-item')!),
+      statusKey: usefulChirp.id,
+      column: chirp.extra.columnKey,
+    });
   });
 });

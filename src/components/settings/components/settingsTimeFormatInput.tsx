@@ -26,6 +26,7 @@ export function SettingsTextInputWithAnnotation(props: SettingsTimeFormatInputPr
       <small
         className={css`
           margin-left: 10px;
+          font-size: 13px;
         `}>
         {props.annotation}
       </small>
