@@ -11,6 +11,9 @@ export function setupEmojiPicker(settings: BTDSettings) {
   if (!settings.showEmojiPicker) {
     return;
   }
+
+  document.body.setAttribute('btd-emoji-picker', 'true');
+
   function unmount() {
     if (!document.querySelector('#emojiButton')) {
       return;

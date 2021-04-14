@@ -80,11 +80,6 @@ html .btd-loaded .ovl {
   transform: translate(-16%, -20%);
 }
 
-/* Allow room for emoji button in composer */
-.js-drawer .js-compose-text {
-  width: calc(100% - 26px) !important;
-}
-
 /**
  * Some fixes around default dark theme
  */
