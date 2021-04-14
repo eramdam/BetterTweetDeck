@@ -25,7 +25,7 @@ export const changeTweetActionsStyling = makeBTDModule(({settings, jq, TD}) => {
     .map((t) => t.trim().replace('@', '').toLowerCase())
     .filter(Boolean);
 
-  jq(document).on('click', '.tweet-footer .tweet-action[rel="favorite"]', (e) => {
+  jq(document).on('click', '.tweet-footer [rel="favorite"]', (e) => {
     const chirp = getChirpFromElement(TD, e.target);
 
     if (!chirp || !isHTMLElement(e.target) || !e.target.closest('.stream-item')) {
