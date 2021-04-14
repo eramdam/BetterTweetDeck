@@ -1,3 +1,4 @@
+import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 
 /** Removes the t.co redirection on links. */
@@ -29,4 +30,16 @@ export const maybeRemoveRedirection = makeBTDModule(({TD, settings}) => {
 
     return result;
   };
+
+  TD.services.TwitterUser.prototype.getExpandedURL = function () {
+    return this.entities.url.urls[0].expanded_url;
+  };
+
+  // Since createUrlAnchor() is not called when rendering the profile website link, modify the template.
+  modifyMustacheTemplate(TD, 'twitter_profile.mustache', (template) =>
+    template.replace(
+      '{{/location}}<a href="{{url}}" class="prf-siteurl js-action-url" target="_blank">{{getDisplayURL}}',
+      '{{/location}}<a href="{{getExpandedURL}}" class="prf-siteurl js-action-url" target="_blank">{{getDisplayURL}}'
+    )
+  );
 });

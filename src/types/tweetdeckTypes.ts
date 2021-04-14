@@ -525,6 +525,8 @@ interface User {
   bannerUrl: string;
   bannerUrlSmall: string;
   _profileBannerURL: string;
+  prototype: this;
+  getExpandedURL(): string;
 }
 
 interface SourceUserEntities {
@@ -1098,6 +1100,7 @@ interface TwitterStatus extends TweetDeckChirp {
 interface Services {
   bitly: unknown;
   TwitterStatus: TwitterStatus;
+  TwitterUser: User;
   ChirpBase: {
     MESSAGE: string;
   };
