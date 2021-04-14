@@ -38,6 +38,7 @@ export const SettingsTheme: FC<SettingsMenuSectionProps> = (props) => {
         key: 'theme',
         render: (newSettings) => (
           <ThemeSelector
+            onlyDark
             initialValue={newSettings.theme}
             onChange={(value) => {
               if (value === 'light') {
