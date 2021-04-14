@@ -101,6 +101,10 @@ html.dark .typeahead .js-hashtag {
   padding-left: 0 !important;
 }
 
+.app-columns-container {
+  bottom: 0 !important;
+}
+
 .column {
   margin-right: 2px !important;
 }
