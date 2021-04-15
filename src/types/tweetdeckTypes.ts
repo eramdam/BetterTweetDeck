@@ -1037,6 +1037,8 @@ interface FeatureFlag {
 
 interface Languages {
   _index: {[key: string]: Index};
+  getSystemLanguageCode(normalize?: boolean): string;
+  getAllLanguages(): ReadonlyArray<{code: string; localized_name: string; name: string}>;
 }
 
 interface Index {

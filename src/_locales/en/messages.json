@@ -385,5 +385,11 @@
   },
   "settings_usernames_like_picker_allowlist": {
     "message": "Comma separated list of usernames for which the picker should show (leave empty to always show)"
+  },
+  "settings_override_translation_language": {
+    "message": "Use a specific language when translating tweets"
+  },
+  "settings_default_browsers_language": {
+    "message": "Default (browser's language)"
   }
 }

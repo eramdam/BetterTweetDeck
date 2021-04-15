@@ -30,6 +30,7 @@ import {maybeRevertToLegacyReplies} from './features/revertToLegacyReplies';
 import {showTweetDogEars} from './features/showTweetDogEars';
 import {maybeMakeComposerButtonsSmaller} from './features/smallerComposerButtons';
 import {tweakTweetDeckTheme} from './features/themeTweaks';
+import {overrideTranslateLanguage} from './features/translateLanguageOverride';
 import {updateTabTitle} from './features/updateTabTitle';
 import {updateTwemojiRegex} from './features/updateTwemojiRegex';
 import {useOriginalAspectRatio} from './features/useOriginalAspectRatio';
@@ -89,6 +90,7 @@ const jq: JQueryStatic | undefined =
   setupChirpHandler(btdModuleOptions);
   maybeSetupDebugFunctions(btdModuleOptions);
 
+  overrideTranslateLanguage(btdModuleOptions);
   makeSearchColumnsFirst(btdModuleOptions);
   makeEmojiBigger(btdModuleOptions);
   pauseColumnsOnHover(btdModuleOptions);

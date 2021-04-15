@@ -194,6 +194,9 @@ export const RBetterTweetDeckSettings = t.type({
   customCss: withDefault(t.string, ''),
   useCustomColumnWidth: withDefault(t.boolean, false),
   customColumnWidthValue: withDefault(t.string, '250px'),
+
+  overrideTranslationLanguage: withDefault(t.boolean, false),
+  customTranslationLanguage: withDefault(t.string, ''),
 });
 
 export interface BTDSettings extends t.TypeOf<typeof RBetterTweetDeckSettings> {}

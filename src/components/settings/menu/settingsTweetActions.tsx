@@ -11,6 +11,7 @@ import {SettingsRow, SettingsRowTitle} from '../components/settingsRow';
 import {SettingsTextInput} from '../components/settingsTextInput';
 import {SettingsTextInputWithAnnotation} from '../components/settingsTimeFormatInput';
 import {formatDateTime, SettingsMenuSectionProps} from '../settingsComponents';
+import {translationLanguages} from '../settingsTypes';
 
 export const SettingsTweetActions: FC<SettingsMenuSectionProps> = (props) => {
   const {settings, makeOnSettingsChange} = props;
@@ -234,6 +235,37 @@ export const SettingsTweetActions: FC<SettingsMenuSectionProps> = (props) => {
             initialValue: settings.showLikeRTDogears,
             key: 'showLikeRTDogears',
             label: <Trans id="settings_show_like_rt_indicators_on_top_of_tweets" />,
+          },
+          {
+            initialValue: settings.overrideTranslationLanguage,
+            key: 'overrideTranslationLanguage',
+            label: <Trans id="settings_override_translation_language" />,
+            introducedIn: '4.1',
+            extraContent: (newSettings) => {
+              return (
+                newSettings && (
+                  <select
+                    name="customTranslationLanguage"
+                    value={newSettings.customTranslationLanguage}
+                    disabled={!settings.overrideTranslationLanguage}
+                    className={css`
+                      width: 300px;
+                    `}
+                    onChange={(e) =>
+                      makeOnSettingsChange('customTranslationLanguage')(e.target.value)
+                    }>
+                    <option value={''}>
+                      <Trans id="settings_default_browsers_language" />
+                    </option>
+                    {translationLanguages.map((lang) => (
+                      <option key={lang.code} value={lang.code}>
+                        {lang.name}
+                      </option>
+                    ))}
+                  </select>
+                )
+              );
+            },
           },
         ]}>
         <Trans id="settings_misc" />
