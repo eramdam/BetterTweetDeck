@@ -247,7 +247,7 @@ export const SettingsTweetActions: FC<SettingsMenuSectionProps> = (props) => {
                   <select
                     name="customTranslationLanguage"
                     value={newSettings.customTranslationLanguage}
-                    disabled={!settings.overrideTranslationLanguage}
+                    disabled={!newSettings.overrideTranslationLanguage}
                     className={css`
                       width: 300px;
                     `}
