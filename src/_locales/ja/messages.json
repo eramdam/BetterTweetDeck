@@ -355,5 +355,26 @@
   },
   "settings_custom_dark_theme": {
     "message": "ダークテーマ"
+  },
+  "settings_tweet_composer": {
+    "message": "ツイート入力欄"
+  },
+  "settings_enable_emoji_autocompletion": {
+    "message": ":shortcodes: で絵文字を自動的に補完する"
+  },
+  "settings_enable_the_gif_button": {
+    "message": "GIFボタンを有効にする"
+  },
+  "settings_css_compress_warning": {
+    "message": "エディタのCSSは、ブラウザのストレージ容量を節約する目的で圧縮されます。インデントや空白が削除されることがあります。"
+  },
+  "settings_backup_warning": {
+    "message": "作業のバックアップを別の場所に保存することを忘れないでください！"
+  },
+  "settings_override_translation_language": {
+    "message": "ツイートの翻訳に特定の言語を使用する"
+  },
+  "settings_default_browsers_language": {
+    "message": "デフォルト (ブラウザの言語)"
   }
 }
