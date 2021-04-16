@@ -1,3 +1,4 @@
+import {cx} from '@emotion/css';
 import {BaseEmoji, Emoji, emojiIndex} from 'emoji-mart';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -138,7 +139,10 @@ export function setupEmojiAutocompletion(settings: BTDSettings) {
 
         case Key.Enter:
         case Key.Tab: {
-          enterSelectedEmoji(stateEmojis, composer);
+          insertSelectedEmoji(
+            stateEmojis.find((e) => e.isSelected),
+            composer
+          );
         }
       }
     },
@@ -146,10 +150,9 @@ export function setupEmojiAutocompletion(settings: BTDSettings) {
   );
 }
 
-function enterSelectedEmoji(emojiArray: StateEmoji[], composer: HTMLTextAreaElement) {
+function insertSelectedEmoji(selectedEmoji: StateEmoji | undefined, composer: HTMLTextAreaElement) {
   const atCursor = valueAtCursor(composer);
   const toReplace = atCursor.value.match(emojiColonRegex);
-  const selectedEmoji = emojiArray.find((e) => e.isSelected);
 
   if (!toReplace || !Number.isInteger(toReplace.index) || !selectedEmoji) {
     return;
@@ -202,9 +205,11 @@ function renderEmojiDropdownInHolder({emojis}: EmojiCompletionProps, input: HTML
         return (
           <li
             key={emoji.emojiData.id}
-            className={`typeahead-item padding-am cf is-actionable ${
+            className={cx(
+              'typeahead-item padding-am cf is-actionable',
               emoji.isSelected && 's-selected'
-            }`}>
+            )}
+            onClick={() => insertSelectedEmoji(emoji, input)}>
             <p
               className="js-hashtag txt-ellipsis"
               style={{
