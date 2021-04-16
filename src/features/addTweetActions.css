@@ -7,8 +7,12 @@
 }
 
 .tweet-detail-actions.tweet-detail-actions {
-  display: flex;
+  display: flex !important;
   padding-bottom: 8px;
+}
+
+.btd-tweet-detail-action-item .icon-blocked {
+  font-size: 17px;
 }
 
 .btd-loaded[btd-hide-buttons-count='true'] .column .tweet-action > .icon {

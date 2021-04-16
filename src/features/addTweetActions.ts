@@ -66,7 +66,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
     const muteItem =
       (addMuteAction &&
         `<li class="tweet-detail-action-item btd-tweet-detail-action-item">
-      <a class="js-show-tip tweet-detail-action btd-tweet-detail-action btd-clipboard position-rel" href="#"
+      <a class="js-show-tip tweet-detail-action btd-tweet-detail-action position-rel" href="#"
         data-btd-action="mute-account" rel="action" title="Mute {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}">
         <i class="icon icon-muted txt-center"></i>
         <span class="is-vishidden"> {{_i}}Mute {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}{{/i}} </span>
@@ -77,7 +77,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
     const blockItem =
       (addBlockAction &&
         `<li class="tweet-detail-action-item btd-tweet-detail-action-item">
-      <a class="js-show-tip tweet-detail-action btd-tweet-detail-action btd-clipboard position-rel" href="#"
+      <a class="js-show-tip tweet-detail-action btd-tweet-detail-action position-rel" href="#"
         data-btd-action="block-account" rel="hotlink" title="Block {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}">
         <i class="icon icon-blocked txt-center"></i>
         <span class="is-vishidden"> {{_i}}Block {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}{{/i}} </span>

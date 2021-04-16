@@ -47,7 +47,8 @@ export const checkboxInputStyles = css`
   background: transparent;
   outline: 0;
 
-  &:checked {
+  &:checked,
+  &[checked] {
     box-shadow: inset 0 0 0 3px var(--settings-modal-background),
       inset 0 0 0 8px var(--twitter-blue);
   }

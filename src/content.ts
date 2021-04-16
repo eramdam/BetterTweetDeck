@@ -9,6 +9,7 @@ import {setupGifPicker} from './features/gifPicker';
 import {listenToInternalBTDMessage} from './helpers/communicationHelpers';
 import {isHTMLElement} from './helpers/domHelpers';
 import {sendMessageToBackground} from './helpers/webExtensionHelpers';
+import {getValidatedSettings} from './services/backgroundSettings';
 import {injectInTD} from './services/injectInTD';
 import {setupBtdRoot} from './services/setupBTDRoot';
 import {BTDMessageOriginsEnum, BTDMessages} from './types/btdMessageTypes';
@@ -17,10 +18,11 @@ import {BTDMessageOriginsEnum, BTDMessages} from './types/btdMessageTypes';
 injectInTD();
 
 listenToInternalBTDMessage(BTDMessages.BTD_READY, BTDMessageOriginsEnum.CONTENT, async () => {
-  setupGifPicker();
-  setupEmojiPicker();
-  setupEmojiAutocompletion();
   setupBtdRoot();
+  const settings = await getValidatedSettings();
+  setupGifPicker(settings);
+  setupEmojiPicker(settings);
+  setupEmojiAutocompletion(settings);
 
   const settingsButton = document.querySelector('[btd-settings-button]');
 

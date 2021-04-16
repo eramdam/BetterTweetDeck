@@ -9,6 +9,7 @@ import {emptyNode} from '../helpers/domHelpers';
 import {onComposerShown} from '../helpers/tweetdeckHelpers';
 import {insertDomChefElement} from '../helpers/typeHelpers';
 import {BTDMessageOriginsEnum, BTDMessages} from '../types/btdMessageTypes';
+import {BTDSettings} from '../types/btdSettingsTypes';
 
 async function makeGifRequest(
   endpoint: string,
@@ -54,7 +55,10 @@ async function makeGifRequest(
   return validatedGifPayloads;
 }
 
-export function setupGifPicker() {
+export function setupGifPicker(settings: BTDSettings) {
+  if (!settings.showGifPicker) {
+    return;
+  }
   onComposerShown((isVisible) => {
     if (!isVisible) {
       return;

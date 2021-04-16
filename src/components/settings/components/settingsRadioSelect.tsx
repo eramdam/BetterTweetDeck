@@ -14,6 +14,7 @@ export interface SettingsRadioSettingsSelectProps<S extends object, T extends ke
   initialValue: S[T];
   settingsKey: T;
   onChange: HandlerOf<S[T]>;
+  ignoreSearch?: boolean;
 }
 
 const wrapperStyles = css`

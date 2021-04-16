@@ -5,21 +5,34 @@ import {getExtensionVersion} from '../../helpers/webExtensionHelpers';
 import {BTDSettings} from '../../types/btdSettingsTypes';
 import {getTransString, Trans} from '../trans';
 import {SettingsCredits} from './components/settingsCredits';
-import {SettingsCssEditor} from './components/settingsCssEditor';
-import {renderGeneralSettings} from './menu/settingsGeneral';
+import {SettingsCss} from './components/settingsCss';
+import {SettingsComposer} from './menu/settingsComposer';
+import {SettingsGeneral} from './menu/settingsGeneral';
 import {ImportExportSettings} from './menu/settingsImportExport';
-import {renderThemeSettings} from './menu/settingsTheme';
-import {renderTweetActionsSettings} from './menu/settingsTweetActions';
-import {renderTweetDisplaySettings} from './menu/settingsTweetsDisplay';
-import {SettingsMenuRenderer} from './settingsComponents';
+import {SettingsTheme} from './menu/settingsTheme';
+import {SettingsTweetActions} from './menu/settingsTweetActions';
+import {SettingsTweetsDisplay} from './menu/settingsTweetsDisplay';
 import {settingsRegularText} from './settingsStyles';
 
-interface MenuItem {
+export enum SettingsMenuSectionsEnum {
+  GENERAL = 'general',
+  THEME = 'theme',
+  TWEETS_DISPLAY = 'tweets-display',
+  TWEET_ACTIONS = 'tweet-actions',
+  COMPOSER = 'composer',
+  CUSTOM_CSS = 'custom-css',
+  SUPPORT = 'support',
+  IMPORT_EXPORT = 'import-export',
+  CREDITS = 'credits',
+  BLANK = '__BLANK__',
+}
+
+export interface MenuItem {
   title: ReactNode;
   id: string;
   items: {
-    id: string;
-    label: ReactNode;
+    id: SettingsMenuSectionsEnum;
+    label: string;
     render: Renderer;
   }[];
 }
@@ -30,11 +43,11 @@ export const makeSettingsMenu = (
   setSettings: HandlerOf<BTDSettings>,
   setEditorHasErrors: HandlerOf<boolean>
 ): readonly MenuItem[] => {
-  const rendererArguments: Parameters<SettingsMenuRenderer> = [
+  const settingsSectionProps = {
+    setEditorHasErrors,
     settings,
     makeOnSettingsChange,
-    setEditorHasErrors,
-  ];
+  };
 
   return [
     {
@@ -42,35 +55,35 @@ export const makeSettingsMenu = (
       id: 'settings',
       items: [
         {
-          id: 'general',
+          id: SettingsMenuSectionsEnum.GENERAL,
           label: getTransString('settings_general'),
-          render: () => renderGeneralSettings(...rendererArguments),
+          render: () => <SettingsGeneral {...settingsSectionProps}></SettingsGeneral>,
         },
         {
-          id: 'theme',
+          id: SettingsMenuSectionsEnum.THEME,
           label: getTransString('settings_theme'),
-          render: () => renderThemeSettings(...rendererArguments),
+          render: () => <SettingsTheme {...settingsSectionProps}></SettingsTheme>,
         },
         {
-          id: 'tweets-display',
-          label: <Trans id="settings_tweets_display" />,
-          render: () => renderTweetDisplaySettings(...rendererArguments),
+          id: SettingsMenuSectionsEnum.TWEETS_DISPLAY,
+          label: getTransString('settings_tweets_display'),
+          render: () => <SettingsTweetsDisplay {...settingsSectionProps}></SettingsTweetsDisplay>,
         },
         {
-          id: 'tweet-actions',
-          label: <Trans id="settings_tweet_actions" />,
-          render: () => renderTweetActionsSettings(...rendererArguments),
+          id: SettingsMenuSectionsEnum.TWEET_ACTIONS,
+          label: getTransString('settings_tweet_actions'),
+          render: () => <SettingsTweetActions {...settingsSectionProps}></SettingsTweetActions>,
         },
         {
-          id: 'custom-css',
-          label: <Trans id="settings_custom_css" />,
+          id: SettingsMenuSectionsEnum.COMPOSER,
+          label: getTransString('settings_tweet_composer'),
+          render: () => <SettingsComposer {...settingsSectionProps}></SettingsComposer>,
+        },
+        {
+          id: SettingsMenuSectionsEnum.CUSTOM_CSS,
+          label: getTransString('settings_custom_css'),
           render: () => {
-            return (
-              <SettingsCssEditor
-                onChange={(val) => makeOnSettingsChange('customCss')(val)}
-                onErrorChange={setEditorHasErrors}
-                value={settings.customCss}></SettingsCssEditor>
-            );
+            return <SettingsCss {...settingsSectionProps}></SettingsCss>;
           },
         },
       ],
@@ -80,8 +93,8 @@ export const makeSettingsMenu = (
       id: 'meta',
       items: [
         {
-          id: 'support',
-          label: <Trans id="settings_support" />,
+          id: SettingsMenuSectionsEnum.SUPPORT,
+          label: getTransString('settings_support'),
           render: () => (
             <div className={settingsRegularText}>
               <div>
@@ -101,13 +114,13 @@ export const makeSettingsMenu = (
           ),
         },
         {
-          id: 'import-export',
+          id: SettingsMenuSectionsEnum.IMPORT_EXPORT,
           label: getTransString('settings_import_export'),
           render: () => <ImportExportSettings settings={settings} onNewSettings={setSettings} />,
         },
         {
-          id: 'credits',
-          label: <Trans id="settings_credits_about" />,
+          id: SettingsMenuSectionsEnum.CREDITS,
+          label: getTransString('settings_credits_about'),
           render: () => {
             return <SettingsCredits />;
           },

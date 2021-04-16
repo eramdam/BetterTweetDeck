@@ -1,19 +1,16 @@
-import React, {Fragment} from 'react';
+/* eslint-disable react/jsx-key */
+import React, {FC, Fragment} from 'react';
 
 import {isFirefox, isSafari} from '../../../helpers/browserHelpers';
 import {BTDSettings} from '../../../types/btdSettingsTypes';
 import {Trans} from '../../trans';
-import {BooleanSettingsRow} from '../components/booleanSettingRow';
 import {CheckboxSelectSettingsRow} from '../components/checkboxSelectSettingsRow';
-import {SettingsRow} from '../components/settingsRow';
 import {SettingsTextInputWithAnnotation} from '../components/settingsTimeFormatInput';
-import {SettingsMenuRenderer, SettingsSmallText} from '../settingsComponents';
+import {SettingsMenuSectionProps, SettingsSmallText} from '../settingsComponents';
 
-export const renderGeneralSettings: SettingsMenuRenderer = (
-  settings,
-  makeOnSettingsChange,
-  _setEditorHasErrors
-) => {
+export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
+  const {settings, makeOnSettingsChange} = props;
+
   return (
     <Fragment>
       <CheckboxSelectSettingsRow
@@ -52,25 +49,24 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
             key: 'showRemoveButtonInColumnsHeader',
             label: <Trans id="settings_show_delete_button_in_columns_header" />,
           },
+          {
+            initialValue: settings.useCustomColumnWidth,
+            key: 'useCustomColumnWidth',
+            label: <Trans id="settings_use_a_custom_width_for_columns" />,
+            extraContent: (newSettings) =>
+              newSettings && (
+                <SettingsTextInputWithAnnotation
+                  isDisabled={!newSettings.useCustomColumnWidth}
+                  value={newSettings.customColumnWidthValue}
+                  onChange={makeOnSettingsChange('customColumnWidthValue')}
+                  annotation={
+                    <Trans id="settings_width_any_valid_css_value" />
+                  }></SettingsTextInputWithAnnotation>
+              ),
+          },
         ]}>
         <Trans id="settings_columns" />
       </CheckboxSelectSettingsRow>
-      <BooleanSettingsRow
-        alignToTheLeft
-        settingsKey="useCustomColumnWidth"
-        initialValue={settings.useCustomColumnWidth}
-        onChange={makeOnSettingsChange('useCustomColumnWidth')}>
-        <Trans id="settings_use_a_custom_width_for_columns" />
-      </BooleanSettingsRow>
-      <SettingsRow disabled={!settings.useCustomColumnWidth}>
-        <span></span>
-        <SettingsTextInputWithAnnotation
-          value={settings.customColumnWidthValue}
-          onChange={makeOnSettingsChange('customColumnWidthValue')}
-          annotation={
-            <Trans id="settings_width_any_valid_css_value" />
-          }></SettingsTextInputWithAnnotation>
-      </SettingsRow>
       <CheckboxSelectSettingsRow
         onChange={(key, value) => {
           makeOnSettingsChange(key as keyof BTDSettings)(value);
@@ -107,6 +103,13 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
             label: <Trans id="settings_show_cards_inside_columns" />,
           },
           {
+            introducedIn: '4',
+            initialValue: settings.showCardsInSmallMediaColumns,
+            key: 'showCardsInSmallMediaColumns',
+            isDisabled: !settings.showCardsInsideColumns,
+            label: <Trans id="settings_also_show_cards_in_columns_with_small_media_size" />,
+          },
+          {
             initialValue: settings.removeRedirectionOnLinks,
             key: 'removeRedirectionOnLinks',
             label: <Trans id="settings_remove_t_co_redirection_on_links" />,
@@ -138,21 +141,6 @@ export const renderGeneralSettings: SettingsMenuRenderer = (
             initialValue: settings.disableGifsInProfilePictures,
             key: 'disableGifsInProfilePictures',
             label: <Trans id="settings_freeze_gifs_in_profile_pictures" />,
-          },
-          {
-            initialValue: settings.smallComposerButtons,
-            key: 'smallComposerButtons',
-            label: <Trans id="settings_make_buttons_smaller_in_the_composer" />,
-          },
-          {
-            initialValue: settings.alwaysShowNumberOfCharactersLeft,
-            key: 'alwaysShowNumberOfCharactersLeft',
-            label: <Trans id="settings_always_characters_left" />,
-          },
-          {
-            initialValue: settings.saveTweetedHashtags,
-            key: 'saveTweetedHashtags',
-            label: <Trans id="settings_save_tweeted_hashtags" />,
           },
           {
             initialValue: settings.updateTabTitleOnActivity,

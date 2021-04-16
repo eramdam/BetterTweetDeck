@@ -29,9 +29,14 @@ export const RBetterTweetDeckSettings = t.type({
 
   /** Show tweet cards in columns. */
   showCardsInsideColumns: withDefault(t.boolean, true),
+  showCardsInSmallMediaColumns: withDefault(t.boolean, true),
 
   /** Make emoji bigger in tweets. */
   biggerEmoji: withDefault(t.boolean, true),
+  /** Show emoji picker. */
+  showEmojiPicker: withDefault(t.boolean, true),
+  enableEmojiCompletion: withDefault(t.boolean, true),
+  showGifPicker: withDefault(t.boolean, true),
 
   /** Save tweeted hashtags. */
   saveTweetedHashtags: withDefault(t.boolean, false),
@@ -121,6 +126,8 @@ export const RBetterTweetDeckSettings = t.type({
 
   /** Always shows the account picker when favoriting a tweet */
   showAccountChoiceOnFavorite: withDefault(t.boolean, false),
+  /** Comma separated list of account usernames from which to trigger the account picker */
+  accountChoiceAllowList: withDefault(t.string, ''),
 
   /** Change the display of usernames in columns. */
   usernamesFormat: withDefault(
@@ -182,10 +189,14 @@ export const RBetterTweetDeckSettings = t.type({
     makeEnumRuntimeType<BetterTweetDeckAccentColors>(BetterTweetDeckAccentColors),
     BetterTweetDeckAccentColors.DEFAULT
   ),
+  customAnyAccentColor: withDefault(t.string, ''),
 
   customCss: withDefault(t.string, ''),
   useCustomColumnWidth: withDefault(t.boolean, false),
   customColumnWidthValue: withDefault(t.string, '250px'),
+
+  overrideTranslationLanguage: withDefault(t.boolean, false),
+  customTranslationLanguage: withDefault(t.string, ''),
 });
 
 export interface BTDSettings extends t.TypeOf<typeof RBetterTweetDeckSettings> {}
