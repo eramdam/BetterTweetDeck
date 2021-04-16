@@ -355,5 +355,26 @@
   },
   "settings_custom_dark_theme": {
     "message": "Dunkles Farbschema"
+  },
+  "settings_tweet_composer": {
+    "message": "Tweet-Editor"
+  },
+  "settings_show_the_emoji_picker": {
+    "message": "Die Emoji-Auswahl anzeigen"
+  },
+  "settings_enable_emoji_autocompletion": {
+    "message": "Emoji-Auswahl per :shortcode: aktivieren"
+  },
+  "settings_enable_the_gif_button": {
+    "message": "Den GIF-Button aktivieren"
+  },
+  "settings_also_show_cards_in_columns_with_small_media_size": {
+    "message": "Karten auch in Spalten mit Mediengröße \"Small\" anzeigen"
+  },
+  "settings_looking_for_inspiration": {
+    "message": "Auf der Suche nach Anregungen?"
+  },
+  "settings_check_the_collection_of_css_snippets": {
+    "message": "Die CSS-Snippet-Sammlung ansehen"
   }
 }
