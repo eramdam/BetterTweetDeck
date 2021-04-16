@@ -32,7 +32,7 @@ export const maybeRemoveRedirection = makeBTDModule(({TD, settings}) => {
   };
 
   TD.services.TwitterUser.prototype.getExpandedURL = function () {
-    return this.entities.url.urls[0].expanded_url;
+    return this.entities?.url?.urls?.[0]?.expanded_url ?? this.url;
   };
 
   // Since createUrlAnchor() is not called when rendering the profile website link, modify the template.
