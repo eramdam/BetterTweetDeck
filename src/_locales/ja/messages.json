@@ -359,17 +359,32 @@
   "settings_tweet_composer": {
     "message": "ツイート入力欄"
   },
+  "settings_show_the_emoji_picker": {
+    "message": "絵文字ピッカーを表示"
+  },
   "settings_enable_emoji_autocompletion": {
     "message": ":shortcodes: で絵文字を自動的に補完する"
   },
   "settings_enable_the_gif_button": {
     "message": "GIFボタンを有効にする"
   },
+  "settings_also_show_cards_in_columns_with_small_media_size": {
+    "message": "メディアサイズの設定がSmallのカラムにもカードを表示する"
+  },
+  "settings_looking_for_inspiration": {
+    "message": "インスピレーションをお探しですか？"
+  },
+  "settings_check_the_collection_of_css_snippets": {
+    "message": "CSSのスニペット集をご覧ください"
+  },
   "settings_css_compress_warning": {
     "message": "エディタのCSSは、ブラウザのストレージ容量を節約する目的で圧縮されます。インデントや空白が削除されることがあります。"
   },
   "settings_backup_warning": {
     "message": "作業のバックアップを別の場所に保存することを忘れないでください！"
+  },
+  "settings_usernames_like_picker_allowlist": {
+    "message": "アカウント選択画面を開くユーザー名のカンマ区切りのリスト (空のままにすると常に表示)"
   },
   "settings_override_translation_language": {
     "message": "ツイートの翻訳に特定の言語を使用する"
