@@ -5,8 +5,15 @@ import ReactDOM, {unmountComponentAtNode} from 'react-dom';
 
 import {EmojiButton} from '../components/emojiButton';
 import {insertInsideComposer, onComposerShown} from '../helpers/tweetdeckHelpers';
+import {BTDSettings} from '../types/btdSettingsTypes';
 
-export function setupEmojiPicker() {
+export function setupEmojiPicker(settings: BTDSettings) {
+  if (!settings.showEmojiPicker) {
+    return;
+  }
+
+  document.body.setAttribute('btd-emoji-picker', 'true');
+
   function unmount() {
     if (!document.querySelector('#emojiButton')) {
       return;

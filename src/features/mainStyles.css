@@ -80,11 +80,6 @@ html .btd-loaded .ovl {
   transform: translate(-16%, -20%);
 }
 
-/* Allow room for emoji button in composer */
-.js-drawer .js-compose-text {
-  width: calc(100% - 26px) !important;
-}
-
 /**
  * Some fixes around default dark theme
  */
@@ -104,6 +99,10 @@ html.dark .typeahead .js-hashtag {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
   padding-left: 0 !important;
+}
+
+.app-columns-container {
+  bottom: 0 !important;
 }
 
 .column {

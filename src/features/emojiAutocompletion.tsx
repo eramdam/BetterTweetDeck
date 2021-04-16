@@ -1,9 +1,11 @@
+import {cx} from '@emotion/css';
 import {BaseEmoji, Emoji, emojiIndex} from 'emoji-mart';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Key} from 'ts-key-enum';
 
 import {isHTMLElement, replaceAt, valueAtCursor} from '../helpers/domHelpers';
+import {BTDSettings} from '../types/btdSettingsTypes';
 
 interface StateEmoji {
   emojiData: BaseEmoji;
@@ -12,7 +14,10 @@ interface StateEmoji {
 
 const emojiColonRegex = /:([a-z0-9_\-+]+):?:?([a-z0-9_-]+)?:?$/i;
 
-export function setupEmojiAutocompletion() {
+export function setupEmojiAutocompletion(settings: BTDSettings) {
+  if (!settings.enableEmojiCompletion) {
+    return;
+  }
   let stateEmojis: StateEmoji[] = [];
 
   document.body.addEventListener(
@@ -38,7 +43,7 @@ export function setupEmojiAutocompletion() {
 
       const [, shortcode] = colonMatches;
 
-      if (shortcode.startsWith('-')) {
+      if (shortcode.startsWith('-') || shortcode.length < 2) {
         unmountEmojiDropodownNearInput(composer);
         return;
       }
@@ -134,7 +139,10 @@ export function setupEmojiAutocompletion() {
 
         case Key.Enter:
         case Key.Tab: {
-          enterSelectedEmoji(stateEmojis, composer);
+          insertSelectedEmoji(
+            stateEmojis.find((e) => e.isSelected),
+            composer
+          );
         }
       }
     },
@@ -142,10 +150,9 @@ export function setupEmojiAutocompletion() {
   );
 }
 
-function enterSelectedEmoji(emojiArray: StateEmoji[], composer: HTMLTextAreaElement) {
+function insertSelectedEmoji(selectedEmoji: StateEmoji | undefined, composer: HTMLTextAreaElement) {
   const atCursor = valueAtCursor(composer);
   const toReplace = atCursor.value.match(emojiColonRegex);
-  const selectedEmoji = emojiArray.find((e) => e.isSelected);
 
   if (!toReplace || !Number.isInteger(toReplace.index) || !selectedEmoji) {
     return;
@@ -198,9 +205,11 @@ function renderEmojiDropdownInHolder({emojis}: EmojiCompletionProps, input: HTML
         return (
           <li
             key={emoji.emojiData.id}
-            className={`typeahead-item padding-am cf is-actionable ${
+            className={cx(
+              'typeahead-item padding-am cf is-actionable',
               emoji.isSelected && 's-selected'
-            }`}>
+            )}
+            onClick={() => insertSelectedEmoji(emoji, input)}>
             <p
               className="js-hashtag txt-ellipsis"
               style={{

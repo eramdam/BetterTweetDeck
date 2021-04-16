@@ -1,13 +1,15 @@
 import {css, cx} from '@emotion/css';
-import React, {ReactNode} from 'react';
+import React, {Fragment, ReactNode} from 'react';
 
+import {RendererOf} from '../../../helpers/typeHelpers';
 import {AbstractTweetDeckSettings} from '../../../types/abstractTweetDeckSettings';
 import {BTDSettings} from '../../../types/btdSettingsTypes';
+import {generateInputId} from '../settingsHelpers';
 import {checkboxInputStyles, settingsDisabled} from '../settingsStyles';
 import {featureBadgeClassname, NewFeatureBadge, NewFeatureBadgeProps} from './newFeatureBadge';
 
 // There's probably a wau to do this without having to do a manual union ¯\(ツ)/¯
-type SettingKey =
+export type SettingKey =
   | keyof BTDSettings
   | keyof AbstractTweetDeckSettings
   | keyof BTDSettings['tweetActions']
@@ -22,6 +24,7 @@ export interface SettingsCheckboxSelectProps {
       label: ReactNode;
       initialValue: boolean;
       isDisabled?: boolean;
+      extraContent?: RendererOf<BTDSettings | undefined>;
     } & Partial<NewFeatureBadgeProps>
   >;
 }
@@ -46,24 +49,28 @@ export function SettingsCheckboxSelect(props: SettingsCheckboxSelectProps) {
         grid-row-gap: 10px;
       `}>
       {props.fields.map((field) => {
+        const inputId = `${field.key}-${generateInputId()}`;
         return (
-          <span key={String(field.key)} className={cx(field.isDisabled && settingsDisabled)}>
-            <input
-              name={field.key}
-              type="checkbox"
-              disabled={field.isDisabled}
-              id={'input-' + String(field.key)}
-              defaultChecked={field.initialValue}
-              className={checkboxInputStyles}
-              onChange={() => props.onChange(field.key, !field.initialValue)}
-            />
-            <label htmlFor={'input-' + String(field.key)}>
-              {field.label}
-              {field.introducedIn && (
-                <NewFeatureBadge introducedIn={field.introducedIn}></NewFeatureBadge>
-              )}
-            </label>
-          </span>
+          <Fragment key={String(field.key)}>
+            <span className={cx(field.isDisabled && settingsDisabled)}>
+              <input
+                name={field.key}
+                type="checkbox"
+                disabled={field.isDisabled}
+                id={inputId}
+                defaultChecked={field.initialValue}
+                className={checkboxInputStyles}
+                onChange={() => props.onChange(field.key, !field.initialValue)}
+              />
+              <label htmlFor={inputId}>
+                {field.label}
+                {field.introducedIn && (
+                  <NewFeatureBadge introducedIn={field.introducedIn}></NewFeatureBadge>
+                )}
+              </label>
+            </span>
+            {field.extraContent && field.extraContent(undefined)}
+          </Fragment>
         );
       })}
     </div>

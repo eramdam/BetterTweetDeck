@@ -633,6 +633,7 @@ export interface TweetDeckChirp {
   destroy(): void;
   isRetweetedStatus(): boolean;
   getFilterableText(): string;
+  favorite(options: {element: JQuery<Element>; statusKey: string; column: string}): void;
   card: object;
 }
 
@@ -1036,6 +1037,8 @@ interface FeatureFlag {
 
 interface Languages {
   _index: {[key: string]: Index};
+  getSystemLanguageCode(normalize?: boolean): string;
+  getAllLanguages(): ReadonlyArray<{code: string; localized_name: string; name: string}>;
 }
 
 interface Index {

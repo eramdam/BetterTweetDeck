@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, {FC, useRef} from 'react';
 import MonacoEditor, {monaco} from 'react-monaco-editor';
 
@@ -34,26 +35,32 @@ export const SettingsCssEditor: FC<SettingsCssEditorProps> = (props) => {
       style={{
         display: 'flex',
         flexDirection: 'column',
-        height: '100%',
         marginBottom: 0,
         overflow: 'hidden',
         padding: 20,
         paddingBottom: 0,
       }}>
-      <div
+      <p
         style={{
           marginBottom: 20,
+          lineHeight: 1.7,
+          maxWidth: '990px',
         }}>
         ⚠️ <Trans id="settings_custom_css_warning" /> ⚠️️
         <br />
         <br />
-        Looking for inspiration?{' '}
+        <Trans id="settings_looking_for_inspiration" />{' '}
         <a
           className={settingsLink}
           href="https://github.com/eramdam/BetterTweetDeck/wiki/Custom-CSS-recipes">
-          Check the collection of CSS snippets
+          <Trans id="settings_check_the_collection_of_css_snippets" />
         </a>
-      </div>
+        <br />
+        <Trans id="settings_css_compress_warning" />
+        <br />
+        <br />
+        <Trans id="settings_backup_warning" />
+      </p>
       <div
         style={{
           flexShrink: 1,

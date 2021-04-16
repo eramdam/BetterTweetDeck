@@ -1,5 +1,5 @@
 import {css} from '@emotion/css';
-import React, {Fragment} from 'react';
+import React, {FC, Fragment} from 'react';
 
 import {BTDTweetActionsPosition} from '../../../features/changeTweetActions';
 import {BTDSettings} from '../../../types/btdSettingsTypes';
@@ -9,13 +9,12 @@ import {BTDRadioSelectSettingsRow} from '../components/radioSelectSettingsRow';
 import {SettingsButton} from '../components/settingsButton';
 import {SettingsRow, SettingsRowTitle} from '../components/settingsRow';
 import {SettingsTextInput} from '../components/settingsTextInput';
-import {formatDateTime, SettingsMenuRenderer} from '../settingsComponents';
+import {SettingsTextInputWithAnnotation} from '../components/settingsTimeFormatInput';
+import {formatDateTime, SettingsMenuSectionProps} from '../settingsComponents';
+import {translationLanguages} from '../settingsTypes';
 
-export const renderTweetActionsSettings: SettingsMenuRenderer = (
-  settings,
-  makeOnSettingsChange,
-  _setEditorHasErrors
-) => {
+export const SettingsTweetActions: FC<SettingsMenuSectionProps> = (props) => {
+  const {settings, makeOnSettingsChange} = props;
   return (
     <Fragment>
       <BTDRadioSelectSettingsRow
@@ -213,6 +212,19 @@ export const renderTweetActionsSettings: SettingsMenuRenderer = (
             initialValue: settings.showAccountChoiceOnFavorite,
             key: 'showAccountChoiceOnFavorite',
             label: <Trans id="settings_show_account_picker_like" />,
+            extraContent: (newSettings) => {
+              return (
+                newSettings && (
+                  <SettingsTextInputWithAnnotation
+                    isDisabled={!newSettings.showAccountChoiceOnFavorite}
+                    value={newSettings.accountChoiceAllowList}
+                    onChange={makeOnSettingsChange('accountChoiceAllowList')}
+                    annotation={
+                      <Trans id="settings_usernames_like_picker_allowlist" />
+                    }></SettingsTextInputWithAnnotation>
+                )
+              );
+            },
           },
           {
             initialValue: settings.replaceHeartsByStars,
@@ -223,6 +235,37 @@ export const renderTweetActionsSettings: SettingsMenuRenderer = (
             initialValue: settings.showLikeRTDogears,
             key: 'showLikeRTDogears',
             label: <Trans id="settings_show_like_rt_indicators_on_top_of_tweets" />,
+          },
+          {
+            initialValue: settings.overrideTranslationLanguage,
+            key: 'overrideTranslationLanguage',
+            label: <Trans id="settings_override_translation_language" />,
+            introducedIn: '4.1',
+            extraContent: (newSettings) => {
+              return (
+                newSettings && (
+                  <select
+                    name="customTranslationLanguage"
+                    value={newSettings.customTranslationLanguage}
+                    disabled={!settings.overrideTranslationLanguage}
+                    className={css`
+                      width: 300px;
+                    `}
+                    onChange={(e) =>
+                      makeOnSettingsChange('customTranslationLanguage')(e.target.value)
+                    }>
+                    <option value={''}>
+                      <Trans id="settings_default_browsers_language" />
+                    </option>
+                    {translationLanguages.map((lang) => (
+                      <option key={lang.code} value={lang.code}>
+                        {lang.name}
+                      </option>
+                    ))}
+                  </select>
+                )
+              );
+            },
           },
         ]}>
         <Trans id="settings_misc" />

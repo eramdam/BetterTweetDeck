@@ -1,6 +1,6 @@
 import './settingsModal.css';
 
-import {cx} from '@emotion/css';
+import {css, cx} from '@emotion/css';
 import {isEqual} from 'lodash';
 import React, {Fragment, useCallback, useMemo, useState} from 'react';
 import {browser} from 'webextension-polyfill-ts';
@@ -18,7 +18,10 @@ import {
   SettingsModalWrapper,
   SettingsSidebar,
 } from './components/settingsModalComponents';
-import {makeSettingsMenu} from './settingsMenu';
+import {SettingsTextInput} from './components/settingsTextInput';
+import {SettingsSearchProvider} from './settingsContext';
+import {makeSettingsMenu, MenuItem, SettingsMenuSectionsEnum} from './settingsMenu';
+import {SettingsModalSearchContent} from './settingsModalContent';
 
 interface SettingsModalProps {
   btdSettings: BTDSettings;
@@ -32,16 +35,29 @@ export const SettingsModal = (props: SettingsModalProps) => {
   const {onSettingsUpdate} = props;
   const [settings, setSettings] = useState<BTDSettings>(props.btdSettings);
   const [isDirty, setIsDirty] = useState(false);
-  const [selectedId, setSelectedId] = useState(() => {
+  const [selectedId, setSelectedId] = useState<SettingsMenuSectionsEnum>(() => {
     try {
       const selectedIdFromUrl = new URL(window.location.href).searchParams.get('selectedId');
+      const validSelectedId = Object.values(SettingsMenuSectionsEnum).find(
+        (v) => selectedIdFromUrl
+      );
 
-      return selectedIdFromUrl || 'general';
+      return validSelectedId || SettingsMenuSectionsEnum.GENERAL;
     } catch (e) {
-      return 'general';
+      return SettingsMenuSectionsEnum.GENERAL;
     }
   });
   const [editorHasErrors, setEditorHasErrors] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const onSearchQueryChange = (newQuery: string) => {
+    if (!newQuery) {
+      setSelectedId(SettingsMenuSectionsEnum.GENERAL);
+    } else {
+      setSelectedId(SettingsMenuSectionsEnum.BLANK);
+    }
+    setSearchQuery(newQuery);
+  };
 
   const makeOnSettingsChange = <T extends keyof BTDSettings>(key: T) => {
     return (val: BTDSettings[T]) => {
@@ -75,102 +91,129 @@ export const SettingsModal = (props: SettingsModalProps) => {
     );
   }, [settings]);
 
-  const renderSelectedPage = () => {
-    const menuSection = menu
-      .find((s) => s.items.find((s) => s.id === selectedId))
-      ?.items.find((s) => s.id === selectedId);
-
-    return menuSection?.render();
-  };
-
   const showSettingsLabel = useMemo(() => !isEqual(props.btdSettings, settings) || isDirty, [
     isDirty,
     props.btdSettings,
     settings,
   ]);
 
+  const renderSearchIndex = () => {
+    return renderMenuInInvisibleContainer(menu);
+  };
+
   return (
-    <SettingsModalWrapper>
-      <SettingsHeader>
-        <span className="icon">
-          <img src={topbarIcon} alt={getTransString('settings_title')} />
-        </span>
-        <span className="title">
-          <Trans id="settings_title"></Trans>
-        </span>
-        <small className="version">{topbarVersion}</small>
-      </SettingsHeader>
-      <SettingsSidebar>
-        {menu.map((section) => {
-          return (
-            <div key={section.id}>
-              <div className="section-title">{section.title}</div>
-              <ul>
-                {section.items.map((item) => {
-                  return (
-                    <Fragment key={section.id + '-' + item.id}>
-                      <li
-                        className={(selectedId === item.id && 'active') || ''}
-                        onClick={() => {
-                          setSelectedId(item.id);
-                        }}>
-                        <div className="text">{item.label}</div>
-                      </li>
-                    </Fragment>
-                  );
-                })}
-              </ul>
+    <SettingsSearchProvider settings={settings}>
+      {renderSearchIndex()}
+      <SettingsModalWrapper>
+        <SettingsHeader>
+          <span className="icon">
+            <img src={topbarIcon} alt={getTransString('settings_title')} />
+          </span>
+          <span className="title">
+            <Trans id="settings_title"></Trans>
+          </span>
+          <small className="version">{topbarVersion}</small>
+        </SettingsHeader>
+        <SettingsSidebar>
+          <div>
+            <div className="section-title">Search</div>
+            <div
+              style={{
+                padding: '10px 16px',
+                display: 'flex',
+              }}>
+              <SettingsTextInput
+                className={css`
+                  width: 100%;
+                  --twitter-input-border-color: rgba(255, 255, 255, 0.2);
+                `}
+                placeholder="Search settings"
+                onChange={onSearchQueryChange}
+                value={searchQuery}></SettingsTextInput>
             </div>
-          );
-        })}
-        <div>
-          <div className="section-title">
-            <Trans id="settings_links" />
           </div>
-          <ul>
-            <li>
-              <a href="https://twitter.com/@BetterTDeck" target="_blank" rel="noopener noreferrer">
-                @BetterTDeck
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://github.com/eramdam/BetterTweetDeck"
-                target="_blank"
-                rel="noopener noreferrer">
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://better.tw" target="_blank" rel="noopener noreferrer">
-                <Trans id="settings_website" />
-              </a>
-            </li>
-            <li>
-              <a href="https://better.tw/releases" target="_blank" rel="noopener noreferrer">
-                <Trans id="settings_changelog" />
-              </a>
-            </li>
-          </ul>
-        </div>
-      </SettingsSidebar>
-      <SettingsContent>{renderSelectedPage()}</SettingsContent>
-      <SettingsFooter
-        className={cx({
-          visible: canSave || showSettingsLabel,
-        })}>
-        <div>
-          {showSettingsLabel && (
-            <div className="btd-settings-footer-label">
-              <Trans id="settings_footer_label" />
+          {menu.map((section) => {
+            return (
+              <div key={section.id}>
+                <div className="section-title">{section.title}</div>
+                <ul>
+                  {section.items.map((item) => {
+                    return (
+                      <Fragment key={section.id + '-' + item.id}>
+                        <li
+                          className={(selectedId === item.id && 'active') || ''}
+                          onClick={() => {
+                            setSelectedId(item.id);
+                            setSearchQuery('');
+                          }}>
+                          <div className="text">{item.label}</div>
+                        </li>
+                      </Fragment>
+                    );
+                  })}
+                </ul>
+              </div>
+            );
+          })}
+          <div>
+            <div className="section-title">
+              <Trans id="settings_links" />
             </div>
-          )}
-          <SettingsButton variant="primary" onClick={updateSettings} disabled={!canSave}>
-            <Trans id="settings_save" />
-          </SettingsButton>
-        </div>
-      </SettingsFooter>
-    </SettingsModalWrapper>
+            <ul>
+              <li>
+                <a
+                  href="https://twitter.com/@BetterTDeck"
+                  target="_blank"
+                  rel="noopener noreferrer">
+                  @BetterTDeck
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/eramdam/BetterTweetDeck"
+                  target="_blank"
+                  rel="noopener noreferrer">
+                  GitHub
+                </a>
+              </li>
+              <li>
+                <a href="https://better.tw" target="_blank" rel="noopener noreferrer">
+                  <Trans id="settings_website" />
+                </a>
+              </li>
+              <li>
+                <a href="https://better.tw/releases" target="_blank" rel="noopener noreferrer">
+                  <Trans id="settings_changelog" />
+                </a>
+              </li>
+            </ul>
+          </div>
+        </SettingsSidebar>
+        <SettingsContent>
+          <SettingsModalSearchContent
+            selectedId={selectedId}
+            menu={menu}
+            searchQuery={searchQuery}
+            settings={settings}
+          />
+        </SettingsContent>
+        <SettingsFooter
+          className={cx({
+            visible: canSave || showSettingsLabel,
+          })}>
+          <div>
+            {showSettingsLabel && (
+              <div className="btd-settings-footer-label">
+                <Trans id="settings_footer_label" />
+              </div>
+            )}
+            <SettingsButton variant="primary" onClick={updateSettings} disabled={!canSave}>
+              <Trans id="settings_save" />
+            </SettingsButton>
+          </div>
+        </SettingsFooter>
+      </SettingsModalWrapper>
+    </SettingsSearchProvider>
   );
 };
 
@@ -185,4 +228,30 @@ async function maybeAskForTabsPermissions(newSettings: BTDSettings) {
   return browser.permissions.request({
     permissions: ['tabs'],
   });
+}
+
+function renderMenuInInvisibleContainer(menu: ReadonlyArray<MenuItem>) {
+  return (
+    <div
+      id="Invisible"
+      className={css`
+        height: 1px;
+        width: 1px;
+        position: absolute;
+        left: -100000px;
+        opacity: 0;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+      `}>
+      {menu.map((section) => {
+        return (
+          <Fragment key={section.id}>
+            {section.items.map((item) => {
+              return <Fragment key={item.id}>{item.render()}</Fragment>;
+            })}
+          </Fragment>
+        );
+      })}
+    </div>
+  );
 }

@@ -7,6 +7,7 @@ import oldDark from '../../../assets/dark-themes/old-dark.png';
 import {BetterTweetDeckThemes} from '../../../features/themeTweaks';
 import {HandlerOf} from '../../../helpers/typeHelpers';
 import {Trans} from '../../trans';
+import {generateInputId} from '../settingsHelpers';
 import {featureBadgeClassname, NewFeatureBadge} from './newFeatureBadge';
 import {SettingsRow, SettingsRowContent, SettingsRowTitle} from './settingsRow';
 
@@ -59,7 +60,8 @@ const optionImageBlock = css`
   position: relative;
   border: 2px solid var(--settings-modal-separator);
 
-  input:checked + & {
+  input:checked + &,
+  input[checked] + & {
     border-color: var(--twitter-blue);
     box-shadow: 0 0 8px rgba(29, 161, 242, 0.6);
   }
@@ -88,14 +90,8 @@ const themes = [
   },
 ];
 
-let id = 0;
-const generateId = () => {
-  id++;
-  return id;
-};
-
 export function ThemeSelector(props: CustomDarkThemeProps) {
-  const inputId = generateId();
+  const inputId = generateInputId();
   return (
     <SettingsRow disabled={props.disabled}>
       <SettingsRowTitle>

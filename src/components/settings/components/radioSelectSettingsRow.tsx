@@ -1,8 +1,9 @@
 import {css} from '@emotion/css';
 import React, {PropsWithChildren} from 'react';
 
-import {AbstractTweetDeckSettings} from '../../../types/abstractTweetDeckSettings';
 import {BTDSettings} from '../../../types/btdSettingsTypes';
+import {useSettingsSearch} from '../settingsContext';
+import {reactElementToString} from '../settingsHelpers';
 import {SettingsRadioSettingSelect, SettingsRadioSettingsSelectProps} from './settingsRadioSelect';
 import {SettingsRow, SettingsRowContent, SettingsRowTitle} from './settingsRow';
 
@@ -39,11 +40,15 @@ function RadioSelectSettingsRow<S extends object, T extends keyof S>(
 export function BTDRadioSelectSettingsRow<T extends keyof BTDSettings>(
   props: PropsWithChildren<SettingsRadioSettingsSelectProps<BTDSettings, T>>
 ) {
-  return RadioSelectSettingsRow(props);
-}
-
-export function TDRadioSelectSettingsRow<T extends keyof AbstractTweetDeckSettings>(
-  props: PropsWithChildren<SettingsRadioSettingsSelectProps<AbstractTweetDeckSettings, T>>
-) {
-  return RadioSelectSettingsRow(props);
+  const {renderAndAddtoIndex} = useSettingsSearch();
+  return (
+    <>
+      {renderAndAddtoIndex({
+        key: props.settingsKey,
+        keywords: props.fields.map((f) => reactElementToString(f.label)),
+        render: (newSettings) =>
+          RadioSelectSettingsRow({...props, initialValue: newSettings[props.settingsKey]}),
+      })}
+    </>
+  );
 }

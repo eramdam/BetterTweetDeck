@@ -33,5 +33,5 @@ export function SettingsRowTitle(props: SettingsRowProps) {
   return <h3 className={cx(settingsRowTitle, props.className)}>{props.children}</h3>;
 }
 export function SettingsRowContent(props: SettingsRowProps) {
-  return <div className={cx(props.className)}>{props.children}</div>;
+  return <div className={cx(props.className, 'settings-row-content')}>{props.children}</div>;
 }

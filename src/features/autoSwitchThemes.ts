@@ -17,11 +17,9 @@ export const setupThemeAutoSwitch = makeBTDModule((opts) => {
       }
 
       if (matches) {
-        html.classList.add('dark');
-        TD.storage.clientController.client.dictSet('settings', 'theme', 'dark');
+        TD.settings.setTheme('dark');
       } else {
-        html.classList.remove('dark');
-        TD.storage.clientController.client.dictSet('settings', 'theme', 'light');
+        TD.settings.setTheme('light');
       }
       tweakTweetDeckTheme(opts);
 
