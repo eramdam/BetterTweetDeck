@@ -255,7 +255,7 @@ export const SettingsTweetActions: FC<SettingsMenuSectionProps> = (props) => {
                       makeOnSettingsChange('customTranslationLanguage')(e.target.value)
                     }>
                     <option value={''}>
-                      <Trans id="settings_default_browsers_language" />
+                      {getTransString('settings_default_browsers_language')}
                     </option>
                     {translationLanguages.map((lang) => (
                       <option key={lang.code} value={lang.code}>
