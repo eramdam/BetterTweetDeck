@@ -240,7 +240,7 @@ export const SettingsTweetActions: FC<SettingsMenuSectionProps> = (props) => {
             initialValue: settings.overrideTranslationLanguage,
             key: 'overrideTranslationLanguage',
             label: <Trans id="settings_override_translation_language" />,
-            introducedIn: '4.1',
+            introducedIn: '4.1.0',
             extraContent: (newSettings) => {
               return (
                 newSettings && (
