@@ -376,5 +376,20 @@
   },
   "settings_check_the_collection_of_css_snippets": {
     "message": "Die CSS-Snippet-Sammlung ansehen"
+  },
+  "settings_css_compress_warning": {
+    "message": "Der CSS-Code im Editor wird komprimiert, um den Speicherverbrauch des Browsers niedrig zu halten. Das heißt, das einige Einrückungen und Leerzeichen entfernt werden."
+  },
+  "settings_backup_warning": {
+    "message": "Denken Sie daran, die Backups an einem separaten Ort zu speichern!"
+  },
+  "settings_usernames_like_picker_allowlist": {
+    "message": "Durch Kommata getrennte Liste von Nutzernamen, für die der Picker angezeigt werden soll (leer lassen, wenn er immer angezeigt werden soll)"
+  },
+  "settings_override_translation_language": {
+    "message": "Eine bestimmte Sprache beim Übersetzen von Tweets verwenden"
+  },
+  "settings_default_browsers_language": {
+    "message": "Voreinstellung (Sprache des Browsers)"
   }
 }
