@@ -657,6 +657,7 @@ export interface TweetDeckChirp {
     name: string;
     url: string;
   };
+  setRetweeted(isRetweeted: boolean): void;
 }
 
 export interface TweetHashtag {

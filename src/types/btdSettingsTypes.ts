@@ -161,6 +161,9 @@ export const RBetterTweetDeckSettings = t.type({
   /** Shows the number of followers in the follow actions */
   showFollowersCount: withDefault(t.boolean, true),
 
+  /** Shows separate buttons for just retweet and quote/account picker */
+  separateTweetAndQuoteTweetActions: withDefault(t.boolean, false),
+
   /** Change the display of usernames in columns. */
   usernamesFormat: withDefault(
     makeEnumRuntimeType<BTDUsernameFormat>(BTDUsernameFormat),

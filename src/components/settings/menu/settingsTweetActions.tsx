@@ -292,6 +292,11 @@ export const SettingsTweetActions: FC<SettingsMenuSectionProps> = (props) => {
               );
             },
           },
+          {
+            initialValue: settings.separateTweetAndQuoteTweetActions,
+            key: 'separateTweetAndQuoteTweetActions',
+            label: <Trans id="settings_separate_tweet_and_quote_tweet_actions" />,
+          },
         ]}>
         <Trans id="settings_misc" />
       </CheckboxSelectSettingsRow>
