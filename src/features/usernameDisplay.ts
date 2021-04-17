@@ -65,7 +65,7 @@ export const maybeChangeUsernameFormat = makeBTDModule(({settings, TD}) => {
     // general fullname template
     replaceWrapper(
       'text/user_link_fullname',
-      '{{#unsafe}}{{{name}}}{{/unsafe}}{{^unsafe}}{{name}}{{/unsafe}}',
+      '{{#unsafe}}{{{name}}}{{/unsafe}}{{^unsafe}}{{{name}}}{{/unsafe}}',
       '{{#btd.usernameFromURL}}{{profileUrl}}{{/btd.usernameFromURL}}'
     );
 
