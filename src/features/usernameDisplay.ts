@@ -116,7 +116,7 @@ export const maybeChangeUsernameFormat = makeBTDModule(({settings, TD}) => {
       // DM conversation headers
       replaceWrapper(
         'status/conversation_header',
-        '<b class="link-complex-target">{{{emojifiedName}}}</b> <span class="attribution username txt-mute txt-small">@{{screenName}}</span>',
+        '<b class="link-complex-target">{{{emojifiedName}}}</b> <span class="attribution username txt-mute txt-size-variable--12">@{{screenName}}</span>',
         '<b class="link-complex-target">{{screenName}}</b>'
       );
 
