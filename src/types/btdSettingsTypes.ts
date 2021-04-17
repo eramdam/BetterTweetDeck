@@ -129,6 +129,9 @@ export const RBetterTweetDeckSettings = t.type({
   /** Comma separated list of account usernames from which to trigger the account picker */
   accountChoiceAllowList: withDefault(t.string, ''),
 
+  /** Shows separate buttons for just retweet and quote/account picker */
+  separateTweetAndQuoteTweetActions: withDefault(t.boolean, false),
+
   /** Change the display of usernames in columns. */
   usernamesFormat: withDefault(
     makeEnumRuntimeType<BTDUsernameFormat>(BTDUsernameFormat),

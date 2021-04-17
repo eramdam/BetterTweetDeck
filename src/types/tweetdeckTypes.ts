@@ -463,6 +463,7 @@ interface ChirpAccount {
   privateState: ChirpAccountPrivateState;
   managed: boolean;
   getUserID(): string;
+  getKey(): string;
 }
 
 interface ChirpAccountPrivateState {
@@ -634,6 +635,7 @@ export interface TweetDeckChirp {
   isRetweetedStatus(): boolean;
   getFilterableText(): string;
   favorite(options: {element: JQuery<Element>; statusKey: string; column: string}): void;
+  setRetweeted(isRetweeted: boolean): void;
   card: object;
 }
 
