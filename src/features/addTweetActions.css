@@ -10,6 +10,10 @@
   content: '\F101';
 }
 
+.icon-quote::before {
+  content: '\F113';
+}
+
 .tweet-detail-actions.tweet-detail-actions {
   display: flex !important;
   padding-bottom: 8px;

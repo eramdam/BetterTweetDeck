@@ -72,8 +72,8 @@ export const changeTweetActionsStyling = makeBTDModule(({settings, jq, TD}) => {
       const marker = '{{#getMainUser}}';
       return string
         .replace(
-          'icon-retweet{{#isRetweeted}}-filled{{/isRetweeted}} icon-retweet-toggle txt-center {{#withPrettyEngagements}}pull-left{{/withPrettyEngagements}}',
-          'icon-retweet txt-center' // icon-quote?
+          'js-icon-retweet icon icon-retweet{{#isRetweeted}}-filled{{/isRetweeted}} icon-retweet-toggle txt-center {{#withPrettyEngagements}}pull-left{{/withPrettyEngagements}}',
+          'icon icon-quote txt-center'
         )
         .replace(
           '{{#withPrettyEngagements}} <span class="pull-right icon-retweet-toggle margin-l--3 margin-t--1 txt-size--12 js-retweet-count retweet-count">{{#prettyRetweetCount}}{{prettyRetweetCount}}{{/prettyRetweetCount}}</span> {{/withPrettyEngagements}}',
@@ -94,8 +94,8 @@ export const changeTweetActionsStyling = makeBTDModule(({settings, jq, TD}) => {
       const marker = '{{#getMainUser}}';
       return string
         .replace(
-          'icon-retweet{{#isRetweeted}}-filled{{/isRetweeted}} icon-retweet-toggle',
-          'icon-retweet' // icon-quote?
+          'js-icon-retweet icon icon-retweet{{#isRetweeted}}-filled{{/isRetweeted}} icon-retweet-toggle',
+          'icon icon-quote'
         )
         .replace(marker, `${marker}${retweetOnlyItem}`);
     });
