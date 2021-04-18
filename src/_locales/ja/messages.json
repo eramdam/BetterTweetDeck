@@ -384,7 +384,7 @@
     "message": "作業のバックアップを別の場所に保存することを忘れないでください！"
   },
   "settings_usernames_like_picker_allowlist": {
-    "message": "アカウント選択画面を開くユーザー名のカンマ区切りのリスト (空のままにすると常に表示)"
+    "message": "アカウント選択画面を開くユーザー名のカンマ区切りのリスト (空の場合、常に表示)"
   },
   "settings_override_translation_language": {
     "message": "ツイートの翻訳に特定の言語を使用する"
