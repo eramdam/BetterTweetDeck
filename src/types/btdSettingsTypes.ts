@@ -110,6 +110,9 @@ export const RBetterTweetDeckSettings = t.type({
       /** Shows a download button to download medias in a tweet. */
       addDownloadMediaLinksAction: t.boolean,
 
+      /** Shows a follow icon to follow the author of a tweet quickly. */
+      addFollowAction: t.boolean,
+
       /** Shows a mute icon to mute the author of a tweet quickly. */
       addMuteAction: t.boolean,
 
@@ -119,6 +122,7 @@ export const RBetterTweetDeckSettings = t.type({
     {
       addCopyMediaLinksAction: false,
       addDownloadMediaLinksAction: false,
+      addFollowAction: false,
       addMuteAction: false,
       addBlockAction: false,
     }

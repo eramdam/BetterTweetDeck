@@ -391,5 +391,8 @@
   },
   "settings_default_browsers_language": {
     "message": "Default (browser's language)"
+  },
+  "settings_action_follow_author": {
+    "message": "Follow author"
   }
 }

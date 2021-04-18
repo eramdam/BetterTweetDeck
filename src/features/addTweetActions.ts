@@ -21,6 +21,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
 
   const {
     addCopyMediaLinksAction,
+    addFollowAction,
     addMuteAction,
     addBlockAction,
     addDownloadMediaLinksAction,
@@ -28,6 +29,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
 
   const numberOfEnabledActions = [
     addCopyMediaLinksAction,
+    addFollowAction,
     addMuteAction,
     addBlockAction,
     addDownloadMediaLinksAction,
@@ -63,6 +65,17 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
     </li>`) ||
       '';
 
+    const followItem =
+      (addFollowAction &&
+        `<li class="tweet-detail-action-item btd-tweet-detail-action-item">
+  <a class="js-show-tip tweet-detail-action btd-tweet-detail-action position-rel" href="#"
+    data-btd-action="{{^following}}follow{{/following}}{{#following}}unfollow{{/following}}-account" rel="action" title="{{^following}}Follow{{/following}}{{#following}}Unfollow{{/following}} @{{screenName}}">
+    <i class="js-icon icon icon-{{^following}}follow{{/following}}{{#following}}following{{/following}} txt-center"></i>
+    <span class="is-vishidden"> {{_i}}{{^following}}Follow{{/following}}{{#following}}Unfollow{{/following}} @{{screenName}}{{/i}} </span>
+  </a>
+</li>`) ||
+      '';
+
     const muteItem =
       (addMuteAction &&
         `<li class="tweet-detail-action-item btd-tweet-detail-action-item">
@@ -90,8 +103,11 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
     ${copyMediaItem}
     ${downloadMediaItem}
     {{/entities.media.length}}
+    {{#user}}
+    ${followItem}
     ${muteItem}
     ${blockItem}
+    {{/user}}
     {{/getMainTweet}}`;
 
     return string.replace(marker, replacement);
@@ -122,6 +138,17 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
     </li>`) ||
       '';
 
+    const followItem =
+      (addFollowAction &&
+        `<li class="tweet-action-item btd-tweet-action-item pull-left margin-r--10 margin-l--1">
+  <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
+    data-btd-action="{{^following}}follow{{/following}}{{#following}}unfollow{{/following}}-account" rel="action" title="{{^following}}Follow{{/following}}{{#following}}Unfollow{{/following}} @{{screenName}}"> 
+    <i class="js-icon-follow icon icon-{{^following}}follow{{/following}}{{#following}}following{{/following}} txt-center margin-t---1"></i>
+    <span class="is-vishidden"> {{_i}}{{^following}}Follow{{/following}}{{#following}}Unfollow{{/following}} @{{screenName}}{{/i}} </span>
+  </a>
+</li>`) ||
+      '';
+
     const muteItem =
       (addMuteAction &&
         `<li class="tweet-action-item btd-tweet-action-item pull-left margin-r--10 margin-l--1">
@@ -144,14 +171,17 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
 </li>`) ||
       '';
 
-    const replacement = `${marker}
+    const replacement = `${marker}{{#getMainTweet}}
       {{#tweet.entities.media.length}}
       ${copyMediaItem}
       ${downloadItem}
       {{/tweet.entities.media.length}}
+      {{#user}}
+      ${followItem}
       ${muteItem}
       ${blockItem}
-      `;
+      {{/user}}
+      {{/getMainTweet}}`;
 
     return string.replace(marker, replacement);
   });
@@ -196,7 +226,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
 
   jq('body').on(
     'click',
-    '[data-btd-action="mute-account"], [data-btd-action="block-account"]',
+    '[data-btd-action="follow-account"], [data-btd-action="unfollow-account"], [data-btd-action="mute-account"], [data-btd-action="block-account"]',
     (ev) => {
       ev.preventDefault();
       const target = ev.currentTarget;
@@ -214,16 +244,31 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
 
       const action = target.getAttribute('data-btd-action');
 
-      if (action === 'mute-account') {
-        jq(document).trigger('uiMuteAction', {
-          account,
-          twitterUser: user,
-        });
-      } else if (action === 'block-account') {
-        jq(document).trigger('uiBlockAction', {
-          account,
-          twitterUser: user,
-        });
+      switch (action) {
+        case 'follow-account':
+          jq(document).trigger('uiFollowAction', {
+            account,
+            twitterUser: user,
+          });
+          break;
+        case 'unfollow-account':
+          jq(document).trigger('uiUnfollowAction', {
+            account,
+            twitterUser: user,
+          });
+          break;
+        case 'mute-account':
+          jq(document).trigger('uiMuteAction', {
+            account,
+            twitterUser: user,
+          });
+          break;
+        case 'block-account':
+          jq(document).trigger('uiBlockAction', {
+            account,
+            twitterUser: user,
+          });
+          break;
       }
     }
   );

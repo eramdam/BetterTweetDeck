@@ -2,6 +2,16 @@
   content: '\F186';
 }
 
+.tweet-action:hover .icon-following,
+.tweet-detail-action:hover .icon-following {
+  color: #e0245e;
+}
+
+.tweet-action:hover .icon-following::before,
+.tweet-detail-action:hover .icon-following::before {
+  content: '\F097';
+}
+
 .icon-muted::before {
   content: '\F101';
 }
