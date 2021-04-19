@@ -244,31 +244,38 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
 
       const action = target.getAttribute('data-btd-action');
 
+      if (ev.shiftKey && (action === 'follow-account' || action === 'unfollow-account')) {
+        jq(document).trigger('uiShowFollowFromOptions', {
+          userToFollow: user,
+        });
+        return;
+      }
+
       switch (action) {
         case 'follow-account':
           jq(document).trigger('uiFollowAction', {
             account,
             twitterUser: user,
           });
-          break;
+          return;
         case 'unfollow-account':
           jq(document).trigger('uiUnfollowAction', {
             account,
             twitterUser: user,
           });
-          break;
+          return;
         case 'mute-account':
           jq(document).trigger('uiMuteAction', {
             account,
             twitterUser: user,
           });
-          break;
+          return;
         case 'block-account':
           jq(document).trigger('uiBlockAction', {
             account,
             twitterUser: user,
           });
-          break;
+          return;
       }
     }
   );
