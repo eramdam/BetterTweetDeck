@@ -349,5 +349,47 @@
   },
   "settings_do_the_same_for_single_images_in_quoted_tweets": {
     "message": "Auch für einzelne Bilder in zitierten Tweets"
+  },
+  "settings_default_dark_theme": {
+    "message": "Vorgabewerte"
+  },
+  "settings_custom_dark_theme": {
+    "message": "Dunkles Farbschema"
+  },
+  "settings_tweet_composer": {
+    "message": "Tweet-Editor"
+  },
+  "settings_show_the_emoji_picker": {
+    "message": "Die Emoji-Auswahl anzeigen"
+  },
+  "settings_enable_emoji_autocompletion": {
+    "message": "Emoji-Auswahl per :shortcode: aktivieren"
+  },
+  "settings_enable_the_gif_button": {
+    "message": "Den GIF-Button aktivieren"
+  },
+  "settings_also_show_cards_in_columns_with_small_media_size": {
+    "message": "Karten auch in Spalten mit Mediengröße \"Small\" anzeigen"
+  },
+  "settings_looking_for_inspiration": {
+    "message": "Auf der Suche nach Anregungen?"
+  },
+  "settings_check_the_collection_of_css_snippets": {
+    "message": "Sehen Sie sich die CSS-Snippet-Sammlung an"
+  },
+  "settings_css_compress_warning": {
+    "message": "Der CSS-Code im Editor wird komprimiert, um den Speicherverbrauch des Browsers niedrig zu halten. Das heißt, das einige Einrückungen und Leerzeichen entfernt werden."
+  },
+  "settings_backup_warning": {
+    "message": "Denken Sie daran, die Backups an einem separaten Ort zu speichern!"
+  },
+  "settings_usernames_like_picker_allowlist": {
+    "message": "Durch Kommata getrennte Liste von Nutzernamen, für die der Picker angezeigt werden soll (leer lassen, wenn er immer angezeigt werden soll)"
+  },
+  "settings_override_translation_language": {
+    "message": "Eine bestimmte Sprache beim Übersetzen von Tweets verwenden"
+  },
+  "settings_default_browsers_language": {
+    "message": "Voreinstellung (Sprache des Browsers)"
   }
 }

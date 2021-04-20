@@ -9,7 +9,7 @@
     "message": "Better TweetDeck"
   },
   "settings_show_cards_inside_columns": {
-    "message": "カラムの中で返信できるツイートカードを使う"
+    "message": "カラム上にツイートカードを表示"
   },
   "settings_show_profile_badges_on_top_of_avatars": {
     "message": "アイコンの上に重ねて認証バッジを表示"
@@ -269,6 +269,9 @@
   "settings_misc": {
     "message": "その他"
   },
+  "settings_meta": {
+    "message": "メタ"
+  },
   "settings_import_export": {
     "message": "設定のバックアップ"
   },
@@ -291,7 +294,7 @@
     "message": "TweetDeckで共有"
   },
   "settings_enable_share_item": {
-    "message": "ブラウザのコンテクストメニューに「TweetDeckで共有」の項目を追加"
+    "message": "ブラウザのコンテキストメニューに「TweetDeckで共有」の項目を追加"
   },
   "settings_shorten_the_shared_text": {
     "message": "共有テキストの短縮化"
@@ -300,13 +303,13 @@
     "message": "コンテキストメニュー"
   },
   "settings_old_gray": {
-    "message": "昔の灰色"
+    "message": "オールドグレー"
   },
   "settings_super_black": {
-    "message": "めっちゃくちゃ黒"
+    "message": "スーパーブラック"
   },
   "settings_tokens_list": {
-    "message": "テンプレート一覧"
+    "message": "トークン一覧"
   },
   "settings_make_emoji_bigger_in_tweets": {
     "message": "ツイートの絵文字を大きくする"
@@ -322,6 +325,9 @@
   },
   "settings_bugs_or_suggestions": {
     "message": "バグ報告や提案"
+  },
+  "settings_source_on_github": {
+    "message": "GitHub上のソース"
   },
   "settings_contributors": {
     "message": "貢献者"
@@ -343,5 +349,47 @@
   },
   "settings_do_the_same_for_single_images_in_quoted_tweets": {
     "message": "引用ツイートに含まれる単一の画像も同様に表示する"
+  },
+  "settings_default_dark_theme": {
+    "message": "デフォルト"
+  },
+  "settings_custom_dark_theme": {
+    "message": "ダークテーマ"
+  },
+  "settings_tweet_composer": {
+    "message": "ツイート入力欄"
+  },
+  "settings_show_the_emoji_picker": {
+    "message": "絵文字ピッカーを表示"
+  },
+  "settings_enable_emoji_autocompletion": {
+    "message": ":shortcodes: で絵文字を自動的に補完する"
+  },
+  "settings_enable_the_gif_button": {
+    "message": "GIFボタンを有効にする"
+  },
+  "settings_also_show_cards_in_columns_with_small_media_size": {
+    "message": "メディアサイズの設定がSmallのカラムにもカードを表示する"
+  },
+  "settings_looking_for_inspiration": {
+    "message": "インスピレーションをお探しですか？"
+  },
+  "settings_check_the_collection_of_css_snippets": {
+    "message": "CSSのスニペット集をご覧ください"
+  },
+  "settings_css_compress_warning": {
+    "message": "エディタのCSSは、ブラウザのストレージ容量を節約する目的で圧縮されます。一部のインデントや空白が削除されます。"
+  },
+  "settings_backup_warning": {
+    "message": "作業のバックアップを別の場所に保存することを忘れないでください！"
+  },
+  "settings_usernames_like_picker_allowlist": {
+    "message": "アカウント選択画面を開くユーザー名のカンマ区切りのリスト (空の場合、常に表示)"
+  },
+  "settings_override_translation_language": {
+    "message": "ツイートの翻訳に特定の言語を使用する"
+  },
+  "settings_default_browsers_language": {
+    "message": "デフォルト (ブラウザの言語)"
   }
 }
