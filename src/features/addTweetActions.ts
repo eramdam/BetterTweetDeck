@@ -10,6 +10,7 @@ import {
   getMediaFromChirp,
 } from '../helpers/tweetdeckHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
+import {TweetDeckUser, TwitterActionEnum} from '../types/tweetdeckTypes';
 import {requestMediaItem} from './redraftTweet';
 
 export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
@@ -69,7 +70,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
       (addFollowAction &&
         `<li class="tweet-detail-action-item btd-tweet-detail-action-item">
   <a class="js-show-tip tweet-detail-action btd-tweet-detail-action position-rel" href="#"
-    data-btd-action="{{^following}}follow{{/following}}{{#following}}unfollow{{/following}}-account" rel="action" title="{{^following}}Follow{{/following}}{{#following}}Unfollow{{/following}} @{{screenName}}">
+    data-btd-action="follow-account" rel="follow" title="{{^following}}Follow{{/following}}{{#following}}Unfollow{{/following}} @{{screenName}}">
     <i class="js-icon icon icon-{{^following}}follow{{/following}}{{#following}}following{{/following}} txt-center"></i>
     <span class="is-vishidden"> {{_i}}{{^following}}Follow{{/following}}{{#following}}Unfollow{{/following}} @{{screenName}}{{/i}} </span>
   </a>
@@ -142,7 +143,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
       (addFollowAction &&
         `<li class="tweet-action-item btd-tweet-action-item pull-left margin-r--10 margin-l--1">
   <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
-    data-btd-action="{{^following}}follow{{/following}}{{#following}}unfollow{{/following}}-account" rel="action" title="{{^following}}Follow{{/following}}{{#following}}Unfollow{{/following}} @{{screenName}}"> 
+    data-btd-action="follow-account" rel="follow" title="{{^following}}Follow{{/following}}{{#following}}Unfollow{{/following}} @{{screenName}}"> 
     <i class="js-icon-follow icon icon-{{^following}}follow{{/following}}{{#following}}following{{/following}} txt-center margin-t---1"></i>
     <span class="is-vishidden"> {{_i}}{{^following}}Follow{{/following}}{{#following}}Unfollow{{/following}} @{{screenName}}{{/i}} </span>
   </a>
@@ -224,6 +225,43 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
     navigator.clipboard.writeText(mediaUrls);
   });
 
+  modifyMustacheTemplate(TD, 'stream_item.mustache', (string) =>
+    string.replace(
+      'data-tweet-id="{{#getMainTweet}}{{id}}{{/getMainTweet}}"',
+      'data-tweet-id="{{#getMainTweet}}{{id}}{{/getMainTweet}}" data-user-id="{{#getMainTweet}}{{user.id}}{{/getMainTweet}}"'
+    )
+  );
+
+  TD.services.TwitterUser.prototype.setFollowing = function (following: boolean) {
+    this.following = following;
+    const addedClass = following ? 'icon-following' : 'icon-follow';
+    const removedClass = following ? 'icon-follow' : 'icon-following';
+    jq(`[data-user-id="${this.id}"][data-account-key="${this.account.getKey()}"]`)
+      .find('.js-tweet')
+      .find('a[rel="follow"]')
+      // .attr('title', TD.ui.template.render('text/follow_action', this))
+      .find('.js-icon-follow')
+      .addClass(addedClass)
+      .removeClass(removedClass);
+  };
+
+  jq(document).on(
+    'dataFollowStateChange',
+    (
+      _,
+      {
+        action: {userAction},
+        request: {twitterUser},
+      }: {action: {userAction: TwitterActionEnum}; request: {twitterUser: TweetDeckUser}}
+    ) => {
+      if (userAction === 'follow') {
+        twitterUser.setFollowing(true);
+      } else if (userAction === 'unfollow') {
+        twitterUser.setFollowing(false);
+      }
+    }
+  );
+
   jq('body').on(
     'click',
     '[data-btd-action="follow-account"], [data-btd-action="unfollow-account"], [data-btd-action="mute-account"], [data-btd-action="block-account"]',
@@ -233,18 +271,18 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
       if (!isHTMLElement(target)) {
         return;
       }
-      let chirp = getChirpFromElement(TD, ev.target)?.chirp;
+      const {chirp} = getChirpFromElement(TD, ev.target) ?? {};
 
       if (!chirp) {
         return;
       }
-      chirp = chirp.targetTweet ? chirp.targetTweet : chirp;
-      const user = chirp.retweetedStatus ? chirp.retweetedStatus.user : chirp.user;
-      const account = chirp.account;
+      const usefulChirp = chirp.targetTweet ?? chirp;
+      const user = usefulChirp.retweetedStatus?.user ?? usefulChirp.user;
+      const account = usefulChirp.account;
 
       const action = target.getAttribute('data-btd-action');
 
-      if (ev.shiftKey && (action === 'follow-account' || action === 'unfollow-account')) {
+      if (ev.shiftKey && action === 'follow-account') {
         jq(document).trigger('uiShowFollowFromOptions', {
           userToFollow: user,
         });
@@ -253,23 +291,19 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
 
       switch (action) {
         case 'follow-account':
-          jq(document).trigger('uiFollowAction', {
+          jq(document).trigger(usefulChirp.user.following ? 'uiUnfollowAction' : 'uiFollowAction', {
             account,
             twitterUser: user,
           });
           return;
-        case 'unfollow-account':
-          jq(document).trigger('uiUnfollowAction', {
-            account,
-            twitterUser: user,
-          });
-          return;
+
         case 'mute-account':
           jq(document).trigger('uiMuteAction', {
             account,
             twitterUser: user,
           });
           return;
+
         case 'block-account':
           jq(document).trigger('uiBlockAction', {
             account,

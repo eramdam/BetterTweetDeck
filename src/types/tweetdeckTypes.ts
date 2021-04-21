@@ -527,6 +527,7 @@ interface User {
   _profileBannerURL: string;
   prototype: this;
   getExpandedURL(): string;
+  setFollowing(following: boolean): void;
 }
 
 interface SourceUserEntities {
