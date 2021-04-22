@@ -71,7 +71,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
         `<li class="tweet-detail-action-item btd-tweet-detail-action-item">
   <a class="js-show-tip tweet-detail-action btd-tweet-detail-action position-rel" href="#"
     data-btd-action="follow-account" rel="follow" title="{{^following}}Follow{{/following}}{{#following}}Unfollow{{/following}} @{{screenName}}">
-    <i class="js-icon-follow icon icon-{{^following}}follow{{/following}}{{#following}}following{{/following}} txt-center"></i>
+    <i class="js-icon-follow icon icon-{{^following}}follow{{/following}}{{#following}}following{{/following}} icon-follow-toggle txt-center"></i>
     <span class="is-vishidden"> {{_i}}{{^following}}Follow{{/following}}{{#following}}Unfollow{{/following}} @{{screenName}}{{/i}} </span>
   </a>
 </li>`) ||
@@ -144,7 +144,8 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
         `<li class="tweet-action-item btd-tweet-action-item pull-left margin-r--10">
   <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
     data-btd-action="follow-account" rel="follow" title="{{^following}}Follow{{/following}}{{#following}}Unfollow{{/following}} @{{screenName}}"> 
-    <i class="js-icon-follow icon icon-{{^following}}follow{{/following}}{{#following}}following{{/following}} txt-center"></i>
+    <i class="js-icon-follow icon icon-{{^following}}follow{{/following}}{{#following}}following{{/following}} icon-follow-toggle txt-center pull-left"></i>
+    <span class="pull-right icon-follow-toggle margin-l--2 margin-t--1 txt-size--12 js-followers-count followers-count">{{truncateFollowersCount}}</span>
     <span class="is-vishidden"> {{_i}}{{^following}}Follow{{/following}}{{#following}}Unfollow{{/following}} @{{screenName}}{{/i}} </span>
   </a>
 </li>`) ||
@@ -232,17 +233,34 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
     )
   );
 
+  for (const targetMustache of [
+    'status/tweet_single.mustache',
+    'status/tweet_detail.mustache',
+  ] as const) {
+    modifyMustacheTemplate(TD, targetMustache, (string) =>
+      string.replace(
+        '{{#isFavorite}}is-favorite{{/isFavorite}}',
+        '{{#isFavorite}}is-favorite{{/isFavorite}} {{#getMainUser}}{{#following}}following{{/following}}{{/getMainUser}}'
+      )
+    );
+  }
+
   TD.services.TwitterUser.prototype.setFollowing = function (following: boolean) {
     this.following = following;
     const addedClass = following ? 'icon-following' : 'icon-follow';
     const removedClass = following ? 'icon-follow' : 'icon-following';
     jq(`[data-user-id="${this.id}"][data-account-key="${this.account.getKey()}"]`)
       .find('.js-tweet')
+      .toggleClass('following', following)
       .find('a[rel="follow"]')
       // .attr('title', TD.ui.template.render('text/follow_action', this))
       .find('.js-icon-follow')
       .addClass(addedClass)
       .removeClass(removedClass);
+  };
+
+  TD.services.TwitterUser.prototype.truncateFollowersCount = function () {
+    return TD.util.truncateNumber(this.followersCount);
   };
 
   jq(document).on(

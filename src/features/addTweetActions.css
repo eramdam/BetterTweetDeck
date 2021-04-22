@@ -2,8 +2,13 @@
   content: '\F186';
 }
 
-.tweet-action:hover .icon-following,
-.tweet-detail-action:hover .icon-following {
+.following .icon-follow-toggle {
+  color: #1da1f2;
+}
+
+.following .tweet-action:hover .icon-following,
+.following .tweet-action:hover .followers-count,
+.following .tweet-detail-action:hover .icon-following {
   color: #e0245e;
 }
 

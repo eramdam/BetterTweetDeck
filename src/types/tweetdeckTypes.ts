@@ -529,6 +529,7 @@ interface User {
   prototype: this;
   getExpandedURL(): string;
   setFollowing(following: boolean): void;
+  truncateFollowersCount(): string;
 }
 
 interface SourceUserEntities {
@@ -1302,6 +1303,7 @@ interface TweetDeckUtil {
   poller: unknown;
   createUrlAnchor(e: any): string;
   pluck(method: string): (a: any) => any;
+  truncateNumber(n: number): string;
 }
 
 interface DatesCached {
