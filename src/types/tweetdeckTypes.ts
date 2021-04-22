@@ -463,6 +463,7 @@ interface ChirpAccount {
   privateState: ChirpAccountPrivateState;
   managed: boolean;
   getUserID(): string;
+  getKey(): string;
 }
 
 interface ChirpAccountPrivateState {
