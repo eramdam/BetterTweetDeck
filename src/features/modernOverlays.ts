@@ -49,7 +49,7 @@ export const useModernOverlays = makeBTDModule((options) => {
       }
 
       const tweetModalKey = document
-        .querySelector('#open-modal [data-key]')
+        .querySelector('#open-modal .js-mediatable [data-key]')
         ?.getAttribute('data-key');
 
       if (!tweetModalKey) {
