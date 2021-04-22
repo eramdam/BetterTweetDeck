@@ -81,9 +81,9 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
       (addMuteAction &&
         `<li class="tweet-detail-action-item btd-tweet-detail-action-item">
       <a class="js-show-tip tweet-detail-action btd-tweet-detail-action position-rel" href="#"
-        data-btd-action="mute-account" rel="action" title="Mute {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}">
+        data-btd-action="mute-account" rel="action" title="Mute @{{screenName}}">
         <i class="icon icon-muted txt-center"></i>
-        <span class="is-vishidden"> {{_i}}Mute {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}{{/i}} </span>
+        <span class="is-vishidden"> {{_i}}Mute @{{screenName}}{{/i}} </span>
       </a>
     </li>`) ||
       '';
@@ -92,9 +92,9 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
       (addBlockAction &&
         `<li class="tweet-detail-action-item btd-tweet-detail-action-item">
       <a class="js-show-tip tweet-detail-action btd-tweet-detail-action position-rel" href="#"
-        data-btd-action="block-account" rel="hotlink" title="Block {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}">
+        data-btd-action="block-account" rel="hotlink" title="Block @{{screenName}}">
         <i class="icon icon-blocked txt-center"></i>
-        <span class="is-vishidden"> {{_i}}Block {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}{{/i}} </span>
+        <span class="is-vishidden"> {{_i}}Block @{{screenName}}{{/i}} </span>
       </a>
     </li>`) ||
       '';
@@ -104,11 +104,11 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
     ${copyMediaItem}
     ${downloadMediaItem}
     {{/entities.media.length}}
-    {{#user}}
+    {{#user}}{{^isMe}}
     ${followItem}
     ${muteItem}
     ${blockItem}
-    {{/user}}
+    {{/isMe}}{{/user}}
     {{/getMainTweet}}`;
 
     return string.replace(marker, replacement);
@@ -155,9 +155,9 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
       (addMuteAction &&
         `<li class="tweet-action-item btd-tweet-action-item pull-left margin-r--10">
     <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
-      data-btd-action="mute-account" rel="action" title="Mute {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}"> 
+      data-btd-action="mute-account" rel="action" title="Mute @{{screenName}}"> 
       <i class="js-icon-muted icon icon-muted txt-center"></i>
-      <span class="is-vishidden"> {{_i}}Mute {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}{{/i}} </span>
+      <span class="is-vishidden"> {{_i}}Mute @{{screenName}}{{/i}} </span>
     </a>
   </li>`) ||
       '';
@@ -166,23 +166,23 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
       (addBlockAction &&
         `<li class="tweet-action-item btd-tweet-action-item pull-left margin-r--10">
   <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
-    data-btd-action="block-account" rel="action" title="Block {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}"> 
+    data-btd-action="block-account" rel="action" title="Block @{{screenName}}"> 
     <i class="js-icon-blocked icon icon-blocked txt-center"></i>
-    <span class="is-vishidden"> {{_i}}Block {{#getMainTweet}}@{{user.screenName}}{{/getMainTweet}}{{/i}} </span>
+    <span class="is-vishidden"> {{_i}}Block @{{screenName}}{{/i}} </span>
   </a>
 </li>`) ||
       '';
 
     const replacement = `${marker}{{#getMainTweet}}
-      {{#tweet.entities.media.length}}
+      {{#entities.media.length}}
       ${copyMediaItem}
       ${downloadItem}
-      {{/tweet.entities.media.length}}
-      {{#user}}
+      {{/entities.media.length}}
+      {{#user}}{{^isMe}}
       ${followItem}
       ${muteItem}
       ${blockItem}
-      {{/user}}
+      {{/isMe}}{{/user}}
       {{/getMainTweet}}`;
 
     return string.replace(marker, replacement);
