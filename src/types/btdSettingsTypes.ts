@@ -105,27 +105,21 @@ export const RBetterTweetDeckSettings = t.type({
   tweetActions: withDefault(
     t.type({
       /** Shows a 📎 icon to copy links of medias in a tweet. */
-      addCopyMediaLinksAction: t.boolean,
+      addCopyMediaLinksAction: withDefault(t.boolean, false),
 
       /** Shows a download button to download medias in a tweet. */
-      addDownloadMediaLinksAction: t.boolean,
+      addDownloadMediaLinksAction: withDefault(t.boolean, false),
 
       /** Shows a follow icon to follow the author of a tweet quickly. */
-      addFollowAction: t.boolean,
+      addFollowAction: withDefault(t.boolean, false),
 
       /** Shows a mute icon to mute the author of a tweet quickly. */
-      addMuteAction: t.boolean,
+      addMuteAction: withDefault(t.boolean, false),
 
       /** Shows a block icon to block the author of a tweet quickly. */
-      addBlockAction: t.boolean,
+      addBlockAction: withDefault(t.boolean, false),
     }),
-    {
-      addCopyMediaLinksAction: false,
-      addDownloadMediaLinksAction: false,
-      addFollowAction: false,
-      addMuteAction: false,
-      addBlockAction: false,
-    }
+    {}
   ),
 
   /** Always shows the account picker when favoriting a tweet */
@@ -148,19 +142,15 @@ export const RBetterTweetDeckSettings = t.type({
   tweetMenuItems: withDefault(
     t.type({
       /** Adds a "redraft" item */
-      addRedraftMenuItem: t.boolean,
+      addRedraftMenuItem: withDefault(t.boolean, true),
 
       /** Adds an item to mute the source of the tweet */
-      addMuteSourceMenuItem: t.boolean,
+      addMuteSourceMenuItem: withDefault(t.boolean, true),
 
       /** Adds a items to mute the hashtags of the tweet */
-      addMuteHashtagsMenuItems: t.boolean,
+      addMuteHashtagsMenuItems: withDefault(t.boolean, true),
     }),
-    {
-      addRedraftMenuItem: true,
-      addMuteHashtagsMenuItems: true,
-      addMuteSourceMenuItem: true,
-    }
+    {}
   ),
 
   /** Show legacy replies in columns */
