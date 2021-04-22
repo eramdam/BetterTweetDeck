@@ -263,6 +263,9 @@
   "settings_show_account_picker_like": {
     "message": "「いいね」を押したときにアカウント選択画面を開く"
   },
+  "settings_show_account_picker_follow": {
+    "message": "追加した「フォロー」ボタンを押したときにアカウント選択画面を開く"
+  },
   "settings_accent_color": {
     "message": "アクセントカラー"
   },

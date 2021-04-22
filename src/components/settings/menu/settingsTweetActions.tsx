@@ -232,6 +232,12 @@ export const SettingsTweetActions: FC<SettingsMenuSectionProps> = (props) => {
             },
           },
           {
+            initialValue: settings.showAccountChoiceOnFollow,
+            key: 'showAccountChoiceOnFollow',
+            label: <Trans id="settings_show_account_picker_follow" />,
+            isDisabled: !settings.tweetActions.addFollowAction,
+          },
+          {
             initialValue: settings.replaceHeartsByStars,
             key: 'replaceHeartsByStars',
             label: <Trans id="settings_replace_hearts_by_stars" />,

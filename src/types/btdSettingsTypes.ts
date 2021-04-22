@@ -133,6 +133,9 @@ export const RBetterTweetDeckSettings = t.type({
   /** Comma separated list of account usernames from which to trigger the account picker */
   accountChoiceAllowList: withDefault(t.string, ''),
 
+  /** Always shows the account picker when following a user with the tweet action */
+  showAccountChoiceOnFollow: withDefault(t.boolean, true),
+
   /** Change the display of usernames in columns. */
   usernamesFormat: withDefault(
     makeEnumRuntimeType<BTDUsernameFormat>(BTDUsernameFormat),
