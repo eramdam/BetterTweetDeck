@@ -299,7 +299,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
       if (!chirp) {
         return;
       }
-      const usefulChirp = chirp.targetTweet ?? chirp;
+      const usefulChirp = chirp.retweetedStatus ?? chirp.targetTweet ?? chirp;
       const user = usefulChirp.retweetedStatus?.user ?? usefulChirp.user;
       const account = usefulChirp.account;
 
