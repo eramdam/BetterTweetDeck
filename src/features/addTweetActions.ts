@@ -141,7 +141,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
 
     const followersCount =
       (settings.showFollowersCount &&
-        '<span class="pull-right icon-follow-toggle margin-l--2 margin-t--1 txt-size--12 js-followers-count followers-count">{{truncateFollowersCount}}</span>') ||
+        '<span class="pull-right icon-follow-toggle margin-l--2 margin-t--1 txt-size--12 js-followers-count followers-count">{{prettyFollowersCountInTweetAction}}</span>') ||
       '';
 
     const followItem =
@@ -264,8 +264,14 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
       .removeClass(removedClass);
   };
 
-  TD.services.TwitterUser.prototype.truncateFollowersCount = function () {
-    return TD.util.truncateNumber(this.followersCount);
+  TD.services.TwitterUser.prototype.prettyFollowersCountInTweetAction = function () {
+    const followersCount = this.followersCount;
+    if (followersCount <= 0) {
+      return '';
+    }
+    const n = Math.floor(Math.log10(followersCount) / 3);
+    const remaining = Math.floor(followersCount / 10 ** (3 * n));
+    return remaining + ['', 'k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'][n];
   };
 
   jq(document).on(
