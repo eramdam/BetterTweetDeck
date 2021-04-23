@@ -234,7 +234,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
   modifyMustacheTemplate(TD, 'stream_item.mustache', (string) =>
     string.replace(
       'data-tweet-id="{{#getMainTweet}}{{id}}{{/getMainTweet}}"',
-      'data-tweet-id="{{#getMainTweet}}{{id}}{{/getMainTweet}}" data-user-id="{{#getMainTweet}}{{user.id}}{{/getMainTweet}}"'
+      'data-tweet-id="{{#getMainTweet}}{{id}}{{/getMainTweet}}" data-tweet-user-id="{{#getMainTweet}}{{user.id}}{{/getMainTweet}}{{^getMainTweet}}{{targetTweet.user.id}}{{/getMainTweet}}"'
     )
   );
 
@@ -254,7 +254,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
     this.following = following;
     const addedClass = following ? 'icon-following' : 'icon-follow';
     const removedClass = following ? 'icon-follow' : 'icon-following';
-    jq(`[data-user-id="${this.id}"][data-account-key="${this.account.getKey()}"]`)
+    jq(`[data-tweet-user-id="${this.id}"][data-account-key="${this.account.getKey()}"]`)
       .find('.js-tweet')
       .toggleClass('following', following)
       .find('a[rel="follow"]')
