@@ -264,7 +264,7 @@
     "message": "「いいね」を押したときにアカウント選択画面を開く"
   },
   "settings_show_account_picker_follow": {
-    "message": "追加した「フォロー」ボタンを押したときにアカウント選択画面を開く"
+    "message": "「フォロー」を押したときにアカウント選択画面を開く"
   },
   "settings_accent_color": {
     "message": "アクセントカラー"
@@ -397,5 +397,11 @@
   },
   "settings_default_browsers_language": {
     "message": "デフォルト (ブラウザの言語)"
+  },
+  "settings_follow_actions": {
+    "message": "フォローアクション"
+  },
+  "settings_show_followers_count": {
+    "message": "フォローアイコンの隣にフォロワー数を表示する"
   }
 }

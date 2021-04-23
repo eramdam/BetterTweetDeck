@@ -130,6 +130,9 @@ export const RBetterTweetDeckSettings = t.type({
   /** Always shows the account picker when following a user with the tweet action */
   showAccountChoiceOnFollow: withDefault(t.boolean, true),
 
+  /** Shows the number of followers in the follow actions */
+  showFollowersCount: withDefault(t.boolean, true),
+
   /** Change the display of usernames in columns. */
   usernamesFormat: withDefault(
     makeEnumRuntimeType<BTDUsernameFormat>(BTDUsernameFormat),

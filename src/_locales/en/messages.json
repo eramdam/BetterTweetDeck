@@ -264,7 +264,7 @@
     "message": "Show account picker when clicking on the like button"
   },
   "settings_show_account_picker_follow": {
-    "message": "Show account picker when clicking on the added follow button"
+    "message": "Show account picker when clicking on the follow button"
   },
   "settings_accent_color": {
     "message": "Accent color"
@@ -397,5 +397,11 @@
   },
   "settings_action_follow_author": {
     "message": "Follow author"
+  },
+  "settings_follow_actions": {
+    "message": "Follow action"
+  },
+  "settings_show_followers_count": {
+    "message": "Show the number of followers next to the follow icon"
   }
 }

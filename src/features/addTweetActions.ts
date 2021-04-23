@@ -139,13 +139,18 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
     </li>`) ||
       '';
 
+    const followersCount =
+      (settings.showFollowersCount &&
+        '<span class="pull-right icon-follow-toggle margin-l--2 margin-t--1 txt-size--12 js-followers-count followers-count">{{truncateFollowersCount}}</span>') ||
+      '';
+
     const followItem =
       (addFollowAction &&
         `<li class="tweet-action-item btd-tweet-action-item pull-left margin-r--10">
   <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
     data-btd-action="follow-account" rel="follow" title="{{^following}}Follow{{/following}}{{#following}}Unfollow{{/following}} @{{screenName}}"> 
     <i class="js-icon-follow icon icon-{{^following}}follow{{/following}}{{#following}}following{{/following}} icon-follow-toggle txt-center pull-left"></i>
-    <span class="pull-right icon-follow-toggle margin-l--2 margin-t--1 txt-size--12 js-followers-count followers-count">{{truncateFollowersCount}}</span>
+    ${followersCount}
     <span class="is-vishidden"> {{_i}}{{^following}}Follow{{/following}}{{#following}}Unfollow{{/following}} @{{screenName}}{{/i}} </span>
   </a>
 </li>`) ||
