@@ -234,24 +234,31 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
   modifyMustacheTemplate(TD, 'stream_item.mustache', (string) =>
     string.replace(
       'data-tweet-id="{{#getMainTweet}}{{id}}{{/getMainTweet}}"',
-      'data-tweet-id="{{#getMainTweet}}{{id}}{{/getMainTweet}}" data-tweet-user-id="{{#getMainTweet}}{{user.id}}{{/getMainTweet}}{{^getMainTweet}}{{targetTweet.user.id}}{{/getMainTweet}}"'
+      'data-tweet-id="{{#getMainTweet}}{{id}}{{/getMainTweet}}" data-tweet-user-id="{{#getMainUser}}{{id}}{{/getMainUser}}{{^getMainUser}}{{targetTweet.user.id}}{{/getMainUser}}"'
     )
   );
 
   TD.mustaches['text/follow_action.mustache'] =
     '{{^following}} {{_i}}Follow @{{screenName}}{{/i}} {{/following}} {{#following}} {{_i}}Unfollow @{{screenName}}{{/i}} {{/following}}';
 
-  for (const targetMustache of [
-    'status/tweet_single.mustache',
-    'status/tweet_detail.mustache',
-  ] as const) {
-    modifyMustacheTemplate(TD, targetMustache, (string) =>
-      string.replace(
+  modifyMustacheTemplate(TD, 'status/tweet_single.mustache', (string) =>
+    string.replace(
+      '{{#isFavorite}}is-favorite{{/isFavorite}}',
+      '{{#isFavorite}}is-favorite{{/isFavorite}} {{#getMainUser}}{{#following}}following{{/following}}{{/getMainUser}}'
+    )
+  );
+
+  modifyMustacheTemplate(TD, 'status/tweet_detail.mustache', (string) =>
+    string
+      .replace(
+        'data-tweet-id="{{#getMainTweet}}{{id}}{{/getMainTweet}}"',
+        'data-tweet-id="{{#getMainTweet}}{{id}}{{/getMainTweet}}" data-tweet-user-id="{{getMainUser.id}}"'
+      )
+      .replace(
         '{{#isFavorite}}is-favorite{{/isFavorite}}',
         '{{#isFavorite}}is-favorite{{/isFavorite}} {{#getMainUser}}{{#following}}following{{/following}}{{/getMainUser}}'
       )
-    );
-  }
+  );
 
   TD.services.TwitterUser.prototype.setFollowing = function (following: boolean) {
     this.following = following;
