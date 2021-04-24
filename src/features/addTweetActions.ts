@@ -72,7 +72,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
   <a class="js-show-tip tweet-detail-action btd-tweet-detail-action position-rel" href="#"
     data-btd-action="follow-account" rel="follow" title="{{^following}}Follow{{/following}}{{#following}}Unfollow{{/following}} @{{screenName}}">
     <i class="js-icon-follow icon icon-{{^following}}follow{{/following}}{{#following}}following{{/following}} icon-follow-toggle txt-center"></i>
-    <span class="is-vishidden"> {{_i}}{{^following}}Follow{{/following}}{{#following}}Unfollow{{/following}} @{{screenName}}{{/i}} </span>
+    <span class="is-vishidden"> {{_i}}Follow{{/i}} </span>
   </a>
 </li>`) ||
       '';
@@ -148,10 +148,10 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
       (addFollowAction &&
         `<li class="tweet-action-item btd-tweet-action-item pull-left margin-r--10">
   <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
-    data-btd-action="follow-account" rel="follow" title="{{^following}}Follow{{/following}}{{#following}}Unfollow{{/following}} @{{screenName}}"> 
+    data-btd-action="follow-account" rel="follow" title="{{>text/follow_action}}"> 
     <i class="js-icon-follow icon icon-{{^following}}follow{{/following}}{{#following}}following{{/following}} icon-follow-toggle txt-center pull-left"></i>
     ${followersCount}
-    <span class="is-vishidden"> {{_i}}{{^following}}Follow{{/following}}{{#following}}Unfollow{{/following}} @{{screenName}}{{/i}} </span>
+    <span class="is-vishidden"> {{_i}}Follow{{/i}} </span>
   </a>
 </li>`) ||
       '';
@@ -238,6 +238,9 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
     )
   );
 
+  TD.mustaches['text/follow_action.mustache'] =
+    '{{^following}} {{_i}}Follow @{{screenName}}{{/i}} {{/following}} {{#following}} {{_i}}Unfollow @{{screenName}}{{/i}} {{/following}}';
+
   for (const targetMustache of [
     'status/tweet_single.mustache',
     'status/tweet_detail.mustache',
@@ -258,7 +261,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
       .find('.js-tweet')
       .toggleClass('following', following)
       .find('a[rel="follow"]')
-      // .attr('title', TD.ui.template.render('text/follow_action', this))
+      .attr('title', TD.ui.template.render('text/follow_action', this))
       .find('.js-icon-follow')
       .addClass(addedClass)
       .removeClass(removedClass);
