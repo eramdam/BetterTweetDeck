@@ -13,6 +13,26 @@ import {makeBTDModule} from '../types/btdCommonTypes';
 import {TweetDeckUser, TwitterActionEnum} from '../types/tweetdeckTypes';
 import {requestMediaItem} from './redraftTweet';
 
+/**
+ * @example
+ * prettyCountInTweetAction(0) === '';
+ * prettyCountInTweetAction(1) === '1';
+ * prettyCountInTweetAction(999) === '999';
+ * prettyCountInTweetAction(1000) === '1k';
+ * prettyCountInTweetAction(1499) === '1k';
+ * prettyCountInTweetAction(1500) === '2k';
+ * prettyCountInTweetAction(999499) === '999k';
+ * prettyCountInTweetAction(999500) === '1M';
+ */
+const prettyCountInTweetAction = (count: number) => {
+  if (count <= 0) {
+    return '';
+  }
+  const n = Math.floor(Math.log10(count) / 3);
+  const remaining = Math.round(count / 10 ** (3 * n));
+  return remaining + ['', 'k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'][n];
+};
+
 export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
   const actionItems = settings.tweetActions;
 
@@ -275,13 +295,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
   };
 
   TD.services.TwitterUser.prototype.prettyFollowersCountInTweetAction = function () {
-    const followersCount = this.followersCount;
-    if (followersCount <= 0) {
-      return '';
-    }
-    const n = Math.floor(Math.log10(followersCount) / 3);
-    const remaining = Math.floor(followersCount / 10 ** (3 * n));
-    return remaining + ['', 'k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'][n];
+    return prettyCountInTweetAction(this.followersCount);
   };
 
   jq(document).on(
