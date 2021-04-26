@@ -1,6 +1,7 @@
 import {isObject} from 'lodash';
 
 import {maybeAddColumnsButtons} from './features/addColumnButtons';
+import {addTimestampTooltip} from './features/addTimestampTooltip';
 import {maybeAddTweetActions} from './features/addTweetActions';
 import {maybeAddTweetMenuItems} from './features/addTweetMenuItems';
 import {setupAME} from './features/advancedMuteEngine';
@@ -91,6 +92,7 @@ const jq: JQueryStatic | undefined =
   maybeSetupDebugFunctions(btdModuleOptions);
 
   overrideTranslateLanguage(btdModuleOptions);
+  addTimestampTooltip(btdModuleOptions);
   makeSearchColumnsFirst(btdModuleOptions);
   makeEmojiBigger(btdModuleOptions);
   pauseColumnsOnHover(btdModuleOptions);
