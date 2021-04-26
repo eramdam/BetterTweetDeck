@@ -44,7 +44,7 @@ module.exports = {
     ['default-src'],
     ['connect-src', '*', 'https:'],
     ['style-src', "'unsafe-inline'"],
-    ['script-src', `'self'`, `'unsafe-eval'`],
+    ['script-src', `'self'`],
   ]
     .map((directive) => {
       return directive.join(' ');

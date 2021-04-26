@@ -3,7 +3,6 @@ import React, {FC, useEffect, useState} from 'react';
 import {render} from 'react-dom';
 
 import {SettingsModal} from './components/settings/settingsModal';
-import {minifyCss, prettifyCss} from './helpers/cssHelpers';
 import {ExtensionSettings} from './helpers/webExtensionHelpers';
 import {getValidatedSettings} from './services/backgroundSettings';
 import {BTDSettings} from './types/btdSettingsTypes';
@@ -15,7 +14,6 @@ const App: FC = () => {
     getValidatedSettings().then((newSettings) => {
       setSettings({
         ...newSettings,
-        customCss: prettifyCss(newSettings.customCss),
       });
     });
   }, []);
@@ -27,10 +25,8 @@ const App: FC = () => {
   return (
     <SettingsModal
       onSettingsUpdate={async (newSettings) => {
-        const compressedCss = minifyCss(newSettings.customCss);
-        await ExtensionSettings.set({
+        return ExtensionSettings.set({
           ...newSettings,
-          customCss: compressedCss,
         });
       }}
       btdSettings={settings}></SettingsModal>
