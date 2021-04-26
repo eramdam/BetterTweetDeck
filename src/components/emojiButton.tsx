@@ -2,6 +2,7 @@ import {BaseEmoji, Emoji, Picker} from 'emoji-mart';
 import React, {FC, Fragment, useState} from 'react';
 
 import {isHTMLElement} from '../helpers/domHelpers';
+import {getEmojiSheetUrl} from '../helpers/emojiHelpers';
 import {useTweetdeckTheme} from '../helpers/hookHelpers';
 import {HandlerOf} from '../helpers/typeHelpers';
 
@@ -13,7 +14,6 @@ export const EmojiButton: FC<{onClick: HandlerOf<string>}> = (props) => {
   const color = '#1da1f2';
 
   return (
-    // @ts-ignore
     <Fragment>
       {isPickerShown && (
         <div
@@ -36,6 +36,7 @@ export const EmojiButton: FC<{onClick: HandlerOf<string>}> = (props) => {
             useButton={false}
             emojiSize={16}
             perLine={8}
+            backgroundImageFn={getEmojiSheetUrl}
             title=""
             theme={theme}
             style={{
@@ -59,8 +60,13 @@ export const EmojiButton: FC<{onClick: HandlerOf<string>}> = (props) => {
           width: 20,
           display: 'block',
         }}>
-        {/* @ts-ignore */}
-        <Emoji emoji="joy" size={20} onClick={() => setIsPickerShown(true)} set="twitter" />
+        <Emoji
+          emoji="joy"
+          size={20}
+          onClick={() => setIsPickerShown(true)}
+          set="twitter"
+          backgroundImageFn={getEmojiSheetUrl}
+        />
       </div>
     </Fragment>
   );

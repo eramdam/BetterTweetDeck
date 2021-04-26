@@ -37,7 +37,7 @@ module.exports = {
     page: 'build/options/ui.html',
     chrome_style: false,
   },
-  web_accessible_resources: ['build/inject.js', '*.png'],
+  web_accessible_resources: ['build/inject.js', '*.png', 'build/emoji-sheet.png'],
   permissions: ['storage', 'contextMenus', ...commonHosts],
   content_security_policy: [
     ['img-src', 'https:', 'data:', "'self'", '*'],

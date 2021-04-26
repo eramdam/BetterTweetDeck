@@ -27,6 +27,10 @@ module.exports = (env) => {
             from: 'assets/icons/*',
             context: './src/',
           },
+          {
+            from: 'assets/emoji-sheet.png',
+            context: './src/',
+          },
         ],
       }),
       new GenerateJsonPlugin('manifest.json', env.manifest, null, 2),
@@ -37,6 +41,14 @@ module.exports = (env) => {
         getUrlLoaderBase({
           limit: 50 * 1000,
         }),
+        {
+          test: /\.js$/,
+          loader: 'string-replace-loader',
+          options: {
+            search: 'https://unpkg.com/emoji-datasource',
+            replace: '',
+          },
+        },
       ],
     },
   });

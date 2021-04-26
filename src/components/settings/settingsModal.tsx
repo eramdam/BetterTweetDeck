@@ -6,6 +6,7 @@ import React, {Fragment, useCallback, useMemo, useState} from 'react';
 import {browser} from 'webextension-polyfill-ts';
 
 import {isFirefox} from '../../helpers/browserHelpers';
+import {getEmojiSheetUrl} from '../../helpers/emojiHelpers';
 import {getExtensionUrl, getExtensionVersion} from '../../helpers/webExtensionHelpers';
 import {OnSettingsUpdate} from '../../services/setupSettings';
 import {BTDSettings} from '../../types/btdSettingsTypes';
@@ -48,6 +49,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
     }
   });
   const [editorHasErrors, setEditorHasErrors] = useState(false);
+  const [saveError, setSaveError] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
 
   const onSearchQueryChange = (newQuery: string) => {
@@ -71,10 +73,14 @@ export const SettingsModal = (props: SettingsModalProps) => {
     };
   };
 
-  const updateSettings = useCallback(() => {
-    onSettingsUpdate(settings);
-    setIsDirty(false);
-    maybeAskForTabsPermissions(settings);
+  const updateSettings = useCallback(async () => {
+    try {
+      await onSettingsUpdate(settings);
+      setIsDirty(false);
+      maybeAskForTabsPermissions(settings);
+    } catch (e) {
+      setSaveError(String(e));
+    }
   }, [onSettingsUpdate, settings]);
 
   const canSave = useMemo(() => !editorHasErrors && isDirty, [editorHasErrors, isDirty]);
@@ -229,6 +235,8 @@ async function maybeAskForTabsPermissions(newSettings: BTDSettings) {
     permissions: ['tabs'],
   });
 }
+
+console.log(getEmojiSheetUrl());
 
 function renderMenuInInvisibleContainer(menu: ReadonlyArray<MenuItem>) {
   return (
