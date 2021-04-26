@@ -6,7 +6,6 @@ import React, {Fragment, useCallback, useMemo, useState} from 'react';
 import {browser} from 'webextension-polyfill-ts';
 
 import {isFirefox} from '../../helpers/browserHelpers';
-import {getEmojiSheetUrl} from '../../helpers/emojiHelpers';
 import {getExtensionUrl, getExtensionVersion} from '../../helpers/webExtensionHelpers';
 import {OnSettingsUpdate} from '../../services/setupSettings';
 import {BTDSettings} from '../../types/btdSettingsTypes';
@@ -70,6 +69,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
         };
       });
       setIsDirty(true);
+      setSaveError('');
     };
   };
 
@@ -83,7 +83,11 @@ export const SettingsModal = (props: SettingsModalProps) => {
     }
   }, [onSettingsUpdate, settings]);
 
-  const canSave = useMemo(() => !editorHasErrors && isDirty, [editorHasErrors, isDirty]);
+  const canSave = useMemo(() => !editorHasErrors && isDirty && !saveError, [
+    editorHasErrors,
+    isDirty,
+    saveError,
+  ]);
 
   const menu = useMemo(() => {
     return makeSettingsMenu(
@@ -205,10 +209,15 @@ export const SettingsModal = (props: SettingsModalProps) => {
         </SettingsContent>
         <SettingsFooter
           className={cx({
-            visible: canSave || showSettingsLabel,
+            visible: Boolean(canSave || showSettingsLabel || saveError),
           })}>
           <div>
-            {showSettingsLabel && (
+            {saveError && (
+              <div className="btd-settings-footer-label" style={{color: 'red'}}>
+                {saveError}
+              </div>
+            )}
+            {showSettingsLabel && !saveError && (
               <div className="btd-settings-footer-label">
                 <Trans id="settings_footer_label" />
               </div>
@@ -235,8 +244,6 @@ async function maybeAskForTabsPermissions(newSettings: BTDSettings) {
     permissions: ['tabs'],
   });
 }
-
-console.log(getEmojiSheetUrl());
 
 function renderMenuInInvisibleContainer(menu: ReadonlyArray<MenuItem>) {
   return (
