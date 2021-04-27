@@ -6,17 +6,6 @@
   color: #1da1f2;
 }
 
-.following .tweet-action:hover .icon-following,
-.following .tweet-action:hover .followers-count,
-.following .tweet-detail-action:hover .icon-following {
-  color: #e0245e;
-}
-
-.tweet-action:hover .icon-following::before,
-.tweet-detail-action:hover .icon-following::before {
-  content: '\F097';
-}
-
 .icon-muted::before {
   content: '\F101';
 }
