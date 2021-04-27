@@ -13,6 +13,7 @@ import {makeBTDModule} from '../types/btdCommonTypes';
 import {TweetDeckUser, TwitterActionEnum} from '../types/tweetdeckTypes';
 import {requestMediaItem} from './redraftTweet';
 
+const SI_PREFIXES = ['', 'k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'] as const;
 /**
  * @example
  * prettyCountInTweetAction(0) === '';
@@ -30,7 +31,7 @@ const prettyCountInTweetAction = (count: number) => {
   }
   const n = Math.floor(Math.log10(count) / 3);
   const remaining = Math.round(count / 10 ** (3 * n));
-  return remaining + ['', 'k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'][n];
+  return `${remaining}${SI_PREFIXES[n]}` as const;
 };
 
 export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
