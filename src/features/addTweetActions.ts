@@ -325,7 +325,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
       if (!isHTMLElement(target)) {
         return;
       }
-      const {chirp} = getChirpFromElement(TD, ev.target) ?? {};
+      const chirp = getChirpFromElement(TD, ev.target)?.chirp;
 
       if (!chirp) {
         return;
