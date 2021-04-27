@@ -15,6 +15,7 @@ import {requestMediaItem} from './redraftTweet';
 
 const SI_PREFIXES = ['', 'k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'] as const;
 /**
+ * Generates a count text with a format similar to the RT/like count.
  * @example
  * prettyCountInTweetAction(0) === '';
  * prettyCountInTweetAction(1) === '1';
@@ -281,6 +282,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
       )
   );
 
+  // Similar to `TD.services.TwitterStatus.prototype.setFavorite`
   TD.services.TwitterUser.prototype.setFollowing = function (following: boolean) {
     this.following = following;
     const addedClass = following ? 'icon-following' : 'icon-follow';
