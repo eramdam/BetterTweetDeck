@@ -10,7 +10,7 @@ export const SettingsExportButton: FC<{
 }> = (props) => {
   const {settings} = props;
   const href = URL.createObjectURL(
-    new Blob([JSON.stringify(settings)], {
+    new Blob([JSON.stringify(settings, null, 2)], {
       type: 'application/json',
     })
   );
