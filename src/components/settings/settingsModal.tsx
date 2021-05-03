@@ -48,6 +48,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
     }
   });
   const [editorHasErrors, setEditorHasErrors] = useState(false);
+  const [saveError, setSaveError] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
 
   const onSearchQueryChange = (newQuery: string) => {
@@ -68,16 +69,25 @@ export const SettingsModal = (props: SettingsModalProps) => {
         };
       });
       setIsDirty(true);
+      setSaveError('');
     };
   };
 
-  const updateSettings = useCallback(() => {
-    onSettingsUpdate(settings);
-    setIsDirty(false);
-    maybeAskForTabsPermissions(settings);
+  const updateSettings = useCallback(async () => {
+    try {
+      await onSettingsUpdate(settings);
+      setIsDirty(false);
+      maybeAskForTabsPermissions(settings);
+    } catch (e) {
+      setSaveError(String(e));
+    }
   }, [onSettingsUpdate, settings]);
 
-  const canSave = useMemo(() => !editorHasErrors && isDirty, [editorHasErrors, isDirty]);
+  const canSave = useMemo(() => !editorHasErrors && isDirty && !saveError, [
+    editorHasErrors,
+    isDirty,
+    saveError,
+  ]);
 
   const menu = useMemo(() => {
     return makeSettingsMenu(
@@ -199,10 +209,15 @@ export const SettingsModal = (props: SettingsModalProps) => {
         </SettingsContent>
         <SettingsFooter
           className={cx({
-            visible: canSave || showSettingsLabel,
+            visible: Boolean(canSave || showSettingsLabel || saveError),
           })}>
           <div>
-            {showSettingsLabel && (
+            {saveError && (
+              <div className="btd-settings-footer-label" style={{color: 'red'}}>
+                {saveError}
+              </div>
+            )}
+            {showSettingsLabel && !saveError && (
               <div className="btd-settings-footer-label">
                 <Trans id="settings_footer_label" />
               </div>
