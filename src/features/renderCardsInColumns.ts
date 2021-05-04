@@ -50,8 +50,6 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
 
   const observer = new IntersectionObserver(
     (entries, thisObserver) => {
-      const allColumns = TD.controller.columnManager.getAllOrdered();
-
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           return;
@@ -69,13 +67,27 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
           return;
         }
 
-        allColumns.forEach((c) => {
-          if (!c.updateIndex[chirpKey]) {
-            return;
-          }
+        const columnNode = chirpNode.closest('[data-column]');
 
-          c.ui.teardownCard(chirpKey);
-        });
+        if (columnNode) {
+          const columnKey = columnNode.getAttribute('data-column');
+
+          const column = TD.controller.columnManager.get(columnKey || '');
+
+          if (column) {
+            column.ui.teardownCard(chirpKey);
+          }
+        } else {
+          const allColumns = TD.controller.columnManager.getAllOrdered();
+
+          allColumns.forEach((c) => {
+            if (!c.updateIndex[chirpKey]) {
+              return;
+            }
+
+            c.ui.teardownCard(chirpKey);
+          });
+        }
 
         thisObserver.unobserve(entry.target);
       });
