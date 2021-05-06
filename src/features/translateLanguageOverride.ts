@@ -9,7 +9,6 @@ export const overrideTranslateLanguage = makeBTDModule(({TD, settings}) => {
     .getAllLanguages()
     .some((obj) => obj.code === settings.customTranslationLanguage);
 
-  console.log({customTranslationLanguage: settings.customTranslationLanguage});
   if (!isLanguageValid) {
     return;
   }

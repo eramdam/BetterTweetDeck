@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import {Key} from 'ts-key-enum';
 
 import {isHTMLElement, replaceAt, valueAtCursor} from '../helpers/domHelpers';
+import {getEmojiSheetUrl} from '../helpers/emojiHelpers';
 import {BTDSettings} from '../types/btdSettingsTypes';
 
 interface StateEmoji {
@@ -218,7 +219,12 @@ function renderEmojiDropdownInHolder({emojis}: EmojiCompletionProps, input: HTML
                 gridColumnGap: '8px',
                 overflow: 'hidden',
               }}>
-              <Emoji emoji={emoji.emojiData} size={16} set="twitter" />
+              <Emoji
+                emoji={emoji.emojiData}
+                size={16}
+                set="twitter"
+                backgroundImageFn={getEmojiSheetUrl}
+              />
               <span>{emoji.emojiData.colons}</span>
             </p>
           </li>

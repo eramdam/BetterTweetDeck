@@ -1,6 +1,6 @@
 {
   "name": "bettertweetdeck",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "description": "Adds some nice options on TweetDeck.",
   "repository": {
     "type": "git",
@@ -113,6 +113,7 @@
     "react-monaco-editor": "^0.42.0",
     "semver": "^7.3.4",
     "simple-plist": "^1.1.1",
+    "string-replace-loader": "^3.0.1",
     "style-loader": "^2.0.0",
     "stylis": "^4.0.7",
     "ts-key-enum": "^2.0.7",
