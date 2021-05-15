@@ -141,13 +141,17 @@ export const listenToRedraftTweetEvent = makeBTDModule(({TD, jq}) => {
       Promise.all(media.map((item) => requestMediaItem(item))).then((gotFiles) => {
         jq(document).trigger('uiComposeFilesAdded', {files: gotFiles});
       });
+
+      jq(document).one('uiComposeImageAdded', (...args) => {
+        // it is now safe to remove the tweet
+        chirp.destroy();
+      });
+    } else {
+      // send one last compose event, for good luck
+      jq(document).trigger('uiComposeTweet', composeData);
+      // it is now safe to remove the tweet
+      chirp.destroy();
     }
-
-    // send one last compose event, for good luck
-    jq(document).trigger('uiComposeTweet', composeData);
-
-    // it is now safe to remove the tweet
-    chirp.destroy();
   });
 });
 
