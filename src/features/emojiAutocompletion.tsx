@@ -107,6 +107,10 @@ export function setupEmojiAutocompletion(settings: BTDSettings) {
         return;
       }
 
+      if (stateEmojis.length === 0) {
+        return;
+      }
+
       ev.preventDefault();
       ev.stopPropagation();
 
@@ -144,6 +148,7 @@ export function setupEmojiAutocompletion(settings: BTDSettings) {
             stateEmojis.find((e) => e.isSelected),
             composer
           );
+          stateEmojis = [];
         }
       }
     },
