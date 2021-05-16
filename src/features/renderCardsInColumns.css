@@ -1,0 +1,20 @@
+[btd-render-cards='true'] .js-column:is([data-column-size='medium'], [data-column-size='small'], [data-column-size='large']) {
+  & .js-tweet[btd-card='summary_large_image'] .js-card-container {
+    min-height: 206px;
+  }
+  & .js-tweet[btd-card='745291183405076480:live_event'] .js-card-container {
+    height: 226px;
+  }
+  & .js-tweet[btd-card='summary'] .js-card-container {
+    min-height: 85px;
+  }
+  & .js-tweet[btd-card='poll2choice_text_only'] .js-card-container {
+    min-height: 112px;
+  }
+  & .js-tweet[btd-card='poll3choice_text_only'] .js-card-container {
+    min-height: 148px;
+  }
+  & .js-tweet[btd-card='poll4choice_text_only'] .js-card-container {
+    min-height: 184px;
+  }
+}

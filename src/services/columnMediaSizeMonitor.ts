@@ -19,6 +19,8 @@ export const setupMediaSizeMonitor = makeBTDModule(({jq}) => {
     // @ts-ignore
     const id = ev.target.closest('.js-column').getAttribute('data-column');
     const size = data.value;
+    // @ts-ignore
+    ev.target.closest('.js-column').setAttribute('data-column-size', size);
 
     if (!id) {
       return;
@@ -43,6 +45,9 @@ export const setupMediaSizeMonitor = makeBTDModule(({jq}) => {
       .filter((col) => col.id)
       .forEach((col) => {
         columnMediaSizes.set(col.id, col.mediaSize || 'medium');
+        document
+          .querySelector(`[data-column=${col.id}]`)
+          ?.setAttribute('data-column-size', col.mediaSize || 'medium');
       });
   }
 
