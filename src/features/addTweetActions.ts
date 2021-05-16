@@ -338,7 +338,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
 
       const action = target.getAttribute('data-btd-action');
 
-      if (settings.showAccountChoiceOnFollow || (ev.shiftKey && action === 'follow-account')) {
+      if (action === 'follow-account' && (settings.showAccountChoiceOnFollow || ev.shiftKey)) {
         jq(document).trigger('uiShowFollowFromOptions', {
           userToFollow: user,
         });
