@@ -6,7 +6,7 @@ module.exports = {
   applications: {
     gecko: {
       id: config.FirefoxId,
-      strict_min_version: '52.0',
+      strict_min_version: '84.0',
     },
   },
 };
