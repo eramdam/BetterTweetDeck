@@ -391,5 +391,8 @@
   },
   "settings_default_browsers_language": {
     "message": "Default (browser's language)"
+  },
+  "settings_separate_tweet_and_quote_tweet_actions": {
+    "message": "Separate tweet and quote tweet buttons"
   }
 }
