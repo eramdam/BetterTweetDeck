@@ -1,0 +1,35 @@
+[btd-render-cards='true'] .js-column:is([data-column-size='medium'], [data-column-size='small'], [data-column-size='large']) {
+  /* Cards act weird and don't load in Collections columns */
+  &[data-column-type='col_customtimeline'] .js-tweet[btd-card] .js-card-container {
+    min-height: initial !important;
+  }
+  /* Article preview, large */
+  & .js-tweet[btd-card='summary_large_image'] .js-card-container {
+    min-height: 206px;
+  }
+  /* Article preview */
+  & .js-tweet[btd-card='summary'] .js-card-container {
+    min-height: 85px;
+  }
+  /* Poll with two choices */
+  & .js-tweet[btd-card='poll2choice_text_only'] .js-card-container {
+    min-height: 112px;
+  }
+  /* Poll with three choices */
+  & .js-tweet[btd-card='poll3choice_text_only'] .js-card-container {
+    min-height: 148px;
+  }
+  /* Poll with 4 choices */
+  & .js-tweet[btd-card='poll4choice_text_only'] .js-card-container {
+    min-height: 184px;
+  }
+  /* Moment, "Events" and live videos */
+  & .js-tweet[btd-card='745291183405076480:live_event'] .js-card-container,
+  & .js-tweet[btd-card='745291183405076480:live_video'] .js-card-container {
+    height: 226px;
+  }
+  /* Player */
+  & .js-tweet[btd-card='player'] .js-card-container {
+    min-height: 85px;
+  }
+}
