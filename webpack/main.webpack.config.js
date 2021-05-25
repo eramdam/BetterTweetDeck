@@ -43,7 +43,7 @@ module.exports = (env) => {
       rules: [
         ...commonConfig.module.rules,
         getUrlLoaderBase({
-          limit: 50 * 1000,
+          maxSize: 50 * 1000,
         }),
         {
           test: /\.js$/,
