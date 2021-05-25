@@ -50,11 +50,9 @@ exports.getCommonWebpackConfig = () => {
 exports.getUrlLoaderBase = (options = {}) => {
   return {
     test: /\.(png|jpg|gif|svg|woff|woff2|ttf|eot)$/i,
-    use: [
-      {
-        loader: 'url-loader',
-        options: options,
-      },
-    ],
+    type: 'asset',
+    parser: {
+      dataUrlCondition: options,
+    },
   };
 };
