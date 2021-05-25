@@ -3,7 +3,7 @@ node_modules
 dist/
 build/
 artifacts/*
-config/env/*.json
+config/*.json
 !config/default.json
 
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
