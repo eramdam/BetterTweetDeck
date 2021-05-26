@@ -1,4 +1,8 @@
 [btd-render-cards='true'] .js-column:is([data-column-size='medium'], [data-column-size='small'], [data-column-size='large']) {
+  /** Padding above cards in columns */
+  & .js-tweet[btd-card] .js-card-container {
+    padding-top: 10px;
+  }
   /* Cards act weird and don't load in Collections columns */
   &[data-column-type='col_customtimeline'] .js-tweet[btd-card] .js-card-container {
     min-height: initial !important;
