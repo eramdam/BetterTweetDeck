@@ -636,7 +636,9 @@ export interface TweetDeckChirp {
   isRetweetedStatus(): boolean;
   getFilterableText(): string;
   favorite(options: {element: JQuery<Element>; statusKey: string; column: string}): void;
-  card: object;
+  card: {
+    name: string;
+  };
 }
 
 export interface TweetHashtag {
