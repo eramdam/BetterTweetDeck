@@ -1,6 +1,6 @@
 {
   "name": "bettertweetdeck",
-  "version": "4.1.1",
+  "version": "4.1.2",
   "description": "Adds some nice options on TweetDeck.",
   "repository": {
     "type": "git",
@@ -32,7 +32,8 @@
     "run:firefox": "web-ext run -s dist",
     "test": "npm run lint && npm run typecheck",
     "release": "ts-node tools/release.ts",
-    "pack:safari": "node tools/update_safari_files.js && xcodebuild -project 'safari/Better TweetDeck for Safari/BetterTDeck for TweetDeck.xcodeproj/'",
+    "update-xcode": "node tools/update_safari_files.js",
+    "pack:safari": "npm run update-xcode && xcodebuild -project 'safari/Better TweetDeck for Safari/BetterTDeck for TweetDeck.xcodeproj/'",
     "prepare": "husky install"
   },
   "lint-staged": {
