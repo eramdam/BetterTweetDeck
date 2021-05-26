@@ -2,6 +2,7 @@ import './renderCardsInColumns.css';
 
 import {Dictionary} from 'lodash';
 
+import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
 import {createSelectorForChirp, getChirpFromKey} from '../helpers/tweetdeckHelpers';
 import {hasProperty} from '../helpers/typeHelpers';
 import {onVisibleChirpAdded} from '../services/chirpHandler';
@@ -21,6 +22,10 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
   }
 
   document.body.setAttribute('btd-render-cards', 'true');
+
+  modifyMustacheTemplate(TD, 'status/tweet_single.mustache', (string) => {
+    return string.replace('<div class', '<div {{#card}}btd-card="{{card.name}}"{{/card}} class');
+  });
 
   type RenderCardForChirp = (
     chirp: TweetDeckChirp,
@@ -143,8 +148,6 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
     if (!actualChirp.user || actualChirp.user.isProtected) {
       return;
     }
-
-    chirpNode.find('.js-tweet').attr('btd-card', actualChirp.card.name || '');
 
     const column = TD.controller.columnManager.get(payload.columnKey);
 
