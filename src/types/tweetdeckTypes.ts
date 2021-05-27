@@ -529,7 +529,7 @@ interface User {
   prototype: this;
   getExpandedURL(): string;
   setFollowing(following: boolean): void;
-  prettyFollowersCountInTweetAction(): string;
+  prettyFollowersCountInTweetAction?(): string;
 }
 
 interface SourceUserEntities {

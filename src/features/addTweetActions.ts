@@ -13,29 +13,7 @@ import {makeBTDModule} from '../types/btdCommonTypes';
 import {TweetDeckUser, TwitterActionEnum} from '../types/tweetdeckTypes';
 import {requestMediaItem} from './redraftTweet';
 
-const SI_PREFIXES = ['', 'k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'] as const;
-/**
- * Generates a count text with a format similar to the RT/like count.
- * @example
- * prettyCountInTweetAction(0) === '';
- * prettyCountInTweetAction(1) === '1';
- * prettyCountInTweetAction(999) === '999';
- * prettyCountInTweetAction(1000) === '1k';
- * prettyCountInTweetAction(1499) === '1k';
- * prettyCountInTweetAction(1500) === '2k';
- * prettyCountInTweetAction(999499) === '999k';
- * prettyCountInTweetAction(999500) === '1M';
- */
-const prettyCountInTweetAction = (count: number) => {
-  if (count <= 0) {
-    return '';
-  }
-  const n = Math.floor(Math.log10(count) / 3);
-  const remaining = Math.round(count / 10 ** (3 * n));
-  return `${remaining}${SI_PREFIXES[n]}` as const;
-};
-
-export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
+export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
   const actionItems = settings.tweetActions;
 
   if (!actionItems) {
@@ -293,9 +271,14 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
       .removeClass(removedClass);
   };
 
-  TD.services.TwitterUser.prototype.prettyFollowersCountInTweetAction = function () {
-    return prettyCountInTweetAction(this.followersCount);
-  };
+  const findPrefix: ((n: number, options: unknown) => string) | undefined =
+    mR.findFunction('findPrefix')[0];
+
+  if (findPrefix) {
+    TD.services.TwitterUser.prototype.prettyFollowersCountInTweetAction = function () {
+      return findPrefix(this.followersCount, {separator: '', decimals: 0});
+    };
+  }
 
   jq(document).on(
     'dataFollowStateChange',
