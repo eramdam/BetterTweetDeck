@@ -42,13 +42,9 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq}) => {
     return;
   }
 
-  const {
-    addCopyMediaLinksAction,
-    addFollowAction,
-    addMuteAction,
-    addBlockAction,
-    addDownloadMediaLinksAction,
-  } = actionItems;
+  const {addCopyMediaLinksAction, addMuteAction, addBlockAction, addDownloadMediaLinksAction} =
+    actionItems;
+  const addFollowAction = settings.addFollowAction;
 
   const numberOfEnabledActions = [
     addCopyMediaLinksAction,
