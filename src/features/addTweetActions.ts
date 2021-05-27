@@ -298,9 +298,9 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
       }: {action: {userAction: TwitterActionEnum}; request: {twitterUser: TweetDeckUser}}
     ) => {
       if (userAction === 'follow') {
-        twitterUser.setFollowing(true);
+        twitterUser.setFollowing?.(true);
       } else if (userAction === 'unfollow') {
-        twitterUser.setFollowing(false);
+        twitterUser.setFollowing?.(false);
       }
     }
   );

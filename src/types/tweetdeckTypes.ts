@@ -528,7 +528,7 @@ interface User {
   _profileBannerURL: string;
   prototype: this;
   getExpandedURL(): string;
-  setFollowing(following: boolean): void;
+  setFollowing?(following: boolean): void;
   prettyFollowersCountInTweetAction?(): string;
 }
 
