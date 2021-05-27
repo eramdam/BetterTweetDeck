@@ -13,6 +13,14 @@ import {makeBTDModule} from '../types/btdCommonTypes';
 import {TweetDeckUser, TwitterActionEnum} from '../types/tweetdeckTypes';
 import {requestMediaItem} from './redraftTweet';
 
+export enum TweetActions {
+  DOWNLOAD_MEDIA = 'download-media',
+  HOTLINK_MEDIA = 'hotlink-media',
+  FOLLOW_ACCOUNT = 'follow-account',
+  BLOCK_ACCOUNT = 'block-account',
+  MUTE_ACCOUNT = 'mute-account',
+}
+
 export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
   const actionItems = settings.tweetActions;
 
@@ -44,7 +52,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
       (addCopyMediaLinksAction &&
         `<li class="tweet-detail-action-item btd-tweet-detail-action-item">
     <a class="js-show-tip tweet-detail-action btd-tweet-detail-action btd-clipboard position-rel" href="#"
-      data-btd-action="hotlink-media" rel="hotlink" title="Copy links to media">
+      data-btd-action="${TweetActions.HOTLINK_MEDIA}" rel="hotlink" title="Copy links to media">
       <i class="js-icon-attachment icon icon-attachment txt-center"></i>
       <span class="is-vishidden"> {{_i}}Copy links to media{{/i}} </span>
     </a>
@@ -55,7 +63,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
       (addDownloadMediaLinksAction &&
         `<li class="tweet-detail-action-item btd-tweet-detail-action-item">
       <a class="js-show-tip tweet-detail-action btd-tweet-detail-action position-rel" href="#"
-        data-btd-action="download-media" rel="download" title="Download media">
+        data-btd-action="${TweetActions.DOWNLOAD_MEDIA}" rel="download" title="Download media">
         <i class="js-icon-download icon icon-download txt-center"></i>
         <span class="is-vishidden"> {{_i}}Download media{{/i}} </span>
       </a>
@@ -66,7 +74,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
       (addFollowAction &&
         `<li class="tweet-detail-action-item btd-tweet-detail-action-item">
   <a class="js-show-tip tweet-detail-action btd-tweet-detail-action position-rel" href="#"
-    data-btd-action="follow-account" rel="follow" title="{{^following}}Follow{{/following}}{{#following}}Unfollow{{/following}} @{{screenName}}">
+    data-btd-action="${TweetActions.FOLLOW_ACCOUNT}" rel="follow" title="{{^following}}Follow{{/following}}{{#following}}Unfollow{{/following}} @{{screenName}}">
     <i class="js-icon-follow icon icon-{{^following}}follow{{/following}}{{#following}}following{{/following}} icon-follow-toggle txt-center"></i>
     <span class="is-vishidden"> {{_i}}Follow{{/i}} </span>
   </a>
@@ -77,7 +85,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
       (addMuteAction &&
         `<li class="tweet-detail-action-item btd-tweet-detail-action-item">
       <a class="js-show-tip tweet-detail-action btd-tweet-detail-action position-rel" href="#"
-        data-btd-action="mute-account" rel="action" title="Mute @{{screenName}}">
+        data-btd-action="${TweetActions.MUTE_ACCOUNT}" rel="action" title="Mute @{{screenName}}">
         <i class="icon icon-muted txt-center"></i>
         <span class="is-vishidden"> {{_i}}Mute @{{screenName}}{{/i}} </span>
       </a>
@@ -88,7 +96,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
       (addBlockAction &&
         `<li class="tweet-detail-action-item btd-tweet-detail-action-item">
       <a class="js-show-tip tweet-detail-action btd-tweet-detail-action position-rel" href="#"
-        data-btd-action="block-account" rel="hotlink" title="Block @{{screenName}}">
+        data-btd-action="${TweetActions.BLOCK_ACCOUNT}" rel="hotlink" title="Block @{{screenName}}">
         <i class="icon icon-blocked txt-center"></i>
         <span class="is-vishidden"> {{_i}}Block @{{screenName}}{{/i}} </span>
       </a>
@@ -117,7 +125,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
       (addCopyMediaLinksAction &&
         `<li class="tweet-action-item btd-tweet-action-item pull-left margin-r--10">
     <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
-      data-btd-action="hotlink-media" rel="hotlink" title="Copy links to media"> 
+      data-btd-action="${TweetActions.HOTLINK_MEDIA}" rel="hotlink" title="Copy links to media"> 
       <i class="js-icon-attachment icon icon-attachment txt-center"></i>
       <span class="is-vishidden"> {{_i}}Copy links to media{{/i}} </span>
     </a>
@@ -128,7 +136,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
       (addDownloadMediaLinksAction &&
         `<li class="tweet-action-item btd-tweet-action-item pull-left margin-r--10">
       <a class="js-show-tip tweet-action btd-tweet-action position-rel" href="#" 
-        data-btd-action="download-media" rel="download" title="Download media"> 
+        data-btd-action="${TweetActions.DOWNLOAD_MEDIA}" rel="download" title="Download media"> 
         <i class="js-icon-download icon icon-download txt-center"></i>
         <span class="is-vishidden"> {{_i}}Download media{{/i}} </span>
       </a>
@@ -144,7 +152,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
       (addFollowAction &&
         `<li class="tweet-action-item btd-tweet-action-item pull-left margin-r--10">
   <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
-    data-btd-action="follow-account" rel="follow" title="{{>text/follow_action}}"> 
+    data-btd-action="${TweetActions.FOLLOW_ACCOUNT}" rel="follow" title="{{>text/follow_action}}"> 
     <i class="js-icon-follow icon icon-{{^following}}follow{{/following}}{{#following}}following{{/following}} icon-follow-toggle txt-center pull-left"></i>
     ${followersCount}
     <span class="is-vishidden"> {{_i}}Follow{{/i}} </span>
@@ -156,7 +164,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
       (addMuteAction &&
         `<li class="tweet-action-item btd-tweet-action-item pull-left margin-r--10">
     <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
-      data-btd-action="mute-account" rel="action" title="Mute @{{screenName}}"> 
+      data-btd-action="${TweetActions.MUTE_ACCOUNT}" rel="action" title="Mute @{{screenName}}"> 
       <i class="js-icon-muted icon icon-muted txt-center"></i>
       <span class="is-vishidden"> {{_i}}Mute @{{screenName}}{{/i}} </span>
     </a>
@@ -167,7 +175,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
       (addBlockAction &&
         `<li class="tweet-action-item btd-tweet-action-item pull-left margin-r--10">
   <a class="js-show-tip tweet-action btd-tweet-action btd-clipboard position-rel" href="#" 
-    data-btd-action="block-account" rel="action" title="Block @{{screenName}}"> 
+    data-btd-action="${TweetActions.BLOCK_ACCOUNT}" rel="action" title="Block @{{screenName}}"> 
     <i class="js-icon-blocked icon icon-blocked txt-center"></i>
     <span class="is-vishidden"> {{_i}}Block @{{screenName}}{{/i}} </span>
   </a>
@@ -189,7 +197,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
     return string.replace(marker, replacement);
   });
 
-  jq('body').on('click', '[data-btd-action="download-media"]', (ev) => {
+  jq('body').on('click', `[data-btd-action="${TweetActions.DOWNLOAD_MEDIA}"]`, (ev) => {
     ev.preventDefault();
     const chirp = getChirpFromElement(TD, ev.target)?.chirp;
     if (!chirp) {
@@ -217,7 +225,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
     });
   });
 
-  jq('body').on('click', '[data-btd-action="hotlink-media"]', (ev) => {
+  jq('body').on('click', `[data-btd-action="${TweetActions.HOTLINK_MEDIA}"]`, (ev) => {
     ev.preventDefault();
     const chirp = getChirpFromElement(TD, ev.target)?.chirp;
     if (!chirp) {
@@ -299,7 +307,9 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
 
   jq('body').on(
     'click',
-    '[data-btd-action="follow-account"], [data-btd-action="unfollow-account"], [data-btd-action="mute-account"], [data-btd-action="block-account"]',
+    [TweetActions.FOLLOW_ACCOUNT, TweetActions.MUTE_ACCOUNT, TweetActions.BLOCK_ACCOUNT]
+      .map((action) => `[data-btd-action="${action}"]`)
+      .join(', '),
     (ev) => {
       ev.preventDefault();
       const target = ev.currentTarget;
@@ -317,7 +327,10 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
 
       const action = target.getAttribute('data-btd-action');
 
-      if (action === 'follow-account' && (settings.showAccountChoiceOnFollow || ev.shiftKey)) {
+      if (
+        action === TweetActions.FOLLOW_ACCOUNT &&
+        (settings.showAccountChoiceOnFollow || ev.shiftKey)
+      ) {
         jq(document).trigger('uiShowFollowFromOptions', {
           userToFollow: user,
         });
@@ -325,21 +338,21 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
       }
 
       switch (action) {
-        case 'follow-account':
+        case TweetActions.FOLLOW_ACCOUNT:
           jq(document).trigger(usefulChirp.user.following ? 'uiUnfollowAction' : 'uiFollowAction', {
             account,
             twitterUser: user,
           });
           return;
 
-        case 'mute-account':
+        case TweetActions.MUTE_ACCOUNT:
           jq(document).trigger('uiMuteAction', {
             account,
             twitterUser: user,
           });
           return;
 
-        case 'block-account':
+        case TweetActions.BLOCK_ACCOUNT:
           jq(document).trigger('uiBlockAction', {
             account,
             twitterUser: user,
