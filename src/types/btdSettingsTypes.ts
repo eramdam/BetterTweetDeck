@@ -110,9 +110,6 @@ export const RBetterTweetDeckSettings = t.type({
       /** Shows a download button to download medias in a tweet. */
       addDownloadMediaLinksAction: withDefault(t.boolean, false),
 
-      /** Shows a follow icon to follow the author of a tweet quickly. */
-      addFollowAction: withDefault(t.boolean, false),
-
       /** Shows a mute icon to mute the author of a tweet quickly. */
       addMuteAction: withDefault(t.boolean, false),
 
@@ -126,6 +123,9 @@ export const RBetterTweetDeckSettings = t.type({
   showAccountChoiceOnFavorite: withDefault(t.boolean, false),
   /** Comma separated list of account usernames from which to trigger the account picker */
   accountChoiceAllowList: withDefault(t.string, ''),
+
+  /** Shows a follow icon to follow the author of a tweet quickly. */
+  addFollowAction: withDefault(t.boolean, false),
 
   /** Always shows the account picker when following a user with the tweet action */
   showAccountChoiceOnFollow: withDefault(t.boolean, true),

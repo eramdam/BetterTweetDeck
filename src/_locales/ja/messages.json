@@ -354,7 +354,7 @@
     "message": "引用ツイートに含まれる単一の画像も同様に表示する"
   },
   "settings_action_follow_author": {
-    "message": "投稿者をフォロー"
+    "message": "投稿者をフォローするアクションを追加"
   },
   "settings_default_dark_theme": {
     "message": "デフォルト"

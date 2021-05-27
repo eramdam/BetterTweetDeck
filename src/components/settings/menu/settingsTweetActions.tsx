@@ -52,11 +52,6 @@ export const SettingsTweetActions: FC<SettingsMenuSectionProps> = (props) => {
         }}
         fields={[
           {
-            initialValue: settings.tweetActions.addFollowAction,
-            key: 'addFollowAction',
-            label: getTransString('settings_action_follow_author'),
-          },
-          {
             initialValue: settings.tweetActions.addBlockAction,
             key: 'addBlockAction',
             label: getTransString('settings_action_block_author'),
@@ -182,18 +177,24 @@ export const SettingsTweetActions: FC<SettingsMenuSectionProps> = (props) => {
         </div>
       </SettingsRow>
       <CheckboxSelectSettingsRow
-        disabled={!settings.tweetActions.addFollowAction}
         onChange={(key, value) => {
           makeOnSettingsChange(key as keyof BTDSettings)(value);
         }}
         fields={[
           {
+            initialValue: settings.addFollowAction,
+            key: 'addFollowAction',
+            label: <Trans id="settings_action_follow_author" />,
+          },
+          {
             initialValue: settings.showAccountChoiceOnFollow,
+            isDisabled: !settings.addFollowAction,
             key: 'showAccountChoiceOnFollow',
             label: <Trans id="settings_show_account_picker_follow" />,
           },
           {
             initialValue: settings.showFollowersCount,
+            isDisabled: !settings.addFollowAction,
             key: 'showFollowersCount',
             label: <Trans id="settings_show_followers_count" />,
           },
