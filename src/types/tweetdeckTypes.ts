@@ -635,11 +635,15 @@ export interface TweetDeckChirp {
   getMainTweet(): TweetDeckChirp;
   getReplyUsers(): User[];
   getReplyingToUsers(): User[];
+  isAboutYou(): boolean;
+  hasEligibleCard?(): boolean;
   destroy(): void;
   isRetweetedStatus(): boolean;
   getFilterableText(): string;
   favorite(options: {element: JQuery<Element>; statusKey: string; column: string}): void;
-  card: object;
+  card?: {
+    name: string;
+  };
 }
 
 export interface TweetHashtag {
@@ -1096,7 +1100,7 @@ interface Net {
   ajax: unknown;
 }
 
-interface TwitterStatus extends TweetDeckChirp {
+export interface TwitterStatus extends TweetDeckChirp {
   prototype: TweetDeckChirp & {
     [k: string]: any;
     getReplyingToUsers(): User[];
@@ -1106,6 +1110,7 @@ interface TwitterStatus extends TweetDeckChirp {
 interface Services {
   bitly: unknown;
   TwitterStatus: TwitterStatus;
+  TwitterActionOnTweet: TwitterStatus;
   TwitterUser: User;
   ChirpBase: {
     MESSAGE: string;

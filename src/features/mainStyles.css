@@ -123,11 +123,6 @@ html.dark .typeahead .js-hashtag {
   padding-top: 0 !important;
 }
 
-/** Padding above cards in columns */
-p.js-tweet-text + .js-card-container:not(:empty) {
-  padding-top: 10px;
-}
-
 .application .app-title .visible-in-contracted-header .tweetdeck-logo {
   background-size: 24px;
   background-position: 50%;

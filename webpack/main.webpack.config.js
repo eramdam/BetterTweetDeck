@@ -1,14 +1,15 @@
+const config = require('config');
 const GenerateJsonPlugin = require('generate-json-webpack-plugin');
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const {getCommonWebpackConfig, getUrlLoaderBase} = require('./common');
-const {NodeConfigTSPlugin} = require('node-config-ts/webpack');
 const btdWebpackPlugin = require('./btdWebpackPlugin');
+const webpack = require('webpack');
 
 module.exports = (env) => {
   const commonConfig = getCommonWebpackConfig();
 
-  return NodeConfigTSPlugin({
+  return {
     ...commonConfig,
     entry: {
       content: path.join(process.cwd(), 'src/content.ts'),
@@ -16,6 +17,9 @@ module.exports = (env) => {
       background: path.join(process.cwd(), 'src/background.ts'),
     },
     plugins: [
+      new webpack.DefinePlugin({
+        __BTD_CONFIG: JSON.stringify(config.get('Client') || {}),
+      }),
       btdWebpackPlugin,
       new CopyWebpackPlugin({
         patterns: [
@@ -39,7 +43,7 @@ module.exports = (env) => {
       rules: [
         ...commonConfig.module.rules,
         getUrlLoaderBase({
-          limit: 50 * 1000,
+          maxSize: 50 * 1000,
         }),
         {
           test: /\.js$/,
@@ -51,5 +55,5 @@ module.exports = (env) => {
         },
       ],
     },
-  });
+  };
 };

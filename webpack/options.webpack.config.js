@@ -29,12 +29,7 @@ module.exports = () => {
       }),
     ],
     module: {
-      rules: [
-        ...commonConfig.module.rules,
-        getUrlLoaderBase({
-          limit: false,
-        }),
-      ],
+      rules: [...commonConfig.module.rules, getUrlLoaderBase(() => true)],
     },
   };
 };

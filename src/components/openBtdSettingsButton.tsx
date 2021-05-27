@@ -2,9 +2,7 @@ import React from 'dom-chef';
 
 import {DCFactory} from '../helpers/domHelpers';
 
-export interface SettingsButtonProps {}
-
-export const makeSettingsButton: DCFactory<SettingsButtonProps> = (props) => {
+export const makeSettingsButton: DCFactory = (props) => {
   return (
     <a
       className="js-show-drawer js-header-action link-clean cf app-nav-tab padding-h--10 padding-v--2"

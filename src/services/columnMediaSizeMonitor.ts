@@ -1,3 +1,5 @@
+import {Dictionary} from 'lodash';
+
 import {makeBTDModule} from '../types/btdCommonTypes';
 import {TweetDeckColumn} from '../types/tweetdeckTypes';
 import {TweetDeckColumnMediaPreviewSizesEnum} from '../types/tweetdeckTypes';
@@ -10,7 +12,14 @@ export function getSizeForColumnKey(columnKey = '') {
 }
 
 /** Sets up a Map that stores the media size of TweetDeck columns for easy and quick access (without having to go through the state) */
-export const setupMediaSizeMonitor = makeBTDModule(({jq}) => {
+export const setupColumnMonitor = makeBTDModule(({jq, mR}) => {
+  const getColumnTypeModule:
+    | {
+        getColumnType: (col: TweetDeckColumn) => string;
+        columnMetaTypeToScribeNamespace: Dictionary<object>;
+      }
+    | undefined = mR && mR.findFunction('getColumnType')[0];
+
   jq(document).on('uiColumnUpdateMediaPreview', (ev, data) => {
     if (!ev.target) {
       return;
@@ -19,6 +28,8 @@ export const setupMediaSizeMonitor = makeBTDModule(({jq}) => {
     // @ts-ignore
     const id = ev.target.closest('.js-column').getAttribute('data-column');
     const size = data.value;
+    // @ts-ignore
+    ev.target.closest('.js-column').setAttribute('data-column-size', size);
 
     if (!id) {
       return;
@@ -33,6 +44,7 @@ export const setupMediaSizeMonitor = makeBTDModule(({jq}) => {
       .map((col) => ({
         id: col.model.privateState.key,
         mediaSize: col.model.state.settings.media_preview_size,
+        type: getColumnTypeModule?.getColumnType(col),
       }));
 
     if (columnMediaSizes.size !== cols.length) {
@@ -43,6 +55,14 @@ export const setupMediaSizeMonitor = makeBTDModule(({jq}) => {
       .filter((col) => col.id)
       .forEach((col) => {
         columnMediaSizes.set(col.id, col.mediaSize || 'medium');
+        const columnNode = document.querySelector(`[data-column=${col.id}]`);
+
+        if (columnNode) {
+          if (col.type) {
+            columnNode.setAttribute('data-column-type', col.type || '');
+          }
+          columnNode.setAttribute('data-column-size', col.mediaSize || 'medium');
+        }
       });
   }
 

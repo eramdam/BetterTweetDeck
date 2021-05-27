@@ -1,5 +1,4 @@
-import {config} from 'node-config-ts';
-
+import {BtdConfig} from '../defineConfig';
 import {
   BTDDownloadMediaRequest,
   BTDDownloadMediaRequestResult,
@@ -16,7 +15,7 @@ export async function processGifRequest(
 
   if (source === 'giphy') {
     const pathAndQuery = new URL(`https://api.giphy.com/v1/gifs/${endpoint}`);
-    pathAndQuery.searchParams.append('api_key', config.Client.APIs.giphy);
+    pathAndQuery.searchParams.append('api_key', BtdConfig.APIs.giphy);
 
     Object.keys(params).forEach((k) => {
       pathAndQuery.searchParams.append(k, params[k]);
@@ -43,7 +42,7 @@ export async function processGifRequest(
   }
 
   const pathAndQuery = new URL(`https://api.tenor.com/v1/${endpoint}`);
-  pathAndQuery.searchParams.append('key', config.Client.APIs.tenor);
+  pathAndQuery.searchParams.append('key', BtdConfig.APIs.tenor);
   Object.keys(params).forEach((k) => {
     pathAndQuery.searchParams.append(k, params[k]);
   });

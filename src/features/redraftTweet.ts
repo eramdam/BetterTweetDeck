@@ -1,5 +1,9 @@
 import {sendInternalBTDMessage} from '../helpers/communicationHelpers';
-import {getChirpFromElement, getMediaFromChirp} from '../helpers/tweetdeckHelpers';
+import {
+  getChirpFromElement,
+  getChirpFromKeyAlone,
+  getMediaFromChirp,
+} from '../helpers/tweetdeckHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 import {BTDMessageOriginsEnum, BTDMessages} from '../types/btdMessageTypes';
 import {TweetDeckChirp, TweetDeckUser} from '../types/tweetdeckTypes';
@@ -99,7 +103,7 @@ export const listenToRedraftTweetEvent = makeBTDModule(({TD, jq}) => {
       composeData.type = 'reply';
       composeData.mentions = chirp.getReplyingToUsers();
       composeData.inReplyTo = {
-        id: chirp.id,
+        id: String(chirp.inReplyToID),
         htmlText: mainChirp.htmlText,
         user: {
           screenName: mainChirp.user.screenName,
@@ -109,25 +113,18 @@ export const listenToRedraftTweetEvent = makeBTDModule(({TD, jq}) => {
       };
 
       // == find that user, if at all possible
-      const column = TD.controller.columnManager.get(extra.columnKey || '');
-      const replyEl = column.ui.getChirpById(chirp.inReplyToID);
-      if (replyEl.length) {
-        composeData.element = replyEl[0];
-        const replyChirp = getChirpFromElement(TD, replyEl[0])?.chirp;
-        if (replyChirp) {
-          composeData.mentions = replyChirp.getReplyUsers();
-          composeData.inReplyTo = {
-            id: replyChirp.id,
-            htmlText: replyChirp.htmlText,
-            user: {
-              screenName: replyChirp.user.screenName,
-              name: replyChirp.user.name,
-              profileImageURL: replyChirp.user.profileImageURL,
-            },
-          };
-        } else {
-          console.log('reply did not have an element for some reason');
-        }
+      const replyChirp = getChirpFromKeyAlone(TD, String(chirp.inReplyToID))?.chirp;
+      if (replyChirp) {
+        composeData.mentions = replyChirp.getReplyUsers();
+        composeData.inReplyTo = {
+          id: replyChirp.id,
+          htmlText: replyChirp.htmlText,
+          user: {
+            screenName: replyChirp.user.screenName,
+            name: replyChirp.user.name,
+            profileImageURL: replyChirp.user.profileImageURL,
+          },
+        };
       } else {
         console.log('reply did not have an existing chirp in its original column');
       }
@@ -141,13 +138,17 @@ export const listenToRedraftTweetEvent = makeBTDModule(({TD, jq}) => {
       Promise.all(media.map((item) => requestMediaItem(item))).then((gotFiles) => {
         jq(document).trigger('uiComposeFilesAdded', {files: gotFiles});
       });
+
+      jq(document).one('uiComposeImageAdded', (...args) => {
+        // it is now safe to remove the tweet
+        chirp.destroy();
+      });
+    } else {
+      // send one last compose event, for good luck
+      jq(document).trigger('uiComposeTweet', composeData);
+      // it is now safe to remove the tweet
+      chirp.destroy();
     }
-
-    // send one last compose event, for good luck
-    jq(document).trigger('uiComposeTweet', composeData);
-
-    // it is now safe to remove the tweet
-    chirp.destroy();
   });
 });
 

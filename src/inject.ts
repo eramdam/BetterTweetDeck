@@ -38,7 +38,7 @@ import {maybeChangeUsernameFormat} from './features/usernameDisplay';
 import {listenToInternalBTDMessage, sendInternalBTDMessage} from './helpers/communicationHelpers';
 import {displayTweetDeckBanner} from './helpers/tweetdeckHelpers';
 import {setupChirpHandler} from './services/chirpHandler';
-import {setupMediaSizeMonitor} from './services/columnMediaSizeMonitor';
+import {setupColumnMonitor} from './services/columnMediaSizeMonitor';
 import {maybeSetupDebugFunctions} from './services/debugMethods';
 import {insertSettingsButton} from './services/setupSettings';
 import {applyTweetDeckSettings} from './types/abstractTweetDeckSettings';
@@ -101,7 +101,7 @@ const jq: JQueryStatic | undefined =
   setupGifModals(btdModuleOptions);
   injectCustomCss(btdModuleOptions);
   maybeRenderCardsInColumns(btdModuleOptions);
-  setupMediaSizeMonitor(btdModuleOptions);
+  setupColumnMonitor(btdModuleOptions);
   maybeRemoveRedirection(btdModuleOptions);
   maybeChangeUsernameFormat(btdModuleOptions);
   maybeRevertToLegacyReplies(btdModuleOptions);

@@ -2,9 +2,14 @@ import {browser} from 'webextension-polyfill-ts';
 
 import {getTransString} from './components/trans';
 import {isSafari} from './helpers/browserHelpers';
-import {ExtensionSettings, getExtensionVersion} from './helpers/webExtensionHelpers';
+import {
+  ExtensionSettings,
+  getExtensionVersion,
+  listenForStorageChange,
+} from './helpers/webExtensionHelpers';
 import {getValidatedSettings, setupSettingsInBackground} from './services/backgroundSettings';
 import {BTDMessageEvent, BTDMessages} from './types/btdMessageTypes';
+import {BTDSettings} from './types/btdSettingsTypes';
 
 (async () => {
   await setupSettingsInBackground();
@@ -38,9 +43,22 @@ import {BTDMessageEvent, BTDMessages} from './types/btdMessageTypes';
     }
   });
 
+  listenForStorageChange(async (changes) => {
+    if (changes.enableShareItem.newValue === changes.enableShareItem.oldValue) {
+      return;
+    }
+
+    const settings = await getValidatedSettings();
+
+    if (changes.enableShareItem.newValue) {
+      addContextMenuItem(settings);
+    } else {
+      removeContextMenuItem();
+    }
+  });
+
   // Get the settings from the browser.
   const settings = await getValidatedSettings();
-  const textLimitWithLink = 254;
 
   if (settings.installedVersion !== getExtensionVersion()) {
     await ExtensionSettings.set({
@@ -54,6 +72,16 @@ import {BTDMessageEvent, BTDMessages} from './types/btdMessageTypes';
     return;
   }
 
+  addContextMenuItem(settings);
+})();
+
+function removeContextMenuItem() {
+  browser.contextMenus.removeAll();
+}
+
+const textLimitWithLink = 254;
+
+function addContextMenuItem(settings: BTDSettings) {
   browser.contextMenus.create({
     title: getTransString('settings_share_on_tweetdeck'),
     contexts: ['page', 'selection', 'image', 'link'],
@@ -90,4 +118,4 @@ import {BTDMessageEvent, BTDMessages} from './types/btdMessageTypes';
       });
     },
   });
-})();
+}

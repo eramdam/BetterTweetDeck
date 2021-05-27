@@ -1,30 +1,10 @@
 {
   "FirefoxId": "BetterTweetDeckDev@erambert.me",
-  "crx_key": "",
   "Client": {
-    "github_token": "",
     "debug": false,
     "APIs": {
-      "dribbble": "",
-      "imgur": "",
-      "twitch": "",
-      "tinami": "",
       "giphy": "",
       "tenor": ""
-    },
-    "extension_ids": {
-      "chrome": {
-        "release": "",
-        "beta": ""
-      },
-      "firefox": {
-        "release": "",
-        "beta": ""
-      },
-      "opera": {
-        "release": "",
-        "beta": ""
-      }
     }
   }
 }
