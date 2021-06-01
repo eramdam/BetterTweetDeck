@@ -347,7 +347,7 @@ html .btd-loaded {
   & .emoji-mart-skin-swatch:nth-child(5) {
     transition-delay: 0.12s;
   }
-  .emoji-mart-skin-swatch:nth-child(6) {
+  & .emoji-mart-skin-swatch:nth-child(6) {
     transition-delay: 0.15s;
   }
 

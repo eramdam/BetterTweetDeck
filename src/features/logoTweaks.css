@@ -1,0 +1,102 @@
+:root {
+  --btd-logo-background: linear-gradient(#00caff, #0a9eff);
+  --btd-logo-plus-1st-opacity: 1;
+  --btd-logo-plus-1st-background: black;
+  --btd-logo-plus-1st-blend-mode: soft-light;
+  --btd-logo-plus-2nd-background: black;
+  --btd-logo-plus-2nd-opacity: 0.69;
+  --btd-logo-plus-2nd-blend-mode: initial;
+}
+
+body[btd-logo='rainbow-pride'] {
+  --btd-logo-background: url('../assets/logo-tweaks/rainbow.svg');
+  --btd-logo-plus-1st-opacity: 1;
+  --btd-logo-plus-1st-background: white;
+  --btd-logo-plus-1st-blend-mode: initial;
+  --btd-logo-plus-2nd-background: black;
+  --btd-logo-plus-2nd-opacity: 0;
+  --btd-logo-plus-2nd-blend-mode: initial;
+  --btd-logo-border-color: transparent;
+}
+body[btd-logo='rainbow-pride-philly'] {
+  --btd-logo-background: url('../assets/logo-tweaks/rainbow-poc.svg');
+  --btd-logo-plus-1st-opacity: 0;
+  --btd-logo-plus-1st-background: white;
+  --btd-logo-plus-1st-blend-mode: initial;
+  --btd-logo-plus-2nd-background: black;
+  --btd-logo-plus-2nd-opacity: 0;
+  --btd-logo-plus-2nd-blend-mode: initial;
+  --btd-logo-border-color: white;
+}
+
+.application .app-title .visible-in-contracted-header .tweetdeck-logo,
+.application .app-title .visible-in-contracted-header span.btd-logo-border,
+.application .app-title .invisible-in-contracted-header span.btd-logo-base,
+.application .app-title .invisible-in-contracted-header span.btd-logo-border {
+  clip-path: url(#btdLogoClip);
+  position: absolute;
+}
+
+.application .app-title .visible-in-contracted-header span.btd-logo-border,
+.application .app-title .invisible-in-contracted-header span.btd-logo-border {
+  z-index: 0;
+  width: 27px !important;
+  height: 29px !important;
+  z-index: 0;
+  background: var(--btd-logo-border-color);
+  margin-top: 1px;
+}
+
+.application .app-title .visible-in-contracted-header .tweetdeck-logo,
+.application .app-title .invisible-in-contracted-header span.btd-logo-base {
+  background: var(--btd-logo-background);
+  background-size: cover;
+  width: 25px !important;
+  height: 26px !important;
+  z-index: 1;
+
+  &::after,
+  &::before {
+    content: '';
+    position: absolute;
+    display: block;
+    height: 11px;
+    width: 11px;
+    clip-path: url(#btdLogoPlus);
+    left: 7px;
+    top: 6px;
+  }
+
+  &::after {
+    z-index: 0;
+    background: var(--btd-logo-plus-1st-background);
+    opacity: var(--btd-logo-plus-1st-opacity);
+    mix-blend-mode: var(--btd-logo-plus-1st-blend-mode);
+  }
+  &::before {
+    z-index: 1;
+    background: var(--btd-logo-plus-2nd-background);
+    opacity: var(--btd-logo-plus-2nd-opacity);
+    mix-blend-mode: var(--btd-logo-plus-2nd-blend-mode);
+  }
+}
+
+.application .app-title .invisible-in-contracted-header span {
+  margin-left: 14px;
+  margin-top: -2px;
+}
+
+.application .app-title .invisible-in-contracted-header {
+  width: 100%;
+  background-repeat: no-repeat;
+  margin-top: 11px;
+  height: 34px;
+  background-size: contain;
+  background-position: center center;
+  background-image: url('../assets/btd-logo.png');
+  background-image: url('../assets/btd-logo-empty.png');
+}
+
+.application .app-title .invisible-in-contracted-header img {
+  display: none;
+}
