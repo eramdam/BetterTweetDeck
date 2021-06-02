@@ -10,7 +10,7 @@
   --btd-logo-background: url('../assets/logo-tweaks/rainbow.svg');
   --btd-logo-plus-opacity: 0;
   --btd-logo-plus-fill: white;
-  --btd-logo-plus-border-color: rgba(0, 0, 0, 0.3);
+  --btd-logo-plus-border-color: transparent;
   --btd-logo-border-color: transparent;
 }
 [btd-logo='transgender'] {
