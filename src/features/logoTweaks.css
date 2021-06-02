@@ -1,102 +1,149 @@
 :root {
   --btd-logo-background: linear-gradient(#00caff, #0a9eff);
-  --btd-logo-plus-1st-opacity: 1;
-  --btd-logo-plus-1st-background: black;
-  --btd-logo-plus-1st-blend-mode: soft-light;
-  --btd-logo-plus-2nd-background: black;
-  --btd-logo-plus-2nd-opacity: 0.69;
-  --btd-logo-plus-2nd-blend-mode: initial;
-}
-
-body[btd-logo='rainbow-pride'] {
-  --btd-logo-background: url('../assets/logo-tweaks/rainbow.svg');
-  --btd-logo-plus-1st-opacity: 1;
-  --btd-logo-plus-1st-background: white;
-  --btd-logo-plus-1st-blend-mode: initial;
-  --btd-logo-plus-2nd-background: black;
-  --btd-logo-plus-2nd-opacity: 0;
-  --btd-logo-plus-2nd-blend-mode: initial;
+  --btd-logo-plus-opacity: 0.69;
+  --btd-logo-plus-fill: black;
+  --btd-logo-plus-border-color: transparent;
   --btd-logo-border-color: transparent;
 }
-body[btd-logo='rainbow-pride-philly'] {
-  --btd-logo-background: url('../assets/logo-tweaks/rainbow-poc.svg');
-  --btd-logo-plus-1st-opacity: 0;
-  --btd-logo-plus-1st-background: white;
-  --btd-logo-plus-1st-blend-mode: initial;
-  --btd-logo-plus-2nd-background: black;
-  --btd-logo-plus-2nd-opacity: 0;
-  --btd-logo-plus-2nd-blend-mode: initial;
-  --btd-logo-border-color: white;
+
+body[btd-logo='rainbow'] {
+  --btd-logo-background: url('../assets/logo-tweaks/rainbow.svg');
+  --btd-logo-plus-opacity: 1;
+  --btd-logo-plus-fill: white;
+  --btd-logo-plus-border-color: rgba(0, 0, 0, 0.3);
+  --btd-logo-border-color: transparent;
+}
+body[btd-logo='trans'] {
+  --btd-logo-background: url('../assets/logo-tweaks/trans.svg');
+  --btd-logo-plus-opacity: 0;
+  --btd-logo-plus-fill: white;
+  --btd-logo-plus-border-color: transparent;
+  --btd-logo-border-color: transparent;
+}
+body[btd-logo='genderqueer'] {
+  --btd-logo-background: url('../assets/logo-tweaks/genderqueer.svg');
+  --btd-logo-plus-opacity: 0;
+  --btd-logo-plus-fill: white;
+  --btd-logo-plus-border-color: transparent;
+  --btd-logo-border-color: transparent;
+}
+body[btd-logo='bisexual'] {
+  --btd-logo-background: url('../assets/logo-tweaks/bisexual.svg');
+  --btd-logo-plus-opacity: 0;
+  --btd-logo-plus-fill: white;
+  --btd-logo-plus-border-color: transparent;
+  --btd-logo-border-color: transparent;
+}
+body[btd-logo='pansexual'] {
+  --btd-logo-background: url('../assets/logo-tweaks/pansexual.svg');
+  --btd-logo-plus-opacity: 0;
+  --btd-logo-plus-fill: white;
+  --btd-logo-plus-border-color: transparent;
+  --btd-logo-border-color: transparent;
 }
 
-.application .app-title .visible-in-contracted-header .tweetdeck-logo,
-.application .app-title .visible-in-contracted-header span.btd-logo-border,
-.application .app-title .invisible-in-contracted-header span.btd-logo-base,
-.application .app-title .invisible-in-contracted-header span.btd-logo-border {
-  clip-path: url(#btdLogoClip);
+.btd-logo-title {
+  height: 53px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
-.application .app-title .visible-in-contracted-header span.btd-logo-border,
-.application .app-title .invisible-in-contracted-header span.btd-logo-border {
-  z-index: 0;
-  width: 27px !important;
-  height: 29px !important;
-  z-index: 0;
-  background: var(--btd-logo-border-color);
-  margin-top: 1px;
-}
-
-.application .app-title .visible-in-contracted-header .tweetdeck-logo,
-.application .app-title .invisible-in-contracted-header span.btd-logo-base {
-  background: var(--btd-logo-background);
-  background-size: cover;
-  width: 25px !important;
+.btd-logo-title .btd-logo-wrapper {
+  position: relative;
+  width: 26px !important;
   height: 26px !important;
-  z-index: 1;
+}
+
+.btd-logo-title .btd-logo-wrapper > span.btd-logo-base,
+.btd-logo-title .btd-logo-wrapper > span.btd-logo-border {
+  clip-path: url(#btdLogoClip);
+  width: 26px !important;
+  height: 26px !important;
+  position: absolute;
+
+  display: block;
+}
+
+.btd-logo-title .btd-logo-wrapper .btd-logo-plus {
+  position: absolute;
+  z-index: 2;
+  width: 11px;
+  height: 11px;
+  display: flex;
+  left: 7px;
+  top: 6px;
+
+  & svg {
+    fill: var(--btd-logo-plus-fill);
+    stroke: none;
+    z-index: 1;
+    opacity: var(--btd-logo-plus-opacity);
+  }
 
   &::after,
   &::before {
-    content: '';
-    position: absolute;
-    display: block;
-    height: 11px;
-    width: 11px;
-    clip-path: url(#btdLogoPlus);
-    left: 7px;
-    top: 6px;
+    z-index: 0;
+    box-shadow: 0 0 0 1px var(--btd-logo-plus-border-color);
+    background: transparent;
   }
 
   &::after {
-    z-index: 0;
-    background: var(--btd-logo-plus-1st-background);
-    opacity: var(--btd-logo-plus-1st-opacity);
-    mix-blend-mode: var(--btd-logo-plus-1st-blend-mode);
+    content: '';
+    position: absolute;
+    height: 3px;
+    width: 11px;
+    top: 4px;
   }
   &::before {
-    z-index: 1;
-    background: var(--btd-logo-plus-2nd-background);
-    opacity: var(--btd-logo-plus-2nd-opacity);
-    mix-blend-mode: var(--btd-logo-plus-2nd-blend-mode);
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 11px;
+    left: 4px;
   }
 }
 
-.application .app-title .invisible-in-contracted-header span {
-  margin-left: 14px;
-  margin-top: -2px;
+.btd-logo-title .btd-logo-wrapper .btd-logo-plus-border {
+  z-index: 1;
 }
 
-.application .app-title .invisible-in-contracted-header {
-  width: 100%;
+.btd-logo-title .btd-logo-wrapper > span.btd-logo-base {
+  z-index: 1;
+  background: var(--btd-logo-background);
+  background-size: 26px;
   background-repeat: no-repeat;
-  margin-top: 11px;
-  height: 34px;
-  background-size: contain;
-  background-position: center center;
-  background-image: url('../assets/btd-logo.png');
-  background-image: url('../assets/btd-logo-empty.png');
 }
 
-.application .app-title .invisible-in-contracted-header img {
-  display: none;
+.btd-logo-title .btd-logo-wrapper > span.btd-logo-border {
+  z-index: 0;
+  width: 27px !important;
+  height: 29px !important;
+  background: var(--btd-logo-border-color);
+  margin-left: -1px;
+  margin-top: -1px;
+}
+
+.btd-logo-title .btd-logo-full {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 17px auto 13px 1fr 10px;
+  grid-template-areas: '. icon . text .';
+  align-items: center;
+}
+
+.btd-logo-title .btd-logo-full .btd-logo-wrapper {
+  grid-area: icon;
+}
+
+.btd-logo-title .btd-logo-full .btd-logo-text {
+  grid-area: text;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: left;
 }
