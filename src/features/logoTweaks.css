@@ -6,40 +6,58 @@
   --btd-logo-border-color: transparent;
 }
 
-body[btd-logo='rainbow'] {
+[btd-logo='rainbow'] {
   --btd-logo-background: url('../assets/logo-tweaks/rainbow.svg');
-  --btd-logo-plus-opacity: 1;
+  --btd-logo-plus-opacity: 0;
   --btd-logo-plus-fill: white;
   --btd-logo-plus-border-color: rgba(0, 0, 0, 0.3);
   --btd-logo-border-color: transparent;
 }
-body[btd-logo='trans'] {
+[btd-logo='transgender'] {
   --btd-logo-background: url('../assets/logo-tweaks/trans.svg');
   --btd-logo-plus-opacity: 0;
   --btd-logo-plus-fill: white;
   --btd-logo-plus-border-color: transparent;
   --btd-logo-border-color: transparent;
 }
-body[btd-logo='genderqueer'] {
+[btd-logo='genderqueer'] {
   --btd-logo-background: url('../assets/logo-tweaks/genderqueer.svg');
   --btd-logo-plus-opacity: 0;
   --btd-logo-plus-fill: white;
   --btd-logo-plus-border-color: transparent;
   --btd-logo-border-color: transparent;
 }
-body[btd-logo='bisexual'] {
+[btd-logo='bisexual'] {
   --btd-logo-background: url('../assets/logo-tweaks/bisexual.svg');
   --btd-logo-plus-opacity: 0;
   --btd-logo-plus-fill: white;
   --btd-logo-plus-border-color: transparent;
   --btd-logo-border-color: transparent;
 }
-body[btd-logo='pansexual'] {
+[btd-logo='pansexual'] {
   --btd-logo-background: url('../assets/logo-tweaks/pansexual.svg');
   --btd-logo-plus-opacity: 0;
   --btd-logo-plus-fill: white;
   --btd-logo-plus-border-color: transparent;
   --btd-logo-border-color: transparent;
+}
+
+.btd-logo-showcase {
+  display: none;
+}
+
+.btd-loaded .btd-logo-showcase {
+  z-index: 9999;
+  background: #1c2938;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.btd-logo-showcase .btd-logo-title {
+  position: relative !important;
 }
 
 .btd-logo-title {
