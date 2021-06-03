@@ -68,7 +68,7 @@ export const makeSettingsMenu = (
         },
         {
           id: SettingsMenuSectionsEnum.LOGO,
-          label: 'Custom logo',
+          label: getTransString('settings_logo_variation'),
           render: () => <SettingsLogo {...settingsSectionProps}></SettingsLogo>,
         },
         {

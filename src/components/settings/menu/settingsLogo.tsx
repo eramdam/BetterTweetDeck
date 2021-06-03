@@ -4,13 +4,14 @@ import {css} from '@emotion/css';
 import React, {FC} from 'react';
 
 import {BTDLogoVariations, BTDStandaloneLogo} from '../../../features/logoTweaks';
+import {getTransString} from '../../trans';
 import {BTDRadioSelectSettingsRow} from '../components/radioSelectSettingsRow';
 import {SettingsMenuSectionProps} from '../settingsComponents';
 import {settingsRegularText} from '../settingsStyles';
 
 const variations = Object.values(BTDLogoVariations);
 const variationLabels = {
-  [BTDLogoVariations.DEFAULT]: 'Default',
+  [BTDLogoVariations.DEFAULT]: getTransString('settings_default'),
   [BTDLogoVariations.AGENDER]: 'Agender',
   [BTDLogoVariations.ANDROGYNE]: 'Androgyne',
   [BTDLogoVariations.AROMANTIC]: 'Aromantic',
