@@ -5,14 +5,16 @@ import React, {FC} from 'react';
 
 import {BTDLogoVariations, BTDStandaloneLogo} from '../../../features/logoTweaks';
 import {getTransString} from '../../trans';
+import {NewFeatureBadge} from '../components/newFeatureBadge';
 import {BTDRadioSelectSettingsRow} from '../components/radioSelectSettingsRow';
 import {SettingsMenuSectionProps} from '../settingsComponents';
 import {settingsRegularText} from '../settingsStyles';
 
 const variations = Object.values(BTDLogoVariations);
-const variationLabels = {
+const variationLabels: {[k in BTDLogoVariations]: string} = {
   [BTDLogoVariations.DEFAULT]: getTransString('settings_default'),
   [BTDLogoVariations.AGENDER]: 'Agender',
+  [BTDLogoVariations.ASEXUAL]: 'Asexual',
   [BTDLogoVariations.ANDROGYNE]: 'Androgyne',
   [BTDLogoVariations.AROMANTIC]: 'Aromantic',
   [BTDLogoVariations.BIGENDER]: 'Bigender',
@@ -25,7 +27,8 @@ const variationLabels = {
   [BTDLogoVariations.GENDERFLUID]: 'Genderfluid',
   [BTDLogoVariations.GENDERQUEER]: 'Genderqueer',
   [BTDLogoVariations.INTERSEX]: 'Intersex',
-  [BTDLogoVariations.LESBIAN]: 'Lesbian',
+  [BTDLogoVariations.LESBIAN]: 'Lesbian (OG)',
+  [BTDLogoVariations.LESBIAN_2]: 'Lesbian',
   [BTDLogoVariations.NEUTROIS]: 'Neutrois',
   [BTDLogoVariations.NON_BINARY]: 'Non-binary',
   [BTDLogoVariations.OMNISEXUAL]: 'Omnisexual',
@@ -110,7 +113,7 @@ export const SettingsLogo: FC<SettingsMenuSectionProps> = (props) => {
             ),
           };
         })}>
-        Logo variation
+        Logo variation <NewFeatureBadge introducedIn="4.1" />
       </BTDRadioSelectSettingsRow>
       <div className={settingsRegularText}>
         <p>

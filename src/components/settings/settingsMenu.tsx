@@ -4,6 +4,7 @@ import {HandlerOf, Renderer} from '../../helpers/typeHelpers';
 import {getExtensionVersion} from '../../helpers/webExtensionHelpers';
 import {BTDSettings} from '../../types/btdSettingsTypes';
 import {getTransString, Trans} from '../trans';
+import {NewFeatureBadgeProps} from './components/newFeatureBadge';
 import {SettingsCredits} from './components/settingsCredits';
 import {SettingsCss} from './components/settingsCss';
 import {SettingsComposer} from './menu/settingsComposer';
@@ -36,6 +37,7 @@ export interface MenuItem {
     id: SettingsMenuSectionsEnum;
     label: string;
     render: Renderer;
+    badgeProps?: NewFeatureBadgeProps;
   }[];
 }
 
@@ -70,6 +72,9 @@ export const makeSettingsMenu = (
           id: SettingsMenuSectionsEnum.LOGO,
           label: getTransString('settings_logo_variation'),
           render: () => <SettingsLogo {...settingsSectionProps}></SettingsLogo>,
+          badgeProps: {
+            introducedIn: '4.1',
+          },
         },
         {
           id: SettingsMenuSectionsEnum.TWEETS_DISPLAY,

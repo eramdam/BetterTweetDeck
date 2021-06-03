@@ -10,6 +10,7 @@ import {getExtensionUrl, getExtensionVersion} from '../../helpers/webExtensionHe
 import {OnSettingsUpdate} from '../../services/setupSettings';
 import {BTDSettings} from '../../types/btdSettingsTypes';
 import {getTransString, Trans} from '../trans';
+import {NewFeatureBadge} from './components/newFeatureBadge';
 import {SettingsButton} from './components/settingsButton';
 import {
   SettingsContent,
@@ -154,7 +155,10 @@ export const SettingsModal = (props: SettingsModalProps) => {
                             setSelectedId(item.id);
                             setSearchQuery('');
                           }}>
-                          <div className="text">{item.label}</div>
+                          <div className="text">
+                            {item.label}{' '}
+                            {item.badgeProps && <NewFeatureBadge {...item.badgeProps} />}
+                          </div>
                         </li>
                       </Fragment>
                     );

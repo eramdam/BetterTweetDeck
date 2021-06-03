@@ -8,6 +8,7 @@ import {makeBTDModule} from '../types/btdCommonTypes';
 export enum BTDLogoVariations {
   DEFAULT = 'btd',
   AGENDER = 'agender',
+  ASEXUAL = 'asexual',
   ANDROGYNE = 'androgyne',
   AROMANTIC = 'aromantic',
   BIGENDER = 'bigender',
@@ -21,6 +22,7 @@ export enum BTDLogoVariations {
   GENDERQUEER = 'genderqueer',
   INTERSEX = 'intersex',
   LESBIAN = 'lesbian',
+  LESBIAN_2 = 'lesbian_2',
   NEUTROIS = 'neutrois',
   NON_BINARY = 'non binary',
   OMNISEXUAL = 'omnisexual',
