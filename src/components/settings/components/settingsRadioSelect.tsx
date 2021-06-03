@@ -9,12 +9,14 @@ import {SettingsRadioInput} from './settingsRadioInput';
 export interface SettingsRadioSettingsSelectProps<S extends object, T extends keyof S> {
   fields: ReadonlyArray<{
     label: ReactNode;
+    searchTerm?: string;
     value: S[T];
   }>;
   initialValue: S[T];
   settingsKey: T;
   onChange: HandlerOf<S[T]>;
   ignoreSearch?: boolean;
+  className?: string;
 }
 
 const wrapperStyles = css`

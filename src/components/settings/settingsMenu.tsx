@@ -9,6 +9,7 @@ import {SettingsCss} from './components/settingsCss';
 import {SettingsComposer} from './menu/settingsComposer';
 import {SettingsGeneral} from './menu/settingsGeneral';
 import {ImportExportSettings} from './menu/settingsImportExport';
+import {SettingsLogo} from './menu/settingsLogo';
 import {SettingsTheme} from './menu/settingsTheme';
 import {SettingsTweetActions} from './menu/settingsTweetActions';
 import {SettingsTweetsDisplay} from './menu/settingsTweetsDisplay';
@@ -17,6 +18,7 @@ import {settingsRegularText} from './settingsStyles';
 export enum SettingsMenuSectionsEnum {
   GENERAL = 'general',
   THEME = 'theme',
+  LOGO = 'logo',
   TWEETS_DISPLAY = 'tweets-display',
   TWEET_ACTIONS = 'tweet-actions',
   COMPOSER = 'composer',
@@ -63,6 +65,11 @@ export const makeSettingsMenu = (
           id: SettingsMenuSectionsEnum.THEME,
           label: getTransString('settings_theme'),
           render: () => <SettingsTheme {...settingsSectionProps}></SettingsTheme>,
+        },
+        {
+          id: SettingsMenuSectionsEnum.LOGO,
+          label: 'Custom logo',
+          render: () => <SettingsLogo {...settingsSectionProps}></SettingsLogo>,
         },
         {
           id: SettingsMenuSectionsEnum.TWEETS_DISPLAY,

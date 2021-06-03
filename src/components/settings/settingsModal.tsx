@@ -83,11 +83,10 @@ export const SettingsModal = (props: SettingsModalProps) => {
     }
   }, [onSettingsUpdate, settings]);
 
-  const canSave = useMemo(() => !editorHasErrors && isDirty && !saveError, [
-    editorHasErrors,
-    isDirty,
-    saveError,
-  ]);
+  const canSave = useMemo(
+    () => !editorHasErrors && isDirty && !saveError,
+    [editorHasErrors, isDirty, saveError]
+  );
 
   const menu = useMemo(() => {
     return makeSettingsMenu(
@@ -101,11 +100,10 @@ export const SettingsModal = (props: SettingsModalProps) => {
     );
   }, [settings]);
 
-  const showSettingsLabel = useMemo(() => !isEqual(props.btdSettings, settings) || isDirty, [
-    isDirty,
-    props.btdSettings,
-    settings,
-  ]);
+  const showSettingsLabel = useMemo(
+    () => !isEqual(props.btdSettings, settings) || isDirty,
+    [isDirty, props.btdSettings, settings]
+  );
 
   const renderSearchIndex = () => {
     return renderMenuInInvisibleContainer(menu);
