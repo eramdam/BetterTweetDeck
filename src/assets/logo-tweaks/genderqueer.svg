@@ -1,14 +1,13 @@
-<svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0)">
-<rect width="26" height="26" fill="white"/>
-<rect x="-1.25" y="20.625" width="31.3125" height="7.3125" fill="#578D3A"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M-3.5 10.1847H26.5V21.1875H-3.5V10.1847Z" fill="#578D3A"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M-3.5 -0.81818H26.5V10.1847H-3.5V-0.81818Z" fill="#B562D8"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M-4 7H31V13H-4V7Z" fill="white"/>
-</g>
-<defs>
-<clipPath id="clip0">
-<rect width="26" height="26" fill="white"/>
-</clipPath>
-</defs>
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
+  <g clip-path="url(#genderqueer__clip0)">
+    <path fill="#578D3A" d="M-1.25 20.625h31.313v7.313H-1.25z"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-3.5 10.185h30v11.002h-30V10.185z" fill="#578D3A"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-3.5-.818h30v11.003h-30V-.818z" fill="#B562D8"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-4 7h35v6H-4V7z" fill="#fff"/>
+  </g>
+  <defs>
+    <clipPath id="genderqueer__clip0">
+      <path fill="#fff" d="M0 0h26v26H0z"/>
+    </clipPath>
+  </defs>
 </svg>

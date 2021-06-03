@@ -1,0 +1,14 @@
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
+  <g clip-path="url(#demisexual__clip0)">
+    <path fill="#182DB7" d="M-1.25 20.625h31.313v7.313H-1.25z"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M43 14L7 11-5 26h48V14z" fill="#D8D8D8"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M28 0H-5l8.25 10L28 8.8V0z" fill="#fff"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M8 9h20v4H8V9z" fill="#80189A"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M0 1l12 10L0 21V1z" fill="#333"/>
+  </g>
+  <defs>
+    <clipPath id="demisexual__clip0">
+      <path fill="#fff" d="M0 0h26v26H0z"/>
+    </clipPath>
+  </defs>
+</svg>

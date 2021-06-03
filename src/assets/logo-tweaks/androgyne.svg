@@ -1,0 +1,16 @@
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
+  <g clip-path="url(#androgyne__clip0)">
+    <path fill="#182DB7" d="M-1.25 20.625h31.313v7.313H-1.25z"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-3 1h28v20H-3V1z" fill="#000"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-4 0h30v7.5H-4V0z" fill="#CC4269"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-4 5h30v6H-4V5z" fill="#B86DD3"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-4 9h30v6H-4V9z" fill="#E9CA30"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-4 13h30v6H-4v-6z" fill="#636363"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-4 17h30v11H-4V17z" fill="#5779DE"/>
+  </g>
+  <defs>
+    <clipPath id="androgyne__clip0">
+      <path fill="#fff" d="M0 0h26v26H0z"/>
+    </clipPath>
+  </defs>
+</svg>

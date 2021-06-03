@@ -1,0 +1,22 @@
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
+  <g clip-path="url(#genderfluid__clip0)">
+    <path fill="#182DB7" d="M-1.25 20.625h31.313v7.313H-1.25z"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-2 0h30v6H-2V0z" fill="#420E47"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-2 5h30v5H-2V5z" fill="#630F6D"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-2 9h30v5H-2V9z" fill="#970C9C"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-2 13h30v5H-2v-5z" fill="#B049B0"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-2 17h30v10H-2V17z" fill="#CA72CA"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M19.952 10.191A7.004 7.004 0 0113 18c-3.863 0-7-3.137-7-7a7.004 7.004 0 017.809-6.952A5.495 5.495 0 009 9.5c0 3.036 2.464 5.5 5.5 5.5 2.802 0 5.118-2.1 5.452-4.809z" fill="#F4EC50"/>
+    <path d="M14.5 13a3.5 3.5 0 100-7 3.5 3.5 0 000 7z" fill="#fff"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-2 8h30v6H-2V8z" fill="#AD00DD"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-2 13h30v5H-2v-5z" fill="#343434"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-2 17h30v12H-2V17z" fill="#5642F0"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-2 4h30v5H-2V4z" fill="#fff"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-2 0h30v5H-2V0z" fill="#EA48A1"/>
+  </g>
+  <defs>
+    <clipPath id="genderfluid__clip0">
+      <path fill="#fff" d="M0 0h26v26H0z"/>
+    </clipPath>
+  </defs>
+</svg>

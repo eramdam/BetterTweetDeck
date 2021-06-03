@@ -1,63 +1,76 @@
 :root {
-  --btd-logo-background: linear-gradient(#00caff, #0a9eff);
-  --btd-logo-plus-opacity: 0.69;
-  --btd-logo-plus-fill: black;
-  --btd-logo-plus-border-color: transparent;
+  --btd-logo-background: url('../assets/logo-tweaks/btd.svg');
   --btd-logo-border-color: transparent;
 }
 
-[btd-logo='rainbow'] {
-  --btd-logo-background: url('../assets/logo-tweaks/rainbow.svg');
-  --btd-logo-plus-opacity: 0;
-  --btd-logo-plus-fill: white;
-  --btd-logo-plus-border-color: transparent;
-  --btd-logo-border-color: transparent;
+[btd-logo='asexual'] {
+  --btd-logo-background: url('../assets/logo-tweaks/asexual.svg');
 }
-[btd-logo='transgender'] {
-  --btd-logo-background: url('../assets/logo-tweaks/trans.svg');
-  --btd-logo-plus-opacity: 0;
-  --btd-logo-plus-fill: white;
-  --btd-logo-plus-border-color: transparent;
-  --btd-logo-border-color: transparent;
+[btd-logo='agender'] {
+  --btd-logo-background: url('../assets/logo-tweaks/agender.svg');
 }
-[btd-logo='genderqueer'] {
-  --btd-logo-background: url('../assets/logo-tweaks/genderqueer.svg');
-  --btd-logo-plus-opacity: 0;
-  --btd-logo-plus-fill: white;
-  --btd-logo-plus-border-color: transparent;
-  --btd-logo-border-color: transparent;
+[btd-logo='androgyne'] {
+  --btd-logo-background: url('../assets/logo-tweaks/androgyne.svg');
+}
+[btd-logo='aromantic'] {
+  --btd-logo-background: url('../assets/logo-tweaks/aromantic.svg');
+}
+[btd-logo='bigender'] {
+  --btd-logo-background: url('../assets/logo-tweaks/bigender.svg');
 }
 [btd-logo='bisexual'] {
   --btd-logo-background: url('../assets/logo-tweaks/bisexual.svg');
-  --btd-logo-plus-opacity: 0;
-  --btd-logo-plus-fill: white;
-  --btd-logo-plus-border-color: transparent;
-  --btd-logo-border-color: transparent;
+}
+[btd-logo='demigirl'] {
+  --btd-logo-background: url('../assets/logo-tweaks/demigirl.svg');
+}
+[btd-logo='demiguy'] {
+  --btd-logo-background: url('../assets/logo-tweaks/demiguy.svg');
+}
+[btd-logo='deminonbinary'] {
+  --btd-logo-background: url('../assets/logo-tweaks/deminonbinary.svg');
+}
+[btd-logo='demisexual'] {
+  --btd-logo-background: url('../assets/logo-tweaks/demisexual.svg');
+}
+[btd-logo='enbian'] {
+  --btd-logo-background: url('../assets/logo-tweaks/enbian.svg');
+}
+[btd-logo='genderfluid'] {
+  --btd-logo-background: url('../assets/logo-tweaks/genderfluid.svg');
+}
+[btd-logo='genderqueer'] {
+  --btd-logo-background: url('../assets/logo-tweaks/genderqueer.svg');
+}
+[btd-logo='intersex'] {
+  --btd-logo-background: url('../assets/logo-tweaks/intersex.svg');
+}
+[btd-logo='lesbian'] {
+  --btd-logo-background: url('../assets/logo-tweaks/lesbian.svg');
+}
+[btd-logo='neutrois'] {
+  --btd-logo-background: url('../assets/logo-tweaks/neutrois.svg');
+}
+[btd-logo='non binary'] {
+  --btd-logo-background: url('../assets/logo-tweaks/non binary.svg');
+}
+[btd-logo='omnisexual'] {
+  --btd-logo-background: url('../assets/logo-tweaks/omnisexual.svg');
 }
 [btd-logo='pansexual'] {
   --btd-logo-background: url('../assets/logo-tweaks/pansexual.svg');
-  --btd-logo-plus-opacity: 0;
-  --btd-logo-plus-fill: white;
-  --btd-logo-plus-border-color: transparent;
-  --btd-logo-border-color: transparent;
 }
-
-.btd-logo-showcase {
-  display: none;
+[btd-logo='polyamory'] {
+  --btd-logo-background: url('../assets/logo-tweaks/polyamory.svg');
 }
-
-.btd-loaded .btd-logo-showcase {
-  z-index: 9999;
-  background: #1c2938;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
+[btd-logo='polysexual'] {
+  --btd-logo-background: url('../assets/logo-tweaks/polysexual.svg');
 }
-
-.btd-logo-showcase .btd-logo-title {
-  position: relative !important;
+[btd-logo='rainbow'] {
+  --btd-logo-background: url('../assets/logo-tweaks/rainbow.svg');
+}
+[btd-logo='trans'] {
+  --btd-logo-background: url('../assets/logo-tweaks/trans.svg');
 }
 
 .btd-logo-title {
@@ -86,49 +99,6 @@
   position: absolute;
 
   display: block;
-}
-
-.btd-logo-title .btd-logo-wrapper .btd-logo-plus {
-  position: absolute;
-  z-index: 2;
-  width: 11px;
-  height: 11px;
-  display: flex;
-  left: 7px;
-  top: 6px;
-
-  & svg {
-    fill: var(--btd-logo-plus-fill);
-    stroke: none;
-    z-index: 1;
-    opacity: var(--btd-logo-plus-opacity);
-  }
-
-  &::after,
-  &::before {
-    z-index: 0;
-    box-shadow: 0 0 0 1px var(--btd-logo-plus-border-color);
-    background: transparent;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    height: 3px;
-    width: 11px;
-    top: 4px;
-  }
-  &::before {
-    content: '';
-    position: absolute;
-    width: 3px;
-    height: 11px;
-    left: 4px;
-  }
-}
-
-.btd-logo-title .btd-logo-wrapper .btd-logo-plus-border {
-  z-index: 1;
 }
 
 .btd-logo-title .btd-logo-wrapper > span.btd-logo-base {
@@ -164,4 +134,5 @@
   font-size: 15px;
   font-weight: 500;
   text-align: left;
+  color: white;
 }
