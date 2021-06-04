@@ -4,7 +4,7 @@ import {BTDAvatarShapes} from '../features/changeAvatarShape';
 import {BTDScrollbarsMode} from '../features/changeScrollbars';
 import {BTDTimestampFormats} from '../features/changeTimestampFormat';
 import {BTDTweetActionsPosition} from '../features/changeTweetActions';
-import {BTDLogoVariations} from '../features/logoTweaks';
+import {BTDLogoVariations} from '../features/logoVariations';
 import {BetterTweetDeckAccentColors, BetterTweetDeckThemes} from '../features/themeTweaks';
 import {BTDUsernameFormat} from '../features/usernameDisplay';
 import {isFirefox} from '../helpers/browserHelpers';
