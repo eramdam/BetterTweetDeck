@@ -63,6 +63,9 @@
 [btd-logo='pansexual'] {
   --btd-logo-background: url('../assets/logo-tweaks/pansexual.svg');
 }
+[btd-logo='progress'] {
+  --btd-logo-background: url('../assets/logo-tweaks/progress.svg');
+}
 [btd-logo='polyamory'] {
   --btd-logo-background: url('../assets/logo-tweaks/polyamory.svg');
 }

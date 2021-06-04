@@ -1,16 +1,16 @@
 <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
-  <g clip-path="url(#lesbian__clip0)">
+  <g clip-path="url(#lesbian_2__clip0)">
     <path fill="#578D3A" d="M-1.25 20.625h31.313v7.313H-1.25z"/>
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M-4 17h34v10H-4V17z" fill="#84222F"/>
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M-4 14h34v4.143H-4V14z" fill="#CF4260"/>
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M-4 11.5h34v3.786H-4V11.5z" fill="#DA84B2"/>
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M-4 9h34v3.429H-4V9z" fill="#fff"/>
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M-4 6h34v3.571H-4V6z" fill="#B64883"/>
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M-4 3h34v3.714H-4V3z" fill="#A43D96"/>
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M-4 0h34v3.857H-4V0z" fill="#811454"/>
+    <path d="M31 9.429H-2v3.143h33V9.428z" fill="#fff"/>
+    <path d="M31 6.286H-2v3.143h33V6.286z" fill="#FF9A56"/>
+    <path d="M31 3.143H-2v3.143h33V3.143z" fill="#EF7627"/>
+    <path d="M31 0H-2v3.143h33V0z" fill="#D52D00"/>
+    <path d="M31 12.572H-2v3.142h33v-3.143z" fill="#D162A4"/>
+    <path d="M31 15.714H-2v5.14h33v-5.14z" fill="#B55690"/>
+    <path d="M31 19H-2v8h33v-8z" fill="#A30262"/>
   </g>
   <defs>
-    <clipPath id="lesbian__clip0">
+    <clipPath id="lesbian_2__clip0">
       <path fill="#fff" d="M0 0h26v26H0z"/>
     </clipPath>
   </defs>

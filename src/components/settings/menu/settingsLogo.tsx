@@ -27,14 +27,14 @@ const variationLabels: {[k in BTDLogoVariations]: string} = {
   [BTDLogoVariations.GENDERFLUID]: 'Genderfluid',
   [BTDLogoVariations.GENDERQUEER]: 'Genderqueer',
   [BTDLogoVariations.INTERSEX]: 'Intersex',
-  [BTDLogoVariations.LESBIAN]: 'Lesbian (OG)',
-  [BTDLogoVariations.LESBIAN_2]: 'Lesbian',
+  [BTDLogoVariations.LESBIAN]: 'Lesbian',
   [BTDLogoVariations.NEUTROIS]: 'Neutrois',
   [BTDLogoVariations.NON_BINARY]: 'Non-binary',
   [BTDLogoVariations.OMNISEXUAL]: 'Omnisexual',
   [BTDLogoVariations.PANSEXUAL]: 'Pansexual',
   [BTDLogoVariations.POLYAMORY]: 'Polyamory',
   [BTDLogoVariations.POLYSEXUAL]: 'Polysexual',
+  [BTDLogoVariations.PROGRESS]: 'Progress',
   [BTDLogoVariations.RAINBOW]: 'Rainbow',
   [BTDLogoVariations.TRANS]: 'Transgender',
 };
@@ -117,12 +117,18 @@ export const SettingsLogo: FC<SettingsMenuSectionProps> = (props) => {
       </BTDRadioSelectSettingsRow>
       <div className={settingsRegularText}>
         <p>
-          The flags variations are based on the flags from{' '}
+          Some flags variations are based on the flags from{' '}
           <a href="https://mutant.tech">Mutant Standard emoji</a>, which are licensed under a{' '}
           <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
             Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
           </a>
           .
+          <br />
+          “Progress” Pride Flag by <a href="https://quasar.digital/">Daniel Quasar</a> is licensed
+          under a{' '}
+          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+            Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+          </a>
         </p>
       </div>
       <svg width="0" height="0">
