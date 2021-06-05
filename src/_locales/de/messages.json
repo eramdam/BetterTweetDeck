@@ -263,6 +263,9 @@
   "settings_show_account_picker_like": {
     "message": "Kontoauswahl beim Liken eines Tweets anzeigen"
   },
+  "settings_show_account_picker_follow": {
+    "message": "Beim Klick auf \"Folgen\" die Kontenauswahl anzeigen"
+  },
   "settings_accent_color": {
     "message": "Akzentfarbe"
   },
@@ -391,5 +394,29 @@
   },
   "settings_default_browsers_language": {
     "message": "Voreinstellung (Sprache des Browsers)"
+  },
+  "settings_logo_variation": {
+    "message": "Logo-Variante"
+  },
+  "settings_default": {
+    "message": "Voreinstellung"
+  },
+  "settings_action_follow_author": {
+    "message": "Aktion hinzufügen, um dem Autor zu folgen"
+  },
+  "settings_show_followers_count": {
+    "message": "Zeige die Anzahl der Follower beim \"Folgen\"-Icon"
+  },
+  "settings_show_verified_badges": {
+    "message": "Überprüfte Abzeichen anzeigen"
+  },
+  "settings_show_translator_badges": {
+    "message": "Übersetzerabzeichen anzeigen"
+  },
+  "settings_show_badges_on_mutuals": {
+    "message": "Zeige Abzeichen auf 'Mutuals' (Follower, denen auch du folgst)"
+  },
+  "settings_badges": {
+    "message": "Abzeichen"
   }
 }
