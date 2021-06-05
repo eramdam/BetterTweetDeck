@@ -48,9 +48,6 @@
 [btd-logo='lesbian'] {
   --btd-logo-background: url('../assets/logo-tweaks/lesbian.svg');
 }
-[btd-logo='lesbian_2'] {
-  --btd-logo-background: url('../assets/logo-tweaks/lesbian_2.svg');
-}
 [btd-logo='neutrois'] {
   --btd-logo-background: url('../assets/logo-tweaks/neutrois.svg');
 }
@@ -99,7 +96,6 @@
 
 .btd-logo-wrapper > span.btd-logo-base,
 .btd-logo-wrapper > span.btd-logo-border {
-  clip-path: url(#btdLogoClip);
   width: 26px !important;
   height: 26px !important;
   position: absolute;

@@ -131,11 +131,6 @@ export const SettingsLogo: FC<SettingsMenuSectionProps> = (props) => {
           </a>
         </p>
       </div>
-      <svg width="0" height="0">
-        <clipPath id="btdLogoClip" clipPathUnits="objectBoundingBox">
-          <path d="M0.891884 0H0.108116C0.0484009 0 0 0.0486878 0 0.108747V0.737364C0 0.797427 0.0484054 0.846111 0.108116 0.846111H0.348102L0.501076 1L0.65405 0.846111H0.891884C0.951599 0.846111 1 0.797423 1 0.737364V0.108747C1 0.0486838 0.951595 0 0.891884 0Z"></path>
-        </clipPath>
-      </svg>
     </div>
   );
 };
