@@ -463,6 +463,7 @@ interface ChirpAccount {
   privateState: ChirpAccountPrivateState;
   managed: boolean;
   getUserID(): string;
+  getKey(): string;
 }
 
 interface ChirpAccountPrivateState {
@@ -527,6 +528,8 @@ interface User {
   _profileBannerURL: string;
   prototype: this;
   getExpandedURL(): string;
+  setFollowing?(following: boolean): void;
+  prettyFollowersCountInTweetAction?(): string;
 }
 
 interface SourceUserEntities {
@@ -1305,6 +1308,7 @@ interface TweetDeckUtil {
   poller: unknown;
   createUrlAnchor(e: any): string;
   pluck(method: string): (a: any) => any;
+  truncateNumber(n: number): string;
 }
 
 interface DatesCached {
