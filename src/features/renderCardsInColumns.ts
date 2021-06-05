@@ -148,9 +148,6 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
   });
 
   onVisibleChirpAdded(async (payload) => {
-    if (payload.chirp?.user?.screenName === 'MenicaFolden') {
-      console.log(payload.chirp);
-    }
     if (
       payload.columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.OFF ||
       (payload.columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.SMALL &&
@@ -177,14 +174,15 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
     renderInvisible?: boolean
   ) {
     if (!getColumnTypeModule || !renderCardForChirpModule) {
-      console.log('skipping', payload);
       return;
     }
 
     const cardContainer = chirpNode.find(`.js-card-container`);
+    const mediaPreview = chirpNode.find('.js-media');
 
     // If we already have a card, nothing to do.
-    if (cardContainer.has('iframe').length) {
+    if (cardContainer.has('iframe').length || mediaPreview.length) {
+      chirpNode.find('[btd-card]').removeAttr('btd-card');
       return;
     }
 
@@ -194,6 +192,7 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
 
     // Check if the base chirp has a card we can render.
     if (!baseChirpWithPrototype?.hasEligibleCard || !baseChirpWithPrototype?.hasEligibleCard()) {
+      chirpNode.find('[btd-card]').removeAttr('btd-card');
       return;
     }
 
