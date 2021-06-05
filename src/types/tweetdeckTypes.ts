@@ -137,42 +137,44 @@ interface Time {
   oneHour: number;
 }
 
+export interface TweetDeckControllerRelationshipResult {
+  relationship: {
+    source: {
+      all_replies: boolean;
+      blocked_by: boolean;
+      blocking: boolean;
+      can_dm: boolean;
+      followed_by: boolean;
+      following: boolean;
+      following_received: boolean;
+      following_requested: boolean;
+      id: number;
+      id_str: string;
+      live_following: boolean;
+      marked_spam: boolean;
+      muting: boolean;
+      notifications_enabled: boolean;
+      screen_name: string;
+      want_retweets: boolean;
+    };
+    target: {
+      followed_by: boolean;
+      following: boolean;
+      following_received: boolean;
+      following_requested: boolean;
+      id: number;
+      id_str: string;
+      screen_name: string;
+    };
+  };
+}
+
 export interface TweetDeckControllerClient {
   showFriendship(
     userId: string,
     targetUserId: string | null,
     targetScreenName: string | null,
-    callback: HandlerOf<{
-      relationship: {
-        source: {
-          all_replies: boolean;
-          blocked_by: boolean;
-          blocking: boolean;
-          can_dm: boolean;
-          followed_by: boolean;
-          following: boolean;
-          following_received: boolean;
-          following_requested: boolean;
-          id: number;
-          id_str: string;
-          live_following: boolean;
-          marked_spam: boolean;
-          muting: boolean;
-          notifications_enabled: boolean;
-          screen_name: string;
-          want_retweets: boolean;
-        };
-        target: {
-          followed_by: boolean;
-          following: boolean;
-          following_received: boolean;
-          following_requested: boolean;
-          id: number;
-          id_str: string;
-          screen_name: string;
-        };
-      };
-    }>
+    callback: HandlerOf<TweetDeckControllerRelationshipResult>
   ): void;
   oauth: {
     account: {
@@ -192,6 +194,7 @@ interface TweetDeckController {
   stats: Stats;
   clients: {
     getClientsByService(service: 'twitter'): TweetDeckControllerClient[];
+    getClient(key: string): TweetDeckControllerClient | undefined;
   };
   scheduler: Scheduler;
   feedScheduler: FeedScheduler;

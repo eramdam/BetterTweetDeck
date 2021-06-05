@@ -113,7 +113,7 @@ export const SettingsLogo: FC<SettingsMenuSectionProps> = (props) => {
             ),
           };
         })}>
-        Logo variation <NewFeatureBadge introducedIn="4.1" />
+        Logo variation <NewFeatureBadge introducedIn="4.2" />
       </BTDRadioSelectSettingsRow>
       <div className={settingsRegularText}>
         <p>

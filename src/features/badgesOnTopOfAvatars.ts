@@ -1,10 +1,18 @@
 import './badgesOnTopOfAvatars.css';
 
+import {DateTime} from 'luxon';
+
 import {onChirpAdded} from '../services/chirpHandler';
 import {makeBTDModule, makeBtdUuidSelector} from '../types/btdCommonTypes';
-import {ChirpBaseTypeEnum, TweetDeckUser, TwitterActionEnum} from '../types/tweetdeckTypes';
+import {
+  ChirpBaseTypeEnum,
+  TweetDeckControllerClient,
+  TweetDeckControllerRelationshipResult,
+  TweetDeckUser,
+  TwitterActionEnum,
+} from '../types/tweetdeckTypes';
 
-export const putBadgesOnTopOfAvatars = makeBTDModule(({settings}) => {
+export const putBadgesOnTopOfAvatars = makeBTDModule(({TD, settings}) => {
   if (!settings.badgesOnTopOfAvatars) {
     return;
   }
@@ -13,7 +21,7 @@ export const putBadgesOnTopOfAvatars = makeBTDModule(({settings}) => {
   onChirpAdded((addedChirp) => {
     const {chirp, chirpExtra} = addedChirp;
     const actionOrType = chirpExtra.action || chirpExtra.chirpType;
-    let userToVerify: TweetDeckUser | undefined;
+    let userForBadge: TweetDeckUser | undefined;
     const classesToAdd = ['btd-badge'];
     const chirpNode = document.querySelector(makeBtdUuidSelector('data-btd-uuid', addedChirp.uuid));
 
@@ -31,10 +39,10 @@ export const putBadgesOnTopOfAvatars = makeBTDModule(({settings}) => {
       case TwitterActionEnum.FAVORITED_MENTION:
       case TwitterActionEnum.FAVORITED_RETWEET:
         if (chirpNode.querySelector('.has-source-avatar')) {
-          userToVerify = chirp.sourceUser;
+          userForBadge = chirp.sourceUser;
           classesToAdd.push('btd-mini-badge');
         } else {
-          userToVerify = chirp.targetTweet?.user;
+          userForBadge = chirp.targetTweet?.user;
         }
 
         break;
@@ -42,12 +50,12 @@ export const putBadgesOnTopOfAvatars = makeBTDModule(({settings}) => {
       case TwitterActionEnum.MENTION:
       case TwitterActionEnum.QUOTED_TWEET:
       case TwitterActionEnum.QUOTE:
-        userToVerify = chirp.sourceUser;
+        userForBadge = chirp.sourceUser;
         break;
 
       case TwitterActionEnum.LIST_MEMBER_ADDED:
       case TwitterActionEnum.LIST_MEMBER_REMOVED:
-        userToVerify = chirp.owner;
+        userForBadge = chirp.owner;
         classesToAdd.push('btd-mini-badge');
         break;
 
@@ -56,29 +64,90 @@ export const putBadgesOnTopOfAvatars = makeBTDModule(({settings}) => {
           break;
         }
 
-        userToVerify = chirp.participants[0];
+        userForBadge = chirp.participants[0];
         break;
 
       case ChirpBaseTypeEnum.TWEET:
-        userToVerify = chirp.retweetedStatus ? chirp.retweetedStatus.user : chirp.user;
+        userForBadge = chirp.retweetedStatus ? chirp.retweetedStatus.user : chirp.user;
         break;
 
       case ChirpBaseTypeEnum.MESSAGE:
-        userToVerify = chirp.sender;
+        userForBadge = chirp.sender;
         break;
 
       default:
         break;
     }
 
-    if (!userToVerify || !chirpNode) {
+    if (!userForBadge || !chirpNode) {
       return;
     }
 
-    if (userToVerify.isVerified) {
+    if (userForBadge.isVerified && settings.verifiedBadges) {
       chirpNode.classList.add(...classesToAdd, 'btd-verified-badge');
-    } else if (userToVerify.isTranslator) {
+    } else if (userForBadge.isTranslator && settings.translatorBadges) {
       chirpNode.classList.add(...classesToAdd, 'btd-translator-badge');
+    } else if (userForBadge.following && settings.mutualBadges) {
+      getFollowerStatus(userForBadge).then((result) => {
+        if (!result) {
+          return;
+        }
+
+        if (result.relationship.target.followed_by && result.relationship.target.following) {
+          chirpNode.classList.add(...classesToAdd, 'btd-mutual-badge');
+        }
+      });
     }
   });
+
+  type CachedRelationship = TweetDeckControllerRelationshipResult & {
+    requested_date: number;
+  };
+
+  const relationshipCache = JSON.parse(localStorage.getItem('btd-relationship-cache') || '{}') as {
+    [k: string]: CachedRelationship | undefined;
+  };
+
+  window.addEventListener('beforeunload', () => {
+    localStorage.setItem('btd-relationship-cache', JSON.stringify(relationshipCache));
+  });
+
+  async function getRelationForUserAndClient(
+    client: TweetDeckControllerClient,
+    user: TweetDeckUser
+  ): Promise<CachedRelationship | undefined> {
+    // Computing a cache key
+    const cacheKey = `${client.oauth.account.state.userId}-${user.id}`;
+    // Looking into our cache
+    const fromCache = relationshipCache[cacheKey];
+    const now = DateTime.local();
+
+    if (fromCache) {
+      const requestDate = DateTime.fromMillis(fromCache.requested_date);
+      const diff = requestDate.diff(now, 'days');
+
+      // If our cache is less than a day old, take from it.
+      if (diff.days <= 1) {
+        return relationshipCache[cacheKey];
+      }
+    }
+
+    return new Promise<CachedRelationship>((resolve) => {
+      client.showFriendship(client.oauth.account.state.userId, null, user.screenName, (result) => {
+        const toCache = {...result, requested_date: Date.now()};
+        resolve(toCache);
+        relationshipCache[cacheKey] = toCache;
+      });
+    });
+  }
+
+  async function getFollowerStatus(user: TweetDeckUser) {
+    const client = TD.controller.clients.getClient(user.account.privateState.key);
+
+    if (!client) {
+      return;
+    }
+
+    return getRelationForUserAndClient(client, user);
+  }
 });
