@@ -409,5 +409,17 @@
   },
   "settings_show_followers_count": {
     "message": "Mostrar o número de seguidores ao lado do ícone de seguir"
+  },
+  "settings_show_verified_badges": {
+    "message": "Mostrar selo de verificado"
+  },
+  "settings_show_translator_badges": {
+    "message": "Mostrar selo de tradutor"
+  },
+  "settings_show_badges_on_mutuals": {
+    "message": "Mostrar selos em mutuais (vocês se seguem)"
+  },
+  "settings_badges": {
+    "message": "Selos"
   }
 }
