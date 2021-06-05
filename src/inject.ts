@@ -19,6 +19,7 @@ import {maybeFreezeGifsInProfilePicture} from './features/freezeGifsProfilePictu
 import {setupGifModals} from './features/gifModals';
 import {maybeHideColumnIcons} from './features/hideColumnIcons';
 import {keepTweetedHashtagsInComposer} from './features/keepTweetedHashtags';
+import {changeLogo} from './features/logoVariations';
 import {makeSearchColumnsFirst} from './features/makeSearchColumnsFirst';
 import {useModernOverlays} from './features/modernOverlays';
 import {pauseColumnsOnHover} from './features/pauseColumnsOnHover';
@@ -89,6 +90,7 @@ const jq: JQueryStatic | undefined =
   // Setup BTD features
   setupChirpHandler(btdModuleOptions);
   maybeSetupDebugFunctions(btdModuleOptions);
+  changeLogo(btdModuleOptions);
 
   overrideTranslateLanguage(btdModuleOptions);
   makeSearchColumnsFirst(btdModuleOptions);

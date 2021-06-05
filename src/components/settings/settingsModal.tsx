@@ -10,6 +10,7 @@ import {getExtensionUrl, getExtensionVersion} from '../../helpers/webExtensionHe
 import {OnSettingsUpdate} from '../../services/setupSettings';
 import {BTDSettings} from '../../types/btdSettingsTypes';
 import {getTransString, Trans} from '../trans';
+import {NewFeatureBadge} from './components/newFeatureBadge';
 import {SettingsButton} from './components/settingsButton';
 import {
   SettingsContent,
@@ -83,11 +84,10 @@ export const SettingsModal = (props: SettingsModalProps) => {
     }
   }, [onSettingsUpdate, settings]);
 
-  const canSave = useMemo(() => !editorHasErrors && isDirty && !saveError, [
-    editorHasErrors,
-    isDirty,
-    saveError,
-  ]);
+  const canSave = useMemo(
+    () => !editorHasErrors && isDirty && !saveError,
+    [editorHasErrors, isDirty, saveError]
+  );
 
   const menu = useMemo(() => {
     return makeSettingsMenu(
@@ -101,11 +101,10 @@ export const SettingsModal = (props: SettingsModalProps) => {
     );
   }, [settings]);
 
-  const showSettingsLabel = useMemo(() => !isEqual(props.btdSettings, settings) || isDirty, [
-    isDirty,
-    props.btdSettings,
-    settings,
-  ]);
+  const showSettingsLabel = useMemo(
+    () => !isEqual(props.btdSettings, settings) || isDirty,
+    [isDirty, props.btdSettings, settings]
+  );
 
   const renderSearchIndex = () => {
     return renderMenuInInvisibleContainer(menu);
@@ -156,7 +155,10 @@ export const SettingsModal = (props: SettingsModalProps) => {
                             setSelectedId(item.id);
                             setSearchQuery('');
                           }}>
-                          <div className="text">{item.label}</div>
+                          <div className="text">
+                            {item.label}{' '}
+                            {item.badgeProps && <NewFeatureBadge {...item.badgeProps} />}
+                          </div>
                         </li>
                       </Fragment>
                     );

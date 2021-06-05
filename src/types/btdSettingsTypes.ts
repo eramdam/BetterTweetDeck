@@ -4,6 +4,7 @@ import {BTDAvatarShapes} from '../features/changeAvatarShape';
 import {BTDScrollbarsMode} from '../features/changeScrollbars';
 import {BTDTimestampFormats} from '../features/changeTimestampFormat';
 import {BTDTweetActionsPosition} from '../features/changeTweetActions';
+import {BTDLogoVariations} from '../features/logoVariations';
 import {BetterTweetDeckAccentColors, BetterTweetDeckThemes} from '../features/themeTweaks';
 import {BTDUsernameFormat} from '../features/usernameDisplay';
 import {isFirefox} from '../helpers/browserHelpers';
@@ -197,6 +198,12 @@ export const RBetterTweetDeckSettings = t.type({
 
   overrideTranslationLanguage: withDefault(t.boolean, false),
   customTranslationLanguage: withDefault(t.string, ''),
+
+  /** Change the logo shown at the bottom left of TweetDeck */
+  logoVariation: withDefault(
+    makeEnumRuntimeType<BTDLogoVariations>(BTDLogoVariations),
+    BTDLogoVariations.DEFAULT
+  ),
 });
 
 export interface BTDSettings extends t.TypeOf<typeof RBetterTweetDeckSettings> {}

@@ -395,6 +395,12 @@
   "settings_default_browsers_language": {
     "message": "Default (browser's language)"
   },
+  "settings_logo_variation": {
+    "message": "Logo variation"
+  },
+  "settings_default": {
+    "message": "Default"
+  },
   "settings_action_follow_author": {
     "message": "Add action to follow author"
   },

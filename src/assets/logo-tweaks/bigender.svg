@@ -1,0 +1,18 @@
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
+  <g clip-path="url(#bigender__clip0)">
+    <path fill="#333" d="M-1.25 20.625h31.313v7.313H-1.25z"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M0 1h28v20H0V1z" fill="#000"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-1 17h30v10H-1V17z" fill="#6160B1"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-1 14h30v4.143H-1V14z" fill="#7FABDD"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-1 11.5h30v3.786H-1V11.5z" fill="#D8C0F7"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-1 9h30v3.429H-1V9z" fill="#fff"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-1 6h30v3.571H-1V6z" fill="#D8C0F7"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-1 3h30v3.714H-1V3z" fill="#D993BD"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-1 0h30v3.857H-1V0z" fill="#AF599A"/>
+  </g>
+  <defs>
+    <clipPath id="bigender__clip0">
+      <path fill="#fff" d="M0 0h26v26H0z"/>
+    </clipPath>
+  </defs>
+</svg>

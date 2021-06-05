@@ -1,0 +1,14 @@
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
+  <g clip-path="url(#polyamory__clip0)">
+    <path fill="#F8F241" d="M-1.25 20.625h31.313v7.313H-1.25z"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-2 7h30v8H-2V7z" fill="#FA0709"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-2 14h30v16H-2V14z" fill="#333"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-2 0h30v7.667H-2V0z" fill="#0400ED"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M13 9h3v1h-1v1.494a.504.504 0 00.474.505l.538.014-.025.999-.564-.014a1.585 1.585 0 01-.507-.116 1.512 1.512 0 01-.849-.936 1.64 1.64 0 01-.067-.44V10h-1v1.506a1.64 1.64 0 01-.067.44c-.13.418-.446.766-.849.936a1.585 1.585 0 01-.507.116l-.564.014-.025-.999c.188-.005.376-.001.564-.016a.507.507 0 00.418-.325.568.568 0 00.03-.178V10h-1V9h2z" fill="#FFEB0C"/>
+  </g>
+  <defs>
+    <clipPath id="polyamory__clip0">
+      <path fill="#fff" d="M0 0h26v26H0z"/>
+    </clipPath>
+  </defs>
+</svg>

@@ -1,0 +1,13 @@
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
+  <g clip-path="url(#polysexual__clip0)">
+    <path fill="#2080ED" d="M-1.25 20.625h31.313v7.313H-1.25z"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-3.5 10.185h30v11.002h-30V10.185z" fill="#2080ED"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-3.5-.818h30v11.003h-30V-.818z" fill="#E104AA"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M-4 7h35v6H-4V7z" fill="#20BF60"/>
+  </g>
+  <defs>
+    <clipPath id="polysexual__clip0">
+      <path fill="#fff" d="M0 0h26v26H0z"/>
+    </clipPath>
+  </defs>
+</svg>
