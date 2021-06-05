@@ -391,5 +391,11 @@
   },
   "settings_default_browsers_language": {
     "message": "Padrão (idioma do navegador)"
+  },
+  "settings_logo_variation": {
+    "message": "Variação do logotipo"
+  },
+  "settings_default": {
+    "message": "Padrão"
   }
 }
