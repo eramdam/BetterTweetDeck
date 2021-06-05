@@ -2,6 +2,10 @@
   content: '\F186';
 }
 
+.following .icon-follow-toggle {
+  color: #1da1f2;
+}
+
 .icon-muted::before {
   content: '\F101';
 }

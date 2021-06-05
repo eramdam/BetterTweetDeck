@@ -5,12 +5,13 @@ import {Dictionary} from 'lodash';
 import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
 import {createSelectorForChirp, getChirpFromKey} from '../helpers/tweetdeckHelpers';
 import {hasProperty} from '../helpers/typeHelpers';
-import {onVisibleChirpAdded} from '../services/chirpHandler';
+import {ChirpAddedPayload, onChirpAdded, onVisibleChirpAdded} from '../services/chirpHandler';
 import {makeBTDModule} from '../types/btdCommonTypes';
 import {
   TweetDeckChirp,
   TweetDeckColumn,
   TweetDeckColumnMediaPreviewSizesEnum,
+  TweetDeckObject,
   TwitterStatus,
 } from '../types/tweetdeckTypes';
 
@@ -134,7 +135,22 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
     }
   );
 
+  onChirpAdded((payload) => {
+    const chirpNodes = jq(`${createSelectorForChirp(payload.chirp, payload.columnKey)}`);
+
+    if (!chirpNodes.closest('.js-detail-content > div:not(.tweet-detail-wrapper)').length) {
+      return;
+    }
+
+    chirpNodes.toArray().forEach((node) => {
+      maybeRenderCardForChirp(TD, payload, jq(node), true);
+    });
+  });
+
   onVisibleChirpAdded(async (payload) => {
+    if (payload.chirp?.user?.screenName === 'MenicaFolden') {
+      console.log(payload.chirp);
+    }
     if (
       payload.columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.OFF ||
       (payload.columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.SMALL &&
@@ -143,14 +159,29 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
       return;
     }
 
-    const cardContainer = jq(
-      `${createSelectorForChirp(payload.chirp, payload.columnKey)} .js-card-container`
-    );
-    const chirpNode = jq(`${createSelectorForChirp(payload.chirp, payload.columnKey)}`);
+    const chirpNodes = jq(`${createSelectorForChirp(payload.chirp, payload.columnKey)}`);
 
-    if (chirpNode.closest('.js-tweet-detail.tweet-detail-wrapper').length) {
+    if (chirpNodes.closest('.js-tweet-detail.tweet-detail-wrapper').length) {
       return;
     }
+
+    chirpNodes.toArray().forEach((node) => {
+      maybeRenderCardForChirp(TD, payload, jq(node), true);
+    });
+  });
+
+  function maybeRenderCardForChirp(
+    TD: TweetDeckObject,
+    payload: ChirpAddedPayload,
+    chirpNode: JQuery<HTMLElement>,
+    renderInvisible?: boolean
+  ) {
+    if (!getColumnTypeModule || !renderCardForChirpModule) {
+      console.log('skipping', payload);
+      return;
+    }
+
+    const cardContainer = chirpNode.find(`.js-card-container`);
 
     // If we already have a card, nothing to do.
     if (cardContainer.has('iframe').length) {
@@ -176,7 +207,7 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
     }
 
     // If the chirp is out of the view, don't render the card.
-    if (isNodeIsOutsideOfTheViewport(chirpNode[0])) {
+    if (isNodeIsOutsideOfTheViewport(chirpNode[0]) && !renderInvisible) {
       return;
     }
 
@@ -191,7 +222,7 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
       context: 'detail',
       scribeNamespace,
     });
-  });
+  }
 });
 
 function isNodeIsOutsideOfTheViewport(node: HTMLElement) {

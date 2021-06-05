@@ -178,6 +178,31 @@ export const SettingsTweetActions: FC<SettingsMenuSectionProps> = (props) => {
       </SettingsRow>
       <CheckboxSelectSettingsRow
         onChange={(key, value) => {
+          makeOnSettingsChange(key as keyof BTDSettings)(value);
+        }}
+        fields={[
+          {
+            initialValue: settings.addFollowAction,
+            key: 'addFollowAction',
+            label: <Trans id="settings_action_follow_author" />,
+          },
+          {
+            initialValue: settings.showAccountChoiceOnFollow,
+            isDisabled: !settings.addFollowAction,
+            key: 'showAccountChoiceOnFollow',
+            label: <Trans id="settings_show_account_picker_follow" />,
+          },
+          {
+            initialValue: settings.showFollowersCount,
+            isDisabled: !settings.addFollowAction,
+            key: 'showFollowersCount',
+            label: <Trans id="settings_show_followers_count" />,
+          },
+        ]}>
+        <Trans id="settings_follow_actions" />
+      </CheckboxSelectSettingsRow>
+      <CheckboxSelectSettingsRow
+        onChange={(key, value) => {
           makeOnSettingsChange('tweetMenuItems')({
             ...settings.tweetMenuItems,
             [key]: value,
