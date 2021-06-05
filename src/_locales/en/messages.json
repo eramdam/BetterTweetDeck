@@ -409,5 +409,17 @@
   },
   "settings_show_followers_count": {
     "message": "Show the number of followers next to the follow icon"
+  },
+  "settings_show_verified_badges": {
+    "message": "Show verified badges"
+  },
+  "settings_show_translator_badges": {
+    "message": "Show translator badges"
+  },
+  "settings_show_badges_on_mutuals": {
+    "message": "Show badges on mutuals (you follow them and they follow you)"
+  },
+  "settings_badges": {
+    "message": "Badges"
   }
 }
