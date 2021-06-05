@@ -391,5 +391,8 @@
   },
   "settings_default_browsers_language": {
     "message": "デフォルト (ブラウザの言語)"
+  },
+  "settings_badges": {
+    "message": "バッジ"
   }
 }
