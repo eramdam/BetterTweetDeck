@@ -181,7 +181,10 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
     const mediaPreview = chirpNode.find('.js-media');
 
     // If we already have a card, nothing to do.
-    if (cardContainer.has('iframe').length || mediaPreview.length) {
+    if (
+      (cardContainer.has('iframe').length || mediaPreview.length) &&
+      !chirpNode.find('[btd-card]').length
+    ) {
       chirpNode.find('[btd-card]').removeAttr('btd-card');
       return;
     }
