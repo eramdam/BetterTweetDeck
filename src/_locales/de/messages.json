@@ -396,13 +396,13 @@
     "message": "Voreinstellung (Sprache des Browsers)"
   },
   "settings_logo_variation": {
-    "message": "Logo-Variante"
+    "message": "Logo-Varianten"
   },
   "settings_default": {
     "message": "Voreinstellung"
   },
   "settings_action_follow_author": {
-    "message": "Aktion zum Folgen des Tweet-Autors hinzufügen"
+    "message": "Aktion hinzufügen, um dem Tweet-Autor zu folgen"
   },
   "settings_follow_actions": {
     "message": "Follow-Aktionen"
