@@ -19,6 +19,7 @@
     "_build": "cross-env NODE_ENV=production webpack --progress --env",
     "build:safari": "npm run _build -- browser=safari",
     "build:firefox": "npm run _build -- browser=firefox",
+    "build:firefox-beta": "npm run _build -- browser=firefox-beta",
     "build:chrome": "npm run _build -- browser=chrome",
     "_build:prod": "cross-env NODE_ENV=production webpack --progress --env",
     "build:prod:safari": "npm run _build:prod -- browser=safari",
