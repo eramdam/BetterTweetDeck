@@ -36,4 +36,9 @@
   & .js-tweet[btd-card='player'] .js-card-container {
     min-height: 85px;
   }
+
+  & #actions-modal.js-modal [btd-card] .js-card-container {
+    min-height: initial !important;
+    height: initial !important;
+  }
 }
