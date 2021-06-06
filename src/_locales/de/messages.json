@@ -402,7 +402,10 @@
     "message": "Voreinstellung"
   },
   "settings_action_follow_author": {
-    "message": "Aktion hinzufügen, um dem Autor zu folgen"
+    "message": "Aktion zum Folgen des Tweet-Autors hinzufügen"
+  },
+  "settings_follow_actions": {
+    "message": "Follow-Aktionen"
   },
   "settings_show_followers_count": {
     "message": "Zeige die Anzahl der Follower beim \"Folgen\"-Icon"
