@@ -239,10 +239,20 @@ function isNodeIsOutsideOfTheViewport(node: HTMLElement) {
   );
 }
 
+const youtube_re =
+  /(?:(?:https?:\/\/)?(?:www\.)?)?youtube\.com\/watch[a-zA-Z0-9_\-?&=/]+|(http:\/\/|www.)?youtu\.be\/([a-zA-Z0-9_\-?&=/]+)/;
+
 function statusHasEligibleCard(status: TwitterStatus['prototype']) {
+  const hasYoutube = status.entities?.urls.some((u) => u.expanded_url.match(youtube_re));
   const cardName =
     status.targetTweet && !status.isAboutYou() ? status.targetTweet.card?.name : status.card?.name;
   const user = status.targetTweet ? status.targetTweet.user : status.user;
 
-  return user && !user.isProtected && allowedCardNames.includes(cardName || '');
+  return (
+    !hasYoutube &&
+    user &&
+    !user.isProtected &&
+    allowedCardNames.includes(cardName || '') &&
+    !status.quotedTweet
+  );
 }
