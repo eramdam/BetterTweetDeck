@@ -1,0 +1,140 @@
+:root {
+  --btd-logo-background: url('../assets/logo-tweaks/btd.svg');
+  --btd-logo-border-color: transparent;
+}
+
+[btd-logo='asexual'] {
+  --btd-logo-background: url('../assets/logo-tweaks/asexual.svg');
+}
+[btd-logo='agender'] {
+  --btd-logo-background: url('../assets/logo-tweaks/agender.svg');
+}
+[btd-logo='androgyne'] {
+  --btd-logo-background: url('../assets/logo-tweaks/androgyne.svg');
+}
+[btd-logo='aromantic'] {
+  --btd-logo-background: url('../assets/logo-tweaks/aromantic.svg');
+}
+[btd-logo='bigender'] {
+  --btd-logo-background: url('../assets/logo-tweaks/bigender.svg');
+}
+[btd-logo='bisexual'] {
+  --btd-logo-background: url('../assets/logo-tweaks/bisexual.svg');
+}
+[btd-logo='demigirl'] {
+  --btd-logo-background: url('../assets/logo-tweaks/demigirl.svg');
+}
+[btd-logo='demiguy'] {
+  --btd-logo-background: url('../assets/logo-tweaks/demiguy.svg');
+}
+[btd-logo='deminonbinary'] {
+  --btd-logo-background: url('../assets/logo-tweaks/deminonbinary.svg');
+}
+[btd-logo='demisexual'] {
+  --btd-logo-background: url('../assets/logo-tweaks/demisexual.svg');
+}
+[btd-logo='enbian'] {
+  --btd-logo-background: url('../assets/logo-tweaks/enbian.svg');
+}
+[btd-logo='genderfluid'] {
+  --btd-logo-background: url('../assets/logo-tweaks/genderfluid.svg');
+}
+[btd-logo='genderqueer'] {
+  --btd-logo-background: url('../assets/logo-tweaks/genderqueer.svg');
+}
+[btd-logo='intersex'] {
+  --btd-logo-background: url('../assets/logo-tweaks/intersex.svg');
+}
+[btd-logo='lesbian'] {
+  --btd-logo-background: url('../assets/logo-tweaks/lesbian.svg');
+}
+[btd-logo='neutrois'] {
+  --btd-logo-background: url('../assets/logo-tweaks/neutrois.svg');
+}
+[btd-logo='non binary'] {
+  --btd-logo-background: url('../assets/logo-tweaks/non binary.svg');
+}
+[btd-logo='omnisexual'] {
+  --btd-logo-background: url('../assets/logo-tweaks/omnisexual.svg');
+}
+[btd-logo='pansexual'] {
+  --btd-logo-background: url('../assets/logo-tweaks/pansexual.svg');
+}
+[btd-logo='progress'] {
+  --btd-logo-background: url('../assets/logo-tweaks/progress.svg');
+}
+[btd-logo='polyamory'] {
+  --btd-logo-background: url('../assets/logo-tweaks/polyamory.svg');
+}
+[btd-logo='polysexual'] {
+  --btd-logo-background: url('../assets/logo-tweaks/polysexual.svg');
+}
+[btd-logo='rainbow'] {
+  --btd-logo-background: url('../assets/logo-tweaks/rainbow.svg');
+}
+[btd-logo='trans'] {
+  --btd-logo-background: url('../assets/logo-tweaks/trans.svg');
+}
+
+.btd-logo-title {
+  height: 53px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.btd-logo-wrapper {
+  position: relative;
+  width: 26px !important;
+  height: 26px !important;
+}
+
+.btd-logo-wrapper > span.btd-logo-base,
+.btd-logo-wrapper > span.btd-logo-border {
+  width: 26px !important;
+  height: 26px !important;
+  position: absolute;
+
+  display: block;
+}
+
+.btd-logo-wrapper > span.btd-logo-base {
+  z-index: 1;
+  background: var(--btd-logo-background);
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.btd-logo-wrapper > span.btd-logo-border {
+  z-index: 0;
+  width: 27px !important;
+  height: 29px !important;
+  background: var(--btd-logo-border-color);
+  margin-left: -1px;
+  margin-top: -1px;
+}
+
+.btd-logo-full {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 17px auto 13px 1fr 10px;
+  grid-template-areas: '. icon . text .';
+  align-items: center;
+}
+
+.btd-logo-full .btd-logo-wrapper {
+  grid-area: icon;
+}
+
+.btd-logo-full .btd-logo-text {
+  grid-area: text;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: left;
+  color: white;
+}

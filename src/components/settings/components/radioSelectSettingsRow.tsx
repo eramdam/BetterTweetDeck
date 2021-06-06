@@ -1,4 +1,4 @@
-import {css} from '@emotion/css';
+import {css, cx} from '@emotion/css';
 import React, {PropsWithChildren} from 'react';
 
 import {BTDSettings} from '../../../types/btdSettingsTypes';
@@ -12,13 +12,16 @@ function RadioSelectSettingsRow<S extends object, T extends keyof S>(
 ) {
   return (
     <SettingsRow
-      className={css`
-        align-items: flex-start;
+      className={cx(
+        css`
+          align-items: flex-start;
 
-        & + & {
-          padding-top: 30px;
-        }
-      `}>
+          & + & {
+            padding-top: 30px;
+          }
+        `,
+        props.className
+      )}>
       <SettingsRowTitle>{props.children}</SettingsRowTitle>
       <SettingsRowContent
         className={css`
@@ -45,7 +48,7 @@ export function BTDRadioSelectSettingsRow<T extends keyof BTDSettings>(
     <>
       {renderAndAddtoIndex({
         key: props.settingsKey,
-        keywords: props.fields.map((f) => reactElementToString(f.label)),
+        keywords: props.fields.map((f) => reactElementToString(f.searchTerm || f.label)),
         render: (newSettings) =>
           RadioSelectSettingsRow({...props, initialValue: newSettings[props.settingsKey]}),
       })}

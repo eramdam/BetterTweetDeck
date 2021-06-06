@@ -137,42 +137,44 @@ interface Time {
   oneHour: number;
 }
 
+export interface TweetDeckControllerRelationshipResult {
+  relationship: {
+    source: {
+      all_replies: boolean;
+      blocked_by: boolean;
+      blocking: boolean;
+      can_dm: boolean;
+      followed_by: boolean;
+      following: boolean;
+      following_received: boolean;
+      following_requested: boolean;
+      id: number;
+      id_str: string;
+      live_following: boolean;
+      marked_spam: boolean;
+      muting: boolean;
+      notifications_enabled: boolean;
+      screen_name: string;
+      want_retweets: boolean;
+    };
+    target: {
+      followed_by: boolean;
+      following: boolean;
+      following_received: boolean;
+      following_requested: boolean;
+      id: number;
+      id_str: string;
+      screen_name: string;
+    };
+  };
+}
+
 export interface TweetDeckControllerClient {
   showFriendship(
     userId: string,
     targetUserId: string | null,
     targetScreenName: string | null,
-    callback: HandlerOf<{
-      relationship: {
-        source: {
-          all_replies: boolean;
-          blocked_by: boolean;
-          blocking: boolean;
-          can_dm: boolean;
-          followed_by: boolean;
-          following: boolean;
-          following_received: boolean;
-          following_requested: boolean;
-          id: number;
-          id_str: string;
-          live_following: boolean;
-          marked_spam: boolean;
-          muting: boolean;
-          notifications_enabled: boolean;
-          screen_name: string;
-          want_retweets: boolean;
-        };
-        target: {
-          followed_by: boolean;
-          following: boolean;
-          following_received: boolean;
-          following_requested: boolean;
-          id: number;
-          id_str: string;
-          screen_name: string;
-        };
-      };
-    }>
+    callback: HandlerOf<TweetDeckControllerRelationshipResult>
   ): void;
   oauth: {
     account: {
@@ -192,6 +194,7 @@ interface TweetDeckController {
   stats: Stats;
   clients: {
     getClientsByService(service: 'twitter'): TweetDeckControllerClient[];
+    getClient(key: string): TweetDeckControllerClient | undefined;
   };
   scheduler: Scheduler;
   feedScheduler: FeedScheduler;
@@ -463,6 +466,7 @@ interface ChirpAccount {
   privateState: ChirpAccountPrivateState;
   managed: boolean;
   getUserID(): string;
+  getKey(): string;
 }
 
 interface ChirpAccountPrivateState {
@@ -527,6 +531,8 @@ interface User {
   _profileBannerURL: string;
   prototype: this;
   getExpandedURL(): string;
+  setFollowing?(following: boolean): void;
+  prettyFollowersCountInTweetAction?(): string;
 }
 
 interface SourceUserEntities {
@@ -632,11 +638,15 @@ export interface TweetDeckChirp {
   getMainTweet(): TweetDeckChirp;
   getReplyUsers(): User[];
   getReplyingToUsers(): User[];
+  isAboutYou(): boolean;
+  hasEligibleCard?(): boolean;
   destroy(): void;
   isRetweetedStatus(): boolean;
   getFilterableText(): string;
   favorite(options: {element: JQuery<Element>; statusKey: string; column: string}): void;
-  card: object;
+  card?: {
+    name: string;
+  };
 }
 
 export interface TweetHashtag {
@@ -1093,7 +1103,7 @@ interface Net {
   ajax: unknown;
 }
 
-interface TwitterStatus extends TweetDeckChirp {
+export interface TwitterStatus extends TweetDeckChirp {
   prototype: TweetDeckChirp & {
     [k: string]: any;
     getReplyingToUsers(): User[];
@@ -1103,6 +1113,7 @@ interface TwitterStatus extends TweetDeckChirp {
 interface Services {
   bitly: unknown;
   TwitterStatus: TwitterStatus;
+  TwitterActionOnTweet: TwitterStatus;
   TwitterUser: User;
   ChirpBase: {
     MESSAGE: string;
@@ -1300,6 +1311,7 @@ interface TweetDeckUtil {
   poller: unknown;
   createUrlAnchor(e: any): string;
   pluck(method: string): (a: any) => any;
+  truncateNumber(n: number): string;
 }
 
 interface DatesCached {

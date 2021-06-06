@@ -133,11 +133,6 @@ export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
             label: <Trans id="settings_collapse_read_dms" />,
           },
           {
-            initialValue: settings.badgesOnTopOfAvatars,
-            key: 'badgesOnTopOfAvatars',
-            label: <Trans id="settings_show_profile_badges_on_top_of_avatars" />,
-          },
-          {
             initialValue: settings.disableGifsInProfilePictures,
             key: 'disableGifsInProfilePictures',
             label: <Trans id="settings_freeze_gifs_in_profile_pictures" />,
@@ -149,6 +144,38 @@ export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
           },
         ]}>
         <Trans id="settings_misc" />
+      </CheckboxSelectSettingsRow>
+      <CheckboxSelectSettingsRow
+        onChange={(key, value) => {
+          makeOnSettingsChange(key as keyof BTDSettings)(value);
+        }}
+        fields={[
+          {
+            initialValue: settings.badgesOnTopOfAvatars,
+            key: 'badgesOnTopOfAvatars',
+            label: <Trans id="settings_show_profile_badges_on_top_of_avatars" />,
+          },
+          {
+            isDisabled: !settings.badgesOnTopOfAvatars,
+            initialValue: settings.verifiedBadges,
+            key: 'verifiedBadges',
+            label: <Trans id="settings_show_verified_badges" />,
+          },
+          {
+            isDisabled: !settings.badgesOnTopOfAvatars,
+            initialValue: settings.translatorBadges,
+            key: 'translatorBadges',
+            label: <Trans id="settings_show_translator_badges" />,
+          },
+          {
+            isDisabled: !settings.badgesOnTopOfAvatars,
+            initialValue: settings.mutualBadges,
+            key: 'mutualBadges',
+            label: <Trans id="settings_show_badges_on_mutuals" />,
+            introducedIn: '4.2',
+          },
+        ]}>
+        <Trans id="settings_badges" />
       </CheckboxSelectSettingsRow>
       {!isSafari && (
         <CheckboxSelectSettingsRow
