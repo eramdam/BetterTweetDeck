@@ -398,10 +398,22 @@
   "settings_default_browsers_language": {
     "message": "デフォルト (ブラウザの言語)"
   },
+  "settings_action_follow_author": {
+    "message": "投稿者をフォローするアクションを追加"
+  },
   "settings_follow_actions": {
     "message": "フォローアクション"
   },
   "settings_show_followers_count": {
     "message": "フォローアイコンの隣にフォロワー数を表示する"
+  },
+  "settings_show_verified_badges": {
+    "message": "認証バッジを表示"
+  },
+  "settings_show_translator_badges": {
+    "message": "翻訳者バッジを表示"
+  },
+  "settings_badges": {
+    "message": "バッジ"
   }
 }

@@ -261,7 +261,10 @@
     "message": "O TweetDeck precisará ser recarregado para que as alterações tenham efeito!"
   },
   "settings_show_account_picker_like": {
-    "message": "Mostrar selecionador de conta ao clicar no botão curtir"
+    "message": "Mostrar selecionador de conta ao clicar no botão de curtir"
+  },
+  "settings_show_account_picker_follow": {
+    "message": "Mostrar selecionador de conta ao clicar no botão de seguir"
   },
   "settings_accent_color": {
     "message": "Cor em destaque"
@@ -391,5 +394,32 @@
   },
   "settings_default_browsers_language": {
     "message": "Padrão (idioma do navegador)"
+  },
+  "settings_logo_variation": {
+    "message": "Variação do logotipo"
+  },
+  "settings_default": {
+    "message": "Padrão"
+  },
+  "settings_action_follow_author": {
+    "message": "Adicionar ação para seguir o autor"
+  },
+  "settings_follow_actions": {
+    "message": "Ação de seguir"
+  },
+  "settings_show_followers_count": {
+    "message": "Mostrar o número de seguidores ao lado do ícone de seguir"
+  },
+  "settings_show_verified_badges": {
+    "message": "Mostrar selo de verificado"
+  },
+  "settings_show_translator_badges": {
+    "message": "Mostrar selo de tradutor"
+  },
+  "settings_show_badges_on_mutuals": {
+    "message": "Mostrar selos em mutuais (vocês se seguem)"
+  },
+  "settings_badges": {
+    "message": "Selos"
   }
 }
