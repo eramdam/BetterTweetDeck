@@ -2,11 +2,11 @@
   --btd-avatar-radius: 50%;
 }
 
-:matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
+:is(.tweet-avatar, .prf-img, .avatar, .compose-account) {
   border-radius: var(--btd-avatar-radius) !important;
 }
 
-:matches(.tweet-avatar, .prf-img, .avatar, .compose-account) {
+:is(.tweet-avatar, .prf-img, .avatar, .compose-account) {
   border-radius: var(--btd-avatar-radius) !important;
 }
 

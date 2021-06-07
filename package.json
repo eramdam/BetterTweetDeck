@@ -42,9 +42,9 @@
     "*.{css,md,html,json}": "prettier --write"
   },
   "browserslist": [
-    "last 1 chrome versions",
-    "last 1 firefox versions",
-    "last 1 edge versions",
+    "last 3 chrome versions",
+    "last 3 firefox versions",
+    "last 3 edge versions",
     "last 1 safari versions"
   ],
   "homepage": "https://github.com/eramdam/BetterTweetDeck",

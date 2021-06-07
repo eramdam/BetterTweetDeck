@@ -1,5 +1,5 @@
 .btd-loaded[btd-small-compose-icns='true'] {
-  & :matches(.js-add-image-button, .js-schedule-button, .js-add-emojis, .js-tweet-type-button > button) {
+  & :is(.js-add-image-button, .js-schedule-button, .js-add-emojis, .js-tweet-type-button > button) {
     width: auto !important;
     float: left !important;
     margin-right: 4px;

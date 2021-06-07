@@ -11,7 +11,8 @@ html.dark .column-header-link:hover {
   color: white;
 }
 
-:matches(html, html.dark) {
+html,
+html.dark {
   /** Sidebar links/buttons */
   & .column-header-link,
   & .app-nav-link,
