@@ -353,9 +353,6 @@
   "settings_do_the_same_for_single_images_in_quoted_tweets": {
     "message": "引用ツイートに含まれる単一の画像も同様に表示する"
   },
-  "settings_action_follow_author": {
-    "message": "投稿者をフォローするアクションを追加"
-  },
   "settings_default_dark_theme": {
     "message": "デフォルト"
   },
@@ -398,6 +395,15 @@
   "settings_default_browsers_language": {
     "message": "デフォルト (ブラウザの言語)"
   },
+  "settings_logo_variation": {
+    "message": "ロゴの種類"
+  },
+  "settings_default": {
+    "message": "デフォルト"
+  },
+  "settings_action_follow_author": {
+    "message": "投稿者をフォローするアクションを追加"
+  },
   "settings_follow_actions": {
     "message": "フォローアクション"
   },
@@ -409,6 +415,9 @@
   },
   "settings_show_translator_badges": {
     "message": "翻訳者バッジを表示"
+  },
+  "settings_show_badges_on_mutuals": {
+    "message": "相互フォローにバッジを表示する (あなたが相手をフォローして、相手もあなたをフォローしている場合に表示)"
   },
   "settings_badges": {
     "message": "バッジ"
