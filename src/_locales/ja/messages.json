@@ -398,9 +398,6 @@
   "settings_default_browsers_language": {
     "message": "デフォルト (ブラウザの言語)"
   },
-  "settings_action_follow_author": {
-    "message": "投稿者をフォローするアクションを追加"
-  },
   "settings_follow_actions": {
     "message": "フォローアクション"
   },
