@@ -18,8 +18,8 @@ const textMenuItemId = 'bettertweetdeck-share-item';
  */
 
 // Startup logic
-setupSettingsInBackground().then(async (settings) => {
-  console.log('settings', settings);
+browser.runtime.onInstalled.addListener(async () => {
+  const settings = await setupSettingsInBackground();
 
   if (settings.installedVersion !== getExtensionVersion()) {
     await ExtensionSettings.set({
