@@ -43,7 +43,7 @@ export async function getValidatedSettings(): Promise<BTDSettings> {
 /** Retrieves and apply extension settings. */
 export async function setupSettingsInBackground() {
   const settings = await getValidatedSettings();
-  console.log({settings});
 
   await ExtensionSettings.set(settings);
+  return settings;
 }
