@@ -4,7 +4,7 @@
     margin-top: 10px;
   }
   /* Cards act weird and don't load in Collections columns */
-  &[data-column-type='col_customtimeline'] .js-tweet[btd-card] .js-card-container {
+  & [data-column-type='col_customtimeline'] .js-tweet[btd-card] .js-card-container {
     min-height: initial !important;
   }
   /* Article preview, large (should be around 220px but sometimes the card doesnt have an image so it ends up smaller despite the name */
