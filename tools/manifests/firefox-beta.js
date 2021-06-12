@@ -3,7 +3,7 @@ const {DateTime} = require('luxon');
 
 module.exports = {
   ...require('./common.js'),
-  version: DateTime.local().toFormat('yy.M.dHH.mm'),
+  version: DateTime.local().toFormat('yy.MdHH.mm'),
   optional_permissions: ['tabs'],
   applications: {
     gecko: {
