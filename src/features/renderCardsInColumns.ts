@@ -71,6 +71,10 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
   }
 
   document.body.setAttribute('btd-render-cards', 'true');
+  document.body.setAttribute(
+    'btd-render-small-cards',
+    String(settings.showCardsInSmallMediaColumns)
+  );
 
   TD.services.TwitterStatus.prototype.hasEligibleCard = function () {
     return statusHasEligibleCard(this);

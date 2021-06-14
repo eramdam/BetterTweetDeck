@@ -37,7 +37,10 @@
     min-height: 85px;
   }
 
-  & #actions-modal.js-modal [btd-card] .js-card-container {
+  & #actions-modal.js-modal [btd-card] .js-card-container,
+  &[btd-render-small-cards='false'] [data-column-size='small'] .js-card-container,
+  & [data-column-size='off'] .js-card-container,
+  & [data-column-size='small'] .js-card-container {
     min-height: initial !important;
     height: initial !important;
   }
