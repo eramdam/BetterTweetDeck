@@ -36,11 +36,8 @@ const hiddenStyles = css`
 `;
 
 export function ColumnSettingsPreview({settings, alignToTheLeft}: ColumnSettingsPreviewProps) {
-  const {
-    hideColumnIcons,
-    showClearButtonInColumnsHeader,
-    showCollapseButtonInColumnsHeader,
-  } = settings;
+  const {hideColumnIcons, showClearButtonInColumnsHeader, showCollapseButtonInColumnsHeader} =
+    settings;
   return (
     <SettingsRow>
       <SettingsRowTitle>Preview</SettingsRowTitle>
