@@ -8,4 +8,4 @@ script:
   # Validate against AMO's validation
   - npm run build:firefox && npx web-ext lint -s dist
   # On main: build an unlisted beta for Firefox
-  - if [ "$TRAVIS_BRANCH" = "main" ]; npm run build:firefox-beta && npx web-ext sign --api-key="$AMO_API_KEY" --api-secret="$AMO_API_SECRET" -s dist --channel unlisted; fi
+  - if [ "$TRAVIS_BRANCH" = "main" ]; then npm run build:firefox-beta && npx web-ext sign --api-key="$AMO_API_KEY" --api-secret="$AMO_API_SECRET" -s dist --channel unlisted; fi
