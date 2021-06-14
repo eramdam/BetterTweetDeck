@@ -3,5 +3,7 @@ node_js:
   - 'node'
 
 script:
+  # Run regular typecheck + lint
   - npm test
-  - echo 'hello'
+  # Validate against AMO's validation
+  - npm run build:firefox && npx web-ext lint -s dist
