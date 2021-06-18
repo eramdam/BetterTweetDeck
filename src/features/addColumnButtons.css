@@ -15,6 +15,10 @@ html .app-content {
       flex-direction: row;
     }
 
+    & .column-header [data-action='options'] {
+      display: none;
+    }
+
     & i.column-type-icon {
       transform-origin: 50% 100%;
       transform: rotate(-90deg);
