@@ -421,5 +421,8 @@
   },
   "settings_badges": {
     "message": "Badges"
+  },
+  "settings_show_a_clear_all_columns_button_in_the_sidebar": {
+    "message": "Show \"Clear all columns\" button in the sidebar"
   }
 }

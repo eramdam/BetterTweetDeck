@@ -65,6 +65,8 @@ export const RBetterTweetDeckSettings = t.type({
 
   /** Shows a clear (💧) button in the header of columns */
   showClearButtonInColumnsHeader: withDefault(t.boolean, false),
+  /** Shows a clear (💧) button in the sidebar to clear ALL columns */
+  showClearAllButtonInSidebar: withDefault(t.boolean, false),
 
   /** Shows a collapse (➖/➕) button in the header of columns */
   showCollapseButtonInColumnsHeader: withDefault(t.boolean, false),

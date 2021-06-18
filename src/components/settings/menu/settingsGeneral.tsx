@@ -39,6 +39,11 @@ export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
             label: <Trans id="settings_show_clear_button_column" />,
           },
           {
+            initialValue: settings.showClearAllButtonInSidebar,
+            key: 'showClearAllButtonInSidebar',
+            label: <Trans id="settings_show_a_clear_all_columns_button_in_the_sidebar" />,
+          },
+          {
             initialValue: settings.showCollapseButtonInColumnsHeader,
             key: 'showCollapseButtonInColumnsHeader',
             label: <Trans id="settings_show_collapse_button_in_columns_header" />,
