@@ -55,11 +55,25 @@ async function makeGifRequest(
   return validatedGifPayloads;
 }
 
+let isComposerVisible = false;
+
 export function setupGifPicker(settings: BTDSettings) {
   if (!settings.showGifPicker) {
     return;
   }
+
+  document
+    .querySelector('button[data-drawer="compose"].js-hide-drawer')
+    ?.addEventListener('click', () => {
+      if (!isComposerVisible) {
+        return;
+      }
+
+      closeGifPicker();
+    });
+
   onComposerShown((isVisible) => {
+    isComposerVisible = isVisible;
     if (!isVisible) {
       return;
     }
