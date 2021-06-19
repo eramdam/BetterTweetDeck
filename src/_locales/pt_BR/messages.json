@@ -421,5 +421,8 @@
   },
   "settings_badges": {
     "message": "Selos"
+  },
+  "settings_show_a_clear_all_columns_button_in_the_sidebar": {
+    "message": "Mostrar botão \"Limpar todas as colunas\" na barra lateral"
   }
 }
