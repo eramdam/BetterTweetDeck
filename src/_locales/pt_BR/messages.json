@@ -424,5 +424,8 @@
   },
   "settings_show_a_clear_all_columns_button_in_the_sidebar": {
     "message": "Mostrar botão \"Limpar todas as colunas\" na barra lateral"
+  },
+  "settings_require_alt_images": {
+    "message": "Desativar o botão de tweetar até que todas as imagens tenham uma descrição"
   }
 }
