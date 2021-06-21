@@ -128,7 +128,7 @@ export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
           {
             initialValue: settings.detectContentWarnings,
             key: 'detectContentWarnings',
-            introducedIn: '4.2',
+            introducedIn: '4.3',
             label: <Trans id="settings_show_content_warnings" />,
             extraContent: () => (
               <small className={SettingsSmall}>
