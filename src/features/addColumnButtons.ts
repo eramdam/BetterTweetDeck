@@ -50,7 +50,7 @@ export const maybeAddColumnsButtons = makeBTDModule(({TD, jq, settings}) => {
     });
   }
 
-  jq(document).on('mousedown', '.btd-remove-column-link', (ev) => {
+  jq(document).on('pointerdown', '.btd-remove-column-link', (ev) => {
     ev.preventDefault();
 
     const element = ev.target;
@@ -68,7 +68,7 @@ export const maybeAddColumnsButtons = makeBTDModule(({TD, jq, settings}) => {
     TD.controller.columnManager.deleteColumn(columnKey);
   });
 
-  jq(document).on('mousedown', '.btd-clear-column-link', (ev) => {
+  jq(document).on('pointerdown', '.btd-clear-column-link', (ev) => {
     ev.preventDefault();
 
     const element = ev.target;
@@ -87,7 +87,7 @@ export const maybeAddColumnsButtons = makeBTDModule(({TD, jq, settings}) => {
   });
 
   jq(document).on(
-    'mousedown',
+    'pointerdown',
     '.column-panel header.column-header .btd-toggle-collapse-column-link',
     (ev) => {
       ev.preventDefault();
