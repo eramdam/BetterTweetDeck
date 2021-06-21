@@ -424,5 +424,8 @@
   },
   "settings_show_a_clear_all_columns_button_in_the_sidebar": {
     "message": "Den \"Alle Spalten löschen\"-Button in der Sidebar anzeigen"
+  },
+  "settings_require_alt_images": {
+    "message": "Den Tweet-Button deaktivieren, bis alle Bilder eine Beschreibung haben"
   }
 }
