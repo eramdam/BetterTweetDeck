@@ -424,5 +424,8 @@
   },
   "settings_show_a_clear_all_columns_button_in_the_sidebar": {
     "message": "Show \"Clear all columns\" button in the sidebar"
+  },
+  "settings_require_alt_images": {
+    "message": "Disable the tweet button until all images have a description"
   }
 }

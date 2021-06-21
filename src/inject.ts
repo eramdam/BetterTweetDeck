@@ -27,6 +27,7 @@ import {maybeRemoveRedirection} from './features/removeRedirection';
 import {maybeRenderCardsInColumns} from './features/renderCardsInColumns';
 import {renderMediaAndQuotedTweets} from './features/renderMediaAndQuotedTweets';
 import {maybeReplaceHeartsByStars} from './features/replaceHeartsByStars';
+import {requireAltImages} from './features/requireAltImages';
 import {maybeRevertToLegacyReplies} from './features/revertToLegacyReplies';
 import {showTweetDogEars} from './features/showTweetDogEars';
 import {maybeMakeComposerButtonsSmaller} from './features/smallerComposerButtons';
@@ -138,6 +139,7 @@ const jq: JQueryStatic | undefined =
       isReponse: false,
       payload: undefined,
     });
+    requireAltImages(btdModuleOptions);
     maybeShowFollowBanner(btdModuleOptions);
     keepTweetedHashtagsInComposer(btdModuleOptions);
     setTimeout(() => {

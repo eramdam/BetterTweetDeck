@@ -15,6 +15,12 @@ export const SettingsComposer: FC<SettingsMenuSectionProps> = (props) => {
         }}
         fields={[
           {
+            initialValue: settings.disableTweetButtonIfAltIsMissing,
+            key: 'disableTweetButtonIfAltIsMissing',
+            label: <Trans id="settings_require_alt_images" />,
+            introducedIn: '4.2',
+          },
+          {
             initialValue: settings.smallComposerButtons,
             key: 'smallComposerButtons',
             label: <Trans id="settings_make_buttons_smaller_in_the_composer" />,

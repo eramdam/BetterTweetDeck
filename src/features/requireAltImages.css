@@ -1,0 +1,4 @@
+.btd-compose-button-wrapper {
+  display: flex !important;
+  justify-content: flex-end !important;
+}
