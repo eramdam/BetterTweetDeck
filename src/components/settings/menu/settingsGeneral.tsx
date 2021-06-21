@@ -7,6 +7,7 @@ import {Trans} from '../../trans';
 import {CheckboxSelectSettingsRow} from '../components/checkboxSelectSettingsRow';
 import {SettingsTextInputWithAnnotation} from '../components/settingsTimeFormatInput';
 import {SettingsMenuSectionProps, SettingsSmallText} from '../settingsComponents';
+import {SettingsSmall} from '../settingsStyles';
 
 export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
   const {settings, makeOnSettingsChange} = props;
@@ -123,6 +124,17 @@ export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
             initialValue: settings.biggerEmoji,
             key: 'biggerEmoji',
             label: <Trans id="settings_make_emoji_bigger_in_tweets" />,
+          },
+          {
+            initialValue: settings.detectContentWarnings,
+            key: 'detectContentWarnings',
+            introducedIn: '4.2',
+            label: <Trans id="settings_show_content_warnings" />,
+            extraContent: () => (
+              <small className={SettingsSmall}>
+                <Trans id="settings_content_warning_hint" />
+              </small>
+            ),
           },
         ]}>
         <Trans id="settings_tweet_content" />

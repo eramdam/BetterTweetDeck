@@ -110,3 +110,8 @@ export const settingsRegularText = css`
     ${settingsLink};
   }
 `;
+
+export const SettingsSmall = css`
+  font-size: 12px;
+  opacity: 0.8;
+`;

@@ -427,5 +427,11 @@
   },
   "settings_require_alt_images": {
     "message": "Disable the tweet button until all images have a description"
+  },
+  "settings_content_warning_hint": {
+    "message": "We'll check tweets for containing commonly used cw/tw/cn warnings to display these!"
+  },
+  "settings_show_content_warnings": {
+    "message": "Show content warnings for appropriately marked tweets"
   }
 }

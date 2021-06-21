@@ -51,6 +51,9 @@ export const RBetterTweetDeckSettings = t.type({
   /** Pauses scrolling of columns when mouse hovers over theme */
   pauseColumnScrollingOnHover: withDefault(t.boolean, false),
 
+  /** Detects content warnings */
+  detectContentWarnings: withDefault(t.boolean, false),
+
   /** Display single images using their original aspect ratio. */
   useOriginalAspectRatioForSingleImages: withDefault(t.boolean, false),
 
