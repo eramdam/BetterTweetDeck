@@ -54,7 +54,6 @@ export const requireAltImages = makeBTDModule(({settings, TD}) => {
 
       return el.textContent?.trim() === noAltTextIndicator;
     });
-    console.log({noAltTextIndicator, needsReminder});
 
     if (needsReminder) {
       sendButton.classList.add('is-disabled');
@@ -66,7 +65,6 @@ export const requireAltImages = makeBTDModule(({settings, TD}) => {
       sendButton.closest('.cf')?.querySelector('.pull-left')?.remove();
     }
   });
-  console.log(composer.querySelector('.compose-text-container'));
 
   observer.observe(composer, {
     childList: true,
