@@ -433,5 +433,8 @@
   },
   "settings_show_content_warnings": {
     "message": "Show content warnings for appropriately marked tweets"
+  },
+  "settings_images": {
+    "message": "Images"
   }
 }
