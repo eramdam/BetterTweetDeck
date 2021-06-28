@@ -22,7 +22,7 @@ export const contentWarnings = makeBTDModule(({TD, settings}) => {
       return;
     }
 
-    const matches = [...payload.chirp.text.matchAll(contentWarningRegex)];
+    const matches = [...TD.util.htmlToText(payload.chirp.htmlText).matchAll(contentWarningRegex)];
 
     if (matches.length < 1) {
       return;
@@ -30,7 +30,6 @@ export const contentWarnings = makeBTDModule(({TD, settings}) => {
 
     const warningSubject = matches[0][1];
     const warningText = matches[0][2];
-    console.log({warningSubject, warningText});
 
     if (!warningSubject || !warningText) {
       return;

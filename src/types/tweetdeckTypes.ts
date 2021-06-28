@@ -1313,6 +1313,7 @@ interface TweetDeckUtil {
   pluck(method: string): (a: any) => any;
   truncateNumber(n: number): string;
   transform(text: string): string;
+  htmlToText(text: string): string;
 }
 
 interface DatesCached {
