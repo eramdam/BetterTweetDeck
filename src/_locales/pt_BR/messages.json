@@ -427,5 +427,14 @@
   },
   "settings_require_alt_images": {
     "message": "Desativar o botão de tweetar até que todas as imagens tenham uma descrição"
+  },
+  "settings_content_warning_hint": {
+    "message": "Vamos verificar os tweets que contêm avisos como cw/tw/cn para exibir!"
+  },
+  "settings_show_content_warnings": {
+    "message": "Mostrar avisos de conteúdo para tweets marcados adequadamente"
+  },
+  "settings_images": {
+    "message": "Imagens"
   }
 }
