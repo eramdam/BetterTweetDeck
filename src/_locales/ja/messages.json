@@ -421,5 +421,8 @@
   },
   "settings_badges": {
     "message": "バッジ"
+  },
+  "settings_images": {
+    "message": "画像"
   }
 }
