@@ -32,6 +32,8 @@ interface SettingsModalProps {
 const topbarIcon = getExtensionUrl('build/assets/icons/icon-32.png');
 const topbarVersion = getExtensionVersion();
 
+const defaultMenuSection = SettingsMenuSectionsEnum.GENERAL;
+
 export const SettingsModal = (props: SettingsModalProps) => {
   const {onSettingsUpdate} = props;
   const [settings, setSettings] = useState<BTDSettings>(props.btdSettings);
@@ -43,9 +45,9 @@ export const SettingsModal = (props: SettingsModalProps) => {
         (v) => selectedIdFromUrl
       );
 
-      return validSelectedId || SettingsMenuSectionsEnum.GENERAL;
+      return validSelectedId || defaultMenuSection;
     } catch (e) {
-      return SettingsMenuSectionsEnum.GENERAL;
+      return defaultMenuSection;
     }
   });
   const [editorHasErrors, setEditorHasErrors] = useState(false);
@@ -54,7 +56,7 @@ export const SettingsModal = (props: SettingsModalProps) => {
 
   const onSearchQueryChange = (newQuery: string) => {
     if (!newQuery) {
-      setSelectedId(SettingsMenuSectionsEnum.GENERAL);
+      setSelectedId(defaultMenuSection);
     } else {
       setSelectedId(SettingsMenuSectionsEnum.BLANK);
     }

@@ -1,0 +1,35 @@
+.btd-content-warning:not([open]) ~ .media-preview,
+.btd-content-warning:not([open]) ~ .quoted-tweet,
+.btd-content-warning:not([open]) ~ .js-card-container {
+  display: none;
+}
+
+.btd-content-warning summary {
+  list-style-type: none;
+}
+
+.btd-content-warning summary::-webkit-details-marker {
+  display: none;
+}
+
+.btd-content-warning summary:after {
+  content: 'Show More';
+  display: inline-block;
+  background-color: var(--btd-accent-color, #1da1f2);
+  color: #fff;
+  font-size: 0.7em;
+  font-weight: bold;
+  padding: 0 6px;
+  border-radius: 36px;
+  margin-left: 5px;
+}
+
+.btd-content-warning summary:hover:after,
+.btd-content-warning[open] summary:after {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)) !important;
+  background-color: var(--btd-accent-color, #1da1f2);
+}
+
+.btd-content-warning[open] summary:after {
+  content: 'Show Less';
+}

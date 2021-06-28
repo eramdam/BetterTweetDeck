@@ -1312,6 +1312,8 @@ interface TweetDeckUtil {
   createUrlAnchor(e: any): string;
   pluck(method: string): (a: any) => any;
   truncateNumber(n: number): string;
+  transform(text: string, entities?: TweetEntities): string;
+  htmlToText(text: string): string;
 }
 
 interface DatesCached {

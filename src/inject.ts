@@ -14,6 +14,7 @@ import {changeScrollbarStyling} from './features/changeScrollbars';
 import {maybeSetupCustomTimestampFormat} from './features/changeTimestampFormat';
 import {changeTweetActionsStyling} from './features/changeTweetActions';
 import {maybeCollapseDms} from './features/collapseDms';
+import {contentWarnings} from './features/contentWarnings';
 import {injectCustomCss} from './features/customCss';
 import {maybeFreezeGifsInProfilePicture} from './features/freezeGifsProfilePictures';
 import {setupGifModals} from './features/gifModals';
@@ -130,6 +131,7 @@ const jq: JQueryStatic | undefined =
   applyTweetDeckSettings(btdModuleOptions);
   maybeShowCharacterCount(btdModuleOptions);
   showTweetDogEars(btdModuleOptions);
+  contentWarnings(btdModuleOptions);
 
   jq(document).one('dataColumnsLoaded', () => {
     document.body.classList.add('btd-loaded');
