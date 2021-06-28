@@ -4,7 +4,8 @@ import {onChirpAdded} from '../services/chirpHandler';
 import {makeBTDModule, makeBtdUuidSelector} from '../types/btdCommonTypes';
 
 const contentWarningRegex =
-  /^[[(]?(?:cw|tw|cn)(?:\W+)?\s([^\n|\]|)|…]+)[\])…]?(?:\n+)?((?:.+)?\n?)+$/gi;
+  // eslint-disable-next-line no-useless-escape
+  /^([\[\(]?(?:cw|tw|cn)(?:\W+)?\s([^\n|\]|\)|…]+)[\]\)…]?)(?:\n+)?((?:.+)?\n?)+$/gi;
 
 export const contentWarnings = makeBTDModule(({TD, settings}) => {
   if (!settings.detectContentWarnings) {
@@ -22,14 +23,15 @@ export const contentWarnings = makeBTDModule(({TD, settings}) => {
       return;
     }
 
-    const matches = [...TD.util.htmlToText(payload.chirp.htmlText).matchAll(contentWarningRegex)];
+    const matches = [...payload.chirp.text.matchAll(contentWarningRegex)];
 
     if (matches.length < 1) {
       return;
     }
 
-    const warningSubject = matches[0][1];
-    const warningText = matches[0][2];
+    const warningBlock = matches[0][1];
+    const warningSubject = matches[0][2];
+    const warningText = matches[0][3];
 
     if (!warningSubject || !warningText) {
       return;
@@ -50,7 +52,7 @@ export const contentWarnings = makeBTDModule(({TD, settings}) => {
 
     const tweetText = document.createElement('p');
     tweetText.classList.add('tweet-text', 'js-tweet-text', 'with-linebreaks');
-    tweetText.innerHTML = TD.util.transform(warningText.trim());
+    tweetText.innerHTML = payload.chirp.htmlText.replace(warningBlock, '').trim();
     details.appendChild(tweetText);
 
     chirpNode.querySelector('.tweet-text')?.replaceWith(details);
