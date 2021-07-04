@@ -436,5 +436,8 @@
   },
   "settings_images": {
     "message": "Imagens"
+  },
+  "settings_collapse_unread_dms": {
+    "message": "Também recolher mensagens diretas não lidas"
   }
 }
