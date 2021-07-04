@@ -83,6 +83,12 @@ export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
             label: <Trans id="settings_collapse_read_dms" />,
           },
           {
+            initialValue: settings.collapseAllDms,
+            key: 'collapseAllDms',
+            label: <Trans id="settings_collapse_unread_dms" />,
+            isDisabled: !settings.collapseReadDms,
+          },
+          {
             initialValue: settings.disableGifsInProfilePictures,
             key: 'disableGifsInProfilePictures',
             label: <Trans id="settings_freeze_gifs_in_profile_pictures" />,

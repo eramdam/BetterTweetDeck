@@ -1,4 +1,5 @@
-[btd-collapse-dms='true'] .js-stream-item:not(.is-unread) .tweet-message {
+[btd-collapse-dms='true'] .js-stream-item:not(.is-unread) .tweet-message,
+[btd-collapse-dms-read='true'] .js-stream-item .tweet-message {
   line-height: 1.6em !important;
   padding-left: 30px;
 

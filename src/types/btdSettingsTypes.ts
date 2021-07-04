@@ -189,6 +189,7 @@ export const RBetterTweetDeckSettings = t.type({
   disableGifsInProfilePictures: withDefault(t.boolean, false),
 
   collapseReadDms: withDefault(t.boolean, false),
+  collapseAllDms: withDefault(t.boolean, false),
 
   replaceHeartsByStars: withDefault(t.boolean, false),
 
