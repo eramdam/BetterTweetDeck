@@ -1,5 +1,6 @@
 import * as t from 'io-ts';
 
+import {BTDMutualBadges} from '../features/badgesOnTopOfAvatars';
 import {BTDAvatarShapes} from '../features/changeAvatarShape';
 import {BTDScrollbarsMode} from '../features/changeScrollbars';
 import {BTDTimestampFormats} from '../features/changeTimestampFormat';
@@ -103,6 +104,10 @@ export const RBetterTweetDeckSettings = t.type({
   verifiedBadges: withDefault(t.boolean, true),
   translatorBadges: withDefault(t.boolean, true),
   mutualBadges: withDefault(t.boolean, false),
+  mutualBadgeVariation: withDefault(
+    makeEnumRuntimeType<BTDMutualBadges>(BTDMutualBadges),
+    BTDMutualBadges.HEART
+  ),
 
   /** Where to show tweet actions. */
   tweetActionsPosition: withDefault(

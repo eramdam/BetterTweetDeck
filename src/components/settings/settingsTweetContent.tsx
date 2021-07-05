@@ -21,6 +21,12 @@ export const SettingsTweetContent: FC<SettingsMenuSectionProps> = (props) => {
         fields={[
           {
             introducedIn: '4',
+            initialValue: settings.useModernFullscreenImage,
+            key: 'useModernFullscreenImage',
+            label: <Trans id="settings_display_modern_fullscreen_images" />,
+          },
+          {
+            introducedIn: '4',
             initialValue: settings.useOriginalAspectRatioForSingleImages,
             key: 'useOriginalAspectRatioForSingleImages',
             label: <Trans id="settings_use_original_aspect_ratio_images" />,
@@ -31,12 +37,6 @@ export const SettingsTweetContent: FC<SettingsMenuSectionProps> = (props) => {
             key: 'useOriginalAspectRatioForSingleImagesInQuotedTweets',
             label: <Trans id="settings_do_the_same_for_single_images_in_quoted_tweets" />,
             isDisabled: !settings.useOriginalAspectRatioForSingleImages,
-          },
-          {
-            introducedIn: '4',
-            initialValue: settings.useModernFullscreenImage,
-            key: 'useModernFullscreenImage',
-            label: <Trans id="settings_display_modern_fullscreen_images" />,
           },
         ]}>
         <Trans id="settings_images" />

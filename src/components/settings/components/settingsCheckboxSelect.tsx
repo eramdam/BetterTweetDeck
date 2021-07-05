@@ -24,7 +24,7 @@ export interface SettingsCheckboxSelectProps {
       label: ReactNode;
       initialValue: boolean;
       isDisabled?: boolean;
-      extraContent?: RendererOf<BTDSettings | undefined>;
+      extraContent?: RendererOf<BTDSettings>;
     } & Partial<NewFeatureBadgeProps>
   >;
 }
@@ -69,7 +69,7 @@ export function SettingsCheckboxSelect(props: SettingsCheckboxSelectProps) {
                 )}
               </label>
             </span>
-            {field.extraContent && field.extraContent(undefined)}
+            {field.extraContent && field.extraContent({} as BTDSettings)}
           </Fragment>
         );
       })}

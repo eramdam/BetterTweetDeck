@@ -12,6 +12,11 @@ import {
   TwitterActionEnum,
 } from '../types/tweetdeckTypes';
 
+export enum BTDMutualBadges {
+  HEART = 'heart',
+  ARROWS = 'arrows',
+}
+
 export const putBadgesOnTopOfAvatars = makeBTDModule(({TD, settings}) => {
   if (!settings.badgesOnTopOfAvatars) {
     return;
@@ -95,6 +100,11 @@ export const putBadgesOnTopOfAvatars = makeBTDModule(({TD, settings}) => {
 
         if (result.relationship.target.followed_by && result.relationship.target.following) {
           chirpNode.classList.add(...classesToAdd, 'btd-mutual-badge');
+          if (settings.mutualBadgeVariation === BTDMutualBadges.HEART) {
+            chirpNode.classList.add('btd-mutual-heart');
+          } else {
+            chirpNode.classList.add('btd-mutual-arrows');
+          }
         }
       });
     }

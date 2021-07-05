@@ -1,12 +1,44 @@
 /* eslint-disable react/jsx-key */
+import {css} from '@emotion/css';
 import React, {FC, Fragment} from 'react';
 
+import heartIcon from '../../../assets/heart-icon.svg';
+import arrowsIcon from '../../../assets/mutual-icon.svg';
+import translatorIcon from '../../../assets/translator-icon.svg';
+import verifiedIcon from '../../../assets/verified-icon.svg';
+import {BTDMutualBadges} from '../../../features/badgesOnTopOfAvatars';
 import {isFirefox, isSafari} from '../../../helpers/browserHelpers';
 import {BTDSettings} from '../../../types/btdSettingsTypes';
 import {Trans} from '../../trans';
 import {CheckboxSelectSettingsRow} from '../components/checkboxSelectSettingsRow';
+import {SettingsRadioSettingSelect} from '../components/settingsRadioSelect';
 import {SettingsTextInputWithAnnotation} from '../components/settingsTimeFormatInput';
 import {SettingsMenuSectionProps, SettingsSmallText} from '../settingsComponents';
+
+const BadgeIcon = ({icon}: {icon: string}) => {
+  return (
+    <span
+      className={css`
+        background: #151f2a;
+        padding: 4px;
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 4px;
+        margin-left: 8px;
+        vertical-align: bottom;
+      `}>
+      <img
+        className={css`
+          width: 1em;
+          height: 1em;
+        `}
+        src={icon}
+      />
+    </span>
+  );
+};
 
 export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
   const {settings, makeOnSettingsChange} = props;
@@ -115,13 +147,23 @@ export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
             isDisabled: !settings.badgesOnTopOfAvatars,
             initialValue: settings.verifiedBadges,
             key: 'verifiedBadges',
-            label: <Trans id="settings_show_verified_badges" />,
+            label: (
+              <>
+                <Trans id="settings_show_verified_badges" />
+                <BadgeIcon icon={verifiedIcon} />
+              </>
+            ),
           },
           {
             isDisabled: !settings.badgesOnTopOfAvatars,
             initialValue: settings.translatorBadges,
             key: 'translatorBadges',
-            label: <Trans id="settings_show_translator_badges" />,
+            label: (
+              <>
+                <Trans id="settings_show_translator_badges" />
+                <BadgeIcon icon={translatorIcon} />
+              </>
+            ),
           },
           {
             isDisabled: !settings.badgesOnTopOfAvatars,
@@ -129,6 +171,35 @@ export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
             key: 'mutualBadges',
             label: <Trans id="settings_show_badges_on_mutuals" />,
             introducedIn: '4.2',
+            extraContent: (newSettings) => {
+              return (
+                <SettingsRadioSettingSelect<BTDSettings, 'mutualBadgeVariation'>
+                  fields={[
+                    {
+                      label: (
+                        <>
+                          <Trans id="settings_mutual_badge_use_a_heart" />{' '}
+                          <BadgeIcon icon={heartIcon} />
+                        </>
+                      ),
+                      value: BTDMutualBadges.HEART,
+                    },
+                    {
+                      label: (
+                        <>
+                          <Trans id="settings_mutual_badge_use_double_arrows" />
+                          <BadgeIcon icon={arrowsIcon} />
+                        </>
+                      ),
+                      value: BTDMutualBadges.ARROWS,
+                    },
+                  ]}
+                  isDisabled={!newSettings.mutualBadges || !newSettings.badgesOnTopOfAvatars}
+                  settingsKey="mutualBadgeVariation"
+                  onChange={makeOnSettingsChange('mutualBadgeVariation')}
+                  initialValue={newSettings.mutualBadgeVariation}></SettingsRadioSettingSelect>
+              );
+            },
           },
         ]}>
         <Trans id="settings_badges" />
