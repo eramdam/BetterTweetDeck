@@ -417,9 +417,27 @@
     "message": "Mostrar selo de tradutor"
   },
   "settings_show_badges_on_mutuals": {
-    "message": "Mostrar selos em mutuais (vocês se seguem)"
+    "message": "Mostrar selo de mutuais (vocês se seguem)"
   },
   "settings_badges": {
     "message": "Selos"
+  },
+  "settings_show_a_clear_all_columns_button_in_the_sidebar": {
+    "message": "Mostrar botão \"Limpar todas as colunas\" na barra lateral"
+  },
+  "settings_require_alt_images": {
+    "message": "Desativar o botão de tweetar até que todas as imagens tenham uma descrição"
+  },
+  "settings_content_warning_hint": {
+    "message": "Vamos verificar os tweets que contêm avisos como cw/tw/cn para exibir!"
+  },
+  "settings_show_content_warnings": {
+    "message": "Mostrar avisos de conteúdo para tweets marcados adequadamente"
+  },
+  "settings_images": {
+    "message": "Imagens"
+  },
+  "settings_collapse_unread_dms": {
+    "message": "Também recolher mensagens diretas não lidas"
   }
 }
