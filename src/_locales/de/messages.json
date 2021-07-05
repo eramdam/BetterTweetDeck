@@ -421,5 +421,20 @@
   },
   "settings_badges": {
     "message": "Abzeichen"
+  },
+  "settings_show_a_clear_all_columns_button_in_the_sidebar": {
+    "message": "Den \"Alle Spalten löschen\"-Button in der Sidebar anzeigen"
+  },
+  "settings_require_alt_images": {
+    "message": "Den Tweet-Button deaktivieren, bis alle Bilder eine Beschreibung haben"
+  },
+  "settings_content_warning_hint": {
+    "message": "Wir prüfen, ob Tweets die gebräuchlichen CW-, TW- oder CN-Hinweise enthalten und zeigen diese an!"
+  },
+  "settings_show_content_warnings": {
+    "message": "Inhaltswarnungen für entsprechend markierte Tweets anzeigen"
+  },
+  "settings_images": {
+    "message": "Bilder"
   }
 }

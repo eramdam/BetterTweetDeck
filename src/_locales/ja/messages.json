@@ -421,5 +421,11 @@
   },
   "settings_badges": {
     "message": "バッジ"
+  },
+  "settings_images": {
+    "message": "画像"
+  },
+  "settings_collapse_unread_dms": {
+    "message": "未読のDMも折りたたむ"
   }
 }
