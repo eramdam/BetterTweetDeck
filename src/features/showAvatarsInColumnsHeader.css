@@ -1,0 +1,17 @@
+[btd-avatars-columns='true'] #container.js-app-columns-container {
+  & section.js-column:not([data-multi-account-feeds='true']) .js-column-header .column-title {
+    align-items: center;
+
+    & .column-avatar {
+      height: 20px;
+      width: 20px;
+      display: block;
+      margin-right: 10px;
+      border-radius: var(--btd-avatar-radius);
+      background-image: var(--avatar-url);
+      background-size: 100%;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+  }
+}

@@ -92,6 +92,7 @@ export const RBetterTweetDeckSettings = t.type({
     makeEnumRuntimeType<BTDAvatarShapes>(BTDAvatarShapes),
     BTDAvatarShapes.CIRCLE
   ),
+  showAvatarsOnTopOfColumns: withDefault(t.boolean, false),
 
   /** Whether to make scrollbars slim or to hide them entirely */
   scrollbarsMode: withDefault(

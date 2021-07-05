@@ -56,6 +56,12 @@ export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
             label: <Trans id="settings_hide_icons_on_top_of_columns" />,
           },
           {
+            initialValue: settings.showAvatarsOnTopOfColumns,
+            key: 'showAvatarsOnTopOfColumns',
+            introducedIn: '4.3',
+            label: <Trans id="settings_show_account_avatars_on_top_of_columns" />,
+          },
+          {
             initialValue: settings.pauseColumnScrollingOnHover,
             key: 'pauseColumnScrollingOnHover',
             label: <Trans id="settings_pause_column_scrolling_on_hover" />,
