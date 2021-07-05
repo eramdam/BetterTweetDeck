@@ -123,7 +123,7 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
           const allColumns = TD.controller.columnManager.getAllOrdered();
 
           allColumns.forEach((c) => {
-            if (!c.updateIndex[chirpKey]) {
+            if (!c.updateIndex || !c.updateIndex[chirpKey]) {
               return;
             }
 
