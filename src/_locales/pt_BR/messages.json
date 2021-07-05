@@ -439,5 +439,11 @@
   },
   "settings_collapse_unread_dms": {
     "message": "Também recolher mensagens diretas não lidas"
+  },
+  "settings_mutual_badge_use_a_heart": {
+    "message": "Usar um coração"
+  },
+  "settings_mutual_badge_use_double_arrows": {
+    "message": "Usar uma seta dupla"
   }
 }
