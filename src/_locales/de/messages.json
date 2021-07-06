@@ -437,6 +437,15 @@
   "settings_images": {
     "message": "Bilder"
   },
+  "settings_collapse_unread_dms": {
+    "message": "Auch ungelesene Direktnachrichten einklappen"
+  },
+  "settings_mutual_badge_use_a_heart": {
+    "message": "Ein Herz verwenden"
+  },
+  "settings_mutual_badge_use_double_arrows": {
+    "message": "Doppelpfeil verwenden"
+  },
   "settings_show_account_avatars_on_top_of_columns": {
     "message": "Avatar des Kontos im Kopf der Spalte anzeigen"
   }
