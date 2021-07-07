@@ -111,9 +111,15 @@ export const maybeAddColumnsButtons = makeBTDModule(({TD, jq, settings}) => {
 
   jq('body').on('click', '.btd-clear-all-columns', () => {
     const confirmed = confirm('This will clear ALL the columns, are you sure you want to do it?');
-    if (confirmed) {
-      TD.controller.columnManager.getAllOrdered().forEach((c) => c.clear());
+    if (!confirmed) {
+      return;
     }
+    TD.controller.columnManager.getAllOrdered().forEach((c) => {
+      if (!c.clear) {
+        return;
+      }
+      c.clear();
+    });
   });
 
   const columnsSettings = getCollapsedColumnState();
