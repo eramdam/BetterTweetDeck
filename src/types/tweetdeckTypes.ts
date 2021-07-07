@@ -365,7 +365,7 @@ interface ColumnMap {
 export declare class TweetDeckColumn {
   constructor(...args: any[]);
   clear(): void;
-  backfill(): void;
+  reloadTweets?: () => void;
   model: ColumnModel;
   ui: ColumnUiState;
   _feeds: FeedState[];

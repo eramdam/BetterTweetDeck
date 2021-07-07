@@ -1,6 +1,6 @@
 import {Twitter} from 'twit';
 
-import {TweetDeckChirp, TweetdeckMediaEntity} from '../types/tweetdeckTypes';
+import {TweetDeckChirp, TweetDeckColumn, TweetdeckMediaEntity} from '../types/tweetdeckTypes';
 import {TweetDeckObject} from '../types/tweetdeckTypes';
 import {HandlerOf} from './typeHelpers';
 
@@ -346,3 +346,10 @@ export const displayTweetDeckBanner = (jq: JQueryStatic, data: TweetDeckBannerDa
     },
   });
 };
+
+export function reloadColumn(column: TweetDeckColumn) {
+  column.model.setClearedTimestamp(0);
+  if (column.reloadTweets) {
+    column.reloadTweets();
+  }
+}

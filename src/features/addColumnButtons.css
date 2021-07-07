@@ -108,3 +108,7 @@ html .app-content {
     bottom: 330px !important;
   }
 }
+
+.icon-reload::before {
+  content: '\F303';
+}
