@@ -98,3 +98,13 @@ html .app-content {
     width: 100%;
   }
 }
+
+[btd-clear-all='true'] {
+  & .column-navigator {
+    bottom: 300px !important;
+  }
+
+  & .column-navigator-overflow {
+    bottom: 330px !important;
+  }
+}

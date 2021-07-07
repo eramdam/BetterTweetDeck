@@ -153,3 +153,11 @@ html.dark .typeahead .js-hashtag {
 .js-modal.open-modal div.js-right-column.scroll-v {
   overflow-x: hidden;
 }
+
+.column-navigator {
+  bottom: 280px;
+}
+
+.column-navigator-overflow {
+  bottom: 300px;
+}

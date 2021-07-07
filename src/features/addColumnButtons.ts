@@ -25,6 +25,10 @@ export const maybeAddColumnsButtons = makeBTDModule(({TD, jq, settings}) => {
     return;
   }
 
+  if (showClearAll) {
+    document.body.setAttribute('btd-clear-all', 'true');
+  }
+
   const clearButtonMarkup = `<a class="js-action-header-button column-header-link btd-clear-column-link" href="#" data-action="clear"><i class="icon icon-clear-timeline"></i></a>`;
   const collapseButtonMarkup = `<a class="js-action-header-button column-header-link btd-toggle-collapse-column-link" href="#" data-action="toggle-collapse-column"><i class="icon icon-minus"></i></a>`;
   const removeButtonMarkup = `<a class="js-action-header-button column-header-link btd-remove-column-link" href="#" data-action="remove"><i class="icon icon-close"></i></a>`;

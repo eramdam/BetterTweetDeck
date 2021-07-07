@@ -365,6 +365,7 @@ interface ColumnMap {
 export declare class TweetDeckColumn {
   constructor(...args: any[]);
   clear(): void;
+  backfill(): void;
   model: ColumnModel;
   ui: ColumnUiState;
   _feeds: FeedState[];
@@ -699,6 +700,7 @@ interface ColumnModel {
   deltaQ: any[];
   stateCache: null;
   managed: boolean;
+  setClearedTimestamp: (timestamp: number) => void;
 }
 
 export enum TweetDeckColumnMediaPreviewSizesEnum {
