@@ -12,16 +12,6 @@ export const maybeSetupDebugFunctions = makeBTDModule(({jq, mR}) => {
       getChirpFromElement,
       getChirpFromKey,
       findMustache,
-      unclearColumns: (TD) => {
-        TD.controller.columnManager.getAllOrdered().forEach((c) => {
-          try {
-            c.model.setClearedTimestamp(0);
-            c.backfill();
-          } catch (e) {
-            //
-          }
-        });
-      },
       jq,
       mR,
     },

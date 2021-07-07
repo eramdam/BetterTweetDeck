@@ -1,7 +1,5 @@
 import moduleraid from 'moduleraid';
 
-import {TweetDeckObject} from '../src/types/tweetdeckTypes';
-
 export {};
 
 declare global {
@@ -13,7 +11,6 @@ declare global {
         findMustache: typeof findMustache;
         getChirpFromElement: typeof getChirpFromElement;
         getChirpFromKey: typeof getChirpFromKey;
-        unclearColumns: (TD: TweetDeckObject) => void;
       };
     };
   }
