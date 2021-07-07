@@ -107,3 +107,18 @@ function openSettings(selectedId?: string) {
     },
   });
 }
+
+function heartbeat() {
+  sendMessageToBackground({
+    data: {
+      requestId: undefined,
+      isReponse: false,
+      name: BTDMessages.PING,
+      origin: BTDMessageOriginsEnum.CONTENT,
+      payload: undefined,
+    },
+  });
+}
+
+setInterval(heartbeat, 30 * 1000);
+heartbeat();

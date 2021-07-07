@@ -58,6 +58,9 @@ browser.runtime.onMessage.addListener(async (request: BTDMessageEvent, sender) =
   }
 
   switch (request.data.name) {
+    case BTDMessages.PING: {
+      return true;
+    }
     case BTDMessages.OPEN_SETTINGS: {
       browser.tabs.create({
         url: request.data.payload.selectedId

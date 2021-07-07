@@ -14,6 +14,7 @@ export enum BTDMessages {
   DOWNLOAD_MEDIA_RESULT = 'DOWNLOAD_MEDIA_RESULT',
   SAVE_SETTINGS = 'SAVE_SETTINGS',
   OPEN_SETTINGS = 'OPEN_SETTINGS',
+  PING = 'PING',
 }
 
 /** Locations from which messages can be listened/sent to. */
@@ -105,6 +106,10 @@ interface BTDOpenSettings extends BTDMessageEventBase {
   };
 }
 
+interface BTDPing extends BTDMessageEventBase {
+  name: BTDMessages.PING;
+}
+
 export type BTDMessageEventData =
   | BTDChirpResult
   | BTDChirpRemoval
@@ -114,7 +119,8 @@ export type BTDMessageEventData =
   | BTDSaveSettings
   | BTDOpenSettings
   | BTDDownloadMediaRequest
-  | BTDDownloadMediaRequestResult;
+  | BTDDownloadMediaRequestResult
+  | BTDPing;
 export interface BTDMessageEvent {
   data: BTDMessageEventData;
 }
