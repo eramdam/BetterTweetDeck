@@ -7,7 +7,4 @@ module.exports = Object.assign(chromeManifest, {
       32: 'build/assets/icons/toolbar-icon-32.png',
     },
   },
-  background: {
-    scripts: chromeManifest.background.scripts,
-  },
 });

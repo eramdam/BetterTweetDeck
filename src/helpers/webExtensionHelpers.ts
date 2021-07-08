@@ -21,6 +21,10 @@ export type StorageChangeHandler = (
   area: string
 ) => void;
 
+export function listenForStorageChange(cb: StorageChangeHandler) {
+  browser.storage.onChanged.addListener(cb as any);
+}
+
 /** Returns the version of the extension. */
 export const getExtensionVersion = () => browser.runtime.getManifest().version;
 
