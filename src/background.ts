@@ -44,7 +44,7 @@ import {BTDSettings} from './types/btdSettingsTypes';
   });
 
   listenForStorageChange(async (changes) => {
-    if (changes.enableShareItem.newValue === changes.enableShareItem.oldValue) {
+    if (changes.enableShareItem?.newValue === changes.enableShareItem?.oldValue) {
       return;
     }
 
