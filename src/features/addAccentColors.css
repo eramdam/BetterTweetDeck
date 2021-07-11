@@ -46,7 +46,8 @@ html.dark {
   & .med-flaglink,
   & .med-origlink,
   & .follow-btn .icon,
-  & .follow-btn .Icon {
+  & .follow-btn .Icon,
+  & .conversation-more {
     color: var(--btd-accent-color);
   }
 
