@@ -6,7 +6,7 @@ import {BTDSettings} from '../types/btdSettingsTypes';
 /**
  * Converts a relative path within an extension install directory to a fully-qualified URL.
  */
-export const getExtensionUrl = (url: string) => browser.extension.getURL(url);
+export const getExtensionUrl = (url: string) => browser.runtime.getURL(url);
 
 /** Exposes the WebExtensions settings object/API. */
 export const ExtensionSettings = browser.storage.sync;
