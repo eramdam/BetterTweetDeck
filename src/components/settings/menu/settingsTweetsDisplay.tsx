@@ -48,7 +48,7 @@ export const SettingsTweetsDisplay: FC<SettingsMenuSectionProps> = (props) => {
                         color: var(--twitter-darkblue);
                       }
                     `}
-                    href="https://moment.github.io/luxon/docs/manual/formatting.html#table-of-tokens"
+                    href="https://moment.github.io/luxon/#/formatting?id=table-of-tokens"
                     target="_blank"
                     rel="noreferrer noopener">
                     <Trans id="settings_tokens_list" />
