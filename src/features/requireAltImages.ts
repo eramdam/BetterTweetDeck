@@ -1,5 +1,8 @@
 import './requireAltImages.css';
 
+import _ from 'lodash';
+
+import {isHTMLElement} from '../helpers/domHelpers';
 import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 
@@ -25,23 +28,49 @@ export const requireAltImages = makeBTDModule(({settings, TD}) => {
   });
 
   const observer = new MutationObserver((mutations) => {
-    const hasTouchedImages = mutations.some((m) => {
-      if (!(m.target instanceof HTMLElement)) {
-        return false;
-      }
-
-      return m.target.matches('.js-media-added');
-    });
-
-    // If we didn't edit media, nothing to do.
-    if (!hasTouchedImages) {
-      return;
-    }
-
     const sendButton = composer.querySelector<HTMLButtonElement>('button.js-send-button');
 
     // If we don't have a send button, nothing to do.
     if (!sendButton) {
+      return;
+    }
+
+    const hasImages = Boolean(composer.querySelector('.js-media-added > *'));
+    const hasAddedWarning = _(mutations)
+      .flatMap((m) => Array.from(m.addedNodes))
+      .some((n) => {
+        return (
+          isHTMLElement(n) &&
+          Boolean(
+            n.classList.contains('btd-composer-warning') || n.closest('.btd-composer-warning')
+          )
+        );
+      });
+
+    const hasRemovedImages = _(mutations)
+      .flatMap((m) => Array.from(m.removedNodes))
+      .some((n) => {
+        return Boolean(isHTMLElement(n) && n.classList.contains('compose-media-bar-holder'));
+      });
+
+    if (hasAddedWarning) {
+      return;
+    }
+
+    const isButtonDisabled = sendButton.classList.contains('is-disabled');
+
+    if (!hasImages) {
+      sendButton.closest('.cf')?.querySelector('.btd-composer-warning')?.remove();
+      if (sendButton && hasRemovedImages) {
+        const textarea = composer.querySelector('textarea');
+        if (!textarea) {
+          return;
+        }
+
+        if (textarea.value.length && isButtonDisabled) {
+          enableButton(sendButton);
+        }
+      }
       return;
     }
 
@@ -55,14 +84,10 @@ export const requireAltImages = makeBTDModule(({settings, TD}) => {
       return el.textContent?.trim() === noAltTextIndicator;
     });
 
-    if (needsReminder) {
-      sendButton.classList.add('is-disabled');
-      sendButton.style.pointerEvents = 'none';
-      sendButton.closest('.pull-right')?.insertAdjacentElement('beforebegin', makeWarningElement());
-    } else {
-      sendButton.classList.remove('is-disabled');
-      sendButton.style.pointerEvents = 'auto';
-      sendButton.closest('.cf')?.querySelector('.pull-left')?.remove();
+    if (needsReminder && !isButtonDisabled) {
+      disableButton(sendButton);
+    } else if (isButtonDisabled) {
+      enableButton(sendButton);
     }
   });
 
@@ -72,9 +97,21 @@ export const requireAltImages = makeBTDModule(({settings, TD}) => {
   });
 });
 
+function disableButton(sendButton: HTMLElement) {
+  sendButton.classList.add('is-disabled');
+  sendButton.style.pointerEvents = 'none';
+  sendButton.closest('.pull-right')?.insertAdjacentElement('beforebegin', makeWarningElement());
+}
+
+function enableButton(sendButton: HTMLElement) {
+  sendButton.classList.remove('is-disabled');
+  sendButton.style.pointerEvents = 'auto';
+  sendButton.closest('.cf')?.querySelector('.btd-composer-warning')?.remove();
+}
+
 function makeWarningElement() {
   const el = document.createElement('div');
-  el.classList.add('pull-left');
+  el.classList.add('pull-left', 'btd-composer-warning');
   el.innerText = 'All images require a description!';
   return el;
 }
