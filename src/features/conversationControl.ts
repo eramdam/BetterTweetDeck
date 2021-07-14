@@ -44,7 +44,7 @@ export const conversationControl = makeBTDModule(({TD, jq, mR}) => {
     baseTweet.limitedActions = blob.limited_actions;
     baseTweet.cannotBeRepliedTo = blob.limited_actions === 'limited_replies';
 
-    return this.OGFromJSON(blob);
+    return baseTweet;
   };
 
   const select = document.createElement('select');
