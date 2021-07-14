@@ -25,7 +25,7 @@ import {makeSearchColumnsFirst} from './features/makeSearchColumnsFirst';
 import {useModernOverlays} from './features/modernOverlays';
 import {pauseColumnsOnHover} from './features/pauseColumnsOnHover';
 import {maybeRemoveRedirection} from './features/removeRedirection';
-import {maybeRenderCardsInColumns} from './features/renderCardsInColumns';
+import {maybeRenderCardsInColumnsNatively} from './features/renderCardsInColumnsNative';
 import {renderMediaAndQuotedTweets} from './features/renderMediaAndQuotedTweets';
 import {maybeReplaceHeartsByStars} from './features/replaceHeartsByStars';
 import {requireAltImages} from './features/requireAltImages';
@@ -105,7 +105,6 @@ const jq: JQueryStatic | undefined =
   renderMediaAndQuotedTweets(btdModuleOptions);
   setupGifModals(btdModuleOptions);
   injectCustomCss(btdModuleOptions);
-  maybeRenderCardsInColumns(btdModuleOptions);
   setupColumnMonitor(btdModuleOptions);
   maybeRemoveRedirection(btdModuleOptions);
   maybeChangeUsernameFormat(btdModuleOptions);
@@ -142,6 +141,7 @@ const jq: JQueryStatic | undefined =
       isReponse: false,
       payload: undefined,
     });
+    maybeRenderCardsInColumnsNatively(btdModuleOptions);
     showAvatarsInColumnsHeader(btdModuleOptions);
     requireAltImages(btdModuleOptions);
     maybeShowFollowBanner(btdModuleOptions);
