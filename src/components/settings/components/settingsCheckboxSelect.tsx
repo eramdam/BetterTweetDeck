@@ -2,7 +2,6 @@ import {css, cx} from '@emotion/css';
 import React, {Fragment, ReactNode} from 'react';
 
 import {RendererOf} from '../../../helpers/typeHelpers';
-import {AbstractTweetDeckSettings} from '../../../types/abstractTweetDeckSettings';
 import {BTDSettings} from '../../../types/btdSettingsTypes';
 import {generateInputId} from '../settingsHelpers';
 import {checkboxInputStyles, settingsDisabled} from '../settingsStyles';
@@ -11,7 +10,6 @@ import {featureBadgeClassname, NewFeatureBadge, NewFeatureBadgeProps} from './ne
 // There's probably a wau to do this without having to do a manual union ¯\(ツ)/¯
 export type SettingKey =
   | keyof BTDSettings
-  | keyof AbstractTweetDeckSettings
   | keyof BTDSettings['tweetActions']
   | keyof BTDSettings['tweetMenuItems'];
 

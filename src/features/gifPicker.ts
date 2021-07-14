@@ -1,13 +1,13 @@
 import {debounce, Dictionary} from 'lodash';
 import _ from 'lodash';
 
-import {GifsArray, processGifRequest} from '../background/gifRequests';
 import {makeGifButton} from '../components/gifButton';
 import {makeGifItem, makeGifPicker} from '../components/gifPicker';
 import {sendInternalBTDMessage} from '../helpers/communicationHelpers';
 import {emptyNode} from '../helpers/domHelpers';
 import {onComposerShown} from '../helpers/tweetdeckHelpers';
 import {insertDomChefElement} from '../helpers/typeHelpers';
+import {GifsArray, processGifRequest} from '../services/backgroundGifRequests';
 import {BTDMessageOriginsEnum, BTDMessages} from '../types/btdMessageTypes';
 import {BTDSettings} from '../types/btdSettingsTypes';
 

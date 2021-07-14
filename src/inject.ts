@@ -45,7 +45,6 @@ import {setupChirpHandler} from './services/chirpHandler';
 import {setupColumnMonitor} from './services/columnMediaSizeMonitor';
 import {maybeSetupDebugFunctions} from './services/debugMethods';
 import {insertSettingsButton} from './services/setupSettings';
-import {applyTweetDeckSettings} from './types/abstractTweetDeckSettings';
 import {BTDModuleOptions, BTDSettingsAttribute, BTDVersionAttribute} from './types/btdCommonTypes';
 import {BTDMessageOriginsEnum, BTDMessages} from './types/btdMessageTypes';
 import {BTDSettings} from './types/btdSettingsTypes';
@@ -129,7 +128,6 @@ const jq: JQueryStatic | undefined =
   insertSettingsButton(btdModuleOptions);
   setupThemeAutoSwitch(btdModuleOptions);
   maybeSetupCustomTimestampFormat(btdModuleOptions);
-  applyTweetDeckSettings(btdModuleOptions);
   maybeShowCharacterCount(btdModuleOptions);
   showTweetDogEars(btdModuleOptions);
   contentWarnings(btdModuleOptions);
