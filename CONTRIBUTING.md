@@ -11,6 +11,8 @@ First of all, thanks for taking the time to contribute!
     - [Loading the extension into your browser](#loading-the-extension-into-your-browser)
   - [Technical details and guidelines](#technical-details-and-guidelines)
     - [Project structure](#project-structure)
+    - [About the config](#about-the-config)
+    - [Ok, I'm done. What do I do now?](#ok-im-done-what-do-i-do-now)
 
 ## Goal of the project
 
@@ -22,24 +24,25 @@ Better TweetDeck's goal is to improve TweetDeck by:
 However, it is **not** made to:
 
 - fix TweetDeck's bugs. Most of the technical regressions are almost impossible for a 3rd party extension to fix.
-- add anything that tracks, spies and exposes users to ads.
+- add anything that tracks, spies, and exposes users to ads.
 - add features that work around or violate Twitter's terms of service.
 
 ## Project's principles
 
-TweetDeck is a complicated piece of software, and Better TweetDeck isn't simple either. This is why when I add new features to Better TweetDeck I try to stick to a few principles:
+TweetDeck is a complicated piece of software, and Better TweetDeck isn't simple either. This is why when I add new features to Better TweetDeck, I try to stick to a few principles:
 
 - Keep it simple. This applies to both the code behind a feature and the feature itself.
-- Be as defensive as possible. Writing a browser extension is like trying to shoot a moving target, so it's useful to try to write the code in such a way that it doesn't completely falls apart if TweetDeck changes something overnight.
+- Be as defensive as possible. Writing a browser extension is like trying to shoot a moving target, so it's helpful to try to write the code in such a way that it doesn't entirely fall apart if TweetDeck changes something overnight.
 
 ## Building the project locally
 
-**First time installation**
+** First-time installation**
 
 1. Install [git](https://git-scm.com/)
 2. Install [node.js](https://nodejs.org/en/) (version >= 15)
-3. (Clone this repository)[https://help.github.com/articles/cloning-a-repository/]
-4. Run `npm install` in the repository's folder
+3. **[Fork](https://github.com/eramdam/BetterTweetDeck/fork)** this repository
+4. Clone the project
+5. Run `npm install` in the repository's folder
 
 **Build commands**
 
@@ -56,15 +59,17 @@ Below, `<browser>` can be one of those values:
 
 `npm run build:prod:<browser>` will clean `dist/` and build Better TweetDeck in production mode and stop
 
+Check the [section below](#loading-the-extension-into-your-browser) when it comes to loading the extension.
+
 **Lint and test commands**
 
 `npm run fix` will run `eslint --fix` and fix various code style/formatting issues if possible
 
 `npm run lint` will run `eslint` and report various code style/formatting issues
 
-`npm run typecheck` will run TypeScript's typechecking and exit
+`npm run typecheck` will run TypeScript's type-checking and exit
 
-`npm run typecheck:watch` will run TypeScript's typechecking in watch mode
+`npm run typecheck:watch` will run TypeScript's type-checking in watch mode
 
 **Misc commands**
 
@@ -81,7 +86,7 @@ Below, `<browser>` can be one of those values:
 **Chrome/Edge**
 
 1. Go to `Menu->More tools->Extensions` and tick the `Developer Mode` checkbox.
-2. Click Load unpacked extension and select the `/dist/` folder.
+2. Click `Load unpacked` extension and select the `/dist/` folder.
 3. Any time you make changes, you must go back to the `Menu->More tools->Extensions` page and Reload the extension.
 
 **Firefox**
@@ -94,11 +99,11 @@ Alternatively, you can use `npm run run:firefox` to open a particular instance o
 
 ## Technical details and guidelines
 
-The project is written using [TypeScript](https://www.typescriptlang.org/) for most of the code. Some UI bits use [React](https://reactjs.org/) when possible and [dom-chef](https://github.com/vadimdemedes/dom-chef) when it's not, this isn't ideal but I'll try to work on a better solution in the future.
+The project uses [TypeScript](https://www.typescriptlang.org/) for most of the code. Some UI bits use [React](https://reactjs.org/) when possible and [dom-chef](https://github.com/vadimdemedes/dom-chef) when it's not; this isn't ideal, but I'll try to work on a better solution in the future.
 
 ### Project structure
 
-**Top level files and folders**
+**Top-level files and folders**
 
 - `artifacts/`: release files are generated into this folder
 - `config/`: configuration files picked up by Webpack at build time
@@ -115,9 +120,25 @@ The project is written using [TypeScript](https://www.typescriptlang.org/) for m
 **Rundown of `src/`**
 
 - `_locales/`: contains localization files
-- `assets/`: images and icon files, are usually inline as data-uri by Webpack
+- `assets/`: images and icon files are usually inline as data-URI by Webpack
 - `components/`: contains React/DOM components
 - `features/`: contains all the code of the features injected into TweetDeck
-- `helpers/`: contains utility code to deal with various aspects of Better TweetDeck. **Code in those folders is meant to be stateless**
-- `services/`: basically the stateful cousin of `helpers/`.
+- `helpers/`: contains utility code to deal with various aspects of Better TweetDeck. **Code in those folders should be stateless**
+- `services/`: the stateful cousin of `helpers/`.
 - `types/`: contains useful typings for deal with Better TweetDeck/Twitter stuff
+
+### About the config
+
+The Webpack configuration uses the [Define](https://webpack.js.org/plugins/define-plugin/) plugin to expose secrets and configuration variables. They are available through `BtdConfig` in `src/defineConfig.ts`.
+
+**DO NOT COMMIT YOUR CONFIGURATION FILE. DO NOT COMMIT API KEYS OR SECRET**.
+
+### Ok, I'm done. What do I do now?
+
+Awesome! I'm sure your feature or bugfix is amazing :tada:
+
+- **Commit your changes** to your feature branch
+- **Test your feature/bugfix locally** by building the extension given above and be sure it works the way it should.
+- **[Submit a Pull Request](https://github.com/eramdam/BetterTweetDeck/compare)** if your changes are done and working
+- **Wait for feedback** on your Pull Request and make changes if necessary
+- **Enjoy the heartwarming feeling of your feature being merged**
