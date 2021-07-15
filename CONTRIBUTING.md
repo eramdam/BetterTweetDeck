@@ -1,0 +1,123 @@
+# Contributor guidelines
+
+First of all, thanks for taking the time to contribute!
+
+**Tables of contents**
+
+- [Contributor guidelines](#contributor-guidelines)
+  - [Goal of the project](#goal-of-the-project)
+  - [Project's principles](#projects-principles)
+  - [Building the project locally](#building-the-project-locally)
+    - [Loading the extension into your browser](#loading-the-extension-into-your-browser)
+  - [Technical details and guidelines](#technical-details-and-guidelines)
+    - [Project structure](#project-structure)
+
+## Goal of the project
+
+Better TweetDeck's goal is to improve TweetDeck by:
+
+- adding features that brings it to parity with other Twitter clients
+- adding features that Twitter will likely never add
+
+However, it is **not** made to:
+
+- fix TweetDeck's bugs. Most of the technical regressions are almost impossible for a 3rd party extension to fix.
+- add anything that tracks, spies and exposes users to ads.
+- add features that work around or violate Twitter's terms of service.
+
+## Project's principles
+
+TweetDeck is a complicated piece of software, and Better TweetDeck isn't simple either. This is why when I add new features to Better TweetDeck I try to stick to a few principles:
+
+- Keep it simple. This applies to both the code behind a feature and the feature itself.
+- Be as defensive as possible. Writing a browser extension is like trying to shoot a moving target, so it's useful to try to write the code in such a way that it doesn't completely falls apart if TweetDeck changes something overnight.
+
+## Building the project locally
+
+**First time installation**
+
+1. Install [git](https://git-scm.com/)
+2. Install [node.js](https://nodejs.org/en/) (version >= 15)
+3. (Clone this repository)[https://help.github.com/articles/cloning-a-repository/]
+4. Run `npm install` in the repository's folder
+
+**Build commands**
+
+Below, `<browser>` can be one of those values:
+
+- `firefox`: for Firefox
+- `firefox-beta`: is only used on CI to build a private, nightly version of the extension
+- `chrome`: for Edge/Chrome
+- `safari`: for Safari
+
+`npm run start:<browser>` will clean `dist/`, build Better TweetDeck in development mode and start a watch task that will rebuild the extension change changes files
+
+`npm run build:<browser>` will clean `dist/` and build Better TweetDeck in development mode and stop
+
+`npm run build:prod:<browser>` will clean `dist/` and build Better TweetDeck in production mode and stop
+
+**Lint and test commands**
+
+`npm run fix` will run `eslint --fix` and fix various code style/formatting issues if possible
+
+`npm run lint` will run `eslint` and report various code style/formatting issues
+
+`npm run typecheck` will run TypeScript's typechecking and exit
+
+`npm run typecheck:watch` will run TypeScript's typechecking in watch mode
+
+**Misc commands**
+
+`npm run run:firefox` will open a Firefox instance with the extension loaded and updated when the content of `dist/` changes
+
+`npm run release` will build the extension for all browsers to prepare for a new release
+
+`npm run update-xcode` will change the XCode files to reflect the current version number
+
+`npm run pack:safari` will update the XCode files and build the project for Safari
+
+### Loading the extension into your browser
+
+**Chrome/Edge**
+
+1. Go to `Menu->More tools->Extensions` and tick the `Developer Mode` checkbox.
+2. Click Load unpacked extension and select the `/dist/` folder.
+3. Any time you make changes, you must go back to the `Menu->More tools->Extensions` page and Reload the extension.
+
+**Firefox**
+
+1. Go to `about:debugging` and tick the `Enable add-on debugging` checkbox.
+2. Click `Load Temporary Add-on` and select `/dist/manifest.json` (not the /dist folder).
+3. Any time you make changes, you must go back to the `about:debugging` page and Reload the extension.
+
+Alternatively, you can use `npm run run:firefox` to open a particular instance of Firefox that reloads when the content of `dist/` changes.
+
+## Technical details and guidelines
+
+The project is written using [TypeScript](https://www.typescriptlang.org/) for most of the code. Some UI bits use [React](https://reactjs.org/) when possible and [dom-chef](https://github.com/vadimdemedes/dom-chef) when it's not, this isn't ideal but I'll try to work on a better solution in the future.
+
+### Project structure
+
+**Top level files and folders**
+
+- `artifacts/`: release files are generated into this folder
+- `config/`: configuration files picked up by Webpack at build time
+- `definitions/`: contains custom TypeScript definitions for packages that don't have any
+- `dist/`: build output
+- `package-lock.json`
+- `safari/`: contains the XCode project necessary to build the extension for Safari
+- `src/`: Source code
+- `tools/`: various scripts and definitions of the manifest files
+- `tsconfig.json`: TypeScript configuration file
+- `webpack/`: [Webpack](https://webpack.js.org/) related files
+- `webpack.config.js`: [Webpack](https://webpack.js.org/) configuration file
+
+**Rundown of `src/`**
+
+- `_locales/`: contains localization files
+- `assets/`: images and icon files, are usually inline as data-uri by Webpack
+- `components/`: contains React/DOM components
+- `features/`: contains all the code of the features injected into TweetDeck
+- `helpers/`: contains utility code to deal with various aspects of Better TweetDeck. **Code in those folders is meant to be stateless**
+- `services/`: basically the stateful cousin of `helpers/`.
+- `types/`: contains useful typings for deal with Better TweetDeck/Twitter stuff
