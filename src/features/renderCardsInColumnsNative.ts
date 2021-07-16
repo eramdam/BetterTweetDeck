@@ -30,6 +30,22 @@ export const maybeRenderCardsInColumnsNatively = makeBTDModule((options) => {
     return;
   }
 
+  // Monkey-patch the `getIFrameUrl` method in order to not send bogus id for actions
+  mR.findModule((mod) => {
+    if (mod.getIFrameUrl) {
+      mod.getIFrameUrl = (id: string) => {
+        const splits = id.split('_');
+        const actualId = splits[splits.length - 1] || id;
+
+        return 'https://cards-frame.twitter.com/i/cards/tfw/v1/uc/' + actualId;
+      };
+
+      return true;
+    }
+
+    return false;
+  });
+
   TD.services.TwitterAction.prototype.OGFromJSON =
     TD.services.TwitterAction.prototype.fromJSONObject;
 
