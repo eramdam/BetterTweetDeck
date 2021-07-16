@@ -13,7 +13,6 @@ First of all, thanks for taking the time to contribute!
     - [Project structure](#project-structure)
     - [About the config](#about-the-config)
     - [Coding guidelines](#coding-guidelines)
-      - [General guidelines](#general-guidelines)
     - [Ok, I'm done. What do I do now?](#ok-im-done-what-do-i-do-now)
 
 ## Goal of the project
@@ -137,17 +136,7 @@ The Webpack configuration uses the [Define](https://webpack.js.org/plugins/defin
 
 ### Coding guidelines
 
-#### General guidelines
-
-I won't discuss the formatting style because ESLint and Prettier will take care of that when you commit your changes.
-
-However, I will go over a few "best practices" I try to stick to when writing code for Better TweetDeck:
-
-- Comment your code. Don't write comments on every line, but if you write code that is a bit complex/weird, leave a comment.
-- Keep it simple. There's no need to be overly clever; the most straightforward solution might be the best one.
-- Do not abbreviate variable and function names. TypeScript has excellent completion, so take advantage of it.
-- Use [`async/await`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) for asynchronous code.
-- Use [enums](https://www.typescriptlang.org/docs/handbook/enums.html) when dealing with external "flags". It will be easier to refactor the code around it and prevents easy bugs caused by typos.
+[Coding guidelines](./docs/coding-guidelines.md)
 
 ### Ok, I'm done. What do I do now?
 
