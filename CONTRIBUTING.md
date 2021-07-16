@@ -5,17 +5,25 @@ First of all, thanks for taking the time to contribute!
 **Tables of contents**
 
 - [Contributor guidelines](#contributor-guidelines)
-  - [Goal of the project](#goal-of-the-project)
-  - [Project's principles](#projects-principles)
-  - [Building the project locally](#building-the-project-locally)
-    - [Loading the extension into your browser](#loading-the-extension-into-your-browser)
-  - [Technical details and guidelines](#technical-details-and-guidelines)
-    - [Project structure](#project-structure)
-    - [About the config](#about-the-config)
-    - [Coding guidelines](#coding-guidelines)
+- [Goal of the project](#goal-of-the-project)
+- [Project's principles](#projects-principles)
+- [Building the project locally](#building-the-project-locally)
+  - [Loading the extension into your browser](#loading-the-extension-into-your-browser)
+- [Technical details](#technical-details)
+  - [Project structure](#project-structure)
+  - [About the config](#about-the-config)
+- [Coding guidelines](#coding-guidelines)
+  - [General guidelines](#general-guidelines)
+  - [TypeScript](#typescript)
+    - [Naming conventions](#naming-conventions)
+      - [Avoid abbreviations](#avoid-abbreviations)
+      - [Types](#types)
+    - [Avoid `default` exports](#avoid-default-exports)
+    - [Use `async/await`](#use-asyncawait)
+    - [Use enums](#use-enums)
     - [Ok, I'm done. What do I do now?](#ok-im-done-what-do-i-do-now)
 
-## Goal of the project
+# Goal of the project
 
 Better TweetDeck's goal is to improve TweetDeck by:
 
@@ -28,14 +36,14 @@ However, it is **not** made to:
 - add anything that tracks, spies, and exposes users to ads.
 - add features that work around or violate Twitter's terms of service.
 
-## Project's principles
+# Project's principles
 
 TweetDeck is a complicated piece of software, and Better TweetDeck isn't simple either. This is why when I add new features to Better TweetDeck, I try to stick to a few principles:
 
 - Keep it simple. This applies to both the code behind a feature and the feature itself.
 - Be as defensive as possible. Writing a browser extension is like trying to shoot a moving target, so it's helpful to try to write the code in such a way that it doesn't entirely fall apart if TweetDeck changes something overnight.
 
-## Building the project locally
+# Building the project locally
 
 ** First-time installation**
 
@@ -82,7 +90,7 @@ Check the [section below](#loading-the-extension-into-your-browser) when it come
 
 `npm run pack:safari` will update the XCode files and build the project for Safari
 
-### Loading the extension into your browser
+## Loading the extension into your browser
 
 **Chrome/Edge**
 
@@ -98,11 +106,11 @@ Check the [section below](#loading-the-extension-into-your-browser) when it come
 
 Alternatively, you can use `npm run run:firefox` to open a particular instance of Firefox that reloads when the content of `dist/` changes.
 
-## Technical details and guidelines
+# Technical details
 
 The project uses [TypeScript](https://www.typescriptlang.org/) for most of the code. Some UI bits use [React](https://reactjs.org/) when possible and [dom-chef](https://github.com/vadimdemedes/dom-chef) when it's not; this isn't ideal, but I'll try to work on a better solution in the future.
 
-### Project structure
+## Project structure
 
 **Top-level files and folders**
 
@@ -128,15 +136,117 @@ The project uses [TypeScript](https://www.typescriptlang.org/) for most of the c
 - `services/`: the stateful cousin of `helpers/`.
 - `types/`: contains useful typings for deal with Better TweetDeck/Twitter stuff
 
-### About the config
+## About the config
 
 The Webpack configuration uses the [Define](https://webpack.js.org/plugins/define-plugin/) plugin to expose secrets and configuration variables. They are available through `BtdConfig` in `src/defineConfig.ts`.
 
 **DO NOT COMMIT YOUR CONFIGURATION FILE. DO NOT COMMIT API KEYS OR SECRET**.
 
-### Coding guidelines
+# Coding guidelines
 
-[Coding guidelines](./docs/coding-guidelines.md)
+## General guidelines
+
+I won't discuss the formatting style because ESLint and Prettier will take care of that when you commit your changes.
+
+However, I will go over a few "best practices" I try to stick to when writing code for Better TweetDeck:
+
+- Comment your code. Don't write comments on every line, but if you write code that is a bit complex/weird, leave a comment.
+- Keep it simple. There's no need to be overly clever; the most straightforward solution might be the best one.
+- Do not abbreviate variable and function names. TypeScript has excellent completion, so take advantage of it.
+- TypeScript allows us to use modern features of JavaScript, so don't feel shy about using them!
+
+## TypeScript
+
+### Naming conventions
+
+#### Avoid abbreviations
+
+TypeScript gives use good autocompletion, meaning typing the full name of symbols is rarely needed. You can therefore avoid abbreviations that make the code harder to read.
+
+```ts
+// Bad
+class HttpSvc {}
+
+// Good
+class HttpService {}
+```
+
+#### Types
+
+In order to tell them apart from Js variables, types names should use PascalCase, avoid any prefix/suffix denoting the kind of the type such as `I` for interfaces.
+
+```ts
+// Bad
+interface myObject {}
+interface ImyObject {}
+type fooType = {};
+enum actionsEnum {}
+
+// Good
+interface MyObject {}
+type Foo = {};
+enum Actions {}
+```
+
+### Avoid `default` exports
+
+To make refactoring and auto importing easier, always use named exports.
+
+```ts
+// Bad
+import Stuff from './stuff';
+
+// Good
+import {Stuff} from './stuff;
+```
+
+### Use `async/await`
+
+`async/await` really simplifies writing asynchronous code. It sometimes gets more verbose, but it really makes it easier to reason above async code.
+
+```ts
+// Bad
+function myRequest() {
+  return new Promise((resolve) => resolve(1));
+}
+
+myRequest().then((res) => console.log({res}));
+
+// Better
+async function myRequest() {
+  return 1;
+}
+
+const result = await myRequest();
+```
+
+### Use enums
+
+Enums are a very nice feature of TypeScript. I tend to use them instead of string literals for constants that are re-used or given by an API.
+
+```ts
+// Bad
+const action = api.action;
+
+switch (action) {
+  case 'foo': {}
+  case 'bar': {}
+  default: {}
+}
+
+// Better
+enum Actions {
+  FOO = 'foo'
+  BAR = 'bar'
+}
+const action = api.action;
+
+switch (action) {
+  case Actions.FOO: {}
+  case Actions.BAR: {}
+  default: {}
+}
+```
 
 ### Ok, I'm done. What do I do now?
 
