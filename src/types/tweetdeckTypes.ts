@@ -1113,6 +1113,7 @@ export interface TwitterStatus extends TweetDeckChirp {
 }
 
 interface Services {
+  TwitterAction: TwitterStatus;
   bitly: unknown;
   TwitterStatus: TwitterStatus;
   TwitterActionOnTweet: TwitterStatus;
