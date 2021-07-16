@@ -16,8 +16,6 @@ First of all, thanks for taking the time to contribute!
   - [General guidelines](#general-guidelines)
   - [TypeScript](#typescript)
     - [Naming conventions](#naming-conventions)
-      - [Avoid abbreviations](#avoid-abbreviations)
-      - [Types](#types)
     - [Avoid `default` exports](#avoid-default-exports)
     - [Use `async/await`](#use-asyncawait)
     - [Use enums](#use-enums)
@@ -159,7 +157,7 @@ However, I will go over a few "best practices" I try to stick to when writing co
 
 ### Naming conventions
 
-#### Avoid abbreviations
+**Avoid abbreviations**
 
 TypeScript gives use good autocompletion, meaning typing the full name of symbols is rarely needed. You can therefore avoid abbreviations that make the code harder to read.
 
@@ -171,7 +169,7 @@ class HttpSvc {}
 class HttpService {}
 ```
 
-#### Types
+**Types**
 
 In order to tell them apart from Js variables, types names should use PascalCase, avoid any prefix/suffix denoting the kind of the type such as `I` for interfaces.
 
