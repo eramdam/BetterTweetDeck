@@ -197,31 +197,35 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
     return string.replace(marker, replacement);
   });
 
-  jq('body').on('click', `[data-btd-action="${TweetActions.DOWNLOAD_MEDIA}"]`, (ev) => {
+  jq('body').on('click', `[data-btd-action="${TweetActions.DOWNLOAD_MEDIA}"]`, async (ev) => {
     ev.preventDefault();
     const chirp = getChirpFromElement(TD, ev.target)?.chirp;
     if (!chirp) {
       return;
     }
     const media = getMediaFromChirp(chirp);
+    const mediaPromises = media.map((item) => {
+      return requestMediaItem(item);
+    });
 
-    media.forEach((item) => {
-      requestMediaItem(item).then((file) => {
-        if (!file) {
-          return;
-        }
-        try {
-          saveAs(
-            file,
-            TD.ui.template.render(
-              'btd/download_filename_format',
-              getFilenameDownloadData(chirp, item)
-            )
-          );
-        } catch (e) {
-          console.error(e);
-        }
-      });
+    const maybeResults = await Promise.all(mediaPromises);
+
+    maybeResults.forEach((file, index) => {
+      if (!file) {
+        return;
+      }
+
+      try {
+        saveAs(
+          file,
+          TD.ui.template.render(
+            'btd/download_filename_format',
+            getFilenameDownloadData(chirp, media[index])
+          )
+        );
+      } catch (e) {
+        console.error(e);
+      }
     });
   });
 

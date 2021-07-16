@@ -86,13 +86,14 @@ export function setupGifPicker(settings: BTDSettings) {
 
     // @ts-expect-error
     const gifButton = makeGifButton({
-      onClick: () => {
+      onClick: async () => {
         document.querySelector('.btd-giphy-zone')?.classList.add('-visible');
-        makeGifRequest('trending').then((gifs) => {
-          if (gifs) {
-            renderGifItems(gifs);
-          }
-        });
+        const gifs = await makeGifRequest('trending');
+
+        if (!gifs) {
+          return;
+        }
+        renderGifItems(gifs);
       },
     }) as HTMLElement;
     gifButton.classList.add('-visible');
@@ -130,12 +131,14 @@ function resetGifItems() {
 }
 
 async function onGifClick(gifUrl: string) {
+  const gifRes = await fetch(gifUrl);
+  const gifBlob = await gifRes.blob();
   sendInternalBTDMessage({
     name: BTDMessages.DOWNLOAD_MEDIA_RESULT,
     origin: BTDMessageOriginsEnum.CONTENT,
     payload: {
       url: gifUrl,
-      blob: await fetch(gifUrl).then((res) => res.blob()),
+      blob: gifBlob,
     },
   });
   closeGifPicker();
