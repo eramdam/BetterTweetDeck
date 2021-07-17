@@ -5,7 +5,7 @@ import {browser} from 'webextension-polyfill-ts';
 import {processDownloadMediaRequest} from './background/gifRequests';
 import {setupEmojiAutocompletion} from './features/emojiAutocompletion';
 import {setupEmojiPicker} from './features/emojiPicker';
-import {setupGifPicker} from './features/gifPicker';
+import {setupGifPicker} from './features/setupGifPicker';
 import {listenToInternalBTDMessage} from './helpers/communicationHelpers';
 import {isHTMLElement} from './helpers/domHelpers';
 import {sendMessageToBackground} from './helpers/webExtensionHelpers';

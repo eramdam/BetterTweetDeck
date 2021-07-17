@@ -1,15 +1,16 @@
-import React from 'dom-chef';
+import {cx} from '@emotion/css';
+import React, {FC} from 'react';
 
-import {DCFactory} from '../helpers/domHelpers';
-import {Handler, HandlerOf} from '../helpers/typeHelpers';
+import {Handler, HandlerOf} from '../../helpers/typeHelpers';
 
 interface GifPickerProps {
   onSearchInput: HandlerOf<string>;
   onCloseClick: Handler;
+  isVisible?: boolean;
 }
-export const makeGifPicker: DCFactory<GifPickerProps> = (props) => {
+export const BTDGifPicker: FC<GifPickerProps> = (props) => {
   return (
-    <div className="btd-giphy-zone compose">
+    <div className={cx('btd-giphy-zone compose', props.isVisible && '-visible')}>
       <header className="js-compose-header compose-header">
         <div className="position-rel compose-title inline-block">
           <h1 className="js-compose-title compose-title-text txt-ellipsis inline-block">
@@ -31,27 +32,8 @@ export const makeGifPicker: DCFactory<GifPickerProps> = (props) => {
         />
       </div>
       <div className="giphy-wrapper scroll-v scroll-styled-v">
-        <div className="giphy-content"></div>
+        <div className="giphy-content">{props.children}</div>
       </div>
-    </div>
-  );
-};
-
-interface GifItemProps {
-  previewUrl: string;
-  width: number;
-  height: number;
-  onClick: Handler;
-}
-export const makeGifItem: DCFactory<GifItemProps> = (props) => {
-  return (
-    <div className="btd-giphy-block-wrapper" onClick={props.onClick}>
-      <img
-        src={props.previewUrl}
-        className="btd-giphy-block"
-        height={props.height}
-        width={props.width}
-      />
     </div>
   );
 };

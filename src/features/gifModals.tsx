@@ -11,8 +11,6 @@ import {getChirpFromElement} from '../helpers/tweetdeckHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 
 export const setupGifModals = makeBTDModule(({TD, settings, jq}) => {
-  // const filenameRenderer = Hogan.compile(settings.downloadFilenameFormat);
-
   jq(document).on('click', 'video.js-media-gif', (e) => {
     const target = isHtmlVideoElement(e.target) && e.target;
 
