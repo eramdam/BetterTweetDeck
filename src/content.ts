@@ -24,7 +24,7 @@ listenToInternalBTDMessage(BTDMessages.BTD_READY, BTDMessageOriginsEnum.CONTENT,
   setupEmojiPicker(settings);
   setupEmojiAutocompletion(settings);
 
-  const settingsButton = document.querySelector('[btd-settings-button]');
+  const settingsButton = document.querySelector('[data-btd-settings-button]');
 
   if (isHTMLElement(settingsButton)) {
     settingsButton.addEventListener('click', () => {
