@@ -1,11 +1,10 @@
 import './gifModals.css';
 
 import React from 'dom-chef';
-import {saveAs} from 'file-saver';
 
 import {makeFullscreenModalWrapper} from '../components/fullscreenModalWrapper';
 import {maybeSetOverlayColorForMediaUrlInChirp} from '../helpers/colorHelpers';
-import {dataURItoBlob, isHtmlVideoElement} from '../helpers/domHelpers';
+import {isHtmlVideoElement} from '../helpers/domHelpers';
 import {closeFullscreenModal, openFullscreenModal} from '../helpers/modalHelpers';
 import {getChirpFromElement} from '../helpers/tweetdeckHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
@@ -51,18 +50,4 @@ export const setupGifModals = makeBTDModule(({TD, settings, jq}) => {
       maybeSetOverlayColorForMediaUrlInChirp(chirp, gifEntity.media_url_https);
     }
   });
-
-  window.addEventListener('message', onMessageEvent);
-
-  function onMessageEvent(ev: MessageEvent) {
-    if (!ev.origin.includes('better.tw')) {
-      return;
-    }
-
-    if (ev.data.message === 'complete_gif') {
-      const blob = dataURItoBlob(ev.data.img);
-
-      saveAs(blob, ev.data.name);
-    }
-  }
 });
