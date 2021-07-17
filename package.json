@@ -79,7 +79,6 @@
     "copy-webpack-plugin": "^9.0.1",
     "cross-env": "^7.0.3",
     "css-loader": "^5.2.6",
-    "dom-chef": "4.2.2",
     "emoji-mart": "^3.0.1",
     "eslint": "^7.30.0",
     "eslint-config-prettier": "^8.3.0",
