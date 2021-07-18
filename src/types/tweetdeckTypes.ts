@@ -647,6 +647,7 @@ export interface TweetDeckChirp {
   favorite(options: {element: JQuery<Element>; statusKey: string; column: string}): void;
   card?: {
     name: string;
+    url: string;
   };
 }
 
@@ -680,9 +681,13 @@ type TweetDeckMentionEntity = Twitter.UserMentionEntity & {
   isImplicitMention: boolean;
 };
 
+type TweetDeckUrlEntity = Twitter.UrlEntity & {
+  isUrlForAttachment: boolean;
+};
+
 export interface TweetEntities {
   hashtags: Twitter.HashtagEntity[];
-  urls: Twitter.UrlEntity[];
+  urls: TweetDeckUrlEntity[];
   user_mentions: TweetDeckMentionEntity[];
   cashtags: any[];
   media: TweetdeckMediaEntity[];
@@ -1312,7 +1317,7 @@ interface TweetDeckUtil {
   timesCached: TimesCached;
   datesCached: DatesCached;
   poller: unknown;
-  createUrlAnchor(e: any): string;
+  createUrlAnchor(e: TweetDeckUrlEntity): string;
   pluck(method: string): (a: any) => any;
   truncateNumber(n: number): string;
   transform(text: string, entities?: TweetEntities): string;

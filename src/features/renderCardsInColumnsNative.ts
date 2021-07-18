@@ -60,6 +60,17 @@ export const maybeRenderCardsInColumnsNatively = makeBTDModule((options) => {
       ) {
         baseTweet.card = undefined;
       }
+    } else if (baseTweet.targetTweet && baseTweet.targetTweet.card && baseTweet.isAboutYou()) {
+      const urlFromCard = baseTweet.targetTweet.card.url;
+      const isUrlInHtml = baseTweet.targetTweet.htmlText.includes(urlFromCard);
+
+      if (!isUrlInHtml) {
+        const entityForUrl = baseTweet.targetTweet.entities.urls.find((u) => u.url === urlFromCard);
+        if (entityForUrl) {
+          baseTweet.targetTweet.htmlText +=
+            '\n\n' + TD.util.createUrlAnchor({...entityForUrl, isUrlForAttachment: false});
+        }
+      }
     }
 
     return baseTweet;
