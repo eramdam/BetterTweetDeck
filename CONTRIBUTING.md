@@ -106,7 +106,7 @@ Alternatively, you can use `npm run run:firefox` to open a particular instance o
 
 # Technical details
 
-The project uses [TypeScript](https://www.typescriptlang.org/) for most of the code. Some UI bits use [React](https://reactjs.org/) when possible and [dom-chef](https://github.com/vadimdemedes/dom-chef) when it's not; this isn't ideal, but I'll try to work on a better solution in the future.
+The project uses [TypeScript](https://www.typescriptlang.org/) for most of the code. The UI of the settings page and of (some of) the UI injected into TweetDeck use [React](https://reactjs.org/).
 
 ## Project structure
 
