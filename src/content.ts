@@ -4,7 +4,7 @@ import {browser} from 'webextension-polyfill-ts';
 
 import {setupEmojiAutocompletion} from './features/emojiAutocompletion';
 import {setupEmojiPicker} from './features/emojiPicker';
-import {setupGifPicker} from './features/gifPicker';
+import {setupGifPicker} from './features/setupGifPicker';
 import {listenToInternalBTDMessage} from './helpers/communicationHelpers';
 import {isHTMLElement} from './helpers/domHelpers';
 import {sendMessageToBackground} from './helpers/webExtensionHelpers';
@@ -24,7 +24,7 @@ listenToInternalBTDMessage(BTDMessages.BTD_READY, BTDMessageOriginsEnum.CONTENT,
   setupEmojiPicker(settings);
   setupEmojiAutocompletion(settings);
 
-  const settingsButton = document.querySelector('[btd-settings-button]');
+  const settingsButton = document.querySelector('[data-btd-settings-button]');
 
   if (isHTMLElement(settingsButton)) {
     settingsButton.addEventListener('click', () => {

@@ -1,6 +1,5 @@
-import React from 'dom-chef';
-
-import {insertDomChefElement} from '../helpers/typeHelpers';
+import React from 'react';
+import {renderToStaticMarkup} from 'react-dom/server';
 
 export function setupBtdRoot() {
   return new Promise<void>((resolve) => {
@@ -14,7 +13,7 @@ export function setupBtdRoot() {
       </div>
     );
 
-    document.body.appendChild(insertDomChefElement(btdApp));
+    document.body.insertAdjacentHTML('beforeend', renderToStaticMarkup(btdApp));
     resolve();
   });
 }

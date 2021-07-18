@@ -1,12 +1,10 @@
-import React from 'dom-chef';
+import React from 'react';
 
-import {DCFactory} from '../helpers/domHelpers';
-
-export const makeSettingsButton: DCFactory = (props) => {
+export const BTDSettingsButton = () => {
   return (
     <a
       className="js-show-drawer js-header-action link-clean cf app-nav-tab padding-h--10 padding-v--2"
-      btd-settings-button
+      data-btd-settings-button
       data-title="BTD Settings">
       <div className="obj-left margin-l--2">
         <i className="icon icon-sliders icon-medium position-rel"></i>

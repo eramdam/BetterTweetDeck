@@ -2,8 +2,8 @@ import ReactDOM from 'react-dom';
 import {Key} from 'ts-key-enum';
 
 import {getFullscreenNodeRoot} from '../types/btdCommonTypes';
-import {emptyNode, isHTMLElement, maybeDoOnNode, setStylesOnNode} from './domHelpers';
-import {Handler, insertDomChefElement} from './typeHelpers';
+import {isHTMLElement} from './domHelpers';
+import {Handler} from './typeHelpers';
 
 const onFullscreenKeyDown = (e: KeyboardEvent, beforeClose?: Handler) => {
   if (e.key !== Key.Escape) {
@@ -24,19 +24,22 @@ const modalObserver = new ResizeObserver((entries: ResizeObserverEntry[]) => {
     '[data-btd-modal-content-sizer] img, [data-btd-modal-content-sizer] video'
   )!;
 
-  setStylesOnNode(mediaElement, {
-    maxWidth: rect.width,
-    maxHeight: rect.height,
-  });
+  mediaElement.style.maxWidth = `${rect.width}px`;
+  mediaElement.style.maxHeight = `${rect.height}px`;
 });
 
 export function closeFullscreenModal() {
   document.removeEventListener('keydown', onFullscreenKeyDown, true);
   modalObserver.disconnect();
-  maybeDoOnNode(getFullscreenNodeRoot(), (node) => {
-    emptyNode(node);
-    node.classList.remove('open');
-  });
+
+  const fullscreenNode = getFullscreenNodeRoot();
+
+  if (!fullscreenNode) {
+    return;
+  }
+
+  ReactDOM.unmountComponentAtNode(fullscreenNode);
+  fullscreenNode.classList.remove('open');
 }
 
 function maybeCloseFullscreenModalOnClick(e: MouseEvent, beforeClose?: Handler) {
@@ -65,12 +68,11 @@ export function openFullscreenModal(content: JSX.Element) {
     return;
   }
 
-  fullscreenNode.classList.add('open');
+  ReactDOM.render(content, fullscreenNode);
 
+  fullscreenNode.classList.add('open');
   fullscreenNode.addEventListener('click', maybeCloseFullscreenModalOnClick);
   document.addEventListener('keydown', onFullscreenKeyDown, true);
-
-  fullscreenNode.appendChild(insertDomChefElement(content));
 
   const target = document.querySelector('[data-btd-modal-content-sizer]');
   if (!target) {
@@ -78,36 +80,4 @@ export function openFullscreenModal(content: JSX.Element) {
   }
 
   modalObserver.observe(target);
-}
-
-export function openFullscreenModalWithReactElement(content: JSX.Element, onClose?: Handler) {
-  const fullscreenNode = getFullscreenNodeRoot();
-
-  // Make sure to clean everything in the modal first
-  closeFullscreenModal();
-
-  if (!fullscreenNode) {
-    return;
-  }
-
-  fullscreenNode.classList.add('open');
-
-  const beforeClose = () => {
-    ReactDOM.unmountComponentAtNode(fullscreenNode);
-    if (onClose) {
-      onClose();
-    }
-  };
-
-  fullscreenNode.addEventListener('click', (e) => {
-    return maybeCloseFullscreenModalOnClick(e, beforeClose);
-  });
-  document.addEventListener(
-    'keydown',
-    (e) => {
-      return onFullscreenKeyDown(e, beforeClose);
-    },
-    true
-  );
-  ReactDOM.render(content, fullscreenNode);
 }

@@ -1,3 +1,4 @@
+import {useLayoutEffect, useState} from 'react';
 import {Twitter} from 'twit';
 
 import {TweetDeckChirp, TweetDeckColumn, TweetdeckMediaEntity} from '../types/tweetdeckTypes';
@@ -185,6 +186,23 @@ export function onComposerShown(callback: HandlerOf<boolean>) {
   return () => {
     composerObserver.disconnect();
   };
+}
+
+export function useIsComposerVisible(onVisibleChange?: HandlerOf<boolean>) {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useLayoutEffect(() => {
+    onComposerShown((bool) => {
+      setIsVisible(bool);
+      if (onVisibleChange) {
+        onVisibleChange(bool);
+      }
+    });
+
+    return () => {};
+  }, [onVisibleChange]);
+
+  return isVisible;
 }
 
 // From http://stackoverflow.com/questions/1064089/inserting-a-text-where-cursor-is-using-javascript-jquery

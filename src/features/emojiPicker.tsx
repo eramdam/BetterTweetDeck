@@ -14,12 +14,14 @@ export function setupEmojiPicker(settings: BTDSettings) {
 
   document.body.setAttribute('btd-emoji-picker', 'true');
 
+  let root: HTMLDivElement | undefined = undefined;
+
   function unmount() {
-    if (!document.querySelector('#emojiButton')) {
+    if (!root) {
       return;
     }
 
-    unmountComponentAtNode(document.querySelector('#emojiButton')!);
+    unmountComponentAtNode(root);
   }
 
   onComposerShown((isVisible) => {
@@ -28,12 +30,11 @@ export function setupEmojiPicker(settings: BTDSettings) {
       return;
     }
 
-    const root = document.createElement('div');
+    root = document.createElement('div');
     root.id = 'emojiButton';
 
     document.querySelector('.compose-text-container')!.appendChild(root);
 
-    // @ts-ignore
     ReactDOM.render(<EmojiButton onClick={insertInsideComposer}></EmojiButton>, root);
   });
 }

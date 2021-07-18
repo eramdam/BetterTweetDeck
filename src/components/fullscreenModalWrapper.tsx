@@ -1,13 +1,12 @@
-import React from 'dom-chef';
+import React, {FC} from 'react';
 
-import {DCFactory} from '../helpers/domHelpers';
 import {Handler} from '../helpers/typeHelpers';
 
 interface FullscreenModalWrapperProps {
   onClose: Handler;
 }
 
-export const makeFullscreenModalWrapper: DCFactory<FullscreenModalWrapperProps> = (props) => {
+export const FullscreenModal: FC<FullscreenModalWrapperProps> = (props) => {
   return (
     <div className="js-mediatable ovl-block is-inverted-light" tabIndex={-1}>
       <div className="s-padded">

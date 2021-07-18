@@ -3,6 +3,11 @@ import {Twitter} from 'twit';
 
 import {HandlerOf} from '../helpers/typeHelpers';
 
+export enum TwitterConversationModes {
+  EVERYONE = '',
+  FOLLOW = 'Community',
+  MENTION = 'ByInvitation',
+}
 export type TweetDeckTheme = 'light' | 'dark';
 export type TweetDeckLinkShortener = 'bitly' | 'twitter';
 export interface TweetDeckBitlyAccount {
@@ -189,12 +194,14 @@ export interface TweetDeckControllerClient {
   };
 }
 
+export type TweetDeckClientGetter = (key: string) => TweetDeckControllerClient | undefined;
+
 interface TweetDeckController {
   auth: unknown;
   stats: Stats;
   clients: {
     getClientsByService(service: 'twitter'): TweetDeckControllerClient[];
-    getClient(key: string): TweetDeckControllerClient | undefined;
+    getClient: TweetDeckClientGetter;
   };
   scheduler: Scheduler;
   feedScheduler: FeedScheduler;
@@ -647,6 +654,7 @@ export interface TweetDeckChirp {
   favorite(options: {element: JQuery<Element>; statusKey: string; column: string}): void;
   card?: {
     name: string;
+    url: string;
   };
 }
 
@@ -680,9 +688,13 @@ type TweetDeckMentionEntity = Twitter.UserMentionEntity & {
   isImplicitMention: boolean;
 };
 
+type TweetDeckUrlEntity = Twitter.UrlEntity & {
+  isUrlForAttachment: boolean;
+};
+
 export interface TweetEntities {
   hashtags: Twitter.HashtagEntity[];
-  urls: Twitter.UrlEntity[];
+  urls: TweetDeckUrlEntity[];
   user_mentions: TweetDeckMentionEntity[];
   cashtags: any[];
   media: TweetdeckMediaEntity[];
@@ -1113,6 +1125,7 @@ export interface TwitterStatus extends TweetDeckChirp {
 }
 
 interface Services {
+  TwitterAction: TwitterStatus;
   bitly: unknown;
   TwitterStatus: TwitterStatus;
   TwitterActionOnTweet: TwitterStatus;
@@ -1311,7 +1324,7 @@ interface TweetDeckUtil {
   timesCached: TimesCached;
   datesCached: DatesCached;
   poller: unknown;
-  createUrlAnchor(e: any): string;
+  createUrlAnchor(e: TweetDeckUrlEntity): string;
   pluck(method: string): (a: any) => any;
   truncateNumber(n: number): string;
   transform(text: string, entities?: TweetEntities): string;

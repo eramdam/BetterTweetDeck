@@ -47,7 +47,8 @@ html.dark {
   & .med-origlink,
   & .follow-btn .icon,
   & .follow-btn .Icon,
-  & .conversation-more {
+  & .conversation-more,
+  & .compose-reply-tweet .tweet-body a {
     color: var(--btd-accent-color);
   }
 

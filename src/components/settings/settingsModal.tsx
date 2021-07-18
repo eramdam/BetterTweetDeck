@@ -2,7 +2,7 @@ import './settingsModal.css';
 
 import {css, cx} from '@emotion/css';
 import {isEqual} from 'lodash';
-import React, {Fragment, useCallback, useMemo, useState} from 'react';
+import React, {Fragment, useMemo, useState} from 'react';
 import {browser} from 'webextension-polyfill-ts';
 
 import {isFirefox} from '../../helpers/browserHelpers';
@@ -76,15 +76,14 @@ export const SettingsModal = (props: SettingsModalProps) => {
     };
   };
 
-  const updateSettings = useCallback(async () => {
+  const updateSettings = async () => {
     try {
       await onSettingsUpdate(settings);
       setIsDirty(false);
-      maybeAskForTabsPermissions(settings);
     } catch (e) {
       setSaveError(String(e));
     }
-  }, [onSettingsUpdate, settings]);
+  };
 
   const canSave = useMemo(
     () => !editorHasErrors && isDirty && !saveError,
@@ -226,7 +225,18 @@ export const SettingsModal = (props: SettingsModalProps) => {
                 <Trans id="settings_footer_label" />
               </div>
             )}
-            <SettingsButton variant="primary" onClick={updateSettings} disabled={!canSave}>
+            <SettingsButton
+              variant="primary"
+              onClick={() => {
+                updateSettings();
+
+                if (settings.enableShareItem && isFirefox) {
+                  browser.permissions.request({
+                    permissions: ['tabs'],
+                  });
+                }
+              }}
+              disabled={!canSave}>
               <Trans id="settings_save" />
             </SettingsButton>
           </div>
@@ -235,19 +245,6 @@ export const SettingsModal = (props: SettingsModalProps) => {
     </SettingsSearchProvider>
   );
 };
-
-async function maybeAskForTabsPermissions(newSettings: BTDSettings) {
-  if (!newSettings.enableShareItem) {
-    return;
-  }
-  if (!isFirefox) {
-    return;
-  }
-
-  return browser.permissions.request({
-    permissions: ['tabs'],
-  });
-}
 
 function renderMenuInInvisibleContainer(menu: ReadonlyArray<MenuItem>) {
   return (

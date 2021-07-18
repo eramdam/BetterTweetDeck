@@ -1,11 +1,10 @@
-import './gifButton.css';
+import '../gifButton.css';
 
-import React from 'dom-chef';
+import React, {FC} from 'react';
 
-import {DCFactory} from '../helpers/domHelpers';
-import {Handler} from '../helpers/typeHelpers';
+import {Handler} from '../../helpers/typeHelpers';
 
-export const makeGifButton: DCFactory<{
+export const BTDGifButton: FC<{
   onClick: Handler;
 }> = (props) => {
   const d = new Date();

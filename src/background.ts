@@ -88,9 +88,11 @@ function addContextMenuItem(settings: BTDSettings) {
     onclick: async (info, tab) => {
       const urlToShare = info.linkUrl || info.srcUrl || info.pageUrl;
       const baseText = info.selectionText || tab.title || '';
+      const suffix =
+        settings.shouldShortenSharedText && baseText.length > textLimitWithLink ? '…' : '';
       const textToShare = !settings.shouldShortenSharedText
         ? baseText
-        : baseText.slice(0, textLimitWithLink) + '…';
+        : baseText.slice(0, textLimitWithLink) + suffix;
 
       const tabs = await browser.tabs.query({
         url: '*://tweetdeck.twitter.com/*',

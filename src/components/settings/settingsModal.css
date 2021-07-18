@@ -188,6 +188,8 @@ html {
   border-right: 1px solid var(--settings-modal-separator);
   background-color: var(--settings-modal-background);
   color: var(--settings-modal-text);
+  overflow: auto;
+  padding-bottom: 20px;
 }
 
 .btd-settings-sidebar .section-title {

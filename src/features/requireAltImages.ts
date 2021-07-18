@@ -8,6 +8,13 @@ import {makeBTDModule} from '../types/btdCommonTypes';
 
 // Some of the logic is based on https://www.abitofaccess.com/alt-or-not-code
 export const requireAltImages = makeBTDModule(({settings, TD}) => {
+  modifyMustacheTemplate(TD, 'compose/docked_compose.mustache', (str) => {
+    return str.replace(
+      'cf margin-t--12 margin-b--30',
+      'cf margin-t--12 margin-b--30 btd-compose-button-wrapper'
+    );
+  });
+
   if (!settings.disableTweetButtonIfAltIsMissing) {
     return;
   }
@@ -19,13 +26,6 @@ export const requireAltImages = makeBTDModule(({settings, TD}) => {
   }
 
   let noAltTextIndicator = '';
-
-  modifyMustacheTemplate(TD, 'compose/docked_compose.mustache', (str) => {
-    return str.replace(
-      'cf margin-t--12 margin-b--30',
-      'cf margin-t--12 margin-b--30 btd-compose-button-wrapper'
-    );
-  });
 
   const observer = new MutationObserver((mutations) => {
     const sendButton = composer.querySelector<HTMLButtonElement>('button.js-send-button');

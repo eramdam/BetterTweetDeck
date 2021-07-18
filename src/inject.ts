@@ -15,6 +15,7 @@ import {maybeSetupCustomTimestampFormat} from './features/changeTimestampFormat'
 import {changeTweetActionsStyling} from './features/changeTweetActions';
 import {maybeCollapseDms} from './features/collapseDms';
 import {contentWarnings} from './features/contentWarnings';
+import {addConversationControls} from './features/conversationControl';
 import {injectCustomCss} from './features/customCss';
 import {maybeFreezeGifsInProfilePicture} from './features/freezeGifsProfilePictures';
 import {setupGifModals} from './features/gifModals';
@@ -25,7 +26,7 @@ import {makeSearchColumnsFirst} from './features/makeSearchColumnsFirst';
 import {useModernOverlays} from './features/modernOverlays';
 import {pauseColumnsOnHover} from './features/pauseColumnsOnHover';
 import {maybeRemoveRedirection} from './features/removeRedirection';
-import {maybeRenderCardsInColumns} from './features/renderCardsInColumns';
+import {maybeRenderCardsInColumnsNatively} from './features/renderCardsInColumnsNative';
 import {renderMediaAndQuotedTweets} from './features/renderMediaAndQuotedTweets';
 import {maybeReplaceHeartsByStars} from './features/replaceHeartsByStars';
 import {requireAltImages} from './features/requireAltImages';
@@ -104,7 +105,6 @@ const jq: JQueryStatic | undefined =
   renderMediaAndQuotedTweets(btdModuleOptions);
   setupGifModals(btdModuleOptions);
   injectCustomCss(btdModuleOptions);
-  maybeRenderCardsInColumns(btdModuleOptions);
   setupColumnMonitor(btdModuleOptions);
   maybeRemoveRedirection(btdModuleOptions);
   maybeChangeUsernameFormat(btdModuleOptions);
@@ -140,6 +140,8 @@ const jq: JQueryStatic | undefined =
       isReponse: false,
       payload: undefined,
     });
+    addConversationControls(btdModuleOptions);
+    maybeRenderCardsInColumnsNatively(btdModuleOptions);
     showAvatarsInColumnsHeader(btdModuleOptions);
     requireAltImages(btdModuleOptions);
     maybeShowFollowBanner(btdModuleOptions);
@@ -165,6 +167,7 @@ const jq: JQueryStatic | undefined =
   });
   jq(document).on('uiResetImageUpload', () => {
     jq('.btd-gif-button').addClass('-visible');
+    jq('.compose-text-container #btdConversationControl').removeClass('-gif-hidden');
   });
 
   listenToInternalBTDMessage(
@@ -182,6 +185,7 @@ const jq: JQueryStatic | undefined =
         files: [gifFile],
       });
       jq('.btd-gif-button').removeClass('-visible');
+      jq('.compose-text-container #btdConversationControl').addClass('-gif-hidden');
     }
   );
 })();

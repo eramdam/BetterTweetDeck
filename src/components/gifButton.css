@@ -93,6 +93,7 @@
   opacity: 0;
   transition-property: color, opacity;
   user-select: none;
+  pointer-events: none;
 
   &:hover {
     color: #616161 !important;
@@ -101,6 +102,7 @@
 
 .btd-gif-button.-visible {
   opacity: 1;
+  pointer-events: auto;
 }
 
 input.giphy-search-input {
