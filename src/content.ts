@@ -2,13 +2,13 @@ import './features/mainStyles.css';
 
 import {browser} from 'webextension-polyfill-ts';
 
-import {processDownloadMediaRequest} from './background/gifRequests';
 import {setupEmojiAutocompletion} from './features/emojiAutocompletion';
 import {setupEmojiPicker} from './features/emojiPicker';
 import {setupGifPicker} from './features/setupGifPicker';
 import {listenToInternalBTDMessage} from './helpers/communicationHelpers';
 import {isHTMLElement} from './helpers/domHelpers';
 import {sendMessageToBackground} from './helpers/webExtensionHelpers';
+import {processDownloadMediaRequest} from './services/backgroundGifRequests';
 import {getValidatedSettings} from './services/backgroundSettings';
 import {injectInTD} from './services/injectInTD';
 import {setupBtdRoot} from './services/setupBTDRoot';

@@ -1,7 +1,7 @@
 /*
  * Advanced Mute Engine for TweetDeck
  * Copyright (c) 2017 pixeldesu
- * Converted to TypeScript by eraqmdam
+ * Converted to TypeScript by eramdam
  *
  * This version of the AME is modified for usage in BetterTweetDeck
  *

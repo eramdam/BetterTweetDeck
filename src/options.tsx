@@ -7,15 +7,11 @@ import {ExtensionSettings} from './helpers/webExtensionHelpers';
 import {getValidatedSettings} from './services/backgroundSettings';
 import {BTDSettings} from './types/btdSettingsTypes';
 
-const App: FC = () => {
+const Options: FC = () => {
   const [settings, setSettings] = useState<BTDSettings>({} as any);
 
   useEffect(() => {
-    getValidatedSettings().then((newSettings) => {
-      setSettings({
-        ...newSettings,
-      });
-    });
+    getValidatedSettings().then(setSettings);
   }, []);
 
   if (isEmpty(settings)) {
@@ -36,4 +32,4 @@ const App: FC = () => {
 const root = document.createElement('div');
 root.id = 'root';
 document.body.appendChild(root);
-render(<App></App>, root);
+render(<Options></Options>, root);

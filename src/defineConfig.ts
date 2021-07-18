@@ -7,10 +7,6 @@ interface BtdClientConfig {
 interface APIs {
   giphy: string;
   tenor: string;
-  dribbble: string;
-  imgur: string;
-  twitch: string;
-  tinami: string;
 }
 declare const __BTD_CONFIG: BtdClientConfig;
 export const BtdConfig = __BTD_CONFIG as BtdClientConfig;

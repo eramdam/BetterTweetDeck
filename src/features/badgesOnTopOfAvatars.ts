@@ -23,7 +23,7 @@ export const putBadgesOnTopOfAvatars = makeBTDModule(({TD, settings}) => {
   }
   document.body.setAttribute('btd-badges-top-avatar', String(settings.badgesOnTopOfAvatars));
 
-  onChirpAdded((addedChirp) => {
+  onChirpAdded(async (addedChirp) => {
     const {chirp, chirpExtra} = addedChirp;
     const actionOrType = chirpExtra.action || chirpExtra.chirpType;
     let userForBadge: TweetDeckUser | undefined;
@@ -93,12 +93,13 @@ export const putBadgesOnTopOfAvatars = makeBTDModule(({TD, settings}) => {
     } else if (userForBadge.isTranslator && settings.translatorBadges) {
       chirpNode.classList.add(...classesToAdd, 'btd-translator-badge');
     } else if (userForBadge.following && settings.mutualBadges) {
-      getFollowerStatus(userForBadge).then((result) => {
-        if (!result) {
-          return;
-        }
+      const followerStatus = await getFollowerStatus(userForBadge);
 
-        if (result.relationship.target.followed_by && result.relationship.target.following) {
+      if (followerStatus) {
+        if (
+          followerStatus.relationship.target.followed_by &&
+          followerStatus.relationship.target.following
+        ) {
           chirpNode.classList.add(...classesToAdd, 'btd-mutual-badge');
           if (settings.mutualBadgeVariation === BTDMutualBadges.HEART) {
             chirpNode.classList.add('btd-mutual-heart');
@@ -106,7 +107,7 @@ export const putBadgesOnTopOfAvatars = makeBTDModule(({TD, settings}) => {
             chirpNode.classList.add('btd-mutual-arrows');
           }
         }
-      });
+      }
     }
   });
 
@@ -155,7 +156,7 @@ export const putBadgesOnTopOfAvatars = makeBTDModule(({TD, settings}) => {
     const client = TD.controller.clients.getClient(user.account.privateState.key);
 
     if (!client) {
-      return;
+      return undefined;
     }
 
     return getRelationForUserAndClient(client, user);
