@@ -161,3 +161,10 @@ html.dark .typeahead .js-hashtag {
 .column-navigator-overflow {
   bottom: 300px;
 }
+
+.icon-user-check:before {
+  content: '\F105';
+}
+.icon-earth:before {
+  content: '\F102';
+}

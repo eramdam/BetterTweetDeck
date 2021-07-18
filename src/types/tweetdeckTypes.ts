@@ -3,6 +3,11 @@ import {Twitter} from 'twit';
 
 import {HandlerOf} from '../helpers/typeHelpers';
 
+export enum TwitterConversationModes {
+  EVERYONE = '',
+  FOLLOW = 'Community',
+  MENTION = 'ByInvitation',
+}
 export type TweetDeckTheme = 'light' | 'dark';
 export type TweetDeckLinkShortener = 'bitly' | 'twitter';
 export interface TweetDeckBitlyAccount {
@@ -189,12 +194,14 @@ export interface TweetDeckControllerClient {
   };
 }
 
+export type TweetDeckClientGetter = (key: string) => TweetDeckControllerClient | undefined;
+
 interface TweetDeckController {
   auth: unknown;
   stats: Stats;
   clients: {
     getClientsByService(service: 'twitter'): TweetDeckControllerClient[];
-    getClient(key: string): TweetDeckControllerClient | undefined;
+    getClient: TweetDeckClientGetter;
   };
   scheduler: Scheduler;
   feedScheduler: FeedScheduler;

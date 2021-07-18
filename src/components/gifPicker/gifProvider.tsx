@@ -31,7 +31,6 @@ export const BTDGifProvider = () => {
   }, 1000);
 
   const onGifClick = async (gifUrl: string) => {
-    console.log({gifUrl});
     sendInternalBTDMessage({
       name: BTDMessages.DOWNLOAD_MEDIA_RESULT,
       origin: BTDMessageOriginsEnum.CONTENT,

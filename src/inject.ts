@@ -15,7 +15,7 @@ import {maybeSetupCustomTimestampFormat} from './features/changeTimestampFormat'
 import {changeTweetActionsStyling} from './features/changeTweetActions';
 import {maybeCollapseDms} from './features/collapseDms';
 import {contentWarnings} from './features/contentWarnings';
-import {conversationControl} from './features/conversationControl';
+import {addConversationControls} from './features/conversationControl';
 import {injectCustomCss} from './features/customCss';
 import {maybeFreezeGifsInProfilePicture} from './features/freezeGifsProfilePictures';
 import {setupGifModals} from './features/gifModals';
@@ -142,7 +142,7 @@ const jq: JQueryStatic | undefined =
       isReponse: false,
       payload: undefined,
     });
-    conversationControl(btdModuleOptions);
+    addConversationControls(btdModuleOptions);
     maybeRenderCardsInColumnsNatively(btdModuleOptions);
     showAvatarsInColumnsHeader(btdModuleOptions);
     requireAltImages(btdModuleOptions);
@@ -169,6 +169,7 @@ const jq: JQueryStatic | undefined =
   });
   jq(document).on('uiResetImageUpload', () => {
     jq('.btd-gif-button').addClass('-visible');
+    jq('.compose-text-container #btdConversationControl').removeClass('-gif-hidden');
   });
 
   listenToInternalBTDMessage(
@@ -186,6 +187,7 @@ const jq: JQueryStatic | undefined =
         files: [gifFile],
       });
       jq('.btd-gif-button').removeClass('-visible');
+      jq('.compose-text-container #btdConversationControl').addClass('-gif-hidden');
     }
   );
 })();
