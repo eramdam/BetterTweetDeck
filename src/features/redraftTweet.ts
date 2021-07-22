@@ -9,7 +9,7 @@ import {BTDMessageOriginsEnum, BTDMessages} from '../types/btdMessageTypes';
 import {TweetDeckChirp, TweetDeckUser} from '../types/tweetdeckTypes';
 
 export const listenToRedraftTweetEvent = makeBTDModule(({TD, jq}) => {
-  jq('body').on('click', '[data-btd-action="edit-tweet"]', (ev) => {
+  jq('body').on('click', '[data-btd-action="edit-tweet"]', async (ev) => {
     ev.preventDefault();
     const chirpObject = getChirpFromElement(TD, ev.target);
     if (!chirpObject) {
@@ -135,11 +135,10 @@ export const listenToRedraftTweetEvent = makeBTDModule(({TD, jq}) => {
 
     // == re-upload all the files we had, if any
     if (media.length) {
-      Promise.all(media.map((item) => requestMediaItem(item))).then((gotFiles) => {
-        jq(document).trigger('uiComposeFilesAdded', {files: gotFiles});
-      });
+      const files = await Promise.all(media.map((item) => requestMediaItem(item)));
+      jq(document).trigger('uiComposeFilesAdded', {files: files});
 
-      jq(document).one('uiComposeImageAdded', (...args) => {
+      jq(document).one('uiComposeImageAdded', () => {
         // it is now safe to remove the tweet
         chirp.destroy();
       });

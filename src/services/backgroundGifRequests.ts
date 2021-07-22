@@ -21,8 +21,9 @@ export async function processGifRequest(
       pathAndQuery.searchParams.append(k, params[k]);
     });
 
-    const res = await fetch(pathAndQuery.toString()).then((r) => r.json());
-    const formatted: GifsArray = (res.data || []).map((i: any) => ({
+    const res = await fetch(pathAndQuery.toString());
+    const resJson = await res.json();
+    const formatted: GifsArray = (resJson.data || []).map((i: any) => ({
       preview: {
         url: i.images.preview_gif.url,
         width: Number(i.images.preview_gif.width),
@@ -47,8 +48,9 @@ export async function processGifRequest(
     pathAndQuery.searchParams.append(k, params[k]);
   });
 
-  const res = await fetch(pathAndQuery.toString()).then((r) => r.json());
-  const formatted: GifsArray = (res.results || []).map((i: any) => ({
+  const res = await fetch(pathAndQuery.toString());
+  const resJson = await res.json();
+  const formatted: GifsArray = (resJson.results || []).map((i: any) => ({
     preview: {
       url: i.media[0].tinygif.url,
       width: Number(i.media[0].tinygif.dims[0]),
@@ -72,7 +74,8 @@ export async function processDownloadMediaRequest(
 ): Promise<BTDDownloadMediaRequestResult | undefined> {
   const url = message.payload;
 
-  const blob = await fetch(url).then((res) => res.blob());
+  const res = await fetch(url);
+  const blob = await res.blob();
 
   return {
     ...message,

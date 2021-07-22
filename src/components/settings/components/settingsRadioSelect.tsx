@@ -2,7 +2,6 @@ import {css, cx} from '@emotion/css';
 import React, {ReactNode} from 'react';
 
 import {HandlerOf} from '../../../helpers/typeHelpers';
-import {AbstractTweetDeckSettings} from '../../../types/abstractTweetDeckSettings';
 import {BTDSettings} from '../../../types/btdSettingsTypes';
 import {settingsDisabled} from '../settingsStyles';
 import {SettingsRadioInput} from './settingsRadioInput';
@@ -57,12 +56,6 @@ export function SettingsRadioSettingSelect<S extends object, T extends keyof S>(
 
 export function BTDSettingsRadioSettingSelect<T extends keyof BTDSettings>(
   props: SettingsRadioSettingsSelectProps<BTDSettings, T>
-) {
-  return SettingsRadioSettingSelect(props);
-}
-
-export function TDSettingsRadioSettingSelect<T extends keyof AbstractTweetDeckSettings>(
-  props: SettingsRadioSettingsSelectProps<AbstractTweetDeckSettings, T>
 ) {
   return SettingsRadioSettingSelect(props);
 }

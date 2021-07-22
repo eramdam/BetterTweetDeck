@@ -1,166 +1,257 @@
-**⚠️ Disclaimer: this doc isn't up to date with the current codebase. I will update it at a later time ⚠️**
+# Contributor guidelines
 
-<details>
-:thumbsup: :tada: :raised_hands: First, thanks for taking the time to contribute! :thumbsup: :tada: :raised_hands:
+First of all, thanks for taking the time to contribute!
 
-The following is a set of guidelines to contribute to Better TweetDeck so the project can stay clean and focused
+**Tables of contents**
 
-**Table of Contents**
+- [Contributor guidelines](#contributor-guidelines)
+- [Goal of the project](#goal-of-the-project)
+- [Project's principles](#projects-principles)
+- [Building the project locally](#building-the-project-locally)
+  - [Loading the extension into your browser](#loading-the-extension-into-your-browser)
+- [Technical details](#technical-details)
+  - [Project structure](#project-structure)
+  - [About the config](#about-the-config)
+- [Coding guidelines](#coding-guidelines)
+  - [General guidelines](#general-guidelines)
+  - [TypeScript](#typescript)
+    - [Naming conventions](#naming-conventions)
+    - [Avoid `default` exports](#avoid-default-exports)
+    - [Use `async/await`](#use-asyncawait)
+    - [Use enums](#use-enums)
+    - [Ok, I'm done. What do I do now?](#ok-im-done-what-do-i-do-now)
 
-- [What should I know before?](#what-should-i-know-before)
-  - [Background](#background)
-  - [Focus of the project](#focus-of-the-project)
-  - [Project structure](#project-structure) - [Files and folders](#files-and-folders) - [Rundown of `src/`](#rundown-of-src)
-- [How Can I Contribute?](#how-can-i-contribute)
-  - [Contributing by actually coding](#contributing-by-actually-coding)
-    - [Setup](#setup)
-    - [Getting started](#getting-started)
-      - [The npm scripts](#the-npm-scripts)
-      - [Actually building the project](#actually-building-the-project)
-    - [About the config](#about-the-config)
-    - [Ok I'm done, what do I do now?](#ok-im-done-what-do-i-do-now)
-  - [Reporting Bugs](#reporting-bugs)
-    - [Before Submitting A Bug Report](#before-submitting-a-bug-report)
-    - [How Do I Submit A (Good) Bug Report?](#how-do-i-submit-a-good-bug-report)
+# Goal of the project
 
-# What should I know before?
+Better TweetDeck's goal is to improve TweetDeck by:
 
-## Background
+- adding features that brings it to parity with other Twitter clients
+- adding features that Twitter will likely never add
 
-I started Better TweetDeck as a little side project for myself then decided to release it to the world and it has now a whooping 20K+ users! On a technical standpoint the project went through a lof of iterations but version 3 marked a huge progress in terms of "good practices" and "cleanliness" of the project's code.
+However, it is **not** made to:
 
-## Focus of the project
+- fix TweetDeck's bugs. Most of the technical regressions are almost impossible for a 3rd party extension to fix.
+- add anything that tracks, spies, and exposes users to ads.
+- add features that work around or violate Twitter's terms of service.
 
-Better TweetDeck **is** made to:
+# Project's principles
 
-- add features to improve someone's experience on TweetDeck
-- improve some minor design issues of TweetDeck
-- that's basically it!
+TweetDeck is a complicated piece of software, and Better TweetDeck isn't simple either. This is why when I add new features to Better TweetDeck, I try to stick to a few principles:
 
-Better TweetDeck **is not** made to:
+- Keep it simple. This applies to both the code behind a feature and the feature itself.
+- Be as defensive as possible. Writing a browser extension is like trying to shoot a moving target, so it's helpful to try to write the code in such a way that it doesn't entirely fall apart if TweetDeck changes something overnight.
 
-- add full-featured themes, the "Minimal mode" is the one and only ""theme"" present in the extension. That is not definitive and could maybe chance but is unlikely
-- fix TweetDeck's bugs. TweetDeck's team has to do some work too, this project is not meant to fix their technical regressions
-- track, spy, put ads to users or whatever against users' privacy
+# Building the project locally
+
+** First-time installation**
+
+1. Install [git](https://git-scm.com/)
+2. Install [node.js](https://nodejs.org/en/) (version >= 15)
+3. **[Fork](https://github.com/eramdam/BetterTweetDeck/fork)** this repository
+4. Clone the project
+5. Run `npm install` in the repository's folder
+
+**Build commands**
+
+Below, `<browser>` can be one of those values:
+
+- `firefox`: for Firefox
+- `firefox-beta`: is only used on CI to build a private, nightly version of the extension
+- `chrome`: for Edge/Chrome
+- `safari`: for Safari
+
+`npm run start:<browser>` will clean `dist/`, build Better TweetDeck in development mode and start a watch task that will rebuild the extension change changes files
+
+`npm run build:<browser>` will clean `dist/` and build Better TweetDeck in development mode and stop
+
+`npm run build:prod:<browser>` will clean `dist/` and build Better TweetDeck in production mode and stop
+
+Check the [section below](#loading-the-extension-into-your-browser) when it comes to loading the extension.
+
+**Lint and test commands**
+
+`npm run fix` will run `eslint --fix` and fix various code style/formatting issues if possible
+
+`npm run lint` will run `eslint` and report various code style/formatting issues
+
+`npm run typecheck` will run TypeScript's type-checking and exit
+
+`npm run typecheck:watch` will run TypeScript's type-checking in watch mode
+
+**Misc commands**
+
+`npm run run:firefox` will open a Firefox instance with the extension loaded and updated when the content of `dist/` changes
+
+`npm run release` will build the extension for all browsers to prepare for a new release
+
+`npm run update-xcode` will change the XCode files to reflect the current version number
+
+`npm run pack:safari` will update the XCode files and build the project for Safari
+
+## Loading the extension into your browser
+
+**Chrome/Edge**
+
+1. Go to `Menu->More tools->Extensions` and tick the `Developer Mode` checkbox.
+2. Click `Load unpacked` extension and select the `/dist/` folder.
+3. Any time you make changes, you must go back to the `Menu->More tools->Extensions` page and Reload the extension.
+
+**Firefox**
+
+1. Go to `about:debugging` and tick the `Enable add-on debugging` checkbox.
+2. Click `Load Temporary Add-on` and select `/dist/manifest.json` (not the /dist folder).
+3. Any time you make changes, you must go back to the `about:debugging` page and Reload the extension.
+
+Alternatively, you can use `npm run run:firefox` to open a particular instance of Firefox that reloads when the content of `dist/` changes.
+
+# Technical details
+
+The project uses [TypeScript](https://www.typescriptlang.org/) for most of the code. The UI of the settings page and of (some of) the UI injected into TweetDeck use [React](https://reactjs.org/).
 
 ## Project structure
 
-##### Files and folders
+**Top-level files and folders**
 
-- `config/`: configuration files with API keys and debug flags
-- `dist/`: build output (useful for dev)
-- `artifacts/`: location of zip files/.crx/.nex files used for release
-- `meta/`: contains the description of the extension for the stores and other repo-related files
-- `src/`: source code
-- `tools/`: various scripts and useful files for the build process
-- `.babelrc`: [Babel](https://babeljs.io/) configuration file
-- `.eslint*`: [ESLint](http://eslint.org/) configuration files
-- `CHANGELOG.md`: self-explanatory
-- `CONTRIBUTING.md`: YOU ARE HERE !
-- `webpack.config.babel.js`: [Webpack](https://webpack.js.org/) configuration
-- `LICENSE`: license file
-- `package.json`: package info, dependencies
-- `README.md`: self-explanatory
+- `artifacts/`: release files are generated into this folder
+- `config/`: configuration files picked up by Webpack at build time
+- `definitions/`: contains custom TypeScript definitions for packages that don't have any
+- `dist/`: build output
+- `package-lock.json`
+- `safari/`: contains the XCode project necessary to build the extension for Safari
+- `src/`: Source code
+- `tools/`: various scripts and definitions of the manifest files
+- `tsconfig.json`: TypeScript configuration file
+- `webpack/`: [Webpack](https://webpack.js.org/) related files
+- `webpack.config.js`: [Webpack](https://webpack.js.org/) configuration file
 
-##### Rundown of `src/`
+**Rundown of `src/`**
 
-- `_locales`: localizations files
-- `css/**/*.css`: styles files
-- `emojis/`: emojis-related files (list of emojis, sprite sheet and icon)
-- `icons/`: icons of the extension
-- `js/`: all BTD code
-- `js/inject.js`: gets injected on TweetDeck's page, and allows communication between content script (`content.js`) and TweetDeck
-- `js/background.js`: background script
-- `js/content.js`: content script
-- `js/util/`: BTD utilities
-- `options/`: settings code
-- `manifest.json`: project manifest
+- `_locales/`: contains localization files
+- `assets/`: images and icon files are usually inline as data-URI by Webpack
+- `components/`: contains React/DOM components
+- `features/`: contains all the code of the features injected into TweetDeck
+- `helpers/`: contains utility code to deal with various aspects of Better TweetDeck. **Code in those folders should be stateless**
+- `services/`: the stateful cousin of `helpers/`.
+- `types/`: contains useful typings for deal with Better TweetDeck/Twitter stuff
 
-# How Can I Contribute?
+## About the config
 
-## Contributing by actually coding
+The Webpack configuration uses the [Define](https://webpack.js.org/plugins/define-plugin/) plugin to expose secrets and configuration variables. They are available through `BtdConfig` in `src/defineConfig.ts`.
 
-### Setup
+**DO NOT COMMIT YOUR CONFIGURATION FILE. DO NOT COMMIT API KEYS OR SECRET**.
 
-You will need [NodeJS](https://nodejs.org/en/) (**The more recent the better**). Fire up your favorite Terminal emulator and do the followings:
+# Coding guidelines
 
-- **[Fork](https://github.com/eramdam/BetterTweetDeck/fork)** this repository
-- Clone the project
-- Run `npm install`
+## General guidelines
 
-### Getting started
+I won't discuss the formatting style because ESLint and Prettier will take care of that when you commit your changes.
 
-#### The npm scripts
+However, I will go over a few "best practices" I try to stick to when writing code for Better TweetDeck:
 
-The [package.json](https://github.com/eramdam/BetterTweetDeck/blob/master/package.json) file contains various scripts.
+- Comment your code. Don't write comments on every line, but if you write code that is a bit complex/weird, leave a comment.
+- Keep it simple. There's no need to be overly clever; the most straightforward solution might be the best one.
+- Do not abbreviate variable and function names. TypeScript has excellent completion, so take advantage of it.
+- TypeScript allows us to use modern features of JavaScript, so don't feel shy about using them!
 
-Some scripts have `<browser>` in their name or arguments. As of now, two browsers (or rather three actually) are supported:
+## TypeScript
 
-- Google Chrome / Opera, by using the **`chrome`** target
-- Firefox by using the **`firefox`** target
+### Naming conventions
 
-Here is a run-down of all the scripts:
+**Avoid abbreviations**
 
-- `start -- <browser>`: builds up the project once, then watches for modifications while using the **`dev`** config and the defined target (see above)
-- `build -- <browser>` builds the extension in **`dev`** mode against the defined target
-- `build:prod -- <browser>`: builds the extension in **`prod`** mode against the defined target
-- `pack:<browser>` packages the extension for the given target:
-  - `chrome` will make a `.crx` and a `.nex` file with a private key
-  - `firefox` will use `web-ext` to make a zip file that has to be submitted to Mozilla Add-ons
-- `release` builds and packages the extension for **all** the targets
-- `test` Runs the link task from the Gulpfile and tries to run `release`. This is run on [Travis](https://travis-ci.org/eramdam/BetterTweetDeck) at every push and on every pull requests. If a given pull request doesn't pass this task, it won't be accepted.
-- `fix` Will run [prettier-eslint](https://github.com/prettier/prettier-eslint) and [prettier-stylelint](https://github.com/hugomrdias/prettier-stylelint) over the whole repository. **You should not need to run this as the precommit hook will do that for you**
-- `precommit` Runs [lint-staged](https://github.com/okonet/lint-staged) over the files to be committed. The `lint-staged` configuration currentlys runs `prettyer-stylelint` on CSS files and `prettier-eslint + eslint` over JS files.
+TypeScript gives use good autocompletion, meaning typing the full name of symbols is rarely needed. You can therefore avoid abbreviations that make the code harder to read.
 
-#### Actually building the project
+```ts
+// Bad
+class HttpSvc {}
 
-Now that you know what's available in your hands, let's get started. On a typical workflow you would
+// Good
+class HttpService {}
+```
 
-- Run `npm run start` to build/watch the project
-- Open the `chrome://extensions` page
-- Drag and drop the `dist/` file in there, you installed the local version of Better TweetDeck!
-- Now [hack](http://i.giphy.com/l0HlvFUHvDB16UOwU.gif)!
+**Types**
 
-### About the config
+In order to tell them apart from Js variables, types names should use PascalCase, avoid any prefix/suffix denoting the kind of the type such as `I` for interfaces.
 
-This project is using [config](https://npmjs.org/package/config) and [config-browserify](https://npmjs.org/package/config-browserify) to handle configuration.
-You will have to fill a `dev.js` using the [default.js](https://github.com/eramdam/BetterTweetDeck/blob/master/config/default.js) file as an example.
+```ts
+// Bad
+interface myObject {}
+interface ImyObject {}
+type fooType = {};
+enum actionsEnum {}
 
-**DO NOT COMMIT YOUR CONFIGURATION FILE. DO NOT COMMIT API KEYS AND/OR SECRET**.
+// Good
+interface MyObject {}
+type Foo = {};
+enum Actions {}
+```
 
-### Ok I'm done, what do I do now?
+### Avoid `default` exports
 
-Awesome! I'm sure your feature and/or bugfix is amazing :tada:
+To make refactoring and auto importing easier, always use named exports.
+
+```ts
+// Bad
+import Stuff from './stuff';
+
+// Good
+import {Stuff} from './stuff;
+```
+
+### Use `async/await`
+
+`async/await` really simplifies writing asynchronous code. It sometimes gets more verbose, but it really makes it easier to reason above async code.
+
+```ts
+// Bad
+function myRequest() {
+  return new Promise((resolve) => resolve(1));
+}
+
+myRequest().then((res) => console.log({res}));
+
+// Better
+async function myRequest() {
+  return 1;
+}
+
+const result = await myRequest();
+```
+
+### Use enums
+
+Enums are a very nice feature of TypeScript. I tend to use them instead of string literals for constants that are re-used or given by an API.
+
+```ts
+// Bad
+const action = api.action;
+
+switch (action) {
+  case 'foo': {}
+  case 'bar': {}
+  default: {}
+}
+
+// Better
+enum Actions {
+  FOO = 'foo'
+  BAR = 'bar'
+}
+const action = api.action;
+
+switch (action) {
+  case Actions.FOO: {}
+  case Actions.BAR: {}
+  default: {}
+}
+```
+
+### Ok, I'm done. What do I do now?
+
+Awesome! I'm sure your feature or bugfix is amazing :tada:
 
 - **Commit your changes** to your feature branch
-- **Test your feature/bugfix locally** by building the extension given above and be sure it works the way it is intended to
+- **Test your feature/bugfix locally** by building the extension given above and be sure it works the way it should.
 - **[Submit a Pull Request](https://github.com/eramdam/BetterTweetDeck/compare)** if your changes are done and working
 - **Wait for feedback** on your Pull Request and make changes if necessary
 - **Enjoy the heartwarming feeling of your feature being merged**
-
-## Reporting Bugs
-
-This section guides you through the process of reporting bugs :bug:.
-
-#### Before Submitting A Bug Report
-
-- **Check if the bug occurs without Better TweetDeck being enabled**, TweetDeck as a software is not exempt of weird things and bugs. If it happens without BTD then it's [not the focus](#focus-of-the-project)
-- **Check if the bug occurs if ONLY Better TweetDeck is enabled**, sometimes other extensions modify the content of your pages, or you could also have [ModernDeck](https://github.com/dangeredwolf/ModernDeck) or [Tweeten](tweeten.xyz) installed. Since BTD's footprint is very minimal, it's more of their responsibility to fix that. **Unless BTD explicitely breaks something on those extensions**
-- **Tweets not arriving, mentions being delayed or DMs being buggy are never Better TweetDeck's fault**, TweetDeck often endure slowdowns and outage even though they're terrible at communicating about it. BTD can't do anything about this, sorry :pensive:
-- **Search the [existing issues](https://github.com/issues?page=2&q=is%3Aissue+repo%3Aeramdam%2Fbettertweetdeck&utf8=%E2%9C%93)**, maybe it has already been reported and you can comment to help the issue being fixed faster!
-
-#### How Do I Submit A (Good) Bug Report?
-
-Explain the problem and include details to help the contributors (usually me) fix the issue:
-
-- **Use a clear and descriptive title** for the issue so the problem is clear
-- **Describe exact steps** to reproduce the issue. When listing steps, **don't just say what you did, but also how you did it**. These infos are more important than you might think.
-- **Provide specific examples**, if a tweet is not correctly displayed or similar, add a link to it. If a thumbnail doesn't show even though it should not, link the media URL. If you copy/paste a console output, use the [<details> element](https://gist.github.com/ericclemmons/b146fe5da72ca1f706b2ef72a20ac39d) for a cleaner issue body
-
-Provide some context:
-
-- **Did the issue start happening recently** or was it always an issue?
-- **Are you up-to-date?** What version of the extension have you currently installed?
-- **What are your settings?** You can easily copy/paste [**Debug infos**](meta/debug-infos.png) in your issue
-
-</details>

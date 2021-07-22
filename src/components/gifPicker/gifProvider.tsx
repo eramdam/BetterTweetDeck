@@ -3,9 +3,9 @@ import React, {Fragment, useRef, useState} from 'react';
 import ReactDOM from 'react-dom';
 import {useDebouncedCallback} from 'use-debounce';
 
-import {GifsArray, processGifRequest} from '../../background/gifRequests';
 import {sendInternalBTDMessage} from '../../helpers/communicationHelpers';
 import {useIsComposerVisible} from '../../helpers/tweetdeckHelpers';
+import {GifsArray, processGifRequest} from '../../services/backgroundGifRequests';
 import {BTDMessageOriginsEnum, BTDMessages} from '../../types/btdMessageTypes';
 import {BTDGifButton} from './gifButton';
 import {BTDGifPicker} from './gifPicker';
