@@ -18,7 +18,7 @@ export const setupColumnMonitor = makeBTDModule(({jq, mR}) => {
         getColumnType: (col: TweetDeckColumn) => string;
         columnMetaTypeToScribeNamespace: Dictionary<object>;
       }
-    | undefined = mR && mR.findFunction('getColumnType')[0];
+    | undefined = mR && mR.findModule('getColumnType')[0];
 
   jq(document).on('uiColumnUpdateMediaPreview', (ev, data) => {
     if (!ev.target) {

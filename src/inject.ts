@@ -59,7 +59,7 @@ declare global {
   }
 }
 
-let mR;
+let mR: ModuleRaid | undefined;
 try {
   mR = new ModuleRaid();
 } catch (e) {
@@ -74,7 +74,7 @@ const jq: JQueryStatic | undefined =
 
 (async () => {
   const settings = getBTDSettings();
-  if (!settings || !jq || !isObject(TD)) {
+  if (!settings || !jq || !isObject(TD) || !mR) {
     return;
   }
 
