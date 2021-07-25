@@ -6,11 +6,11 @@ import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
 import {onComposerShown} from '../helpers/tweetdeckHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 
-export const addConversationControls = makeBTDModule(({TD, jq, mR}) => {
+export const addConversationControls = makeBTDModule(({TD, jq, mR, settings}) => {
   const featureFlagModule = mR.findModule('setValueForFeatureFlag')[0];
   const graphqlRequestModule = mR.findModule('graphqlRequest')[0];
 
-  if (!featureFlagModule || !graphqlRequestModule) {
+  if (!featureFlagModule || !graphqlRequestModule || !settings.showConversationControl) {
     return;
   }
 
@@ -61,6 +61,9 @@ export const addConversationControls = makeBTDModule(({TD, jq, mR}) => {
 
     root = document.createElement('div');
     root.id = 'btdConversationControl';
+    if (!settings.showGifPicker) {
+      root.classList.add('-gif-hidden');
+    }
 
     document
       .querySelector('.compose-text-container > .txt-right')

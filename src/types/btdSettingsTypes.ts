@@ -84,6 +84,9 @@ export const RBetterTweetDeckSettings = t.type({
   /** Make buttons in composer smaller */
   smallComposerButtons: withDefault(t.boolean, false),
 
+  /** Show conversation control in tweet composer */
+  showConversationControl: withDefault(t.boolean, true),
+
   /** Disable the `tweet` button if images don't have an alt text. */
   disableTweetButtonIfAltIsMissing: withDefault(t.boolean, false),
 

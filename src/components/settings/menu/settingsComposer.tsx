@@ -21,6 +21,12 @@ export const SettingsComposer: FC<SettingsMenuSectionProps> = (props) => {
             introducedIn: '4.3',
           },
           {
+            initialValue: settings.showConversationControl,
+            key: 'showConversationControl',
+            label: <Trans id="settings_show_conversation_control_button" />,
+            introducedIn: '4.4',
+          },
+          {
             initialValue: settings.smallComposerButtons,
             key: 'smallComposerButtons',
             label: <Trans id="settings_make_buttons_smaller_in_the_composer" />,

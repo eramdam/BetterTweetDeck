@@ -448,5 +448,8 @@
   },
   "settings_show_account_avatars_on_top_of_columns": {
     "message": "Show account avatars on top of columns"
+  },
+  "settings_show_conversation_control_button": {
+    "message": "Show conversation control button"
   }
 }
