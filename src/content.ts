@@ -15,11 +15,7 @@ import {setupBtdRoot} from './services/setupBTDRoot';
 import {BTDMessageOriginsEnum, BTDMessages} from './types/btdMessageTypes';
 
 (async () => {
-  const hasNewTweetDeck =
-    document.cookie
-      .split('; ')
-      .find((r) => r.startsWith('tweetdeck_version'))
-      ?.split('=')[1] === 'beta' || document.getElementById('react-root');
+  const hasNewTweetDeck = document.querySelectorAll('script[src*="tweetdeck-web"]').length === 0;
 
   if (hasNewTweetDeck) {
     console.debug('Better TweetDeck aborted loading on TweetDeck Preview');
