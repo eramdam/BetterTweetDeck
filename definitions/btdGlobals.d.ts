@@ -1,4 +1,4 @@
-import moduleraid from 'moduleraid';
+import ModuleRaid from 'moduleraid';
 
 export {};
 
@@ -7,7 +7,7 @@ declare global {
     BTD?: {
       debug?: {
         jq?: JQueryStatic;
-        mR?: moduleraid;
+        mR: ModuleRaid;
         findMustache: typeof findMustache;
         getChirpFromElement: typeof getChirpFromElement;
         getChirpFromKey: typeof getChirpFromKey;

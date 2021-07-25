@@ -7,8 +7,8 @@ import {onComposerShown} from '../helpers/tweetdeckHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 
 export const addConversationControls = makeBTDModule(({TD, jq, mR}) => {
-  const featureFlagModule = mR.findFunction('setValueForFeatureFlag')[0];
-  const graphqlRequestModule = mR.findFunction('graphqlRequest')[0];
+  const featureFlagModule = mR.findModule('setValueForFeatureFlag')[0];
+  const graphqlRequestModule = mR.findModule('graphqlRequest')[0];
 
   if (!featureFlagModule || !graphqlRequestModule) {
     return;

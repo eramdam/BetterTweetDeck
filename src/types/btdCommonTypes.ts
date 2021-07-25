@@ -1,4 +1,4 @@
-import moduleraid from 'moduleraid';
+import ModuleRaid from 'moduleraid';
 
 import {BTDSettings} from './btdSettingsTypes';
 import {TweetDeckObject} from './tweetdeckTypes';
@@ -7,7 +7,7 @@ export type BTDModuleOptions = {
   settings: BTDSettings;
   TD: TweetDeckObject;
   jq: JQueryStatic;
-  mR: moduleraid;
+  mR: ModuleRaid;
 };
 type UniversalBTDModule = (opts: BTDModuleOptions) => void;
 

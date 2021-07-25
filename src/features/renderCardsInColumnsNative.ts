@@ -24,7 +24,7 @@ export const maybeRenderCardsInColumnsNatively = makeBTDModule((options) => {
     return;
   }
 
-  const featureFlagModule = mR.findFunction('setValueForFeatureFlag')[0];
+  const featureFlagModule = mR.findModule('setValueForFeatureFlag')[0];
 
   if (!featureFlagModule) {
     return;

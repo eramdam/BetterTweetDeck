@@ -43,7 +43,7 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
   ) => void;
 
   const renderCardForChirpModule = Array.from(
-    (mR && mR.findFunction('renderCardForChirp')) || []
+    (mR && mR.findModule('renderCardForChirp')) || []
   ).find((maybeModule) => {
     if (
       hasProperty(maybeModule, 'renderCardForChirp') &&
@@ -64,7 +64,7 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
         getColumnType: (col: TweetDeckColumn) => string;
         columnMetaTypeToScribeNamespace: Dictionary<object>;
       }
-    | undefined = mR && mR.findFunction('getColumnType')[0];
+    | undefined = mR && mR.findModule('getColumnType')[0];
 
   if (!renderCardForChirpModule || !getColumnTypeModule) {
     return;

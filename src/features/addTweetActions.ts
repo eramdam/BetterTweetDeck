@@ -284,7 +284,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
   };
 
   const findPrefix: ((n: number, options: unknown) => string) | undefined =
-    mR.findFunction('findPrefix')[0];
+    mR.findConstructor('findPrefix')[0][1];
 
   if (findPrefix) {
     TD.services.TwitterUser.prototype.prettyFollowersCountInTweetAction = function () {
