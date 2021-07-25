@@ -1,4 +1,5 @@
 import {isObject} from 'lodash';
+import ModuleRaid from 'moduleraid';
 
 import {maybeAddColumnsButtons} from './features/addColumnButtons';
 import {maybeAddTweetActions} from './features/addTweetActions';
@@ -58,19 +59,18 @@ declare global {
   }
 }
 
-const moduleRaid = require('./moduleraid');
 let mR;
 try {
-  mR = moduleRaid();
+  mR = new ModuleRaid();
 } catch (e) {
-  console.log(moduleRaid);
+  console.log(ModuleRaid);
   console.error(e);
 }
 
 const TD = window.TD as TweetDeckObject;
 // Grab TweetDeck's jQuery from webpack
 const jq: JQueryStatic | undefined =
-  mR && mR.findFunction('jQuery') && mR.findFunction('jquery:')[0];
+  mR && mR.findConstructor('jQuery') && mR.findConstructor('jquery:')[0][1];
 
 (async () => {
   const settings = getBTDSettings();
