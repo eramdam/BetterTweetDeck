@@ -1,5 +1,5 @@
 import {isObject} from 'lodash';
-import ModuleRaid from 'moduleraid';
+import ModuleRaid, {ModuleLike} from 'moduleraid';
 
 import {maybeAddColumnsButtons} from './features/addColumnButtons';
 import {maybeAddTweetActions} from './features/addTweetActions';
@@ -43,6 +43,7 @@ import {useOriginalAspectRatio} from './features/useOriginalAspectRatio';
 import {maybeChangeUsernameFormat} from './features/usernameDisplay';
 import {listenToInternalBTDMessage, sendInternalBTDMessage} from './helpers/communicationHelpers';
 import {displayTweetDeckBanner} from './helpers/tweetdeckHelpers';
+import {hasProperty} from './helpers/typeHelpers';
 import {setupChirpHandler} from './services/chirpHandler';
 import {setupColumnMonitor} from './services/columnMediaSizeMonitor';
 import {maybeSetupDebugFunctions} from './services/debugMethods';
@@ -69,12 +70,15 @@ try {
 
 const TD = window.TD as TweetDeckObject;
 // Grab TweetDeck's jQuery from webpack
-const jq: JQueryStatic | undefined =
-  mR && mR.findConstructor('jQuery') && mR.findConstructor('jquery:')[0][1];
+const jq = mR && mR.findConstructor('jQuery') && mR.findConstructor('jquery:')[0][1];
+
+function isModulejQuery(mod: ModuleLike | undefined): mod is JQueryStatic {
+  return hasProperty(mod, 'Animation');
+}
 
 (async () => {
   const settings = getBTDSettings();
-  if (!settings || !jq || !isObject(TD) || !mR) {
+  if (!settings || !isModulejQuery(jq) || !isObject(TD) || !mR) {
     return;
   }
 

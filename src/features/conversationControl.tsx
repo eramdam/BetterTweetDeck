@@ -4,13 +4,24 @@ import ReactDOM, {unmountComponentAtNode} from 'react-dom';
 import {ConversationControlsButton} from '../components/conversationControlsButton';
 import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
 import {onComposerShown} from '../helpers/tweetdeckHelpers';
+import {hasProperty, makeIsModuleRaidModule} from '../helpers/typeHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 
 export const addConversationControls = makeBTDModule(({TD, jq, mR, settings}) => {
   const featureFlagModule = mR.findModule('setValueForFeatureFlag')[0];
+  const isFeatureFlagModule = makeIsModuleRaidModule<{
+    setValueForFeatureFlag: (flag: string, value: any) => void;
+  }>((mod) => hasProperty(mod, 'setValueForFeatureFlag'));
   const graphqlRequestModule = mR.findModule('graphqlRequest')[0];
+  const isGraphqlRequestModule = makeIsModuleRaidModule<{
+    graphqlRequest: (opts: any) => Promise<void>;
+  }>((mod) => hasProperty(mod, 'setValueForFeatureFlag'));
 
-  if (!featureFlagModule || !graphqlRequestModule || !settings.showConversationControl) {
+  if (
+    !isFeatureFlagModule(featureFlagModule) ||
+    !isGraphqlRequestModule(graphqlRequestModule) ||
+    !settings.showConversationControl
+  ) {
     return;
   }
 

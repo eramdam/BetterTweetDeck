@@ -1,5 +1,6 @@
 import {Dictionary} from 'lodash';
 
+import {hasProperty, makeIsModuleRaidModule} from '../helpers/typeHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 import {TweetDeckColumn} from '../types/tweetdeckTypes';
 import {TweetDeckColumnMediaPreviewSizesEnum} from '../types/tweetdeckTypes';
@@ -13,12 +14,12 @@ export function getSizeForColumnKey(columnKey = '') {
 
 /** Sets up a Map that stores the media size of TweetDeck columns for easy and quick access (without having to go through the state) */
 export const setupColumnMonitor = makeBTDModule(({jq, mR}) => {
-  const getColumnTypeModule:
-    | {
-        getColumnType: (col: TweetDeckColumn) => string;
-        columnMetaTypeToScribeNamespace: Dictionary<object>;
-      }
-    | undefined = mR && mR.findModule('getColumnType')[0];
+  const getColumnTypeModule = mR && mR.findModule('getColumnType')[0];
+
+  const isGetColumnTypeModule = makeIsModuleRaidModule<{
+    getColumnType: (col: TweetDeckColumn) => string;
+    columnMetaTypeToScribeNamespace: Dictionary<object>;
+  }>((mod) => hasProperty(mod, 'getColumnType'));
 
   jq(document).on('uiColumnUpdateMediaPreview', (ev, data) => {
     if (!ev.target) {
@@ -39,12 +40,16 @@ export const setupColumnMonitor = makeBTDModule(({jq, mR}) => {
   });
 
   function onDataColumns(data: {columns: TweetDeckColumn[]}) {
+    if (!isGetColumnTypeModule(getColumnTypeModule)) {
+      return;
+    }
+
     const cols = data.columns
       .filter((col) => col.model.state.settings)
       .map((col) => ({
         id: col.model.privateState.key,
         mediaSize: col.model.state.settings.media_preview_size,
-        type: getColumnTypeModule?.getColumnType(col),
+        type: getColumnTypeModule.getColumnType(col),
       }));
 
     if (columnMediaSizes.size !== cols.length) {

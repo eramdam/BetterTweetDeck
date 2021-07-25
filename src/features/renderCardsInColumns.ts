@@ -4,7 +4,7 @@ import {Dictionary} from 'lodash';
 
 import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
 import {createSelectorForChirp, getChirpFromKey} from '../helpers/tweetdeckHelpers';
-import {hasProperty} from '../helpers/typeHelpers';
+import {hasProperty, makeIsModuleRaidModule} from '../helpers/typeHelpers';
 import {ChirpAddedPayload, onChirpAdded, onVisibleChirpAdded} from '../services/chirpHandler';
 import {makeBTDModule} from '../types/btdCommonTypes';
 import {
@@ -59,14 +59,13 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
       }
     | undefined;
 
-  const getColumnTypeModule:
-    | {
-        getColumnType: (col: TweetDeckColumn) => string;
-        columnMetaTypeToScribeNamespace: Dictionary<object>;
-      }
-    | undefined = mR && mR.findModule('getColumnType')[0];
+  const getColumnTypeModule = mR && mR.findModule('getColumnType')[0];
+  const isGetColumnTypeModule = makeIsModuleRaidModule<{
+    getColumnType: (col: TweetDeckColumn) => string;
+    columnMetaTypeToScribeNamespace: Dictionary<object>;
+  }>((mod) => hasProperty(mod, 'getColumnType'));
 
-  if (!renderCardForChirpModule || !getColumnTypeModule) {
+  if (!renderCardForChirpModule || !isGetColumnTypeModule(getColumnTypeModule)) {
     return;
   }
 
@@ -177,7 +176,7 @@ export const maybeRenderCardsInColumns = makeBTDModule((options) => {
     chirpNode: JQuery<HTMLElement>,
     renderInvisible?: boolean
   ) {
-    if (!getColumnTypeModule || !renderCardForChirpModule) {
+    if (!isGetColumnTypeModule(getColumnTypeModule) || !renderCardForChirpModule) {
       return;
     }
 

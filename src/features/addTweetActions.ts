@@ -9,6 +9,7 @@ import {
   getFilenameDownloadData,
   getMediaFromChirp,
 } from '../helpers/tweetdeckHelpers';
+import {makeIsModuleRaidModule} from '../helpers/typeHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 import {TweetDeckUser, TwitterActionEnum} from '../types/tweetdeckTypes';
 import {requestMediaItem} from './redraftTweet';
@@ -283,12 +284,14 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
       .removeClass(removedClass);
   };
 
-  const findPrefix: ((n: number, options: unknown) => string) | undefined =
-    mR.findConstructor('findPrefix')[0][1];
+  const findPrefix = mR.findConstructor('findPrefix')[0][1];
+  const isFindPrefix = makeIsModuleRaidModule<(n: number, options: unknown) => string>(
+    (mod) => typeof mod === 'function'
+  );
 
-  if (findPrefix) {
+  if (isFindPrefix(findPrefix)) {
     TD.services.TwitterUser.prototype.prettyFollowersCountInTweetAction = function () {
-      return findPrefix(this.followersCount, {separator: '', decimals: 0});
+      return String(findPrefix(this.followersCount, {separator: '', decimals: 0}));
     };
   }
 

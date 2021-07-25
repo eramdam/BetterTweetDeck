@@ -1,5 +1,6 @@
 import './renderCardsInColumns.css';
 
+import {hasProperty, makeIsModuleRaidModule} from '../helpers/typeHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 import {TwitterStatus} from '../types/tweetdeckTypes';
 
@@ -25,14 +26,17 @@ export const maybeRenderCardsInColumnsNatively = makeBTDModule((options) => {
   }
 
   const featureFlagModule = mR.findModule('setValueForFeatureFlag')[0];
+  const isFeatureFlagModule = makeIsModuleRaidModule<{
+    setValueForFeatureFlag: (flag: string, value: any) => void;
+  }>((mod) => hasProperty(mod, 'setValueForFeatureFlag'));
 
-  if (!featureFlagModule) {
+  if (!isFeatureFlagModule(featureFlagModule)) {
     return;
   }
 
   // Monkey-patch the `getIFrameUrl` method in order to not send bogus id for actions
   mR.findModule((mod) => {
-    if (mod.getIFrameUrl) {
+    if (hasProperty(mod, 'getIFrameUrl') && mod.getIFrameUrl) {
       mod.getIFrameUrl = (id: string) => {
         const splits = id.split('_');
         const actualId = splits[splits.length - 1] || id;
