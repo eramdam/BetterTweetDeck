@@ -12,7 +12,7 @@ module.exports = {
   applications: {
     gecko: {
       id: betaId,
-      strict_min_version: '84.0',
+      strict_min_version: '78.0',
     },
   },
 };
