@@ -1,0 +1,455 @@
+{
+  "app_desc": {
+    "message": "Сделайте TweetDeck лучше!"
+  },
+  "app_name": {
+    "message": "Better TweetDeck"
+  },
+  "settings_title": {
+    "message": "Better TweetDeck"
+  },
+  "settings_show_cards_inside_columns": {
+    "message": "Показать Tweet Cards внутри столбцов"
+  },
+  "settings_show_profile_badges_on_top_of_avatars": {
+    "message": "Показать значки профиля поверх аватаров"
+  },
+  "settings_collapse_read_dms": {
+    "message": "Свернуть прочитанные DM"
+  },
+  "settings_freeze_gifs_in_profile_pictures": {
+    "message": "Заморозить GIF в картинках профилей"
+  },
+  "settings_remove_t_co_redirection_on_links": {
+    "message": "Удалить t.co редиректы в ссылках"
+  },
+  "settings_make_buttons_smaller_in_the_composer": {
+    "message": "Уменьшить кнопки в composer"
+  },
+  "settings_reflect_new_tweets_and_dms_in_the_tabs_title": {
+    "message": "Отражать новые твиты и DMS в заголовке вкладки"
+  },
+  "settings_auto_switch_light_theme": {
+    "message": "Переключиться на светлую тему, когда в ОС - светлая тема"
+  },
+  "settings_scrollbar_default": {
+    "message": "Умолчальный"
+  },
+  "settings_scrollbar_thin": {
+    "message": "Тонкий"
+  },
+  "settings_scrollbar_hidden": {
+    "message": "Скрытый"
+  },
+  "settings_style_of_scrollbars": {
+    "message": "Стиль полос прокрутки"
+  },
+  "settings_show_clear_button_column": {
+    "message": "Показать кнопку \"Очистить\" в заголовке столбцов"
+  },
+  "settings_show_collapse_button_in_columns_header": {
+    "message": "Показать кнопку \"Свернуть\"  в заголовке столбцов"
+  },
+  "settings_hide_icons_on_top_of_columns": {
+    "message": "Скрыть значки на верху столбцов"
+  },
+  "settings_use_old_style_of_replies": {
+    "message": "Использовать старый стиль ответов (inline @mentions)"
+  },
+  "settings_timestamp_relative": {
+    "message": "Относительный"
+  },
+  "settings_timestamp_custom": {
+    "message": "Настраиваемый"
+  },
+  "settings_date_format": {
+    "message": "Формат даты"
+  },
+  "settings_short_time_after_24h": {
+    "message": "Использовать другой формат даты после 24h"
+  },
+  "settings_timestamp_presets": {
+    "message": "Пресеты"
+  },
+  "settings_timestamp_preset_absolute": {
+    "message": "Абсолютный"
+  },
+  "settings_timestamp_preset_absolute_us": {
+    "message": "Абсолютный (U.S. стиль)"
+  },
+  "settings_fullname_username": {
+    "message": "Фамилия и имя"
+  },
+  "settings_username_fullname": {
+    "message": "Имя и фамилия"
+  },
+  "settings_username": {
+    "message": "Только имя"
+  },
+  "settings_fullname": {
+    "message": "Только фамилия"
+  },
+  "settings_name_display_style": {
+    "message": "Стиль отображения имени"
+  },
+  "settings_general": {
+    "message": "Общие"
+  },
+  "settings_theme": {
+    "message": "Тема"
+  },
+  "settings_tweets_display": {
+    "message": "Отображение твитов"
+  },
+  "settings_tweet_actions": {
+    "message": "Действия с твитами"
+  },
+  "settings_actions_visibility_always": {
+    "message": "Всегда"
+  },
+  "settings_actions_visibility_on_hover": {
+    "message": "При наведении"
+  },
+  "settings_actions_visibility": {
+    "message": "Видимость действий"
+  },
+  "settings_position_of_actions": {
+    "message": "Позиция действий"
+  },
+  "settings_actions_position_left": {
+    "message": "Слева"
+  },
+  "settings_actions_position_right": {
+    "message": "Справа"
+  },
+  "settings_action_block_author": {
+    "message": "Заблокировать автора"
+  },
+  "settings_action_mute_author": {
+    "message": "Заглушить автора"
+  },
+  "settings_action_copy_media_links": {
+    "message": "Скопировать ссылки на медиа"
+  },
+  "settings_action_download_media": {
+    "message": "Скачать медиа"
+  },
+  "settings_additional_actions": {
+    "message": "Действия с твитом для добавления"
+  },
+  "settings_downloaded_filename_format": {
+    "message": "Формат имени файла для скачивания"
+  },
+  "settings_filename_format_tokens": {
+    "message": "Токены формата имени файла"
+  },
+  "settings_token_username_without": {
+    "message": "имя_пользователя (без @)"
+  },
+  "settings_token_tweet_id": {
+    "message": "ID твита"
+  },
+  "settings_token_filename": {
+    "message": "Имя файла"
+  },
+  "settings_token_file_extension": {
+    "message": "Расширение файла"
+  },
+  "settings_token_year": {
+    "message": "Год"
+  },
+  "settings_token_day": {
+    "message": "День"
+  },
+  "settings_token_month": {
+    "message": "Месяц"
+  },
+  "settings_token_minutes": {
+    "message": "Минуты"
+  },
+  "settings_token_seconds": {
+    "message": "Секунды"
+  },
+  "settings_menu_item_mute_hashtags": {
+    "message": "Заглушить #hashtags"
+  },
+  "settings_menu_item_mute_source": {
+    "message": "Заглушить источник твита"
+  },
+  "settings_menu_item_redraft": {
+    "message": "Повторно черновик"
+  },
+  "settings_additional_tweet_menu_items": {
+    "message": "Доп. элементы меню твита"
+  },
+  "settings_replace_hearts_by_stars": {
+    "message": "Заменить сердца на звёзды"
+  },
+  "settings_custom_css": {
+    "message": "Пользовательский CSS"
+  },
+  "settings_custom_css_warning": {
+    "message": "Вставка неизвестного кода в этот редактор может повлечь странные проблемы, если вы не знаете что вы делаете"
+  },
+  "settings_avatar_shape": {
+    "message": "Форма аватаров"
+  },
+  "settings_save": {
+    "message": "Сохранить"
+  },
+  "settings_use_original_aspect_ratio_images": {
+    "message": "Показать отдельные изображения с их первоначальным соотношением сторон (только для средних и больших размеров)"
+  },
+  "settings_show_delete_button_in_columns_header": {
+    "message": "Показать кнопку \"Удалить\" заголовке столбцов"
+  },
+  "settings_section_settings": {
+    "message": "Настройки"
+  },
+  "settings_support": {
+    "message": "Поддержка"
+  },
+  "settings_avatar_square": {
+    "message": "Квадрат"
+  },
+  "settings_avatar_circle": {
+    "message": "Круг"
+  },
+  "settings_display_modern_fullscreen_images": {
+    "message": "Показать полноэкранные изображения как в Twitter Web"
+  },
+  "settings_browser_and_extension_informations": {
+    "message": "Инфа о браузере и расширении"
+  },
+  "settings_version": {
+    "message": "Версия:"
+  },
+  "settings_user_agent": {
+    "message": "Юзерагент:"
+  },
+  "settings_export_settings": {
+    "message": "Экспорт настроек"
+  },
+  "settings_export_settings_copy": {
+    "message": "Экспорт настроек щелчком по кнопке ниже"
+  },
+  "settings_download_settings_button": {
+    "message": "Скачать настройки"
+  },
+  "settings_import_settings": {
+    "message": "Импорт настроек"
+  },
+  "settings_import_settings_copy": {
+    "message": "Импорт настроек из JSON файла"
+  },
+  "settings_import_json_wrong_keys": {
+    "message": "Файл не совпадает с форматом настроек Better TweetDeck"
+  },
+  "settings_import_success": {
+    "message": "Ваши настройки импортированы правильно, не забудьте нажать кнопку Сохранить! "
+  },
+  "settings_imported_settings_summary": {
+    "message": "Нажмите здесь, чтобы просмотреть импортированные настройки"
+  },
+  "settings_website": {
+    "message": "Веб-сайт"
+  },
+  "settings_links": {
+    "message": "Ссылки"
+  },
+  "settings_footer_label": {
+    "message": "TweetDeck нужно перезагрузить для применения изменений!"
+  },
+  "settings_show_account_picker_like": {
+    "message": "Показать выбор аккаунта при нажатии на кнопку Лайк"
+  },
+  "settings_show_account_picker_follow": {
+    "message": "Показать выбор аккаунта при нажатии на кнопку Follow"
+  },
+  "settings_accent_color": {
+    "message": "Цвет акцента"
+  },
+  "settings_misc": {
+    "message": "Прочее"
+  },
+  "settings_meta": {
+    "message": "Мета"
+  },
+  "settings_import_export": {
+    "message": "Импорт / Экспорт"
+  },
+  "settings_columns": {
+    "message": "Столбцы"
+  },
+  "settings_tweet_content": {
+    "message": "Контент твитов"
+  },
+  "settings_pause_column_scrolling_on_hover": {
+    "message": "Остановить прокрутку столбца при наведении"
+  },
+  "settings_use_a_custom_width_for_columns": {
+    "message": "Настраиваемая ширина столбцов"
+  },
+  "settings_width_any_valid_css_value": {
+    "message": "Ширина (любое валидное значение CSS)"
+  },
+  "settings_share_on_tweetdeck": {
+    "message": "Поделиться в TweetDeck"
+  },
+  "settings_enable_share_item": {
+    "message": "Пункт \"Поделиться в TweetDeck\" в контекстном меню браузера"
+  },
+  "settings_shorten_the_shared_text": {
+    "message": "Сократить расшариваемый текст"
+  },
+  "settings_contextual_menu": {
+    "message": "Контекстное меню"
+  },
+  "settings_old_gray": {
+    "message": "Старый Серый"
+  },
+  "settings_super_black": {
+    "message": "Супер чёрный"
+  },
+  "settings_tokens_list": {
+    "message": "Список токенов"
+  },
+  "settings_make_emoji_bigger_in_tweets": {
+    "message": "Увеличить emoji в твитах"
+  },
+  "settings_add_search_columns_first_in_the_list": {
+    "message": "Добавить поиск столбцов первым в списке"
+  },
+  "settings_save_tweeted_hashtags": {
+    "message": "Сохранить твитнутые хэштеги"
+  },
+  "settings_changelog": {
+    "message": "Список изменений"
+  },
+  "settings_bugs_or_suggestions": {
+    "message": "Ошибки или предложения"
+  },
+  "settings_source_on_github": {
+    "message": "Исходники на GitHub"
+  },
+  "settings_contributors": {
+    "message": "Контрибуторы"
+  },
+  "settings_author": {
+    "message": "Автор"
+  },
+  "settings_credits_about": {
+    "message": "Кредиты / О программе"
+  },
+  "settings_always_characters_left": {
+    "message": "Всегда показать счётчик оставшихся символов в редакторе твита"
+  },
+  "settings_better_tweetdeck_ask_tabs": {
+    "message": "Better TweetDeck запросит доступ к вкладкам браузера для правильной работы"
+  },
+  "settings_show_like_rt_indicators_on_top_of_tweets": {
+    "message": "Показать индикаторы like/RT наверху твитов"
+  },
+  "settings_do_the_same_for_single_images_in_quoted_tweets": {
+    "message": "Сделать то же самое для одиночных изображений в цитированных твитах"
+  },
+  "settings_default_dark_theme": {
+    "message": "Умолчальная"
+  },
+  "settings_custom_dark_theme": {
+    "message": "Тёмная тема"
+  },
+  "settings_tweet_composer": {
+    "message": "Редактор твитов"
+  },
+  "settings_show_the_emoji_picker": {
+    "message": "Показать выбор emoji"
+  },
+  "settings_enable_emoji_autocompletion": {
+    "message": "Включить автодополнение emoji при :shortcodes:"
+  },
+  "settings_enable_the_gif_button": {
+    "message": "Включить кнопку GIF"
+  },
+  "settings_also_show_cards_in_columns_with_small_media_size": {
+    "message": "Показать карты в столбцах с Маленьким размером медиа"
+  },
+  "settings_looking_for_inspiration": {
+    "message": "Ищете вдохновения?"
+  },
+  "settings_check_the_collection_of_css_snippets": {
+    "message": "Проверить коллекцию CSS сниппетов"
+  },
+  "settings_css_compress_warning": {
+    "message": "CSS в редакторе будет сжата для экономии места\nв хранилище браузера. Будут удалены отступы и пробелы."
+  },
+  "settings_backup_warning": {
+    "message": "Не забудьте сохранить резервные копии своей работы в другом месте!"
+  },
+  "settings_usernames_like_picker_allowlist": {
+    "message": "Список имён пользователей (CSV) с показом выбора (пусто - показ всегда)"
+  },
+  "settings_override_translation_language": {
+    "message": "Переводить твиты на указанный язык"
+  },
+  "settings_default_browsers_language": {
+    "message": "Умолчальный (язык браузера)"
+  },
+  "settings_logo_variation": {
+    "message": "Вариации логотипа"
+  },
+  "settings_default": {
+    "message": "Умолчальный"
+  },
+  "settings_action_follow_author": {
+    "message": "Добавить действие для подписки на автора"
+  },
+  "settings_follow_actions": {
+    "message": "Подписаться"
+  },
+  "settings_show_followers_count": {
+    "message": "Показать количество фолловеров после значка follow"
+  },
+  "settings_show_verified_badges": {
+    "message": "Показать бейдж Проверенный"
+  },
+  "settings_show_translator_badges": {
+    "message": "Показать бейдж Перевод"
+  },
+  "settings_show_badges_on_mutuals": {
+    "message": "Показать бейдж Взаимность (вы следуете за ним, и он следует за вами)"
+  },
+  "settings_badges": {
+    "message": "Бейджи"
+  },
+  "settings_show_a_clear_all_columns_button_in_the_sidebar": {
+    "message": "Показать \"Clear all columns\" button in the sidebar"
+  },
+  "settings_require_alt_images": {
+    "message": "Отключить кнопку Tweet, пока все изображения не будут с описанием"
+  },
+  "settings_content_warning_hint": {
+    "message": "Мы проверим твиты на содержание часто используемых предупреждений CW/TW/CN!"
+  },
+  "settings_show_content_warnings": {
+    "message": "Показать предупреждения о контенте для надлежаще помеченных твитов "
+  },
+  "settings_images": {
+    "message": "Изображения"
+  },
+  "settings_collapse_unread_dms": {
+    "message": "Свернуть непрочитанные DM"
+  },
+  "settings_mutual_badge_use_a_heart": {
+    "message": "Использовать сердце"
+  },
+  "settings_mutual_badge_use_double_arrows": {
+    "message": "Использовать двойные стрелки"
+  },
+  "settings_show_account_avatars_on_top_of_columns": {
+    "message": "Показать аватары аккаунтов на верху столбцов"
+  },
+  "settings_show_conversation_control_button": {
+    "message": "Показать кнопку управления диалогом"
+  }
+}
