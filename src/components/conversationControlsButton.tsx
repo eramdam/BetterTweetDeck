@@ -22,8 +22,9 @@ export const ConversationControlsButton: FC<{
       const accountKey = data.request.accountKey;
       const tweetId = data.response.id_str;
       const client = getClient(accountKey);
+      const isReplyingToATweet = Boolean(data.response.in_reply_to_status_id_str);
 
-      if (!client || conversationMode === TwitterConversationModes.EVERYONE) {
+      if (!client || conversationMode === TwitterConversationModes.EVERYONE || isReplyingToATweet) {
         return;
       }
 
@@ -82,6 +83,11 @@ export const ConversationControlsButton: FC<{
 
             .-gif-hidden & {
               left: 13px;
+            }
+
+            .js-in-reply-to:not(.is-hidden) ~ .compose-text-container &,
+            .js-compose-message-recipient-container:not(.is-hidden) ~ .compose-text-container & {
+              display: none !important;
             }
           `,
           'js-show-tip'

@@ -64,12 +64,7 @@ export const addConversationControls = makeBTDModule(({TD, jq, mR, settings}) =>
     unmountComponentAtNode(root);
   }
 
-  onComposerShown((isVisible) => {
-    if (!isVisible) {
-      unmount();
-      return;
-    }
-
+  function mount() {
     root = document.createElement('div');
     root.id = 'btdConversationControl';
     if (!settings.showGifPicker) {
@@ -88,5 +83,14 @@ export const addConversationControls = makeBTDModule(({TD, jq, mR, settings}) =>
       />,
       root
     );
+  }
+
+  onComposerShown((isVisible) => {
+    if (!isVisible) {
+      unmount();
+      return;
+    }
+
+    mount();
   });
 });
