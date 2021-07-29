@@ -41,7 +41,7 @@ export const listenToRedraftTweetEvent = makeBTDModule(({TD, jq}) => {
 
     const composeData: ComposeData = {
       type: extra.chirpType || '',
-      text: chirp.text,
+      text: TD.util.removeHTMLCodes(chirp.text),
       from: [TD.storage.Account.generateKeyFor('twitter', chirp.creatorAccount!.getUserID())],
     };
 

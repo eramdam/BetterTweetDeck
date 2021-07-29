@@ -1329,6 +1329,7 @@ interface TweetDeckUtil {
   truncateNumber(n: number): string;
   transform(text: string, entities?: TweetEntities): string;
   htmlToText(text: string): string;
+  removeHTMLCodes(text: string): string;
 }
 
 interface DatesCached {
