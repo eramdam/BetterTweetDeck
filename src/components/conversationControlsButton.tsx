@@ -45,7 +45,6 @@ export const ConversationControlsButton: FC<{
   );
 
   const onAppClick = (e: JQuery.ClickEvent<Document, undefined, any, any>) => {
-    console.log('onAppClick');
     if (rootRef.current?.contains(e.target)) {
       return false;
     }
