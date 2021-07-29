@@ -15,7 +15,7 @@ export const addConversationControls = makeBTDModule(({TD, jq, mR, settings}) =>
   const graphqlRequestModule = mR.findModule('graphqlRequest')[0];
   const isGraphqlRequestModule = makeIsModuleRaidModule<{
     graphqlRequest: (opts: any) => Promise<void>;
-  }>((mod) => hasProperty(mod, 'setValueForFeatureFlag'));
+  }>((mod) => hasProperty(mod, 'graphqlRequest'));
 
   if (
     !isFeatureFlagModule(featureFlagModule) ||
