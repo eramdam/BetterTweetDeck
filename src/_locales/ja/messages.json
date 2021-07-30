@@ -428,6 +428,12 @@
   "settings_require_alt_images": {
     "message": "すべての画像に説明を記入するまでツイートボタンを無効にする"
   },
+  "settings_content_warning_hint": {
+    "message": "警告が表示されるのは、コンテンツの警告に一般的に使用されているcw/tw/cnという文字列がツイートに含まれる場合です！"
+  },
+  "settings_show_content_warnings": {
+    "message": "適切にマークされたツイートにコンテンツの警告を表示する"
+  },
   "settings_images": {
     "message": "画像"
   },
@@ -442,5 +448,8 @@
   },
   "settings_show_account_avatars_on_top_of_columns": {
     "message": "カラムの上にアカウントのアバターを表示する"
+  },
+  "settings_show_conversation_control_button": {
+    "message": "会話のコントロールボタンを表示する"
   }
 }
