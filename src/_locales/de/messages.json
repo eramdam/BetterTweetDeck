@@ -448,5 +448,8 @@
   },
   "settings_show_account_avatars_on_top_of_columns": {
     "message": "Avatar des Kontos im Kopf der Spalte anzeigen"
+  },
+  "settings_show_conversation_control_button": {
+    "message": "Gesprächssteuerungs-Button anzeigen"
   }
 }
