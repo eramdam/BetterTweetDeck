@@ -294,6 +294,12 @@ html .btd-loaded {
     padding: 0;
   }
 
+  & .emoji-mart-preview-data > div {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
   & .emoji-mart-title-label {
     color: #999a9c;
     font-size: 20px;

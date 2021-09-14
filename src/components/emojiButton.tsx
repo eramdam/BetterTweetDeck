@@ -1,10 +1,16 @@
-import {BaseEmoji, Emoji, Picker} from 'emoji-mart';
+import {BaseEmoji, NimbleEmoji, NimblePicker} from 'emoji-mart';
 import React, {FC, Fragment, useState} from 'react';
 
+import data from '../assets/emoji-mart-data.json';
 import {isHTMLElement} from '../helpers/domHelpers';
 import {getEmojiSheetUrl} from '../helpers/emojiHelpers';
 import {useTweetdeckTheme} from '../helpers/hookHelpers';
 import {HandlerOf} from '../helpers/typeHelpers';
+
+const pickerProps = {
+  sheetRows: 60,
+  sheetColumns: 60,
+};
 
 export const EmojiButton: FC<{onClick: HandlerOf<string>}> = (props) => {
   const [isPickerShown, setIsPickerShown] = useState(false);
@@ -25,7 +31,8 @@ export const EmojiButton: FC<{onClick: HandlerOf<string>}> = (props) => {
 
             setIsPickerShown(false);
           }}>
-          <Picker
+          <NimblePicker
+            data={data as any}
             set="twitter"
             autoFocus
             onSelect={(emoji: BaseEmoji) => {
@@ -34,8 +41,9 @@ export const EmojiButton: FC<{onClick: HandlerOf<string>}> = (props) => {
             color={color}
             emoji="sparkles"
             useButton={false}
-            emojiSize={16}
-            perLine={8}
+            emojiSize={20}
+            {...pickerProps}
+            perLine={7}
             backgroundImageFn={getEmojiSheetUrl}
             title=""
             theme={theme}
@@ -60,7 +68,9 @@ export const EmojiButton: FC<{onClick: HandlerOf<string>}> = (props) => {
           width: 20,
           display: 'block',
         }}>
-        <Emoji
+        <NimbleEmoji
+          data={data as any}
+          {...pickerProps}
           emoji="joy"
           size={20}
           onClick={() => setIsPickerShown(true)}
