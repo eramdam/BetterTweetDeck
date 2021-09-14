@@ -31,6 +31,7 @@ jobs:
           # Set always-auth in npmrc
           # Version Spec of the version to use.  Examples: 12.x, 10.15.1, >=10.15.0
           node-version: 16.5.0
+      - run: npm ci
 
       - name: Typecheck + lint
         run: npm test
