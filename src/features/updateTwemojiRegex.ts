@@ -1,9 +1,8 @@
 import {ModuleLike} from 'moduleraid';
-// @ts-expect-error
-import regexp from 'twitter-regexps/emoji';
 
 import {hasProperty, makeIsModuleRaidModule} from '../helpers/typeHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
+import twemojiRegex from './twemojiRegex';
 
 const twitterModulePredicate = (mod: ModuleLike) =>
   hasProperty(mod, 'default') && mod.default instanceof RegExp;
@@ -16,5 +15,5 @@ export const updateTwemojiRegex = makeBTDModule(({mR}) => {
     return;
   }
 
-  twitterRegexModule.default = regexp;
+  twitterRegexModule.default = twemojiRegex;
 });
