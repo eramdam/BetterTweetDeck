@@ -2,9 +2,7 @@
 
 <h1 align="center">Better TweetDeck</h1>
 <p align="center">
-<a href="https://travis-ci.org/eramdam/BetterTweetDeck/">
-  <img src="https://img.shields.io/travis/eramdam/BetterTweetDeck.svg" alt="Travis CI">
-</a>
+<img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/eramdam/bettertweetdeck/CI">
 <a href="https://better.tw/chrome">
   <img src="https://img.shields.io/chrome-web-store/v/micblkellenpbfapmcpcfhcoeohhnpob.svg" alt="Chrome Store Version">
 </a>
