@@ -1,8 +1,7 @@
 const config = require('config');
-const _ = require('lodash');
 const {DateTime} = require('luxon');
 
-const isCi = !_.isUndefined(process.env.TRAVIS_BRANCH);
+const isCi = process.env.CI === 'true';
 const betaId = isCi ? process.env.FIREFOX_BETA_ID : config.get('FirefoxBetaId');
 
 module.exports = {
