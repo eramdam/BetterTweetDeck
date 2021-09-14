@@ -7,8 +7,6 @@ on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -40,7 +38,5 @@ jobs:
         run: npm run build:firefox && npx web-ext lint -s dist
 
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      - name: Publish unlisted addon to AMO
+        run: npm run build:firefox-beta && npx web-ext sign --api-key="${{secrets.AMO_API_KEY}}" --api-secret="${{secrets.AMO_API_SECRET}}" -s dist --channel unlisted
