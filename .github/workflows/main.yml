@@ -39,4 +39,8 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Publish unlisted addon to AMO
-        run: npm run build:firefox-beta && npx web-ext sign --api-key="${{secrets.AMO_API_KEY}}" --api-secret="${{secrets.AMO_API_SECRET}}" -s dist --channel unlisted
+        env:
+          FIREFOX_BETA_ID: ${{ secrets.FIREFOX_BETA_ID }}
+          AMO_API_KEY: ${{ secrets.AMO_API_KEY }}
+          AMO_API_SECRET: ${{ secrets.AMO_API_SECRET }}
+        run: npm run build:firefox-beta && npx web-ext sign --api-key="$AMO_API_KEY" --api-secret="$AMO_API_SECRET" -s dist --channel unlisted
