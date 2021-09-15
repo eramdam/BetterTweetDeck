@@ -1,9 +1,10 @@
 import {cx} from '@emotion/css';
-import {BaseEmoji, Emoji, emojiIndex} from 'emoji-mart';
+import {BaseEmoji, emojiIndex, NimbleEmoji} from 'emoji-mart';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Key} from 'ts-key-enum';
 
+import {nimbleEmojiBaseProps} from '../components/emojiButton';
 import {isHTMLElement, replaceAt, valueAtCursor} from '../helpers/domHelpers';
 import {getEmojiSheetUrl} from '../helpers/emojiHelpers';
 import {BTDSettings} from '../types/btdSettingsTypes';
@@ -224,7 +225,8 @@ function renderEmojiDropdownInHolder({emojis}: EmojiCompletionProps, input: HTML
                 gridColumnGap: '8px',
                 overflow: 'hidden',
               }}>
-              <Emoji
+              <NimbleEmoji
+                {...nimbleEmojiBaseProps}
                 emoji={emoji.emojiData}
                 size={16}
                 set="twitter"

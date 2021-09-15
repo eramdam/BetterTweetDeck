@@ -7,9 +7,10 @@ import {getEmojiSheetUrl} from '../helpers/emojiHelpers';
 import {useTweetdeckTheme} from '../helpers/hookHelpers';
 import {HandlerOf} from '../helpers/typeHelpers';
 
-const pickerProps = {
+export const nimbleEmojiBaseProps = {
   sheetRows: 60,
   sheetColumns: 60,
+  data: data as any,
 };
 
 export const EmojiButton: FC<{onClick: HandlerOf<string>}> = (props) => {
@@ -32,7 +33,6 @@ export const EmojiButton: FC<{onClick: HandlerOf<string>}> = (props) => {
             setIsPickerShown(false);
           }}>
           <NimblePicker
-            data={data as any}
             set="twitter"
             autoFocus
             onSelect={(emoji: BaseEmoji) => {
@@ -42,7 +42,7 @@ export const EmojiButton: FC<{onClick: HandlerOf<string>}> = (props) => {
             emoji="sparkles"
             useButton={false}
             emojiSize={20}
-            {...pickerProps}
+            {...nimbleEmojiBaseProps}
             perLine={7}
             backgroundImageFn={getEmojiSheetUrl}
             title=""
@@ -69,8 +69,7 @@ export const EmojiButton: FC<{onClick: HandlerOf<string>}> = (props) => {
           display: 'block',
         }}>
         <NimbleEmoji
-          data={data as any}
-          {...pickerProps}
+          {...nimbleEmojiBaseProps}
           emoji="joy"
           size={20}
           onClick={() => setIsPickerShown(true)}
