@@ -1,9 +1,10 @@
 import {cx} from '@emotion/css';
-import {BaseEmoji, emojiIndex, NimbleEmoji} from 'emoji-mart';
+import {BaseEmoji, NimbleEmoji, NimbleEmojiIndex} from 'emoji-mart';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Key} from 'ts-key-enum';
 
+import data from '../assets/emoji-mart-data.json';
 import {nimbleEmojiBaseProps} from '../components/emojiButton';
 import {isHTMLElement, replaceAt, valueAtCursor} from '../helpers/domHelpers';
 import {getEmojiSheetUrl} from '../helpers/emojiHelpers';
@@ -13,6 +14,8 @@ interface StateEmoji {
   emojiData: BaseEmoji;
   isSelected: boolean;
 }
+
+const emojiIndex = new NimbleEmojiIndex(data as any);
 
 const emojiColonRegex = /:([a-z0-9_\-+]+):?:?([a-z0-9_-]+)?:?$/i;
 
