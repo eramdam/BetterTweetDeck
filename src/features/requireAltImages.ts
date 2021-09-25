@@ -100,13 +100,18 @@ export const requireAltImages = makeBTDModule(({settings, TD}) => {
 function disableButton(sendButton: HTMLElement) {
   sendButton.classList.add('is-disabled');
   sendButton.style.pointerEvents = 'none';
+  if (sendButton.closest('.btd-compose-button-wrapper')!.querySelector('.btd-composer-warning')) {
+    return;
+  }
   sendButton.closest('.pull-right')?.insertAdjacentElement('beforebegin', makeWarningElement());
 }
 
 function enableButton(sendButton: HTMLElement) {
   sendButton.classList.remove('is-disabled');
   sendButton.style.pointerEvents = 'auto';
-  sendButton.closest('.cf')?.querySelector('.btd-composer-warning')?.remove();
+  Array.from(sendButton.closest('.cf')?.querySelectorAll('.btd-composer-warning') || []).forEach(
+    (el) => el.remove()
+  );
 }
 
 function makeWarningElement() {
