@@ -168,3 +168,23 @@ html.dark .typeahead .js-hashtag {
 .icon-earth:before {
   content: '\F102';
 }
+
+#settings-modal .mdl-content {
+  display: flex;
+}
+
+#settings-modal > .mdl {
+  width: 800px;
+  height: 600px;
+}
+
+#settings-modal .mdl-content > .mdl-column-lrg {
+  width: auto !important;
+  flex: 1;
+}
+
+#settings-modal .mdl-content #general_settings .control-group .divider-bar + div {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: auto;
+}
