@@ -451,5 +451,8 @@
   },
   "settings_show_conversation_control_button": {
     "message": "Mostrar botão de controle de conversa"
+  },
+  "settings_disable_it_in_the_dm_composer_too": {
+    "message": "Aplicar também na aba de mensagens diretas"
   }
 }
