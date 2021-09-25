@@ -73,8 +73,13 @@ export const requireAltImages = makeBTDModule(({settings, TD}) => {
       }
       return;
     }
+    const isComposingDM = Boolean(
+      composer.querySelector(
+        '.compose-message-recipient-container:not(.is-hidden) .compose-message-account'
+      )
+    );
 
-    const needsReminder = Array.from(
+    const imagesAreMissingDescription = Array.from(
       composer.querySelectorAll('div.js-add-image-description')
     ).some((el) => {
       if (!noAltTextIndicator) {
@@ -83,6 +88,10 @@ export const requireAltImages = makeBTDModule(({settings, TD}) => {
 
       return el.textContent?.trim() === noAltTextIndicator;
     });
+
+    const needsReminder = isComposingDM
+      ? settings.disableTweetButtonIfAltIsMissingInDMs && imagesAreMissingDescription
+      : imagesAreMissingDescription;
 
     if (needsReminder && !isButtonDisabled) {
       disableButton(sendButton);

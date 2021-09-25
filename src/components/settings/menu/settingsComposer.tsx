@@ -21,6 +21,13 @@ export const SettingsComposer: FC<SettingsMenuSectionProps> = (props) => {
             introducedIn: '4.3',
           },
           {
+            initialValue: settings.disableTweetButtonIfAltIsMissingInDMs,
+            key: 'disableTweetButtonIfAltIsMissingInDMs',
+            isDisabled: !settings.disableTweetButtonIfAltIsMissing,
+            label: <Trans id="settings_disable_it_in_the_dm_composer_too" />,
+            introducedIn: '4.4',
+          },
+          {
             initialValue: settings.showConversationControl,
             key: 'showConversationControl',
             label: <Trans id="settings_show_conversation_control_button" />,
