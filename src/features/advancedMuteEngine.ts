@@ -108,6 +108,20 @@ export const setupAME = makeBTDModule(({TD, jq}) => {
         );
       },
     },
+    BTD_mute_displayname: {
+      display: {
+        global: true,
+      },
+      name: 'Display name (Regular Expression)',
+      descriptor: 'display names matching',
+      placeholder: 'Enter a keyword or phrase',
+      function(t, e) {
+        if (!e.user) return true;
+        const regex = new RegExp(t.value, 'g');
+
+        return !e.user.name.match(regex);
+      },
+    },
     BTD_regex: {
       display: {
         global: true,
