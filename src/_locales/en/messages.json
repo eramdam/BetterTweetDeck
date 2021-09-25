@@ -451,5 +451,8 @@
   },
   "settings_show_conversation_control_button": {
     "message": "Show conversation control button"
+  },
+  "settings_disable_it_in_the_dm_composer_too": {
+    "message": "Applies to the DM composer too"
   }
 }
