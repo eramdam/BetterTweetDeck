@@ -451,5 +451,8 @@
   },
   "settings_show_conversation_control_button": {
     "message": "会話のコントロールボタンを表示する"
+  },
+  "settings_disable_it_in_the_dm_composer_too": {
+    "message": "DM作成画面にも適用する"
   }
 }
