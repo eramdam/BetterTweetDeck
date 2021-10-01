@@ -108,7 +108,7 @@ async function getGithubContributors() {
       return {
         contributions: c.contributions,
         username: c.login,
-        url: c.url,
+        url: c.html_url,
       };
     })
     .sort((c) => -c.contributions);
