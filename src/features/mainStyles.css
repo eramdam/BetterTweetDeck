@@ -178,6 +178,18 @@ html.dark .typeahead .js-hashtag {
   height: 600px;
 }
 
+@media (max-width: 810px) {
+  #settings-modal > .mdl {
+    width: 90vh;
+  }
+}
+
+@media (max-height: 620px) {
+  #settings-modal > .mdl {
+    height: 90vh;
+  }
+}
+
 #settings-modal .mdl-content > .mdl-column-lrg {
   width: auto !important;
   flex: 1;
