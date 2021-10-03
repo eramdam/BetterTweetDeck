@@ -83,6 +83,7 @@ html .btd-loaded .ovl {
 /**
  * Some fixes around default dark theme
  */
+
 html.dark .lst-modal {
   background: #15202b;
   border: 1px solid #38444d;
@@ -199,4 +200,11 @@ html.dark .typeahead .js-hashtag {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: auto;
+}
+
+html body {
+  background-color: #1c2938;
+}
+html.dark body {
+  background-color: #15202b;
 }

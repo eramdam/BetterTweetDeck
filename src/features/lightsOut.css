@@ -96,7 +96,8 @@ html.dark body[btd-theme='old-grey'] {
   & .column-nav-item,
   & .app-header,
   & .app-title,
-  & .app-navigator {
+  & .app-navigator,
+  & {
     background: var(--btd-theme-background-lighter);
   }
 }
