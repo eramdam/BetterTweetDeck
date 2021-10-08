@@ -1,6 +1,7 @@
 import {isObject} from 'lodash';
 import ModuleRaid, {ModuleLike} from 'moduleraid';
 
+import {addActionUsername} from './features/addActionUsername';
 import {maybeAddColumnsButtons} from './features/addColumnButtons';
 import {maybeAddTweetActions} from './features/addTweetActions';
 import {maybeAddTweetMenuItems} from './features/addTweetMenuItems';
@@ -135,6 +136,7 @@ function isModulejQuery(mod: ModuleLike | undefined): mod is JQueryStatic {
   maybeShowCharacterCount(btdModuleOptions);
   showTweetDogEars(btdModuleOptions);
   contentWarnings(btdModuleOptions);
+  addActionUsername(btdModuleOptions);
 
   jq(document).one('dataColumnsLoaded', () => {
     document.body.classList.add('btd-loaded');

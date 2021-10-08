@@ -434,6 +434,9 @@
   "settings_show_content_warnings": {
     "message": "Show content warnings for appropriately marked tweets"
   },
+  "settings_add_action_username": {
+    "message": "Add the username in the action notification"
+  },
   "settings_images": {
     "message": "Images"
   },

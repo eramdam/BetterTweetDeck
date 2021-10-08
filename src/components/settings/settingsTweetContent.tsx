@@ -90,6 +90,12 @@ export const SettingsTweetContent: FC<SettingsMenuSectionProps> = (props) => {
               </small>
             ),
           },
+          {
+            initialValue: settings.addActionUsername,
+            key: 'addActionUsername',
+            introducedIn: '4.5',
+            label: <Trans id="settings_add_action_username" />,
+          },
         ]}>
         <Trans id="settings_misc" />
       </CheckboxSelectSettingsRow>

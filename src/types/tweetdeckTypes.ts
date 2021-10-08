@@ -607,6 +607,8 @@ export interface TweetDeckChirp {
   conversationMuted: boolean;
   created: string;
   entities: TweetEntities;
+  followed?: User;
+  following?: User;
   htmlText: string;
   id: string;
   inReplyToID: string | number | null;
