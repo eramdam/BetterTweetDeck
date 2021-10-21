@@ -26,6 +26,7 @@ import {changeLogo} from './features/logoVariations';
 import {makeSearchColumnsFirst} from './features/makeSearchColumnsFirst';
 import {useModernOverlays} from './features/modernOverlays';
 import {pauseColumnsOnHover} from './features/pauseColumnsOnHover';
+import {addProfileLabels} from './features/profileLabels';
 import {maybeRemoveRedirection} from './features/removeRedirection';
 import {maybeRenderCardsInColumnsNatively} from './features/renderCardsInColumnsNative';
 import {renderMediaAndQuotedTweets} from './features/renderMediaAndQuotedTweets';
@@ -145,6 +146,7 @@ function isModulejQuery(mod: ModuleLike | undefined): mod is JQueryStatic {
       payload: undefined,
     });
     addConversationControls(btdModuleOptions);
+    addProfileLabels(btdModuleOptions);
     maybeRenderCardsInColumnsNatively(btdModuleOptions);
     showAvatarsInColumnsHeader(btdModuleOptions);
     requireAltImages(btdModuleOptions);
