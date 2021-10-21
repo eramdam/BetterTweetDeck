@@ -26,6 +26,7 @@ import {changeLogo} from './features/logoVariations';
 import {makeSearchColumnsFirst} from './features/makeSearchColumnsFirst';
 import {useModernOverlays} from './features/modernOverlays';
 import {pauseColumnsOnHover} from './features/pauseColumnsOnHover';
+import {displayPronouns} from './features/pronounsDisplay';
 import {maybeRemoveRedirection} from './features/removeRedirection';
 import {maybeRenderCardsInColumnsNatively} from './features/renderCardsInColumnsNative';
 import {renderMediaAndQuotedTweets} from './features/renderMediaAndQuotedTweets';
@@ -98,6 +99,7 @@ function isModulejQuery(mod: ModuleLike | undefined): mod is JQueryStatic {
   setupChirpHandler(btdModuleOptions);
   maybeSetupDebugFunctions(btdModuleOptions);
   changeLogo(btdModuleOptions);
+  displayPronouns(btdModuleOptions);
 
   overrideTranslateLanguage(btdModuleOptions);
   makeSearchColumnsFirst(btdModuleOptions);

@@ -1124,12 +1124,19 @@ export interface TwitterStatus extends TweetDeckChirp {
   };
 }
 
+// @ts-expect-error
+export interface TwitterUser extends TweetDeckUser {
+  prototype: TweetDeckUser & {
+    [k: string]: any;
+  };
+}
+
 interface Services {
   TwitterAction: TwitterStatus;
   bitly: unknown;
   TwitterStatus: TwitterStatus;
   TwitterActionOnTweet: TwitterStatus;
-  TwitterUser: User;
+  TwitterUser: TwitterUser;
   ChirpBase: {
     MESSAGE: string;
   };
