@@ -117,7 +117,7 @@ export const setupAME = makeBTDModule(({TD, jq}) => {
       placeholder: 'Enter a keyword or phrase',
       function(t, e) {
         if (!e.user) return true;
-        const regex = new RegExp(t.value, 'g');
+        const regex = new RegExp(t.value, 'gi');
 
         return !e.user.name.match(regex);
       },
