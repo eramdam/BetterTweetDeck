@@ -17,15 +17,15 @@ export const useModernOverlays = makeBTDModule((options) => {
 
   document.body.setAttribute('btd-modern-overlays', 'true');
 
-  jq.ajaxPrefilter((options) => {
+  jq.ajaxPrefilter((ajaxOptions) => {
     try {
-      const url = new URL(options.url || '');
+      const url = new URL(ajaxOptions.url || '');
 
       if (!url.searchParams.has('include_ext_alt_text')) {
         return;
       }
 
-      options.url = buildURLWithSearchParams(options.url || '', {
+      ajaxOptions.url = buildURLWithSearchParams(ajaxOptions.url || '', {
         include_ext_media_color: true,
       });
     } catch (e) {
