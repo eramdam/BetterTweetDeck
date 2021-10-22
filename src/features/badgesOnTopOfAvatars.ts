@@ -115,13 +115,9 @@ export const putBadgesOnTopOfAvatars = makeBTDModule(({TD, settings}) => {
     requested_date: number;
   };
 
-  const relationshipCache = JSON.parse(localStorage.getItem('btd-relationship-cache') || '{}') as {
+  const relationshipCache: {
     [k: string]: CachedRelationship | undefined;
-  };
-
-  window.addEventListener('beforeunload', () => {
-    localStorage.setItem('btd-relationship-cache', JSON.stringify(relationshipCache));
-  });
+  } = {};
 
   async function getRelationForUserAndClient(
     client: TweetDeckControllerClient,
