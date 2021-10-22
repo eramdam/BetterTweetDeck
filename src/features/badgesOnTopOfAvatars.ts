@@ -115,9 +115,13 @@ export const putBadgesOnTopOfAvatars = makeBTDModule(({TD, settings}) => {
     requested_date: number;
   };
 
-  const relationshipCache: {
+  const relationshipCache = JSON.parse(localStorage.getItem('btd-relationship-cache') || '{}') as {
     [k: string]: CachedRelationship | undefined;
-  } = {};
+  };
+
+  window.addEventListener('beforeunload', () => {
+    localStorage.setItem('btd-relationship-cache', JSON.stringify(relationshipCache));
+  });
 
   async function getRelationForUserAndClient(
     client: TweetDeckControllerClient,
@@ -134,7 +138,7 @@ export const putBadgesOnTopOfAvatars = makeBTDModule(({TD, settings}) => {
       const diff = requestDate.diff(now, 'hours');
 
       // If our cache is less than 12 hours old, take from it.
-      if (diff.days <= 12) {
+      if (diff.hours <= 12) {
         return relationshipCache[cacheKey];
       }
     }
