@@ -92,6 +92,8 @@ export const RBetterTweetDeckSettings = t.type({
   /** Disable the `tweet` button if images don't have an alt text in DMs too. */
   disableTweetButtonIfAltIsMissingInDMs: withDefault(t.boolean, false),
 
+  hidePreviewButton: withDefault(t.boolean, false),
+
   /** Choose the shape of avatars in columns */
   avatarsShape: withDefault(
     makeEnumRuntimeType<BTDAvatarShapes>(BTDAvatarShapes),
