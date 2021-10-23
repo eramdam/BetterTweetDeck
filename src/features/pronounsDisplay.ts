@@ -28,12 +28,12 @@ const soloRegex = new RegExp(
   'i'
 );
 
-export function extractPronouns(string: string): string | undefined {
-  const pairMatches = Array.from(string.toLowerCase().matchAll(pairRegex));
+export function stringifyPronounResults(g: string[][]) {
+  return g.map((l) => l.join('/')).join(' ');
+}
 
-  function stringify(g: string[][]) {
-    return g.map((l) => l.join('/')).join(' ');
-  }
+export function extractPronouns(string: string) {
+  const pairMatches = Array.from(string.toLowerCase().matchAll(pairRegex));
 
   function formatMatches(m: RegExpMatchArray[]) {
     return m.slice(0, 3).map((match) => {
@@ -51,10 +51,10 @@ export function extractPronouns(string: string): string | undefined {
     const matchingPronouns = table.find((l) => l[0] === soloSubject);
     const matchingObject = matchingPronouns ? matchingPronouns[1] : undefined;
 
-    return soloSubject && matchingObject ? stringify([[soloSubject, matchingObject]]) : undefined;
+    return soloSubject && matchingObject ? [[soloSubject, matchingObject]] : undefined;
   }
 
-  return stringify(formatMatches(pairMatches));
+  return formatMatches(pairMatches);
 }
 
 export const displayPronouns = makeBTDModule(({TD}) => {
@@ -64,7 +64,7 @@ export const displayPronouns = makeBTDModule(({TD}) => {
       return undefined;
     }
 
-    return maybePronouns;
+    return stringifyPronounResults(maybePronouns);
   };
 
   modifyMustacheTemplate(TD, 'status/tweet_single.mustache', (string) => {
