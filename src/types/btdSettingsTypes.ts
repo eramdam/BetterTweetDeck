@@ -87,6 +87,8 @@ export const RBetterTweetDeckSettings = t.type({
   /** Show conversation control in tweet composer */
   showConversationControl: withDefault(t.boolean, true),
 
+  showProfileLabels: withDefault(t.boolean, false),
+
   /** Disable the `tweet` button if images don't have an alt text. */
   disableTweetButtonIfAltIsMissing: withDefault(t.boolean, false),
   /** Disable the `tweet` button if images don't have an alt text in DMs too. */

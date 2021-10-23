@@ -5,7 +5,11 @@ import {buildURLWithSearchParams} from '../helpers/networkHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 
 export const addProfileLabels = makeBTDModule((options) => {
-  const {jq, TD} = options;
+  const {jq, TD, settings} = options;
+
+  if (!settings.showProfileLabels) {
+    return;
+  }
 
   jq.ajaxPrefilter((ajaxOptions) => {
     try {

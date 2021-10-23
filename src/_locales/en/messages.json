@@ -454,5 +454,8 @@
   },
   "settings_disable_it_in_the_dm_composer_too": {
     "message": "Applies to the DM composer too"
+  },
+  "settings_show_profile_labels_in_tweets_and_profile_modals": {
+    "message": "Show \"profile labels\" in tweets and profile modals"
   }
 }
