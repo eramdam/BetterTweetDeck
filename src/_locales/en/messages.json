@@ -454,5 +454,8 @@
   },
   "settings_disable_it_in_the_dm_composer_too": {
     "message": "Applies to the DM composer too"
+  },
+  "settings_hide_the_try_tweetdeck_preview_button": {
+    "message": "Hide the \"Try TweetDeck Preview\" button"
   }
 }

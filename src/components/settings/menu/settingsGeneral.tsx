@@ -136,6 +136,12 @@ export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
             key: 'updateTabTitleOnActivity',
             label: <Trans id="settings_reflect_new_tweets_and_dms_in_the_tabs_title" />,
           },
+          {
+            initialValue: settings.hidePreviewButton,
+            key: 'hidePreviewButton',
+            introducedIn: '4.5',
+            label: <Trans id="settings_hide_the_try_tweetdeck_preview_button" />,
+          },
         ]}>
         <Trans id="settings_misc" />
       </CheckboxSelectSettingsRow>
