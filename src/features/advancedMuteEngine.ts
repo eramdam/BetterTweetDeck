@@ -130,7 +130,7 @@ export const setupAME = makeBTDModule(({TD, jq}) => {
       descriptor: 'tweets matching',
       placeholder: 'Enter a regular expression',
       function(t, e) {
-        const regex = new RegExp(t.value, 'g');
+        const regex = new RegExp(t.value, 'gi');
 
         return !e.getFilterableText().match(regex);
       },
@@ -144,7 +144,7 @@ export const setupAME = makeBTDModule(({TD, jq}) => {
       placeholder: 'Enter a regular expression',
       function(t, e) {
         if (!e.user) return true;
-        const regex = new RegExp(t.value, 'g');
+        const regex = new RegExp(t.value, 'gi');
 
         return !e.user.screenName.match(regex);
       },

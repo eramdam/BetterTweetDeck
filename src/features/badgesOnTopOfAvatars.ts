@@ -138,7 +138,7 @@ export const putBadgesOnTopOfAvatars = makeBTDModule(({TD, settings}) => {
       const diff = requestDate.diff(now, 'hours');
 
       // If our cache is less than 12 hours old, take from it.
-      if (diff.days <= 12) {
+      if (diff.hours <= 12) {
         return relationshipCache[cacheKey];
       }
     }
