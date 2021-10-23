@@ -57,4 +57,11 @@ export const addProfileLabels = makeBTDModule((options) => {
       `{{/withUserBio}} {{#highlightedLabel}} <a rel="url noopener noreferrer" href="{{url}}" class="btd-official-label txt-mute" target="_blank"><img src="{{badge}}" /> {{description}}</a> {{/highlightedLabel}} </div> </div>`
     );
   });
+
+  modifyMustacheTemplate(TD, 'twitter_profile.mustache', (string) => {
+    return string.replace(
+      `{{/getDisplayURL}} </p>`,
+      `{{/getDisplayURL}} </p> {{#highlightedLabel}} <p class="margin-t--5"><a rel="url noopener noreferrer" href="{{url}}" class="btd-official-label prf-siteurl" target="_blank"><img src="{{badge}}" /> {{description}}</a></p> {{/highlightedLabel}}`
+    );
+  });
 });
