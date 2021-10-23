@@ -247,3 +247,7 @@ html.dark body {
 .pronouns-wrapper + .pronouns-wrapper {
   display: none !important;
 }
+
+.thread + .pronouns-wrapper {
+  margin-top: 3px;
+}
