@@ -73,7 +73,6 @@ export const SettingsTweetContent: FC<SettingsMenuSectionProps> = (props) => {
             key: 'showLegacyReplies',
             label: <Trans id="settings_use_old_style_of_replies" />,
           },
-
           {
             initialValue: settings.biggerEmoji,
             key: 'biggerEmoji',
@@ -89,6 +88,11 @@ export const SettingsTweetContent: FC<SettingsMenuSectionProps> = (props) => {
                 <Trans id="settings_content_warning_hint" />
               </small>
             ),
+          },
+          {
+            initialValue: settings.showProfileLabels,
+            key: 'showProfileLabels',
+            label: <Trans id="settings_show_profile_labels_in_tweets_and_profile_modals" />,
           },
         ]}>
         <Trans id="settings_misc" />
