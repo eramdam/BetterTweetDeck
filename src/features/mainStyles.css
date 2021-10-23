@@ -208,3 +208,26 @@ html body {
 html.dark body {
   background-color: #15202b;
 }
+
+.btd-official-label {
+  flex-basis: 100%;
+}
+
+.tweet .btd-official-label:hover {
+  color: #8899a6 !important;
+}
+
+.btd-official-label img {
+  margin-right: 2px;
+  height: 15px;
+  width: 15px;
+}
+
+.account-summary-text .btd-official-label {
+  display: inline-block;
+  margin-top: 4px;
+}
+
+.prf-header .btd-official-label img {
+  filter: brightness(100) drop-shadow(0 1px 1px rgba(20, 23, 26, 0.8));
+}

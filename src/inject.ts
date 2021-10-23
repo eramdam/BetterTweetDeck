@@ -21,11 +21,13 @@ import {injectCustomCss} from './features/customCss';
 import {maybeFreezeGifsInProfilePicture} from './features/freezeGifsProfilePictures';
 import {setupGifModals} from './features/gifModals';
 import {maybeHideColumnIcons} from './features/hideColumnIcons';
+import {hidePreviewButton} from './features/hidePreviewButton';
 import {keepTweetedHashtagsInComposer} from './features/keepTweetedHashtags';
 import {changeLogo} from './features/logoVariations';
 import {makeSearchColumnsFirst} from './features/makeSearchColumnsFirst';
 import {useModernOverlays} from './features/modernOverlays';
 import {pauseColumnsOnHover} from './features/pauseColumnsOnHover';
+import {addProfileLabels} from './features/profileLabels';
 import {displayPronouns} from './features/pronounsDisplay';
 import {maybeRemoveRedirection} from './features/removeRedirection';
 import {maybeRenderCardsInColumnsNatively} from './features/renderCardsInColumnsNative';
@@ -140,6 +142,7 @@ function isModulejQuery(mod: ModuleLike | undefined): mod is JQueryStatic {
 
   jq(document).one('dataColumnsLoaded', () => {
     document.body.classList.add('btd-loaded');
+    hidePreviewButton(btdModuleOptions);
     sendInternalBTDMessage({
       name: BTDMessages.BTD_READY,
       origin: BTDMessageOriginsEnum.INJECT,
@@ -147,6 +150,7 @@ function isModulejQuery(mod: ModuleLike | undefined): mod is JQueryStatic {
       payload: undefined,
     });
     addConversationControls(btdModuleOptions);
+    addProfileLabels(btdModuleOptions);
     maybeRenderCardsInColumnsNatively(btdModuleOptions);
     showAvatarsInColumnsHeader(btdModuleOptions);
     requireAltImages(btdModuleOptions);
