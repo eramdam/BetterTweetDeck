@@ -24,7 +24,7 @@ const pairRegex = new RegExp(
 const soloSeparators = ['/', '|', ';'].join('');
 const soloSubjects = cleanedTable.map((l) => l[0]).join('|');
 const soloRegex = new RegExp(
-  `(?:[${soloSeparators}]+|)[\\s]{1,3}(${soloSubjects})(?:[${soloSeparators}]+|$)`,
+  `[${soloSeparators}]+[\\s]{1,3}(${soloSubjects})(?:[${soloSeparators}]+|$)`,
   'i'
 );
 
