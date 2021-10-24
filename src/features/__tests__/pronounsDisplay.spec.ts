@@ -22,7 +22,7 @@ describe('Pronouns extraction', () => {
 
     ['Quadruplet', 'she/they/fae/it', [['she', 'they', 'fae', 'it']]],
 
-    ['Solo + matching object', `Opinions/thoughts mine alone | she`, [['she', 'her']]],
+    ['Solo + matching object', `Opinions/thoughts mine | she`, [['she', 'her']]],
 
     [
       'No matches',
