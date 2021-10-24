@@ -3,43 +3,68 @@ import {table} from 'pronouns';
 import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 
-const separators = ['|', '/'].map((s) => s).join('');
-const wrappers = [
-  ['(', ')'],
-  ['[', ']'],
-  ['{', '}'],
-];
+// Trying to match `e` would cause too many false positives.
+const cleanedTable = table.filter((l) => l[0] !== 'e');
 
-const subjects = table.map((l) => l[0]).join('|');
-const objects = table.map((l) => l[1]).join('|');
-const possessive = table.map((l) => l[2]).join('|');
+const pairSeparator = ['/', '|'].join('');
 
-const openingWrappers = wrappers.map((l) => '\\' + l[0]).join('|');
-const closingWrappers = wrappers.map((l) => '\\' + l[1]).join('|');
+const subjects = cleanedTable.map((l) => l[0]).join('|');
+const objects = cleanedTable.map((l) => l[1]).join('|');
+const possessive = cleanedTable.map((l) => l[2]).join('|');
+
+const spaceSurroundedSeparator = `(?:[\\s]{1,3}|)[${pairSeparator}]+(?:[\\s]{1,3}|)`;
+const firstPartOfPair = `${subjects}`;
+const secondPartOfPair = `${possessive}|${objects}|${subjects}`;
+
 const pairRegex = new RegExp(
-  `(?:${openingWrappers}|)(?:(${subjects})(?:[\\s]+|)[${separators}]+(?:[\\s]{1,3}|)(${possessive}|${objects}|${subjects}}))(?:${closingWrappers}|)`,
+  `\\b(${firstPartOfPair})${spaceSurroundedSeparator}\\b(${secondPartOfPair})(?:${spaceSurroundedSeparator}\\b(${secondPartOfPair})|)(?:${spaceSurroundedSeparator}\\b(${secondPartOfPair})|)`,
   'gi'
 );
 
-export function extractPronouns(string: string): string | undefined {
-  const matches = Array.from(string.toLowerCase().matchAll(pairRegex));
+const soloSeparators = ['/', '|', ';'].join('');
+const soloSubjects = cleanedTable.map((l) => l[0]).join('|');
+const soloRegex = new RegExp(
+  `(?:[${soloSeparators}]+|)[\\s]{1,3}(${soloSubjects})(?:[${soloSeparators}]+|$)`,
+  'i'
+);
 
-  if (matches.length === 0) {
-    return undefined;
+export function stringifyPronounResults(g: string[][]) {
+  return g.map((l) => l.join('/')).join(' ');
+}
+
+export function extractPronouns(string: string) {
+  const pairMatches = Array.from(string.toLowerCase().matchAll(pairRegex));
+
+  function formatMatches(m: RegExpMatchArray[]) {
+    return m.slice(0, 3).map((match) => {
+      const [, ...groups] = match;
+      return groups.filter(Boolean);
+    });
   }
 
-  return matches
-    .slice(0, 3)
-    .map((match) => {
-      return [match[1], match[2]].join('/');
-    })
-    .join(' ');
+  if (pairMatches.length === 0) {
+    const soloMatches = string.toLowerCase().match(soloRegex);
+    const soloSubject = soloMatches ? soloMatches[1] : undefined;
+    if (!soloSubject) {
+      return undefined;
+    }
+    const matchingPronouns = table.find((l) => l[0] === soloSubject);
+    const matchingObject = matchingPronouns ? matchingPronouns[1] : undefined;
+
+    return soloSubject && matchingObject ? [[soloSubject, matchingObject]] : undefined;
+  }
+
+  return formatMatches(pairMatches);
 }
 
 export const displayPronouns = makeBTDModule(({TD}) => {
-  TD.services.TwitterUser.prototype.getPronouns = function getPronouns() {
+  TD.services.TwitterUser.prototype.getPronouns = function getPronouns(): string | undefined {
     const maybePronouns = extractPronouns(this.description) || extractPronouns(this.location);
-    return maybePronouns;
+    if (!maybePronouns) {
+      return undefined;
+    }
+
+    return stringifyPronounResults(maybePronouns);
   };
 
   modifyMustacheTemplate(TD, 'status/tweet_single.mustache', (string) => {
