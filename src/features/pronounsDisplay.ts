@@ -28,8 +28,18 @@ const soloRegex = new RegExp(
   'i'
 );
 
-export function stringifyPronounResults(g: string[][]) {
-  return g.map((l) => l.join('/')).join(' ');
+const maxPronounsToDisplay = 4;
+function countPronounsInGroups(pronounGroups: string[][]) {
+  return pronounGroups.map((l) => l.length).reduce((a, b) => a + b, 0);
+}
+export function stringifyPronounResults(pronounGroups: string[][]) {
+  let pronounGroupsToShow = pronounGroups;
+
+  while (countPronounsInGroups(pronounGroupsToShow) > maxPronounsToDisplay) {
+    pronounGroupsToShow.pop();
+  }
+
+  return pronounGroups.map((l) => l.join('/')).join(' ');
 }
 
 export function extractPronouns(string: string) {
