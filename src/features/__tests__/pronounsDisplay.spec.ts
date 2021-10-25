@@ -29,7 +29,7 @@ describe('Pronouns', () => {
 
       [
         'No matches',
-        `Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio corrupti odio atque ut mollitia exercitationem ullam doloremque, eius ab nihil voluptate, dolore, amet veritatis officia! Odit veniam natus cupiditate at!`,
+        `Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio corrupti odio atque ut mollitia exercitationem ullam doloremque, eius ab nihil voluptate, dolore, amet veritatis officia! Odit veniam natus cupiditate it`,
         undefined,
       ],
 
