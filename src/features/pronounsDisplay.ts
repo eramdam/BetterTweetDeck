@@ -67,7 +67,11 @@ export function extractPronouns(string: string) {
   return formatMatches(pairMatches);
 }
 
-export const displayPronouns = makeBTDModule(({TD}) => {
+export const displayPronouns = makeBTDModule(({TD, settings}) => {
+  if (!settings.extractAndShowPronouns) {
+    return;
+  }
+
   TD.services.TwitterUser.prototype.getPronouns = function getPronouns(): string | undefined {
     const maybePronouns = extractPronouns(this.description) || extractPronouns(this.location);
     if (!maybePronouns) {
