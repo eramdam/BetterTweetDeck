@@ -1,3 +1,4 @@
+import {uniq} from 'lodash';
 import {table} from 'pronouns';
 
 import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
@@ -43,7 +44,10 @@ export function stringifyPronounResults(pronounGroups: string[][]) {
 }
 
 export function extractPronouns(string: string) {
-  const pairMatches = Array.from(string.toLowerCase().matchAll(pairRegex));
+  const pairMatches = Array.from(string.toLowerCase().matchAll(pairRegex)).filter((singleMatch) => {
+    const sepCount = uniq(singleMatch[0].split('').filter((c) => ['/', '|'].includes(c))).length;
+    return sepCount === 1;
+  });
 
   function formatMatches(m: RegExpMatchArray[]) {
     return m.slice(0, 3).map((match) => {

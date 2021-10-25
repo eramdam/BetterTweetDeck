@@ -33,6 +33,8 @@ describe('Pronouns', () => {
         undefined,
       ],
 
+      ['No matches for mixed separators', `she/her | video`, undefined],
+
       ['Surrounded and separators', `//they | them//`, [['they', 'them']]],
     ])('%s', (_name, input, expected) => {
       const result = extractPronouns(input);
