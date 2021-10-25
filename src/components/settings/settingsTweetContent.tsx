@@ -91,6 +91,7 @@ export const SettingsTweetContent: FC<SettingsMenuSectionProps> = (props) => {
           },
           {
             initialValue: settings.showProfileLabels,
+            introducedIn: '4.5',
             key: 'showProfileLabels',
             label: <Trans id="settings_show_profile_labels_in_tweets_and_profile_modals" />,
           },
