@@ -2,10 +2,7 @@ import './contentWarnings.css';
 
 import {onChirpAdded} from '../services/chirpHandler';
 import {makeBTDModule, makeBtdUuidSelector} from '../types/btdCommonTypes';
-
-const contentWarningRegex =
-  // eslint-disable-next-line no-useless-escape
-  /^([\[\(]?(?:cw|tw|cn)(?:\W+)?\s([^\n|\]|\)|…]+)[\]\)…]?)(?:\n+)?((?:.+)?\n?)+$/gi;
+import {extractContentWarnings} from './contentWarningsHelpers';
 
 export const contentWarnings = makeBTDModule(({TD, settings}) => {
   if (!settings.detectContentWarnings) {
@@ -23,15 +20,15 @@ export const contentWarnings = makeBTDModule(({TD, settings}) => {
       return;
     }
 
-    const matches = [...payload.chirp.text.matchAll(contentWarningRegex)];
+    const matches = extractContentWarnings(payload.chirp.text);
 
-    if (matches.length < 1) {
+    if (!matches) {
       return;
     }
 
-    const warningBlock = matches[0][1];
-    const warningSubject = matches[0][2];
-    const warningText = matches[0][3];
+    const warningBlock = matches.block;
+    const warningSubject = matches.subject;
+    const warningText = matches.text;
 
     if (!warningSubject || !warningText) {
       return;

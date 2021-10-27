@@ -460,5 +460,11 @@
   },
   "settings_hide_the_try_tweetdeck_preview_button": {
     "message": "Hide the \"Try TweetDeck Preview\" button"
+  },
+  "settings_pronouns_extra": {
+    "message": "If you notice any errors, please let me know on @BetterTDeck"
+  },
+  "settings_extract_pronouns": {
+    "message": "Extract pronouns from users' biography or location and show them within columns"
   }
 }

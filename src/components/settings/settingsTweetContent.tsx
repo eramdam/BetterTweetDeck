@@ -91,8 +91,22 @@ export const SettingsTweetContent: FC<SettingsMenuSectionProps> = (props) => {
           },
           {
             initialValue: settings.showProfileLabels,
+            introducedIn: '4.5',
             key: 'showProfileLabels',
             label: <Trans id="settings_show_profile_labels_in_tweets_and_profile_modals" />,
+          },
+          {
+            initialValue: settings.extractAndShowPronouns,
+            introducedIn: '4.5',
+            key: 'extractAndShowPronouns',
+            label: <Trans id="settings_extract_pronouns" />,
+            extraContent: () => {
+              return (
+                <small className={SettingsSmall}>
+                  <Trans id="settings_pronouns_extra" />
+                </small>
+              );
+            },
           },
         ]}>
         <Trans id="settings_misc" />
