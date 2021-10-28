@@ -52,6 +52,7 @@ describe('Content warnings detection', () => {
       'Lorem ipsum dolor sit, amet consectetur',
       'urgh i hate spoilers what the hell',
       'please cw your spoilers!!!',
+      'foobar spoiler baz bar',
     ])('%s', (input) => {
       expect(extractContentWarnings(input)).toBeUndefined();
     });

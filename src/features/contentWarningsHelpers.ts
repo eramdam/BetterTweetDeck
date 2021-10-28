@@ -2,8 +2,7 @@
 const contentWarningRegex =
   /^([\[\(]?(?:cw|tw|cn)(?:\W+)?\s([^\n|\]|\)|…]+)[\]\)…]?)(?:\n+)?((?:.+)?\n?)+$/i;
 
-const spoilerRegex =
-  /^(?:[\/\/]+\s|[\[\(]|)([\w]+\sspoiler(?:s)?)(?:[\]\)…]|)(?:[\n.]+|)([\w\W]+)$/i;
+const spoilerRegex = /^(?:[\/\/]+\s|[\[\(]|)([\w]+\sspoilers)(?:[\]\)…]|)(?:[\n.]+|)([\w\W]+)$/i;
 
 interface ContentWarningResult {
   block: string;
