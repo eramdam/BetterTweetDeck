@@ -520,6 +520,7 @@ interface User {
   emojifiedName: string;
   location: string;
   description: string;
+  bio(): string;
   entities: SourceUserEntities;
   joinedDate: Date;
   friendsCount: number;
