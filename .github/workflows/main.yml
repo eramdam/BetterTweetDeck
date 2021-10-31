@@ -34,9 +34,6 @@ jobs:
       - name: Typecheck + lint
         run: npm test
 
-      - name: Validate AMO addon
-        run: npm run build:firefox && npx web-ext lint -s dist
-
       # Runs a set of commands using the runners shell
       - name: Publish unlisted addon to AMO
         env:
