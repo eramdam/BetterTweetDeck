@@ -27,7 +27,7 @@
     "build:prod:firefox": "npm run _build:prod -- browser=firefox",
     "build:prod:firefox-beta": "npm run _build:prod -- browser=firefox-beta",
     "build:prod:chrome": "npm run _build:prod -- browser=chrome",
-    "fix": "eslint --fix . --ext .jsx,.js,.ts,.tsx",
+    "fix": "prettier --write . && eslint --fix . --ext .jsx,.js,.ts,.tsx",
     "lint": "eslint . --ext .jsx,.js,.ts,.tsx",
     "typecheck:watch": "tsc -p . --watch",
     "typecheck": "tsc -p .",
@@ -42,7 +42,7 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "eslint --fix",
-    "*.{css,md,html,json}": "prettier --write"
+    "*.{css,md,html,json,js,jsx,ts,tsx}": "prettier --write"
   },
   "browserslist": [
     "last 3 chrome versions",
@@ -86,7 +86,6 @@
     "emoji-mart": "^3.0.1",
     "eslint": "^7.30.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
@@ -112,7 +111,7 @@
     "polished": "^4.1.3",
     "postcss-loader": "^6.1.1",
     "postcss-preset-env": "^6.7.0",
-    "prettier": "^2.3.2",
+    "prettier": "^2.4.1",
     "prism-react-renderer": "^1.2.1",
     "pronouns": "^1.3.3",
     "react": "^17.0.2",
