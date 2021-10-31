@@ -45,13 +45,12 @@ import {updateTwemojiRegex} from './features/updateTwemojiRegex';
 import {useOriginalAspectRatio} from './features/useOriginalAspectRatio';
 import {maybeChangeUsernameFormat} from './features/usernameDisplay';
 import {listenToInternalBTDMessage, sendInternalBTDMessage} from './helpers/communicationHelpers';
-import {displayTweetDeckBanner} from './helpers/tweetdeckHelpers';
 import {hasProperty} from './helpers/typeHelpers';
 import {setupChirpHandler} from './services/chirpHandler';
 import {setupColumnMonitor} from './services/columnMediaSizeMonitor';
 import {maybeSetupDebugFunctions} from './services/debugMethods';
 import {insertSettingsButton} from './services/setupSettings';
-import {BTDModuleOptions, BTDSettingsAttribute, BTDVersionAttribute} from './types/btdCommonTypes';
+import {BTDModuleOptions, BTDSettingsAttribute} from './types/btdCommonTypes';
 import {BTDMessageOriginsEnum, BTDMessages, BTDNotificationTypes} from './types/btdMessageTypes';
 import {BTDSettings} from './types/btdSettingsTypes';
 import {TweetDeckControllerClient, TweetDeckObject} from './types/tweetdeckTypes';
@@ -157,28 +156,16 @@ function isModulejQuery(mod: ModuleLike | undefined): mod is JQueryStatic {
     maybeShowFollowBanner(btdModuleOptions);
     keepTweetedHashtagsInComposer(btdModuleOptions);
     setTimeout(() => {
+      if (!settings.needsToShowUpdateBanner) {
+        return;
+      }
+
       sendInternalBTDMessage({
         name: BTDMessages.NOTIFICATION,
         origin: BTDMessageOriginsEnum.INJECT,
         isReponse: false,
         payload: {
-          name: BTDNotificationTypes.UPDATE,
-        },
-      });
-      if (!settings.needsToShowUpdateBanner) {
-        return;
-      }
-      displayTweetDeckBanner(jq, {
-        bannerClasses: 'btd-banner',
-        message: {
-          text: `Better TweetDeck has been updated to ${getBTDVersion()}`,
-          actions: [
-            {
-              label: 'See the changes',
-              action: 'url-ext',
-              url: `https://github.com/eramdam/BetterTweetDeck/releases/tag/${getBTDVersion()}`,
-            },
-          ],
+          type: BTDNotificationTypes.UPDATE,
         },
       });
     }, 2000);
@@ -225,17 +212,6 @@ function getBTDSettings() {
   }
 }
 
-function getBTDVersion() {
-  const scriptElement = document.querySelector(`[${BTDSettingsAttribute}]`);
-  const versionAttribute = scriptElement && scriptElement.getAttribute(BTDVersionAttribute);
-
-  if (!versionAttribute) {
-    return '';
-  }
-
-  return versionAttribute;
-}
-
 const followStatus = (client: TweetDeckControllerClient, targetScreenName: string) => {
   return new Promise<{
     id: string;
@@ -271,21 +247,23 @@ async function maybeShowFollowBanner({TD, jq, settings}: BTDModuleOptions) {
     return;
   }
 
-  displayTweetDeckBanner(jq, {
-    message: {
-      text: 'Do you want to follow Better TweetDeck on Twitter for news, support and tips?',
-      actions: [
-        {
-          action: 'trigger-event',
-          event: {
-            type: 'uiShowProfile',
-            data: {
-              id: 'BetterTDeck',
-            },
-          },
-          label: 'Sure!',
-        },
-      ],
+  sendInternalBTDMessage({
+    name: BTDMessages.NOTIFICATION,
+    origin: BTDMessageOriginsEnum.INJECT,
+    isReponse: false,
+    payload: {
+      type: BTDNotificationTypes.FOLLOW_PROMPT,
     },
   });
+  listenToInternalBTDMessage(
+    BTDMessages.PROMPT_FOLLOW,
+    BTDMessageOriginsEnum.INJECT,
+    async (ev) => {
+      if (ev.data.name !== BTDMessages.PROMPT_FOLLOW) {
+        return;
+      }
+
+      jq(document).trigger('uiShowProfile', {id: 'BetterTDeck'});
+    }
+  );
 }

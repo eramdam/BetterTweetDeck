@@ -9,6 +9,7 @@ export enum BTDMessages {
   OPEN_SETTINGS = 'OPEN_SETTINGS',
   PING = 'PING',
   NOTIFICATION = 'NOTIFICATION',
+  PROMPT_FOLLOW = 'PROMPT_FOLLOW',
 }
 
 export enum BTDNotificationTypes {
@@ -96,6 +97,10 @@ interface BTDPing extends BTDMessageEventBase {
   name: BTDMessages.PING;
 }
 
+interface BTDPromptFollow extends BTDMessageEventBase {
+  name: BTDMessages.PROMPT_FOLLOW;
+}
+
 export type BTDMessageEventData =
   | BTDMakeGifPickerRequest
   | BTDMakeGifPickerRequestResult
@@ -104,7 +109,8 @@ export type BTDMessageEventData =
   | BTDDownloadMediaRequest
   | BTDDownloadMediaRequestResult
   | BTDPing
-  | BTDNotification;
+  | BTDNotification
+  | BTDPromptFollow;
 export interface BTDMessageEvent {
   data: BTDMessageEventData;
 }
