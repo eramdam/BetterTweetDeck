@@ -23,7 +23,9 @@ describe('Pronouns', () => {
 
       ['Quadruplet', 'she/they/fae/it', [['she', 'they', 'fae', 'it']]],
 
-      ['Solo + matching object', `Opinions/thoughts mine | she`, [['she', 'her']]],
+      ['Solo + matching object', `lorem ipsum | she`, [['she', 'her']]],
+
+      ['Solo + matching object', `lorem ipsume | he |`, [['he', 'him']]],
 
       ['More than 4 pronouns', 'she/they/fae/he/him/them/her', [['she', 'they', 'fae', 'he']]],
 
