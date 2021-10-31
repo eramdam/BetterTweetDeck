@@ -454,5 +454,17 @@
   },
   "settings_disable_it_in_the_dm_composer_too": {
     "message": "Aplicar também na aba de mensagens diretas"
+  },
+  "settings_show_profile_labels_in_tweets_and_profile_modals": {
+    "message": "Mostrar \"rótulos de perfil\" em tweets e modais de perfil"
+  },
+  "settings_hide_the_try_tweetdeck_preview_button": {
+    "message": "Ocultar o botão \"Try TweetDeck Preview\""
+  },
+  "settings_pronouns_extra": {
+    "message": "Por enquanto, apenas suporte para pronomes em inglês. Se você notar quaisquer erros, por favor me avise em @BetterTDeck"
+  },
+  "settings_extract_pronouns": {
+    "message": "Extrair pronomes da biografia ou localização de usuários e mostrá-los dentro das colunas"
   }
 }
