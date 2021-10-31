@@ -153,9 +153,9 @@ function isModulejQuery(mod: ModuleLike | undefined): mod is JQueryStatic {
     maybeRenderCardsInColumnsNatively(btdModuleOptions);
     showAvatarsInColumnsHeader(btdModuleOptions);
     requireAltImages(btdModuleOptions);
-    maybeShowFollowBanner(btdModuleOptions);
     keepTweetedHashtagsInComposer(btdModuleOptions);
     setTimeout(() => {
+      maybeShowFollowBanner(btdModuleOptions);
       if (!settings.needsToShowUpdateBanner) {
         return;
       }
@@ -226,11 +226,10 @@ const followStatus = (client: TweetDeckControllerClient, targetScreenName: strin
   });
 };
 
+const followPromptKey = 'btd-disable-follow-prompt-new';
+
 async function maybeShowFollowBanner({TD, jq, settings}: BTDModuleOptions) {
-  if (
-    window.localStorage.getItem('btd-disable-follow-prompt') ||
-    !settings.needsToShowFollowPrompt
-  ) {
+  if (window.localStorage.getItem(followPromptKey) || !settings.showFollowPrompt) {
     return;
   }
 
@@ -238,7 +237,7 @@ async function maybeShowFollowBanner({TD, jq, settings}: BTDModuleOptions) {
     return followStatus(client, 'BetterTDeck');
   });
 
-  window.localStorage.setItem('btd-disable-follow-prompt', 'true');
+  window.localStorage.setItem(followPromptKey, 'true');
   const values = await Promise.all(followingPromises);
 
   const shouldShowBanner = values.every((user) => user.following === false);
