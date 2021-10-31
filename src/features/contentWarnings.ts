@@ -38,7 +38,7 @@ export const contentWarnings = makeBTDModule(({TD, settings}) => {
     details.classList.add('btd-content-warning', 'is-actionable');
 
     const summary = document.createElement('summary');
-    summary.innerHTML = TD.util.transform(warningSubject);
+    summary.innerHTML = TD.util.transform(warningBlock);
 
     // Stopping event propagation because everything inside tweets opens the detail view
     summary.addEventListener('click', (e) => {
