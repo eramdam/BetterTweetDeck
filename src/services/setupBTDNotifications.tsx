@@ -1,4 +1,4 @@
-import {css, cx} from '@emotion/css';
+import createEmotion from '@emotion/css/create-instance';
 import {AnimatePresence, motion} from 'framer-motion';
 import _, {uniqBy} from 'lodash';
 import React, {ReactNode, useLayoutEffect, useState} from 'react';
@@ -9,6 +9,12 @@ import {listenToInternalBTDMessage, sendInternalBTDMessage} from '../helpers/com
 import {Handler} from '../helpers/typeHelpers';
 import {getExtensionVersion} from '../helpers/webExtensionHelpers';
 import {BTDMessageOriginsEnum, BTDMessages, BTDNotificationTypes} from '../types/btdMessageTypes';
+
+const container = document.head.appendChild(document.createElement('style'));
+const {cx, css} = createEmotion({
+  key: 'btd',
+  container: container,
+});
 
 const notificationTextStyle = css`
   color: white;
