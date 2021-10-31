@@ -36,6 +36,7 @@ const notificationStyles = css`
   box-shadow: rgba(0, 0, 0, 0.38) 0 2px 14px;
   grid-row-gap: 16px;
   width: 370px;
+  pointer-events: all;
 `;
 
 const notificationIcon = css`
@@ -195,6 +196,7 @@ const Notifications = () => {
         flex-direction: column;
         gap: 20px;
         align-items: center;
+        pointer-events: none;
       `}>
       <AnimatePresence>
         {_(btdNotifications)
