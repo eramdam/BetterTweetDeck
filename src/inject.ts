@@ -52,7 +52,7 @@ import {setupColumnMonitor} from './services/columnMediaSizeMonitor';
 import {maybeSetupDebugFunctions} from './services/debugMethods';
 import {insertSettingsButton} from './services/setupSettings';
 import {BTDModuleOptions, BTDSettingsAttribute, BTDVersionAttribute} from './types/btdCommonTypes';
-import {BTDMessageOriginsEnum, BTDMessages} from './types/btdMessageTypes';
+import {BTDMessageOriginsEnum, BTDMessages, BTDNotificationTypes} from './types/btdMessageTypes';
 import {BTDSettings} from './types/btdSettingsTypes';
 import {TweetDeckControllerClient, TweetDeckObject} from './types/tweetdeckTypes';
 
@@ -157,6 +157,14 @@ function isModulejQuery(mod: ModuleLike | undefined): mod is JQueryStatic {
     maybeShowFollowBanner(btdModuleOptions);
     keepTweetedHashtagsInComposer(btdModuleOptions);
     setTimeout(() => {
+      sendInternalBTDMessage({
+        name: BTDMessages.NOTIFICATION,
+        origin: BTDMessageOriginsEnum.INJECT,
+        isReponse: false,
+        payload: {
+          name: BTDNotificationTypes.UPDATE,
+        },
+      });
       if (!settings.needsToShowUpdateBanner) {
         return;
       }

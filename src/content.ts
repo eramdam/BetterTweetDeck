@@ -11,6 +11,7 @@ import {sendMessageToBackground} from './helpers/webExtensionHelpers';
 import {processDownloadMediaRequest} from './services/backgroundGifRequests';
 import {getValidatedSettings} from './services/backgroundSettings';
 import {injectInTD} from './services/injectInTD';
+import {setupBTDNotifications} from './services/setupBTDNotifications';
 import {setupBtdRoot} from './services/setupBTDRoot';
 import {BTDMessageOriginsEnum, BTDMessages} from './types/btdMessageTypes';
 
@@ -29,6 +30,7 @@ import {BTDMessageOriginsEnum, BTDMessages} from './types/btdMessageTypes';
     setupBtdRoot();
     const settings = await getValidatedSettings();
     setupGifPicker(settings);
+    setupBTDNotifications();
     setupEmojiPicker(settings);
     setupEmojiAutocompletion(settings);
 

@@ -10,6 +10,7 @@ export function setupBtdRoot() {
     const btdApp = (
       <div id="btdRoot">
         <div id="btd-fullscreen-portal-root"></div>
+        <div id="btd-notifications-root"></div>
       </div>
     );
 
