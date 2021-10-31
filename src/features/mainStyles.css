@@ -124,32 +124,6 @@ html.dark .typeahead .js-hashtag {
   padding-top: 0 !important;
 }
 
-.btd-loaded .btd-banner {
-  background-image: linear-gradient(-45deg, rgb(0, 160, 251) 47%, rgb(0, 203, 252) 100%);
-  text-shadow: rgba(0, 0, 0, 0.28) 0px 2px 2px;
-  font-weight: 600;
-  padding: 10px !important;
-}
-
-.btd-loaded .btd-banner a {
-  text-shadow: none;
-}
-
-.btd-loaded .btd-banner-button {
-  border-radius: 25px;
-  background-color: white;
-  color: #009eff !important;
-  padding: 4px 10px 7px;
-  display: inline-block;
-  text-decoration: none !important;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 1px 0px, rgba(0, 0, 0, 0.2) 0px 2px 20px;
-
-  &:hover {
-    background-color: #eeeeee;
-    text-decoration: none !important;
-  }
-}
-
 /* Prevent horizontal scrollbar in columns inside modals */
 .js-modal.open-modal div.js-right-column.scroll-v {
   overflow-x: hidden;
