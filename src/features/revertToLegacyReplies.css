@@ -1,6 +1,6 @@
 .quoted-tweet .js-reply-info-container,
-.tweet-body>div>.other-replies,
-.tweet-detail>div>.other-replies {
+.tweet-body > div > .other-replies,
+.tweet-detail > div > .other-replies {
   font-size: 0;
   height: 0;
 }

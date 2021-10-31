@@ -10,7 +10,7 @@ export function makeEnumRuntimeType<T extends Object>(srcEnum: object) {
     (value, context) => {
       if (!value || !enumValues.has(value)) return t.failure(value, context);
 
-      return t.success((value as any) as T);
+      return t.success(value as any as T);
     },
     (value) => value.toString()
   );
