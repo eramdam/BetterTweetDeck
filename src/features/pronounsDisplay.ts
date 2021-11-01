@@ -1,4 +1,4 @@
-import {uniq} from 'lodash';
+import {orderBy, uniq} from 'lodash';
 import {table} from 'pronouns';
 
 import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
@@ -7,18 +7,34 @@ import {makeBTDModule} from '../types/btdCommonTypes';
 // Trying to match `e` would cause too many false positives.
 const cleanedTable = table.filter((l) => l[0] !== 'e');
 
-const pairSeparator = ['/', '|'].join('');
+const pairSeparatorsPart = ['/', '|'].join('');
+// she, he, they, it...
+const subjects = cleanedTable.map((l) => l[0]);
+// her, him, them, it...
+const objects = cleanedTable.map((l) => l[1]);
+// her, his, their, its...
+const possessive = cleanedTable.map((l) => l[2]);
 
-const subjects = cleanedTable.map((l) => l[0]).join('|');
-const objects = cleanedTable.map((l) => l[1]).join('|');
-const possessive = cleanedTable.map((l) => l[2]).join('|');
+// Build parts of our regexes
+const subjectsRegexPart = subjects.join('|');
+const objectsRegexPart = objects.join('|');
+const possessiveRegexPart = possessive.join('|');
 
-const spaceSurroundedSeparator = `(?:[\\s]{1,3}|)[${pairSeparator}]+(?:[\\s]{1,3}|)`;
-const firstPartOfPair = `${subjects}`;
-const secondPartOfPair = `${possessive}|${objects}|${subjects}`;
+// Matches ` / `, ` | ` and so on
+const spaceSurroundedSeparator = `(?:[\\s]{1,3}|)[${pairSeparatorsPart}]+(?:[\\s]{1,3}|)`;
+// Matches subjects only
+const firstPartOfPair = `${subjectsRegexPart}`;
+// Matches possesives, objects and subjects
+const secondPartOfPair = `${possessiveRegexPart}|${objectsRegexPart}|${subjectsRegexPart}`;
 
+// Matches `she/her`, etc
 const pairRegex = new RegExp(
-  `\\b(${firstPartOfPair})${spaceSurroundedSeparator}\\b(${secondPartOfPair})(?:${spaceSurroundedSeparator}\\b(${secondPartOfPair})|)(?:${spaceSurroundedSeparator}\\b(${secondPartOfPair})|)`,
+  `\\b(${firstPartOfPair})${spaceSurroundedSeparator}\\b(${secondPartOfPair})\\b(?:${spaceSurroundedSeparator}\\b(${secondPartOfPair})\\b|)(?:${spaceSurroundedSeparator}\\b(${secondPartOfPair})\\b|)`,
+  'gi'
+);
+// Matches `her/she`, etc
+const invertedPairRegex = new RegExp(
+  `\\b(${secondPartOfPair})${spaceSurroundedSeparator}\\b(${firstPartOfPair})\\b(?:${spaceSurroundedSeparator}\\b(${firstPartOfPair})\\b|)(?:${spaceSurroundedSeparator}\\b(${firstPartOfPair})\\b|)`,
   'gi'
 );
 
@@ -43,31 +59,68 @@ export function stringifyPronounResults(pronounGroups: string[][]) {
   return pronounGroups.map((l) => l.join('/')).join(' ');
 }
 
-export function extractPronouns(string: string) {
-  const pairMatches = Array.from(string.toLowerCase().matchAll(pairRegex)).filter((singleMatch) => {
+function parseRegularPair(string: string) {
+  return Array.from(string.toLowerCase().matchAll(pairRegex)).filter((singleMatch) => {
     const sepCount = uniq(singleMatch[0].split('').filter((c) => ['/', '|'].includes(c))).length;
     return sepCount === 1;
   });
+}
 
-  function formatMatches(m: RegExpMatchArray[]) {
-    return m.slice(0, 3).map((match) => {
-      const [, ...groups] = match;
-      return groups.filter(Boolean);
-    });
-  }
+function parseInvertedPair(string: string) {
+  return Array.from(string.toLowerCase().matchAll(invertedPairRegex)).filter((singleMatch) => {
+    const sepCount = uniq(singleMatch[0].split('').filter((c) => ['/', '|'].includes(c))).length;
+    return sepCount === 1;
+  });
+}
 
+// Formats a regex match into a tuple of pronouns
+function formatMatches(m: RegExpMatchArray[]) {
+  return m.slice(0, 3).map((match) => {
+    const [, ...groups] = match;
+
+    return orderBy(
+      groups.filter(Boolean),
+      [
+        // We want to put subject pronouns first so `her/she` becomes `she/her`
+        (p) => {
+          return subjects.includes(p);
+        },
+      ],
+      'desc'
+    );
+  });
+}
+
+export function extractPronouns(string: string) {
+  // Make sure to reset the regexes
+  pairRegex.lastIndex = 0;
+  invertedPairRegex.lastIndex = 0;
+  soloRegex.lastIndex = 0;
+
+  // Try to match `she/her`
+  const regularPairMatches = parseRegularPair(string);
+  // Try to match `her/she`
+  const invertedPairMatches = parseInvertedPair(string);
+
+  const pairMatches = regularPairMatches.length > 0 ? regularPairMatches : invertedPairMatches;
+
+  // If we don't match a pair, try to match a pronoun by itself
   if (pairMatches.length === 0) {
     const soloMatches = string.toLowerCase().match(soloRegex);
     const soloSubject = soloMatches ? soloMatches[1] : undefined;
     if (!soloSubject) {
       return undefined;
     }
+    // Try to find the corresponding line in the pronouns table
     const matchingPronouns = table.find((l) => l[0] === soloSubject);
+    // Find the corresponding object pronoun
     const matchingObject = matchingPronouns ? matchingPronouns[1] : undefined;
 
+    // Return a tuple of pronoun if we match something
     return soloSubject && matchingObject ? [[soloSubject, matchingObject]] : undefined;
   }
 
+  // Properly format our matches
   return formatMatches(pairMatches);
 }
 

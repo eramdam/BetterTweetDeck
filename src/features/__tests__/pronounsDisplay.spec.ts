@@ -6,6 +6,9 @@ describe('Pronouns', () => {
       ['Subject/Possessive', 'it/its', [['it', 'its']]],
 
       ['Subject/Object', '((xey//xyr))', [['xey', 'xyr']]],
+      ['Subject/Object', '((xey//xyr))', [['xey', 'xyr']]],
+      ['Subject/Object with close match', `she/her | VERY`, [['she', 'her']]],
+      ['Object/Subject', `her/she`, [['she', 'her']]],
 
       [
         'Multiple groups (limited to 3)',
@@ -35,7 +38,7 @@ describe('Pronouns', () => {
         undefined,
       ],
 
-      ['No matches for mixed separators', `she/her | video`, undefined],
+      ['No matches for mixed separators', `she/her | ver`, undefined],
 
       ['Surrounded and separators', `//they | them//`, [['they', 'them']]],
 
