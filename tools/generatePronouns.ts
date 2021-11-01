@@ -5,21 +5,19 @@ import {table} from 'pronouns';
 
 const cleanedTable = table.filter((l) => l[0] !== 'e');
 
-(async () => {
-  const res = await (await axios.get(`https://en.pronouns.page/api/pronouns`)).data;
-  const values = Object.values(
-    res as ReadonlyArray<{
-      morphemes: {
-        pronoun_subject: string;
-        pronoun_object: string;
-        possessive_determiner: string;
-        possessive_pronoun: string;
-        reflexive: string;
-      };
-    }>
-  );
+interface EnglishMorphemes {
+  pronoun_subject: string;
+  pronoun_object: string;
+  possessive_determiner: string;
+  possessive_pronoun: string;
+  reflexive: string;
+}
 
-  const morphemes = values
+async function getPronounsFromApi() {
+  const res = await (await axios.get(`https://en.pronouns.page/api/pronouns`)).data;
+  const values = Object.values(res as ReadonlyArray<{morphemes: EnglishMorphemes}>);
+
+  return values
     .map((v) => {
       return v.morphemes;
     })
@@ -28,14 +26,18 @@ const cleanedTable = table.filter((l) => l[0] !== 'e');
     })
     .filter((v) => v.every((p) => !p.includes('/')))
     .filter((v) => v[0] !== 'e');
+}
 
-  const totalMorphemes = morphemes.concat(
+(async () => {
+  const englishMorphemes = await getPronounsFromApi();
+
+  const totalMorphemes = englishMorphemes.concat(
     cleanedTable
       .map((l) => [l[0], l[1], l[2]])
       .filter((l) => {
         const slug = l.join('|');
 
-        return morphemes.every((ml) => ml.join('|') !== slug);
+        return englishMorphemes.every((ml) => ml.join('|') !== slug);
       })
   );
 
