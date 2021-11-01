@@ -1,6 +1,6 @@
 import {orderBy, uniq} from 'lodash';
 
-import * as table from '../assets/pronouns.json';
+import {table} from '../assets/pronouns.json';
 import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 
