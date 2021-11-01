@@ -15,7 +15,7 @@ usageMatchRegex:
   # you can ignore it and use your own matching rules as well
   - 'Trans[\t\r\s]+id=[''"`]({key})[''"`]'
   - "getTransString\\('({key})'\\)"
-  - "__MSG_({key})__"
+  - '__MSG_({key})__'
 
 # An array of strings containing refactor templates.
 # The "$1" will be replaced by the keypath specified.

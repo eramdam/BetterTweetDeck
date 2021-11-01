@@ -6,6 +6,9 @@ describe('Pronouns', () => {
       ['Subject/Possessive', 'it/its', [['it', 'its']]],
 
       ['Subject/Object', '((xey//xyr))', [['xey', 'xyr']]],
+      ['Subject/Object', '((xey//xyr))', [['xey', 'xyr']]],
+      ['Subject/Object with close match', `she/her | VERY`, [['she', 'her']]],
+      ['Object/Subject', `her/she`, [['she', 'her']]],
 
       [
         'Multiple groups (limited to 3)',
@@ -23,7 +26,9 @@ describe('Pronouns', () => {
 
       ['Quadruplet', 'she/they/fae/it', [['she', 'they', 'fae', 'it']]],
 
-      ['Solo + matching object', `Opinions/thoughts mine | she`, [['she', 'her']]],
+      ['Solo + matching object', `lorem ipsum | she`, [['she', 'her']]],
+
+      ['Solo + matching object', `lorem ipsume | he |`, [['he', 'him']]],
 
       ['More than 4 pronouns', 'she/they/fae/he/him/them/her', [['she', 'they', 'fae', 'he']]],
 
@@ -33,9 +38,12 @@ describe('Pronouns', () => {
         undefined,
       ],
 
-      ['No matches for mixed separators', `she/her | video`, undefined],
+      ['No matches for mixed separators', `she/her | ver`, undefined],
 
       ['Surrounded and separators', `//they | them//`, [['they', 'them']]],
+
+      ['pronoun.is', 'pronoun.is/he/him', [['he', 'him']]],
+      ['pronoun.is', 'pronoun.is/they/them', [['they', 'them']]],
     ])('%s', (_name, input, expected) => {
       const result = extractPronouns(input);
 

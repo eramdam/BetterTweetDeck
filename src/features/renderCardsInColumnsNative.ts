@@ -38,7 +38,7 @@ const allowedCardNames = [
 ];
 
 export const maybeRenderCardsInColumnsNatively = makeBTDModule((options) => {
-  const {mR, settings, TD} = options;
+  const {mR, settings, TD, jq} = options;
 
   if (!settings.showCardsInsideColumns) {
     return;
@@ -100,4 +100,7 @@ export const maybeRenderCardsInColumnsNatively = makeBTDModule((options) => {
   };
 
   featureFlagModule.setValueForFeatureFlag('tweetdeck_horizon_web_cards_enabled', allowedCardNames);
+  jq(document).on('click', 'article .js-card-container [data-testid="card"]', (ev) => {
+    ev.stopPropagation();
+  });
 });

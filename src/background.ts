@@ -33,7 +33,7 @@ import {BTDSettings} from './types/btdSettingsTypes';
         await ExtensionSettings.set({
           ...(await getValidatedSettings()),
           needsToShowUpdateBanner: false,
-          needsToShowFollowPrompt: false,
+          showFollowPrompt: false,
         });
         return undefined;
       }

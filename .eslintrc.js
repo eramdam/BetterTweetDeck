@@ -1,6 +1,6 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'unused-imports', 'simple-import-sort', 'prettier'],
+  plugins: ['@typescript-eslint', 'unused-imports', 'simple-import-sort'],
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
@@ -23,7 +23,6 @@ module.exports = {
     node: true,
   },
   rules: {
-    'prettier/prettier': 'warn',
     'react-hooks/exhaustive-deps': [
       'warn',
       {

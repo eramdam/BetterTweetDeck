@@ -1,20 +1,20 @@
 import {Dictionary} from 'lodash';
 
-import {ChirpAddedPayload} from '../services/chirpHandler';
-import {BTDSettings} from './btdSettingsTypes';
-
-/** Different kinds of messages that BTD can send/receive internally. */
 export enum BTDMessages {
   BTD_READY = 'BTD_READY',
-  CHIRP_RESULT = 'CHIRP_RESULT',
-  CHIRP_REMOVAL = 'CHIRP_REMOVAL',
   MAKE_GIF_REQUEST = 'MAKE_GIF_REQUEST',
   GIF_REQUEST_RESULT = 'GIF_REQUEST_RESULT',
   DOWNLOAD_MEDIA = 'DOWNLOAD_MEDIA',
   DOWNLOAD_MEDIA_RESULT = 'DOWNLOAD_MEDIA_RESULT',
-  SAVE_SETTINGS = 'SAVE_SETTINGS',
   OPEN_SETTINGS = 'OPEN_SETTINGS',
   PING = 'PING',
+  NOTIFICATION = 'NOTIFICATION',
+  PROMPT_FOLLOW = 'PROMPT_FOLLOW',
+}
+
+export enum BTDNotificationTypes {
+  UPDATE = 'UPDATE',
+  FOLLOW_PROMPT = 'FOLLOW_PROMPT',
 }
 
 /** Locations from which messages can be listened/sent to. */
@@ -37,15 +37,10 @@ interface BTDMessageEventBase {
   payload: any;
 }
 
-interface BTDChirpResult extends BTDMessageEventBase {
-  name: BTDMessages.CHIRP_RESULT;
-  payload: ChirpAddedPayload;
-}
-
-interface BTDChirpRemoval extends BTDMessageEventBase {
-  name: BTDMessages.CHIRP_REMOVAL;
+export interface BTDNotification extends BTDMessageEventBase {
+  name: BTDMessages.NOTIFICATION;
   payload: {
-    uuids: string[];
+    type: BTDNotificationTypes;
   };
 }
 
@@ -91,14 +86,6 @@ export interface BTDDownloadMediaRequestResult extends BTDMessageEventBase {
   };
 }
 
-interface BTDSaveSettings extends BTDMessageEventBase {
-  name: BTDMessages.SAVE_SETTINGS;
-  payload: {
-    settings: BTDSettings;
-    shouldRefresh: boolean;
-  };
-}
-
 interface BTDOpenSettings extends BTDMessageEventBase {
   name: BTDMessages.OPEN_SETTINGS;
   payload: {
@@ -110,17 +97,20 @@ interface BTDPing extends BTDMessageEventBase {
   name: BTDMessages.PING;
 }
 
+interface BTDPromptFollow extends BTDMessageEventBase {
+  name: BTDMessages.PROMPT_FOLLOW;
+}
+
 export type BTDMessageEventData =
-  | BTDChirpResult
-  | BTDChirpRemoval
   | BTDMakeGifPickerRequest
   | BTDMakeGifPickerRequestResult
   | BTDReady
-  | BTDSaveSettings
   | BTDOpenSettings
   | BTDDownloadMediaRequest
   | BTDDownloadMediaRequestResult
-  | BTDPing;
+  | BTDPing
+  | BTDNotification
+  | BTDPromptFollow;
 export interface BTDMessageEvent {
   data: BTDMessageEventData;
 }
