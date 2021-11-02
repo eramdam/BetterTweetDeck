@@ -1,6 +1,12 @@
-/* eslint-disable no-useless-escape */
-const contentWarningRegex =
-  /^([\[\(]?(?:cw|tw|cn)(?:\W+)?\s([^\n|\]|\)|…]+)[\]\)…]?)(?:\n+)?((?:.+)?\n?)+$/i;
+const keywords = ['cw', 'tw', 'cn', 'content warning', 'trigger warning', 'content note'].join('|');
+const contentWarningRegex = new RegExp(
+  `^([\\[\\(]?(?:${keywords}|)(?:\\W+)?\\s([^\\n|\\]|\\)|…]+)[\\]\\)…]?)(?:\\n+)?((?:.+)?\\n?)+$`,
+  'i'
+);
+const withoutKeywordRegex = new RegExp(
+  `^([\\[]([^\\n|\\[\\]|…]+)[\\]\\)…])(?:\\n+)?((?:.+)?\\n?)+$`,
+  'i'
+);
 
 interface ContentWarningResult {
   block: string;
@@ -9,7 +15,7 @@ interface ContentWarningResult {
 }
 
 export function extractContentWarnings(input: string): ContentWarningResult | undefined {
-  const contentWarningMatch = input.match(contentWarningRegex);
+  const contentWarningMatch = input.match(contentWarningRegex) || input.match(withoutKeywordRegex);
   if (!contentWarningMatch) {
     return undefined;
   }
