@@ -44,6 +44,7 @@ describe('Pronouns', () => {
       ],
 
       ['No matches', `testing.co`, undefined],
+      ['No matches', `Omaha, NE`, undefined],
 
       ['No matches for mixed separators', `she/her | ver`, undefined],
 
