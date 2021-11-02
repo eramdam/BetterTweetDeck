@@ -38,10 +38,12 @@ const invertedPairRegex = new RegExp(
   'gi'
 );
 
-const soloSeparators = ['/', '|', ';'].join('');
+const openingWrapper = ['(', '[', '{'].map((w) => `\\${w}`).join('');
+const closingWrapper = [')', ']', '}'].map((w) => `\\${w}`).join('');
+const soloSeparators = ['/', '|', ';', ','].join('');
 const soloSubjects = cleanedTable.map((l) => l[0]).join('|');
 const soloRegex = new RegExp(
-  `[${soloSeparators}]+[\\s]{1,3}(${soloSubjects})(?:[\\s]{1,3}[${soloSeparators}]+|$)`,
+  `(?:[${soloSeparators}]\\s|[${openingWrapper}]|,\\s|^)(${soloSubjects})(?:\\s|[${soloSeparators}]|[${closingWrapper}]|,\\s|$)`,
   'i'
 );
 
@@ -60,17 +62,11 @@ export function stringifyPronounResults(pronounGroups: string[][]) {
 }
 
 function parseRegularPair(string: string) {
-  return Array.from(string.toLowerCase().matchAll(pairRegex)).filter((singleMatch) => {
-    const sepCount = uniq(singleMatch[0].split('').filter((c) => ['/', '|'].includes(c))).length;
-    return sepCount === 1;
-  });
+  return Array.from(string.toLowerCase().matchAll(pairRegex));
 }
 
 function parseInvertedPair(string: string) {
-  return Array.from(string.toLowerCase().matchAll(invertedPairRegex)).filter((singleMatch) => {
-    const sepCount = uniq(singleMatch[0].split('').filter((c) => ['/', '|'].includes(c))).length;
-    return sepCount === 1;
-  });
+  return Array.from(string.toLowerCase().matchAll(invertedPairRegex));
 }
 
 // Formats a regex match into a tuple of pronouns
@@ -103,9 +99,17 @@ export function extractPronouns(string: string) {
   const invertedPairMatches = parseInvertedPair(string);
 
   const pairMatches = regularPairMatches.length > 0 ? regularPairMatches : invertedPairMatches;
+  const filteredMatches = pairMatches.filter((singleMatch) => {
+    return uniq(singleMatch[0].split('').filter((c) => ['/', '|'].includes(c))).length === 1;
+  });
+
+  // If we filtered because of multi
+  if (pairMatches.length > 0 && filteredMatches.length !== pairMatches.length) {
+    return undefined;
+  }
 
   // If we don't match a pair, try to match a pronoun by itself
-  if (pairMatches.length === 0) {
+  if (pairMatches.length === 0 && filteredMatches.length === pairMatches.length) {
     const soloMatches = string.toLowerCase().match(soloRegex);
     const soloSubject = soloMatches ? soloMatches[1] : undefined;
     if (!soloSubject) {
