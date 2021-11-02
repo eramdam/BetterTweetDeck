@@ -31,6 +31,8 @@ describe('Pronouns', () => {
       ['Solo + matching object', `lorem ipsum | he |`, [['he', 'him']]],
       ['Solo + matching object', `lorem ipsum (they)`, [['they', 'them']]],
       ['Solo + matching object', `she, lorem ipsum`, [['she', 'her']]],
+      ['Solo + matching object space + unicode', `✿ they ✿`, [['they', 'them']]],
+      ['Solo + matching object emoji surrounded', `😀they😀`, [['they', 'them']]],
 
       ['More than 4 pronouns', 'she/they/fae/he/him/them/her', [['she', 'they', 'fae', 'he']]],
 

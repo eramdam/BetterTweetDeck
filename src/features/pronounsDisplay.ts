@@ -43,7 +43,7 @@ const closingWrapper = [')', ']', '}'].map((w) => `\\${w}`).join('');
 const soloSeparators = ['/', '|', ';', ','].join('');
 const soloSubjects = cleanedTable.map((l) => l[0]).join('|');
 const soloRegex = new RegExp(
-  `(?:[${soloSeparators}]\\s|[${openingWrapper}]|,\\s|^)(${soloSubjects})(?:\\s|[${soloSeparators}]|[${closingWrapper}]|,\\s|$)`,
+  `(?:\\W\\s|[${openingWrapper}]|,\\s|^|[^a-zA-Z0-9_\\s.])(${soloSubjects})(?:\\s|[${soloSeparators}]|[${closingWrapper}]|,\\s|$|[^a-zA-Z0-9_\\s.])`,
   'i'
 );
 
@@ -110,7 +110,8 @@ export function extractPronouns(string: string) {
 
   // If we don't match a pair, try to match a pronoun by itself
   if (pairMatches.length === 0 && filteredMatches.length === pairMatches.length) {
-    const soloMatches = string.toLowerCase().match(soloRegex);
+    const soloMatches = string.match(soloRegex);
+
     const soloSubject = soloMatches ? soloMatches[1] : undefined;
     if (!soloSubject) {
       return undefined;
