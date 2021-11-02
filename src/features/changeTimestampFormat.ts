@@ -12,11 +12,42 @@ export enum BTDTimestampFormats {
 
 const TIMESTAMP_INTERVAL = 1e3 * 8;
 
+function parseDateFromSnowflake(snowflake: number): DateTime | undefined {
+  // Old SnowFlake:under 10 digits is not contain any data of date.
+  if (snowflake < 10000000000) return undefined;
+  // (val >> 22) + Standard Time
+  const unixTime = Math.floor(snowflake / 4194304) + 1288834974657;
+
+  return DateTime.fromMillis(unixTime);
+}
+
+function maybeExtractDateFromStatus(
+  textLinkElement: HTMLAnchorElement | HTMLSpanElement | null
+): DateTime | undefined {
+  if (!textLinkElement) {
+    return undefined;
+  }
+  const statusURLPattern = /^https:\/\/twitter.com\/.*\/status\/\d+$/;
+  if (textLinkElement instanceof HTMLSpanElement) {
+    return undefined;
+  }
+
+  if (statusURLPattern.test(textLinkElement.href)) {
+    const snowFlake = parseInt(new URL(textLinkElement.href).pathname.split('/').pop() || '', 10);
+
+    return parseDateFromSnowflake(snowFlake);
+  }
+
+  return undefined;
+}
+
 function getFinalDateString(
   sourceIsoString: string,
-  {timestampFullFormat, timestampShortFormat, fullTimestampAfterDay}: BTDSettings
+  {timestampFullFormat, timestampShortFormat, fullTimestampAfterDay}: BTDSettings,
+  textLinkElement: HTMLAnchorElement | HTMLSpanElement | null
 ) {
-  const dateObject = DateTime.fromISO(sourceIsoString);
+  const dateObject =
+    maybeExtractDateFromStatus(textLinkElement) || DateTime.fromISO(sourceIsoString);
   const now = DateTime.local();
   const fullString = dateObject.toFormat(timestampFullFormat);
   const shortString = dateObject.toFormat(timestampShortFormat);
@@ -43,8 +74,10 @@ function refreshTimestamps(
       return;
     }
 
-    const textLikeElement = timeElement.querySelector('a, span');
-    const newTextContent = getFinalDateString(timeString, settings);
+    const textLikeElement = timeElement.querySelector<HTMLAnchorElement | HTMLSpanElement>(
+      'a, span'
+    );
+    const newTextContent = getFinalDateString(timeString, settings, textLikeElement);
 
     if (!textLikeElement) {
       timeElement.textContent = newTextContent;
