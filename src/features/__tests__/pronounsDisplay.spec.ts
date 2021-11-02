@@ -47,6 +47,8 @@ describe('Pronouns', () => {
       ['No matches', `Omaha, NE`, undefined],
       ['No matches', `ône`, undefined],
       ['No matches', `s/he`, undefined],
+      ['No matches', `Ami, si tu tombes un ami sort de l’ombre à ta place`, undefined],
+      ['No matches', `co-host`, undefined],
 
       ['No matches for mixed separators', `she/her | ver`, undefined],
 

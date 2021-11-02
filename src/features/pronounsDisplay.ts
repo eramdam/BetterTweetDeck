@@ -44,7 +44,13 @@ const invertedPairRegex = new RegExp(
 const openingWrapper = ['(', '[', '{'].map((w) => `\\${w}`).join('');
 const closingWrapper = [')', ']', '}'].map((w) => `\\${w}`).join('');
 const soloSeparators = ['/', '|', ';', ','].join('');
-const soloSubjects = cleanedTable.map((l) => l[0]).join('|');
+
+// Some neopronouns by themselves are too "risky" to match as solo pronouns so I'm playing it safe
+const soloSubjectsAllowlist = ['he', 'she', 'they'];
+const soloSubjects = cleanedTable
+  .filter((l) => soloSubjectsAllowlist.includes(l[0]))
+  .map((l) => l[0])
+  .join('|');
 const soloRegex = new RegExp(
   `(?:\\W\\s|[${openingWrapper}]|,\\s|^|[^\\p{L}\\p{M}_\\s.${soloSeparators}])(${soloSubjects})(?:\\s|[${soloSeparators}]|[${closingWrapper}]|,\\s|$|[^\\p{L}\\p{M}_\\s.])`,
   'ui'
@@ -116,9 +122,10 @@ export function extractPronouns(string: string) {
     const soloMatches = string.match(soloRegex);
 
     const soloSubject = soloMatches ? soloMatches[1] : undefined;
-    if (!soloSubject) {
+    if (!soloSubject || !soloMatches) {
       return undefined;
     }
+
     // Try to find the corresponding line in the pronouns table
     const matchingPronouns = table.find((l) => l[0] === soloSubject);
     // Find the corresponding object pronoun
