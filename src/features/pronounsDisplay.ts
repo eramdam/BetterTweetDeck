@@ -46,8 +46,8 @@ const closingWrapper = [')', ']', '}'].map((w) => `\\${w}`).join('');
 const soloSeparators = ['/', '|', ';', ','].join('');
 const soloSubjects = cleanedTable.map((l) => l[0]).join('|');
 const soloRegex = new RegExp(
-  `(?:\\W\\s|[${openingWrapper}]|,\\s|^|[^a-zA-Z0-9_\\s.])(${soloSubjects})(?:\\s|[${soloSeparators}]|[${closingWrapper}]|,\\s|$|[^a-zA-Z0-9_\\s.])`,
-  'i'
+  `(?:\\W\\s|[${openingWrapper}]|,\\s|^|[^\\p{L}\\p{M}_\\s.\\/])(${soloSubjects})(?:\\s|[${soloSeparators}]|[${closingWrapper}]|,\\s|$|[^\\p{L}\\p{M}_\\s.])`,
+  'ui'
 );
 
 const maxPronounsToDisplay = 4;
