@@ -549,7 +549,7 @@ interface SourceUserEntities {
   description: UrlEntity;
 }
 
-interface UrlEntity {
+export interface UrlEntity {
   urls: TwitterUrl[];
 }
 

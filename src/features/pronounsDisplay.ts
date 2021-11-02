@@ -1,8 +1,11 @@
 import {orderBy, uniq} from 'lodash';
 
-import {table} from '../assets/pronouns.json';
+import * as pronouns from '../assets/pronouns.json';
 import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
+import {UrlEntity} from '../types/tweetdeckTypes';
+
+const {table} = pronouns;
 
 // Trying to match `e` would cause too many false positives.
 const cleanedTable = table.filter((l) => l[0] !== 'e');
@@ -129,17 +132,26 @@ export function extractPronouns(string: string) {
   return formatMatches(pairMatches);
 }
 
+// Removes urls from bio to prevent false positives with .tld and such
+function removeUrlsFromBio(bio: string, entities: UrlEntity): string {
+  let newBio = bio;
+  const urlsInBio = entities.urls.map((u) => u.url);
+
+  urlsInBio.forEach((url) => {
+    newBio = newBio.replace(url, '');
+  });
+
+  return newBio;
+}
+
 export const displayPronouns = makeBTDModule(({TD, settings}) => {
   if (!settings.extractAndShowPronouns) {
     return;
   }
 
   TD.services.TwitterUser.prototype.getPronouns = function getPronouns(): string | undefined {
-    const expandedProfileUrl = this.entities.url?.urls.find((u) => u.display_url)?.display_url;
-    const maybePronouns =
-      extractPronouns(TD.util.htmlToText(this.bio())) ||
-      extractPronouns(this.location) ||
-      (expandedProfileUrl && extractPronouns(expandedProfileUrl));
+    const cleanBio = removeUrlsFromBio(this.description, this.entities.description);
+    const maybePronouns = extractPronouns(cleanBio) || extractPronouns(this.location);
 
     if (!maybePronouns) {
       return undefined;

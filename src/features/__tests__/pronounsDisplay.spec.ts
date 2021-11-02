@@ -9,6 +9,7 @@ describe('Pronouns', () => {
       ['Subject/Object', '((xey//xyr))', [['xey', 'xyr']]],
       ['Subject/Object with close match', `she/her | VERY`, [['she', 'her']]],
       ['Object/Subject', `her/she`, [['she', 'her']]],
+      ['Object/Subject', `🚂She/her🚂`, [['she', 'her']]],
 
       [
         'Multiple groups (limited to 3)',
@@ -41,6 +42,8 @@ describe('Pronouns', () => {
         `Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio corrupti odio atque ut mollitia exercitationem ullam doloremque, eius ab nihil voluptate, dolore, amet veritatis officia! Odit veniam natus cupiditate it`,
         undefined,
       ],
+
+      ['No matches', `testing.co`, undefined],
 
       ['No matches for mixed separators', `she/her | ver`, undefined],
 
