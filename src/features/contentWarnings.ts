@@ -49,7 +49,7 @@ export const contentWarnings = makeBTDModule(({TD, settings}) => {
 
     const tweetText = document.createElement('p');
     tweetText.classList.add('tweet-text', 'js-tweet-text', 'with-linebreaks');
-    tweetText.innerHTML = payload.chirp.htmlText.replace(warningBlock, '').trim();
+    tweetText.innerHTML = payload.chirp.htmlText.replace(warningBlock, '').replace(/^\n/, '');
     details.appendChild(tweetText);
 
     chirpNode.querySelector('.tweet-text')?.replaceWith(details);
