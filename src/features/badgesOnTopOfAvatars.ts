@@ -2,6 +2,7 @@ import './badgesOnTopOfAvatars.css';
 
 import {DateTime} from 'luxon';
 
+import {hasProperty} from '../helpers/typeHelpers';
 import {onChirpAdded} from '../services/chirpHandler';
 import {makeBTDModule, makeBtdUuidSelector} from '../types/btdCommonTypes';
 import {
@@ -51,6 +52,13 @@ export const putBadgesOnTopOfAvatars = makeBTDModule(({TD, settings}) => {
         }
 
         break;
+
+      case TwitterActionEnum.FOLLOW: {
+        userForBadge = (hasProperty(chirp, 'following') && chirp.following) as
+          | TweetDeckUser
+          | undefined;
+        break;
+      }
 
       case TwitterActionEnum.MENTION:
       case TwitterActionEnum.QUOTED_TWEET:
