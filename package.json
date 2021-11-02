@@ -42,7 +42,7 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": "eslint --fix",
+    "*.{js,jsx,ts,tsx}": "eslint",
     "*.{css,md,html,json,js,jsx,ts,tsx}": "prettier --write"
   },
   "browserslist": [
