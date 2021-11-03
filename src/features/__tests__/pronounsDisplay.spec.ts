@@ -24,6 +24,7 @@ describe('Pronouns', () => {
       ['With separator-like before', 'france | they / them', [['they', 'them']]],
 
       ['Triplet', 'she/they/fae', [['she', 'they', 'fae']]],
+      ['Triplet', 'she/her/hers', [['she', 'her']]],
 
       ['Quadruplet', 'she/they/fae/it', [['she', 'they', 'fae', 'it']]],
 
