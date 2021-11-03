@@ -15,6 +15,7 @@ describe('Content warnings detection', () => {
       ['cw foo \n-\n-\n-\n-\n- bla', ['cw foo', 'foo']],
       ['cw: foo, bar, etc… bla', ['cw: foo, bar, etc…', 'foo, bar, etc']],
       ['content warning: foo, bar, etc… bla', ['content warning: foo, bar, etc…', 'foo, bar, etc']],
+      ['cw // foobar. blablabla blablablabla. aaa', ['cw // foobar.', 'foobar.']],
     ])('%s', (input, expected) => {
       const result = extractContentWarnings(input) as NonNullable<
         ReturnType<typeof extractContentWarnings>
@@ -30,6 +31,8 @@ describe('Content warnings detection', () => {
 
   describe('No match', () => {
     test.each([
+      '[REDACTED]. blabla',
+      'This is something for [REDACTED]. foobar',
       'lorem ipsum cw foobar',
       'Lorem ipsum dolor sit, amet consectetur',
       'this is my [food]',
