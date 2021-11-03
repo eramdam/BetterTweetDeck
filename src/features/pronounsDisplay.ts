@@ -158,7 +158,8 @@ export const displayPronouns = makeBTDModule(({TD, settings}) => {
 
   TD.services.TwitterUser.prototype.getPronouns = function getPronouns(): string | undefined {
     const cleanBio = removeUrlsFromBio(this.description, this.entities.description);
-    const maybePronouns = extractPronouns(cleanBio) || extractPronouns(this.location);
+    const maybePronouns =
+      extractPronouns(cleanBio) || extractPronouns(this.location) || extractPronouns(this.name);
 
     if (!maybePronouns) {
       return undefined;
