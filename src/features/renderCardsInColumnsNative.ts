@@ -1,5 +1,3 @@
-import './renderCardsInColumns.css';
-
 import {hasProperty, makeIsModuleRaidModule} from '../helpers/typeHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 import {TwitterStatus} from '../types/tweetdeckTypes';
