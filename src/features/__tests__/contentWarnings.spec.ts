@@ -4,6 +4,7 @@ describe('Content warnings detection', () => {
   describe('Basic', () => {
     test.each([
       ['[food] \nbla', ['[food]', 'food']],
+      ['[fôod] \nbla', ['[fôod]', 'fôod']],
       ['[cw: foo]\nbla', ['[cw: foo]', 'foo']],
       ['[cn foo]\nbla', ['[cn foo]', 'foo']],
       ['tw: foo\nbla', ['tw: foo', 'foo']],
@@ -34,6 +35,9 @@ describe('Content warnings detection', () => {
       'this is my [food]',
       '[[big shot]]',
       'What you want is [[hyperlink blocked]]',
+      '[新キャラ] foobar',
+      `【新キャラ追加告知】
+      明日11/03(水)に、`,
     ])('%s', (input) => {
       expect(extractContentWarnings(input)).toBeUndefined();
     });

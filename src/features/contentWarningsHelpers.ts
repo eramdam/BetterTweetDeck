@@ -1,6 +1,6 @@
 const keywords = ['cw', 'tw', 'cn', 'content warning', 'trigger warning', 'content note'].join('|');
 const contentWarningRegex = new RegExp(
-  `^([\\[\\(]?(?:${keywords}|)(?:\\W+)?\\s([^\\n|\\]|\\)|…]+)[\\]\\)…]?)(?:\\n+)?((?:.+)?\\n?)+$`,
+  `^([\\[\\(]?(?:${keywords})(?:\\W+)?\\s([^\\n|\\]|\\)|…]+)[\\]\\)…]?)(?:\\n+)?((?:.+)?\\n?)+$`,
   'i'
 );
 const withoutKeywordRegex = new RegExp(
@@ -17,6 +17,11 @@ interface ContentWarningResult {
 export function extractContentWarnings(input: string): ContentWarningResult | undefined {
   const contentWarningMatch = input.match(contentWarningRegex) || input.match(withoutKeywordRegex);
   if (!contentWarningMatch) {
+    return undefined;
+  }
+
+  // We want to reject in the case we matched `[xxx]` where `xxx` is some non-latin characters.
+  if (contentWarningMatch[2].match(/[^\p{scx=Common}\p{scx=Latin}]/iu)) {
     return undefined;
   }
 
