@@ -40,4 +40,6 @@ jobs:
           FIREFOX_BETA_ID: ${{ secrets.FIREFOX_BETA_ID }}
           AMO_API_KEY: ${{ secrets.AMO_API_KEY }}
           AMO_API_SECRET: ${{ secrets.AMO_API_SECRET }}
-        run: npm run build:firefox-beta && npx web-ext sign --api-key="$AMO_API_KEY" --api-secret="$AMO_API_SECRET" -s dist --channel unlisted
+          NIGHTLY_DISCORD_WEBHOOK_TOKEN: ${{ secrets.NIGHTLY_DISCORD_WEBHOOK_TOKEN }}
+          NIGHTLY_DISCORD_WEBHOOK_ID: ${{ secrets.NIGHTLY_DISCORD_WEBHOOK_ID }}
+        run: npm run build:firefox-beta && npx web-ext sign --api-key="$AMO_API_KEY" --api-secret="$AMO_API_SECRET" -s dist --channel unlisted && npm run ts-node -- tools/uploadNightly.ts
