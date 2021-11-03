@@ -16,6 +16,9 @@ describe('Content warnings detection', () => {
       ['cw: foo, bar, etc… bla', ['cw: foo, bar, etc…', 'foo, bar, etc']],
       ['content warning: foo, bar, etc… bla', ['content warning: foo, bar, etc…', 'foo, bar, etc']],
       ['cw // foobar. blablabla blablablabla. aaa', ['cw // foobar.', 'foobar.']],
+      [`tw/foobar\n bla`, ['tw/foobar', 'foobar']],
+      [`content warning/foobar\n bla`, ['content warning/foobar', 'foobar']],
+      [`trigger warning/foobar\n bla`, ['trigger warning/foobar', 'foobar']],
     ])('%s', (input, expected) => {
       const result = extractContentWarnings(input) as NonNullable<
         ReturnType<typeof extractContentWarnings>
