@@ -1,4 +1,9 @@
-import {findMustache, getChirpFromElement, getChirpFromKey} from '../helpers/tweetdeckHelpers';
+import {
+  findMustache,
+  getChirpFromElement,
+  getChirpFromKey,
+  getChirpFromKeyAlone,
+} from '../helpers/tweetdeckHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 
 export const maybeSetupDebugFunctions = makeBTDModule(({jq, mR}) => {
@@ -6,6 +11,7 @@ export const maybeSetupDebugFunctions = makeBTDModule(({jq, mR}) => {
     debug: {
       getChirpFromElement,
       getChirpFromKey,
+      getChirpFromKeyAlone,
       findMustache,
       jq,
       mR,

@@ -11,6 +11,7 @@ declare global {
         findMustache: typeof findMustache;
         getChirpFromElement: typeof getChirpFromElement;
         getChirpFromKey: typeof getChirpFromKey;
+        getChirpFromKeyAlone: typeof getChirpFromKeyAlone;
       };
     };
   }
