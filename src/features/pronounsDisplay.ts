@@ -158,4 +158,4 @@ function removeUrlsFromBio(bio: string, entities: UrlEntity): string {
   return newBio;
 }
 
-export const displayPronouns = makeBTDModule(({TD, settings}) => {});
+export const displayPronouns = makeBTDModule(() => {});

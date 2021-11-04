@@ -2,7 +2,7 @@ import './contentWarnings.css';
 
 import {makeBTDModule} from '../types/btdCommonTypes';
 
-export const contentWarnings = makeBTDModule(({TD, settings}) => {
+export const contentWarnings = makeBTDModule(() => {
   // onChirpAdded((payload) => {
   //   const chirpNode = document.querySelector(makeBtdUuidSelector('data-btd-uuid', payload.uuid));
   //   if (!chirpNode) {
