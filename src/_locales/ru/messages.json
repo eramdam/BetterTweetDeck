@@ -282,7 +282,7 @@
     "message": "Столбцы"
   },
   "settings_tweet_content": {
-    "message": "Контент твитов"
+    "message": "Содержимое твита"
   },
   "settings_pause_column_scrolling_on_hover": {
     "message": "Остановить прокрутку столбца при наведении"
@@ -451,5 +451,20 @@
   },
   "settings_show_conversation_control_button": {
     "message": "Показать кнопку управления диалогом"
+  },
+  "settings_disable_it_in_the_dm_composer_too": {
+    "message": "Также применяется к редактору DM"
+  },
+  "settings_show_profile_labels_in_tweets_and_profile_modals": {
+    "message": "Показывать \"ярлыки профилей\" в твитах и модулях профиля"
+  },
+  "settings_hide_the_try_tweetdeck_preview_button": {
+    "message": "Скрыть кнопку \"Попробовать предпросмотр TweetDeck\""
+  },
+  "settings_pronouns_extra": {
+    "message": "Теперь поддерживаются только английские местоимения. Если вы заметите какие-либо ошибки, пожалуйста, дайте мне знать на @BetterTDeck"
+  },
+  "settings_extract_pronouns": {
+    "message": "Извлечь местоимения из биографии или местоположения пользователей и показать их в столбцах"
   }
 }
