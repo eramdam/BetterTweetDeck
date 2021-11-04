@@ -229,3 +229,11 @@ html.dark body {
 .thread + .pronouns-wrapper {
   margin-top: 3px;
 }
+
+/* Bigger native videos. */
+.js-modal-panel .l-table .l-cell .js-media-native-video {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+}
