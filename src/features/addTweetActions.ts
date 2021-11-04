@@ -353,6 +353,9 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
           return;
 
         case TweetActions.MUTE_ACCOUNT:
+          if (!confirm(`Are you sure you want to mute @${user.screenName}?`)) {
+            return;
+          }
           jq(document).trigger('uiMuteAction', {
             account,
             twitterUser: user,
@@ -360,6 +363,9 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
           return;
 
         case TweetActions.BLOCK_ACCOUNT:
+          if (!confirm(`Are you sure you want to block @${user.screenName}?`)) {
+            return;
+          }
           jq(document).trigger('uiBlockAction', {
             account,
             twitterUser: user,
