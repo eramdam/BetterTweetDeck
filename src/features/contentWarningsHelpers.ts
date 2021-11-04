@@ -1,6 +1,6 @@
 const keywords = ['cw', 'tw', 'cn', 'content warning', 'trigger warning', 'content note'].join('|');
 const contentWarningRegex = new RegExp(
-  `^([\\[\\(]?(?:${keywords})(?:\\W+)?\\s?([^\\n|\\]|\\)|…]+)[\\]\\)…]?)(?:\\s\\n+)?((?:.+)?\\n?)+$`,
+  `^([\\[\\(]?\\b(?:${keywords})\\b(?:\\W+)?\\s?([^\\n|\\]|\\)|…]+)[\\]\\)…]?)(?:\\s\\n+)?((?:.+)?\\n?)+$`,
   'i'
 );
 

@@ -42,6 +42,7 @@ describe('Content warnings detection', () => {
       '[[big shot]]',
       'What you want is [[hyperlink blocked]]',
       '[新キャラ] foobar',
+      `Tweet Deck added pronoun detection (based on what users put in their profile)`,
       `【新キャラ追加告知】
       明日11/03(水)に、`,
     ])('%s', (input) => {
