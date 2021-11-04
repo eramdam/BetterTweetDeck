@@ -1,1 +1,5 @@
-console.log('background');
+import {setupSettingsInBackground} from './services/backgroundSettings';
+
+(async () => {
+  await setupSettingsInBackground();
+})();

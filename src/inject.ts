@@ -1,6 +1,8 @@
-import {Skyla, TweetDeckEntitiesType, waitForTweetDeckToBeReady} from 'skyla';
+import {Skyla, waitForTweetDeckToBeReady} from 'skyla';
 
-import {hasProperty} from './helpers/typeHelpers';
+import {maybeChangeUsernameFormat} from './features/usernameDisplay';
+import {BTDModuleOptions, BTDSettingsAttribute} from './types/btdCommonTypes';
+import {BTDSettings} from './types/btdSettingsTypes';
 
 declare global {
   interface Window {
@@ -15,38 +17,30 @@ declare global {
   window.Skyla = skyla;
 
   skyla.setupEntityObserver();
-  skyla.onEntityAdded((res) => {
-    if (hasProperty(res, 'node') && res.type === TweetDeckEntitiesType.TWEET) {
-      const displayNameNode = res.node.querySelector('[role=link] [id] [dir=auto] .css-901oao');
 
-      if (!displayNameNode) {
-        return;
-      }
+  const settings = getBTDSettings();
 
-      const profileLinkNode = displayNameNode.closest('[id^="id_"]');
+  if (!settings) {
+    return;
+  }
 
-      if (!profileLinkNode) {
-        return;
-      }
+  const btdModuleOptions: BTDModuleOptions = {
+    skyla,
+    settings: settings,
+  };
 
-      const profileLinkId = profileLinkNode.getAttribute('id');
-
-      if (!profileLinkId) {
-        return;
-      }
-
-      const usernameNode = res.node.querySelector(
-        `[id="${profileLinkId}"] > div:last-child > [dir]`
-      );
-      if (!usernameNode) {
-        return;
-      }
-
-      const displayNameHtml = String(displayNameNode.innerHTML);
-      const usernameHtml = String(usernameNode.innerHTML);
-
-      displayNameNode.innerHTML = usernameHtml.replace('@', '');
-      usernameNode.innerHTML = displayNameHtml;
-    }
-  });
+  maybeChangeUsernameFormat(btdModuleOptions);
 })();
+
+/** Parses and returns the settings from the <script> tag as an object. */
+function getBTDSettings() {
+  const scriptElement = document.querySelector(`[${BTDSettingsAttribute}]`);
+  const settingsAttribute = scriptElement && scriptElement.getAttribute(BTDSettingsAttribute);
+
+  try {
+    const raw = settingsAttribute && JSON.parse(settingsAttribute);
+    return raw as BTDSettings;
+  } catch (e) {
+    return undefined;
+  }
+}
