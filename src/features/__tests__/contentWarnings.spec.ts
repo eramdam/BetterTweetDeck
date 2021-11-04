@@ -35,6 +35,7 @@ describe('Content warnings detection', () => {
   describe('No match', () => {
     test.each([
       '[REDACTED]. blabla',
+      '[Communiqué]. blabla',
       'This is something for [REDACTED]. foobar',
       'lorem ipsum cw foobar',
       'Lorem ipsum dolor sit, amet consectetur',
