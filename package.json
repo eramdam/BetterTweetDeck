@@ -1,6 +1,6 @@
 {
   "name": "bettertweetdeck",
-  "version": "4.5.0",
+  "version": "5.0.0",
   "description": "Adds some nice options on TweetDeck.",
   "repository": {
     "type": "git",
@@ -53,6 +53,7 @@
   ],
   "homepage": "https://github.com/eramdam/BetterTweetDeck",
   "dependencies": {
+    "skyla": "file:../../deckhack/skyla",
     "@emotion/css": "^11.1.3",
     "@octokit/core": "^3.5.1",
     "@types/archiver": "^5.1.1",
