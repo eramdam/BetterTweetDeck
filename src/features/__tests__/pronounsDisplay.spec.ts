@@ -50,6 +50,10 @@ describe('Pronouns', () => {
       ['No matches', `s/he`, undefined],
       ['No matches', `Ami, si tu tombes un ami sort de l’ombre à ta place`, undefined],
       ['No matches', `co-host`, undefined],
+      ['No matches', 'this should not match any/thing', undefined],
+      ['No matches', 'this should not match any-thing', undefined],
+      ['No matches', 'this should not match any thing', undefined],
+      ['No matches', 'this should not match anything', undefined],
 
       ['No matches for mixed separators', `she/her | ver`, undefined],
 
@@ -57,6 +61,9 @@ describe('Pronouns', () => {
 
       ['pronoun.is', 'pronoun.is/he/him', [['he', 'him']]],
       ['pronoun.is', 'pronoun.is/they/them', [['they', 'them']]],
+      ['any/all', 'any/all', [['any', 'all']]],
+      ['any', 'any pronouns', [['any pronouns']]],
+      ['any', 'pronouns: any', [['any pronouns']]],
     ])('%s', (_name, input, expected) => {
       const result = extractPronouns(input);
 

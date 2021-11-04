@@ -12,9 +12,9 @@ const cleanedTable = table.filter((l) => l[0] !== 'e');
 
 const pairSeparatorsPart = ['/', '|'].join('');
 // she, he, they, it...
-const subjects = cleanedTable.map((l) => l[0]);
+const subjects = cleanedTable.map((l) => l[0]).concat('any');
 // her, him, them, it...
-const objects = cleanedTable.map((l) => l[1]);
+const objects = cleanedTable.map((l) => l[1]).concat('all');
 // her, his, their, its...
 const possessive = cleanedTable.map((l) => l[2]);
 
@@ -79,7 +79,7 @@ function parseInvertedPair(string: string) {
 }
 
 // Formats a regex match into a tuple of pronouns
-function formatMatches(m: RegExpMatchArray[]) {
+function formatMatches(m: RegExpMatchArray[]): string[][] {
   return m.slice(0, 3).map((match) => {
     const [, ...groups] = match;
 
@@ -97,6 +97,13 @@ function formatMatches(m: RegExpMatchArray[]) {
 }
 
 export function extractPronouns(string: string) {
+  if (
+    string.toLowerCase().includes('pronouns: any') ||
+    string.toLowerCase().includes('any pronouns')
+  ) {
+    return [['any pronouns']];
+  }
+
   // Make sure to reset the regexes
   pairRegex.lastIndex = 0;
   invertedPairRegex.lastIndex = 0;
