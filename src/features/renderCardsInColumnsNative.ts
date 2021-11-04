@@ -31,7 +31,6 @@ const allowedCardNames = [
   'promo_website',
   'summary',
   'summary_large_image',
-  'unified_card',
   '2586390716:video_direct_message',
 ];
 
