@@ -1,7 +1,6 @@
 import {orderBy, uniq} from 'lodash';
 
 import * as pronouns from '../assets/pronouns.json';
-import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 import {UrlEntity} from '../types/tweetdeckTypes';
 
@@ -147,6 +146,7 @@ export function extractPronouns(string: string) {
 }
 
 // Removes urls from bio to prevent false positives with .tld and such
+// @ts-expect-error
 function removeUrlsFromBio(bio: string, entities: UrlEntity): string {
   let newBio = bio;
   const urlsInBio = entities.urls.map((u) => u.url);
@@ -158,44 +158,4 @@ function removeUrlsFromBio(bio: string, entities: UrlEntity): string {
   return newBio;
 }
 
-export const displayPronouns = makeBTDModule(({TD, settings}) => {
-  if (!settings.extractAndShowPronouns) {
-    return;
-  }
-
-  TD.services.TwitterUser.prototype.getPronouns = function getPronouns(): string | undefined {
-    const cleanBio = removeUrlsFromBio(this.description, this.entities.description);
-    const maybePronouns =
-      extractPronouns(cleanBio) || extractPronouns(this.location) || extractPronouns(this.name);
-
-    if (!maybePronouns) {
-      return undefined;
-    }
-
-    return stringifyPronounResults(maybePronouns);
-  };
-
-  modifyMustacheTemplate(TD, 'status/tweet_single.mustache', (string) => {
-    return string
-      .replace(
-        `{{#getMainTweet}} <div class="nbfc txt-size-variable--12 txt-ellipsis">`,
-        `{{#getMainTweet}} <div class="pronouns-wrapper nbfc txt-size-variable--12 txt-ellipsis flex"> {{#getMainUser}} {{#getPronouns}} <span class="btd-profile-label txt-mute pronouns txt-size-variable--12" target="_blank">{{getPronouns}}</span> {{/getPronouns}} {{/getMainUser}}`
-      )
-      .replace(
-        `{{/getMainTweet}} {{/isInThread}}`,
-        `{{/getMainTweet}} {{/isInThread}} <div class="pronouns-wrapper nbfc txt-size-variable--12 txt-ellipsis flex"> {{#getMainUser}} {{#getPronouns}} <span class="btd-profile-label txt-mute pronouns txt-size-variable--12" target="_blank">{{getPronouns}}</span> {{/getPronouns}} {{/getMainUser}} </div>`
-      );
-  });
-
-  modifyMustacheTemplate(TD, 'status/tweet_detail.mustache', (string) => {
-    return string
-      .replace(
-        `<div class="txt-size-variable--12 margin-b--2">`,
-        `<div class="pronouns-wrapper txt-size-variable--12 margin-b--2 flex"> {{#getMainUser}} {{#getPronouns}} <span class="btd-profile-label txt-mute pronouns txt-size-variable--12" target="_blank">{{getPronouns}}</span> {{/getPronouns}} {{/getMainUser}}`
-      )
-      .replace(
-        `<div class="thread margin-t--4"></div> {{/indentedChirp}}`,
-        `<div class="thread margin-t--4"></div> {{/indentedChirp}} {{#getMainUser}} {{#getPronouns}} <div class="pronouns-wrapper txt-size-variable--12 margin-b--2 flex"> <span class="btd-profile-label txt-mute pronouns txt-size-variable--12" target="_blank">{{getPronouns}}</span></div> {{/getPronouns}} {{/getMainUser}}`
-      );
-  });
-});
+export const displayPronouns = makeBTDModule(({TD, settings}) => {});

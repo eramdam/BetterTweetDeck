@@ -1,9 +1,0 @@
-:root {
-  --btd-max-og-ratio-height: 50vh;
-}
-
-.media-size-medium.btd-aspect-ratio-thumbnail,
-.media-size-large.btd-aspect-ratio-thumbnail {
-  height: 0 !important;
-  padding-top: min(var(--btd-max-og-ratio-height), calc(var(--btd-thumb-height) / var(--btd-thumb-width) * 100%));
-}

@@ -27,14 +27,10 @@ module.exports = (env) => {
             from: '_locales/**/*',
             context: './src/',
           },
-          {
-            from: 'assets/icons/*',
-            context: './src/',
-          },
-          {
-            from: 'assets/emoji-sheet.png',
-            context: './src/',
-          },
+          // {
+          //   from: 'assets/icons/*',
+          //   context: './src/',
+          // },
         ],
       }),
       new GenerateJsonPlugin('manifest.json', env.manifest, null, 2),

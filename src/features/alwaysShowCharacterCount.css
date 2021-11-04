@@ -1,5 +1,0 @@
-.btd-loaded[btd-character-count='true'] {
-  & .js-character-count {
-    display: inline !important;
-  }
-}

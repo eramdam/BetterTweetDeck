@@ -1,8 +1,0 @@
-[btd-hide-column-icons='true'] {
-  & .column-header .column-type-icon {
-    display: none;
-  }
-  & .column-header .column-title {
-    margin-left: 10px !important;
-  }
-}
