@@ -1,4 +1,4 @@
-import {TweetDeckEntitiesType} from 'skyla';
+import {isTweetEntity, isUserEntity, TweetDeckEntitiesType} from 'skyla';
 
 import {hasProperty} from '../helpers/typeHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
@@ -20,8 +20,13 @@ export const maybeChangeUsernameFormat = makeBTDModule(({skyla, settings}) => {
   }
 
   skyla.onEntityAdded((res) => {
-    if (hasProperty(res, 'node') && res.type === TweetDeckEntitiesType.TWEET) {
+    if (hasProperty(res, 'type') && res.type === TweetDeckEntitiesType.TWEET) {
       const displayNameNode = res.node.querySelector('[role=link] [id] [dir=auto] .css-901oao');
+      const entity = skyla.getEntityById(res.id, TweetDeckEntitiesType.TWEET);
+
+      if (!isTweetEntity(entity)) {
+        return;
+      }
 
       if (!displayNameNode) {
         return;
@@ -63,6 +68,29 @@ export const maybeChangeUsernameFormat = makeBTDModule(({skyla, settings}) => {
 
         case BTDUsernameFormat.FULL: {
           usernameNode.innerHTML = '';
+        }
+      }
+
+      if (entity.retweeted_status) {
+        const sourceUser = skyla.getEntityById(entity.user, TweetDeckEntitiesType.USER);
+
+        if (!isUserEntity(sourceUser)) {
+          return;
+        }
+
+        const sourceUserNodeTarget = res.node.querySelector<HTMLSpanElement>(
+          '[data-testid="socialContext"] > span > span'
+        );
+
+        if (!sourceUserNodeTarget) {
+          return;
+        }
+
+        if (
+          settings.usernamesFormat === BTDUsernameFormat.USER ||
+          settings.usernamesFormat === BTDUsernameFormat.USER_FULL
+        ) {
+          sourceUserNodeTarget.innerText = sourceUser.screen_name;
         }
       }
     }
