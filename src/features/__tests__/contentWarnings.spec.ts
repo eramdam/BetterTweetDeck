@@ -41,6 +41,7 @@ describe('Content warnings detection', () => {
       'Lorem ipsum dolor sit, amet consectetur',
       'this is my [food]',
       '[[big shot]]',
+      '[Lottie] foobar',
       'What you want is [[hyperlink blocked]]',
       '[新キャラ] foobar',
       `Tweet Deck added pronoun detection (based on what users put in their profile)`,

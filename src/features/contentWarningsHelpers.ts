@@ -19,6 +19,7 @@ const withoutKeywordBlocklist = ['redacted', 'communiqué', 'announcement'];
 
 export function extractContentWarnings(input: string): ContentWarningResult | undefined {
   const contentWarningMatch = input.match(contentWarningRegex) || input.match(withoutKeywordRegex);
+  const isWithoutKeyword = !input.match(contentWarningRegex) && input.match(withoutKeywordRegex);
   if (!contentWarningMatch) {
     return undefined;
   }
@@ -32,6 +33,10 @@ export function extractContentWarnings(input: string): ContentWarningResult | un
     block = block.replace(newText.join('. '), '').trim();
     subject = (newSubject + '.').trim();
     text = newText.join('. ').trim();
+  }
+
+  if (isWithoutKeyword && subject[0].toLowerCase() !== subject[0]) {
+    return undefined;
   }
 
   if (withoutKeywordBlocklist.includes(subject.toLowerCase().trim())) {
