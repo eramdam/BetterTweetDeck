@@ -5,7 +5,7 @@ module.exports = {
     let initialClean = false;
     let initialMove = false;
     // Remove dist folder before 1st compilation.
-    compiler.hooks.emit.tap('EmitPlugin', () => {
+    compiler.hooks.afterEnvironment.tap('BTDPlugin', () => {
       if (initialClean) {
         return;
       }
