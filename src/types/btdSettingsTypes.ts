@@ -9,6 +9,8 @@ export const RBetterTweetDeckSettings = t.type({
     makeEnumRuntimeType<BTDUsernameFormat>(BTDUsernameFormat),
     BTDUsernameFormat.DEFAULT
   ),
+
+  useOriginalAspectRatioForSingleImages: withDefault(t.boolean, false),
 });
 
 export interface BTDSettings extends t.TypeOf<typeof RBetterTweetDeckSettings> {}

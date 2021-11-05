@@ -1,6 +1,7 @@
 import {Skyla, waitForTweetDeckToBeReady} from 'skyla';
 
-import {maybeChangeUsernameFormat} from './features/usernameDisplay';
+import {useOriginalAspectRatio} from './features/useOriginalAspectRatio';
+import {BTDUsernameFormat, maybeChangeUsernameFormat} from './features/usernameDisplay';
 import {BTDModuleOptions, BTDSettingsAttribute} from './types/btdCommonTypes';
 import {BTDSettings} from './types/btdSettingsTypes';
 
@@ -26,10 +27,15 @@ declare global {
 
   const btdModuleOptions: BTDModuleOptions = {
     skyla,
-    settings: settings,
+    settings: {
+      ...settings,
+      useOriginalAspectRatioForSingleImages: true,
+      usernamesFormat: BTDUsernameFormat.USER_FULL,
+    },
   };
 
   maybeChangeUsernameFormat(btdModuleOptions);
+  useOriginalAspectRatio(btdModuleOptions);
 })();
 
 /** Parses and returns the settings from the <script> tag as an object. */
