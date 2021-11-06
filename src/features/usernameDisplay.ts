@@ -94,6 +94,57 @@ export const maybeChangeUsernameFormat = makeBTDModule(({skyla, settings}) => {
           ) {
             sourceUserNodeTarget.innerText = sourceUser.screen_name;
           }
+        } else if (entity.quoted_status) {
+          const quotedTweet = skyla.getTweetById(entity.quoted_status);
+          if (!isTweetEntity(quotedTweet)) {
+            return;
+          }
+
+          const quotedUser = skyla.getEntityById(quotedTweet.user, TweetDeckEntitiesType.USER);
+
+          if (!isUserEntity(quotedUser)) {
+            return;
+          }
+
+          const quotedUsernameNode = Array.from(
+            res.node.querySelectorAll<HTMLSpanElement>('[dir] span')
+          ).find((span) => {
+            return span.innerText === `@${quotedUser.screen_name}`;
+          });
+
+          if (!quotedUsernameNode) {
+            return;
+          }
+
+          const quotedUserDisplayNameNode = quotedUsernameNode
+            .closest('[dir]')
+            ?.parentElement?.previousElementSibling?.querySelector<HTMLSpanElement>(
+              '[dir=auto] > span > span'
+            );
+
+          if (!quotedUserDisplayNameNode) {
+            return;
+          }
+
+          const quotedDisplayNameHtml = String(quotedUserDisplayNameNode.innerHTML);
+          const quotedUsernameHtml = String(quotedUsernameNode.innerHTML);
+
+          switch (settings.usernamesFormat) {
+            case BTDUsernameFormat.USER_FULL: {
+              quotedUserDisplayNameNode.innerHTML = quotedUsernameHtml.replace('@', '');
+              quotedUsernameNode.innerHTML = quotedDisplayNameHtml;
+              break;
+            }
+            case BTDUsernameFormat.USER: {
+              quotedUserDisplayNameNode.innerHTML = quotedUsernameHtml.replace('@', '');
+              quotedUsernameNode.innerHTML = '';
+              break;
+            }
+
+            case BTDUsernameFormat.FULL: {
+              quotedUsernameNode.innerHTML = '';
+            }
+          }
         }
       } else if (res.type === TweetDeckEntitiesType.NOTIFICATION) {
         const entity = skyla.getEntityById(res.id, TweetDeckEntitiesType.NOTIFICATION);
