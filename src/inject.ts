@@ -1,5 +1,6 @@
 import {Skyla, waitForTweetDeckToBeReady} from 'skyla';
 
+import {applyCustomAccentColor} from './features/customAccentColor';
 import {fixBaseLinks} from './features/fixBaseLinks';
 import {maybeRemoveRedirection} from './features/removeRedirection';
 import {useOriginalAspectRatio} from './features/useOriginalAspectRatio';
@@ -37,6 +38,7 @@ declare global {
     },
   };
 
+  applyCustomAccentColor(btdModuleOptions);
   maybeChangeUsernameFormat(btdModuleOptions);
   useOriginalAspectRatio(btdModuleOptions);
   maybeRemoveRedirection(btdModuleOptions);
