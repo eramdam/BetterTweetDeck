@@ -14,7 +14,9 @@ export const applyCustomAccentColor = makeBTDModule(() => {
   const baseColor = `rgb(0,255,255)`;
   const colors = {
     base: baseColor,
-    dark100: darken(0.2, baseColor),
+    dark100: darken(0.1, baseColor),
+    dark200: darken(0.2, baseColor),
+    dark300: darken(0.3, baseColor),
 
     light100: lighten(0.1, baseColor),
     light200: lighten(0.2, baseColor),
