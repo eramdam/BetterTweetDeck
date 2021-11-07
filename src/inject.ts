@@ -1,5 +1,7 @@
 import {Skyla, waitForTweetDeckToBeReady} from 'skyla';
 
+import {fixBaseLinks} from './features/fixBaseLinks';
+import {maybeRemoveRedirection} from './features/removeRedirection';
 import {useOriginalAspectRatio} from './features/useOriginalAspectRatio';
 import {BTDUsernameFormat, maybeChangeUsernameFormat} from './features/usernameDisplay';
 import {BTDModuleOptions, BTDSettingsAttribute} from './types/btdCommonTypes';
@@ -31,11 +33,14 @@ declare global {
       ...settings,
       useOriginalAspectRatioForSingleImages: true,
       usernamesFormat: BTDUsernameFormat.USER_FULL,
+      removeRedirectionOnLinks: true,
     },
   };
 
   maybeChangeUsernameFormat(btdModuleOptions);
   useOriginalAspectRatio(btdModuleOptions);
+  maybeRemoveRedirection(btdModuleOptions);
+  fixBaseLinks(btdModuleOptions);
 })();
 
 /** Parses and returns the settings from the <script> tag as an object. */

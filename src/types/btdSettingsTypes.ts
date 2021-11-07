@@ -10,7 +10,11 @@ export const RBetterTweetDeckSettings = t.type({
     BTDUsernameFormat.DEFAULT
   ),
 
-  useOriginalAspectRatioForSingleImages: withDefault(t.boolean, false),
+  /** Uses full links instead of t.co links */
+  removeRedirectionOnLinks: withDefault(t.boolean, true),
+
+  /** Display single images using their original aspect ratio. */
+  useOriginalAspectRatioForSingleImages: withDefault(t.boolean, true),
 });
 
 export interface BTDSettings extends t.TypeOf<typeof RBetterTweetDeckSettings> {}

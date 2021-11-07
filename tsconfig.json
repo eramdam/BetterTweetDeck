@@ -3,7 +3,7 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
-    "lib": ["dom", "es2020"],
+    "lib": ["DOM", "es2020", "DOM.Iterable"],
     "moduleResolution": "node",
     "noEmit": true,
     "noEmitHelpers": true,
