@@ -46,10 +46,10 @@ export const applyCustomAccentColor = makeBTDModule(() => {
     /* See new tweets / scroll to top button */
     section > div > div > div[role=status] div[role=button][aria-label],
     /* Retry button in column */
-    .css-18t94o4.css-1dbjc4n.r-42olwf.r-sdzlij.r-1phboty.r-rs99b7.r-1vsu8ta.r-18qmn74.r-1ny4l3l.r-1orpq53.r-o7ynqc.r-6416eg.r-lrvibr[role="button"],
+    .css-18t94o4.css-1dbjc4n.r-42olwf.r-sdzlij.r-1phboty.r-rs99b7.r-1vsu8ta.r-18qmn74.r-1ny4l3l.r-1orpq53.r-o7ynqc.r-6416eg.r-lrvibr[role="button"]:not([data-testid]),
     
     /* Play button on card */
-    div[id^="id_"][data-testid="card.wrapper"] [aria-label]:not([aria-label=""]),
+    div[id^="id_"][data-testid="card.wrapper"] [aria-label]:not([aria-describedby]),
     
     /* Tweet button in composer */
     header[role='banner'] > div > div.css-1dbjc4n [style] [data-testid='tweetButtonInline'],
@@ -127,8 +127,10 @@ export const applyCustomAccentColor = makeBTDModule(() => {
       > div.css-1dbjc4n
       [style]
       div[tabindex='0'][role='button']:not([aria-label]),
-      /* Remove button in search suggestions */
-    form[role=search] [role=listbox] [data-testid="typeaheadRecentSearchesItem"] [data-testid="UserCell"] div[aria-label][role=button] {
+    /* Remove button in search suggestions */
+    form[role=search] [role=listbox] [data-testid="typeaheadRecentSearchesItem"] [data-testid="UserCell"] div[aria-label][role=button],
+    [aria-modal=true][aria-labelledby="modal-header"][role=dialog] [data-viewportview=true] section[aria-labelledby^="accessible-"] h2[role=heading] a[role=link] [dir],
+    [aria-modal=true][aria-labelledby="modal-header"][role=dialog] [data-viewportview=true] section[aria-labelledby^="accessible-"] a[role=link][href*="suggested"] [dir] {
       & .r-jwli3a {
         color: white !important;
       }
@@ -160,7 +162,12 @@ export const applyCustomAccentColor = makeBTDModule(() => {
     }
 
     /* "You can reply.." icon */
-    article[aria-labelledby^='id_'] [role='button'] > div > div > div:first-child > div {
+    article[aria-labelledby^='id_']
+      [role='button']
+      > div:first-child.css-1dbjc4n
+      > div:first-child.css-1dbjc4n
+      > div:first-child
+      > div:first-child {
       background-color: var(--btd-color-base) !important;
     }
 
@@ -172,15 +179,37 @@ export const applyCustomAccentColor = makeBTDModule(() => {
       > div:last-child
       > div:last-child
       > div.css-1dbjc4n.r-1xfd6ze.r-6koalj.r-18u37iz.r-1orpq53.r-1w50u8q.r-13qz1uu {
-      background-color: var(--btd-color-light700) !important;
+      background-color: var(--btd-color-light400) !important;
 
       & > div > div:first-child {
         background-color: var(--btd-color-base) !important;
       }
     }
 
+    /* Topic icon in Explore column */
+    a[href^='/i/topics'] > div > div[aria-label] + div {
+      background-color: var(--btd-color-base) !important;
+    }
+
+    /* Topic icon above tweet in Explore column */
+    [data-viewportview='true']
+      section[aria-labelledby^='accessible-']
+      h2[aria-level='2'][role='heading']
+      > div
+      > svg[aria-hidden='true'] {
+      color: var(--btd-color-base) !important;
+    }
+
+    [data-viewportview='true']
+      section[aria-labelledby^='accessible-']
+      h1
+      + div[aria-label]
+      a[href*='/search?'] {
+      color: var(--btd-color-base) !important;
+    }
+
     /* Links inside tweets */
-    article a[dir][role='link'][target='_blank'][rel][href^='http'],
+    article [lang] a[dir][role='link'][href^='http'],
   
     /* Mentions in tweets */
     article [dir][id^="id_"] > div a[role='link'][href^='http'],
@@ -191,11 +220,14 @@ export const applyCustomAccentColor = makeBTDModule(() => {
     a[dir][data-testid="UserUrl"][target='_blank'][rel][href^='http'],
     /* Links in description */
     [data-testid="UserDescription"] a[target='_blank'][rel][href^='http'],
+    [data-testid="UserCell"] a[role="link"][href^='http'],
     
     /* "Show this thread" */
     article > div > a:last-child[role='link'][href^='http'] > div > div div[dir],
     /* "Show this thread" in QT */
-    article[aria-labelledby^="id_"] [aria-labelledby^="id_"][id^="id_"] [id^="id_"] > div:last-child [lang]+div {
+    article[aria-labelledby^="id_"] [aria-labelledby^="id_"][id^="id_"] [id^="id_"] > div:last-child [lang]+div,
+    /* Show replies */
+    section[aria-labelledby^="accessible-list"] h1[dir] + div[aria-label] > div > div div[role=button].css-18t94o4.css-1dbjc4n.r-16y2uox.r-1n0xq6e.r-1ny4l3l.r-1dsia8u.r-o7ynqc.r-6416eg div[dir] {
       color: var(--btd-color-base) !important;
     }
 
@@ -206,19 +238,38 @@ export const applyCustomAccentColor = makeBTDModule(() => {
     /* Gif search input */
     #layers [role=dialog] [aria-modal=true][aria-labelledby="modal-header"][role=dialog] > div > div > div > div > div > div > div > div > div > div.css-1dbjc4n.r-14lw9ot.r-sdzlij.r-1phboty.r-eqz5dr.r-16y2uox.r-1wbh5a2.r-1pi2tsx.r-1777fci.r-1ii58gl:focus-within,
     /* DM text input */
-    section div[data-viewportview]+ aside .css-1dbjc4n.r-y47klf.r-1phboty.r-d045u9.r-eqz5dr.r-16y2uox.r-1wbh5a2.r-1777fci.r-1ii58gl.r-13qz1uu,
-    [data-testid='DMDrawer'] div[data-viewportview]+ aside .css-1dbjc4n.r-y47klf.r-1phboty.r-d045u9.r-eqz5dr.r-16y2uox.r-1wbh5a2.r-1777fci.r-1ii58gl.r-13qz1uu {
+    section div[data-viewportview]+ aside .css-1dbjc4n.r-y47klf.r-1phboty.r-d045u9.r-eqz5dr.r-16y2uox.r-1wbh5a2.r-1777fci.r-1ii58gl.r-13qz1uu:focus-within,
+    [data-testid='DMDrawer'] div[data-viewportview]+ aside .css-1dbjc4n.r-y47klf.r-1phboty.r-d045u9.r-eqz5dr.r-16y2uox.r-1wbh5a2.r-1777fci.r-1ii58gl.r-13qz1uu:focus-within,
+    /* DM search input */
+    section [data-viewportview="true"] div[aria-label][role=button]+div:focus-within {
       border-color: var(--btd-color-base) !important;
       caret-color: var(--btd-color-base) !important;
+
+      svg {
+        color: var(--btd-color-base) !important;
+      }
     }
 
-    /* Poll choices */
+    /* Poll choices fields in composer */
     [data-testid='attachments'] label.css-1dbjc4n.r-z2wwpe.r-rs99b7.r-18u37iz:focus-within {
       box-shadow: var(--btd-color-base) 0 0 0 1px !important;
       border-color: var(--btd-color-base) !important;
 
       div > div:first-child > div[dir='auto'] {
         color: var(--btd-color-base) !important;
+      }
+    }
+
+    /* Poll choices in tweet */
+    div[id^='id_'][data-testid='card.wrapper'] [role='radiogroup'] [role='radio'] {
+      border-color: var(--btd-color-base) !important;
+
+      &:hover {
+        background-color: var(--btd-color-alpha100) !important;
+      }
+
+      & > [div] {
+        border-color: var(--btd-color-base) !important;
       }
     }
 
