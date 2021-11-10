@@ -208,6 +208,13 @@ interface TweetDeckController {
   feedManager: unknown;
   notifications: unknown;
   filterManager: {
+    removeFilter(filter: {
+      type: string;
+      value: string;
+      positive: boolean;
+      exact: boolean;
+      id: string;
+    }): void;
     addFilter(type: string, value: string): void;
     getAll(): ReadonlyArray<{
       type: string;
