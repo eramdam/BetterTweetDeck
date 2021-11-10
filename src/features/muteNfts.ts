@@ -3,10 +3,6 @@ import {makeBTDModule} from '../types/btdCommonTypes';
 
 export const muteNftAvatars = makeBTDModule(({TD, jq, settings}) => {
   jq.ajaxPrefilter((ajaxOptions) => {
-    if (!settings.muteNftAvatars) {
-      return;
-    }
-
     try {
       const url = new URL(ajaxOptions.url || '');
 
@@ -33,16 +29,18 @@ export const muteNftAvatars = makeBTDModule(({TD, jq, settings}) => {
   };
 
   jq(document).on('TD.ready', () => {
-    const nftFilters = TD.controller.filterManager
-      .getAll()
-      .filter((f) => f.type === 'BTD_nft_avatar');
+    setTimeout(() => {
+      const nftFilters = TD.controller.filterManager
+        .getAll()
+        .filter((f) => f.type === 'BTD_nft_avatar');
 
-    if (nftFilters.length < 1 && settings.muteNftAvatars) {
-      TD.controller.filterManager.addFilter('BTD_nft_avatar', '');
-    } else {
-      nftFilters.forEach((filter) => {
-        TD.controller.filterManager.removeFilter(filter);
-      });
-    }
+      if (nftFilters.length < 1 && settings.muteNftAvatars) {
+        TD.controller.filterManager.addFilter('BTD_nft_avatar', '');
+      } else {
+        nftFilters.forEach((filter) => {
+          TD.controller.filterManager.removeFilter(filter);
+        });
+      }
+    }, 5000);
   });
 });
