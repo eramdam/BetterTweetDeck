@@ -28,11 +28,11 @@ export const muteNftAvatars = makeBTDModule(({TD, jq}) => {
     return baseTweet;
   };
 
-  // const nftFilters = TD.controller.filterManager
-  //   .getAll()
-  //   .filter((f) => f.type === 'BTD_nft_avatar');
+  const nftFilters = TD.controller.filterManager
+    .getAll()
+    .filter((f) => f.type === 'BTD_nft_avatar');
 
-  // if (nftFilters.length < 1) {
-  //   TD.controller.filterManager.addFilter('BTD_nft_avatar', '');
-  // }
+  if (nftFilters.length < 1) {
+    TD.controller.filterManager.addFilter('BTD_nft_avatar', '');
+  }
 });
