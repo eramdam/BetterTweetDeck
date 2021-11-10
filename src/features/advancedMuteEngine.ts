@@ -63,6 +63,26 @@ export const setupAME = makeBTDModule(({TD, jq}) => {
 
   // Custom filters
   const AmeFilters: AMEFiltersMap = {
+    BTD_nft_avatar: {
+      display: {
+        global: false,
+        options: false,
+        actions: false,
+      },
+      name: 'Mute accounts with an NFT avatar',
+      descriptor: 'accounts with an NFT avatar',
+      placeholder: 'nothing!',
+      function(t, e) {
+        if (typeof e.user?.hasNftAvatar === 'undefined') {
+          return true;
+        }
+
+        if (e.user.hasNftAvatar === true) {
+          console.log(e.user);
+        }
+        return e.user.hasNftAvatar === false;
+      },
+    },
     BTD_specific_tweet: {
       name: 'Specific tweet',
       descriptor: 'specific tweet',

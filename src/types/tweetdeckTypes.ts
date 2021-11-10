@@ -209,6 +209,13 @@ interface TweetDeckController {
   notifications: unknown;
   filterManager: {
     addFilter(type: string, value: string): void;
+    getAll(): ReadonlyArray<{
+      type: string;
+      value: string;
+      positive: boolean;
+      exact: boolean;
+      id: string;
+    }>;
   };
   init: Init;
   upgrade: Upgrade;
@@ -512,6 +519,7 @@ export type TweetDeckUser = User;
 interface User {
   account: ChirpAccount;
   id: string;
+  hasNftAvatar: boolean;
   screenName: string;
   profileURL: string;
   profileImageURL: string;
