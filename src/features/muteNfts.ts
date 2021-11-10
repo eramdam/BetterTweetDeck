@@ -44,6 +44,5 @@ export const muteNftAvatars = makeBTDModule(({TD, jq, settings}) => {
         TD.controller.filterManager.removeFilter(filter);
       });
     }
-    console.log({nftFilters});
   });
 });
