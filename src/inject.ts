@@ -18,6 +18,7 @@ import {maybeCollapseDms} from './features/collapseDms';
 import {contentWarnings} from './features/contentWarnings';
 import {addConversationControls} from './features/conversationControl';
 import {injectCustomCss} from './features/customCss';
+import {extendTwitterUser} from './features/extendTwitterUser';
 import {maybeFreezeGifsInProfilePicture} from './features/freezeGifsProfilePictures';
 import {setupGifModals} from './features/gifModals';
 import {maybeHideColumnIcons} from './features/hideColumnIcons';
@@ -102,6 +103,7 @@ function isModulejQuery(mod: ModuleLike | undefined): mod is JQueryStatic {
   maybeSetupDebugFunctions(btdModuleOptions);
   changeLogo(btdModuleOptions);
   displayPronouns(btdModuleOptions);
+  extendTwitterUser(btdModuleOptions);
 
   overrideTranslateLanguage(btdModuleOptions);
   makeSearchColumnsFirst(btdModuleOptions);
