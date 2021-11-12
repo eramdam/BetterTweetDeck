@@ -34,6 +34,7 @@
     "typecheck": "tsc -p .",
     "postinstall": "ts-node tools/createDefineConfig.ts",
     "run:firefox": "web-ext run -s dist",
+    "run:chrome": "web-ext run -s dist --target=chromium",
     "test": "npm run lint && npm run typecheck && jest",
     "jest": "jest",
     "release": "ts-node tools/release.ts",
