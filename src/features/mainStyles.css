@@ -232,8 +232,9 @@ html.dark body {
 
 /* Bigger native videos. */
 .js-modal-panel .l-table .l-cell .js-media-native-video {
-  width: 100% !important;
+  max-height: 80vh !important;
+  max-width: 80vw !important;
   height: 100% !important;
-  max-width: 100% !important;
+  width: 100% !important;
   object-fit: contain !important;
 }
