@@ -135,10 +135,16 @@ export const listenToRedraftTweetEvent = makeBTDModule(({TD, jq}) => {
 
     // == re-upload all the files we had, if any
     if (media.length) {
-      const files = await Promise.all(media.map((item) => requestMediaItem(item)));
+      const files = await Promise.all(media.map((item) => requestMediaItem(item.url)));
       jq(document).trigger('uiComposeFilesAdded', {files: files});
+      media.forEach((item, index) => {
+        // @ts-expect-error
+        jq._data(document, 'events')[
+          'uiComposeVideoTooLarge'
+        ][0].handler.context.onDescriptionAdded(index, {imageDescription: item.description});
+      });
 
-      jq(document).one('uiComposeImageAdded', () => {
+      jq(document).one('uiComposeImageAdded', (e) => {
         // it is now safe to remove the tweet
         chirp.destroy();
       });

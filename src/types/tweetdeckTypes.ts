@@ -674,6 +674,7 @@ export type TweetMediaEntityPalette = {
 }[];
 
 export type TweetdeckMediaEntity = Twitter.MediaEntity & {
+  ext_alt_text?: string;
   ext_media_color?: {
     palette: TweetMediaEntityPalette;
   };
