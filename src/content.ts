@@ -108,6 +108,26 @@ import {BTDMessageOriginsEnum, BTDMessages} from './types/btdMessageTypes';
     }
   );
 
+  listenToInternalBTDMessage(
+    BTDMessages.UPDATE_SETTINGS,
+    BTDMessageOriginsEnum.CONTENT,
+    async (ev) => {
+      if (ev.data.name !== BTDMessages.UPDATE_SETTINGS) {
+        return;
+      }
+
+      sendMessageToBackground({
+        data: {
+          requestId: undefined,
+          isReponse: false,
+          name: BTDMessages.UPDATE_SETTINGS,
+          origin: BTDMessageOriginsEnum.CONTENT,
+          payload: ev.data.payload,
+        },
+      });
+    }
+  );
+
   function openSettings(selectedId?: string) {
     sendMessageToBackground({
       data: {

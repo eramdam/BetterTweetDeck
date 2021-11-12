@@ -29,6 +29,14 @@ import {BTDSettings} from './types/btdSettingsTypes';
         return undefined;
       }
 
+      case BTDMessages.UPDATE_SETTINGS: {
+        await ExtensionSettings.set({
+          ...(await getValidatedSettings()),
+          ...request.data.payload,
+        });
+        return undefined;
+      }
+
       case BTDMessages.BTD_READY: {
         await ExtensionSettings.set({
           ...(await getValidatedSettings()),
