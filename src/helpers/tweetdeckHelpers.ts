@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import {useLayoutEffect, useState} from 'react';
 import {Twitter} from 'twit';
 
@@ -259,23 +260,25 @@ export function onThemeChange(callback: HandlerOf<'light' | 'dark'>) {
 }
 
 export const getMediaFromChirp = (chirp: TweetDeckChirp) => {
-  const urls: string[] = [];
-
-  chirp.entities.media.forEach((item) => {
-    switch (item.type) {
-      case 'video':
-      case 'animated_gif':
-        urls.push(findBiggestBitrate(item.video_info.variants).url.split('?')[0]);
-        break;
-      case 'photo':
-        urls.push(`${item.media_url_https}:orig`);
-        break;
-      default:
-        throw new Error(`unsupported media type: ${item.type}`);
-    }
-  });
-
-  return urls;
+  return _(chirp.entities.media)
+    .map((item) => {
+      switch (item.type) {
+        case 'video':
+        case 'animated_gif':
+          return {
+            url: findBiggestBitrate(item.video_info.variants).url.split('?')[0],
+          };
+        case 'photo':
+          return {
+            url: `${item.media_url_https}:orig`,
+            description: item.ext_alt_text,
+          };
+        default:
+          return undefined;
+      }
+    })
+    .compact()
+    .value();
 };
 
 const findBiggestBitrate = (videos: TweetdeckMediaEntity['video_info']['variants']) => {
