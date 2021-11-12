@@ -466,5 +466,8 @@
   },
   "settings_extract_pronouns": {
     "message": "Extract pronouns from users' biography or location and show them within columns"
+  },
+  "settings_require_confirmation_for_block_and_mute_actions": {
+    "message": "Require confirmation for block and mute actions"
   }
 }
