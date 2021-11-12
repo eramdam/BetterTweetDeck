@@ -469,5 +469,8 @@
   },
   "settings_mute_nfts_accounts": {
     "message": "Mute accounts who use the NFT avatar integration"
+  },
+  "settings_require_confirmation_for_block_and_mute_actions": {
+    "message": "Require confirmation for block and mute actions"
   }
 }

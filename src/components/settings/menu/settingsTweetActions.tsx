@@ -71,6 +71,11 @@ export const SettingsTweetActions: FC<SettingsMenuSectionProps> = (props) => {
             key: 'addDownloadMediaLinksAction',
             label: getTransString('settings_action_download_media'),
           },
+          {
+            initialValue: settings.requireConfirmationForTweetAction,
+            key: 'requireConfirmationForTweetAction',
+            label: getTransString('settings_require_confirmation_for_block_and_mute_actions'),
+          },
         ]}>
         <Trans id="settings_additional_actions" />
       </CheckboxSelectSettingsRow>

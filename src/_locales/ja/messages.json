@@ -454,5 +454,17 @@
   },
   "settings_disable_it_in_the_dm_composer_too": {
     "message": "DM作成画面にも適用する"
+  },
+  "settings_show_profile_labels_in_tweets_and_profile_modals": {
+    "message": "ツイートやプロフィールに「プロフィールラベル」を表示する"
+  },
+  "settings_hide_the_try_tweetdeck_preview_button": {
+    "message": "「Try TweetDeck Preview」ボタンを非表示"
+  },
+  "settings_pronouns_extra": {
+    "message": "今のところ英語の代名詞のみサポートしています。もし誤りがあれば、 @BetterTDeck へお知らせください。"
+  },
+  "settings_extract_pronouns": {
+    "message": "ユーザーの自己紹介や位置情報から代名詞を抽出し、カラムに表示する"
   }
 }

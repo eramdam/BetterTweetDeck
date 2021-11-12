@@ -146,6 +146,7 @@ export const RBetterTweetDeckSettings = t.type({
     }),
     {}
   ),
+  requireConfirmationForTweetAction: withDefault(t.boolean, true),
 
   /** Always shows the account picker when favoriting a tweet */
   showAccountChoiceOnFavorite: withDefault(t.boolean, false),
