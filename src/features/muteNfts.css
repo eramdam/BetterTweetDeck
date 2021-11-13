@@ -1,43 +1,9 @@
-.nft-avatar-notice {
-  padding-left: 10px !important;
-
-  & .nft-avatar-notice-content ~ * {
-    display: none !important;
-  }
-
-  & .nft-avatar-notice-content {
-    text-align: center !important;
-    line-height: 1.9 !important;
-  }
-
-  & button {
-    font-size: 12px !important;
-    line-height: 14px !important;
-    padding: 3px 8px !important;
-    border-color: currentColor !important;
-    color: #8899a6 !important;
-  }
+.avatar--hexagone {
+  mask-image: url('../assets/hexagone-mask.png');
+  mask-mode: alpha;
+  mask-size: 100%;
 }
 
-.anti-nft-modal {
-  & p,
-  & li {
-    margin: 10px 0 !important;
-    line-height: 1.4 !important;
-  }
-
-  & .nft-choices {
-    margin-top: 30px;
-    margin-bottom: 30px;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    height: 85px;
-    width: 430px;
-  }
-
-  & ol {
-    margin: 20px 0 !important;
-    list-style-type: decimal !important;
-  }
+img.avatar:not(.avatar--hexagone) {
+  background-color: white;
 }
