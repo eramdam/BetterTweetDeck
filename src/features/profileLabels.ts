@@ -2,7 +2,7 @@ import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 
 export const addProfileLabels = makeBTDModule((options) => {
-  const {jq, TD, settings} = options;
+  const {TD, settings} = options;
 
   if (!settings.showProfileLabels) {
     return;
