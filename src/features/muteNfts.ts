@@ -6,8 +6,10 @@ import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 import {BTDMessageOriginsEnum, BTDMessages} from '../types/btdMessageTypes';
 
+const shouldShowNftBannerInColumn = false;
+
 export const muteNftAvatars = makeBTDModule(({TD, jq, settings}) => {
-  if (!settings.hideNftMuteNotice && !settings.muteNftAvatars) {
+  if (!settings.hideNftMuteNotice && !settings.muteNftAvatars && shouldShowNftBannerInColumn) {
     modifyMustacheTemplate(TD, 'status/tweet_single.mustache', (string) => {
       return string
         .replace(
