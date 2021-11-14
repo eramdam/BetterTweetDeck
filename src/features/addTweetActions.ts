@@ -206,7 +206,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
     }
     const media = getMediaFromChirp(chirp);
     const mediaPromises = media.map((item) => {
-      return requestMediaItem(item);
+      return requestMediaItem(item.url);
     });
 
     const maybeResults = await Promise.all(mediaPromises);
@@ -221,7 +221,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
           file,
           TD.ui.template.render(
             'btd/download_filename_format',
-            getFilenameDownloadData(chirp, media[index])
+            getFilenameDownloadData(chirp, media[index].url)
           )
         );
       } catch (e) {
