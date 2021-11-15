@@ -66,7 +66,7 @@ describe('Pronouns', () => {
       ['any/all', 'any/all', [['any', 'all']]],
       ['any', 'any pronouns', [['any pronouns']]],
       ['any', 'pronouns: any', [['any pronouns']]],
-    ])('%s', (_name, input, expected) => {
+    ])('%s: %s', (_name, input, expected) => {
       const result = extractPronouns(input);
 
       expect(result).toStrictEqual(expected);
