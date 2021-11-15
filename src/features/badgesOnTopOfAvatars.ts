@@ -123,13 +123,7 @@ export const putBadgesOnTopOfAvatars = makeBTDModule(({TD, settings}) => {
     requested_date: number;
   };
 
-  const relationshipCache = JSON.parse(localStorage.getItem('btd-relationship-cache') || '{}') as {
-    [k: string]: CachedRelationship | undefined;
-  };
-
-  window.addEventListener('beforeunload', () => {
-    localStorage.setItem('btd-relationship-cache', JSON.stringify(relationshipCache));
-  });
+  const relationshipCache = new Map<string, CachedRelationship>();
 
   async function getRelationForUserAndClient(
     client: TweetDeckControllerClient,
@@ -138,7 +132,7 @@ export const putBadgesOnTopOfAvatars = makeBTDModule(({TD, settings}) => {
     // Computing a cache key
     const cacheKey = `${client.oauth.account.state.userId}-${user.id}`;
     // Looking into our cache
-    const fromCache = relationshipCache[cacheKey];
+    const fromCache = relationshipCache.get(cacheKey);
     const now = DateTime.local();
 
     if (fromCache) {
@@ -147,7 +141,7 @@ export const putBadgesOnTopOfAvatars = makeBTDModule(({TD, settings}) => {
 
       // If our cache is less than 12 hours old, take from it.
       if (diff.hours <= 12) {
-        return relationshipCache[cacheKey];
+        return relationshipCache.get(cacheKey);
       }
     }
 
@@ -155,7 +149,7 @@ export const putBadgesOnTopOfAvatars = makeBTDModule(({TD, settings}) => {
       client.showFriendship(client.oauth.account.state.userId, null, user.screenName, (result) => {
         const toCache = {...result, requested_date: Date.now()};
         resolve(toCache);
-        relationshipCache[cacheKey] = toCache;
+        relationshipCache.set(cacheKey, toCache);
       });
     });
   }
