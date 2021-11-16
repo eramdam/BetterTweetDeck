@@ -48,6 +48,11 @@ export function extractContentWarnings(input: string): ContentWarningResult | un
     return undefined;
   }
 
+  // If there's no word, we can ignore
+  if (!subject.match(/[\p{L}\p{M}]/giu)) {
+    return undefined;
+  }
+
   return {
     block,
     subject,

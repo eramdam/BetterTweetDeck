@@ -41,6 +41,7 @@ describe('Content warnings detection', () => {
       'Lorem ipsum dolor sit, amet consectetur',
       'this is my [food]',
       '[[big shot]]',
+      '[2021/11/14 02:51]',
       '[Lottie] foobar',
       'What you want is [[hyperlink blocked]]',
       '[新キャラ] foobar',
