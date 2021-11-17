@@ -60,6 +60,7 @@ describe('Pronouns', () => {
       ['No matches for mixed separators', `she/her | ver`, undefined],
 
       ['Surrounded and separators', `//they | them//`, [['they', 'them']]],
+      ['Separators', String.raw`blablablabla | they\them |`, [['they', 'them']]],
 
       ['pronoun.is', 'pronoun.is/he/him', [['he', 'him']]],
       ['pronoun.is', 'pronoun.is/they/them', [['they', 'them']]],
