@@ -24,7 +24,7 @@ export const renderMediaAndQuotedTweets = makeBTDModule(({TD, jq}) => {
     'uiFilesAdded uiComposeTweet uiComposeImageAdded uiComposeFilesAdded',
     async () => {
       // Wait a bit for the DOM to be up-to-date with the quoted tweet and everything
-      await delayAsync(100);
+      await delayAsync(0);
       // Grab the composer
       const composer = document.querySelector('div[data-drawer="compose"]');
 
