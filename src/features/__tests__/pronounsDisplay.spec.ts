@@ -45,6 +45,8 @@ describe('Pronouns', () => {
       ],
 
       ['No matches', `testing.co`, undefined],
+      ['No matches', `they'll`, undefined],
+      ['No matches', `they will`, undefined],
       ['No matches', `Omaha, NE`, undefined],
       ['No matches', `ône`, undefined],
       ['No matches', `s/he`, undefined],
