@@ -654,6 +654,11 @@ export interface TweetDeckChirp {
   getFilterableText(): string;
   favorite(options: {element: JQuery<Element>; statusKey: string; column: string}): void;
   card?: {
+    binding_values: {
+      card_url: {
+        string_value: string;
+      };
+    };
     name: string;
     url: string;
   };

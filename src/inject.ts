@@ -18,6 +18,7 @@ import {maybeCollapseDms} from './features/collapseDms';
 import {contentWarnings} from './features/contentWarnings';
 import {addConversationControls} from './features/conversationControl';
 import {injectCustomCss} from './features/customCss';
+import {extendTwitterStatus} from './features/extendTwitterStatus';
 import {maybeFreezeGifsInProfilePicture} from './features/freezeGifsProfilePictures';
 import {setupGifModals} from './features/gifModals';
 import {maybeHideColumnIcons} from './features/hideColumnIcons';
@@ -138,6 +139,7 @@ function isModulejQuery(mod: ModuleLike | undefined): mod is JQueryStatic {
   maybeShowCharacterCount(btdModuleOptions);
   showTweetDogEars(btdModuleOptions);
   contentWarnings(btdModuleOptions);
+  extendTwitterStatus(btdModuleOptions);
 
   jq(document).one('dataColumnsLoaded', () => {
     document.body.classList.add('btd-loaded');
