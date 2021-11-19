@@ -25,7 +25,7 @@ export function SettingsToggle(props: PropsWithChildren<SettingsToggleProps>) {
       <input
         className={checkboxInputStyles}
         type="checkbox"
-        checked={props.defaultChecked}
+        defaultChecked={props.defaultChecked}
         onChange={(e) => {
           props.onChange(e.target.checked);
         }}
