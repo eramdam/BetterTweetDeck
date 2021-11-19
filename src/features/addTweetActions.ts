@@ -236,7 +236,9 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
     if (!chirp) {
       return;
     }
-    const mediaUrls = getMediaFromChirp(chirp).join('\n');
+    const mediaUrls = getMediaFromChirp(chirp)
+      .map((m) => m.url)
+      .join('\n');
     navigator.clipboard.writeText(mediaUrls);
   });
 
