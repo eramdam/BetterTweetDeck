@@ -469,5 +469,11 @@
   },
   "settings_require_confirmation_for_block_and_mute_actions": {
     "message": "「ブロック」と「ミュート」のアクションで確認メッセージを表示"
+  },
+  "settings_better_tweetdeck_has_been_updated": {
+    "message": "Better TweetDeckがアップデートされました！"
+  },
+  "settings_click_this_notification_to_reload": {
+    "message": "最新の状態にするために、この通知をクリックしてTweetDeckタブを更新しましょう"
   }
 }
