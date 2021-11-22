@@ -34,7 +34,7 @@ const allowedCardNames = [
 ];
 
 export const maybeRenderCardsInColumnsNatively = makeBTDModule((options) => {
-  const {mR, settings, TD, jq} = options;
+  const {mR, settings, jq} = options;
 
   if (!settings.showCardsInsideColumns) {
     return;

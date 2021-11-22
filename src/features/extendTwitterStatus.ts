@@ -44,16 +44,6 @@ export const extendTwitterStatus = makeBTDModule(({TD, settings}) => {
     // @ts-expect-error
     baseTweet.cannotBeRepliedTo = blob.limited_actions === 'limited_replies';
 
-    if (baseTweet.card && settings.removeRedirectionOnLinks) {
-      const matchingEntity = baseTweet.entities.urls.find((e) => e.url === baseTweet.card?.url);
-
-      if (matchingEntity) {
-        baseTweet.card.binding_values.card_url.string_value = matchingEntity.expanded_url;
-        baseTweet.card.url = matchingEntity.expanded_url;
-        matchingEntity.url = matchingEntity.expanded_url;
-      }
-    }
-
     return baseTweet;
   };
 });
