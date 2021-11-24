@@ -57,8 +57,6 @@
     "@emotion/css": "^11.5.0",
     "@octokit/core": "^3.5.1",
     "@types/archiver": "^5.1.1",
-    "@types/axios": "^0.14.0",
-    "@types/chalk": "^2.2.0",
     "@types/color-convert": "^2.0.0",
     "@types/config": "^0.0.40",
     "@types/emoji-mart": "^3.0.8",
