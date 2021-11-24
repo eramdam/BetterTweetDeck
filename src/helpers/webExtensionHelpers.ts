@@ -1,4 +1,4 @@
-import {browser} from 'webextension-polyfill-ts';
+import browser from 'webextension-polyfill';
 
 import {BTDMessageEvent, BTDMessageEventData} from '../types/btdMessageTypes';
 import {BTDSettings} from '../types/btdSettingsTypes';
