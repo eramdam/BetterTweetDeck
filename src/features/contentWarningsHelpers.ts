@@ -15,7 +15,7 @@ interface ContentWarningResult {
   text: string;
 }
 
-const withoutKeywordBlocklist = ['redacted', 'communiqué', 'announcement'];
+const withoutKeywordBlocklist = ['redacted', 'communiqué', 'announcement', 'voice'];
 
 export function extractContentWarnings(input: string): ContentWarningResult | undefined {
   const contentWarningMatch = input.match(contentWarningRegex) || input.match(withoutKeywordRegex);
@@ -39,7 +39,7 @@ export function extractContentWarnings(input: string): ContentWarningResult | un
     return undefined;
   }
 
-  if (withoutKeywordBlocklist.includes(subject.toLowerCase().trim())) {
+  if (withoutKeywordBlocklist.some((keyword) => subject.toLowerCase().trim().includes(keyword))) {
     return undefined;
   }
 
