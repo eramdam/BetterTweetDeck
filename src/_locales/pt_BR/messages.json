@@ -466,5 +466,14 @@
   },
   "settings_extract_pronouns": {
     "message": "Extrair pronomes da biografia ou localização de usuários e mostrá-los dentro das colunas"
+  },
+  "settings_require_confirmation_for_block_and_mute_actions": {
+    "message": "Exigir confirmação para ações de bloquear e silenciar"
+  },
+  "settings_better_tweetdeck_has_been_updated": {
+    "message": "Better TweetDeck foi atualizado!"
+  },
+  "settings_click_this_notification_to_reload": {
+    "message": "Clique nesta notificação para recarregar sua aba do TweetDeck para atualizar para a versão mais recente!"
   }
 }
