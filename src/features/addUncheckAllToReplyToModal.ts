@@ -1,3 +1,5 @@
+import './addUncheckAllToReplyToModal.css';
+
 import {makeBTDModule} from '../types/btdCommonTypes';
 
 enum LABELS {
@@ -24,10 +26,14 @@ export const addUncheckAllToReplyToModal = makeBTDModule(({TD}) => {
 
         const label = document.createElement('label');
         label.textContent = LABELS.UNSELECT_ALL;
+        label.setAttribute('for', 'uncheck_all_reply_to_modal_checkbox');
+        label.classList.add('hover--underline');
 
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.checked = true;
+        checkbox.hidden = true;
+        checkbox.id = 'uncheck_all_reply_to_modal_checkbox';
 
         checkbox.addEventListener('change', (e) => {
           const selectAll = checkbox.checked;
@@ -37,9 +43,11 @@ export const addUncheckAllToReplyToModal = makeBTDModule(({TD}) => {
               '.js-reply-checkbox:not([disabled])'
             ) as NodeListOf<HTMLInputElement>
           ).forEach((input) => {
-            if (selectAll)
+            if (selectAll) {
               if (!input.checked) input.click();
-              else if (input.checked) input.click();
+            } else {
+              if (input.checked) input.click();
+            }
           });
         });
 
@@ -47,8 +55,9 @@ export const addUncheckAllToReplyToModal = makeBTDModule(({TD}) => {
           cursor: 'pointer',
         });
 
-        label.append(checkbox);
-        containerForNewCheckbox.appendChild(label);
+        const container = document.createElement('div');
+        container.append(label, checkbox);
+        containerForNewCheckbox.appendChild(container);
       }
     }
   });
