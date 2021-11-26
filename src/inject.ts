@@ -4,6 +4,7 @@ import ModuleRaid, {ModuleLike} from 'moduleraid';
 import {maybeAddColumnsButtons} from './features/addColumnButtons';
 import {maybeAddTweetActions} from './features/addTweetActions';
 import {maybeAddTweetMenuItems} from './features/addTweetMenuItems';
+import {addUncheckAllToReplyToModal} from './features/addUncheckAllToReplyToModal';
 import {setupAME} from './features/advancedMuteEngine';
 import {allowImagePaste} from './features/allowImagePaste';
 import {maybeShowCharacterCount} from './features/alwaysShowCharacterCount';
@@ -54,7 +55,6 @@ import {BTDModuleOptions, BTDSettingsAttribute} from './types/btdCommonTypes';
 import {BTDMessageOriginsEnum, BTDMessages, BTDNotificationTypes} from './types/btdMessageTypes';
 import {BTDSettings} from './types/btdSettingsTypes';
 import {TweetDeckControllerClient, TweetDeckObject} from './types/tweetdeckTypes';
-
 // Declare typings on the window
 declare global {
   interface Window {
@@ -138,6 +138,7 @@ function isModulejQuery(mod: ModuleLike | undefined): mod is JQueryStatic {
   maybeShowCharacterCount(btdModuleOptions);
   showTweetDogEars(btdModuleOptions);
   contentWarnings(btdModuleOptions);
+  addUncheckAllToReplyToModal(btdModuleOptions);
 
   jq(document).one('dataColumnsLoaded', () => {
     document.body.classList.add('btd-loaded');
