@@ -2,6 +2,7 @@
 interface BtdClientConfig {
   debug: boolean;
   APIs: APIs;
+  github_token: string;
 }
 interface APIs {
   giphy: string;

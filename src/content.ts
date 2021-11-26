@@ -1,6 +1,6 @@
 import './features/mainStyles.css';
 
-import {browser} from 'webextension-polyfill-ts';
+import browser from 'webextension-polyfill';
 
 import {setupEmojiAutocompletion} from './features/emojiAutocompletion';
 import {setupEmojiPicker} from './features/emojiPicker';
