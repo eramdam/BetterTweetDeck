@@ -1,72 +1,4 @@
-.btd-giphy-zone {
-  box-sizing: border-box;
-  position: absolute;
-  top: 0;
-  z-index: 19;
-  left: 200px;
-  color: white;
-  width: 270px;
-  height: 100%;
-  transform: translateX(-2px);
-  pointer-events: none;
-  opacity: 0;
-  transition-property: opacity, transform;
-  transition-duration: 200ms;
-  transition-timing-function: ease;
-  display: flex;
-  flex-direction: column;
-  padding: 0 15px;
-}
-
-.btd-giphy-zone .compose-header {
-  border-bottom: none !important;
-}
-
-.application.is-condensed .btd-giphy-zone {
-  left: 60px;
-}
-
-.btd-giphy-zone.-visible {
-  pointer-events: all;
-  transform: translateX(0);
-  opacity: 1;
-}
-
-.btd-giphy-zone .giphy-wrapper {
-  flex: 1;
-  flex-shrink: 1;
-  font-size: 0;
-  margin-left: -15px;
-  margin-right: -15px;
-  margin-top: 10px;
-}
-
-.btd-giphy-zone .giphy-wrapper .giphy-content {
-  column-count: 2;
-  column-gap: 0;
-}
-
-.btd-giphy-zone .giphy-wrapper .btd-giphy-block {
-  width: 100%;
-  height: auto;
-  cursor: pointer;
-}
-
-.btd-giphy-zone .giphy-wrapper .btd-giphy-block-wrapper {
-  overflow: hidden;
-}
-
-.btd-giphy-zone .giphy-wrapper .btd-giphy-block-wrapper:hover {
-  opacity: 0.6;
-}
-
-.btd-gif-indicator {
-  transform: translateY(100%);
-  opacity: 0;
-}
-
-.btd-gif-button,
-.btd-gif-indicator {
+.btd-gif-button {
   transition-property: transform, opacity;
   transition-duration: 300ms;
   transition-timing-function: ease;
@@ -103,11 +35,6 @@
 .btd-gif-button.-visible {
   opacity: 1;
   pointer-events: auto;
-}
-
-input.giphy-search-input {
-  box-sizing: border-box !important;
-  color: #111;
 }
 
 .btd-gif-button.btd-gif-button:hover {

@@ -1,9 +1,11 @@
 import _, {Dictionary} from 'lodash';
-import React, {Fragment, useRef, useState} from 'react';
+import React, {Fragment, useEffect, useRef, useState} from 'react';
 import ReactDOM from 'react-dom';
+import {usePopper} from 'react-popper';
 import {useDebouncedCallback} from 'use-debounce';
 
 import {sendInternalBTDMessage} from '../../helpers/communicationHelpers';
+import {isHTMLElement} from '../../helpers/domHelpers';
 import {useIsComposerVisible} from '../../helpers/tweetdeckHelpers';
 import {GifsArray, processGifRequest} from '../../services/backgroundGifRequests';
 import {BTDMessageOriginsEnum, BTDMessages} from '../../types/btdMessageTypes';
@@ -16,6 +18,29 @@ export const BTDGifProvider = () => {
   const [loadedGifs, setLoadedGifs] = useState<GifsArray>([]);
   const [isComposerVisible, setIsComposerVisible] = useState(false);
   const gifButtonRootRef = useRef<HTMLDivElement | null>(null);
+  const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(null);
+  const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null);
+  const {styles} = usePopper(referenceElement, popperElement, {
+    placement: 'right-start',
+    modifiers: [
+      {
+        name: 'flip',
+        options: {
+          boundary: document.body,
+        },
+      },
+      {
+        name: 'preventOverflow',
+        options: {
+          mainAxis: true,
+        },
+      },
+    ],
+  });
+
+  useEffect(() => {
+    setReferenceElement(document.querySelector<HTMLElement>('.compose-text-container'));
+  }, []);
 
   const onSearchDebounce = useDebouncedCallback(async (query: string) => {
     const gifsSearchResults = await makeGifRequest('search', {
@@ -28,7 +53,7 @@ export const BTDGifProvider = () => {
     }
 
     setLoadedGifs(gifsSearchResults);
-  }, 1000);
+  }, 400);
 
   const onGifClick = async (gifUrl: string) => {
     sendInternalBTDMessage({
@@ -75,21 +100,38 @@ export const BTDGifProvider = () => {
         gifButtonRootRef.current &&
         ReactDOM.createPortal(gifButton, gifButtonRootRef.current)}
       {isGifPickerOpen && (
-        <BTDGifPicker
-          isVisible
-          onSearchInput={onSearchDebounce}
-          onCloseClick={() => setIsGifPickerOpen(false)}>
-          {loadedGifs.map((gif) => {
-            return (
-              <BTDGifItem
-                key={gif.url}
-                height={gif.preview.height}
-                width={gif.preview.width}
-                previewUrl={gif.preview.url}
-                onClick={() => onGifClick(gif.url)}></BTDGifItem>
-            );
-          })}
-        </BTDGifPicker>
+        <div
+          style={{
+            position: 'fixed',
+            height: '100vh',
+            width: '100vw',
+            zIndex: '10000',
+            top: 0,
+          }}
+          onClick={(e) => {
+            if (isHTMLElement(e.target) && e.target.closest('.btd-giphy-zone')) {
+              return;
+            }
+
+            setIsGifPickerOpen(false);
+          }}>
+          <BTDGifPicker
+            ref={setPopperElement}
+            style={styles.popper}
+            onSearchInput={onSearchDebounce}
+            onCloseClick={() => setIsGifPickerOpen(false)}>
+            {loadedGifs.map((gif) => {
+              return (
+                <BTDGifItem
+                  key={gif.url}
+                  height={gif.preview.height}
+                  width={gif.preview.width}
+                  previewUrl={gif.preview.url}
+                  onClick={() => onGifClick(gif.url)}></BTDGifItem>
+              );
+            })}
+          </BTDGifPicker>
+        </div>
       )}
     </Fragment>
   );
