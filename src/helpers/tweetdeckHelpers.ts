@@ -162,7 +162,7 @@ export const getURLsFromChirp = (chirp: TweetDeckChirp) => {
 export const createSelectorForChirp = (chirp: TweetDeckChirp, colKey: string) =>
   `[data-column=${colKey}] [data-key="${chirp.id}"]`;
 
-export function onComposerShown(callback: HandlerOf<boolean>, supportInlineReply = false) {
+export function onComposerShown(callback: HandlerOf<boolean>) {
   const drawer = document.querySelector('.app-content');
   let isVisible: boolean | undefined = undefined;
 
@@ -194,22 +194,17 @@ export function onComposerShown(callback: HandlerOf<boolean>, supportInlineReply
   };
 }
 
-export function useIsComposerVisible(
-  onVisibleChange?: HandlerOf<boolean>,
-  supportInlineReply = false
-) {
+export function useIsComposerVisible(onVisibleChange?: HandlerOf<boolean>) {
   const [isVisible, setIsVisible] = useState(false);
 
   useLayoutEffect(() => {
-    onComposerShown((bool) => {
+    return onComposerShown((bool) => {
       setIsVisible(bool);
       if (onVisibleChange) {
         onVisibleChange(bool);
       }
-    }, supportInlineReply);
-
-    return () => {};
-  }, [onVisibleChange, supportInlineReply]);
+    });
+  }, [onVisibleChange]);
 
   return isVisible;
 }

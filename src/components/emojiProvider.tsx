@@ -1,5 +1,5 @@
 import {BaseEmoji, NimbleEmoji, NimblePicker} from 'emoji-mart';
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useCallback, useState} from 'react';
 import ReactDOM from 'react-dom';
 import {usePopper} from 'react-popper';
 
@@ -8,6 +8,7 @@ import {isHTMLElement} from '../helpers/domHelpers';
 import {getEmojiSheetUrl} from '../helpers/emojiHelpers';
 import {useTweetdeckTheme} from '../helpers/hookHelpers';
 import {insertInsideComposer, useIsComposerVisible} from '../helpers/tweetdeckHelpers';
+import {HandlerOf} from '../helpers/typeHelpers';
 
 export const nimbleEmojiBaseProps = {
   sheetRows: 60,
@@ -41,7 +42,7 @@ export const BTDEmojiProvider = () => {
     ],
   });
 
-  useIsComposerVisible((isVisible) => {
+  const onComposerVisibleChange: HandlerOf<boolean> = useCallback((isVisible) => {
     setIsComposerVisible(isVisible);
     if (!isVisible) {
       return;
@@ -56,10 +57,11 @@ export const BTDEmojiProvider = () => {
     const emojiRootElement = document.createElement('div');
     emojiRootElement.id = 'emojiButton';
     composeTextContainer.appendChild(emojiRootElement);
-    console.log(emojiButtonRootElement);
     setEmojiButtonRootElement(emojiRootElement);
     setReferenceElement(composeTextContainer);
-  });
+  }, []);
+
+  useIsComposerVisible(onComposerVisibleChange);
 
   const emojiButton = (
     <div

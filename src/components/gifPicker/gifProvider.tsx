@@ -1,5 +1,5 @@
 import _, {Dictionary} from 'lodash';
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useCallback, useState} from 'react';
 import ReactDOM from 'react-dom';
 import {usePopper} from 'react-popper';
 import {useDebouncedCallback} from 'use-debounce';
@@ -7,6 +7,7 @@ import {useDebouncedCallback} from 'use-debounce';
 import {sendInternalBTDMessage} from '../../helpers/communicationHelpers';
 import {isHTMLElement} from '../../helpers/domHelpers';
 import {useIsComposerVisible} from '../../helpers/tweetdeckHelpers';
+import {HandlerOf} from '../../helpers/typeHelpers';
 import {GifsArray, processGifRequest} from '../../services/backgroundGifRequests';
 import {BTDMessageOriginsEnum, BTDMessages} from '../../types/btdMessageTypes';
 import {BTDGifButton} from './gifButton';
@@ -63,7 +64,7 @@ export const BTDGifProvider = () => {
     setIsGifPickerOpen(false);
   };
 
-  useIsComposerVisible((isVisible) => {
+  const onComposerVisibleChange: HandlerOf<boolean> = useCallback((isVisible) => {
     setIsComposerVisible(isVisible);
     if (!isVisible) {
       return;
@@ -79,7 +80,9 @@ export const BTDGifProvider = () => {
     characterCount.parentElement.appendChild(gifRootElement);
     setGifButtonRootElement(gifRootElement);
     setReferenceElement(document.querySelector<HTMLElement>('.compose-text-container'));
-  }, true);
+  }, []);
+
+  useIsComposerVisible(onComposerVisibleChange);
 
   const onGifButtonClick = async () => {
     setIsGifPickerOpen(true);
