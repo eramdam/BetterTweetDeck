@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import {Key} from 'ts-key-enum';
 
 import data from '../assets/emoji-mart-data.json';
-import {nimbleEmojiBaseProps} from '../components/emojiButton';
+import {nimbleEmojiBaseProps} from '../components/emojiProvider';
 import {isHTMLElement, replaceAt, valueAtCursor} from '../helpers/domHelpers';
 import {getEmojiSheetUrl} from '../helpers/emojiHelpers';
 import {BTDSettings} from '../types/btdSettingsTypes';

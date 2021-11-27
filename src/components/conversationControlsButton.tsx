@@ -85,6 +85,7 @@ export const ConversationControlsButton: FC<{
               left: 13px;
             }
 
+            .js-inline-reply &,
             .js-in-reply-to:not(.is-hidden) ~ .compose-text-container &,
             .js-compose-message-recipient-container:not(.is-hidden) ~ .compose-text-container & {
               display: none !important;

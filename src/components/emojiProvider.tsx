@@ -1,12 +1,13 @@
 import {BaseEmoji, NimbleEmoji, NimblePicker} from 'emoji-mart';
-import React, {FC, Fragment, useEffect, useState} from 'react';
+import React, {Fragment, useState} from 'react';
+import ReactDOM from 'react-dom';
 import {usePopper} from 'react-popper';
 
 import data from '../assets/emoji-mart-data.json';
 import {isHTMLElement} from '../helpers/domHelpers';
 import {getEmojiSheetUrl} from '../helpers/emojiHelpers';
 import {useTweetdeckTheme} from '../helpers/hookHelpers';
-import {HandlerOf} from '../helpers/typeHelpers';
+import {insertInsideComposer, useIsComposerVisible} from '../helpers/tweetdeckHelpers';
 
 export const nimbleEmojiBaseProps = {
   sheetRows: 60,
@@ -14,10 +15,12 @@ export const nimbleEmojiBaseProps = {
   data: data as any,
 };
 
-export const EmojiButton: FC<{onClick: HandlerOf<string>}> = (props) => {
+export const BTDEmojiProvider = () => {
   const [isPickerShown, setIsPickerShown] = useState(false);
   const theme = useTweetdeckTheme();
   const color = '#1da1f2';
+  const [isComposerVisible, setIsComposerVisible] = useState(false);
+  const [emojiButtonRootElement, setEmojiButtonRootElement] = useState<HTMLDivElement | null>(null);
   const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(null);
   const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null);
   const {styles, attributes} = usePopper(referenceElement, popperElement, {
@@ -38,9 +41,47 @@ export const EmojiButton: FC<{onClick: HandlerOf<string>}> = (props) => {
     ],
   });
 
-  useEffect(() => {
-    setReferenceElement(document.querySelector<HTMLElement>('.compose-text-container'));
-  }, []);
+  useIsComposerVisible((isVisible) => {
+    setIsComposerVisible(isVisible);
+    if (!isVisible) {
+      return;
+    }
+
+    const composeTextContainer = document.querySelector<HTMLElement>('.compose-text-container');
+
+    if (!composeTextContainer) {
+      return;
+    }
+
+    const emojiRootElement = document.createElement('div');
+    emojiRootElement.id = 'emojiButton';
+    composeTextContainer.appendChild(emojiRootElement);
+    console.log(emojiButtonRootElement);
+    setEmojiButtonRootElement(emojiRootElement);
+    setReferenceElement(composeTextContainer);
+  });
+
+  const emojiButton = (
+    <div
+      className="btd-emoji-button-wrapper"
+      style={{
+        height: 20,
+        position: 'absolute',
+        top: 10,
+        right: 10,
+        width: 20,
+        display: 'block',
+      }}>
+      <NimbleEmoji
+        {...nimbleEmojiBaseProps}
+        emoji="joy"
+        size={20}
+        onClick={() => setIsPickerShown(true)}
+        set="twitter"
+        backgroundImageFn={getEmojiSheetUrl}
+      />
+    </div>
+  );
 
   return (
     <Fragment>
@@ -59,7 +100,7 @@ export const EmojiButton: FC<{onClick: HandlerOf<string>}> = (props) => {
               set="twitter"
               autoFocus
               onSelect={(emoji: BaseEmoji) => {
-                props.onClick(emoji.native);
+                insertInsideComposer(emoji.native);
               }}
               color={color}
               emoji="sparkles"
@@ -74,25 +115,9 @@ export const EmojiButton: FC<{onClick: HandlerOf<string>}> = (props) => {
           </div>
         </div>
       )}
-      <div
-        className="btd-emoji-button-wrapper"
-        style={{
-          height: 20,
-          position: 'absolute',
-          top: 10,
-          right: 10,
-          width: 20,
-          display: 'block',
-        }}>
-        <NimbleEmoji
-          {...nimbleEmojiBaseProps}
-          emoji="joy"
-          size={20}
-          onClick={() => setIsPickerShown(true)}
-          set="twitter"
-          backgroundImageFn={getEmojiSheetUrl}
-        />
-      </div>
+      {isComposerVisible &&
+        emojiButtonRootElement &&
+        ReactDOM.createPortal(emojiButton, emojiButtonRootElement)}
     </Fragment>
   );
 };

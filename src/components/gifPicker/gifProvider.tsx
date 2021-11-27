@@ -1,5 +1,5 @@
 import _, {Dictionary} from 'lodash';
-import React, {Fragment, useEffect, useRef, useState} from 'react';
+import React, {Fragment, useState} from 'react';
 import ReactDOM from 'react-dom';
 import {usePopper} from 'react-popper';
 import {useDebouncedCallback} from 'use-debounce';
@@ -17,7 +17,7 @@ export const BTDGifProvider = () => {
   const [isGifPickerOpen, setIsGifPickerOpen] = useState(false);
   const [loadedGifs, setLoadedGifs] = useState<GifsArray>([]);
   const [isComposerVisible, setIsComposerVisible] = useState(false);
-  const gifButtonRootRef = useRef<HTMLDivElement | null>(null);
+  const [gifButtonRootElement, setGifButtonRootElement] = useState<HTMLDivElement | null>(null);
   const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(null);
   const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null);
   const {styles} = usePopper(referenceElement, popperElement, {
@@ -37,10 +37,6 @@ export const BTDGifProvider = () => {
       },
     ],
   });
-
-  useEffect(() => {
-    setReferenceElement(document.querySelector<HTMLElement>('.compose-text-container'));
-  }, []);
 
   const onSearchDebounce = useDebouncedCallback(async (query: string) => {
     const gifsSearchResults = await makeGifRequest('search', {
@@ -74,12 +70,16 @@ export const BTDGifProvider = () => {
     }
 
     const characterCount = document.querySelector('.js-character-count');
+
     if (!characterCount || !characterCount.parentElement) {
       return;
     }
-    gifButtonRootRef.current = document.createElement('div');
-    characterCount.parentElement.appendChild(gifButtonRootRef.current);
-  });
+    const gifRootElement = document.createElement('div');
+    gifRootElement.id = 'gif-root-element';
+    characterCount.parentElement.appendChild(gifRootElement);
+    setGifButtonRootElement(gifRootElement);
+    setReferenceElement(document.querySelector<HTMLElement>('.compose-text-container'));
+  }, true);
 
   const onGifButtonClick = async () => {
     setIsGifPickerOpen(true);
@@ -97,8 +97,8 @@ export const BTDGifProvider = () => {
   return (
     <Fragment>
       {isComposerVisible &&
-        gifButtonRootRef.current &&
-        ReactDOM.createPortal(gifButton, gifButtonRootRef.current)}
+        gifButtonRootElement &&
+        ReactDOM.createPortal(gifButton, gifButtonRootElement)}
       {isGifPickerOpen && (
         <div
           style={{
