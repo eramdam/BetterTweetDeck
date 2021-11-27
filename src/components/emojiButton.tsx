@@ -1,5 +1,6 @@
 import {BaseEmoji, NimbleEmoji, NimblePicker} from 'emoji-mart';
-import React, {FC, Fragment, useState} from 'react';
+import React, {FC, Fragment, useEffect, useState} from 'react';
+import {usePopper} from 'react-popper';
 
 import data from '../assets/emoji-mart-data.json';
 import {isHTMLElement} from '../helpers/domHelpers';
@@ -16,9 +17,30 @@ export const nimbleEmojiBaseProps = {
 export const EmojiButton: FC<{onClick: HandlerOf<string>}> = (props) => {
   const [isPickerShown, setIsPickerShown] = useState(false);
   const theme = useTweetdeckTheme();
-  const composerRect = () =>
-    document.querySelector('.compose-text-container')!.getBoundingClientRect();
   const color = '#1da1f2';
+  const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(null);
+  const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null);
+  const {styles, attributes} = usePopper(referenceElement, popperElement, {
+    placement: 'right-start',
+    modifiers: [
+      {
+        name: 'flip',
+        options: {
+          boundary: document.body,
+        },
+      },
+      {
+        name: 'preventOverflow',
+        options: {
+          mainAxis: true,
+        },
+      },
+    ],
+  });
+
+  useEffect(() => {
+    setReferenceElement(document.querySelector<HTMLElement>('.compose-text-container'));
+  }, []);
 
   return (
     <Fragment>
@@ -32,30 +54,24 @@ export const EmojiButton: FC<{onClick: HandlerOf<string>}> = (props) => {
 
             setIsPickerShown(false);
           }}>
-          <NimblePicker
-            set="twitter"
-            autoFocus
-            onSelect={(emoji: BaseEmoji) => {
-              props.onClick(emoji.native);
-            }}
-            color={color}
-            emoji="sparkles"
-            useButton={false}
-            emojiSize={20}
-            {...nimbleEmojiBaseProps}
-            perLine={7}
-            backgroundImageFn={getEmojiSheetUrl}
-            title=""
-            theme={theme}
-            style={{
-              position: 'fixed',
-              top: composerRect().top + composerRect().height,
-              left: 0,
-              width: composerRect().width,
-              border: 'none',
-              transform: 'translateX(calc(-100% - 15px))',
-            }}
-          />
+          <div ref={setPopperElement} {...attributes.popper} style={styles.popper}>
+            <NimblePicker
+              set="twitter"
+              autoFocus
+              onSelect={(emoji: BaseEmoji) => {
+                props.onClick(emoji.native);
+              }}
+              color={color}
+              emoji="sparkles"
+              useButton={false}
+              emojiSize={20}
+              {...nimbleEmojiBaseProps}
+              perLine={7}
+              backgroundImageFn={getEmojiSheetUrl}
+              title=""
+              theme={theme}
+            />
+          </div>
         </div>
       )}
       <div
