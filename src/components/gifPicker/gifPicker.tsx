@@ -34,7 +34,7 @@ export const BTDGifPicker = forwardRef<HTMLDivElement, GifPickerProps>((props, r
 
           display: flex;
           flex-direction: column;
-          box-shadow: 0 1px 4px rgba(20, 23, 26, 0.35);
+          box-shadow: 0 0px 2px rgba(0, 0, 0, 0.4), 0 1px 15px rgba(0, 0, 0, 0.4);
 
           html.dark & {
             background: #15202b;
