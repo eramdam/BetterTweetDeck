@@ -17,7 +17,7 @@ html .btd-loaded {
     border: none !important;
     border-radius: 5px;
     background: #fff;
-    box-shadow: 0 0px 2px rgba(0, 0, 0, 0.4), 0 1px 15px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 1px 4px rgba(20, 23, 26, 0.35);
   }
 
   & .emoji-mart .emoji-mart-emoji {

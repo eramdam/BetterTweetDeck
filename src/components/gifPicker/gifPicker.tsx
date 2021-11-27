@@ -30,10 +30,11 @@ export const BTDGifPicker = forwardRef<HTMLDivElement, GifPickerProps>((props, r
           width: 300px;
           height: 530px;
           position: absolute;
+          overflow: hidden;
 
           display: flex;
           flex-direction: column;
-          box-shadow: 0 0px 2px rgba(0, 0, 0, 0.4), 0 1px 15px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 1px 4px rgba(20, 23, 26, 0.35);
 
           html.dark & {
             background: #15202b;
@@ -63,6 +64,7 @@ export const BTDGifPicker = forwardRef<HTMLDivElement, GifPickerProps>((props, r
             box-sizing: border-box;
             color: #111;
           `}
+          autoFocus
           placeholder={`Search for ${GIFText}...`}
           onInput={(e) => {
             props.onSearchInput((e.target as HTMLInputElement).value);
