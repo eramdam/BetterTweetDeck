@@ -145,7 +145,6 @@ export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
           {
             initialValue: settings.muteNftAvatars,
             key: 'muteNftAvatars',
-            introducedIn: '4.5.3',
             label: <Trans id="settings_mute_nfts_accounts" />,
           },
         ]}>
