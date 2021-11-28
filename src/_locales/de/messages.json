@@ -454,5 +454,8 @@
   },
   "settings_disable_it_in_the_dm_composer_too": {
     "message": "Auch im Tweet-Editor deaktivieren"
+  },
+  "settings_mute_nfts_accounts": {
+    "message": "Konten stummschalten, die die NFT-Avatar-Integration verwenden (hexagon-förmiger Avatar)"
   }
 }
