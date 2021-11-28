@@ -19,6 +19,7 @@ import {contentWarnings} from './features/contentWarnings';
 import {addConversationControls} from './features/conversationControl';
 import {injectCustomCss} from './features/customCss';
 import {extendTwitterStatus} from './features/extendTwitterStatus';
+import {extendTwitterUser} from './features/extendTwitterUser';
 import {maybeFreezeGifsInProfilePicture} from './features/freezeGifsProfilePictures';
 import {setupGifModals} from './features/gifModals';
 import {maybeHideColumnIcons} from './features/hideColumnIcons';
@@ -27,6 +28,7 @@ import {keepTweetedHashtagsInComposer} from './features/keepTweetedHashtags';
 import {changeLogo} from './features/logoVariations';
 import {makeSearchColumnsFirst} from './features/makeSearchColumnsFirst';
 import {useModernOverlays} from './features/modernOverlays';
+import {muteNftAvatars} from './features/muteNfts';
 import {pauseColumnsOnHover} from './features/pauseColumnsOnHover';
 import {addProfileLabels} from './features/profileLabels';
 import {displayPronouns} from './features/pronounsDisplay';
@@ -102,6 +104,7 @@ function isModulejQuery(mod: ModuleLike | undefined): mod is JQueryStatic {
   maybeSetupDebugFunctions(btdModuleOptions);
   changeLogo(btdModuleOptions);
   displayPronouns(btdModuleOptions);
+  extendTwitterUser(btdModuleOptions);
 
   overrideTranslateLanguage(btdModuleOptions);
   makeSearchColumnsFirst(btdModuleOptions);
@@ -152,6 +155,7 @@ function isModulejQuery(mod: ModuleLike | undefined): mod is JQueryStatic {
     });
     addConversationControls(btdModuleOptions);
     addProfileLabels(btdModuleOptions);
+    muteNftAvatars(btdModuleOptions);
     maybeRenderCardsInColumnsNatively(btdModuleOptions);
     showAvatarsInColumnsHeader(btdModuleOptions);
     requireAltImages(btdModuleOptions);

@@ -51,6 +51,12 @@ interface AMEFilterOptions {
   nameInDropdown?: string;
 }
 
+declare global {
+  interface Window {
+    caughtNFTs: Set<string>;
+  }
+}
+
 export const setupAME = makeBTDModule(({TD, jq}) => {
   // Save references of original functions
   TD.vo.Filter.prototype._getDisplayType = TD.vo.Filter.prototype.getDisplayType;
@@ -61,8 +67,30 @@ export const setupAME = makeBTDModule(({TD, jq}) => {
     window.BTD = {};
   }
 
+  window.caughtNFTs = new Set<string>();
+
   // Custom filters
   const AmeFilters: AMEFiltersMap = {
+    BTD_nft_avatar: {
+      display: {
+        global: false,
+        options: false,
+        actions: false,
+      },
+      name: 'Mute accounts with an NFT avatar',
+      descriptor: 'accounts with an NFT avatar',
+      placeholder: 'nothing!',
+      function(t, e) {
+        if (typeof e.user?.hasNftAvatar === 'undefined') {
+          return true;
+        }
+
+        if (e.user.hasNftAvatar && !window.caughtNFTs.has(e.user.screenName)) {
+          window.caughtNFTs.add(e.user.screenName);
+        }
+        return e.user.hasNftAvatar === false;
+      },
+    },
     BTD_specific_tweet: {
       name: 'Specific tweet',
       descriptor: 'specific tweet',

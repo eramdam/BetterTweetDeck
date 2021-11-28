@@ -142,6 +142,12 @@ export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
             introducedIn: '4.5',
             label: <Trans id="settings_hide_the_try_tweetdeck_preview_button" />,
           },
+          {
+            initialValue: settings.muteNftAvatars,
+            key: 'muteNftAvatars',
+            introducedIn: '4.5.3',
+            label: <Trans id="settings_mute_nfts_accounts" />,
+          },
         ]}>
         <Trans id="settings_misc" />
       </CheckboxSelectSettingsRow>

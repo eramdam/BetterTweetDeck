@@ -1,0 +1,9 @@
+.avatar--hexagone {
+  mask-image: url('../assets/hexagone-mask.png');
+  mask-mode: alpha;
+  mask-size: 100%;
+}
+
+img.avatar:not(.avatar--hexagone) {
+  background-color: white;
+}

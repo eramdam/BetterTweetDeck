@@ -1,5 +1,7 @@
 import {Dictionary} from 'lodash';
 
+import {BTDSettings} from './btdSettingsTypes';
+
 export enum BTDMessages {
   BTD_READY = 'BTD_READY',
   MAKE_GIF_REQUEST = 'MAKE_GIF_REQUEST',
@@ -7,6 +9,7 @@ export enum BTDMessages {
   DOWNLOAD_MEDIA = 'DOWNLOAD_MEDIA',
   DOWNLOAD_MEDIA_RESULT = 'DOWNLOAD_MEDIA_RESULT',
   OPEN_SETTINGS = 'OPEN_SETTINGS',
+  UPDATE_SETTINGS = 'UPDATE_SETTINGS',
   PING = 'PING',
   NOTIFICATION = 'NOTIFICATION',
   PROMPT_FOLLOW = 'PROMPT_FOLLOW',
@@ -92,6 +95,10 @@ interface BTDOpenSettings extends BTDMessageEventBase {
     selectedId?: string;
   };
 }
+interface BTDUpdateSettings extends BTDMessageEventBase {
+  name: BTDMessages.UPDATE_SETTINGS;
+  payload: Partial<BTDSettings>;
+}
 
 interface BTDPing extends BTDMessageEventBase {
   name: BTDMessages.PING;
@@ -110,7 +117,8 @@ export type BTDMessageEventData =
   | BTDDownloadMediaRequestResult
   | BTDPing
   | BTDNotification
-  | BTDPromptFollow;
+  | BTDPromptFollow
+  | BTDUpdateSettings;
 export interface BTDMessageEvent {
   data: BTDMessageEventData;
 }
