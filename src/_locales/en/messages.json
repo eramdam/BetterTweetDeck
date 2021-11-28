@@ -472,5 +472,11 @@
   },
   "settings_require_confirmation_for_block_and_mute_actions": {
     "message": "Require confirmation for block and mute actions"
+  },
+  "settings_better_tweetdeck_has_been_updated": {
+    "message": "Better TweetDeck has been updated!"
+  },
+  "settings_click_this_notification_to_reload": {
+    "message": "Click this notification to reload your TweetDeck tab(s) to grab the newest update!"
   }
 }

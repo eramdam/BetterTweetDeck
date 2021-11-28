@@ -41,19 +41,6 @@ export const addConversationControls = makeBTDModule(({TD, jq, mR, settings}) =>
     );
   });
 
-  TD.services.TwitterStatus.prototype.OGFromJSON =
-    TD.services.TwitterStatus.prototype.fromJSONObject;
-
-  TD.services.TwitterStatus.prototype.fromJSONObject = function fromJSONObject(blob: any) {
-    var baseTweet = this.OGFromJSON(blob);
-
-    baseTweet.conversationControl = blob.conversation_control;
-    baseTweet.limitedActions = blob.limited_actions;
-    baseTweet.cannotBeRepliedTo = blob.limited_actions === 'limited_replies';
-
-    return baseTweet;
-  };
-
   let root: HTMLDivElement | undefined = undefined;
 
   function unmount() {

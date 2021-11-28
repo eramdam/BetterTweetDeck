@@ -669,6 +669,11 @@ export interface TweetDeckChirp {
   getFilterableText(): string;
   favorite(options: {element: JQuery<Element>; statusKey: string; column: string}): void;
   card?: {
+    binding_values: {
+      card_url: {
+        string_value: string;
+      };
+    };
     name: string;
     url: string;
   };
@@ -1353,6 +1358,7 @@ interface TweetDeckUtil {
   truncateNumber(n: number): string;
   transform(text: string, entities?: TweetEntities): string;
   htmlToText(text: string): string;
+  escape(text: string): string;
   removeHTMLCodes(text: string): string;
 }
 

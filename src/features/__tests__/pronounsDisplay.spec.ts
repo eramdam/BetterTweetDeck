@@ -45,6 +45,9 @@ describe('Pronouns', () => {
       ],
 
       ['No matches', `testing.co`, undefined],
+      ['No matches', `they'll`, undefined],
+      ['No matches', `he's here, here comes the boy`, undefined],
+      ['No matches', `they will`, undefined],
       ['No matches', `Omaha, NE`, undefined],
       ['No matches', `ône`, undefined],
       ['No matches', `s/he`, undefined],
@@ -54,17 +57,20 @@ describe('Pronouns', () => {
       ['No matches', 'this should not match any-thing', undefined],
       ['No matches', 'this should not match any thing', undefined],
       ['No matches', 'this should not match anything', undefined],
+      ['No matches', 'he re he ro he re ho ma', undefined],
+      ['No matches', 'However, she is still', undefined],
 
       ['No matches for mixed separators', `she/her | ver`, undefined],
 
       ['Surrounded and separators', `//they | them//`, [['they', 'them']]],
+      ['Separators', String.raw`blablablabla | they\them |`, [['they', 'them']]],
 
       ['pronoun.is', 'pronoun.is/he/him', [['he', 'him']]],
       ['pronoun.is', 'pronoun.is/they/them', [['they', 'them']]],
       ['any/all', 'any/all', [['any', 'all']]],
       ['any', 'any pronouns', [['any pronouns']]],
       ['any', 'pronouns: any', [['any pronouns']]],
-    ])('%s', (_name, input, expected) => {
+    ])('%s: %s', (_name, input, expected) => {
       const result = extractPronouns(input);
 
       expect(result).toStrictEqual(expected);

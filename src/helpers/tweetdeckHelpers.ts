@@ -163,26 +163,31 @@ export const createSelectorForChirp = (chirp: TweetDeckChirp, colKey: string) =>
   `[data-column=${colKey}] [data-key="${chirp.id}"]`;
 
 export function onComposerShown(callback: HandlerOf<boolean>) {
-  const drawer = document.querySelector('.drawer[data-drawer="compose"]');
+  const drawer = document.querySelector('.app-content');
+  let isVisible: boolean | undefined = undefined;
 
-  const onChange = () => {
+  const composerObserver = new MutationObserver(() => {
     const tweetCompose = drawer?.querySelector('textarea.js-compose-text');
 
     if (!tweetCompose) {
-      callback(false);
+      if (isVisible === true || typeof isVisible === 'undefined') {
+        callback(false);
+      }
+      isVisible = false;
+
       return;
     }
 
-    callback(true);
-  };
-
-  const composerObserver = new MutationObserver(onChange);
+    if (isVisible === false) {
+      callback(true);
+    }
+    isVisible = true;
+  });
 
   composerObserver.observe(drawer!, {
     childList: true,
+    subtree: true,
   });
-
-  onChange();
 
   return () => {
     composerObserver.disconnect();
@@ -193,14 +198,12 @@ export function useIsComposerVisible(onVisibleChange?: HandlerOf<boolean>) {
   const [isVisible, setIsVisible] = useState(false);
 
   useLayoutEffect(() => {
-    onComposerShown((bool) => {
+    return onComposerShown((bool) => {
       setIsVisible(bool);
       if (onVisibleChange) {
         onVisibleChange(bool);
       }
     });
-
-    return () => {};
   }, [onVisibleChange]);
 
   return isVisible;

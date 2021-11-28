@@ -236,7 +236,9 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
     if (!chirp) {
       return;
     }
-    const mediaUrls = getMediaFromChirp(chirp).join('\n');
+    const mediaUrls = getMediaFromChirp(chirp)
+      .map((m) => m.url)
+      .join('\n');
     navigator.clipboard.writeText(mediaUrls);
   });
 
@@ -353,7 +355,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
           return;
 
         case TweetActions.MUTE_ACCOUNT: {
-          const blocked = settings.requireConfirmationForTweetAction
+          const blocked = settings.tweetActions.requireConfirmationForTweetAction
             ? !confirm(`Are you sure you want to mute @${user.screenName}?`)
             : false;
           if (blocked) {
@@ -367,7 +369,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
         }
 
         case TweetActions.BLOCK_ACCOUNT: {
-          const blocked = settings.requireConfirmationForTweetAction
+          const blocked = settings.tweetActions.requireConfirmationForTweetAction
             ? !confirm(`Are you sure you want to block @${user.screenName}?`)
             : false;
           if (blocked) {

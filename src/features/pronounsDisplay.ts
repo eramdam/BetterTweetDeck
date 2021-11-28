@@ -52,7 +52,7 @@ const soloSubjects = cleanedTable
   .map((l) => l[0])
   .join('|');
 const soloRegex = new RegExp(
-  `(?:\\W\\s|[${openingWrapper}]|,\\s|^|[^\\p{L}\\p{M}_\\s.${soloSeparators}])(${soloSubjects})(?:\\s|[${soloSeparators}]|[${closingWrapper}]|,\\s|$|[^\\p{L}\\p{M}_\\s.])`,
+  `(?:\\W\\s|[${openingWrapper}]|,\\s|^|[^\\p{L}\\p{M}_\\s.${soloSeparators}])(${soloSubjects})(?:\\s[${soloSeparators}]|[${closingWrapper}]|,\\s|$|\\s?[^\\p{L}\\p{M}_\\s.'"])`,
   'ui'
 );
 

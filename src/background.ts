@@ -1,9 +1,10 @@
-import {browser} from 'webextension-polyfill-ts';
+import browser from 'webextension-polyfill';
 
 import {getTransString} from './components/trans';
 import {isSafari} from './helpers/browserHelpers';
 import {
   ExtensionSettings,
+  getExtensionUrl,
   getExtensionVersion,
   listenForStorageChange,
 } from './helpers/webExtensionHelpers';
@@ -74,6 +75,34 @@ import {BTDSettings} from './types/btdSettingsTypes';
       installedVersion: getExtensionVersion(),
       needsToShowUpdateBanner: true,
     });
+
+    if (!(await browser.permissions.contains({permissions: ['notifications']}))) {
+      return;
+    }
+
+    const tabs = await browser.tabs.query({
+      url: '*://tweetdeck.twitter.com/*',
+    });
+
+    if (tabs.length > 0) {
+      const updateNotification = await browser.notifications.create(undefined, {
+        title: browser.i18n.getMessage('settings_better_tweetdeck_has_been_updated'),
+        message: browser.i18n.getMessage('settings_click_this_notification_to_reload'),
+        type: 'basic',
+        isClickable: true,
+        priority: 1,
+        iconUrl: getExtensionUrl('build/assets/icons/icon-512.png'),
+      });
+
+      browser.notifications.onClicked.addListener((id) => {
+        if (id === updateNotification) {
+          tabs.forEach((tab) => {
+            browser.tabs.reload(tab.id);
+          });
+          browser.notifications.clear(id);
+        }
+      });
+    }
   }
 
   if (!settings.enableShareItem || isSafari) {

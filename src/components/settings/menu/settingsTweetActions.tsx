@@ -72,7 +72,7 @@ export const SettingsTweetActions: FC<SettingsMenuSectionProps> = (props) => {
             label: getTransString('settings_action_download_media'),
           },
           {
-            initialValue: settings.requireConfirmationForTweetAction,
+            initialValue: settings.tweetActions.requireConfirmationForTweetAction,
             key: 'requireConfirmationForTweetAction',
             label: getTransString('settings_require_confirmation_for_block_and_mute_actions'),
           },

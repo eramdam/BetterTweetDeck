@@ -14,9 +14,10 @@ html .btd-loaded {
     font-size: 14px;
     display: inline-block;
     color: #222427;
-    border: 1px solid #d9d9d9;
+    border: none !important;
     border-radius: 5px;
     background: #fff;
+    box-shadow: 0 0px 2px rgba(0, 0, 0, 0.4), 0 1px 15px rgba(0, 0, 0, 0.4);
   }
 
   & .emoji-mart .emoji-mart-emoji {
@@ -515,30 +516,6 @@ html.dark .btd-loaded {
   & .emoji-mart-dark .emoji-mart-anchor:focus,
   & .emoji-mart-dark .emoji-mart-anchor-selected {
     color: #bfbfbf;
-  }
-}
-
-/**
- * Custom styles to make it work better on smaller screens.
- */
-@media (max-height: 800px) {
-  .emoji-mart-scroll {
-    height: 170px !important;
-  }
-
-  .emoji-mart-preview {
-    height: 50px !important;
-  }
-}
-
-@media (max-height: 600px) {
-  .emoji-mart-scroll {
-    height: 120px !important;
-  }
-
-  .emoji-mart-preview {
-    display: none !important;
-    height: 50px !important;
   }
 }
 

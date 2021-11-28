@@ -143,10 +143,11 @@ export const RBetterTweetDeckSettings = t.type({
 
       /** Shows a block icon to block the author of a tweet quickly. */
       addBlockAction: withDefault(t.boolean, false),
+
+      requireConfirmationForTweetAction: withDefault(t.boolean, true),
     }),
     {}
   ),
-  requireConfirmationForTweetAction: withDefault(t.boolean, true),
 
   /** Always shows the account picker when favoriting a tweet */
   showAccountChoiceOnFavorite: withDefault(t.boolean, false),

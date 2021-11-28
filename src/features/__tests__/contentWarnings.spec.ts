@@ -41,12 +41,14 @@ describe('Content warnings detection', () => {
       'Lorem ipsum dolor sit, amet consectetur',
       'this is my [food]',
       '[[big shot]]',
+      '[2021/11/14 02:51]',
       '[Lottie] foobar',
       'What you want is [[hyperlink blocked]]',
       '[新キャラ] foobar',
       `Tweet Deck added pronoun detection (based on what users put in their profile)`,
       `【新キャラ追加告知】
       明日11/03(水)に、`,
+      `[baldur's gate 2 voice] you must bring me a hoagie from wawa before venturing forth`,
     ])('%s', (input) => {
       expect(extractContentWarnings(input)).toBeUndefined();
     });

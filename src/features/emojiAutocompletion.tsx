@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import {Key} from 'ts-key-enum';
 
 import data from '../assets/emoji-mart-data.json';
-import {nimbleEmojiBaseProps} from '../components/emojiButton';
+import {nimbleEmojiBaseProps} from '../components/emojiProvider';
 import {isHTMLElement, replaceAt, valueAtCursor} from '../helpers/domHelpers';
 import {getEmojiSheetUrl} from '../helpers/emojiHelpers';
 import {BTDSettings} from '../types/btdSettingsTypes';
@@ -17,7 +17,7 @@ interface StateEmoji {
 
 const emojiIndex = new NimbleEmojiIndex(data as any);
 
-const emojiColonRegex = /:([a-z0-9_\-+]+):?:?([a-z0-9_-]+)?:?$/i;
+const emojiColonRegex = /(^|\s):([a-z0-9_\-+]+):?:?([a-z0-9_-]+)?:?$/i;
 
 export function setupEmojiAutocompletion(settings: BTDSettings) {
   if (!settings.enableEmojiCompletion) {
@@ -46,7 +46,7 @@ export function setupEmojiAutocompletion(settings: BTDSettings) {
         return;
       }
 
-      const [, shortcode] = colonMatches;
+      const shortcode = colonMatches[2];
 
       if (shortcode.startsWith('-') || shortcode.length < 2) {
         unmountEmojiDropodownNearInput(composer);
@@ -170,11 +170,16 @@ function insertSelectedEmoji(selectedEmoji: StateEmoji | undefined, composer: HT
 
   const unicodeEmoji = selectedEmoji.emojiData.native;
 
-  const newTextareaValue = replaceAt(composer.value, toReplace.index!, toReplace[0], unicodeEmoji);
+  const newTextareaValue = replaceAt(
+    composer.value,
+    toReplace.index!,
+    toReplace[0],
+    toReplace[1] + unicodeEmoji
+  );
 
   composer.value = newTextareaValue;
-  composer.selectionStart = toReplace.index! + unicodeEmoji.length;
-  composer.selectionEnd = toReplace.index! + unicodeEmoji.length;
+  composer.selectionStart = toReplace.index! + (toReplace[1] + unicodeEmoji).length;
+  composer.selectionEnd = toReplace.index! + (toReplace[1] + unicodeEmoji).length;
   composer.dispatchEvent(new Event('change'));
   composer.dispatchEvent(new KeyboardEvent('input'));
 
