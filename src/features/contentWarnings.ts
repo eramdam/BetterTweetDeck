@@ -53,7 +53,14 @@ export const contentWarnings = makeBTDModule(({TD, settings}) => {
       .replace(TD.util.escape(warningBlock), '')
       .replace(/^\n/, '');
     details.appendChild(tweetText);
+    details.addEventListener('toggle', () => {
+      if (details.open) details.closest('.js-tweet')?.classList.add('cw-open');
+      else {
+        details.closest('.js-tweet')?.classList.remove('cw-open');
+      }
+    });
 
     chirpNode.querySelector('.tweet-text')?.replaceWith(details);
+    details.closest('.js-tweet')?.classList.add('cw');
   });
 });

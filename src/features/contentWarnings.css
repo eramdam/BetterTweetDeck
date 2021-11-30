@@ -33,3 +33,11 @@
 .btd-content-warning[open] summary:after {
   content: 'Show Less';
 }
+
+.js-tweet.cw:not(.cw-open) + .item-box-full-bleed {
+  display: none !important;
+}
+
+.js-tweet.cw.cw-open + .item-box-full-bleed {
+  display: block !important;
+}
