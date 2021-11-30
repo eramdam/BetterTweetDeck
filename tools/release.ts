@@ -1,6 +1,6 @@
 import * as archiver from 'archiver';
 import * as chalk from 'chalk';
-import {execa} from 'execa';
+import * as execa from 'execa';
 import {createWriteStream} from 'fs';
 import * as path from 'path';
 
