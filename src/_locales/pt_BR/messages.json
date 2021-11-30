@@ -467,6 +467,9 @@
   "settings_extract_pronouns": {
     "message": "Extrair pronomes da biografia ou localização de usuários e mostrá-los dentro das colunas"
   },
+  "settings_mute_nfts_accounts": {
+    "message": "Silenciar contas que usam a integração de avatar de NFT (avatar em forma de hexágono)"
+  },
   "settings_require_confirmation_for_block_and_mute_actions": {
     "message": "Exigir confirmação para ações de bloquear e silenciar"
   },
