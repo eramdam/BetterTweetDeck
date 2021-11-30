@@ -33,3 +33,7 @@
 .btd-content-warning[open] summary:after {
   content: 'Show Less';
 }
+
+.stream-item.btd-chirp-warned:not(.btd-chirp-warned--expanded) .js-media {
+  display: none;
+}

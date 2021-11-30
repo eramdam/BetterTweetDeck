@@ -34,6 +34,8 @@ export const contentWarnings = makeBTDModule(({TD, settings}) => {
       return;
     }
 
+    chirpNode.classList.add('btd-chirp-warned');
+
     const details = document.createElement('details');
     details.classList.add('btd-content-warning', 'is-actionable');
 
@@ -42,6 +44,7 @@ export const contentWarnings = makeBTDModule(({TD, settings}) => {
 
     // Stopping event propagation because everything inside tweets opens the detail view
     summary.addEventListener('click', (e) => {
+      chirpNode.classList.toggle('btd-chirp-warned--expanded');
       e.stopPropagation();
     });
 
