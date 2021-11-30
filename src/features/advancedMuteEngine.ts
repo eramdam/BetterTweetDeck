@@ -51,12 +51,6 @@ interface AMEFilterOptions {
   nameInDropdown?: string;
 }
 
-declare global {
-  interface Window {
-    caughtNFTs: Set<string>;
-  }
-}
-
 export const setupAME = makeBTDModule(({TD, jq}) => {
   // Save references of original functions
   TD.vo.Filter.prototype._getDisplayType = TD.vo.Filter.prototype.getDisplayType;
@@ -66,8 +60,6 @@ export const setupAME = makeBTDModule(({TD, jq}) => {
   if (!window.BTD) {
     window.BTD = {};
   }
-
-  window.caughtNFTs = new Set<string>();
 
   // Custom filters
   const AmeFilters: AMEFiltersMap = {
@@ -85,9 +77,6 @@ export const setupAME = makeBTDModule(({TD, jq}) => {
           return true;
         }
 
-        if (e.user.hasNftAvatar && !window.caughtNFTs.has(e.user.screenName)) {
-          window.caughtNFTs.add(e.user.screenName);
-        }
         return e.user.hasNftAvatar === false;
       },
     },
