@@ -166,7 +166,7 @@ export function onComposerShown(callback: HandlerOf<boolean>) {
   const drawer = document.querySelector('.app-content');
   let isVisible: boolean | undefined = undefined;
 
-  const composerObserver = new MutationObserver(() => {
+  const onChange = () => {
     const tweetComposers = drawer?.querySelectorAll('textarea.js-compose-text') || [];
     const tweetCompose = tweetComposers.length !== 1 ? undefined : tweetComposers[0];
 
@@ -179,16 +179,19 @@ export function onComposerShown(callback: HandlerOf<boolean>) {
       return;
     }
 
-    if (isVisible === false) {
+    if (isVisible === false || typeof isVisible === 'undefined') {
       callback(true);
     }
     isVisible = true;
-  });
+  };
+
+  const composerObserver = new MutationObserver(onChange);
 
   composerObserver.observe(drawer!, {
     childList: true,
     subtree: true,
   });
+  onChange();
 
   return () => {
     composerObserver.disconnect();
