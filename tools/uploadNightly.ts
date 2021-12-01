@@ -5,8 +5,7 @@ import * as path from 'path';
 const GITHUB_SHA = (process.env.GITHUB_SHA || '').substr(0, 7);
 const NIGHTLY_DISCORD_WEBHOOK_ID = process.env.NIGHTLY_DISCORD_WEBHOOK_ID || '';
 const NIGHTLY_DISCORD_WEBHOOK_TOKEN = process.env.NIGHTLY_DISCORD_WEBHOOK_TOKEN || '';
-
-const BTDNightlyRoleId = process.env.NIGHT_DISCORD_ROLE_ID || '';
+const BTD_NIGHTLY_ROLE_ID = process.env.NIGHT_DISCORD_ROLE_ID || '';
 
 (async () => {
   const webhookClient = new WebhookClient({
@@ -16,7 +15,7 @@ const BTDNightlyRoleId = process.env.NIGHT_DISCORD_ROLE_ID || '';
 
   const xpiFile = glob.sync('+(web-ext-artifacts|artifacts)/*.xpi')[0];
 
-  if (!xpiFile || !BTDNightlyRoleId) {
+  if (!xpiFile || !BTD_NIGHTLY_ROLE_ID) {
     process.exit(0);
   }
 
@@ -29,7 +28,7 @@ const BTDNightlyRoleId = process.env.NIGHT_DISCORD_ROLE_ID || '';
   const nightlyBuild = new MessageAttachment(xpiFile, `Better TweetDeck ${versionString}.xpi`);
 
   webhookClient.send({
-    content: `<@&${BTDNightlyRoleId}> Built version ${versionString} based on [${GITHUB_SHA}](<https://github.com/eramdam/BetterTweetDeck/commit/${GITHUB_SHA}>)`,
+    content: `<@&${BTD_NIGHTLY_ROLE_ID}> Built version ${versionString} based on [${GITHUB_SHA}](<https://github.com/eramdam/BetterTweetDeck/commit/${GITHUB_SHA}>)`,
     files: [nightlyBuild],
   });
 })();
