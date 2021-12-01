@@ -167,7 +167,8 @@ export function onComposerShown(callback: HandlerOf<boolean>) {
   let isVisible: boolean | undefined = undefined;
 
   const composerObserver = new MutationObserver(() => {
-    const tweetCompose = drawer?.querySelector('textarea.js-compose-text');
+    const tweetComposers = drawer?.querySelectorAll('textarea.js-compose-text') || [];
+    const tweetCompose = tweetComposers.length !== 1 ? undefined : tweetComposers[0];
 
     if (!tweetCompose) {
       if (isVisible === true || typeof isVisible === 'undefined') {
