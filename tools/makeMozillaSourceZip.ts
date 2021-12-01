@@ -19,7 +19,7 @@ import * as packageJson from '../package.json';
       'node_modules/**/*',
       'dist/**/*',
       'artifacts/**/*',
-      'BetterTweetDeck/safari/Better TweetDeck for Safari/build/',
+      'safari/Better TweetDeck for Safari/build/**/*',
     ],
   });
   archive.on('error', (err) => {
