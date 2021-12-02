@@ -17,7 +17,7 @@ interface StateEmoji {
 
 const emojiIndex = new NimbleEmojiIndex(data as any);
 
-const emojiColonRegex = /(^|\s):([a-z0-9_\-+]+):?:?([a-z0-9_-]+)?:?$/i;
+const emojiColonRegex = /(^|\s|\W):([a-z0-9_\-+]+):?:?([a-z0-9_-]+)?:?$/i;
 
 export function setupEmojiAutocompletion(settings: BTDSettings) {
   if (!settings.enableEmojiCompletion) {
