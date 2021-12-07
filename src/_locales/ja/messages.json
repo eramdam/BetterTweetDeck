@@ -467,6 +467,9 @@
   "settings_extract_pronouns": {
     "message": "ユーザーの自己紹介や位置情報から代名詞を抽出し、カラムに表示する"
   },
+  "settings_mute_nfts_accounts": {
+    "message": "NFTアイコンを使用しているユーザーをミュートする(六角形のアイコン)"
+  },
   "settings_require_confirmation_for_block_and_mute_actions": {
     "message": "「ブロック」と「ミュート」のアクションで確認メッセージを表示"
   },
