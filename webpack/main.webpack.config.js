@@ -18,7 +18,14 @@ module.exports = (env) => {
     },
     plugins: [
       new webpack.DefinePlugin({
-        __BTD_CONFIG: JSON.stringify(config.get('Client') || {}),
+        __BTD_CONFIG: JSON.stringify(
+          Object.assign(config.get('Client') || {}, {
+            APIs: {
+              tenor: process.env.NIGHTLY_TENOR_API_KEY,
+              giphy: process.env.NIGHTLY_GIPHY_API_KEY,
+            },
+          })
+        ),
       }),
       btdWebpackPlugin,
       new CopyWebpackPlugin({
