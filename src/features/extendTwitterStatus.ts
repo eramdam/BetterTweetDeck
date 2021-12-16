@@ -15,6 +15,8 @@ export const extendTwitterStatus = makeBTDModule(({TD, settings}) => {
         (baseTweet.retweetedStatus && !baseTweet.retweetedStatus.card)
       ) {
         baseTweet.card = undefined;
+      } else if (baseTweet.targetTweet && baseTweet.targetTweet.card) {
+        baseTweet.card = baseTweet.targetTweet.card;
       }
     } else if (baseTweet.targetTweet && baseTweet.targetTweet.card && baseTweet.isAboutYou()) {
       const urlFromCard = baseTweet.targetTweet.card.url;
