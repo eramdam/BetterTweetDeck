@@ -26,6 +26,7 @@
  *
  */
 
+import {maybeLogMuteCatch} from '../helpers/muteHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 import {TweetDeckChirp, TweetDeckObject} from '../types/tweetdeckTypes';
 
@@ -233,15 +234,28 @@ export const setupAME = makeBTDModule(({TD, jq}) => {
     },
   };
 
+  const muteTypeIgnoreList = ['is_retweet', 'phrase', 'chirp_type'];
+
   // Custom pass function to apply our filters
   TD.vo.Filter.prototype.pass = function pass(e) {
     if (this.type.startsWith('BTD')) {
       const t = this;
       e = this._getFilterTarget(e);
 
-      return AmeFilters[this.type].function(t, e);
+      const shouldDisplay = AmeFilters[this.type].function(t, e);
+
+      if (!shouldDisplay) {
+        maybeLogMuteCatch(e, this);
+      }
+      return shouldDisplay;
     }
-    return this._pass(e);
+
+    const shouldDisplay = this._pass(e);
+
+    if (!shouldDisplay && !muteTypeIgnoreList.includes(this.type)) {
+      maybeLogMuteCatch(e, this);
+    }
+    return shouldDisplay;
   };
 
   // Custom display type function to show proper description in filter list
