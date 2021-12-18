@@ -1,6 +1,10 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import {MuteCatchesModal} from '../components/muteCatchesModal';
 import {TweetDeckChirp, TweetDeckFilter} from '../types/tweetdeckTypes';
 
-interface MuteCatch {
+export interface MuteCatch {
   filterType: string;
   value: string;
   user: {
@@ -27,9 +31,11 @@ function serializeMuteCatch(target: TweetDeckChirp, filter: TweetDeckFilter): Mu
   };
 }
 
-function encodeCatchKey(muteCatch: MuteCatch) {
+export function encodeCatchKey(muteCatch: MuteCatch) {
   return [muteCatch.filterType, muteCatch.user.id, encodeURIComponent(muteCatch.value)].join('$_$');
 }
+
+export type MuteCatchesMap = Map<string, MuteCatch>;
 
 function getInitialMuteCatches() {
   return new Map<string, MuteCatch>(
@@ -38,7 +44,24 @@ function getInitialMuteCatches() {
 }
 
 const muteCatches = getInitialMuteCatches();
-console.log(muteCatches);
+
+window.openCatchList = () => {
+  const root = document.createElement('div');
+  root.id = 'btd-mute-catches';
+  document.querySelector('.js-app')?.insertAdjacentElement('beforeend', root);
+
+  ReactDOM.render(
+    <MuteCatchesModal
+      catches={Array.from(muteCatches.values())}
+      onRequestClose={() => {
+        ReactDOM.unmountComponentAtNode(root);
+      }}
+    />,
+    root
+  );
+};
+
+setTimeout(window.openCatchList, 500);
 
 window.addEventListener('beforeunload', () => {
   window.localStorage.setItem('btd_mute_catches', JSON.stringify(muteCatches));
