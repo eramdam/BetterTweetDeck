@@ -26,7 +26,7 @@
  *
  */
 
-import {maybeLogMuteCatch} from '../helpers/muteHelpers';
+import {maybeLogMuteCatch, removeCatchesByFilter} from '../helpers/muteHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 import {TweetDeckChirp, TweetDeckObject} from '../types/tweetdeckTypes';
 
@@ -56,6 +56,9 @@ export const setupAME = makeBTDModule(({TD, jq}) => {
   // Save references of original functions
   TD.vo.Filter.prototype._getDisplayType = TD.vo.Filter.prototype.getDisplayType;
   TD.vo.Filter.prototype._pass = TD.vo.Filter.prototype.pass;
+
+  TD.controller.filterManager._addFilter = TD.controller.filterManager.addFilter;
+  TD.controller.filterManager._removeFilter = TD.controller.filterManager.removeFilter;
 
   // If we're running in debug mode, this already exists
   if (!window.BTD) {
@@ -256,6 +259,14 @@ export const setupAME = makeBTDModule(({TD, jq}) => {
       maybeLogMuteCatch(e, this);
     }
     return shouldDisplay;
+  };
+
+  TD.controller.filterManager.removeFilter = function removeFilter(filter) {
+    const foundFilter = TD.controller.filterManager.getAll().find((f) => f.id === filter.id);
+    if (foundFilter) {
+      removeCatchesByFilter(foundFilter);
+    }
+    return this._removeFilter(filter);
   };
 
   // Custom display type function to show proper description in filter list

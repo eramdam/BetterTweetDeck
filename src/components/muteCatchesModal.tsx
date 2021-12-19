@@ -1,22 +1,31 @@
 import {css, cx} from '@emotion/css';
-import React, {useCallback, useRef} from 'react';
+import React, {useCallback, useMemo, useRef, useState} from 'react';
 import {useVirtual} from 'react-virtual';
 
 import {isHTMLElement} from '../helpers/domHelpers';
 import {MuteCatch} from '../helpers/muteHelpers';
 import {Handler} from '../helpers/typeHelpers';
 
+const baseHeight = 60;
+
 export const MuteCatchesModal = (props: {
   onRequestClose: Handler;
   catches: ReadonlyArray<MuteCatch>;
+  filtersKind: ReadonlyArray<string>;
 }) => {
-  const users = props.catches;
+  const [selectedFilter, setFilter] = useState<string>('');
+  const users = useMemo(() => {
+    return props.catches.filter((caught) =>
+      selectedFilter === '' ? true : caught.filterType === selectedFilter
+    );
+  }, [props.catches, selectedFilter]);
+  const filterTypes = useMemo(() => props.filtersKind, [props.filtersKind]);
   const parentRef = useRef<HTMLDivElement>(null);
 
   const rowVirtualizer = useVirtual({
     size: users.length,
     parentRef,
-    estimateSize: useCallback(() => 90, []),
+    estimateSize: useCallback(() => baseHeight, []),
   });
 
   return (
@@ -35,6 +44,7 @@ export const MuteCatchesModal = (props: {
           'mdl',
           css`
             padding: 20px !important;
+            height: auto !important;
           `
         )}>
         <div
@@ -44,11 +54,42 @@ export const MuteCatchesModal = (props: {
             flex-direction: column;
           `}>
           <p>This is the list of users that were caught by the different mutes you set</p>
+          <div
+            className={css`
+              display: flex;
+              margin: 20px 0;
+              align-items: center;
+            `}>
+            <span
+              className={css`
+                flex-grow: 1;
+                flex-shrink: 0;
+                margin-right: 10px;
+              `}>
+              Mute type:
+            </span>
+            <select
+              name="mute-type"
+              id="mute-type"
+              onChange={(e) => {
+                setFilter(e.target.value);
+              }}
+              defaultValue={selectedFilter}>
+              <option value="">All</option>
+              {filterTypes.map((filter) => {
+                return (
+                  <option key={filter} value={filter}>
+                    {filter}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
 
           <div
             className={css`
               flex: 1;
-              height: 500px;
+              flex-basis: 500px;
               overflow: auto;
             `}
             ref={parentRef}>
@@ -61,9 +102,6 @@ export const MuteCatchesModal = (props: {
                 const caught = users[virtualRow.index];
                 return (
                   <div
-                    className={css`
-                      padding: 10px 0;
-                    `}
                     key={virtualRow.index}
                     style={{
                       position: 'absolute',
@@ -75,32 +113,47 @@ export const MuteCatchesModal = (props: {
                     }}>
                     <div
                       className={css`
-                        height: 70px;
+                        box-sizing: border-box;
+                        padding: 8px 0;
                         border-radius: 10px;
-                        padding: 0 8px;
+                        padding-right: 8px;
                         display: grid;
                         grid-template-areas: 'avatar . header' 'avatar . filter';
                         grid-template-columns: auto 10px 1fr;
                         grid-template-rows: auto;
                         align-items: center;
-                        box-shadow: inset 0 0 0 1px #ccd6dd;
+                        border-top: 1px solid #ccd6dd;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
 
                         .dark & {
-                          box-shadow: inset 0 0 0 1px #000;
+                          border-top: 1px solid #000;
                         }
 
                         img {
                           grid-area: avatar;
+                          height: 100%;
+                          border-radius: 50%;
                         }
 
                         .header {
                           grid-area: header;
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                          white-space: nowrap;
                         }
                         .filter {
                           grid-area: filter;
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                          white-space: nowrap;
                         }
-                      `}>
-                      <img src={caught.user.avatar} className="tweet-avatar" alt="" />
+                      `}
+                      style={{
+                        height: baseHeight,
+                      }}>
+                      <img src={caught.user.avatar} alt="" />
                       <span
                         className={css`
                           grid-area: header;
@@ -133,6 +186,12 @@ export const MuteCatchesModal = (props: {
                 );
               })}
             </div>
+          </div>
+          <div
+            className={css`
+              padding-top: 10px;
+            `}>
+            <button>Export</button>
           </div>
         </div>
       </div>

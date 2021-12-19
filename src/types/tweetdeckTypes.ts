@@ -215,6 +215,14 @@ interface TweetDeckController {
       exact: boolean;
       id: string;
     }): void;
+    _removeFilter(filter: {
+      type: string;
+      value: string;
+      positive: boolean;
+      exact: boolean;
+      id: string;
+    }): void;
+    _addFilter(type: string, value: string): void;
     addFilter(type: string, value: string): void;
     getAll(): ReadonlyArray<{
       type: string;

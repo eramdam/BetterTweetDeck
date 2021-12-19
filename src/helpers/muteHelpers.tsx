@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -37,13 +38,24 @@ export function encodeCatchKey(muteCatch: MuteCatch) {
 
 export type MuteCatchesMap = Map<string, MuteCatch>;
 
+const BTD_MUTE_CATCHES_KEY = `btd_mute_catches`;
+
 function getInitialMuteCatches() {
   return new Map<string, MuteCatch>(
-    JSON.parse(window.localStorage.getItem('btd_mute_catches') || '[]')
+    JSON.parse(window.localStorage.getItem(BTD_MUTE_CATCHES_KEY) || '[]')
   );
 }
 
 const muteCatches = getInitialMuteCatches();
+
+export function removeCatchesByFilter(filter: {type: string; value: string}) {
+  Array.from(muteCatches.entries()).forEach(([key, value]) => {
+    console.log({key, value, filter});
+    if (value.filterType === filter.type && value.value === filter.value) {
+      muteCatches.delete(key);
+    }
+  });
+}
 
 window.openCatchList = () => {
   const root = document.createElement('div');
@@ -56,6 +68,10 @@ window.openCatchList = () => {
       onRequestClose={() => {
         ReactDOM.unmountComponentAtNode(root);
       }}
+      filtersKind={_.chain(Array.from(muteCatches.keys()))
+        .map((i) => i.split('$_$')[0])
+        .uniq()
+        .value()}
     />,
     root
   );
@@ -64,7 +80,7 @@ window.openCatchList = () => {
 setTimeout(window.openCatchList, 500);
 
 window.addEventListener('beforeunload', () => {
-  window.localStorage.setItem('btd_mute_catches', JSON.stringify(muteCatches));
+  window.localStorage.setItem(BTD_MUTE_CATCHES_KEY, JSON.stringify(muteCatches));
 });
 
 export function maybeLogMuteCatch(target: TweetDeckChirp, filter: TweetDeckFilter) {
