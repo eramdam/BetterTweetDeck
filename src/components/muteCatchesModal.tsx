@@ -5,14 +5,14 @@ import {DateTime} from 'luxon';
 import React, {useCallback, useMemo, useRef, useState} from 'react';
 import {useVirtual} from 'react-virtual';
 
-import {isHTMLElement} from '../helpers/domHelpers';
 import {
   decodeMuteReasonKey,
   encodeMuteReasonKey,
   formatMuteReason,
   MuteCatch,
   MuteReason,
-} from '../helpers/muteHelpers';
+} from '../features/mutesCatcher';
+import {isHTMLElement} from '../helpers/domHelpers';
 import {Handler} from '../helpers/typeHelpers';
 
 const baseHeight = 60;

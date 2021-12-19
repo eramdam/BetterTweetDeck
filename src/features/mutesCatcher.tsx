@@ -3,8 +3,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import {MuteCatchesModal} from '../components/muteCatchesModal';
-import {AMEFilters, RAMEFilters} from '../features/advancedMuteEngine';
+import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
+import {makeBTDModule} from '../types/btdCommonTypes';
 import {TweetDeckChirp, TweetDeckFilter} from '../types/tweetdeckTypes';
+import {AMEFilters, RAMEFilters} from './advancedMuteEngine';
 
 export interface MuteReason {
   filterType: AMEFilters;
@@ -73,33 +75,6 @@ export function removeCatchesByFilter(filter: {type: string; value: string}) {
   });
 }
 
-window.openCatchList = () => {
-  const root = document.createElement('div');
-  root.id = 'btd-mute-catches';
-  document.querySelector('.js-app')?.insertAdjacentElement('beforeend', root);
-
-  ReactDOM.render(
-    <MuteCatchesModal
-      catches={Array.from(muteCatches.values())}
-      onRequestClose={() => {
-        ReactDOM.unmountComponentAtNode(root);
-      }}
-      muteReasons={_.chain(Array.from(muteCatches.values()))
-        .map((value) => {
-          return {
-            filterType: value.filterType,
-            value: value.value,
-          };
-        })
-        .uniqBy((value) => encodeMuteReasonKey(value))
-        .value()}
-    />,
-    root
-  );
-};
-
-setTimeout(window.openCatchList, 500);
-
 window.addEventListener('beforeunload', () => {
   window.localStorage.setItem(BTD_MUTE_CATCHES_KEY, JSON.stringify(muteCatches));
 });
@@ -151,3 +126,43 @@ export function formatMuteReason(muteCatch: MuteReason) {
     }
   }
 }
+
+const openCatchList = () => {
+  const root = document.createElement('div');
+  root.id = 'btd-mute-catches';
+  document.querySelector('.js-app')?.insertAdjacentElement('beforeend', root);
+
+  ReactDOM.render(
+    <MuteCatchesModal
+      catches={Array.from(muteCatches.values())}
+      onRequestClose={() => {
+        ReactDOM.unmountComponentAtNode(root);
+      }}
+      muteReasons={_.chain(Array.from(muteCatches.values()))
+        .map((value) => {
+          return {
+            filterType: value.filterType,
+            value: value.value,
+          };
+        })
+        .uniqBy((value) => encodeMuteReasonKey(value))
+        .value()}
+    />,
+    root
+  );
+};
+
+export const setupMuteCatcher = makeBTDModule(({TD, jq}) => {
+  modifyMustacheTemplate(TD, `settings/global_setting_filter.mustache`, (string) => {
+    return string.replace(
+      `<div class="divider-bar"></div> `,
+      `<div class="divider-bar"></div>  
+    <div class="txt-size--12"> <i class="icon-btd icon-large obj-left color-twitter-gray"></i> <p class="nbfc margin-t--2"> Better TweetDeck keeps track of users that are caught by the mutes you define. <br/> <a href="#" data-action="btd-open-catches">Click here to review them or export them</a></p> </div>
+    <div class="divider-bar"></div>`
+    );
+  });
+
+  jq(document).on('click', `[data-action="btd-open-catches"]`, () => {
+    openCatchList();
+  });
+});

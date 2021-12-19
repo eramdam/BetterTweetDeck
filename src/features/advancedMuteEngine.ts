@@ -26,10 +26,10 @@
  *
  */
 
-import {maybeLogMuteCatch, removeCatchesByFilter} from '../helpers/muteHelpers';
 import {makeEnumRuntimeType} from '../helpers/runtimeTypeHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 import {TweetDeckChirp, TweetDeckObject} from '../types/tweetdeckTypes';
+import {maybeLogMuteCatch, removeCatchesByFilter} from './mutesCatcher';
 
 interface AMEFilter {
   name: string;
