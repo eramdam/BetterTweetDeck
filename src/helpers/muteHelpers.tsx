@@ -3,10 +3,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import {MuteCatchesModal} from '../components/muteCatchesModal';
+import {AMEFilters, RAMEFilters} from '../features/advancedMuteEngine';
 import {TweetDeckChirp, TweetDeckFilter} from '../types/tweetdeckTypes';
 
+export interface MuteReason {
+  filterType: AMEFilters;
+  value: string;
+}
 export interface MuteCatch {
-  filterType: string;
+  filterType: AMEFilters;
   value: string;
   user: {
     avatar: string;
@@ -26,7 +31,7 @@ function serializeMuteCatch(target: TweetDeckChirp, filter: TweetDeckFilter): Mu
   };
 
   return {
-    filterType: filter.type,
+    filterType: filter.type as AMEFilters,
     value: filter.value,
     user: simplifiedUser,
   };
@@ -36,9 +41,20 @@ export function encodeCatchKey(muteCatch: MuteCatch) {
   return [muteCatch.filterType, muteCatch.user.id, encodeURIComponent(muteCatch.value)].join('$_$');
 }
 
+export function encodeMuteReasonKey(muteReason: MuteReason): string {
+  return [muteReason.filterType, encodeURIComponent(muteReason.value)].join('$_$');
+}
+export function decodeMuteReasonKey(muteReasonKey: string): MuteReason {
+  const [filterType, rawValue] = muteReasonKey.split('$_$');
+  return {
+    filterType: filterType as AMEFilters,
+    value: decodeURIComponent(rawValue),
+  };
+}
+
 export type MuteCatchesMap = Map<string, MuteCatch>;
 
-const BTD_MUTE_CATCHES_KEY = `btd_mute_catches`;
+const BTD_MUTE_CATCHES_KEY = `btd_mute_catches2`;
 
 function getInitialMuteCatches() {
   return new Map<string, MuteCatch>(
@@ -68,9 +84,14 @@ window.openCatchList = () => {
       onRequestClose={() => {
         ReactDOM.unmountComponentAtNode(root);
       }}
-      filtersKind={_.chain(Array.from(muteCatches.keys()))
-        .map((i) => i.split('$_$')[0])
-        .uniq()
+      muteReasons={_.chain(Array.from(muteCatches.values()))
+        .map((value) => {
+          return {
+            filterType: value.filterType,
+            value: value.value,
+          };
+        })
+        .uniqBy((value) => encodeMuteReasonKey(value))
         .value()}
     />,
     root
@@ -84,6 +105,9 @@ window.addEventListener('beforeunload', () => {
 });
 
 export function maybeLogMuteCatch(target: TweetDeckChirp, filter: TweetDeckFilter) {
+  if (!RAMEFilters.is(filter.type)) {
+    return;
+  }
   const serialized = serializeMuteCatch(target, filter);
   const catchKey = encodeCatchKey(serialized);
 
@@ -92,4 +116,38 @@ export function maybeLogMuteCatch(target: TweetDeckChirp, filter: TweetDeckFilte
   }
 
   muteCatches.set(catchKey, serialized);
+}
+
+export function formatMuteReason(muteCatch: MuteReason) {
+  const {filterType, value} = muteCatch;
+
+  switch (filterType) {
+    case AMEFilters.NFT_AVATAR: {
+      return `uses the NFT avatar integration`;
+    }
+    case AMEFilters.DEFAULT_AVATARS: {
+      return `has a default avatar`;
+    }
+    case AMEFilters.FOLLOWER_COUNT_GREATER_THAN: {
+      return `has more than ${Number(value).toLocaleString()} followers`;
+    }
+    case AMEFilters.FOLLOWER_COUNT_LESS_THAN: {
+      return `has less than ${Number(value).toLocaleString()} followers`;
+    }
+    case AMEFilters.USER_BIOGRAPHIES: {
+      return `biography matches the phrase ${value}`;
+    }
+    case AMEFilters.USER_REGEX: {
+      return `username matches the regex \`/${value}/gi\` `;
+    }
+    case AMEFilters.REGEX_DISPLAYNAME: {
+      return `display name matches the regex \`/${value}/gi\` `;
+    }
+    case AMEFilters.MUTE_USER_KEYWORD: {
+      return `has tweeted the keyword ${value.split('|')[1]}`;
+    }
+    default: {
+      return `${filterType} ${value}`;
+    }
+  }
 }
