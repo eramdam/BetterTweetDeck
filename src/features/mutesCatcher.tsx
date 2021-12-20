@@ -110,7 +110,7 @@ export function formatMuteReason(muteCatch: MuteReason) {
       return `has less than ${Number(value).toLocaleString()} followers`;
     }
     case AMEFilters.USER_BIOGRAPHIES: {
-      return `biography matches the phrase ${value}`;
+      return `biography matches the phrase "${value}"`;
     }
     case AMEFilters.USER_REGEX: {
       return `username matches the regex \`/${value}/gi\` `;
@@ -119,7 +119,7 @@ export function formatMuteReason(muteCatch: MuteReason) {
       return `display name matches the regex \`/${value}/gi\` `;
     }
     case AMEFilters.MUTE_USER_KEYWORD: {
-      return `has tweeted the keyword ${value.split('|')[1]}`;
+      return `has tweeted the keyword "${value.split('|')[1]}"`;
     }
     default: {
       return `${filterType} ${value}`;
