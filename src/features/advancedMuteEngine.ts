@@ -29,7 +29,7 @@
 import {makeEnumRuntimeType} from '../helpers/runtimeTypeHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 import {TweetDeckChirp, TweetDeckObject} from '../types/tweetdeckTypes';
-import {maybeLogMuteCatch, removeCatchesByFilter} from './mutesCatcher';
+import {AMEFilters, maybeLogMuteCatch, removeCatchesByFilter} from './mutesCatcher';
 
 interface AMEFilter {
   name: string;
@@ -52,21 +52,6 @@ interface AMEFilterOptions {
 }
 
 type AMEFiltersMap = {[k in AMEFilters]: AMEFilter};
-
-export enum AMEFilters {
-  NFT_AVATAR = 'BTD_nft_avatar',
-  IS_RETWEET_FROM = 'BTD_is_retweet_from',
-  MUTE_USER_KEYWORD = 'BTD_mute_user_keyword',
-  REGEX_DISPLAYNAME = 'BTD_mute_displayname',
-  REGEX = 'BTD_regex',
-  USER_REGEX = 'BTD_user_regex',
-  MUTE_QUOTES = 'BTD_mute_quotes',
-  USER_BIOGRAPHIES = 'BTD_user_biographies',
-  DEFAULT_AVATARS = 'BTD_default_avatars',
-  FOLLOWER_COUNT_LESS_THAN = 'BTD_follower_count_less_than',
-  FOLLOWER_COUNT_GREATER_THAN = 'BTD_follower_count_greater_than',
-  SPECIFIC_TWEET = 'BTD_specific_tweet',
-}
 
 export const RAMEFilters = makeEnumRuntimeType<AMEFilters>(AMEFilters);
 
@@ -255,17 +240,6 @@ export const setupAME = makeBTDModule(({TD, jq}) => {
     },
   };
 
-  const muteTypeAllowlist = [
-    AMEFilters.DEFAULT_AVATARS,
-    AMEFilters.FOLLOWER_COUNT_GREATER_THAN,
-    AMEFilters.FOLLOWER_COUNT_LESS_THAN,
-    AMEFilters.MUTE_USER_KEYWORD,
-    AMEFilters.NFT_AVATAR,
-    AMEFilters.REGEX_DISPLAYNAME,
-    AMEFilters.USER_BIOGRAPHIES,
-    AMEFilters.USER_REGEX,
-  ];
-
   // Custom pass function to apply our filters
   TD.vo.Filter.prototype.pass = function pass(e) {
     if (RAMEFilters.is(this.type)) {
@@ -273,14 +247,14 @@ export const setupAME = makeBTDModule(({TD, jq}) => {
       e = this._getFilterTarget(e);
 
       const shouldDisplay = AmeFilters[this.type].function(t, e);
+      maybeLogMuteCatch(e, this, shouldDisplay);
 
-      if (!shouldDisplay && muteTypeAllowlist.includes(this.type)) {
-        maybeLogMuteCatch(e, this);
-      }
       return shouldDisplay;
     }
 
     const shouldDisplay = this._pass(e);
+
+    maybeLogMuteCatch(e, this, shouldDisplay);
 
     return shouldDisplay;
   };

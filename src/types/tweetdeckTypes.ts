@@ -1,6 +1,7 @@
 import {Template} from 'hogan.js';
 import {Twitter} from 'twit';
 
+import {AMEFilters} from '../features/mutesCatcher';
 import {HandlerOf} from '../helpers/typeHelpers';
 
 export enum TwitterConversationModes {
@@ -17,9 +18,33 @@ export interface TweetDeckBitlyAccount {
 export type TweetDeckColumnWidth = 'wide' | 'medium' | 'narrow' | 'custom';
 export type TweetDeckFontSize = 'smallest' | 'small' | 'medium' | 'large' | 'largest';
 
+export enum TweetDeckFilterTypes {
+  PHRASE = 'phrase',
+  SENDER = 'sender',
+  SOURCE = 'source',
+  FOLLOWERS = 'followers',
+  IS_RETWEET = 'is_retweet',
+  IS_MENTION = 'is_mention',
+  IS_FAVORITE = 'is_favorite',
+  IS_FOLLOW = 'is_follow',
+  IS_ACTION_ON_RETWEET = 'is_action_on_retweet',
+  IS_QUOTED = 'is_quoted',
+  HAS_IMAGE = 'has_image',
+  HAS_VIDEO = 'has_video',
+  HAS_GIF = 'has_gif',
+  HAS_VINE = 'has_vine',
+  HAS_MEDIA = 'has_media',
+  HAS_LINK = 'has_link',
+  IS_FROM_VERIFIED = 'verified',
+  CHIRP_TYPE = 'chirp_type',
+  LOCATION = 'location',
+  SINCE_TIME = 'since_time',
+  UNTIL_TIME = 'until_time',
+}
+
 export declare class TweetDeckFilter {
   value: string;
-  type: string;
+  type: TweetDeckFilterTypes | AMEFilters;
   getDisplayType(): string;
   _getDisplayType(): string;
   _getFilterTarget(chirp: TweetDeckChirp): TweetDeckChirp;
@@ -662,6 +687,7 @@ export interface TweetDeckChirp {
   targetTweet?: TweetDeckChirp;
   text: string;
   user: User;
+  following?: User;
   withPrettyEngagements: boolean;
   conversationId?: string | number;
   renderInMediaGallery(): string;
