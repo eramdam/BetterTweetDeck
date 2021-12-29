@@ -34,10 +34,12 @@ export function extractContentWarnings(input: string): ContentWarningResult | un
   }
 
   if (isWithoutKeyword) {
+    // If the subject isn't lowercase, it might not be useful
     if (subject[0].toLowerCase() !== subject[0]) {
       return undefined;
     }
 
+    // If the subject has spaces, it might not be useful
     if (subject.split(/\s/).length > 1) {
       return undefined;
     }
