@@ -33,15 +33,27 @@ const prettyExportTypes = {
   [ExportTypes.TWITTER_BLOCK_CHAIN_EXPORT]: '"Twitter Block Chain" format',
 };
 
-function runExport(catches: ReadonlyArray<MuteCatch>, type: ExportTypes) {
-  return {
-    users: catches.map((caught) => {
-      return {
-        id: String(caught.user.id),
-        name: caught.user.screenName,
-      };
-    }),
-  };
+function makeExportContent(catches: ReadonlyArray<MuteCatch>, type: ExportTypes): string {
+  if (type === ExportTypes.ID_LIST) {
+    return catches.map((c) => c.user.id).join('\n');
+  }
+
+  if (type === ExportTypes.SCREEN_NAME_LIST) {
+    return catches.map((c) => c.user.screenName).join('\n');
+  }
+
+  return JSON.stringify(
+    {
+      users: catches.map((caught) => {
+        return {
+          id: String(caught.user.id),
+          name: caught.user.screenName,
+        };
+      }),
+    },
+    null,
+    2
+  );
 }
 
 interface MuteCatchesModalProps {
@@ -77,6 +89,9 @@ export const MuteCatchesModal = (props: MuteCatchesModalProps) => {
         );
       });
   }, [props.catches, searchQuery, selectedMuteReason]);
+  const [selectedUsers, setSelectedUsers] = useState<Set<string>>(
+    new Set(users.map((c) => c.user.id))
+  );
   const muteReasons = useMemo(() => props.muteReasons, [props.muteReasons]);
   const parentRef = useRef<HTMLDivElement>(null);
 
@@ -131,6 +146,7 @@ export const MuteCatchesModal = (props: MuteCatchesModalProps) => {
                 } else {
                   setMuteReason(decodeMuteReasonKey(e.target.value));
                 }
+                setSelectedUsers(new Set(users.map((c) => c.user.id)));
               }}
               defaultValue={(selectedMuteReason && encodeMuteReasonKey(selectedMuteReason)) || ''}>
               <option value="">All</option>
@@ -194,9 +210,10 @@ export const MuteCatchesModal = (props: MuteCatchesModalProps) => {
                         border-radius: 10px;
                         padding-right: 8px;
                         display: grid;
-                        grid-template-areas: 'avatar . header' 'avatar . filter';
-                        grid-template-columns: auto 10px 1fr;
+                        grid-template-areas: 'checkbox avatar header' 'checkbox avatar filter';
+                        grid-template-columns: auto auto 1fr;
                         grid-template-rows: auto;
+                        grid-column-gap: 10px;
                         align-items: center;
                         border-top: 1px solid #ccd6dd;
                         overflow: hidden;
@@ -229,6 +246,29 @@ export const MuteCatchesModal = (props: MuteCatchesModalProps) => {
                       style={{
                         height: baseHeight,
                       }}>
+                      <div
+                        className={css`
+                          grid-area: checkbox;
+                          display: flex;
+                          flex-direction: column;
+                          justify-content: center;
+                          align-items: center;
+                        `}>
+                        <input
+                          type="checkbox"
+                          defaultChecked={selectedUsers.has(caught.user.id)}
+                          onChange={() => {
+                            setSelectedUsers((currentSelection) => {
+                              const currentSelectionArray = Array.from(currentSelection);
+                              if (currentSelection.has(caught.user.id)) {
+                                return new Set(_.without(currentSelectionArray, caught.user.id));
+                              }
+
+                              return new Set([...currentSelectionArray, caught.user.id]);
+                            });
+                          }}
+                        />
+                      </div>
                       <img src={caught.user.avatar} alt="" />
                       <span
                         className={css`
@@ -269,6 +309,7 @@ export const MuteCatchesModal = (props: MuteCatchesModalProps) => {
               })}
             </div>
           </div>
+
           <div
             className={css`
               padding-top: 10px;
@@ -277,12 +318,12 @@ export const MuteCatchesModal = (props: MuteCatchesModalProps) => {
               className={css`
                 display: grid;
                 align-items: center;
-                grid-auto-flow: column;
-                grid-template-columns: auto 1fr;
-                grid-column-gap: 10px;
+                grid-auto-flow: row;
+                grid-auto-rows: auto;
+                grid-row-gap: 10px;
                 margin: 20px 0;
               `}>
-              <span>Export as:</span>
+              <span>Export {selectedUsers.size} users as:</span>
               <select
                 name="export-type"
                 id="export-type"
@@ -303,9 +344,10 @@ export const MuteCatchesModal = (props: MuteCatchesModalProps) => {
               <button
                 className="Button--primary"
                 onClick={() => {
-                  if (confirm(`Okay to export ${users.length} users?`)) {
+                  if (confirm(`Okay to export ${selectedUsers.size} users?`)) {
+                    const filteredUsers = users.filter((c) => selectedUsers.has(c.user.id));
                     saveAs(
-                      new Blob([JSON.stringify(runExport(users, selectedExportType), null, 2)], {
+                      new Blob([makeExportContent(filteredUsers, selectedExportType)], {
                         type: 'application/json',
                       }),
                       `${_.kebabCase(selectedExportType)}-${DateTime.local().toFormat(
