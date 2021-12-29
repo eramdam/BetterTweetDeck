@@ -99,7 +99,7 @@ export function decodeMuteReasonKey(muteReasonKey: string): MuteReason {
 
 export type MuteCatchesMap = Map<string, MuteCatch>;
 
-const BTD_MUTE_CATCHES_KEY = `btd_mute_catches2`;
+const BTD_MUTE_CATCHES_KEY = `btd_mute_catches`;
 
 function getInitialMuteCatches() {
   return new Map<string, MuteCatch>(
