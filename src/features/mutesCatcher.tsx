@@ -57,7 +57,12 @@ export interface MuteCatch {
 }
 
 function serializeMuteCatch(target: TweetDeckChirp, filter: TweetDeckFilter): MuteCatch {
-  const meaningfulUser = target.sourceUser || target.user || target.following || target.owner;
+  const meaningfulUser =
+    target.retweetedStatus?.user ||
+    target.sourceUser ||
+    target.user ||
+    target.following ||
+    target.owner;
   if (!meaningfulUser) {
     console.debug(filter, target);
   }
