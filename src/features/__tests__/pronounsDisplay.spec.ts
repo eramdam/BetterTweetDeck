@@ -59,6 +59,7 @@ describe('Pronouns', () => {
       ['No matches', 'this should not match anything', undefined],
       ['No matches', 'he re he ro he re ho ma', undefined],
       ['No matches', 'However, she is still', undefined],
+      ['No matches', '(she-meh)', undefined],
 
       ['No matches for mixed separators', `she/her | ver`, undefined],
 
