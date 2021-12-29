@@ -29,6 +29,7 @@ import {changeLogo} from './features/logoVariations';
 import {makeSearchColumnsFirst} from './features/makeSearchColumnsFirst';
 import {useModernOverlays} from './features/modernOverlays';
 import {muteNftAvatars} from './features/muteNfts';
+import {setupMuteCatcher} from './features/mutesCatcher';
 import {pauseColumnsOnHover} from './features/pauseColumnsOnHover';
 import {addProfileLabels} from './features/profileLabels';
 import {displayPronouns} from './features/pronounsDisplay';
@@ -143,6 +144,7 @@ function isModulejQuery(mod: ModuleLike | undefined): mod is JQueryStatic {
   showTweetDogEars(btdModuleOptions);
   contentWarnings(btdModuleOptions);
   extendTwitterStatus(btdModuleOptions);
+  setupMuteCatcher(btdModuleOptions);
 
   jq(document).one('dataColumnsLoaded', () => {
     document.body.classList.add('btd-loaded');
