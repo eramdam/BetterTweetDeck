@@ -15,8 +15,6 @@ interface ContentWarningResult {
   text: string;
 }
 
-const withoutKeywordBlocklist = ['redacted', 'communiqué', 'announcement', 'voice'];
-
 export function extractContentWarnings(input: string): ContentWarningResult | undefined {
   const contentWarningMatch = input.match(contentWarningRegex) || input.match(withoutKeywordRegex);
   const isWithoutKeyword = !input.match(contentWarningRegex) && input.match(withoutKeywordRegex);
@@ -35,12 +33,14 @@ export function extractContentWarnings(input: string): ContentWarningResult | un
     text = newText.join('. ').trim();
   }
 
-  if (isWithoutKeyword && subject[0].toLowerCase() !== subject[0]) {
-    return undefined;
-  }
+  if (isWithoutKeyword) {
+    if (subject[0].toLowerCase() !== subject[0]) {
+      return undefined;
+    }
 
-  if (withoutKeywordBlocklist.some((keyword) => subject.toLowerCase().trim().includes(keyword))) {
-    return undefined;
+    if (subject.split(/\s/).length > 1) {
+      return undefined;
+    }
   }
 
   // We want to reject in the case we matched `[xxx]` where `xxx` is some non-latin characters.
