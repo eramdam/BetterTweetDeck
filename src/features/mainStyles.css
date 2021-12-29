@@ -229,3 +229,8 @@ html.dark body {
 .thread + .pronouns-wrapper {
   margin-top: 3px;
 }
+
+i.icon-btd {
+  background-image: url('../assets/btd-logo-small.png');
+  background-size: 100%;
+}

@@ -1,3 +1,4 @@
+import {clearMuteCatches} from '../features/mutesCatcher';
 import {
   findMustache,
   getChirpFromElement,
@@ -15,6 +16,7 @@ export const maybeSetupDebugFunctions = makeBTDModule(({jq, mR}) => {
       findMustache,
       jq,
       mR,
+      clearMuteCatches,
     },
   };
 });
