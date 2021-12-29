@@ -12,6 +12,7 @@ declare global {
         getChirpFromElement: typeof getChirpFromElement;
         getChirpFromKey: typeof getChirpFromKey;
         getChirpFromKeyAlone: typeof getChirpFromKeyAlone;
+        clearMuteCatches: typeof clearMuteCatches;
       };
     };
   }

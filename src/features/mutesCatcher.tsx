@@ -109,6 +109,10 @@ function getInitialMuteCatches() {
 
 const muteCatches = getInitialMuteCatches();
 
+export const clearMuteCatches = () => {
+  muteCatches.clear();
+};
+
 export function removeCatchesByFilter(filter: {type: string; value: string}) {
   Array.from(muteCatches.entries()).forEach(([key, value]) => {
     if (value.filterType === filter.type && value.value === filter.value) {
