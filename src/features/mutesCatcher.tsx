@@ -22,9 +22,14 @@ export enum AMEFilters {
   SPECIFIC_TWEET = 'BTD_specific_tweet',
 }
 
-const muteTypeAllowlist = [
+const nonUserSpecificsTypes = [
   TweetDeckFilterTypes.SOURCE,
   TweetDeckFilterTypes.PHRASE,
+  AMEFilters.REGEX,
+];
+
+const muteTypeAllowlist = [
+  ...nonUserSpecificsTypes,
   AMEFilters.DEFAULT_AVATARS,
   AMEFilters.FOLLOWER_COUNT_GREATER_THAN,
   AMEFilters.FOLLOWER_COUNT_LESS_THAN,
@@ -33,7 +38,6 @@ const muteTypeAllowlist = [
   AMEFilters.REGEX_DISPLAYNAME,
   AMEFilters.USER_BIOGRAPHIES,
   AMEFilters.USER_REGEX,
-  AMEFilters.REGEX,
 ] as const;
 type AllowedMuteTypes = typeof muteTypeAllowlist[number];
 
@@ -90,7 +94,7 @@ export function decodeMuteReasonKey(muteReasonKey: string): MuteReason {
 
 export type MuteCatchesMap = Map<string, MuteCatch>;
 
-const BTD_MUTE_CATCHES_KEY = `btd_mute_catches`;
+const BTD_MUTE_CATCHES_KEY = `btd_mute_catches2`;
 
 function getInitialMuteCatches() {
   return new Map<string, MuteCatch>(
@@ -130,7 +134,7 @@ export function maybeLogMuteCatch(
 
     if (muteCatches.has(catchKey)) {
       // If the target was previously matched and isn't anymore, then we can remove them.
-      if (shouldDisplay) {
+      if (shouldDisplay && !nonUserSpecificsTypes.includes(filter.type)) {
         muteCatches.delete(catchKey);
       }
       // Otherwise, we can stop here
