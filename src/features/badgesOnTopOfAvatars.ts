@@ -100,7 +100,9 @@ export const putBadgesOnTopOfAvatars = makeBTDModule(({TD, settings}) => {
       chirpNode.classList.add(...classesToAdd, 'btd-verified-badge');
     } else if (userForBadge.isTranslator && settings.translatorBadges) {
       chirpNode.classList.add(...classesToAdd, 'btd-translator-badge');
-    } else if (userForBadge.following && settings.mutualBadges) {
+    }
+
+    if (userForBadge.following && settings.mutualBadges) {
       const followerStatus = await getFollowerStatus(userForBadge);
 
       if (followerStatus) {
