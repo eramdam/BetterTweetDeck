@@ -204,7 +204,8 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
     if (!chirp) {
       return;
     }
-    const media = getMediaFromChirp(chirp);
+    const usefulChirp = chirp.targetTweet ?? chirp;
+    const media = getMediaFromChirp(usefulChirp);
     const mediaPromises = media.map((item) => {
       return requestMediaItem(item.url);
     });
@@ -221,7 +222,7 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
           file,
           TD.ui.template.render(
             'btd/download_filename_format',
-            getFilenameDownloadData(chirp, media[index].url)
+            getFilenameDownloadData(usefulChirp, media[index].url)
           )
         );
       } catch (e) {
@@ -236,7 +237,8 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
     if (!chirp) {
       return;
     }
-    const mediaUrls = getMediaFromChirp(chirp)
+    const usefulChirp = chirp.targetTweet ?? chirp;
+    const mediaUrls = getMediaFromChirp(usefulChirp)
       .map((m) => m.url)
       .join('\n');
     navigator.clipboard.writeText(mediaUrls);
