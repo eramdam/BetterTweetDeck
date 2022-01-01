@@ -237,7 +237,8 @@ export const maybeAddTweetActions = makeBTDModule(({settings, TD, jq, mR}) => {
     if (!chirp) {
       return;
     }
-    const mediaUrls = getMediaFromChirp(chirp)
+    const usefulChirp = chirp.targetTweet ?? chirp;
+    const mediaUrls = getMediaFromChirp(usefulChirp)
       .map((m) => m.url)
       .join('\n');
     navigator.clipboard.writeText(mediaUrls);
