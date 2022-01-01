@@ -34,10 +34,10 @@
   content: 'Show Less';
 }
 
-.js-tweet.cw:not(.cw-open) + .item-box-full-bleed {
+.js-tweet.cw:not(.cw-open) ~ .js-media.item-box-full-bleed {
   display: none !important;
 }
 
-.js-tweet.cw.cw-open + .item-box-full-bleed {
+.js-tweet.cw.cw-open ~ .js-media.item-box-full-bleed {
   display: block !important;
 }
