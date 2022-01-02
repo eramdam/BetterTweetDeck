@@ -20,7 +20,7 @@ export const extendTwitterStatus = makeBTDModule(({TD, settings}) => {
       }
     } else if (baseTweet.targetTweet && baseTweet.targetTweet.card && baseTweet.isAboutYou()) {
       const urlFromCard = baseTweet.targetTweet.card.url;
-      const isUrlInHtml = baseTweet.targetTweet.htmlText.includes(urlFromCard);
+      const isUrlInHtml = baseTweet.targetTweet.text.includes(urlFromCard);
 
       if (!isUrlInHtml) {
         const entityForUrl = baseTweet.targetTweet.entities.urls.find((u) => u.url === urlFromCard);
