@@ -1,0 +1,53 @@
+{
+  "app_desc": {
+    "message": "Neem TweetDeck naar het volgende level!"
+  },
+  "app_name": {
+    "message": "Better TweetDeck"
+  },
+  "settings_title": {
+    "message": "Better TweetDeck"
+  },
+  "settings_show_cards_inside_columns": {
+    "message": "Toon tweet kaarten in kolommen"
+  },
+  "settings_show_profile_badges_on_top_of_avatars": {
+    "message": "Toon profielbadges boven aan avatars"
+  },
+  "settings_collapse_read_dms": {
+    "message": "Gelezen privéberichten inklappen"
+  },
+  "settings_freeze_gifs_in_profile_pictures": {
+    "message": "GIFs bevriezen in profielfoto's"
+  },
+  "settings_remove_t_co_redirection_on_links": {
+    "message": "Verwijder t.co omleiding op links"
+  },
+  "settings_make_buttons_smaller_in_the_composer": {
+    "message": "Knoppen kleiner maken in het opstelvenster"
+  },
+  "settings_reflect_new_tweets_and_dms_in_the_tabs_title": {
+    "message": "Nieuwe tweets en DMs in de tab titel reflecteren"
+  },
+  "settings_auto_switch_light_theme": {
+    "message": "Schakel over naar lichte thema wanneer OS in licht-modus is"
+  },
+  "settings_scrollbar_default": {
+    "message": "Standaard"
+  },
+  "settings_scrollbar_hidden": {
+    "message": "Verborgen"
+  },
+  "settings_style_of_scrollbars": {
+    "message": "Stijl van de schuifbalken"
+  },
+  "settings_show_clear_button_column": {
+    "message": "Toon de \"Wissen\" knop in kolomkop"
+  },
+  "settings_show_collapse_button_in_columns_header": {
+    "message": "Toon de \"Wissen\" knop in kolomkop"
+  },
+  "settings_hide_icons_on_top_of_columns": {
+    "message": "Pictogrammen op de bovenkant van kolommen verbergen"
+  }
+}
