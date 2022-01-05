@@ -234,3 +234,11 @@ i.icon-btd {
   background-image: url('../assets/btd-logo-small.png');
   background-size: 100%;
 }
+
+section[data-column-size='small'] .hw-card-container {
+  width: 50% !important;
+}
+
+section[data-column-size='small'] .hw-card-container div[style*='-webkit-line-clamp'] {
+  -webkit-line-clamp: 1 !important;
+}
