@@ -50,6 +50,7 @@ describe('Content warnings detection', () => {
       `【新キャラ追加告知】
       明日11/03(水)に、`,
       `[baldur's gate 2 voice] you must bring me a hoagie from wawa before venturing forth`,
+      `[ #sedestream ]`,
     ])('%s', (input) => {
       expect(extractContentWarnings(input)).toBeUndefined();
     });
