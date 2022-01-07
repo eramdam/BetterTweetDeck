@@ -1,4 +1,4 @@
-import {isString} from 'lodash';
+import {isEmpty} from 'lodash';
 
 import {buildURLWithSearchParams} from '../helpers/networkHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
@@ -27,18 +27,8 @@ export const extendTwitterUser = makeBTDModule(({TD, jq}) => {
     var baseUser = this.OGFromJSON(blob);
 
     baseUser.hasNftAvatar = Boolean(blob.ext_has_nft_avatar);
-    const hasRequiredLabelData =
-      blob.ext?.highlightedLabel?.r?.ok?.label &&
-      isString(blob.ext?.highlightedLabel?.r?.ok?.label?.badge?.url) &&
-      isString(blob.ext?.highlightedLabel?.r?.ok?.label?.description) &&
-      isString(blob.ext?.highlightedLabel?.r?.ok?.label?.url.url);
-    baseUser.highlightedLabel = hasRequiredLabelData
-      ? {
-          badge: blob.ext?.highlightedLabel?.r?.ok?.label?.badge?.url,
-          description: blob.ext?.highlightedLabel?.r?.ok?.label?.description,
-          url: blob.ext?.highlightedLabel?.r?.ok?.label?.url.url,
-        }
-      : undefined;
+    const baseLabel = blob.ext?.highlightedLabel?.r?.ok?.label || {};
+    baseUser.highlightedLabel = isEmpty(baseLabel) ? undefined : baseLabel;
 
     return baseUser;
   };
