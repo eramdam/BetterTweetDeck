@@ -25,7 +25,7 @@ export const useModernOverlays = makeBTDModule((options) => {
         return;
       }
 
-      ajaxOptions.url = buildURLWithSearchParams(ajaxOptions.url || '', {
+      ajaxOptions.url = buildURLWithSearchParams(url || '', {
         include_ext_media_color: true,
       });
     } catch (e) {
