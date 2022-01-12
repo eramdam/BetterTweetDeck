@@ -7,26 +7,26 @@ export const muteNftAvatars = makeBTDModule(({TD, jq, settings}) => {
   modifyMustacheTemplate(TD, 'twitter_profile.mustache', (string) => {
     return string.replace(
       /avatar-border--2/g,
-      `avatar-border--2 {{#hasNftAvatar}}avatar--hexagone{{/hasNftAvatar}}`
+      `avatar-border--2 {{#hasNftAvatar}}avatar--hexagon{{/hasNftAvatar}}`
     );
   });
 
   modifyMustacheTemplate(TD, `account_summary.mustache`, (string) => {
     return string.replace(
       `class="tweet-avatar avatar pull-right"`,
-      `class="tweet-avatar avatar pull-right {{#hasNftAvatar}}avatar--hexagone{{/hasNftAvatar}}"`
+      `class="tweet-avatar avatar pull-right {{#hasNftAvatar}}avatar--hexagon{{/hasNftAvatar}}"`
     );
   });
   modifyMustacheTemplate(TD, `status/conversation_header.mustache`, (string) => {
     return string.replace(
       `class="tweet-avatar avatar pull-right"`,
-      `class="tweet-avatar avatar pull-right {{#hasNftAvatar}}avatar--hexagone{{/hasNftAvatar}}"`
+      `class="tweet-avatar avatar pull-right {{#hasNftAvatar}}avatar--hexagon{{/hasNftAvatar}}"`
     );
   });
   modifyMustacheTemplate(TD, `status/tweet_single_header.mustache`, (string) => {
     return string.replace(
       `class="tweet-avatar avatar pin-top-full-width"`,
-      `class="tweet-avatar avatar pin-top-full-width {{#hasNftAvatar}}avatar--hexagone{{/hasNftAvatar}}"`
+      `class="tweet-avatar avatar pin-top-full-width {{#hasNftAvatar}}avatar--hexagon{{/hasNftAvatar}}"`
     );
   });
 
