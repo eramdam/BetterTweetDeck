@@ -4,6 +4,7 @@ import {Twitter} from 'twit';
 
 import {TweetDeckChirp, TweetDeckColumn, TweetdeckMediaEntity} from '../types/tweetdeckTypes';
 import {TweetDeckObject} from '../types/tweetdeckTypes';
+import {isHTMLElement} from './domHelpers';
 import {HandlerOf} from './typeHelpers';
 
 /**
@@ -166,11 +167,38 @@ export function onComposerShown(callback: HandlerOf<boolean>) {
   const drawer = document.querySelector('.app-content');
   let isVisible: boolean | undefined = undefined;
 
-  const onChange = () => {
-    const tweetComposers = drawer?.querySelectorAll('textarea.js-compose-text') || [];
-    const tweetCompose = tweetComposers.length !== 1 ? undefined : tweetComposers[0];
+  const onChange = (mutations: MutationRecord[]) => {
+    if (mutations.length > 0) {
+      const hasRemovedComposer = mutations.some((mut) =>
+        Array.from(mut.removedNodes).some((rn) =>
+          Boolean(isHTMLElement(rn) && rn.querySelector('textarea.js-compose-text'))
+        )
+      );
 
-    if (!tweetCompose) {
+      const hasAddedComposer = mutations.some((mut) =>
+        Array.from(mut.addedNodes).some((rn) =>
+          Boolean(isHTMLElement(rn) && rn.querySelector('textarea.js-compose-text'))
+        )
+      );
+
+      // If we're here, it means the composer got removed and added in a single operation, so we need to do something a big different..
+      if (hasRemovedComposer && hasAddedComposer) {
+        console.log('mut remove');
+        callback(false);
+        isVisible = false;
+
+        requestAnimationFrame(() => {
+          callback(true);
+          isVisible = true;
+        });
+        return;
+      }
+    }
+
+    const tweetComposers = drawer?.querySelectorAll('textarea.js-compose-text') || [];
+    const hasTweetComposer = tweetComposers.length === 1;
+
+    if (!hasTweetComposer) {
       if (isVisible === true || typeof isVisible === 'undefined') {
         callback(false);
       }
@@ -191,7 +219,7 @@ export function onComposerShown(callback: HandlerOf<boolean>) {
     childList: true,
     subtree: true,
   });
-  onChange();
+  onChange([]);
 
   return () => {
     composerObserver.disconnect();
