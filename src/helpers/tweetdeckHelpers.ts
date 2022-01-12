@@ -183,7 +183,6 @@ export function onComposerShown(callback: HandlerOf<boolean>) {
 
       // If we're here, it means the composer got removed and added in a single operation, so we need to do something a big different..
       if (hasRemovedComposer && hasAddedComposer) {
-        console.log('mut remove');
         callback(false);
         isVisible = false;
 
