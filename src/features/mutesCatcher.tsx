@@ -56,13 +56,18 @@ export interface MuteCatch {
   };
 }
 
-function serializeMuteCatch(target: TweetDeckChirp, filter: TweetDeckFilter): MuteCatch {
-  const meaningfulUser =
+function getMeaningfulUser(target: TweetDeckChirp) {
+  return (
     target.retweetedStatus?.user ||
     target.sourceUser ||
     target.user ||
     target.following ||
-    target.owner;
+    target.owner
+  );
+}
+
+function serializeMuteCatch(target: TweetDeckChirp, filter: TweetDeckFilter): MuteCatch {
+  const meaningfulUser = getMeaningfulUser(target);
   if (!meaningfulUser) {
     console.debug(filter, target);
   }
@@ -151,6 +156,10 @@ export function maybeLogMuteCatch(
     }
 
     if (shouldDisplay) {
+      return resolve();
+    }
+
+    if (getMeaningfulUser(target).screenName !== target.user.screenName) {
       return resolve();
     }
 
