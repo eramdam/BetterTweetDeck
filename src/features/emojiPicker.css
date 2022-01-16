@@ -553,6 +553,7 @@ html.dark .btd-loaded {
 }
 
 /* Allow room for emoji button in composer */
-body[btd-emoji-picker='true'] .js-drawer .js-compose-text {
+body[btd-emoji-picker='true'] .js-drawer .js-compose-text,
+body[btd-emoji-picker='true'] .js-inline-reply .js-compose-text {
   width: calc(100% - 26px) !important;
 }
