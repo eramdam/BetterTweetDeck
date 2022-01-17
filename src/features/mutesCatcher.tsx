@@ -1,9 +1,11 @@
-import _ from 'lodash';
+import * as t from 'io-ts';
+import _, {isArray} from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 import {MuteCatchesModal} from '../components/muteCatchesModal';
 import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
+import {makeEnumRuntimeType} from '../helpers/runtimeTypeHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 import {TweetDeckChirp, TweetDeckFilter, TweetDeckFilterTypes} from '../types/tweetdeckTypes';
 
@@ -45,16 +47,17 @@ export interface MuteReason {
   filterType: AllowedMuteTypes;
   value: string;
 }
-export interface MuteCatch {
-  filterType: AllowedMuteTypes;
-  value: string;
-  user: {
-    avatar: string;
-    id: string;
-    screenName: string;
-    name: string;
-  };
-}
+const RMuteCatch = t.type({
+  filterType: t.union([makeEnumRuntimeType(AMEFilters), makeEnumRuntimeType(TweetDeckFilterTypes)]),
+  value: t.string,
+  user: t.type({
+    avatar: t.string,
+    id: t.string,
+    screenName: t.string,
+    name: t.string,
+  }),
+});
+export interface MuteCatch extends t.TypeOf<typeof RMuteCatch> {}
 
 function getMeaningfulUser(target: TweetDeckChirp) {
   return (
@@ -106,10 +109,25 @@ export type MuteCatchesMap = Map<string, MuteCatch>;
 
 const BTD_MUTE_CATCHES_KEY = `btd_mute_catches`;
 
+function safeInitialDataFromLocalStorage() {
+  const raw = window.localStorage.getItem(BTD_MUTE_CATCHES_KEY);
+
+  try {
+    const parsed = JSON.parse(raw || '[]');
+
+    if (!isArray(parsed)) {
+      return [];
+    }
+
+    return parsed;
+  } catch (e) {
+    return [];
+  }
+}
+
 function getInitialMuteCatches() {
-  return new Map<string, MuteCatch>(
-    JSON.parse(window.localStorage.getItem(BTD_MUTE_CATCHES_KEY) || '[]')
-  );
+  const fromLocalStorage = safeInitialDataFromLocalStorage().filter((c) => RMuteCatch.is(c));
+  return new Map<string, MuteCatch>(fromLocalStorage);
 }
 
 const muteCatches = getInitialMuteCatches();
