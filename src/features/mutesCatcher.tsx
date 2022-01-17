@@ -29,9 +29,7 @@ const nonUserSpecificsTypes = [
   TweetDeckFilterTypes.PHRASE,
   AMEFilters.REGEX,
 ];
-
-const muteTypeAllowlist = [
-  ...nonUserSpecificsTypes,
+const userSpecificTypes = [
   AMEFilters.DEFAULT_AVATARS,
   AMEFilters.FOLLOWER_COUNT_GREATER_THAN,
   AMEFilters.FOLLOWER_COUNT_LESS_THAN,
@@ -40,7 +38,9 @@ const muteTypeAllowlist = [
   AMEFilters.REGEX_DISPLAYNAME,
   AMEFilters.USER_BIOGRAPHIES,
   AMEFilters.USER_REGEX,
-] as const;
+];
+
+const muteTypeAllowlist = [...nonUserSpecificsTypes, ...userSpecificTypes] as const;
 type AllowedMuteTypes = typeof muteTypeAllowlist[number];
 
 export interface MuteReason {
@@ -177,7 +177,11 @@ export function maybeLogMuteCatch(
       return resolve();
     }
 
-    if (getMeaningfulUser(target).screenName !== target.user.screenName) {
+    // If we have a user-specific filter type, make sure we're logging the right user.
+    if (
+      userSpecificTypes.includes(filter.type as AMEFilters) &&
+      getMeaningfulUser(target).screenName !== target.user.screenName
+    ) {
       return resolve();
     }
 
