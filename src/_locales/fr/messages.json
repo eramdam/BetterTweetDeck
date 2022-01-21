@@ -72,10 +72,10 @@
     "message": "Préréglages"
   },
   "settings_timestamp_preset_absolute": {
-    "message": "Absolue"
+    "message": "Absolu"
   },
   "settings_timestamp_preset_absolute_us": {
-    "message": "Absolue (style américain)"
+    "message": "Absolu (style américain)"
   },
   "settings_fullname_username": {
     "message": "Nom et nom d'utilisateur"
