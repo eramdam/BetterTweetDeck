@@ -248,6 +248,57 @@
   "settings_import_success": {
     "message": "Vos reglages ont été correctement importés, n'oubliez pas de cliquer sur le bouton Sauvegarder !"
   },
+  "settings_imported_settings_summary": {
+    "message": "Cliquez ici pour voir les paramètres importés"
+  },
+  "settings_website": {
+    "message": "Site internet"
+  },
+  "settings_links": {
+    "message": "Liens"
+  },
+  "settings_footer_label": {
+    "message": "TweetDeck devra être rechargé pour que les modifications prennent effet !"
+  },
+  "settings_show_account_picker_like": {
+    "message": "Afficher le sélecteur de compte lorsque vous cliquez sur le bouton \"J'aime\""
+  },
+  "settings_show_account_picker_follow": {
+    "message": "Afficher le sélecteur de compte lorsque vous cliquez sur le bouton \"Suivre\""
+  },
+  "settings_accent_color": {
+    "message": "Couleur d'accentuation"
+  },
+  "settings_misc": {
+    "message": "Divers"
+  },
+  "settings_meta": {
+    "message": "Meta"
+  },
+  "settings_import_export": {
+    "message": "Import / export"
+  },
+  "settings_columns": {
+    "message": "Colonnes"
+  },
+  "settings_tweet_content": {
+    "message": "Contenu du tweet"
+  },
+  "settings_pause_column_scrolling_on_hover": {
+    "message": "Mettre en pause le défilement de la collone au survol"
+  },
+  "settings_use_a_custom_width_for_columns": {
+    "message": "Utiliser une largeur personnalisée pour les colonnes"
+  },
+  "settings_width_any_valid_css_value": {
+    "message": "Largeur (n'imporque quelle valeur CSS valide)"
+  },
+  "settings_share_on_tweetdeck": {
+    "message": "Partager sur TweetDeck"
+  },
+  "settings_enable_share_item": {
+    "message": "Ajouter un élément \"Partager sur TweetDeck\" dans le menu contextuel du navigateur"
+  },
   "settings_shorten_the_shared_text": {
     "message": "Raccourcir le texte partagé"
   },
@@ -262,5 +313,98 @@
   },
   "settings_tokens_list": {
     "message": "Liste des jetons"
+  },
+  "settings_make_emoji_bigger_in_tweets": {
+    "message": "Rendre les émojis plus grands dans les tweets"
+  },
+  "settings_add_search_columns_first_in_the_list": {
+    "message": "Ajouter d'abord les colonnes de recherche dans la liste"
+  },
+  "settings_save_tweeted_hashtags": {
+    "message": "Enregistrer les hashtags tweetés"
+  },
+  "settings_changelog": {
+    "message": "Journal des modifications"
+  },
+  "settings_bugs_or_suggestions": {
+    "message": "Bugs ou suggestions"
+  },
+  "settings_source_on_github": {
+    "message": "Source sur GitHub"
+  },
+  "settings_contributors": {
+    "message": "Contributeurs"
+  },
+  "settings_author": {
+    "message": "Auteur"
+  },
+  "settings_credits_about": {
+    "message": "Crédits / À propos"
+  },
+  "settings_always_characters_left": {
+    "message": "Toujours afficher le nombre de caractères restants dans le compositeur de tweet"
+  },
+  "settings_better_tweetdeck_ask_tabs": {
+    "message": "Better TweetDeck demandera l'accès aux onglets du navigateur pour que cela fonctionne correctement"
+  },
+  "settings_show_like_rt_indicators_on_top_of_tweets": {
+    "message": "Afficher les indicateurs \"J'aime/RT\" au-dessus des tweets"
+  },
+  "settings_do_the_same_for_single_images_in_quoted_tweets": {
+    "message": "Faire la même chose pour les images seules dans les tweets cités"
+  },
+  "settings_default_dark_theme": {
+    "message": "Par Défaut"
+  },
+  "settings_custom_dark_theme": {
+    "message": "Thème sombre"
+  },
+  "settings_tweet_composer": {
+    "message": "Compositeur de tweet"
+  },
+  "settings_show_the_emoji_picker": {
+    "message": "Afficher le sélecteur d'émoji"
+  },
+  "settings_enable_emoji_autocompletion": {
+    "message": "Activer l'auto-complétion des émojis en utilisant :code:"
+  },
+  "settings_enable_the_gif_button": {
+    "message": "Activer le bouton GIF"
+  },
+  "settings_also_show_cards_in_columns_with_small_media_size": {
+    "message": "Afficher également les cartes dans les colonnes avec les médias en petites tailles"
+  },
+  "settings_looking_for_inspiration": {
+    "message": "En cherche d'inspiration ?"
+  },
+  "settings_check_the_collection_of_css_snippets": {
+    "message": "Vérifiez la collection de snippets CSS"
+  },
+  "settings_css_compress_warning": {
+    "message": "Le CSS dans l'éditeur sera compressé afin d'économiser de l'espace vers le quota de stockage\n        de votre navigateur. Ce qui signifie une indentation ou un espace blanc sera supprimé."
+  },
+  "settings_backup_warning": {
+    "message": "N'oubliez pas de conserver les sauvegardes de votre travail à un autre endroit!"
+  },
+  "settings_usernames_like_picker_allowlist": {
+    "message": "Liste de noms d'utilisateur séparés par des virgules pour lesquels le sélecteur doit afficher (laisser vide pour toujours afficher)"
+  },
+  "settings_override_translation_language": {
+    "message": "Utiliser une langue spécifique lors de la traduction de tweets"
+  },
+  "settings_extract_pronouns": {
+    "message": "Extraire les pronoms de la bio ou de la localisation de l'utilisateur et les afficher dans les colonnes"
+  },
+  "settings_mute_nfts_accounts": {
+    "message": "Masquer les comptes qui utilise l'integration des avatars NFT (avatar en forme d'hexagone)"
+  },
+  "settings_require_confirmation_for_block_and_mute_actions": {
+    "message": "Exiger une confirmation pour les actions de blocage et de masquage"
+  },
+  "settings_better_tweetdeck_has_been_updated": {
+    "message": "Better TweetDeck a été mis à jour !"
+  },
+  "settings_click_this_notification_to_reload": {
+    "message": "Cliquez sur cette notification pour recharger les onglet(s) TweetDeck et récupérer la dernière mise à jour !"
   }
 }
