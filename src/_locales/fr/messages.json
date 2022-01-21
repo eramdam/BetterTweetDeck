@@ -306,7 +306,7 @@
     "message": "Menu contextuel"
   },
   "settings_old_gray": {
-    "message": "Bleu foncé"
+    "message": "Gris"
   },
   "settings_super_black": {
     "message": "Noir"
@@ -378,7 +378,7 @@
     "message": "En cherche d'inspiration ?"
   },
   "settings_check_the_collection_of_css_snippets": {
-    "message": "Vérifiez la collection de snippets CSS"
+    "message": "Collection de snippets CSS"
   },
   "settings_css_compress_warning": {
     "message": "Le CSS dans l'éditeur sera compressé afin d'économiser de l'espace vers le quota de stockage\n        de votre navigateur. Ce qui signifie une indentation ou un espace blanc sera supprimé."
@@ -456,7 +456,7 @@
     "message": "S'applique également au compositeur de DM"
   },
   "settings_show_profile_labels_in_tweets_and_profile_modals": {
-    "message": "Afficher les \"étiquettes de profil\" dans les tweets et les modales de profil"
+    "message": "Afficher les \"libellés de profil\" dans les tweets et les modales de profil"
   },
   "settings_hide_the_try_tweetdeck_preview_button": {
     "message": "Masquer le bouton \"Essayer l'aperçu de TweetDeck\""
