@@ -176,6 +176,14 @@ function isModulejQuery(mod: ModuleLike | undefined): mod is JQueryStatic {
           type: BTDNotificationTypes.UPDATE,
         },
       });
+      sendInternalBTDMessage({
+        name: BTDMessages.UPDATE_SETTINGS,
+        origin: BTDMessageOriginsEnum.INJECT,
+        isReponse: false,
+        payload: {
+          needsToShowUpdateBanner: false,
+        },
+      });
     }, 2000);
   });
   jq(document).on('uiResetImageUpload', () => {
@@ -260,6 +268,14 @@ async function maybeShowFollowBanner({TD, jq, settings}: BTDModuleOptions) {
     isReponse: false,
     payload: {
       type: BTDNotificationTypes.FOLLOW_PROMPT,
+    },
+  });
+  sendInternalBTDMessage({
+    name: BTDMessages.UPDATE_SETTINGS,
+    origin: BTDMessageOriginsEnum.INJECT,
+    isReponse: false,
+    payload: {
+      showFollowPrompt: false,
     },
   });
   listenToInternalBTDMessage(
