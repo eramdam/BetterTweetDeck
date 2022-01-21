@@ -392,6 +392,78 @@
   "settings_override_translation_language": {
     "message": "Utiliser une langue spécifique lors de la traduction de tweets"
   },
+  "settings_default_browsers_language": {
+    "message": "Par défaut (langue du navigateur)"
+  },
+  "settings_logo_variation": {
+    "message": "Variation du logo"
+  },
+  "settings_default": {
+    "message": "Par défaut"
+  },
+  "settings_action_follow_author": {
+    "message": "Ajouter une action pour suivre l'auteur"
+  },
+  "settings_follow_actions": {
+    "message": "Action de suivi"
+  },
+  "settings_show_followers_count": {
+    "message": "Afficher le nombre d'abonnés à côté de l'icône de suivi"
+  },
+  "settings_show_verified_badges": {
+    "message": "Afficher les badges de vérification"
+  },
+  "settings_show_translator_badges": {
+    "message": "Afficher les badges traducteurs"
+  },
+  "settings_show_badges_on_mutuals": {
+    "message": "Montrer les badges sur les mutus (vous les suivez et ils vous suivent)"
+  },
+  "settings_badges": {
+    "message": "Badges"
+  },
+  "settings_show_a_clear_all_columns_button_in_the_sidebar": {
+    "message": "Afficher le bouton \"Effacer toutes les colonnes\" dans la barre latérale"
+  },
+  "settings_require_alt_images": {
+    "message": "Désactiver le bouton tweet jusqu'à ce que toutes les images aient une description"
+  },
+  "settings_content_warning_hint": {
+    "message": "Nous allons vérifier si les tweets contiennent les avertissements cw/tw/cn couramment utilisés pour afficher ces avertissements !"
+  },
+  "settings_show_content_warnings": {
+    "message": "Afficher les avertissements de contenu pour les tweets marqués de façon appropriée"
+  },
+  "settings_images": {
+    "message": "Images"
+  },
+  "settings_collapse_unread_dms": {
+    "message": "Réduire également les MP non lus"
+  },
+  "settings_mutual_badge_use_a_heart": {
+    "message": "Utiliser un cœur"
+  },
+  "settings_mutual_badge_use_double_arrows": {
+    "message": "Utiliser des flèches doubles"
+  },
+  "settings_show_account_avatars_on_top_of_columns": {
+    "message": "Afficher l'avatar du compte en haut des colonnes"
+  },
+  "settings_show_conversation_control_button": {
+    "message": "Afficher le bouton de contrôle de la conversation"
+  },
+  "settings_disable_it_in_the_dm_composer_too": {
+    "message": "S'applique également au compositeur de DM"
+  },
+  "settings_show_profile_labels_in_tweets_and_profile_modals": {
+    "message": "Afficher les \"étiquettes de profil\" dans les tweets et les modales de profil"
+  },
+  "settings_hide_the_try_tweetdeck_preview_button": {
+    "message": "Masquer le bouton \"Essayer l'aperçu de TweetDeck\""
+  },
+  "settings_pronouns_extra": {
+    "message": "Ne support que les pronoms anglais pour le moment. Si vous remarquez des erreurs, veuillez me le faire savoir sur @BetterTDeck"
+  },
   "settings_extract_pronouns": {
     "message": "Extraire les pronoms de la bio ou de la localisation de l'utilisateur et les afficher dans les colonnes"
   },
