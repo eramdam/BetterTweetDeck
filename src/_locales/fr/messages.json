@@ -45,10 +45,10 @@
     "message": "Style des barres de défilement"
   },
   "settings_show_clear_button_column": {
-    "message": "Afficher le bouton \"Effacer\" dans l'en-tête des colonnes"
+    "message": "Afficher le bouton \"Effacer\" dans l'entête des colonnes"
   },
   "settings_show_collapse_button_in_columns_header": {
-    "message": "Afficher le bouton \"Réduire\" dans l'en-tête des colonnes"
+    "message": "Afficher le bouton \"Réduire\" dans l'entête des colonnes"
   },
   "settings_hide_icons_on_top_of_columns": {
     "message": "Masquer les icônes en haut des colonnes"
@@ -67,5 +67,98 @@
   },
   "settings_short_time_after_24h": {
     "message": "Utiliser un format de date différent après 24h"
+  },
+  "settings_timestamp_presets": {
+    "message": "Préréglagles"
+  },
+  "settings_timestamp_preset_absolute": {
+    "message": "Absolue"
+  },
+  "settings_timestamp_preset_absolute_us": {
+    "message": "Absolue (style américain)"
+  },
+  "settings_fullname_username": {
+    "message": "Nom et nom d'utilisateur"
+  },
+  "settings_username_fullname": {
+    "message": "Nom d'utilisateur et nom"
+  },
+  "settings_username": {
+    "message": "Nom d'utilisateur uniquement"
+  },
+  "settings_fullname": {
+    "message": "Nom uniquement"
+  },
+  "settings_name_display_style": {
+    "message": "Style d'affichage du nom"
+  },
+  "settings_general": {
+    "message": "Général"
+  },
+  "settings_theme": {
+    "message": "Thème"
+  },
+  "settings_tweets_display": {
+    "message": "Affichage des tweets"
+  },
+  "settings_tweet_actions": {
+    "message": "Actions de Tweet"
+  },
+  "settings_actions_visibility_always": {
+    "message": "Toujours"
+  },
+  "settings_actions_visibility_on_hover": {
+    "message": "Au survol"
+  },
+  "settings_actions_visibility": {
+    "message": "Visibilité des actions"
+  },
+  "settings_position_of_actions": {
+    "message": "Position des actions"
+  },
+  "settings_actions_position_left": {
+    "message": "Gauche"
+  },
+  "settings_actions_position_right": {
+    "message": "Droite"
+  },
+  "settings_action_block_author": {
+    "message": "Bloquer l'auteur"
+  },
+  "settings_action_mute_author": {
+    "message": "Masquer l'auteur"
+  },
+  "settings_action_copy_media_links": {
+    "message": "Copier les liens de médias"
+  },
+  "settings_action_download_media": {
+    "message": "Télécharger le média"
+  },
+  "settings_additional_actions": {
+    "message": "Actions de tweet à ajouter"
+  },
+  "settings_downloaded_filename_format": {
+    "message": "Format du fichier téléchargé"
+  },
+  "settings_filename_format_tokens": {
+    "message": "Token de format de nom de fichier"
+  },
+  "settings_token_username_without": {
+    "message": "nom d'utilisateur (sans @)"
+  },
+  "settings_token_tweet_id": {
+    "message": "ID du tweet"
+  },
+  "settings_shorten_the_shared_text": {
+    "message": "Raccourcir le texte partagé"
+  },
+  "settings_contextual_menu": {
+    "message": "Menu contextuel"
+  },
+  "settings_old_gray": {
+    "message": "Bleu foncé"
+  },
+  "settings_super_black": {
+    "message": "Noir"
   }
 }
