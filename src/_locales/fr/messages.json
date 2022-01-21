@@ -1,1 +1,71 @@
-{}
+{
+  "app_desc": {
+    "message": "Faites passer TweetDeck au niveau supérieur!"
+  },
+  "app_name": {
+    "message": "Better TweetDeck"
+  },
+  "settings_title": {
+    "message": "Better TweetDeck"
+  },
+  "settings_show_cards_inside_columns": {
+    "message": "Afficher les cartes des tweet à l'interieur des colonnes"
+  },
+  "settings_show_profile_badges_on_top_of_avatars": {
+    "message": "Afficher les badges de profil sur les avatars"
+  },
+  "settings_collapse_read_dms": {
+    "message": "Réduire les MP lus"
+  },
+  "settings_freeze_gifs_in_profile_pictures": {
+    "message": "Ne pas animer les GIFs des photos de profil"
+  },
+  "settings_remove_t_co_redirection_on_links": {
+    "message": "Retirer la redirection t.co sur les liens"
+  },
+  "settings_make_buttons_smaller_in_the_composer": {
+    "message": "Rendre les boutons plus petits dans le composeur"
+  },
+  "settings_reflect_new_tweets_and_dms_in_the_tabs_title": {
+    "message": "Montrer les nouveaux tweets et MP dans le titre de l'onglet"
+  },
+  "settings_auto_switch_light_theme": {
+    "message": "Basculer sur le thème lumineux lorsque l'OS est en mode clair"
+  },
+  "settings_scrollbar_default": {
+    "message": "Par Défaut"
+  },
+  "settings_scrollbar_thin": {
+    "message": "Fine"
+  },
+  "settings_scrollbar_hidden": {
+    "message": "Masquée"
+  },
+  "settings_style_of_scrollbars": {
+    "message": "Style des barres de défilement"
+  },
+  "settings_show_clear_button_column": {
+    "message": "Afficher le bouton \"Effacer\" dans l'en-tête des colonnes"
+  },
+  "settings_show_collapse_button_in_columns_header": {
+    "message": "Afficher le bouton \"Réduire\" dans l'en-tête des colonnes"
+  },
+  "settings_hide_icons_on_top_of_columns": {
+    "message": "Masquer les icônes en haut des colonnes"
+  },
+  "settings_use_old_style_of_replies": {
+    "message": "Utiliser un ancien style de réponses (@mentions sur la même ligne)"
+  },
+  "settings_timestamp_relative": {
+    "message": "Relatif"
+  },
+  "settings_timestamp_custom": {
+    "message": "Personnalisé"
+  },
+  "settings_date_format": {
+    "message": "Format de la date"
+  },
+  "settings_short_time_after_24h": {
+    "message": "Utiliser un format de date différent après 24h"
+  }
+}
