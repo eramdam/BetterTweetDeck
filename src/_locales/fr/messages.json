@@ -69,7 +69,7 @@
     "message": "Utiliser un format de date différent après 24h"
   },
   "settings_timestamp_presets": {
-    "message": "Préréglagles"
+    "message": "Préréglages"
   },
   "settings_timestamp_preset_absolute": {
     "message": "Absolue"
@@ -102,7 +102,7 @@
     "message": "Affichage des tweets"
   },
   "settings_tweet_actions": {
-    "message": "Actions de Tweet"
+    "message": "Actions des Tweets"
   },
   "settings_actions_visibility_always": {
     "message": "Toujours"
@@ -132,13 +132,13 @@
     "message": "Copier les liens de médias"
   },
   "settings_action_download_media": {
-    "message": "Télécharger le média"
+    "message": "Télécharger les médias"
   },
   "settings_additional_actions": {
     "message": "Actions de tweet à ajouter"
   },
   "settings_downloaded_filename_format": {
-    "message": "Format du fichier téléchargé"
+    "message": "Format du nom de fichier téléchargé"
   },
   "settings_filename_format_tokens": {
     "message": "Token de format de nom de fichier"
@@ -171,13 +171,13 @@
     "message": "Secondes"
   },
   "settings_menu_item_mute_hashtags": {
-    "message": "Mettre en sourdine les #hashtags"
+    "message": "Masquer les #hashtags"
   },
   "settings_menu_item_mute_source": {
-    "message": "Couper la source du tweet"
+    "message": "Masquer la source du tweet"
   },
   "settings_menu_item_redraft": {
-    "message": "Refaire le brouillon"
+    "message": "Re-rédiger"
   },
   "settings_additional_tweet_menu_items": {
     "message": "Éléments supplémentaires du menu de tweet"
@@ -198,7 +198,7 @@
     "message": "Sauvegarder"
   },
   "settings_use_original_aspect_ratio_images": {
-    "message": "Afficher les images individuelles avec leur ratio d'aspect d'origine (uniquement pour les moyennes et les grandes tailles)"
+    "message": "Afficher les images individuelles avec leur ratio d'aspect d'origine (uniquement pour les moyennes et grandes tailles)"
   },
   "settings_show_delete_button_in_columns_header": {
     "message": "Afficher le bouton \"Effacer\" dans l'entête des colonnes"
@@ -216,7 +216,7 @@
     "message": "Cercle"
   },
   "settings_display_modern_fullscreen_images": {
-    "message": "Afficher les images en plein écran à la Twitter Web"
+    "message": "Afficher les images en plein écran comme Twitter Web"
   },
   "settings_browser_and_extension_informations": {
     "message": "Informations sur le navigateur et l'extension"
@@ -234,19 +234,19 @@
     "message": "Exportez vos paramètres en cliquant sur le bouton ci-dessous"
   },
   "settings_download_settings_button": {
-    "message": "Télécharger les reglages"
+    "message": "Télécharger les réglages"
   },
   "settings_import_settings": {
-    "message": "Importer les reglages"
+    "message": "Importer les réglages"
   },
   "settings_import_settings_copy": {
-    "message": "Importer vos reglages depuis un fichier JSON"
+    "message": "Importer vos réglages depuis un fichier JSON"
   },
   "settings_import_json_wrong_keys": {
-    "message": "Votre fichier ne correspond pas au format des reglages de Better TweetDeck"
+    "message": "Votre fichier ne correspond pas au format des réglages de Better TweetDeck"
   },
   "settings_import_success": {
-    "message": "Vos reglages ont été correctement importés, n'oubliez pas de cliquer sur le bouton Sauvegarder !"
+    "message": "Vos réglages ont été correctement importés, n'oubliez pas de cliquer sur le bouton Sauvegarder !"
   },
   "settings_imported_settings_summary": {
     "message": "Cliquez ici pour voir les paramètres importés"
@@ -285,7 +285,7 @@
     "message": "Contenu du tweet"
   },
   "settings_pause_column_scrolling_on_hover": {
-    "message": "Mettre en pause le défilement de la collone au survol"
+    "message": "Mettre en pause le défilement des colonnes au survol"
   },
   "settings_use_a_custom_width_for_columns": {
     "message": "Utiliser une largeur personnalisée pour les colonnes"
