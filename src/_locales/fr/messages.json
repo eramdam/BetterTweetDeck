@@ -149,6 +149,105 @@
   "settings_token_tweet_id": {
     "message": "ID du tweet"
   },
+  "settings_token_filename": {
+    "message": "Nom du fichier"
+  },
+  "settings_token_file_extension": {
+    "message": "Extension du fichier"
+  },
+  "settings_token_year": {
+    "message": "Année"
+  },
+  "settings_token_day": {
+    "message": "Jour"
+  },
+  "settings_token_month": {
+    "message": "Mois"
+  },
+  "settings_token_minutes": {
+    "message": "Minutes"
+  },
+  "settings_token_seconds": {
+    "message": "Secondes"
+  },
+  "settings_menu_item_mute_hashtags": {
+    "message": "Mettre en sourdine les #hashtags"
+  },
+  "settings_menu_item_mute_source": {
+    "message": "Couper la source du tweet"
+  },
+  "settings_menu_item_redraft": {
+    "message": "Refaire le brouillon"
+  },
+  "settings_additional_tweet_menu_items": {
+    "message": "Éléments supplémentaires du menu de tweet"
+  },
+  "settings_replace_hearts_by_stars": {
+    "message": "Remplacer les coeurs par des étoiles"
+  },
+  "settings_custom_css": {
+    "message": "CSS personnalisé"
+  },
+  "settings_custom_css_warning": {
+    "message": "Coller du code inconnu dans cet éditeur peut conduire à des problèmes étranges si vous ne savez pas ce que vous faites"
+  },
+  "settings_avatar_shape": {
+    "message": "Forme des avatars"
+  },
+  "settings_save": {
+    "message": "Sauvegarder"
+  },
+  "settings_use_original_aspect_ratio_images": {
+    "message": "Afficher les images individuelles avec leur ratio d'aspect d'origine (uniquement pour les moyennes et les grandes tailles)"
+  },
+  "settings_show_delete_button_in_columns_header": {
+    "message": "Afficher le bouton \"Effacer\" dans l'entête des colonnes"
+  },
+  "settings_section_settings": {
+    "message": "Réglages"
+  },
+  "settings_support": {
+    "message": "Assistance"
+  },
+  "settings_avatar_square": {
+    "message": "Carré"
+  },
+  "settings_avatar_circle": {
+    "message": "Cercle"
+  },
+  "settings_display_modern_fullscreen_images": {
+    "message": "Afficher les images en plein écran à la Twitter Web"
+  },
+  "settings_browser_and_extension_informations": {
+    "message": "Informations sur le navigateur et l'extension"
+  },
+  "settings_version": {
+    "message": "Version :"
+  },
+  "settings_user_agent": {
+    "message": "Agent d'utilisateur :"
+  },
+  "settings_export_settings": {
+    "message": "Exporter les réglages"
+  },
+  "settings_export_settings_copy": {
+    "message": "Exportez vos paramètres en cliquant sur le bouton ci-dessous"
+  },
+  "settings_download_settings_button": {
+    "message": "Télécharger les reglages"
+  },
+  "settings_import_settings": {
+    "message": "Importer les reglages"
+  },
+  "settings_import_settings_copy": {
+    "message": "Importer vos reglages depuis un fichier JSON"
+  },
+  "settings_import_json_wrong_keys": {
+    "message": "Votre fichier ne correspond pas au format des reglages de Better TweetDeck"
+  },
+  "settings_import_success": {
+    "message": "Vos reglages ont été correctement importés, n'oubliez pas de cliquer sur le bouton Sauvegarder !"
+  },
   "settings_shorten_the_shared_text": {
     "message": "Raccourcir le texte partagé"
   },
@@ -160,5 +259,8 @@
   },
   "settings_super_black": {
     "message": "Noir"
+  },
+  "settings_tokens_list": {
+    "message": "Liste des jetons"
   }
 }
