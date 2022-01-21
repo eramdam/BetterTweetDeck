@@ -29,6 +29,9 @@ export const extendTwitterUser = makeBTDModule(({TD, jq}) => {
     baseUser.hasNftAvatar = Boolean(blob.ext_has_nft_avatar);
     const baseLabel = blob.ext?.highlightedLabel?.r?.ok?.label || {};
     baseUser.highlightedLabel = isEmpty(baseLabel) ? undefined : baseLabel;
+    if (!isEmpty(baseLabel)) {
+      baseUser.highlightedLabel.badge = baseLabel.badge.url;
+    }
 
     return baseUser;
   };
