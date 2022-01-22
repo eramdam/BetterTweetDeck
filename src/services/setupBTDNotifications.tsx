@@ -191,7 +191,7 @@ const Notifications = () => {
         left: 0;
         right: 0;
         padding: 20px;
-        z-index: 999;
+        z-index: 299;
         display: flex;
         flex-direction: column;
         gap: 20px;
