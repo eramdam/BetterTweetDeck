@@ -44,6 +44,15 @@ export const extendTwitterStatus = makeBTDModule(({TD, settings}) => {
   TD.services.TwitterStatus.prototype.fromJSONObject = function fromJSONObject(blob: any) {
     var baseTweet = this.OGFromJSON(blob) as TwitterStatus;
 
+    baseTweet.possiblySensitive =
+      baseTweet.possiblySensitive ||
+      baseTweet.entities.media.some(
+        (media) =>
+          media.ext_sensitive_media_warning?.adult_content ||
+          media.ext_sensitive_media_warning?.graphic_violence ||
+          media.ext_sensitive_media_warning?.other
+      );
+
     // @ts-expect-error
     baseTweet.conversationControl = blob.conversation_control;
     // @ts-expect-error

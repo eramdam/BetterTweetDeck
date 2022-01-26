@@ -688,6 +688,7 @@ export interface TweetDeckChirp {
   text: string;
   user: User;
   following?: User;
+  possiblySensitive: boolean;
   withPrettyEngagements: boolean;
   conversationId?: string | number;
   renderInMediaGallery(): string;
@@ -731,6 +732,11 @@ export type TweetdeckMediaEntity = Twitter.MediaEntity & {
   ext_alt_text?: string;
   ext_media_color?: {
     palette: TweetMediaEntityPalette;
+  };
+  ext_sensitive_media_warning?: {
+    adult_content: boolean;
+    graphic_violence: boolean;
+    other: boolean;
   };
   video_info: {
     variants: {
