@@ -712,6 +712,7 @@ export interface TweetDeckChirp {
     name: string;
     url: string;
   };
+  mediaWarnings?: TwitterMediaWarnings[];
 }
 
 export interface TweetHashtag {
@@ -728,15 +729,21 @@ export type TweetMediaEntityPalette = {
   percentage: number;
 }[];
 
+export enum TwitterMediaWarnings {
+  ADULT_CONTENT = 'adult_content',
+  GRAPHIC_VIOLENCE = 'graphic_violence',
+  OTHER = 'other',
+}
+
 export type TweetdeckMediaEntity = Twitter.MediaEntity & {
   ext_alt_text?: string;
   ext_media_color?: {
     palette: TweetMediaEntityPalette;
   };
   ext_sensitive_media_warning?: {
-    adult_content: boolean;
-    graphic_violence: boolean;
-    other: boolean;
+    [TwitterMediaWarnings.ADULT_CONTENT]: boolean;
+    [TwitterMediaWarnings.GRAPHIC_VIOLENCE]: boolean;
+    [TwitterMediaWarnings.OTHER]: boolean;
   };
   video_info: {
     variants: {

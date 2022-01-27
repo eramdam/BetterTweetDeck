@@ -27,6 +27,7 @@ import {hidePreviewButton} from './features/hidePreviewButton';
 import {keepTweetedHashtagsInComposer} from './features/keepTweetedHashtags';
 import {changeLogo} from './features/logoVariations';
 import {makeSearchColumnsFirst} from './features/makeSearchColumnsFirst';
+import {mediaWarnings} from './features/mediaWarnings';
 import {useModernOverlays} from './features/modernOverlays';
 import {muteNftAvatars} from './features/muteNfts';
 import {setupMuteCatcher} from './features/mutesCatcher';
@@ -143,6 +144,7 @@ function isModulejQuery(mod: ModuleLike | undefined): mod is JQueryStatic {
   maybeShowCharacterCount(btdModuleOptions);
   showTweetDogEars(btdModuleOptions);
   contentWarnings(btdModuleOptions);
+  mediaWarnings(btdModuleOptions);
   extendTwitterStatus(btdModuleOptions);
   setupMuteCatcher(btdModuleOptions);
 

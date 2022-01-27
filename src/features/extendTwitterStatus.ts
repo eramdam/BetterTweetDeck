@@ -1,5 +1,7 @@
+import _ from 'lodash';
+
 import {makeBTDModule} from '../types/btdCommonTypes';
-import {TwitterStatus} from '../types/tweetdeckTypes';
+import {TwitterMediaWarnings, TwitterStatus} from '../types/tweetdeckTypes';
 
 export const extendTwitterStatus = makeBTDModule(({TD, settings}) => {
   TD.services.TwitterAction.prototype.OGFromJSON =
@@ -41,17 +43,22 @@ export const extendTwitterStatus = makeBTDModule(({TD, settings}) => {
   TD.services.TwitterStatus.prototype.OGFromJSON =
     TD.services.TwitterStatus.prototype.fromJSONObject;
 
+  const mediaWarningTypes = [
+    TwitterMediaWarnings.ADULT_CONTENT,
+    TwitterMediaWarnings.GRAPHIC_VIOLENCE,
+    TwitterMediaWarnings.OTHER,
+  ];
   TD.services.TwitterStatus.prototype.fromJSONObject = function fromJSONObject(blob: any) {
     var baseTweet = this.OGFromJSON(blob) as TwitterStatus;
 
-    baseTweet.possiblySensitive =
-      baseTweet.possiblySensitive ||
-      baseTweet.entities.media.some(
-        (media) =>
-          media.ext_sensitive_media_warning?.adult_content ||
-          media.ext_sensitive_media_warning?.graphic_violence ||
-          media.ext_sensitive_media_warning?.other
-      );
+    baseTweet.mediaWarnings = _(baseTweet.entities.media)
+      .map((media) => media.ext_sensitive_media_warning)
+      .map((m) => _.keys(m))
+      .flatten()
+      .uniq()
+      .map((w) => mediaWarningTypes.includes(w as any) && (w as TwitterMediaWarnings))
+      .compact()
+      .value();
 
     // @ts-expect-error
     baseTweet.conversationControl = blob.conversation_control;

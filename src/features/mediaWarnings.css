@@ -1,0 +1,98 @@
+.media-preview-with-warning > .js-media-preview-container,
+.media-preview-with-warning > [class^='media-grid'] {
+  filter: blur(30px);
+}
+
+.js-media.full-bleed-media-preview-with-warning > .js-media-preview-container,
+.js-media.full-bleed-media-preview-with-warning.media-size-large-height {
+  overflow: hidden;
+}
+
+.js-media.full-bleed-media-preview-with-warning > .js-media-preview-container > .js-media-image-link,
+.js-media.full-bleed-media-preview-with-warning > [class^='media-grid'] {
+  filter: blur(30px);
+}
+
+.media-preview-with-warning {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.media-preview-with-warning > .js-media-preview-container.margin-vm {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+details.media-warning[open],
+details.media-warning > div {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+details.media-warning:not([open]) > summary {
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  right: 10px;
+  bottom: 9px;
+  width: 46px;
+  height: 24px;
+  text-align: center;
+  border-radius: 100px;
+  line-height: 23px;
+  font-size: 12px;
+}
+
+details.media-warning:not([open]) > summary:hover {
+  background: rgba(40, 40, 40, 0.75);
+}
+
+details.media-warning > div {
+  display: grid;
+  grid-auto-flow: row;
+  grid-auto-rows: auto;
+  justify-items: flex-start;
+  align-content: center;
+  grid-row-gap: 8px;
+  padding: 15px;
+  color: white;
+}
+
+details.media-warning > div > .show-button-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+details.media-warning > div > .show-button-row > span {
+  height: 24px;
+  text-align: center;
+  border-radius: 100px;
+  line-height: 23px;
+  background: rgba(255, 255, 255, 0.3);
+  display: inline-block;
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+details.media-warning > summary {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+  list-style-type: none;
+}
+
+details.media-warning > summary::-webkit-details-marker {
+  display: none;
+}
