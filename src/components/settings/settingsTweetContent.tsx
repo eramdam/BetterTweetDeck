@@ -90,6 +90,15 @@ export const SettingsTweetContent: FC<SettingsMenuSectionProps> = (props) => {
             ),
           },
           {
+            initialValue: settings.showMediaWarnings,
+            key: 'showMediaWarnings',
+            introducedIn: '4.7',
+            label: <Trans id="settings_show_twitters_warnings_on_media" />,
+            extraContent: () => {
+              return <small className={SettingsSmall}>Twitter added feature in January 2022</small>;
+            },
+          },
+          {
             initialValue: settings.showProfileLabels,
             introducedIn: '4.5',
             key: 'showProfileLabels',

@@ -10,7 +10,11 @@ const mediaWarningsRenderers = {
   [TwitterMediaWarnings.OTHER]: 'sensitive content',
 };
 
-export const mediaWarnings = makeBTDModule(({TD}) => {
+export const mediaWarnings = makeBTDModule(({settings}) => {
+  if (!settings.showMediaWarnings) {
+    return;
+  }
+
   onChirpAdded((payload) => {
     if (!payload.chirp.mediaWarnings || payload.chirp.mediaWarnings.length === 0) {
       return;
