@@ -478,8 +478,5 @@
   },
   "settings_click_this_notification_to_reload": {
     "message": "Click this notification to reload your TweetDeck tab(s) to grab the newest update!"
-  },
-  "settings_show_twitters_warnings_on_media": {
-    "message": "Show Twitter's warnings on media"
   }
 }
