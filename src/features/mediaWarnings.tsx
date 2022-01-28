@@ -2,7 +2,7 @@ import './mediaWarnings.css';
 
 import {onChirpAdded} from '../services/chirpHandler';
 import {makeBTDModule, makeBtdUuidSelector} from '../types/btdCommonTypes';
-import {TwitterMediaWarnings} from '../types/tweetdeckTypes';
+import {TweetDeckColumnMediaPreviewSizesEnum, TwitterMediaWarnings} from '../types/tweetdeckTypes';
 
 const mediaWarningsRenderers = {
   [TwitterMediaWarnings.ADULT_CONTENT]: 'nudity',
@@ -24,7 +24,7 @@ export const mediaWarnings = makeBTDModule(({TD}) => {
 
     const mediaPreview = chirpNode.querySelector('.js-media');
 
-    if (!mediaPreview) {
+    if (!mediaPreview || payload.columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.OFF) {
       return;
     }
 
@@ -42,10 +42,17 @@ export const mediaWarnings = makeBTDModule(({TD}) => {
     }
     const warningsAsString = contentWarnings.join(', ');
     const contentWarningHeader = `Content warning: ${warningsAsString}`;
-    const contentWarningBody = `The Tweet author flagged this Tweet as showing sensitive content.`;
+    const isInSmallMediaColumn =
+      payload.columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.SMALL;
+    let contentWarningBody = `The Tweet author flagged this Tweet as showing sensitive content.`;
     const details = document.createElement('details');
+    if (isInSmallMediaColumn && payload.chirp.entities.media.length === 1) {
+      contentWarningBody += ` Click to show.`;
+    }
     details.open = true;
     details.classList.add('media-warning');
+    details.classList.add(`media-warning-${payload.chirp.entities.media.length}`);
+
     details.innerHTML = `
       <div>
         <strong>${contentWarningHeader}</strong>
