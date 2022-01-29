@@ -95,7 +95,11 @@ export const SettingsTweetContent: FC<SettingsMenuSectionProps> = (props) => {
             introducedIn: '4.7',
             label: <Trans id="settings_show_twitters_warnings_on_media" />,
             extraContent: () => {
-              return <small className={SettingsSmall}>Twitter added feature in January 2022</small>;
+              return (
+                <small className={SettingsSmall}>
+                  <Trans id="settings_twitter_added_feature_in_january_2022" />
+                </small>
+              );
             },
           },
           {
