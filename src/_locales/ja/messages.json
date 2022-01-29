@@ -475,5 +475,8 @@
   },
   "settings_click_this_notification_to_reload": {
     "message": "最新の状態にするために、この通知をクリックしてTweetDeckタブを更新しましょう"
+  },
+  "settings_show_twitters_warnings_on_media": {
+    "message": "メディアにTwitterの警告を表示する"
   }
 }
