@@ -481,5 +481,8 @@
   },
   "settings_show_twitters_warnings_on_media": {
     "message": "Show Twitter's warnings on media"
+  },
+  "settings_twitter_added_feature_in_january_2022": {
+    "message": "Twitter added feature in January 2022"
   }
 }
