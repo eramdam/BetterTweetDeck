@@ -478,5 +478,8 @@
   },
   "settings_click_this_notification_to_reload": {
     "message": "Cliquez sur cette notification pour recharger les onglet(s) TweetDeck et récupérer la dernière mise à jour !"
+  },
+  "settings_show_twitters_warnings_on_media": {
+    "message": "Afficher les avertissements de Twitter sur les médias"
   }
 }
