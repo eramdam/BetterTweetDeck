@@ -478,5 +478,11 @@
   },
   "settings_click_this_notification_to_reload": {
     "message": "Clique nesta notificação para recarregar sua aba do TweetDeck para atualizar para a versão mais recente!"
+  },
+  "settings_show_twitters_warnings_on_media": {
+    "message": "Mostrar avisos de conteúdo do Twitter em mídias"
+  },
+  "settings_twitter_added_feature_in_january_2022": {
+    "message": "Recurso adicionado pelo Twitter em janeiro de 2022"
   }
 }
