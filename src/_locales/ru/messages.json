@@ -466,5 +466,8 @@
   },
   "settings_extract_pronouns": {
     "message": "Извлечь местоимения из биографии или местоположения пользователей и показать их в столбцах"
+  },
+  "settings_twitter_added_feature_in_january_2022": {
+    "message": "Функция, добавленная Twitter в январе 2022 года"
   }
 }
