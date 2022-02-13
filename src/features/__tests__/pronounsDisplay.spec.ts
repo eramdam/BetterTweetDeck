@@ -20,6 +20,8 @@ describe('Pronouns', () => {
           ['they', 'them'],
         ],
       ],
+      ['3y3', `Sometimes does other things.󠀁󠁳󠁨󠁥󠀯󠁨󠁥󠁲󠁿 `, [['she', 'her']]],
+      ['Subject/object', `私はチーズが好きです she/her`, [['she', 'her']]],
 
       ['With separator-like before', 'france | they / them', [['they', 'them']]],
 
@@ -60,6 +62,7 @@ describe('Pronouns', () => {
       ['No matches', 'he re he ro he re ho ma', undefined],
       ['No matches', 'However, she is still', undefined],
       ['No matches', '(she-meh)', undefined],
+      ['No matches', `私はチーズが好きです`, undefined],
 
       ['No matches for mixed separators', `she/her | ver`, undefined],
 
