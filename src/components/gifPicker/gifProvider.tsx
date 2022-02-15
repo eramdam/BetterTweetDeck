@@ -40,22 +40,35 @@ export const BTDGifProvider = () => {
     ],
   });
   const [pagination, setPagination] = useState({next: '', offset: 0});
-  const gifChunks = useMemo(() => _.chunk(loadedGifs, 3), [loadedGifs]);
+  const gifChunks = useMemo(() => {
+    return _.chunk(loadedGifs, 3);
+  }, [loadedGifs]);
   const scrollRef = useRef<HTMLDivElement>(null);
   const rowVirtualizer = useVirtual({
     size: gifChunks.length,
     parentRef: scrollRef,
-    estimateSize: useCallback(() => 100, []),
+    estimateSize: useCallback(() => {
+      return 100;
+    }, []),
     overscan: 2,
   });
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSearchDebounce = useDebouncedCallback(async (query: string) => {
+    if (isLoading) {
+      return;
+    }
+
+    setIsLoading(true);
     const gifsSearchResults = await makeGifRequest('search', {
       limit: '25',
       q: query,
       pos: pagination.next,
       offset: pagination.offset,
     });
+    setSearchQuery(query);
+    setIsLoading(false);
 
     if (!gifsSearchResults) {
       return;
@@ -108,13 +121,33 @@ export const BTDGifProvider = () => {
     if (!gifsSearchResults) {
       return;
     }
-    console.log(gifsSearchResults);
 
     setLoadedGifs(gifsSearchResults.gifs);
     setPagination(gifsSearchResults.pagination);
   };
 
   const gifButton = <BTDGifButton onClick={onGifButtonClick}></BTDGifButton>;
+
+  const onLoadMore = async () => {
+    if (isLoading) {
+      return;
+    }
+    setIsLoading(true);
+    const gifsSearchResults = await makeGifRequest(searchQuery ? 'search' : 'trending', {
+      limit: '25',
+      q: searchQuery,
+      pos: pagination.next,
+      offset: pagination.offset,
+    });
+    setIsLoading(false);
+
+    if (!gifsSearchResults) {
+      return;
+    }
+
+    setLoadedGifs((prev) => [...prev, ...gifsSearchResults.gifs]);
+    setPagination(gifsSearchResults.pagination);
+  };
 
   return (
     <Fragment>
@@ -141,6 +174,18 @@ export const BTDGifProvider = () => {
             ref={setPopperElement}
             scrollRef={scrollRef}
             style={styles.popper}
+            onScroll={(e) => {
+              if (!isHTMLElement(e.target)) {
+                return;
+              }
+
+              const distanceFromBottom =
+                rowVirtualizer.totalSize - e.target.scrollTop - e.target.offsetHeight;
+
+              if (distanceFromBottom < e.target.offsetHeight / 2) {
+                onLoadMore();
+              }
+            }}
             onSearchInput={onSearchDebounce}
             onCloseClick={() => setIsGifPickerOpen(false)}>
             <div
@@ -150,26 +195,26 @@ export const BTDGifProvider = () => {
               }}>
               {rowVirtualizer.virtualItems.map((chunk) => {
                 return (
-                  <div
-                    key={chunk.index}
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      width: '100%',
-                      height: `${chunk.size}px`,
-                      transform: `translateY(${chunk.start}px)`,
-                      display: 'flex',
-                    }}>
-                    {gifChunks[chunk.index].map((gif) => {
-                      return (
-                        <BTDGifItem
-                          key={gif.url}
-                          previewUrl={gif.preview.url}
-                          onClick={() => onGifClick(gif.url)}></BTDGifItem>
-                      );
-                    })}
-                  </div>
+                  <Fragment key={chunk.index}>
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: `${chunk.size}px`,
+                        transform: `translateY(${chunk.start}px)`,
+                      }}>
+                      {gifChunks[chunk.index].map((gif) => {
+                        return (
+                          <BTDGifItem
+                            key={gif.url}
+                            previewUrl={gif.preview.url}
+                            onClick={() => onGifClick(gif.url)}></BTDGifItem>
+                        );
+                      })}
+                    </div>
+                  </Fragment>
                 );
               })}
             </div>
@@ -235,7 +280,7 @@ async function makeGifRequest(
     gifs: validatedGifPayloads,
     pagination: {
       next: gifPayloads[1]?.payload.pagination.next || '',
-      offset: gifPayloads[0]?.payload.pagination.offset || 0,
+      offset: Number(params.limit || '0') + Number(gifPayloads[0]?.payload.pagination.offset) || 0,
     },
   };
 }

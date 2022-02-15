@@ -1,5 +1,5 @@
 import createEmotion from '@emotion/css/create-instance';
-import React, {CSSProperties, forwardRef, ReactNode} from 'react';
+import React, {CSSProperties, forwardRef, ReactNode, UIEventHandler} from 'react';
 
 import {Handler, HandlerOf} from '../../helpers/typeHelpers';
 
@@ -9,6 +9,7 @@ interface GifPickerProps {
   children: ReactNode;
   style: CSSProperties;
   scrollRef: React.RefObject<HTMLDivElement>;
+  onScroll: UIEventHandler<HTMLDivElement>;
 }
 const container = document.head.appendChild(document.createElement('style'));
 const {cx, css} = createEmotion({
@@ -73,6 +74,7 @@ export const BTDGifPicker = forwardRef<HTMLDivElement, GifPickerProps>((props, r
         />
       </header>
       <div
+        onScroll={props.onScroll}
         className={cx(
           `scroll-v scroll-styled-v`,
           css`
