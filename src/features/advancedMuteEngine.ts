@@ -28,7 +28,7 @@
 
 import {makeEnumRuntimeType} from '../helpers/runtimeTypeHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
-import {TweetDeckChirp, TweetDeckObject} from '../types/tweetdeckTypes';
+import {ChirpBaseTypeEnum, TweetDeckChirp, TweetDeckObject} from '../types/tweetdeckTypes';
 import {
   AMEFilters,
   maybeLogMuteCatch,
@@ -280,14 +280,18 @@ export const setupAME = makeBTDModule(({TD, jq}) => {
       e = getAMEFilterTarget(e, this.filterTarget, this.type);
 
       const shouldDisplay = AmeFilters[this.type].function(t, e);
-      maybeLogMuteCatch(e, this, shouldDisplay);
+      if (e.chirpType === ChirpBaseTypeEnum.TWEET || e.chirpType === ChirpBaseTypeEnum.UNKNOWN) {
+        maybeLogMuteCatch(e, this, shouldDisplay);
+      }
 
       return shouldDisplay;
     }
 
     const shouldDisplay = this._pass(e);
 
-    maybeLogMuteCatch(e, this, shouldDisplay);
+    if (e.chirpType === ChirpBaseTypeEnum.TWEET || e.chirpType === ChirpBaseTypeEnum.UNKNOWN) {
+      maybeLogMuteCatch(e, this, shouldDisplay);
+    }
 
     return shouldDisplay;
   };

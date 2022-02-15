@@ -645,6 +645,7 @@ export enum ChirpBaseTypeEnum {
   SCHEDULED_TWEET_GROUP = 'scheduled_tweet_group',
   SCHEDULED_TWEET = 'scheduled_tweet',
   TWEET = 'tweet',
+  UNKNOWN = 'unknown',
 }
 
 export interface TweetDeckChirp {
