@@ -82,9 +82,6 @@ export const BTDGifPicker = forwardRef<HTMLDivElement, GifPickerProps>((props, r
         )}>
         <div
           className={css`
-            column-count: 2;
-            column-gap: 0;
-
             .btd-giphy-block-wrapper {
               overflow: hidden;
 

@@ -10,12 +10,18 @@ export interface GifItemProps {
 }
 export const BTDGifItem: FC<GifItemProps> = (props) => {
   return (
-    <div className="btd-giphy-block-wrapper" onClick={props.onClick}>
+    <div
+      className="btd-giphy-block-wrapper"
+      onClick={props.onClick}
+      style={{height: 100, width: 100}}>
       <img
         src={props.previewUrl}
         className="btd-giphy-block"
-        height={props.height}
-        width={props.width}
+        style={{
+          objectFit: 'cover',
+          height: '100%',
+          width: '100%',
+        }}
       />
     </div>
   );
