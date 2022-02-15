@@ -486,13 +486,13 @@
     "message": "Twitter added feature in January 2022"
   },
   "settings_show_warnings_for_adult_content": {
-    "message": "Show warnings for adult content"
+    "message": "Show warnings for media with nudity"
   },
   "settings_show_warnings_for_graphic_violence": {
-    "message": "Show warnings for graphic violence"
+    "message": "Show warnings for media with graphic violence"
   },
   "settings_show_warnings_for_sensitive_contents": {
-    "message": "Show warnings for sensitive contents"
+    "message": "Show warnings for media with sensitive content"
   },
   "settings_warnings": {
     "message": "Warnings"
