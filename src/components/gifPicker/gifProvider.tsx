@@ -41,7 +41,7 @@ export const BTDGifProvider = () => {
 
   const onSearchDebounce = useDebouncedCallback(async (query: string) => {
     const gifsSearchResults = await makeGifRequest('search', {
-      limit: '10',
+      limit: '25',
       q: query,
     });
 
@@ -86,7 +86,9 @@ export const BTDGifProvider = () => {
 
   const onGifButtonClick = async () => {
     setIsGifPickerOpen(true);
-    const gifsSearchResults = await makeGifRequest('trending', {});
+    const gifsSearchResults = await makeGifRequest('trending', {
+      limit: '25',
+    });
 
     if (!gifsSearchResults) {
       return;
