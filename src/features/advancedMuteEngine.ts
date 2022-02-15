@@ -137,6 +137,17 @@ export const setupAME = makeBTDModule(({TD, jq}) => {
         );
       },
     },
+    [AMEFilters.HASHTAGS_NUMBER]: {
+      display: {
+        global: true,
+      },
+      name: 'Tweet contains more than X hashtags',
+      descriptor: 'tweets with more than X hashtags',
+      placeholder: 'Enter a number',
+      function(t, e) {
+        return e.entities.hashtags.length <= Number(t.value);
+      },
+    },
     [AMEFilters.REGEX_DISPLAYNAME]: {
       display: {
         global: true,

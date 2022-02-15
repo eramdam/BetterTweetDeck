@@ -22,6 +22,7 @@ export enum AMEFilters {
   FOLLOWER_COUNT_LESS_THAN = 'BTD_follower_count_less_than',
   FOLLOWER_COUNT_GREATER_THAN = 'BTD_follower_count_greater_than',
   SPECIFIC_TWEET = 'BTD_specific_tweet',
+  HASHTAGS_NUMBER = 'BTD_hashtags_number',
 }
 
 const nonUserSpecificsTypes = [
