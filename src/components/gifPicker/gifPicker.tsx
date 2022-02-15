@@ -8,6 +8,7 @@ interface GifPickerProps {
   onCloseClick: Handler;
   children: ReactNode;
   style: CSSProperties;
+  scrollRef: React.RefObject<HTMLDivElement>;
 }
 const container = document.head.appendChild(document.createElement('style'));
 const {cx, css} = createEmotion({
@@ -78,10 +79,7 @@ export const BTDGifPicker = forwardRef<HTMLDivElement, GifPickerProps>((props, r
             flex: 1;
             flex-shrink: 1;
             font-size: 0;
-          `
-        )}>
-        <div
-          className={css`
+
             .btd-giphy-block-wrapper {
               overflow: hidden;
 
@@ -95,9 +93,10 @@ export const BTDGifPicker = forwardRef<HTMLDivElement, GifPickerProps>((props, r
               height: auto;
               cursor: pointer;
             }
-          `}>
-          {props.children}
-        </div>
+          `
+        )}
+        ref={props.scrollRef}>
+        {props.children}
       </div>
     </div>
   );

@@ -1,4 +1,3 @@
-import {css} from '@emotion/css';
 import _, {Dictionary} from 'lodash';
 import React, {Fragment, useCallback, useMemo, useRef, useState} from 'react';
 import ReactDOM from 'react-dom';
@@ -42,11 +41,12 @@ export const BTDGifProvider = () => {
   });
   const [pagination, setPagination] = useState({next: '', offset: 0});
   const gifChunks = useMemo(() => _.chunk(loadedGifs, 3), [loadedGifs]);
-  const parentRef = useRef<HTMLDivElement | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const rowVirtualizer = useVirtual({
     size: gifChunks.length,
-    parentRef,
+    parentRef: scrollRef,
     estimateSize: useCallback(() => 100, []),
+    overscan: 2,
   });
 
   const onSearchDebounce = useDebouncedCallback(async (query: string) => {
@@ -139,40 +139,39 @@ export const BTDGifProvider = () => {
           }}>
           <BTDGifPicker
             ref={setPopperElement}
+            scrollRef={scrollRef}
             style={styles.popper}
             onSearchInput={onSearchDebounce}
             onCloseClick={() => setIsGifPickerOpen(false)}>
-            <div className={css``} ref={parentRef}>
-              <div
-                style={{
-                  height: `${rowVirtualizer.totalSize}px`,
-                  position: 'relative',
-                }}>
-                {rowVirtualizer.virtualItems.map((chunk) => {
-                  return (
-                    <div
-                      key={chunk.index}
-                      style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: `${chunk.size}px`,
-                        transform: `translateY(${chunk.start}px)`,
-                        display: 'flex',
-                      }}>
-                      {gifChunks[chunk.index].map((gif) => {
-                        return (
-                          <BTDGifItem
-                            key={gif.url}
-                            previewUrl={gif.preview.url}
-                            onClick={() => onGifClick(gif.url)}></BTDGifItem>
-                        );
-                      })}
-                    </div>
-                  );
-                })}
-              </div>
+            <div
+              style={{
+                height: `${rowVirtualizer.totalSize}px`,
+                position: 'relative',
+              }}>
+              {rowVirtualizer.virtualItems.map((chunk) => {
+                return (
+                  <div
+                    key={chunk.index}
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: `${chunk.size}px`,
+                      transform: `translateY(${chunk.start}px)`,
+                      display: 'flex',
+                    }}>
+                    {gifChunks[chunk.index].map((gif) => {
+                      return (
+                        <BTDGifItem
+                          key={gif.url}
+                          previewUrl={gif.preview.url}
+                          onClick={() => onGifClick(gif.url)}></BTDGifItem>
+                      );
+                    })}
+                  </div>
+                );
+              })}
             </div>
           </BTDGifPicker>
         </div>
