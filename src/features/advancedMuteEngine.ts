@@ -29,7 +29,12 @@
 import {makeEnumRuntimeType} from '../helpers/runtimeTypeHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 import {TweetDeckChirp, TweetDeckObject} from '../types/tweetdeckTypes';
-import {AMEFilters, maybeLogMuteCatch, removeCatchesByFilter} from './mutesCatcher';
+import {
+  AMEFilters,
+  maybeLogMuteCatch,
+  removeCatchesByFilter,
+  userSpecificTypes,
+} from './mutesCatcher';
 
 interface AMEFilter {
   name: string;
@@ -240,11 +245,28 @@ export const setupAME = makeBTDModule(({TD, jq}) => {
     },
   };
 
+  // Custom _getFilterTarget implementation to take RTs into account.
+  function getAMEFilterTarget(
+    e: TweetDeckChirp,
+    filterTarget: 'parent' | 'child',
+    filterType: AMEFilters
+  ) {
+    if (e.targetTweet && filterTarget !== 'parent') {
+      return e.targetTweet;
+    }
+
+    if (userSpecificTypes.includes(filterType) && e.retweetedStatus) {
+      return e.retweetedStatus;
+    }
+
+    return e;
+  }
+
   // Custom pass function to apply our filters
   TD.vo.Filter.prototype.pass = function pass(e) {
     if (RAMEFilters.is(this.type)) {
       const t = this;
-      e = this._getFilterTarget(e);
+      e = getAMEFilterTarget(e, this.filterTarget, this.type);
 
       const shouldDisplay = AmeFilters[this.type].function(t, e);
       maybeLogMuteCatch(e, this, shouldDisplay);

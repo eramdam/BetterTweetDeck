@@ -45,6 +45,7 @@ export enum TweetDeckFilterTypes {
 export declare class TweetDeckFilter {
   value: string;
   type: TweetDeckFilterTypes | AMEFilters;
+  filterTarget: 'child' | 'parent';
   getDisplayType(): string;
   _getDisplayType(): string;
   _getFilterTarget(chirp: TweetDeckChirp): TweetDeckChirp;

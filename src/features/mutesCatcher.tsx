@@ -29,7 +29,7 @@ const nonUserSpecificsTypes = [
   TweetDeckFilterTypes.PHRASE,
   AMEFilters.REGEX,
 ];
-const userSpecificTypes = [
+export const userSpecificTypes = [
   AMEFilters.DEFAULT_AVATARS,
   AMEFilters.FOLLOWER_COUNT_GREATER_THAN,
   AMEFilters.FOLLOWER_COUNT_LESS_THAN,
