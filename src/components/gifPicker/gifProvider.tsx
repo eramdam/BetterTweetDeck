@@ -165,8 +165,6 @@ export const BTDGifProvider = () => {
                         return (
                           <BTDGifItem
                             key={gif.url}
-                            height={gif.preview.height}
-                            width={gif.preview.width}
                             previewUrl={gif.preview.url}
                             onClick={() => onGifClick(gif.url)}></BTDGifItem>
                         );

@@ -4,8 +4,6 @@ import {Handler} from '../../helpers/typeHelpers';
 
 export interface GifItemProps {
   previewUrl: string;
-  width: number;
-  height: number;
   onClick: Handler;
 }
 export const BTDGifItem: FC<GifItemProps> = (props) => {
@@ -13,7 +11,7 @@ export const BTDGifItem: FC<GifItemProps> = (props) => {
     <div
       className="btd-giphy-block-wrapper"
       onClick={props.onClick}
-      style={{height: 100, width: 100}}>
+      style={{height: 100, width: 100, display: 'inline-block'}}>
       <img
         src={props.previewUrl}
         className="btd-giphy-block"
