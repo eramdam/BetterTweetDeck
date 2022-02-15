@@ -242,3 +242,10 @@ section[data-column-size='small'] .hw-card-container {
 section[data-column-size='small'] .hw-card-container div[style*='-webkit-line-clamp'] {
   -webkit-line-clamp: 1 !important;
 }
+
+.js-drawer .js-compose-text.compose-text[style*='height: 130px'] {
+  height: 200px !important;
+}
+.js-drawer .js-compose-text.compose-text[style*='height: 180px'] {
+  height: 250px !important;
+}
