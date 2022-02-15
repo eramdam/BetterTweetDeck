@@ -35,16 +35,6 @@ export const requireAltImages = makeBTDModule(({settings, TD, jq}) => {
     }
 
     const hasImages = Boolean(composer.querySelector('.js-media-added > *'));
-    const hasAddedWarning = _(mutations)
-      .flatMap((m) => Array.from(m.addedNodes))
-      .some((n) => {
-        return (
-          isHTMLElement(n) &&
-          Boolean(
-            n.classList.contains('btd-composer-warning') || n.closest('.btd-composer-warning')
-          )
-        );
-      });
 
     const hasRemovedImages = _(mutations)
       .flatMap((m) => Array.from(m.removedNodes))
