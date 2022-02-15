@@ -181,6 +181,7 @@ export const RBetterTweetDeckSettings = t.type({
     t.type({
       /** Adds a "redraft" item */
       addRedraftMenuItem: withDefault(t.boolean, true),
+      requireConfirmationForRedraft: withDefault(t.boolean, true),
 
       /** Adds an item to mute the source of the tweet */
       addMuteSourceMenuItem: withDefault(t.boolean, true),

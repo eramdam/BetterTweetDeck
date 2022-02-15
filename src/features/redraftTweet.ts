@@ -8,11 +8,21 @@ import {makeBTDModule} from '../types/btdCommonTypes';
 import {BTDMessageOriginsEnum, BTDMessages} from '../types/btdMessageTypes';
 import {TweetDeckChirp, TweetDeckUser} from '../types/tweetdeckTypes';
 
-export const listenToRedraftTweetEvent = makeBTDModule(({TD, jq}) => {
+export const listenToRedraftTweetEvent = makeBTDModule(({TD, jq, settings}) => {
   jq('body').on('click', '[data-btd-action="edit-tweet"]', async (ev) => {
     ev.preventDefault();
     const chirpObject = getChirpFromElement(TD, ev.target);
     if (!chirpObject) {
+      return;
+    }
+
+    const blocked = settings.tweetMenuItems.requireConfirmationForRedraft
+      ? !confirm(
+          `This will DELETE your tweet and put its content back into the composer. Are you sure you want to do this?\n\n(You can disable this warning in Better TweetDeck's settings)`
+        )
+      : false;
+
+    if (blocked) {
       return;
     }
 
