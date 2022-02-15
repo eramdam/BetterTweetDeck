@@ -52,10 +52,6 @@ export const requireAltImages = makeBTDModule(({settings, TD, jq}) => {
         return Boolean(isHTMLElement(n) && n.classList.contains('compose-media-bar-holder'));
       });
 
-    if (hasAddedWarning) {
-      return;
-    }
-
     const isButtonDisabled = sendButton.classList.contains('is-disabled');
 
     if (!hasImages) {
@@ -80,9 +76,13 @@ export const requireAltImages = makeBTDModule(({settings, TD, jq}) => {
     const needsConfirmation = composerNeedsConfirmation(composer);
 
     if (needsReminder || needsConfirmation) {
-      disableButton(sendButton, !needsReminder);
+      setTimeout(() => {
+        disableButton(sendButton, !needsReminder);
+      }, 0);
     } else {
-      enableButton(sendButton);
+      setTimeout(() => {
+        enableButton(sendButton);
+      }, 0);
     }
   });
 
