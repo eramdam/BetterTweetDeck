@@ -477,12 +477,24 @@
     "message": "Better TweetDeckがアップデートされました！"
   },
   "settings_click_this_notification_to_reload": {
-    "message": "最新の状態にするために、この通知をクリックしてTweetDeckタブを更新しましょう"
+    "message": "この通知をクリックすると、TweetDeckタブが再読み込みされ、最新のアップデートを利用できます。"
   },
   "settings_show_twitters_warnings_on_media": {
     "message": "メディアにTwitterの警告を表示する"
   },
   "settings_twitter_added_feature_in_january_2022": {
     "message": "2022年1月にTwitterに追加された機能です"
+  },
+  "settings_show_warnings_for_adult_content": {
+    "message": "ヌードを含むメディアの警告を表示する"
+  },
+  "settings_show_warnings_for_graphic_violence": {
+    "message": "暴力を含むメディアの警告を表示する"
+  },
+  "settings_show_warnings_for_sensitive_contents": {
+    "message": "センシティブな内容を含むメディアの警告を表示する"
+  },
+  "settings_warnings": {
+    "message": "警告"
   }
 }
