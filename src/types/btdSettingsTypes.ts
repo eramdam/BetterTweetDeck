@@ -56,6 +56,9 @@ export const RBetterTweetDeckSettings = t.type({
   detectContentWarnings: withDefault(t.boolean, false),
   /** Show Twitter's media warnings. */
   showMediaWarnings: withDefault(t.boolean, true),
+  showWarningsForAdultContent: withDefault(t.boolean, true),
+  showWarningsForGraphicViolence: withDefault(t.boolean, true),
+  showWarningsForOther: withDefault(t.boolean, true),
 
   /** Display single images using their original aspect ratio. */
   useOriginalAspectRatioForSingleImages: withDefault(t.boolean, false),

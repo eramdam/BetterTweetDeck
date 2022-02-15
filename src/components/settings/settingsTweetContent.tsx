@@ -69,16 +69,6 @@ export const SettingsTweetContent: FC<SettingsMenuSectionProps> = (props) => {
         onChange={onChange}
         fields={[
           {
-            initialValue: settings.showLegacyReplies,
-            key: 'showLegacyReplies',
-            label: <Trans id="settings_use_old_style_of_replies" />,
-          },
-          {
-            initialValue: settings.biggerEmoji,
-            key: 'biggerEmoji',
-            label: <Trans id="settings_make_emoji_bigger_in_tweets" />,
-          },
-          {
             initialValue: settings.detectContentWarnings,
             key: 'detectContentWarnings',
             introducedIn: '4.3',
@@ -101,6 +91,40 @@ export const SettingsTweetContent: FC<SettingsMenuSectionProps> = (props) => {
                 </small>
               );
             },
+          },
+          {
+            initialValue: settings.showWarningsForAdultContent,
+            isDisabled: !settings.showMediaWarnings,
+            key: 'showWarningsForAdultContent',
+            label: <Trans id="settings_show_warnings_for_adult_content" />,
+          },
+          {
+            initialValue: settings.showWarningsForGraphicViolence,
+            isDisabled: !settings.showMediaWarnings,
+            key: 'showWarningsForGraphicViolence',
+            label: <Trans id="settings_show_warnings_for_graphic_violence" />,
+          },
+          {
+            initialValue: settings.showWarningsForOther,
+            isDisabled: !settings.showMediaWarnings,
+            key: 'showWarningsForOther',
+            label: <Trans id="settings_show_warnings_for_sensitive_contents" />,
+          },
+        ]}>
+        <Trans id="settings_warnings" />
+      </CheckboxSelectSettingsRow>
+      <CheckboxSelectSettingsRow
+        onChange={onChange}
+        fields={[
+          {
+            initialValue: settings.showLegacyReplies,
+            key: 'showLegacyReplies',
+            label: <Trans id="settings_use_old_style_of_replies" />,
+          },
+          {
+            initialValue: settings.biggerEmoji,
+            key: 'biggerEmoji',
+            label: <Trans id="settings_make_emoji_bigger_in_tweets" />,
           },
           {
             initialValue: settings.showProfileLabels,
