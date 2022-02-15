@@ -496,5 +496,8 @@
   },
   "settings_warnings": {
     "message": "警告"
+  },
+  "settings_redraft_confirmation": {
+    "message": "ツイートにインタラクション (返信、リツイート、いいね) があった場合、確認メッセージを表示"
   }
 }
