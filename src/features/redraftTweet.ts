@@ -105,9 +105,6 @@ export const listenToRedraftTweetEvent = makeBTDModule(({TD, jq, settings}) => {
       composeData.text = composeData.text.replace(url.url, url.expanded_url);
     });
 
-    // ensure no html entities remain
-    composeData.text = unescape(composeData.text);
-
     // trim in case we picked up any whitespace
     composeData.text = composeData.text.trim();
 
