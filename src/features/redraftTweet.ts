@@ -16,11 +16,18 @@ export const listenToRedraftTweetEvent = makeBTDModule(({TD, jq, settings}) => {
       return;
     }
 
-    const blocked = settings.tweetMenuItems.requireConfirmationForRedraft
-      ? !confirm(
-          `This will DELETE your tweet and put its content back into the composer. Are you sure you want to do this?\n\n(You can disable this warning in Better TweetDeck's settings)`
-        )
-      : false;
+    const hasLikes = Boolean(chirpObject.chirp.prettyLikeCount);
+    const hasRetweets = Boolean(chirpObject.chirp.prettyRetweetCount);
+    const hasReplies = Boolean(chirpObject.chirp.prettyReplyCount);
+
+    const hasEngagement = hasLikes || hasRetweets || hasReplies;
+
+    const blocked =
+      settings.tweetMenuItems.requireConfirmationForRedraft && hasEngagement
+        ? !confirm(
+            `This will DELETE your tweet and put its content back into the composer. Are you sure you want to do this?\n\n(You can disable this warning in Better TweetDeck's settings)`
+          )
+        : false;
 
     if (blocked) {
       return;

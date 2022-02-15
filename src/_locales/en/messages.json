@@ -496,5 +496,8 @@
   },
   "settings_warnings": {
     "message": "Warnings"
+  },
+  "settings_redraft_confirmation": {
+    "message": "Require confirmation when the tweet has been interacted with (replies, RTs or likes)."
   }
 }

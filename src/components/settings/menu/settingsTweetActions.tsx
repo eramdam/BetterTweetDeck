@@ -229,6 +229,12 @@ export const SettingsTweetActions: FC<SettingsMenuSectionProps> = (props) => {
             key: 'addRedraftMenuItem',
             label: getTransString('settings_menu_item_redraft'),
           },
+          {
+            isDisabled: !settings.tweetMenuItems.addRedraftMenuItem,
+            initialValue: settings.tweetMenuItems.requireConfirmationForRedraft,
+            key: 'requireConfirmationForRedraft',
+            label: <Trans id="settings_redraft_confirmation" />,
+          },
         ]}>
         <Trans id="settings_additional_tweet_menu_items" />
       </CheckboxSelectSettingsRow>
