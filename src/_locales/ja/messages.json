@@ -481,5 +481,8 @@
   },
   "settings_show_twitters_warnings_on_media": {
     "message": "メディアにTwitterの警告を表示する"
+  },
+  "settings_twitter_added_feature_in_january_2022": {
+    "message": "2022年1月にTwitterに追加された機能です"
   }
 }
