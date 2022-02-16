@@ -6,7 +6,6 @@ import {getExtensionVersion} from '../../../helpers/webExtensionHelpers';
 
 export interface NewFeatureBadgeProps {
   introducedIn: string;
-  maxMinorDiff?: number;
 }
 
 const currentVersion = semver.coerce(getExtensionVersion());
@@ -15,7 +14,7 @@ export const featureBadgeClassname = 'btd-feature-badge';
 
 export const NewFeatureBadge: FC<NewFeatureBadgeProps> = (props) => {
   const featureVersion = semver.coerce(props.introducedIn);
-  const maxMinorDiff = props.maxMinorDiff ?? 5;
+  const maxMinorDiff = 3;
 
   const isOutdated = useMemo(() => {
     if (!currentVersion || !featureVersion) {
