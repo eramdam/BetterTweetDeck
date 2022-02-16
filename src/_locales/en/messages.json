@@ -499,5 +499,20 @@
   },
   "settings_redraft_confirmation": {
     "message": "Require confirmation when the tweet has been interacted with (replies, RTs or likes)."
+  },
+  "settings_detect_content_warnings_without_the_keyword": {
+    "message": "Detect content warnings without the CW/TW keyword(s)"
+  },
+  "settings_collapse_tweets_who_match_one_of_the_following_keywords": {
+    "message": "Collapse tweets who match one of the following keywords:"
+  },
+  "settings_comma_separated_keywords_matched_by_order_in_the_list": {
+    "message": "Comma separated keywords, matched by order in the list"
+  },
+  "settings_will_match_patterns_like_food_lorem_ipsum": {
+    "message": "Will match patterns like \"[food] lorem ipsum\""
+  },
+  "settings_you_can_use_this_to_hide_spoilers": {
+    "message": "You can use this to hide spoilers"
   }
 }
