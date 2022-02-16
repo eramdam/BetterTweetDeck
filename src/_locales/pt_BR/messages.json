@@ -484,5 +484,35 @@
   },
   "settings_twitter_added_feature_in_january_2022": {
     "message": "Recurso adicionado pelo Twitter em janeiro de 2022"
+  },
+  "settings_show_warnings_for_adult_content": {
+    "message": "Mostrar aviso para mídias com nudez"
+  },
+  "settings_show_warnings_for_graphic_violence": {
+    "message": "Mostrar aviso para mídias com violência gráfica"
+  },
+  "settings_show_warnings_for_sensitive_contents": {
+    "message": "Mostrar aviso para mídias com conteúdo sensível"
+  },
+  "settings_warnings": {
+    "message": "Avisos"
+  },
+  "settings_redraft_confirmation": {
+    "message": "Exigir confirmação quando o tweet foi interagido (com respostas, RTs ou curtidas)."
+  },
+  "settings_detect_content_warnings_without_the_keyword": {
+    "message": "Detectar avisos de conteúdo sem as palavras-chave CW/TW"
+  },
+  "settings_collapse_tweets_who_match_one_of_the_following_keywords": {
+    "message": "Recolher tweets que correspondem a uma das seguintes palavras-chave:"
+  },
+  "settings_comma_separated_keywords_matched_by_order_in_the_list": {
+    "message": "Palavras-chave separadas por vírgula, correspondendo por ordem na lista"
+  },
+  "settings_will_match_patterns_like_food_lorem_ipsum": {
+    "message": "Irá corresponder a padrões como \"[food] lorem ipsum\""
+  },
+  "settings_you_can_use_this_to_hide_spoilers": {
+    "message": "Você pode usar isso para ocultar spoilers"
   }
 }
