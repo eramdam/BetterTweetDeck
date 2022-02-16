@@ -8,11 +8,28 @@ import {makeBTDModule} from '../types/btdCommonTypes';
 import {BTDMessageOriginsEnum, BTDMessages} from '../types/btdMessageTypes';
 import {TweetDeckChirp, TweetDeckUser} from '../types/tweetdeckTypes';
 
-export const listenToRedraftTweetEvent = makeBTDModule(({TD, jq}) => {
+export const listenToRedraftTweetEvent = makeBTDModule(({TD, jq, settings}) => {
   jq('body').on('click', '[data-btd-action="edit-tweet"]', async (ev) => {
     ev.preventDefault();
     const chirpObject = getChirpFromElement(TD, ev.target);
     if (!chirpObject) {
+      return;
+    }
+
+    const hasLikes = Boolean(chirpObject.chirp.prettyLikeCount);
+    const hasRetweets = Boolean(chirpObject.chirp.prettyRetweetCount);
+    const hasReplies = Boolean(chirpObject.chirp.prettyReplyCount);
+
+    const hasEngagement = hasLikes || hasRetweets || hasReplies;
+
+    const blocked =
+      settings.tweetMenuItems.requireConfirmationForRedraft && hasEngagement
+        ? !confirm(
+            `This will DELETE your tweet and put its content back into the composer. Are you sure you want to do this?\n\n(You can disable this warning in Better TweetDeck's settings)`
+          )
+        : false;
+
+    if (blocked) {
       return;
     }
 
@@ -87,9 +104,6 @@ export const listenToRedraftTweetEvent = makeBTDModule(({TD, jq}) => {
     chirp.entities.urls.forEach((url) => {
       composeData.text = composeData.text.replace(url.url, url.expanded_url);
     });
-
-    // ensure no html entities remain
-    composeData.text = unescape(composeData.text);
 
     // trim in case we picked up any whitespace
     composeData.text = composeData.text.trim();

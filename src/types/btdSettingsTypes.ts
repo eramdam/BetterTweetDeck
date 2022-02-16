@@ -54,8 +54,15 @@ export const RBetterTweetDeckSettings = t.type({
 
   /** Detects content warnings */
   detectContentWarnings: withDefault(t.boolean, false),
+  detectContentWarningsWithoutKeywords: withDefault(t.boolean, false),
+  singleWordContentWarnings: withDefault(t.string, 'food,transphobia,racism,homophobia'),
+  detectSpoilers: withDefault(t.boolean, false),
+  spoilerKeywords: withDefault(t.string, ''),
   /** Show Twitter's media warnings. */
   showMediaWarnings: withDefault(t.boolean, true),
+  showWarningsForAdultContent: withDefault(t.boolean, true),
+  showWarningsForGraphicViolence: withDefault(t.boolean, true),
+  showWarningsForOther: withDefault(t.boolean, true),
 
   /** Display single images using their original aspect ratio. */
   useOriginalAspectRatioForSingleImages: withDefault(t.boolean, false),
@@ -178,6 +185,7 @@ export const RBetterTweetDeckSettings = t.type({
     t.type({
       /** Adds a "redraft" item */
       addRedraftMenuItem: withDefault(t.boolean, true),
+      requireConfirmationForRedraft: withDefault(t.boolean, true),
 
       /** Adds an item to mute the source of the tweet */
       addMuteSourceMenuItem: withDefault(t.boolean, true),

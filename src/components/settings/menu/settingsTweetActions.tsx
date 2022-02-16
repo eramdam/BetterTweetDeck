@@ -9,7 +9,7 @@ import {BTDRadioSelectSettingsRow} from '../components/radioSelectSettingsRow';
 import {SettingsButton} from '../components/settingsButton';
 import {SettingsRow, SettingsRowTitle} from '../components/settingsRow';
 import {SettingsTextInput} from '../components/settingsTextInput';
-import {SettingsTextInputWithAnnotation} from '../components/settingsTimeFormatInput';
+import {SettingsTextInputWithAnnotation} from '../components/settingsTextInputWithAnnotation';
 import {formatDateTime, SettingsMenuSectionProps} from '../settingsComponents';
 import {translationLanguages} from '../settingsTypes';
 
@@ -228,6 +228,12 @@ export const SettingsTweetActions: FC<SettingsMenuSectionProps> = (props) => {
             initialValue: settings.tweetMenuItems.addRedraftMenuItem,
             key: 'addRedraftMenuItem',
             label: getTransString('settings_menu_item_redraft'),
+          },
+          {
+            isDisabled: !settings.tweetMenuItems.addRedraftMenuItem,
+            initialValue: settings.tweetMenuItems.requireConfirmationForRedraft,
+            key: 'requireConfirmationForRedraft',
+            label: <Trans id="settings_redraft_confirmation" />,
           },
         ]}>
         <Trans id="settings_additional_tweet_menu_items" />

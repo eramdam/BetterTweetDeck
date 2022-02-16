@@ -22,14 +22,14 @@ export interface SettingsRadioSettingsSelectProps<S extends object, T extends ke
 
 const wrapperStyles = css`
   padding-top: 4px;
+  display: grid;
+  grid-auto-flow: row;
+  grid-row-gap: 10px;
+  grid-auto-columns: 100%;
 
   input + label {
     padding-left: 10px;
   }
-
-  display: grid;
-  grid-auto-flow: row;
-  grid-row-gap: 10px;
 `;
 
 export function SettingsRadioSettingSelect<S extends object, T extends keyof S>(

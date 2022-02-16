@@ -35,26 +35,12 @@ export const requireAltImages = makeBTDModule(({settings, TD, jq}) => {
     }
 
     const hasImages = Boolean(composer.querySelector('.js-media-added > *'));
-    const hasAddedWarning = _(mutations)
-      .flatMap((m) => Array.from(m.addedNodes))
-      .some((n) => {
-        return (
-          isHTMLElement(n) &&
-          Boolean(
-            n.classList.contains('btd-composer-warning') || n.closest('.btd-composer-warning')
-          )
-        );
-      });
 
     const hasRemovedImages = _(mutations)
       .flatMap((m) => Array.from(m.removedNodes))
       .some((n) => {
         return Boolean(isHTMLElement(n) && n.classList.contains('compose-media-bar-holder'));
       });
-
-    if (hasAddedWarning) {
-      return;
-    }
 
     const isButtonDisabled = sendButton.classList.contains('is-disabled');
 
@@ -80,9 +66,13 @@ export const requireAltImages = makeBTDModule(({settings, TD, jq}) => {
     const needsConfirmation = composerNeedsConfirmation(composer);
 
     if (needsReminder || needsConfirmation) {
-      disableButton(sendButton, !needsReminder);
+      setTimeout(() => {
+        disableButton(sendButton, !needsReminder);
+      }, 0);
     } else {
-      enableButton(sendButton);
+      setTimeout(() => {
+        enableButton(sendButton);
+      }, 0);
     }
   });
 

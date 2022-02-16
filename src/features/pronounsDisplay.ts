@@ -97,6 +97,14 @@ function formatMatches(m: RegExpMatchArray[]): string[][] {
 }
 
 export function extractPronouns(string: string) {
+  // Tries to "reveal" stuff concealed with https://synthetic.garden/3y3.htm
+  string = [...string]
+    .map((char) =>
+      0xe0000 < char.codePointAt(0)! && char.codePointAt(0)! < 0xe007f
+        ? String.fromCodePoint(char.codePointAt(0)! - 0xe0000)
+        : char
+    )
+    .join('');
   if (
     string.toLowerCase().includes('pronouns: any') ||
     string.toLowerCase().includes('any pronouns')

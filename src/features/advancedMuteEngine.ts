@@ -28,8 +28,13 @@
 
 import {makeEnumRuntimeType} from '../helpers/runtimeTypeHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
-import {TweetDeckChirp, TweetDeckObject} from '../types/tweetdeckTypes';
-import {AMEFilters, maybeLogMuteCatch, removeCatchesByFilter} from './mutesCatcher';
+import {ChirpBaseTypeEnum, TweetDeckChirp, TweetDeckObject} from '../types/tweetdeckTypes';
+import {
+  AMEFilters,
+  maybeLogMuteCatch,
+  removeCatchesByFilter,
+  userSpecificTypes,
+} from './mutesCatcher';
 
 interface AMEFilter {
   name: string;
@@ -130,6 +135,17 @@ export const setupAME = makeBTDModule(({TD, jq}) => {
         return !(
           e.text.toLowerCase().includes(keyword) && user === e.user.screenName.toLowerCase()
         );
+      },
+    },
+    [AMEFilters.HASHTAGS_NUMBER]: {
+      display: {
+        global: true,
+      },
+      name: 'Tweet contains more than X hashtags',
+      descriptor: 'tweets with more than X hashtags',
+      placeholder: 'Enter a number',
+      function(t, e) {
+        return e.entities.hashtags.length <= Number(t.value);
       },
     },
     [AMEFilters.REGEX_DISPLAYNAME]: {
@@ -240,21 +256,42 @@ export const setupAME = makeBTDModule(({TD, jq}) => {
     },
   };
 
+  // Custom _getFilterTarget implementation to take RTs into account.
+  function getAMEFilterTarget(
+    e: TweetDeckChirp,
+    filterTarget: 'parent' | 'child',
+    filterType: AMEFilters
+  ) {
+    if (e.targetTweet && filterTarget !== 'parent') {
+      return e.targetTweet;
+    }
+
+    if (userSpecificTypes.includes(filterType) && e.retweetedStatus) {
+      return e.retweetedStatus;
+    }
+
+    return e;
+  }
+
   // Custom pass function to apply our filters
   TD.vo.Filter.prototype.pass = function pass(e) {
     if (RAMEFilters.is(this.type)) {
       const t = this;
-      e = this._getFilterTarget(e);
+      e = getAMEFilterTarget(e, this.filterTarget, this.type);
 
       const shouldDisplay = AmeFilters[this.type].function(t, e);
-      maybeLogMuteCatch(e, this, shouldDisplay);
+      if (e.chirpType === ChirpBaseTypeEnum.TWEET || e.chirpType === ChirpBaseTypeEnum.UNKNOWN) {
+        maybeLogMuteCatch(e, this, shouldDisplay);
+      }
 
       return shouldDisplay;
     }
 
     const shouldDisplay = this._pass(e);
 
-    maybeLogMuteCatch(e, this, shouldDisplay);
+    if (e.chirpType === ChirpBaseTypeEnum.TWEET || e.chirpType === ChirpBaseTypeEnum.UNKNOWN) {
+      maybeLogMuteCatch(e, this, shouldDisplay);
+    }
 
     return shouldDisplay;
   };

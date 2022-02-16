@@ -1,9 +1,10 @@
 import React, {FC, Fragment} from 'react';
 
 import {BTDSettings} from '../../types/btdSettingsTypes';
-import {Trans} from '../trans';
+import {getTransString, Trans} from '../trans';
 import {CheckboxSelectSettingsRow} from './components/checkboxSelectSettingsRow';
 import {SettingsCheckboxSelectProps} from './components/settingsCheckboxSelect';
+import {SettingsTextareaWithAnnotation} from './components/settingsTextInputWithAnnotation';
 import {SettingsMenuSectionProps} from './settingsComponents';
 import {SettingsSmall} from './settingsStyles';
 
@@ -69,16 +70,6 @@ export const SettingsTweetContent: FC<SettingsMenuSectionProps> = (props) => {
         onChange={onChange}
         fields={[
           {
-            initialValue: settings.showLegacyReplies,
-            key: 'showLegacyReplies',
-            label: <Trans id="settings_use_old_style_of_replies" />,
-          },
-          {
-            initialValue: settings.biggerEmoji,
-            key: 'biggerEmoji',
-            label: <Trans id="settings_make_emoji_bigger_in_tweets" />,
-          },
-          {
             initialValue: settings.detectContentWarnings,
             key: 'detectContentWarnings',
             introducedIn: '4.3',
@@ -88,6 +79,55 @@ export const SettingsTweetContent: FC<SettingsMenuSectionProps> = (props) => {
                 <Trans id="settings_content_warning_hint" />
               </small>
             ),
+          },
+          {
+            initialValue: settings.detectContentWarningsWithoutKeywords,
+            isDisabled: !settings.detectContentWarnings,
+            key: 'detectContentWarningsWithoutKeywords',
+            introducedIn: '4.7.4',
+            label: <Trans id="settings_detect_content_warnings_without_the_keyword" />,
+            extraContent: (newSettings) => {
+              return (
+                newSettings && (
+                  <>
+                    <small className={SettingsSmall}>
+                      {getTransString('settings_will_match_patterns_like_food_lorem_ipsum')}
+                    </small>
+                    <SettingsTextareaWithAnnotation
+                      isDisabled={!newSettings.detectContentWarningsWithoutKeywords}
+                      value={newSettings.singleWordContentWarnings}
+                      onChange={makeOnSettingsChange('singleWordContentWarnings')}
+                      annotation={getTransString(
+                        'settings_comma_separated_keywords_matched_by_order_in_the_list'
+                      )}></SettingsTextareaWithAnnotation>
+                  </>
+                )
+              );
+            },
+          },
+          {
+            initialValue: settings.detectSpoilers,
+            key: 'detectSpoilers',
+            introducedIn: '4.7.4',
+            label: <Trans id="settings_collapse_tweets_who_match_one_of_the_following_keywords" />,
+            extraContent: (newSettings) => {
+              return (
+                newSettings && (
+                  <>
+                    <small className={SettingsSmall}>
+                      <Trans id="settings_you_can_use_this_to_hide_spoilers" />
+                    </small>
+                    <SettingsTextareaWithAnnotation
+                      isDisabled={!newSettings.detectSpoilers}
+                      value={newSettings.spoilerKeywords}
+                      onChange={makeOnSettingsChange('spoilerKeywords')}
+                      annotation={getTransString(
+                        'settings_comma_separated_keywords_matched_by_order_in_the_list'
+                      )}></SettingsTextareaWithAnnotation>
+                  </>
+                )
+              );
+            },
           },
           {
             initialValue: settings.showMediaWarnings,
@@ -101,6 +141,43 @@ export const SettingsTweetContent: FC<SettingsMenuSectionProps> = (props) => {
                 </small>
               );
             },
+          },
+          {
+            initialValue: settings.showWarningsForAdultContent,
+            isDisabled: !settings.showMediaWarnings,
+            key: 'showWarningsForAdultContent',
+            introducedIn: '4.7.4',
+            label: <Trans id="settings_show_warnings_for_adult_content" />,
+          },
+          {
+            initialValue: settings.showWarningsForGraphicViolence,
+            isDisabled: !settings.showMediaWarnings,
+            key: 'showWarningsForGraphicViolence',
+            introducedIn: '4.7.4',
+            label: <Trans id="settings_show_warnings_for_graphic_violence" />,
+          },
+          {
+            initialValue: settings.showWarningsForOther,
+            isDisabled: !settings.showMediaWarnings,
+            key: 'showWarningsForOther',
+            introducedIn: '4.7.4',
+            label: <Trans id="settings_show_warnings_for_sensitive_contents" />,
+          },
+        ]}>
+        <Trans id="settings_warnings" />
+      </CheckboxSelectSettingsRow>
+      <CheckboxSelectSettingsRow
+        onChange={onChange}
+        fields={[
+          {
+            initialValue: settings.showLegacyReplies,
+            key: 'showLegacyReplies',
+            label: <Trans id="settings_use_old_style_of_replies" />,
+          },
+          {
+            initialValue: settings.biggerEmoji,
+            key: 'biggerEmoji',
+            label: <Trans id="settings_make_emoji_bigger_in_tweets" />,
           },
           {
             initialValue: settings.showProfileLabels,

@@ -23,8 +23,8 @@ module.exports = (env) => {
             {...(config.get('Client') || {})},
             {
               APIs: {
-                tenor: process.env.NIGHTLY_TENOR_API_KEY,
-                giphy: process.env.NIGHTLY_GIPHY_API_KEY,
+                tenor: process.env.NIGHTLY_TENOR_API_KEY || config.get('Client').APIs.tenor,
+                giphy: process.env.NIGHTLY_GIPHY_API_KEY || config.get('Client').APIs.giphy,
               },
             }
           )

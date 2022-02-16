@@ -20,6 +20,25 @@ export const mediaWarnings = makeBTDModule(({settings}) => {
       return;
     }
 
+    const mediaWarningsToConsider = payload.chirp.mediaWarnings.filter((warning) => {
+      if (warning === TwitterMediaWarnings.ADULT_CONTENT) {
+        return settings.showWarningsForAdultContent;
+      }
+      if (warning === TwitterMediaWarnings.GRAPHIC_VIOLENCE) {
+        return settings.showWarningsForGraphicViolence;
+      }
+
+      if (warning === TwitterMediaWarnings.OTHER) {
+        return settings.showWarningsForOther;
+      }
+
+      return true;
+    });
+
+    if (mediaWarningsToConsider.length === 0) {
+      return;
+    }
+
     const chirpNode = document.querySelector(makeBtdUuidSelector('data-btd-uuid', payload.uuid));
 
     if (!chirpNode) {
@@ -38,7 +57,7 @@ export const mediaWarnings = makeBTDModule(({settings}) => {
       mediaPreview.classList.add('media-preview-with-warning');
     }
 
-    const contentWarnings = payload.chirp.mediaWarnings.map((m) => mediaWarningsRenderers[m]);
+    const contentWarnings = mediaWarningsToConsider.map((m) => mediaWarningsRenderers[m]);
     if (contentWarnings.length > 1) {
       contentWarnings[contentWarnings.length - 1] = `and ${
         contentWarnings[contentWarnings.length - 1]

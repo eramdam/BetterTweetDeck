@@ -52,7 +52,7 @@ export interface BTDMakeGifPickerRequest extends BTDMessageEventBase {
   payload: {
     endpoint: string;
     source: 'tenor' | 'giphy';
-    params: Dictionary<string>;
+    params: Dictionary<string | number>;
   };
 }
 
@@ -68,6 +68,11 @@ export interface BTDMakeGifPickerRequestResult extends BTDMessageEventBase {
       url: string;
       source: 'tenor' | 'giphy';
     }>;
+    pagination: {
+      count: number;
+      offset: number;
+      next: string;
+    };
   };
 }
 

@@ -45,6 +45,7 @@ export enum TweetDeckFilterTypes {
 export declare class TweetDeckFilter {
   value: string;
   type: TweetDeckFilterTypes | AMEFilters;
+  filterTarget: 'child' | 'parent';
   getDisplayType(): string;
   _getDisplayType(): string;
   _getFilterTarget(chirp: TweetDeckChirp): TweetDeckChirp;
@@ -644,6 +645,7 @@ export enum ChirpBaseTypeEnum {
   SCHEDULED_TWEET_GROUP = 'scheduled_tweet_group',
   SCHEDULED_TWEET = 'scheduled_tweet',
   TWEET = 'tweet',
+  UNKNOWN = 'unknown',
 }
 
 export interface TweetDeckChirp {
