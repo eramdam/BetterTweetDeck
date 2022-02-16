@@ -485,6 +485,15 @@
   "settings_twitter_added_feature_in_january_2022": {
     "message": "Fonctionnalité ajoutée par Twitter en Janvier 2022"
   },
+  "settings_show_warnings_for_adult_content": {
+    "message": "Afficher les avertissements pour les médias avec de la nudité"
+  },
+  "settings_show_warnings_for_graphic_violence": {
+    "message": "Afficher les avertissements pour les médias avec de la violence graphique"
+  },
+  "settings_show_warnings_for_sensitive_contents": {
+    "message": "Afficher les avertissements pour les médias ayant un contenu sensible"
+  },
   "settings_warnings": {
     "message": "Avertissements"
   },
