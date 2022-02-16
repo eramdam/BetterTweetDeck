@@ -484,5 +484,11 @@
   },
   "settings_twitter_added_feature_in_january_2022": {
     "message": "Fonctionnalité ajoutée par Twitter en Janvier 2022"
+  },
+  "settings_warnings": {
+    "message": "Avertissements"
+  },
+  "settings_redraft_confirmation": {
+    "message": "Demander une confirmation lorsque le tweet a des réponses, likes ou retweets."
   }
 }
