@@ -12,7 +12,7 @@ import {BTDRadioSelectSettingsRow} from '../components/radioSelectSettingsRow';
 import {SettingsButton} from '../components/settingsButton';
 import {SettingsRow, SettingsRowTitle} from '../components/settingsRow';
 import {SettingsSeparator} from '../components/settingsSeparator';
-import {SettingsTextInputWithAnnotation} from '../components/settingsTimeFormatInput';
+import {SettingsTextInputWithAnnotation} from '../components/settingsTextInputWithAnnotation';
 import {formatDateTime, SettingsMenuSectionProps} from '../settingsComponents';
 import {useSettingsSearch} from '../settingsContext';
 import {reactElementToString} from '../settingsHelpers';

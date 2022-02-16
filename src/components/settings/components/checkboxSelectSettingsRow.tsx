@@ -15,6 +15,14 @@ interface CheckboxSelectSettingsRowProps extends SettingsCheckboxSelectProps {
   ignoreSearch?: boolean;
 }
 
+const commonStyles = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 100%;
+  overflow: hidden;
+`;
+
 export function CheckboxSelectSettingsRow(
   props: PropsWithChildren<CheckboxSelectSettingsRowProps>
 ) {
@@ -23,12 +31,7 @@ export function CheckboxSelectSettingsRow(
   const baseRender = (
     <SettingsRow className={cx(css``)} disabled={props.disabled}>
       <SettingsRowTitle>{props.children}</SettingsRowTitle>
-      <SettingsRowContent
-        className={css`
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-        `}>
+      <SettingsRowContent className={commonStyles}>
         <SettingsCheckboxSelect
           fields={props.fields}
           onChange={props.onChange}></SettingsCheckboxSelect>
@@ -58,12 +61,7 @@ export function CheckboxSelectSettingsRow(
             return (
               <SettingsRow className={cx(css``)} disabled={props.disabled}>
                 <SettingsRowTitle>{props.children}</SettingsRowTitle>
-                <SettingsRowContent
-                  className={css`
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                  `}>
+                <SettingsRowContent className={commonStyles}>
                   <SettingsCheckboxSelect
                     fields={props.fields.map((f) => {
                       return {

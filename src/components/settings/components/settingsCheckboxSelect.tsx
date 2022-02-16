@@ -32,6 +32,10 @@ export function SettingsCheckboxSelect(props: SettingsCheckboxSelectProps) {
     <div
       className={css`
         padding-top: 4px;
+        display: grid;
+        grid-auto-flow: row;
+        grid-row-gap: 10px;
+        grid-auto-columns: 100%;
 
         input + label {
           padding-left: 10px;
@@ -41,10 +45,6 @@ export function SettingsCheckboxSelect(props: SettingsCheckboxSelectProps) {
         .${featureBadgeClassname} {
           margin-left: 10px;
         }
-
-        display: grid;
-        grid-auto-flow: row;
-        grid-row-gap: 10px;
       `}>
       {props.fields.map((field) => {
         const inputId = `${field.key}-${generateInputId()}`;
