@@ -455,7 +455,19 @@
   "settings_disable_it_in_the_dm_composer_too": {
     "message": "Auch im Tweet-Editor deaktivieren"
   },
+  "settings_pronouns_extra": {
+    "message": "Aktuell werden nur englische Pronomen unterstützt. Falls dir irgendwelche Fehler auffallen, dann lass es mich wissen: @BetterTDeck"
+  },
+  "settings_extract_pronouns": {
+    "message": "Entnehme Pronomen von der Biografie bzw. denn Standort des Benutzers und zeigen sie in einer Spalte an"
+  },
   "settings_mute_nfts_accounts": {
     "message": "Konten stummschalten, die die NFT-Avatar-Integration verwenden (hexagon-förmiger Avatar)"
+  },
+  "settings_better_tweetdeck_has_been_updated": {
+    "message": "Better TweetDeck wurde aktualisiert!"
+  },
+  "settings_warnings": {
+    "message": "Warnungen"
   }
 }
