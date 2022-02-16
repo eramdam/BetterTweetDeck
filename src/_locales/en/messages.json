@@ -484,5 +484,20 @@
   },
   "settings_twitter_added_feature_in_january_2022": {
     "message": "Twitter added feature in January 2022"
+  },
+  "settings_show_warnings_for_adult_content": {
+    "message": "Show warnings for media with nudity"
+  },
+  "settings_show_warnings_for_graphic_violence": {
+    "message": "Show warnings for media with graphic violence"
+  },
+  "settings_show_warnings_for_sensitive_contents": {
+    "message": "Show warnings for media with sensitive content"
+  },
+  "settings_warnings": {
+    "message": "Warnings"
+  },
+  "settings_redraft_confirmation": {
+    "message": "Require confirmation when the tweet has been interacted with (replies, RTs or likes)."
   }
 }
