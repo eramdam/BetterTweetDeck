@@ -63,7 +63,9 @@ export const mediaWarnings = makeBTDModule(({settings}) => {
         contentWarnings[contentWarnings.length - 1]
       }`;
     }
-    const warningsAsString = contentWarnings.join(', ');
+    const warningsAsString =
+      contentWarnings.length > 2 ? contentWarnings.join(', ') : contentWarnings.join(' ');
+
     const contentWarningHeader = `Content warning: ${warningsAsString}`;
     const isInSmallMediaColumn =
       payload.columnMediaSize === TweetDeckColumnMediaPreviewSizesEnum.SMALL;
