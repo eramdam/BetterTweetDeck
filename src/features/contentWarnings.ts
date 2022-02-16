@@ -5,7 +5,7 @@ import {makeBTDModule, makeBtdUuidSelector} from '../types/btdCommonTypes';
 import {extractContentWarnings} from './contentWarningsHelpers';
 
 export const contentWarnings = makeBTDModule(({TD, settings}) => {
-  if (!settings.detectContentWarnings) {
+  if (!settings.detectContentWarnings && !settings.detectContentWarningsWithoutKeywords) {
     return;
   }
 
@@ -30,7 +30,10 @@ export const contentWarnings = makeBTDModule(({TD, settings}) => {
         ? payload.chirp.targetTweet.htmlText
         : payload.chirp.htmlText;
 
-    const matches = extractContentWarnings(textToMatchAgainst);
+    const keywords = settings.detectContentWarningsWithoutKeywords
+      ? settings.singleWordContentWarnings
+      : '';
+    const matches = extractContentWarnings(textToMatchAgainst, keywords);
 
     if (!matches) {
       return;

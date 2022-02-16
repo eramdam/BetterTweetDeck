@@ -15,7 +15,12 @@ interface ContentWarningResult {
   text: string;
 }
 
-export function extractContentWarnings(input: string): ContentWarningResult | undefined {
+export function extractContentWarnings(
+  input: string,
+  /** Comma separated keywords */
+  allowedKeywords: string
+): ContentWarningResult | undefined {
+  const keywords = allowedKeywords.split(',').map((w) => w.trim().toLowerCase());
   const contentWarningMatch = input.match(contentWarningRegex) || input.match(withoutKeywordRegex);
   const isWithoutKeyword = !input.match(contentWarningRegex) && input.match(withoutKeywordRegex);
   if (!contentWarningMatch) {
@@ -34,29 +39,15 @@ export function extractContentWarnings(input: string): ContentWarningResult | un
   }
 
   if (isWithoutKeyword) {
-    // If the subject isn't lowercase, it might not be useful
-    if (subject[0].toLowerCase() !== subject[0]) {
+    const subjects = subject.split(',').map((w) => w.toLowerCase());
+    // If the keyword(s) we detected are NOT in the list of allowed keywords then we don't match
+    if (
+      !keywords.some((allowedKeyword) => {
+        return subjects.includes(allowedKeyword);
+      })
+    ) {
       return undefined;
     }
-
-    if (subject.startsWith('#')) {
-      return undefined;
-    }
-
-    // If the subject has spaces, it might not be useful
-    if (subject.split(/\s/).length > 1) {
-      return undefined;
-    }
-  }
-
-  // We want to reject in the case we matched `[xxx]` where `xxx` is some non-latin characters.
-  if (subject.match(/[^\p{scx=Common}\p{scx=Latin}]/iu)) {
-    return undefined;
-  }
-
-  // If there's no word, we can ignore
-  if (!subject.match(/[\p{L}\p{M}]/giu)) {
-    return undefined;
   }
 
   return {

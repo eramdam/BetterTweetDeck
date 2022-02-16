@@ -499,5 +499,11 @@
   },
   "settings_redraft_confirmation": {
     "message": "Require confirmation when the tweet has been interacted with (replies, RTs or likes)."
+  },
+  "settings_detect_content_warnings_without_the_keyword": {
+    "message": "Detect content warnings without the CW/TW keyword(s) (in [square brackets])"
+  },
+  "settings_comma_separated_keywords": {
+    "message": "Comma separated keywords"
   }
 }

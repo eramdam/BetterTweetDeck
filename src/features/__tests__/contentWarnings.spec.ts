@@ -4,7 +4,7 @@ describe('Content warnings detection', () => {
   describe('Basic', () => {
     test.each([
       ['[food] \nbla', ['[food]', 'food']],
-      ['[fôod] \nbla', ['[fôod]', 'fôod']],
+      ['[transphobia] \nbla', ['[transphobia]', 'transphobia']],
       ['[cw: foo]\nbla', ['[cw: foo]', 'foo']],
       ['[cn foo]\nbla', ['[cn foo]', 'foo']],
       ['tw: foo\nbla', ['tw: foo', 'foo']],
@@ -20,7 +20,7 @@ describe('Content warnings detection', () => {
       [`content warning/foobar\n bla`, ['content warning/foobar', 'foobar']],
       [`trigger warning/foobar\n bla`, ['trigger warning/foobar', 'foobar']],
     ])('%s', (input, expected) => {
-      const result = extractContentWarnings(input) as NonNullable<
+      const result = extractContentWarnings(input, 'food,transphobia') as NonNullable<
         ReturnType<typeof extractContentWarnings>
       >;
       expect(result).toBeTruthy();
@@ -52,7 +52,7 @@ describe('Content warnings detection', () => {
       `[baldur's gate 2 voice] you must bring me a hoagie from wawa before venturing forth`,
       `[ #sedestream ]`,
     ])('%s', (input) => {
-      expect(extractContentWarnings(input)).toBeUndefined();
+      expect(extractContentWarnings(input, '')).toBeUndefined();
     });
   });
 });

@@ -1,9 +1,10 @@
 import React, {FC, Fragment} from 'react';
 
 import {BTDSettings} from '../../types/btdSettingsTypes';
-import {Trans} from '../trans';
+import {getTransString, Trans} from '../trans';
 import {CheckboxSelectSettingsRow} from './components/checkboxSelectSettingsRow';
 import {SettingsCheckboxSelectProps} from './components/settingsCheckboxSelect';
+import {SettingsTextInputWithAnnotation} from './components/settingsTimeFormatInput';
 import {SettingsMenuSectionProps} from './settingsComponents';
 import {SettingsSmall} from './settingsStyles';
 
@@ -78,6 +79,27 @@ export const SettingsTweetContent: FC<SettingsMenuSectionProps> = (props) => {
                 <Trans id="settings_content_warning_hint" />
               </small>
             ),
+          },
+          {
+            initialValue: settings.detectContentWarningsWithoutKeywords,
+            isDisabled: !settings.detectContentWarnings,
+            key: 'detectContentWarningsWithoutKeywords',
+            introducedIn: '4.7.4',
+            label: <Trans id="settings_detect_content_warnings_without_the_keyword" />,
+            extraContent: (newSettings) => {
+              console.log(newSettings);
+              return (
+                newSettings && (
+                  <SettingsTextInputWithAnnotation
+                    isDisabled={!newSettings.detectContentWarningsWithoutKeywords}
+                    value={newSettings.singleWordContentWarnings}
+                    onChange={makeOnSettingsChange('singleWordContentWarnings')}
+                    annotation={getTransString(
+                      'settings_comma_separated_keywords'
+                    )}></SettingsTextInputWithAnnotation>
+                )
+              );
+            },
           },
           {
             initialValue: settings.showMediaWarnings,
