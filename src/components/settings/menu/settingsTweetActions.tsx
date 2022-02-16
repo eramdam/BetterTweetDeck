@@ -9,7 +9,7 @@ import {BTDRadioSelectSettingsRow} from '../components/radioSelectSettingsRow';
 import {SettingsButton} from '../components/settingsButton';
 import {SettingsRow, SettingsRowTitle} from '../components/settingsRow';
 import {SettingsTextInput} from '../components/settingsTextInput';
-import {SettingsTextInputWithAnnotation} from '../components/settingsTimeFormatInput';
+import {SettingsTextInputWithAnnotation} from '../components/settingsTextInputWithAnnotation';
 import {formatDateTime, SettingsMenuSectionProps} from '../settingsComponents';
 import {translationLanguages} from '../settingsTypes';
 

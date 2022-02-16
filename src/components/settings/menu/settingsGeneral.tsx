@@ -12,7 +12,7 @@ import {BTDSettings} from '../../../types/btdSettingsTypes';
 import {Trans} from '../../trans';
 import {CheckboxSelectSettingsRow} from '../components/checkboxSelectSettingsRow';
 import {SettingsRadioSettingSelect} from '../components/settingsRadioSelect';
-import {SettingsTextInputWithAnnotation} from '../components/settingsTimeFormatInput';
+import {SettingsTextInputWithAnnotation} from '../components/settingsTextInputWithAnnotation';
 import {SettingsMenuSectionProps, SettingsSmallText} from '../settingsComponents';
 
 const BadgeIcon = ({icon}: {icon: string}) => {

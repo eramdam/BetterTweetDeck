@@ -3,12 +3,9 @@ import './contentWarnings.css';
 import {onChirpAdded} from '../services/chirpHandler';
 import {makeBTDModule, makeBtdUuidSelector} from '../types/btdCommonTypes';
 import {extractContentWarnings} from './contentWarningsHelpers';
+import {matchAgainstSpoilerKeywords} from './spoilerHelpers';
 
 export const contentWarnings = makeBTDModule(({TD, settings}) => {
-  if (!settings.detectContentWarnings) {
-    return;
-  }
-
   onChirpAdded((payload) => {
     const chirpNode = document.querySelector(makeBtdUuidSelector('data-btd-uuid', payload.uuid));
 
@@ -30,7 +27,22 @@ export const contentWarnings = makeBTDModule(({TD, settings}) => {
         ? payload.chirp.targetTweet.htmlText
         : payload.chirp.htmlText;
 
-    const matches = extractContentWarnings(textToMatchAgainst);
+    const contentWarningKeywords = settings.detectContentWarningsWithoutKeywords
+      ? settings.singleWordContentWarnings
+      : '';
+    const spoilerKeywords = settings.detectSpoilers ? settings.spoilerKeywords : '';
+
+    if (
+      !settings.detectContentWarnings &&
+      !settings.detectContentWarningsWithoutKeywords &&
+      !settings.detectSpoilers
+    ) {
+      return;
+    }
+
+    const matches =
+      extractContentWarnings(textToMatchAgainst, contentWarningKeywords) ||
+      matchAgainstSpoilerKeywords(textToMatchAgainst, spoilerKeywords);
 
     if (!matches) {
       return;
@@ -59,9 +71,11 @@ export const contentWarnings = makeBTDModule(({TD, settings}) => {
 
     const tweetText = document.createElement('p');
     tweetText.classList.add('tweet-text', 'js-tweet-text', 'with-linebreaks');
-    tweetText.innerHTML = htmlTextToMatchAgainst
-      .replace(TD.util.escape(warningBlock), '')
-      .replace(/^\n/, '');
+    tweetText.innerHTML = htmlTextToMatchAgainst.replace(/^\n/, '');
+
+    if (matches.shouldRemoveSubject) {
+      tweetText.innerHTML = tweetText.innerHTML.replace(TD.util.escape(warningBlock), '');
+    }
     details.appendChild(tweetText);
     details.addEventListener('toggle', () => {
       if (details.open) details.closest('.js-tweet')?.classList.add('cw-open');
