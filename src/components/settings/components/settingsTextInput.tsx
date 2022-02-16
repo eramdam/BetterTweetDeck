@@ -43,7 +43,7 @@ export function SettingsTextarea(props: SettingsTextInputProps) {
           min-height: 50px;
           max-height: 400px;
           min-width: 400px;
-          max-width: 80%;
+          max-width: 60%;
         `
       )}
       onChange={(e) => props.onChange(e.target.value)}

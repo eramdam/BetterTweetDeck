@@ -9,10 +9,11 @@ const withoutKeywordRegex = new RegExp(
   'i'
 );
 
-interface ContentWarningResult {
+export interface ContentWarningResult {
   block: string;
   subject: string;
   text: string;
+  shouldRemoveSubject: boolean;
 }
 
 export function extractContentWarnings(
@@ -54,5 +55,6 @@ export function extractContentWarnings(
     block,
     subject,
     text,
+    shouldRemoveSubject: true,
   };
 }

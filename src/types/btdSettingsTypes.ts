@@ -56,6 +56,8 @@ export const RBetterTweetDeckSettings = t.type({
   detectContentWarnings: withDefault(t.boolean, false),
   detectContentWarningsWithoutKeywords: withDefault(t.boolean, false),
   singleWordContentWarnings: withDefault(t.string, 'food,transphobia,racism,homophobia'),
+  detectSpoilers: withDefault(t.boolean, false),
+  spoilerKeywords: withDefault(t.string, ''),
   /** Show Twitter's media warnings. */
   showMediaWarnings: withDefault(t.boolean, true),
   showWarningsForAdultContent: withDefault(t.boolean, true),
