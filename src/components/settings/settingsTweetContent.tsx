@@ -89,13 +89,18 @@ export const SettingsTweetContent: FC<SettingsMenuSectionProps> = (props) => {
             extraContent: (newSettings) => {
               return (
                 newSettings && (
-                  <SettingsTextareaWithAnnotation
-                    isDisabled={!newSettings.detectContentWarningsWithoutKeywords}
-                    value={newSettings.singleWordContentWarnings}
-                    onChange={makeOnSettingsChange('singleWordContentWarnings')}
-                    annotation={getTransString(
-                      'settings_comma_separated_keywords_matched_by_order_in_the_list'
-                    )}></SettingsTextareaWithAnnotation>
+                  <>
+                    <small className={SettingsSmall}>
+                      {getTransString('settings_will_match_patterns_like_food_lorem_ipsum')}
+                    </small>
+                    <SettingsTextareaWithAnnotation
+                      isDisabled={!newSettings.detectContentWarningsWithoutKeywords}
+                      value={newSettings.singleWordContentWarnings}
+                      onChange={makeOnSettingsChange('singleWordContentWarnings')}
+                      annotation={getTransString(
+                        'settings_comma_separated_keywords_matched_by_order_in_the_list'
+                      )}></SettingsTextareaWithAnnotation>
+                  </>
                 )
               );
             },
@@ -108,13 +113,18 @@ export const SettingsTweetContent: FC<SettingsMenuSectionProps> = (props) => {
             extraContent: (newSettings) => {
               return (
                 newSettings && (
-                  <SettingsTextareaWithAnnotation
-                    isDisabled={!newSettings.detectSpoilers}
-                    value={newSettings.spoilerKeywords}
-                    onChange={makeOnSettingsChange('spoilerKeywords')}
-                    annotation={getTransString(
-                      'settings_comma_separated_keywords_matched_by_order_in_the_list'
-                    )}></SettingsTextareaWithAnnotation>
+                  <>
+                    <small className={SettingsSmall}>
+                      <Trans id="settings_you_can_use_this_to_hide_spoilers" />
+                    </small>
+                    <SettingsTextareaWithAnnotation
+                      isDisabled={!newSettings.detectSpoilers}
+                      value={newSettings.spoilerKeywords}
+                      onChange={makeOnSettingsChange('spoilerKeywords')}
+                      annotation={getTransString(
+                        'settings_comma_separated_keywords_matched_by_order_in_the_list'
+                      )}></SettingsTextareaWithAnnotation>
+                  </>
                 )
               );
             },
