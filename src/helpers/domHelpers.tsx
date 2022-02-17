@@ -18,8 +18,8 @@ export const getRandomString = (length = 32) => {
 };
 
 export function replaceAt(str: string, index: number, target: string, replacement: string) {
-  const firstPart = str.substr(0, index);
-  const secondPart = str.substr(index + target.length);
+  const firstPart = str.slice(0, index);
+  const secondPart = str.slice(index + target.length);
 
   return firstPart + replacement + secondPart;
 }
@@ -33,7 +33,7 @@ export function valueAtCursor(input: HTMLInputElement | HTMLTextAreaElement) {
   const lookStart = selection.start === selection.end ? 0 : selection.start;
 
   // @ts-ignore
-  const beforeCursor = input.value.substr(lookStart, selection.end);
+  const beforeCursor = input.value.slice(lookStart, lookStart + selection.end);
 
   return {
     value: beforeCursor,
