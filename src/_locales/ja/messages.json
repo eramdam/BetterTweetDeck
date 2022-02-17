@@ -500,6 +500,12 @@
   "settings_redraft_confirmation": {
     "message": "ツイートにインタラクション (返信、リツイート、いいね) があった場合、確認メッセージを表示"
   },
+  "settings_detect_content_warnings_without_the_keyword": {
+    "message": "CW/TWキーワード以外のコンテンツ警告を検出する"
+  },
+  "settings_collapse_tweets_who_match_one_of_the_following_keywords": {
+    "message": "次のキーワードのいずれかにマッチするツイートを折りたたむ:"
+  },
   "settings_will_match_patterns_like_food_lorem_ipsum": {
     "message": "\"[food] lorem ipsum\" のようなパターンにマッチします"
   },
