@@ -499,5 +499,11 @@
   },
   "settings_redraft_confirmation": {
     "message": "ツイートにインタラクション (返信、リツイート、いいね) があった場合、確認メッセージを表示"
+  },
+  "settings_will_match_patterns_like_food_lorem_ipsum": {
+    "message": "\"[food] lorem ipsum\" のようなパターンにマッチします"
+  },
+  "settings_you_can_use_this_to_hide_spoilers": {
+    "message": "ネタバレを隠すのに使えます"
   }
 }
