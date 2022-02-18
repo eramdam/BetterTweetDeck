@@ -4,7 +4,7 @@ import * as path from 'path';
 
 import {getLatestRepoTag} from './latestTag';
 
-const GITHUB_SHA = (process.env.GITHUB_SHA || '').substr(0, 7);
+const GITHUB_SHA = (process.env.GITHUB_SHA || '').slice(0, 7);
 const NIGHTLY_DISCORD_WEBHOOK_ID = process.env.NIGHTLY_DISCORD_WEBHOOK_ID || '';
 const NIGHTLY_DISCORD_WEBHOOK_TOKEN = process.env.NIGHTLY_DISCORD_WEBHOOK_TOKEN || '';
 const BTD_NIGHTLY_ROLE_ID = process.env.NIGHTLY_DISCORD_ROLE_ID || '';
