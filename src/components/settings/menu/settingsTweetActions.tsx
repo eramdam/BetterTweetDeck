@@ -233,7 +233,7 @@ export const SettingsTweetActions: FC<SettingsMenuSectionProps> = (props) => {
             isDisabled: !settings.tweetMenuItems.addRedraftMenuItem,
             initialValue: settings.tweetMenuItems.requireConfirmationForRedraft,
             key: 'requireConfirmationForRedraft',
-            label: <Trans id="settings_redraft_confirmation" />,
+            label: <Trans id="settings_require_a_confirmation_before_deleting_and_editing" />,
           },
         ]}>
         <Trans id="settings_additional_tweet_menu_items" />
