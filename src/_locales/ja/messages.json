@@ -497,9 +497,6 @@
   "settings_warnings": {
     "message": "警告"
   },
-  "settings_redraft_confirmation": {
-    "message": "ツイートにインタラクション (返信、リツイート、いいね) があった場合、確認メッセージを表示"
-  },
   "settings_detect_content_warnings_without_the_keyword": {
     "message": "CW/TWキーワード以外のコンテンツ警告を検出する"
   },
