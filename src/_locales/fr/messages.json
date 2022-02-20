@@ -496,8 +496,5 @@
   },
   "settings_warnings": {
     "message": "Avertissements"
-  },
-  "settings_redraft_confirmation": {
-    "message": "Demander une confirmation lorsque le tweet a des réponses, likes ou retweets."
   }
 }
