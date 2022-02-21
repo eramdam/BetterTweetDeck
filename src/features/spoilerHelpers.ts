@@ -7,7 +7,7 @@ export function matchAgainstSpoilerKeywords(
   const keywords = allowedKeywords.split(',').map((w) => w.trim().toLowerCase());
 
   const matchedKeyword = keywords.find((keyword) => {
-    return new RegExp(`\b${keyword}\b`).test(input.toLowerCase());
+    return new RegExp(`\\b${keyword}\\b`).test(input.toLowerCase());
   });
 
   if (!matchedKeyword) {
