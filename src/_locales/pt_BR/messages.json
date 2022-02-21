@@ -497,9 +497,6 @@
   "settings_warnings": {
     "message": "Avisos"
   },
-  "settings_redraft_confirmation": {
-    "message": "Exigir confirmação quando o tweet foi interagido (com respostas, RTs ou curtidas)."
-  },
   "settings_detect_content_warnings_without_the_keyword": {
     "message": "Detectar avisos de conteúdo sem as palavras-chave CW/TW"
   },
@@ -514,5 +511,8 @@
   },
   "settings_you_can_use_this_to_hide_spoilers": {
     "message": "Você pode usar isso para ocultar spoilers"
+  },
+  "settings_require_a_confirmation_before_deleting_and_editing": {
+    "message": "Exigir confirmação antes de apagar e editar"
   }
 }

@@ -497,9 +497,6 @@
   "settings_warnings": {
     "message": "警告"
   },
-  "settings_redraft_confirmation": {
-    "message": "ツイートにインタラクション (返信、リツイート、いいね) があった場合、確認メッセージを表示"
-  },
   "settings_detect_content_warnings_without_the_keyword": {
     "message": "CW/TWキーワード以外のコンテンツ警告を検出する"
   },
@@ -511,5 +508,8 @@
   },
   "settings_you_can_use_this_to_hide_spoilers": {
     "message": "ネタバレを隠すのに使えます"
+  },
+  "settings_require_a_confirmation_before_deleting_and_editing": {
+    "message": "削除や編集の前に確認メッセージを表示"
   }
 }

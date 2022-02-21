@@ -497,7 +497,22 @@
   "settings_warnings": {
     "message": "Avertissements"
   },
-  "settings_redraft_confirmation": {
-    "message": "Demander une confirmation lorsque le tweet a des réponses, likes ou retweets."
+  "settings_detect_content_warnings_without_the_keyword": {
+    "message": "Détecter les avertissements de contenu sans le(s) mot(s) clé(s) CW/TW"
+  },
+  "settings_collapse_tweets_who_match_one_of_the_following_keywords": {
+    "message": "Réduire les tweets qui correspondent à l'un des mots-clés suivants :"
+  },
+  "settings_comma_separated_keywords_matched_by_order_in_the_list": {
+    "message": "Mots-clés séparés par des virgules, par ordre dans la liste"
+  },
+  "settings_will_match_patterns_like_food_lorem_ipsum": {
+    "message": "Va détecter des textes comme \"[food] lorem ipsum\""
+  },
+  "settings_you_can_use_this_to_hide_spoilers": {
+    "message": "Vous pouvez l'utiliser pour masquer les spoilers"
+  },
+  "settings_require_a_confirmation_before_deleting_and_editing": {
+    "message": "Exiger une confirmation avant de supprimer et d'éditer"
   }
 }
