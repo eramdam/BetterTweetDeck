@@ -511,5 +511,8 @@
   },
   "settings_you_can_use_this_to_hide_spoilers": {
     "message": "Você pode usar isso para ocultar spoilers"
+  },
+  "settings_require_a_confirmation_before_deleting_and_editing": {
+    "message": "Exigir confirmação antes de apagar e editar"
   }
 }
