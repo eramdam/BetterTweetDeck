@@ -86,7 +86,7 @@ export const SettingsTweetContent: FC<SettingsMenuSectionProps> = (props) => {
             initialValue: settings.detectContentWarningsWithoutKeywords,
             isDisabled: !settings.detectContentWarnings,
             key: 'detectContentWarningsWithoutKeywords',
-            introducedIn: '4.7.4',
+            introducedIn: '4.8',
             label: <Trans id="settings_detect_content_warnings_without_the_keyword" />,
             extraContent: (newSettings) => {
               return (
@@ -111,7 +111,7 @@ export const SettingsTweetContent: FC<SettingsMenuSectionProps> = (props) => {
           {
             initialValue: settings.detectSpoilers,
             key: 'detectSpoilers',
-            introducedIn: '4.7.4',
+            introducedIn: '4.8',
             label: <Trans id="settings_collapse_tweets_who_match_one_of_the_following_keywords" />,
             extraContent: (newSettings) => {
               return (
@@ -151,7 +151,7 @@ export const SettingsTweetContent: FC<SettingsMenuSectionProps> = (props) => {
             initialValue: settings.showWarningsForAdultContent,
             isDisabled: !settings.showMediaWarnings,
             key: 'showWarningsForAdultContent',
-            introducedIn: '4.7.4',
+            introducedIn: '4.8',
             label: <Trans id="settings_show_warnings_for_adult_content" />,
           },
           {
@@ -159,7 +159,7 @@ export const SettingsTweetContent: FC<SettingsMenuSectionProps> = (props) => {
             initialValue: settings.showWarningsForGraphicViolence,
             isDisabled: !settings.showMediaWarnings,
             key: 'showWarningsForGraphicViolence',
-            introducedIn: '4.7.4',
+            introducedIn: '4.8',
             label: <Trans id="settings_show_warnings_for_graphic_violence" />,
           },
           {
@@ -167,7 +167,7 @@ export const SettingsTweetContent: FC<SettingsMenuSectionProps> = (props) => {
             initialValue: settings.showWarningsForOther,
             isDisabled: !settings.showMediaWarnings,
             key: 'showWarningsForOther',
-            introducedIn: '4.7.4',
+            introducedIn: '4.8',
             label: <Trans id="settings_show_warnings_for_sensitive_contents" />,
           },
         ]}>
