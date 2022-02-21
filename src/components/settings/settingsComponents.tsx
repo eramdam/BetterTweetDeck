@@ -1,9 +1,10 @@
-import {css} from '@emotion/css';
+import {css, cx} from '@emotion/css';
 import {DateTime} from 'luxon';
 import React, {FC, ReactNode} from 'react';
 
 import {HandlerOf, RendererOf} from '../../helpers/typeHelpers';
 import {BTDSettings} from '../../types/btdSettingsTypes';
+import {settingsIndent} from './settingsStyles';
 
 export function makeSettingsRow<T extends keyof BTDSettings>(
   key: T,
@@ -46,9 +47,13 @@ export function formatDateTime(format: string) {
 export const SettingsSmallText: FC = (props) => {
   return (
     <div
-      className={css`
-        color: var(--settings-modal-muted-text);
-      `}>
+      className={cx(
+        css`
+          font-size: 12px;
+          opacity: 0.8;
+        `,
+        settingsIndent
+      )}>
       {props.children}
     </div>
   );

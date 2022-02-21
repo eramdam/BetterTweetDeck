@@ -4,7 +4,7 @@ import React, {Fragment, ReactNode} from 'react';
 import {RendererOf} from '../../../helpers/typeHelpers';
 import {BTDSettings} from '../../../types/btdSettingsTypes';
 import {generateInputId} from '../settingsHelpers';
-import {checkboxInputStyles, settingsDisabled} from '../settingsStyles';
+import {checkboxInputStyles, settingsDisabled, settingsIndent} from '../settingsStyles';
 import {featureBadgeClassname, NewFeatureBadge, NewFeatureBadgeProps} from './newFeatureBadge';
 
 // There's probably a wau to do this without having to do a manual union ¯\(ツ)/¯
@@ -22,6 +22,7 @@ export interface SettingsCheckboxSelectProps {
       label: ReactNode;
       initialValue: boolean;
       isDisabled?: boolean;
+      shouldIndent?: boolean;
       extraContent?: RendererOf<BTDSettings>;
     } & Partial<NewFeatureBadgeProps>
   >;
@@ -50,7 +51,11 @@ export function SettingsCheckboxSelect(props: SettingsCheckboxSelectProps) {
         const inputId = `${field.key}-${generateInputId()}`;
         return (
           <Fragment key={String(field.key)}>
-            <span className={cx(field.isDisabled && settingsDisabled)}>
+            <span
+              className={cx(
+                field.isDisabled && settingsDisabled,
+                field.shouldIndent && settingsIndent
+              )}>
               <input
                 name={field.key}
                 type="checkbox"

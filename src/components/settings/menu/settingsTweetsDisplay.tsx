@@ -16,6 +16,7 @@ import {SettingsTextInputWithAnnotation} from '../components/settingsTextInputWi
 import {formatDateTime, SettingsMenuSectionProps} from '../settingsComponents';
 import {useSettingsSearch} from '../settingsContext';
 import {reactElementToString} from '../settingsHelpers';
+import {settingsIndent} from '../settingsStyles';
 
 export const SettingsTweetsDisplay: FC<SettingsMenuSectionProps> = (props) => {
   const {makeOnSettingsChange, settings} = props;
@@ -65,6 +66,7 @@ export const SettingsTweetsDisplay: FC<SettingsMenuSectionProps> = (props) => {
           stretch={false}>
           <span></span>
           <SettingsTextInputWithAnnotation
+            className={settingsIndent}
             value={newSettings.timestampShortFormat}
             onChange={makeOnSettingsChange('timestampShortFormat')}
             annotation={formatDateTime(
@@ -86,6 +88,7 @@ export const SettingsTweetsDisplay: FC<SettingsMenuSectionProps> = (props) => {
           }>
           <span></span>
           <SettingsTextInputWithAnnotation
+            className={settingsIndent}
             value={newSettings.timestampFullFormat}
             onChange={makeOnSettingsChange('timestampFullFormat')}
             annotation={formatDateTime(

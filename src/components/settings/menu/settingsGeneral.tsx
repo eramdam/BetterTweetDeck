@@ -14,6 +14,7 @@ import {CheckboxSelectSettingsRow} from '../components/checkboxSelectSettingsRow
 import {SettingsRadioSettingSelect} from '../components/settingsRadioSelect';
 import {SettingsTextInputWithAnnotation} from '../components/settingsTextInputWithAnnotation';
 import {SettingsMenuSectionProps, SettingsSmallText} from '../settingsComponents';
+import {settingsIndent} from '../settingsStyles';
 
 const BadgeIcon = ({icon}: {icon: string}) => {
   return (
@@ -102,6 +103,7 @@ export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
                   isDisabled={!newSettings.useCustomColumnWidth}
                   value={newSettings.customColumnWidthValue}
                   onChange={makeOnSettingsChange('customColumnWidthValue')}
+                  className={settingsIndent}
                   annotation={
                     <Trans id="settings_width_any_valid_css_value" />
                   }></SettingsTextInputWithAnnotation>
@@ -115,17 +117,6 @@ export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
           makeOnSettingsChange(key as keyof BTDSettings)(value);
         }}
         fields={[
-          {
-            initialValue: settings.collapseReadDms,
-            key: 'collapseReadDms',
-            label: <Trans id="settings_collapse_read_dms" />,
-          },
-          {
-            initialValue: settings.collapseAllDms,
-            key: 'collapseAllDms',
-            label: <Trans id="settings_collapse_unread_dms" />,
-            isDisabled: !settings.collapseReadDms,
-          },
           {
             initialValue: settings.disableGifsInProfilePictures,
             key: 'disableGifsInProfilePictures',
@@ -146,6 +137,18 @@ export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
             initialValue: settings.muteNftAvatars,
             key: 'muteNftAvatars',
             label: <Trans id="settings_mute_nfts_accounts" />,
+          },
+          {
+            initialValue: settings.collapseReadDms,
+            key: 'collapseReadDms',
+            label: <Trans id="settings_collapse_read_dms" />,
+          },
+          {
+            initialValue: settings.collapseAllDms,
+            key: 'collapseAllDms',
+            shouldIndent: true,
+            label: <Trans id="settings_collapse_unread_dms" />,
+            isDisabled: !settings.collapseReadDms,
           },
         ]}>
         <Trans id="settings_misc" />
@@ -211,6 +214,9 @@ export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
                       value: BTDMutualBadges.ARROWS,
                     },
                   ]}
+                  className={css`
+                    padding-left: 25px;
+                  `}
                   isDisabled={!newSettings.mutualBadges || !newSettings.badgesOnTopOfAvatars}
                   settingsKey="mutualBadgeVariation"
                   onChange={makeOnSettingsChange('mutualBadgeVariation')}
@@ -244,6 +250,7 @@ export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
             {
               initialValue: settings.shouldShortenSharedText,
               key: 'shouldShortenSharedText',
+              shouldIndent: true,
               isDisabled: !settings.enableShareItem,
               label: <Trans id="settings_shorten_the_shared_text" />,
             },

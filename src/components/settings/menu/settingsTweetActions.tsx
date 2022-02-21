@@ -11,6 +11,7 @@ import {SettingsRow, SettingsRowTitle} from '../components/settingsRow';
 import {SettingsTextInput} from '../components/settingsTextInput';
 import {SettingsTextInputWithAnnotation} from '../components/settingsTextInputWithAnnotation';
 import {formatDateTime, SettingsMenuSectionProps} from '../settingsComponents';
+import {settingsIndent} from '../settingsStyles';
 import {translationLanguages} from '../settingsTypes';
 
 export const SettingsTweetActions: FC<SettingsMenuSectionProps> = (props) => {
@@ -195,12 +196,14 @@ export const SettingsTweetActions: FC<SettingsMenuSectionProps> = (props) => {
             initialValue: settings.showAccountChoiceOnFollow,
             isDisabled: !settings.addFollowAction,
             key: 'showAccountChoiceOnFollow',
+            shouldIndent: true,
             label: <Trans id="settings_show_account_picker_follow" />,
           },
           {
             initialValue: settings.showFollowersCount,
             isDisabled: !settings.addFollowAction,
             key: 'showFollowersCount',
+            shouldIndent: true,
             label: <Trans id="settings_show_followers_count" />,
           },
         ]}>
@@ -231,6 +234,7 @@ export const SettingsTweetActions: FC<SettingsMenuSectionProps> = (props) => {
           },
           {
             isDisabled: !settings.tweetMenuItems.addRedraftMenuItem,
+            shouldIndent: true,
             initialValue: settings.tweetMenuItems.requireConfirmationForRedraft,
             key: 'requireConfirmationForRedraft',
             label: <Trans id="settings_require_a_confirmation_before_deleting_and_editing" />,
@@ -252,6 +256,7 @@ export const SettingsTweetActions: FC<SettingsMenuSectionProps> = (props) => {
               return (
                 newSettings && (
                   <SettingsTextInputWithAnnotation
+                    className={settingsIndent}
                     isDisabled={!newSettings.showAccountChoiceOnFavorite}
                     value={newSettings.accountChoiceAllowList}
                     onChange={makeOnSettingsChange('accountChoiceAllowList')}
@@ -286,6 +291,7 @@ export const SettingsTweetActions: FC<SettingsMenuSectionProps> = (props) => {
                     disabled={!newSettings.overrideTranslationLanguage}
                     className={css`
                       width: 300px;
+                      margin-left: 25px;
                     `}
                     onChange={(e) =>
                       makeOnSettingsChange('customTranslationLanguage')(e.target.value)

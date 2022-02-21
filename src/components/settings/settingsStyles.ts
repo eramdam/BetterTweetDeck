@@ -111,7 +111,6 @@ export const settingsRegularText = css`
   }
 `;
 
-export const SettingsSmall = css`
-  font-size: 12px;
-  opacity: 0.8;
+export const settingsIndent = css`
+  padding-left: 25px;
 `;

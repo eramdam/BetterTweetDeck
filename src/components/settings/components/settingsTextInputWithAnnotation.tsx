@@ -16,7 +16,8 @@ export function SettingsTextareaWithAnnotation(props: SettingsTextInputWithAnnot
           display: flex;
           align-items: flex-start;
         `,
-        props.isDisabled && settingsDisabled
+        props.isDisabled && settingsDisabled,
+        props.className
       )}>
       <SettingsTextarea
         value={props.value}
@@ -42,7 +43,8 @@ export function SettingsTextInputWithAnnotation(props: SettingsTextInputWithAnno
           display: flex;
           align-items: center;
         `,
-        props.isDisabled && settingsDisabled
+        props.isDisabled && settingsDisabled,
+        props.className
       )}>
       <SettingsTextInput
         value={props.value}

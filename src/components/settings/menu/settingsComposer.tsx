@@ -21,6 +21,7 @@ export const SettingsComposer: FC<SettingsMenuSectionProps> = (props) => {
             introducedIn: '4.3',
           },
           {
+            shouldIndent: true,
             initialValue: settings.disableTweetButtonIfAltIsMissingInDMs,
             key: 'disableTweetButtonIfAltIsMissingInDMs',
             isDisabled: !settings.disableTweetButtonIfAltIsMissing,
