@@ -145,6 +145,14 @@ export const setupAME = makeBTDModule(({TD, jq}) => {
       descriptor: 'tweets with more than X hashtags',
       placeholder: 'Enter a number',
       function(t, e) {
+        if (!e.entities) {
+          return true;
+        }
+
+        if (!Number.isSafeInteger(Number(t.value))) {
+          return true;
+        }
+
         return e.entities.hashtags.length <= Number(t.value);
       },
     },
@@ -276,15 +284,20 @@ export const setupAME = makeBTDModule(({TD, jq}) => {
   // Custom pass function to apply our filters
   TD.vo.Filter.prototype.pass = function pass(e) {
     if (RAMEFilters.is(this.type)) {
-      const t = this;
-      e = getAMEFilterTarget(e, this.filterTarget, this.type);
+      try {
+        const t = this;
+        e = getAMEFilterTarget(e, this.filterTarget, this.type);
 
-      const shouldDisplay = AmeFilters[this.type].function(t, e);
-      if (e.chirpType === ChirpBaseTypeEnum.TWEET || e.chirpType === ChirpBaseTypeEnum.UNKNOWN) {
-        maybeLogMuteCatch(e, this, shouldDisplay);
+        const shouldDisplay = AmeFilters[this.type].function(t, e);
+        if (e.chirpType === ChirpBaseTypeEnum.TWEET || e.chirpType === ChirpBaseTypeEnum.UNKNOWN) {
+          maybeLogMuteCatch(e, this, shouldDisplay);
+        }
+
+        return shouldDisplay;
+      } catch (e) {
+        console.error(e);
+        return true;
       }
-
-      return shouldDisplay;
     }
 
     const shouldDisplay = this._pass(e);
