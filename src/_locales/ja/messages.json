@@ -510,6 +510,6 @@
     "message": "ネタバレを隠すのに使えます"
   },
   "settings_require_a_confirmation_before_deleting_and_editing": {
-    "message": "削除や編集の前に確認メッセージを表示"
+    "message": "削除と編集の確認メッセージを表示"
   }
 }
