@@ -86,7 +86,7 @@
     "config": "^3.3.7",
     "copy-webpack-plugin": "^9.0.1",
     "cross-env": "^7.0.3",
-    "css-loader": "^6.0.0",
+    "css-loader": "^6.6.0",
     "discord.js": "^13.3.1",
     "emoji-mart": "^3.0.1",
     "eslint": "^8.10.0",
