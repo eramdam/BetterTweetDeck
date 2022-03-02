@@ -85,7 +85,7 @@
     "axios": "^0.24.0",
     "chalk": "^4.1.1",
     "color-convert": "^2.0.1",
-    "config": "^3.3.6",
+    "config": "^3.3.7",
     "copy-webpack-plugin": "^9.0.1",
     "cross-env": "^7.0.3",
     "css-loader": "^6.0.0",
