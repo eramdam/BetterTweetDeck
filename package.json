@@ -133,7 +133,7 @@
     "string-replace-loader": "^3.0.3",
     "style-loader": "^3.1.0",
     "stylis": "^4.0.10",
-    "ts-key-enum": "^2.0.7",
+    "ts-key-enum": "^2.0.11",
     "ts-loader": "^9.2.3",
     "ts-node": "^10.4.0",
     "typescript": "^4.3.5",
