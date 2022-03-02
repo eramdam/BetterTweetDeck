@@ -100,7 +100,7 @@
     "file-saver": "^2.0.5",
     "fp-ts": "^2.11.8",
     "framer-motion": "^5.0.0",
-    "fuse.js": "^6.4.6",
+    "fuse.js": "^6.5.3",
     "generate-json-webpack-plugin": "^2.0.0",
     "glob": "^7.1.7",
     "he": "^1.2.0",
