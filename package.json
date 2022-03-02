@@ -129,7 +129,7 @@
     "react-virtual": "^2.10.4",
     "semver": "^7.3.5",
     "simple-plist": "^1.1.1",
-    "string-replace-loader": "^3.0.3",
+    "string-replace-loader": "^3.1.0",
     "style-loader": "^3.1.0",
     "stylis": "^4.0.10",
     "ts-key-enum": "^2.0.11",
