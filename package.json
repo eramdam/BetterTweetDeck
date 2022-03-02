@@ -62,7 +62,7 @@
     "@types/chalk": "^2.2.0",
     "@types/color-convert": "^2.0.0",
     "@types/config": "^0.0.39",
-    "@types/emoji-mart": "^3.0.5",
+    "@types/emoji-mart": "^3.0.9",
     "@types/file-saver": "^2.0.3",
     "@types/glob": "^7.2.0",
     "@types/he": "^1.1.2",
