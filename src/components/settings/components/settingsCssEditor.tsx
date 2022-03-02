@@ -22,7 +22,7 @@ export const SettingsCssEditor: FC<SettingsCssEditorProps> = (props) => {
       if (!model) {
         return;
       }
-      const owner = model.getModeId();
+      const owner = model.getLanguageId();
       const markers = monaco.editor.getModelMarkers({owner});
       const hasErrors = markers.some((marker) => marker.severity === monaco.MarkerSeverity.Error);
 
