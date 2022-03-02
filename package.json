@@ -57,7 +57,7 @@
     "@emotion/css": "^11.7.1",
     "@octokit/core": "^3.5.1",
     "@popperjs/core": "^2.10.2",
-    "@types/archiver": "^5.1.1",
+    "@types/archiver": "^5.3.1",
     "@types/axios": "^0.14.0",
     "@types/chalk": "^2.2.0",
     "@types/color-convert": "^2.0.0",
