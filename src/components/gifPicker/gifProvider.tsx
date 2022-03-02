@@ -1,7 +1,7 @@
+import {flip, shift, useFloating} from '@floating-ui/react-dom';
 import _, {Dictionary} from 'lodash';
 import React, {Fragment, useCallback, useMemo, useRef, useState} from 'react';
 import ReactDOM from 'react-dom';
-import {usePopper} from 'react-popper';
 import {useVirtual} from 'react-virtual';
 import {useDebouncedCallback} from 'use-debounce';
 
@@ -20,24 +20,9 @@ export const BTDGifProvider = () => {
   const [loadedGifs, setLoadedGifs] = useState<GifsArray>([]);
   const [isComposerVisible, setIsComposerVisible] = useState(false);
   const [gifButtonRootElement, setGifButtonRootElement] = useState<HTMLDivElement | null>(null);
-  const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(null);
-  const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null);
-  const {styles} = usePopper(referenceElement, popperElement, {
+  const {x, y, reference, floating, strategy} = useFloating({
     placement: 'right-start',
-    modifiers: [
-      {
-        name: 'flip',
-        options: {
-          boundary: document.body,
-        },
-      },
-      {
-        name: 'preventOverflow',
-        options: {
-          mainAxis: true,
-        },
-      },
-    ],
+    middleware: [flip(), shift()],
   });
   const [pagination, setPagination] = useState({next: '', offset: 0});
   const gifChunks = useMemo(() => {
@@ -90,23 +75,26 @@ export const BTDGifProvider = () => {
     setIsGifPickerOpen(false);
   };
 
-  const onComposerVisibleChange: HandlerOf<boolean> = useCallback((isVisible) => {
-    setIsComposerVisible(isVisible);
-    if (!isVisible) {
-      return;
-    }
+  const onComposerVisibleChange: HandlerOf<boolean> = useCallback(
+    (isVisible) => {
+      setIsComposerVisible(isVisible);
+      if (!isVisible) {
+        return;
+      }
 
-    const characterCount = document.querySelector('.js-character-count');
+      const characterCount = document.querySelector('.js-character-count');
 
-    if (!characterCount || !characterCount.parentElement) {
-      return;
-    }
-    const gifRootElement = document.createElement('div');
-    gifRootElement.id = 'gif-root-element';
-    characterCount.parentElement.appendChild(gifRootElement);
-    setGifButtonRootElement(gifRootElement);
-    setReferenceElement(document.querySelector<HTMLElement>('.compose-text-container'));
-  }, []);
+      if (!characterCount || !characterCount.parentElement) {
+        return;
+      }
+      const gifRootElement = document.createElement('div');
+      gifRootElement.id = 'gif-root-element';
+      characterCount.parentElement.appendChild(gifRootElement);
+      setGifButtonRootElement(gifRootElement);
+      reference(document.querySelector<HTMLElement>('.compose-text-container'));
+    },
+    [reference]
+  );
 
   useIsComposerVisible(onComposerVisibleChange);
 
@@ -171,9 +159,13 @@ export const BTDGifProvider = () => {
             setIsGifPickerOpen(false);
           }}>
           <BTDGifPicker
-            ref={setPopperElement}
+            ref={floating}
             scrollRef={scrollRef}
-            style={styles.popper}
+            style={{
+              position: strategy,
+              top: y ?? '',
+              left: x ?? '',
+            }}
             onScroll={(e) => {
               if (!isHTMLElement(e.target)) {
                 return;

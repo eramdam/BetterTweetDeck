@@ -1,7 +1,7 @@
+import {flip, shift, useFloating} from '@floating-ui/react-dom';
 import {BaseEmoji, NimbleEmoji, NimblePicker} from 'emoji-mart';
 import React, {Fragment, useCallback, useState} from 'react';
 import ReactDOM from 'react-dom';
-import {usePopper} from 'react-popper';
 
 import data from '../assets/emoji-mart-data.json';
 import {isHTMLElement} from '../helpers/domHelpers';
@@ -22,44 +22,32 @@ export const BTDEmojiProvider = () => {
   const color = '#1da1f2';
   const [isComposerVisible, setIsComposerVisible] = useState(false);
   const [emojiButtonRootElement, setEmojiButtonRootElement] = useState<HTMLDivElement | null>(null);
-  const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(null);
-  const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null);
-  const {styles, attributes} = usePopper(referenceElement, popperElement, {
+  const {x, y, reference, floating, strategy} = useFloating({
     placement: 'right-start',
-    modifiers: [
-      {
-        name: 'flip',
-        options: {
-          boundary: document.body,
-        },
-      },
-      {
-        name: 'preventOverflow',
-        options: {
-          mainAxis: true,
-        },
-      },
-    ],
+    middleware: [flip(), shift()],
   });
 
-  const onComposerVisibleChange: HandlerOf<boolean> = useCallback((isVisible) => {
-    setIsComposerVisible(isVisible);
-    if (!isVisible) {
-      return;
-    }
+  const onComposerVisibleChange: HandlerOf<boolean> = useCallback(
+    (isVisible) => {
+      setIsComposerVisible(isVisible);
+      if (!isVisible) {
+        return;
+      }
 
-    const composeTextContainer = document.querySelector<HTMLElement>('.compose-text-container');
+      const composeTextContainer = document.querySelector<HTMLElement>('.compose-text-container');
 
-    if (!composeTextContainer) {
-      return;
-    }
+      if (!composeTextContainer) {
+        return;
+      }
 
-    const emojiRootElement = document.createElement('div');
-    emojiRootElement.id = 'emojiButton';
-    composeTextContainer.appendChild(emojiRootElement);
-    setEmojiButtonRootElement(emojiRootElement);
-    setReferenceElement(composeTextContainer);
-  }, []);
+      const emojiRootElement = document.createElement('div');
+      emojiRootElement.id = 'emojiButton';
+      composeTextContainer.appendChild(emojiRootElement);
+      setEmojiButtonRootElement(emojiRootElement);
+      reference(composeTextContainer);
+    },
+    [reference]
+  );
 
   useIsComposerVisible(onComposerVisibleChange);
 
@@ -97,7 +85,13 @@ export const BTDEmojiProvider = () => {
 
             setIsPickerShown(false);
           }}>
-          <div ref={setPopperElement} {...attributes.popper} style={styles.popper}>
+          <div
+            ref={floating}
+            style={{
+              position: strategy,
+              top: y ?? '',
+              left: x ?? '',
+            }}>
             <NimblePicker
               set="twitter"
               autoFocus
