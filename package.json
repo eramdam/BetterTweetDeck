@@ -127,7 +127,7 @@
     "react-feather": "^2.0.9",
     "react-monaco-editor": "^0.43.0",
     "react-popper": "^2.2.5",
-    "react-virtual": "^2.10.0",
+    "react-virtual": "^2.10.4",
     "semver": "^7.3.5",
     "simple-plist": "^1.1.1",
     "string-replace-loader": "^3.0.3",
