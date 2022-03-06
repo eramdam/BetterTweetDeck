@@ -37,7 +37,7 @@
     "run:chrome": "web-ext run -s dist --target=chromium",
     "test": "npm run lint && npm run typecheck && jest",
     "jest": "jest",
-    "release": "ts-node tools/release.ts",
+    "release": "rimraf artifacts/* && ts-node tools/release.ts",
     "update-xcode": "node tools/update_safari_files.js",
     "pack:safari": "npm run update-xcode && xcodebuild -project 'safari/Better TweetDeck for Safari/BetterTDeck for TweetDeck.xcodeproj/'",
     "prepare": "husky install"
@@ -127,6 +127,7 @@
     "react-feather": "^2.0.9",
     "react-monaco-editor": "^0.47.0",
     "react-virtual": "^2.10.4",
+    "rimraf": "^3.0.2",
     "semver": "^7.3.5",
     "simple-plist": "^1.1.1",
     "string-replace-loader": "^3.1.0",
