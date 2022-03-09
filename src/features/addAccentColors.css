@@ -11,14 +11,13 @@ html.dark .column-header-link:hover {
   color: white;
 }
 
-html,
-html.dark {
+html {
   /** Sidebar links/buttons */
   & .column-header-link,
   & .app-nav-link,
   & .app-nav-tab,
   & .app-search-fake {
-    color: var(--btd-accent-color);
+    color: var(--btd-accent-color) !important;
   }
   & .app-nav-link:hover,
   & .app-nav-link.is-selected:hover,
@@ -26,11 +25,6 @@ html.dark {
     color: white;
   }
 
-  /** Regular links */
-  & a,
-  & a:focus,
-  & a:hover,
-  & a:active,
   & .prf-stats .js-action-url:hover,
   & .prf-stats .js-action-url:hover strong,
   & .prf .lst-profile a:hover i,
@@ -49,7 +43,7 @@ html.dark {
   & .follow-btn .Icon,
   & .conversation-more,
   & .compose-reply-tweet .tweet-body a {
-    color: var(--btd-accent-color);
+    color: var(--btd-accent-color) !important;
   }
 
   /** General button colors */

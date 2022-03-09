@@ -24,9 +24,12 @@ export const tweakTweetDeckTheme = makeBTDModule(({settings}) => {
   if (settings.customAccentColor !== BetterTweetDeckAccentColors.DEFAULT) {
     require('./addAccentColors.css');
     if (settings.customAccentColor === BetterTweetDeckAccentColors.CUSTOM) {
-      document.body.style.setProperty('--btd-accent-color', settings.customAnyAccentColor);
+      document.documentElement.style.setProperty(
+        '--btd-accent-color',
+        settings.customAnyAccentColor
+      );
     } else {
-      document.body.style.setProperty('--btd-accent-color', settings.customAccentColor);
+      document.documentElement.style.setProperty('--btd-accent-color', settings.customAccentColor);
     }
     document.body.setAttribute('btd-accent-color', 'true');
   }
