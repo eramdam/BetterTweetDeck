@@ -1,5 +1,7 @@
 const TerserPlugin = require('terser-webpack-plugin');
 
+const postcssPresetEnv = require('postcss-preset-env');
+
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 exports.getCommonWebpackConfig = () => {
   return {
@@ -39,7 +41,18 @@ exports.getCommonWebpackConfig = () => {
           use: [
             'style-loader',
             {loader: 'css-loader', options: {importLoaders: 1}},
-            'postcss-loader',
+            {
+              loader: 'postcss-loader',
+              options: {
+                postcssOptions: {
+                  plugins: [
+                    postcssPresetEnv({
+                      stage: 1,
+                    }),
+                  ],
+                },
+              },
+            },
           ],
         },
       ],
