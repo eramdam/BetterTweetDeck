@@ -53,22 +53,21 @@ html {
   }
 
   /** General button colors */
-  & .Button,
-  & .Button.is-visited,
-  & .Button:visited,
-  & button,
-  & button.is-visited,
-  & button:visited,
-  & input.is-visited[type='button'],
-  & input:visited[type='button'],
-  & input[type='button'] {
-    border-color: var(--btd-accent-color);
-    color: var(--btd-accent-color);
-  }
   & button.btn-on-dark,
   & input[type='button'].btn-on-dark {
     color: var(--btd-accent-color);
+    border-color: var(--btd-accent-color);
     background: transparent;
+  }
+  & button.btn-on-dark:hover,
+  & input[type='button'].btn-on-dark:hover {
+    color: var(--btd-accent-color);
+  }
+  & button.btn-on-dark:focus,
+  & input[type='button'].btn-on-dark:focus {
+    color: var(--btd-accent-color);
+    border-color: var(--btd-accent-color);
+    box-shadow: 0 0 0 2px #10171e, 0 0 0 4px var(--btd-accent-color) !important;
   }
   & .dropdown-menu .is-selected,
   & .lst-group .selected,
