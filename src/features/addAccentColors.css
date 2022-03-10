@@ -25,6 +25,12 @@ html {
     color: white;
   }
 
+  & .activity-header .nbfc a[rel='list'],
+  & article .account-bio a.link-complex,
+  & .tweet-text a.link-complex,
+  & .js-quoted-tweet-text a.link-complex,
+  & .tweet-text a.url-ext,
+  & .js-quoted-tweet-text a.url-ext,
   & .prf-stats .js-action-url:hover,
   & .prf-stats .js-action-url:hover strong,
   & .prf .lst-profile a:hover i,
