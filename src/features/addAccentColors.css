@@ -27,6 +27,7 @@ html {
 
   & .activity-header .nbfc a[rel='list'],
   & article .account-bio a.link-complex,
+  & article .account-bio a.url-ext,
   & .tweet-text a.link-complex,
   & .js-quoted-tweet-text a.link-complex,
   & .tweet-text a.url-ext,
