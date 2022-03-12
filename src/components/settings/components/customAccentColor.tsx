@@ -1,7 +1,8 @@
-import {css} from '@emotion/css';
-import _ from 'lodash';
+import {css, cx} from '@emotion/css';
+import convert from 'color-convert';
 import React, {useState} from 'react';
-import {SketchPicker} from 'react-color';
+import {CustomPicker} from 'react-color';
+import {Hue, Saturation} from 'react-color/lib/components/common';
 
 import rainbowEmoji from '../../../assets/accent-colors/any.svg';
 import blueEmoji from '../../../assets/accent-colors/blue.svg';
@@ -19,6 +20,7 @@ import {generateInputId} from '../settingsHelpers';
 import {BaseSettingsProps} from '../settingsTypes';
 import {NewFeatureBadge} from './newFeatureBadge';
 import {SettingsRow, SettingsRowContent, SettingsRowTitle} from './settingsRow';
+import {SettingsTextInputWithAnnotation} from './settingsTextInputWithAnnotation';
 
 interface CustomAccentColorProps extends BaseSettingsProps<'customAccentColor'> {
   customAnyAccentColor: string;
@@ -97,9 +99,10 @@ const accentColorRow = css`
 
 export function CustomAccentColor(props: CustomAccentColorProps) {
   const anyInputId = `any-${generateInputId()}`;
-  const [customColor, setCustomColor] = useState(props.customAnyAccentColor);
+  const [customColor, setCustomColor] = useState(
+    props.customAnyAccentColor || BetterTweetDeckAccentColors.DEFAULT
+  );
   const [internalCustomColor, setInternalCustomColor] = useState(customColor);
-  const [isPickerOpened, setIsPickerOpened] = useState(false);
   const isPrideMonth = new Date().getMonth() === 5;
 
   return (
@@ -145,51 +148,12 @@ export function CustomAccentColor(props: CustomAccentColorProps) {
           );
         })}
         <span className={optionStyles}>
-          {isPickerOpened && (
-            <div
-              style={{
-                position: 'absolute',
-                zIndex: 2,
-              }}>
-              <SketchPicker
-                presetColors={possibleAccentColors.map((c) => {
-                  return {
-                    title: _.capitalize(c[0]),
-                    color: c[1],
-                  };
-                })}
-                className={css`
-                  z-index: 1;
-                  position: relative;
-                  top: 90px;
-                  left: 0;
-                `}
-                color={internalCustomColor}
-                onChange={(c) => setInternalCustomColor(c.hex)}
-                onChangeComplete={(c) => {
-                  setCustomColor(c.hex);
-                  props.onCustomAnyAccentColorChange(c.hex);
-                }}></SketchPicker>
-              <div
-                style={{
-                  position: 'fixed',
-                  top: '0px',
-                  bottom: '0px',
-                  right: '0px',
-                  left: '0px',
-                }}
-                onClick={() => {
-                  setIsPickerOpened(false);
-                }}></div>
-            </div>
-          )}
           <input
             type="radio"
             id={anyInputId}
             value={props.customAnyAccentColor}
             name="customAccentColor"
             defaultChecked={props.initialValue === BetterTweetDeckAccentColors.CUSTOM}
-            onClick={() => setIsPickerOpened(true)}
             onChange={() => {
               props.onChange(BetterTweetDeckAccentColors.CUSTOM);
             }}
@@ -207,6 +171,139 @@ export function CustomAccentColor(props: CustomAccentColorProps) {
           <img src={isPrideMonth ? prideEmoji : rainbowEmoji} alt="" />
         </span>
       </SettingsRowContent>
+      {props.initialValue === BetterTweetDeckAccentColors.CUSTOM && (
+        <BTDColorPicker
+          color={internalCustomColor}
+          onChange={(c) => setInternalCustomColor(c.hex)}
+          onChangeComplete={(c) => {
+            setCustomColor(c.hex);
+            props.onCustomAnyAccentColorChange(c.hex);
+          }}></BTDColorPicker>
+      )}
     </SettingsRow>
   );
 }
+
+const colorTextInputStyles = css`
+  small {
+    order: 1;
+    margin-right: 10px;
+    width: 2ch;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  input {
+    order: 2;
+  }
+`;
+
+type BTDColorResult = {
+  '#'?: string;
+  r?: number;
+  g?: number;
+  b?: number;
+};
+
+const BTDColorPicker = CustomPicker((props) => {
+  const handleChange = (data: BTDColorResult) => {
+    if (data['#']) {
+      const newRgb = convert.hex.rgb(data['#']);
+      const newHex = convert.rgb.hex(...newRgb);
+
+      // @ts-expect-error
+      props.onChange({
+        hex: newHex,
+      });
+    } else if (data.r || data.g || data.b) {
+      // @ts-expect-error
+      props.onChange({
+        r: data.r || props.rgb?.r || 0,
+        g: data.g || props.rgb?.g || 0,
+        b: data.b || props.rgb?.b || 0,
+      });
+    }
+  };
+  return (
+    <div
+      className={css`
+        margin-top: 30px;
+        display: grid;
+        grid-template-areas: 'saturation . hue . preview' 'saturation . hue . fields';
+        grid-template-columns: auto 18px auto 20px 1fr;
+        height: 200px;
+      `}>
+      <div
+        className={css`
+          grid-area: saturation;
+          position: relative;
+          height: 100%;
+          width: 256px;
+          border: 1px solid var(--settings-modal-separator);
+        `}>
+        <Saturation {...props} onChange={props.onChange || (() => {})} />
+      </div>
+      <div
+        className={css`
+          grid-area: hue;
+          position: relative;
+          height: 100%;
+          width: 16px;
+          border: 1px solid var(--settings-modal-separator);
+        `}>
+        <Hue {...props} direction="vertical" onChange={props.onChange || (() => {})} />
+      </div>
+      <div
+        className={css`
+          grid-area: preview;
+        `}>
+        <div
+          className={css`
+            width: 50px;
+            height: 40px;
+            border: 1px solid var(--settings-modal-separator);
+          `}
+          style={{backgroundColor: props.hex || ''}}></div>
+      </div>
+      <div
+        className={css`
+          grid-area: fields;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          gap: 10px;
+          margin-left: -20px;
+        `}>
+        {['r', 'g', 'b'].map((k) => {
+          return (
+            <SettingsTextInputWithAnnotation
+              key={k}
+              onChange={(data) => handleChange({[k]: Number(data)})}
+              annotation={k}
+              className={cx(
+                colorTextInputStyles,
+                css`
+                  input {
+                    width: 46px;
+                  }
+                `
+              )}
+              // @ts-expect-error
+              value={Math.round(props.rgb?.[k] || 0).toString()}></SettingsTextInputWithAnnotation>
+          );
+        })}
+        <SettingsTextInputWithAnnotation
+          onChange={(data) => handleChange({'#': data})}
+          annotation={'#'}
+          className={cx(
+            colorTextInputStyles,
+            css`
+              input {
+                width: 70px;
+              }
+            `
+          )}
+          value={props.hex?.replace('#', '').toUpperCase() || ''}></SettingsTextInputWithAnnotation>
+      </div>
+    </div>
+  );
+});
