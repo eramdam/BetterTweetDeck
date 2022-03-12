@@ -37,6 +37,8 @@ export const tweakTweetDeckTheme = makeBTDModule(({settings}) => {
           BetterTweetDeckAccentColors.DEFAULT
         );
       }
+    } else {
+      document.documentElement.style.setProperty('--btd-accent-color', settings.customAccentColor);
     }
     document.body.setAttribute('btd-accent-color', 'true');
   }
