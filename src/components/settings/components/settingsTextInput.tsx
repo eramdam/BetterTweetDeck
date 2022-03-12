@@ -20,7 +20,6 @@ const commonStyles = css`
   font-size: 13px;
   line-height: 18px;
   border-radius: 4px;
-  min-width: 200px;
 
   &::placeholder {
     color: var(--twitter-input-placeholder);
