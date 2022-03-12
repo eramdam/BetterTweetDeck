@@ -23,13 +23,20 @@ import {makeBTDModule} from '../types/btdCommonTypes';
 export const tweakTweetDeckTheme = makeBTDModule(({settings}) => {
   if (settings.customAccentColor !== BetterTweetDeckAccentColors.DEFAULT) {
     require('./addAccentColors.css');
+
     if (settings.customAccentColor === BetterTweetDeckAccentColors.CUSTOM) {
-      document.documentElement.style.setProperty(
-        '--btd-accent-color',
-        settings.customAnyAccentColor
-      );
-    } else {
-      document.documentElement.style.setProperty('--btd-accent-color', settings.customAccentColor);
+      // Fail-safe against empty custom color
+      if (settings.customAnyAccentColor) {
+        document.documentElement.style.setProperty(
+          '--btd-accent-color',
+          settings.customAnyAccentColor
+        );
+      } else {
+        document.documentElement.style.setProperty(
+          '--btd-accent-color',
+          BetterTweetDeckAccentColors.DEFAULT
+        );
+      }
     }
     document.body.setAttribute('btd-accent-color', 'true');
   }
