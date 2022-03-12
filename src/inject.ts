@@ -83,6 +83,9 @@ function isModulejQuery(mod: ModuleLike | undefined): mod is JQueryStatic {
   return hasProperty(mod, 'Animation');
 }
 
+const followPromptKey = 'btd-disable-follow-prompt-new';
+const updatePromptKey = 'btd-update-banner-version';
+
 (async () => {
   const settings = getBTDSettings();
   if (!settings || !isModulejQuery(jq) || !isObject(TD) || !mR) {
@@ -166,26 +169,7 @@ function isModulejQuery(mod: ModuleLike | undefined): mod is JQueryStatic {
     keepTweetedHashtagsInComposer(btdModuleOptions);
     setTimeout(() => {
       maybeShowFollowBanner(btdModuleOptions);
-      if (!settings.needsToShowUpdateBanner) {
-        return;
-      }
-
-      sendInternalBTDMessage({
-        name: BTDMessages.NOTIFICATION,
-        origin: BTDMessageOriginsEnum.INJECT,
-        isReponse: false,
-        payload: {
-          type: BTDNotificationTypes.UPDATE,
-        },
-      });
-      sendInternalBTDMessage({
-        name: BTDMessages.UPDATE_SETTINGS,
-        origin: BTDMessageOriginsEnum.INJECT,
-        isReponse: false,
-        payload: {
-          needsToShowUpdateBanner: false,
-        },
-      });
+      maybeShowUpdateBanner(btdModuleOptions);
     }, 2000);
   });
   jq(document).on('uiResetImageUpload', () => {
@@ -244,7 +228,35 @@ const followStatus = (client: TweetDeckControllerClient, targetScreenName: strin
   });
 };
 
-const followPromptKey = 'btd-disable-follow-prompt-new';
+async function maybeShowUpdateBanner({settings}: BTDModuleOptions) {
+  const localVersion = window.localStorage.getItem(updatePromptKey);
+
+  if (!settings.needsToShowUpdateBanner) {
+    return;
+  }
+
+  if (localVersion === settings.installedVersion) {
+    return;
+  }
+
+  sendInternalBTDMessage({
+    name: BTDMessages.NOTIFICATION,
+    origin: BTDMessageOriginsEnum.INJECT,
+    isReponse: false,
+    payload: {
+      type: BTDNotificationTypes.UPDATE,
+    },
+  });
+  sendInternalBTDMessage({
+    name: BTDMessages.UPDATE_SETTINGS,
+    origin: BTDMessageOriginsEnum.INJECT,
+    isReponse: false,
+    payload: {
+      needsToShowUpdateBanner: false,
+    },
+  });
+  window.localStorage.setItem(updatePromptKey, settings.installedVersion);
+}
 
 async function maybeShowFollowBanner({TD, jq, settings}: BTDModuleOptions) {
   if (window.localStorage.getItem(followPromptKey) || !settings.showFollowPrompt) {
