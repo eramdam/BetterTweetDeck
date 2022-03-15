@@ -42,7 +42,7 @@ module.exports = (env) => {
             context: './src/',
           },
           {
-            from: 'assets/emoji-sheet.png',
+            from: 'assets/emoji-sheet-64.png',
             context: './src/',
           },
         ],

@@ -11,8 +11,8 @@ import {insertInsideComposer, useIsComposerVisible} from '../helpers/tweetdeckHe
 import {HandlerOf} from '../helpers/typeHelpers';
 
 export const nimbleEmojiBaseProps = {
-  sheetRows: 60,
-  sheetColumns: 60,
+  sheetRows: 61,
+  sheetColumns: 61,
   data: data as any,
 };
 
@@ -103,6 +103,7 @@ export const BTDEmojiProvider = () => {
               useButton={false}
               emojiSize={20}
               {...nimbleEmojiBaseProps}
+              sheetSize={64}
               perLine={7}
               backgroundImageFn={getEmojiSheetUrl}
               title=""
