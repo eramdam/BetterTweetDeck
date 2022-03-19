@@ -1,20 +1,19 @@
 import React, {ReactNode} from 'react';
 
 import {HandlerOf, Renderer} from '../../helpers/typeHelpers';
-import {getExtensionVersion} from '../../helpers/webExtensionHelpers';
 import {BTDSettings} from '../../types/btdSettingsTypes';
 import {getTransString, Trans} from '../trans';
 import {NewFeatureBadgeProps} from './components/newFeatureBadge';
-import {SettingsCredits} from './components/settingsCredits';
 import {SettingsCss} from './components/settingsCss';
 import {SettingsComposer} from './menu/settingsComposer';
+import {SettingsCredits} from './menu/settingsCredits';
 import {SettingsGeneral} from './menu/settingsGeneral';
 import {ImportExportSettings} from './menu/settingsImportExport';
 import {SettingsLogo} from './menu/settingsLogo';
+import {SettingsSupport} from './menu/settingsSupport';
 import {SettingsTheme} from './menu/settingsTheme';
 import {SettingsTweetActions} from './menu/settingsTweetActions';
 import {SettingsTweetsDisplay} from './menu/settingsTweetsDisplay';
-import {settingsRegularText} from './settingsStyles';
 import {SettingsTweetContent} from './settingsTweetContent';
 
 export enum SettingsMenuSectionsEnum {
@@ -114,23 +113,7 @@ export const makeSettingsMenu = (
         {
           id: SettingsMenuSectionsEnum.SUPPORT,
           label: getTransString('settings_support'),
-          render: () => (
-            <div className={settingsRegularText}>
-              <div>
-                <h3>
-                  <Trans id="settings_browser_and_extension_informations" />
-                </h3>
-                <ul>
-                  <li>
-                    <Trans id="settings_version" /> {getExtensionVersion()}
-                  </li>
-                  <li>
-                    <Trans id="settings_user_agent" /> {navigator.userAgent}
-                  </li>
-                </ul>
-              </div>
-            </div>
-          ),
+          render: () => <SettingsSupport settings={settings} onNewSettings={setSettings} />,
         },
         {
           id: SettingsMenuSectionsEnum.IMPORT_EXPORT,
