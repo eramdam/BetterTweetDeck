@@ -514,5 +514,14 @@
   },
   "settings_require_a_confirmation_before_deleting_and_editing": {
     "message": "Require a confirmation before deleting and editing"
+  },
+  "settings_force_update_banners_to_be_dismissed": {
+    "message": "Force update banners to be dismissed"
+  },
+  "settings_dismiss_banner_paragraph": {
+    "message": "In some cases, the banner that shows up after a Better TweetDeck update can have trouble dismissing itself. Click the button below to fix it."
+  },
+  "settings_force_dismissed_banner": {
+    "message": "Force dismissed banner"
   }
 }
