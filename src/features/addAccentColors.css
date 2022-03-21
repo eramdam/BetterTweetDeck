@@ -25,6 +25,7 @@ html {
     color: white;
   }
 
+  & a.js-column-back,
   & .social-proof-names > a,
   & .activity-header .nbfc a[rel='list'],
   & article .account-bio a.link-complex,
