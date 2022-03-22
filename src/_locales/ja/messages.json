@@ -512,10 +512,13 @@
   "settings_require_a_confirmation_before_deleting_and_editing": {
     "message": "削除と編集の確認メッセージを表示"
   },
+  "settings_force_update_banners_to_be_dismissed": {
+    "message": "アップデートを知らせるバナーを強制的に消去する"
+  },
   "settings_dismiss_banner_paragraph": {
     "message": "Better TweetDeckのアップデート後に表示されるバナーが、うまく消えない場合があります。下のボタンをクリックして修正できます。"
   },
   "settings_force_dismissed_banner": {
-    "message": "強制的にバナーを確認済みにする"
+    "message": "バナーを強制的に消去"
   }
 }
