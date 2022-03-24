@@ -514,5 +514,11 @@
   },
   "settings_require_a_confirmation_before_deleting_and_editing": {
     "message": "Exiger une confirmation avant de supprimer et d'éditer"
+  },
+  "settings_force_update_banners_to_be_dismissed": {
+    "message": "Forcer la fermeture des bannières de mise à jour"
+  },
+  "settings_force_dismissed_banner": {
+    "message": "Forcer la fermeture de la bannière"
   }
 }
