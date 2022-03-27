@@ -25,6 +25,8 @@ html {
     color: white;
   }
 
+  & .js-media-sensitive-overlay a,
+  & [data-testid='trendLink'],
   & a.js-column-back,
   & .social-proof-names > a,
   & .activity-header .nbfc a[rel='list'],
