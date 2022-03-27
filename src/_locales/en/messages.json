@@ -520,8 +520,5 @@
   },
   "settings_force_dismissed_banner": {
     "message": "Force dismissed banner"
-  },
-  "settings_dismiss_banner_paragraph": {
-    "message": "In some cases, the banner that shows up after a Better TweetDeck update can have trouble dismissing itself. Click the button below to fix it."
   }
 }
