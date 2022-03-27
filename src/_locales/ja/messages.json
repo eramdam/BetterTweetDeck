@@ -515,9 +515,6 @@
   "settings_force_update_banners_to_be_dismissed": {
     "message": "アップデートを知らせるバナーを強制的に消去する"
   },
-  "settings_dismiss_banner_paragraph": {
-    "message": "Better TweetDeckのアップデート後に表示されるバナーが、うまく消えない場合があります。下のボタンをクリックして修正できます。"
-  },
   "settings_force_dismissed_banner": {
     "message": "バナーを強制的に消去"
   }
