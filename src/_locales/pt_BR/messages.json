@@ -520,5 +520,8 @@
   },
   "settings_force_dismissed_banner": {
     "message": "Forçar fechamento do banner"
+  },
+  "settings_dismiss_banner_paragraph": {
+    "message": "Em alguns casos, o banner que aparece após uma atualização do Better TweetDeck pode ter problemas para fechar. Clique no botão abaixo para corrigi-lo."
   }
 }
