@@ -32,6 +32,17 @@ export const extendTwitterUser = makeBTDModule(({TD, jq}) => {
     baseUser.highlightedLabel = isEmpty(baseLabel) ? undefined : baseLabel;
     if (!isEmpty(baseLabel)) {
       baseUser.highlightedLabel.badge = baseLabel.badge.url;
+      baseUser.highlightedLabel.url = baseUser.highlightedLabel.url?.url || '';
+
+      if (baseLabel.userLabelType === 'AutomatedLabel') {
+        baseUser.highlightedLabel.description =
+          baseLabel.longDescription?.text || baseLabel.description;
+        const automator = baseLabel.longDescription?.entities?.[0].ref?.mention?.screenName || '';
+        if (automator) {
+          baseUser.highlightedLabel.url = `https://twitter.com/${automator}`;
+          baseUser.highlightedLabel.author = `https://twitter.com/${automator}`;
+        }
+      }
     }
 
     return baseUser;
