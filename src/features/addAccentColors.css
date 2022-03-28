@@ -25,6 +25,8 @@ html {
     color: white;
   }
 
+  & .js-tweet-stat.is-actionable:hover .stat-word,
+  & .txt-mute > a:hover,
   & .js-media-sensitive-overlay a,
   & [data-testid='trendLink'],
   & a.js-column-back,
@@ -33,6 +35,7 @@ html {
   & article .account-bio a.link-complex,
   & article .account-bio a.url-ext,
   & .tweet-text a.link-complex,
+  & .js-tweet a.link-complex:hover,
   & .js-quoted-tweet-text a.link-complex,
   & .tweet-text a.url-ext,
   & .js-quoted-tweet-text a.url-ext,
