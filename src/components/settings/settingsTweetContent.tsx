@@ -205,6 +205,12 @@ export const SettingsTweetContent: FC<SettingsMenuSectionProps> = (props) => {
               );
             },
           },
+          {
+            initialValue: settings.dontShowPronounsOnOwnAccounts,
+            introducedIn: '4.8.6',
+            key: 'dontShowPronounsOnOwnAccounts',
+            label: <Trans id="settings_dont_show_pronouns_for_your_own_accounts" />,
+          },
         ]}>
         <Trans id="settings_misc" />
       </CheckboxSelectSettingsRow>

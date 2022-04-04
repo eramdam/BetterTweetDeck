@@ -172,6 +172,15 @@ export const displayPronouns = makeBTDModule(({TD, settings}) => {
   }
 
   TD.services.TwitterUser.prototype.getPronouns = function getPronouns(): string | undefined {
+    const personalAccountIds = settings.dontShowPronounsOnOwnAccounts
+      ? TD.controller.clients
+          .getClientsByService('twitter')
+          .map((c) => c.oauth.account.state.userId)
+      : [];
+
+    if (personalAccountIds.includes(this.id)) {
+      return undefined;
+    }
     const cleanBio = removeUrlsFromBio(this.description, this.entities.description);
     const maybePronouns =
       extractPronouns(cleanBio) || extractPronouns(this.location) || extractPronouns(this.name);

@@ -98,6 +98,7 @@ export const RBetterTweetDeckSettings = t.type({
 
   showProfileLabels: withDefault(t.boolean, false),
   extractAndShowPronouns: withDefault(t.boolean, false),
+  dontShowPronounsOnOwnAccounts: withDefault(t.boolean, false),
 
   /** Disable the `tweet` button if images don't have an alt text. */
   disableTweetButtonIfAltIsMissing: withDefault(t.boolean, false),
