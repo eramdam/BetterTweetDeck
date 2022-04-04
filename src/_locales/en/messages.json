@@ -523,8 +523,5 @@
   },
   "settings_dismiss_banner_paragraph": {
     "message": "In some cases, the banner that shows up after a Better TweetDeck update can have trouble dismissing itself. Click the button below to fix it."
-  },
-  "settings_dont_show_pronouns_for_your_own_accounts": {
-    "message": "Don't show pronouns for your own accounts"
   }
 }
