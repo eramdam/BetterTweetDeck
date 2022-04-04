@@ -523,5 +523,8 @@
   },
   "settings_dismiss_banner_paragraph": {
     "message": "Em alguns casos, o banner que aparece após uma atualização do Better TweetDeck pode ter problemas para fechar. Clique no botão abaixo para corrigi-lo."
+  },
+  "settings_dont_show_pronouns_for_your_own_accounts": {
+    "message": "Não mostrar pronomes para suas próprias contas"
   }
 }
