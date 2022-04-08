@@ -517,5 +517,11 @@
   },
   "settings_force_dismissed_banner": {
     "message": "バナーを強制的に消去"
+  },
+  "settings_dismiss_banner_paragraph": {
+    "message": "Better TweetDeckのアップデート後に表示されるバナーが、うまく消えない場合があります。下のボタンをクリックして修正できます。"
+  },
+  "settings_dont_show_pronouns_for_your_own_accounts": {
+    "message": "自分のアカウントの代名詞を表示しない"
   }
 }
