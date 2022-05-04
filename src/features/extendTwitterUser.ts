@@ -31,7 +31,7 @@ export const extendTwitterUser = makeBTDModule(({TD, jq}) => {
     const baseLabel = blob.ext?.highlightedLabel?.r?.ok?.label || {};
     baseUser.highlightedLabel = isEmpty(baseLabel) ? undefined : baseLabel;
     if (!isEmpty(baseLabel)) {
-      baseUser.highlightedLabel.badge = baseLabel.badge.url;
+      baseUser.highlightedLabel.badge = baseLabel.badge?.url || baseLabel.badge;
       baseUser.highlightedLabel.url = baseUser.highlightedLabel.url?.url || '';
 
       if (baseLabel.userLabelType === 'AutomatedLabel') {
