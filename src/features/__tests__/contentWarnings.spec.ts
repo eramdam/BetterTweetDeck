@@ -7,6 +7,13 @@ describe('Content warnings detection', () => {
       ['[transphobia] \nbla', ['[transphobia]', 'transphobia']],
       ['[cw: foo]\nbla', ['[cw: foo]', 'foo']],
       ['[cn foo]\nbla', ['[cn foo]', 'foo']],
+      [
+        `[TW : secte, empoisonnement, abus de faiblesse, parasites internes, (psy)validisme, maltraitance d'enfants, mutilations] Les parents en question postaient fièrement des`,
+        [
+          `[TW : secte, empoisonnement, abus de faiblesse, parasites internes, (psy)validisme, maltraitance d'enfants, mutilations]`,
+          `secte, empoisonnement, abus de faiblesse, parasites internes, (psy)validisme, maltraitance d'enfants, mutilations`,
+        ],
+      ],
       ['tw: foo\nbla', ['tw: foo', 'foo']],
       ['tw / foo\nbla', ['tw / foo', 'foo']],
       ['cn/// foo\nbla', ['cn/// foo', 'foo']],

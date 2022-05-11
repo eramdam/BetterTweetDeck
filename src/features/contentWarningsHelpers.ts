@@ -1,6 +1,8 @@
 const keywords = ['cw', 'tw', 'cn', 'content warning', 'trigger warning', 'content note'].join('|');
-const contentWarningRegex = new RegExp(
-  `^([\\[\\(]?\\b(?:${keywords})\\b(?:\\W+)?\\s?([^\\n|\\]|\\)|…]+)[\\]\\)…]?)(?:\\s\\n+)?((?:.+)?\\n?)+$`,
+const makeRegexSource = (opener: string, closer: string) =>
+  `^([\\${opener}]?\\b(?:${keywords})\\b(?:\\W+)?\\s?([^\\n|\\${closer}|…]+)[\\${closer}…]?)(?:\\s\\n+)?((?:.+)?\\n?)+$`;
+const contentWarningRegexWithBrackets = new RegExp(
+  `(?:${makeRegexSource('[', ']')}|${makeRegexSource('(', ')')})`,
   'i'
 );
 
@@ -22,8 +24,10 @@ export function extractContentWarnings(
   allowedKeywords: string
 ): ContentWarningResult | undefined {
   const keywords = allowedKeywords.split(',').map((w) => w.trim().toLowerCase());
-  const contentWarningMatch = input.match(contentWarningRegex) || input.match(withoutKeywordRegex);
-  const isWithoutKeyword = !input.match(contentWarningRegex) && input.match(withoutKeywordRegex);
+  const contentWarningMatch =
+    input.match(contentWarningRegexWithBrackets) || input.match(withoutKeywordRegex);
+  const isWithoutKeyword =
+    !input.match(contentWarningRegexWithBrackets) && input.match(withoutKeywordRegex);
   if (!contentWarningMatch) {
     return undefined;
   }
