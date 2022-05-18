@@ -40,9 +40,16 @@ export const contentWarnings = makeBTDModule(({TD, settings}) => {
       return;
     }
 
+    // If the `text` field starts with mentions but `htmlText` doesn't, the mentions are "hidden"
+    // and need to be removed
+    const finalTextToMatchAgainst =
+      textToMatchAgainst.startsWith('@') && !htmlTextToMatchAgainst.startsWith('@')
+        ? textToMatchAgainst.replace(/^(@[a-z_]+ )+/gi, '')
+        : textToMatchAgainst;
+
     const matches =
-      extractContentWarnings(textToMatchAgainst, contentWarningKeywords) ||
-      matchAgainstSpoilerKeywords(textToMatchAgainst, spoilerKeywords);
+      extractContentWarnings(finalTextToMatchAgainst, contentWarningKeywords) ||
+      matchAgainstSpoilerKeywords(finalTextToMatchAgainst, spoilerKeywords);
 
     if (!matches) {
       return;
