@@ -81,7 +81,7 @@ export const contentWarnings = makeBTDModule(({TD, settings}) => {
     tweetText.innerHTML = htmlTextToMatchAgainst.replace(/^\n/, '');
 
     if (matches.shouldRemoveSubject) {
-      tweetText.innerHTML = tweetText.innerHTML.replace(TD.util.escape(warningBlock), '');
+      tweetText.innerHTML = tweetText.innerHTML.replace(TD.util.escape(warningBlock), '').trim();
     }
     details.appendChild(tweetText);
     details.addEventListener('toggle', () => {
