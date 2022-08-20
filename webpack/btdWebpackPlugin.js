@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+
 module.exports = {
   apply: (compiler) => {
     let initialClean = false;
@@ -18,6 +19,10 @@ module.exports = {
     });
     // Move some files around after compilation is done.
     compiler.hooks.afterEmit.tap('AfterEmitPlugin', () => {
+      fs.copyFileSync(
+        path.join(process.cwd(), '/dist/build/background.js'),
+        path.join(process.cwd(), '/dist/background.js')
+      );
       if (initialMove) {
         return;
       }

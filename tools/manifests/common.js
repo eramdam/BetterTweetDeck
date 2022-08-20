@@ -31,7 +31,7 @@ module.exports = {
     },
   ],
   background: {
-    scripts: ['build/background.js'],
+    scripts: ['background.js'],
   },
   options_ui: {
     page: 'build/options/ui.html',
@@ -42,6 +42,7 @@ module.exports = {
   content_security_policy: [
     ['img-src', 'https:', 'data:', "'self'", '*'],
     ['default-src'],
+    ['font-src', `'self'`, '*', 'data:'],
     ['connect-src', '*', 'https:'],
     ['style-src', "'unsafe-inline'"],
     ['script-src', `'self'`],
