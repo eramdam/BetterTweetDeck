@@ -1,4 +1,4 @@
-import {browser} from 'webextension-polyfill-ts';
+import browser from 'webextension-polyfill';
 
 import {getTransString} from './components/trans';
 import {isSafari} from './helpers/browserHelpers';
