@@ -1,15 +1,17 @@
 import * as t from 'io-ts';
 
-import {BTDMutualBadges} from '../features/badgesOnTopOfAvatars';
-import {BTDAvatarShapes} from '../features/changeAvatarShape';
-import {BTDScrollbarsMode} from '../features/changeScrollbars';
-import {BTDTimestampFormats} from '../features/changeTimestampFormat';
-import {BTDTweetActionsPosition} from '../features/changeTweetActions';
-import {BTDLogoVariations} from '../features/logoVariations';
-import {BetterTweetDeckAccentColors, BetterTweetDeckThemes} from '../features/themeTweaks';
-import {BTDUsernameFormat} from '../features/usernameDisplay';
-import {isFirefox} from '../helpers/browserHelpers';
 import {makeEnumRuntimeType, withDefault} from '../helpers/runtimeTypeHelpers';
+import {
+  BetterTweetDeckAccentColors,
+  BetterTweetDeckThemes,
+  BTDAvatarShapes,
+  BTDLogoVariations,
+  BTDMutualBadges,
+  BTDScrollbarsMode,
+  BTDTimestampFormats,
+  BTDTweetActionsPosition,
+  BTDUsernameFormat,
+} from './btdSettingsEnums';
 
 export const RBetterTweetDeckSettings = t.type({
   /** Used to show a banner prompting the user to follow @BetterTDeck */
@@ -19,7 +21,7 @@ export const RBetterTweetDeckSettings = t.type({
   installedVersion: withDefault(t.string, '4.0.0'),
   needsToShowUpdateBanner: withDefault(t.boolean, false),
 
-  /** Alters the timestamp display in tweets */
+  // /** Alters the timestamp display in tweets */
   timestampShortFormat: withDefault(t.string, ''),
   timestampFullFormat: withDefault(t.string, ''),
   timestampStyle: withDefault(
@@ -212,7 +214,7 @@ export const RBetterTweetDeckSettings = t.type({
   // I like this one...but maybe i'm the only one who cares?
   showLikeRTDogears: withDefault(t.boolean, false),
 
-  enableShareItem: withDefault(t.boolean, !isFirefox),
+  enableShareItem: withDefault(t.boolean, false),
   shouldShortenSharedText: withDefault(t.boolean, true),
 
   disableGifsInProfilePictures: withDefault(t.boolean, false),

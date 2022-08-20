@@ -1,7 +1,7 @@
 import {css, cx} from '@emotion/css';
 import React, {Fragment} from 'react';
 
-import {BTDAvatarShapes} from '../../../features/changeAvatarShape';
+import {BTDAvatarShapes} from '../../../types/btdSettingsEnums';
 import {getTransString, Trans} from '../../trans';
 import {generateInputId} from '../settingsHelpers';
 import {BaseSettingsProps} from '../settingsTypes';

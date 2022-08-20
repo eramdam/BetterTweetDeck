@@ -1,10 +1,12 @@
+import {isRight} from 'fp-ts/lib/Either';
+import * as t from 'io-ts';
+import reporter from 'io-ts-reporters';
 import _ from 'lodash';
 import Highlight, {defaultProps} from 'prism-react-renderer';
 import React, {FC, useState} from 'react';
 
 import {isHTMLElement} from '../../../helpers/domHelpers';
 import {HandlerOf} from '../../../helpers/typeHelpers';
-import {validateSettings} from '../../../services/backgroundSettings';
 import {BTDSettings, RBetterTweetDeckSettings} from '../../../types/btdSettingsTypes';
 import {getTransString, Trans} from '../../trans';
 import {settingsRegularText} from '../settingsStyles';
@@ -153,3 +155,17 @@ export const ImportExportSettings: FC<{
     </div>
   );
 };
+
+function validateSettings(src: any) {
+  const decoded = t.exact(RBetterTweetDeckSettings).decode(src);
+
+  if (!isRight(decoded)) {
+    const errors: string[] = [];
+    reporter.report(decoded).forEach((error) => {
+      errors.push(error);
+    });
+    throw new Error(errors.join('\n'));
+  }
+
+  return decoded.right;
+}

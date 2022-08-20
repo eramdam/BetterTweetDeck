@@ -3,7 +3,8 @@ import '../../../features/logoVariations.css';
 import {css} from '@emotion/css';
 import React, {FC} from 'react';
 
-import {BTDLogoVariations, BTDStandaloneLogo} from '../../../features/logoVariations';
+import {BTDStandaloneLogo} from '../../../features/logoVariations';
+import {BTDLogoVariations} from '../../../types/btdSettingsEnums';
 import {getTransString} from '../../trans';
 import {NewFeatureBadge} from '../components/newFeatureBadge';
 import {BTDRadioSelectSettingsRow} from '../components/radioSelectSettingsRow';

@@ -5,6 +5,7 @@ import {DateTime} from 'luxon';
 import {hasProperty} from '../helpers/typeHelpers';
 import {onChirpAdded} from '../services/chirpHandler';
 import {makeBTDModule, makeBtdUuidSelector} from '../types/btdCommonTypes';
+import {BTDMutualBadges} from '../types/btdSettingsEnums';
 import {
   ChirpBaseTypeEnum,
   TweetDeckControllerClient,
@@ -12,11 +13,6 @@ import {
   TweetDeckUser,
   TwitterActionEnum,
 } from '../types/tweetdeckTypes';
-
-export enum BTDMutualBadges {
-  HEART = 'heart',
-  ARROWS = 'arrows',
-}
 
 export const putBadgesOnTopOfAvatars = makeBTDModule(({TD, settings}) => {
   if (!settings.badgesOnTopOfAvatars) {
