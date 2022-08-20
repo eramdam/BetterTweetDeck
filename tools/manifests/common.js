@@ -32,6 +32,7 @@ module.exports = {
   ],
   background: {
     scripts: ['background.js'],
+    persistent: false,
   },
   options_ui: {
     page: 'build/options/ui.html',
