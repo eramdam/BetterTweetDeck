@@ -1,7 +1,6 @@
 import React, {FC, Fragment} from 'react';
 
-import {BTDScrollbarsMode} from '../../../features/changeScrollbars';
-import {BetterTweetDeckThemes} from '../../../features/themeTweaks';
+import {BetterTweetDeckThemes, BTDScrollbarsMode} from '../../../types/btdSettingsEnums';
 import {getTransString, Trans} from '../../trans';
 import {CheckboxSelectSettingsRow} from '../components/checkboxSelectSettingsRow';
 import {CustomAccentColor} from '../components/customAccentColor';

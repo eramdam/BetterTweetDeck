@@ -2,8 +2,7 @@
 import {css} from '@emotion/css';
 import React, {FC, Fragment} from 'react';
 
-import {BTDTimestampFormats} from '../../../features/changeTimestampFormat';
-import {BTDUsernameFormat} from '../../../features/usernameDisplay';
+import {BTDTimestampFormats, BTDUsernameFormat} from '../../../types/btdSettingsEnums';
 import {BTDSettings} from '../../../types/btdSettingsTypes';
 import {Trans} from '../../trans';
 import {AvatarsShape} from '../components/avatarsShape';

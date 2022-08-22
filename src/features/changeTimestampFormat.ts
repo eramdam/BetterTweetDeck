@@ -3,12 +3,8 @@ import {DateTime, Interval} from 'luxon';
 
 import {onChirpAdded} from '../services/chirpHandler';
 import {makeBTDModule, makeBtdUuidSelector} from '../types/btdCommonTypes';
+import {BTDTimestampFormats} from '../types/btdSettingsEnums';
 import {BTDSettings} from '../types/btdSettingsTypes';
-
-export enum BTDTimestampFormats {
-  RELATIVE = 'relative',
-  CUSTOM = 'custom',
-}
 
 const TIMESTAMP_INTERVAL = 1e3 * 8;
 

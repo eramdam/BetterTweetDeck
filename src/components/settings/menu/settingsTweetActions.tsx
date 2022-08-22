@@ -1,7 +1,7 @@
 import {css} from '@emotion/css';
 import React, {FC, Fragment} from 'react';
 
-import {BTDTweetActionsPosition} from '../../../features/changeTweetActions';
+import {BTDTweetActionsPosition} from '../../../types/btdSettingsEnums';
 import {BTDSettings} from '../../../types/btdSettingsTypes';
 import {getTransString, Trans} from '../../trans';
 import {CheckboxSelectSettingsRow} from '../components/checkboxSelectSettingsRow';

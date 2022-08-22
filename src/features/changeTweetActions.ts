@@ -4,11 +4,6 @@ import {isHTMLElement} from '../helpers/domHelpers';
 import {getChirpFromElement} from '../helpers/tweetdeckHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 
-export enum BTDTweetActionsPosition {
-  LEFT = 'left',
-  RIGHT = 'right',
-}
-
 export const changeTweetActionsStyling = makeBTDModule(({settings, jq, TD}) => {
   document.body.setAttribute('btd-tweet-actions-position', settings.tweetActionsPosition);
   document.body.setAttribute(

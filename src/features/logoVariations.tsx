@@ -5,34 +5,6 @@ import {renderToStaticMarkup} from 'react-dom/server';
 
 import {makeBTDModule} from '../types/btdCommonTypes';
 
-export enum BTDLogoVariations {
-  DEFAULT = 'btd',
-  AGENDER = 'agender',
-  ASEXUAL = 'asexual',
-  ANDROGYNE = 'androgyne',
-  AROMANTIC = 'aromantic',
-  BIGENDER = 'bigender',
-  BISEXUAL = 'bisexual',
-  DEMIGIRL = 'demigirl',
-  DEMIGUY = 'demiguy',
-  DEMINONBINARY = 'deminonbinary',
-  DEMISEXUAL = 'demisexual',
-  ENBIAN = 'enbian',
-  GENDERFLUID = 'genderfluid',
-  GENDERQUEER = 'genderqueer',
-  INTERSEX = 'intersex',
-  LESBIAN = 'lesbian',
-  NEUTROIS = 'neutrois',
-  NON_BINARY = 'non binary',
-  OMNISEXUAL = 'omnisexual',
-  PANSEXUAL = 'pansexual',
-  POLYAMORY = 'polyamory',
-  POLYSEXUAL = 'polysexual',
-  PROGRESS = 'progress',
-  RAINBOW = 'rainbow',
-  TRANS = 'trans',
-}
-
 export const BTDStandaloneLogo = () => {
   return (
     <div className="btd-logo-wrapper">

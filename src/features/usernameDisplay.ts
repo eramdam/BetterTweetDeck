@@ -3,17 +3,6 @@ import {Dictionary} from 'lodash';
 
 import {makeBTDModule} from '../types/btdCommonTypes';
 
-export enum BTDUsernameFormat {
-  /** `Fullname @username` (default) */
-  DEFAULT = 'both',
-  /** `@username Fullname` */
-  USER_FULL = 'inverted',
-  /** `@username` */
-  USER = 'username',
-  /** `Fullname */
-  FULL = 'fullname',
-}
-
 const replaceInTemplate = (
   templates: Dictionary<string>,
   templateName: string,
