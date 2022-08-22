@@ -1,6 +1,6 @@
 import {css, cx} from '@emotion/css';
 import {DateTime} from 'luxon';
-import React, {FC, ReactNode} from 'react';
+import React, {PropsWithChildren, ReactNode} from 'react';
 
 import {HandlerOf, RendererOf} from '../../helpers/typeHelpers';
 import {BTDSettings} from '../../types/btdSettingsTypes';
@@ -44,7 +44,7 @@ export function formatDateTime(format: string) {
   });
 }
 
-export const SettingsSmallText: FC = (props) => {
+export const SettingsSmallText = (props: PropsWithChildren<{}>) => {
   return (
     <div
       className={cx(

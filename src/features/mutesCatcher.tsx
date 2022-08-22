@@ -1,7 +1,7 @@
 import * as t from 'io-ts';
 import _, {isArray} from 'lodash';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 
 import {MuteCatchesModal} from '../components/muteCatchesModal';
 import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
@@ -235,15 +235,17 @@ export function formatMuteReason(muteCatch: MuteReason) {
 }
 
 const openCatchList = () => {
-  const root = document.createElement('div');
-  root.id = 'btd-mute-catches';
-  document.querySelector('.js-app')?.insertAdjacentElement('beforeend', root);
+  const container = document.createElement('div');
+  container.id = 'btd-mute-catches';
+  document.querySelector('.js-app')?.insertAdjacentElement('beforeend', container);
 
-  ReactDOM.render(
+  const root = ReactDOM.createRoot(container);
+
+  root.render(
     <MuteCatchesModal
       catches={Array.from(muteCatches.values())}
       onRequestClose={() => {
-        ReactDOM.unmountComponentAtNode(root);
+        root.unmount();
       }}
       muteReasons={_.chain(Array.from(muteCatches.values()))
         .map((value) => {
@@ -254,8 +256,7 @@ const openCatchList = () => {
         })
         .uniqBy((value) => encodeMuteReasonKey(value))
         .value()}
-    />,
-    root
+    />
   );
 };
 

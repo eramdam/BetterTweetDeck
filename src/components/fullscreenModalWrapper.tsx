@@ -1,9 +1,10 @@
-import React, {FC} from 'react';
+import React, {FC, ReactNode} from 'react';
 
 import {Handler} from '../helpers/typeHelpers';
 
 interface FullscreenModalWrapperProps {
   onClose: Handler;
+  children: ReactNode;
 }
 
 export const FullscreenModal: FC<FullscreenModalWrapperProps> = (props) => {

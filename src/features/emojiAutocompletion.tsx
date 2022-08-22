@@ -1,7 +1,7 @@
 import {cx} from '@emotion/css';
 import {BaseEmoji, NimbleEmoji, NimbleEmojiIndex} from 'emoji-mart';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {createRoot, Root} from 'react-dom/client';
 import {Key} from 'ts-key-enum';
 
 import data from '../assets/emoji-mart-data.json';
@@ -201,6 +201,8 @@ function moveSelection(emojiArray: StateEmoji[], offset: number) {
 interface EmojiCompletionProps {
   emojis: StateEmoji[];
 }
+let root: Root | undefined = undefined;
+
 function renderEmojiDropdownInHolder({emojis}: EmojiCompletionProps, input: HTMLTextAreaElement) {
   let emojiDropdownHolder = input.parentElement?.querySelector('.emoji-dropdown-holder');
 
@@ -210,7 +212,8 @@ function renderEmojiDropdownInHolder({emojis}: EmojiCompletionProps, input: HTML
     input.parentElement?.appendChild(emojiDropdownHolder);
   }
 
-  ReactDOM.render(
+  root = createRoot(emojiDropdownHolder);
+  root.render(
     <ul
       className="lst lst-modal typeahead"
       style={{
@@ -245,17 +248,16 @@ function renderEmojiDropdownInHolder({emojis}: EmojiCompletionProps, input: HTML
           </li>
         );
       })}
-    </ul>,
-    emojiDropdownHolder
+    </ul>
   );
 }
 
 function unmountEmojiDropodownNearInput(target: HTMLTextAreaElement) {
   const emojiDropdownHolder = target.parentElement?.querySelector('.emoji-dropdown-holder');
 
-  if (!emojiDropdownHolder) {
+  if (!emojiDropdownHolder || !root) {
     return;
   }
 
-  ReactDOM.unmountComponentAtNode(emojiDropdownHolder);
+  root.unmount();
 }

@@ -2,7 +2,7 @@ import createEmotion from '@emotion/css/create-instance';
 import {AnimatePresence, motion} from 'framer-motion';
 import _, {uniqBy} from 'lodash';
 import React, {ReactNode, useLayoutEffect, useState} from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import * as Icon from 'react-feather';
 
 import {listenToInternalBTDMessage, sendInternalBTDMessage} from '../helpers/communicationHelpers';
@@ -248,5 +248,5 @@ const Notifications = () => {
 };
 
 export function setupBTDNotifications() {
-  ReactDOM.render(<Notifications />, document.getElementById('btd-notifications-root'));
+  ReactDOM.createRoot(document.getElementById('btd-notifications-root')!).render(<Notifications />);
 }

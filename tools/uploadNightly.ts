@@ -1,4 +1,4 @@
-import {MessageAttachment, WebhookClient} from 'discord.js';
+import {AttachmentBuilder, WebhookClient} from 'discord.js';
 import * as glob from 'glob';
 import * as path from 'path';
 
@@ -27,7 +27,9 @@ const BTD_NIGHTLY_ROLE_ID = process.env.NIGHTLY_DISCORD_ROLE_ID || '';
     .replace('-an+fx', '')
     .replace('.xpi', '');
 
-  const nightlyBuild = new MessageAttachment(xpiFile, `Better TweetDeck ${versionString}.xpi`);
+  const nightlyBuild = new AttachmentBuilder(xpiFile, {
+    name: `Better TweetDeck ${versionString}.xpi`,
+  });
   const latestTag = await getLatestRepoTag();
 
   webhookClient.send({

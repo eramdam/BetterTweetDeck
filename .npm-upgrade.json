@@ -1,0 +1,16 @@
+{
+  "ignore": {
+    "chalk": {
+      "versions": "5.0.1",
+      "reason": ""
+    },
+    "execa": {
+      "versions": "6.*.*",
+      "reason": "ESM"
+    },
+    "moduleraid": {
+      "versions": "6.*.*",
+      "reason": "not needed"
+    }
+  }
+}
