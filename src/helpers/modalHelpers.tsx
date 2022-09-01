@@ -1,9 +1,11 @@
-import ReactDOM from 'react-dom';
+import ReactDOM, {Root} from 'react-dom/client';
 import {Key} from 'ts-key-enum';
 
 import {getFullscreenNodeRoot} from '../types/btdCommonTypes';
 import {isHTMLElement} from './domHelpers';
 import {Handler} from './typeHelpers';
+
+let fullscreenRoot: Root | undefined = undefined;
 
 const onFullscreenKeyDown = (e: KeyboardEvent, beforeClose?: Handler) => {
   if (e.key !== Key.Escape) {
@@ -34,11 +36,11 @@ export function closeFullscreenModal() {
 
   const fullscreenNode = getFullscreenNodeRoot();
 
-  if (!fullscreenNode) {
+  if (!fullscreenNode || !fullscreenRoot) {
     return;
   }
 
-  ReactDOM.unmountComponentAtNode(fullscreenNode);
+  fullscreenRoot.unmount();
   fullscreenNode.classList.remove('open');
 }
 
@@ -68,7 +70,8 @@ export function openFullscreenModal(content: JSX.Element) {
     return;
   }
 
-  ReactDOM.render(content, fullscreenNode);
+  fullscreenRoot = ReactDOM.createRoot(fullscreenNode);
+  fullscreenRoot.render(content);
 
   fullscreenNode.classList.add('open');
   fullscreenNode.addEventListener('click', maybeCloseFullscreenModalOnClick);

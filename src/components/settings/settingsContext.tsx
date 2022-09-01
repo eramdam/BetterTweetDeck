@@ -1,7 +1,7 @@
 import Fuse from 'fuse.js';
 import he from 'he';
 import _ from 'lodash';
-import React, {createContext, FC, Fragment, ReactNode, useContext, useRef} from 'react';
+import React, {createContext, Fragment, ReactNode, useContext, useRef} from 'react';
 
 import {RendererOf} from '../../helpers/typeHelpers';
 import {BTDSettings} from '../../types/btdSettingsTypes';
@@ -27,9 +27,10 @@ export const SettingsSearchContext = createContext<SettingsSearchContextProps>({
 
 interface SettingsSearchProviderProps {
   settings: BTDSettings;
+  children: ReactNode;
 }
 
-export const SettingsSearchProvider: FC<SettingsSearchProviderProps> = (props) => {
+export const SettingsSearchProvider = (props: SettingsSearchProviderProps) => {
   const searchItems = useRef<Fuse<SettingsSearchItem>>(
     new Fuse([], {
       threshold: 0.4,

@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 
 import {BTDGifProvider} from '../components/gifPicker/gifProvider';
 import {BTDSettings} from '../types/btdSettingsTypes';
@@ -13,6 +13,9 @@ export function setupGifPicker(settings: BTDSettings) {
   gifReactTreeRoot.id = 'btd-gif-react-tree';
   document.querySelector('.js-app')?.insertAdjacentElement('beforeend', gifReactTreeRoot);
   const gifReactTree = document.getElementById('btd-gif-react-tree');
+  if (!gifReactTree) {
+    return;
+  }
 
-  ReactDOM.render(<BTDGifProvider />, gifReactTree);
+  ReactDOM.createRoot(gifReactTree).render(<BTDGifProvider />);
 }

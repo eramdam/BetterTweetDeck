@@ -1,7 +1,7 @@
 import './emojiPicker.css';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 
 import {BTDEmojiProvider} from '../components/emojiProvider';
 import {BTDSettings} from '../types/btdSettingsTypes';
@@ -17,5 +17,5 @@ export function setupEmojiPicker(settings: BTDSettings) {
   gifEmojiTreeRoot.id = 'btd-emoji-react-tree';
   document.querySelector('.js-app')?.insertAdjacentElement('beforeend', gifEmojiTreeRoot);
 
-  ReactDOM.render(<BTDEmojiProvider />, gifEmojiTreeRoot);
+  ReactDOM.createRoot(gifEmojiTreeRoot).render(<BTDEmojiProvider />);
 }

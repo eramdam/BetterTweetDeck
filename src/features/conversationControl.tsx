@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM, {unmountComponentAtNode} from 'react-dom';
+import {createRoot, Root} from 'react-dom/client';
 
 import {ConversationControlsButton} from '../components/conversationControlsButton';
 import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
@@ -41,35 +41,36 @@ export const addConversationControls = makeBTDModule(({TD, jq, mR, settings}) =>
     );
   });
 
-  let root: HTMLDivElement | undefined = undefined;
-
-  function unmount() {
-    if (!root) {
-      return;
-    }
-
-    unmountComponentAtNode(root);
-  }
+  let container: HTMLDivElement | undefined = undefined;
+  let root: Root | undefined = undefined;
 
   function mount() {
-    root = document.createElement('div');
-    root.id = 'btdConversationControl';
+    container = document.createElement('div');
+    container.id = 'btdConversationControl';
     if (!settings.showGifPicker) {
-      root.classList.add('-gif-hidden');
+      container.classList.add('-gif-hidden');
     }
 
     document
       .querySelector('.compose-text-container > .txt-right')
-      ?.insertAdjacentElement('beforebegin', root);
-    ReactDOM.render(
+      ?.insertAdjacentElement('beforebegin', container);
+    root = createRoot(container);
+    root.render(
       <ConversationControlsButton
         graphqlRequest={graphqlRequest}
         getClient={TD.controller.clients.getClient}
         jq={jq}
         setValueForFeatureFlag={setValueForFeatureFlag}
-      />,
-      root
+      />
     );
+  }
+
+  function unmount() {
+    if (!container || !root) {
+      return;
+    }
+
+    root.unmount();
   }
 
   onComposerShown((isVisible) => {

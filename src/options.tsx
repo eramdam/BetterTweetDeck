@@ -1,6 +1,6 @@
 import {isEmpty} from 'lodash';
 import React, {FC, useEffect, useState} from 'react';
-import {render} from 'react-dom';
+import {createRoot} from 'react-dom/client';
 
 import {SettingsModal} from './components/settings/settingsModal';
 import {ExtensionSettings} from './helpers/webExtensionHelpers';
@@ -29,7 +29,8 @@ const Options: FC = () => {
   );
 };
 
-const root = document.createElement('div');
-root.id = 'root';
-document.body.appendChild(root);
-render(<Options></Options>, root);
+const container = document.createElement('div');
+container.id = 'root';
+document.body.appendChild(container);
+const root = createRoot(container);
+root.render(<Options></Options>);
