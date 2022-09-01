@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, {FC, useRef} from 'react';
-import MonacoEditor, {monaco} from 'react-monaco-editor';
+import React, {FC, lazy, Suspense, useRef} from 'react';
+import type MonacoEditor from 'react-monaco-editor';
+import {type monaco} from 'react-monaco-editor';
 
 import {HandlerOf} from '../../../helpers/typeHelpers';
 import {Trans} from '../../trans';
@@ -12,21 +13,26 @@ interface SettingsCssEditorProps {
   value: string;
 }
 
+const MonacoEditorComponent = lazy(() => import('react-monaco-editor'));
+
 export const SettingsCssEditor: FC<SettingsCssEditorProps> = (props) => {
-  const monacoRef = useRef<monaco.editor.IStandaloneCodeEditor>();
+  const monacoEditorRef = useRef<monaco.editor.IStandaloneCodeEditor>();
 
   const onMonacoMount: MonacoEditor['props']['editorDidMount'] = (editor) => {
-    monacoRef.current = editor;
+    monacoEditorRef.current = editor;
     editor.onDidChangeModelDecorations(() => {
       const model = editor.getModel();
       if (!model) {
         return;
       }
-      const owner = model.getLanguageId();
-      const markers = monaco.editor.getModelMarkers({owner});
-      const hasErrors = markers.some((marker) => marker.severity === monaco.MarkerSeverity.Error);
 
-      props.onErrorChange(hasErrors);
+      import('react-monaco-editor').then(({monaco}) => {
+        const owner = model.getLanguageId();
+        const markers = monaco.editor.getModelMarkers({owner});
+        const hasErrors = markers.some((marker) => marker.severity === monaco.MarkerSeverity.Error);
+
+        props.onErrorChange(hasErrors);
+      });
     });
   };
 
@@ -71,29 +77,31 @@ export const SettingsCssEditor: FC<SettingsCssEditorProps> = (props) => {
           style={{
             height: '100%',
           }}>
-          <MonacoEditor
-            height="700px"
-            editorDidMount={onMonacoMount}
-            editorWillMount={(monaco) => {
-              monaco.editor.defineTheme('vs-dark', {
-                base: 'vs-dark',
-                colors: {
-                  'editor.background': '#0d1118',
+          <Suspense>
+            <MonacoEditorComponent
+              height="700px"
+              editorDidMount={onMonacoMount}
+              editorWillMount={(monaco) => {
+                monaco.editor.defineTheme('vs-dark', {
+                  base: 'vs-dark',
+                  colors: {
+                    'editor.background': '#0d1118',
+                  },
+                  inherit: true,
+                  rules: [],
+                });
+              }}
+              theme="vs-dark"
+              language="css"
+              onChange={props.onChange}
+              value={props.value}
+              options={{
+                fontSize: 16,
+                minimap: {
+                  enabled: false,
                 },
-                inherit: true,
-                rules: [],
-              });
-            }}
-            theme="vs-dark"
-            language="css"
-            onChange={props.onChange}
-            value={props.value}
-            options={{
-              fontSize: 16,
-              minimap: {
-                enabled: false,
-              },
-            }}></MonacoEditor>
+              }}></MonacoEditorComponent>
+          </Suspense>
         </div>
       </div>
     </div>

@@ -1,8 +1,8 @@
 // Based on https://github.com/tusharmath/node-config-ts/blob/master/src/createTypedefs.ts
-import * as config from 'config';
-import * as fs from 'fs';
-import * as path from 'path';
-import * as prettier from 'prettier';
+const config = require('config');
+const fs = require('fs');
+const path = require('path');
+const prettier = require('prettier');
 
 const JsonToTS = require('json-to-ts');
 

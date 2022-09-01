@@ -2,9 +2,10 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "importHelpers": true,
-    "lib": ["dom", "es2020"],
+    "importHelpers": false,
+    "lib": ["dom", "es2021"],
     "moduleResolution": "node",
+    "module": "ESNext",
     "noEmit": true,
     "noEmitHelpers": true,
     "noUnusedLocals": true,
@@ -13,7 +14,7 @@
     "jsx": "react",
     "sourceMap": true,
     "strict": true,
-    "target": "es2018",
+    "target": "ES2021",
     "resolveJsonModule": true
   }
 }
