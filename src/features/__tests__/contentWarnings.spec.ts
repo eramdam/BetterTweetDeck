@@ -6,6 +6,7 @@ describe('Content warnings detection', () => {
       ['[food] \nbla', ['[food]', 'food']],
       ['[transphobia] \nbla', ['[transphobia]', 'transphobia']],
       ['[cw: foo]\nbla', ['[cw: foo]', 'foo']],
+      ['(cw: foo)\nbla', ['(cw: foo)', 'foo']],
       ['[cn foo]\nbla', ['[cn foo]', 'foo']],
       [
         `[TW : secte, empoisonnement, abus de faiblesse, parasites internes, (psy)validisme, maltraitance d'enfants, mutilations] Les parents en question postaient fièrement des`,
@@ -26,10 +27,12 @@ describe('Content warnings detection', () => {
       [`tw/foobar\n bla`, ['tw/foobar', 'foobar']],
       [`content warning/foobar\n bla`, ['content warning/foobar', 'foobar']],
       [`trigger warning/foobar\n bla`, ['trigger warning/foobar', 'foobar']],
+      [`( cw // foo bar, baz )\n bla`, ['( cw // foo bar, baz )', 'foo bar, baz']],
     ])('%s', (input, expected) => {
       const result = extractContentWarnings(input, 'food,transphobia') as NonNullable<
         ReturnType<typeof extractContentWarnings>
       >;
+
       expect(result).toBeTruthy();
       const {block, subject, text} = result;
 
