@@ -1,11 +1,10 @@
-import {compact} from 'lodash';
-
 const keywords = ['cw', 'tw', 'cn', 'content warning', 'trigger warning', 'content note'].join('|');
-const keywordsRE = new RegExp(`${keywords}`, 'i');
 const makeRegexSource = (opener: string, closer: string) =>
-  `^([\\${opener}]?\\s?\\b(?:${keywords})\\b(?:\\W+)?\\s?([^\\n|\\${closer}|…]+)[\\${closer}…]?)(?:\\s\\n+)?((?:.+)?\\n?)+$`;
-const contentWarningRegexWithBrackets = new RegExp(`(?:${makeRegexSource('[', ']')}|)`, 'i');
-const contentWarningRegexWithParenthesis = new RegExp(`(?:${makeRegexSource('(', ')')}|)`, 'i');
+  `^([\\${opener}]?\\b(?:${keywords})\\b(?:\\W+)?\\s?([^\\n|\\${closer}|…]+)[\\${closer}…]?)(?:\\s\\n+)?((?:.+)?\\n?)+$`;
+const contentWarningRegexWithBrackets = new RegExp(
+  `(?:${makeRegexSource('[', ']')}|${makeRegexSource('(', ')')})`,
+  'i'
+);
 
 const withoutKeywordRegex = new RegExp(
   `^([\\[]([^\\n|\\[\\]|…]+)[\\]\\)…])(?:\\n+)?((?:.+)?\\n?)+$`,
@@ -20,25 +19,15 @@ export interface ContentWarningResult {
 }
 
 export function extractContentWarnings(
-  baseInput: string,
+  input: string,
   /** Comma separated keywords */
   allowedKeywords: string
 ): ContentWarningResult | undefined {
-  const input = baseInput;
   const keywords = allowedKeywords.split(',').map((w) => w.trim().toLowerCase());
-  const contentWarningMatch = [
-    input.match(contentWarningRegexWithBrackets),
-    input.match(contentWarningRegexWithParenthesis),
-    input.match(withoutKeywordRegex),
-  ].find((maybeResult) => compact(maybeResult).length > 0);
-
-  const isWithoutKeyword = Boolean(
-    (!input.match(contentWarningRegexWithBrackets) &&
-      !input.match(contentWarningRegexWithParenthesis) &&
-      input.match(withoutKeywordRegex)) ||
-      !input.match(keywordsRE)
-  );
-
+  const contentWarningMatch =
+    input.match(contentWarningRegexWithBrackets) || input.match(withoutKeywordRegex);
+  const isWithoutKeyword =
+    !input.match(contentWarningRegexWithBrackets) && input.match(withoutKeywordRegex);
   if (!contentWarningMatch) {
     return undefined;
   }
