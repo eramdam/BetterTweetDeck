@@ -1,3 +1,4 @@
+const config = require('config');
 const {commonHosts} = require('./commonHosts');
 const _ = require('lodash');
 const packageJson = require('../../package.json');
@@ -37,6 +38,15 @@ module.exports = {
   options_ui: {
     page: 'build/options/ui.html',
     chrome_style: false,
+  },
+  browser_specific_settings: {
+    gecko: {
+      id: config.get('FirefoxId'),
+      strict_min_version: '78.0',
+    },
+    safari: {
+      strict_min_version: '15.4',
+    },
   },
   web_accessible_resources: ['build/inject.js', '*.png', 'build/emoji-sheet-64.png'],
   permissions: ['storage', 'contextMenus', 'notifications', ...commonHosts],
