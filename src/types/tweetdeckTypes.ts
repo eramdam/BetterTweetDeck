@@ -668,6 +668,7 @@ export interface TweetDeckChirp {
   isRetweeted: boolean;
   lang: string;
   likeCount: number;
+  limitedActions?: string;
   owner?: User;
   participants: User[];
   place: unknown;

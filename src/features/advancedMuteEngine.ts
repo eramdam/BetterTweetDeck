@@ -183,6 +183,19 @@ export const setupAME = makeBTDModule(({TD, jq}) => {
         return !e.getFilterableText().match(regex);
       },
     },
+    [AMEFilters.CIRCLE_TWEETS]: {
+      display: {
+        global: true,
+      },
+      name: 'Mute circle tweets',
+      descriptor: 'mute tweets tweeted for circles',
+      placeholder: 'nothing!',
+      function(t, e) {
+        if (!e.limitedActions) return true;
+
+        return e.limitedActions !== 'limit_trusted_friends_tweet';
+      },
+    },
     [AMEFilters.USER_REGEX]: {
       display: {
         global: true,
