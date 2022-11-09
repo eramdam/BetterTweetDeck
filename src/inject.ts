@@ -10,6 +10,7 @@ import {maybeShowCharacterCount} from './features/alwaysShowCharacterCount';
 import {setupThemeAutoSwitch} from './features/autoSwitchThemes';
 import {putBadgesOnTopOfAvatars} from './features/badgesOnTopOfAvatars';
 import {makeEmojiBigger} from './features/biggerEmoji';
+import {supportBlueVerified} from './features/blueVerified';
 import {changeAvatarsShape} from './features/changeAvatarShape';
 import {changeScrollbarStyling} from './features/changeScrollbars';
 import {maybeSetupCustomTimestampFormat} from './features/changeTimestampFormat';
@@ -150,6 +151,7 @@ const updatePromptKey = 'btd-update-banner-version';
   mediaWarnings(btdModuleOptions);
   extendTwitterStatus(btdModuleOptions);
   setupMuteCatcher(btdModuleOptions);
+  supportBlueVerified(btdModuleOptions);
 
   jq(document).one('dataColumnsLoaded', () => {
     document.body.classList.add('btd-loaded');

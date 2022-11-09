@@ -28,7 +28,7 @@ export const extendTwitterUser = makeBTDModule(({TD, jq}) => {
   TD.services.TwitterUser.prototype.fromJSONObject = function fromJSONObject(blob: any) {
     var baseUser = this.OGFromJSON(blob);
 
-    baseUser.isVerified = baseUser.isVerified || blob.ext_is_blue_verified;
+    baseUser.isBlueVerified = blob.ext_is_blue_verified;
 
     baseUser.hasNftAvatar = Boolean(blob.ext_has_nft_avatar);
     const baseLabel = blob.ext?.highlightedLabel?.r?.ok?.label || {};

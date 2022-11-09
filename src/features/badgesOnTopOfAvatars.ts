@@ -94,6 +94,8 @@ export const putBadgesOnTopOfAvatars = makeBTDModule(({TD, settings}) => {
 
     if (userForBadge.isVerified && settings.verifiedBadges) {
       chirpNode.classList.add(...classesToAdd, 'btd-verified-badge');
+    } else if (userForBadge.isBlueVerified && settings.verifiedBadges) {
+      chirpNode.classList.add(...classesToAdd, 'btd-blue-verified-badge');
     } else if (userForBadge.isTranslator && settings.translatorBadges) {
       chirpNode.classList.add(...classesToAdd, 'btd-translator-badge');
     }
