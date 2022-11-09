@@ -15,7 +15,6 @@ export const extendTwitterUser = makeBTDModule(({TD, jq}) => {
       ajaxOptions.url = buildURLWithSearchParams(ajaxOptions.url || '', {
         ext: `mediaStats,highlightedLabel,voiceInfo,superFollowMetadata`,
         include_ext_has_nft_avatar: true,
-        include_ext_is_blue_verified: true,
         include_ext_sensitive_media_warning: true,
       });
     } catch (e) {
@@ -27,8 +26,6 @@ export const extendTwitterUser = makeBTDModule(({TD, jq}) => {
 
   TD.services.TwitterUser.prototype.fromJSONObject = function fromJSONObject(blob: any) {
     var baseUser = this.OGFromJSON(blob);
-
-    baseUser.isVerified = baseUser.isVerified || blob.ext_is_blue_verified;
 
     baseUser.hasNftAvatar = Boolean(blob.ext_has_nft_avatar);
     const baseLabel = blob.ext?.highlightedLabel?.r?.ok?.label || {};
