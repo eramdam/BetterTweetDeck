@@ -30,4 +30,10 @@ module.exports = {
       strict_min_version: '78.0',
     },
   },
+  browser_specific_settings: {
+    gecko: {
+      id: betaId,
+      strict_min_version: '78.0',
+    },
+  },
 };
