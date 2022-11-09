@@ -1,8 +1,9 @@
 const common = require('./common');
 const {commonHosts} = require('./commonHosts');
+const _ = require('lodash');
 
 module.exports = {
-  ...common,
+  ..._.omit(common, ['browser_specific_settings']),
   manifest_version: 3,
   background: {
     service_worker: 'background.js',
