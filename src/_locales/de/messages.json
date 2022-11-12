@@ -469,5 +469,11 @@
   },
   "settings_warnings": {
     "message": "Warnungen"
+  },
+  "settings_mute_circle_tweets": {
+    "message": "Tweets aus Twitter Circles stummschalten"
+  },
+  "settings_show_circle_tweets_border": {
+    "message": "Grüne Umrandung um Profilbilder aus Twitter Circle Tweets anzeigen"
   }
 }
