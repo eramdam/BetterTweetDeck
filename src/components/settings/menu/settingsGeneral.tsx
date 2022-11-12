@@ -158,7 +158,6 @@ export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
           {
             initialValue: settings.showCircleTweetsBorder,
             key: 'showCircleTweetsBorder',
-            shouldIndent: true,
             label: <Trans id="settings_show_circle_tweets_border" />,
             isDisabled: settings.muteCircleTweets,
           },

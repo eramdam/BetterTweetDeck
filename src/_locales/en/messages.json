@@ -528,9 +528,9 @@
     "message": "Don't show pronouns for your own accounts"
   },
   "settings_mute_circle_tweets": {
-    "message": "Mute tweets created for twitter circles"
+    "message": "Mute tweets created for Twitter Circles"
   },
   "settings_show_circle_tweets_border": {
-    "message": "Show green border around profile pictures of circle tweets"
+    "message": "Show green border around profile pictures of Circle Tweets"
   }
 }
