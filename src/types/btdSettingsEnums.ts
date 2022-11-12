@@ -80,3 +80,11 @@ export enum BTDMutualBadges {
   HEART = 'heart',
   ARROWS = 'arrows',
 }
+
+export enum BTDVerifiedBlueBadges {
+  BLUE = 'blue',
+  DOLLAR = 'dollar',
+  CLOWN = 'clown',
+  NERD = 'nerd',
+  CROOKED = 'crooked',
+}

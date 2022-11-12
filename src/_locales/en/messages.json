@@ -527,6 +527,21 @@
   "settings_dont_show_pronouns_for_your_own_accounts": {
     "message": "Don't show pronouns for your own accounts"
   },
+  "settings_use_a_verified_icon": {
+    "message": "Use a \"verified\" icon"
+  },
+  "settings_use_the_twitter_blue_icon": {
+    "message": "Use the Twitter Blue icon"
+  },
+  "settings_use_a_dollar_icon": {
+    "message": "Use a dollar icon"
+  },
+  "settings_use_a_clown_icon": {
+    "message": "Use a clown icon"
+  },
+  "settings_use_a_nerd_icon": {
+    "message": "Use a nerd icon"
+  },
   "settings_mute_circle_tweets": {
     "message": "Mute tweets created for Twitter Circles"
   },

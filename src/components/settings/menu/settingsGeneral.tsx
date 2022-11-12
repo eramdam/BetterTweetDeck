@@ -2,12 +2,17 @@
 import {css} from '@emotion/css';
 import React, {FC, Fragment} from 'react';
 
+import clownIcon from '../../../assets/clown-icon.svg';
+import crookedIcon from '../../../assets/crooked-icon.svg';
+import dollarIcon from '../../../assets/dollar-icon.svg';
 import heartIcon from '../../../assets/heart-icon.svg';
 import arrowsIcon from '../../../assets/mutual-icon.svg';
+import nerdIcon from '../../../assets/nerd-checkmark.svg';
 import translatorIcon from '../../../assets/translator-icon.svg';
+import twitterBlueIcon from '../../../assets/twitter-blue.svg';
 import verifiedIcon from '../../../assets/verified-icon.svg';
 import {isFirefox, isSafari} from '../../../helpers/browserHelpers';
-import {BTDMutualBadges} from '../../../types/btdSettingsEnums';
+import {BTDMutualBadges, BTDVerifiedBlueBadges} from '../../../types/btdSettingsEnums';
 import {BTDSettings} from '../../../types/btdSettingsTypes';
 import {Trans} from '../../trans';
 import {CheckboxSelectSettingsRow} from '../components/checkboxSelectSettingsRow';
@@ -32,8 +37,8 @@ const BadgeIcon = ({icon}: {icon: string}) => {
       `}>
       <img
         className={css`
-          width: 1em;
-          height: 1em;
+          width: 1.4em;
+          height: 1.4em;
         `}
         src={icon}
       />
@@ -169,6 +174,70 @@ export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
           makeOnSettingsChange(key as keyof BTDSettings)(value);
         }}
         fields={[
+          {
+            initialValue: settings.verifiedBlueBadges,
+            key: 'verifiedBlueBadges',
+            label: 'Show badges for accounts paying for Twitter Blue',
+            introducedIn: '4.9',
+            extraContent: (newSettings) => {
+              return (
+                <SettingsRadioSettingSelect<BTDSettings, 'verifiedBlueBadgeVariation'>
+                  fields={[
+                    {
+                      label: (
+                        <>
+                          <Trans id="settings_use_the_twitter_blue_icon" />{' '}
+                          <BadgeIcon icon={twitterBlueIcon} />
+                        </>
+                      ),
+                      value: BTDVerifiedBlueBadges.BLUE,
+                    },
+                    {
+                      label: (
+                        <>
+                          <Trans id="settings_use_a_verified_icon" />{' '}
+                          <BadgeIcon icon={crookedIcon} />
+                        </>
+                      ),
+                      value: BTDVerifiedBlueBadges.CROOKED,
+                    },
+                    {
+                      label: (
+                        <>
+                          <Trans id="settings_use_a_dollar_icon" /> <BadgeIcon icon={dollarIcon} />
+                        </>
+                      ),
+                      value: BTDVerifiedBlueBadges.DOLLAR,
+                    },
+                    {
+                      label: (
+                        <>
+                          <Trans id="settings_use_a_clown_icon" /> <BadgeIcon icon={clownIcon} />
+                        </>
+                      ),
+                      value: BTDVerifiedBlueBadges.CLOWN,
+                    },
+                    {
+                      label: (
+                        <>
+                          <Trans id="settings_use_a_nerd_icon" /> <BadgeIcon icon={nerdIcon} />
+                        </>
+                      ),
+                      value: BTDVerifiedBlueBadges.NERD,
+                    },
+                  ]}
+                  className={css`
+                    padding-left: 25px;
+                  `}
+                  isDisabled={!newSettings.verifiedBlueBadges}
+                  settingsKey="verifiedBlueBadgeVariation"
+                  onChange={makeOnSettingsChange('verifiedBlueBadgeVariation')}
+                  initialValue={
+                    newSettings.verifiedBlueBadgeVariation
+                  }></SettingsRadioSettingSelect>
+              );
+            },
+          },
           {
             initialValue: settings.badgesOnTopOfAvatars,
             key: 'badgesOnTopOfAvatars',

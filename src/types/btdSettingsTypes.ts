@@ -11,6 +11,7 @@ import {
   BTDTimestampFormats,
   BTDTweetActionsPosition,
   BTDUsernameFormat,
+  BTDVerifiedBlueBadges,
 } from './btdSettingsEnums';
 
 export const RBetterTweetDeckSettings = t.type({
@@ -130,6 +131,11 @@ export const RBetterTweetDeckSettings = t.type({
   mutualBadgeVariation: withDefault(
     makeEnumRuntimeType<BTDMutualBadges>(BTDMutualBadges),
     BTDMutualBadges.HEART
+  ),
+  verifiedBlueBadges: withDefault(t.boolean, false),
+  verifiedBlueBadgeVariation: withDefault(
+    makeEnumRuntimeType(BTDVerifiedBlueBadges),
+    BTDVerifiedBlueBadges.DOLLAR
   ),
 
   /** Where to show tweet actions. */

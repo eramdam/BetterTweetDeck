@@ -579,6 +579,7 @@ interface User {
   url: string;
   isProtected: boolean;
   isVerified: boolean;
+  isBlueVerified: boolean;
   isTranslator: boolean;
   isBadged: boolean;
   following: boolean;
