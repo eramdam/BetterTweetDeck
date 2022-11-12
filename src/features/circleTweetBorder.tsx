@@ -11,10 +11,11 @@ export const circleTweetBorder = makeBTDModule(({settings}) => {
   document.body.setAttribute('btd-twitter-circle', 'true');
 
   onChirpAdded((payload) => {
-    if (
-      !payload.chirp.limitedActions ||
-      payload.chirp.limitedActions !== 'limit_trusted_friends_tweet'
-    ) {
+    const isInCircle =
+      payload.chirp.limitedActions === 'limit_trusted_friends_tweet' ||
+      payload.chirp.targetTweet?.limitedActions === 'limit_trusted_friends_tweet';
+
+    if (!isInCircle) {
       return;
     }
 

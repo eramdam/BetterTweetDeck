@@ -669,6 +669,7 @@ export interface TweetDeckChirp {
   lang: string;
   likeCount: number;
   limitedActions?: string;
+  cannotBeRepliedTo?: boolean;
   owner?: User;
   participants: User[];
   place: unknown;
