@@ -31,11 +31,11 @@ export const SettingsCredits: FC = () => {
           <ul>
             <li>
               <a href="https://twitter.com/shadowbIood/status/1590462560515473409">@shadowblood</a>{' '}
-              for the &quote;nerd checkmark&quote;
+              for the nerd badge
             </li>
             <li>
               <a href="https://twitter.com/JoshQuake/status/1590634793393614849">@JoshQuake</a> for
-              the &quote;clown checkmark&quote;
+              the clown badge
             </li>
           </ul>
         </p>
