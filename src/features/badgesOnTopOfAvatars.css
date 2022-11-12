@@ -71,13 +71,6 @@
     background-image: url('../assets/verified-icon.svg');
   }
 
-  & .js-stream-item.btd-mini-badge.btd-blue-verified-badge > .js-stream-item-content > .activity-header > .nbfc::before,
-  & .js-stream-item.btd-badge.btd-blue-verified-badge:not(.btd-mini-badge) > .js-stream-item-content > .tweet > .tweet-header .item-img.tweet-img::before,
-  & .js-stream-item.btd-badge.btd-blue-verified-badge:not(.btd-mini-badge) > .js-stream-item-content > .tweet-detail .account-summary .item-img::before,
-  & .js-stream-item.btd-badge.btd-blue-verified-badge:not(.btd-mini-badge) > .js-stream-item-content > .account-summary .item-img::before {
-    background-image: url('../assets/nerd-checkmark.svg');
-  }
-
   & .js-stream-item.btd-mini-badge.btd-mutual-badge.btd-mutual-heart > .js-stream-item-content > .activity-header > .nbfc::before,
   & .js-stream-item.btd-badge.btd-mutual-heart.btd-mutual-badge:not(.btd-mini-badge) > .js-stream-item-content > .tweet > .tweet-header .item-img.tweet-img::before,
   & .js-stream-item.btd-badge.btd-mutual-heart.btd-mutual-badge:not(.btd-mini-badge) > .js-stream-item-content > .tweet-detail .account-summary .item-img::before,

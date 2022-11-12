@@ -26,6 +26,19 @@ export const SettingsCredits: FC = () => {
         <p>
           <a href="https://erambert.me">Damien Erambert</a>
         </p>
+        <h3>Special thanks</h3>
+        <p>
+          <ul>
+            <li>
+              <a href="https://twitter.com/shadowbIood/status/1590462560515473409">@shadowblood</a>{' '}
+              for the &quote;nerd checkmark&quote;
+            </li>
+            <li>
+              <a href="https://twitter.com/JoshQuake/status/1590634793393614849">@JoshQuake</a> for
+              the &quote;clown checkmark&quote;
+            </li>
+          </ul>
+        </p>
         <h3>
           <Trans id="settings_contributors" />
         </h3>
