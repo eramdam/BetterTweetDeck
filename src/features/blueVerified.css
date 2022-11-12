@@ -23,6 +23,15 @@ html.dark .sprite.verified-blue,
   background-size: 100% 100% !important;
 }
 
+html.dark .account-inline .sprite.verified-blue,
+.account-inline .sprite.verified-blue {
+  height: 16px;
+  width: 16px;
+  background-image: var(--blueVerifiedImage);
+  background-position: 0 !important;
+  background-size: 100% 100% !important;
+}
+
 .btd-badge .sprite.verified-blue {
   display: none;
 }
