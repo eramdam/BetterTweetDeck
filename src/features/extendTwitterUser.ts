@@ -15,6 +15,7 @@ export const extendTwitterUser = makeBTDModule(({TD, jq}) => {
       ajaxOptions.url = buildURLWithSearchParams(ajaxOptions.url || '', {
         ext: `mediaStats,highlightedLabel,voiceInfo,superFollowMetadata`,
         include_ext_has_nft_avatar: true,
+        include_ext_is_blue_verified: true,
         include_ext_sensitive_media_warning: true,
       });
     } catch (e) {
