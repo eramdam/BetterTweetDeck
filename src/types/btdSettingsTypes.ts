@@ -257,6 +257,12 @@ export const RBetterTweetDeckSettings = t.type({
   /** Mutes users who used the NFT-integration on their avatar */
   muteNftAvatars: withDefault(t.boolean, false),
   hideNftMuteNotice: withDefault(t.boolean, false),
+
+  /** Mutes tweets created for twitter circles */
+  muteCircleTweets: withDefault(t.boolean, false),
+
+  /** Show green border around profile pictures of circle tweets */
+  showCircleTweetsBorder: withDefault(t.boolean, false),
 });
 
 export interface BTDSettings extends t.TypeOf<typeof RBetterTweetDeckSettings> {}

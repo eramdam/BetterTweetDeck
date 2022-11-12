@@ -62,10 +62,8 @@ export const extendTwitterStatus = makeBTDModule(({TD, settings}) => {
 
     // @ts-expect-error
     baseTweet.conversationControl = blob.conversation_control;
-    // @ts-expect-error
-    baseTweet.limitedActions = blob.limited_actions;
-    // @ts-expect-error
-    baseTweet.cannotBeRepliedTo = blob.limited_actions === 'limited_replies';
+    baseTweet.limitedActions = blob.limited_actions || blob.targetTweet?.limited_actions;
+    baseTweet.cannotBeRepliedTo = baseTweet.limitedActions === 'limited_replies';
 
     return baseTweet;
   };

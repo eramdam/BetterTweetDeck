@@ -155,6 +155,17 @@ export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
             label: <Trans id="settings_collapse_unread_dms" />,
             isDisabled: !settings.collapseReadDms,
           },
+          {
+            initialValue: settings.muteCircleTweets,
+            key: 'muteCircleTweets',
+            label: <Trans id="settings_mute_circle_tweets" />,
+          },
+          {
+            initialValue: settings.showCircleTweetsBorder,
+            key: 'showCircleTweetsBorder',
+            label: <Trans id="settings_show_circle_tweets_border" />,
+            isDisabled: settings.muteCircleTweets,
+          },
         ]}>
         <Trans id="settings_misc" />
       </CheckboxSelectSettingsRow>

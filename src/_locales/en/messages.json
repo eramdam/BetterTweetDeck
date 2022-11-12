@@ -541,5 +541,11 @@
   },
   "settings_use_a_nerd_icon": {
     "message": "Use a nerd icon"
+  },
+  "settings_mute_circle_tweets": {
+    "message": "Mute tweets created for Twitter Circles"
+  },
+  "settings_show_circle_tweets_border": {
+    "message": "Show green border around profile pictures of Circle Tweets"
   }
 }

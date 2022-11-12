@@ -23,12 +23,14 @@ export enum AMEFilters {
   FOLLOWER_COUNT_GREATER_THAN = 'BTD_follower_count_greater_than',
   SPECIFIC_TWEET = 'BTD_specific_tweet',
   HASHTAGS_NUMBER = 'BTD_hashtags_number',
+  CIRCLE_TWEETS = 'BTD_circle_tweets',
 }
 
 const nonUserSpecificsTypes = [
   TweetDeckFilterTypes.SOURCE,
   TweetDeckFilterTypes.PHRASE,
   AMEFilters.REGEX,
+  AMEFilters.CIRCLE_TWEETS,
 ];
 export const userSpecificTypes = [
   AMEFilters.DEFAULT_AVATARS,
@@ -206,6 +208,9 @@ export function formatMuteReason(muteCatch: MuteReason) {
     }
     case AMEFilters.NFT_AVATAR: {
       return `uses the NFT avatar integration`;
+    }
+    case AMEFilters.CIRCLE_TWEETS: {
+      return `tweeted using twitter circles`;
     }
     case AMEFilters.DEFAULT_AVATARS: {
       return `had a default avatar`;
