@@ -523,5 +523,20 @@
   },
   "settings_dont_show_pronouns_for_your_own_accounts": {
     "message": "自分のアカウントの代名詞を表示しない"
+  },
+  "settings_use_a_verified_icon": {
+    "message": "「認証済み」アイコンを使用"
+  },
+  "settings_use_the_twitter_blue_icon": {
+    "message": "Twitter Blueアイコンを使用"
+  },
+  "settings_use_a_dollar_icon": {
+    "message": "ドルアイコンを使用"
+  },
+  "settings_use_a_clown_icon": {
+    "message": "ピエロアイコンを使用"
+  },
+  "settings_use_a_nerd_icon": {
+    "message": "オタクアイコンを使用"
   }
 }
