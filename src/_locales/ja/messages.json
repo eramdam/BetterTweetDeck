@@ -540,9 +540,9 @@
     "message": "オタクアイコンを使用"
   },
   "settings_mute_circle_tweets": {
-    "message": "Twitterサークル向けに作成されたツイートをミュート"
+    "message": "Twitterサークルのツイートをミュート"
   },
   "settings_show_circle_tweets_border": {
-    "message": "サークルツイートのプロフィール画像の周りに緑色の枠線を表示する"
+    "message": "Twitterサークルのツイートで、アイコンに緑色の枠線を表示する"
   }
 }
