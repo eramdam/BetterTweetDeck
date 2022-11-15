@@ -470,10 +470,19 @@
   "settings_warnings": {
     "message": "Warnungen"
   },
-  "settings_mute_circle_tweets": {
-    "message": "Tweets aus Twitter Circles stummschalten"
+  "settings_use_a_verified_icon": {
+    "message": "\"Verified\"-Symbol verwenden"
   },
-  "settings_show_circle_tweets_border": {
-    "message": "Grüne Umrandung um Profilbilder aus Twitter Circle Tweets anzeigen"
+  "settings_use_the_twitter_blue_icon": {
+    "message": "Twitter-Blue-Symbol verwenden"
+  },
+  "settings_use_a_dollar_icon": {
+    "message": "Dollar-Symbol verwenden"
+  },
+  "settings_use_a_clown_icon": {
+    "message": "Clown-Symbol verwenden"
+  },
+  "settings_use_a_nerd_icon": {
+    "message": "Nerd-Symbol verwenden"
   }
 }
