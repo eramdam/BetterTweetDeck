@@ -526,5 +526,26 @@
   },
   "settings_dont_show_pronouns_for_your_own_accounts": {
     "message": "Não mostrar pronomes para suas próprias contas"
+  },
+  "settings_use_a_verified_icon": {
+    "message": "Usar um ícone de \"verificado\""
+  },
+  "settings_use_the_twitter_blue_icon": {
+    "message": "Usar o ícone do Twitter Blue"
+  },
+  "settings_use_a_dollar_icon": {
+    "message": "Usar um ícone de dólar"
+  },
+  "settings_use_a_clown_icon": {
+    "message": "Usar um ícone de palhaço"
+  },
+  "settings_use_a_nerd_icon": {
+    "message": "Usar um ícone de nerd"
+  },
+  "settings_mute_circle_tweets": {
+    "message": "Silenciar tweets criados para a Roda do Twitter"
+  },
+  "settings_show_circle_tweets_border": {
+    "message": "Exibir em um tweet da Roda do Twitter uma borda verde em torno da foto de perfil"
   }
 }
