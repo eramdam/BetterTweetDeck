@@ -467,7 +467,34 @@
   "settings_extract_pronouns": {
     "message": "Извлечь местоимения из биографии или местоположения пользователей и показать их в столбцах"
   },
+  "settings_mute_nfts_accounts": {
+    "message": "Заглушать аккаунты, использующие интеграцию с NFT-аватаром (аватар в виде шестиугольника)"
+  },
+  "settings_require_confirmation_for_block_and_mute_actions": {
+    "message": "Требовать подтверждение для блокировки и заглушения"
+  },
+  "settings_better_tweetdeck_has_been_updated": {
+    "message": "Better TweetDeck был обновлён!"
+  },
+  "settings_click_this_notification_to_reload": {
+    "message": "Нажмите на это уведомление, чтобы перезагрузить вкладку(и) TweetDeck для получения последнего обновления!"
+  },
+  "settings_show_twitters_warnings_on_media": {
+    "message": "Показывать предупреждения Twitter на медиа"
+  },
   "settings_twitter_added_feature_in_january_2022": {
     "message": "Функция, добавленная Twitter в январе 2022 года"
+  },
+  "settings_show_warnings_for_adult_content": {
+    "message": "Показывать предупреждения для медиа с обнажением"
+  },
+  "settings_show_warnings_for_graphic_violence": {
+    "message": "Показывать предупреждения для медиа с графическим насилием"
+  },
+  "settings_show_warnings_for_sensitive_contents": {
+    "message": "Показывать предупреждения для медиа с чувствительным содержимым"
+  },
+  "settings_warnings": {
+    "message": "Предупреждения"
   }
 }
