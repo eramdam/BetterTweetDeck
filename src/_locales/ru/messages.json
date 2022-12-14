@@ -467,7 +467,85 @@
   "settings_extract_pronouns": {
     "message": "Извлечь местоимения из биографии или местоположения пользователей и показать их в столбцах"
   },
+  "settings_mute_nfts_accounts": {
+    "message": "Заглушать аккаунты, использующие интеграцию с NFT-аватаром (аватар в виде шестиугольника)"
+  },
+  "settings_require_confirmation_for_block_and_mute_actions": {
+    "message": "Требовать подтверждение для блокировки и заглушения"
+  },
+  "settings_better_tweetdeck_has_been_updated": {
+    "message": "Better TweetDeck был обновлён!"
+  },
+  "settings_click_this_notification_to_reload": {
+    "message": "Нажмите на это уведомление, чтобы перезагрузить вкладку(и) TweetDeck для получения последнего обновления!"
+  },
+  "settings_show_twitters_warnings_on_media": {
+    "message": "Показывать предупреждения Twitter на медиа"
+  },
   "settings_twitter_added_feature_in_january_2022": {
     "message": "Функция, добавленная Twitter в январе 2022 года"
+  },
+  "settings_show_warnings_for_adult_content": {
+    "message": "Показывать предупреждения для медиа с обнажением"
+  },
+  "settings_show_warnings_for_graphic_violence": {
+    "message": "Показывать предупреждения для медиа с графическим насилием"
+  },
+  "settings_show_warnings_for_sensitive_contents": {
+    "message": "Показывать предупреждения для медиа с чувствительным содержимым"
+  },
+  "settings_warnings": {
+    "message": "Предупреждения"
+  },
+  "settings_detect_content_warnings_without_the_keyword": {
+    "message": "Обнаружить предупреждения контента без CW/TW ключевых слов"
+  },
+  "settings_collapse_tweets_who_match_one_of_the_following_keywords": {
+    "message": "Свернуть твиты, которые совпадают с одним из следующих ключевых слов:"
+  },
+  "settings_comma_separated_keywords_matched_by_order_in_the_list": {
+    "message": "Ключевые слова, разделенные запятыми, соответствующие порядку в списке"
+  },
+  "settings_will_match_patterns_like_food_lorem_ipsum": {
+    "message": "Будет соответствовать шаблонам типа \"[food] lorem ipsum\""
+  },
+  "settings_you_can_use_this_to_hide_spoilers": {
+    "message": "Вы можете использовать это, чтобы скрыть спойлеры"
+  },
+  "settings_require_a_confirmation_before_deleting_and_editing": {
+    "message": "Требовать подтверждение перед удалением и редактированием"
+  },
+  "settings_force_update_banners_to_be_dismissed": {
+    "message": "Принудительное обновление баннеров для отключения"
+  },
+  "settings_force_dismissed_banner": {
+    "message": "Принудительное закрытие баннера"
+  },
+  "settings_dismiss_banner_paragraph": {
+    "message": "В некоторых случаях баннер, который появляется после более качественного обновления TweetDeck, может иметь проблемы с устранением самого себя. Нажмите на кнопку ниже, чтобы исправить это."
+  },
+  "settings_dont_show_pronouns_for_your_own_accounts": {
+    "message": "Не показывать произношения для ваших аккаунтов"
+  },
+  "settings_use_a_verified_icon": {
+    "message": "Использовать значок \"подтверждено\""
+  },
+  "settings_use_the_twitter_blue_icon": {
+    "message": "Использовать синий значок Twitter"
+  },
+  "settings_use_a_dollar_icon": {
+    "message": "Использовать значок доллара"
+  },
+  "settings_use_a_clown_icon": {
+    "message": "Использовать значок клоуна"
+  },
+  "settings_use_a_nerd_icon": {
+    "message": "Использовать значок нерда"
+  },
+  "settings_mute_circle_tweets": {
+    "message": "Заглушить твиты, созданные для Twitter Circles"
+  },
+  "settings_show_circle_tweets_border": {
+    "message": "Показывать зеленую границу вокруг профильных изображений круга"
   }
 }
