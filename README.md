@@ -2,7 +2,7 @@
 
 <h1 align="center">Better TweetDeck</h1>
 <p align="center">
-<img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/eramdam/bettertweetdeck/CI">
+<img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/eramdam/bettertweetdeck/main.yml?branch=main">
 <a href="https://better.tw/chrome">
   <img src="https://img.shields.io/chrome-web-store/v/micblkellenpbfapmcpcfhcoeohhnpob.svg" alt="Chrome Store Version">
 </a>
