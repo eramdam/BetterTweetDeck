@@ -29,6 +29,7 @@ import {hidePreviewButton} from './features/hidePreviewButton';
 import {keepTweetedHashtagsInComposer} from './features/keepTweetedHashtags';
 import {changeLogo} from './features/logoVariations';
 import {makeSearchColumnsFirst} from './features/makeSearchColumnsFirst';
+import {mastodonLink} from './features/mastodonLink';
 import {mediaWarnings} from './features/mediaWarnings';
 import {useModernOverlays} from './features/modernOverlays';
 import {muteNftAvatars} from './features/muteNfts';
@@ -155,6 +156,7 @@ const updatePromptKey = 'btd-update-banner-version';
   setupMuteCatcher(btdModuleOptions);
   supportBlueVerified(btdModuleOptions);
   circleTweetBorder(btdModuleOptions);
+  mastodonLink(btdModuleOptions);
 
   jq(document).one('dataColumnsLoaded', () => {
     document.body.classList.add('btd-loaded');

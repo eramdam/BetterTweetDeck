@@ -211,6 +211,12 @@ export const SettingsTweetContent: FC<SettingsMenuSectionProps> = (props) => {
             key: 'dontShowPronounsOnOwnAccounts',
             label: <Trans id="settings_dont_show_pronouns_for_your_own_accounts" />,
           },
+          {
+            initialValue: settings.mastodonLink,
+            introducedIn: '4.9.1',
+            key: 'mastodonLink',
+            label: <Trans id="settings_show_mastodon_icon" />,
+          },
         ]}>
         <Trans id="settings_misc" />
       </CheckboxSelectSettingsRow>

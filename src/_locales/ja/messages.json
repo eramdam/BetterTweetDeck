@@ -527,6 +527,9 @@
   "settings_dont_show_pronouns_for_your_own_accounts": {
     "message": "自分のアカウントの代名詞を表示しない"
   },
+  "settings_show_mastodon_icon": {
+    "message": "Mastodonアイコンをユーザー名の横に表示する"
+  },
   "settings_use_a_verified_icon": {
     "message": "「認証済み」アイコンを使用"
   },

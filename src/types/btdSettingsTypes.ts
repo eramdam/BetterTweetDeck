@@ -187,6 +187,9 @@ export const RBetterTweetDeckSettings = t.type({
     BTDUsernameFormat.DEFAULT
   ),
 
+  /** Show Mastodon icon next to the username */
+  mastodonLink: withDefault(t.boolean, true),
+
   /** Adds more actions in tweet menus
    * TODO(damien): maybe put a BTD separator to make them more obvious in the UI.
    */

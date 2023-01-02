@@ -527,6 +527,9 @@
   "settings_dont_show_pronouns_for_your_own_accounts": {
     "message": "Don't show pronouns for your own accounts"
   },
+  "settings_show_mastodon_icon": {
+    "message": "Show Mastodon icon next to username"
+  },
   "settings_use_a_verified_icon": {
     "message": "Use a \"verified\" icon"
   },
