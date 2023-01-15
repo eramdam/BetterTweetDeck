@@ -1,15 +1,12 @@
-[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
-
-![](https://raw.githubusercontent.com/eramdam/BetterTweetDeck/master/meta/better.tw_.png)
-
 <h1 align="center">Better TweetDeck</h1>
 <p align="center">
+<a href="http://unmaintained.tech/" rel="nofollow"><img src="http://unmaintained.tech/badge.svg" alt="No Maintenance Intended" style="max-width: 100%;"></a>
 <img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/eramdam/bettertweetdeck/main.yml?branch=main">
 <a href="https://better.tw/chrome">
-  <img src="https://img.shields.io/chrome-web-store/v/micblkellenpbfapmcpcfhcoeohhnpob.svg" alt="Chrome Store Version">
+<img src="https://img.shields.io/chrome-web-store/v/micblkellenpbfapmcpcfhcoeohhnpob.svg" alt="Chrome Store Version">
 </a>
 <a href="https://better.tw/chrome">
-  <img src="https://img.shields.io/chrome-web-store/d/micblkellenpbfapmcpcfhcoeohhnpob.svg" alt="Chrome Store Users">
+<img src="https://img.shields.io/chrome-web-store/d/micblkellenpbfapmcpcfhcoeohhnpob.svg" alt="Chrome Store Users">
 </a>
 
 <br/>
