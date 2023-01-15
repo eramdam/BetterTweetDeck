@@ -28,6 +28,10 @@
 <a title="Crowdin" target="_blank" href="https://crowdin.com/project/better-tweetdeck"><img src="https://badges.crowdin.net/better-tweetdeck/localized.svg"></a>
 </p>
 
+# Disclaimer
+
+As of January 2023, it is clear that Twitter as a company doesn't care or want 3rd party developers to build on their platform. As such, I will be leaving BetterTweetDeck to work "as-is". I'm not archiving the repo to not lose issues but consider it to be archived.
+
 # Intro
 
 Adds some nice options on [TweetDeck](http://tweetdeck.twitter.com) to provide a better experience on the webapp when used on Chrome, Opera and Firefox!
