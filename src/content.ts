@@ -11,6 +11,7 @@ import {sendMessageToBackground} from './helpers/webExtensionHelpers';
 import {processDownloadMediaRequest} from './services/backgroundGifRequests';
 import {getValidatedSettings} from './services/backgroundSettings';
 import {injectInTD} from './services/injectInTD';
+import {rollbackToLegacy} from './services/rollbackToLegacy';
 import {setupBTDNotifications} from './services/setupBTDNotifications';
 import {setupBtdRoot} from './services/setupBTDRoot';
 import {BTDMessageOriginsEnum, BTDMessages} from './types/btdMessageTypes';
@@ -20,6 +21,10 @@ import {BTDMessageOriginsEnum, BTDMessages} from './types/btdMessageTypes';
 
   if (hasNewTweetDeck) {
     console.debug('Better TweetDeck aborted loading on TweetDeck Preview');
+    if (localStorage.getItem('ROLLBACK_TO_LEGACY') === 'true') {
+      return;
+    }
+    rollbackToLegacy();
     return;
   }
 

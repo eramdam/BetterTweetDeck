@@ -249,3 +249,140 @@ section[data-column-size='small'] .hw-card-container div[style*='-webkit-line-cl
 .js-drawer .js-compose-text.compose-text[style*='height: 180px'] {
   height: 250px !important;
 }
+
+/** TD Preview stuff */
+.btd-settings-header {
+  grid-area: header;
+  padding: 15px;
+  font-size: 20px;
+  text-align: left;
+  border-bottom: 1px solid var(--settings-modal-separator);
+
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: auto;
+  grid-column-gap: 10px;
+  justify-content: flex-start;
+  align-items: center;
+}
+#btd-rollback-dialog-root {
+  --settings-modal-background: #151f2a;
+  --settings-modal-menu-item-selected: white;
+  --settings-modal-menu-item-hover: white;
+  --settings-modal-menu-item-hover-fg: white;
+  --settings-modal-menu-item: rgba(255, 255, 255, 0.7);
+  --settings-modal-text: white;
+  --settings-modal-muted-text: #8899a6;
+  --settings-modal-separator: rgb(0, 0, 0);
+  --twitter-input-bg: #0d1118;
+  --twitter-input-placeholder: #8899a6;
+  --twitter-input-border-color: #14171a;
+  --twitter-blue: #1da1f2;
+  --twitter-darkblue: #005fd1;
+
+  font-family: system-ui;
+  background-color: var(--btd-overlay-background);
+  backdrop-filter: blur(10px);
+  color: white;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: none;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  inset: 0;
+}
+
+@media screen and (prefers-color-scheme: light) {
+  #btd-rollback-dialog-root {
+    --settings-modal-background: #ffffff;
+    --settings-modal-menu-item-selected: #1da1f2;
+    --settings-modal-menu-item-hover: #1170aa;
+    --settings-modal-menu-item: #14171a;
+    --settings-modal-text: #14171a;
+    --settings-modal-separator: #ccd6dd;
+    --twitter-input-bg: white;
+    --twitter-input-placeholder: #8899a6;
+    --twitter-input-border-color: #e1e8ed;
+  }
+}
+
+#btd-rollback-dialog-root h3 {
+  line-height: 1.7;
+  margin: 0;
+  margin-top: 10px;
+  font-size: 20px;
+
+  padding: 6px 0;
+  text-align: left;
+  display: flex;
+  align-items: center;
+}
+
+#btd-rollback-dialog-root .btd-dialog {
+  color: var(--settings-modal-text);
+  background-color: var(--settings-modal-background);
+
+  width: 450px;
+  height: auto;
+  border-radius: 10px;
+
+  & .buttons {
+    display: flex;
+    justify-items: flex-end;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 14px;
+    padding: 10px;
+    margin: 0 -20px;
+  }
+
+  & p {
+    line-height: 1.6;
+
+    & :any-link {
+      color: var(--twitter-blue);
+      text-decoration: underline;
+    }
+  }
+}
+
+.btd-settings-button {
+  border-radius: 100px;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: bold;
+  outline: none;
+  border: 1px solid;
+  padding: 3px 12px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btd-settings-button.primary {
+  color: white;
+  background-color: var(--twitter-blue);
+  border-color: var(--twitter-blue);
+
+  &:hover {
+    background-color: var(--twitter-darkblue);
+    border-color: var(--twitter-darkblue);
+  }
+
+  &[disabled],
+  &.disabled {
+    opacity: 0.7;
+    pointer-events: none;
+  }
+}
+
+.btd-settings-button.secondary {
+  color: var(--twitter-blue);
+  background-color: transparent;
+  border-color: var(--twitter-blue);
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
