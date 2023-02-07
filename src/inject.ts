@@ -88,6 +88,7 @@ function isModulejQuery(mod: ModuleLike | undefined): mod is JQueryStatic {
 
 const followPromptKey = 'btd-disable-follow-prompt-new';
 const updatePromptKey = 'btd-update-banner-version';
+const announcementPromptKey = 'btd-announcement-banner-version';
 
 (async () => {
   const settings = getBTDSettings();
@@ -176,6 +177,17 @@ const updatePromptKey = 'btd-update-banner-version';
     setTimeout(() => {
       maybeShowFollowBanner(btdModuleOptions);
       maybeShowUpdateBanner(btdModuleOptions);
+      if (!window.localStorage.getItem(announcementPromptKey)) {
+        sendInternalBTDMessage({
+          name: BTDMessages.NOTIFICATION,
+          origin: BTDMessageOriginsEnum.INJECT,
+          isReponse: false,
+          payload: {
+            type: BTDNotificationTypes.ANNOUNCEMENT,
+          },
+        });
+        window.localStorage.setItem(announcementPromptKey, String(true));
+      }
     }, 2000);
   });
   jq(document).on('uiResetImageUpload', () => {

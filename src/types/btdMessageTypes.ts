@@ -17,6 +17,7 @@ export enum BTDMessages {
 
 export enum BTDNotificationTypes {
   UPDATE = 'UPDATE',
+  ANNOUNCEMENT = 'ANNOUNCEMENT',
   FOLLOW_PROMPT = 'FOLLOW_PROMPT',
 }
 

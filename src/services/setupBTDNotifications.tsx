@@ -39,6 +39,10 @@ const notificationStyles = css`
   pointer-events: all;
 `;
 
+const announcementNotificationStyles = css`
+  background-image: linear-gradient(0deg, hsl(201.3, 97.8%, 18%) 47%, hsl(191.2, 100%, 20%) 100%);
+`;
+
 const notificationIcon = css`
   grid-area: icon;
   color: white;
@@ -86,6 +90,19 @@ const notificationButton = css`
     }
   }
 
+  &.tertiary {
+    background-color: transparent;
+    border-color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.8);
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.8);
+      border-color: rgba(255, 255, 255, 0.8);
+      color: hsl(191.2, 100%, 20%);
+      text-decoration: none;
+    }
+  }
+
   &.secondary {
     background-color: transparent;
     border-color: transparent;
@@ -109,7 +126,7 @@ interface NotificationProps {
   type: BTDNotificationTypes;
   icon: ReactNode;
   title: string;
-  body: string;
+  body: ReactNode;
   actions: {
     dismissLabel: string;
     actionLabel: string;
@@ -166,6 +183,26 @@ const Notifications = () => {
       };
     }
 
+    if (notification.type === BTDNotificationTypes.ANNOUNCEMENT) {
+      return {
+        type: notification.type,
+        title: 'Update',
+        body: (
+          <>
+            {/* eslint-disable react/no-unescaped-entities */}
+            Better TweetDeck is now provided "as-is" and will NOT receive any new updates. <br />
+            <br /> Thank you for your support over the years!
+          </>
+        ),
+        actions: {
+          dismissLabel: 'Got it',
+          actionLabel: 'See full announcement',
+          href: `https://github.com/eramdam/BetterTweetDeck/issues/848`,
+        },
+        icon: <Icon.AlertTriangle />,
+      };
+    }
+
     if (notification.type === BTDNotificationTypes.UPDATE) {
       return {
         type: notification.type,
@@ -206,7 +243,12 @@ const Notifications = () => {
             return (
               <motion.div
                 layout
-                className={notificationStyles}
+                className={cx(
+                  notificationStyles,
+                  notification.type === BTDNotificationTypes.ANNOUNCEMENT
+                    ? announcementNotificationStyles
+                    : ''
+                )}
                 initial={{opacity: 0, translateY: '100%'}}
                 animate={{opacity: 1, translateY: 0}}
                 exit={{opacity: 0}}
@@ -219,7 +261,12 @@ const Notifications = () => {
                 </div>
                 <div className={notificationsButtonGroup}>
                   <a
-                    className={cx(notificationButton, 'primary')}
+                    className={cx(
+                      notificationButton,
+                      notification.type === BTDNotificationTypes.ANNOUNCEMENT
+                        ? 'tertiary'
+                        : 'primary'
+                    )}
                     href={notification.actions.href}
                     target="_blank"
                     rel="noopener noreferrer"
