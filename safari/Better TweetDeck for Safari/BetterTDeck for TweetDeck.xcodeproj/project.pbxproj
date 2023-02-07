@@ -11,7 +11,7 @@
 		6D389DAA25B3BCE600D78CF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D389DA825B3BCE600D78CF4 /* Main.storyboard */; };
 		6D389DAC25B3BCE600D78CF4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D389DAB25B3BCE600D78CF4 /* ViewController.swift */; };
 		6D389DAE25B3BCE600D78CF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D389DAD25B3BCE600D78CF4 /* Assets.xcassets */; };
-		6D389DB525B3BCE700D78CF4 /* BetterTDeck for TweetDeck Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6D389DB425B3BCE700D78CF4 /* BetterTDeck for TweetDeck Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6D389DB525B3BCE700D78CF4 /* BetterTDeck for TweetDeck Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 6D389DB425B3BCE700D78CF4 /* BetterTDeck for TweetDeck Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6D389DBA25B3BCE700D78CF4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D389DB925B3BCE700D78CF4 /* Cocoa.framework */; };
 		6D389DBD25B3BCE700D78CF4 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D389DBC25B3BCE700D78CF4 /* SafariWebExtensionHandler.swift */; };
 		6D389DCD25B3BCE700D78CF4 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 6D389DCA25B3BCE700D78CF4 /* manifest.json */; };
@@ -31,15 +31,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		6D389DC525B3BCE700D78CF4 /* Embed App Extensions */ = {
+		6D389DC525B3BCE700D78CF4 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				6D389DB525B3BCE700D78CF4 /* BetterTDeck for TweetDeck Extension.appex in Embed App Extensions */,
+				6D389DB525B3BCE700D78CF4 /* BetterTDeck for TweetDeck Extension.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -155,7 +155,7 @@
 				6D389D9E25B3BCE600D78CF4 /* Sources */,
 				6D389D9F25B3BCE600D78CF4 /* Frameworks */,
 				6D389DA025B3BCE600D78CF4 /* Resources */,
-				6D389DC525B3BCE700D78CF4 /* Embed App Extensions */,
+				6D389DC525B3BCE700D78CF4 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -191,7 +191,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1230;
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1410;
 				TargetAttributes = {
 					6D389DA125B3BCE600D78CF4 = {
 						CreatedOnToolsVersion = 12.3;
@@ -317,6 +317,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -379,6 +380,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -406,6 +408,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Better TweetDeck for Safari Extension/Better_TweetDeck_for_Safari_Extension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 2DZ6SL2K4W;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Better TweetDeck for Safari Extension/Info.plist";
@@ -414,8 +417,8 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 4.8.7;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MARKETING_VERSION = 4.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "me.erambert.bettertweetdeck-safari.extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -429,6 +432,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Better TweetDeck for Safari Extension/Better_TweetDeck_for_Safari_Extension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 2DZ6SL2K4W;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Better TweetDeck for Safari Extension/Info.plist";
@@ -437,8 +441,8 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 4.8.7;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MARKETING_VERSION = 4.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "me.erambert.bettertweetdeck-safari.extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -456,6 +460,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 2DZ6SL2K4W;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Better TweetDeck for Safari/Info.plist";
@@ -463,8 +468,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 4.8.7;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MARKETING_VERSION = 4.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "me.erambert.bettertweetdeck-safari";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -481,6 +486,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 2DZ6SL2K4W;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Better TweetDeck for Safari/Info.plist";
@@ -488,8 +494,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 4.8.7;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MARKETING_VERSION = 4.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "me.erambert.bettertweetdeck-safari";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
