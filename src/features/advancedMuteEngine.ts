@@ -92,6 +92,21 @@ export const setupAME = makeBTDModule(({TD, jq}) => {
         return e.user.hasNftAvatar === false;
       },
     },
+    [AMEFilters.BLUE_VERIFIED]: {
+      display: {
+        global: true,
+      },
+      name: 'Mute accounts subscribed to Twitter Blue',
+      descriptor: 'accounts subscribed to Twitter Blue',
+      placeholder: 'Write something random here',
+      function(t, e) {
+        if (typeof e.user?.isBlueVerified === 'undefined') {
+          return true;
+        }
+
+        return e.user.isBlueVerified === false;
+      },
+    },
     [AMEFilters.SPECIFIC_TWEET]: {
       name: 'Specific tweet',
       descriptor: 'specific tweet',

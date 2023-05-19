@@ -24,6 +24,7 @@ export enum AMEFilters {
   SPECIFIC_TWEET = 'BTD_specific_tweet',
   HASHTAGS_NUMBER = 'BTD_hashtags_number',
   CIRCLE_TWEETS = 'BTD_circle_tweets',
+  BLUE_VERIFIED = 'BTD_blue_verified',
 }
 
 const nonUserSpecificsTypes = [
