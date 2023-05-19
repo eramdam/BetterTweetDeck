@@ -5,9 +5,6 @@ import {modifyMustacheTemplate} from '../helpers/mustacheHelpers';
 import {makeBTDModule} from '../types/btdCommonTypes';
 
 export const supportBlueVerified = makeBTDModule(({TD, jq, settings}) => {
-  if (!settings.verifiedBlueBadges) {
-    return;
-  }
   document.body.setAttribute(
     'btd-verified-blue-badge',
     String(settings.verifiedBlueBadgeVariation)
@@ -28,7 +25,7 @@ export const supportBlueVerified = makeBTDModule(({TD, jq, settings}) => {
     modifyMustacheTemplate(TD, mustache, (markup) => {
       return markup.replace(
         '{{/isVerified}}',
-        `{{/isVerified}} {{#isBlueVerified}}<i class="js-show-tip sprite verified-blue" title="" data-original-title='This account is subscribed to Twitter Blue.'></i>{{/isBlueVerified}} `
+        `{{/isVerified}} {{#isBlueVerified}}<i class="js-show-tip sprite verified-badge verified-blue" title="" data-original-title='This account is subscribed to Twitter Blue.'></i>{{/isBlueVerified}} {{#isGovernmentVerified}}<i class="js-show-tip sprite verified-badge verified-government" title="" data-original-title='This account is verified because it is a government or multilateral organization account'></i>{{/isGovernmentVerified}} {{#isBusinessVerified}}<i class="js-show-tip sprite verified-badge verified-business" title="" data-original-title="This account is verified because it's an official organization on Twitter."></i>{{/isBusinessVerified}} `
       );
     });
   });

@@ -98,6 +98,10 @@ export const putBadgesOnTopOfAvatars = makeBTDModule(({TD, settings}) => {
       chirpNode.classList.add(...classesToAdd, 'btd-blue-verified-badge');
     } else if (userForBadge.isTranslator && settings.translatorBadges) {
       chirpNode.classList.add(...classesToAdd, 'btd-translator-badge');
+    } else if (userForBadge.isBusinessVerified && settings.verifiedBadges) {
+      chirpNode.classList.add(...classesToAdd, `btd-verified-business-badge`);
+    } else if (userForBadge.isGovernmentVerified && settings.verifiedBadges) {
+      chirpNode.classList.add(...classesToAdd, `btd-verified-government-badge`);
     }
 
     if (userForBadge.following && settings.mutualBadges) {

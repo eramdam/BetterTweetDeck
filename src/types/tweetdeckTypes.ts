@@ -580,6 +580,8 @@ interface User {
   isProtected: boolean;
   isVerified: boolean;
   isBlueVerified: boolean;
+  isGovernmentVerified: boolean;
+  isBusinessVerified: boolean;
   isTranslator: boolean;
   isBadged: boolean;
   following: boolean;

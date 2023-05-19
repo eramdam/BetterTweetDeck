@@ -91,4 +91,18 @@
   & .js-stream-item.btd-badge.btd-translator-badge:not(.btd-mini-badge) > .js-stream-item-content > .account-summary .item-img::before {
     background-image: url('../assets/translator-icon.svg');
   }
+
+  & .js-stream-item.btd-mini-badge.btd-verified-business-badge > .js-stream-item-content > .activity-header > .nbfc::before,
+  & .js-stream-item.btd-badge.btd-verified-business-badge:not(.btd-mini-badge) > .js-stream-item-content > .tweet > .tweet-header .item-img.tweet-img::before,
+  & .js-stream-item.btd-badge.btd-verified-business-badge:not(.btd-mini-badge) > .js-stream-item-content > .tweet-detail .account-summary .item-img::before,
+  & .js-stream-item.btd-badge.btd-verified-business-badge:not(.btd-mini-badge) > .js-stream-item-content > .account-summary .item-img::before {
+    background-image: url('../assets/business-verified.svg');
+  }
+
+  & .js-stream-item.btd-mini-badge.btd-verified-government-badge > .js-stream-item-content > .activity-header > .nbfc::before,
+  & .js-stream-item.btd-badge.btd-verified-government-badge:not(.btd-mini-badge) > .js-stream-item-content > .tweet > .tweet-header .item-img.tweet-img::before,
+  & .js-stream-item.btd-badge.btd-verified-government-badge:not(.btd-mini-badge) > .js-stream-item-content > .tweet-detail .account-summary .item-img::before,
+  & .js-stream-item.btd-badge.btd-verified-government-badge:not(.btd-mini-badge) > .js-stream-item-content > .account-summary .item-img::before {
+    background-image: url('../assets/gov-verified.svg');
+  }
 }

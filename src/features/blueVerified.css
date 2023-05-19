@@ -15,28 +15,46 @@
 }
 
 html.dark .sprite.verified-blue,
-.sprite.verified-blue {
-  height: 20px;
-  width: 20px;
-  background-image: var(--blueVerifiedImage);
-  background-position: 0 !important;
-  background-size: 100% 100% !important;
-}
-
+.sprite.verified-blue,
 html.dark .account-inline .sprite.verified-blue,
 .account-inline .sprite.verified-blue {
-  height: 16px;
-  width: 16px;
   background-image: var(--blueVerifiedImage);
   background-position: 0 !important;
   background-size: 100% 100% !important;
 }
+html.dark .sprite.verified-business,
+.sprite.verified-business,
+html.dark .account-inline .sprite.verified-business,
+.account-inline .sprite.verified-business {
+  background-image: url('../assets/business-verified.svg');
+  background-position: 0 !important;
+  background-size: 100% 100% !important;
+}
+html.dark .sprite.verified-government,
+.sprite.verified-government,
+html.dark .account-inline .sprite.verified-government,
+.account-inline .sprite.verified-government {
+  background-image: url('../assets/gov-verified.svg');
+  background-position: 0 !important;
+  background-size: 100% 100% !important;
+}
 
-.btd-badge .sprite.verified-blue {
-  display: none;
+html.dark .sprite.verified-badge,
+.sprite.verified-badge {
+  height: 20px;
+  width: 20px;
+}
+
+html.dark .account-inline .sprite.verified-badge,
+.account-inline .sprite.verified-badge {
+  height: 16px;
+  width: 16px;
 }
 
 .btd-loaded[btd-badges-top-avatar='true'] {
+  & .btd-badge .sprite.verified-badge {
+    display: none;
+  }
   & .js-stream-item.btd-mini-badge.btd-blue-verified-badge > .js-stream-item-content > .activity-header > .nbfc::before,
   & .js-stream-item.btd-badge.btd-blue-verified-badge:not(.btd-mini-badge) > .js-stream-item-content > .tweet > .tweet-header .item-img.tweet-img::before,
   & .js-stream-item.btd-badge.btd-blue-verified-badge:not(.btd-mini-badge) > .js-stream-item-content > .tweet-detail .account-summary .item-img::before,
