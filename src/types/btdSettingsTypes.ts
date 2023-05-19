@@ -132,10 +132,10 @@ export const RBetterTweetDeckSettings = t.type({
     makeEnumRuntimeType<BTDMutualBadges>(BTDMutualBadges),
     BTDMutualBadges.HEART
   ),
-  verifiedBlueBadges: withDefault(t.boolean, false),
+  verifiedBlueBadges: withDefault(t.boolean, true),
   verifiedBlueBadgeVariation: withDefault(
     makeEnumRuntimeType(BTDVerifiedBlueBadges),
-    BTDVerifiedBlueBadges.DOLLAR
+    BTDVerifiedBlueBadges.BLUE
   ),
 
   /** Where to show tweet actions. */
