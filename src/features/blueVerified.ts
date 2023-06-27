@@ -10,6 +10,11 @@ export const supportBlueVerified = makeBTDModule(({TD, jq, settings}) => {
     String(settings.verifiedBlueBadgeVariation)
   );
 
+  let template = '{{/isVerified}}';
+  if (settings.verifiedBlueBadges)
+    template += `{{#isBlueVerified}}<i class="js-show-tip sprite verified-badge verified-blue" title="" data-original-title='This account is subscribed to Twitter Blue.'></i>{{/isBlueVerified}}`;
+  if (settings.verifiedGovernmentBusinessBadges)
+    template += `{{#isGovernmentVerified}}<i class="js-show-tip sprite verified-badge verified-government" title="" data-original-title='This account is verified because it is a government or multilateral organization account'></i>{{/isGovernmentVerified}} {{#isBusinessVerified}}<i class="js-show-tip sprite verified-badge verified-business" title="" data-original-title="This account is verified because it's an official organization on Twitter."></i>{{/isBusinessVerified}} `;
   [
     'compose/autocomplete_twitter_user.mustache',
     'compose/in_reply_to.mustache',
@@ -23,10 +28,7 @@ export const supportBlueVerified = makeBTDModule(({TD, jq, settings}) => {
     'typeahead/typeahead_users_compose.mustache',
   ].forEach((mustache) => {
     modifyMustacheTemplate(TD, mustache, (markup) => {
-      return markup.replace(
-        '{{/isVerified}}',
-        `{{/isVerified}} {{#isBlueVerified}}<i class="js-show-tip sprite verified-badge verified-blue" title="" data-original-title='This account is subscribed to Twitter Blue.'></i>{{/isBlueVerified}} {{#isGovernmentVerified}}<i class="js-show-tip sprite verified-badge verified-government" title="" data-original-title='This account is verified because it is a government or multilateral organization account'></i>{{/isGovernmentVerified}} {{#isBusinessVerified}}<i class="js-show-tip sprite verified-badge verified-business" title="" data-original-title="This account is verified because it's an official organization on Twitter."></i>{{/isBusinessVerified}} `
-      );
+      return markup.replace('{{/isVerified}}', template);
     });
   });
 });

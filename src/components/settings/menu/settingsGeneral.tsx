@@ -2,9 +2,11 @@
 import {css} from '@emotion/css';
 import React, {FC, Fragment} from 'react';
 
+import businessIcon from '../../../assets/business-verified.svg';
 import clownIcon from '../../../assets/clown-icon.svg';
 import crookedIcon from '../../../assets/crooked-icon.svg';
 import dollarIcon from '../../../assets/dollar-icon.svg';
+import govermentIcon from '../../../assets/gov-verified.svg';
 import heartIcon from '../../../assets/heart-icon.svg';
 import arrowsIcon from '../../../assets/mutual-icon.svg';
 import nerdIcon from '../../../assets/nerd-checkmark.svg';
@@ -237,6 +239,17 @@ export const SettingsGeneral: FC<SettingsMenuSectionProps> = (props) => {
                   }></SettingsRadioSettingSelect>
               );
             },
+          },
+          {
+            initialValue: settings.verifiedGovernmentBusinessBadges,
+            key: 'verifiedGovernmentBusinessBadges',
+            label: (
+              <>
+                {'Display Verified badges for Business and Government officials'}
+                <BadgeIcon icon={businessIcon} />
+                <BadgeIcon icon={govermentIcon} />
+              </>
+            ),
           },
           {
             initialValue: settings.badgesOnTopOfAvatars,

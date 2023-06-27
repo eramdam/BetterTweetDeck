@@ -137,6 +137,7 @@ export const RBetterTweetDeckSettings = t.type({
     makeEnumRuntimeType(BTDVerifiedBlueBadges),
     BTDVerifiedBlueBadges.BLUE
   ),
+  verifiedGovernmentBusinessBadges: withDefault(t.boolean, true),
 
   /** Where to show tweet actions. */
   tweetActionsPosition: withDefault(
