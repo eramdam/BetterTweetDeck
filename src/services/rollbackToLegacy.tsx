@@ -8,7 +8,7 @@ import {getExtensionUrl, getExtensionVersion} from '../helpers/webExtensionHelpe
 export const ROLLBACK_TO_LEGACY = 'ROLLBACK_TO_LEGACY';
 
 export function rollbackToLegacy() {
-  if (localStorage.getItem('ROLLBACK_TO_LEGACY') === 'true') {
+  if (localStorage.getItem('STOP_ROLLBACK_TO_LEGACY') === 'true') {
     return;
   }
   if (document.getElementById('btd-rollback-dialog-root')) {
@@ -62,7 +62,7 @@ const RollbackDialog = (props: {onCancel: () => void}) => {
         <div className="buttons">
           <SettingsButton
             onClick={() => {
-              localStorage.setItem('ROLLBACK_TO_LEGACY', String(true));
+              localStorage.setItem('STOP_ROLLBACK_TO_LEGACY', String(true));
               props.onCancel();
             }}
             variant="secondary">
@@ -77,7 +77,6 @@ const RollbackDialog = (props: {onCancel: () => void}) => {
           </SettingsButton>
           <SettingsButton
             onClick={() => {
-              localStorage.setItem('ROLLBACK_TO_LEGACY', String(true));
               document.cookie = 'tweetdeck_version=legacy';
               window.location.reload();
             }}

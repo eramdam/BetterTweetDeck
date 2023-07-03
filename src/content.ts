@@ -21,7 +21,7 @@ import {BTDMessageOriginsEnum, BTDMessages} from './types/btdMessageTypes';
 
   if (hasNewTweetDeck) {
     console.debug('Better TweetDeck aborted loading on TweetDeck Preview');
-    if (localStorage.getItem('ROLLBACK_TO_LEGACY') === 'true') {
+    if (localStorage.getItem('STOP_ROLLBACK_TO_LEGACY') === 'true') {
       return;
     }
     rollbackToLegacy();
