@@ -11,6 +11,7 @@ export const hidePreviewButton = makeBTDModule(({mR, settings}) => {
     return;
   }
 
+  require('./hidePreviewButton.css');
   featureFlagModule.setValueForFeatureFlag('tweetdeck_gryphon_beta_enabled', false);
   featureFlagModule.setValueForFeatureFlag('tweetdeck_gryphon_beta_bypass_enabled', false);
 });
