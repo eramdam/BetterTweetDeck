@@ -56,7 +56,7 @@ export const maybeAddColumnsButtons = makeBTDModule(({TD, jq, settings}) => {
     });
   }
 
-  jq(document).on('pointerdown', '.btd-remove-column-link', (ev) => {
+  jq(document).on('mousedown', '.btd-remove-column-link', (ev) => {
     if (ev.button !== 0) {
       return;
     }
@@ -113,7 +113,7 @@ export const maybeAddColumnsButtons = makeBTDModule(({TD, jq, settings}) => {
     jq(e.currentTarget).find('.icon').attr('class', 'icon icon-clear-timeline');
   });
 
-  jq(document).on('pointerdown', '.btd-clear-column-link', (ev) => {
+  jq(document).on('mousedown', '.btd-clear-column-link', (ev) => {
     if (ev.button !== 0) {
       return;
     }
@@ -143,7 +143,7 @@ export const maybeAddColumnsButtons = makeBTDModule(({TD, jq, settings}) => {
   });
 
   jq(document).on(
-    'pointerdown',
+    'mousedown',
     '.column-panel header.column-header .btd-toggle-collapse-column-link',
     (ev) => {
       ev.preventDefault();
